@@ -12,9 +12,10 @@ Design Language) files and managing Ansys processes.
 
 == Requirements ==
 
-You need Gnu Emacs version 22.  Ansys mode does not run with older
-versions of Emacs, see ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
-windows versions.
+You need at least Gnu Emacs version 22.  Ansys mode does not run with
+older versions of Emacs, see for example
+ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for windows versions of Gnu
+Emacs.
 
 == Installation ==
 

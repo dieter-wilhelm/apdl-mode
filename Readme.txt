@@ -71,9 +71,13 @@ Emacs.
     (setq auto-insert-query t) ;insert only after request
     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
+When you have problems running this mode there are     
+
 It might be helpful for you to visit the Emacs wiki
 (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) for further
-instructions.
+instructions or you might edit the page for some comments or wishes.
+
+An alternative way of The lastest development version is available at
 
 == Usage ==
 
@@ -85,3 +89,4 @@ instructions.
 
 #Here'll be the file contents of ansys-mode.tar.gz appended
 Files of ansys-mode.tar.gz:
+#	$Id$	

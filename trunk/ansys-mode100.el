@@ -1,6 +1,6 @@
-;;; ansys-mode100.el --- Emacs support for the Ansys command language.
+;;; ansys-mode100.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2006-12-02 18:18:12 dieter"
+;; Time-stamp: "2006-12-03 23:09:43 dieter"
 
 ;; Copyright (C) 2006 H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -35,31 +35,39 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Commentary:
 
-;; This Lisp package provides Emacs support for the Ansys command
-;; language.  It defines Ansys mode, a major mode for editing APDL
-;; (Ansys Parametric Design Language) files and managing Ansys
+;; This Emacs Lisp package provides support for the FEA (Finite
+;; Element Analysis) program Ansys (http://www.ansys.com).  It defines
+;; 'Ansys mode', a major mode for reading, writing and navigating in
+;; APDL (Ansys Parametric Design Language) files as well as providing
+;; managing and communication capabilities for various Ansys solver
 ;; processes.
 
-;; It is based on Ansys version 10.0 and is written for GNU Emacs 22.
-;; It is tested with version 22.0.50 under XP and Gnu/Linux.  The code
-;; won't run with Emacs 21.4 (and below) and is not targeted for
-;; XEmacs.
+;; The mode's documentation is targeted for Ansys users with little to
+;; no Emacs experience.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Documentation:
+;; == Documentation: ==
 
 ;; == Requirements ==
 ;; == Installation ==
 ;; == Features ==
 ;; == Usage ==
 ;; == History ==
-;; == Bugs/ToDo ==
+;; == Bugs, ToDo and Problems ==
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Requirements ==
 
-;; You need Gnu Emacs version 22.  Ansys mode does not run with older
-;; versions of Emacs, see ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
-;; Windows versions.
+;; It is based on Ansys version 10.0 and is written with GNU Emacs 22.
+;; It is tested with version 22.0.90 under XP and GNU/Linux.  The code
+;; won't run with Emacs 21.4 (and below) and is not targeted for
+;; XEmacs.  Please visit ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
+;; Windows versions of GNU Emacs.
+
+;; The Ansys solver communication capabilities are mainly restricted
+;; to UNIX systems.
+
+;; The experimental user variable highlighting is currently only
+;; implemented for files with a '.mac' extension.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; == Installation ==
@@ -67,33 +75,36 @@
 ;; === Short instructions ===
 
 ;;     (autoload 'ansys-mode "ansys-mode100" nil t)
-;;             ;ansys-mode100.el directory is in load-path!
+;;        ;assuming ansys-mode100.el directory is in load-path!
 ;;     (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
-;;        ;assuming your Ansys files has the extension .mac.
-;;     (setq auto-insert-query t) ;auto insert only after request
+;;        ;assuming your Ansys files have the extension .mac.
+;;     (setq auto-insert-query t) ;auto insert only with request
 ;;     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
 ;; === Verbose instructions ===
 
 ;; * The most direct way of using ansys-mode100.el is storing the file
 ;;   somewhere on disk and loading the included definitions from there
-;;   with the standard Emacs command `load-file' i. e.  type `M-x
-;;   load-file RET', M-x means typing first the Alt-key and then the
-;;   x-key simultaneously.  This gives you a prompt where you can type
-;;   `load-file' followed by the RET key to conclude the command.
-;;   Then Emacs will prompt you for a file location.  If you feel
-;;   unsure about these concepts I urgently recommend to you strolling
-;;   through the build-in tutorial of Gnu Emacs (please have a look at
-;;   the help menu), it doesn't take much time and the investment will
-;;   also help you enormously speeding up your general editing.  When
-;;   the definitions are loaded into memory you must type `M-x
-;;   ansys-mode RET' for the files of interest to activate the mode.
+;;   with the standard Emacs command `load-file' i. e.  type \"M-x
+;;   load-file RET\", \"M-x\" means typing first the \"Alt\"-key and
+;;   then the \"x\"-key simultaneously.  This gives you a prompt where
+;;   you can type `load-file' followed by the \"RET\" key to conclude
+;;   the command.  Then Emacs will prompt you for a file location.
 
-;; * When it becomes annoying to load the Lisp file ansys-mode100.el
-;;   every time you are starting Emacs anew you can specify the path
-;;   for this file in your `~/.emacs' file (the configuration file
-;;   `.emacs' of Emacs in your home directory `~') and auto-load
-;;   `ansys-mode':
+;;   If you feel unsure about these concepts I urgently recommend to
+;;   you strolling through the build-in tutorial of GNU Emacs (you'll
+;;   find it in the help menu of Emacs), it doesn't take much time and
+;;   the investment will also help you speeding up your general
+;;   editing tasks.
+
+;;   When the definitions are loaded into memory you must type \"M-x
+;;   ansys-mode RET\" for the files of interest to activate the mode.
+
+;; * When it becomes annoying loading the Lisp file 'ansys-mode100.el'
+;;   every time you are starting Emacs anew, you should specify the
+;;   path for this file in your '~/.emacs' file (the configuration
+;;   file '.emacs' of GNU Emacs in your home directory '~\') and
+;;   auto-load the function `ansys-mode':
 
 ;;      (add-to-list 'load-path
 ;;                   "c:\\your\\directory\\where\\ansys-mode100.el\\recides")
@@ -103,64 +114,64 @@
 ;;      (autoload 'ansys-start-ansys-help "ansys-mode100" "Activate Ansys start help function." 'interactive)
 ;;      (autoload 'ansys-license-status "ansys-mode100" "Activate Ansys license status function." 'interactive)
 
-;;      So you only have to type `M-x ansys-mode RET' for every
-;;      interesting APDL file.
+;;   So far you only have to type \"M-x ansys-mode RET\" for every
+;;   interesting APDL file.
 
-;; * When you intend to use the mode automatically, e.g. for all
-;;   `.mac' and `.inp' files you are invoking, add the following to
-;;   your `.emacs' file:
+;; * When you intend to use the mode automatically, e.g. for all files
+;;   you are opening with the extension '.mac' and '.inp', add the
+;;   following to your '.emacs' file:
 
 ;;      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
 ;;      (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
 
-;; * In case you also also want to enjoy the auto insertion feature,
-;;   which puts some predefined body of Ansys commands optionally to
-;;   every new file--only those opened with ansys-mode, of
-;;   course--append the following to `.emacs':
+;; * In case you also want to enjoy the auto insertion feature, which
+;;   puts (optionally) some predefined body of Ansys commands to every
+;;   new file--only those opened with `ansys-mode', of course--append
+;;   the following to '.emacs':
 
-;;     (setq auto-insert-query t) ;insert only after request
-;;     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
-
-;; It might be helpful for you to visit the Emacs wiki
-;; (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) for further
-;; instructions.
+;;      (setq auto-insert-query t) ;insert only after request
+;;      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;  == Features ==
 
-;; * Ansys process management (viewing error files, license control,
-;; * etc.)
+;; * Ansys process management (viewing error files, license status,
+;;   etc.)
 
 ;; * Ansys solver control and comunication (mainly UNIX)
 
 ;; * Ansys command syntax help (similar but more verbose then the
-;;    Ansys dynamic prompt)
+;;   Ansys dynamic prompt)
 
-;; * Ansys keyword completion (commands, elements, get- and
-;;    parametric-functions)
+;; * Ansys keyword (case dependent) completion of commands, elements,
+;;   get- and parametric-functions
 
 ;; * Auto-indentation of looping and conditional blocks
 
-;; * Closing of open blocks with insertion of the appropriate end keyword
+;; * Closing of open blocks with insertion of the appropriate end
+;;   keyword (also case dependent)
 
-;; * Code finding and navigation: Code lines, number blocks, *do,*if,
-;;    *dowhile, *create block etc.
+;; * Code finding and navigation: Code lines, number blocks, *DO,*IF,
+;;   *DOWHILE, *CREATE block etc.
 
-;; * Sophisticated highlighting (optionally also user variables)
+;; * Sophisticated highlighting (optionally also for user variables)
 
-;; * Displays summary for all definitions (*get, *dim, =) of APDL variables.
+;; * Displays summary for all definitions (*GET, *DIM, *SET and = ) of
+;;   APDL variables.
 
 ;; * Use of the Emacs abbreviation facility for block templates
 
 ;; * Convenient comment handling, commenting out of whole paragraphs
 
-;; * Outlining (hiding) of code sections
+;; * Outlining (hiding and navigating) of code sections
 
-;; * Auto-insertion of code templates into new APDL files
+;; * Auto-insertion of header and code templates into new APDL files
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Usage ==
 
-;; * Please invoke ansys-mode and type C-h m for basic usage hints.
+;; * Please invoke `ansys-mode' and type \"C-h m\" for basic usage
+;;   guides.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == History: ==
@@ -176,25 +187,26 @@
 ;; === ansys-mode100.el version 1 in comparison to its predecessor
 ;;   ansys-mod.el: ===
 
-;; * New: Provides now Ansys command parameter- and syntax help.
+;; * New: Provides Ansys command parameter- and syntax help.
 
-;; * New: offers Ansys process management: Acquiring license server
+;; * New: Offers Ansys process management: Acquiring license server
 ;;   information in a buffer Starting and stoping asynchronously Ansys
-;;   runs Sending code lines to running Ansys process (sort of code
+;;   runs.  Sending code lines to running Ansys process (sort of code
 ;;   debugging facility) and getting the output into a buffer.
 
 ;; * New: Experimental highlighting of user defined variables.
 ;;   Redefinition and clearing of variables is not yet taken into
 ;;   account
 
-;; * New: Emacs customisation facility is now available for the Ansys
+;; * New: Emacs customisation facility is available for the new Ansys
 ;;   mode group.
 
 ;; * New: Emacs outline-minor-mode is readily available in conjunction
 ;;   with this mode.
 
-;; * Completions of Ansys commands are now also case independently
-;;   available, additionally function and element names.
+;; * Completions of Ansys commands are now case sensitive available,
+;;   with additionally enabled completion of function and element
+;;   names.
 
 ;; * Previously defined skeletons are fully functional now, new ones
 ;;   are added and enabled with the abbreviation and outo-load
@@ -203,40 +215,68 @@
 ;; * Ansys' interpreter's disregard of any capitalisation is now fully
 ;;   taken into account in the highlighting.
 
-;; * ' is now assigned as the Ansys string and the value of character
-;;   parameters delimiter and not wrongly `"'; the strings are
-;;   fontified accordingly.
+;; * The apostrophe \"'\" is now assigned as the Ansys string and the
+;;   value of character parameters delimiter and not wrongly \""\";
+;;   the strings are fontified accordingly.
 
-;; * `$' is now emphasised as the Ansys condensed input character
-;;   (multiple Ansys commands in one line).
+;; * The dollar sign \"$\" is now emphasised as the Ansys condensed
+;;   input character (multiple Ansys commands in one line).
 
-;; * `:' is now emphasised as the Ansys colon do loop character
-;;   (x:y:z) (x: from, y: to, z: steps equal to one as default).
-;;   for example: n,(1:6),(2:12:2)
+;; * The colon \":\" is now emphasised as the Ansys colon do loop
+;;   character (\"(x:y:z)\" means from x to y, in z steps, z is equal
+;;   to one as default).  For example: \"n,(1:6),(2:18:2)\" runs 6
+;;   loops.  (\":\" indicates also a label beginning for the *GO
+;;   command)
 
-;; * `%' is now distinguished as the Ansys parameter substitution and
-;;   format specifier character.
+;; * \"%\" is now distinguished as the Ansys parameter substitution
+;;   and format specifier character.
 
-;; * `&' is now correctly higlighted as the only available Ansys
-;;   continuation character only applicable to the *MSG command and
-;;   the subsequent format strings of the command are fontified.
+;; * The ampersand \"&\" is now correctly higlighted as the only
+;;   available Ansys continuation character only applicable to the
+;;   *MSG command and the subsequent format strings of the command are
+;;   fontified.
 
-;; * New: ` *' is indicated as an (Ansys deprecated) comment sign
-;;   e. g.: `a = 3 **4' results in `a' setting to 3, whereas `a =
-;;   3**4' equals 81!
+;; * New: \" *\" (SPC before *) is indicated as an (Ansys deprecated)
+;;   comment sign e. g.: \"a = 3 **4\" results in \"a\" setting to 3,
+;;   whereas \"a = 3**4\" sets \"a\" to 81!
 
-;; * New: A line beginning with a comma is 4 columns additionally
-;;   indented, as a reminder that the Ansys solver interprets this as
-;;   a spaceholder for the last (non * or /) command keyword.
+;; * New: A line beginning with a comma is indented to the lenght of
+;;   the last non slash or asterisk command as a reminder that the
+;;   Ansys solver interprets this as a spaceholder for the last
+;;   command keyword (the Ansys default command concept).
 
 ;; * Extended documentation, code cleaning and simplification of
 ;;   commands (e.g. comment handling) with the application of standard
 ;;   Emacs 22 facilities among other things.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; == TODO/BUGS ==
+;;; == TODO, BUGS and PROBLEMS ==
+
+;; If you experience problems installing or running this mode you have
+;; the following options:
+
+;; * It might, at the first stage, be helpful for you to visit the
+;;   Emacs wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) for
+;;   further instructions.  At the Wiki you can also leave some
+;;   comments or wishes.
+
+;; * Write an email to the mode maintainer (you can trigger a bug
+;;   report from the menu--at least a useful template when you are not
+;;   able to send emails via Emacs--or call the function
+;;   `ansys-submit-bug-report').
+
+;; * When you have already a (cost free) Google account you are able
+;;   to issue a bug report at the Google Code hosted page
+;;   http://code.google.com/p/ansys-mode/issues, where you can also
+;;   download the latest development version of this file.
 
 ;; === FOR RELEASE ===
+
+;; make output buffer for C-c C-v read-only
+
+;; M-j insert only '!!' and not '!! ' in empty lines
+
+;; completion of blocks is not case dependent
 
 ;; & is not working
 
@@ -268,9 +308,12 @@
 
 ;; === FUTURE VERSIONS ===
 
-;; update every ansys-modeXXX.el entry (code, wiki, makefile, readme).
+;; update every ansys-modeXXX.el entry (code, wiki, makefile).
 
 ;; checkdoc
+
+;; menu entries: ->, Keyboard input: \", stressing ', Ansys commands:
+;; upcased, code in docu: 4 columns indented
 
 ;; ==== Important ====
 
@@ -400,8 +443,6 @@
 
 ;; see www.apdl.de for ideas and extensions
 
-;; parameter help implemented as overlay
-
 ;; Implement highlighting of brackets with the correct level in Ansys
 ;; get- and parametric- functions.
 
@@ -439,9 +480,9 @@
 ;; *REPEATE command might be interesting
 
 ;; Code line restriction of 640 characters is not taken care of.
-;; Block level restriction of 20 levels of nested *do loops (except
+;; Block level restriction of 20 levels of nested *DO loops (except
 ;; with /INPUT and *USE)
-;; Block level restriction of 10 levels of nested *if blocks
+;; Block level restriction of 10 levels of nested *IF blocks
 ;; Macro level restriction: 20 macros
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -634,8 +675,14 @@ See `ansys-abort-file' for a controled stopping the of the run
 (defvar ansys-is-unix-system nil	;NEW
   "Variable determines whether computer runs a Unix system or not.")
 
+(defconst ansys-reserved-variables 	;NEW
+  '("_STATUS" "_RETURN" "ARG1" "ARG2" "ARG3" "ARG4" "ARG5"
+    "ARG6" "ARG7" "ARG8" "ARG9")
+  "Variable containing the Ansys reserved variables.")
+
 (defvar ansys-user-variables-regexp nil	;NEW
-  "Variable containing the user variables.")
+  "Variable containing the user variables regexp.
+This is used for the user variable fontification.")
 
 (defvar ansys-process nil		;NEW
   "Variable containing Emacs' description of the ansys process.
@@ -7899,6 +7946,7 @@ keep) (4 (quote shadow) keep)))
    '(ansys-highlight) 		     ;function searches user variables
    ansys-commands
    ansys-undocumented-commands
+   ansys-elements
    '(("^\\s-*\\*[mM][sS][gG].*\n\\(\\(.*&\\s-*\n\\)*.*\\)"
       1 'font-lock-doc-face prepend))
    '(("\\(%\\)" 1 'font-lock-comment-face prepend))
@@ -7907,8 +7955,8 @@ keep) (4 (quote shadow) keep)))
    '(("^\\s-*/COM.\\(.\\{1,75\\}\\)" 1 'font-lock-doc-face keep))
         ;higlight message of comment command /COM (no comment (!)
         ;is possible behind /COM), no separating comma necessary
-   '(("^\\s-*\\(C\\*\\*\\*\\).\\(.\\{1,75\\}\\)" (1 'font-lock-type-face keep)
-      (2 'font-lock-doc-face keep)))
+   '(("^\\s-*\\(C\\*\\*\\*\\).\\(.\\{1,75\\}\\)"
+      (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
 	;only 75 characters possible no separator necessary
    '(("^\\s-*\\(/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 2
       'font-lock-doc-face keep))	;the same for /title
@@ -7923,10 +7971,8 @@ keep) (4 (quote shadow) keep)))
    '(("\\w+\\( \\*.*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
    '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
    '(("\\(:\\)" 1 'font-lock-warning-face keep)) ;colon loops
-   '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t))
-	;GOTO Labels, branching
-   ansys-elements
-   ))
+   '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
+))
 
 (defconst ansys-mode-syntax-table ;FIXME check Ansys operators and
 				  ;allowed variable characters
@@ -7967,7 +8013,6 @@ keep) (4 (quote shadow) keep)))
 ;    (define-key map "\t" 'indent-according-to-mode)		  ;redundant
 ;;     standard behaviour of M-j is sufficient for me
     (define-key map "\e\t" 'ansys-complete-symbol) ;or M-C-i
-
     ;; --- standard Emacs keybinding changes ---
     (define-key map " " 'ansys-electric-space)
     (define-key map "\M-j" 'ansys-indent-format-line)
@@ -8006,8 +8051,8 @@ keep) (4 (quote shadow) keep)))
     (define-key map "\C-c\C-r" 'ansys-replot)
     (define-key map "\C-c\C-t" 'ansys-if-then)
     (define-key map "\C-c\C-v" 'ansys-display-variables)
-    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
-;    menu FIXME:where?
+;;    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
+					;    menu FIXME:where?
      map)
   "Keymap used in Ansys mode."
     )
@@ -8024,9 +8069,13 @@ keep) (4 (quote shadow) keep)))
 
 ;;;###autoload
 (defun ansys-mode ()
-  "Major mode for the Ansys Parametric Design Language.
-This mode makes it easier reading, navigating and writing APDL
-files.  Additionally you are able to
+"You are in 'Ansys mode', a major mode for reading, writing and
+navigating in APDL (Ansys Parametric Design Language) files as
+well as providing managing and communication capabilities for
+various Ansys solver processes.
+
+The mode's documentation is targeted for Ansys users with little
+to no Emacs experience.
 
 Documentation contents:
 =======================
@@ -8034,7 +8083,7 @@ Documentation contents:
 * Usage
 * Keybindings
 * Customisation
-* Bugs
+* Bugs and Problems
 
 Usage
 =====
@@ -8043,39 +8092,41 @@ Usage
    parametric-functions)
 
   Type the beginning of an Ansys command, function or element
-  name and use the key binding \\[ansys-complete-symbol] for
-  `ansys-complete-symbol' (M-TAB means holding down the ALT key
-  while pressing the TAB key), when your window manager
-  intercepts these key combinations type C-M-i
-  (typing CTRL, ALT and i key simultaneously).  Undocumented
-  Ansys commands are not completed (see the variable
+  name and use the key binding \"\\[ansys-complete-symbol]\" for
+  `ansys-complete-symbol' (\"M-TAB\" means holding down the
+  \"ALT\" key while pressing the \"TAB\" key), when your window
+  manager intercepts these key combinations type \"C-M-i\"
+  (typing \"CTRL\", \"ALT\" and \"i\" key simultaneously).
+
+  Undocumented Ansys commands are not completed (see the variable
   `ansys-undocumented-commands').  When the character combination
   before the cursor (or point in Emacs speak) is not unambiguous:
-  a completion list is shown, selecting the suitable word from
-  the list with either the mouse or the cursor completes the
-  symbol.  Hitting space removes this listing buffer.
+  A completion list is shown, selecting the suitable word from
+  the list with either the mouse or the cursor on the symbol and
+  typing \"RET\" is completing the symbol.  Hitting space removes
+  the listing frame (in Emacs called 'buffer').
 
 * Ansys command syntax help
 
-  Typeing \\[ansys-show-command-parameters] displays at the header
-  line a command syntax help similar to but more complete than
-  the Ansys GUI dynamic prompt.
+  Typing \"\\[ansys-show-command-parameters]\" displays at the
+  header line a command syntax help similar to (but more
+  complete) than the Ansys GUI's dynamic prompt.
 
 * Auto-indentation of looping and conditional blocks
 
   You can customise the indentation depth (Ansys Block Offset),
-  please have a look for it at Customise Ansys Mode in the Ansys
-  menu entry.  The Emacs customisation facility saves your
+  please have a look for it at 'Customise Ansys Mode' in the
+  ->Ansys menu entry.  The Emacs customisation facility saves your
   choices automatically for later sessions.
 
 * Closing of open blocks with insertion of the appropriate end
   keyword
 
-  Typing \\[ansys-close-block] completes the current Ansys block
+  Typing \"\\[ansys-close-block]\" completes the current Ansys block
   with the appropriate end keyword on a separate line.
 
 * Code finding and navigation: Code lines, number blocks,
-  and *do,*if, dowhile, *create blocks etc.
+  and *DO,*IF, DOWHILE, *CREATE blocks etc.
 
   \\[ansys-next-code-line] -- `ansys-next-code-line'
   \\[ansys-previous-code-line] -- `ansys-previous-code-line'
@@ -8125,30 +8176,30 @@ Usage
   stem, they are shown in an unobtrusive font, since these
   characters are ignored by the intepreter anyways.
 
-  Regarding the user variables: see the menu entry: Ansys
+  Regarding the user variables: see the menu entry: ->Ansys
   ->Customise Ansys Mode or include
 
      (setq ansys-dynamic-highlighting t)
 
   in your .emacs file.  In general you can also scroll further
-  down to the \"Customisation\" section of this help and type on
-  the respective (like here: `ansys-dynamic-highlighting')
-  variable.  You will be presented with an exclusive help for
-  this variable in which you are able to click on the underlined
-  word \"customize\".  Then you also have the convenient Emacs
-  customisation functionality at hand.
+  down to the == Customisation == section of this help and click
+  on the respective variable (here in this case:
+  `ansys-dynamic-highlighting').  You will be presented with an
+  help buffer for this variable in which you are can click on the
+  underlined word 'customize'.  Then you also have the convenient
+  Emacs customisation functionality at hand.
 
   The user variable highlighting is currently only implemented
-  for file with a \".mac\" extension.
+  for files with a '.mac' extension.
 
 * Displays a summary for all definitions (*get, *dim, =) of APDL
   variables.
 
-  \\[ansys-display-variables] shows all variable definitions from
-  your APDL file in a separate buffer.
+  Typing \"\\[ansys-display-variables]\" shows all variable
+  definitions from your APDL file in a separate buffer.
 
   When you place the cursor on the respecitve line number and
-  type C-u M-g M-g Emacs will place the cursor at the
+  type \"C-u M-g M-g\" Emacs will place the cursor at the
   corresponding defintion in the macro file.
 
 * Use of the Emacs abbreviation facility for block templates
@@ -8156,47 +8207,54 @@ Usage
   E.g. typing \"`dd\" and SPC in an Ansys buffer triggers the
   insertion of an Emacs skeleton for an *Do loop.  (\"`d\" is a
   shorter abbreviation version without user input.)  You can see
-  all the predefined abbreviations with the Emacs command M-x
-  `list-abbrevs', or type just a \"?\" after the \"`\".
-
-  Type \\[list-abbrevs] or ``?' to display the built-in abbrevs.
+  all the predefined abbreviations with the Emacs command \"M-x
+  list-abbrevs RET\" (You should apply the auto-completion of
+  Emacs commands: Just type the beginning and then \"TAB\"), or
+  alternatively just type a \"?\" after the \"`\" in your file
+  buffer.
 
 * Outlining (hiding) of code sections
 
   You must enable this by ticking on the option
-  `ansys-outline-minor-mode' in the `ansys-mode-hook' variable .
+  `ansys-outline-minor-mode' in the `ansys-mode-hook' variable.
   Either type \"M-x ansys-customise-ansys\" or use the menu
-  Ansys->Customise Ansys Mode.
+  entries: ->Ansys ->Customise Ansys Mode.
 
-  You can hide certain sections of your code or navigate to
-  customisable outline headings.  Certain characters - by default
-  `!@' (see `ansys_outline_string') - at the beginning of a line
-  in your code represent such headings.  `!@@' specifies a
-  subheading and so on (type M-x `ansys-skeleton' to insert an
-  example of this).  The easiest way of working with outline
-  headings is to go to the Outline menu entry (outline-minor-mode
-  is switched on by default in ansys-mode) and see what
-  possibilities are there.
+  Then you can hide certain sections of your code or navigate to
+  customisable outline headings.  Certain characters--by default
+  '!@' (see the variable `ansys_outline_string')--at the
+  beginning of a line in your code represent such headings.
+  '!@@' specifies a subheading and so on (type \"M-x
+  ansys-skeleton\" to insert an example of this in the current
+  file buffer).  The easiest way of working with outline headings
+  is to go to the ->Outline menu entry (outline-minor-mode is not
+  switched on by default in `ansys-mode') and see what
+  possibilities are at your convenience.
 
 * Convenient comment handling, commenting/un- whole paragraphs
 
-  M-; calls `comment-dwim' (Do What I Mean):
+  \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean 8-):
 
-  ** In a code line: Insert comment `ansys-indent-comment' at
-     `ansys-comment-column' (if possible).  with prefix argument:
-     kill existing code comment
+  o In a code line: Insert comment char `ansys-indent-comment' at
+    `ansys-comment-column' (if possible).  With a prefix
+    argument: Kill existing code comment.
 
-     M-j indent-new-comment-line single `!' at
-     `ansys-comment-column' (in code line, if possible), `!! ' at
-     current indentation in comment lines.
+  o With an active region: Commenting out (`comment-region') or
+    Uncommenting (`uncomment-region') the region.
 
-  ** In an empty line: Insert comment charcters `!!'.
+  0 In an empty line: Insert '!!\ ' at the line beginning.
 
-  ** With active region: `comment-region' or `uncomment-region'.
+  \"\\[indent-new-comment-line]\" (or \"M-j\" --
+  `indent-new-comment-line' or the alias
+  `comment-indent-new-line')
 
-  M-j -- indent-new-comment-line puts a single `!' at
-  `ansys-comment-column' (in code line, if possible), `!! ' at
-  the current indentation in comment lines.
+  0 Inserts a single '!' (`ansys-comment-char')in a code line at
+    column `ansys-comment-column' (if possible).
+
+  0 In comment lines '!!\ ' (`ansys-indent-comment') at the
+    the line beginning.
+
+  o In an empty line: Just insert a new line.
 
 * Auto-insertion of code templates into new APDL files
 
@@ -8207,35 +8265,42 @@ Usage
   when you want to be ask for inclusion for every new .inp and
   .mac file.
 
-  (add-to-list 'auto-mode-alist '(\"\\.inp$\" . ansys-mode))
-  (add-to-list 'auto-mode-alist '(\"\\.mac$\" . ansys-mode))
+      (add-to-list 'auto-mode-alist '(\"\\.inp$\" . ansys-mode))
+      (add-to-list 'auto-mode-alist '(\"\\.mac$\" . ansys-mode))
 
-  (auto-insert-mode 1)
-  (add-hook 'find-file-hook 'auto-insert)
-  (setq auto-insert-query t)
-  (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
+      (auto-insert-mode 1)
+      (add-hook 'find-file-hook 'auto-insert)
+      (setq auto-insert-query t)
+      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
 * Ansys process management
 
-  - Write an Ansys stop (.abt) file in the current directory (you
-    can use `M-x cd' for changing the current directory).
-  - Opening the Ansys error (.err) file (in the current directory)
+  o Write an Ansys stop file (extension '.abt') in the current
+    directory (you can use \"M-x cd\" for changing the current
+    directory), for halting the calculation in an re-start-able
+    fashion.
 
-  The error file is opend read only (see `toggle-read-only') and
-  with the function `auto-revert-tail-mode'.
+  o Opening the Ansys error file ('.err' in the current
+    directory).  The error file is opened in read only mode (see
+    `toggle-read-only') and with the mode function
+    `auto-revert-tail-mode', which scrolls the buffer
+    automatically for keeping the growing Ansys output visible.
 
-  - Starting the Ansys help system
-  - Display of the current license status in an Emacs buffer
+  o Starting of the Ansys help
+    system (\"\\[ansys-start-ansys-help]\").
 
-  For last two capabilities you need to customise some variables
-  either with the Emacs customisation facility (menu entry: Ansys
-  ->Customise Ansys Mode and look for the variables Ansys License
-  File, Ansys Util Program and Ansys Help Program) or setting the
-  variables directly like the following example in your .emacs
-  file.
+  o Display of the current license status in another Emacs
+    buffer (\"\\[ansys-license-status]\").
 
-    (setq ansys-license-file \"27005@rbgs421x:1055@p46054\")
-    (cond
+  For the last two capabilities you need to customise some
+  variables either with the Emacs customisation facility (menu
+  entries: ->Ansys '->Customise Ansys Mode' and look there for
+  the variables 'Ansys License File', 'Ansys Util Program' and
+  'Ansys Help Program') or setting the variables directly like
+  the following example in your .emacs file.
+
+      (setq ansys-license-file \"27005@rbgs421x:1055@p46054\")
+      (cond
        ((string= system-type \"windows-nt\")
          (setq ansys-lmutil-program \"C:\\\\Program Files\\\\Ansys Inc\\
               \\\\v100\\\\ANSYS\\\\bin\\\\intel\\\\ansys100.exe\")
@@ -8248,69 +8313,76 @@ Usage
          (setq ansys-help \"/ansys_inc/v100/ansys/bin/\\
               anshelp100\")))
 
-* Ansys solver control and comunication (mainly UNIX)
+* Ansys solver control and comunication (mainly restricted to
+  UNIX systems)
 
-  You must set additionally the following variable (called Ansys
-  Program in the customisation menu or set it like the following
-  example in your .emacs file:)
+  You likely have to specify the following variable: 'Ansys
+  Program' in the customisation menu or set it like the following
+  example in your .emacs file:
 
       (setq  ansys-program \"/ansys_inc/v100/ansys/bin/ansys100\")
 
   With the Ansys mode command `ansys-start-ansys' it is possible
   to start the Ansys solver as an asyncronous process and to send
-  interactively data directly from the current APDL file to the
-  solver.  With \\[ansys-send-to-ansys] you can send either
-  single code lines or send at once whole regions (selected,
-  highlighted lines) to the running solver.  First you have to
-  send an empty line (carriage return, in case there is a lock
-  file from a crashed session: Send an \"y\" to the solver
-  process to remove the lock) for the required license agreement.
+  interactively data from the current APDL file directly to the
+  solver.  With \\[ansys-send-to-ansys] you can send either the
+  current (single) code line or at once a whole region to the
+  running solver.  A selected region here means highlighted
+  lines.  It is quite easy to select various regions in your file
+  with keyboard commands.  Please check the convenient code
+  navigation commands which Ansys mode provides (type
+  \"\\[describe-bindings]\" to see which are available for you).
+  But when you are not familiar with Emacs you probably want to
+  select your part of interest with dragging the mouse while
+  pressing the first mouse button 8-\.
+
+  After starting the solver you first have to send an empty line
+  because the Ansys solver in interactive mode requests a
+  carriage return for the required license agreement (in case
+  there is a lock file from a formerly crashed session: Send a
+  single \"y\" to the solver process to remove the lock.
   Warning: the same applies when clearing the database, /CLEAR
   requires an \"y\" to work, otherwise the command will just be
-  skipped.  The Ansys solver output can be seen at the same time
-  in a separate Emacs buffer.
+  skipped.  The Ansys solver output can be observed at the same
+  time in a separate Emacs buffer.)
 
-  It is quite easy to select various regions in your file with
-  keyboard commands.  Please remember the convenient code
-  navigation commands which Ansys mode provides but when you are
-  not familiar with Emacs you probably want to select your part
-  of interest with dragging the mouse while pressing the first
-  mouse button.
-
-  The interaction is like the Ansys interactive mode in the text
-  console i. e. non-graphically but you can invoke with the
-  following APDL commands the Ansys graphics screen (without the
-  whole graphical user interphase).
+  The interaction is like in the Ansys' solver interactive mode
+  in a text console, i. e. non-graphically, you have to type the
+  commands directyl but you can invoke--with the following APDL
+  commands--the Ansys graphics screen (without the whole
+  graphical user interphase).
 
        /show,x11 !or 3d
        /menu,grph
 
-  or alternatively call `ansys-start-graphics'.  Thus you are also
-  able to check and debug your macro file content visually, but
-  the graphics is so far only changeable with APDL
-  commands (/view,1,1,1,1) and not interactive.  If you have the
-  need to turn, zoom, etc. the model with the mouse you can send
+  or alternatively call the function `ansys-start-graphics'.
+  Thus you are able to check and debug your macro file content
+  visually.  The graphics is in this state only changeable with
+  APDL commands (/view,1,1,1,1) and not through some mouse
+  pointer.  If you feel the need to turn, zoom, etc. the model
+  with the mouse (very likely) you can send the line
 
-       /ui,view !the Ansys pan zoom rotate dialog
+       /ui,view !start the Ansys pan zoom rotate dialog
 
-  or alternatively call `ansys-start-pzr-box' with
-  \\[ansys-start-pzr-box].  to the solver process and a dialog
+  to the solver process or alternatively call
+  `ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a dialog
   box pops up.  This is the Pan/Zoom/Rotate dialog for the
   graphics screen.  But beware: before you are able to send
-  further commands from Emacs to the solver you must close this
-  dialog box by hand.  When the dialog is closed the solver can
-  again receive commands via the `ansys-send-to-ansys' function.
+  further commands from Emacs to the solver, you have to close
+  dialog box first.  When the dialog is closed the solver
+  receives again commands via \"\\[ansys-send-to-ansys]\".
+
+  See also the function
+  `ansys-show-command-parameters' (\"\\[ansys-show-command-parameters]\")
+  for getting quick help to Ansys commands within Emacs.
 
   Ansys mode has his own command for invoking the Ansys help
-  system (\\[ansys-start-ansys-help]) because the following APDL
-  commands do not work when the complete GUI system of Ansys is
-  not active.
+  system (\\[ansys-start-ansys-help], see above) because the
+  following APDL commands do not work when the complete GUI
+  system of Ansys is not active.
 
        !/ui,help  !is it not working in Ansys non-GUI modes
        !help, nsel !is not working in Ansys non-GUI modes
-
-  See also the function `ansys-show-command-parameters' for getting
-  quick help to Ansys commands within Emacs.
 
 Keybindings
 ===========
@@ -8416,17 +8488,26 @@ See `ansys-indent-comment'.
 
 Turning on Ansys mode runs the hook `ansys-mode-hook'.
 
-Bugs
-====
+Bugs and Problems
+=================
 
-  To submit a problem report, enter \\[ansys-submit-bug-report]
-  from an Ansys mode buffer.  This automatically sets up a mail
-  buffer with some useful information already added.  Besides a
-  short description of the problem, a self contained,
-  reproducible test case would be advantages.  Even if you are
-  unfortunate enough and are not able to send mails directly from
-  Emacs, it is a good idea to trigger this command as a
-  template ;-).
+If you experience problems installing or running this mode you have
+the following options:
+
+* It might, at the first stage, be helpful for you to visit the
+  Emacs Wiki at http://www.emacswiki.org/cgi-bin/wiki/AnsysMode
+  for further instructions.  At the Wiki you can also leave some
+  comments or wishes.
+
+* Write an email to the mode maintainer (you can trigger a bug
+  report from the menu--at least a useful template when you are
+  not able to send emails via Emacs--or call the function
+  `ansys-submit-bug-report' with \"\\[ansys-submit-bug-report]\").
+
+* When you have already a (cost free) Google account you are able
+  to issue a bug report at Google Code's hosted page
+  http://code.google.com/p/ansys-mode/issues, where you can also
+  download the latest developer version of this file.
 
 ==================== End of Ansys mode help ===================="
   (interactive)
@@ -8514,8 +8595,13 @@ Bugs
   (ansys-add-ansys-menu)
 
   ;; --- user variables ---
-  (when ansys-dynamic-highlighting
-    (ansys-find-user-variables))
+  (if ansys-dynamic-highlighting
+      (ansys-find-user-variables)
+    (let (bla)		    ;else: initialise a-u-v-r for font-locking
+      (setq bla (mapcar '(lambda (s) (concat "\\b" s "\\b"))
+			ansys-reserved-variables)
+	    bla (mapconcat '(lambda (x) x) bla "\\|")
+	    ansys-user-variables-regexp bla)))
   (when (and
 	 ansys-dynamic-highlighting
 	 (string= (file-name-extension (buffer-file-name)) "mac"))
@@ -8523,14 +8609,14 @@ Bugs
 	   (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	   (yes-or-no-p
 	    "File is bigger than 1MB, switch on dynamic variable highlighting?"))
-      (make-local-variable 'after-change-functions)
-      (add-to-list 'after-change-functions 'ansys-find-user-variables)
+;      (make-local-variable 'after-change-functions) ;FIXEM:necessary?
+      (cons 'ansys-find-user-variables (quote after-change-functions)) ;FIXME
+      (add-to-list 'after-change-functions
+		   'ansys-find-user-variables)
       (message "Ansys mode: Experimental fontification of user \
 variables activated.")))
-
   ;; --- hooks ---
-  (run-hooks 'ansys-mode-hook)
-  )
+  (run-hooks 'ansys-mode-hook))
 
 ;; ============================================================
 ;; ------ end of ansys-mode
@@ -10097,15 +10183,14 @@ And specify it in the variable `ansys-license'."
 
 ;;; --- dynamic highlighting ---
 
-(defun ansys-find-user-variables (&optional bla otto karl) ;FIXME: arguments for after-change-functions NEW
+(defun ansys-find-user-variables () ;FIXME: arguments for after-change-functions NEW
   "Find all user variables in the current buffer.
 Pre-process the findings into the variable
 `ansys-user-variables-regexp' for subsequent fontifications."
   (interactive)
   (save-excursion
     (let ((res)
-	  (str '("_status" "_return" "arg1" "arg2" "arg3" "arg4" "arg5"
-		 "arg6" "arg7" "arg8" "arg9")))
+	  (str ansys-reserved-variables)) ; Ansys vars
       (goto-char (point-min))
       (while (re-search-forward
 	      "^\\s-*[^!\n]*\\*get,\\s-*\\(\\w+\\)" nil t)

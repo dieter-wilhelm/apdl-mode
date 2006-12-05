@@ -1,6 +1,6 @@
 ;;; ansys-mode100.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2006-12-03 23:09:43 dieter"
+;; Time-stamp: "2006-12-05 08:21:54 dieter"
 
 ;; Copyright (C) 2006 H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -170,8 +170,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Usage ==
 
-;; * Please invoke `ansys-mode' and type \"C-h m\" for basic usage
-;;   guides.
+;; * Please invoke `ansys-mode' with typing \"M-x\" then
+;;   \"ansys-mode\" in the prompt and complete it with the \"RET\"
+;;   key.  Then type \"C-h m\" which gives you an Emacs buffer with
+;;   basic usage guides.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == History: ==
@@ -272,20 +274,12 @@
 
 ;; === FOR RELEASE ===
 
-;; make output buffer for C-c C-v read-only
-
-;; M-j insert only '!!' and not '!! ' in empty lines
-
-;; completion of blocks is not case dependent
-
-;; & is not working
+;; C-n <=> M-p/n goal-column, M-/
 
 ;; SPC not working at line beginning
 
 ;; does setting of -hook trigger immediately the effects or is a
 ;; restart necessary?
-
-;; C-n <=> M-p/n goal-column, M-/
 
 ;; abbrevs mode?
 
@@ -316,6 +310,8 @@
 ;; upcased, code in docu: 4 columns indented
 
 ;; ==== Important ====
+
+;; completion of blocks is not case dependent
 
 ;; Try to ask only for the installation directory for the -license-file,
 ;; -program, etc. variables.  Read some information from getenv.
@@ -7967,7 +7963,7 @@ keep) (4 (quote shadow) keep)))
 	; more than 32 character long variables are not allowed
    '(("\\(/EOF.*\\)" 1 'font-lock-warning-face keep)) ;FIXME
 	;/EOF (and everything behind) should stick out (interpreter ends with /eof)
-   '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face append))     ;*msg continuation char
+   '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend))     ;*msg continuation char
    '(("\\w+\\( \\*.*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
    '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
    '(("\\(:\\)" 1 'font-lock-warning-face keep)) ;colon loops
@@ -8609,8 +8605,8 @@ the following options:
 	   (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	   (yes-or-no-p
 	    "File is bigger than 1MB, switch on dynamic variable highlighting?"))
-;      (make-local-variable 'after-change-functions) ;FIXEM:necessary?
-      (cons 'ansys-find-user-variables (quote after-change-functions)) ;FIXME
+      (make-local-variable 'after-change-functions) ;FIXEM:necessary?
+;      (cons 'ansys-find-user-variables (quote after-change-functions)) ;FIXME
       (add-to-list 'after-change-functions
 		   'ansys-find-user-variables)
       (message "Ansys mode: Experimental fontification of user \
@@ -10183,7 +10179,7 @@ And specify it in the variable `ansys-license'."
 
 ;;; --- dynamic highlighting ---
 
-(defun ansys-find-user-variables () ;FIXME: arguments for after-change-functions NEW
+(defun ansys-find-user-variables (&optional a b c) ;FIXME: arguments for after-change-functions NEW
   "Find all user variables in the current buffer.
 Pre-process the findings into the variable
 `ansys-user-variables-regexp' for subsequent fontifications."
@@ -10228,18 +10224,19 @@ Together with the corresponding line number N (type \\[goto-line]
 N for skipping to line N or place the cursor over the number and
 C-u \\[goto-line] takes the number automatically)."
   (interactive)
-  (save-excursion
-;    (debug)
-    (let ((current-buffer (buffer-name))
-	  (variable-buffer (get-buffer-create "*Ansys-variables*"))
-	  (regexps '(("*get" "^[^!\n]*\\*get.*")
-		     ("*set" "^[^!\n]*\\*set.*")
-		     ("*dim" "^[^!\n]*\\*dim.*")
-		     ("=" "^\\s-*[^!\n]*\\b\\w+\\s-*=\\s-*[^=\n]*")))
-	  s
-	  r
-	  tmp)
+  (let* ((current-buffer (buffer-name))
+	 (buffer-name "*Ansys-variables*")
+	 (variable-buffer (get-buffer-create buffer-name))
+	 (regexps '(("*get" "^[^!\n]*\\*get.*")
+		    ("*set" "^[^!\n]*\\*set.*")
+		    ("*dim" "^[^!\n]*\\*dim.*")
+		    ("=" "^\\s-*[^!\n]*\\b\\w+\\s-*=\\s-*[^=\n]*")))
+	 s
+	 r
+	 tmp)
+    (save-excursion
       (set-buffer variable-buffer)
+      (toggle-read-only -1)
       (kill-region (point-min) (point-max))
       (insert
        (propertize
@@ -10262,8 +10259,11 @@ C-u \\[goto-line] takes the number automatically)."
 		     "\n")))
 	  (set-buffer variable-buffer)
 	  (insert s)
-	  (set-buffer current-buffer)))))
-  (display-buffer "*Ansys-variables*" 'other-window))
+	  (set-buffer current-buffer)))
+      (set-buffer variable-buffer)
+      (toggle-read-only 1)
+      (set-buffer current-buffer))
+    (display-buffer buffer-name 'other-window)))
 
 (defun ansys-customise-ansys ()
   "Call the Emacs customisation facility for Ansys."

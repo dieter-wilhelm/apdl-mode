@@ -1,6 +1,6 @@
 ;;; ansys-mode100.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2006-12-05 08:21:54 dieter"
+;; Time-stamp: "2006-12-09 23:43:58 dieter"
 
 ;; Copyright (C) 2006 H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -129,6 +129,7 @@
 ;;   new file--only those opened with `ansys-mode', of course--append
 ;;   the following to '.emacs':
 
+;;      (setq auto-insert-mode 1)
 ;;      (setq auto-insert-query t) ;insert only after request
 ;;      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
@@ -144,7 +145,7 @@
 ;;   Ansys dynamic prompt)
 
 ;; * Ansys keyword (case dependent) completion of commands, elements,
-;;   get- and parametric-functions
+;;   get- and parametric-functions (nearly 1900 symbols).
 
 ;; * Auto-indentation of looping and conditional blocks
 
@@ -170,10 +171,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Usage ==
 
-;; * Please invoke `ansys-mode' with typing \"M-x\" then
-;;   \"ansys-mode\" in the prompt and complete it with the \"RET\"
-;;   key.  Then type \"C-h m\" which gives you an Emacs buffer with
-;;   basic usage guides.
+;; * Please invoke the mode function `ansys-mode' with typing \"M-x\"
+;;   then \"ansys-mode\" in the Emacs minibuffer prompt and conclude
+;;   your input with the \"RET\" key.  Then type \"\\[describe-mode]\"
+;;   which gives you an Emacs buffer with basic usage guides.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == History: ==
@@ -227,8 +228,9 @@
 ;; * The colon \":\" is now emphasised as the Ansys colon do loop
 ;;   character (\"(x:y:z)\" means from x to y, in z steps, z is equal
 ;;   to one as default).  For example: \"n,(1:6),(2:18:2)\" runs 6
-;;   loops.  (\":\" indicates also a label beginning for the *GO
-;;   command)
+;;   loops.  Colon loops are working also with real values:
+;;   k,,(2.5:3:0.1)).  (\":\" indicates also a label beginning for the
+;;   *GO command)
 
 ;; * \"%\" is now distinguished as the Ansys parameter substitution
 ;;   and format specifier character.
@@ -274,20 +276,12 @@
 
 ;; === FOR RELEASE ===
 
-;; C-n <=> M-p/n goal-column, M-/
-
-;; SPC not working at line beginning
+;; M-/ (when -dynamic-h)
 
 ;; does setting of -hook trigger immediately the effects or is a
-;; restart necessary?
+;; restart necessary? other function as well
 
-;; abbrevs mode?
-
-;; (add-hook 'find-file-hook 'auto-insert)
-;; is auto insert mode necessary or would require do?
-;; -hook documentation, insert mode needs hook?
-
-;; Reread mode help
+;; read every symbol docu string ->NEW_C or _C or OCTAVE_C
 
 ;; testing: /*commands and default command lines, every menu entry:
 ;; compilation, FIXMES
@@ -297,7 +291,7 @@
 ;; checkdoc
 
 ;; publication: (when Emacs22) Ansys.net, CadFem (Stephan Gotthold,
-;;  Nelson, Hanke, Krüger), Perras, AnsysWB community, Ansys users
+;;  Nelson, Hanke, Krueger), Perras, AnsysWB community, Ansys users
 ;;  club, the Focus guys, Google Code, Holger Sparr.
 
 ;; === FUTURE VERSIONS ===
@@ -311,7 +305,15 @@
 
 ;; ==== Important ====
 
+;; make M-C-h more intelligent like M-h
+
+;; make process run indicator in mode line
+;; warn when abonding file with associated Ansys process
+
 ;; completion of blocks is not case dependent
+
+;; make everything completely customisable, eg auto-insert stuff
+;; customisable
 
 ;; Try to ask only for the installation directory for the -license-file,
 ;; -program, etc. variables.  Read some information from getenv.
@@ -344,6 +346,7 @@
 ;; _RETURN value of the solid modelling commands into their help
 ;; strings of parameter help.  Help should be visible while there is
 ;; use input (overlay, new buffer?)
+;; (setq mode-line-format nil);no mode line for this buffer
 
 ;; Enable input directly in the Ansys output buffer (*Ansys*) like in
 ;; the *shell* or *Python* buffer (run-python)
@@ -484,64 +487,72 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Code:
 
-(defconst ansys_mode_version "1"
+(defconst ansys_mode_version "1"	;NEW_C
   "Ansys mode version number.")
 
-(defconst ansys_version "10.0 Release SP 1"
+(defconst ansys_version "10.0 Release SP 1" ;NEW_C
   "Ansys version on which Ansys mode is based.")
 
 ;; --- defcustoms ---
 
 (require 'custom)
 
-(defgroup Ansys nil			;from Octave-Mod.el
-  "Customisations for Ansys mode"
-  :version "22.0.50"
+(defgroup Ansys nil			;NEW_C from Octave-Mod.el
+  "Customisations group for the Ansys mode."
+  :version "22.0.91"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link "http://www.emacswiki.org")
+  :link '(url-link "http://www.code.google.com/p/ansys-mode")
   :group 'Languages)
 
-(defcustom ansys-dynamic-highlighting nil ;NEW
+(defcustom ansys-dynamic-highlighting-flag nil ;NEW_C
   "Controls experimental highlighting of user defined variables.
-Warning: This option is computational expensive and depending on
-the file size and your system it might make your editing
+Warning: This option is computational expensive and--depending on
+the file size and your system--it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
 user variables is only implemented for files with the extension
-\".mac\"."
+\".mac\".  To take effect you have to recall `ansys-mode'."
   :type 'boolean
   :group 'Ansys)
 
-(defcustom ansys-program ""		;NEW
-  "The Ansys executable with complete path specification.
-For example: \"/appl/ansys/v100/ansys/bin/ansys100\"."
+(defcustom ansys-program ""		;NEW_C
+  "The Ansys executable name.
+When the file is not in your search path, you have to funish the
+complete path specification.  For example:
+\"/ansys_inc/v100/ansys/bin/ansys100\"."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-help ""	;NEW
-  "The Ansys help system file with complete path specification.
-For example: \"/ansys_inc/v100/ansys/bin/anshelp100\" or in the
-windows case \"c:\\\\Program Files\\Ansys\
- Inc\\v100\\CommonFiles\\HELP\\en-us\\ansyshelp.chm\"."
+(defcustom ansys-help ""	;NEW_C
+  "The Ansys \"Help System\" file name.
+It is called with \\[ansys-start-ansys-help].  When the file is
+not in your search path, you have to funish the complete path
+specification.  For example:
+\"/ansys_inc/v100/ansys/bin/anshelp100\" or in the windows case
+\"c:\\\\Program Files\\Ansys\
+Inc\\v100\\CommonFiles\\HELP\\en-us\\ansyshelp.chm\"."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-lmutil-program ""	;NEW
-  "License manager utility program with complete path specification.
-Necessary for the command `ansys-license-status'.  For example:
-\"/appl/ansys/shared_files/licensing/linop64/lmutil\" or in the
+(defcustom ansys-lmutil-program ""	;NEW_C
+  "The FlexLM License manager utility executable name.
+When the file is not in your search path, you have to furnish the
+complete path.  For example:
+\"/ansys_inc/shared_files/licensing/linop64/lmutil\" or in the
 windows case \"c:\\\\Program Files\\Ansys Inc\\Shared\
- Files\\Licensing\\intel\\anslic_admin.exe."
+Files\\Licensing\\intel\\anslic_admin.exe.  Necessary for the
+command `ansys-license-status'."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-license-file ""	;NEW
-  "License file or license server specification(s).
+(defcustom ansys-license-file ""	;NEW_C
+  "The FlexLM license file name or the license server specification(s).
 The license server specification(s) must include the port number
-when it isn't 1055, the default port number:
-port_number@server_name, use the colon for multiple server
-specification, for example \"27005@rbgs421x:27005@rbgs422x\".
+when it isn't 1055, i. e. the default port number:
+port_number@server_name, use the colon for multiple servers, for
+example \"27005@rbgs421x:27005@rbgs422x\".
 
-System settings and order of precedense: 1. ANSYSLMD_LICENSE_FILE
+System settings and order of precedence: 1. ANSYSLMD_LICENSE_FILE
 environment variable, 2.)  The FLEXlm resource file: ~/.flexlmrc
 on Unix or the Windows registry. 3.) The LM_LICENSE_FILE
 variable. 4.) The ansyslmd.ini file in the licensing
@@ -550,9 +561,9 @@ installation).  5.) The license file itself."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-license ""		;NEW
-  "License type which the Ansys solver is going to use.
-Below are often used license types (as seen with
+(defcustom ansys-license ""		;NEW_C
+  "The License type which the Ansys solver is going to use.
+Below are often used license types (as seen with the function
 `ansys-license-status') and their corresponding WorkBench
 terminologies.
 
@@ -567,90 +578,87 @@ terminologies.
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-indicate-empty-lines nil ;NEW
+(defcustom ansys-indicate-empty-lines-flag nil ;NEW_C
   "When t indicate empty lines on window systems.
-Do this visually at the end of buffer in the left fringe."
+Do this visually at the end of an Ansys buffer in the left
+fringe.  You have to recall `ansys-mode' for this variable to
+take effect."
   :type 'boolean
   :group 'Ansys)
 
-(defcustom ansys-current-ansys-version ansys_version
+(defcustom ansys-current-ansys-version ansys_version ;NEW_C
   "String describing the Ansys version installed by the user.
-Variable is used by the `ansys-skeleton' skeleton."
+This variable is used by the `ansys-skeleton' skeleton."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-comment-padding " "	;NEW
-  "Padding string that `comment-region' puts between comment chars and text.
+(defcustom ansys-comment-padding " "	;NEW_C
+  "Padding string that `comment-dwim' puts between comment chars and text.
 Extra spacing between the comment character(s) and the comment
-text makes the comment easier to read.  This padding is only
-active for comments at the beginning of a line."
+text makes the comment easier to read.  This padding is not
+effective for code comments (comments behind code)."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-comment-add 1		;NEW
-  "How many more comment chars should be inserted by `comment-region'.
-This determines the default value of the numeric argument of `comment-region'.
-This should generally stay 0, except for a few modes like Lisp where
-it can be convenient to set it to 1 so that regions are commented with
-two semi-colons."
+(defcustom ansys-comment-add 1		;NEW_C
+  "How many additional comment characters are inserted by \\[comment-dwim].
+This determines the default value of the numeric argument of
+`comment-dwim'.  It should generally stay 0, except for a few
+modes like Lisp where it can be convenient to set it to 1 so that
+regions are commented with two semi-colons."
   :type 'integer
   :group 'Ansys)
 
-(defcustom ansys-comment-column 25	;NEW
+(defcustom ansys-code-comment-column 25	;NEW_C
   "Column where Ansys code comments (behind code) are placed."
   :type 'integer
   :group 'Ansys)
 
-(defcustom ansys-auto-indent-flag t	;NEW
-  "Non-nil means indent line after a space in Ansys mode."
+(defcustom ansys-auto-indent-flag t	;NEW_C
+  "When non-nil means indent line when typing the SPC key.
+The space character is also inserted."
   :type 'boolean
 ;  :options '(t nil) ; not necessary with booleans in Customise
   :group 'Ansys)
 
-(defcustom ansys-indent-comment-string "" ;NEW
-  "String placed after the comment char in an indented (code) comment.
+(defcustom ansys-indent-comment-string "" ;NEW_C
+  "String placed after the Ansys comment char in an code comment.
 See `ansys-indent-comment'."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-ruler-wide-flag nil	;NEW
-  "Non-nil means show a 80 characters wide temporary ruler.
+(defcustom ansys-ruler-wide-flag nil	;NEW_C
+  "When non-nil show a 80 characters wide temporary ruler.
 Nil means show a narrower temporary ruler with 50 characters."
   :type 'boolean
   :group 'Ansys)
 
-(defcustom ansys-require-spaces nil	;NEW
-  "If non-nil, `insert-parentheses' inserts whitespace before ()."
+(defcustom ansys-require-spaces-flag nil ;NEW_C
+  "If non-nil \\[insert-parentheses] inserts whitespace
+before ()."
   :type 'boolean
   :group 'Ansys)
 
-(defcustom ansys-blink-matching-block t	;NEW
+(defcustom ansys-blink-matching-block-flag t ;NEW_C
   "Control the blinking of matching Ansys block keywords.
-Non-nil means show matching begin of block when inserting a
-newline after an else or end keyword."
+Non-nil means skip temporary to the matching beginning of the
+block when inserting a newline after an else or end keyword."
   :type 'boolean
   :group 'Ansys)
 
-(defcustom ansys-blink-matching-delay .7 ;NEW
-  "Time in seconds for showing a matching block."
+(defcustom ansys-blink-matching-delay .7 ;NEW_C
+  "Time in seconds for skipping to a matching block.
+See also the variable `ansys-blink-matching-block-flag'."
   :type 'number
   :group 'Ansys)
 
-(defcustom ansys-block-offset 2		;NEW
-  "Extra indentation applied to statements in Ansys block structures."
+(defcustom ansys-block-offset 2		;NEW_C
+  "Indentation column(s) for statements in a block structure."
   :type 'integer
 ;  :options only for types hook, plist and alist
   :group 'Ansys)
 
-(defcustom ansys-default-command-offset 4 ;NEW
-  "Extra indentation applied to Ansys default command lines.
-These are lines beginning with a comma, the solver uses the
-previous non slash- or non asterisk command as the default
-command."
-  :type 'integer
-  :group 'Ansys)
-
-(defcustom ansys-outline-string "@"	;NEW
+(defcustom ansys-outline-string "@"	;NEW FIXME: better char?
   "String specifying outline headings."
   :type 'string
   :group 'Ansys)
@@ -687,729 +695,1862 @@ Only used internally")
 (defvar ansys-completion-alist
   '(
     ("LINK1" . "LINK1")
-    ("PLANE2"
-     . "PLANE2") ("BEAM3" . "BEAM3") ("BEAM4" . "BEAM4") ("SOLID5"
-     . "SOLID5") ("COMBIN7" . "COMBIN7") ("LINK8" . "LINK8") ("INFIN9"
-     . "INFIN9") ("LINK10" . "LINK10") ("LINK11"
-     . "LINK11") ("CONTAC12" . "CONTAC12") ("PLANE13"
-     . "PLANE13") ("COMBIN14" . "COMBIN14") ("PIPE16"
-     . "PIPE16") ("PIPE17" . "PIPE17") ("PIPE18" . "PIPE18") ("PIPE20"
-     . "PIPE20") ("MASS21" . "MASS21") ("BEAM23" . "BEAM23") ("BEAM24"
-     . "BEAM24") ("PLANE25" . "PLANE25") ("MATRIX27"
-     . "MATRIX27") ("SHELL28" . "SHELL28") ("FLUID29"
-     . "FLUID29") ("FLUID30" . "FLUID30") ("LINK31"
-     . "LINK31") ("LINK32" . "LINK32") ("LINK33" . "LINK33") ("LINK34"
-     . "LINK34") ("PLANE35" . "PLANE35") ("SOURC36"
-     . "SOURC36") ("COMBIN37" . "COMBIN37") ("FLUID38"
-     . "FLUID38") ("COMBIN39" . "COMBIN39") ("COMBIN40"
-     . "COMBIN40") ("SHELL41" . "SHELL41") ("PLANE42"
-     . "PLANE42") ("SHELL43" . "SHELL43") ("BEAM44"
-     . "BEAM44") ("SOLID45" . "SOLID45") ("SOLID46"
-     . "SOLID46") ("INFIN47" . "INFIN47") ("MATRIX50"
-     . "MATRIX50") ("SHELL51" . "SHELL51") ("CONTAC52"
-     . "CONTAC52") ("PLANE53" . "PLANE53") ("BEAM54"
-     . "BEAM54") ("PLANE55" . "PLANE55") ("SHELL57"
-     . "SHELL57") ("PIPE59" . "PIPE59") ("PIPE60"
-     . "PIPE60") ("SHELL61" . "SHELL61") ("SOLID62"
-     . "SOLID62") ("SHELL63" . "SHELL63") ("SOLID64"
-     . "SOLID64") ("SOLID65" . "SOLID65") ("PLANE67"
-     . "PLANE67") ("LINK68" . "LINK68") ("SOLID69"
-     . "SOLID69") ("SOLID70" . "SOLID70") ("MASS71"
-     . "MASS71") ("PLANE75" . "PLANE75") ("PLANE77"
-     . "PLANE77") ("PLANE78" . "PLANE78") ("FLUID79"
-     . "FLUID79") ("FLUID80" . "FLUID80") ("FLUID81"
-     . "FLUID81") ("PLANE82" . "PLANE82") ("PLANE83"
-     . "PLANE83") ("SOLID87" . "SOLID87") ("VISCO88"
-     . "VISCO88") ("VISCO89" . "VISCO89") ("SOLID90"
-     . "SOLID90") ("SHELL91" . "SHELL91") ("SOLID92"
-     . "SOLID92") ("SHELL93" . "SHELL93") ("CIRCU94"
-     . "CIRCU94") ("SOLID95" . "SOLID95") ("SOLID96"
-     . "SOLID96") ("SOLID97" . "SOLID97") ("SOLID98"
-     . "SOLID98") ("SHELL99" . "SHELL99") ("VISCO106"
-     . "VISCO106") ("VISCO107" . "VISCO107") ("VISCO108"
-     . "VISCO108") ("TRANS109" . "TRANS109") ("INFIN110"
-     . "INFIN110") ("INFIN111" . "INFIN111") ("INTER115"
-     . "INTER115") ("FLUID116" . "FLUID116") ("SOLID117"
-     . "SOLID117") ("HF118" . "HF118") ("HF119" . "HF119") ("HF120"
-     . "HF120") ("PLANE121" . "PLANE121") ("SOLID122"
-     . "SOLID122") ("SOLID123" . "SOLID123") ("CIRCU124"
-     . "CIRCU124") ("CIRCU125" . "CIRCU125") ("TRANS126"
-     . "TRANS126") ("SOLID127" . "SOLID127") ("SOLID128"
-     . "SOLID128") ("FLUID129" . "FLUID129") ("FLUID130"
-     . "FLUID130") ("SHELL131" . "SHELL131") ("SHELL132"
-     . "SHELL132") ("FLUID136" . "FLUID136") ("FLUID138"
-     . "FLUID138") ("FLUID139" . "FLUID139") ("FLUID141"
-     . "FLUID141") ("FLUID142" . "FLUID142") ("SHELL143"
-     . "SHELL143") ("ROM144" . "ROM144") ("PLANE145"
-     . "PLANE145") ("PLANE146" . "PLANE146") ("SOLID147"
-     . "SOLID147") ("SOLID148" . "SOLID148") ("SHELL150"
-     . "SHELL150") ("SURF151" . "SURF151") ("SURF152"
-     . "SURF152") ("SURF153" . "SURF153") ("SURF154"
-     . "SURF154") ("SURF156" . "SURF156") ("SHELL157"
-     . "SHELL157") ("LINK160" . "LINK160") ("BEAM161"
-     . "BEAM161") ("PLANE162" . "PLANE162") ("SHELL163"
-     . "SHELL163") ("SOLID164" . "SOLID164") ("COMBI165"
-     . "COMBI165") ("MASS166" . "MASS166") ("LINK167"
-     . "LINK167") ("SOLID168" . "SOLID168") ("TARGE169"
-     . "TARGE169") ("TARGE170" . "TARGE170") ("CONTA171"
-     . "CONTA171") ("CONTA172" . "CONTA172") ("CONTA173"
-     . "CONTA173") ("CONTA174" . "CONTA174") ("CONTA175"
-     . "CONTA175") ("CONTA176" . "CONTA176") ("CONTA178"
-     . "CONTA178") ("PRETS179" . "PRETS179") ("LINK180"
-     . "LINK180") ("SHELL181" . "SHELL181") ("PLANE182"
-     . "PLANE182") ("PLANE183" . "PLANE183") ("MPC184"
-     . "MPC184") ("SOLID185" . "SOLID185") ("SOLID186"
-     . "SOLID186") ("SOLID187" . "SOLID187") ("BEAM188"
-     . "BEAM188") ("BEAM189" . "BEAM189") ("SOLSH190"
-     . "SOLSH190") ("SOLID191" . "SOLID191") ("INTER192"
-     . "INTER192") ("INTER193" . "INTER193") ("INTER194"
-     . "INTER194") ("INTER195" . "INTER195") ("MESH200"
-     . "MESH200") ("FOLLW201" . "FOLLW201") ("INTER202"
-     . "INTER202") ("INTER203" . "INTER203") ("INTER204"
-     . "INTER204") ("INTER205" . "INTER205") ("SHELL208"
-     . "SHELL208") ("SHELL209" . "SHELL209") ("PLANE223"
-     . "PLANE223") ("SOLID226" . "SOLID226") ("SOLID227"
-     . "SOLID227") ("PLANE230" . "PLANE230") ("SOLID231"
-     . "SOLID231") ("SOLID232" . "SOLID232") ("SURF251"
-     . "SURF251") ("SURF252" . "SURF252") ("*ABBR"
-     . "*ABBR") ("ABBRES" . "ABBRES") ("ABBSAV" . "ABBSAV") ("*AFUN"
-     . "*AFUN") ("*ASK" . "*ASK") ("*CFCLOS" . "*CFCLOS") ("*CFOPEN"
-     . "*CFOPEN") ("*CFWRITE" . "*CFWRITE") ("*CREATE"
-     . "*CREATE") ("*CYCLE" . "*CYCLE") ("*DEL" . "*DEL") ("/DFLAB"
-     . "/DFLAB") ("*DIM" . "*DIM") ("/DIRECTORY"
-     . "/DIRECTORY") ("*DO" . "*DO") ("*DOWHILE"
-     . "*DOWHILE") ("*ELSE" . "*ELSE") ("*ELSEIF" . "*ELSEIF") ("*END"
-     . "*END") ("*ENDDO" . "*ENDDO") ("*ENDIF" . "*ENDIF") ("*EXIT"
-     . "*EXIT") ("*GET" . "*GET") ("*GO" . "*GO") ("*IF"
-     . "*IF") ("/INQUIRE" . "/INQUIRE") ("/MAIL" . "/MAIL") ("*MFOURI"
-     . "*MFOURI") ("*MFUN" . "*MFUN") ("*MOPER" . "*MOPER") ("*MSG"
-     . "*MSG") ("*MWRITE" . "*MWRITE") ("PARRES" . "PARRES") ("PARSAV"
-     . "PARSAV") ("/PMACRO" . "/PMACRO") ("/PSEARCH"
-     . "/PSEARCH") ("*REPEAT" . "*REPEAT") ("*RETURN"
-     . "*RETURN") ("*SET" . "*SET") ("*SREAD" . "*SREAD") ("*STATUS"
-     . "*STATUS") ("*TAXIS" . "*TAXIS") ("/TEE" . "/TEE") ("*TOPER"
-     . "*TOPER") ("*TREAD" . "*TREAD") ("/UCMD" . "/UCMD") ("*ULIB"
-     . "*ULIB") ("*USE" . "*USE") ("*VABS" . "*VABS") ("*VCOL"
-     . "*VCOL") ("*VCUM" . "*VCUM") ("*VEDIT" . "*VEDIT") ("*VFACT"
-     . "*VFACT") ("*VFILL" . "*VFILL") ("*VFUN" . "*VFUN") ("*VGET"
-     . "*VGET") ("*VITRP" . "*VITRP") ("*VLEN" . "*VLEN") ("*VMASK"
-     . "*VMASK") ("*VOPER" . "*VOPER") ("*VPLOT" . "*VPLOT") ("*VPUT"
-     . "*VPUT") ("*VREAD" . "*VREAD") ("*VSCFUN"
-     . "*VSCFUN") ("*VSTAT" . "*VSTAT") ("*VWRITE"
-     . "*VWRITE") ("/WAIT" . "/WAIT") ("~CAT5IN"
-     . "~CAT5IN") ("~CATIAIN" . "~CATIAIN") ("~CIFIN"
-     . "~CIFIN") ("~PARAIN" . "~PARAIN") ("~PROEIN"
-     . "~PROEIN") ("~SATIN" . "~SATIN") ("~UGIN" . "~UGIN") ("A"
-     . "A") ("AADD" . "AADD") ("AATT" . "AATT") ("ABEXTRACT"
-     . "ABEXTRACT") ("ABS" . "ABS") ("ACCAT" . "ACCAT") ("ACEL"
-     . "ACEL") ("ACLEAR" . "ACLEAR") ("ADAMS" . "ADAMS") ("ADAPT"
-     . "ADAPT") ("ADD" . "ADD") ("ADDAM" . "ADDAM") ("ADELE"
-     . "ADELE") ("ADGL" . "ADGL") ("ADRAG" . "ADRAG") ("AESIZE"
-     . "AESIZE") ("AFILLT" . "AFILLT") ("AFLIST" . "AFLIST") ("AFSURF"
-     . "AFSURF") ("AGEN" . "AGEN") ("AGLUE" . "AGLUE") ("AINA"
-     . "AINA") ("AINP" . "AINP") ("AINV" . "AINV") ("AL"
-     . "AL") ("ALIST" . "ALIST") ("ALLSEL" . "ALLSEL") ("ALPFILL"
-     . "ALPFILL") ("ALPHAD" . "ALPHAD") ("AMAP" . "AMAP") ("AMESH"
-     . "AMESH") ("/AN3D" . "/AN3D") ("ANCNTR" . "ANCNTR") ("ANCUT"
-     . "ANCUT") ("ANCYC" . "ANCYC") ("ANDATA" . "ANDATA") ("ANDSCL"
-     . "ANDSCL") ("ANDYNA" . "ANDYNA") ("/ANFILE"
-     . "/ANFILE") ("ANFLOW" . "ANFLOW") ("/ANGLE"
-     . "/ANGLE") ("ANHARM" . "ANHARM") ("ANIM" . "ANIM") ("ANISOS"
-     . "ANISOS") ("ANMODE" . "ANMODE") ("ANMRES" . "ANMRES") ("/ANNOT"
-     . "/ANNOT") ("ANORM" . "ANORM") ("ANSOL" . "ANSOL") ("ANTIME"
-     . "ANTIME") ("ANTYPE" . "ANTYPE") ("/ANUM" . "/ANUM") ("AOFFST"
-     . "AOFFST") ("AOVLAP" . "AOVLAP") ("APLOT" . "APLOT") ("APPEND"
-     . "APPEND") ("APTN" . "APTN") ("ARCLEN" . "ARCLEN") ("ARCOLLAPSE"
-     . "ARCOLLAPSE") ("ARCTRM" . "ARCTRM") ("ARDETACH"
-     . "ARDETACH") ("AREAS" . "AREAS") ("AREFINE"
-     . "AREFINE") ("AREMESH" . "AREMESH") ("AREVERSE"
-     . "AREVERSE") ("ARFILL" . "ARFILL") ("ARMERGE"
-     . "ARMERGE") ("AROTAT" . "AROTAT") ("ARSCALE"
-     . "ARSCALE") ("ARSPLIT" . "ARSPLIT") ("ARSYM" . "ARSYM") ("ASBA"
-     . "ASBA") ("ASBL" . "ASBL") ("ASBV" . "ASBV") ("ASBW"
-     . "ASBW") ("ASEL" . "ASEL") ("ASKIN" . "ASKIN") ("ASLL"
-     . "ASLL") ("ASLV" . "ASLV") ("/ASSIGN" . "/ASSIGN") ("ASUB"
-     . "ASUB") ("ASUM" . "ASUM") ("ATAN" . "ATAN") ("ATRAN"
-     . "ATRAN") ("ATYPE" . "ATYPE") ("/AUTO" . "/AUTO") ("AUTOTS"
-     . "AUTOTS") ("/AUX2" . "/AUX2") ("/AUX3" . "/AUX3") ("/AUX12"
-     . "/AUX12") ("/AUX15" . "/AUX15") ("AVPRIN" . "AVPRIN") ("AVRES"
-     . "AVRES") ("/AXLAB" . "/AXLAB") ("/BATCH"
-     . "/BATCH") ("BCSOPTION" . "BCSOPTION") ("BELLOW"
-     . "BELLOW") ("BEND" . "BEND") ("BETAD" . "BETAD") ("BF"
-     . "BF") ("BFA" . "BFA") ("BFADELE" . "BFADELE") ("BFALIST"
-     . "BFALIST") ("BFCUM" . "BFCUM") ("BFDELE" . "BFDELE") ("BFE"
-     . "BFE") ("BFECUM" . "BFECUM") ("BFEDELE" . "BFEDELE") ("BFELIST"
-     . "BFELIST") ("BFESCAL" . "BFESCAL") ("BFINT" . "BFINT") ("BFK"
-     . "BFK") ("BFKDELE" . "BFKDELE") ("BFKLIST" . "BFKLIST") ("BFL"
-     . "BFL") ("BFLDELE" . "BFLDELE") ("BFLIST" . "BFLIST") ("BFLLIST"
-     . "BFLLIST") ("BFSCALE" . "BFSCALE") ("BFTRAN"
-     . "BFTRAN") ("BFUNIF" . "BFUNIF") ("BFV" . "BFV") ("BFVDELE"
-     . "BFVDELE") ("BFVLIST" . "BFVLIST") ("BIOOPT"
-     . "BIOOPT") ("BIOT" . "BIOT") ("BLC4" . "BLC4") ("BLC5"
-     . "BLC5") ("BLOCK" . "BLOCK") ("BOOL" . "BOOL") ("BOPTN"
-     . "BOPTN") ("BRANCH" . "BRANCH") ("BSAX" . "BSAX") ("BSMD"
-     . "BSMD") ("BSM1" . "BSM1") ("BSM2" . "BSM2") ("BSPLIN"
-     . "BSPLIN") ("BSS1" . "BSS1") ("BSS2" . "BSS2") ("BSTE"
-     . "BSTE") ("BSTQ" . "BSTQ") ("BTOL" . "BTOL") ("BUCOPT"
-     . "BUCOPT") ("C" . "C") ("CALC" . "CALC") ("CBDOF"
-     . "CBDOF") ("CDOPT" . "CDOPT") ("CDREAD" . "CDREAD") ("CDWRITE"
-     . "CDWRITE") ("CE" . "CE") ("CECHECK" . "CECHECK") ("CECMOD"
-     . "CECMOD") ("CECYC" . "CECYC") ("CEDELE" . "CEDELE") ("CEINTF"
-     . "CEINTF") ("CELIST" . "CELIST") ("CENTER" . "CENTER") ("CEQN"
-     . "CEQN") ("CERIG" . "CERIG") ("CESGEN" . "CESGEN") ("CFACT"
-     . "CFACT") ("/CFORMAT" . "/CFORMAT") ("CGLOC"
-     . "CGLOC") ("CGOMGA" . "CGOMGA") ("CHECK" . "CHECK") ("CHKMSH"
-     . "CHKMSH") ("CIRCLE" . "CIRCLE") ("/CLABEL"
-     . "/CLABEL") ("/CLEAR" . "/CLEAR") ("CLOCAL" . "CLOCAL") ("CLOG"
-     . "CLOG") ("/CLOG" . "/CLOG") ("CLRMSHLN" . "CLRMSHLN") ("CM"
-     . "CM") ("CMACEL" . "CMACEL") ("/CMAP" . "/CMAP") ("CMATRIX"
-     . "CMATRIX") ("CMDELE" . "CMDELE") ("CMDOMEGA"
-     . "CMDOMEGA") ("CMEDIT" . "CMEDIT") ("CMGRP" . "CMGRP") ("CMLIST"
-     . "CMLIST") ("CMMOD" . "CMMOD") ("CMOMEGA" . "CMOMEGA") ("CMPLOT"
-     . "CMPLOT") ("CMSEL" . "CMSEL") ("CMSFILE" . "CMSFILE") ("CMSOPT"
-     . "CMSOPT") ("CNCHECK" . "CNCHECK") ("CNVTOL"
-     . "CNVTOL") ("/COLOR" . "/COLOR") ("/COM" . "/COM") ("COMPRESS"
-     . "COMPRESS") ("CON4" . "CON4") ("CONE" . "CONE") ("/CONFIG"
-     . "/CONFIG") ("CONJUG" . "CONJUG") ("/CONTOUR"
-     . "/CONTOUR") ("/COPY" . "/COPY") ("CORIOLIS"
-     . "CORIOLIS") ("COUPLE" . "COUPLE") ("COVAL" . "COVAL") ("CP"
-     . "CP") ("CPCYC" . "CPCYC") ("CPDELE" . "CPDELE") ("CPINTF"
-     . "CPINTF") ("/CPLANE" . "/CPLANE") ("CPLGEN"
-     . "CPLGEN") ("CPLIST" . "CPLIST") ("CPMERGE"
-     . "CPMERGE") ("CPNGEN" . "CPNGEN") ("CPSGEN" . "CPSGEN") ("CQC"
-     . "CQC") ("CRPLIM" . "CRPLIM") ("CS" . "CS") ("CSCIR"
-     . "CSCIR") ("CSDELE" . "CSDELE") ("CSKP" . "CSKP") ("CSLIST"
-     . "CSLIST") ("CSWPLA" . "CSWPLA") ("CSYS" . "CSYS") ("/CTYPE"
-     . "/CTYPE") ("CURR2D" . "CURR2D") ("CUTCONTROL"
-     . "CUTCONTROL") ("/CVAL" . "/CVAL") ("CVAR" . "CVAR") ("/CWD"
-     . "/CWD") ("/CYCEXPAND" . "/CYCEXPAND") ("CYCLIC"
-     . "CYCLIC") ("CYCOPT" . "CYCOPT") ("CYCPHASE"
-     . "CYCPHASE") ("CYL4" . "CYL4") ("CYL5" . "CYL5") ("CYLIND"
-     . "CYLIND") ("CZDEL" . "CZDEL") ("CZMESH" . "CZMESH") ("D"
-     . "D") ("DA" . "DA") ("DADELE" . "DADELE") ("DALIST"
-     . "DALIST") ("DAMORPH" . "DAMORPH") ("DATA" . "DATA") ("DATADEF"
-     . "DATADEF") ("DCGOMG" . "DCGOMG") ("DCUM" . "DCUM") ("DCVSWP"
-     . "DCVSWP") ("DDELE" . "DDELE") ("DEACT" . "DEACT") ("DECOMP"
-     . "DECOMP") ("DEFINE" . "DEFINE") ("DELETE"
-     . "DELETE") ("/DELETE" . "/DELETE") ("DELTIM"
-     . "DELTIM") ("DEMORPH" . "DEMORPH") ("DERIV" . "DERIV") ("DESIZE"
-     . "DESIZE") ("DESOL" . "DESOL") ("DETAB" . "DETAB") ("/DEVDISP"
-     . "/DEVDISP") ("/DEVICE" . "/DEVICE") ("DIG" . "DIG") ("DIGIT"
-     . "DIGIT") ("DISPLAY" . "DISPLAY") ("/DIST" . "/DIST") ("DJ"
-     . "DJ") ("DJDELE" . "DJDELE") ("DJLIST" . "DJLIST") ("DK"
-     . "DK") ("DKDELE" . "DKDELE") ("DKLIST" . "DKLIST") ("DL"
-     . "DL") ("DLDELE" . "DLDELE") ("DLIST" . "DLIST") ("DLLIST"
-     . "DLLIST") ("DMOVE" . "DMOVE") ("DMPEXT" . "DMPEXT") ("DMPRAT"
-     . "DMPRAT") ("DNSOL" . "DNSOL") ("DOF" . "DOF") ("DOFSEL"
-     . "DOFSEL") ("DOMEGA" . "DOMEGA") ("DSCALE"
-     . "DSCALE") ("/DSCALE" . "/DSCALE") ("DSET" . "DSET") ("DSUM"
-     . "DSUM") ("DSURF" . "DSURF") ("DSYM" . "DSYM") ("DSYS"
-     . "DSYS") ("DTRAN" . "DTRAN") ("DUMP" . "DUMP") ("/DV3D"
-     . "/DV3D") ("DVMORPH" . "DVMORPH") ("DYNOPT" . "DYNOPT") ("E"
-     . "E") ("EALIVE" . "EALIVE") ("EDADAPT" . "EDADAPT") ("EDALE"
-     . "EDALE") ("EDASMP" . "EDASMP") ("EDBOUND" . "EDBOUND") ("EDBX"
-     . "EDBX") ("EDBVIS" . "EDBVIS") ("EDCADAPT"
-     . "EDCADAPT") ("EDCGEN" . "EDCGEN") ("EDCLIST"
-     . "EDCLIST") ("EDCMORE" . "EDCMORE") ("EDCNSTR"
-     . "EDCNSTR") ("EDCONTACT" . "EDCONTACT") ("EDCPU"
-     . "EDCPU") ("EDCRB" . "EDCRB") ("EDCSC" . "EDCSC") ("EDCTS"
-     . "EDCTS") ("EDCURVE" . "EDCURVE") ("EDDAMP" . "EDDAMP") ("EDDBL"
-     . "EDDBL") ("EDDC" . "EDDC") ("EDDRELAX" . "EDDRELAX") ("EDDUMP"
-     . "EDDUMP") ("EDELE" . "EDELE") ("EDENERGY"
-     . "EDENERGY") ("EDFPLOT" . "EDFPLOT") ("EDGCALE"
-     . "EDGCALE") ("/EDGE" . "/EDGE") ("EDHGLS" . "EDHGLS") ("EDHIST"
-     . "EDHIST") ("EDHTIME" . "EDHTIME") ("EDINT"
-     . "EDINT") ("EDIPART" . "EDIPART") ("EDIS" . "EDIS") ("EDLCS"
-     . "EDLCS") ("EDLOAD" . "EDLOAD") ("EDMP" . "EDMP") ("EDNB"
-     . "EDNB") ("EDNDTSD" . "EDNDTSD") ("EDNROT" . "EDNROT") ("EDOPT"
-     . "EDOPT") ("EDOUT" . "EDOUT") ("EDPART" . "EDPART") ("EDPC"
-     . "EDPC") ("EDPL" . "EDPL") ("EDPVEL" . "EDPVEL") ("EDRC"
-     . "EDRC") ("EDRD" . "EDRD") ("EDREAD" . "EDREAD") ("EDRI"
-     . "EDRI") ("EDRST" . "EDRST") ("EDRUN" . "EDRUN") ("EDSHELL"
-     . "EDSHELL") ("EDSOLV" . "EDSOLV") ("EDSP" . "EDSP") ("EDSTART"
-     . "EDSTART") ("EDTERM" . "EDTERM") ("EDTP" . "EDTP") ("EDVEL"
-     . "EDVEL") ("EDWELD" . "EDWELD") ("EDWRITE"
-     . "EDWRITE") ("/EFACET" . "/EFACET") ("EGEN" . "EGEN") ("EINTF"
-     . "EINTF") ("EKILL" . "EKILL") ("ELEM" . "ELEM") ("ELIST"
-     . "ELIST") ("EMAGERR" . "EMAGERR") ("EMATWRITE"
-     . "EMATWRITE") ("EMF" . "EMF") ("EMFT" . "EMFT") ("EMID"
-     . "EMID") ("EMIS" . "EMIS") ("EMODIF" . "EMODIF") ("EMORE"
-     . "EMORE") ("EMSYM" . "EMSYM") ("EMTGEN" . "EMTGEN") ("EMUNIT"
-     . "EMUNIT") ("EN" . "EN") ("ENDRELEASE" . "ENDRELEASE") ("ENGEN"
-     . "ENGEN") ("ENORM" . "ENORM") ("ENSYM" . "ENSYM") ("/EOF"
-     . "/EOF") ("EORIENT" . "EORIENT") ("EPLOT" . "EPLOT") ("EQSLV"
-     . "EQSLV") ("ERASE" . "ERASE") ("/ERASE" . "/ERASE") ("EREAD"
-     . "EREAD") ("EREFINE" . "EREFINE") ("ERESX" . "ERESX") ("ERNORM"
-     . "ERNORM") ("ERRANG" . "ERRANG") ("ESCHECK" . "ESCHECK") ("ESEL"
-     . "ESEL") ("/ESHAPE" . "/ESHAPE") ("ESIZE" . "ESIZE") ("ESLA"
-     . "ESLA") ("ESLL" . "ESLL") ("ESLN" . "ESLN") ("ESLV"
-     . "ESLV") ("ESOL" . "ESOL") ("ESORT" . "ESORT") ("ESSOLV"
-     . "ESSOLV") ("ESTIF" . "ESTIF") ("ESURF" . "ESURF") ("ESYM"
-     . "ESYM") ("ESYS" . "ESYS") ("ET" . "ET") ("ETABLE"
-     . "ETABLE") ("ETCHG" . "ETCHG") ("ETCONTROL"
-     . "ETCONTROL") ("ETDELE" . "ETDELE") ("ETLIST"
-     . "ETLIST") ("ETYPE" . "ETYPE") ("EUSORT" . "EUSORT") ("*EVAL"
-     . "*EVAL") ("EWRITE" . "EWRITE") ("/EXIT" . "/EXIT") ("EXP"
-     . "EXP") ("EXPAND" . "EXPAND") ("/EXPAND" . "/EXPAND") ("EXPASS"
-     . "EXPASS") ("EXPROFILE" . "EXPROFILE") ("EXPSOL"
-     . "EXPSOL") ("EXTOPT" . "EXTOPT") ("EXTREM" . "EXTREM") ("EXUNIT"
-     . "EXUNIT") ("F" . "F") ("/FACET" . "/FACET") ("FATIGUE"
-     . "FATIGUE") ("FC" . "FC") ("FCCHECK" . "FCCHECK") ("FCDELE"
-     . "FCDELE") ("FCLIST" . "FCLIST") ("FCUM" . "FCUM") ("FDELE"
-     . "FDELE") ("/FDELE" . "/FDELE") ("FE" . "FE") ("FEBODY"
-     . "FEBODY") ("FECONS" . "FECONS") ("FEFOR" . "FEFOR") ("FELIST"
-     . "FELIST") ("FESURF" . "FESURF") ("FILE" . "FILE") ("FILEAUX2"
-     . "FILEAUX2") ("FILEAUX3" . "FILEAUX3") ("FILEDISP"
-     . "FILEDISP") ("FILL" . "FILL") ("FILLDATA"
-     . "FILLDATA") ("/FILNAME" . "/FILNAME") ("FINISH"
-     . "FINISH") ("FITEM" . "FITEM") ("FJ" . "FJ") ("FJDELE"
-     . "FJDELE") ("FJLIST" . "FJLIST") ("FK" . "FK") ("FKDELE"
-     . "FKDELE") ("FKLIST" . "FKLIST") ("FL" . "FL") ("FLANGE"
-     . "FLANGE") ("FLDATA" . "FLDATA") ("FLDATA1"
-     . "FLDATA1") ("FLDATA2" . "FLDATA2") ("FLDATA3"
-     . "FLDATA3") ("FLDATA4" . "FLDATA4") ("FLDATA4A"
-     . "FLDATA4A") ("FLDATA5" . "FLDATA5") ("FLDATA6"
-     . "FLDATA6") ("FLDATA7" . "FLDATA7") ("FLDATA8"
-     . "FLDATA8") ("FLDATA9" . "FLDATA9") ("FLDATA10"
-     . "FLDATA10") ("FLDATA11" . "FLDATA11") ("FLDATA12"
-     . "FLDATA12") ("FLDATA13" . "FLDATA13") ("FLDATA14"
-     . "FLDATA14") ("FLDATA15" . "FLDATA15") ("FLDATA16"
-     . "FLDATA16") ("FLDATA17" . "FLDATA17") ("FLDATA18"
-     . "FLDATA18") ("FLDATA19" . "FLDATA19") ("FLDATA20"
-     . "FLDATA20") ("FLDATA20A" . "FLDATA20A") ("FLDATA20B"
-     . "FLDATA20B") ("FLDATA21" . "FLDATA21") ("FLDATA22"
-     . "FLDATA22") ("FLDATA23" . "FLDATA23") ("FLDATA24"
-     . "FLDATA24") ("FLDATA24A" . "FLDATA24A") ("FLDATA24B"
-     . "FLDATA24B") ("FLDATA24C" . "FLDATA24C") ("FLDATA24D"
-     . "FLDATA24D") ("FLDATA24E" . "FLDATA24E") ("FLDATA24F"
-     . "FLDATA24F") ("FLDATA24G" . "FLDATA24G") ("FLDATA24H"
-     . "FLDATA24H") ("FLDATA25" . "FLDATA25") ("FLDATA26"
-     . "FLDATA26") ("FLDATA27" . "FLDATA27") ("FLDATA28"
-     . "FLDATA28") ("FLDATA29" . "FLDATA29") ("FLDATA30"
-     . "FLDATA30") ("FLDATA31" . "FLDATA31") ("FLDATA32"
-     . "FLDATA32") ("FLDATA33" . "FLDATA33") ("FLDATA34"
-     . "FLDATA34") ("FLDATA35" . "FLDATA35") ("FLDATA36"
-     . "FLDATA36") ("FLDATA37" . "FLDATA37") ("FLDATA38"
-     . "FLDATA38") ("FLDATA39" . "FLDATA39") ("FLDATA40"
-     . "FLDATA40") ("FLIST" . "FLIST") ("FLLIST"
-     . "FLLIST") ("FLOCHECK" . "FLOCHECK") ("FLOTRAN"
-     . "FLOTRAN") ("FLREAD" . "FLREAD") ("FLST" . "FLST") ("FLUXV"
-     . "FLUXV") ("FMAGBC" . "FMAGBC") ("FMAGSUM"
-     . "FMAGSUM") ("/FOCUS" . "/FOCUS") ("FOR2D" . "FOR2D") ("FORCE"
-     . "FORCE") ("FORM" . "FORM") ("/FORMAT" . "/FORMAT") ("FP"
-     . "FP") ("FPLIST" . "FPLIST") ("FREQ" . "FREQ") ("FS"
-     . "FS") ("FSCALE" . "FSCALE") ("FSDELE" . "FSDELE") ("FSLIST"
-     . "FSLIST") ("FSNODE" . "FSNODE") ("FSPLOT" . "FSPLOT") ("FSSECT"
-     . "FSSECT") ("FSSPARM" . "FSSPARM") ("FSUM" . "FSUM") ("FTCALC"
-     . "FTCALC") ("FTRAN" . "FTRAN") ("FTSIZE" . "FTSIZE") ("FTWRITE"
-     . "FTWRITE") ("FVMESH" . "FVMESH") ("GAP" . "GAP") ("GAPF"
-     . "GAPF") ("GAPFINISH" . "GAPFINISH") ("GAPLIST"
-     . "GAPLIST") ("GAPMERGE" . "GAPMERGE") ("GAPOPT"
-     . "GAPOPT") ("GAPPLOT" . "GAPPLOT") ("GAUGE" . "GAUGE") ("/GCMD"
-     . "/GCMD") ("/GCOLUMN" . "/GCOLUMN") ("GENOPT"
-     . "GENOPT") ("GEOM" . "GEOM") ("GEOMETRY" . "GEOMETRY") ("/GFILE"
-     . "/GFILE") ("/GFORMAT" . "/GFORMAT") ("/GLINE"
-     . "/GLINE") ("/GMARKER" . "/GMARKER") ("GMATRIX"
-     . "GMATRIX") ("GMFACE" . "GMFACE") ("/GO" . "/GO") ("/GOLIST"
-     . "/GOLIST") ("/GOPR" . "/GOPR") ("GP" . "GP") ("GPDELE"
-     . "GPDELE") ("GPLIST" . "GPLIST") ("GPLOT"
-     . "GPLOT") ("/GRAPHICS" . "/GRAPHICS") ("/GRESUME"
-     . "/GRESUME") ("/GRID" . "/GRID") ("/GROPT" . "/GROPT") ("GRP"
-     . "GRP") ("/GRTYP" . "/GRTYP") ("/GSAVE" . "/GSAVE") ("GSBDATA"
-     . "GSBDATA") ("GSGDATA" . "GSGDATA") ("GSLIST"
-     . "GSLIST") ("GSSOL" . "GSSOL") ("/GST" . "/GST") ("GSUM"
-     . "GSUM") ("/GTHK" . "/GTHK") ("/GTYPE" . "/GTYPE") ("HARFRQ"
-     . "HARFRQ") ("/HBC" . "/HBC") ("HBMAT" . "HBMAT") ("/HEADER"
-     . "/HEADER") ("HELP" . "HELP") ("HELPDISP"
-     . "HELPDISP") ("HEMIOPT" . "HEMIOPT") ("HFANG"
-     . "HFANG") ("HFARRAY" . "HFARRAY") ("HFDEEM"
-     . "HFDEEM") ("HFEIGOPT" . "HFEIGOPT") ("HFEREFINE"
-     . "HFEREFINE") ("HFMODPRT" . "HFMODPRT") ("HFNEAR"
-     . "HFNEAR") ("HFPA" . "HFPA") ("HFPCSWP" . "HFPCSWP") ("HFPOWER"
-     . "HFPOWER") ("HFPORT" . "HFPORT") ("HFSCAT"
-     . "HFSCAT") ("HFSWEEP" . "HFSWEEP") ("HFSYM"
-     . "HFSYM") ("HMAGSOLV" . "HMAGSOLV") ("HPGL"
-     . "HPGL") ("HPTCREATE" . "HPTCREATE") ("HPTDELETE"
-     . "HPTDELETE") ("HRCPLX" . "HRCPLX") ("HREXP" . "HREXP") ("HROPT"
-     . "HROPT") ("HROUT" . "HROUT") ("Contents" . "Contents") ("IC"
-     . "IC") ("ICDELE" . "ICDELE") ("ICE" . "ICE") ("ICEDELE"
-     . "ICEDELE") ("ICELIST" . "ICELIST") ("ICLIST"
-     . "ICLIST") ("/ICLWID" . "/ICLWID") ("/ICSCALE"
-     . "/ICSCALE") ("ICVFRC" . "ICVFRC") ("IGESIN"
-     . "IGESIN") ("IGESOUT" . "IGESOUT") ("/IMAGE"
-     . "/IMAGE") ("IMAGIN" . "IMAGIN") ("IMESH" . "IMESH") ("IMMED"
-     . "IMMED") ("IMPD" . "IMPD") ("/INPUT" . "/INPUT") ("INRES"
-     . "INRES") ("INRTIA" . "INRTIA") ("INT1" . "INT1") ("INTSRF"
-     . "INTSRF") ("IOPTN" . "IOPTN") ("IRLF" . "IRLF") ("IRLIST"
-     . "IRLIST") ("ISFILE" . "ISFILE") ("ISTRESS"
-     . "ISTRESS") ("ISWRITE" . "ISWRITE") ("JPEG" . "JPEG") ("JSOL"
-     . "JSOL") ("K" . "K") ("KATT" . "KATT") ("KBC" . "KBC") ("KBETW"
-     . "KBETW") ("KCALC" . "KCALC") ("KCENTER" . "KCENTER") ("KCLEAR"
-     . "KCLEAR") ("KDELE" . "KDELE") ("KDIST" . "KDIST") ("KEEP"
-     . "KEEP") ("KESIZE" . "KESIZE") ("KEYOPT" . "KEYOPT") ("KEYPTS"
-     . "KEYPTS") ("KEYW" . "KEYW") ("KFILL" . "KFILL") ("KGEN"
-     . "KGEN") ("KL" . "KL") ("KLIST" . "KLIST") ("KMESH"
-     . "KMESH") ("KMODIF" . "KMODIF") ("KMOVE" . "KMOVE") ("KNODE"
-     . "KNODE") ("KPLOT" . "KPLOT") ("KPSCALE" . "KPSCALE") ("KREFINE"
-     . "KREFINE") ("KSCALE" . "KSCALE") ("KSCON" . "KSCON") ("KSEL"
-     . "KSEL") ("KSLL" . "KSLL") ("KSLN" . "KSLN") ("KSUM"
-     . "KSUM") ("KSYMM" . "KSYMM") ("KTRAN" . "KTRAN") ("KUSE"
-     . "KUSE") ("KWPAVE" . "KWPAVE") ("KWPLAN" . "KWPLAN") ("L"
-     . "L") ("L2ANG" . "L2ANG") ("L2TAN" . "L2TAN") ("LANG"
-     . "LANG") ("LARC" . "LARC") ("/LARC" . "/LARC") ("LAREA"
-     . "LAREA") ("LARGE" . "LARGE") ("LATT" . "LATT") ("LAYER"
-     . "LAYER") ("LAYERP26" . "LAYERP26") ("LAYLIST"
-     . "LAYLIST") ("LAYPLOT" . "LAYPLOT") ("LCABS" . "LCABS") ("LCASE"
-     . "LCASE") ("LCCALC" . "LCCALC") ("LCCAT" . "LCCAT") ("LCDEF"
-     . "LCDEF") ("LCFACT" . "LCFACT") ("LCFILE" . "LCFILE") ("LCLEAR"
-     . "LCLEAR") ("LCOMB" . "LCOMB") ("LCOPER" . "LCOPER") ("LCSEL"
-     . "LCSEL") ("LCSL" . "LCSL") ("LCSUM" . "LCSUM") ("LCWRITE"
-     . "LCWRITE") ("LCZERO" . "LCZERO") ("LDELE" . "LDELE") ("LDIV"
-     . "LDIV") ("LDRAG" . "LDRAG") ("LDREAD" . "LDREAD") ("LESIZE"
-     . "LESIZE") ("LEXTND" . "LEXTND") ("LFILLT" . "LFILLT") ("LFSURF"
-     . "LFSURF") ("LGEN" . "LGEN") ("LGLUE" . "LGLUE") ("LGWRITE"
-     . "LGWRITE") ("/LIGHT" . "/LIGHT") ("LINA" . "LINA") ("LINE"
-     . "LINE") ("/LINE" . "/LINE") ("LINES" . "LINES") ("LINL"
-     . "LINL") ("LINP" . "LINP") ("LINV" . "LINV") ("LIST"
-     . "LIST") ("*LIST" . "*LIST") ("LLIST" . "LLIST") ("LMATRIX"
-     . "LMATRIX") ("LMESH" . "LMESH") ("LNCOLLAPSE"
-     . "LNCOLLAPSE") ("LNDETACH" . "LNDETACH") ("LNFILL"
-     . "LNFILL") ("LNMERGE" . "LNMERGE") ("LNSPLIT"
-     . "LNSPLIT") ("LNSRCH" . "LNSRCH") ("LOCAL" . "LOCAL") ("LOVLAP"
-     . "LOVLAP") ("LPLOT" . "LPLOT") ("LPTN" . "LPTN") ("LREFINE"
-     . "LREFINE") ("LREVERSE" . "LREVERSE") ("LROTAT"
-     . "LROTAT") ("LSBA" . "LSBA") ("LSBL" . "LSBL") ("LSBV"
-     . "LSBV") ("LSBW" . "LSBW") ("LSCLEAR" . "LSCLEAR") ("LSDELE"
-     . "LSDELE") ("LSEL" . "LSEL") ("LSLA" . "LSLA") ("LSLK"
-     . "LSLK") ("LSOPER" . "LSOPER") ("/LSPEC" . "/LSPEC") ("LSREAD"
-     . "LSREAD") ("LSSCALE" . "LSSCALE") ("LSSOLVE"
-     . "LSSOLVE") ("LSTR" . "LSTR") ("LSUM" . "LSUM") ("LSWRITE"
-     . "LSWRITE") ("/LSYMBOL" . "/LSYMBOL") ("LSYMM"
-     . "LSYMM") ("LTAN" . "LTAN") ("LTRAN" . "LTRAN") ("LUMPM"
-     . "LUMPM") ("LVSCALE" . "LVSCALE") ("LWPLAN" . "LWPLAN") ("M"
-     . "M") ("MAGOPT" . "MAGOPT") ("MAGSOLV" . "MAGSOLV") ("MAPSOLVE"
-     . "MAPSOLVE") ("MASTER" . "MASTER") ("MAT" . "MAT") ("MATER"
-     . "MATER") ("MCHECK" . "MCHECK") ("MDAMP" . "MDAMP") ("MDELE"
-     . "MDELE") ("MDPLOT" . "MDPLOT") ("MEMM" . "MEMM") ("/MENU"
-     . "/MENU") ("MESHING" . "MESHING") ("MFANALYSIS"
-     . "MFANALYSIS") ("MFBUCKET" . "MFBUCKET") ("MFCALC"
-     . "MFCALC") ("MFCLEAR" . "MFCLEAR") ("MFCMMAND"
-     . "MFCMMAND") ("MFCONV" . "MFCONV") ("MFDTIME"
-     . "MFDTIME") ("MFELEM" . "MFELEM") ("MFEM" . "MFEM") ("MFEXTER"
-     . "MFEXTER") ("MFFNAME" . "MFFNAME") ("MFIMPORT"
-     . "MFIMPORT") ("MFINTER" . "MFINTER") ("MFITER"
-     . "MFITER") ("MFLCOMM" . "MFLCOMM") ("MFLIST"
-     . "MFLIST") ("MFMAP" . "MFMAP") ("MFORDER"
-     . "MFORDER") ("MFOUTPUT" . "MFOUTPUT") ("MFPSIMUL"
-     . "MFPSIMUL") ("MFRELAX" . "MFRELAX") ("MFRSTART"
-     . "MFRSTART") ("MFSORDER" . "MFSORDER") ("MFSURFACE"
-     . "MFSURFACE") ("MFTIME" . "MFTIME") ("MFTOL"
-     . "MFTOL") ("MFVOLUME" . "MFVOLUME") ("MFWRITE"
-     . "MFWRITE") ("MGEN" . "MGEN") ("MIDTOL" . "MIDTOL") ("MITER"
-     . "MITER") ("MLIST" . "MLIST") ("MMF" . "MMF") ("MODE"
-     . "MODE") ("MODIFY" . "MODIFY") ("MODMSH" . "MODMSH") ("MODOPT"
-     . "MODOPT") ("MONITOR" . "MONITOR") ("*MOONEY"
-     . "*MOONEY") ("MOPT" . "MOPT") ("MORPH" . "MORPH") ("MOVE"
-     . "MOVE") ("MP" . "MP") ("MPAMOD" . "MPAMOD") ("MPCHG"
-     . "MPCHG") ("MPCOPY" . "MPCOPY") ("MPDATA" . "MPDATA") ("MPDELE"
-     . "MPDELE") ("MPDRES" . "MPDRES") ("/MPLIB" . "/MPLIB") ("MPLIST"
-     . "MPLIST") ("MPPLOT" . "MPPLOT") ("MPREAD" . "MPREAD") ("MPRINT"
-     . "MPRINT") ("MPTEMP" . "MPTEMP") ("MPTGEN" . "MPTGEN") ("MPTRES"
-     . "MPTRES") ("MPWRITE" . "MPWRITE") ("/MREP" . "/MREP") ("MSADV"
-     . "MSADV") ("MSAVE" . "MSAVE") ("MSCAP" . "MSCAP") ("MSDATA"
-     . "MSDATA") ("MSHAPE" . "MSHAPE") ("MSHCOPY"
-     . "MSHCOPY") ("MSHKEY" . "MSHKEY") ("MSHMID"
-     . "MSHMID") ("MSHPATTERN" . "MSHPATTERN") ("MSMASS"
-     . "MSMASS") ("MSMETH" . "MSMETH") ("MSMIR" . "MSMIR") ("MSNOMF"
-     . "MSNOMF") ("MSPROP" . "MSPROP") ("MSQUAD"
-     . "MSQUAD") ("MSRELAX" . "MSRELAX") ("MSSOLU"
-     . "MSSOLU") ("MSSPEC" . "MSSPEC") ("/MSTART"
-     . "/MSTART") ("MSTERM" . "MSTERM") ("MSVARY"
-     . "MSVARY") ("MXPAND" . "MXPAND") ("N" . "N") ("NANG"
-     . "NANG") ("NCNV" . "NCNV") ("NDELE" . "NDELE") ("NDIST"
-     . "NDIST") ("NDSURF" . "NDSURF") ("NEQIT" . "NEQIT") ("/NERR"
-     . "/NERR") ("NFORCE" . "NFORCE") ("NGEN" . "NGEN") ("NKPT"
-     . "NKPT") ("NLDIAG" . "NLDIAG") ("NLDPOST" . "NLDPOST") ("NLGEOM"
-     . "NLGEOM") ("NLHIST" . "NLHIST") ("NLIST" . "NLIST") ("NLOG"
-     . "NLOG") ("NLOPT" . "NLOPT") ("NMODIF" . "NMODIF") ("NOCOLOR"
-     . "NOCOLOR") ("NODES" . "NODES") ("/NOERASE"
-     . "/NOERASE") ("/NOLIST" . "/NOLIST") ("NOOFFSET"
-     . "NOOFFSET") ("NOORDER" . "NOORDER") ("/NOPR" . "/NOPR") ("NORA"
-     . "NORA") ("NORL" . "NORL") ("/NORMAL" . "/NORMAL") ("NPLOT"
-     . "NPLOT") ("NPRINT" . "NPRINT") ("NREAD" . "NREAD") ("NREFINE"
-     . "NREFINE") ("NRLSUM" . "NRLSUM") ("NROPT" . "NROPT") ("NROTAT"
-     . "NROTAT") ("NRRANG" . "NRRANG") ("NSCALE" . "NSCALE") ("NSEL"
-     . "NSEL") ("NSLA" . "NSLA") ("NSLE" . "NSLE") ("NSLK"
-     . "NSLK") ("NSLL" . "NSLL") ("NSLV" . "NSLV") ("NSMOOTH"
-     . "NSMOOTH") ("NSOL" . "NSOL") ("NSORT" . "NSORT") ("NSTORE"
-     . "NSTORE") ("NSUBST" . "NSUBST") ("NSVR" . "NSVR") ("NSYM"
-     . "NSYM") ("/NUMBER" . "/NUMBER") ("NUMCMP" . "NUMCMP") ("NUMEXP"
-     . "NUMEXP") ("NUMMRG" . "NUMMRG") ("NUMOFF" . "NUMOFF") ("NUMSTR"
-     . "NUMSTR") ("NUMVAR" . "NUMVAR") ("NUSORT" . "NUSORT") ("NWPAVE"
-     . "NWPAVE") ("NWPLAN" . "NWPLAN") ("NWRITE" . "NWRITE") ("OMEGA"
-     . "OMEGA") ("OPADD" . "OPADD") ("OPANL" . "OPANL") ("OPCLR"
-     . "OPCLR") ("OPDATA" . "OPDATA") ("OPDEL" . "OPDEL") ("OPEQN"
-     . "OPEQN") ("OPERATE" . "OPERATE") ("OPEXE" . "OPEXE") ("OPFACT"
-     . "OPFACT") ("OPFRST" . "OPFRST") ("OPGRAD" . "OPGRAD") ("OPKEEP"
-     . "OPKEEP") ("OPLFA" . "OPLFA") ("OPLGR" . "OPLGR") ("OPLIST"
-     . "OPLIST") ("OPLOOP" . "OPLOOP") ("OPLSW" . "OPLSW") ("OPMAKE"
-     . "OPMAKE") ("OPNCONTROL" . "OPNCONTROL") ("OPPRNT"
-     . "OPPRNT") ("OPRAND" . "OPRAND") ("OPRESU" . "OPRESU") ("OPRFA"
-     . "OPRFA") ("OPRGR" . "OPRGR") ("OPRSW" . "OPRSW") ("OPSAVE"
-     . "OPSAVE") ("OPSEL" . "OPSEL") ("OPSUBP" . "OPSUBP") ("OPSWEEP"
-     . "OPSWEEP") ("/OPT" . "/OPT") ("OPTYPE" . "OPTYPE") ("OPUSER"
-     . "OPUSER") ("OPVAR" . "OPVAR") ("OUTOPT" . "OUTOPT") ("OUTPR"
-     . "OUTPR") ("/OUTPUT" . "/OUTPUT") ("OUTRES"
-     . "OUTRES") ("PADELE" . "PADELE") ("/PAGE" . "/PAGE") ("PAGET"
-     . "PAGET") ("PAPUT" . "PAPUT") ("PARESU" . "PARESU") ("PARTSEL"
-     . "PARTSEL") ("PASAVE" . "PASAVE") ("PATH" . "PATH") ("/PBC"
-     . "/PBC") ("/PBF" . "/PBF") ("PCALC" . "PCALC") ("PCGOPT"
-     . "PCGOPT") ("PCIRC" . "PCIRC") ("/PCIRCLE"
-     . "/PCIRCLE") ("PCONV" . "PCONV") ("/PCOPY" . "/PCOPY") ("PCORRO"
-     . "PCORRO") ("PCROSS" . "PCROSS") ("PDANL" . "PDANL") ("PDCDF"
-     . "PDCDF") ("PDCFLD" . "PDCFLD") ("PDCLR" . "PDCLR") ("PDCMAT"
-     . "PDCMAT") ("PDCORR" . "PDCORR") ("PDDMCS" . "PDDMCS") ("PDDOEL"
-     . "PDDOEL") ("PDEF" . "PDEF") ("PDEXE" . "PDEXE") ("PDHIST"
-     . "PDHIST") ("PDINQR" . "PDINQR") ("PDLHS" . "PDLHS") ("PDMETH"
-     . "PDMETH") ("PDOT" . "PDOT") ("PDPINV" . "PDPINV") ("PDPLOT"
-     . "PDPLOT") ("PDPROB" . "PDPROB") ("PDRAG" . "PDRAG") ("PDRESU"
-     . "PDRESU") ("PDROPT" . "PDROPT") ("/PDS" . "/PDS") ("PDSAVE"
-     . "PDSAVE") ("PDSCAT" . "PDSCAT") ("PDSENS" . "PDSENS") ("PDSHIS"
-     . "PDSHIS") ("PDUSER" . "PDUSER") ("PDVAR" . "PDVAR") ("PDWRITE"
-     . "PDWRITE") ("PEMOPTS" . "PEMOPTS") ("PERBC2D"
-     . "PERBC2D") ("PERI" . "PERI") ("PEXCLUDE" . "PEXCLUDE") ("PFACT"
-     . "PFACT") ("PFLUID" . "PFLUID") ("PGAP" . "PGAP") ("PGRAPH"
-     . "PGRAPH") ("PGRSET" . "PGRSET") ("PGSAVE" . "PGSAVE") ("PGSELE"
-     . "PGSELE") ("PGWRITE" . "PGWRITE") ("PHYSICS"
-     . "PHYSICS") ("/PICE" . "/PICE") ("PINCLUDE"
-     . "PINCLUDE") ("PINSUL" . "PINSUL") ("PIPE" . "PIPE") ("PIVCHECK"
-     . "PIVCHECK") ("PLCAMP" . "PLCAMP") ("PLCONV"
-     . "PLCONV") ("PLCPLX" . "PLCPLX") ("PLCRACK"
-     . "PLCRACK") ("PLDISP" . "PLDISP") ("PLESOL"
-     . "PLESOL") ("PLETAB" . "PLETAB") ("PLF2D" . "PLF2D") ("PLHFFAR"
-     . "PLHFFAR") ("PLLS" . "PLLS") ("PLNSOL" . "PLNSOL") ("/PLOPTS"
-     . "/PLOPTS") ("PLOT" . "PLOT") ("PLOTTING"
-     . "PLOTTING") ("PLPAGM" . "PLPAGM") ("PLPATH"
-     . "PLPATH") ("PLSCH" . "PLSCH") ("PLSECT" . "PLSECT") ("PLSYZ"
-     . "PLSYZ") ("PLTIME" . "PLTIME") ("PLTRAC" . "PLTRAC") ("PLVAR"
-     . "PLVAR") ("PLVAROPT" . "PLVAROPT") ("PLVECT"
-     . "PLVECT") ("PLVFRC" . "PLVFRC") ("PLWAVE" . "PLWAVE") ("PMAP"
-     . "PMAP") ("PMETH" . "PMETH") ("/PMETH" . "/PMETH") ("PMGTRAN"
-     . "PMGTRAN") ("PMLOPT" . "PMLOPT") ("PMLSIZE"
-     . "PMLSIZE") ("PMOPTS" . "PMOPTS") ("/PMORE" . "/PMORE") ("PNGR"
-     . "PNGR") ("/PNUM" . "/PNUM") ("POINT" . "POINT") ("POLY"
-     . "POLY") ("/POLYGON" . "/POLYGON") ("POPT" . "POPT") ("/POST1"
-     . "/POST1") ("/POST26" . "/POST26") ("POUTRES"
-     . "POUTRES") ("POWERH" . "POWERH") ("PPATH" . "PPATH") ("PPLOT"
-     . "PPLOT") ("PPRANGE" . "PPRANGE") ("PPRES" . "PPRES") ("PRANGE"
-     . "PRANGE") ("PRCAMP" . "PRCAMP") ("PRCONV" . "PRCONV") ("PRCPLX"
-     . "PRCPLX") ("PRECISION" . "PRECISION") ("PRED"
-     . "PRED") ("/PREP7" . "/PREP7") ("PRERR" . "PRERR") ("PRESOL"
-     . "PRESOL") ("PRETAB" . "PRETAB") ("PRHFFAR" . "PRHFFAR") ("PRI2"
-     . "PRI2") ("PRIM" . "PRIM") ("PRINT" . "PRINT") ("PRISM"
-     . "PRISM") ("PRITER" . "PRITER") ("PRJSOL" . "PRJSOL") ("PRNLD"
-     . "PRNLD") ("PRNSOL" . "PRNSOL") ("PROD" . "PROD") ("PRPATH"
-     . "PRPATH") ("PRRFOR" . "PRRFOR") ("PRRSOL" . "PRRSOL") ("PRSECT"
-     . "PRSECT") ("PRSSOL" . "PRSSOL") ("PRSYZ" . "PRSYZ") ("PRTIME"
-     . "PRTIME") ("PRVAR" . "PRVAR") ("PRVAROPT"
-     . "PRVAROPT") ("PRVECT" . "PRVECT") ("PSCONTROL"
-     . "PSCONTROL") ("PSCR" . "PSCR") ("PSDCOM" . "PSDCOM") ("PSDFRQ"
-     . "PSDFRQ") ("PSDGRAPH" . "PSDGRAPH") ("PSDRES"
-     . "PSDRES") ("PSDSPL" . "PSDSPL") ("PSDUNIT"
-     . "PSDUNIT") ("PSDVAL" . "PSDVAL") ("PSDWAV" . "PSDWAV") ("PSEL"
-     . "PSEL") ("/PSF" . "/PSF") ("PSMESH" . "PSMESH") ("PSOLVE"
-     . "PSOLVE") ("PSPEC" . "PSPEC") ("/PSPEC" . "/PSPEC") ("PSPRNG"
-     . "PSPRNG") ("/PSTATUS" . "/PSTATUS") ("PSTRES"
-     . "PSTRES") ("/PSYMB" . "/PSYMB") ("PTEMP" . "PTEMP") ("PTXY"
-     . "PTXY") ("PUNIT" . "PUNIT") ("PVECT" . "PVECT") ("/PWEDGE"
-     . "/PWEDGE") ("QDVAL" . "QDVAL") ("QFACT" . "QFACT") ("QSOPT"
-     . "QSOPT") ("QUAD" . "QUAD") ("/QUIT" . "/QUIT") ("QUOT"
-     . "QUOT") ("R" . "R") ("RACE" . "RACE") ("RADOPT"
-     . "RADOPT") ("RALL" . "RALL") ("RAPPND" . "RAPPND") ("RATE"
-     . "RATE") ("/RATIO" . "/RATIO") ("RBE3" . "RBE3") ("RCON"
-     . "RCON") ("RDEC" . "RDEC") ("RDELE" . "RDELE") ("REAL"
-     . "REAL") ("REALVAR" . "REALVAR") ("RECTNG" . "RECTNG") ("REDUCE"
-     . "REDUCE") ("REFLCOEF" . "REFLCOEF") ("/RENAME"
-     . "/RENAME") ("REORDER" . "REORDER") ("/REPLOT"
-     . "/REPLOT") ("RESCONTROL" . "RESCONTROL") ("RESET"
-     . "RESET") ("/RESET" . "/RESET") ("RESP" . "RESP") ("RESUME"
-     . "RESUME") ("REXPORT" . "REXPORT") ("REZONE"
-     . "REZONE") ("RFILSZ" . "RFILSZ") ("RFORCE" . "RFORCE") ("/RGB"
-     . "/RGB") ("RIGID" . "RIGID") ("RIMPORT" . "RIMPORT") ("RITER"
-     . "RITER") ("RLIST" . "RLIST") ("RMALIST" . "RMALIST") ("RMANL"
-     . "RMANL") ("RMASTER" . "RMASTER") ("RMCAP" . "RMCAP") ("RMCLIST"
-     . "RMCLIST") ("RMEMRY" . "RMEMRY") ("RMFLVEC"
-     . "RMFLVEC") ("RMLVSCALE" . "RMLVSCALE") ("RMMLIST"
-     . "RMMLIST") ("RMMRANGE" . "RMMRANGE") ("RMMSELECT"
-     . "RMMSELECT") ("RMNDISP" . "RMNDISP") ("RMNEVEC"
-     . "RMNEVEC") ("RMODIF" . "RMODIF") ("RMORE"
-     . "RMORE") ("RMPORDER" . "RMPORDER") ("RMRESUME"
-     . "RMRESUME") ("RMRGENERATE" . "RMRGENERATE") ("RMROPTIONS"
-     . "RMROPTIONS") ("RMRPLOT" . "RMRPLOT") ("RMRSTATUS"
-     . "RMRSTATUS") ("RMSAVE" . "RMSAVE") ("RMSMPLE"
-     . "RMSMPLE") ("RMUSE" . "RMUSE") ("RMXPORT" . "RMXPORT") ("ROCK"
-     . "ROCK") ("RPOLY" . "RPOLY") ("RPR4" . "RPR4") ("RPRISM"
-     . "RPRISM") ("RPSD" . "RPSD") ("RSFIT" . "RSFIT") ("RSOPT"
-     . "RSOPT") ("RSPEED" . "RSPEED") ("RSPLIT" . "RSPLIT") ("RSPLOT"
-     . "RSPLOT") ("RSPRNT" . "RSPRNT") ("RSSIMS" . "RSSIMS") ("RSTAT"
-     . "RSTAT") ("RSTOFF" . "RSTOFF") ("RSURF" . "RSURF") ("RSYMM"
-     . "RSYMM") ("RSYS" . "RSYS") ("RTHICK" . "RTHICK") ("RTIMST"
-     . "RTIMST") ("RUN" . "RUN") ("/RUNST" . "/RUNST") ("RWFRNT"
-     . "RWFRNT") ("SABS" . "SABS") ("SADD" . "SADD") ("SALLOW"
-     . "SALLOW") ("SARPLOT" . "SARPLOT") ("SAVE" . "SAVE") ("SBCLIST"
-     . "SBCLIST") ("SBCTRAN" . "SBCTRAN") ("SDELETE"
-     . "SDELETE") ("SE" . "SE") ("SECCONTROLS"
-     . "SECCONTROLS") ("SECDATA" . "SECDATA") ("SECFUNCTION"
-     . "SECFUNCTION") ("SECJOINT" . "SECJOINT") ("/SECLIB"
-     . "/SECLIB") ("SECLOCK" . "SECLOCK") ("SECMODIF"
-     . "SECMODIF") ("SECNUM" . "SECNUM") ("SECOFFSET"
-     . "SECOFFSET") ("SECPLOT" . "SECPLOT") ("SECREAD"
-     . "SECREAD") ("SECSTOP" . "SECSTOP") ("SECTYPE"
-     . "SECTYPE") ("SECWRITE" . "SECWRITE") ("SED" . "SED") ("SEDLIST"
-     . "SEDLIST") ("SEEXP" . "SEEXP") ("/SEG" . "/SEG") ("SEGEN"
-     . "SEGEN") ("SELIST" . "SELIST") ("SELM" . "SELM") ("SELTOL"
-     . "SELTOL") ("SENERGY" . "SENERGY") ("SEOPT" . "SEOPT") ("SESYMM"
-     . "SESYMM") ("SET" . "SET") ("SETFGAP" . "SETFGAP") ("SETRAN"
-     . "SETRAN") ("SEXP" . "SEXP") ("SF" . "SF") ("SFA"
-     . "SFA") ("SFACT" . "SFACT") ("SFADELE" . "SFADELE") ("SFALIST"
-     . "SFALIST") ("SFBEAM" . "SFBEAM") ("SFCALC" . "SFCALC") ("SFCUM"
-     . "SFCUM") ("SFDELE" . "SFDELE") ("SFE" . "SFE") ("SFEDELE"
-     . "SFEDELE") ("SFELIST" . "SFELIST") ("SFFUN"
-     . "SFFUN") ("SFGRAD" . "SFGRAD") ("SFL" . "SFL") ("SFLDELE"
-     . "SFLDELE") ("SFLIST" . "SFLIST") ("SFLLIST"
-     . "SFLLIST") ("SFSCALE" . "SFSCALE") ("SFTRAN"
-     . "SFTRAN") ("/SHADE" . "/SHADE") ("SHELL" . "SHELL") ("/SHOW"
-     . "/SHOW") ("/SHOWDISP" . "/SHOWDISP") ("SHPP"
-     . "SHPP") ("/SHRINK" . "/SHRINK") ("SHSD" . "SHSD") ("SLIST"
-     . "SLIST") ("SLOAD" . "SLOAD") ("SLPPLOT" . "SLPPLOT") ("SLSPLOT"
-     . "SLSPLOT") ("SMALL" . "SMALL") ("SMAX" . "SMAX") ("/SMBC"
-     . "/SMBC") ("SMBODY" . "SMBODY") ("SMCONS" . "SMCONS") ("SMFOR"
-     . "SMFOR") ("SMIN" . "SMIN") ("SMOOTH" . "SMOOTH") ("SMRTSIZE"
-     . "SMRTSIZE") ("SMSURF" . "SMSURF") ("SMULT"
-     . "SMULT") ("SOLCONTROL" . "SOLCONTROL") ("SOLU"
-     . "SOLU") ("/SOLU" . "/SOLU") ("SOLUOPT" . "SOLUOPT") ("SOLVE"
-     . "SOLVE") ("SORT" . "SORT") ("SOURCE" . "SOURCE") ("SPACE"
-     . "SPACE") ("SPARM" . "SPARM") ("SPCNOD" . "SPCNOD") ("SPCTEMP"
-     . "SPCTEMP") ("SPEC" . "SPEC") ("SPH4" . "SPH4") ("SPH5"
-     . "SPH5") ("SPHERE" . "SPHERE") ("SPICE" . "SPICE") ("SPLINE"
-     . "SPLINE") ("SPLOT" . "SPLOT") ("SPOINT" . "SPOINT") ("SPOPT"
-     . "SPOPT") ("SPREAD" . "SPREAD") ("SPSCAN" . "SPSCAN") ("SPSWP"
-     . "SPSWP") ("SPTOPT" . "SPTOPT") ("SQRT" . "SQRT") ("SRSS"
-     . "SRSS") ("SSBT" . "SSBT") ("/SSCALE" . "/SSCALE") ("SSLN"
-     . "SSLN") ("SSMT" . "SSMT") ("SSPA" . "SSPA") ("SSPB"
-     . "SSPB") ("SSPD" . "SSPD") ("SSPE" . "SSPE") ("SSPM"
-     . "SSPM") ("SSTIF" . "SSTIF") ("SSUM" . "SSUM") ("STAOPT"
-     . "STAOPT") ("STAT" . "STAT") ("/STATUS" . "/STATUS") ("STEF"
-     . "STEF") ("/STITLE" . "/STITLE") ("STORE" . "STORE") ("SUBOPT"
-     . "SUBOPT") ("SUBSET" . "SUBSET") ("SUCALC" . "SUCALC") ("SUCR"
-     . "SUCR") ("SUDEL" . "SUDEL") ("SUEVAL" . "SUEVAL") ("SUGET"
-     . "SUGET") ("SUMAP" . "SUMAP") ("SUMTYPE" . "SUMTYPE") ("SUPL"
-     . "SUPL") ("SUPR" . "SUPR") ("SURESU" . "SURESU") ("SUSAVE"
-     . "SUSAVE") ("SUSEL" . "SUSEL") ("SUVECT" . "SUVECT") ("SV"
-     . "SV") ("SVTYP" . "SVTYP") ("SWADD" . "SWADD") ("SWDEL"
-     . "SWDEL") ("SWGEN" . "SWGEN") ("SWLIST" . "SWLIST") ("/SX"
-     . "/SX") ("SXCLR" . "SXCLR") ("SXDISC" . "SXDISC") ("SXEVAL"
-     . "SXEVAL") ("SXFREQ" . "SXFREQ") ("SXGEOM" . "SXGEOM") ("SXIN"
-     . "SXIN") ("SXMETH" . "SXMETH") ("SXMP" . "SXMP") ("SXOP"
-     . "SXOP") ("SXPOST" . "SXPOST") ("SXREAL" . "SXREAL") ("SXRFIL"
-     . "SXRFIL") ("SXRSLT" . "SXRSLT") ("SXSEC" . "SXSEC") ("SXSFE"
-     . "SXSFE") ("SXSL" . "SXSL") ("SXSTAT" . "SXSTAT") ("SXTEMP"
-     . "SXTEMP") ("SXVMOD" . "SXVMOD") ("/SYP" . "/SYP") ("/SYS"
-     . "/SYS") ("TALLOW" . "TALLOW") ("TB" . "TB") ("TBCOPY"
-     . "TBCOPY") ("TBDATA" . "TBDATA") ("TBDELE"
-     . "TBDELE") ("TBFIELD" . "TBFIELD") ("TBFT" . "TBFT") ("TBLE"
-     . "TBLE") ("TBLIST" . "TBLIST") ("TBMODIF" . "TBMODIF") ("TBPLOT"
-     . "TBPLOT") ("TBPT" . "TBPT") ("TBTEMP" . "TBTEMP") ("TCHG"
-     . "TCHG") ("TEE" . "TEE") ("TERM" . "TERM") ("THOPT"
-     . "THOPT") ("TIFF" . "TIFF") ("TIME" . "TIME") ("TIMERANGE"
-     . "TIMERANGE") ("TIMINT" . "TIMINT") ("TIMP" . "TIMP") ("TINTP"
-     . "TINTP") ("/TITLE" . "/TITLE") ("/TLABEL"
-     . "/TLABEL") ("TOCOMP" . "TOCOMP") ("TODEF" . "TODEF") ("TOEXE"
-     . "TOEXE") ("TOFFST" . "TOFFST") ("TOFREQ" . "TOFREQ") ("TOGRAPH"
-     . "TOGRAPH") ("TOLIST" . "TOLIST") ("TOLOOP"
-     . "TOLOOP") ("TOPLOT" . "TOPLOT") ("TOPRINT"
-     . "TOPRINT") ("TORQ2D" . "TORQ2D") ("TORQC2D"
-     . "TORQC2D") ("TORQSUM" . "TORQSUM") ("TORUS"
-     . "TORUS") ("TOSTAT" . "TOSTAT") ("TOTAL" . "TOTAL") ("TOTYPE"
-     . "TOTYPE") ("TOVAR" . "TOVAR") ("TRANS" . "TRANS") ("TRANSFER"
-     . "TRANSFER") ("TREF" . "TREF") ("/TRIAD" . "/TRIAD") ("/TRLCY"
-     . "/TRLCY") ("TRNOPT" . "TRNOPT") ("TRPDEL" . "TRPDEL") ("TRPLIS"
-     . "TRPLIS") ("TRPOIN" . "TRPOIN") ("TRTIME" . "TRTIME") ("TSHAP"
-     . "TSHAP") ("/TSPEC" . "/TSPEC") ("TSRES" . "TSRES") ("TUNIF"
-     . "TUNIF") ("TVAR" . "TVAR") ("/TXTRE" . "/TXTRE") ("/TYPE"
-     . "/TYPE") ("TYPE" . "TYPE") ("TZAMESH" . "TZAMESH") ("TZDELE"
-     . "TZDELE") ("TZEGEN" . "TZEGEN") ("/UDOC" . "/UDOC") ("/UI"
-     . "/UI") ("UIMP" . "UIMP") ("/UIS" . "/UIS") ("UNDELETE"
-     . "UNDELETE") ("UNDO" . "UNDO") ("/UNITS" . "/UNITS") ("UPCOORD"
-     . "UPCOORD") ("UPGEOM" . "UPGEOM") ("/USER" . "/USER") ("USRCAL"
-     . "USRCAL") ("V" . "V") ("V2DOPT" . "V2DOPT") ("VA"
-     . "VA") ("VADD" . "VADD") ("VALVE" . "VALVE") ("VARDEL"
-     . "VARDEL") ("VARNAM" . "VARNAM") ("VATT" . "VATT") ("VCLEAR"
-     . "VCLEAR") ("/VCONE" . "/VCONE") ("VCROSS"
-     . "VCROSS") ("VCVFILL" . "VCVFILL") ("VDDAM" . "VDDAM") ("VDELE"
-     . "VDELE") ("VDGL" . "VDGL") ("VDOT" . "VDOT") ("VDRAG"
-     . "VDRAG") ("VEORIENT" . "VEORIENT") ("VEXT" . "VEXT") ("VFCALC"
-     . "VFCALC") ("VFOPT" . "VFOPT") ("VFQUERY" . "VFQUERY") ("VGEN"
-     . "VGEN") ("VGET" . "VGET") ("VGLUE" . "VGLUE") ("/VIEW"
-     . "/VIEW") ("VIMP" . "VIMP") ("VINP" . "VINP") ("VINV"
-     . "VINV") ("VLIST" . "VLIST") ("VLSCALE" . "VLSCALE") ("VMESH"
-     . "VMESH") ("VOFFST" . "VOFFST") ("VOLUMES"
-     . "VOLUMES") ("VOVLAP" . "VOVLAP") ("VPLOT" . "VPLOT") ("VPTN"
-     . "VPTN") ("VPUT" . "VPUT") ("VROTAT" . "VROTAT") ("VSBA"
-     . "VSBA") ("VSBV" . "VSBV") ("VSBW" . "VSBW") ("/VSCALE"
-     . "/VSCALE") ("VSEL" . "VSEL") ("VSLA" . "VSLA") ("VSUM"
-     . "VSUM") ("VSWEEP" . "VSWEEP") ("VSYMM" . "VSYMM") ("VTRAN"
-     . "VTRAN") ("VTYPE" . "VTYPE") ("/VUP" . "/VUP") ("WAVES"
-     . "WAVES") ("WERASE" . "WERASE") ("WFRONT" . "WFRONT") ("/WINDOW"
-     . "/WINDOW") ("WMID" . "WMID") ("WMORE" . "WMORE") ("WPAVE"
-     . "WPAVE") ("WPCSYS" . "WPCSYS") ("WPLANE" . "WPLANE") ("WPOFFS"
-     . "WPOFFS") ("WPROTA" . "WPROTA") ("WPSTYL" . "WPSTYL") ("WRFULL"
-     . "WRFULL") ("WRITE" . "WRITE") ("WSORT" . "WSORT") ("WSPRINGS"
-     . "WSPRINGS") ("WSTART" . "WSTART") ("/XFRM"
-     . "/XFRM") ("/XRANGE" . "/XRANGE") ("XVAR" . "XVAR") ("XVAROPT"
-     . "XVAROPT") ("/YRANGE" . "/YRANGE") ("/ZOOM"
-     . "/ZOOM") ("NSEL()" . "NSEL()") ("ESEL()" . "ESEL()") ("KSEL()"
-     . "KSEL()") ("LSEL()" . "LSEL()") ("ASEL()" . "ASEL()") ("VSEL()"
-     . "VSEL()") ("NDNEXT()" . "NDNEXT()") ("ELNEXT()"
-     . "ELNEXT()") ("KPNEXT()" . "KPNEXT()") ("LSNEXT()"
-     . "LSNEXT()") ("ARNEXT()" . "ARNEXT()") ("VLNEXT()"
-     . "VLNEXT()") ("CENTRX()" . "CENTRX()") ("CENTRY()"
-     . "CENTRY()") ("CENTRZ()" . "CENTRZ()") ("NX()" . "NX()") ("NY()"
-     . "NY()") ("NZ()" . "NZ()") ("KX()" . "KX()") ("KY()"
-     . "KY()") ("KZ()" . "KZ()") ("LX()" . "LX()") ("LY()"
-     . "LY()") ("LZ()" . "LZ()") ("LSX()" . "LSX()") ("LSY()"
-     . "LSY()") ("LSZ()" . "LSZ()") ("NODE()" . "NODE()") ("KP()"
-     . "KP()") ("DISTND()" . "DISTND()") ("DISTKP()"
-     . "DISTKP()") ("DISTEN()" . "DISTEN()") ("ANGLEN()"
-     . "ANGLEN()") ("ANGLEK()" . "ANGLEK()") ("NNEAR()"
-     . "NNEAR()") ("KNEAR()" . "KNEAR()") ("ENEARN()"
-     . "ENEARN()") ("AREAND()" . "AREAND()") ("AREAKP()"
-     . "AREAKP()") ("ARNODE()" . "ARNODE()") ("NORMNX()"
-     . "NORMNX()") ("NORMNY()" . "NORMNY()") ("NORMNZ()"
-     . "NORMNZ()") ("NORMKX()" . "NORMKX()") ("NORMKY()"
-     . "NORMKY()") ("NORMKZ()" . "NORMKZ()") ("ENEXTN()"
-     . "ENEXTN()") ("NELEM()" . "NELEM()") ("NODEDOF()"
-     . "NODEDOF()") ("ELADJ()" . "ELADJ()") ("NDFACE()"
-     . "NDFACE()") ("NMFACE()" . "NMFACE()") ("ARFACE()"
-     . "ARFACE()") ("UX()" . "UX()") ("UY()" . "UY()") ("UZ()"
-     . "UZ()") ("ROTX()" . "ROTX()") ("ROTY()" . "ROTY()") ("ROTZ()"
-     . "ROTZ()") ("TEMP()" . "TEMP()") ("PRES()" . "PRES()") ("VX()"
-     . "VX()") ("VY()" . "VY()") ("VZ()" . "VZ()") ("ENKE()"
-     . "ENKE()") ("ENDS()" . "ENDS()") ("VOLT()" . "VOLT()") ("MAG()"
-     . "MAG()") ("AX()" . "AX()") ("AY()" . "AY()") ("AZ()"
-     . "AZ()") ("VIRTINQR()" . "VIRTINQR()") ("KWGET()"
-     . "KWGET()") ("VALCHR()" . "VALCHR()") ("VALHEX()"
-     . "VALHEX()") ("CHRHEX()" . "CHRHEX()") ("STRSUB()"
-     . "STRSUB()") ("STRCAT()" . "STRCAT()") ("STRFILL()"
-     . "STRFILL()") ("STRCOMP()" . "STRCOMP()") ("STRLEFT()"
-     . "STRLEFT()") ("STRPOS()" . "STRPOS()") ("STRLENG()"
-     . "STRLENG()") ("UPCASE()" . "UPCASE()") ("LWCASE()"
-     . "LWCASE()") ("SPLIT()" . "SPLIT()"))
+    ("PLANE2" . "PLANE2")
+    ("BEAM3" . "BEAM3")
+    ("BEAM4" . "BEAM4")
+    ("SOLID5" . "SOLID5")
+    ("COMBIN7" . "COMBIN7")
+    ("LINK8" . "LINK8")
+    ("INFIN9" . "INFIN9")
+    ("LINK10" . "LINK10")
+    ("LINK11" . "LINK11")
+    ("CONTAC12" . "CONTAC12")
+    ("PLANE13" . "PLANE13")
+    ("COMBIN14" . "COMBIN14")
+    ("PIPE16" . "PIPE16")
+    ("PIPE17" . "PIPE17")
+    ("PIPE18" . "PIPE18")
+    ("PIPE20" . "PIPE20")
+    ("MASS21" . "MASS21")
+    ("BEAM23" . "BEAM23")
+    ("BEAM24" . "BEAM24")
+    ("PLANE25" . "PLANE25")
+    ("MATRIX27" . "MATRIX27")
+    ("SHELL28" . "SHELL28")
+    ("FLUID29" . "FLUID29")
+    ("FLUID30" . "FLUID30")
+    ("LINK31" . "LINK31")
+    ("LINK32" . "LINK32")
+    ("LINK33" . "LINK33")
+    ("LINK34" . "LINK34")
+    ("PLANE35" . "PLANE35")
+    ("SOURC36" . "SOURC36")
+    ("COMBIN37" . "COMBIN37")
+    ("FLUID38" . "FLUID38")
+    ("COMBIN39" . "COMBIN39")
+    ("COMBIN40" . "COMBIN40")
+    ("SHELL41" . "SHELL41")
+    ("PLANE42" . "PLANE42")
+    ("SHELL43" . "SHELL43")
+    ("BEAM44" . "BEAM44")
+    ("SOLID45" . "SOLID45")
+    ("SOLID46" . "SOLID46")
+    ("INFIN47" . "INFIN47")
+    ("MATRIX50" . "MATRIX50")
+    ("SHELL51" . "SHELL51")
+    ("CONTAC52" . "CONTAC52")
+    ("PLANE53" . "PLANE53")
+    ("BEAM54" . "BEAM54")
+    ("PLANE55" . "PLANE55")
+    ("SHELL57" . "SHELL57")
+    ("PIPE59" . "PIPE59")
+    ("PIPE60" . "PIPE60")
+    ("SHELL61" . "SHELL61")
+    ("SOLID62" . "SOLID62")
+    ("SHELL63" . "SHELL63")
+    ("SOLID64" . "SOLID64")
+    ("SOLID65" . "SOLID65")
+    ("PLANE67" . "PLANE67")
+    ("LINK68" . "LINK68")
+    ("SOLID69" . "SOLID69")
+    ("SOLID70" . "SOLID70")
+    ("MASS71" . "MASS71")
+    ("PLANE75" . "PLANE75")
+    ("PLANE77" . "PLANE77")
+    ("PLANE78" . "PLANE78")
+    ("FLUID79" . "FLUID79")
+    ("FLUID80" . "FLUID80")
+    ("FLUID81" . "FLUID81")
+    ("PLANE82" . "PLANE82")
+    ("PLANE83" . "PLANE83")
+    ("SOLID87" . "SOLID87")
+    ("VISCO88" . "VISCO88")
+    ("VISCO89" . "VISCO89")
+    ("SOLID90" . "SOLID90")
+    ("SHELL91" . "SHELL91")
+    ("SOLID92" . "SOLID92")
+    ("SHELL93" . "SHELL93")
+    ("CIRCU94" . "CIRCU94")
+    ("SOLID95" . "SOLID95")
+    ("SOLID96" . "SOLID96")
+    ("SOLID97" . "SOLID97")
+    ("SOLID98" . "SOLID98")
+    ("SHELL99" . "SHELL99")
+    ("VISCO106" . "VISCO106")
+    ("VISCO107" . "VISCO107")
+    ("VISCO108" . "VISCO108")
+    ("TRANS109" . "TRANS109")
+    ("INFIN110" . "INFIN110")
+    ("INFIN111" . "INFIN111")
+    ("INTER115" . "INTER115")
+    ("FLUID116" . "FLUID116")
+    ("SOLID117" . "SOLID117")
+    ("HF118" . "HF118")
+    ("HF119" . "HF119")
+    ("HF120" . "HF120")
+    ("PLANE121" . "PLANE121")
+    ("SOLID122" . "SOLID122")
+    ("SOLID123" . "SOLID123")
+    ("CIRCU124" . "CIRCU124")
+    ("CIRCU125" . "CIRCU125")
+    ("TRANS126" . "TRANS126")
+    ("SOLID127" . "SOLID127")
+    ("SOLID128" . "SOLID128")
+    ("FLUID129" . "FLUID129")
+    ("FLUID130" . "FLUID130")
+    ("SHELL131" . "SHELL131")
+    ("SHELL132" . "SHELL132")
+    ("FLUID136" . "FLUID136")
+    ("FLUID138" . "FLUID138")
+    ("FLUID139" . "FLUID139")
+    ("FLUID141" . "FLUID141")
+    ("FLUID142" . "FLUID142")
+    ("SHELL143" . "SHELL143")
+    ("ROM144" . "ROM144")
+    ("PLANE145" . "PLANE145")
+    ("PLANE146" . "PLANE146")
+    ("SOLID147" . "SOLID147")
+    ("SOLID148" . "SOLID148")
+    ("SHELL150" . "SHELL150")
+    ("SURF151" . "SURF151")
+    ("SURF152" . "SURF152")
+    ("SURF153" . "SURF153")
+    ("SURF154" . "SURF154")
+    ("SURF156" . "SURF156")
+    ("SHELL157" . "SHELL157")
+    ("LINK160" . "LINK160")
+    ("BEAM161" . "BEAM161")
+    ("PLANE162" . "PLANE162")
+    ("SHELL163" . "SHELL163")
+    ("SOLID164" . "SOLID164")
+    ("COMBI165" . "COMBI165")
+    ("MASS166" . "MASS166")
+    ("LINK167" . "LINK167")
+    ("SOLID168" . "SOLID168")
+    ("TARGE169" . "TARGE169")
+    ("TARGE170" . "TARGE170")
+    ("CONTA171" . "CONTA171")
+    ("CONTA172" . "CONTA172")
+    ("CONTA173" . "CONTA173")
+    ("CONTA174" . "CONTA174")
+    ("CONTA175" . "CONTA175")
+    ("CONTA176" . "CONTA176")
+    ("CONTA178" . "CONTA178")
+    ("PRETS179" . "PRETS179")
+    ("LINK180" . "LINK180")
+    ("SHELL181" . "SHELL181")
+    ("PLANE182" . "PLANE182")
+    ("PLANE183" . "PLANE183")
+    ("MPC184" . "MPC184")
+    ("SOLID185" . "SOLID185")
+    ("SOLID186" . "SOLID186")
+    ("SOLID187" . "SOLID187")
+    ("BEAM188" . "BEAM188")
+    ("BEAM189" . "BEAM189")
+    ("SOLSH190" . "SOLSH190")
+    ("SOLID191" . "SOLID191")
+    ("INTER192" . "INTER192")
+    ("INTER193" . "INTER193")
+    ("INTER194" . "INTER194")
+    ("INTER195" . "INTER195")
+    ("MESH200" . "MESH200")
+    ("FOLLW201" . "FOLLW201")
+    ("INTER202" . "INTER202")
+    ("INTER203" . "INTER203")
+    ("INTER204" . "INTER204")
+    ("INTER205" . "INTER205")
+    ("SHELL208" . "SHELL208")
+    ("SHELL209" . "SHELL209")
+    ("PLANE223" . "PLANE223")
+    ("SOLID226" . "SOLID226")
+    ("SOLID227" . "SOLID227")
+    ("PLANE230" . "PLANE230")
+    ("SOLID231" . "SOLID231")
+    ("SOLID232" . "SOLID232")
+    ("SURF251" . "SURF251")
+    ("SURF252" . "SURF252")
+    ("*ABBR" . "*ABBR")
+    ("ABBRES" . "ABBRES")
+    ("ABBSAV" . "ABBSAV")
+    ("*AFUN" . "*AFUN")
+    ("*ASK" . "*ASK")
+    ("*CFCLOS" . "*CFCLOS")
+    ("*CFOPEN" . "*CFOPEN")
+    ("*CFWRITE" . "*CFWRITE")
+    ("*CREATE" . "*CREATE")
+    ("*CYCLE" . "*CYCLE")
+    ("*DEL" . "*DEL")
+    ("/DFLAB" . "/DFLAB")
+    ("*DIM" . "*DIM")
+    ("/DIRECTORY" . "/DIRECTORY")
+    ("*DO" . "*DO")
+    ("*DOWHILE" . "*DOWHILE")
+    ("*ELSE" . "*ELSE")
+    ("*ELSEIF" . "*ELSEIF")
+    ("*END" . "*END")
+    ("*ENDDO" . "*ENDDO")
+    ("*ENDIF" . "*ENDIF")
+    ("*EXIT" . "*EXIT")
+    ("*GET" . "*GET")
+    ("*GO" . "*GO")
+    ("*IF" . "*IF")
+    ("/INQUIRE" . "/INQUIRE")
+    ("/MAIL" . "/MAIL")
+    ("*MFOURI" . "*MFOURI")
+    ("*MFUN" . "*MFUN")
+    ("*MOPER" . "*MOPER")
+    ("*MSG" . "*MSG")
+    ("*MWRITE" . "*MWRITE")
+    ("PARRES" . "PARRES")
+    ("PARSAV" . "PARSAV")
+    ("/PMACRO" . "/PMACRO")
+    ("/PSEARCH" . "/PSEARCH")
+    ("*REPEAT" . "*REPEAT")
+    ("*RETURN" . "*RETURN")
+    ("*SET" . "*SET")
+    ("*SREAD" . "*SREAD")
+    ("*STATUS" . "*STATUS")
+    ("*TAXIS" . "*TAXIS")
+    ("/TEE" . "/TEE")
+    ("*TOPER" . "*TOPER")
+    ("*TREAD" . "*TREAD")
+    ("/UCMD" . "/UCMD")
+    ("*ULIB" . "*ULIB") ("*USE" . "*USE")
+    ("*VABS" . "*VABS")
+    ("*VCOL" . "*VCOL") ("*VCUM" . "*VCUM")
+    ("*VEDIT" . "*VEDIT")
+    ("*VFACT" . "*VFACT")
+    ("*VFILL" . "*VFILL")
+    ("*VFUN" . "*VFUN")
+    ("*VGET" . "*VGET")
+    ("*VITRP" . "*VITRP")
+    ("*VLEN" . "*VLEN")
+    ("*VMASK" . "*VMASK")
+    ("*VOPER" . "*VOPER")
+    ("*VPLOT" . "*VPLOT")
+    ("*VPUT" . "*VPUT")
+    ("*VREAD" . "*VREAD")
+    ("*VSCFUN" . "*VSCFUN")
+    ("*VSTAT" . "*VSTAT")
+    ("*VWRITE" . "*VWRITE")
+    ("/WAIT" . "/WAIT")
+    ("~CAT5IN" . "~CAT5IN")
+    ("~CATIAIN" . "~CATIAIN")
+    ("~CIFIN" . "~CIFIN")
+    ("~PARAIN" . "~PARAIN")
+    ("~PROEIN" . "~PROEIN")
+    ("~SATIN" . "~SATIN")
+    ("~UGIN" . "~UGIN")
+    ("A" . "A") ("AADD" . "AADD")
+    ("AATT" . "AATT")
+    ("ABEXTRACT" . "ABEXTRACT")
+    ("ABS" . "ABS")
+    ("ACCAT" . "ACCAT") ("ACEL" . "ACEL")
+    ("ACLEAR" . "ACLEAR")
+    ("ADAMS" . "ADAMS") ("ADAPT" . "ADAPT")
+    ("ADD" . "ADD")
+    ("ADDAM" . "ADDAM") ("ADELE" . "ADELE")
+    ("ADGL" . "ADGL")
+    ("ADRAG" . "ADRAG") ("AESIZE" . "AESIZE")
+    ("AFILLT" . "AFILLT")
+    ("AFLIST" . "AFLIST")
+    ("AFSURF" . "AFSURF")
+    ("AGEN" . "AGEN") ("AGLUE" . "AGLUE")
+    ("AINA" . "AINA")
+    ("AINP" . "AINP") ("AINV" . "AINV")
+    ("AL" . "AL")
+    ("ALIST" . "ALIST") ("ALLSEL" . "ALLSEL")
+    ("ALPFILL" . "ALPFILL")
+    ("ALPHAD" . "ALPHAD")
+    ("AMAP" . "AMAP")
+    ("AMESH" . "AMESH") ("/AN3D" . "/AN3D")
+    ("ANCNTR" . "ANCNTR")
+    ("ANCUT" . "ANCUT")
+    ("ANCYC" . "ANCYC")
+    ("ANDATA" . "ANDATA")
+    ("ANDSCL" . "ANDSCL")
+    ("ANDYNA" . "ANDYNA")
+    ("/ANFILE" . "/ANFILE")
+    ("ANFLOW" . "ANFLOW")
+    ("/ANGLE" . "/ANGLE")
+    ("ANHARM" . "ANHARM")
+    ("ANIM" . "ANIM")
+    ("ANISOS" . "ANISOS")
+    ("ANMODE" . "ANMODE")
+    ("ANMRES" . "ANMRES")
+    ("/ANNOT" . "/ANNOT")
+    ("ANORM" . "ANORM")
+    ("ANSOL" . "ANSOL")
+    ("ANTIME" . "ANTIME")
+    ("ANTYPE" . "ANTYPE")
+    ("/ANUM" . "/ANUM")
+    ("AOFFST" . "AOFFST")
+    ("AOVLAP" . "AOVLAP")
+    ("APLOT" . "APLOT")
+    ("APPEND" . "APPEND")
+    ("APTN" . "APTN")
+    ("ARCLEN" . "ARCLEN")
+    ("ARCOLLAPSE" . "ARCOLLAPSE")
+    ("ARCTRM" . "ARCTRM")
+    ("ARDETACH" . "ARDETACH")
+    ("AREAS" . "AREAS")
+    ("AREFINE" . "AREFINE")
+    ("AREMESH" . "AREMESH")
+    ("AREVERSE" . "AREVERSE")
+    ("ARFILL" . "ARFILL")
+    ("ARMERGE" . "ARMERGE")
+    ("AROTAT" . "AROTAT")
+    ("ARSCALE" . "ARSCALE")
+    ("ARSPLIT" . "ARSPLIT")
+    ("ARSYM" . "ARSYM")
+    ("ASBA" . "ASBA")
+    ("ASBL" . "ASBL")
+    ("ASBV" . "ASBV")
+    ("ASBW" . "ASBW")
+    ("ASEL" . "ASEL")
+    ("ASKIN" . "ASKIN")
+    ("ASLL" . "ASLL")
+    ("ASLV" . "ASLV")
+    ("/ASSIGN" . "/ASSIGN")
+    ("ASUB" . "ASUB")
+    ("ASUM" . "ASUM")
+    ("ATAN" . "ATAN")
+    ("ATRAN" . "ATRAN")
+    ("ATYPE" . "ATYPE")
+    ("/AUTO" . "/AUTO")
+    ("AUTOTS" . "AUTOTS")
+    ("/AUX2" . "/AUX2")
+    ("/AUX3" . "/AUX3")
+    ("/AUX12" . "/AUX12")
+    ("/AUX15" . "/AUX15")
+    ("AVPRIN" . "AVPRIN")
+    ("AVRES" . "AVRES")
+    ("/AXLAB" . "/AXLAB")
+    ("/BATCH" . "/BATCH")
+    ("BCSOPTION" . "BCSOPTION")
+    ("BELLOW" . "BELLOW")
+    ("BEND" . "BEND")
+    ("BETAD" . "BETAD")
+    ("BF" . "BF")
+    ("BFA" . "BFA")
+    ("BFADELE" . "BFADELE")
+    ("BFALIST" . "BFALIST")
+    ("BFCUM" . "BFCUM")
+    ("BFDELE" . "BFDELE")
+    ("BFE" . "BFE")
+    ("BFECUM" . "BFECUM")
+    ("BFEDELE" . "BFEDELE")
+    ("BFELIST" . "BFELIST")
+    ("BFESCAL" . "BFESCAL")
+    ("BFINT" . "BFINT")
+    ("BFK" . "BFK")
+    ("BFKDELE" . "BFKDELE")
+    ("BFKLIST" . "BFKLIST")
+    ("BFL" . "BFL")
+    ("BFLDELE" . "BFLDELE")
+    ("BFLIST" . "BFLIST")
+    ("BFLLIST" . "BFLLIST")
+    ("BFSCALE" . "BFSCALE")
+    ("BFTRAN" . "BFTRAN")
+    ("BFUNIF" . "BFUNIF")
+    ("BFV" . "BFV")
+    ("BFVDELE" . "BFVDELE")
+    ("BFVLIST" . "BFVLIST")
+    ("BIOOPT" . "BIOOPT")
+    ("BIOT" . "BIOT")
+    ("BLC4" . "BLC4")
+    ("BLC5" . "BLC5")
+    ("BLOCK" . "BLOCK")
+    ("BOOL" . "BOOL")
+    ("BOPTN" . "BOPTN")
+    ("BRANCH" . "BRANCH")
+    ("BSAX" . "BSAX")
+    ("BSMD" . "BSMD")
+    ("BSM1" . "BSM1")
+    ("BSM2" . "BSM2")
+    ("BSPLIN" . "BSPLIN")
+    ("BSS1" . "BSS1")
+    ("BSS2" . "BSS2")
+    ("BSTE" . "BSTE")
+    ("BSTQ" . "BSTQ")
+    ("BTOL" . "BTOL")
+    ("BUCOPT" . "BUCOPT")
+    ("C" . "C")
+    ("CALC" . "CALC")
+    ("CBDOF" . "CBDOF")
+    ("CDOPT" . "CDOPT")
+    ("CDREAD" . "CDREAD")
+    ("CDWRITE" . "CDWRITE")
+    ("CE" . "CE")
+    ("CECHECK" . "CECHECK")
+    ("CECMOD" . "CECMOD")
+    ("CECYC" . "CECYC")
+    ("CEDELE" . "CEDELE")
+    ("CEINTF" . "CEINTF")
+    ("CELIST" . "CELIST")
+    ("CENTER" . "CENTER")
+    ("CEQN" . "CEQN")
+    ("CERIG" . "CERIG")
+    ("CESGEN" . "CESGEN")
+    ("CFACT" . "CFACT")
+    ("/CFORMAT" . "/CFORMAT")
+    ("CGLOC" . "CGLOC")
+    ("CGOMGA" . "CGOMGA")
+    ("CHECK" . "CHECK")
+    ("CHKMSH" . "CHKMSH")
+    ("CIRCLE" . "CIRCLE")
+    ("/CLABEL" . "/CLABEL")
+    ("/CLEAR" . "/CLEAR")
+    ("CLOCAL" . "CLOCAL")
+    ("CLOG" . "CLOG")
+    ("/CLOG" . "/CLOG")
+    ("CLRMSHLN" . "CLRMSHLN")
+    ("CM" . "CM")
+    ("CMACEL" . "CMACEL")
+    ("/CMAP" . "/CMAP")
+    ("CMATRIX" . "CMATRIX")
+    ("CMDELE" . "CMDELE")
+    ("CMDOMEGA" . "CMDOMEGA")
+    ("CMEDIT" . "CMEDIT")
+    ("CMGRP" . "CMGRP")
+    ("CMLIST" . "CMLIST")
+    ("CMMOD" . "CMMOD")
+    ("CMOMEGA" . "CMOMEGA")
+    ("CMPLOT" . "CMPLOT")
+    ("CMSEL" . "CMSEL")
+    ("CMSFILE" . "CMSFILE")
+    ("CMSOPT" . "CMSOPT")
+    ("CNCHECK" . "CNCHECK")
+    ("CNVTOL" . "CNVTOL")
+    ("/COLOR" . "/COLOR")
+    ("/COM" . "/COM")
+    ("COMPRESS" . "COMPRESS")
+    ("CON4" . "CON4")
+    ("CONE" . "CONE")
+    ("/CONFIG" . "/CONFIG")
+    ("CONJUG" . "CONJUG")
+    ("/CONTOUR" . "/CONTOUR")
+    ("/COPY" . "/COPY")
+    ("CORIOLIS" . "CORIOLIS")
+    ("COUPLE" . "COUPLE")
+    ("COVAL" . "COVAL")
+    ("CP" . "CP")
+    ("CPCYC" . "CPCYC")
+    ("CPDELE" . "CPDELE")
+    ("CPINTF" . "CPINTF")
+    ("/CPLANE" . "/CPLANE")
+    ("CPLGEN" . "CPLGEN")
+    ("CPLIST" . "CPLIST")
+    ("CPMERGE" . "CPMERGE")
+    ("CPNGEN" . "CPNGEN")
+    ("CPSGEN" . "CPSGEN")
+    ("CQC" . "CQC")
+    ("CRPLIM" . "CRPLIM")
+    ("CS" . "CS")
+    ("CSCIR" . "CSCIR")
+    ("CSDELE" . "CSDELE")
+    ("CSKP" . "CSKP")
+    ("CSLIST" . "CSLIST")
+    ("CSWPLA" . "CSWPLA")
+    ("CSYS" . "CSYS")
+    ("/CTYPE" . "/CTYPE")
+    ("CURR2D" . "CURR2D")
+    ("CUTCONTROL" . "CUTCONTROL")
+    ("/CVAL" . "/CVAL")
+    ("CVAR" . "CVAR")
+    ("/CWD" . "/CWD")
+    ("/CYCEXPAND" . "/CYCEXPAND")
+    ("CYCLIC" . "CYCLIC")
+    ("CYCOPT" . "CYCOPT")
+    ("CYCPHASE" . "CYCPHASE")
+    ("CYL4" . "CYL4")
+    ("CYL5" . "CYL5")
+    ("CYLIND" . "CYLIND")
+    ("CZDEL" . "CZDEL")
+    ("CZMESH" . "CZMESH")
+    ("D" . "D")
+    ("DA" . "DA")
+    ("DADELE" . "DADELE")
+    ("DALIST" . "DALIST")
+    ("DAMORPH" . "DAMORPH")
+    ("DATA" . "DATA")
+    ("DATADEF" . "DATADEF")
+    ("DCGOMG" . "DCGOMG")
+    ("DCUM" . "DCUM")
+    ("DCVSWP" . "DCVSWP")
+    ("DDELE" . "DDELE")
+    ("DEACT" . "DEACT")
+    ("DECOMP" . "DECOMP")
+    ("DEFINE" . "DEFINE")
+    ("DELETE" . "DELETE")
+    ("/DELETE" . "/DELETE")
+    ("DELTIM" . "DELTIM")
+    ("DEMORPH" . "DEMORPH")
+    ("DERIV" . "DERIV")
+    ("DESIZE" . "DESIZE")
+    ("DESOL" . "DESOL")
+    ("DETAB" . "DETAB")
+    ("/DEVDISP" . "/DEVDISP")
+    ("/DEVICE" . "/DEVICE")
+    ("DIG" . "DIG")
+    ("DIGIT" . "DIGIT")
+    ("DISPLAY" . "DISPLAY")
+    ("/DIST" . "/DIST")
+    ("DJ" . "DJ")
+    ("DJDELE" . "DJDELE")
+    ("DJLIST" . "DJLIST")
+    ("DK" . "DK")
+    ("DKDELE" . "DKDELE")
+    ("DKLIST" . "DKLIST")
+    ("DL" . "DL")
+    ("DLDELE" . "DLDELE")
+    ("DLIST" . "DLIST")
+    ("DLLIST" . "DLLIST")
+    ("DMOVE" . "DMOVE")
+    ("DMPEXT" . "DMPEXT")
+    ("DMPRAT" . "DMPRAT")
+    ("DNSOL" . "DNSOL")
+    ("DOF" . "DOF")
+    ("DOFSEL" . "DOFSEL")
+    ("DOMEGA" . "DOMEGA")
+    ("DSCALE" . "DSCALE")
+    ("/DSCALE" . "/DSCALE")
+    ("DSET" . "DSET")
+    ("DSUM" . "DSUM")
+    ("DSURF" . "DSURF")
+    ("DSYM" . "DSYM")
+    ("DSYS" . "DSYS")
+    ("DTRAN" . "DTRAN")
+    ("DUMP" . "DUMP")
+    ("/DV3D" . "/DV3D")
+    ("DVMORPH" . "DVMORPH")
+    ("DYNOPT" . "DYNOPT")
+    ("E" . "E")
+    ("EALIVE" . "EALIVE")
+    ("EDADAPT" . "EDADAPT")
+    ("EDALE" . "EDALE")
+    ("EDASMP" . "EDASMP")
+    ("EDBOUND" . "EDBOUND")
+    ("EDBX" . "EDBX")
+    ("EDBVIS" . "EDBVIS")
+    ("EDCADAPT" . "EDCADAPT")
+    ("EDCGEN" . "EDCGEN")
+    ("EDCLIST" . "EDCLIST")
+    ("EDCMORE" . "EDCMORE")
+    ("EDCNSTR" . "EDCNSTR")
+    ("EDCONTACT" . "EDCONTACT")
+    ("EDCPU" . "EDCPU")
+    ("EDCRB" . "EDCRB")
+    ("EDCSC" . "EDCSC")
+    ("EDCTS" . "EDCTS")
+    ("EDCURVE" . "EDCURVE")
+    ("EDDAMP" . "EDDAMP")
+    ("EDDBL" . "EDDBL")
+    ("EDDC" . "EDDC")
+    ("EDDRELAX" . "EDDRELAX")
+    ("EDDUMP" . "EDDUMP")
+    ("EDELE" . "EDELE")
+    ("EDENERGY" . "EDENERGY")
+    ("EDFPLOT" . "EDFPLOT")
+    ("EDGCALE" . "EDGCALE")
+    ("/EDGE" . "/EDGE")
+    ("EDHGLS" . "EDHGLS")
+    ("EDHIST" . "EDHIST")
+    ("EDHTIME" . "EDHTIME")
+    ("EDINT" . "EDINT")
+    ("EDIPART" . "EDIPART")
+    ("EDIS" . "EDIS")
+    ("EDLCS" . "EDLCS")
+    ("EDLOAD" . "EDLOAD")
+    ("EDMP" . "EDMP")
+    ("EDNB" . "EDNB")
+    ("EDNDTSD" . "EDNDTSD")
+    ("EDNROT" . "EDNROT")
+    ("EDOPT" . "EDOPT")
+    ("EDOUT" . "EDOUT")
+    ("EDPART" . "EDPART")
+    ("EDPC" . "EDPC")
+    ("EDPL" . "EDPL")
+    ("EDPVEL" . "EDPVEL")
+    ("EDRC" . "EDRC")
+    ("EDRD" . "EDRD")
+    ("EDREAD" . "EDREAD")
+    ("EDRI" . "EDRI")
+    ("EDRST" . "EDRST")
+    ("EDRUN" . "EDRUN")
+    ("EDSHELL" . "EDSHELL")
+    ("EDSOLV" . "EDSOLV")
+    ("EDSP" . "EDSP")
+    ("EDSTART" . "EDSTART")
+    ("EDTERM" . "EDTERM")
+    ("EDTP" . "EDTP")
+    ("EDVEL" . "EDVEL")
+    ("EDWELD" . "EDWELD")
+    ("EDWRITE" . "EDWRITE")
+    ("/EFACET" . "/EFACET")
+    ("EGEN" . "EGEN")
+    ("EINTF" . "EINTF")
+    ("EKILL" . "EKILL")
+    ("ELEM" . "ELEM")
+    ("ELIST" . "ELIST")
+    ("EMAGERR" . "EMAGERR")
+    ("EMATWRITE" . "EMATWRITE")
+    ("EMF" . "EMF")
+    ("EMFT" . "EMFT")
+    ("EMID" . "EMID")
+    ("EMIS" . "EMIS")
+    ("EMODIF" . "EMODIF")
+    ("EMORE" . "EMORE")
+    ("EMSYM" . "EMSYM")
+    ("EMTGEN" . "EMTGEN")
+    ("EMUNIT" . "EMUNIT")
+    ("EN" . "EN")
+    ("ENDRELEASE" . "ENDRELEASE")
+    ("ENGEN" . "ENGEN")
+    ("ENORM" . "ENORM")
+    ("ENSYM" . "ENSYM")
+    ("/EOF" . "/EOF")
+    ("EORIENT" . "EORIENT")
+    ("EPLOT" . "EPLOT")
+    ("EQSLV" . "EQSLV")
+    ("ERASE" . "ERASE")
+    ("/ERASE" . "/ERASE")
+    ("EREAD" . "EREAD")
+    ("EREFINE" . "EREFINE")
+    ("ERESX" . "ERESX")
+    ("ERNORM" . "ERNORM")
+    ("ERRANG" . "ERRANG")
+    ("ESCHECK" . "ESCHECK")
+    ("ESEL" . "ESEL")
+    ("/ESHAPE" . "/ESHAPE")
+    ("ESIZE" . "ESIZE")
+    ("ESLA" . "ESLA")
+    ("ESLL" . "ESLL")
+    ("ESLN" . "ESLN")
+    ("ESLV" . "ESLV")
+    ("ESOL" . "ESOL")
+    ("ESORT" . "ESORT")
+    ("ESSOLV" . "ESSOLV")
+    ("ESTIF" . "ESTIF")
+    ("ESURF" . "ESURF")
+    ("ESYM" . "ESYM")
+    ("ESYS" . "ESYS")
+    ("ET" . "ET")
+    ("ETABLE" . "ETABLE")
+    ("ETCHG" . "ETCHG")
+    ("ETCONTROL" . "ETCONTROL")
+    ("ETDELE" . "ETDELE")
+    ("ETLIST" . "ETLIST")
+    ("ETYPE" . "ETYPE")
+    ("EUSORT" . "EUSORT")
+    ("*EVAL" . "*EVAL")
+    ("EWRITE" . "EWRITE")
+    ("/EXIT" . "/EXIT")
+    ("EXP" . "EXP")
+    ("EXPAND" . "EXPAND")
+    ("/EXPAND" . "/EXPAND")
+    ("EXPASS" . "EXPASS")
+    ("EXPROFILE" . "EXPROFILE")
+    ("EXPSOL" . "EXPSOL")
+    ("EXTOPT" . "EXTOPT")
+    ("EXTREM" . "EXTREM")
+    ("EXUNIT" . "EXUNIT")
+    ("F" . "F")
+    ("/FACET" . "/FACET")
+    ("FATIGUE" . "FATIGUE")
+    ("FC" . "FC")
+    ("FCCHECK" . "FCCHECK")
+    ("FCDELE" . "FCDELE")
+    ("FCLIST" . "FCLIST")
+    ("FCUM" . "FCUM")
+    ("FDELE" . "FDELE")
+    ("/FDELE" . "/FDELE")
+    ("FE" . "FE")
+    ("FEBODY" . "FEBODY")
+    ("FECONS" . "FECONS")
+    ("FEFOR" . "FEFOR")
+    ("FELIST" . "FELIST")
+    ("FESURF" . "FESURF")
+    ("FILE" . "FILE")
+    ("FILEAUX2" . "FILEAUX2")
+    ("FILEAUX3" . "FILEAUX3")
+    ("FILEDISP" . "FILEDISP")
+    ("FILL" . "FILL")
+    ("FILLDATA" . "FILLDATA")
+    ("/FILNAME" . "/FILNAME")
+    ("FINISH" . "FINISH")
+    ("FITEM" . "FITEM")
+    ("FJ" . "FJ")
+    ("FJDELE" . "FJDELE")
+    ("FJLIST" . "FJLIST")
+    ("FK" . "FK")
+    ("FKDELE" . "FKDELE")
+    ("FKLIST" . "FKLIST")
+    ("FL" . "FL")
+    ("FLANGE" . "FLANGE")
+    ("FLDATA" . "FLDATA")
+    ("FLDATA1" . "FLDATA1")
+    ("FLDATA2" . "FLDATA2")
+    ("FLDATA3" . "FLDATA3")
+    ("FLDATA4" . "FLDATA4")
+    ("FLDATA4A" . "FLDATA4A")
+    ("FLDATA5" . "FLDATA5")
+    ("FLDATA6" . "FLDATA6")
+    ("FLDATA7" . "FLDATA7")
+    ("FLDATA8" . "FLDATA8")
+    ("FLDATA9" . "FLDATA9")
+    ("FLDATA10" . "FLDATA10")
+    ("FLDATA11" . "FLDATA11")
+    ("FLDATA12" . "FLDATA12")
+    ("FLDATA13" . "FLDATA13")
+    ("FLDATA14" . "FLDATA14")
+    ("FLDATA15" . "FLDATA15")
+    ("FLDATA16" . "FLDATA16")
+    ("FLDATA17" . "FLDATA17")
+    ("FLDATA18" . "FLDATA18")
+    ("FLDATA19" . "FLDATA19")
+    ("FLDATA20" . "FLDATA20")
+    ("FLDATA20A" . "FLDATA20A")
+    ("FLDATA20B" . "FLDATA20B")
+    ("FLDATA21" . "FLDATA21")
+    ("FLDATA22" . "FLDATA22")
+    ("FLDATA23" . "FLDATA23")
+    ("FLDATA24" . "FLDATA24")
+    ("FLDATA24A" . "FLDATA24A")
+    ("FLDATA24B" . "FLDATA24B")
+    ("FLDATA24C" . "FLDATA24C")
+    ("FLDATA24D" . "FLDATA24D")
+    ("FLDATA24E" . "FLDATA24E")
+    ("FLDATA24F" . "FLDATA24F")
+    ("FLDATA24G" . "FLDATA24G")
+    ("FLDATA24H" . "FLDATA24H")
+    ("FLDATA25" . "FLDATA25")
+    ("FLDATA26" . "FLDATA26")
+    ("FLDATA27" . "FLDATA27")
+    ("FLDATA28" . "FLDATA28")
+    ("FLDATA29" . "FLDATA29")
+    ("FLDATA30" . "FLDATA30")
+    ("FLDATA31" . "FLDATA31")
+    ("FLDATA32" . "FLDATA32")
+    ("FLDATA33" . "FLDATA33")
+    ("FLDATA34" . "FLDATA34")
+    ("FLDATA35" . "FLDATA35")
+    ("FLDATA36" . "FLDATA36")
+    ("FLDATA37" . "FLDATA37")
+    ("FLDATA38" . "FLDATA38")
+    ("FLDATA39" . "FLDATA39")
+    ("FLDATA40" . "FLDATA40")
+    ("FLIST" . "FLIST")
+    ("FLLIST" . "FLLIST")
+    ("FLOCHECK" . "FLOCHECK")
+    ("FLOTRAN" . "FLOTRAN")
+    ("FLREAD" . "FLREAD")
+    ("FLST" . "FLST")
+    ("FLUXV" . "FLUXV")
+    ("FMAGBC" . "FMAGBC")
+    ("FMAGSUM" . "FMAGSUM")
+    ("/FOCUS" . "/FOCUS")
+    ("FOR2D" . "FOR2D")
+    ("FORCE" . "FORCE")
+    ("FORM" . "FORM")
+    ("/FORMAT" . "/FORMAT")
+    ("FP" . "FP")
+    ("FPLIST" . "FPLIST")
+    ("FREQ" . "FREQ")
+    ("FS" . "FS")
+    ("FSCALE" . "FSCALE")
+    ("FSDELE" . "FSDELE")
+    ("FSLIST" . "FSLIST")
+    ("FSNODE" . "FSNODE")
+    ("FSPLOT" . "FSPLOT")
+    ("FSSECT" . "FSSECT")
+    ("FSSPARM" . "FSSPARM")
+    ("FSUM" . "FSUM")
+    ("FTCALC" . "FTCALC")
+    ("FTRAN" . "FTRAN")
+    ("FTSIZE" . "FTSIZE")
+    ("FTWRITE" . "FTWRITE")
+    ("FVMESH" . "FVMESH")
+    ("GAP" . "GAP")
+    ("GAPF" . "GAPF")
+    ("GAPFINISH" . "GAPFINISH")
+    ("GAPLIST" . "GAPLIST")
+    ("GAPMERGE" . "GAPMERGE")
+    ("GAPOPT" . "GAPOPT")
+    ("GAPPLOT" . "GAPPLOT")
+    ("GAUGE" . "GAUGE")
+    ("/GCMD" . "/GCMD")
+    ("/GCOLUMN" . "/GCOLUMN")
+    ("GENOPT" . "GENOPT")
+    ("GEOM" . "GEOM")
+    ("GEOMETRY" . "GEOMETRY")
+    ("/GFILE" . "/GFILE")
+    ("/GFORMAT" . "/GFORMAT")
+    ("/GLINE" . "/GLINE")
+    ("/GMARKER" . "/GMARKER")
+    ("GMATRIX" . "GMATRIX")
+    ("GMFACE" . "GMFACE")
+    ("/GO" . "/GO")
+    ("/GOLIST" . "/GOLIST")
+    ("/GOPR" . "/GOPR")
+    ("GP" . "GP")
+    ("GPDELE" . "GPDELE")
+    ("GPLIST" . "GPLIST")
+    ("GPLOT" . "GPLOT")
+    ("/GRAPHICS" . "/GRAPHICS")
+    ("/GRESUME" . "/GRESUME")
+    ("/GRID" . "/GRID")
+    ("/GROPT" . "/GROPT")
+    ("GRP" . "GRP")
+    ("/GRTYP" . "/GRTYP")
+    ("/GSAVE" . "/GSAVE")
+    ("GSBDATA" . "GSBDATA")
+    ("GSGDATA" . "GSGDATA")
+    ("GSLIST" . "GSLIST")
+    ("GSSOL" . "GSSOL")
+    ("/GST" . "/GST")
+    ("GSUM" . "GSUM")
+    ("/GTHK" . "/GTHK")
+    ("/GTYPE" . "/GTYPE")
+    ("HARFRQ" . "HARFRQ")
+    ("/HBC" . "/HBC")
+    ("HBMAT" . "HBMAT")
+    ("/HEADER" . "/HEADER")
+    ("HELP" . "HELP")
+    ("HELPDISP" . "HELPDISP")
+    ("HEMIOPT" . "HEMIOPT")
+    ("HFANG" . "HFANG")
+    ("HFARRAY" . "HFARRAY")
+    ("HFDEEM" . "HFDEEM")
+    ("HFEIGOPT" . "HFEIGOPT")
+    ("HFEREFINE" . "HFEREFINE")
+    ("HFMODPRT" . "HFMODPRT")
+    ("HFNEAR" . "HFNEAR")
+    ("HFPA" . "HFPA")
+    ("HFPCSWP" . "HFPCSWP")
+    ("HFPOWER" . "HFPOWER")
+    ("HFPORT" . "HFPORT")
+    ("HFSCAT" . "HFSCAT")
+    ("HFSWEEP" . "HFSWEEP")
+    ("HFSYM" . "HFSYM")
+    ("HMAGSOLV" . "HMAGSOLV")
+    ("HPGL" . "HPGL")
+    ("HPTCREATE" . "HPTCREATE")
+    ("HPTDELETE" . "HPTDELETE")
+    ("HRCPLX" . "HRCPLX")
+    ("HREXP" . "HREXP")
+    ("HROPT" . "HROPT")
+    ("HROUT" . "HROUT")
+    ("Contents" . "Contents")
+    ("IC" . "IC")
+    ("ICDELE" . "ICDELE")
+    ("ICE" . "ICE")
+    ("ICEDELE" . "ICEDELE")
+    ("ICELIST" . "ICELIST")
+    ("ICLIST" . "ICLIST")
+    ("/ICLWID" . "/ICLWID")
+    ("/ICSCALE" . "/ICSCALE")
+    ("ICVFRC" . "ICVFRC")
+    ("IGESIN" . "IGESIN")
+    ("IGESOUT" . "IGESOUT")
+    ("/IMAGE" . "/IMAGE")
+    ("IMAGIN" . "IMAGIN")
+    ("IMESH" . "IMESH")
+    ("IMMED" . "IMMED")
+    ("IMPD" . "IMPD")
+    ("/INPUT" . "/INPUT")
+    ("INRES" . "INRES")
+    ("INRTIA" . "INRTIA")
+    ("INT1" . "INT1")
+    ("INTSRF" . "INTSRF")
+    ("IOPTN" . "IOPTN")
+    ("IRLF" . "IRLF")
+    ("IRLIST" . "IRLIST")
+    ("ISFILE" . "ISFILE")
+    ("ISTRESS" . "ISTRESS")
+    ("ISWRITE" . "ISWRITE")
+    ("JPEG" . "JPEG")
+    ("JSOL" . "JSOL")
+    ("K" . "K")
+    ("KATT" . "KATT")
+    ("KBC" . "KBC")
+    ("KBETW" . "KBETW")
+    ("KCALC" . "KCALC")
+    ("KCENTER" . "KCENTER")
+    ("KCLEAR" . "KCLEAR")
+    ("KDELE" . "KDELE")
+    ("KDIST" . "KDIST")
+    ("KEEP" . "KEEP")
+    ("KESIZE" . "KESIZE")
+    ("KEYOPT" . "KEYOPT")
+    ("KEYPTS" . "KEYPTS")
+    ("KEYW" . "KEYW")
+    ("KFILL" . "KFILL")
+    ("KGEN" . "KGEN")
+    ("KL" . "KL")
+    ("KLIST" . "KLIST")
+    ("KMESH" . "KMESH")
+    ("KMODIF" . "KMODIF")
+    ("KMOVE" . "KMOVE")
+    ("KNODE" . "KNODE")
+    ("KPLOT" . "KPLOT")
+    ("KPSCALE" . "KPSCALE")
+    ("KREFINE" . "KREFINE")
+    ("KSCALE" . "KSCALE")
+    ("KSCON" . "KSCON")
+    ("KSEL" . "KSEL")
+    ("KSLL" . "KSLL")
+    ("KSLN" . "KSLN")
+    ("KSUM" . "KSUM")
+    ("KSYMM" . "KSYMM")
+    ("KTRAN" . "KTRAN")
+    ("KUSE" . "KUSE")
+    ("KWPAVE" . "KWPAVE")
+    ("KWPLAN" . "KWPLAN")
+    ("L" . "L")
+    ("L2ANG" . "L2ANG")
+    ("L2TAN" . "L2TAN")
+    ("LANG" . "LANG")
+    ("LARC" . "LARC")
+    ("/LARC" . "/LARC")
+    ("LAREA" . "LAREA")
+    ("LARGE" . "LARGE")
+    ("LATT" . "LATT")
+    ("LAYER" . "LAYER")
+    ("LAYERP26" . "LAYERP26")
+    ("LAYLIST" . "LAYLIST")
+    ("LAYPLOT" . "LAYPLOT")
+    ("LCABS" . "LCABS")
+    ("LCASE" . "LCASE")
+    ("LCCALC" . "LCCALC")
+    ("LCCAT" . "LCCAT")
+    ("LCDEF" . "LCDEF")
+    ("LCFACT" . "LCFACT")
+    ("LCFILE" . "LCFILE")
+    ("LCLEAR" . "LCLEAR")
+    ("LCOMB" . "LCOMB")
+    ("LCOPER" . "LCOPER")
+    ("LCSEL" . "LCSEL")
+    ("LCSL" . "LCSL")
+    ("LCSUM" . "LCSUM")
+    ("LCWRITE" . "LCWRITE")
+    ("LCZERO" . "LCZERO")
+    ("LDELE" . "LDELE")
+    ("LDIV" . "LDIV")
+    ("LDRAG" . "LDRAG")
+    ("LDREAD" . "LDREAD")
+    ("LESIZE" . "LESIZE")
+    ("LEXTND" . "LEXTND")
+    ("LFILLT" . "LFILLT")
+    ("LFSURF" . "LFSURF")
+    ("LGEN" . "LGEN")
+    ("LGLUE" . "LGLUE")
+    ("LGWRITE" . "LGWRITE")
+    ("/LIGHT" . "/LIGHT")
+    ("LINA" . "LINA")
+    ("LINE" . "LINE")
+    ("/LINE" . "/LINE")
+    ("LINES" . "LINES")
+    ("LINL" . "LINL")
+    ("LINP" . "LINP")
+    ("LINV" . "LINV")
+    ("LIST" . "LIST")
+    ("*LIST" . "*LIST")
+    ("LLIST" . "LLIST")
+    ("LMATRIX" . "LMATRIX")
+    ("LMESH" . "LMESH")
+    ("LNCOLLAPSE" . "LNCOLLAPSE")
+    ("LNDETACH" . "LNDETACH")
+    ("LNFILL" . "LNFILL")
+    ("LNMERGE" . "LNMERGE")
+    ("LNSPLIT" . "LNSPLIT")
+    ("LNSRCH" . "LNSRCH")
+    ("LOCAL" . "LOCAL")
+    ("LOVLAP" . "LOVLAP")
+    ("LPLOT" . "LPLOT")
+    ("LPTN" . "LPTN")
+    ("LREFINE" . "LREFINE")
+    ("LREVERSE" . "LREVERSE")
+    ("LROTAT" . "LROTAT")
+    ("LSBA" . "LSBA")
+    ("LSBL" . "LSBL")
+    ("LSBV" . "LSBV")
+    ("LSBW" . "LSBW")
+    ("LSCLEAR" . "LSCLEAR")
+    ("LSDELE" . "LSDELE")
+    ("LSEL" . "LSEL")
+    ("LSLA" . "LSLA")
+    ("LSLK" . "LSLK")
+    ("LSOPER" . "LSOPER")
+    ("/LSPEC" . "/LSPEC")
+    ("LSREAD" . "LSREAD")
+    ("LSSCALE" . "LSSCALE")
+    ("LSSOLVE" . "LSSOLVE")
+    ("LSTR" . "LSTR")
+    ("LSUM" . "LSUM")
+    ("LSWRITE" . "LSWRITE")
+    ("/LSYMBOL" . "/LSYMBOL")
+    ("LSYMM" . "LSYMM")
+    ("LTAN" . "LTAN")
+    ("LTRAN" . "LTRAN")
+    ("LUMPM" . "LUMPM")
+    ("LVSCALE" . "LVSCALE")
+    ("LWPLAN" . "LWPLAN")
+    ("M" . "M")
+    ("MAGOPT" . "MAGOPT")
+    ("MAGSOLV" . "MAGSOLV")
+    ("MAPSOLVE" . "MAPSOLVE")
+    ("MASTER" . "MASTER")
+    ("MAT" . "MAT")
+    ("MATER" . "MATER")
+    ("MCHECK" . "MCHECK")
+    ("MDAMP" . "MDAMP")
+    ("MDELE" . "MDELE")
+    ("MDPLOT" . "MDPLOT")
+    ("MEMM" . "MEMM")
+    ("/MENU" . "/MENU")
+    ("MESHING" . "MESHING")
+    ("MFANALYSIS" . "MFANALYSIS")
+    ("MFBUCKET" . "MFBUCKET")
+    ("MFCALC" . "MFCALC")
+    ("MFCLEAR" . "MFCLEAR")
+    ("MFCMMAND" . "MFCMMAND")
+    ("MFCONV" . "MFCONV")
+    ("MFDTIME" . "MFDTIME")
+    ("MFELEM" . "MFELEM")
+    ("MFEM" . "MFEM")
+    ("MFEXTER" . "MFEXTER")
+    ("MFFNAME" . "MFFNAME")
+    ("MFIMPORT" . "MFIMPORT")
+    ("MFINTER" . "MFINTER")
+    ("MFITER" . "MFITER")
+    ("MFLCOMM" . "MFLCOMM")
+    ("MFLIST" . "MFLIST")
+    ("MFMAP" . "MFMAP")
+    ("MFORDER" . "MFORDER")
+    ("MFOUTPUT" . "MFOUTPUT")
+    ("MFPSIMUL" . "MFPSIMUL")
+    ("MFRELAX" . "MFRELAX")
+    ("MFRSTART" . "MFRSTART")
+    ("MFSORDER" . "MFSORDER")
+    ("MFSURFACE" . "MFSURFACE")
+    ("MFTIME" . "MFTIME")
+    ("MFTOL" . "MFTOL")
+    ("MFVOLUME" . "MFVOLUME")
+    ("MFWRITE" . "MFWRITE")
+    ("MGEN" . "MGEN")
+    ("MIDTOL" . "MIDTOL")
+    ("MITER" . "MITER")
+    ("MLIST" . "MLIST")
+    ("MMF" . "MMF")
+    ("MODE" . "MODE")
+    ("MODIFY" . "MODIFY")
+    ("MODMSH" . "MODMSH")
+    ("MODOPT" . "MODOPT")
+    ("MONITOR" . "MONITOR")
+    ("*MOONEY" . "*MOONEY")
+    ("MOPT" . "MOPT")
+    ("MORPH" . "MORPH")
+    ("MOVE" . "MOVE")
+    ("MP" . "MP")
+    ("MPAMOD" . "MPAMOD")
+    ("MPCHG" . "MPCHG")
+    ("MPCOPY" . "MPCOPY")
+    ("MPDATA" . "MPDATA")
+    ("MPDELE" . "MPDELE")
+    ("MPDRES" . "MPDRES")
+    ("/MPLIB" . "/MPLIB")
+    ("MPLIST" . "MPLIST")
+    ("MPPLOT" . "MPPLOT")
+    ("MPREAD" . "MPREAD")
+    ("MPRINT" . "MPRINT")
+    ("MPTEMP" . "MPTEMP")
+    ("MPTGEN" . "MPTGEN")
+    ("MPTRES" . "MPTRES")
+    ("MPWRITE" . "MPWRITE")
+    ("/MREP" . "/MREP")
+    ("MSADV" . "MSADV")
+    ("MSAVE" . "MSAVE")
+    ("MSCAP" . "MSCAP")
+    ("MSDATA" . "MSDATA")
+    ("MSHAPE" . "MSHAPE")
+    ("MSHCOPY" . "MSHCOPY")
+    ("MSHKEY" . "MSHKEY")
+    ("MSHMID" . "MSHMID")
+    ("MSHPATTERN" . "MSHPATTERN")
+    ("MSMASS" . "MSMASS")
+    ("MSMETH" . "MSMETH")
+    ("MSMIR" . "MSMIR")
+    ("MSNOMF" . "MSNOMF")
+    ("MSPROP" . "MSPROP")
+    ("MSQUAD" . "MSQUAD")
+    ("MSRELAX" . "MSRELAX")
+    ("MSSOLU" . "MSSOLU")
+    ("MSSPEC" . "MSSPEC")
+    ("/MSTART" . "/MSTART")
+    ("MSTERM" . "MSTERM")
+    ("MSVARY" . "MSVARY")
+    ("MXPAND" . "MXPAND")
+    ("N" . "N")
+    ("NANG" . "NANG")
+    ("NCNV" . "NCNV")
+    ("NDELE" . "NDELE")
+    ("NDIST" . "NDIST")
+    ("NDSURF" . "NDSURF")
+    ("NEQIT" . "NEQIT")
+    ("/NERR" . "/NERR")
+    ("NFORCE" . "NFORCE")
+    ("NGEN" . "NGEN")
+    ("NKPT" . "NKPT")
+    ("NLDIAG" . "NLDIAG")
+    ("NLDPOST" . "NLDPOST")
+    ("NLGEOM" . "NLGEOM")
+    ("NLHIST" . "NLHIST")
+    ("NLIST" . "NLIST")
+    ("NLOG" . "NLOG")
+    ("NLOPT" . "NLOPT")
+    ("NMODIF" . "NMODIF")
+    ("NOCOLOR" . "NOCOLOR")
+    ("NODES" . "NODES")
+    ("/NOERASE" . "/NOERASE")
+    ("/NOLIST" . "/NOLIST")
+    ("NOOFFSET" . "NOOFFSET")
+    ("NOORDER" . "NOORDER")
+    ("/NOPR" . "/NOPR")
+    ("NORA" . "NORA")
+    ("NORL" . "NORL")
+    ("/NORMAL" . "/NORMAL")
+    ("NPLOT" . "NPLOT")
+    ("NPRINT" . "NPRINT")
+    ("NREAD" . "NREAD")
+    ("NREFINE" . "NREFINE")
+    ("NRLSUM" . "NRLSUM")
+    ("NROPT" . "NROPT")
+    ("NROTAT" . "NROTAT")
+    ("NRRANG" . "NRRANG")
+    ("NSCALE" . "NSCALE")
+    ("NSEL" . "NSEL")
+    ("NSLA" . "NSLA")
+    ("NSLE" . "NSLE")
+    ("NSLK" . "NSLK")
+    ("NSLL" . "NSLL")
+    ("NSLV" . "NSLV")
+    ("NSMOOTH" . "NSMOOTH")
+    ("NSOL" . "NSOL")
+    ("NSORT" . "NSORT")
+    ("NSTORE" . "NSTORE")
+    ("NSUBST" . "NSUBST")
+    ("NSVR" . "NSVR")
+    ("NSYM" . "NSYM")
+    ("/NUMBER" . "/NUMBER")
+    ("NUMCMP" . "NUMCMP")
+    ("NUMEXP" . "NUMEXP")
+    ("NUMMRG" . "NUMMRG")
+    ("NUMOFF" . "NUMOFF")
+    ("NUMSTR" . "NUMSTR")
+    ("NUMVAR" . "NUMVAR")
+    ("NUSORT" . "NUSORT")
+    ("NWPAVE" . "NWPAVE")
+    ("NWPLAN" . "NWPLAN")
+    ("NWRITE" . "NWRITE")
+    ("OMEGA" . "OMEGA")
+    ("OPADD" . "OPADD")
+    ("OPANL" . "OPANL")
+    ("OPCLR" . "OPCLR")
+    ("OPDATA" . "OPDATA")
+    ("OPDEL" . "OPDEL")
+    ("OPEQN" . "OPEQN")
+    ("OPERATE" . "OPERATE")
+    ("OPEXE" . "OPEXE")
+    ("OPFACT" . "OPFACT")
+    ("OPFRST" . "OPFRST")
+    ("OPGRAD" . "OPGRAD")
+    ("OPKEEP" . "OPKEEP")
+    ("OPLFA" . "OPLFA")
+    ("OPLGR" . "OPLGR")
+    ("OPLIST" . "OPLIST")
+    ("OPLOOP" . "OPLOOP")
+    ("OPLSW" . "OPLSW")
+    ("OPMAKE" . "OPMAKE")
+    ("OPNCONTROL" . "OPNCONTROL")
+    ("OPPRNT" . "OPPRNT")
+    ("OPRAND" . "OPRAND")
+    ("OPRESU" . "OPRESU")
+    ("OPRFA" . "OPRFA")
+    ("OPRGR" . "OPRGR")
+    ("OPRSW" . "OPRSW")
+    ("OPSAVE" . "OPSAVE")
+    ("OPSEL" . "OPSEL")
+    ("OPSUBP" . "OPSUBP")
+    ("OPSWEEP" . "OPSWEEP")
+    ("/OPT" . "/OPT")
+    ("OPTYPE" . "OPTYPE")
+    ("OPUSER" . "OPUSER")
+    ("OPVAR" . "OPVAR")
+    ("OUTOPT" . "OUTOPT")
+    ("OUTPR" . "OUTPR")
+    ("/OUTPUT" . "/OUTPUT")
+    ("OUTRES" . "OUTRES")
+    ("PADELE" . "PADELE")
+    ("/PAGE" . "/PAGE")
+    ("PAGET" . "PAGET")
+    ("PAPUT" . "PAPUT")
+    ("PARESU" . "PARESU")
+    ("PARTSEL" . "PARTSEL")
+    ("PASAVE" . "PASAVE")
+    ("PATH" . "PATH")
+    ("/PBC" . "/PBC")
+    ("/PBF" . "/PBF")
+    ("PCALC" . "PCALC")
+    ("PCGOPT" . "PCGOPT")
+    ("PCIRC" . "PCIRC")
+    ("/PCIRCLE" . "/PCIRCLE")
+    ("PCONV" . "PCONV")
+    ("/PCOPY" . "/PCOPY")
+    ("PCORRO" . "PCORRO")
+    ("PCROSS" . "PCROSS")
+    ("PDANL" . "PDANL")
+    ("PDCDF" . "PDCDF")
+    ("PDCFLD" . "PDCFLD")
+    ("PDCLR" . "PDCLR")
+    ("PDCMAT" . "PDCMAT")
+    ("PDCORR" . "PDCORR")
+    ("PDDMCS" . "PDDMCS")
+    ("PDDOEL" . "PDDOEL")
+    ("PDEF" . "PDEF")
+    ("PDEXE" . "PDEXE")
+    ("PDHIST" . "PDHIST")
+    ("PDINQR" . "PDINQR")
+    ("PDLHS" . "PDLHS")
+    ("PDMETH" . "PDMETH")
+    ("PDOT" . "PDOT")
+    ("PDPINV" . "PDPINV")
+    ("PDPLOT" . "PDPLOT")
+    ("PDPROB" . "PDPROB")
+    ("PDRAG" . "PDRAG")
+    ("PDRESU" . "PDRESU")
+    ("PDROPT" . "PDROPT")
+    ("/PDS" . "/PDS")
+    ("PDSAVE" . "PDSAVE")
+    ("PDSCAT" . "PDSCAT")
+    ("PDSENS" . "PDSENS")
+    ("PDSHIS" . "PDSHIS")
+    ("PDUSER" . "PDUSER")
+    ("PDVAR" . "PDVAR")
+    ("PDWRITE" . "PDWRITE")
+    ("PEMOPTS" . "PEMOPTS")
+    ("PERBC2D" . "PERBC2D")
+    ("PERI" . "PERI")
+    ("PEXCLUDE" . "PEXCLUDE")
+    ("PFACT" . "PFACT")
+    ("PFLUID" . "PFLUID")
+    ("PGAP" . "PGAP")
+    ("PGRAPH" . "PGRAPH")
+    ("PGRSET" . "PGRSET")
+    ("PGSAVE" . "PGSAVE")
+    ("PGSELE" . "PGSELE")
+    ("PGWRITE" . "PGWRITE")
+    ("PHYSICS" . "PHYSICS")
+    ("/PICE" . "/PICE")
+    ("PINCLUDE" . "PINCLUDE")
+    ("PINSUL" . "PINSUL")
+    ("PIPE" . "PIPE")
+    ("PIVCHECK" . "PIVCHECK")
+    ("PLCAMP" . "PLCAMP")
+    ("PLCONV" . "PLCONV")
+    ("PLCPLX" . "PLCPLX")
+    ("PLCRACK" . "PLCRACK")
+    ("PLDISP" . "PLDISP")
+    ("PLESOL" . "PLESOL")
+    ("PLETAB" . "PLETAB")
+    ("PLF2D" . "PLF2D")
+    ("PLHFFAR" . "PLHFFAR")
+    ("PLLS" . "PLLS")
+    ("PLNSOL" . "PLNSOL")
+    ("/PLOPTS" . "/PLOPTS")
+    ("PLOT" . "PLOT")
+    ("PLOTTING" . "PLOTTING")
+    ("PLPAGM" . "PLPAGM")
+    ("PLPATH" . "PLPATH")
+    ("PLSCH" . "PLSCH")
+    ("PLSECT" . "PLSECT")
+    ("PLSYZ" . "PLSYZ")
+    ("PLTIME" . "PLTIME")
+    ("PLTRAC" . "PLTRAC")
+    ("PLVAR" . "PLVAR")
+    ("PLVAROPT" . "PLVAROPT")
+    ("PLVECT" . "PLVECT")
+    ("PLVFRC" . "PLVFRC")
+    ("PLWAVE" . "PLWAVE")
+    ("PMAP" . "PMAP")
+    ("PMETH" . "PMETH")
+    ("/PMETH" . "/PMETH")
+    ("PMGTRAN" . "PMGTRAN")
+    ("PMLOPT" . "PMLOPT")
+    ("PMLSIZE" . "PMLSIZE")
+    ("PMOPTS" . "PMOPTS")
+    ("/PMORE" . "/PMORE")
+    ("PNGR" . "PNGR")
+    ("/PNUM" . "/PNUM")
+    ("POINT" . "POINT")
+    ("POLY" . "POLY")
+    ("/POLYGON" . "/POLYGON")
+    ("POPT" . "POPT")
+    ("/POST1" . "/POST1")
+    ("/POST26" . "/POST26")
+    ("POUTRES" . "POUTRES")
+    ("POWERH" . "POWERH")
+    ("PPATH" . "PPATH")
+    ("PPLOT" . "PPLOT")
+    ("PPRANGE" . "PPRANGE")
+    ("PPRES" . "PPRES")
+    ("PRANGE" . "PRANGE")
+    ("PRCAMP" . "PRCAMP")
+    ("PRCONV" . "PRCONV")
+    ("PRCPLX" . "PRCPLX")
+    ("PRECISION" . "PRECISION")
+    ("PRED" . "PRED")
+    ("/PREP7" . "/PREP7")
+    ("PRERR" . "PRERR")
+    ("PRESOL" . "PRESOL")
+    ("PRETAB" . "PRETAB")
+    ("PRHFFAR" . "PRHFFAR")
+    ("PRI2" . "PRI2")
+    ("PRIM" . "PRIM")
+    ("PRINT" . "PRINT")
+    ("PRISM" . "PRISM")
+    ("PRITER" . "PRITER")
+    ("PRJSOL" . "PRJSOL")
+    ("PRNLD" . "PRNLD")
+    ("PRNSOL" . "PRNSOL")
+    ("PROD" . "PROD")
+    ("PRPATH" . "PRPATH")
+    ("PRRFOR" . "PRRFOR")
+    ("PRRSOL" . "PRRSOL")
+    ("PRSECT" . "PRSECT")
+    ("PRSSOL" . "PRSSOL")
+    ("PRSYZ" . "PRSYZ")
+    ("PRTIME" . "PRTIME")
+    ("PRVAR" . "PRVAR")
+    ("PRVAROPT" . "PRVAROPT")
+    ("PRVECT" . "PRVECT")
+    ("PSCONTROL" . "PSCONTROL")
+    ("PSCR" . "PSCR")
+    ("PSDCOM" . "PSDCOM")
+    ("PSDFRQ" . "PSDFRQ")
+    ("PSDGRAPH" . "PSDGRAPH")
+    ("PSDRES" . "PSDRES")
+    ("PSDSPL" . "PSDSPL")
+    ("PSDUNIT" . "PSDUNIT")
+    ("PSDVAL" . "PSDVAL")
+    ("PSDWAV" . "PSDWAV")
+    ("PSEL" . "PSEL")
+    ("/PSF" . "/PSF")
+    ("PSMESH" . "PSMESH")
+    ("PSOLVE" . "PSOLVE")
+    ("PSPEC" . "PSPEC")
+    ("/PSPEC" . "/PSPEC")
+    ("PSPRNG" . "PSPRNG")
+    ("/PSTATUS" . "/PSTATUS")
+    ("PSTRES" . "PSTRES")
+    ("/PSYMB" . "/PSYMB")
+    ("PTEMP" . "PTEMP")
+    ("PTXY" . "PTXY")
+    ("PUNIT" . "PUNIT")
+    ("PVECT" . "PVECT")
+    ("/PWEDGE" . "/PWEDGE")
+    ("QDVAL" . "QDVAL")
+    ("QFACT" . "QFACT")
+    ("QSOPT" . "QSOPT")
+    ("QUAD" . "QUAD")
+    ("/QUIT" . "/QUIT")
+    ("QUOT" . "QUOT")
+    ("R" . "R")
+    ("RACE" . "RACE")
+    ("RADOPT" . "RADOPT")
+    ("RALL" . "RALL")
+    ("RAPPND" . "RAPPND")
+    ("RATE" . "RATE")
+    ("/RATIO" . "/RATIO")
+    ("RBE3" . "RBE3")
+    ("RCON" . "RCON")
+    ("RDEC" . "RDEC")
+    ("RDELE" . "RDELE")
+    ("REAL" . "REAL")
+    ("REALVAR" . "REALVAR")
+    ("RECTNG" . "RECTNG")
+    ("REDUCE" . "REDUCE")
+    ("REFLCOEF" . "REFLCOEF")
+    ("/RENAME" . "/RENAME")
+    ("REORDER" . "REORDER")
+    ("/REPLOT" . "/REPLOT")
+    ("RESCONTROL" . "RESCONTROL")
+    ("RESET" . "RESET")
+    ("/RESET" . "/RESET")
+    ("RESP" . "RESP")
+    ("RESUME" . "RESUME")
+    ("REXPORT" . "REXPORT")
+    ("REZONE" . "REZONE")
+    ("RFILSZ" . "RFILSZ")
+    ("RFORCE" . "RFORCE")
+    ("/RGB" . "/RGB")
+    ("RIGID" . "RIGID")
+    ("RIMPORT" . "RIMPORT")
+    ("RITER" . "RITER")
+    ("RLIST" . "RLIST")
+    ("RMALIST" . "RMALIST")
+    ("RMANL" . "RMANL")
+    ("RMASTER" . "RMASTER")
+    ("RMCAP" . "RMCAP")
+    ("RMCLIST" . "RMCLIST")
+    ("RMEMRY" . "RMEMRY")
+    ("RMFLVEC" . "RMFLVEC")
+    ("RMLVSCALE" . "RMLVSCALE")
+    ("RMMLIST" . "RMMLIST")
+    ("RMMRANGE" . "RMMRANGE")
+    ("RMMSELECT" . "RMMSELECT")
+    ("RMNDISP" . "RMNDISP")
+    ("RMNEVEC" . "RMNEVEC")
+    ("RMODIF" . "RMODIF")
+    ("RMORE" . "RMORE")
+    ("RMPORDER" . "RMPORDER")
+    ("RMRESUME" . "RMRESUME")
+    ("RMRGENERATE" . "RMRGENERATE")
+    ("RMROPTIONS" . "RMROPTIONS")
+    ("RMRPLOT" . "RMRPLOT")
+    ("RMRSTATUS" . "RMRSTATUS")
+    ("RMSAVE" . "RMSAVE")
+    ("RMSMPLE" . "RMSMPLE")
+    ("RMUSE" . "RMUSE")
+    ("RMXPORT" . "RMXPORT")
+    ("ROCK" . "ROCK")
+    ("RPOLY" . "RPOLY")
+    ("RPR4" . "RPR4")
+    ("RPRISM" . "RPRISM")
+    ("RPSD" . "RPSD")
+    ("RSFIT" . "RSFIT")
+    ("RSOPT" . "RSOPT")
+    ("RSPEED" . "RSPEED")
+    ("RSPLIT" . "RSPLIT")
+    ("RSPLOT" . "RSPLOT")
+    ("RSPRNT" . "RSPRNT")
+    ("RSSIMS" . "RSSIMS")
+    ("RSTAT" . "RSTAT")
+    ("RSTOFF" . "RSTOFF")
+    ("RSURF" . "RSURF")
+    ("RSYMM" . "RSYMM")
+    ("RSYS" . "RSYS")
+    ("RTHICK" . "RTHICK")
+    ("RTIMST" . "RTIMST")
+    ("RUN" . "RUN")
+    ("/RUNST" . "/RUNST")
+    ("RWFRNT" . "RWFRNT")
+    ("SABS" . "SABS")
+    ("SADD" . "SADD")
+    ("SALLOW" . "SALLOW")
+    ("SARPLOT" . "SARPLOT")
+    ("SAVE" . "SAVE")
+    ("SBCLIST" . "SBCLIST")
+    ("SBCTRAN" . "SBCTRAN")
+    ("SDELETE" . "SDELETE")
+    ("SE" . "SE")
+    ("SECCONTROLS" . "SECCONTROLS")
+    ("SECDATA" . "SECDATA")
+    ("SECFUNCTION" . "SECFUNCTION")
+    ("SECJOINT" . "SECJOINT")
+    ("/SECLIB" . "/SECLIB")
+    ("SECLOCK" . "SECLOCK")
+    ("SECMODIF" . "SECMODIF")
+    ("SECNUM" . "SECNUM")
+    ("SECOFFSET" . "SECOFFSET")
+    ("SECPLOT" . "SECPLOT")
+    ("SECREAD" . "SECREAD")
+    ("SECSTOP" . "SECSTOP")
+    ("SECTYPE" . "SECTYPE")
+    ("SECWRITE" . "SECWRITE")
+    ("SED" . "SED")
+    ("SEDLIST" . "SEDLIST")
+    ("SEEXP" . "SEEXP")
+    ("/SEG" . "/SEG")
+    ("SEGEN" . "SEGEN")
+    ("SELIST" . "SELIST")
+    ("SELM" . "SELM")
+    ("SELTOL" . "SELTOL")
+    ("SENERGY" . "SENERGY")
+    ("SEOPT" . "SEOPT")
+    ("SESYMM" . "SESYMM")
+    ("SET" . "SET")
+    ("SETFGAP" . "SETFGAP")
+    ("SETRAN" . "SETRAN")
+    ("SEXP" . "SEXP")
+    ("SF" . "SF")
+    ("SFA" . "SFA")
+    ("SFACT" . "SFACT")
+    ("SFADELE" . "SFADELE")
+    ("SFALIST" . "SFALIST")
+    ("SFBEAM" . "SFBEAM")
+    ("SFCALC" . "SFCALC")
+    ("SFCUM" . "SFCUM")
+    ("SFDELE" . "SFDELE")
+    ("SFE" . "SFE")
+    ("SFEDELE" . "SFEDELE")
+    ("SFELIST" . "SFELIST")
+    ("SFFUN" . "SFFUN")
+    ("SFGRAD" . "SFGRAD")
+    ("SFL" . "SFL")
+    ("SFLDELE" . "SFLDELE")
+    ("SFLIST" . "SFLIST")
+    ("SFLLIST" . "SFLLIST")
+    ("SFSCALE" . "SFSCALE")
+    ("SFTRAN" . "SFTRAN")
+    ("/SHADE" . "/SHADE")
+    ("SHELL" . "SHELL")
+    ("/SHOW" . "/SHOW")
+    ("/SHOWDISP" . "/SHOWDISP")
+    ("SHPP" . "SHPP")
+    ("/SHRINK" . "/SHRINK")
+    ("SHSD" . "SHSD")
+    ("SLIST" . "SLIST")
+    ("SLOAD" . "SLOAD")
+    ("SLPPLOT" . "SLPPLOT")
+    ("SLSPLOT" . "SLSPLOT")
+    ("SMALL" . "SMALL")
+    ("SMAX" . "SMAX")
+    ("/SMBC" . "/SMBC")
+    ("SMBODY" . "SMBODY")
+    ("SMCONS" . "SMCONS")
+    ("SMFOR" . "SMFOR")
+    ("SMIN" . "SMIN")
+    ("SMOOTH" . "SMOOTH")
+    ("SMRTSIZE" . "SMRTSIZE")
+    ("SMSURF" . "SMSURF")
+    ("SMULT" . "SMULT")
+    ("SOLCONTROL" . "SOLCONTROL")
+    ("SOLU" . "SOLU")
+    ("/SOLU" . "/SOLU")
+    ("SOLUOPT" . "SOLUOPT")
+    ("SOLVE" . "SOLVE")
+    ("SORT" . "SORT")
+    ("SOURCE" . "SOURCE")
+    ("SPACE" . "SPACE")
+    ("SPARM" . "SPARM")
+    ("SPCNOD" . "SPCNOD")
+    ("SPCTEMP" . "SPCTEMP")
+    ("SPEC" . "SPEC")
+    ("SPH4" . "SPH4")
+    ("SPH5" . "SPH5")
+    ("SPHERE" . "SPHERE")
+    ("SPICE" . "SPICE")
+    ("SPLINE" . "SPLINE")
+    ("SPLOT" . "SPLOT")
+    ("SPOINT" . "SPOINT")
+    ("SPOPT" . "SPOPT")
+    ("SPREAD" . "SPREAD")
+    ("SPSCAN" . "SPSCAN")
+    ("SPSWP" . "SPSWP")
+    ("SPTOPT" . "SPTOPT")
+    ("SQRT" . "SQRT")
+    ("SRSS" . "SRSS")
+    ("SSBT" . "SSBT")
+    ("/SSCALE" . "/SSCALE")
+    ("SSLN" . "SSLN")
+    ("SSMT" . "SSMT")
+    ("SSPA" . "SSPA")
+    ("SSPB" . "SSPB")
+    ("SSPD" . "SSPD")
+    ("SSPE" . "SSPE")
+    ("SSPM" . "SSPM")
+    ("SSTIF" . "SSTIF")
+    ("SSUM" . "SSUM")
+    ("STAOPT" . "STAOPT")
+    ("STAT" . "STAT")
+    ("/STATUS" . "/STATUS")
+    ("STEF" . "STEF")
+    ("/STITLE" . "/STITLE")
+    ("STORE" . "STORE")
+    ("SUBOPT" . "SUBOPT")
+    ("SUBSET" . "SUBSET")
+    ("SUCALC" . "SUCALC")
+    ("SUCR" . "SUCR")
+    ("SUDEL" . "SUDEL")
+    ("SUEVAL" . "SUEVAL")
+    ("SUGET" . "SUGET")
+    ("SUMAP" . "SUMAP")
+    ("SUMTYPE" . "SUMTYPE")
+    ("SUPL" . "SUPL")
+    ("SUPR" . "SUPR")
+    ("SURESU" . "SURESU")
+    ("SUSAVE" . "SUSAVE")
+    ("SUSEL" . "SUSEL")
+    ("SUVECT" . "SUVECT")
+    ("SV" . "SV")
+    ("SVTYP" . "SVTYP")
+    ("SWADD" . "SWADD")
+    ("SWDEL" . "SWDEL")
+    ("SWGEN" . "SWGEN")
+    ("SWLIST" . "SWLIST")
+    ("/SX" . "/SX")
+    ("SXCLR" . "SXCLR")
+    ("SXDISC" . "SXDISC")
+    ("SXEVAL" . "SXEVAL")
+    ("SXFREQ" . "SXFREQ")
+    ("SXGEOM" . "SXGEOM")
+    ("SXIN" . "SXIN")
+    ("SXMETH" . "SXMETH")
+    ("SXMP" . "SXMP")
+    ("SXOP" . "SXOP")
+    ("SXPOST" . "SXPOST")
+    ("SXREAL" . "SXREAL")
+    ("SXRFIL" . "SXRFIL")
+    ("SXRSLT" . "SXRSLT")
+    ("SXSEC" . "SXSEC")
+    ("SXSFE" . "SXSFE")
+    ("SXSL" . "SXSL")
+    ("SXSTAT" . "SXSTAT")
+    ("SXTEMP" . "SXTEMP")
+    ("SXVMOD" . "SXVMOD")
+    ("/SYP" . "/SYP")
+    ("/SYS" . "/SYS")
+    ("TALLOW" . "TALLOW")
+    ("TB" . "TB")
+    ("TBCOPY" . "TBCOPY")
+    ("TBDATA" . "TBDATA")
+    ("TBDELE" . "TBDELE")
+    ("TBFIELD" . "TBFIELD")
+    ("TBFT" . "TBFT")
+    ("TBLE" . "TBLE")
+    ("TBLIST" . "TBLIST")
+    ("TBMODIF" . "TBMODIF")
+    ("TBPLOT" . "TBPLOT")
+    ("TBPT" . "TBPT")
+    ("TBTEMP" . "TBTEMP")
+    ("TCHG" . "TCHG")
+    ("TEE" . "TEE")
+    ("TERM" . "TERM")
+    ("THOPT" . "THOPT")
+    ("TIFF" . "TIFF")
+    ("TIME" . "TIME")
+    ("TIMERANGE" . "TIMERANGE")
+    ("TIMINT" . "TIMINT")
+    ("TIMP" . "TIMP")
+    ("TINTP" . "TINTP")
+    ("/TITLE" . "/TITLE")
+    ("/TLABEL" . "/TLABEL")
+    ("TOCOMP" . "TOCOMP")
+    ("TODEF" . "TODEF")
+    ("TOEXE" . "TOEXE")
+    ("TOFFST" . "TOFFST")
+    ("TOFREQ" . "TOFREQ")
+    ("TOGRAPH" . "TOGRAPH")
+    ("TOLIST" . "TOLIST")
+    ("TOLOOP" . "TOLOOP")
+    ("TOPLOT" . "TOPLOT")
+    ("TOPRINT" . "TOPRINT")
+    ("TORQ2D" . "TORQ2D")
+    ("TORQC2D" . "TORQC2D")
+    ("TORQSUM" . "TORQSUM")
+    ("TORUS" . "TORUS")
+    ("TOSTAT" . "TOSTAT")
+    ("TOTAL" . "TOTAL")
+    ("TOTYPE" . "TOTYPE")
+    ("TOVAR" . "TOVAR")
+    ("TRANS" . "TRANS")
+    ("TRANSFER" . "TRANSFER")
+    ("TREF" . "TREF")
+    ("/TRIAD" . "/TRIAD")
+    ("/TRLCY" . "/TRLCY")
+    ("TRNOPT" . "TRNOPT")
+    ("TRPDEL" . "TRPDEL")
+    ("TRPLIS" . "TRPLIS")
+    ("TRPOIN" . "TRPOIN")
+    ("TRTIME" . "TRTIME")
+    ("TSHAP" . "TSHAP")
+    ("/TSPEC" . "/TSPEC")
+    ("TSRES" . "TSRES")
+    ("TUNIF" . "TUNIF")
+    ("TVAR" . "TVAR")
+    ("/TXTRE" . "/TXTRE")
+    ("/TYPE" . "/TYPE")
+    ("TYPE" . "TYPE")
+    ("TZAMESH" . "TZAMESH")
+    ("TZDELE" . "TZDELE")
+    ("TZEGEN" . "TZEGEN")
+    ("/UDOC" . "/UDOC")
+    ("/UI" . "/UI")
+    ("UIMP" . "UIMP")
+    ("/UIS" . "/UIS")
+    ("UNDELETE" . "UNDELETE")
+    ("UNDO" . "UNDO")
+    ("/UNITS" . "/UNITS")
+    ("UPCOORD" . "UPCOORD")
+    ("UPGEOM" . "UPGEOM")
+    ("/USER" . "/USER")
+    ("USRCAL" . "USRCAL")
+    ("V" . "V")
+    ("V2DOPT" . "V2DOPT")
+    ("VA" . "VA")
+    ("VADD" . "VADD")
+    ("VALVE" . "VALVE")
+    ("VARDEL" . "VARDEL")
+    ("VARNAM" . "VARNAM")
+    ("VATT" . "VATT")
+    ("VCLEAR" . "VCLEAR")
+    ("/VCONE" . "/VCONE")
+    ("VCROSS" . "VCROSS")
+    ("VCVFILL" . "VCVFILL")
+    ("VDDAM" . "VDDAM")
+    ("VDELE" . "VDELE")
+    ("VDGL" . "VDGL")
+    ("VDOT" . "VDOT")
+    ("VDRAG" . "VDRAG")
+    ("VEORIENT" . "VEORIENT")
+    ("VEXT" . "VEXT")
+    ("VFCALC" . "VFCALC")
+    ("VFOPT" . "VFOPT")
+    ("VFQUERY" . "VFQUERY")
+    ("VGEN" . "VGEN")
+    ("VGET" . "VGET")
+    ("VGLUE" . "VGLUE")
+    ("/VIEW" . "/VIEW")
+    ("VIMP" . "VIMP")
+    ("VINP" . "VINP")
+    ("VINV" . "VINV")
+    ("VLIST" . "VLIST")
+    ("VLSCALE" . "VLSCALE")
+    ("VMESH" . "VMESH")
+    ("VOFFST" . "VOFFST")
+    ("VOLUMES" . "VOLUMES")
+    ("VOVLAP" . "VOVLAP")
+    ("VPLOT" . "VPLOT")
+    ("VPTN" . "VPTN")
+    ("VPUT" . "VPUT")
+    ("VROTAT" . "VROTAT")
+    ("VSBA" . "VSBA")
+    ("VSBV" . "VSBV")
+    ("VSBW" . "VSBW")
+    ("/VSCALE" . "/VSCALE")
+    ("VSEL" . "VSEL")
+    ("VSLA" . "VSLA")
+    ("VSUM" . "VSUM")
+    ("VSWEEP" . "VSWEEP")
+    ("VSYMM" . "VSYMM")
+    ("VTRAN" . "VTRAN")
+    ("VTYPE" . "VTYPE")
+    ("/VUP" . "/VUP")
+    ("WAVES" . "WAVES")
+    ("WERASE" . "WERASE")
+    ("WFRONT" . "WFRONT")
+    ("/WINDOW" . "/WINDOW")
+    ("WMID" . "WMID")
+    ("WMORE" . "WMORE")
+    ("WPAVE" . "WPAVE")
+    ("WPCSYS" . "WPCSYS")
+    ("WPLANE" . "WPLANE")
+    ("WPOFFS" . "WPOFFS")
+    ("WPROTA" . "WPROTA")
+    ("WPSTYL" . "WPSTYL")
+    ("WRFULL" . "WRFULL")
+    ("WRITE" . "WRITE")
+    ("WSORT" . "WSORT")
+    ("WSPRINGS" . "WSPRINGS")
+    ("WSTART" . "WSTART")
+    ("/XFRM" . "/XFRM")
+    ("/XRANGE" . "/XRANGE")
+    ("XVAR" . "XVAR")
+    ("XVAROPT" . "XVAROPT")
+    ("/YRANGE" . "/YRANGE")
+    ("/ZOOM" . "/ZOOM")
+    ("NSEL()" . "NSEL()")
+    ("ESEL()" . "ESEL()")
+    ("KSEL()" . "KSEL()")
+    ("LSEL()" . "LSEL()")
+    ("ASEL()" . "ASEL()")
+    ("VSEL()" . "VSEL()")
+    ("NDNEXT()" . "NDNEXT()")
+    ("ELNEXT()" . "ELNEXT()")
+    ("KPNEXT()" . "KPNEXT()")
+    ("LSNEXT()" . "LSNEXT()")
+    ("ARNEXT()" . "ARNEXT()")
+    ("VLNEXT()" . "VLNEXT()")
+    ("CENTRX()" . "CENTRX()")
+    ("CENTRY()" . "CENTRY()")
+    ("CENTRZ()" . "CENTRZ()")
+    ("NX()" . "NX()")
+    ("NY()" . "NY()")
+    ("NZ()" . "NZ()")
+    ("KX()" . "KX()")
+    ("KY()" . "KY()")
+    ("KZ()" . "KZ()")
+    ("LX()" . "LX()")
+    ("LY()" . "LY()")
+    ("LZ()" . "LZ()")
+    ("LSX()" . "LSX()")
+    ("LSY()" . "LSY()")
+    ("LSZ()" . "LSZ()")
+    ("NODE()" . "NODE()")
+    ("KP()" . "KP()")
+    ("DISTND()" . "DISTND()")
+    ("DISTKP()" . "DISTKP()")
+    ("DISTEN()" . "DISTEN()")
+    ("ANGLEN()" . "ANGLEN()")
+    ("ANGLEK()" . "ANGLEK()")
+    ("NNEAR()" . "NNEAR()")
+    ("KNEAR()" . "KNEAR()")
+    ("ENEARN()" . "ENEARN()")
+    ("AREAND()" . "AREAND()")
+    ("AREAKP()" . "AREAKP()")
+    ("ARNODE()" . "ARNODE()")
+    ("NORMNX()" . "NORMNX()")
+    ("NORMNY()" . "NORMNY()")
+    ("NORMNZ()" . "NORMNZ()")
+    ("NORMKX()" . "NORMKX()")
+    ("NORMKY()" . "NORMKY()")
+    ("NORMKZ()" . "NORMKZ()")
+    ("ENEXTN()" . "ENEXTN()")
+    ("NELEM()" . "NELEM()")
+    ("NODEDOF()" . "NODEDOF()")
+    ("ELADJ()" . "ELADJ()")
+    ("NDFACE()" . "NDFACE()")
+    ("NMFACE()" . "NMFACE()")
+    ("ARFACE()" . "ARFACE()")
+    ("UX()" . "UX()")
+    ("UY()" . "UY()")
+    ("UZ()" . "UZ()")
+    ("ROTX()" . "ROTX()")
+    ("ROTY()" . "ROTY()")
+    ("ROTZ()" . "ROTZ()")
+    ("TEMP()" . "TEMP()")
+    ("PRES()" . "PRES()")
+    ("VX()" . "VX()")
+    ("VY()" . "VY()")
+    ("VZ()" . "VZ()")
+    ("ENKE()" . "ENKE()")
+    ("ENDS()" . "ENDS()")
+    ("VOLT()" . "VOLT()")
+    ("MAG()" . "MAG()")
+    ("AX()" . "AX()")
+    ("AY()" . "AY()")
+    ("AZ()" . "AZ()")
+    ("VIRTINQR()" . "VIRTINQR()")
+    ("KWGET()" . "KWGET()")
+    ("VALCHR()" . "VALCHR()")
+    ("VALHEX()" . "VALHEX()")
+    ("CHRHEX()" . "CHRHEX()")
+    ("STRSUB()" . "STRSUB()")
+    ("STRCAT()" . "STRCAT()")
+    ("STRFILL()" . "STRFILL()")
+    ("STRCOMP()" . "STRCOMP()")
+    ("STRLEFT()" . "STRLEFT()")
+    ("STRPOS()" . "STRPOS()")
+    ("STRLENG()" . "STRLENG()")
+    ("UPCASE()" . "UPCASE()")
+    ("LWCASE()" . "LWCASE()")
+    ("SPLIT()" . "SPLIT()"))
 "Alist of Ansys symbols for completion in Ansys mode.
 Each element looks like (VAR . VAR), where the car and cdr are
 the same symbol (an Ansys command or variable name).  By default
 keywords, get-functions, parametric-function and elements are
-completed."  )
+completed.")
 
 ;; --- constants ---
 
@@ -1744,9 +2885,9 @@ font-lock-variable-name-face keep))
 (defconst ansys-condensed-input-line-regexp ".*\\$" ;NEW
   "Regexp indicating a condensed input line.")
 
-(defconst ansys-indent-comment
+(defconst ansys-indent-comment		;_C
   (concat (char-to-string ansys-comment-char) ansys-indent-comment-string)
-  "String to insert to start a new Ansys indented comment.")
+  "String to insert when starting a new Ansys code comment.")
 
 (defconst ansys-comment-start-skip "\\S<+\\S-*"
   "Regexp to match the start of an Ansys comment up to its body.")
@@ -2589,15 +3730,15 @@ FLDATA20A, PGMR, Label, Value" "FLDATA20B - Specifies the number of fill-ins for
 FLDATA20B, PBCGM, Label, Value" "FLDATA21 - Specifies the convergence criterion for FLOTRAN algebraic solvers.
 FLDATA21, CONV, Label, Value" "FLDATA22 - Specifies the maximum number of semi-direct iterations.
 FLDATA22, MAXI, Label, Value" "FLDATA23 - Specifies the solver minimum normalized rate of change.
-FLDATA23, DELT, Label, Value" "FLDATA24 - Sets the turbulence model and the constants used in the Standard k-ε Model and the Zero Equation Turbulence Model.
+FLDATA23, DELT, Label, Value" "FLDATA24 - Sets the turbulence model and the constants used in the Standard k-Îµ Model and the Zero Equation Turbulence Model.
 FLDATA24, TURB, Label, Value" "FLDATA24A - Sets constants for the Re-Normalized Group Turbulence Model (RNG).
-FLDATA24A, RNGT, Label, Value" "FLDATA24B - Sets constants for the k-ε Turbulence Model due to Shih (NKE).
+FLDATA24A, RNGT, Label, Value" "FLDATA24B - Sets constants for the k-Îµ Turbulence Model due to Shih (NKE).
 FLDATA24B, NKET, Label, Value" "FLDATA24C - Sets constants for the Nonlinear Turbulence Model of Girimaji (GIR).
 FLDATA24C, GIRT, Label, Value" "FLDATA24D - Sets constants for the Shih, Zhu, Lumley Turbulence Model (SZL).
-FLDATA24D, SZLT, Label, Value" "FLDATA24E - Sets constants for the k-ω turbulence model.
+FLDATA24D, SZLT, Label, Value" "FLDATA24E - Sets constants for the k-Ï‰ turbulence model.
 FLDATA24E, SKWT, Label, Value" "FLDATA24F - Sets the turbulent production clip factor for the Shear Stress Transport (SST) turbulence model.
-FLDATA24F, SST1, Label, Value" "FLDATA24G - Sets constants in the k-ω regime for the Shear Stress Transport (SST) turbulence model.
-FLDATA24G, SST1, Label, Value" "FLDATA24H - Sets constants in the k-ε regime for the Shear Stress Transport (SST) turbulence model.
+FLDATA24F, SST1, Label, Value" "FLDATA24G - Sets constants in the k-Ï‰ regime for the Shear Stress Transport (SST) turbulence model.
+FLDATA24G, SST1, Label, Value" "FLDATA24H - Sets constants in the k-Îµ regime for the Shear Stress Transport (SST) turbulence model.
 FLDATA24H, SST2, Label, Value" "FLDATA25 - Sets solution and property relaxation factors.
 FLDATA25, RELX, Label, Value" "FLDATA26 - Sets stability controls.
 FLDATA26, STAB, Label, Value" "FLDATA27 - Controls dependent variable printing.
@@ -3123,7 +4264,7 @@ PNGR, Kywrd, OPT, VAL" "POINT
 POINT - Specifies \"Point flow tracing settings\" as the subsequent status topic." "POLY
 POLY - Creates a polygonal area based on working plane coordinate pairs." "POPT - Selects the piping analysis standard for a piping run.
 POPT, Lop1" "POUTRES - Controls the nodal DOF and computed element results graphics data that is written to the PGR file.
-POUTRES, Item1, Item2, Item3,Â Item4,Â Item5,Â Item6,Â Item7,Â Item8,Â Item9,Â Item10,Â Item11,Â Item12, Item13,Â Item14,Â Item15,Â Item16,Â Item17,Â Item18,Â Item19" "POWERH
+POUTRES, Item1, Item2, Item3,Ã‚Â Item4,Ã‚Â Item5,Ã‚Â Item6,Ã‚Â Item7,Ã‚Â Item8,Ã‚Â Item9,Ã‚Â Item10,Ã‚Â Item11,Ã‚Â Item12, Item13,Ã‚Â Item14,Ã‚Â Item15,Ã‚Â Item16,Ã‚Â Item17,Ã‚Â Item18,Ã‚Â Item19" "POWERH
 POWERH - Calculates the rms power loss in a conductor or lossy dielectric." "PPATH - Defines a path by picking or defining nodes, or locations on the currently active working plane, or by entering specific coordinate locations.
 PPATH, POINT, NODE, X, Y, Z, CS" "PPLOT
 PPLOT - Displays an element plot indicating each element's final p-level." "PPRANGE - Specifies a range of p-level values for use in a p-method solution.
@@ -8003,17 +9144,21 @@ keep) (4 (quote shadow) keep)))
     table)
     "Syntax table in use in `ansys-mode' buffers.")
 
+;; needed for insert-pair in below key map
+(add-to-list 'insert-pair-alist '(?% ?%))
+
 (defconst ansys-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "`" 'ansys-abbrev-start) ;``?' lists abbrevs
 ;    (define-key map "\t" 'indent-according-to-mode)		  ;redundant
 ;;     standard behaviour of M-j is sufficient for me
     (define-key map "\e\t" 'ansys-complete-symbol) ;or M-C-i
-    ;; --- standard Emacs keybinding changes ---
+    ;; --- changed standard Emacs keybindings ---
     (define-key map " " 'ansys-electric-space)
     (define-key map "\M-j" 'ansys-indent-format-line)
     (define-key map "\n" 'ansys-reindent-then-newline-and-indent)
-       ;end block indentation
+    ;; end block indentation
+
     ;; --- especially interesting for continuation lines and condensed input
     (define-key map "\M-a" 'ansys-command-start)
     (define-key map "\M-e" 'ansys-command-end)
@@ -8032,6 +9177,14 @@ keep) (4 (quote shadow) keep)))
     (define-key map "\C-c]" 'ansys-close-block)
     (define-key map "\C-c}" 'ansys-number-block-end)
     (define-key map "\C-c{" 'ansys-number-block-start)
+    ;; --- pairs
+    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
+    (define-key map "\C-c[" 'insert-pair)
+    (define-key map "\C-c'" 'insert-pair)
+    (define-key map "\C-c%" 'insert-pair)
+    (define-key map [?\C-c?\C-%] 'insert-pair)
+    (define-key map [?\C-c?\C-[] 'insert-pair)
+    (define-key map [?\C-c?\C-'] 'insert-pair)
     ;; --- miscellaneous ---
     (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
     (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
@@ -8039,17 +9192,17 @@ keep) (4 (quote shadow) keep)))
     (define-key map "\C-c\C-d" 'ansys-do)
     (define-key map "\C-c\C-e" 'ansys-display-error-file)
     (define-key map "\C-c\C-f" 'ansys-fit)
+    (define-key map "\C-c\C-g" 'ansys-start-graphics)
     (define-key map "\C-c\C-h" 'ansys-show-command-parameters)
     (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-l" 'ansys-license-status)
-    (define-key map "\C-c\C-m" 'ansys-mp)
+    (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
     (define-key map "\C-c\C-p" 'ansys-start-pzr-box)
     (define-key map "\C-c\C-r" 'ansys-replot)
+;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
     (define-key map "\C-c\C-t" 'ansys-if-then)
     (define-key map "\C-c\C-v" 'ansys-display-variables)
-;;    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
-					;    menu FIXME:where?
-     map)
+    map)
   "Keymap used in Ansys mode."
     )
 
@@ -8093,6 +9246,8 @@ Usage
   \"ALT\" key while pressing the \"TAB\" key), when your window
   manager intercepts these key combinations type \"C-M-i\"
   (typing \"CTRL\", \"ALT\" and \"i\" key simultaneously).
+
+  There are nearly 1900 Ansys symbols available for completion.
 
   Undocumented Ansys commands are not completed (see the variable
   `ansys-undocumented-commands').  When the character combination
@@ -8172,15 +9327,24 @@ Usage
   stem, they are shown in an unobtrusive font, since these
   characters are ignored by the intepreter anyways.
 
-  Regarding the user variables: see the menu entry: ->Ansys
-  ->Customise Ansys Mode or include
+  Another example is the Ansys the fontification of the percent
+  sign.  It reminds you that the use of such a pair around a
+  parameter name forces the parameter substitution, e. g. if I=5
+  then TEST$I$ becomes TEST5.  You can input various pairs with
+  keyboard shortcuts, e. g. apostrophies for Ansys character
+  parameters with \"C-c '\", please have a look wich bindings are
+  available with the function
+  `describe-bindings' (\\[describe-bindings]).
 
-     (setq ansys-dynamic-highlighting t)
+  Regarding the highlighting of user variables: see the menu
+  entry: ->Ansys ->Customise Ansys Mode or include
+
+     (setq ansys-dynamic-highlighting-flag t)
 
   in your .emacs file.  In general you can also scroll further
   down to the == Customisation == section of this help and click
   on the respective variable (here in this case:
-  `ansys-dynamic-highlighting').  You will be presented with an
+  `ansys-dynamic-highlighting-flag').  You will be presented with an
   help buffer for this variable in which you are can click on the
   underlined word 'customize'.  Then you also have the convenient
   Emacs customisation functionality at hand.
@@ -8232,7 +9396,7 @@ Usage
   \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean 8-):
 
   o In a code line: Insert comment char `ansys-indent-comment' at
-    `ansys-comment-column' (if possible).  With a prefix
+    `ansys-code-comment-column' (if possible).  With a prefix
     argument: Kill existing code comment.
 
   o With an active region: Commenting out (`comment-region') or
@@ -8245,7 +9409,7 @@ Usage
   `comment-indent-new-line')
 
   0 Inserts a single '!' (`ansys-comment-char')in a code line at
-    column `ansys-comment-column' (if possible).
+    column `ansys-code-comment-column' (if possible).
 
   0 In comment lines '!!\ ' (`ansys-indent-comment') at the
     the line beginning.
@@ -8265,7 +9429,6 @@ Usage
       (add-to-list 'auto-mode-alist '(\"\\.mac$\" . ansys-mode))
 
       (auto-insert-mode 1)
-      (add-hook 'find-file-hook 'auto-insert)
       (setq auto-insert-query t)
       (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
@@ -8380,6 +9543,14 @@ Usage
        !/ui,help  !is it not working in Ansys non-GUI modes
        !help, nsel !is not working in Ansys non-GUI modes
 
+  Some helpful commands when working interactively:
+  replotting: \\[ansys-replot]
+  refitting: \\[ansys-fit]
+
+  You can optimise the execution speed of Ansys mode with
+  byte-compilation of ansys-mode100.el.  Just call the function
+  `byte-compile-file'.
+
 Keybindings
 ===========
 
@@ -8387,7 +9558,7 @@ Keybindings
 Variables you can use to customize Ansys mode
 =============================================
 
-`ansys-dynamic-highlighting'
+`ansys-dynamic-highlighting-flag'
   Controls experimental highlighting of user defined variables.
   Warning: This option is computational expensive and depending on
   the file size and your system it might make your editing
@@ -8424,7 +9595,7 @@ Variables you can use to customize Ansys mode
   \"ane3fl\" - Multiphysics
   \"preppost\" - PrepPost (just pre- and post-processing)
 
-`ansys-indicate-empty-lines'
+`ansys-indicate-empty-lines-flag'
   When t indicate empty lines on window systems.
   Do this visually at the end of buffer in the left fringe.
 
@@ -8445,7 +9616,7 @@ Variables you can use to customize Ansys mode
   it can be convenient to set it to 1 so that regions are commented with
   two semi-colons.
 
-`ansys-comment-column'
+`ansys-code-comment-column'
   Column where Ansys code comments (behind code) are placed.
 
 `ansys-auto-indent-flag'
@@ -8459,10 +9630,10 @@ See `ansys-indent-comment'.
   Non-nil means show a 80 characters wide temporary ruler.
   Nil means show a narrower temporary ruler with 50 characters.
 
-`ansys-require-spaces'
+`ansys-require-spaces-flag'
   If non-nil, `insert-parentheses' inserts whitespace before ().
 
-`ansys-blink-matching-block'
+`ansys-blink-matching-block-flag'
   Control the blinking of matching Ansys block keywords.
   Non-nil means show matching begin of block when inserting a
   newline after an else or end keyword.
@@ -8472,12 +9643,6 @@ See `ansys-indent-comment'.
 
 `ansys-block-offset'
   Extra indentation applied to statements in Ansys block structures.
-
-`ansys-default-command-offset'
-  Extra indentation applied to Ansys default command lines.
-  These are lines beginning with a comma, the solver uses the
-  previous non slash- or non asterisk command as the default
-  command.
 
 `ansys-outline-string'
   Character specifying outline headings.
@@ -8517,7 +9682,7 @@ the following options:
   (setq mode-name "Ansys")		; mode line string
 
   ;; only effective for window systems!
-  (setq indicate-empty-lines ansys-indicate-empty-lines)
+  (setq indicate-empty-lines ansys-indicate-empty-lines-flag)
 
   (setq completion-ignore-case t) ; keyword completion regardless of cases
 
@@ -8531,7 +9696,7 @@ the following options:
   (setq ansys-user-variables-regexp nil)
 
   (make-local-variable 'parens-require-spaces)
-  (setq parens-require-spaces ansys-require-spaces)
+  (setq parens-require-spaces ansys-require-spaces-flag)
 
   (make-local-variable 'ansys-job)
 
@@ -8548,7 +9713,7 @@ the following options:
   (setq comment-add ansys-comment-add)
 
   (make-local-variable 'comment-column)
-  (setq comment-column ansys-comment-column)
+  (setq comment-column ansys-code-comment-column)
 
   ;; FIXME:
   ;;  (setq comment-fill-column 50)???
@@ -8591,7 +9756,7 @@ the following options:
   (ansys-add-ansys-menu)
 
   ;; --- user variables ---
-  (if ansys-dynamic-highlighting
+  (if ansys-dynamic-highlighting-flag
       (ansys-find-user-variables)
     (let (bla)		    ;else: initialise a-u-v-r for font-locking
       (setq bla (mapcar '(lambda (s) (concat "\\b" s "\\b"))
@@ -8599,7 +9764,7 @@ the following options:
 	    bla (mapconcat '(lambda (x) x) bla "\\|")
 	    ansys-user-variables-regexp bla)))
   (when (and
-	 ansys-dynamic-highlighting
+	 ansys-dynamic-highlighting-flag
 	 (string= (file-name-extension (buffer-file-name)) "mac"))
     (when (or
 	   (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
@@ -8689,7 +9854,7 @@ if no block to close is found."
 			(assoc-string bb-keyword
 			       ansys-block-match-alist 1))))
 	  (indent-according-to-mode)
-	  (ansys-blink-matching-block)
+	  (ansys-blink-matching-block-flag)
 	  t)
       (error (message "No block to close found")))))
 
@@ -8785,7 +9950,7 @@ element names."
 If function `abbrev-mode' is on, expand the abbreviations first."
   (interactive)
   (expand-abbrev)
-  (ansys-blink-matching-block)
+  (ansys-blink-matching-block-flag)
   (save-excursion
     (delete-region
      (point)
@@ -8801,12 +9966,14 @@ Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
   (interactive)
   (setq last-command-char ? )
-  (if (and (ansys-not-in-string-or-comment-p) (not (ansys-in-empty-line-p)))
+  (if (and (ansys-not-in-string-or-comment-p)
+	   (not (ansys-in-indentation-p))
+	   (not (ansys-in-empty-line-p)))
       (progn
 	(indent-according-to-mode)
-	(self-insert-command 1)         ;FIXME: abbrev expansion, blink-paren-function
-	(expand-abbrev)			;redundant?
-	(ansys-blink-matching-block)
+	(self-insert-command 1)
+	(expand-abbrev)
+	(ansys-blink-matching-block-flag)
 	(if (and ansys-auto-indent-flag
 		 (save-excursion
 		   (skip-syntax-backward " ")
@@ -8847,10 +10014,12 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Mark Block"              ansys-mark-block]
 	      )
 	(list "Manage Ansys Processes"
-	      ["Specify License File"   ansys-license-file]
+	      ["Specify Ansys License File"   ansys-license-file]
+	      ["Specify License Utility" ansys-lmutil-program]
 	      ["Display License Status" ansys-license-status]
 	      ["Start Ansys help system" ansys-start-ansys-help]
 	      "-"
+	      ["Specify Ansys License" ansys-license :active ansys-is-unix-system]
 	      ["Specify Job Name" ansys-job :active ansys-is-unix-system]
 	      ["Specify Ansys executable" ansys-program :active ansys-is-unix-system]
 	      ["Start Ansys Run" ansys-start-ansys :active ansys-is-unix-system]
@@ -8905,10 +10074,10 @@ level."
 	(setq keyword_c (current-column))
 	(cond
 	 ((looking-at ansys-block-begin-regexp)
-	  (setq column (+ column ansys-block-offset)))
+	  (setq keyword_c (+ keyword_c ansys-block-offset)))
 	 ((looking-at ansys-block-else-regexp)
-	  (setq column (+ column ansys-block-offset)))
-	 ((looking-at "[^*/\n]")	;default command stuff
+	  (setq keyword_c (+ keyword_c ansys-block-offset)))
+	 ((looking-at "[^*/\n]") ;otherwise forbidden by default command stuff
 	  (setq lep (line-end-position))
 	  (setq comma_c (re-search-forward "\\w+\\s-*") lep 'noerror)
 	  (when comma_c
@@ -8929,12 +10098,14 @@ level."
 	(if comma_c
 	    (setq column comma_c)
 	  (setq column keyword_c)))
-       ((and (looking-at "\\s<\\w")	;FIXME: this is for "code comments"
+       ((and (looking-at "\\s<\\w")	;FIXME:? this is for "code comments"
 	     (not (looking-at
 		   ( concat
 		     "\\(\\s<\\s<\\s-\\S<\\)\\|\\(\\^\\s<"
 		     ansys-outline-string "+\\)")))
-	     (setq column comment-column)))))
+	     (setq column comment-column)))
+       (t
+	(setq column keyword_c))))
       (when (< column 0)
 	(error "%s" "Can't deduce sensible column offset"))
       column))
@@ -9059,11 +10230,14 @@ WorkBench APDL files."
 Skips past all empty - and comment lines."
   (interactive "p")
   (unless arg (setq arg 1))
-  (unless (memq last-command '(ansys-next-code-line ansys-previous-code-line))
-    (setq goal-column (current-column)))
+  (unless (memq last-command '(next-line
+			       previous-line
+			       ansys-next-code-line
+			       ansys-previous-code-line))
+    (setq temporary-goal-column (current-column)))
   (forward-line 1)
   (forward-comment (buffer-size))
-  (move-to-column goal-column)
+  (move-to-column temporary-goal-column)
   (setq arg (1- arg))
   (when (and (not (ansys-last-line-p))
 	       (/= arg 0))
@@ -9075,13 +10249,16 @@ Skips before all empty - and comment lines and return the
 difference between NUM and actually moved code lines."
   (interactive "p")
   (unless num (setq num 1))
-  (unless (memq last-command '(ansys-next-code-line ansys-previous-code-line))
-    (setq goal-column (current-column)))
+  (unless (memq last-command '(next-line
+			       previous-line
+			       ansys-next-code-line
+			       ansys-previous-code-line))
+    (setq temporary-goal-column (current-column)))
   (let ((p 0))
     (unless (ansys-first-line-p) 	;in case we aren't at b-o-l
       (beginning-of-line)		 ;for forward-comment
       (forward-comment (-(buffer-size))) ;and in case we are in a comment line
-      (move-to-column goal-column)
+      (move-to-column temporary-goal-column)
       (setq num (1- num)
 	    p num)
       (when (/= num 0)
@@ -9333,13 +10510,13 @@ negative argument DEPTH means move forward down DEPTH levels (see
   (unless depth (setq depth 1))
   (ansys-down-block (- depth)))
 
-(defun ansys-blink-matching-block()
+(defun ansys-blink-matching-block-flag()
   "Blink the matching Ansys begin block keyword.
 If point is right after an Ansys else or end type block keyword, move
 cursor momentarily to the corresponding begin keyword.
 Signal an error if the keywords are incompatible."
 ;  (interactive)
-  (when ansys-blink-matching-block
+  (when ansys-blink-matching-block-flag
     (let (bb-keyword bb-arg eb-keyword pos eol)
       (when
 	  (and
@@ -9420,25 +10597,24 @@ Signal an error if the keywords are incompatible."
 	'ansys_mode_version
 
 	;; defcustoms below
-	'ansys-dynamic-highlighting
+	'ansys-dynamic-highlighting-flag
 	'ansys-program
 	'ansys-help
 	'ansys-lmutil-program
 	'ansys-license-file
 	'ansys-license
-	'ansys-indicate-empty-lines
+	'ansys-indicate-empty-lines-flag
 	'ansys-current-ansys-version
 	'ansys-comment-padding
 	'ansys-comment-add
-	'ansys-comment-column
+	'ansys-code-comment-column
 	'ansys-auto-indent-flag
 	'ansys-indent-comment-string
 	'ansys-ruler-wide-flag
-	'ansys-require-spaces
-	'ansys-blink-matching-block
+	'ansys-require-spaces-flag
+	'ansys-blink-matching-block-flag
 	'ansys-blink-matching-delay
 	'ansys-block-offset
-	'ansys-default-command-offset
 	'ansys-outline-string
 	'ansys-mode-hook
 	)
@@ -9573,22 +10749,23 @@ Signal an error if the keywords are incompatible."
   "!! !! et,Contact,conta172 !2d, 3 node" \n
   "!! !! et,Contact,conta171 !2d, 2 node" \n
   "!! !! et,Target,targe169 !2d" \n
-  "!! keyo,Contact,2,1 !algorithm 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
-  "!! keyo,Contact,5,1 !initial contact closure, 1:auto CNOF adjustment to close geometric gap only" \n
-  "!! keyo,Contact,9,2 !initial penetration, 1:ignore initial gaps/penetr 2:ramp" \n
-  "!! keyo,Contact,10,2 !contact stiffness update, 2: each NR iteration, 1: each substep" \n
-  "!! keyo,Contact,12,0 !contact behaviour, 0:default (frictional/frictionless)" \n
+  "!! keyo,Contact,2,1 !algorithm 0:augm. Lagrange (default),1:penalty,2:MPC,4:pure Lagrange" \n
+  "!! keyo,Contact,5,1 !initial contact closure,1:auto CNOF adjustment to close geometric gap only" \n
+  "!! keyo,Contact,9,2 !initial penetration,1:ignore initial gaps/penetr 2:ramp" \n
+  "!! keyo,Contact,10,2 !contact stiffness update,2:each NR iteration,1:each substep" \n
+  "!! keyo,Contact,12,0 !contact behaviour,0:frictional/-less (default),1:rough" \n
   "!! real,Contact" \n
-  "!! rmod,Contact,3,1. !FKN: normal penalty stiffness factor" \n
-  "!! rmod,Contact,5,0.0 !ICONT: amount of initial contact closure (positiv: penetration)" \n
-  "!! rmod,Contact,6,-0.1 !PINB: pinball radius (negativ means no scaling: absolute distance)" \n
-  "!! rmod,Contact,10,0. !CNOF: contact surface offset" \n
+  "!! rmod,Contact,3,1. !FKN:normal penalty stiffness factor (default:1)" \n
+  "!! rmod,Contact,5,0.0 !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  "!! rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
+  "!! rmod,Contact,10,0. !CNOF:contact surface offset" \n
   "!! mp,mu,Contact,0.4 !friction factor" \n
-  "!! rmod,Contact,12,0. ! FKT: tangent stiffness factor, 0:means 1 for Ansys!!!" \n
+  "!! rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n
-"!! --- Geometry ---" \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Geometry ---" \n
   \n
   "bloc,0,1,0,1,0,1" \n
+  "*get,A1,area,,num,max" \n
   "!! rectng,0,1,0,1 !x1,x2,y1,y2" \n
   "!! k,,1,0,0 & KN = _return !keypoint number" \n
   \n
@@ -9609,10 +10786,12 @@ Signal an error if the keywords are incompatible."
   \n
   "!! !! --- Rigid targets ---" \n
   \n
+  "!! type,Target" \n
+  "!! real,Contact" \n
   "!! tshape,line" \n
   "!! *get,Nmax,node,,num,max" \n
   "!! n,Nmax+1,1,1,0" \n
-  "!! n,Nmax+2,1,2,0" \n
+  "!!  ,Nmax+2,1,2,0" \n
   "!! e,Nmax+1,Nmax+2" \n
   "!! tshape,pilo" \n
   "!! e,Nmax+1" \n
@@ -9623,9 +10802,11 @@ Signal an error if the keywords are incompatible."
   "!! real,Contact" \n
   "!! esurf !,,reverse !also 2d" \n
   \n
+  "!! /psymb,esys,on !check element esys" \n
   "!! cncheck !initial contact status" \n
   \n
-  "!! --- Boundary conditions --- " \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Boundary conditions --- " \n
+  \n
   "nsel,s,loc,y,0" \n
   "    ,a,loc,y,1" \n
   "    ,r,loc,x,0" \n
@@ -9634,6 +10815,7 @@ Signal an error if the keywords are incompatible."
   "cp,next,uy,all !couple dofs" \n
   "f,1,fx,1" \n
   "allsel" \n
+  "/pbc,all,on" \n
   \n
   "!! ==============================" \n
   "!" ansys-outline-string " --- Solution --- " \n
@@ -9654,7 +10836,7 @@ Signal an error if the keywords are incompatible."
   "!! rescontrol,,all,1 !restart files" \n
   "!! eqslv,pcg,1e-4" \n
   "!! cnvtol,f,,0.1" \n
-  "!! nropt,unsym !frictional contacts no converging?" \n
+  "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness"
   \n
   "/eof ------------------------------" \n
@@ -9681,7 +10863,8 @@ Signal an error if the keywords are incompatible."
   \n
   "/post1" \n
   \n
-  "!! /dscale,,1" \n
+  "!! /dscale,,1 !do not scale (for nlgeom)" \n
+  "!! /dscale,,auto !or 0:scale automatically" \n
   "!! /contour,,ncont,min,inc,max" \n
   "!! /contour,,auto !switch off user contours" \n
   "!! /edge,,1 !1:display elements in contour plots" \n
@@ -9781,7 +10964,7 @@ Signal an error if the keywords are incompatible."
   "!! ------------------------------" \n
   \n
   "/post26" \n
-  "!! esol,2,1,u,z" \n
+  "!! esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
   "rforce,3,1,f,z" \n
   "!! add,4,2,,,displ,,,-1" \n
@@ -9800,7 +10983,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! ------------------------------" \n
   "!" ansys-outline-string
-  ansys-outline-string " --- Time Processing ---" \n
+  ansys-outline-string " --- Time Stat Processing ---" \n
   "!! ------------------------------" \n
   \n
   "*get,Walldone,active,,time,wall" \n
@@ -9996,8 +11179,14 @@ Argument END is the end of the region."
 	   (setq s (buffer-substring-no-properties bol eol))
 	   (forward-line)))
     ;(ansys-next-code-line)
-    (process-send-string ansys-process (concat s "\n")))
-  (display-buffer "*Ansys*" 'other-window))
+    (process-send-string ansys-process (concat s "\n"))
+    (setq mode-line-process (format ":%s" (process-status ansys-process)))
+    (force-mode-line-update)
+  (let ((cb (buffer-name)))
+    (set-buffer "*Ansys*")	       ;make buffer scroll with output
+    (goto-char (point-max))
+    (set-buffer cb))
+  (display-buffer "*Ansys*" 'other-window)))
 
 (defun ansys-start-ansys ()		;NEW
   "Start an Ansys run (when no run is already active).
@@ -10030,7 +11219,25 @@ starting the process."
   ;;there is a lock-file from a crashed run!
   (message "Starting run...done, process status: %s, Id: %d"
 	   (process-status ansys-process)
-	   (process-id ansys-process)))
+	   (process-id ansys-process))
+  (setq mode-line-process (format ":%s" (process-status ansys-process)))
+  (force-mode-line-update))
+
+(defun ansys-kill-ansys ()		;NEW
+  "Kill the current Ansys run under Emacs.
+The function asks for confirmation before actually killing the
+process.  Warning: Ansys writes a lock file if the process is
+killed and not regularly exited."
+  (interactive)
+  (if (yes-or-no-p
+       "Do you want to kill the Ansys run?")
+      (progn
+	(message "Killing run...")
+	(delete-process ansys-process)
+	(message "Killing run...done.")
+	(setq mode-line-process (format ":%s" (process-status ansys-process)))
+	(force-mode-line-update))
+    (error "Killing of Ansys run canceled")))
 
 ;;;###autoload
 (defun ansys-start-ansys-help ()	;NEW FIXME: does it work on NT?
@@ -10048,9 +11255,9 @@ PATH variable."
       (w32-shell-execute "Open" ansys-help)))))
 
 (defun ansys-process-status ()		;NEW
-  "Show the process status in the Emacs command line."
+  "Show the process status in the Emacs command line (minibuffer)."
   (interactive)
-  (message "Process status: %s, Id: %d"
+  (message "Ansys process status: %s, identification No: %d"
 	   (process-status ansys-process)
 	   (process-id ansys-process)))
 
@@ -10069,16 +11276,16 @@ displaying the license status."
 	(buffer (buffer-name (get-buffer "*lmutil*"))))
     (message "Retrieving license status information from %s." ansys-license-file)
     (cond
-     ansys-is-unix-system
-    ((setenv "LM_LICENSE_FILE" ansys-license-file)
-     (when buffer
-       (set-buffer buffer)
-       (goto-char (point-min))
-       (set-buffer current-b))
-     (start-process "lmutil" "*lmutil*" ansys-lmutil-program "lmstat" "-a")
-     (display-buffer "*lmutil*" 'other-window))
-    ((string= system-type "windows-nt")
-     (w32-shell-execute "Start" ansys-lmutil-program))))
+     (ansys-is-unix-system
+      (setenv "LM_LICENSE_FILE" ansys-license-file)
+      (when buffer
+	(set-buffer buffer)
+	(goto-char (point-min))
+	(set-buffer current-b))
+      (start-process "lmutil" "*lmutil*" ansys-lmutil-program "lmstat" "-a")
+      (display-buffer "*lmutil*" 'other-window))
+     ((string= system-type "windows-nt")
+      (w32-shell-execute "Start" ansys-lmutil-program)))))
 
 (defun ansys-start-graphics ()		;NEW
   "Start the Ansys display in interactive mode."
@@ -10105,36 +11312,46 @@ displaying the license status."
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-fit ()		;NEW PanZoomRotate box
-  "Fit model to interactive graphics screen."
+  "Fit FEA entities to the interactive graphics screen."
   (interactive)
   (unless (string= "run" (process-status ansys-process))
     (error "No Ansys process is running"))
   (process-send-string ansys-process "/dist\n/replot\n") ;valid in any processor
   (display-buffer "*Ansys*" 'other-window))
 
-(defun ansys-kill-ansys ()		;NEW
-  "Kill the current Ansys run under Emacs.
-The function asks for confirmation before actually killing the
-process."
-  (interactive)
-  (if (yes-or-no-p
-       "Do you want to kill the Ansys run?")
-      (progn
-	(message "Killing run...")
-	(delete-process ansys-process)
-	(message "Killing run...done."))
-    (error "Killing of Ansys run canceled")))
-
 (defun ansys-program ()			;NEW
   "Change the Ansys program name.
 And specify it in the variable `ansys-program'."
   (interactive)
   (let (pr)
-    (if ansys-program
+    (if (and ansys-program
+	     (not (string= ansys-program "")))
 	(setq pr ansys-program)
       (setq pr "/ansys_inc/v100/ansys/bin/ansys100"))
-    (setq ansys-program (read-file-name "Ansys program name: " "/" pr))
-    (message (concat "Set Ansys program name to \"" pr "\".")))))
+    (setq ansys-program
+	  (read-file-name
+	   (concat "Ansys program name [" pr "]: ") "" pr))
+    (message (concat "Set Ansys program to \"" ansys-program "\"."))))
+
+(defun ansys-lmutil-program ()			;NEW
+  "Change the Ansys LMutil program name.
+And specify it in the variable `ansys-lmutil-program'.  The
+function inserts the string `default-directory' in the prompt
+when the variable `insert-default-directory' is not nil."
+  (interactive)
+  (let (pr)
+    (if (and ansys-lmutil-program
+	     (not (string= ansys-lmutil-program "")))
+	(setq pr ansys-lmutil-program)
+      (if ansys-is-unix-system
+	  (setq pr "/ansys_inc/v100/shared_files/licensing/linop64/lmutil")
+	(setq pr "c:\\\\Program Files\\Ansys Inc\\Shared\\\
+                   Files\\Licensing\\intel\\anslic_admin.exe")))
+    (setq ansys-lmutil-program
+	  (read-file-name
+	   (concat "Ansys LMutil program name [" pr "]: ") "" pr))
+    (message (concat "Set Ansys LMutil program to \""
+		     ansys-lmutil-program "\"."))))
 
 (defun ansys-job ()			;NEW
   "Change the Ansys job name.
@@ -10179,7 +11396,8 @@ And specify it in the variable `ansys-license'."
 
 ;;; --- dynamic highlighting ---
 
-(defun ansys-find-user-variables (&optional a b c) ;FIXME: arguments for after-change-functions NEW
+(defun ansys-find-user-variables (&optional a b c) ;NEW
+    ;pseudo arguments for after-change-functions
   "Find all user variables in the current buffer.
 Pre-process the findings into the variable
 `ansys-user-variables-regexp' for subsequent fontifications."

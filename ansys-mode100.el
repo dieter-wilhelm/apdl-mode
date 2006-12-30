@@ -1,6 +1,6 @@
 ;;; ansys-mode100.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2006-12-23 14:10:24 dieter"
+;; Time-stamp: "2006-12-30 05:25:25 dieter"
 
 ;; Copyright (C) 2006 H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -240,19 +240,20 @@
 ;;   input character (multiple Ansys commands in one line).
 
 ;; * The colon ":" is now emphasised as the Ansys colon do loop
-;;   character ("(x:y:z)" means from x to y, in z steps, z is equal
-;;   to one as default).  For example: "n,(1:6),(2:18:2)" runs 6
-;;   loops.  Colon loops are working also with real values:
-;;   k,,(2.5:3:0.1)).  (":" indicates also a label beginning for the
-;;   *GO command)
+;;   character ("(x:y:z)" means from x to y, in z steps, z is equal to
+;;   one as default).  For example: "n,(1:6),(2:18:2)" runs 6 loops.
+;;   Colon loops are working also with real values: k,,(2.5:3:0.1) and
+;;   with array parameters: k,,A(1:100), but the latter is an
+;;   undocumented feature).  (":" indicates also a beginning of a
+;;   label for the *GO and *IF command)
 
 ;; * "%" is now distinguished as the Ansys parameter substitution
 ;;   and format specifier character.
 
 ;; * The ampersand "&" is now correctly higlighted as the only
 ;;   available Ansys continuation character only applicable to the
-;;   *MSG command and the subsequent format strings of the command are
-;;   fontified.
+;;   *MSG (and *VWRITE) command and the subsequent format strings of
+;;   the command are fontified.
 
 ;; * New: " *" (SPC before *) is indicated as an (Ansys deprecated)
 ;;   comment sign e. g.: "a = 3 **4" results in "a" setting to 3,
@@ -270,7 +271,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; == Resources ==
 
-;; www.ansys.net -- macros
+;; www.ansys.net -- general Ansys repository
 ;; www.ansys.com
 ;; www.emacswiki.org
 
@@ -299,11 +300,36 @@
 
 ;; completion of blocks is not case dependent
 
-;; *if might end without an *endif: exit, stop, etc.
-;; -up-block etc.
+;; format string for *VWRITE: line(s) below, in parens, when FORTRAN
+;; format specifiers are usde, keyword SEQU povides row numbers, up to
+;; 19 parameters are allowed.  *VREAD similar to *vwrite *vwrite may
+;; also be continued with &!  -forward
 
-;; format string for *VWRITE, *CFWRITE, *ASK, *VREAD, PARSAV, PARRES,
-;; *IF, *ELSEIF and *MWRITE similar to *MSG
+;; C-format descriptors (no parens needed in contrast to fortran descriptors)
+;; %I	Integer data
+;; %F	Floating point format
+;; %G	General numeric format
+;; %E	Scientific notation
+;; %C,
+;; %S	Character strings (up to 128 characters) or arrays;
+;; %/	Line break
+;; %%	Single percent sign
+;; %wI	w is the column width. Integer is preceded by the number of blank characters needed to fill the column.
+;; %0wI	Same as above except integer is padded by zeroes instead of spaces.
+;; %0w.pI	Pad integer with zeros as necessary to obtain a minimum of p digits.
+;; %w.pF	w is the column width. Floating point format to p decimal places.
+;; %w.pG	General format with p significant digits.
+;; %w.pE	Scientific notation to p decimal places.
+;; %wC,
+;; %wS	Character string with column width of w.
+;; %-wC,
+;; %-wS	Left justify character string (right justify is default).
+;; %wX	Include w blank characters.
+
+
+;; *MWRITE ismilar to *vwrite
+
+;; *IF, *ELSEIF  similar to *MSG
 
 ;; M-/ (when -dynamic-h)
 
@@ -336,6 +362,10 @@
 ;; upcased, code in docu: 4 columns indented
 
 ;; ==== Important ====
+
+;; *msg command can only have 9 additional continuation lines
+
+;; *uilist
 
 ;; generalise -insert-pi in code line ($ PI=...), in comment (\n
 ;; Pi=...)
@@ -444,6 +474,7 @@
 
 ;; Wrong highlighting of variables in /com, c*** text strings
 
+;; *do parameters are not restricted to the respective block
 ;; deleting paramters with `PARAM=' or `*set,PARAM,' is not taken into
 ;; account when dynamically highlighting user variables.  Redefinition
 ;; of variables leaves the old definitions valid ->invalidate
@@ -710,9 +741,12 @@ error file.")
   "Variable stating whether computer runs a Unix system or not.")
 
 (defconst ansys-reserved-variables 	;NEW_C
-  '("_STATUS" "_RETURN" "ARG1" "ARG2" "ARG3" "ARG4" "ARG5"
-    "ARG6" "ARG7" "ARG8" "ARG9")
-  "Variable containing the Ansys reserved variable names.")
+  '("_STATUS" "_RETURN" "ARG[1-9]" "AR[1-9][0-9]")
+  "Variable containing the Ansys reserved variable regexp.
+_STATUS returns the exit status of certain commands.  _RETURN
+returns certain values of geometry creating commands.  ARG[1-9]
+and AR[1][0-9] are macro local variables and can be passed to the
+*USE command. AR[2-9][0-9] are also macro local variables.")
 
 (defvar ansys-user-variables-regexp nil	;NEW_C
   "Variable containing the user variables regexp.
@@ -2940,7 +2974,7 @@ Used for the variable `comment-start-skip'.")
 
 (defconst ansys-begin-keywords		;NEW_C
   '("\\*[dD][oO]" "\\*[dD][oO][wW][hH][iI][lL][eE]"
-    "\\*[iI][fF]" "\\*[cC][rR][eE][aA][tT][eE]")
+    "\\*[iI][fF],.*[tT][hH][eE][nN]" "\\*[cC][rR][eE][aA][tT][eE]")
   "Regexps describing Ansys block begin keywords.")
 
 (defconst ansys-else-keywords		;NEW_C
@@ -9204,7 +9238,7 @@ keep) (4 (quote shadow) keep)))
     (define-key map "\M-n" 'ansys-next-code-line)
     ;; --- block movements ---
     (define-key map "\C-\M-f" 'ansys-next-block-end)
-    (define-key map "\C-\M-b" 'ansys-previous-block-start)
+    (define-key map "\C-\M-b" 'ansys-previous-block-start-and-conditional)
     (define-key map "\C-\M-n" 'ansys-skip-block-forward)
     (define-key map "\C-\M-p" 'ansys-skip-block-backwards)
     (define-key map "\C-\M-d" 'ansys-down-block)
@@ -9330,10 +9364,15 @@ Usage
   with block.
 
   \\[ansys-next-block-end] -- `ansys-next-block-end'
-  \\[ansys-previous-block-start] -- `ansys-previous-block-start'
+  \\[ansys-previous-block-start-and-conditional] -- `ansys-previous-block-start-and-conditional'
 
   Are searching for and skipping to the next/previous block
   keyword regardless where you are in the block structure.
+  \\[ansys-previous-block-start-and-conditional] finds also *IF
+  commands without bases of the keyword THEN; furthermore the
+  *CYCLE and *EXIT looping controls.  They provide APDL
+  constructs but represent no block depth and are therefore not
+  considered in the following navigation commands.
 
   \\[ansys-skip-block-forward] -- `ansys-skip-block-forward'
   \\[ansys-skip-block-backwards] -- `ansys-skip-block-backwards'
@@ -9889,7 +9928,7 @@ inserted or evaluated unless it is the SPC key."
 Insert the end keyword on a separate line.  An error is signaled
 if no block to close is found."
   (interactive)
-  (let (bb-keyword)
+  (let (bb-keyword str)
     (condition-case nil			;? why condition case
 	(progn
 	  (save-excursion
@@ -9899,9 +9938,14 @@ if no block to close is found."
 	  (if (ansys-in-empty-line-p)
 	      (indent-according-to-mode)
 	    (ansys-reindent-then-newline-and-indent))
-	  (insert (car (reverse
-			(assoc-string bb-keyword
-				      ansys-block-match-alist 1))))
+	  (setq str (car (reverse
+			  (assoc-string bb-keyword
+					ansys-block-match-alist 1))))
+	  (let ((case-fold-search nil))
+	    (when (string-match
+		   "\\([a-z].\\)\\|\\(\\*\\|/\\|~\\)[a-z]" bb-keyword)
+	      (setq str (downcase str))))
+	  (insert str)
 	  (indent-according-to-mode)
 	  (ansys-blink-matching-block)
 	  t)
@@ -10052,7 +10096,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      )
 	(list "Logical Blocks"
 	      ["Next Block End"		ansys-next-block-end]
-	      ["Previous Block Start"   ansys-previous-block-start]
+	      ["Previous Block Start"   ansys-previous-block-start-and-conditional]
 	      ["Down Block"		ansys-down-block]
 	      ["Up Block"		ansys-up-block]
 	      ["Skip Block Forward"     ansys-skip-block-forward]
@@ -10107,10 +10151,10 @@ comment line with fixed goal column.  In that case, returns a list whose
 car is the column to indent to, and whose cdr is the current indentation
 level."
   (let ((column 0)			;column
-	(keyword_c 0)
-	(comma_c nil)
-	lep
-	lbp)
+	(keyword_c 0)			;for specified commands
+	(comma_c nil)			;for default commands
+	lep				;line end predicate
+	lbp)				;line beginning pr.
     ;; --- first for the previous code line ---
     (save-excursion
       (when (zerop (ansys-previous-code-line)) ;otherwise at the first line
@@ -10123,8 +10167,10 @@ level."
 	(setq keyword_c (current-column))
 	(cond
 	 ((looking-at ansys-block-begin-regexp)
-	  (unless (looking-at "\\*if.*,\\s-*\\(exit\\|stop\\)") ;FIXME: all *if exits?
-	    (setq keyword_c (+ keyword_c ansys-block-offset))))
+;	  (when (looking-at "\\*if.*,\\s-*then") ;*if base1 or base2
+			;must be THEN for being a block keyword
+	    (setq keyword_c (+ keyword_c ansys-block-offset)))
+;	 )
 	 ((looking-at ansys-block-else-regexp)
 	  (setq keyword_c (+ keyword_c ansys-block-offset)))
 	 ((looking-at "[^*/\n]") ;otherwise forbidden by default command stuff
@@ -10428,9 +10474,20 @@ skip to the next code line's end."
       (re-search-backward "\\>\\s-*!.*" (ansys-position 'bol) t)
       (setq num (1- num))))))
 
+;; (defun ansys-search-block-start-or-end-p (inc)
+;;   "Search for next block beginning or end.
+;; Argument INC indicates the search direction.  The function
+;; returns t if either a block start or end is found, otherwise
+;; nil."
+;;   (re-search-forward ansys-block-begin-or-end-regexp nil t inc)
+;;   (save-excursion
+;;     (back-to-indentation)
+;;     (looking-at))			;store match data
+;;   (if ))
+
 (defun ansys-scan-blocks (count level-offset)
   "Scan from (point) COUNT balanced Ansys begin-end blocks.
-Returns the integer of the position thus found.
+Return the position thus found.
 
 If LEVEL-OFFSET is nonzfero, the block level gets an offset of
 LEVEL-OFFSET.  Positive LEVEL-OFFSET arguments mean that the scan
@@ -10444,9 +10501,8 @@ stops in the direction of the outer loops (up to higher levels)."
     (save-excursion
       (while (/= count 0)
 	(catch 'foo			;end the inner while loop
-	  (while (or
-		  (re-search-forward ansys-block-begin-or-end-regexp nil t inc)
-		  (when (/= level-offset 0) (error "Can't reach specified block level")))
+	  (while (or (re-search-forward ansys-block-begin-or-end-regexp nil t inc)
+		     (when (/= level-offset 0) (error "Can't reach specified block level")))
 	    (unless (ansys-in-string-or-comment-p)
 	      (cond
 	       ((match-end 1) (setq level-offset (+ level-offset inc))) ;begin-block-keywords
@@ -10515,19 +10571,26 @@ end."
 		 (ansys-in-string-or-comment-p)))))
     (goto-char c)))
 
-(defun ansys-previous-block-start (&optional count)
-  "Move backwards to the beginning the previous block start.
-With arguement COUNT do that COUNT times.  With negative argument
-move forwards to the end of the |COUNT| next block start."
+(defun ansys-previous-block-start-and-conditional (&optional count)
+  "Move backwards to the beginning the previous block start and conditionals.
+This includes the conditional command *IF with bases other then
+the keyword THEN; furthermore the looping controls *CYCLE and
+*EXIT.  With argument COUNT do that COUNT times.  With negative
+argument move forward to the end of the |COUNT| next block start
+or conditional or looping construct."
   (interactive "p")
   (unless count (setq count 1))
   (let ((c)
 	(dir (if (< count 0 ) -1 1))
-	(n (abs count)))
+	(n (abs count))
+	(b-regexp
+	 (concat
+	  ansys-block-begin-regexp
+	  "\\|\\*[iI][fF]\\>\\|\\*[cC][yY][cC]\\|\\*[eE][xX][iI]")))
     (save-excursion
       (dotimes (i n)
 	(while (progn
-		 (setq c (re-search-backward ansys-block-begin-regexp nil t dir))
+		 (setq c (re-search-backward b-regexp nil t dir))
 		 (unless c
 		   (if (< dir 0)
 		       (error "No further block start(s), %d is(are) missing"
@@ -11479,6 +11542,10 @@ Pre-process the findings into the variable
 	(add-to-list 'str (match-string-no-properties 1)))
       (goto-char (point-min))
       (while (re-search-forward
+	      "^\\s-*[^!\n]*\\*do,\\s-*\\(\\w+\\)" nil t)
+	(add-to-list 'str (match-string-no-properties 1)))
+      (goto-char (point-min))
+      (while (re-search-forward
 	      "^\\s-*[^!\n]*\\(\\b\\w+\\)\\s-*=\\s-*\\($\\|[^=\n]\\)" nil t) ;FIXME:
 							;assignments
 							;in condensed
@@ -11508,7 +11575,8 @@ C-u \\[goto-line] takes the number automatically)."
 	 (regexps '(("*get" "^[^!\n]*\\*get.*")
 		    ("*set" "^[^!\n]*\\*set.*")
 		    ("*dim" "^[^!\n]*\\*dim.*")
-		    ("=" "^\\s-*[^!\n]*\\b\\w+\\s-*=\\s-*[^=\n]*")))
+		    (" *do" "^[^!\n]*\\*do.*")
+		    ("   =" "^\\s-*[^!\n]*\\b\\w+\\s-*=\\s-*[^=\n]*")))
 	 s
 	 r
 	 tmp)

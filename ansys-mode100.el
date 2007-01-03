@@ -1,6 +1,6 @@
 ;;; ansys-mode100.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2006-12-30 05:25:25 dieter"
+;; Time-stamp: "2007-01-03 18:30:27 dieter"
 
 ;; Copyright (C) 2006 H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -95,8 +95,8 @@
 
 ;; * Sophisticated highlighting (optionally also for user variables)
 
-;; * Displays summary for all definitions (*GET, *DIM, *SET and = ) of
-;;   APDL variables.
+;; * Displays summary for all definitions (*GET, *DIM, *SET, = and
+;;   *DO) of APDL variables.
 
 ;; * Use of the Emacs abbreviation facility for block templates
 
@@ -148,13 +148,18 @@
 ;;      (add-to-list 'load-path
 ;;                   "c:\\your\\directory\\where\\ansys-mode100.el\\recides")
 ;;      (autoload 'ansys-mode "ansys-mode100" "Activate Ansys mode." 'interactive)
+
+;;   So far you only have to type "M-x ansys-mode RET" for every
+;;   interesting APDL file.  With the following code you are also able
+;;   to use the certain Ansys related functions without the need of
+;;   previously having called Ansys mode.  When in your Emacs session
+;;   there is already a file under Ansys mode, then they are available
+;;   anyway.
+
 ;;      (autoload 'ansys-abort-file "ansys-mode100" "Activate Ansys abort file function." 'interactive)
 ;;      (autoload 'ansys-display-error-file "ansys-mode100" "Activate Ansys display error file function." 'interactive)
 ;;      (autoload 'ansys-start-ansys-help "ansys-mode100" "Activate Ansys start help function." 'interactive)
 ;;      (autoload 'ansys-license-status "ansys-mode100" "Activate Ansys license status function." 'interactive)
-
-;;   So far you only have to type "M-x ansys-mode RET" for every
-;;   interesting APDL file.
 
 ;; * When you intend to use the mode automatically, e.g. for all files
 ;;   you are opening with the extension '.mac' and '.inp', add the
@@ -195,9 +200,9 @@
 
 ;; === Version 100.1 ===
 
-;; * The versioning scheme is a mixture of the used Ansys version
-;;   (major versioning number) and the version of the Ansys mode
-;;   (minor versioning number).
+;; * The version scheme is a mixture of the used Ansys version (major
+;;   version number) and the version of the Ansys mode (minor version
+;;   number).
 
 ;; * Feature freeze: 2006-10-02
 
@@ -207,9 +212,9 @@
 ;; * New: Provides Ansys command parameter- and syntax help.
 
 ;; * New: Offers Ansys process management: Acquiring license server
-;;   information in a buffer Starting and stoping asynchronously Ansys
-;;   runs.  Sending code lines to running Ansys process (sort of code
-;;   debugging facility) and getting the output into a buffer.
+;;   information in a buffer Starting and stopping asynchronously
+;;   Ansys runs.  Sending code lines to running Ansys process (sort of
+;;   code debugging facility) and getting the output into a buffer.
 
 ;; * New: Experimental highlighting of user defined variables.
 ;;   Redefinition and clearing of variables is not yet taken into
@@ -226,7 +231,7 @@
 ;;   names.
 
 ;; * Previously defined skeletons are fully functional now, new ones
-;;   are added and enabled with the abbreviation and outo-load
+;;   are added and enabled with the abbreviation and auto-load
 ;;   facilities of Emacs 22.
 
 ;; * Ansys' interpreter's disregard of any capitalisation is now fully
@@ -250,7 +255,7 @@
 ;; * "%" is now distinguished as the Ansys parameter substitution
 ;;   and format specifier character.
 
-;; * The ampersand "&" is now correctly higlighted as the only
+;; * The ampersand "&" is now correctly highlighted as the only
 ;;   available Ansys continuation character only applicable to the
 ;;   *MSG (and *VWRITE) command and the subsequent format strings of
 ;;   the command are fontified.
@@ -261,7 +266,7 @@
 
 ;; * New: A line beginning with a comma is indented to the lenght of
 ;;   the last non slash or asterisk command as a reminder that the
-;;   Ansys solver interprets this as a spaceholder for the last
+;;   Ansys solver interprets this as a space holder for the last
 ;;   command keyword (the Ansys default command concept).
 
 ;; * Extended documentation, code cleaning and simplification of
@@ -282,7 +287,7 @@
 ;; the following options:
 
 ;; * It might, at the first stage, be helpful for you to visit the
-;;   Emacs wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) for
+;;   Emacs Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) for
 ;;   further instructions.  At the Wiki you can also leave some
 ;;   comments or wishes.
 
@@ -297,39 +302,6 @@
 ;;   also download the latest development version of this mode.
 
 ;; === FOR RELEASE ===
-
-;; completion of blocks is not case dependent
-
-;; format string for *VWRITE: line(s) below, in parens, when FORTRAN
-;; format specifiers are usde, keyword SEQU povides row numbers, up to
-;; 19 parameters are allowed.  *VREAD similar to *vwrite *vwrite may
-;; also be continued with &!  -forward
-
-;; C-format descriptors (no parens needed in contrast to fortran descriptors)
-;; %I	Integer data
-;; %F	Floating point format
-;; %G	General numeric format
-;; %E	Scientific notation
-;; %C,
-;; %S	Character strings (up to 128 characters) or arrays;
-;; %/	Line break
-;; %%	Single percent sign
-;; %wI	w is the column width. Integer is preceded by the number of blank characters needed to fill the column.
-;; %0wI	Same as above except integer is padded by zeroes instead of spaces.
-;; %0w.pI	Pad integer with zeros as necessary to obtain a minimum of p digits.
-;; %w.pF	w is the column width. Floating point format to p decimal places.
-;; %w.pG	General format with p significant digits.
-;; %w.pE	Scientific notation to p decimal places.
-;; %wC,
-;; %wS	Character string with column width of w.
-;; %-wC,
-;; %-wS	Left justify character string (right justify is default).
-;; %wX	Include w blank characters.
-
-
-;; *MWRITE ismilar to *vwrite
-
-;; *IF, *ELSEIF  similar to *MSG
 
 ;; M-/ (when -dynamic-h)
 
@@ -354,7 +326,7 @@
 
 ;; === FUTURE VERSIONS ===
 
-;; update every ansys-modeXXX.el entry (code, wiki, makefile).
+;; update every ansys-modeXXX.el entry (code, Wiki, makefile).
 
 ;; checkdoc
 
@@ -362,6 +334,36 @@
 ;; upcased, code in docu: 4 columns indented
 
 ;; ==== Important ====
+
+;; warn when including skeleton in read only file
+
+;; format string for *VWRITE: line(s) below, in parens, when FORTRAN
+;; format specifiers are used, keyword SEQU povides row numbers, up to
+;; 19 parameters are allowed.  *VREAD similar to *vwrite *vwrite may
+;; also be continued with &!  -forward
+
+;; C-format descriptors (no parens needed in contrast to fortran descriptors)
+;; %I	Integer data
+;; %F	Floating point format
+;; %G	General numeric format
+;; %E	Scientific notation
+;; %C,
+;; %S	Character strings (up to 128 characters) or arrays;
+;; %/	Line break
+;; %%	Single percent sign
+;; %wI	w is the column width. Integer is preceded by the number of blank characters needed to fill the column.
+;; %0wI	Same as above except integer is padded by zeroes instead of spaces.
+;; %0w.pI	Pad integer with zeros as necessary to obtain a minimum of p digits.
+;; %w.pF	w is the column width. Floating point format to p decimal places.
+;; %w.pG	General format with p significant digits.
+;; %w.pE	Scientific notation to p decimal places.
+;; %wC,
+;; %wS	Character string with column width of w.
+;; %-wC,
+;; %-wS	Left justify character string (right justify is default).
+;; %wX	Include w blank characters.
+
+;; *MWRITE ismilar to *vwrite
 
 ;; *msg command can only have 9 additional continuation lines
 
@@ -375,8 +377,6 @@
 ;; strings of parameter help.  Help should be visible while there is
 ;; use input (overlay, new buffer?)  (setq mode-line-format nil);no
 ;; mode line for this buffer
-;; with-output-to-temp-buffer
-;; temp-buffer-show-hook
 
 ;; indicate with activation/inactivation of menu items that an
 ;; asynchronous job is already running or not.
@@ -514,7 +514,7 @@
 
 ;; tool-tips for the menus
 
-;; higlight matching block keywords (similar to show-paren-mode) when
+;; highlight matching block keywords (similar to show-paren-mode) when
 ;; point is at keyword
 
 ;; highlighting of plot commands inside the /GCMD command
@@ -9160,7 +9160,7 @@ keep) (4 (quote shadow) keep)))
 	;single % acts as a format specifier and pair %.% is an
 	;ansys parameter substitution
    '(("^\\s-*/COM.\\(.\\{1,75\\}\\)" 1 'font-lock-doc-face keep))
-        ;higlight message of comment command /COM (no comment (!)
+        ;highlight message of comment command /COM (no comment (!)
         ;is possible behind /COM), no separating comma necessary
    '(("^\\s-*\\(C\\*\\*\\*\\).\\(.\\{1,75\\}\\)"
       (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
@@ -9267,7 +9267,7 @@ keep) (4 (quote shadow) keep)))
     (define-key map "\C-c\C-g" 'ansys-start-graphics)
     (define-key map "\M-?" 'ansys-show-command-parameters)
     (define-key map "\C-c?" 'ansys-show-command-parameters)
-    (define-key map [f1] 'describe-mode)
+;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
     (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-l" 'ansys-license-status)
     (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
@@ -9297,8 +9297,9 @@ navigating in APDL (Ansys Parametric Design Language) files as
 well as providing managing and communication capabilities for
 various Ansys solver and license manager processes.
 
-The mode's documentation is targeted for Ansys users with little
-to no Emacs experience.
+The mode provides sophisticated features for experienced Ansys
+users but still the documentation is targeted for users with
+little Emacs experience.
 
 Documentation contents:
 =======================
@@ -9312,24 +9313,26 @@ Usage
 =====
 
 * Ansys keyword completion (commands, elements, get- and
-   parametric-functions)
+  parametric-functions)
 
   Type the beginning of an Ansys command, function or element
   name and use the key binding \"\\[ansys-complete-symbol]\" for
   `ansys-complete-symbol' (\"M-TAB\" means holding down the
   \"ALT\" key while pressing the \"TAB\" key), when your window
-  manager intercepts these key combinations type \"C-M-i\"
+  manager intercepts this key combination type \"C-M-i\"
   (typing \"CTRL\", \"ALT\" and \"i\" key simultaneously).
 
   There are nearly 1900 Ansys symbols available for completion.
 
   Undocumented Ansys commands are not completed (see the variable
-  `ansys-undocumented-commands').  When the character combination
-  before the cursor (or point in Emacs speak) is not unambiguous:
-  A completion list is shown, selecting the suitable word from
-  the list with either the mouse or the cursor on the symbol and
-  typing \"RET\" is completing the symbol.  Hitting space removes
-  the listing frame (in Emacs called 'buffer').
+  `ansys-undocumented-commands', for inspecting the content:
+  please type \"C-h v\" and then the variable name at the
+  prompt).  When the character combination before the cursor (or
+  point in Emacs parlance) is not unambiguous: A completion list
+  is shown, selecting the suitable word from the list with either
+  the mouse or the cursor on the symbol and typing \"RET\" is
+  completing the symbol.  Hitting space removes the listing
+  frame (in Emacs called 'buffer').
 
 * Ansys command syntax help
 
@@ -9437,8 +9440,8 @@ Usage
   The user variable highlighting is currently only implemented
   for files with a '.mac' extension.
 
-* Displays a summary for all definitions (*get, *dim, =) of APDL
-  variables.
+* Displays a summary for all definitions (*GET, *DIM, *SET, = and
+  *DO) of APDL variables.
 
   Typing \"\\[ansys-display-variables]\" shows all variable
   definitions from your APDL file in a separate buffer.
@@ -9547,12 +9550,12 @@ Usage
       (cond
        ((string= system-type \"windows-nt\")
          (setq ansys-lmutil-program \"C:\\\\Program Files\\\\Ansys Inc\\\\Shared Files\\\\Licensing\\\\intel\\\\anslic_admin.exe\"
-         (setq ansys-help \"C:\\\\Program Files\\\\Ansys Inc\\\\v100\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\")) 
+         (setq ansys-help \"C:\\\\Program Files\\\\Ansys Inc\\\\v100\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\"))
         (t
          (setq ansys-lmutil-program \"/ansys_inc/shared_files/licensing/linop64/lmutil\")
          (setq ansys-help \"/ansys_inc/v100/ansys/bin/anshelp100\")))
 
-* Ansys solver control and comunication (mainly restricted to
+* Ansys solver control and communication (mainly restricted to
   UNIX systems)
 
   You likely have to specify the following variable: 'Ansys
@@ -9562,24 +9565,28 @@ Usage
       (setq  ansys-program \"/ansys_inc/v100/ansys/bin/ansys100\")
 
   With the Ansys mode command `ansys-start-ansys' it is possible
-  to start the Ansys solver as an asyncronous process and to send
-  interactively data from the current APDL file directly to the
-  solver.  With \\[ansys-send-to-ansys] you can send either the
-  current (single) code line or at once a whole region to the
-  running solver.  A selected region here means highlighted
-  lines.  It is quite easy to select various regions in your file
-  with keyboard commands.  Please check the convenient code
-  navigation commands which Ansys mode provides (type
-  \"\\[describe-bindings]\" to see which are available for you).
-  But when you are not familiar with Emacs you probably want to
-  select your part of interest with dragging the mouse while
-  pressing the first mouse button 8-\.
+  to start the Ansys solver as an asynchronous process and to
+  send interactively data from the current APDL file directly to
+  the solver.  With \\[ansys-send-to-ansys] you can send either
+  the current (single) code line or at once a whole region to the
+  running solver.  A selected region here means highlighted lines
+  of code.  When you are not familiar with Emacs you probably
+  want to select your part of interest with dragging the mouse
+  pointer while pressing the first mouse button.  Although it is
+  often faster to select sections in your macro with keyboard
+  commands.  For example \\[ansys-mark-block] marks a whole block
+  level, \\[mark-paragraph] marks the current paragraph.  Please
+  check the code navigation commands which Ansys mode
+  provides (type \"\\[describe-bindings]\" to see which are
+  available) these can also be to create or to extend an existing
+  selection.
 
   After starting the solver you first have to send an empty line
   because the Ansys solver in interactive mode requests a
   carriage return for the required license agreement (in case
   there is a lock file from a formerly crashed session: Send a
-  single \"y\" to the solver process to remove the lock.
+  single \"y\" to the solver process to remove the lock (type
+  \\[ansys-send-to-ansys] in a line with a sole \"y\" in it).
   Warning: the same applies when clearing the database, /CLEAR
   requires an \"y\" to work, otherwise the command will just be
   skipped.  The Ansys solver output can be observed at the same
@@ -9927,7 +9934,7 @@ inserted or evaluated unless it is the SPC key."
   "Complete an Ansys block with the appropriate end keyword.
 Insert the end keyword on a separate line.  An error is signaled
 if no block to close is found."
-  (interactive)
+  (interactive "*")
   (let (bb-keyword str)
     (condition-case nil			;? why condition case
 	(progn
@@ -9977,7 +9984,7 @@ Do this for the previous Ansys command in the current line.  See
 Compare that symbol against Ansys's reserved words, functions and
 element names."
   ;; This code taken from lisp-complete-symbol
-  (interactive)
+  (interactive "*")
    (let ((window (get-buffer-window "*Completions*")))
        (if (and (eq last-command this-command)
 		window (window-live-p window) (window-buffer window)
@@ -10041,7 +10048,7 @@ element names."
 (defun ansys-reindent-then-newline-and-indent () ; (&ptional non-matching) ;FIXME: docu
   "Reindent current Ansys line, insert newline, and indent the new line.
 If function `abbrev-mode' is on, expand the abbreviations first."
-  (interactive)
+  (interactive "*")
   (expand-abbrev)
   (ansys-blink-matching-block)
   (save-excursion
@@ -10057,7 +10064,7 @@ If function `abbrev-mode' is on, expand the abbreviations first."
   "Insert a space in Ansys mode.
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
-  (interactive)
+  (interactive "*")
   (setq last-command-char ? )
   (if (and (ansys-not-in-string-or-comment-p)
 	   (not (ansys-in-indentation-p))
@@ -10210,7 +10217,7 @@ level."
   "Indent current line in Ansys coding style.
 With optional ARG, use this as offset unless this line is a
 comment with fixed goal column."  ;FIXME:
-  (interactive "p")
+  (interactive "*p")
 ;  (debug)
   (unless arg (setq arg 0))
   (let ((icol (ansys-calculate-indent))
@@ -10248,7 +10255,7 @@ Note that all Ansys mode abbrevs start with a grave accent."
 If within code, insert the Ansys continuation character `&'
 before breaking the line.  If within a string, signal an error.
 The new line is properly indented."
-  (interactive)
+  (interactive "*")
   (delete-horizontal-space)
   (cond
    ((ansys-in-comment-p)
@@ -11615,7 +11622,6 @@ C-u \\[goto-line] takes the number automatically)."
   "Call the Emacs customisation facility for Ansys."
   (interactive)
   (customize-group "Ansys"))
-
 
 (defun ansys-delete-other-window ()
   "Delete the other, not selected Emacs window."

@@ -1,6 +1,6 @@
 ;;; ansys-mode100.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-01-03 18:30:27 dieter"
+;; Time-stamp: "2007-01-05 03:27:37 dieter"
 
 ;; Copyright (C) 2006 H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -37,12 +37,12 @@
 
 ;; This Emacs Lisp package provides support for the FEA (Finite
 ;; Element Analysis) program Ansys (http://www.ansys.com).  It defines
-;; 'Ansys mode', a major mode for reading, writing and navigating in
+;; 'Ansys mode', a major mode for viewing, writing and navigating in
 ;; APDL (Ansys Parametric Design Language) files as well as providing
 ;; managing and communication capabilities for various Ansys solver
 ;; processes.
 
-;; The mode's capabilities are rather advanced but still the
+;; The mode's capabilities are rather sophisticated but the
 ;; documentation is targeted for Ansys users with little Emacs
 ;; experience.
 
@@ -406,7 +406,8 @@
 ;; wrongly suggested in ansys-mode100
 
 ;; remove vestiges of ansys-mod.el for making ansys-mode100.el GPL
-;; proof.  Check whether octave-mod.el really is GPL compliant.
+;; proof.  Check whether octave-mod.el really is GPL compliant, use
+;; octave-mod.el from 1997, kill octave-mod.el afterwards in makefile
 
 ;; ==== Less Important ====
 

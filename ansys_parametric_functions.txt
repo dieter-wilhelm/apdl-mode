@@ -1,4 +1,3 @@
-# ansys help chapter 3.8 
 ABS(x) Absolute value of x.  
 SIGN(x,y) Absolute value of x with sign of y. y=0 results in positive sign.  
 EXP(x)  Exponential of x (ex).  
@@ -15,7 +14,6 @@ TAN(x)  Sine, Cosine, and Tangent of x. x is in radians by default, but can be c
 SINH(x), COSH(x), TANH(x)  Hyperbolic sine, Hyperbolic cosine, and Hyperbolic tangent of x.  
 COSH(x), TANH(x)  Hyperbolic sine, Hyperbolic cosine, and Hyperbolic tangent of x.  
 TANH(x)  Hyperbolic sine, Hyperbolic cosine, and Hyperbolic tangent of x.  
-ASIN(x), ACOS(x), ATAN(x)  Arcsine, Arccosine, and Arctangent of x. x must be between -1.0 and +1.0 for ASIN and ACOS. Output is in radians by default, but can be changed to degrees with *AFUN. Range of output is -pi/2 to +pi/2 for ASIN and ATAN, and 0 to pi for ACOS.  
 ASIN(x), ACOS(x), ATAN(x)  Arcsine, Arccosine, and Arctangent of x. x must be between -1.0 and +1.0 for ASIN and ACOS. Output is in radians by default, but can be changed to degrees with *AFUN. Range of output is -pi/2 to +pi/2 for ASIN and ATAN, and 0 to pi for ACOS.  
 ACOS(x), ATAN(x)  Arcsine, Arccosine, and Arctangent of x. x must be between -1.0 and +1.0 for ASIN and ACOS. Output is in radians by default, but can be changed to degrees with *AFUN. Range of output is -pi/2 to +pi/2 for ASIN and ATAN, and 0 to pi for ACOS.  
 ATAN(x)  Arcsine, Arccosine, and Arctangent of x. x must be between -1.0 and +1.0 for ASIN and ACOS. Output is in radians by default, but can be changed to degrees with *AFUN. Range of output is -pi/2 to +pi/2 for ASIN and ATAN, and 0 to pi for ACOS.  

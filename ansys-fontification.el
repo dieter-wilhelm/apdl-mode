@@ -20,11 +20,11 @@
 ;; program's maintainer or write to: The Free Software Foundation,
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 
-;;; necessary files
+;;; necessary files (best copied under Windows 8-/)
 
 ;; help also for get-functions, elements, 
 
-;; # in the first column is a comment column
+;; HINT: every line starting with an # will be ignored
 ;; 1.) command parameter help: copy file
 ;;     ansys/docu/dynpromptXXX.ans -> `ansys-dynpromptXXX.txt'
 ;; 2.) elements: copy&pasted from the help documentation:
@@ -33,25 +33,22 @@
 ;;     copied from the ansys help ->`ansys_keywordsXXX.txt'
 ;;     kill /eof from the keywords (see: -font-lock-keywords)
 ;; 4.) parametric functions:
-;;     ansys help chapter 3.8: parametric functions
-;; !!! trigonometric functions and their inverse functions must
-;;    be tackled by hand
-;; !!! the same applies to hyperbolic functions
+;;     ansys help chapter 3.8, trigonometric functions and their inverse functions must
+;;     be separated by hand!!! The same applies to hyperbolic functions
 ;;     ->`ansys_parametric_functionsXXX.txt'
-;; 5.) get functions: ansys 10.0 APDL Programmer's guide Appendix B.
+;; 5.) get functions: ansys 11.0 APDL Programmer's guide Appendix B.
 ;;     i) one has to comment (#) out some headlines!!!
 ;;     ii) Prepend some string function descriptions with their name e.g.
 ;;         StrOut = STRCAT(... with STRCAT(...)
 ;;     get function summary ->`ansys_get_functionsXXX.txt'
-;; 6.) _return values -> `ansys_return_valuesXXX.txt'
+;; 6.) _RETURN values from APDL guide chapter 4.6 (Ansys 11)
+;;     -> `ansys_return_valuesXXX.txt'	       
 ;;     
 ;;; necessary variables:
 ;; 1.) `ansys_undocumented_commands'
 ;; 2.) `ansys_written_out_commands'
 
-;font-lock-type-face ;green
-
-(defvar Ansys-version "100")
+(setq Ansys-version "11.0")
 
 (defconst Ansys_undocumented_commands	;or macros?
   '(
@@ -65,6 +62,9 @@
     "FLITEM"				;log command
     "/VERIFY"				;verification run?
     "/SSS"				;scale plot values /sss,3
+    "~CFIN"				;Ansys 11
+    "*EVAL"				;Ansys 11
+    "*MOONEY"				;Ansys 11
     )
   "Ansys commands not documented in the manuals.
 Seen mainly in Workbench output files and Ansys verification
@@ -228,20 +228,22 @@ Function names are distinguished by `()'."
 		      (concat str "()"))
 		   Ansys_parametric_functions))))
 
-(let* ((dir "~/scripts/lisp/")
-       (file1 (concat dir "ansys_keywords" Ansys-version ".txt"))
-       (file2 (concat dir "ansys-dynprompt" Ansys-version ".txt"))
-       (file3 (concat dir "ansys_elements" Ansys-version ".txt"))
-       (file4 (concat dir "ansys_get_functions" Ansys-version ".txt"))
-       (file5 (concat dir "ansys_parametric_functions" Ansys-version ".txt"))
-       (buffer (find-file (concat dir "ansys-mode" Ansys-version ".el")))
+(let* ((dir "~/ansys-mode/")
+       (file1 (concat dir "ansys_keywords"))
+       (file2 (concat dir "ansys-dynprompt"))
+       (file3 (concat dir "ansys_elements"))
+       (file4 (concat dir "ansys_get_functions"))
+       (file5 (concat dir "ansys_parametric_functions"))
+       (buffer (find-file (concat dir "ansys-mode.el")))
        list
-       elements
-       )
+       elements)
   ;; ---------- command parameter help ----------
   (with-temp-buffer
     (insert-file-contents file1)
     (insert-file-contents file2)
+;;     (insert-file-contents file3)
+;;     (insert-file-contents file4)
+;;     (insert-file-contents file5)
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
@@ -368,7 +370,7 @@ models.\"\n)")
   (when (re-search-forward "(defconst\\s-+ansys-commands" nil t)
       (beginning-of-defun)
       (kill-sexp))
-  (insert "(defconst ansys-commands.\n'")
+  (insert "(defconst ansys-commands\n'")
   (setq print-length nil)		;nil: print all members of list
   (prin1 (Prepare_list2 list) buffer)
   (insert "\n\"Ansys keywords\"\n)")

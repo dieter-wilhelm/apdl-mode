@@ -1,11 +1,11 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-05-16 18:16:26 uidg1626"
+;; Time-stamp: "2007-05-17 11:28:58 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Created: 2006-02
-;; Version: 11.0.1
+;; Version: 11.0.2
 ;; Keywords: Languages, Convenience
 
 ;; This file contains code from (an old) octave-mod.el
@@ -210,9 +210,9 @@
 ;; * The version scheme is a mixture of the used Ansys version and the
 ;;   version of the Ansys mode (minor version number).
 
-;; === Version 11.0.1 ===
+;; === Version 11.0.2 ===
 
-;; * Feature freeze: 2006-10-02
+;; === Version 11.0.1 ===
 
 ;; === ansys-mode.el version 11.0.1 in comparison to its predecessor
 ;;   ansys-mod.el: ===
@@ -559,7 +559,7 @@
 (defconst ansys_version "11.0"		;NEW_C
   "Ansys version on which Ansys mode is based.")
 
-(defconst ansys_mode_version "1"	;NEW_C
+(defconst ansys_mode_version "2"	;NEW_C
   "Ansys mode minor version number.")
 
 ;; --- defcustoms ---

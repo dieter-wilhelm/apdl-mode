@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-05-17 11:28:58 dieter"
+;; Time-stamp: "2007-05-17 11:57:27 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -329,13 +329,6 @@
 
 ;; === FOR RELEASE ===
 
-;; sort todo list
-
-;; (when Emacs 22)
-
-;; dry run: Emacs 22.1 -Q testing: padt.mac /*commands and default
-;; command lines, every menu entry.
-
 ;; update Emacs wiki, Google Code with download, home page
 
 ;; publication: ANSYS.net (Sheldon Imaoka <sheldonimaoka@yahoo.com>),
@@ -360,6 +353,8 @@
 
 ;; ==== Important ====
 
+;; warn when abandoning macro files with an associated Ansys process.
+
 ;; ===== command help =====
 
 ;; add undocumented-commands into the command help.  nint, rand not
@@ -371,6 +366,29 @@
 ;; Ansys commands with additional characters at the end are not found
 ;; in the parameter help (C-c C-h) example: *VWROOOO
 
+;; ===== templates =====
+
+;; Optimise templates: completing-read, read-from-minibuffer abbrev `d
+;; does not indent properly in another block level Implement choice
+;; when completing *IF commands (*ELSEIF or *ENDIF ?THEN?).  Warn when
+;; including skeleton in read only file.  Provide skeleton for certain
+;; outline headings/simulation subjects.  Split ansys-skeleton into
+;; header and code section, split code section into smaller, handy
+;; Ansys-skeletons templates, snippets and skeletons for specialised
+;; calculations: rubber, post26, gasket, ...
+
+;; ==== Less Important ====
+
+;; make M-C-h more intelligent like M-h
+
+;; Enable input directly in the Ansys output buffer (*Ansys*) like in
+;; the *shell* or *Python* buffer (run-python)
+
+;; remove vestiges of ansys-mod.el for making ansys-mode.el GPL
+;; proof.  Check whether octave-mod.el really is GPL compliant, use
+;; octave-mod.el from 1997, kill octave-mod.el afterwards in makefile
+;; read every symbol docu string ->NEW_C or _C or OCTAVE_C
+
 ;; does setting of -hook trigger immediately the effects or is a
 ;; restart necessary? other function as well
 
@@ -380,7 +398,7 @@
 ;; filter license-usage output, make it more readable
 ;; Argument specifying license type for for -license-status
 
-;; read ansys-license-file from env, supply sane standard Ansys values
+;; read ansys-license-file from ENV, supply sane standard Ansys values
 ;; for the helper programs and check for existance
 
 ;; concentrate variable defining functions for user variable search
@@ -394,29 +412,6 @@
 ;; 19 parameters are allowed
 
 ;; what the heck is the *UILIST command?
-
-;; ===== templates =====
-
-;; Optimise templates: completing-read, read-from-minibuffer abbrev `d
-;; does not indent properly in another block level Implement choice
-;; when completing *IF commands (*ELSEIF or *ENDIF ?THEN?).  Warn when
-;; including skeleton in read only file.  Provide skeleton for certain
-;; outline headings/simulation subjects.  Split ansys-skeleton into
-;; header and code section, split code section into smaller, handy
-;; Ansys-skeletons templates, snippets and skeletons for specialised
-;; calculations: rubber, post26, gasket, ...
-
-;; make M-C-h more intelligent like M-h
-
-;; Enable input directly in the Ansys output buffer (*Ansys*) like in
-;; the *shell* or *Python* buffer (run-python)
-
-;; remove vestiges of ansys-mod.el for making ansys-mode.el GPL
-;; proof.  Check whether octave-mod.el really is GPL compliant, use
-;; octave-mod.el from 1997, kill octave-mod.el afterwards in makefile
-;; read every symbol docu string ->NEW_C or _C or OCTAVE_C
-
-;; ==== Less Important ====
 
 ;; *MSG command can only have 9 additional continuation lines
 
@@ -452,8 +447,6 @@
 ;; check for EXIT command and wait some time to update the mode line
 ;; run status correctly
 
-;; warn when abandoning macro file with an associated Ansys process.
-
 ;; Fontify *completion list* distinguishing elements: commands,
 ;; functions and keywords.
 
@@ -477,7 +470,7 @@
 ;; kill old job when called again with working run
 ;; warn and optionally remove the ansys lock file before starting a run
 
-;; Enable one run for every Ansys macro buffer
+;; Enable one run for any Ansys macro buffer
 
 ;; Enable choice for /show,3d or x11
 

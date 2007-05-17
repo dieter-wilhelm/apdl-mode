@@ -85,7 +85,7 @@ models."
 
 (defconst Ansys_written_out_commands
   '(
-   
+    "*END"
     "*ENDIF" "*ELSEIF" "*ENDDO"
     "/POST1" "/POST26" "/PREP7"
 

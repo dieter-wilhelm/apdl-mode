@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-04-17 18:32:34 uidg1626"
+;; Time-stamp: "2007-05-16 18:16:26 uidg1626"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -36,11 +36,11 @@
 ;;; Commentary:
 
 ;; This Emacs Lisp package provides support for the FEA (Finite
-;; Element Analysis) program Ansys (http://www.ansys.com).  It defines
-;; 'Ansys mode', a major mode for viewing, writing and navigating in
-;; APDL (Ansys Parametric Design Language) files as well as providing
-;; managing and communication capabilities for various Ansys solver
-;; processes.
+;; Element Analysis) program Ansys (http://www.ansys.com) under Unix
+;; and Window systems.  It defines 'Ansys mode', a major mode for
+;; viewing, writing and navigating in APDL (Ansys Parametric Design
+;; Language) files as well as providing managing and communication
+;; capabilities for various Ansys solver processes.
 
 ;; The mode's capabilities are rather sophisticated but the
 ;; documentation is targeted for Ansys users with little Emacs
@@ -54,17 +54,17 @@
 ;; == Usage ==
 ;; == History ==
 ;; == Resources ==
-;; == Bugs, ToDo and Problems ==
+;; == Bugs and Problems ==
+;; == ToDo ==
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Requirements ==
 
 ;; The code is based on Ansys version 11.0 and is written with GNU
-;; Emacs 22.  It is tested with version 22.0.91 under XP and
-;; GNU/Linux.  The code won't run with Emacs 21.4 (and below) and is
-;; not (yet) targeted for XEmacs.  Please visit
-;; ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for official Windows
-;; versions of GNU Emacs.
+;; Emacs 22.  It is tested with version 22.1 under XP and GNU/Linux.
+;; The code won't run with Emacs 21.4 and is not (yet) targeted for
+;; XEmacs.  Please visit ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
+;; official Windows versions of GNU Emacs.
 
 ;; The Ansys solver communication capabilities are mainly restricted
 ;; to UNIX systems.
@@ -77,7 +77,7 @@
 
 ;; * Process management (viewing error files, license status, etc.)
 
-;; * Solver control and comunication (mainly UNIX)
+;; * Solver control and comunication (UNIX only)
 
 ;; * Command syntax help (similar but more verbose then the Ansys
 ;;   dynamic prompt)
@@ -193,8 +193,9 @@
 ;;   usage guides.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; == Acknowledgements == (in no particular order)
+;; == Acknowledgements ==
 
+;; (In no particular order):
 ;; rms,
 ;; Holger Sparr,
 ;; Eli Zaretzki,
@@ -202,19 +203,18 @@
 ;; Mathias Dahl,
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; History:
+;;; History: (this line is for checkdoc.el)
 
 ;; == History: ==
 
-;; === Version 110.1 ===
+;; * The version scheme is a mixture of the used Ansys version and the
+;;   version of the Ansys mode (minor version number).
 
-;; * The version scheme is a mixture of the used Ansys version (major
-;;   version number) and the version of the Ansys mode (minor version
-;;   number).
+;; === Version 11.0.1 ===
 
 ;; * Feature freeze: 2006-10-02
 
-;; === ansys-mode.el version 1 in comparison to its predecessor
+;; === ansys-mode.el version 11.0.1 in comparison to its predecessor
 ;;   ansys-mod.el: ===
 
 ;; * New: Provides Ansys command parameter- and syntax help.
@@ -291,7 +291,20 @@
 ;; http://www.ansyssolutions.com -- The Ansys solutions magazine
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; == TODO, BUGS and PROBLEMS ==
+;; == Bugs and Problems ==
+
+;; C*** does no parameter substitution, neither the /SYS command; this
+;; is wrongly suggested in the highlighting of Ansys mode
+
+;; Ansys format line (multi-line) highlighting is brittle, please use
+;; M-o M-o to update the fontification in case the format line is not
+;; correctly highlighted
+
+;; *END is special: It needs 8 characters in all (+ 4 whitespaces)
+;; before a comment character behind is possible (see the Ansys 11.0
+;; manual), this is not indicated yet in ansys-mode.
+
+;; === Getting help ===
 
 ;; If you experience problems installing or running this mode you have
 ;; the following options:
@@ -308,118 +321,109 @@
 
 ;; * When you have already a (cost free) Google account you are able
 ;;   to issue a bug report at the Google Code hosted page
-;;   http://code.google.com/p/ansys-mode/issues/list. On this side you
+;;   http://code.google.com/p/ansys-mode/issues/list. On this site you
 ;;   can also download the latest development version.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; == TODO ==
 
 ;; === FOR RELEASE ===
 
-;; delete Readme.txt from repository
+;; sort todo list
 
-;; FIXMEs
+;; (when Emacs 22)
 
-;; M-/ (when -dynamic-h)
+;; dry run: Emacs 22.1 -Q testing: padt.mac /*commands and default
+;; command lines, every menu entry.
 
-;; does setting of -hook trigger immediately the effects or is a
-;; restart necessary? other function as well
+;; update Emacs wiki, Google Code with download, home page
 
-;; read every symbol docu string ->NEW_C or _C or OCTAVE_C
+;; publication: ANSYS.net (Sheldon Imaoka <sheldonimaoka@yahoo.com>),
+;; CadFem (Stephan Gotthold sgotthold@cadfem.de, Nelson
+;; <tnelson@cadfem.de>, Hanke , Krueger <lkrueger@cadfem.de>), Perras
+;; <alwin.perras@siemens.com>, AnsysWB community, Ansys users club
+;; <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus guys (PADT)
+;; <info@padtinc.com>, Holger Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
 
-;; testing: padt.mac /*commands and default command lines, every menu
-;; entry: compilation
+;; Emacs package repository, elpa http://tromey.com/elpa/
 
-;; dry run: Emacs 22.1 -Q
-
-;; publication: (when Emacs22) ANSYS.net (Sheldon Imaoka
-;; <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold, Nelson,
-;; Hanke, Krueger), Perras, AnsysWB community, Ansys users club, the
-;; Focus guys (PADT), Google Code, Holger Sparr.
-
-;; Emacs package repository?
-
-;; Emacs installation for Ansys under XP, default.el in site-lisp dir.
+;; Emacs installation for Ansys under XP, default.el in site-lisp dir
+;; and byte-compiled ansys-mode.
 
 ;; === FUTURE VERSIONS ===
 
-;; update all version numbers
+;; update all version numbers everywhere
+;; update the mode help
 ;; update defcustom list in ansys-submit-bug-report
 ;; checkdoc
+;; byte-compile-file
 
 ;; ==== Important ====
 
-;; add undocumented-commands into the command help
+;; ===== command help =====
 
-;; Optimise templates: completing-read, read-from-minibuffer
+;; add undocumented-commands into the command help.  nint, rand not
+;; yet in the help list Parameter help also for *GET and parametric
+;; functions.  Include the _RETURN value of the solid modelling
+;; commands into their help strings of parameter help.  Help should be
+;; visible while there is use input (overlay, new buffer?)  (setq
+;; mode-line-format nil);no mode line for this buffer Unambiguous
+;; Ansys commands with additional characters at the end are not found
+;; in the parameter help (C-c C-h) example: *VWROOOO
+
+;; does setting of -hook trigger immediately the effects or is a
+;; restart necessary? other function as well
 
 ;; -up/down-block when we are over a begin-keyword and in a block-end
 ;; line
 
 ;; filter license-usage output, make it more readable
+;; Argument specifying license type for for -license-status
+
+;; read ansys-license-file from env, supply sane standard Ansys values
+;; for the helper programs and check for existance
 
 ;; concentrate variable defining functions for user variable search
 ;; and - display.  Variables are getting overwritten with Ansys
 ;; keywords.
 
-;; C-] does not properly indent when there is some code behind point
-
-;; component names fontified as variables? or separate cmlist?
-
-;; warn when including skeleton in read only file
-;; provide skeleton for outline headings
-;; split ansys-skeleton into header and code section, split code
-;; section into smaller, handy Ansys-skeletons templates, snippets and
-;; skeletons for specialised calculations: rubber, post26, gasket, ...
-
-;; *msg command can only have 9 additional continuation lines
+;; component names also fontified as variables? or separate cmlist?
 
 ;; format string for *VWRITE: line(s) below, in parens, when FORTRAN
 ;; format specifiers are used, keyword SEQU povides row numbers, up to
 ;; 19 parameters are allowed
 
-;; what the heck is *uilist?
+;; what the heck is the *UILIST command?
 
-;; nint, rand not in list
-;; Parameter help also for *GET and parametric functions include the
-;; _RETURN value of the solid modelling commands into their help
-;; strings of parameter help.  Help should be visible while there is
-;; use input (overlay, new buffer?)  (setq mode-line-format nil);no
-;; mode line for this buffer
+;; ===== templates =====
 
-;; indicate with activation/inactivation of menu items that an
-;; asynchronous job is already running or not.
-
-;; check for EXIT command and wait some time to update the mode line
-;; run status correctly
-
-;; Unambiguous Ansys commands with additional characters at the end
-;; are not found in the parameter help (C-c C-h) example: *vwroooo
-
-;; warn when abandoning macro file with an associated Ansys process.
-
-;; templates with completing-read
-;; abbrev `d does not indent properly in another block level
+;; Optimise templates: completing-read, read-from-minibuffer abbrev `d
+;; does not indent properly in another block level Implement choice
+;; when completing *IF commands (*ELSEIF or *ENDIF ?THEN?).  Warn when
+;; including skeleton in read only file.  Provide skeleton for certain
+;; outline headings/simulation subjects.  Split ansys-skeleton into
+;; header and code section, split code section into smaller, handy
+;; Ansys-skeletons templates, snippets and skeletons for specialised
+;; calculations: rubber, post26, gasket, ...
 
 ;; make M-C-h more intelligent like M-h
 
 ;; Enable input directly in the Ansys output buffer (*Ansys*) like in
 ;; the *shell* or *Python* buffer (run-python)
 
-;; C*** does no parameter substitution, neither /SYS!!!! this is
-;; wrongly suggested in ansys-mode
-
 ;; remove vestiges of ansys-mod.el for making ansys-mode.el GPL
 ;; proof.  Check whether octave-mod.el really is GPL compliant, use
 ;; octave-mod.el from 1997, kill octave-mod.el afterwards in makefile
+;; read every symbol docu string ->NEW_C or _C or OCTAVE_C
 
 ;; ==== Less Important ====
 
+;; *MSG command can only have 9 additional continuation lines
+
+;; FIXMEs
+
 ;; generalise -insert-pi in code line ($ PI=...), in comment (\n
 ;; Pi=...)
-
-;; Implement choice when completing *IF commands (*ELSEIF or *ENDIF
-;; ?THEN?)
-
-;; multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable
-;; fontification is not working
 
 ;; replace/extend column-ruler with ruler-mode or ruler implemented as
 ;; overlay in buffer
@@ -433,9 +437,6 @@
 ;; 'ansys-mode-startup-message
 ;;  maybe as advice when sluggish -> compiliation
 
-;; read ansys-license-file from env, supply sane standard Ansys values
-;; for the helper programs and check for existance
-
 ;; Try to ask only for the installation directory for the -license-file,
 ;; -program, etc.  variables.  Read some information from getenv.
 
@@ -443,11 +444,17 @@
 ;; customisable enable Emacs customisation of auto-insert-query and
 ;; auto-insert-alist
 
-;; provide auto insertion restricted to files opened with Ansys mode
-
 ;; provide Ansys `y' request and carriage return?
 
-;; Fontify completion list distinguishing elements: commands,
+;; indicate with activation/inactivation of menu items that an
+;; asynchronous job is already running or not.
+
+;; check for EXIT command and wait some time to update the mode line
+;; run status correctly
+
+;; warn when abandoning macro file with an associated Ansys process.
+
+;; Fontify *completion list* distinguishing elements: commands,
 ;; functions and keywords.
 
 ;; sort customisation options for processes into subgroup
@@ -461,9 +468,6 @@
 ;; C-c C-c shouldn't send empty lines in regions, especially at the
 ;; end, to the solver.  Use a filter?
 
-;; Variables beginning with an underscore are reserved for Ansys GUI
-;; and Ansys supplied macros.
-
 ;; Optimisation (look at regexp with *), nested repetition regexp
 ;; operators
 
@@ -473,16 +477,16 @@
 ;; kill old job when called again with working run
 ;; warn and optionally remove the ansys lock file before starting a run
 
-;; enable one run for every Ansys macro buffer
+;; Enable one run for every Ansys macro buffer
 
-;; choice for /show,3d or x11
-
-;; ansys process support might run on darwin systems as well? Does
-;; Ansys run on Darwin at all? FIXME
+;; Enable choice for /show,3d or x11
 
 ;; Wrong highlighting of variables in /com, C*** text strings
 ;; variable highlighting overwrites ansys commands with the same name
 ;; dynamic highlighting is only implemented for .mac files
+
+;; multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable
+;; fontification is not working
 
 ;; *DO parameters are not restricted to the respective block deleting
 ;; parameters with `PARAM=' or `*SET,PARAM,' is not taken into account
@@ -502,16 +506,6 @@
 ;; facilities (e. g M-C-n, M-C-p), profiling, major mode conventions:
 ;; multiple loading of this mode?, XEmacs testing.
 
-;; DEFSUBSTs with DEFUNs inside aren't particularly helpful?
-
-;; ansys-indicate-empty-lines also for non-window systems (with
-;; overlays)
-
-;; see www.apdl.de for ideas and extensions
-
-;; Implement highlighting of brackets with the correct level in Ansys
-;; GET- and parametric- functions.
-
 ;; Provide customisable choice whether commands, functions and/or
 ;; elements are assembled in the completion list.
 
@@ -525,6 +519,9 @@
 ;; highlight matching block keywords (similar to show-paren-mode) when
 ;; point is at keyword
 
+;; Implement highlighting of brackets with the correct level in Ansys
+;; GET- and parametric- functions.
+
 ;; highlighting of plot commands inside the /GCMD command
 
 ;; Warn when - unintentionally - arguments are used for Ansys commands
@@ -537,6 +534,13 @@
 
 ;; Choice of the level of fontification (uniqe-commands and
 ;; complete-commands as second level fontification).
+
+;; DEFSUBSTs with DEFUNs inside aren't particularly helpful?
+
+;; ansys-indicate-empty-lines also for non-window systems (with
+;; overlays)
+
+;; see www.apdl.de for further ideas and extensions
 
 ;; Emphasise better implied (colon) loops n,(1:6),(2:12:2) => n,1,2 $
 ;; n,2,4 $... (little used, I know, but any ideas going beyond the
@@ -564,7 +568,7 @@
 
 (defgroup Ansys nil			;NEW_C from Octave-Mod.el
   "Customisation group for the Ansys mode."
-  :version "22.0.93"
+  :version "22.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link "http://www.emacswiki.org")
   :link '(url-link "http://www.code.google.com/p/ansys-mode")
@@ -588,12 +592,12 @@ complete path specification.  For example:
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-help ""		;NEW_C
+(defcustom ansys-help-file ""		;NEW_C
   "The Ansys \"Help System\" file name.
 It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
 specification.  For example:
-\"/ansys_inc/v110/ansys/bin/anshelp110\" or in the windows case
+\"/ansys_inc/v110/ansys/bin/anshelp110\" or with the windows OS
 \"c:\\\\Program Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP
 \\en-us\\ansyshelp.chm\"."
   :type 'string
@@ -1879,6 +1883,11 @@ Used for the variable `comment-start-skip'.")
     "\\*[eE][nN][dD]")
   "Regexps describing Ansys end keywords.")
 
+(defconst ansys-number-line-regexp	;NEW_C
+  "^\\s-*[(+-]?[[:digit:]]"
+  "Regexp describing an Ansys number line.
+Used for skipping pure number lines and CMBLOCK format strings")
+
 (defconst ansys-block-begin-regexp	;_C
   (concat "\\("
 	  (mapconcat 'identity ansys-begin-keywords "\\|")
@@ -1947,7 +1956,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   (save-excursion
     (beginning-of-line)
     (and (not (ansys-format-construct-p))
-	 (looking-at "\\s-*[[:digit:]]+\\|([[:digit:]]"))))
+	 (looking-at ansys-number-line-regexp)))) ;"(" is for CMBLOCK format string
 
 (defun ansys-default-command-p ()	;NEW_C
   "Return t if in an Ansys default command line."
@@ -8104,9 +8113,8 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 								   font-lock-type-face
 								   keep))          ("\\(^\\|\\$\\)\\s-*\\(\\*ENDDO\\)\\>"         (2
 								   font-lock-type-face
-								   keep))       ("\\(^\\|\\$\\)\\s-*\\(\\*END\\)\\(\\w*\\)"       (2
-								   font-lock-type-face       keep)      (3       (quote      shadow)
-								   keep))         ("\\(^\\|\\$\\)\\s-*\\(\\*ELSEIF\\)\\>"         (2
+								   keep))       ("\\(^\\|\\$\\)\\s-*\\(\\*END\\)\\>"       (2
+								   font-lock-type-face       keep)      )         ("\\(^\\|\\$\\)\\s-*\\(\\*ELSEIF\\)\\>"         (2
 								   font-lock-type-face
 								   keep))    ("\\(^\\|\\$\\)\\s-*\\(\\*ELSE\\)\\(\\)\\(\\w*\\)"   (2
 								   font-lock-type-face      keep)     (3     font-lock-constant-face
@@ -8298,9 +8306,11 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
   ;; --- functions ---
 
 (defun ansys-mode-version ()
-  "Display the Ansys mode version number scheme."
+  "Display the Ansys mode version numbering scheme."
   (interactive)
-  (message "Ansys mode version: %s.%s" ansys_version ansys_mode_version))
+  (message "Ansys mode version: %s.%s (based on Ansys %s)" ansys_version
+	   ansys_mode_version
+	   ansys_version))
 
 
 (defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
@@ -8312,8 +8322,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 
 ;;;###autoload
 (defun ansys-mode ()
-  "You are reading the 'Ansys mode' help.
-This is a major mode for reading, writing and navigating in
+"This is a major mode for reading, writing and navigating in
 APDL (Ansys Parametric Design Language) files as well as
 providing managing and communication capabilities for various
 Ansys solver and license manager processes.
@@ -8358,15 +8367,15 @@ symbol.  Hitting space removes the listing frame (in Emacs called
 * Ansys command syntax help
 
 Typing \"\\[ansys-show-command-parameters]\" displays at the
-header line a command syntax help similar to (but more complete)
-than the Ansys GUI's dynamic prompt.
+header line a command syntax help similar to (but often more
+complete) than the dynamic prompt of the classical Ansys GUI.
 
 * Auto-indentation of looping and conditional blocks
 
 You can customise the indentation depth (Ansys Block Offset),
-please have a look for it at 'Customise Ansys Mode' in the
-->Ansys menu entry.  The Emacs customisation facility saves your
-choices automatically for later sessions.
+please have a look for it at 'Customise Ansys Mode' in the Ansys
+menu entry.  The Emacs customisation facility saves your choices
+automatically in your .emacs file for later sessions.
 
 * Closing of open blocks with insertion of the appropriate end
   keyword
@@ -8599,10 +8608,10 @@ following example in your .emacs file.
       (cond
        ((string= system-type \"windows-nt\")
          (setq ansys-lmutil-program \"C:\\\\Program Files\\\\Ansys Inc\\\\Shared Files\\\\Licensing\\\\intel\\\\anslic_admin.exe\"
-         (setq ansys-help \"C:\\\\Program Files\\\\Ansys Inc\\\\v110\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\"))
+         (setq ansys-help-file \"C:\\\\Program Files\\\\Ansys Inc\\\\v110\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\"))
         (t
          (setq ansys-lmutil-program \"/ansys_inc/shared_files/licensing/linop64/lmutil\")
-         (setq ansys-help \"/ansys_inc/v110/ansys/bin/anshelp110\")))
+         (setq ansys-help-file \"/ansys_inc/v110/ansys/bin/anshelp110\")))
 
 * Ansys solver control and communication (mainly restricted to
   UNIX systems)
@@ -8712,7 +8721,7 @@ specification.  The license server specification must include the
 port number when it isn't 1055, the default port number:
 port_number@server_name.
 
-`ansys-help': The Ansys help system executable with complete path
+`ansys-help-file': The Ansys help system file with complete path
 specification
 
 `ansys-license-types':
@@ -8881,7 +8890,7 @@ the following options:
   (setq ansys-format (intern "mac"))	;FIXME: redundant
 					;? why intern?
   ;; menu
-  (or (string= system-type "darwin") ;FIXME: might work on darwin system as well
+  (or (string= system-type "darwin")
       (string= system-type "macos")
       (string= system-type "ms-dos")
       (string= system-type "windows-nt")
@@ -8906,30 +8915,11 @@ the following options:
 	   (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	   (yes-or-no-p
 	    "File is bigger than 1MB, switch on dynamic variable highlighting?"))
-;      (make-local-hook 'after-change-functions) ;FIXEM:necessary?
-					;      (cons 'ansys-find-user-variables (quote after-change-functions)) ;FIXME
-;;       (add-to-list 'after-change-functions
-;; 		   'ansys-find-user-variables)
-;;       (remove-hook 'after-change-functions
-;; 		   'jit-lock-after-change t)
-;;       (add-hook 'after-change-functions
-;; 		   'ansys-find-user-variables nil t)
       (add-hook 'after-change-functions
-		   'bla nil t)
-      (message "Ansys mode: Experimental fontification of user \
-variables activated.")))
+		   'ansys-find-user-variables nil t)
+      (message "Experimental fontification of user variables activated.")))
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook))
-
-;; ============================================================
-;; ------ end of ansys-mode
-(defun bla (a b c)
-  (interactive)
-  (save-excursion
-    (goto-char (point-min))
-    (re-search-forward "otto" nil t)
-    (sit-for 3)
-    (message "otto 2")))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -8974,8 +8964,7 @@ inserted or evaluated unless it is the SPC key."
      (if ansys-ruler-wide-flag
 	 ansys-column-ruler-wide
        ansys-column-ruler-narrow)
-     (line-beginning-position)
-     (point))))
+     (line-beginning-position))))
 
 (defun ansys-position (position) ;_C FIXME: with `line-beginning-position' etc.
 					;redundant function
@@ -9002,24 +8991,17 @@ THEN action label."
 	(progn
 	  (save-excursion
 	    (ansys-up-block)
-					;	    (message "help me %d=%d" (match-beginning 1)(match-end 1))
 	    (setq bb-keyword (buffer-substring-no-properties
 			      (match-beginning 1) (match-end 1)))
-	    (setq tmp (compare-strings bb-keyword 0 nil "*if" 0 nil 'ignore-case))
-	    (message "tmp: %d" tmp)
+	    ;; for *IF we're getting more than one word (*IF,...,THEN)
+	    (setq tmp (compare-strings bb-keyword 0 nil "*IF" 0 nil 'ignore-case))
 	    (when (> tmp  2)
 	      (setq bb-keyword
 		    (substring-no-properties
 		     (buffer-substring-no-properties
 		      (match-beginning 1) (match-end 1)) 0 3))))
-	  (cond
-	   ((ansys-in-empty-line-p)
-	    (indent-according-to-mode))
-	   ((ansys-in-indentation-p)
-	    (split-line))
-	   (t
-	    (ansys-reindent-then-newline-and-indent)))
-	  (setq str (car (reverse	;FIXME: uncomplete
+	  ;; prepare insertion of keyword
+	  (setq str (car (reverse	;FIXME: uncomplete, why?
 			  (assoc-string bb-keyword
 					ansys-block-match-alist 1))))
 	  ;; capitalise properly
@@ -9027,8 +9009,41 @@ THEN action label."
 	    (when (string-match
 		   "\\([a-z].\\)\\|\\(\\*\\|/\\|~\\)[a-z]" bb-keyword)
 	      (setq str (downcase str))))
-	  (insert str)
-	  (indent-according-to-mode)
+	  (cond
+	   ((ansys-in-empty-line-p)
+	    (delete-blank-lines)
+	    (insert str)
+	    (indent-according-to-mode))
+	   ((ansys-in-indentation-p)
+	    (beginning-of-line)
+	    (open-line 1)
+	    (insert str)
+	    (indent-according-to-mode)
+	    (forward-line 1)
+	    (indent-according-to-mode)
+	    (forward-line -1)
+	    (end-of-line))
+	   ((ansys-in-string-or-comment-p)
+	    (end-of-line)
+	    (newline)
+	    (insert str)
+	    (indent-according-to-mode))
+	   ((and (ansys-code-line-p)
+		 (not (ansys-at-end-of-text-p)))
+	    (indent-according-to-mode)
+	    (newline 2)
+	    (forward-line -1)
+	    (insert str)
+	    (indent-according-to-mode)
+	    (forward-line 1)
+	    (indent-according-to-mode)
+	    (forward-line -1)
+	    (end-of-line))
+	   (t
+	    (indent-according-to-mode)
+	    (newline)
+	    (insert str)
+	    (indent-according-to-mode)))
 	  (ansys-blink-matching-block)
 	  t)
       (error (message "Cannot find a proper block command to close")))))
@@ -9175,18 +9190,20 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	["Close Block"                  ansys-close-block]
 	"-"
 	(list "Insert Template"
-	      [" *IF ,Action *ENDIF"    ansys-if]
-	      [" *IF ,THEN *ENDIF"	ansys-if-then]
-	      [" *DO *ENDDO"	        ansys-do]
-	      [" MP "	                ansys-mp])
+	      ["*IF ,Action *ENDIF"    ansys-if]
+	      ["*IF ,THEN *ENDIF"	ansys-if-then]
+	      ["*DO *ENDDO"	        ansys-do]
+	      [" MP "	                ansys-mp]
+	      [" Ansys macro skeleton" ansys-skeleton])
 	(list "Navigate Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
 	      ["Next Code Line"		ansys-next-code-line]
 	      ["Beginning of (Continuation) Command" ansys-command-start]
 	      ["End of (Continuation) Command"	ansys-command-end]
+	      "-"
 	      ["Split Format Line at Point"	ansys-indent-format-line]
 	      )
-	(list "Logical Blocks"
+	(list "Work with Logical Blocks"
 	      ["Next Block End"		ansys-next-block-end]
 	      ["Previous Block Start"   ansys-previous-block-start-and-conditional]
 	      ["Down Block"		ansys-down-block]
@@ -9195,6 +9212,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Skip Block Backwards"   ansys-skip-block-backwards]
 	      ["Beginning of N. Block" ansys-number-block-start]
 	      ["End of Number Block"    ansys-number-block-end]
+	      "-"
 	      ["Close Block"                  ansys-close-block]
 	      ["Mark Block"              ansys-mark-block]
 	      )
@@ -9221,7 +9239,8 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	["Display License Status" ansys-license-status]
 	["Display Command Help"      ansys-show-command-parameters]
 	["Display User Variables" ansys-display-variables]
-	["Show Temporary Ruler"         ansys-column-ruler]
+	["Insert Temporary Ruler"         ansys-column-ruler]
+	["Show Ansys Mode version"  ansys-mode-version]
 	["Describe Ansys Mode"		describe-mode]
 	["Customise Ansys Mode"         (customize-group "Ansys")]
 	["Submit Bug Report"            ansys-submit-bug-report]
@@ -9308,7 +9327,7 @@ level."
 (defun ansys-indent-line-function (&optional arg)
   "Indent current line in Ansys coding style.
 With optional ARG, use this as offset unless this line is a
-comment with fixed goal column."	;FIXME:
+comment with fixed goal column."
   (interactive "*p")
   (unless arg (setq arg 1))
   (let ((icol (ansys-calculate-indent))
@@ -9378,7 +9397,7 @@ beginning when DIR is < 1 and when DIR is > to the end.  When no
 futher number line is in the file signal an error."
   (interactive "p")
   (unless dir (setq dir 1))
-  (let ((re "^\\(\\s-*[-+]?[[:digit:]]+\\.?[[:digit:]]*E?[+-]?[[:digit:]]*\\)+\\s-*$"))
+  (let ((re ansys-number-line-regexp))
     (when (not (ansys-at-end-of-text-p))
       (beginning-of-line))
     (cond
@@ -9570,7 +9589,7 @@ then skip to the next code line's end."
 	(forward-char))
       (setq num (1- num))))))
 
-(defun ansys-scan-blocks (count level-offset) ;FIXME: when we are over a keyword
+(defun ansys-scan-blocks (count level-offset)
   "Scan from (point) COUNT balanced Ansys begin-end blocks.
 Return the position thus found.  COUNT may be negative.
 
@@ -9586,7 +9605,7 @@ LEVEL-OFFSET."
       (while (/= count 0)
 	(catch 'foo			;end the inner while loop
 	  (while (or (re-search-forward ansys-block-begin-or-end-regexp nil t inc) ;FIXME:it's not working when
-					;in an block regexp
+					;in a block regexp
 		     (when (/= level-offset 0) (error "Can't reach specified block level")))
 	    (unless (ansys-in-string-or-comment-p)
 	      (cond
@@ -9800,7 +9819,7 @@ Signal an error if the keywords are incompatible."
       (setq salutation
 	    "Please describe briefly what your problem is and which actions
   triggered the bug.  A self contained, reproducible test case
-  would be advantages.")
+  would be advantageous.")
       (reporter-submit-bug-report
        ansys-maintainer-address
        "Ansys mode"		  ;becomes prefix for the subject line
@@ -9808,10 +9827,10 @@ Signal an error if the keywords are incompatible."
 	'ansys_version
 	'ansys_mode_version
 
-	;; defcustoms below
+	;; Ansys mode defcustoms are below
 	'ansys-dynamic-highlighting-flag
 	'ansys-program
-	'ansys-help
+	'ansys-help-file
 	'ansys-lmutil-program
 	'ansys-license-file
 	'ansys-license
@@ -9833,8 +9852,7 @@ Signal an error if the keywords are incompatible."
 	)
        nil
        nil
-       salutation
-       ))))
+       salutation))))
 
 ;;; --- Macros and skeletons ---FIXME: redundant macros
 
@@ -10293,7 +10311,7 @@ also do yourself."
 	  "*ENDDO" > \n)
   (mac . format))
 
-(define-ansys-skeleton ansys-mp		;FIXME: a bit over the top
+(define-ansys-skeleton ansys-mp		;FIXME: skeleton a bit over the top
   "Insert an if statement in the current format's syntax."
   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
 	  "MP," str ","
@@ -10460,20 +10478,20 @@ process is killed and not regularly exited."
     (error "Killing of Ansys run canceled")))
 
 ;;;###autoload
-(defun ansys-start-ansys-help ()       ;NEW FIXME: does it work on NT?
+(defun ansys-start-ansys-help ()       ;NEW_C
   "Start the Ansys help system.
-Alternatively one could use the Ansys \"/SYS, anshelp110\"
-command when running Ansys interactively and provided that
-anshelp110 (or anshelp110.chm on Windows) is in the PATH
+Alternatively one can use the Ansys \"/SYS, anshelp110\" command
+when running Ansys interactively and provided that anshelp110 (or
+anshelp110.chm on Windows) is found within the PATH environment
 variable."
   (interactive)
-  (if (string= ansys-help "")
-      (error "You must set the `ansys-help' variable")
+  (if (string= ansys-help-file "")
+      (error "You must set the `ansys-help-file' variable")
     (cond
      (ansys-is-unix-system-flag
-      (start-process "ansys-help" nil ansys-help))
+      (start-process "ansys-help-file" nil ansys-help-file))
      ((string= system-type "windows-nt")
-      (w32-shell-execute "Open" ansys-help))))) ;HINT: Eli Z., M. Dahl
+      (w32-shell-execute "Open" ansys-help-file))))) ;HINT: Eli Z., M. Dahl
 
 (defun ansys-process-status ()		;NEW
   "Show the process status in the Emacs command line (minibuffer).
@@ -10659,27 +10677,28 @@ Pre-process the findings into the variable
 `ansys-user-variables-regexp' for subsequent fontifications."
   (interactive)
   (save-excursion
-    (let ((res)
-	  (str ansys-use-variables))	; Ansys *USE vars
-      (goto-char (point-min))
-      (dolist (tmp ansys-variable-defining-commands)
-	(while (re-search-forward
-		(concat "^\\s-*[^!\n]*"
-			(ansys-asterisk-regexp tmp)
-			"\\s-*,\\s-*\\(\\w+\\)") nil t)
-	  (add-to-list 'str (match-string-no-properties 1)))
-	(goto-char (point-min)))
-      (while (re-search-forward		;Ansys = command
-	      "^\\s-*[^!\n]*\\(\\b\\w+\\)\\s-*=\\s-*\\($\\|[^=\n]\\)" nil t) ;FIXME:
+    (save-match-data
+      (let ((res)
+	    (str ansys-use-variables))	; Ansys *USE vars
+	(goto-char (point-min))
+	(dolist (tmp ansys-variable-defining-commands)
+	  (while (re-search-forward
+		  (concat "^\\s-*[^!\n]*"
+			  (ansys-asterisk-regexp tmp)
+			  "\\s-*,\\s-*\\(\\w+\\)") nil t)
+	    (add-to-list 'str (match-string-no-properties 1)))
+	  (goto-char (point-min)))
+	(while (re-search-forward		;Ansys = command
+		"^\\s-*[^!\n]*\\(\\b\\w+\\)\\s-*=\\s-*\\($\\|[^=\n]\\)" nil t) ;FIXME:
 					;assignments in condensed
 					;lines are not yet possible
-	(add-to-list 'str (match-string-no-properties 1)))
-      (setq res (sort str 'string<)) ;sort makes str unaccessible somehow, bug?
+	  (add-to-list 'str (match-string-no-properties 1)))
+	(setq res (sort str 'string<)) ;sort makes str unaccessible somehow, bug?
 					;it should be possible, see documentation for sort
-      (setq res (nreverse res)) ;otherwise shorter expressions are shadowed
-      (setq res (mapcar '(lambda (s) (concat "\\b" s "\\b")) res))
-      (setq res (mapconcat '(lambda (x) x) res "\\|"))
-      (setq ansys-user-variables-regexp res))))
+	(setq res (nreverse res)) ;otherwise shorter expressions are shadowed
+	(setq res (mapcar '(lambda (s) (concat "\\b" s "\\b")) res))
+	(setq res (mapconcat '(lambda (x) x) res "\\|"))
+	(setq ansys-user-variables-regexp res)))))
 
 (defun ansys-highlight (limit)		;NEW
   "Find user variables from (point) to LIMIT."
@@ -10694,7 +10713,7 @@ C-u \\[goto-line] takes the number automatically)."
   (let* ((current-buffer (buffer-name))
 	 (buffer-name "*Ansys-variables*")
 	 (variable-buffer (get-buffer-create buffer-name))
-	 (regexps '(
+	 (regexps '(			;FIXME: use ansys-variable-defining-commands
 		    ("       =" "^\\s-*[^!\n]*\\b\\w+\\s-*=\\s-*[^=\n]*")
 		    ("     *do" "^[^!\n]*\\*do.*")
 		    ("    *get" "^[^!\n]*\\*get.*")
@@ -10704,7 +10723,7 @@ C-u \\[goto-line] takes the number automatically)."
 		    ("    path" "^[^!\n]*path.*")
 		    ("    pdef" "^[^!\n]*pdef.*")
 		    ("   *vget" "^[^!\n]*\\*vget.*")
-		    ("   *vfun" "^[^!\n]*\\*vfun.*") ;FIXME do this for the search as well
+		    ("   *vfun" "^[^!\n]*\\*vfun.*")
 		    ("   *mfun" "^[^!\n]*\\*mfun.*")
 		    ("  *vitrp" "^[^!\n]*\\*vitrp.*")
 		    ("  *toper" "^[^!\n]*\\*toper.*")
@@ -10722,7 +10741,7 @@ C-u \\[goto-line] takes the number automatically)."
       (kill-region (point-min) (point-max))
       (insert
        (propertize
-	(concat "-*- APDL variables of buffer " current-buffer " -*-\n\n")
+	(concat "-*- APDL variables of buffer " current-buffer " -*-\n")
 	'face 'bold))
       (dolist (tmp regexps)
 	(setq r (nth 1 tmp))
@@ -10743,6 +10762,7 @@ C-u \\[goto-line] takes the number automatically)."
 	  (insert s)
 	  (set-buffer current-buffer)))
       (set-buffer variable-buffer)
+      (goto-char (point-min))
       (toggle-read-only 1)
       (set-buffer current-buffer))
     (display-buffer buffer-name 'other-window)))

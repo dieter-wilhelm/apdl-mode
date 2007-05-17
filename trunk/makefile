@@ -5,7 +5,7 @@ VERSION := $(ANSYS_VERSION).$(ANSYS_MINOR)
 PACKAGE := ansys-mode_$(VERSION).$(MODE_VERSION).tar.gz
 
 EL_FILES := ansys-mode.el ansys-fontification.el \
-  ansys-process.el
+  ansys-process.el default.el
 
 FILES := makefile LICENSE README \
   ansys-process.mac ansys-dynprompt.txt \

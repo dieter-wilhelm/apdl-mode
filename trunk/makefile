@@ -1,6 +1,6 @@
 ANSYS_VERSION := 11
 ANSYS_MINOR := 0
-MODE_VERSION := 1# this is the current mode version
+MODE_VERSION := 2# this is the current mode version
 VERSION := $(ANSYS_VERSION).$(ANSYS_MINOR)
 PACKAGE := ansys-mode_$(VERSION).$(MODE_VERSION).tar.gz
 

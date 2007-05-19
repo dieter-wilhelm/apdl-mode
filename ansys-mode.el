@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-05-17 17:52:11 dieter"
+;; Time-stamp: "2007-05-19 13:38:52 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -5204,7 +5204,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 								   keep))        ("\\(^\\|\\$\\)\\s-*\\(PDOT\\)\\(\\w*\\)"        (2
 								   font-lock-type-face       keep)      (3       (quote      shadow)
 								   keep)) ("\\(^\\|\\$\\)\\s-*\\(PDME\\)\\(\\(?:T\\(?:H\\)?\\)?\\)\\(\\w*\\)" (2
-								   font-lock-type-face      keep)     (3     font-lock-constant-face
+v								   font-lock-type-face      keep)     (3     font-lock-constant-face
 								   keep)               (4               (quote               shadow)
 								   keep)) ("\\(^\\|\\$\\)\\s-*\\(PDLH\\)\\(\\(?:S\\)?\\)\\(\\w*\\)" (2
 								   font-lock-type-face      keep)     (3     font-lock-constant-face
@@ -10014,12 +10014,12 @@ Signal an error if the keywords are incompatible."
   \n
   "!! type,Target" \n
   "!! real,Contact" \n
-  "!! tshape,line" \n
+  "!! tshap,line" \n
   "!! *get,Nmax,node,,num,max" \n
   "!! n,Nmax+1,1,1,0" \n
   "!!  ,Nmax+2,1,2,0" \n
   "!! e,Nmax+1,Nmax+2" \n
-  "!! tshape,pilo" \n
+  "!! tshap,pilo" \n
   "!! e,Nmax+1" \n
   \n
   "!! !! --- Contacts --- " \n
@@ -10204,7 +10204,12 @@ Signal an error if the keywords are incompatible."
   "!! timerange,0,1" \n
   "!! /title," \n
   "xvar,2" \n
+  "!! invert background colour" \n
+  "!/RGB,100,100,100,0" \n
+  "!/RGB,0,0,0,15" \n
+  "!/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
+  "!/show,close" \n
   "!!prvar,3" \n
   \n
   "!! ------------------------------" \n

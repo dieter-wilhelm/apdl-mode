@@ -1,6 +1,6 @@
-;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
+;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-05-20 21:31:30 dieter"
+;; Time-stamp: "2007-06-01 23:18:59 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -8,9 +8,8 @@
 ;; Version: 11.0.2
 ;; Keywords: Languages, Convenience
 
-;; This file contains code from dated octave-mod.el:
-;; Copyright (C) 1997
-;; Free Software Foundation, Inc.
+;; This file contains code from octave-mod.el:
+;; Copyright (C) 1997 Free Software Foundation, Inc.
 ;; Author: Kurt Hornik <Kurt.Hornik@wu-wien.ac.at>
 ;; Author: John Eaton <jwe@bevo.che.wisc.edu>
 
@@ -213,6 +212,10 @@
 
 ;; === Version 11.0.2 ===
 
+;; Submitting interactively Ansys commands (via minibuffer query not
+;; only written in a macro file) to the solver process,
+;; ansys-query-ansys-command (C-c C-q)
+
 ;; === Version 11.0.1 ===
 
 ;; === ansys-mode.el version 11.0.1 in comparison to its predecessor
@@ -257,7 +260,7 @@
 ;;   one as default).  For example: "n,(1:6),(2:18:2)" runs 6 loops.
 ;;   Colon loops are working also with real values: k,,(2.5:3:0.1) and
 ;;   with array parameters: k,,A(1:100), but the latter is an
-;;   undocumented feature). Since ansys 11.0 the colon looping is
+;;   undocumented feature. Since ansys 11.0 the colon looping is also
 ;;   working with *GET functions (example: A(1:5)=NX(1:5))). A ":"
 ;;   indicates also a beginning of a label for the *GO and *IF
 ;;   command.
@@ -327,6 +330,11 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == TODO ==
+
+;; pick up ansys-process when renaming buffer file and restarting
+;; ansys-mode, otherwise process is without buffer
+
+;; gpl3
 
 ;; === FOR RELEASE ===
 
@@ -581,7 +589,7 @@ It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
 specification.  For example:
 \"/ansys_inc/v110/ansys/bin/anshelp110\" or with the windows OS
-\"c:\\\\Program Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP
+\"c:\\\\Program\ Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP
 \\en-us\\ansyshelp.chm\"."
   :type 'string
   :group 'Ansys)
@@ -8268,6 +8276,9 @@ v								   font-lock-type-face      keep)     (3     font-lock-constant-face
       (define-key map "\C-c\C-e" 'ansys-display-error-file)
       (define-key map "\C-c\C-f" 'ansys-fit)
       (define-key map "\C-c\C-g" 'ansys-start-graphics)
+      (define-key map "\C-c\C-k" 'ansys-kill-ansys)
+      (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
+      (define-key map "\C-c\C-t" 'ansys-exit-ansys)
       (define-key map "\M-?" 'ansys-show-command-parameters)
       (define-key map "\C-c?" 'ansys-show-command-parameters)
 					;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
@@ -9182,7 +9193,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
 	      [" Ansys macro skeleton" ansys-skeleton])
-	(list "Navigate Lines"
+	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
 	      ["Next Code Line"		ansys-next-code-line]
 	      ["Beginning of (Continuation) Command" ansys-command-start]
@@ -9214,10 +9225,14 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Specify Ansys executable" ansys-program :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run" ansys-start-ansys :active ansys-is-unix-system-flag]
 	      ["Status of Run" ansys-process-status :active ansys-is-unix-system-flag]
+	      ["Run Ansys command" ansys-query-ansys-command :active ansys-is-unix-system-flag]
 	      ["Start Graphics Screen" ansys-start-graphics :active ansys-is-unix-system-flag]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Display Running Processes" list-processes]
 	      ["Display Error File" ansys-display-error-file]
 	      ["Write Ansys Stop File" ansys-abort-file]
+	      ["Exit Ansys Run" ansys-exit-ansys :active ansys-is-unix-system-flag]
 	      "-"
 	      ["Kill Ansys Run" ansys-kill-ansys :active ansys-is-unix-system-flag]
 	      )
@@ -9865,8 +9880,63 @@ Signal an error if the keywords are incompatible."
   "*endif" >
   )
 
+(define-skeleton ansys-skeleton-header
+  "Insert header for an APDL script" nil ;;"Name of file: "
+;  "! 	$Id" ":$\n"
+  "!"(insert (make-string 80 ?*))"\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "C*** " (buffer-name) (insert (make-string (- 80 5 (length
+						      (buffer-name))) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*   Called by: " _
+  (let ((called (read-file-name "Calling Script File: " "")))
+    (insert called)
+    (insert (make-string (- 80 2 (length "   Called by: ") (length
+							    called)) ? ))) "*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*   Calling:"(insert (make-string (- 80 2 (length "   Calling:")) ?
+				      ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*   Macros: "
+  (let ((mlib (read-file-name "Macro Library: " "")))
+    (insert mlib " ()")
+    (insert (make-string (- 80 2 (length "   Macros: ") (length mlib) 3)
+			 ? )))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!"(insert (make-string 80 ?*))"\n")
+
+(define-skeleton ansys-skeleton-import
+  "Import commands."
+  ""
+  "!! ------------------------------" \n
+  "!" ansys-outline-string ansys-outline-string " --- Cad Import --- " \n
+  "!! ------------------------------" \n
+  \n
+  "/aux15" \n
+  "ioptn,iges,nodefeat" \n
+  "ioptn,merge,yes" \n
+  "ioptn,solid,yes" \n
+  "ioptn,small,yes" \n
+  "ioptn,gtoler,defa" \n
+  "igesin,'test','iges'"\n
+  \n
+  "/input,filename,anf" \n
+  "/facet,norm" \n
+  \n)
+
+(define-skeleton ansys-skeleton-expand
+  "Symmetry expansion."
+  ""
+  "/expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
+  "/expand,18,axis,,,10 !axissymmetric expansion" \n
+  "!! /expand !switch off expansion" \n
+  )
+
 (define-skeleton ansys-skeleton		;NEW
-  "Basic framework of an Ansys APDL file."
+  "Insert full framework of an Ansys APDL file."
   "Insert brief purpose of file: "
   "!" ansys-outline-string " ********* first line ***************\n"
   "!! FILENAME: " (buffer-file-name) \n
@@ -10091,7 +10161,7 @@ Signal an error if the keywords are incompatible."
   "!! /plopts,minm,on" \n
   "!! /pbc,rfor,,1 !1:show reaction f. symbols" \n
   "!! /pbc,rfor,,0" \n
-  "!! /expand,1,rect,half,,,1E-5 !z-symmetry expansion" \n
+  "!! /expand,8,lpolar,half,,45 !polar symmetry expansion" \n
   "!! /expand !switch off expansion" \n
   "!! /dist,,1/2,1 !enlarge twice" \n
   "!! " \n
@@ -10197,8 +10267,8 @@ Signal an error if the keywords are incompatible."
   "!! /title," \n
   "xvar,2" \n
   "!! invert background colour" \n
-  "!/RGB,100,100,100,0" \n
-  "!/RGB,0,0,0,15" \n
+  "!/RGB,index,100,100,100,0" \n
+  "!/RGB,index,0,0,0,15" \n
   "!/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
   "!/show,close" \n
@@ -10219,35 +10289,6 @@ Signal an error if the keywords are incompatible."
   "Total time in h: %G %/ &" \n
   "=== End of timing messages ===" \n
   \n)
-
-
-(define-skeleton ansys-skeleton-header
-  "Insert header for an APDL script" nil ;;"Name of file: "
-;  "! 	$Id" ":$\n"
-  "!"(insert (make-string 80 ?*))"\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "C*** " (buffer-name) (insert (make-string (- 80 5 (length
-						      (buffer-name))) ? ))"*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!*   Called by: " _
-  (let ((called (read-file-name "Calling Script File: " "")))
-    (insert called)
-    (insert (make-string (- 80 2 (length "   Called by: ") (length
-							    called)) ? ))) "*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!*   Calling:"(insert (make-string (- 80 2 (length "   Calling:")) ?
-				      ))"*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!*   Macros: "
-  (let ((mlib (read-file-name "Macro Library: " "")))
-    (insert mlib " ()")
-    (insert (make-string (- 80 2 (length "   Macros: ") (length mlib) 3)
-			 ? )))"*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  "!"(insert (make-string 80 ?*))"\n")
 
 
 (defmacro define-ansys-skeleton (command documentation &rest definitions) ;FIXME: documentation
@@ -10443,6 +10484,30 @@ Argument END is the end of the region."
     (force-mode-line-update)
     (display-buffer "*Ansys*" 'other-window)))
 
+(defun ansys-process-running-p ()
+  (string= "run" (process-status ansys-process))
+
+(defun ansys-update-mode-line ()
+  (setq mode-line-process (format ":%s" (process-status ansys-process)))
+  (force-mode-line-update))
+
+(defun ansys-query-ansys-command ()	;NEW
+  ""
+  (interactive)
+  (unless (string= "run" (process-status ansys-process))
+    (setq mode-line-process (format ":%s" (process-status ansys-process)))
+    (force-mode-line-update)
+    (error "No Ansys process is running"))
+  (let ((s (read-string "Ansys command: ")))
+    (process-send-string ansys-process (concat s "\n"))
+    ;;  (walk-windows
+    ;;    (lambda (w)
+    ;;      (when (string= (buffer-name (window-buffer w)) "*Ansys*")
+    ;;        (with-selected-window w (goto-char (point-max))))))
+    (setq mode-line-process (format ":%s" (process-status ansys-process)))
+    (force-mode-line-update)
+    (display-buffer "*Ansys*" 'other-window)))
+
 (defun ansys-start-ansys ()		;NEW
   "Start an Ansys run (when no run is already active).
 Ask for confirmation with some run particulars before actually
@@ -10487,17 +10552,36 @@ starting the process."
   "Kill the current Ansys run under Emacs.
 The function asks for confirmation before actually killing the
 process.  Warning: Ansys writes a lock file (jobname.lock) if the
-process is killed and not regularly exited."
+process is killed and not regularly exited.  You should prefere
+the function `ansys-exit-ansys'."
   (interactive)
+  (unless (ansys-process-running-p)
+    (error "Error: No active Ansys process"))
   (if (yes-or-no-p
        "Do you want to kill the Ansys run?")
       (progn
-	(message "Killing run...")
+;	(message "Killing run...")
 	(delete-process ansys-process)
 	(message "Killing run...done.")
 	(setq mode-line-process (format ":%s" (process-status ansys-process)))
 	(force-mode-line-update))
     (error "Killing of Ansys run canceled")))
+
+(defun ansys-exit-ansys ()		;NEW
+  "Exit normally the current Ansys run under Emacs.
+The function asks for confirmation before exiting the process
+with the Ansys /EXIT,all command which saves all model data."
+  (interactive)
+  (unless (ansys-process-running-p)
+    (error "Error: No active Ansys process"))
+  (if (yes-or-no-p
+       "Do you want to exit the Ansys run?")
+      (progn
+	(message "Trying to exit run ...")
+	(process-send-string ansys-process "finish $ /exit,all\n")
+	(setq mode-line-process (format ":%s" (process-status ansys-process)))
+	(force-mode-line-update))
+    (error "Exiting of Ansys run canceled")))
 
 ;;;###autoload
 (defun ansys-start-ansys-help ()       ;NEW_C
@@ -10588,7 +10672,7 @@ displaying the license status."
   (interactive)
   (unless (string= "run" (process-status ansys-process))
     (error "No Ansys process is running"))
-  (process-send-string ansys-process "/show,x11\n/menu,grph\n") ;valid in any processor
+  (process-send-string ansys-process "/show,3d\n/menu,grph\n") ;valid in any processor
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-start-pzr-box ()		;NEW PanZoomRotate box
@@ -10626,8 +10710,25 @@ And specify it in the variable `ansys-program'."
       (setq pr "/ansys_inc/v110/ansys/bin/ansys110"))
     (setq ansys-program
 	  (read-file-name
-	   (concat "Ansys program name [" pr "]: ") "" pr))
-    (message (concat "Ansys program is set to \"" ansys-program "\"."))))
+	   (concat "Ansys executable name [" pr "]: ") "" pr))
+    (message (concat "Ansys executable is set to \"" ansys-program "\"."))))
+
+(defun ansys-help-file ()			;NEW
+  "Change the Ansys help file name.
+And specify it in the variable `ansys-help-file'."
+  (interactive)
+  (let (pr)
+    (if (and ansys-help-file
+	     (not (string= ansys-help-file "")))
+	(setq pr ansys-help-file)
+      (if ansys-is-unix-system-flag
+	  (setq pr "/ansys_inc/v110/ansys/bin/anshelp110")
+	(setq pr "c:\\\\Program\ Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP\\en-us\\ansyshelp.chm")))
+    (setq ansys-program
+	  (read-file-name
+	   (concat "Ansys help file [" pr "]: ") "" pr))
+    (message (concat "Ansys help file is set to \"" ansys-program "\"."))))
+
 
 (defun ansys-lmutil-program ()		;NEW
   "Change the Ansys LMutil program name.

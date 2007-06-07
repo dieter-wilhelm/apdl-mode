@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-05-18 18:43:16 uidg1626"
+;; Time-stamp: "2007-05-21 14:34:54 uidg1626"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10105,6 +10105,8 @@ Signal an error if the keywords are incompatible."
   "!! /pbc,rfor,,1 !1:show reaction f. symbols" \n
   "!! /pbc,rfor,,0" \n
   "!! /expand,1,rect,half,,,1E-5 !z-symmetry expansion" \n
+  "!! /expand,8,lpolar,half,,45 !polar symmetry expansion" \n
+  "!!  !half symmetry(mirrored) and then 8 x 45° offset!" \n
   "!! /expand !switch off expansion" \n
   "!! /dist,,1/2,1 !enlarge twice" \n
   "!! " \n
@@ -10210,8 +10212,8 @@ Signal an error if the keywords are incompatible."
   "!! /title," \n
   "xvar,2" \n
   "!! invert background colour" \n
-  "!/RGB,100,100,100,0" \n
-  "!/RGB,0,0,0,15" \n
+  "!/RGB,index,100,100,100,0" \n
+  "!/RGB,index,0,0,0,15" \n
   "!/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
   "!/show,close" \n
@@ -10701,7 +10703,11 @@ Pre-process the findings into the variable
 	(setq res (sort str 'string<)) ;sort makes str unaccessible somehow, bug?
 					;it should be possible, see documentation for sort
 	(setq res (nreverse res)) ;otherwise shorter expressions are shadowed
-	(setq res (mapcar '(lambda (s) (concat "\\b" s "\\b")) res))
+	;; * is a word character in the ansys-mode thingy so *VAR1*VAR1!
+	;; \b is both \> and \<
+	(setq res (mapcar '(lambda (s)
+			     (concat "\\(\\<\\|\*\\)" s "\\(\\>\\|\*\\)")) res))
+	;; no it's highlighting the * FIXME
 	(setq res (mapconcat '(lambda (x) x) res "\\|"))
 	(setq ansys-user-variables-regexp res)))))
 

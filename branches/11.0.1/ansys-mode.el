@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-06-08 08:56:23 dieter"
+;; Time-stamp: "2007-06-29 20:37:42 uidg1626"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -16,7 +16,7 @@
 
 ;; This code is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published
-;; by the Free Software Foundation; either version 2, or (at your
+;; by the Free Software Foundation; either version 3, or (at your
 ;; option) any later version.
 ;;
 ;; This lisp script is distributed in the hope that it will be useful,
@@ -297,15 +297,16 @@
 ;; == Bugs and Problems ==
 
 ;; C*** does no parameter substitution, neither the /SYS command; this
-;; is wrongly suggested in the highlighting of Ansys mode
+;; is wrongly suggested in the highlighting of Ansys mode.
+;; A clearing of variables (VAR= ) is not taken into account
 
 ;; Ansys format line (multi-line) highlighting is brittle, please use
 ;; M-o M-o to update the fontification in case the format line is not
 ;; correctly highlighted
 
-;; *END is special: It needs 8 characters in all (+ 4 whitespaces)
-;; before a comment character behind it is possible (see the Ansys
-;; 11.0 manual), this is not indicated yet in ansys-mode.
+;; The *END command is special: It needs 8 characters in all (+ 4
+;; whitespaces) before a comment character behind it is possible (see
+;; the Ansys 11.0 manual), this is not yet indicated in ansys-mode.
 
 ;; === Getting help ===
 
@@ -330,7 +331,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == TODO ==
 
-;; correct C*** help
+;; condition -highlight in the fontlock variable
 
 ;; === FOR RELEASE ===
 
@@ -587,7 +588,9 @@ Warning: This option is computational expensive and--depending on
 the file size and your system--it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
 user variables is only implemented for files with the extension
-\".mac\".  To take effect you have to recall `ansys-mode'."
+\".mac\" otherwise the fontification of variables is only static.
+To take effect after setting this variable you have to recall
+`ansys-mode'."
   :type 'boolean
   :group 'Ansys)
 
@@ -1512,8 +1515,13 @@ are completed."
 
 ;; --- constants ---
 
+(defconst ansys-parameter-substitution-commands-regexp	;NEW
+  "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
+  "Regexp of command names which have a string behind them."
+  )
+
 (defconst ansys-string-commands-regexp	;NEW
-  "C\\*\\*\\*\\|/TITLE\\|/COM\\|/AXLAB\\|/GCOLUMN"
+  "C\\*\\*\\*\\|/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|\\*ABBR\\|/AN3D"
   "Regexp of command names which have a string behind them."
   )
 
@@ -1973,7 +1981,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   "Return t if in an Ansys number block."
   (save-excursion
     (beginning-of-line)
-    (and (not (ansys-format-construct-p))
+    (and (not (ansys-in-format-construct-p))
 	 (looking-at ansys-number-line-regexp)))) ;"(" is for CMBLOCK format string
 
 (defun ansys-default-command-p ()	;NEW_C
@@ -2432,7 +2440,9 @@ BSTE, ALPHA, T" "BSTQ - Specifies the cross section twist and torque relationshi
 BSTQ, VAL1, VAL2, T" "BTOL - Specifies the Boolean operation tolerances.
 BTOL, PTOL" "BUCOPT - Specifies buckling analysis options.
 BUCOPT, Method, NMODE, SHIFT, LDMULTE" "C***, Comment
-CALC" "CAMPBELL - Prepares the result file for a subsequent Campbell diagram of a prestressed structure.
+C*** Places a blank line and a  comment in the output"
+"CALC
+CALC - Specifies \"Calculation settings\" as the subsequent status topic." "CAMPBELL - Prepares the result file for a subsequent Campbell diagram of a prestressed structure.
 CAMPBELL, Key" "CBDOF - Activates cut boundary interpolation (for submodeling).
 CBDOF, Fname1, Ext1, --, Fname2, Ext2, --, KPOS, Clab, KSHS, TOLOUT, TOLHGT" "CDOPT - Specifies format to be used for archiving geometry.
 CDOPT, Option" "CDREAD - Reads a file of solid model and database information into the database.
@@ -8187,8 +8197,8 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
   (append
    ansys-get-functions
    ansys-parametric-functions
-   '(ansys-highlight)		     ;function searches user variables
    ansys-commands
+   '((ansys-highlight . 1))		     ;function searches user variables
    ansys-undocumented-commands
    ansys-elements
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
@@ -8919,22 +8929,17 @@ the following options:
 
   ;; --- user variables ---
   (if ansys-dynamic-highlighting-flag
-      (ansys-find-user-variables)
-    (let (bla)		    ;else: initialise a-u-v-r for font-locking
-      (setq bla (mapcar '(lambda (s) (concat "\\b" s "\\b"))
-			ansys-use-variables)
-	    bla (mapconcat '(lambda (x) x) bla "\\|")
-	    ansys-user-variables-regexp bla)))
-  (when (and
-	 ansys-dynamic-highlighting-flag
-	 (string= (file-name-extension (buffer-file-name)) "mac"))
-    (when (or
-	   (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
-	   (yes-or-no-p
-	    "File is bigger than 1MB, switch on dynamic variable highlighting?"))
-      (add-hook 'after-change-functions
-		   'ansys-find-user-variables nil t)
-      (message "Experimental fontification of user variables activated.")))
+      (when (or
+	     (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
+	     (yes-or-no-p
+	      "File is bigger than 1MB, switch on user variable highlighting?"))
+	(if (string= (file-name-extension (buffer-file-name)) "mac")
+	    (progn (add-hook 'after-change-functions
+			     'ansys-find-user-variables nil t)
+		   (message "Experimental (dynamic) fontification of user variables activated."))
+	  (message "Experimental (non-dynamic) fontification of variables activated."))
+	(ansys-find-user-variables)))
+
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook))
 
@@ -9908,7 +9913,8 @@ Signal an error if the keywords are incompatible."
   "!!  Ansys command names may be ommitted (defaulting to the" \n
   "!!  previous command, except slash and asterisk commands)." \n
   "!! WARNING: Variables starting with an underscore are reserved"  \n
-  "!!  (for Ansys GUI components and Ansys furnished macros, like" \n
+  "!!  (for  components and Ansys furnished macros, like" \n
+  "!!  the %_FIX% table name for current displacement values or" \n
   "!!  the _RETURN and _STATUS variable (_STATUS: 0 no error, 1" \n
   "!!  note, 2 warning, 3 error)!" \n \n
   "!! ==============================" \n
@@ -10227,7 +10233,10 @@ Signal an error if the keywords are incompatible."
   "!! /axlab,x,x" \n
   "!! /axlab,y,y" \n
   "!! timerange,0,1" \n
-  "!! /title," \n
+  "!! /title,bla" \n
+  "!! /stitle,,blabla !subtitle line 1" \n
+  "!! /stitle,2,blabla !subtitle line 2" \n
+  "!! /tlable,x,y,bla !annotation at (x,y)" \n
   "xvar,2" \n
   "!! invert background colour" \n
   "!/RGB,index,100,100,100,0" \n
@@ -10692,10 +10701,22 @@ And specify it in the variable `ansys-license'."
 
 ;;; --- dynamic highlighting ---
 
+;; ---- Restrictions ----
+;; Ansys variables or parameters in Ansys parlance:
+;; 1.) Begin with a letter
+;; 2.) Contain only letters, numbers and the underscore '_'
+;; 3.) Contain no more than 32 characters
+;; 4.) Any variable ending with an underscore are *not* shown with the *STATUS command
+;; 5.) The maximum number of parameter (< 5000) is retrieved by *GET,par,PARM,,MAX
+;; 6.) (A<B) returns the value of A when A is less than B, B otherwise!
+
 (defun ansys-asterisk-regexp(string)
   (when (= (elt string 0) ?*)
     (setq string (concat "\\" string)))
   string)
+
+(defun ansys-string-length-predicate (s1 s2)
+  (< (length s1) (length s2)))
 
 (defun ansys-find-user-variables (&optional a b c) ;NEW
 					;pseudo arguments for after-change-functions
@@ -10705,42 +10726,63 @@ Pre-process the findings into the variable
   (interactive)
   (save-excursion
     (save-match-data
-      (let ((res)
-	    (str ansys-use-variables))	; Start with Ansys *USE vars
+      (let (res str)	; Start with Ansys *USE vars
 	(goto-char (point-min))
 	(dolist (tmp ansys-variable-defining-commands)
 	  ;; format line, comment, message, C***
 	  (while (re-search-forward
 		  (concat (ansys-asterisk-regexp tmp)
-			  "\\s-*,\\s-*\\(\\<.+\\>\\)") nil t) ;FIXME:what is allowed?
-	    (unless (or (ansys-in-string-or-comment-p)
-			(ansys-in-string-command-line-p)
-			(ansys-in-format-construct-p))
-	      (add-to-list 'str (match-string-no-properties 1))))
-	  (goto-char (point-min)))
-;; 	(while (re-search-forward		;Ansys = command
-;; 		"^\\s-*[^!\n]*\\(\\<.+\\>\\)\\s-*=\\s-*\\($\\|[^=\n]\\)" nil t) ;FIXME:
-;; 					;assignments in condensed
-;; 					;lines are not yet possible
-;; 	  (add-to-list 'str (match-string-no-properties 1)))
-	(setq res (sort str 'string<)) ;sort makes str unaccessible somehow, bug?
-					;it should be possible, see documentation for sort
-	(setq res (nreverse res)) ;otherwise longer expressions are shadowed
+			  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
+	    (unless
+		(or (ansys-in-string-or-comment-p)
+		    (ansys-in-string-command-line-p)
+		    (ansys-in-format-construct-p))
+	      (add-to-list 'str (list (match-string-no-properties 1)
+				      (match-beginning 1)))))
+	    (goto-char (point-min)))
+	;; Ansys = assignment
+
+	(while (re-search-forward
+		"\\(\\<[[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" nil t)
+	  (unless
+	      (or (ansys-in-string-or-comment-p)
+		  (ansys-in-string-command-line-p)
+		  (ansys-in-format-construct-p))
+	    (add-to-list 'str (list (match-string-no-properties 1)
+				    (match-beginning 1)))))
+
+;	(setq res (sort str 'ansys-string-length-predicate)) ;sort makes str unaccessible somehow, bug?
+;	(nconc str ansys-use-variables)	;FIXME: make list unique small-capital letters
+;;	(setq res (nreverse res)) ;otherwise longer expressions are shadowed
 ;; 	;; * is a symbol character in the ansys-mode thingy so *VAR1*VAR1!
 ;; 	;; \b is both \> and \<
 ;; 	(setq res (mapcar '(lambda (s)
 ;; 			     (concat "\\W" s "\\W")) res))
 ;; 	;; no it's highlighting the * FIXME
 ;; 	(setq res (mapconcat '(lambda (x) x) res "\\|"))
-	(setq ansys-user-variables-regexp res)))))
+	(setq ansys-user-variables-regexp str)))))
 
 (defun ansys-highlight (limit)		;NEW
   "Find user variables from (point) to position LIMIT."
-  (catch 'foo
-    (dolist (tmp ansys-user-variables-regexp)
+  (let* (tmp temp (p (point)) (bp limit) (ep p) (keyw ""))
+    (dolist (temp ansys-user-variables-regexp)
+      (setq tmp (concat "\\<\\(" (car temp) "\\)\\[^\\w_\n]"))
       (when (re-search-forward tmp limit t) ;font-lock is case indep cause
-		;the Ansys interpreter sees it that way
-	(throw 'foo (point))))))
+					;the Ansys interpreter sees it that way
+	(if (< (match-beginning 0) bp)
+	    (setq bp (match-beginning 0)
+		  keyw tmp)
+	  (when (and (= bp (match-beginning 0))
+		     (> (match-end 0) ep))
+	    (setq ep (match-end 0)
+		  keyw tmp))))
+      (goto-char p))
+
+;;     (if (re-search-forward keyw limit t)
+;; 	ep
+;;       limit)
+
+    (re-search-forward keyw limit t)))
 
 (defun ansys-display-variables ()	;NEW
   "Displays APDL variable assignments in the current Buffer.

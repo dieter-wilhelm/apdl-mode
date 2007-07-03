@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-05-21 14:34:54 uidg1626"
+;; Time-stamp: "2007-06-08 08:56:23 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -49,8 +49,8 @@
 ;; == Documentation: ==
 
 ;; == Requirements ==
-;; == Installation ==
 ;; == Features ==
+;; == Installation ==
 ;; == Usage ==
 ;; == History ==
 ;; == Resources ==
@@ -60,11 +60,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Requirements ==
 
-;; The code is based on Ansys version 11.0 and is written with GNU
-;; Emacs 22.  It is tested with version 22.1 under XP and GNU/Linux.
+;; The code is based on Ansys version 11.0 and is written for GNU
+;; Emacs 22.1.  It is tested with version 22.1 under XP and GNU/Linux.
 ;; The code won't run with Emacs 21.4 and is not (yet) targeted for
 ;; XEmacs.  Please visit ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
-;; official Windows versions of GNU Emacs.
+;; official, precompiled Windows versions of GNU Emacs.  You can
+;; unpack Emacs in any directory.  Optionally you can run the program
+;; addpm.exe (located in the bin directory) to add an Emacs entry to
+;; the Windows Start menu (please refer to the README.W32 file).
 
 ;; The Ansys solver communication capabilities are mainly restricted
 ;; to UNIX systems.
@@ -207,8 +210,8 @@
 
 ;; == History: ==
 
-;; * The version scheme is a mixture of the used Ansys version and the
-;;   version of the Ansys mode (minor version number).
+;; * The version scheme is a mixture of the used Ansys version (11.0)
+;;   and the version of the Ansys mode (1).
 
 ;; === Version 11.0.1 ===
 
@@ -301,8 +304,8 @@
 ;; correctly highlighted
 
 ;; *END is special: It needs 8 characters in all (+ 4 whitespaces)
-;; before a comment character behind is possible (see the Ansys 11.0
-;; manual), this is not indicated yet in ansys-mode.
+;; before a comment character behind it is possible (see the Ansys
+;; 11.0 manual), this is not indicated yet in ansys-mode.
 
 ;; === Getting help ===
 
@@ -327,9 +330,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == TODO ==
 
+;; correct C*** help
+
 ;; === FOR RELEASE ===
 
-;; sort todo list
+;; comment above user variable problem
+
+;; *VAR*VAR highlighting problem
 
 ;; (when Emacs 22)
 
@@ -598,7 +605,7 @@ It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
 specification.  For example:
 \"/ansys_inc/v110/ansys/bin/anshelp110\" or with the windows OS
-\"c:\\\\Program Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP
+\"c:\\\\Program\ Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP
 \\en-us\\ansyshelp.chm\"."
   :type 'string
   :group 'Ansys)
@@ -656,8 +663,8 @@ See `ansys-license-types' for often used Ansys licenses."
 (defcustom ansys-indicate-empty-lines-flag nil ;NEW_C
   "Non-nil means indicate empty lines on window systems.
 Do this visually at the end of an Ansys buffer in the left
-fringe.  You have to recall `ansys-mode' for this variable to
-take effect."
+fringe.  You have to reload function `ansys-mode' for this
+variable to take effect."
   :type 'boolean
   :group 'Ansys)
 
@@ -759,13 +766,6 @@ error file.")
 
 (defvar ansys-is-unix-system-flag nil	;NEW_C
   "Non-nil means computer runs a Unix system.")
-
-(defconst ansys-use-variables		;NEW_C
-  '("ARG[1-9]" "AR[1][0-9]")
-  "Variable containing the Ansys *USE variables regexp.
-ARG[1-9] and AR[1][0-9] are macro local variables and can be
-passed to the *USE command.  AR[2-9][0-9] are also pure macro
-local variables.")
 
 (defvar ansys-user-variables-regexp nil ;NEW_C
   "Variable containing the user variables regexp.
@@ -1512,15 +1512,27 @@ are completed."
 
 ;; --- constants ---
 
-(defconst ansys-variable-defining-commands
+(defconst ansys-string-commands-regexp	;NEW
+  "C\\*\\*\\*\\|/TITLE\\|/COM\\|/AXLAB\\|/GCOLUMN"
+  "Regexp of command names which have a string behind them."
+  )
+
+(defconst ansys-variable-defining-commands ;NEW
   '("*do" "*get" "*dim" "*set" "*ask" "path" "pdef" "*vget" "*vfun" "*mfun" "*vitrp"
     "*toper""*voper" "*moper" "*sread" "*vscfun" "/inquire")
   "List of commands which define user variables.
 Except the \"=\" assignment.")
 
-(defconst ansys-format-commands-regexp
+(defconst ansys-use-variables		;NEW_C
+  '("ARG[1-9]" "AR[1][0-9]")
+  "Variable containing the Ansys *USE variables regexp.
+ARG[1-9] and AR[1][0-9] are macro local variables and can be
+passed to the *USE command.  AR[2-9][0-9] are also pure macro
+local variables.")
+
+(defconst ansys-format-commands-regexp	;New
   "\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]"
-  "Command names which have one or possibly more format lines.")
+  "Regexp of command names which have one or more format lines.")
 
 (defconst ansys-parametric-functions '(("\\(ABS\\)\\s-*(" (1
 							   font-lock-function-name-face keep)) ("\\(SIGN\\)\\s-*(" (1
@@ -1951,6 +1963,12 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 ;;; --- predicates ---
 
+(defun ansys-in-string-command-line-p () ;NEW
+  "Return t if in an Ansys string command line."
+  (save-excursion
+   (back-to-indentation)
+   (looking-at ansys-string-commands-regexp)))
+
 (defun ansys-number-line-p ()		;NEW_C
   "Return t if in an Ansys number block."
   (save-excursion
@@ -1984,12 +2002,12 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (eobp)))
 
 (defun ansys-continuation-line-p ()	;_C
-  "Return t if in a continutation line (of a *MSG command)."
+  "Return t if in a continutation line of certain commands."
   (save-excursion
     (beginning-of-line)
     (if (looking-at ansys-continuation-line-regexp) t nil)))
 
-(defun ansys-format-command-line-p ()	;_C
+(defun ansys-in-format-command-line-p ()	;_C
   "Return t if in an Ansys format command line, nil otherwise.
 See the constant variable `ansys-format-commands-regexp' which
 includes the commands which need formatting lines."
@@ -1998,22 +2016,22 @@ includes the commands which need formatting lines."
     (if (looking-at
 	 (concat "^\\s-*\\(" ansys-format-commands-regexp "\\)")) t nil)))
 
-(defun ansys-format-construct-p ()	;NEW_C
-  "Return t if in an Ansys *MSG format string.
-Otherwise nil, i.e. return nil also in a *MSG line."
+(defun ansys-in-format-construct-p ()	;NEW_C
+  "Return t if in an Ansys format construct.
+Otherwise nil, i.e. return nil when in a format command line."
   (cond ((ansys-continuation-line-p) t)
 	((ansys-first-line-p) nil)
 	(t (save-excursion
 	     (forward-line -1)
 	     (if (or
 		  (ansys-continuation-line-p)
-		  (ansys-format-command-line-p)) t nil)))))
+		  (ansys-in-format-command-line-p)) t nil)))))
 
 (defun ansys-condensed-input-line-p ()	;NEW_C
   "Return t if in an Ansys condensed (... $ ...) input line."
   (save-excursion
     (beginning-of-line)
-    (if (ansys-format-construct-p)
+    (if (ansys-in-format-construct-p)
 	nil
       (if (looking-at ansys-condensed-input-line-regexp)
 	  t
@@ -8216,22 +8234,21 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
     (modify-syntax-entry ?\% "." table)
     (modify-syntax-entry ?| "."  table)
     (modify-syntax-entry ?\' "." table)
-    (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,
+    (modify-syntax-entry ?\` "_" table) ;ansys-mode abbreviation specifier,
 					;not an operator
-    (modify-syntax-entry ?_ "w"  table) ;not an operator in Ansys
-    (modify-syntax-entry ?: "w"  table) ;Ansys label specifier, not an operator
-    (modify-syntax-entry ?* "w"  table) ;Ansys asterisk commands syntax clashing
+    (modify-syntax-entry ?_ "_"  table) ;not an operator in Ansys
+    (modify-syntax-entry ?: "_"  table) ;Ansys label specifier, not an operator
+    (modify-syntax-entry ?* "_"  table) ;Ansys asterisk commands syntax clashing
 					;with algebraic operators but blink-matching-
 					;needs this
     ;;     (modify-syntax-entry ?/ "w"  table)	;Ansys slash commands
     (modify-syntax-entry ?\! "<" table) ;Ansys comment character
     (modify-syntax-entry ?\n ">" table)
     (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for Ansys
-    (modify-syntax-entry ?'  "\"" table)
-					;    (modify-syntax-entry ?'  "." table)
+    (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
 					;Normally Ansys string delimiter, but might clash
 					;with usages of genitives etc.!
-    (modify-syntax-entry ?~ "w" table) ;Ansys connection commands, not an operator
+    (modify-syntax-entry ?~ "_" table) ;Ansys connection commands, not an operator
     table)
   "Syntax table in use in `ansys-mode' buffers.")
 
@@ -9372,7 +9389,7 @@ The new line is properly indented."
     (indent-new-comment-line))
    ((ansys-in-string-p)	      ;FIXME: there are no strings defined yet
     (error "Cannot split a code line inside a string"))
-   ((ansys-format-construct-p)
+   ((ansys-in-format-construct-p)
     (insert " &")
     (ansys-reindent-then-newline-and-indent))
    (t
@@ -9405,12 +9422,12 @@ futher number line is in the file signal an error."
       (while (progn
 	       (unless (re-search-backward re nil t)
 		 (error "Can't find preceding number line"))
-	       (ansys-format-construct-p))))
+	       (ansys-in-format-construct-p))))
      (t
       (while (progn
 	       (unless (re-search-forward re nil t)
 		 (error "Cant't find subsequent number line"))
-	       (ansys-format-construct-p)))))))
+	       (ansys-in-format-construct-p)))))))
 
 (defun ansys-number-block-start()	;NEW
   "Move to the line beginning before a pure number block.
@@ -9487,7 +9504,7 @@ Signal an error when there is no format command."
 
 (defun ansys-move-to-end-of-format-string () ;NEW_C
   "Move cursor to the end of an format command's format string."
-  (when (ansys-format-command-line-p)
+  (when (ansys-in-format-command-line-p)
     (forward-line))
   (while (and (ansys-continuation-line-p)
 	      (= (forward-line 1) 0))) ;in case of wrong format at eof
@@ -9512,7 +9529,7 @@ When NUM is 0 move to the current code line indentation."
   (unless num (setq num 1))
   (while (> num 0)
     (cond
-     ((ansys-format-construct-p)
+     ((ansys-in-format-construct-p)
       (ansys-back-to-format-command)
       (setq num (1- num)))
      ((ansys-number-line-p)
@@ -9561,8 +9578,8 @@ then skip to the next code line's end."
       (if (ansys-last-line-p)
 	  (setq num -1)
 	(forward-comment (buffer-size))))
-     ((or (ansys-format-command-line-p)
-	  (ansys-format-construct-p))
+     ((or (ansys-in-format-command-line-p)
+	  (ansys-in-format-construct-p)) ;not the format command line
       (ansys-move-to-end-of-format-string)
       (setq num (1- num)))
      ((ansys-number-line-p)
@@ -10107,6 +10124,7 @@ Signal an error if the keywords are incompatible."
   "!! /expand,1,rect,half,,,1E-5 !z-symmetry expansion" \n
   "!! /expand,8,lpolar,half,,45 !polar symmetry expansion" \n
   "!!  !half symmetry(mirrored) and then 8 x 45° offset!" \n
+  "!! /expand,18,axis,,,10 !axis symmetry 180° expansion" \n
   "!! /expand !switch off expansion" \n
   "!! /dist,,1/2,1 !enlarge twice" \n
   "!! " \n
@@ -10606,6 +10624,8 @@ And specify it in the variable `ansys-program'."
     (setq ansys-program
 	  (read-file-name
 	   (concat "Ansys program name [" pr "]: ") "" pr))
+    (if (not (file-exists-p ansys-program))
+	(error "Error: File %s does not exist" ansys-program))
     (message (concat "Ansys program is set to \"" ansys-program "\"."))))
 
 (defun ansys-lmutil-program ()		;NEW
@@ -10686,34 +10706,41 @@ Pre-process the findings into the variable
   (save-excursion
     (save-match-data
       (let ((res)
-	    (str ansys-use-variables))	; Ansys *USE vars
+	    (str ansys-use-variables))	; Start with Ansys *USE vars
 	(goto-char (point-min))
 	(dolist (tmp ansys-variable-defining-commands)
+	  ;; format line, comment, message, C***
 	  (while (re-search-forward
-		  (concat "^\\s-*[^!\n]*"
-			  (ansys-asterisk-regexp tmp)
-			  "\\s-*,\\s-*\\(\\w+\\)") nil t)
-	    (add-to-list 'str (match-string-no-properties 1)))
+		  (concat (ansys-asterisk-regexp tmp)
+			  "\\s-*,\\s-*\\(\\<.+\\>\\)") nil t) ;FIXME:what is allowed?
+	    (unless (or (ansys-in-string-or-comment-p)
+			(ansys-in-string-command-line-p)
+			(ansys-in-format-construct-p))
+	      (add-to-list 'str (match-string-no-properties 1))))
 	  (goto-char (point-min)))
-	(while (re-search-forward		;Ansys = command
-		"^\\s-*[^!\n]*\\(\\b\\w+\\)\\s-*=\\s-*\\($\\|[^=\n]\\)" nil t) ;FIXME:
-					;assignments in condensed
-					;lines are not yet possible
-	  (add-to-list 'str (match-string-no-properties 1)))
+;; 	(while (re-search-forward		;Ansys = command
+;; 		"^\\s-*[^!\n]*\\(\\<.+\\>\\)\\s-*=\\s-*\\($\\|[^=\n]\\)" nil t) ;FIXME:
+;; 					;assignments in condensed
+;; 					;lines are not yet possible
+;; 	  (add-to-list 'str (match-string-no-properties 1)))
 	(setq res (sort str 'string<)) ;sort makes str unaccessible somehow, bug?
 					;it should be possible, see documentation for sort
-	(setq res (nreverse res)) ;otherwise shorter expressions are shadowed
-	;; * is a word character in the ansys-mode thingy so *VAR1*VAR1!
-	;; \b is both \> and \<
-	(setq res (mapcar '(lambda (s)
-			     (concat "\\(\\<\\|\*\\)" s "\\(\\>\\|\*\\)")) res))
-	;; no it's highlighting the * FIXME
-	(setq res (mapconcat '(lambda (x) x) res "\\|"))
+	(setq res (nreverse res)) ;otherwise longer expressions are shadowed
+;; 	;; * is a symbol character in the ansys-mode thingy so *VAR1*VAR1!
+;; 	;; \b is both \> and \<
+;; 	(setq res (mapcar '(lambda (s)
+;; 			     (concat "\\W" s "\\W")) res))
+;; 	;; no it's highlighting the * FIXME
+;; 	(setq res (mapconcat '(lambda (x) x) res "\\|"))
 	(setq ansys-user-variables-regexp res)))))
 
 (defun ansys-highlight (limit)		;NEW
-  "Find user variables from (point) to LIMIT."
-  (re-search-forward ansys-user-variables-regexp limit t)) ;font-lock is case indep
+  "Find user variables from (point) to position LIMIT."
+  (catch 'foo
+    (dolist (tmp ansys-user-variables-regexp)
+      (when (re-search-forward tmp limit t) ;font-lock is case indep cause
+		;the Ansys interpreter sees it that way
+	(throw 'foo (point))))))
 
 (defun ansys-display-variables ()	;NEW
   "Displays APDL variable assignments in the current Buffer.
@@ -10724,25 +10751,6 @@ C-u \\[goto-line] takes the number automatically)."
   (let* ((current-buffer (buffer-name))
 	 (buffer-name "*Ansys-variables*")
 	 (variable-buffer (get-buffer-create buffer-name))
-	 (regexps '(			;FIXME: use ansys-variable-defining-commands
-		    ("       =" "^\\s-*[^!\n]*\\b\\w+\\s-*=\\s-*[^=\n]*")
-		    ("     *do" "^[^!\n]*\\*do.*")
-		    ("    *get" "^[^!\n]*\\*get.*")
-		    ("    *dim" "^[^!\n]*\\*dim.*")
-		    ("    *set" "^[^!\n]*\\*set.*")
-		    ("    *ask" "^[^!\n]*\\*ask.*")
-		    ("    path" "^[^!\n]*path.*")
-		    ("    pdef" "^[^!\n]*pdef.*")
-		    ("   *vget" "^[^!\n]*\\*vget.*")
-		    ("   *vfun" "^[^!\n]*\\*vfun.*")
-		    ("   *mfun" "^[^!\n]*\\*mfun.*")
-		    ("  *vitrp" "^[^!\n]*\\*vitrp.*")
-		    ("  *toper" "^[^!\n]*\\*toper.*")
-		    ("  *voper" "^[^!\n]*\\*voper.*")
-		    ("  *moper" "^[^!\n]*\\*moper.*")
-		    ("  *sread" "^[^!\n]*\\*sread.*")
-		    (" *vscfun" "^[^!\n]*\\*vscfun.*")
-		    ("/inquire" "^[^!\n]*/inquire.*")))
 	 s
 	 r
 	 tmp)
@@ -10754,15 +10762,32 @@ C-u \\[goto-line] takes the number automatically)."
        (propertize
 	(concat "-*- APDL variables of buffer " current-buffer " -*-\n")
 	'face 'bold))
-      (dolist (tmp regexps)
-	(setq r (nth 1 tmp))
+      (set-buffer variable-buffer)
+      (insert
+       (propertize
+	(concat"      ----------  =  assignments ----------\n")
+	'face 'bold))
+      (set-buffer current-buffer)
+      (goto-char (point-min))
+      (setq r "^\\s-*[^!\n=]*\\<.+\\>\\s-*=\\s-*[^=\n]*")
+      (while (re-search-forward r nil t)
+	(unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
+	  (setq s (concat
+		   (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold)
+		   (match-string 0)
+		   "\n")))
+	(set-buffer variable-buffer)
+	(insert s)
+	(set-buffer current-buffer))
+      (dolist (tmp ansys-variable-defining-commands)
 	(set-buffer variable-buffer)
 	(insert
 	 (propertize
-	  (concat"      ---------- " (car tmp) " assignments ----------\n")
+	  (concat"      ---------- " tmp " assignments ----------\n")
 	  'face 'bold))
 	(set-buffer current-buffer)
 	(goto-char (point-min))
+	(setq r (concat "^[^!\n]*" (ansys-asterisk-regexp tmp) ".*"))
 	(while (re-search-forward r nil t)
 	  (unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
 	    (setq s (concat

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-06-01 23:18:59 dieter"
+;; Time-stamp: "2007-06-02 00:09:03 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -211,6 +211,8 @@
 ;;   version of the Ansys mode (minor version number).
 
 ;; === Version 11.0.2 ===
+
+;; Function for exiting Ansys: ansys-exit-ansys (C-c C-k).
 
 ;; Submitting interactively Ansys commands (via minibuffer query not
 ;; only written in a macro file) to the solver process,

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-06-02 00:09:03 dieter"
+;; Time-stamp: "2007-07-18 20:26:30 dieter"
 
 ;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -8,8 +8,8 @@
 ;; Version: 11.0.2
 ;; Keywords: Languages, Convenience
 
-;; This file contains code from octave-mod.el:
-;; Copyright (C) 1997 Free Software Foundation, Inc.
+;; This file contains code from octave-mod.el: Copyright (C) 1997 Free
+;; Software Foundation, Inc.
 ;; Author: Kurt Hornik <Kurt.Hornik@wu-wien.ac.at>
 ;; Author: John Eaton <jwe@bevo.che.wisc.edu>
 
@@ -59,11 +59,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Requirements ==
 
-;; The code is based on Ansys version 11.0 and is written with GNU
-;; Emacs 22.  It is tested with version 22.1 under XP and GNU/Linux.
+;; The code is based on Ansys version 11.0 and is written for GNU
+;; Emacs 22.1.  It is tested with version 22.1 under XP and GNU/Linux.
 ;; The code won't run with Emacs 21.4 and is not (yet) targeted for
 ;; XEmacs.  Please visit ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
-;; official Windows versions of GNU Emacs.
+;; official, precompiled Windows versions of GNU Emacs.  You can
+;; unpack Emacs in any directory.  Optionally you can run the program
+;; addpm.exe (located in the bin directory) to add an Emacs entry to
+;; the Windows Start menu (please refer to the README.W32 file).
 
 ;; The Ansys solver communication capabilities are mainly restricted
 ;; to UNIX systems.
@@ -337,6 +340,8 @@
 ;; ansys-mode, otherwise process is without buffer
 
 ;; gpl3
+
+;; make dummy variable -w32- against compiler warning
 
 ;; === FOR RELEASE ===
 

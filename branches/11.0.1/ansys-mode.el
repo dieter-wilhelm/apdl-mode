@@ -1,8 +1,8 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-06-29 20:37:42 uidg1626"
+;; Time-stamp: "2008-04-05 20:29:47 dieter"
 
-;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
+;; Copyright (C) 2006, 2007, 2008  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Created: 2006-02
 ;; Version: 11.0.1
@@ -329,11 +329,41 @@
 ;;   can also download the latest development version.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 0. todo
+;; 1. testing, screenshots: release 2008-01-01
+;; 2. feedback, bugfixes: 2008-03-01
+;; 3. Probe interest of CadFem for user's meeting
+;; 4. Prepare submission for user's meeting 2008-06-01
+
+
 ;; == TODO ==
+
+;; === FOR RELEASE ===
+
+;; merge code branches till release
+
+;; split
+;;   0.) ansys-mode.el						X
+;;   1.) highlighting patterns ->	ansys-highlight.el	X
+;;   2.) templates <-> menus? ->	ansys-templates.el	?
+;;   3.) interactive stuff ->		ansys-interactive.el	system-type-p
+;;   4.) documentation ->		README, INSTALL, TODO?
+
+;; 
+
+;; *create is only completed by *end
+
+;; completion of function names: cursor should stay within parentheses
+
+;; clear message: ansys-mode perform auto insertion
+
+;; parameter help for commented out commands
+
+;; either minimal keyword highlighting or choice
 
 ;; condition -highlight in the fontlock variable
 
-;; === FOR RELEASE ===
+;; c*** highlighting
 
 ;; comment above user variable problem
 
@@ -346,12 +376,13 @@
 
 ;; update Emacs wiki, Google Code with download, home page
 
-;; publication: ANSYS.net (Sheldon Imaoka <sheldonimaoka@yahoo.com>),
-;; CadFem (Stephan Gotthold sgotthold@cadfem.de, Nelson
-;; <tnelson@cadfem.de>, Hanke , Krueger <lkrueger@cadfem.de>), Perras
-;; <alwin.perras@siemens.com>, AnsysWB community, Ansys users club
-;; <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus guys (PADT)
-;; <info@padtinc.com>, Holger Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
+;; publication: ANSYS.net (Ansys !!! Sheldon Imaoka
+;; <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
+;; sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
+;; <lkrueger@cadfem.de>), Perras <alwin.perras@siemens.com>, AnsysWB
+;; community, Ansys users club <tom.tumbrink@t-online.de>
+;; <admin@auc-ev.de>, the Focus guys (PADT) <info@padtinc.com>, Holger
+;; Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
 
 ;; Emacs package repository, elpa http://tromey.com/elpa/
 
@@ -417,7 +448,9 @@
 ;; make M-C-h more intelligent like M-h
 
 ;; Enable input directly in the Ansys output buffer (*Ansys*) like in
-;; the *shell* or *Python* buffer (run-python)
+;; the *shell*, *math* or *Python* buffer (run-python)
+;; a.) enable highlighting of the *Ansys* buffer -> ansys-interactive-mode
+;; b.) splice any input line behind the BEGIN: symbol in the *Ansys* buffer
 
 ;; remove vestiges of ansys-mod.el for making ansys-mode.el GPL
 ;; proof.  Check whether octave-mod.el really is GPL compliant, use
@@ -770,10 +803,9 @@ error file.")
 (defvar ansys-is-unix-system-flag nil	;NEW_C
   "Non-nil means computer runs a Unix system.")
 
-(defvar ansys-user-variables-regexp nil ;NEW_C
-  "Variable containing the user variables regexp.
-The regular expression is used for the fontification of user
-variables.")
+(defvar ansys-user-variables () ;NEW_C
+  "Variable containing the user variables and first occurance.
+The list is used for the fontification of these variables.")
 
 (defvar ansys-process nil		;NEW_C
   "Variable containing Emacs' description of a running ansys process.
@@ -1525,9 +1557,11 @@ are completed."
   "Regexp of command names which have a string behind them."
   )
 
-(defconst ansys-variable-defining-commands ;NEW
-  '("*do" "*get" "*dim" "*set" "*ask" "path" "pdef" "*vget" "*vfun" "*mfun" "*vitrp"
-    "*toper""*voper" "*moper" "*sread" "*vscfun" "/inquire")
+(defconst ansys-variable-defining-commands ;NEW FIXME: correct unnecessary full names
+  '("*do" "*get\\w*" "*dim" "*set.?"	   ;funny *SET works only with on add. char
+    "*ask" "path" "pdef" "*vget" "*vfun" "*mfun" "*vitrp"
+    "*toper""*voper" "*moper" "*sread" "*vscfun" "/inq\\w*"
+    "/fil\\w*")
   "List of commands which define user variables.
 Except the \"=\" assignment.")
 
@@ -1970,6 +2004,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 ;;FIXME DEFSUBSTs with DEFUNs inside aren't particularly helpful?
 
 ;;; --- predicates ---
+
+(defun ansys-in-asterisk-comment-p ()
+  "Return t if the cursor is inside an Ansys asterisk comment."
+  (save-excursion
+    (let ((lbp (line-beginning-position)))
+      (if (search-backward " *" lbp t)
+	  t
+	nil))))
 
 (defun ansys-in-string-command-line-p () ;NEW
   "Return t if in an Ansys string command line."
@@ -8197,8 +8239,8 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
   (append
    ansys-get-functions
    ansys-parametric-functions
-   ansys-commands
-   '((ansys-highlight . 1))		     ;function searches user variables
+   ansys-commands			;command overwrite variables
+   '(ansys-highlight) ;function searches user variables
    ansys-undocumented-commands
    ansys-elements
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
@@ -8210,7 +8252,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
    '(("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 'font-lock-doc-face keep))
 					;highlight message of comment command /COM (no comment (!)
 					;is possible behind /COM), no separating comma necessary
-   '(("^\\s-*\\([cC]\\*\\*\\*\\).?\\(.\\{0,75\\}\\)" ;c*** should get immediate fontification
+   '(("^\\s-*\\([cC]\\*\\*\\*\\).?\\(.\\{1,75\\}\\)" ;c*** should get immediate fontification
       (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
 					;only 75 characters possible no separator necessary
    '(("^\\s-*\\(/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 2
@@ -8218,7 +8260,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
    '(("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 'font-lock-doc-face keep))
 					;/SYS command sends string to OP, no parameter substitution!
 					;for variables with command names
-   '(("^\\s-*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
+   '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
 					; more than 32 character long variables are not allowed
    '(("^\\s-*\\(/[eE][oO][fF].*\\)" 1 'font-lock-warning-face prepend))
    '(("\\( \\*[^[:alpha:]].*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
@@ -10718,71 +10760,84 @@ And specify it in the variable `ansys-license'."
 (defun ansys-string-length-predicate (s1 s2)
   (< (length s1) (length s2)))
 
+(defun ansys-find-duplicate-p (entry list)
+  (let ((l list) p)
+    (while (and (not p) l)
+      (setq p (assoc-string entry (car l) 'ignore-case))
+      (pop l))
+    p))
+
 (defun ansys-find-user-variables (&optional a b c) ;NEW
 					;pseudo arguments for after-change-functions
   "Find all user variables in the current buffer.
 Pre-process the findings into the variable
-`ansys-user-variables-regexp' for subsequent fontifications."
+`ansys-user-variables' for subsequent fontifications."
   (interactive)
   (save-excursion
     (save-match-data
-      (let (res str)	; Start with Ansys *USE vars
+      (let (res var)	; Start with Ansys *USE vars
+	(setq ansys-user-variables ())
 	(goto-char (point-min))
-	(dolist (tmp ansys-variable-defining-commands)
+	(dolist (command ansys-variable-defining-commands)
 	  ;; format line, comment, message, C***
 	  (while (re-search-forward
-		  (concat (ansys-asterisk-regexp tmp)
+		  (concat (ansys-asterisk-regexp command)
 			  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
-	    (unless
-		(or (ansys-in-string-or-comment-p)
-		    (ansys-in-string-command-line-p)
-		    (ansys-in-format-construct-p))
-	      (add-to-list 'str (list (match-string-no-properties 1)
-				      (match-beginning 1)))))
-	    (goto-char (point-min)))
-	;; Ansys = assignment
+	    (setq var (match-string-no-properties 1))
+	    (unless (or (ansys-in-string-or-comment-p)
+			(ansys-in-string-command-line-p)
+			(ansys-in-format-construct-p)
+			(ansys-find-duplicate-p var ansys-user-variables))
+	      (add-to-list 'ansys-user-variables (list var (match-beginning 1)))))
+	  (goto-char (point-min)))
 
+	;; Ansys = assignment
 	(while (re-search-forward
-		"\\(\\<[[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" nil t)
+		"[^_]\\(\\<[[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" nil t)
+	  (setq var (match-string-no-properties 1))
 	  (unless
 	      (or (ansys-in-string-or-comment-p)
 		  (ansys-in-string-command-line-p)
-		  (ansys-in-format-construct-p))
-	    (add-to-list 'str (list (match-string-no-properties 1)
-				    (match-beginning 1)))))
+		  (ansys-in-format-construct-p)
+		  (ansys-find-duplicate-p var ansys-user-variables))
+	    (add-to-list 'ansys-user-variables (list var (match-beginning 1))))))))
+  ;; we must sort the variables to their length otherwise some of them will be
+  ;; shadowed: the longer the earlier
+  (setq ansys-user-variables
+	(sort ansys-user-variables '(lambda (arg1 arg2)
+				      (> (length (car arg1)) (length (car arg2)))))))
 
-;	(setq res (sort str 'ansys-string-length-predicate)) ;sort makes str unaccessible somehow, bug?
-;	(nconc str ansys-use-variables)	;FIXME: make list unique small-capital letters
-;;	(setq res (nreverse res)) ;otherwise longer expressions are shadowed
-;; 	;; * is a symbol character in the ansys-mode thingy so *VAR1*VAR1!
-;; 	;; \b is both \> and \<
-;; 	(setq res (mapcar '(lambda (s)
-;; 			     (concat "\\W" s "\\W")) res))
-;; 	;; no it's highlighting the * FIXME
-;; 	(setq res (mapconcat '(lambda (x) x) res "\\|"))
-	(setq ansys-user-variables-regexp str)))))
+;; in comments: ok
+;; in * comments: ansys-in-asterisk-comment-p
+;; clashes with command names
+;; in format strings without % chars
+(defun ansys-search-variable (variable limit)
+  (save-excursion
+    (while (progn
+	     (re-search-forward variable limit t)
+	     (or (ansys-in-asterisk-comment-p) 
+		 (and (or (ansys-in-format-construct-p)
+			  (ansys-in-string-command-line-p)
+			  (not (looking-at "%")))))))))
 
 (defun ansys-highlight (limit)		;NEW
   "Find user variables from (point) to position LIMIT."
-  (let* (tmp temp (p (point)) (bp limit) (ep p) (keyw ""))
-    (dolist (temp ansys-user-variables-regexp)
-      (setq tmp (concat "\\<\\(" (car temp) "\\)\\[^\\w_\n]"))
-      (when (re-search-forward tmp limit t) ;font-lock is case indep cause
-					;the Ansys interpreter sees it that way
-	(if (< (match-beginning 0) bp)
-	    (setq bp (match-beginning 0)
-		  keyw tmp)
-	  (when (and (= bp (match-beginning 0))
-		     (> (match-end 0) ep))
-	    (setq ep (match-end 0)
-		  keyw tmp))))
-      (goto-char p))
-
-;;     (if (re-search-forward keyw limit t)
-;; 	ep
-;;       limit)
-
-    (re-search-forward keyw limit t)))
+  (let ((var-list ansys-user-variables)
+	(p1 (point))
+	(p2 limit)
+	m-data entry)
+    (setq m-data (match-data))
+    (dolist (var var-list)
+      (setq entry (concat "\\<" (car var) "\\>"))
+      (ansys-search-variable entry limit)
+      (setq p1 (match-end 0))
+      (when (and (> p1 0)
+		 (< p1 p2)
+		 (<= (cadr var) p1)	;do not highlight before defintion
+		 )
+	(setq p2 p1)
+	(set-match-data m-data)))
+    (goto-char p2)))
 
 (defun ansys-display-variables ()	;NEW
   "Displays APDL variable assignments in the current Buffer.

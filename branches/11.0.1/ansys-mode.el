@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-01 13:46:56 dieter"
+;; Time-stamp: "2009-01-01 14:23:34 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -42,7 +42,7 @@
 ;; Language) files as well as providing managing and communication
 ;; capabilities for various Ansys solver processes.
 
-;; The mode's capabilities are rather sophisticated but the
+;; The mode's capabilities are rather sophisticated but still the
 ;; documentation is targeted for Ansys users with little Emacs
 ;; experience.
 

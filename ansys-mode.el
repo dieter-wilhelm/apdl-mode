@@ -1,8 +1,8 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2007-07-18 20:26:30 dieter"
+;; Time-stamp: "2009-01-01 14:02:41 dieter"
 
-;; Copyright (C) 2006, 2007  H. Dieter Wilhelm
+;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Created: 2006-02
 ;; Version: 11.0.2
@@ -172,6 +172,9 @@
 
 ;;      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
 ;;      (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+
+;; the suffix below blongs to the "anys neutral file" export format
+;;      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
 ;; * In case you also want to enjoy the auto insertion feature, which
 ;;   puts (optionally) some predefined body of Ansys commands to every

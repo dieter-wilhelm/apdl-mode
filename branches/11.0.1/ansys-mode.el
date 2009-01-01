@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-01 14:51:20 dieter"
+;; Time-stamp: "2009-01-01 14:23:34 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10098,7 +10098,7 @@ Signal an error if the keywords are incompatible."
   "!! real,Contact" \n
   "!! esurf !,,reverse !also 2d" \n
   \n
-  "!! /psymb,esys,on !check element esys (only when rotated!)" \n
+  "!! /psymb,esys,on !check element esys" \n
   "!! cncheck !initial contact status" \n
   \n
   "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Boundary conditions --- " \n

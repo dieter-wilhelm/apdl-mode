@@ -1,8 +1,8 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2008-04-05 20:29:47 dieter"
+;; Time-stamp: "2009-01-01 13:14:16 dieter"
 
-;; Copyright (C) 2006, 2007, 2008  H. Dieter Wilhelm
+;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Created: 2006-02
 ;; Version: 11.0.1

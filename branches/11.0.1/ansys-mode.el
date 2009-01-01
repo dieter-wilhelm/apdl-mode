@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-01 13:14:16 dieter"
+;; Time-stamp: "2009-01-01 13:46:56 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10161,6 +10161,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! /dscale,,1 !do not scale (for nlgeom)" \n
   "!! /dscale,,auto !or 0:scale automatically" \n
+  "!! !*get,Ds,graph,WN,dscale,dmult" \n
   "!! /contour,,ncont,min,inc,max" \n
   "!! /contour,,auto !switch off user contours" \n
   "!! /edge,,1 !1:display elements in contour plots" \n

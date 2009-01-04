@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-01 17:03:56 dieter"
+;; Time-stamp: "2009-01-04 23:45:42 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -8,11 +8,10 @@
 ;; Version: 11.0.1
 ;; Keywords: Languages, Convenience
 
-;; This file contains code from (an old) octave-mod.el
-;; Copyright (C) 1997
-;; Free Software Foundation, Inc.
-;; Author: Kurt Hornik <Kurt.Hornik@wu-wien.ac.at>
-;; Author: John Eaton <jwe@bevo.che.wisc.edu>
+;; This file contains code from a dated octave-mod.el:
+;; Copyright (C) 1997 Free Software Foundation, Inc.  Author: Kurt
+;; Hornik <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
+;; <jwe@bevo.che.wisc.edu>
 
 ;; This code is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published
@@ -168,13 +167,16 @@
 ;;      (autoload 'ansys-license-status "ansys-mode" "Activate Ansys license status function." 'interactive)
 
 ;; * When you intend to use the mode automatically, e.g. for all files
-;;   you are opening with the extension '.mac' and '.inp', add the
-;;   following to your '.emacs' file:
+;;   you are opening with the extension '.mac' and '.inp' (WorkBench
+;;   default solver input file suffix), add the following to your
+;;   '.emacs' file:
 
-;;      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
 ;;      (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+;;      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
 
-;; the suffix below blongs to the "anys neutral file" export format
+;;   The suffix below belongs to the "anys neutral file" export format
+;;   which contains also APDL commands
+
 ;;      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
 ;; * In case you also want to enjoy the auto insertion feature, which
@@ -209,7 +211,8 @@
 ;; Mathias Dahl,
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; History: (this line is for checkdoc.el)
+;;: (the following line is for the checkdoc command)
+;;; History:
 
 ;; == History: ==
 
@@ -328,8 +331,8 @@
 
 ;; * When you have already a (cost free) Google account you are able
 ;;   to issue a bug report at the Google Code hosted page
-;;   http://code.google.com/p/ansys-mode/issues/list. On this site you
-;;   can also download the latest development version.
+;;   http://code.google.com/p/ansys-mode/issues/list.  On this site
+;;   you can also download the latest development version.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 0. todo
@@ -8394,7 +8397,8 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 
 ;;;###autoload
 (defun ansys-mode ()
-"This is a major mode for reading, writing and navigating in
+"This is the Ansys mode help.
+It is a major mode for reading, writing and navigating in
 APDL (Ansys Parametric Design Language) files as well as
 providing managing and communication capabilities for various
 Ansys solver and license manager processes.
@@ -10576,6 +10580,7 @@ variable."
 
 (defun ansys-process-status ()		;NEW
   "Show the process status in the Emacs command line (minibuffer).
+
     'run'
           for a process that is running.
     'stop'

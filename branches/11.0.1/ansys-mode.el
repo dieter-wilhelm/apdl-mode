@@ -1,6 +1,6 @@
 ;;; ansys-mode.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-04 23:45:42 dieter"
+;; Time-stamp: "2009-01-06 00:31:49 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -395,9 +395,9 @@
 ;; Emacs installation for Ansys under XP, default.el in site-lisp dir
 ;; and byte-compiled ansys-mode.
 
-;; === FUTURE VERSIONS ===
+;; update all version numbers everywhere: Emacs wiki, Google Code with
+;; download, home page, elpa?
 
-;; update all version numbers everywhere
 ;; update the mode help
 ;; update defcustom list in ansys-submit-bug-report
 ;; checkdoc
@@ -8936,6 +8936,9 @@ the following options:
   (make-local-variable 'comment-column)
   (setq comment-column ansys-code-comment-column)
 
+  (make-local-variable 'kill-buffer-query-functions)
+  (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
+
   ;; FIXME:
   ;;  (setq comment-fill-column 50)???
   ;;  comment-indent -> fill-column?? only when line-wrap mode t?
@@ -10313,6 +10316,36 @@ Signal an error if the keywords are incompatible."
   "=== End of timing messages ===" \n
   \n)
 
+
+(define-skeleton ansys-skeleton-header
+  "Insert header for an APDL script" nil ;;"Name of file: "
+;  "! 	$Id" ":$\n"
+  "!"(insert (make-string 80 ?*))"\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "C*** " (buffer-name) (insert (make-string (- 80 5 (length
+						      (buffer-name))) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*   Called by: " _
+  (let ((called (read-file-name "Calling Script File: " "")))
+    (insert called)
+    (insert (make-string (- 80 2 (length "   Called by: ") (length
+							    called)) ? ))) "*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*   Calling:"(insert (make-string (- 80 2 (length "   Calling:")) ?
+				      ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*   Macros: "
+  (let ((mlib (read-file-name "Macro Library: " "")))
+    (insert mlib " ()")
+    (insert (make-string (- 80 2 (length "   Macros: ") (length mlib) 3)
+			 ? )))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!*"(insert (make-string (- 80 2) ? ))"*\n"
+  "!"(insert (make-string 80 ?*))"\n")
+
+
 (defmacro define-ansys-skeleton (command documentation &rest definitions) ;FIXME: documentation
   "Define COMMAND with an optional docstring DOCUMENTATION.
 to insert statements as in DEFINITION ...  Prior
@@ -10577,6 +10610,11 @@ variable."
       (start-process "ansys-help-file" nil ansys-help-file))
      ((string= system-type "windows-nt")
       (w32-shell-execute "Open" ansys-help-file))))) ;HINT: Eli Z., M. Dahl
+
+(defun ansys-kill-buffer-query-function ()
+  (when (or (string= (process-status ansys-process) "run")
+	    (string= (process-status ansys-process) "stop"))
+    (yes-or-no-p "Ansys process is active, quit buffer anyway? ")))
 
 (defun ansys-process-status ()		;NEW
   "Show the process status in the Emacs command line (minibuffer).

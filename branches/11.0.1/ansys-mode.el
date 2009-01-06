@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-06 00:56:54 dieter"
+;; Time-stamp: "2009-01-06 21:38:56 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -8376,7 +8376,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
       (define-key map "\C-c\C-j" 'ansys-job)
       (define-key map "\C-c\C-l" 'ansys-license-status)
       (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
-      (define-key map "\C-c\C-p" 'ansys-start-pzr-box)
+      (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
       (define-key map "\C-c\C-r" 'ansys-replot)
 					;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
       (define-key map "\C-c\C-t" 'ansys-if-then)
@@ -8923,7 +8923,7 @@ the following options:
   (make-local-variable 'ansys-run-flag) ;FIXME: implement what exactly?
 
   (make-local-variable 'ansys-user-variables-regexp) ;for font-lock
-  (setq ansys-user-variables-regexp nil)
+  (setq ansys-user-variables-regexp nil)	     ;TODO
 
   (make-local-variable 'parens-require-spaces)
   (setq parens-require-spaces ansys-require-spaces-flag)
@@ -9311,6 +9311,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Start Ansys Run" ansys-start-ansys :active ansys-is-unix-system-flag]
 	      ["Status of Run" ansys-process-status :active ansys-is-unix-system-flag]
 	      ["Run Ansys command" ansys-query-ansys-command :active ansys-is-unix-system-flag]
+	      ["Send code line/region to Ansys" ansys-send-to-ansys :active ansys-is-unix-system-flag]
 	      ["Start Graphics Screen" ansys-start-graphics :active ansys-is-unix-system-flag]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :active ansys-is-unix-system-flag]
 	      "-"
@@ -10579,7 +10580,7 @@ Argument END is the end of the region."
     (display-buffer "*Ansys*" 'other-window)))
 
 (defun ansys-process-running-p ()
-  (string= "run" (process-status ansys-process))
+  (string= "run" (process-status ansys-process))) ;TODO
 
 (defun ansys-update-mode-line ()
   (setq mode-line-process (format ":%s" (process-status ansys-process)))

@@ -1,0 +1,26 @@
+sluggish font-locking? 
+  a) choice of fontification level
+  b) simplify: multi file package
+
+Improve ansys-show-command-parameters: overlays, tooltips?
+
+complete ansys-send-or-copy-above   
+
+Check whether branch/11.0.1 @ working place is head!!!!!!   
+branches: 11.0.1  is updated with working place (hopefully)
+
+check .anf file format   
+update default.el, what is it for? (in both trunk and branch)
+
+implement C-c { and } like C-x z (repeate) zzzz
+
+Emacs: old-style backquotes?
+used in the old template macro system
+
+Ansys academic solutions for V11
+
+ansys-mode@urmel is hosted on googlecode
+svn via proxy
+
+trunk: started to dissect files 11.0.2 (R32)
+

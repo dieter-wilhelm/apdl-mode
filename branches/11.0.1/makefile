@@ -7,7 +7,7 @@ PACKAGE := ansys-mode_$(VERSION).$(MODE_VERSION).tar.gz
 EL_FILES := ansys-mode.el ansys-fontification.el \
   ansys-process.el default.el
 
-FILES := makefile LICENSE README \
+FILES := makefile LICENSE README TODO \
   ansys-process.mac ansys-dynprompt.txt \
   ansys_return_values.txt ansys_elements.txt \
   ansys_keywords.txt ansys_parametric_functions.txt \
@@ -16,6 +16,7 @@ FILES := makefile LICENSE README \
 
 .PHONEY : ALL
 ALL : $(PACKAGE) ansys-mode.el.gz
+	@cp -v $^ ~/tmp
 
 $(PACKAGE) : $(FILES) $(EL_FILES)
 	@tar -czvf $@ $^

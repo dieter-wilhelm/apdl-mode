@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-06 21:38:56 dieter"
+;; Time-stamp: "2009-01-07 14:23:47 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -8356,32 +8356,33 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
     (define-key map "\C-c%" 'insert-pair)
     (define-key map [?\C-c?\C-%] 'insert-pair)
     (define-key map [?\C-c?\C-[] 'insert-pair)
-      (define-key map [?\C-c?\C-'] 'insert-pair)
-      ;; --- miscellaneous ---
-      (define-key map "\C-x4k" 'ansys-delete-other-window)
-      (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
-      (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
-      (define-key map "\C-c\C-c" 'ansys-send-to-ansys)
-      (define-key map "\C-c\C-d" 'ansys-do)
-      (define-key map "\C-c\C-e" 'ansys-display-error-file)
-      (define-key map "\C-c\C-f" 'ansys-fit)
-      (define-key map "\C-c\C-g" 'ansys-start-graphics)
-      (define-key map "\C-c\C-k" 'ansys-kill-ansys)
-      (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
-      (define-key map "\C-c\C-t" 'ansys-exit-ansys)
-      (define-key map "\M-?" 'ansys-show-command-parameters)
-      (define-key map "\C-c?" 'ansys-show-command-parameters)
-					;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
-      (define-key map "\C-c\C-i" 'ansys-if)
-      (define-key map "\C-c\C-j" 'ansys-job)
-      (define-key map "\C-c\C-l" 'ansys-license-status)
-      (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
-      (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
-      (define-key map "\C-c\C-r" 'ansys-replot)
-					;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
-      (define-key map "\C-c\C-t" 'ansys-if-then)
-      (define-key map "\C-c\C-v" 'ansys-display-variables)
-      map)
+    (define-key map [?\C-c?\C-'] 'insert-pair)
+    ;; --- miscellaneous ---
+    (define-key map "\C-x4k" 'ansys-delete-other-window)
+    (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
+    (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
+    (define-key map "\C-c\C-c" 'ansys-send-to-ansys)
+    (define-key map "\C-c\C-d" 'ansys-do)
+    (define-key map "\C-c\C-e" 'ansys-display-error-file)
+    (define-key map "\C-c\C-f" 'ansys-fit)
+    (define-key map "\C-c\C-g" 'ansys-start-graphics)
+    (define-key map "\C-c\C-i" 'ansys-if)
+    (define-key map "\C-c\C-j" 'ansys-job)
+    (define-key map "\C-c\C-k" 'ansys-kill-ansys)
+    (define-key map "\C-c\C-l" 'ansys-license-status)
+    (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
+    (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
+    (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
+    (define-key map "\C-c\C-r" 'ansys-replot)
+;      (define-key map "\C-c\C-t" 'ansys-if-then)
+    (define-key map "\C-c\C-t" 'ansys-exit-ansys)
+    (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
+    (define-key map "\C-c\C-v" 'ansys-display-variables)
+    (define-key map "\M-?" 'ansys-show-command-parameters)
+    (define-key map "\C-c?" 'ansys-show-command-parameters)
+;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
+;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
+       map)
     "Keymap for the Ansys mode.")
 
 (defvar ansys-previous-major-mode ""	;NEW_C
@@ -9303,15 +9304,17 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Specify License Server or - File"   ansys-license-file]
 	      ["Specify License Utility" ansys-lmutil-program]
 	      ["Display License Status" ansys-license-status]
-	      ["Start Ansys help system" ansys-start-ansys-help]
+	      ["Start Ansys Help System" ansys-start-ansys-help]
 	      "-"
-	      ["Specify Ansys License" ansys-license :active ansys-is-unix-system-flag]
-	      ["Specify Job Name" ansys-job :active ansys-is-unix-system-flag]
-	      ["Specify Ansys executable" ansys-program :active ansys-is-unix-system-flag]
+	      ["Specify Ansys License Type" ansys-license :active ansys-is-unix-system-flag]
+	      ["Specify Job Name of Run" ansys-job :active ansys-is-unix-system-flag]
+	      ["Specify Ansys Executable " ansys-program :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run" ansys-start-ansys :active ansys-is-unix-system-flag]
-	      ["Status of Run" ansys-process-status :active ansys-is-unix-system-flag]
-	      ["Run Ansys command" ansys-query-ansys-command :active ansys-is-unix-system-flag]
-	      ["Send code line/region to Ansys" ansys-send-to-ansys :active ansys-is-unix-system-flag]
+	      ["Display Run Status" ansys-process-status :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Send Ansys Command Interactively" ansys-query-ansys-command :active ansys-is-unix-system-flag]
+	      ["Send Code Line/Region to Ansys" ansys-send-to-ansys :active ansys-is-unix-system-flag]
+	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above]
 	      ["Start Graphics Screen" ansys-start-graphics :active ansys-is-unix-system-flag]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :active ansys-is-unix-system-flag]
 	      "-"
@@ -10546,6 +10549,11 @@ the job name with \"\\[ansys-job]\"."
     (find-file-read-only-other-window file)
     (goto-char (point-max))
     (auto-revert-tail-mode 1)))
+
+(defun ansys-copy-or-send-above	()	;NEW
+  "Copy or send to Ansys above code - up to the cursor"
+  (interactive)
+  (kill-ring-save (point-min) (point)))	;point-min is heeding narrowing
 
 (defun ansys-send-to-ansys (beg end)	;NEW
   "Send code line or region to running Ansys process.

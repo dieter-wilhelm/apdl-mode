@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-07 14:23:47 dieter"
+;; Time-stamp: "2009-01-07 14:50:15 dieter"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -9135,7 +9135,7 @@ THEN action label."
 ;;; --- Command parameters and command completions ----
 (defun ansys-show-command-parameters (&optional ask) ;NEW FIXME: "ask" is an undocumented feature
   "Displays the Ansys command parameters help.
-Fist it shows the parameters of the keyword and then a short
+First it shows the parameters of the keyword and then a short
 explanation.  This is done for the previous Ansys command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the

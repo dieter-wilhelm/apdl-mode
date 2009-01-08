@@ -1,26 +1,51 @@
-sluggish font-locking? 
-  a) choice of fontification level
-  b) simplify: multi file package
+* Check whether branch/11.0.1 @ working place is head!!!!!!   
+   branches: 11.0.1  is updated with working place (hopefully)
+   
+* ansys-mode@urmel is hosted on googlecode
+   svn via proxy
+   
+* Complete ansys-send-or-copy-above   
+   
+* Dissect skeleton into smaller more useful subjects   
+   
+* Improve ansys-show-command-parameters: overlays, tooltips?
+   
+* Sluggish font-locking? 
+- choice of fontification level
+- simplify: multi file package -> rework of makefile -> README
+   (require 'feature)
+   
+* improve Ansys interpreter buffer with `commint-mode'
+   gnuplot-mode
 
-Improve ansys-show-command-parameters: overlays, tooltips?
+* check .anf file format   
+   
+* Rework README generation (from "makefile")
+   
+* update default.el, what is it for? (in both trunk and branch)
+   
+* implement C-c { and } like C-x z (repeate) zzzz
+   
+* Emacs: old-style backquotes?
+   used in the old template macro system
+   
+* Ansys academic solutions for V11
 
-complete ansys-send-or-copy-above   
+------------------------------
+11.0.1
 
-Check whether branch/11.0.1 @ working place is head!!!!!!   
-branches: 11.0.1  is updated with working place (hopefully)
+1.) svn via proxy, reworking
+2.) working state, compiling
+--
+3.) feature freeze & checking
+4.) publishing
+-- March
+------------------------------
+12.0.1
 
-check .anf file format   
-update default.el, what is it for? (in both trunk and branch)
-
-implement C-c { and } like C-x z (repeate) zzzz
-
-Emacs: old-style backquotes?
-used in the old template macro system
-
-Ansys academic solutions for V11
-
-ansys-mode@urmel is hosted on googlecode
-svn via proxy
-
-trunk: started to dissect files 11.0.2 (R32)
-
+0.) update keywords to V12.0
+1.) remaining font-lock issues, fontifiction levels
+2.) code dissection & gnu coding style
+3.) possible language additions
+4.) feature freeze & checking
+------------------------------

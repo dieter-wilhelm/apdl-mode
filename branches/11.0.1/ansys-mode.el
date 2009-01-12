@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-07 14:50:15 dieter"
+;; Time-stamp: "2009-01-12 14:28:21 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -175,7 +175,7 @@
 ;;      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
 
 ;;   The suffix below belongs to the "anys neutral file" export format
-;;   which contains also APDL commands
+;;   which contains also an APDL header and footer text
 
 ;;      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 

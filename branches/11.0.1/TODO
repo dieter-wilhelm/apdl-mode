@@ -1,12 +1,4 @@
-* Check whether branch/11.0.1 @ working place is head!!!!!!   
-   branches: 11.0.1  is updated with working place (hopefully)
-   
-* ansys-mode@urmel is hosted on googlecode
-   svn via proxy
-   
 * Complete ansys-send-or-copy-above   
-   
-* Dissect skeleton into smaller more useful subjects   
    
 * Improve ansys-show-command-parameters: overlays, tooltips?
    
@@ -17,12 +9,10 @@
    
 * improve Ansys interpreter buffer with `commint-mode'
    gnuplot-mode
-
-* check .anf file format   
+   
+* Dissect skeleton into smaller more useful subjects   
    
 * Rework README generation (from "makefile")
-   
-* update default.el, what is it for? (in both trunk and branch)
    
 * implement C-c { and } like C-x z (repeate) zzzz
    
@@ -34,7 +24,6 @@
 ------------------------------
 11.0.1
 
-1.) svn via proxy, reworking
 2.) working state, compiling
 --
 3.) feature freeze & checking

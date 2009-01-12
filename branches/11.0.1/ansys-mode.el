@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-12 14:28:21 uidg1626"
+;; Time-stamp: "2009-01-12 18:24:19 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -9278,6 +9278,10 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["*IF ,THEN *ENDIF"	ansys-if-then]
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
+	      ["Header"                 ansys-skeleton-header]
+	      ["Import"                 ansys-skeleton-import]
+	      ["Expand"                 ansys-skeleton-expand]
+	      ["Rigid Target"           ansys-skeleton-rigid-target]
 	      [" Ansys macro skeleton" ansys-skeleton])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
@@ -9969,7 +9973,7 @@ Signal an error if the keywords are incompatible."
   "*endif" >
   )
 
-(define-skeleton ansys-skeleton-header
+(define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script" nil ;;"Name of file: "
 ;  "! 	$Id" ":$\n"
   "!"(insert (make-string 80 ?*))"\n"
@@ -9997,9 +10001,9 @@ Signal an error if the keywords are incompatible."
   "!*"(insert (make-string (- 80 2) ? ))"*\n"
   "!"(insert (make-string 80 ?*))"\n")
 
-(define-skeleton ansys-skeleton-import
+(define-skeleton ansys-skeleton-import	;NEW
   "Import commands."
-  ""
+  nil
   "!! ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " --- Cad Import --- " \n
   "!! ------------------------------" \n
@@ -10016,13 +10020,27 @@ Signal an error if the keywords are incompatible."
   "/facet,norm" \n
   \n)
 
-(define-skeleton ansys-skeleton-expand
+(define-skeleton ansys-skeleton-expand	;NEW
   "Symmetry expansion."
-  ""
+  nil
   "/expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
   "/expand,18,axis,,,10 !axissymmetric expansion" \n
   "!! /expand !switch off expansion" \n
-  )
+  \n)
+
+(define-skeleton ansys-skeleton-rigid-target ;NEW
+  ""
+  nil
+  "type,Target"_ \n
+  "real,Contact" \n
+  "tshap,line" \n
+  "*get,Nmax,node,,num,max" \n
+  "n,Nmax+1,1,1,0" \n
+  " ,Nmax+2,1,2,0" \n
+  "e,Nmax+1,Nmax+2" \n
+  "tshap,pilo" \n
+  "e,Nmax+1" \n
+  \n)
 
 (define-skeleton ansys-skeleton		;NEW
   "Insert full framework of an Ansys APDL file."

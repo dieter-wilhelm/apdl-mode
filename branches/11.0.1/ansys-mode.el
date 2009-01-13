@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-12 18:24:19 uidg1626"
+;; Time-stamp: "2009-01-13 18:03:35 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -687,8 +687,9 @@ installation).  5.) The license file itself."
 
 (defcustom ansys-license-types		;NEW_C
   '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
-  "Available license types to choose from.
-Below are often used license types (as seen with the function
+  "List of available license types to choose for a run.
+This list should contain the license types you can choose from.  Below
+are often used license types (as e.g. seen with the function
 `ansys-license-status') and their corresponding WorkBench
 terminologies.
 
@@ -700,10 +701,11 @@ terminologies.
 \"preppost\" - PrepPost (just pre- and post-processing)"
   :group 'Ansys)
 
-(defcustom ansys-license ""		;NEW_C
+(defcustom ansys-license "struct"		;NEW_C
   "The License type with which the Ansys solver will be started.
-See `ansys-license-types' for often used Ansys licenses."
-  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
+See `ansys-license-types' for often used Ansys license types."
+;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
+  :options ansys-license-types
   ;; options not available for strings (only hooks, alists, plists E22)
   :type 'string
   :group 'Ansys)

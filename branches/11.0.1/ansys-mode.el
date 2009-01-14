@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-14 11:49:34 uidg1626"
+;; Time-stamp: "2009-01-14 16:44:00 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10042,7 +10042,9 @@ Signal an error if the keywords are incompatible."
   "!! et,Contact,conta173 !3d, 4 node" \n
   "!! et,Contact,conta172 !2d, 3 node" \n
   "!! et,Contact,conta171 !2d, 2 node" \n
-  "!! et,Contact,conta176 !3d line, 3 node" \n
+  "!! et,Contact,conta175 !2/3d node to surf" \n
+  "!! et,Contact,conta176 !3d line to line, 3 node" \n
+  "!! et,Contact,conta177 !3d line to surf, 3 node" \n
   "!! et,Target,targe169  !2d" \n
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
   "keyo,Contact,2,1 !Type 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
@@ -10054,7 +10056,7 @@ Signal an error if the keywords are incompatible."
   "rmod,Contact,3,1. !FKN:normal penalty stiffness factor (default:1)" \n
   "rmod,Contact,5,0.0 !ICONT:amount of initial contact closure (positiv:penetration)" \n
   "rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
-  "rmod,Contact,10,0. !CNOF:contact surface offset" \n
+  "rmod,Contact,10,0. !CNOF:contact surface offset (beams)" \n
   "mp,mu,Contact,0.4 !friction factor" \n
   "rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n) 
@@ -10071,6 +10073,20 @@ Signal an error if the keywords are incompatible."
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo" \n
   "e,Nmax+1" \n
+  \n)
+(define-skeleton ansys-skeleton-display-coord
+  ""
+  nil
+  "/plopts,wp,1 !display working plane" \n
+  "/triad,rbot"_ \n
+  \n)
+
+(define-skeleton ansys-skeleton-multi-plot
+  ""
+  nil
+  "/gtype,all,node,0 !turn off nodes" \n
+  "!/gcmd,1,u,sum"
+  "gplot" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW
@@ -10602,7 +10618,8 @@ the job name with \"\\[ansys-job]\"."
 (defun ansys-copy-or-send-above	()	;NEW
   "Copy or send to Ansys above code - up to the cursor"
   (interactive)
-  (kill-ring-save (point-min) (point)))	;point-min is heeding narrowing
+  (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
+  (message "Copied above."))
 
 (defun ansys-send-to-ansys (beg end)	;NEW
   "Send code line or region to running Ansys process.

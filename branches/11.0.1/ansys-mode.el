@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-13 18:03:35 uidg1626"
+;; Time-stamp: "2009-01-14 11:49:34 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -9284,7 +9284,8 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Import"                 ansys-skeleton-import]
 	      ["Expand"                 ansys-skeleton-expand]
 	      ["Rigid Target"           ansys-skeleton-rigid-target]
-	      [" Ansys macro skeleton" ansys-skeleton])
+	      ["Contact Pair Definition"           ansys-skeleton-contact-definition]
+	      ["Ansys Macro Skeleton" ansys-skeleton])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
 	      ["Next Code Line"		ansys-next-code-line]
@@ -10029,6 +10030,34 @@ Signal an error if the keywords are incompatible."
   "/expand,18,axis,,,10 !axissymmetric expansion" \n
   "!! /expand !switch off expansion" \n
   \n)
+
+(define-skeleton ansys-skeleton-contact-definition
+  ""
+  nil
+  "!! --- Contact pair defintion ---" \n
+  "Contact="_ \n
+  "Target=Contact" \n
+  "r,Contact" \n
+  "et,Contact,conta174    !3d, 8 node" \n
+  "!! et,Contact,conta173 !3d, 4 node" \n
+  "!! et,Contact,conta172 !2d, 3 node" \n
+  "!! et,Contact,conta171 !2d, 2 node" \n
+  "!! et,Contact,conta176 !3d line, 3 node" \n
+  "!! et,Target,targe169  !2d" \n
+  "et,Target,targe170 !3d area,line,(pilot-)node" \n
+  "keyo,Contact,2,1 !Type 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
+  "keyo,Contact,5,1 !initial contact closure,1:auto CNOF adjustment to close geometric gap only" \n
+  "keyo,Contact,9,2 !initial penetration,1:ignore initial gaps/penetr 2:ramp" \n
+  "keyo,Contact,10,2 !contact stiffness update,2:each NR iteration,1:each substep" \n
+  "keyo,Contact,12,0 !contact behaviour,0:frictional/-less (default),1:rough" \n
+  "real,Contact" \n
+  "rmod,Contact,3,1. !FKN:normal penalty stiffness factor (default:1)" \n
+  "rmod,Contact,5,0.0 !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  "rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
+  "rmod,Contact,10,0. !CNOF:contact surface offset" \n
+  "mp,mu,Contact,0.4 !friction factor" \n
+  "rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  \n) 
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
   ""

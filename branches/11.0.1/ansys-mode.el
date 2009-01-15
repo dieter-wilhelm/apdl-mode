@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-14 16:44:00 uidg1626"
+;; Time-stamp: "2009-01-15 15:21:09 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10047,17 +10047,18 @@ Signal an error if the keywords are incompatible."
   "!! et,Contact,conta177 !3d line to surf, 3 node" \n
   "!! et,Target,targe169  !2d" \n
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
-  "keyo,Contact,2,1 !Type 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
-  "keyo,Contact,5,1 !initial contact closure,1:auto CNOF adjustment to close geometric gap only" \n
-  "keyo,Contact,9,2 !initial penetration,1:ignore initial gaps/penetr 2:ramp" \n
-  "keyo,Contact,10,2 !contact stiffness update,2:each NR iteration,1:each substep" \n
-  "keyo,Contact,12,0 !contact behaviour,0:frictional/-less (default),1:rough" \n
+  "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
+  "!keyo,Contact,5,1 !AUTOMATED adjustment cnof/icont,1:auto CNOF adjustment to close geometric gap only" \n
+  "keyo,Contact,9,4 !initial penetration/gap,0:include,1:exclude,2:include ramped,4:ignore initial gaps/penetr offeset ramped" \n
+  "keyo,Contact,10,2 !Stiffness UPDATE,2:each NR iteration,1:each substep" \n
+  "!keyo,Contact,11,1 !Shell thickness effect" \n
+  "keyo,Contact,12,0 !BEHAVIOUR,0:frictional/-less,1:rough,3:bonded" \n
   "real,Contact" \n
   "rmod,Contact,3,1. !FKN:normal penalty stiffness factor (default:1)" \n
   "rmod,Contact,5,0.0 !ICONT:amount of initial contact closure (positiv:penetration)" \n
   "rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
-  "rmod,Contact,10,0. !CNOF:contact surface offset (beams)" \n
-  "mp,mu,Contact,0.4 !friction factor" \n
+  "!rmod,Contact,10,1 !CNOF (thickness effect):contact surface offset (beams)" \n
+  "!mp,mu,Contact,0.4 !friction factor" \n
   "rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n) 
 

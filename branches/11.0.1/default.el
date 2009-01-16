@@ -1,4 +1,6 @@
 ;; example `default.el' for Ansys mode under Unix and Windows
+;; `default.el' can be used as a system wide startup file.  E. g. in
+;; `/usr/local/share/emacs/site-lisp' or `INSTALLDIR/site-lisp'
 
 (autoload 'ansys-mode "ansys-mode" "Activate Ansys mode." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate Ansys display error file function." 'interactive)
@@ -30,5 +32,5 @@
 (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
 ;; experimental user variables highlighting
-(setq ansys-dynamic-highlighting-flag t)
+;(setq ansys-dynamic-highlighting-flag t)
 

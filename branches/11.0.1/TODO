@@ -1,24 +1,30 @@
+(make-skeleton ansys-skeleton-view-settings
+/view or /vup !viewing direction
+/angle,1,10,xs,1 !angle of rotation 1:cumulative
+/dist !magnification
+/focus !focus point
+/auto !?
+/zoom !?fit
+)
+
+* Make skeleton-header properly working (info "(autotype)")
+
 * Complete ansys-send-or-copy-above   
    
-* Improve ansys-show-command-parameters: overlays, tooltips?
-   
+* Improve ansys-show-command-parameters
+- overlays, tooltips?
+- explain also commented out commands   
+
 * Sluggish font-locking? 
 - choice of fontification level
 - simplify: multi file package -> rework of makefile -> README
    (require 'feature)
    
-* improve Ansys interpreter buffer with `commint-mode'
+* improve Ansys interpreter buffer with `comint-mode'
    gnuplot-mode
    
 * Dissect skeleton into smaller more useful subjects   
-   
-* Rework README generation (from "makefile")
-   
-* implement C-c { and } like C-x z (repeate) zzzz
-   
-* Emacs: old-style backquotes?
-   used in the old template macro system
-   
+- preview skeletons!   
 * Ansys academic solutions for V11
 
 ------------------------------
@@ -28,7 +34,17 @@
 --
 3.) feature freeze & checking
 4.) publishing
--- March
+-- April
+
+User's meeting
+
+1.) Need LICENSE!
+
+-- casual APDL user
+-- APDL hacking
+   	$ needs space(s)?
+-- hardcore APDL user
+
 ------------------------------
 12.0.1
 
@@ -37,4 +53,13 @@
 2.) code dissection & gnu coding style
 3.) possible language additions
 4.) feature freeze & checking
+   
+* Rework README generation (from "makefile")
+   
+* implement C-c { and } like C-x z (repeate) zzzz
+   
+* Emacs: old-style backquotes?
+   used in the old template macro system
+
+
 ------------------------------

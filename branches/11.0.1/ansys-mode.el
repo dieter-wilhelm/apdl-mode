@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-19 11:18:52 uidg1626"
+;; Time-stamp: "2009-01-19 14:37:50 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10008,12 +10008,14 @@ Signal an error if the keywords are incompatible."
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
+  "!! --- view settings ---"
   "!/view or /vup !viewing direction"_ \n
-  "!/angle,1,10,xs,1 !angle of rotation 1:cumulative" \n
+  "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "!/dist !magnification" \n
   "!/focus !focus point" \n
+  "!/zoom,1,off !off:refit" \n
   "!/auto !?" \n
-  "!/zoom !?fit" \n
+  "!/user,all !automatic fit mode"
   \n)
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -10100,6 +10102,17 @@ Signal an error if the keywords are incompatible."
   "/gtype,all,node,0 !turn off nodes" \n
   "!/gcmd,1,u,sum"
   "gplot" \n
+  \n)
+
+(define-skeleton ansys-skeleton-symbols
+  ""
+  nil
+  "!! --- symbols ---" \n
+  "!! /pbc,all,,1 !bc symbols"\n
+  "!! /psf !surface loads" \n
+  "!! /pbf !body loads"
+  "!! /psymb,esys,on !check element esys" \n
+  "!! /psymb,ndir !only for rotated nodal co-ordinate systems!" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW
@@ -10258,6 +10271,9 @@ Signal an error if the keywords are incompatible."
   "!! real,Contact" \n
   "!! esurf !,,reverse !also 2d" \n
   \n
+  "!! /pcb !bc symbols"\n
+  "!! /psf !surface loads" \n
+  "!! /pbf !body loads"
   "!! /psymb,esys,on !check element esys" \n
   "!! /psymb,ndir !only for rotated nodal co-ordinate systems!" \n
   "!! cncheck !initial contact status" \n
@@ -10632,6 +10648,13 @@ the job name with \"\\[ansys-job]\"."
   "Copy or send to Ansys above code - up to the cursor"
   (interactive)
   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
+  ;; no-property stuff necessary?????
+
+;;   (if (y-or-n-p
+;;        (concat
+;; 	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
+;;       (message "Starting run...")
+;;     (error "Run canceled"))
   (message "Copied above."))
 
 (defun ansys-send-to-ansys (beg end)	;NEW

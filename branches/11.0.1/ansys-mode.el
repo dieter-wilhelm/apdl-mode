@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-19 14:37:50 uidg1626"
+;; Time-stamp: "2009-01-19 16:43:04 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -10115,6 +10115,27 @@ Signal an error if the keywords are incompatible."
   "!! /psymb,ndir !only for rotated nodal co-ordinate systems!" \n
   \n)
 
+(define-skeleton ansys-skeleton-element-table
+  ""
+  nil
+    "!! --------- etables ----------" \n
+  "!! etables don't take into account higher element order!"
+  "!! ---- Mohr-Coulomb failure criterion" \n
+  "Z1 = 60 !tensile strength" \n
+  "Z3 = 160 !compressive strength" \n
+  "etable,S1,s,1" \n
+  "etable,S3,s,3" \n
+  "sadd,R,S1,S3,1/Z1,-1/Z3" \n
+  "pletab,R,avg !avg: average over nodes" \n
+  "esel,s,type,,2" \n
+  "etable,Pene,cont,pene" \n
+  "plls,Pene,Pene !line elem. results" \n
+  "esort,etab,R" \n
+  "*get,Mc,etab,sort,,max" \n
+  "*msg,,Mc" \n
+  "Mohr-Coulomb criterion (< 1): %G" \n
+  \n)
+
 (define-skeleton ansys-skeleton		;NEW
   "Insert full framework of an Ansys APDL file."
   "Insert brief purpose of file: "
@@ -10655,7 +10676,7 @@ the job name with \"\\[ansys-job]\"."
 ;; 	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
 ;;       (message "Starting run...")
 ;;     (error "Run canceled"))
-  (message "Copied above."))
+  (message "Copied from beginning of buffer to cursor."))
 
 (defun ansys-send-to-ansys (beg end)	;NEW
   "Send code line or region to running Ansys process.

@@ -1,31 +1,27 @@
-(make-skeleton ansys-skeleton-view-settings
-/view or /vup !viewing direction
-/angle,1,10,xs,1 !angle of rotation 1:cumulative
-/dist !magnification
-/focus !focus point
-/auto !?
-/zoom !?fit
-)
 
-* Make skeleton-header properly working (info "(autotype)")
-
-* Complete ansys-send-or-copy-above   
-   
-* Improve ansys-show-command-parameters
-- overlays, tooltips?
-- explain also commented out commands   
-
-* Sluggish font-locking? 
-- choice of fontification level
-- simplify: multi file package -> rework of makefile -> README
-   (require 'feature)
+* consolidate TODOs
    
 * improve Ansys interpreter buffer with `comint-mode'
    gnuplot-mode
    
 * Dissect skeleton into smaller more useful subjects   
-- preview skeletons!   
-* Ansys academic solutions for V11
+- preview skeletons!
+   smaller ones in mini buffer
+- optional setting of (Ansys-mode-)bookmarks?   
+- rework concept with respect to the Ansys menu structure
+- Make skeleton-header properly working (info "(autotype)")
+
+* Complete ansys-skeleton-view-settings
+
+* Complete ansys-send-or-copy-above   
+
+* filter output of ansys-license-status
+
+* show sent lines in apdl file C-c C-u, C-c C-c,
+- with fringes
+- with background colour
+- maximum line
+- reset highlighting, when?
 
 ------------------------------
 11.0.1
@@ -39,12 +35,20 @@
 User's meeting
 
 1.) Need LICENSE!
+     Ansys academic solutions for V11
 
--- casual APDL user
+-- Very brief introduction: Why not Emacs?
+-- casual APDL user (whetting the appetite)
+   convenience features
+   fontification
+   command-help
+   code navigation (number blocks in .inp)
 -- APDL hacking
    	$ needs space(s)?
+	display variables
+	copy above
 -- hardcore APDL user
-
+        Ansys/Emacs process and debugging environment
 ------------------------------
 12.0.1
 
@@ -54,6 +58,15 @@ User's meeting
 3.) possible language additions
 4.) feature freeze & checking
    
+   
+* Improve ansys-show-command-parameters
+- overlays, tooltips?
+- explain also commented out commands   
+
+* Sluggish font-locking? 12.0.1
+- choice of fontification level
+- simplify: multi file package -> rework of makefile -> README
+   (require 'feature)
 * Rework README generation (from "makefile")
    
 * implement C-c { and } like C-x z (repeate) zzzz

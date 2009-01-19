@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-15 15:21:09 uidg1626"
+;; Time-stamp: "2009-01-19 11:18:52 uidg1626"
 
 ;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -9976,6 +9976,7 @@ Signal an error if the keywords are incompatible."
   "*endif" >
   )
 
+
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script" nil ;;"Name of file: "
 ;  "! 	$Id" ":$\n"
@@ -10003,6 +10004,17 @@ Signal an error if the keywords are incompatible."
   "!*"(insert (make-string (- 80 2) ? ))"*\n"
   "!*"(insert (make-string (- 80 2) ? ))"*\n"
   "!"(insert (make-string 80 ?*))"\n")
+
+(define-skeleton ansys-skeleton-view-settings
+  ""
+  nil
+  "!/view or /vup !viewing direction"_ \n
+  "!/angle,1,10,xs,1 !angle of rotation 1:cumulative" \n
+  "!/dist !magnification" \n
+  "!/focus !focus point" \n
+  "!/auto !?" \n
+  "!/zoom !?fit" \n
+  \n)
 
 (define-skeleton ansys-skeleton-import	;NEW
   "Import commands."

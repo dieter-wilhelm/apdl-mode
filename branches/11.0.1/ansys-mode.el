@@ -1,8 +1,8 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-19 16:43:04 uidg1626"
+;; Time-stamp: "2009-01-20 11:42:40 uidg1626"
 
-;; Copyright (C) 2006, 2007, 2008, 2009  H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Created: 2006-02
 ;; Version: 11.0.1
@@ -10134,6 +10134,37 @@ Signal an error if the keywords are incompatible."
   "*get,Mc,etab,sort,,max" \n
   "*msg,,Mc" \n
   "Mohr-Coulomb criterion (< 1): %G" \n
+  \n)
+
+(define-skeleton ansys-skeleton-solve
+  ""
+  nil
+  "! --- Solution --- " \n
+  \n
+  "/solu" \n
+  \n
+  "!! solcontrol,,on, ! ,,check contact state,pressure load stiffness"
+  \n
+  "!! n1=20" \n
+  "!! n2=n1*100" \n
+  "!! n3=n1/4" \n
+  "!! nsubst,n1,n2,n3"\n
+  "!! outres,all,all"\n
+  "!! nlgeom,on" \n
+  "!! autots,on" \n
+  \n
+  "!! rescontrol,,1,last !restart file(s)" \n
+  "!!           ,status" \n
+  "!! eqslv,pcg,1e-4" \n
+  "!! cnvtol,f,,0.1" \n
+  "!! nropt,unsym !frictional contacts not converging?" \n
+  "!! coupling of sliding and normal stiffness"
+  \n
+  "!! /runst !enter the run statistics processor" \n
+  "!! rall !run statistics estimator" \n
+  \n
+  "!! antyp,,rest,1,last"
+  "solve" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW

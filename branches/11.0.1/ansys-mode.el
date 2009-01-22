@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-22 15:27:57 uidg1626"
+;; Time-stamp: "2009-01-22 18:13:18 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -341,13 +341,6 @@
 ;;   to issue a bug report at the Google Code hosted page
 ;;   http://code.google.com/p/ansys-mode/issues/list.  On this site
 ;;   you can also download the latest development version.
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 1. testing, screenshots: release 2009-03
-;; 2. feedback, bugfixes: 2008-03-01
-;; 3. Probe interest of CadFem for user's meeting 2009
-;; 4. Prepare submission for user's meeting 2009
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Code:
@@ -9827,6 +9820,7 @@ Signal an error if the keywords are incompatible."
   "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
+  "!rmod,Contact,11,-1 !FKOP contact damping must be neg." \n
   "!rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   "mp,mu,Contact,Mu !friction factor" \n
   \n
@@ -9852,11 +9846,22 @@ Signal an error if the keywords are incompatible."
   "!!tshap,sphere" \n
   "!!tshap,qua8"
   \n)
+
 (define-skeleton ansys-skeleton-display-coord
   ""
   nil
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot"_ \n
+  \n)
+
+(define-skeleton ansys-skeleton-working-plane
+  ""
+  nil
+  "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
+  "!wpoffs,,-100 !x,y,z offset" \n
+  "!wprota,0,90,0 !z,x,y axis of rotation" \n
+  "!wpstyl,,,,,,1 !type spec" \n
+  "!csys,wp !change co to wp" \n
   \n)
 
 (define-skeleton ansys-skeleton-multi-plot

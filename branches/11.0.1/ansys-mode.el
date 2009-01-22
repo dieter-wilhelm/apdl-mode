@@ -1,9 +1,11 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-20 11:42:40 uidg1626"
+;; Time-stamp: "2009-01-22 15:27:57 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
+
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
 ;; Version: 11.0.1
 ;; Keywords: Languages, Convenience
@@ -13,6 +15,7 @@
 ;; Hornik <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
 ;; <jwe@bevo.che.wisc.edu>
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published
 ;; by the Free Software Foundation; either version 3, or (at your
@@ -302,6 +305,7 @@
 ;; http://www.ansys.net -- general Ansys repository
 ;; http://www.ansys.com
 ;; http://www.ansyssolutions.com -- The Ansys solutions magazine
+;; http://www.xansys.org -- ansys online community
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Bugs and Problems ==
@@ -339,271 +343,10 @@
 ;;   you can also download the latest development version.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 0. todo
 ;; 1. testing, screenshots: release 2009-03
 ;; 2. feedback, bugfixes: 2008-03-01
 ;; 3. Probe interest of CadFem for user's meeting 2009
 ;; 4. Prepare submission for user's meeting 2009
-
-;; == TODO ==
-
-;; pick up ansys-process when renaming buffer file and restarting
-;; ansys-mode, otherwise process is without buffer
-
-;; === FOR RELEASE ===
-
-;; merge code branches till release
-
-;; split
-;;   0.) ansys-mode.el						X
-;;   1.) highlighting patterns ->	ansys-highlight.el	X
-;;   2.) templates <-> menus? ->	ansys-templates.el	?
-;;   3.) interactive stuff ->		ansys-interactive.el	system-type-p
-;;   4.) documentation ->		README, INSTALL, TODO?
-
-;;
-
-;; *create is only completed by *end
-
-;; completion of function names: cursor should stay within parentheses
-
-;; clear message: ansys-mode perform auto insertion
-
-;; parameter help for commented out commands
-
-;; either minimal keyword highlighting or choice
-
-;; condition -highlight in the fontlock variable
-
-;; c*** highlighting
-
-;; comment above user variable problem
-
-;; *VAR*VAR highlighting problem
-
-;; (when Emacs 22)
-
-;; dry run: Emacs 22.1 -Q testing: padt.mac /*commands and default
-;; command lines, every menu entry.
-
-;; update Emacs wiki, Google Code with download, home page
-
-;; publication: ANSYS.net (Ansys !!! Sheldon Imaoka
-;; <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
-;; sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
-;; <lkrueger@cadfem.de>), Perras <alwin.perras@siemens.com>, AnsysWB
-;; community, Ansys users club <tom.tumbrink@t-online.de>
-;; <admin@auc-ev.de>, the Focus guys (PADT) <info@padtinc.com>, Holger
-;; Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
-
-;; Emacs package repository, elpa http://tromey.com/elpa/
-
-;; Emacs installation for Ansys under XP, default.el in site-lisp dir
-;; and byte-compiled ansys-mode.
-
-;; update all version numbers everywhere: Emacs wiki, Google Code with
-;; download, home page, elpa?
-
-;; update the mode help
-;; update defcustom list in ansys-submit-bug-report
-;; checkdoc
-;; byte-compile-file
-
-;; ==== Important ====
-
-;; ===== command help =====
-
-;; add undocumented-commands into the command help.  nint, rand not
-;; yet in the help list Parameter help also for *GET and parametric
-;; functions.  Include the _RETURN value of the solid modelling
-;; commands into their help strings of parameter help.  Help should be
-;; visible while there is use input (overlay, new buffer?)  (setq
-;; mode-line-format nil);no mode line for this buffer Unambiguous
-;; Ansys commands with additional characters at the end are not found
-;; in the parameter help (C-c C-h) example: *VWROOOO
-
-;; does setting of -hook trigger immediately the effects or is a
-;; restart necessary? other function as well
-
-;; -up/down-block when we are over a begin-keyword and in a block-end
-;; line
-
-;; filter license-usage output, make it more readable
-;; Argument specifying license type for for -license-status
-
-;; read ansys-license-file from env, supply sane standard Ansys values
-;; for the helper programs and check for existance
-
-;; concentrate variable defining functions for user variable search
-;; and - display.  Variables are getting overwritten with Ansys
-;; keywords.
-
-;; component names also fontified as variables? or separate cmlist?
-
-;; format string for *VWRITE: line(s) below, in parens, when FORTRAN
-;; format specifiers are used, keyword SEQU povides row numbers, up to
-;; 19 parameters are allowed
-
-;; what the heck is the *UILIST command?
-
-;; ===== templates =====
-
-;; Optimise templates: completing-read, read-from-minibuffer abbrev `d
-;; does not indent properly in another block level Implement choice
-;; when completing *IF commands (*ELSEIF or *ENDIF ?THEN?).  Warn when
-;; including skeleton in read only file.  Provide skeleton for certain
-;; outline headings/simulation subjects.  Split ansys-skeleton into
-;; header and code section, split code section into smaller, handy
-;; Ansys-skeletons templates, snippets and skeletons for specialised
-;; calculations: rubber, post26, gasket, ...
-
-;; make M-C-h more intelligent like M-h
-
-;; Enable input directly in the Ansys output buffer (*Ansys*) like in
-;; the *shell*, *math* or *Python* buffer (run-python)
-;; a.) enable highlighting of the *Ansys* buffer -> ansys-interactive-mode
-;; b.) splice any input line behind the BEGIN: symbol in the *Ansys* buffer
-
-;; remove vestiges of ansys-mod.el for making ansys-mode.el GPL
-;; proof.  Check whether octave-mod.el really is GPL compliant, use
-;; octave-mod.el from 1997, kill octave-mod.el afterwards in makefile
-;; read every symbol docu string ->NEW_C or _C or OCTAVE_C
-
-;; ==== Less Important ====
-
-;; *MSG command can only have 9 additional continuation lines
-
-;; FIXMEs
-
-;; generalise -insert-pi in code line ($ PI=...), in comment (\n
-;; Pi=...)
-
-;; replace/extend column-ruler with ruler-mode or ruler implemented as
-;; overlay in buffer
-
-;; Capitalized variable fontification clashes with small letter Ansys
-;; predicates.  Fx=3 -> *GET,Fx,fsum,,item,fx, make fontification case
-;; dependent?
-
-;; startup screen for Ansys mode: Mode help, Ansys version, supressing
-;; the startup screen
-;; 'ansys-mode-startup-message
-;;  maybe as advice when sluggish -> compiliation
-
-;; Try to ask only for the installation directory for the -license-file,
-;; -program, etc.  variables.  Read some information from getenv.
-
-;; make everything completely customisable, eg auto-insert stuff
-;; customisable enable Emacs customisation of auto-insert-query and
-;; auto-insert-alist
-
-;; provide Ansys `y' request and carriage return?
-
-;; indicate with activation/inactivation of menu items that an
-;; asynchronous job is already running or not.
-
-;; check for EXIT command and wait some time to update the mode line
-;; run status correctly
-
-;; warn when abandoning macro file with an associated Ansys process.
-
-;; Fontify *completion list* distinguishing elements: commands,
-;; functions and keywords.
-
-;; sort customisation options for processes into subgroup
-;; (defgroup octave-inferior nil
-;;   "Running Octave as an inferior Emacs process."
-;;   :group 'octave)
-
-;; provide a list of options for the -license function, set this
-;; function in the defcustom lmstat -a etc.
-
-;; C-c C-c shouldn't send empty lines in regions, especially at the
-;; end, to the solver.  Use a filter?
-
-;; Optimisation (look at regexp with *), nested repetition regexp
-;; operators
-
-;; -start-ansys
-;; finding an Ansys /filnam command in current macro file
-;; and suggesting this as current job-name optionally
-;; kill old job when called again with working run
-;; warn and optionally remove the ansys lock file before starting a run
-
-;; Enable one run for every Ansys macro buffer
-
-;; Enable choice for /show,3d or x11
-
-;; Wrong highlighting of variables in /com, C*** text strings
-;; variable highlighting overwrites ansys commands with the same name
-;; dynamic highlighting is only implemented for .mac files
-
-;; multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable
-;; fontification is not working
-
-;; *DO parameters are not restricted to the respective block deleting
-;; parameters with `PARAM=' or `*SET,PARAM,' is not taken into account
-;; when dynamically highlighting user variables.  Redefinition of
-;; variables leaves the old definitions valid ->invalidate
-;; font-locking there.  Variable highlighting in strings is not
-;; working (string substitution).  display-user-variables displays
-;; message strings as well
-
-;; make the line number display in `ansys-display-variables'
-;; (hyper-)links to the corresponding code line in the respective APDL
-;; file.  (See `occur' function.)  Or use the imenu mechanism for this
-;; and display the variables in the speedbar
-
-;; Better documentation, info file, refcard, etc; GNU programming
-;; guideline: More requires?, indicate replacement of standard Emacs
-;; facilities (e. g M-C-n, M-C-p), profiling, major mode conventions:
-;; multiple loading of this mode?, XEmacs testing.
-
-;; Provide customisable choice whether commands, functions and/or
-;; elements are assembled in the completion list.
-
-;; auto-indent-switch as defcustom?
-
-;; inhibit the unnecessary blink-matching-block display when closing a
-;; block behind a block-end keyword
-
-;; tool-tips for the menus
-
-;; highlight matching block keywords (similar to show-paren-mode) when
-;; point is at keyword
-
-;; Implement highlighting of brackets with the correct level in Ansys
-;; GET- and parametric- functions.
-
-;; highlighting of plot commands inside the /GCMD command
-
-;; Warn when - unintentionally - arguments are used for Ansys commands
-;; which do not allow arguments.  Or implement some auto-newline
-;; feature?  But problematic in condensed command lines
-;; or when applying code comments!
-
-;; Indicate that character parameters are restricted to only 8
-;; characters.
-
-;; Choice of the level of fontification (uniqe-commands and
-;; complete-commands as second level fontification).
-
-;; DEFSUBSTs with DEFUNs inside aren't particularly helpful?
-
-;; ansys-indicate-empty-lines also for non-window systems (with
-;; overlays)
-
-;; see www.apdl.de for further ideas and extensions
-
-;; Emphasise better implied (colon) loops n,(1:6),(2:12:2) => n,1,2 $
-;; n,2,4 $... (little used, I know, but any ideas going beyond the
-;; colon?).  *REPEATE command might be interesting
-
-;; Code line restriction of 640 characters is not taken care of.
-;; Block level restriction of 20 levels of nested *DO loops (except
-;; with /INPUT and *USE)
-;; Block level restriction of 10 levels of nested *IF blocks
-;; Macro level restriction: 20 macros
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -10050,7 +9793,13 @@ Signal an error if the keywords are incompatible."
   nil
   "!! --- Contact pair defintion ---" \n
   "Contact="_ \n
-  "Target=Contact" \n
+  "Target=Contact+1" \n
+  "Mu = 0 !contact friction" \n
+  "Fkn = 0.1 !contact stiffness (default 1, divided by 100 if plastic mat.)" \n
+  "Fntol = 0.1 !penetration tolerance" \n
+  "Icont = 0. !contact closure band size" \n
+  "Cnof = 0 !contact offset (neg.: penetr.)" \n
+  "Pinb = -1 !search radius, neg: absolut value (at least 1.1*CNOF)" \n
   "r,Contact" \n
   "et,Contact,conta174    !3d, 8 node" \n
   "!! et,Contact,conta173 !3d, 4 node" \n
@@ -10060,20 +9809,31 @@ Signal an error if the keywords are incompatible."
   "!! et,Contact,conta176 !3d line to line, 3 node" \n
   "!! et,Contact,conta177 !3d line to surf, 3 node" \n
   "!! et,Target,targe169  !2d" \n
+  \n
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
+  \n
+  "!! --- Contact Options --"\n
   "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
-  "!keyo,Contact,5,1 !AUTOMATED adjustment cnof/icont,1:auto CNOF adjustment to close geometric gap only" \n
-  "keyo,Contact,9,4 !initial penetration/gap,0:include,1:exclude,2:include ramped,4:ignore initial gaps/penetr offeset ramped" \n
+  "!keyo,Contact,5,0 !AUTOMATED adjustment cnof/icont,1:auto CNOF gap 2: pene CNOF 3: gap/pene. CNOF, 4: ICONT" \n
+  "keyo,Contact,9,4 !pene./gap,0:include,1:exclude,2:include ramped, 3: ignore gap/penetr., 4:ignore initial gaps/penetr, offeset CNOF ramped" \n
   "keyo,Contact,10,2 !Stiffness UPDATE,2:each NR iteration,1:each substep" \n
   "!keyo,Contact,11,1 !Shell thickness effect" \n
   "keyo,Contact,12,0 !BEHAVIOUR,0:frictional/-less,1:rough,3:bonded" \n
   "real,Contact" \n
-  "rmod,Contact,3,1. !FKN:normal penalty stiffness factor (default:1)" \n
-  "rmod,Contact,5,0.0 !ICONT:amount of initial contact closure (positiv:penetration)" \n
-  "rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
-  "!rmod,Contact,10,1 !CNOF (thickness effect):contact surface offset (beams)" \n
-  "!mp,mu,Contact,0.4 !friction factor" \n
-  "rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  \n
+  "!! --- Contact values ---"\n
+  "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1)" \n
+  "rmod,Contact,4,Fntol !FNTOL penetration tolerance (augm. Lagrance! default:0.1)"
+  "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
+  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
+  "!rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  "mp,mu,Contact,Mu !friction factor" \n
+  \n
+  "!! -- check contact status --" \n
+  "!solve"\n
+  "!cncheck,adjust !adjust the elements!"
+  "!resume,file.db" \n
   \n) 
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
@@ -10088,6 +9848,9 @@ Signal an error if the keywords are incompatible."
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo" \n
   "e,Nmax+1" \n
+  "!!tshap,cone" \n
+  "!!tshap,sphere" \n
+  "!!tshap,qua8"
   \n)
 (define-skeleton ansys-skeleton-display-coord
   ""
@@ -10129,7 +9892,9 @@ Signal an error if the keywords are incompatible."
   "pletab,R,avg !avg: average over nodes" \n
   "esel,s,type,,2" \n
   "etable,Pene,cont,pene" \n
-  "plls,Pene,Pene !line elem. results" \n
+  "!etable,chat,cont,cnos !chattering levels" \n
+  "!etable,cpre,cont,pres"\n
+  "!plls,Pene,Pene !line elem. results" \n
   "esort,etab,R" \n
   "*get,Mc,etab,sort,,max" \n
   "*msg,,Mc" \n
@@ -10143,8 +9908,10 @@ Signal an error if the keywords are incompatible."
   \n
   "/solu" \n
   \n
-  "!! solcontrol,,on, ! ,,check contact state,pressure load stiffness"
-  \n
+  "!! solcontrol,,on, ! ,,check contact state,pressure load stiffness" \n
+  "!! nlhist,on !nonlinear tracking in .nlh" \n
+  "!! nldiag,nrre,on! store residual file" \n
+  "!! nldiag,maxf,2! maximum files written" \n
   "!! n1=20" \n
   "!! n2=n1*100" \n
   "!! n3=n1/4" \n
@@ -10158,13 +9925,51 @@ Signal an error if the keywords are incompatible."
   "!! eqslv,pcg,1e-4" \n
   "!! cnvtol,f,,0.1" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
-  "!! coupling of sliding and normal stiffness"
+  "!! coupling of sliding and normal stiffness" \n
+  "!! stabilize,constant,energy,1e-4" \n
+  "!! arclen,on ! arclen stabilisation" \n
   \n
   "!! /runst !enter the run statistics processor" \n
   "!! rall !run statistics estimator" \n
   \n
+  "!! rescontrol,file_summary !check restart files" \n
   "!! antyp,,rest,1,last"
   "solve" \n
+  \n)
+
+(define-skeleton ansys-skeleton-post1
+  ""
+  nil
+    "/post1" \n
+  \n
+  "!! /dscale,,1 !do not scale (for nlgeom)" \n
+  "!! /dscale,,auto !or 0:scale automatically" \n
+  "!! !*get,Ds,graph,WN,dscale,dmult" \n
+  "!! /contour,,ncont,min,inc,max" \n
+  "!! /contour,,auto !switch off user contours" \n
+  "!! /edge,,1 !1:display elements in contour plots" \n
+  "!! /edge,,0 !0:switch off display of elements in contour plots" \n
+  "!! /plopts,minm,off !switch off min-max symbols" \n
+  "!! /plopts,minm,on" \n
+  "!! /pbc,rfor,,1 !1:show reaction f. symbols" \n
+  "!! /pbc,rfor,,0" \n
+  "!! /dist,,1/2,1 !enlarge twice" \n
+  "!! " \n
+  \n
+  "set,last" \n
+  "/efacet,2" \n
+  "plnsol,u,sum !,2 !2:overlay undeformed edges" \n
+  "!/graphics,full" \n
+  "!pletab,Pene" \n
+  "plls,Pene,Pene !line element results" \n
+  "nldpost,nrre,stat !element information nonlinear" \n
+  "plnsol,nrre,,,,001 !plot residual file .nr001 " \n
+  "set,list" \n
+  "set,last!first" \n
+  "plnsol,s,1" \n
+  "!antime" \n
+  "!andata" \n
+  "!anmres !multiple result files" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW
@@ -10441,6 +10246,8 @@ Signal an error if the keywords are incompatible."
   "!! --- Animations ---" \n
   "/seg,multi,process,0.15 !process.avi, delay .15" \n
   "Ls=1 !Loadstep 1" \n
+  "!antime," \n
+  "!andata," \n
   "set,LS" \n
   "*get,Ns,active,,solu,ncmss !number of substeps" \n
   "*do,I,1,Ns" \n

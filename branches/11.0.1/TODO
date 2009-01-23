@@ -1,3 +1,7 @@
+* C-c ] removes empty lines?
+
+* C-j is not skipping to , when leaving out command!
+
 * Improve ansys-show-command-parameters
 - overlays, tooltips?
 - explain also commented out commands   
@@ -26,6 +30,7 @@ commands into their help strings of parameter help.
   run status correctly
    
 * Dissect skeleton into smaller more useful subjects   
+- add skeletons in menu
 - preview skeletons!
    smaller ones in mini buffer
 - optional setting of (Ansys-mode-)bookmarks?   
@@ -49,6 +54,8 @@ calculations: rubber, post26, gasket, ...
 - reset highlighting, when?
 
 * integrate .mac collection into skeletons
+
+* display log file with tail mode
 
 ------------------------------
 dry run: Emacs 22.1 -Q testing: padt.mac /*commands and default

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-22 18:13:18 uidg1626"
+;; Time-stamp: "2009-01-23 15:27:38 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9825,9 +9825,15 @@ Signal an error if the keywords are incompatible."
   "mp,mu,Contact,Mu !friction factor" \n
   \n
   "!! -- check contact status --" \n
-  "!solve"\n
+  "!save"\n
   "!cncheck,adjust !adjust the elements!"
   "!resume,file.db" \n
+  "!/solu" \n
+  "!cncheck,post" \n
+  "!/post1" \n
+  "!file,file,rcn" \n
+  "!set,first" \n
+  "!plnsol,cont,gap,0,1" \n
   \n) 
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
@@ -9967,8 +9973,17 @@ Signal an error if the keywords are incompatible."
   "!/graphics,full" \n
   "!pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
+  \n
   "nldpost,nrre,stat !element information nonlinear" \n
   "plnsol,nrre,,,,001 !plot residual file .nr001 " \n
+  "!! etable,Pene,cont,pene" \n
+  "!! etable,chat,cont,cnos" \n
+  "!! etable,cpre,cont,pres" \n
+  "!! etable,Slid,cont,slide" \n
+  "!! etable,St,cont,stat	 !3-closed sticking" \n
+  "!! 			 !2-closed sliding" \n
+  "!! 			 !1-open but near" \n
+  "!! 			 !0-open and far, outside pinball" \n
   "set,list" \n
   "set,last!first" \n
   "plnsol,s,1" \n

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-23 15:27:38 uidg1626"
+;; Time-stamp: "2009-01-26 18:17:12 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8691,6 +8691,10 @@ the following options:
   ;;  (setq comment-fill-column 50)???
   ;;  comment-indent -> fill-column?? only when line-wrap mode t?
 
+  ;; overlay for command-parameter-help
+  (make-local-variable 'ansys-help-overlay)
+  (setq ansys-help-overlay (make-overlay 1 1))
+
   ;; look at newcomment.el
   (make-local-variable 'comment-start-skip)
   (setq comment-start-skip ansys-comment-start-skip)
@@ -9789,7 +9793,7 @@ Signal an error if the keywords are incompatible."
   "Target=Contact+1" \n
   "Mu = 0 !contact friction" \n
   "Fkn = 0.1 !contact stiffness (default 1, divided by 100 if plastic mat.)" \n
-  "Fntol = 0.1 !penetration tolerance" \n
+  "Ftoln = 0.1 !penetration tolerance for lagr. mult." \n
   "Icont = 0. !contact closure band size" \n
   "Cnof = 0 !contact offset (neg.: penetr.)" \n
   "Pinb = -1 !search radius, neg: absolut value (at least 1.1*CNOF)" \n
@@ -9815,8 +9819,8 @@ Signal an error if the keywords are incompatible."
   "real,Contact" \n
   \n
   "!! --- Contact values ---"\n
-  "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1)" \n
-  "rmod,Contact,4,Fntol !FNTOL penetration tolerance (augm. Lagrance! default:0.1)"
+  "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
+  "rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering"
   "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
@@ -9824,6 +9828,14 @@ Signal an error if the keywords are incompatible."
   "!rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   "mp,mu,Contact,Mu !friction factor" \n
   \n
+  "!! -- Contact generation --"
+  "!! type,Contact" \n
+  "!! real,Contact" \n
+  "!! esurf !,,top ![default] beam element's top direction" \n
+  "!! esurf !,,bottom ! for beam elements top direction" \n
+  "!! esurf !,,reverse ! reverse dir. on existing elem." \n
+  "!! enorm ! change the underlying elem."
+
   "!! -- check contact status --" \n
   "!save"\n
   "!cncheck,adjust !adjust the elements!"
@@ -9834,6 +9846,11 @@ Signal an error if the keywords are incompatible."
   "!file,file,rcn" \n
   "!set,first" \n
   "!plnsol,cont,gap,0,1" \n
+  "!etable,St,cont,stat	 !3-closed sticking" \n
+  "			 !2-closed sliding" \n
+  "			 !1-open near" \n
+  "			 !0-open far" \n
+
   \n) 
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
@@ -9870,6 +9887,7 @@ Signal an error if the keywords are incompatible."
   "!csys,wp !change co to wp" \n
   \n)
 
+;; PlotCtrls ->Multi-plot-Ctrls???
 (define-skeleton ansys-skeleton-multi-plot
   ""
   nil
@@ -9878,6 +9896,15 @@ Signal an error if the keywords are incompatible."
   "gplot" \n
   \n)
 
+;; PlotCtrls ->Numbering Controls
+(define-skeleton ansys-skeleton-numbering-controls
+  ""
+  nil
+  "!/pnum,kp,line,area,volu,node,elem,tabn,sval,on" \n
+  "!/replot"
+  \n)
+
+;; PlotCtrls -> Symbols
 (define-skeleton ansys-skeleton-symbols
   ""
   nil

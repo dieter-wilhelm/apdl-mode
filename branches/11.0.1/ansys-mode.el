@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-26 18:17:12 uidg1626"
+;; Time-stamp: "2009-01-27 11:58:20 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10017,6 +10017,38 @@ Signal an error if the keywords are incompatible."
   "!antime" \n
   "!andata" \n
   "!anmres !multiple result files" \n
+  \n)
+
+(define-skeleton ansys-skeleton-post26
+  ""
+  nil
+  "!! --- Time-History Postprocessing ---" \n
+  \n
+  "/post26" \n
+  "!! esol,2,1,,u,z,'displ z'" \n
+  "nsol,2,1,u,z" \n
+  "rforce,3,1,f,z" \n
+  "!! add,4,2,,,displ,,,-1" \n
+  "/grid,1" \n
+  "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
+  "!! /xrange,0,1" \n
+  "!! /xrange,default" \n
+  "!! /yrange,0,1" \n
+  "!! /axlab,x,x" \n
+  "!! /axlab,y,y" \n
+  "!! timerange,0,1" \n
+  "!! /title,bla" \n
+  "!! /stitle,,blabla !subtitle line 1" \n
+  "!! /stitle,2,blabla !subtitle line 2" \n
+  "!! /tlable,x,y,bla !annotation at (x,y)" \n
+  "xvar,2" \n
+  "!! invert background colour" \n
+  "!/RGB,index,100,100,100,0" \n
+  "!/RGB,index,0,0,0,15" \n
+  "!/show,png !creates jobnameXXX.png files" \n
+  "plvar,3" \n
+  "!/show,close" \n
+  "!!prvar,3" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW

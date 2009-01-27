@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-27 11:58:20 uidg1626"
+;; Time-stamp: "2009-01-27 19:33:19 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8875,6 +8875,18 @@ THEN action label."
       (error (message "Cannot find a proper block command to close")))))
 
 ;;; --- Command parameters and command completions ----
+(defun ansys-manage-overlay ( str)
+  "Display or remove the command help overlay STR."
+  (interactive)
+  (let ((ho (overlay-start ansys-help-overlay))
+	(lb (line-beginning-position))
+	s)
+    (delete-overlay ansys-help-overlay)
+    (unless (eq lb ho)
+      (move-overlay ansys-help-overlay lb lb)
+      (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
+      (overlay-put ansys-help-overlay 'before-string s))))
+
 (defun ansys-show-command-parameters (&optional ask) ;NEW FIXME: "ask" is an undocumented feature
   "Displays the Ansys command parameters help.
 First it shows the parameters of the keyword and then a short
@@ -8885,6 +8897,7 @@ previous command is found."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
+    ;; search for a valid command name
     (save-excursion
       (cond
        (ask
@@ -8896,12 +8909,11 @@ previous command is found."
 	  (ansys-command-start))
 	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	(setq str (match-string-no-properties 0)))))
+    ;; display help string
     (catch 'foo
       (dolist (s ansys-dynamic-prompt)
 	(when (string-match (concat "^" str) s)
-	  (momentary-string-display
-	   (propertize (concat s "\n") 'font-lock-face 'tooltip)
-	   (window-start))
+	  (ansys-manage-overlay s)
 	  (throw 'foo nil)))
       (error "\"%s\" not found in keyword list" str))))
 
@@ -9866,6 +9878,7 @@ Signal an error if the keywords are incompatible."
   "tshap,pilo" \n
   "e,Nmax+1" \n
   "!!tshap,cone" \n
+  "!!tshap,quad" \n
   "!!tshap,sphere" \n
   "!!tshap,qua8"
   \n)
@@ -9996,7 +10009,8 @@ Signal an error if the keywords are incompatible."
   \n
   "set,last" \n
   "/efacet,2" \n
-  "plnsol,u,sum !,2 !2:overlay undeformed edges" \n
+  "!psdisp,0" \n
+  "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
   "!/graphics,full" \n
   "!pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
@@ -10025,6 +10039,7 @@ Signal an error if the keywords are incompatible."
   "!! --- Time-History Postprocessing ---" \n
   \n
   "/post26" \n
+  "!! numvar,200 !maximum No of variables"
   "!! esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
   "rforce,3,1,f,z" \n
@@ -10049,6 +10064,27 @@ Signal an error if the keywords are incompatible."
   "plvar,3" \n
   "!/show,close" \n
   "!!prvar,3" \n
+  \n)
+
+(define-skeleton ansys-skeleton-bc
+  ""
+  nil
+  "! --- Boundary conditions --- " \n
+  \n
+  "!kbc,1: 1:stepped loading"
+  "!nsel,s,loc,y,0" \n
+  "!    ,a,loc,y,1" \n
+  "!    ,r,loc,x,0" \n
+  "d,all,all" \n
+  "!dlist,all" \n
+  "!f,all,fx,1" \n
+  "nsel,s,loc,x,1" \n
+  "cp,next,uy,all !couple dofs" \n
+  "f,1,fx,1" \n
+  "!flist" \n
+  "allsel" \n
+  "/pbc,all,on" \n
+  "!gplot" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW

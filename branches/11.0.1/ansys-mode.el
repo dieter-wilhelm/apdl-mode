@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-27 19:33:19 uidg1626"
+;; Time-stamp: "2009-01-28 18:24:22 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9824,7 +9824,7 @@ Signal an error if the keywords are incompatible."
   "!! --- Contact Options --"\n
   "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!keyo,Contact,5,0 !AUTOMATED adjustment cnof/icont,1:auto CNOF gap 2: pene CNOF 3: gap/pene. CNOF, 4: ICONT" \n
-  "keyo,Contact,9,4 !pene./gap,0:include,1:exclude,2:include ramped, 3: ignore gap/penetr., 4:ignore initial gaps/penetr, offeset CNOF ramped" \n
+  "keyo,Contact,9,4 !pene./gap,0:include,1:remove,2:include ramped, 3: remove gap/penetr. incl. offset, 4:remove initial gaps/penetr, incl. offeset ramped" \n
   "keyo,Contact,10,2 !Stiffness UPDATE,2:each NR iteration,1:each substep" \n
   "!keyo,Contact,11,1 !Shell thickness effect" \n
   "keyo,Contact,12,0 !BEHAVIOUR,0:frictional/-less,1:rough,3:bonded" \n

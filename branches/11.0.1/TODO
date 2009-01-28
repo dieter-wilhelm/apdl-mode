@@ -1,34 +1,19 @@
-* C-c ] removes empty lines?
-
-* C-j is not skipping to , when leaving out command!
-
-* Improve ansys-show-command-parameters
-- overlays, tooltips?
-- explain also commented out commands   
-- add undocumented-commands into the command help.
-- nint, rand not yet in the help list Parameter help also for *GET and parametric
-functions.
-- Include the _RETURN value of the solid modelling
-commands into their help strings of parameter help.  
-- mode-line-format nil);no mode line for this buffer Unambiguous
-  Ansys commands with additional characters at the end are not found
-  in the parameter help (C-c C-h) example: *VWROOOO
-
 * improve Ansys interpreter buffer with `comint-mode'
    gnuplot-mode
 - C-c C-c does not work for large regions!
-- ansys process status is not working properly
+- ansys process status is not working properly process-sentinel?
 - pick up ansys-process when renaming buffer file and restarting
   ansys-mode, otherwise process is without buffer
 - warn when abandoning macro file with an associated Ansys process.
 - C-c C-c shouldn't send empty lines in regions, especially at the
   end, to the solver.  Use a filter?
-- provide Ansys `y' request and carriage return?
+- provide Ansys `y' request and carriage return? superflouous?
 - indicate with activation/inactivation of menu items that an
   asynchronous job is already running or not.
 - check for EXIT command and wait some time to update the mode line
   run status correctly
-   
+- For non-comint-mode usage: display .log file with tail mode
+
 * Dissect skeleton into smaller more useful subjects   
 - add skeletons in menu
 - preview skeletons!
@@ -36,16 +21,27 @@ commands into their help strings of parameter help.
 - optional setting of (Ansys-mode-)bookmarks?   
 - rework concept with respect to the Ansys menu structure
 - Make skeleton-header properly working (info "(autotype)")
-Optimise templates: completing-read, read-from-minibuffer abbrev `d
-does not indent properly in another block level Implement choice
-when completing *IF commands (*ELSEIF or *ENDIF ?THEN?).  Warn when
-including skeleton in read only file.  Provide skeleton for certain
-outline headings/simulation subjects.  Split ansys-skeleton into
-header and code section, split code section into smaller, handy
-Ansys-skeletons templates, snippets and skeletons for specialised
-calculations: rubber, post26, gasket, ...
+- Optimise templates: completing-read, read-from-minibuffer abbrev `d
+  does not indent properly in another block level Implement choice when
+  completing *IF commands (*ELSEIF or *ENDIF ?THEN?).
+-  Warn when including skeleton in read only file.
+- skeleton for numbering ansys-skeleton-numbering-controls
+(skeleton-insert docu)
+- suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
+- negation 
+- skeleton for skipping code	 *if,then *else*endif
+   if selection: wrap around and indenting
+  *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
+   must *go:label be unambiguous?
 
-* Complete ansys-send-or-copy-above   
+* Complete ansys-send-or-copy-above
+- substring-no-properties
+
+* C-c C-v show (optionally) only variables defined up to current cursor line
+
+* C-c ] removes empty lines?
+
+* C-j is not skipping to `,' whith default command (from second line onwards)!
 
 * show sent lines in apdl file C-c C-u, C-c C-c,
 - with fringes
@@ -54,8 +50,21 @@ calculations: rubber, post26, gasket, ...
 - reset highlighting, when?
 
 * integrate .mac collection into skeletons
+- beam spider 
 
-* display log file with tail mode
+* removing/renaming abort file?
+
+* Improve ansys-show-command-parameters
+- undocumented aks parameter
+- explain also commented out commands   
+- add undocumented-commands into the command help.
+- nint, rand not yet in the help list Parameter help also for *GET and parametric functions e. g. nint().
+- Include the _RETURN value of the solid modelling
+commands into their help strings of parameter help.  
+- mode-line-format nil);no mode line for this buffer Unambiguous
+  Ansys commands with additional characters at the end are not found
+  in the parameter help (C-c C-h) example: *VWROOOO
+
 
 ------------------------------
 dry run: Emacs 22.1 -Q testing: padt.mac /*commands and default
@@ -87,6 +96,8 @@ byte-compile-file
 
 11.0.1
 
+1.) - comint-mode
+    - proper skeletons
 2.) working state, compiling
 --
 3.) feature freeze & checking
@@ -99,21 +110,30 @@ User's meeting
      Ansys academic solutions for V11
 
 -- Very brief introduction: Why not Emacs?
--- casual APDL user (whetting the appetite)
-   convenience features
+-- casual APDL file viewer (whetting the appetite)
+   convenience features?
    fontification
-   command-help
+   menu
+   command-help   M-n/p M-?
    code navigation (number blocks in .inp)
 -- APDL hacking
    	$ needs space(s)?
-	,command
+	,commands
 	completion
-	display variables
-	copy above
+	skeletons
+	display user variables
+	*go not for interactive mode! -> *if *else *endif
+		commenting out
+	copy upper code C-c C-u
+	selecting blocks C-M-a/b setting mark!
 	loading help navigator
--- hardcore APDL user
-        Ansys/Emacs process and debugging environment
+	display license status
+-- hardcore Ansys/APDL user
+   	Ansys mode help
+        online Ansys/Emacs process and debugging environment
 	tail mode of *.err
+	abort file
+	bookmarks?
 ------------------------------
 12.0.1
 

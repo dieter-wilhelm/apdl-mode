@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-28 18:24:22 uidg1626"
+;; Time-stamp: "2009-01-30 15:50:40 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9824,10 +9824,10 @@ Signal an error if the keywords are incompatible."
   "!! --- Contact Options --"\n
   "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!keyo,Contact,5,0 !AUTOMATED adjustment cnof/icont,1:auto CNOF gap 2: pene CNOF 3: gap/pene. CNOF, 4: ICONT" \n
-  "keyo,Contact,9,4 !pene./gap,0:include,1:remove,2:include ramped, 3: remove gap/penetr. incl. offset, 4:remove initial gaps/penetr, incl. offeset ramped" \n
-  "keyo,Contact,10,2 !Stiffness UPDATE,2:each NR iteration,1:each substep" \n
+  "keyo,Contact,9,4 !pene./gap,0:include,1:remove,2:include ramped, 3: remove gap/penetr., include offset, 4:remove initial gaps/penetr, incl. offeset ramped" \n
+  "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,1:each substep" \n
   "!keyo,Contact,11,1 !Shell thickness effect" \n
-  "keyo,Contact,12,0 !BEHAVIOUR,0:frictional/-less,1:rough,3:bonded" \n
+  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
   "real,Contact" \n
   \n
   "!! --- Contact values ---"\n
@@ -9839,6 +9839,7 @@ Signal an error if the keywords are incompatible."
   "!rmod,Contact,11,-1 !FKOP contact damping must be neg." \n
   "!rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   "mp,mu,Contact,Mu !friction factor" \n
+  "mat,Contact" \n
   \n
   "!! -- Contact generation --"
   "!! type,Contact" \n
@@ -9858,16 +9859,20 @@ Signal an error if the keywords are incompatible."
   "!file,file,rcn" \n
   "!set,first" \n
   "!plnsol,cont,gap,0,1" \n
+  "!esel,s,type,,Contact" \n
   "!etable,St,cont,stat	 !3-closed sticking" \n
   "			 !2-closed sliding" \n
   "			 !1-open near" \n
   "			 !0-open far" \n
-
-  \n) 
+  "!/efacet,2" \n
+  "!plls,Pene,Pene !line element results" \n
+  "!plls,st,st" \n
+  \n)
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
   ""
   nil
+  "!! --- Rigid Target creation --- " \n
   "type,Target"_ \n
   "real,Contact" \n
   "tshap,line" \n
@@ -9880,7 +9885,7 @@ Signal an error if the keywords are incompatible."
   "!!tshap,cone" \n
   "!!tshap,quad" \n
   "!!tshap,sphere" \n
-  "!!tshap,qua8"
+  "!!tshap,qua8" \n
   \n)
 
 (define-skeleton ansys-skeleton-display-coord
@@ -9959,8 +9964,10 @@ Signal an error if the keywords are incompatible."
   \n
   "/solu" \n
   \n
-  "!! solcontrol,,on, ! ,,check contact state,pressure load stiffness" \n
   "!! nlhist,on !nonlinear tracking in .nlh" \n
+  "!! solcontrol,on! optimised nonlinear solution defaults"
+  "!! !cnvtol,u,,0.05! convergence [0.5 %] manipulation"
+  "!! nequit,30! No of equilibr. iterations"
   "!! nldiag,nrre,on! store residual file" \n
   "!! nldiag,maxf,2! maximum files written" \n
   "!! n1=20" \n
@@ -9984,7 +9991,8 @@ Signal an error if the keywords are incompatible."
   "!! rall !run statistics estimator" \n
   \n
   "!! rescontrol,file_summary !check restart files" \n
-  "!! antyp,,rest,1,last"
+  "!! antyp,,rest,1,last"\n
+  "!! time,1.2 !time at the end of load step" \n
   "solve" \n
   \n)
 
@@ -10201,7 +10209,7 @@ Signal an error if the keywords are incompatible."
   "!! rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
   "!! rmod,Contact,10,0. !CNOF:contact surface offset" \n
   "!! mp,mu,Contact,0.4 !friction factor" \n
-  "!! rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  "!! rmod,Contact,12,0. ! FKT:tangent stiffness factor (corresp. to FKN),0:means 1 for Ansys!!!" \n
   \n
   "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Geometry ---" \n
   \n

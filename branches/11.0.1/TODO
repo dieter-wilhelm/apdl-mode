@@ -13,9 +13,16 @@
 - check for EXIT command and wait some time to update the mode line
   run status correctly
 - For non-comint-mode usage: display .log file with tail mode
+- show sent lines in apdl file C-c C-u, C-c C-c,
+-- with fringes
+-- with background colour
+-- maximum line
+-- reset highlighting, when?
+
 
 * Dissect skeleton into smaller more useful subjects   
-- add skeletons in menu
+- spider beams, _bolt.mac, screw.mac
+- sort skeletons in menu
 - preview skeletons!
    smaller ones in mini buffer
 - optional setting of (Ansys-mode-)bookmarks?   
@@ -34,6 +41,13 @@
   *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
    must *go:label be unambiguous?
 
+* add cmblock and cm assignments to the variable list
+
+* correct *set assignment printout
+
+* take care of setup procedure: v110/ansys/apdl/start110.ans
+  /MPLIB,READ,/ansys_inc/v110/ansys/matlib
+
 * Complete ansys-send-or-copy-above
 - substring-no-properties
 
@@ -42,15 +56,6 @@
 * C-c ] removes empty lines?
 
 * C-j is not skipping to `,' whith default command (from second line onwards)!
-
-* show sent lines in apdl file C-c C-u, C-c C-c,
-- with fringes
-- with background colour
-- maximum line
-- reset highlighting, when?
-
-* integrate .mac collection into skeletons
-- beam spider 
 
 * removing/renaming abort file?
 
@@ -119,7 +124,7 @@ User's meeting
 -- APDL hacking
    	$ needs space(s)?
 	,commands
-	completion
+	ansys completion and emacs expansion
 	skeletons
 	display user variables
 	*go not for interactive mode! -> *if *else *endif
@@ -127,9 +132,10 @@ User's meeting
 	copy upper code C-c C-u
 	selecting blocks C-M-a/b setting mark!
 	loading help navigator
-	display license status
+	display license status (optionally filtered)
 -- hardcore Ansys/APDL user
    	Ansys mode help
+	Emacs-calc
         online Ansys/Emacs process and debugging environment
 	tail mode of *.err
 	abort file
@@ -147,6 +153,7 @@ User's meeting
 - choice of fontification level
 - simplify: multi file package -> rework of makefile -> README
    (require 'feature)
+
 * Rework README generation (from "makefile")
    
 * implement C-c { and } like C-x z (repeate) zzzz

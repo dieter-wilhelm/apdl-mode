@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-01-30 15:50:40 uidg1626"
+;; Time-stamp: "2009-02-05 16:52:09 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9804,8 +9804,8 @@ Signal an error if the keywords are incompatible."
   "Contact="_ \n
   "Target=Contact+1" \n
   "Mu = 0 !contact friction" \n
-  "Fkn = 0.1 !contact stiffness (default 1, divided by 100 if plastic mat.)" \n
-  "Ftoln = 0.1 !penetration tolerance for lagr. mult." \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat.)" \n
+  "Ftoln = .1 !penetration tolerance [.1] for lagr. mult." \n
   "Icont = 0. !contact closure band size" \n
   "Cnof = 0 !contact offset (neg.: penetr.)" \n
   "Pinb = -1 !search radius, neg: absolut value (at least 1.1*CNOF)" \n
@@ -9962,6 +9962,8 @@ Signal an error if the keywords are incompatible."
   nil
   "! --- Solution --- " \n
   \n
+  "finish" \n
+  "!! /config,nres,2000 !No of substeps in result file [1000]" \n
   "/solu" \n
   \n
   "!! nlhist,on !nonlinear tracking in .nlh" \n
@@ -9985,6 +9987,7 @@ Signal an error if the keywords are incompatible."
   "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness" \n
   "!! stabilize,constant,energy,1e-4" \n
+  "!! !stabilize,off !reduce" \n
   "!! arclen,on ! arclen stabilisation" \n
   \n
   "!! /runst !enter the run statistics processor" \n
@@ -9999,7 +10002,8 @@ Signal an error if the keywords are incompatible."
 (define-skeleton ansys-skeleton-post1
   ""
   nil
-    "/post1" \n
+  "!! --- post 1 ---" \n
+  "/post1" \n
   \n
   "!! /dscale,,1 !do not scale (for nlgeom)" \n
   "!! /dscale,,auto !or 0:scale automatically" \n
@@ -10288,7 +10292,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! rescontrol,,all,1 !restart files" \n
   "!! eqslv,pcg,1e-4" \n
-  "!! cnvtol,f,,0.1" \n
+  "!! cnvtol,f,,0.1 !solcontol,on: [0.5% F,M; 5% U]" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness"
   \n

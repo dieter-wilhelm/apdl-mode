@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-02-05 16:52:09 uidg1626"
+;; Time-stamp: "2009-02-18 14:57:45 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9983,7 +9983,7 @@ Signal an error if the keywords are incompatible."
   "!! rescontrol,,1,last !restart file(s)" \n
   "!!           ,status" \n
   "!! eqslv,pcg,1e-4" \n
-  "!! cnvtol,f,,0.1" \n
+  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness" \n
   "!! stabilize,constant,energy,1e-4" \n
@@ -10292,7 +10292,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! rescontrol,,all,1 !restart files" \n
   "!! eqslv,pcg,1e-4" \n
-  "!! cnvtol,f,,0.1 !solcontol,on: [0.5% F,M; 5% U]" \n
+  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness"
   \n

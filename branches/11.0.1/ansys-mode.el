@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-02-18 14:57:45 uidg1626"
+;; Time-stamp: "2009-03-06 14:33:49 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -7990,9 +7990,10 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
    ansys-get-functions
    ansys-parametric-functions
    ansys-commands			;command overwrite variables
-   '(ansys-highlight) ;function searches user variables
+;   '(ansys-highlight) ;function searches user variables ; TODO BUG
    ansys-undocumented-commands
    ansys-elements
+   '(("\\(a\\)=" 1 nil t))
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
       2 'font-lock-doc-face prepend))
    '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
@@ -8010,11 +8011,10 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
    '(("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 'font-lock-doc-face keep))
 					;/SYS command sends string to OP, no parameter substitution!
 					;for variables with command names
-   '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
-					; more than 32 character long variables are not allowed
-   '(("^\\s-*\\(/[eE][oO][fF].*\\)" 1 'font-lock-warning-face prepend))
    '(("\\( \\*[^[:alpha:]].*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
 					;^[:alpha:] to avoid spurious asterisk command fontification
+   '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
+					; more than 32 character long variables are not allowed
    '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
    '(("\\(:\\)" 1 'font-lock-warning-face keep))   ;colon loops
    '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
@@ -9968,7 +9968,8 @@ Signal an error if the keywords are incompatible."
   \n
   "!! nlhist,on !nonlinear tracking in .nlh" \n
   "!! solcontrol,on! optimised nonlinear solution defaults"
-  "!! !cnvtol,u,,0.05! convergence [0.5 %] manipulation"
+  "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation"
+  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "!! nequit,30! No of equilibr. iterations"
   "!! nldiag,nrre,on! store residual file" \n
   "!! nldiag,maxf,2! maximum files written" \n
@@ -9983,12 +9984,11 @@ Signal an error if the keywords are incompatible."
   "!! rescontrol,,1,last !restart file(s)" \n
   "!!           ,status" \n
   "!! eqslv,pcg,1e-4" \n
-  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness" \n
   "!! stabilize,constant,energy,1e-4" \n
   "!! !stabilize,off !reduce" \n
-  "!! arclen,on ! arclen stabilisation" \n
+  "!! !arclen,on ! arclen stabilisation" \n
   \n
   "!! /runst !enter the run statistics processor" \n
   "!! rall !run statistics estimator" \n
@@ -11059,7 +11059,7 @@ Pre-process the findings into the variable
   (save-excursion
     (while (progn
 	     (re-search-forward variable limit t)
-	     (or (ansys-in-asterisk-comment-p) 
+	     (or (ansys-in-asterisk-comment-p)
 		 (and (or (ansys-in-format-construct-p)
 			  (ansys-in-string-command-line-p)
 			  (not (looking-at "%")))))))))

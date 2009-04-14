@@ -19,7 +19,6 @@
 -- maximum line
 -- reset highlighting, when?
 
-
 * Dissect skeleton into smaller more useful subjects   
 - spider beams, _bolt.mac, screw.mac
 - sort skeletons in menu
@@ -40,6 +39,8 @@
    if selection: wrap around and indenting
   *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
    must *go:label be unambiguous?
+
+* M-? at last line -> args out of range
 
 * add cmblock and cm assignments to the variable list
 
@@ -277,6 +278,8 @@ Enable choice for /show,3d or x11
 Wrong highlighting of variables in /com, C*** text strings
 variable highlighting overwrites ansys commands with the same name
 dynamic highlighting is only implemented for .mac files
+
+Comments in c*** commands are not possible and highlighted wrongly
 
 multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable
 fontification is not working

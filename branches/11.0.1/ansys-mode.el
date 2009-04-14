@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-03-06 14:33:49 uidg1626"
+;; Time-stamp: "2009-04-14 16:50:48 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8702,10 +8702,10 @@ the following options:
   ;;  (make-local-variable 'parse-sexp-ignore-comments)
   ;;  (setq parse-sexp-ignore-comments t)
 
-					;  (make-local-variable 'font-lock-defaults) is always local
+  ;;  (make-local-variable 'font-lock-defaults) is always local
   (setq font-lock-defaults '(ansys-font-lock-keywords nil 'case-ignore))
   ;; keywords
-  ;; keywords-only -- syntactic fontification
+  ;; keywords-only -- nil: syntactic fontification
   ;; case-fold -- non nil: ignore case
 
   (make-local-variable 'outline-regexp)
@@ -9817,9 +9817,9 @@ Signal an error if the keywords are incompatible."
   "!! et,Contact,conta175 !2/3d node to surf" \n
   "!! et,Contact,conta176 !3d line to line, 3 node" \n
   "!! et,Contact,conta177 !3d line to surf, 3 node" \n
-  "!! et,Target,targe169  !2d" \n
   \n
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
+  "!! et,Target,targe169  !2d" \n
   \n
   "!! --- Contact Options --"\n
   "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
@@ -9955,6 +9955,31 @@ Signal an error if the keywords are incompatible."
   "*get,Mc,etab,sort,,max" \n
   "*msg,,Mc" \n
   "Mohr-Coulomb criterion (< 1): %G" \n
+  \n)
+
+(define-skeleton ansys-skeleton-prep7
+  ""
+  nil
+  "gplot !multiplot" \n
+  \n  "Pi=3.14159265359" \n
+  \n
+a  "!! /pnum,area,1"\n
+  \n
+  "!! --- Materials and element types ---" \n
+  "Steel=1" \n
+  "mp,nuxy,Steel,0.3" \n
+  "mp,ex,Steel,200000" \n
+  "!! tb,biso,Steel,1" \n
+  "!! yield_stress=140" \n
+  "!! tangent_modulus=1400" \n
+  "!! tbdata,,yield_stress,tangent_modulus !biso" \n
+  "/com, === Material %Steel% is steel. ===" \n
+  "!! Alu=2" \n
+  "!! mp,nuxy,Alu,0.3" \n
+  "!! mp,ex,Alu,70000" \n
+  "!! tb,biso,Alu,1" \n
+  "!! !! tbdata,,yield_stress,tangent_modulus !biso" \n
+  "!! /com, === Material %Alu% is Aluminium. ===" \n
   \n)
 
 (define-skeleton ansys-skeleton-solve
@@ -10163,7 +10188,7 @@ Signal an error if the keywords are incompatible."
   "/prep7" \n
   "Pi=3.14159265359" \n
   \n
-  "!! /pnum,area,1"\n
+a  "!! /pnum,area,1"\n
   \n
   "!! --- Materials and element types ---" \n
   "Steel=1" \n
@@ -10198,9 +10223,9 @@ Signal an error if the keywords are incompatible."
   "!! r,Contact" \n
   "!! et,Contact,conta174 !3d, 8 node" \n
   "!! !! et,Contact,conta173, !3d, 4 node" \n
-  "!! et,Target,targe170 !3d" \n
   "!! !! et,Contact,conta172 !2d, 3 node" \n
   "!! !! et,Contact,conta171 !2d, 2 node" \n
+  "!! et,Target,targe170 !3d" \n
   "!! !! et,Target,targe169 !2d" \n
   "!! keyo,Contact,2,1 !algorithm 0:augm. Lagrange (default),1:penalty,2:MPC,4:pure Lagrange" \n
   "!! keyo,Contact,5,1 !initial contact closure,1:auto CNOF adjustment to close geometric gap only" \n

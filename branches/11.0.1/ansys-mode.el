@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-04-14 16:50:48 uidg1626"
+;; Time-stamp: "2009-04-16 14:27:49 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9823,7 +9823,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! --- Contact Options --"\n
   "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
-  "!keyo,Contact,5,0 !AUTOMATED adjustment cnof/icont,1:auto CNOF gap 2: pene CNOF 3: gap/pene. CNOF, 4: ICONT" \n
+  "!keyo,Contact,5,0 !AUTOMATED adjustment cnof (surface offset)/icont (node movement in a band),1:auto CNOF gap 2: pene CNOF 3: gap/pene. CNOF, 4: ICONT \"contact band\"" \n
   "keyo,Contact,9,4 !pene./gap,0:include,1:remove,2:include ramped, 3: remove gap/penetr., include offset, 4:remove initial gaps/penetr, incl. offeset ramped" \n
   "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,1:each substep" \n
   "!keyo,Contact,11,1 !Shell thickness effect" \n
@@ -9963,7 +9963,7 @@ Signal an error if the keywords are incompatible."
   "gplot !multiplot" \n
   \n  "Pi=3.14159265359" \n
   \n
-a  "!! /pnum,area,1"\n
+  "!! /pnum,area,1"\n
   \n
   "!! --- Materials and element types ---" \n
   "Steel=1" \n
@@ -10204,7 +10204,7 @@ a  "!! /pnum,area,1"\n
   "/com, === Material %Steel% is steel. ===" \n
   "et,Steel,solid186 !3d, 20 node" \n
   "!! et,Steel,solid185 !3d, 8 node" \n
-  "!! et,Steel,plane183 !2d, 8 node" \n
+  "!! et,Steel,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric" \n
   "!! et,Steel,plane182 !2d, 4 node"\n
   "!! keyopt,Steel,3,1 !keyopt(3)=1:axissym." \n
   "!!   for most elements the radial direction is the x-axis" \n

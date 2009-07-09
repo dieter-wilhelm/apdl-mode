@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-09 15:14:11 uidg1626"
+;; Time-stamp: "2009-07-09 15:29:16 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9807,7 +9807,7 @@ Signal an error if the keywords are incompatible."
   "Contact="_ \n
   "Target=Contact+1" \n
   "Mu = 0 !contact friction" \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat.)" \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. < AnsysWB12)" \n
   "Ftoln = .1 !penetration tolerance [.1] for lagr. mult." \n
   "Icont = 0. !contact closure band size" \n
   "Cnof = 0 !contact offset (neg.: penetr.)" \n
@@ -9876,8 +9876,14 @@ Signal an error if the keywords are incompatible."
   ""
   nil
   "!! --- Rigid Target creation --- " \n
-  "type,Target"_ \n
+  "Contact="_ \n
+  "Target=Contact+1" \n
   "real,Contact" \n
+  "type,Target" \n
+  "!!tshap,cone" \n
+  "!!tshap,quad" \n
+  "!!tshap,sphere" \n
+  "!!tshap,qua8" \n
   "tshap,line" \n
   "*get,Nmax,node,,num,max" \n
   "n,Nmax+1,1,1,0" \n
@@ -9885,10 +9891,6 @@ Signal an error if the keywords are incompatible."
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo" \n
   "e,Nmax+1" \n
-  "!!tshap,cone" \n
-  "!!tshap,quad" \n
-  "!!tshap,sphere" \n
-  "!!tshap,qua8" \n
   \n)
 
 (define-skeleton ansys-skeleton-display-coord

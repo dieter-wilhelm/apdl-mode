@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-09 15:29:16 uidg1626"
+;; Time-stamp: "2009-07-13 17:20:52 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9760,10 +9760,21 @@ Signal an error if the keywords are incompatible."
   "!*"(insert (make-string (- 80 2) ? ))"*\n"
   "!"(insert (make-string 80 ?*))"\n")
 
+(define-skeleton ansys-skeleton-configuration
+  ""
+  nil
+  "!! --- configurations ---" \n
+  "! *afun,deg ! trig. functions accept angle arguments" \n
+  "*afun,rad" \n
+  "/title," _ \n
+  "/plopts,wp,1 !display working plane" \n
+  "/triad,rbot" \n
+  \n)
+
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
-  "!! --- view settings ---"
+  "!! --- view settings ---" \n
   "!/view or /vup !viewing direction"_ \n
   "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "!/dist !magnification" \n
@@ -9961,11 +9972,39 @@ Signal an error if the keywords are incompatible."
   "*msg,,Mc" \n
   "Mohr-Coulomb criterion (< 1): %G" \n
   \n)
+(define-skeleton ansys-skeleton-element-def
+ ""
+ nil
+ "! --- element definition ---" \n
+ "ID=Steel" \n
+ "et,ID,solid186 !3d, 20 node" \n
+ "!! et,ID,solid185 !3d, 8 node" \n
+ "!! et,ID,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric" \n
+ "!! et,ID,plane182 !2d, 4 node"\n
+ "!! keyopt,ID,3,1 !keyopt(3)=1:axissym." \n
+ "!! !!for most elements the radial direction is the x-axis" \n
+ \n
+)
 
-(define-skeleton ansys-skeleton-prep7
+
+(define-skeleton ansys-skeleton-meshing
   ""
   nil
-  "gplot !multiplot" \n
+  "!! --- Meshing ---" \n
+  \n
+  "!! mat,Steel" \n
+  "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
+  "!! mshape,0 !0: quadrilaterals" \n
+  "esize,1" \n
+  "vmesh,all" \n
+  "!! amesh,all" \n
+  \n
+  )
+
+(define-skeleton ansys-skeleton-material-def
+  ""
+  nil
+  "!gplot !multiplot" \n
   \n  "Pi=3.14159265359" \n
   \n
   "!! /pnum,area,1"\n

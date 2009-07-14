@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-13 17:20:52 uidg1626"
+;; Time-stamp: "2009-07-14 10:58:56 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9891,6 +9891,7 @@ Signal an error if the keywords are incompatible."
   "Target=Contact+1" \n
   "real,Contact" \n
   "type,Target" \n
+  "!!tshap,arc !clockwise arc" \n
   "!!tshap,cone" \n
   "!!tshap,quad" \n
   "!!tshap,sphere" \n
@@ -10853,11 +10854,13 @@ variable."
   (interactive)
   (if (string= ansys-help-file "")
       (error "You must set the `ansys-help-file' variable")
-    (cond
-     (ansys-is-unix-system-flag
-      (start-process "ansys-help-file" nil ansys-help-file))
-     ((string= system-type "windows-nt")
-      (w32-shell-execute "Open" ansys-help-file))))) ;HINT: Eli Z., M. Dahl
+    (progn
+      (message "Starting the Ansys help system.")
+      (cond
+       (ansys-is-unix-system-flag
+	(start-process "ansys-help-file" nil ansys-help-file))
+       ((string= system-type "windows-nt")
+	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
 
 (defun ansys-kill-buffer-query-function ()
   (when (or (string= (process-status ansys-process) "run")

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-14 10:58:56 uidg1626"
+;; Time-stamp: "2009-07-24 14:13:44 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10027,6 +10027,51 @@ Signal an error if the keywords are incompatible."
   "!! /com, === Material %Alu% is Aluminium. ===" \n
   \n)
 
+(define-skeleton ansys-skeleton-bc
+  ""
+  nil
+  "! --- Boundary conditions --- " \n
+  \n
+  "!kbc,1: 1:stepped loading"
+  "!nsel,s,loc,y,0" \n
+  "!    ,a,loc,y,1" \n
+  "!    ,r,loc,x,0" \n
+  "d,all,all" \n
+  "!dlist,all" \n
+  "!f,all,fx,1" \n
+  "nsel,s,loc,x,1" \n
+  "cp,next,uy,all !couple dofs" \n
+  "f,1,fx,1" \n
+  "!flist" \n
+  "allsel" \n
+  "/pbc,all,on" \n
+  "!gplot" \n
+  \n)
+
+(define-skeleton ansys-skeleton-buckling
+  ""
+  nil
+  "!! --- buckling ---" \n
+  \n
+  "!! -- static --"
+  "/solu" \n
+  "allsel" \n
+  "outres,all,all" \n
+  "pstres,on" \n
+  "solve" \n
+  "" \n
+  "!! -- buckling --" \n
+  "" \n
+  "fini $ /solu" \n
+  "antype,buckle" \n
+  "bucopt,lanb,3" \n
+  "outres,all,all" \n
+  "solve" \n
+  "fini $ /solu		 !creazy" \n
+  "expass,on" \n
+  "mxpand,3" \n
+  \n)
+
 (define-skeleton ansys-skeleton-solve
   ""
   nil
@@ -10146,27 +10191,6 @@ Signal an error if the keywords are incompatible."
   "plvar,3" \n
   "!/show,close" \n
   "!!prvar,3" \n
-  \n)
-
-(define-skeleton ansys-skeleton-bc
-  ""
-  nil
-  "! --- Boundary conditions --- " \n
-  \n
-  "!kbc,1: 1:stepped loading"
-  "!nsel,s,loc,y,0" \n
-  "!    ,a,loc,y,1" \n
-  "!    ,r,loc,x,0" \n
-  "d,all,all" \n
-  "!dlist,all" \n
-  "!f,all,fx,1" \n
-  "nsel,s,loc,x,1" \n
-  "cp,next,uy,all !couple dofs" \n
-  "f,1,fx,1" \n
-  "!flist" \n
-  "allsel" \n
-  "/pbc,all,on" \n
-  "!gplot" \n
   \n)
 
 (define-skeleton ansys-skeleton		;NEW

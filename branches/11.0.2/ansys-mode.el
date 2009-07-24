@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-24 14:13:44 uidg1626"
+;; Time-stamp: "2009-07-24 19:19:18 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10025,6 +10025,14 @@ Signal an error if the keywords are incompatible."
   "!! tb,biso,Alu,1" \n
   "!! !! tbdata,,yield_stress,tangent_modulus !biso" \n
   "!! /com, === Material %Alu% is Aluminium. ===" \n
+  "!! --- hyperelastic mooney rivlin mat ---" \n
+  "!! Rubber = 3" \n
+  "!! tb,hyper,Rubber,,,neo" \n
+  "!! Shore = 60" \n
+  "!! ShearModule = 0.086*1.045**Shore" \n
+  "!! tbdata,1,3*ShearModule/6.6" \n
+  "!! tbdata,2,.3*ShearModule/6.6" \n
+  "!! keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
   \n)
 
 (define-skeleton ansys-skeleton-bc

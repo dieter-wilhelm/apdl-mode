@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-24 19:19:18 uidg1626"
+;; Time-stamp: "2009-07-28 17:07:48 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10032,6 +10032,7 @@ Signal an error if the keywords are incompatible."
   "!! ShearModule = 0.086*1.045**Shore" \n
   "!! tbdata,1,3*ShearModule/6.6" \n
   "!! tbdata,2,.3*ShearModule/6.6" \n
+  "!! -- check whether to drop elem. midside nodes and use u-p formulation" \n
   "!! keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
   \n)
 
@@ -10140,7 +10141,11 @@ Signal an error if the keywords are incompatible."
   "!! /pbc,rfor,,1 !1:show reaction f. symbols" \n
   "!! /pbc,rfor,,0" \n
   "!! /dist,,1/2,1 !enlarge twice" \n
-  "!! " \n
+  "!! /noerase ! don't erase screen between plots" \n
+  "!! erase"
+  "!! /triad,rbot ! coordinate system to right bot" \n
+  "!! /plopts,wp ! switch off working plane" \n
+  "!! /plopts,minm ! switch off min max" \n
   \n
   "set,last" \n
   "/efacet,2" \n

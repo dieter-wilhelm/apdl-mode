@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-30 11:08:49 uidg1626"
+;; Time-stamp: "2009-07-30 15:30:23 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -63,7 +63,7 @@
 ;; == Requirements ==
 
 ;; The code is based on Ansys version 11.0 and is written for GNU
-;; Emacs 22.1.  It is tested with version 22.1 under XP and GNU/Linux.
+;; Emacs 23.  It is tested with version 23.1 under XP and GNU/Linux.
 ;; The code won't run with Emacs 21.4 and is not (yet) targeted for
 ;; XEmacs.  Please visit ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
 ;; official, precompiled Windows versions of GNU Emacs.  You can
@@ -10102,10 +10102,11 @@ Signal an error if the keywords are incompatible."
   "!! n3=n1/4" \n
   "!! nsubst,n1,n2,n3"\n
   "!! outres,all,all"\n
+  "!! !antype,,rest, !perform restart operation" \n
   "!! nlgeom,on" \n
   "!! autots,on" \n
   \n
-  "!! rescontrol,,1,last !restart file(s)" \n
+  "!! rescontrol,,1,last !create restart file(s)" \n
   "!!           ,status" \n
   "!! eqslv,pcg,1e-4" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
@@ -11281,6 +11282,7 @@ window in the current frame.  The default argument is 1."
 ;; time-stamp-active: t
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
+;; word-wrap: t
 ;; End:
 
 ;;; ansys-mode.el ends here

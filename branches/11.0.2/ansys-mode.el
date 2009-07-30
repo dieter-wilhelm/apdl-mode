@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-28 17:07:48 uidg1626"
+;; Time-stamp: "2009-07-30 11:08:49 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10091,8 +10091,8 @@ Signal an error if the keywords are incompatible."
   "/solu" \n
   \n
   "!! nlhist,on !nonlinear tracking in .nlh" \n
-  "!! solcontrol,on! optimised nonlinear solution defaults"
-  "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation"
+  "!! solcontrol,on! optimised nonlinear solution defaults" \n
+  "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
   "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "!! nequit,30! No of equilibr. iterations"
   "!! nldiag,nrre,on! store residual file" \n

@@ -1,3 +1,6 @@
+* Bugs:
+** string=: Buffer gasket_tilting.mac has no process
+
 * improve Ansys interpreter buffer with `comint-mode'
    gnuplot-mode
 - C-c C-c does not work for large regions!
@@ -115,7 +118,7 @@ User's meeting
 1.) Need LICENSE!
      Ansys academic solutions for V11
 
--- Very brief introduction: Why not Emacs?
+-- Very brief introduction: Why not Emacs, even on Windows?
 -- casual APDL file viewer (whetting the appetite)
    convenience features?
    fontification
@@ -123,8 +126,10 @@ User's meeting
    command-help   M-n/p M-?
    code navigation (number blocks in .inp)
 -- APDL hacking
+   	C-c C-u -- copy-from-above
    	$ needs space(s)?
 	,commands
+	colon loop: e.g.: lfillt,(1:3),(2:4),Rad
 	ansys completion and emacs expansion
 	skeletons
 	display user variables
@@ -345,3 +350,6 @@ with /INPUT and *USE)
 Block level restriction of 10 levels of nested *IF blocks
 Macro level restriction: 20 macros
 
+# local variables:
+# mode: org
+# end:

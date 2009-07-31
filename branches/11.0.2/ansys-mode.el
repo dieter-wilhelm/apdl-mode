@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-30 15:30:23 uidg1626"
+;; Time-stamp: "2009-07-31 15:44:51 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9766,6 +9766,9 @@ Signal an error if the keywords are incompatible."
   "!! --- configurations ---" \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
   "*afun,rad" \n
+  "True = 1"  \n
+  "False = 0" \n
+  \n
   "/title," _ \n
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot" \n
@@ -9982,11 +9985,11 @@ Signal an error if the keywords are incompatible."
  "!! et,ID,solid185 !3d, 8 node" \n
  "!! et,ID,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric" \n
  "!! et,ID,plane182 !2d, 4 node"\n
- "!! keyopt,ID,3,1 !keyopt(3)=1:axissym." \n
+ "!! keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
+ "!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!! !!for most elements the radial direction is the x-axis" \n
  \n
 )
-
 
 (define-skeleton ansys-skeleton-meshing
   ""
@@ -9995,7 +9998,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! mat,Steel" \n
   "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
-  "!! mshape,0 !0: quadrilaterals" \n
+  "!! mshape,0 !0: quads 1:tri (supported shapes)" \n
   "esize,1" \n
   "vmesh,all" \n
   "!! amesh,all" \n
@@ -10194,7 +10197,7 @@ Signal an error if the keywords are incompatible."
   "!! /axlab,y,y" \n
   "!! timerange,0,1" \n
   "!! /title,bla" \n
-  "!! /stitle,,blabla !subtitle line 1" \n
+  "!! /stitle,,blabla !subtitle line 1 (not shown in plot)" \n
   "!! /stitle,2,blabla !subtitle line 2" \n
   "!! /tlable,x,y,bla !annotation at (x,y)" \n
   "xvar,2" \n
@@ -10309,7 +10312,7 @@ a  "!! /pnum,area,1"\n
   "!! !! et,Contact,conta172 !2d, 3 node" \n
   "!! !! et,Contact,conta171 !2d, 2 node" \n
   "!! et,Target,targe170 !3d" \n
-  "!! !! et,Target,targe169 !2d" \n
+  "!! !! et,Target,targe169 !2d, 2/3 node" \n
   "!! keyo,Contact,2,1 !algorithm 0:augm. Lagrange (default),1:penalty,2:MPC,4:pure Lagrange" \n
   "!! keyo,Contact,5,1 !initial contact closure,1:auto CNOF adjustment to close geometric gap only" \n
   "!! keyo,Contact,9,2 !initial penetration,1:ignore initial gaps/penetr 2:ramp" \n

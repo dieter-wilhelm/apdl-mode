@@ -1,5 +1,16 @@
 * Bugs:
-** string=: Buffer gasket_tilting.mac has no process
+
+* improve ansys-kill-buffer-query-function
+  is it possible to quit Anys in an orderly fashion?
+  what happens with the asynchronous process?
+
+** This is osolete/redundant with Emacs 23.2:
+  
+ ** Killing a buffer with a running process now asks a confirmation.
+ You can remove this query in two ways: either removing
+ `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
+ setting the appropriate process flag with `set-process-query-on-exit-flag'.
+
 
 * improve Ansys interpreter buffer with `comint-mode'
    gnuplot-mode

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-07-31 17:40:28 uidg1626"
+;; Time-stamp: "2009-08-11 23:11:02 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -220,10 +220,11 @@
 ;; == History: ==
 
 ;; * The version scheme is a mixture of the used Ansys version (11.0)
-;;   and the version of the Ansys mode (1).
+;;   and the version of the Ansys mode (2).
 
 ;; === Version 11.0.2 ===
 
+;; cleared "buffer has no process" bug when killing an ansys-mode buffer
 
 ;; === Version 11.0.1 ===
 
@@ -560,7 +561,7 @@ error file.")
   "Variable containing the user variables and first occurance.
 The list is used for the fontification of these variables.")
 
-(defvar ansys-process nil		;NEW_C
+(defvar ansys-process "ansys"		;NEW_C
   "Variable containing Emacs' description of a running ansys process.
 Variable is only used internally in the mode.")
 

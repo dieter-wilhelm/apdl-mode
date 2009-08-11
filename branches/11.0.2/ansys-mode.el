@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-11 23:11:02 dieter"
+;; Time-stamp: "2009-08-11 23:50:36 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -64,12 +64,13 @@
 
 ;; The code is based on Ansys version 11.0 and is written for GNU
 ;; Emacs 23.  It is tested with version 23.1 under XP and GNU/Linux.
-;; The code won't run with Emacs 21.4 and is not (yet) targeted for
-;; XEmacs.  Please visit ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for
-;; official, precompiled Windows versions of GNU Emacs.  You can
-;; unpack Emacs in any directory.  Optionally you can run the program
-;; addpm.exe (located in the bin directory) to add an Emacs entry to
-;; the Windows Start menu (please refer to the README.W32 file).
+;; The code won't run with Emacs 21.4 and is not (yet) consciously
+;; targeted for XEmacs, there might be problems.  Please visit
+;; ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for an official,
+;; precompiled Windows versions of GNU Emacs.  You can unpack Emacs in
+;; any directory.  Optionally you can run the program addpm.exe
+;; (located in the bin directory) to add an Emacs entry to the Windows
+;; Start menu (please refer to the README.W32 file).
 
 ;; The Ansys solver communication capabilities are mainly restricted
 ;; to UNIX systems.
@@ -8690,8 +8691,9 @@ the following options:
 
   (make-local-variable 'kill-buffer-query-functions)
 
-;; FIXME:
-  ;; (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
+  ;; the following might become obselete with Emacs 23.2 (see TODO)
+
+  (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
 
   ;; FIXME:
   ;;  (setq comment-fill-column 50)???

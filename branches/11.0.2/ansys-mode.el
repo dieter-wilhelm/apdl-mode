@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-11 23:50:36 dieter"
+;; Time-stamp: "2009-08-17 23:26:00 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1669,7 +1669,7 @@ follows code to be analysed from the Ansys interpreter.")
   "Regexp to match the start of an Ansys comment up to its body.
 Used for the variable `comment-start-skip'.")
 
-(defvar ansys-format "mac"	     ;FIXME:This can be made redundant
+(defvar ansys-format "mac"	     ;FIXME:This is for the ansys macro
   "String representing the ansys format.")
 
 ;;; --- Indentation ---
@@ -8726,7 +8726,7 @@ the following options:
   ;;	"set to  nil for narrow, t for wide."
 
   (make-local-variable 'ansys-format)
-  (setq ansys-format (intern "mac"))	;FIXME: redundant
+  (setq ansys-format (intern "mac"))	;FIXME: this is for the ansys-macro
 					;? why intern?
   ;; menu
   (or (string= system-type "darwin")

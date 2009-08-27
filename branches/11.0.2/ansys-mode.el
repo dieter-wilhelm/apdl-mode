@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-27 12:22:15 uidg1626"
+;; Time-stamp: "2009-08-27 16:36:37 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10033,11 +10033,11 @@ Signal an error if the keywords are incompatible."
   \n
   "!! /pnum,area,1"\n
   \n
-  "!! --- Materials and element types ---" \n
+  "!! --- Material definitions ---" \n
   "Steel=1" \n
-  "mp,nuxy,Steel,0.3" \n
-  "mp,ex,Steel,200000" \n
-  "!! tb,biso,Steel,1" \n
+  "mp,nuxy,Steel,0.3 ! Poisson No" \n
+  "mp,ex,Steel,200000 ! Elastic modulus" \n
+  "!! tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
   "!! yield_stress=140" \n
   "!! tangent_modulus=1400" \n
   "!! tbdata,,yield_stress,tangent_modulus !biso" \n
@@ -10060,6 +10060,9 @@ Signal an error if the keywords are incompatible."
   "!! keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
   "!! ! ogden for high strain applic. (700 % strain)" \n
   "!! tb,hyper,Rubber,,,OGDEN" \n
+  "!! --- Magnetic material ---" \n
+  "!! Air = 4" \n
+  "!! mp,murx,Air,1 ! murx permeability" \n
   \n)
 
 (define-skeleton ansys-skeleton-bc

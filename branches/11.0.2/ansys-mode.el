@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-27 16:36:37 uidg1626"
+;; Time-stamp: "2009-08-27 17:12:26 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10008,6 +10008,11 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
  "!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!! !!for most elements the radial direction is the x-axis" \n
+ "!! et,ID,plane13 !2d, legacy coupled-field ->plane233" \n
+ "!! keyopt,ID,3,1 !(3)=1:axissym." \n
+ "!! --- assign attributes ---" \n
+ "!! aatt,ID ! associate mat. ID with selected areas" \n
+ "!! /pnum,mat,1 ! display materials" \n
  \n
 )
 
@@ -10019,9 +10024,11 @@ Signal an error if the keywords are incompatible."
   "!! mat,Steel" \n
   "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
   "!! mshape,0 !0: quads 1:tri (supported shapes)" \n
-  "esize,1" \n
+  "esize,1 ! element edge length" \n
+  "!! lesize,all,,,3 ! line divisions"
   "vmesh,all" \n
   "!! amesh,all" \n
+  "!! /pnum,mat,1" \n
   \n
   )
 

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-27 17:12:26 uidg1626"
+;; Time-stamp: "2009-08-27 17:35:58 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10091,6 +10091,10 @@ Signal an error if the keywords are incompatible."
   "allsel" \n
   "/pbc,all,on" \n
   "!gplot" \n
+  "!! --- magnetics ---" \n
+  "!! fmagbc,Component ! flag force calculation" \n
+  "!! bfa,all,js, ! js current density" \n
+  "!! dl,all,,asym ! flux parallel to lines" \n
   \n)
 
 (define-skeleton ansys-skeleton-buckling

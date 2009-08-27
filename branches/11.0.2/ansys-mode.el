@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-17 23:26:00 dieter"
+;; Time-stamp: "2009-08-27 12:22:15 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9041,11 +9041,26 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
 	      ["Header"                 ansys-skeleton-header]
-	      ["Import"                 ansys-skeleton-import]
-	      ["Expand"                 ansys-skeleton-expand]
-	      ["Rigid Target"           ansys-skeleton-rigid-target]
+	      ["Configuration"          ansys-skeleton-configuration]
+	      ["View Settings"          ansys-skeleton-view-settings]
+	      ["Coordinate Sys. Display"ansys-skeleton-display-coord]
+	      ["Working Plane Operations"ansys-skeleton-working-plane]
+	      ["Multiplot Commands"     ansys-skeleton-multi-plot]
+	      ["Numbering Controls"     ansys-skeleton-numbering-controls]
+	      ["Geometry Import"        ansys-skeleton-import]
+	      ["Symmetry Expansions"    ansys-skeleton-expand]
+	      ["Element Definitions"    ansys-skeleton-element-def]
+	      ["Material Definitions"   ansys-skeleton-material-def]
+	      ["Meshing Controls"       ansys-skeleton-meshing]
 	      ["Contact Pair Definition"           ansys-skeleton-contact-definition]
-	      ["Ansys Macro Skeleton" ansys-skeleton])
+	      ["Rigid Target"           ansys-skeleton-rigid-target]
+	      ["Boundary Conditions"    ansys-skeleton-bc]
+	      ["Buckling Analysis Type" ansys-skeleton-buckling]
+	      ["Solve"                  ansys-skeleton-solve]
+	      ["Post1 Postprocessing"   ansys-skeleton-post1]
+	      ["Post26 Postprocessing"  ansys-skeleton-post26]
+	      ["Element Table Operations"ansys-skeleton-element-table]
+	      ["Big Macro Skeleton" ansys-skeleton])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
 	      ["Next Code Line"		ansys-next-code-line]
@@ -9736,7 +9751,6 @@ Signal an error if the keywords are incompatible."
   "*endif" >
   )
 
-
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script" nil ;;"Name of file: "
 ;  "! 	$Id" ":$\n"
@@ -9807,7 +9821,7 @@ Signal an error if the keywords are incompatible."
   "ioptn,gtoler,defa" \n
   "igesin,'test','iges'"\n
   \n
-  "/input,filename,anf" \n
+  "/input,filename,anf ! for APDL based input" \n
   "/facet,norm" \n
   \n)
 

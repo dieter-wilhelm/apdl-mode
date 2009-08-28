@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-27 17:35:58 uidg1626"
+;; Time-stamp: "2009-08-28 11:03:52 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10092,9 +10092,11 @@ Signal an error if the keywords are incompatible."
   "/pbc,all,on" \n
   "!gplot" \n
   "!! --- magnetics ---" \n
-  "!! fmagbc,Component ! flag force calculation" \n
+  "!! fmagbc,'Component' ! flag force calculation" \n
   "!! bfa,all,js, ! js current density" \n
   "!! dl,all,,asym ! flux parallel to lines" \n
+  "!! nsel,s,ext ! select exterior nodes" \n
+  "!! dsym,asym ! flux parallel to lines"
   \n)
 
 (define-skeleton ansys-skeleton-buckling
@@ -10161,6 +10163,8 @@ Signal an error if the keywords are incompatible."
   "!! rescontrol,file_summary !check restart files" \n
   "!! antyp,,rest,1,last"\n
   "!! time,1.2 !time at the end of load step" \n
+  "!! --- magnetics ---" \n
+  "!! magsolv" \n
   "solve" \n
   \n)
 
@@ -10192,9 +10196,12 @@ Signal an error if the keywords are incompatible."
   "/efacet,2" \n
   "!psdisp,0" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
-  "!/graphics,full" \n
+  "!/graphics,full ! results averaging also from interior" \n
   "!pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
+  "!!! --- magnetics ---" \n
+  "!! plf2d,27 ! flux lines, equipotentials" \n
+  "!! plvect,b,! induction vector plot" \n
   \n
   "nldpost,nrre,stat !element information nonlinear" \n
   "plnsol,nrre,,,,001 !plot residual file .nr001 " \n

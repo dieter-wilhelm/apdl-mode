@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-28 11:03:52 uidg1626"
+;; Time-stamp: "2009-08-28 16:43:19 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10057,6 +10057,8 @@ Signal an error if the keywords are incompatible."
   "!! /com, === Material %Alu% is Aluminium. ===" \n
   "!! --- hyperelastic mooney rivlin mat ---" \n
   "!! for 30 % compression 100 % tension strain" \n
+  \n
+  "!! --- Elastomers (hyperelastic) ---" \n
   "!! Rubber = 3" \n
   "!! tb,hyper,Rubber,,,MOONEY" \n
   "!! Shore = 60" \n
@@ -10067,9 +10069,16 @@ Signal an error if the keywords are incompatible."
   "!! keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
   "!! ! ogden for high strain applic. (700 % strain)" \n
   "!! tb,hyper,Rubber,,,OGDEN" \n
-  "!! --- Magnetic material ---" \n
+  \n
+  "!! --- Magnetic materials ---" \n
   "!! Air = 4" \n
   "!! mp,murx,Air,1 ! murx permeability" \n
+  "!! Magnet = 5" \n
+  "!! Hc = 28e4 ! coercive force in A/m" \n
+  "!! mp,mgxx,Magnet,Hc " \n
+  "!! Mu0 = 1.2566e-6 ! field constant in Vs/(Am)" \n
+  "!! Br = .4 ! residual induction in Tesla" \n
+  "!! mp,murx,Magnet,Br/(Mu0*Hc)" \n
   \n)
 
 (define-skeleton ansys-skeleton-bc
@@ -10202,6 +10211,7 @@ Signal an error if the keywords are incompatible."
   "!!! --- magnetics ---" \n
   "!! plf2d,27 ! flux lines, equipotentials" \n
   "!! plvect,b,! induction vector plot" \n
+  "!! fmagsum,'component_name'" \n
   \n
   "nldpost,nrre,stat !element information nonlinear" \n
   "plnsol,nrre,,,,001 !plot residual file .nr001 " \n

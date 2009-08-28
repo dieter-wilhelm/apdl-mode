@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-28 16:43:19 uidg1626"
+;; Time-stamp: "2009-08-28 18:00:14 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10008,7 +10008,7 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
  "!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!! !!for most elements the radial direction is the x-axis" \n
- "!! et,ID,plane13 !2d, legacy coupled-field ->plane233" \n
+ "!! et,ID,plane13 !2d, legacy coupled-field ->plane223" \n
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
  "!! --- assign attributes ---" \n
  "!! aatt,ID ! associate mat. ID with selected areas" \n
@@ -10032,14 +10032,21 @@ Signal an error if the keywords are incompatible."
   \n
   )
 
+(define-skeleton ansys-skeleton-geometry
+  ""
+  nil
+  "!! --- Geometry ---"\n
+  "/prep7" \n
+  "rectng,x1,x2,y1,y2 ! 2d rectangle" \n
+  "cyl4,xc,yc,r1,alpha1,r2,alpha2,depth ! circular area or cylinder" \n
+  "!! --- booleans ---" \n
+  "!! aovlap,all ! overlap areas" \n
+  "!! /pnum,area,1 $ aplot" \n
+  \n)
+
 (define-skeleton ansys-skeleton-material-def
   ""
   nil
-  "!gplot !multiplot" \n
-  \n  "Pi=3.14159265359" \n
-  \n
-  "!! /pnum,area,1"\n
-  \n
   "!! --- Material definitions ---" \n
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n

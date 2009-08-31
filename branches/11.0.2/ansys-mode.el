@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-31 18:54:09 uidg1626"
+;; Time-stamp: "2009-08-31 19:12:29 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8696,7 +8696,6 @@ the following options:
   (make-local-variable 'kill-buffer-query-functions)
 
   ;; the following might become obselete with Emacs 23.2 (see TODO)
-
   (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
 
   ;; FIXME:
@@ -9064,8 +9063,8 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Post1 Postprocessing"   ansys-skeleton-post1]
 	      ["Path plot operations"   ansys-skeleton-path-plot]
 	      ["Output to file"         ansys-skeleton-output-to-file]
-	      ["Post26 Postprocessing"  ansys-skeleton-post26]
 	      ["Element Table Operations"ansys-skeleton-element-table]
+	      ["Post26 Postprocessing"  ansys-skeleton-post26]
 	      ["Big Macro Skeleton" ansys-skeleton])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
@@ -11012,9 +11011,10 @@ variable."
 	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
 
 (defun ansys-kill-buffer-query-function ()
-  (when (or (string= (process-status ansys-process) "run")
-	    (string= (process-status ansys-process) "stop"))
-    (yes-or-no-p "Ansys process is active, quit buffer anyway? ")))
+  (if (or (string= (process-status ansys-process) "run")
+	  (string= (process-status ansys-process) "stop"))
+      (yes-or-no-p "Ansys process is active, quit buffer anyway? ")
+    t)
 
 (defun ansys-process-status ()		;NEW
   "Show the process status in the Emacs command line (minibuffer).

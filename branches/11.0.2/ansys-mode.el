@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-31 14:39:34 uidg1626"
+;; Time-stamp: "2009-08-31 16:14:16 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10011,8 +10011,9 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!! !!for most elements the radial direction is the x-axis" \n
  "!! --- magnetics ---" \n
- "!! et,ID,plane13 !2d, legacy coupled-field ->plane223" \n
+ "!! et,ID,plane13 !2d, legacy coupled-field ->plane53" \n
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
+ "!! keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
  "!! et,ID,infin110 !2d semi infinit electromagnetic elem." \n
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
  "!! keyopt,ID,2,1 !(2)=1:8-node" \n

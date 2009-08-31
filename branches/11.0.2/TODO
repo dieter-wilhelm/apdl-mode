@@ -1,5 +1,9 @@
 * Bugs:
+** M-? at last line -> args out of range
 
+* Interesting stuff   
+** *repeate command
+   
 * improve ansys-kill-buffer-query-function
   is it possible to quit Anys in an orderly fashion?
   what happens with the asynchronous process?
@@ -10,7 +14,6 @@
  You can remove this query in two ways: either removing
  `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
  setting the appropriate process flag with `set-process-query-on-exit-flag'.
-
 
 * improve Ansys interpreter buffer with `comint-mode'
    gnuplot-mode
@@ -36,15 +39,14 @@
 * Dissect skeleton into smaller more useful subjects   
 - spider beams, _bolt.mac, screw.mac
 - sort skeletons in menu
-- preview skeletons!
-   smaller ones in mini buffer
+- preview skeletons! smaller ones in mini buffer
 - optional setting of (Ansys-mode-)bookmarks?   
 - rework concept with respect to the Ansys menu structure
 - Make skeleton-header properly working (info "(autotype)")
 - Optimise templates: completing-read, read-from-minibuffer abbrev `d
   does not indent properly in another block level Implement choice when
   completing *IF commands (*ELSEIF or *ENDIF ?THEN?).
--  Warn when including skeleton in read only file.
+- Warn when including skeleton in read only file.
 - skeleton for numbering ansys-skeleton-numbering-controls
 (skeleton-insert docu)
 - suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
@@ -54,8 +56,9 @@
   *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
    must *go:label be unambiguous?
 
-* M-? at last line -> args out of range
 
+* *set strings may be only 32 character long!
+* trigger timer when showing the ansys-comand-parametr-help
 * add cmblock and cm assignments to the variable list
 
 * correct *set assignment printout

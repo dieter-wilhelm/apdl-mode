@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-31 16:14:16 uidg1626"
+;; Time-stamp: "2009-08-31 18:54:09 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8310,6 +8310,10 @@ descriptors):
 %-wS	Left justify character string (right justify is default).
 %wX	Include w blank characters.
 
+example:
+*vwrite,B(1,1),B(2,1)
+%E%/%E
+
 Regarding the highlighting of user variables: see the menu
 entry: ->Ansys ->Customise Ansys Mode or include
 
@@ -9059,7 +9063,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Solve"                  ansys-skeleton-solve]
 	      ["Post1 Postprocessing"   ansys-skeleton-post1]
 	      ["Path plot operations"   ansys-skeleton-path-plot]
-	      ["Output to file"         ansys-skeleton-file-output]
+	      ["Output to file"         ansys-skeleton-output-to-file]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26]
 	      ["Element Table Operations"ansys-skeleton-element-table]
 	      ["Big Macro Skeleton" ansys-skeleton])
@@ -10243,6 +10247,28 @@ Signal an error if the keywords are incompatible."
   "!antime" \n
   "!andata" \n
   "!anmres !multiple result files" \n
+  \n)
+
+(define-skeleton ansys-skeleton-output-to-file
+  ""
+  nil
+  "!! /output,test.txt	 !write Ansys output to file" \n
+  "!! /com,# dist from center | axial mag. induction" \n
+  "!! /output ! redirect output to screen" \n
+  "!! *create,test.txt ! no parameter substitution" \n
+  "*cfopen,test.txt!,,append ! appending to file" \n
+  "!! *cfwrite,A=5 ! interpreted output" \n
+  "!! *set strings are limited to 32 characters!!!" \n
+  "Strg1='# cylindrical magnet: radius = %Rad%'" \n
+  "Strg2=', lenght = %Len%'" \n
+  "Strg3='# distance, magnetic induction'" \n
+  "*vwrite,Strg1, Strg2, Strg3" \n
+  "%S %S%/%S" \n
+  "*do,I,1,Nn,1" \n
+  "*vwrite,B(1,I),B(2,I)" \n
+  "%E %E" \n
+  "*enddo  " \n
+  "*cfclos ! close file" \n
   \n)
 
 (define-skeleton ansys-skeleton-path-plot

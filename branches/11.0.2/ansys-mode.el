@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-31 19:12:29 uidg1626"
+;; Time-stamp: "2009-08-31 20:08:16 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9833,8 +9833,9 @@ Signal an error if the keywords are incompatible."
 (define-skeleton ansys-skeleton-expand	;NEW
   "Symmetry expansion."
   nil
-  "/expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
-  "/expand,18,axis,,,10 !axissymmetric expansion" \n
+  "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6" \n
+  "!! /expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
+  "!! /expand,18,axis,,,10 !axissymmetric expansion" \n
   "!! /expand !switch off expansion" \n
   \n)
 
@@ -11010,6 +11011,7 @@ variable."
        ((string= system-type "windows-nt")
 	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
 
+;; TODO: this function is osolete with Emacs 23.2
 (defun ansys-kill-buffer-query-function ()
   (if (or (string= (process-status ansys-process) "run")
 	  (string= (process-status ansys-process) "stop"))

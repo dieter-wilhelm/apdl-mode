@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-31 14:00:25 uidg1626"
+;; Time-stamp: "2009-08-31 14:39:34 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9058,6 +9058,8 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Buckling Analysis Type" ansys-skeleton-buckling]
 	      ["Solve"                  ansys-skeleton-solve]
 	      ["Post1 Postprocessing"   ansys-skeleton-post1]
+	      ["Path plot operations"   ansys-skeleton-path-plot]
+	      ["Output to file"         ansys-skeleton-file-output]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26]
 	      ["Element Table Operations"ansys-skeleton-element-table]
 	      ["Big Macro Skeleton" ansys-skeleton])
@@ -10246,9 +10248,10 @@ Signal an error if the keywords are incompatible."
   ""
   nil
   "!! -- path plot --" \n
-  "path,axis ! define active path "axis"" \n
+  "path,axis,2 ! define active path "axis"" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
+  "!psel,s,axis,...    	 !select multiple paths" \n
   "pdef,By,b,y" \n
   "plpath,By		 !plot in graph" \n
   "plpagm,By,5		 !plot on geom." \n

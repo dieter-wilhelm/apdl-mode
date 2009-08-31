@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-28 18:00:14 uidg1626"
+;; Time-stamp: "2009-08-31 14:00:25 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10008,8 +10008,12 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
  "!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!! !!for most elements the radial direction is the x-axis" \n
+ "!! --- magnetics ---" \n
  "!! et,ID,plane13 !2d, legacy coupled-field ->plane223" \n
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
+ "!! et,ID,infin110 !2d semi infinit electromagnetic elem." \n
+ "!! keyopt,ID,3,1 !(3)=1:axissym." \n
+ "!! keyopt,ID,2,1 !(2)=1:8-node" \n
  "!! --- assign attributes ---" \n
  "!! aatt,ID ! associate mat. ID with selected areas" \n
  "!! /pnum,mat,1 ! display materials" \n
@@ -10237,6 +10241,19 @@ Signal an error if the keywords are incompatible."
   "!andata" \n
   "!anmres !multiple result files" \n
   \n)
+
+(define-skeleton ansys-skeleton-path-plot
+  ""
+  nil
+  "!! -- path plot --" \n
+  "path,axis ! define active path "axis"" \n
+  "ppath,1" \n
+  "ppath,2,,,Rair" \n
+  "pdef,By,b,y" \n
+  "plpath,By		 !plot in graph" \n
+  "plpagm,By,5		 !plot on geom." \n
+  \n
+)
 
 (define-skeleton ansys-skeleton-post26
   ""

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-08-31 20:08:16 uidg1626"
+;; Time-stamp: "2009-09-02 00:42:24 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10730,7 +10730,7 @@ also do yourself."
 	  ","
 	  (read-string "Value/Parameter 2: ")
 	  ","
-	  (read-string "Action: (:label,STOP,EXIT,CYCLE,THEN,otto) ")
+	  (read-string "Action: (:label,STOP,EXIT,CYCLE,THEN,otto) ") ;FIXME: remove otto!
 	  \n >_
 	  "*ENDIF"
 	  \n)

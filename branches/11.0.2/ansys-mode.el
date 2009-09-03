@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 12:22:07 uidg1626"
+;; Time-stamp: "2009-09-03 12:25:21 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -11019,7 +11019,7 @@ variable."
        ((string= system-type "windows-nt")
 	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
 
-;; TODO: this function is osolete with Emacs 23.2
+;; TODO: this function is obsolete with Emacs 23.2
 (defun ansys-kill-buffer-query-function ()
   (if (or (string= (process-status ansys-process) "run")
 	  (string= (process-status ansys-process) "stop"))

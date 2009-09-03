@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-02 00:42:24 dieter"
+;; Time-stamp: "2009-09-03 08:46:55 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -63,8 +63,8 @@
 ;; == Requirements ==
 
 ;; The code is based on Ansys version 11.0 and is written for GNU
-;; Emacs 23.  It is tested with version 23.1 under XP and GNU/Linux.
-;; The code won't run with Emacs 21.4 and is not (yet) consciously
+;; Emacs.  It is tested with version 23.1 under XP and GNU/Linux.  The
+;; code definitely won't run with Emacs 21.4 and is not (consciously)
 ;; targeted for XEmacs, there might be problems.  Please visit
 ;; ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for an official,
 ;; precompiled Windows versions of GNU Emacs.  You can unpack Emacs in

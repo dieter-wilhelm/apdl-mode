@@ -1,6 +1,7 @@
 * Bugs:
-** M-? at last line -> args out of range
+** M-?: at last line -> args out of range
 
+** C-j: if: Wrong type argument: wholenump, 26.0
 * Interesting stuff   
 ** *repeate command
    

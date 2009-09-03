@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 12:36:31 uidg1626"
+;; Time-stamp: "2009-09-03 13:25:42 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8997,7 +8997,7 @@ element names."
 (defun ansys-reindent-then-newline-and-indent () ; (&ptional non-matching) ;FIXME: docu
   "Reindent current Ansys line, insert newline, and indent the new line.
 If function `abbrev-mode' is on, expand the abbreviations first."
-  (interactive "*")
+  (interactive "*") 			;* means signal error if read-only
   (expand-abbrev)
   (ansys-blink-matching-block)
   (save-excursion
@@ -10023,7 +10023,8 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,2,1 !(2)=1:8-node" \n
  "!! --- assign attributes ---" \n
  "!! aatt,ID ! associate mat. ID with selected areas" \n
- "!! /pnum,mat,1 ! display materials" \n
+ \n
+ "!! /pnum,type,1 $ eplot ! display materials" \n
  \n
 )
 
@@ -10039,7 +10040,8 @@ Signal an error if the keywords are incompatible."
   "!! lesize,all,,,3 ! line divisions"
   "vmesh,all" \n
   "!! amesh,all" \n
-  "!! /pnum,mat,1" \n
+  \n
+  "!! /pnum,mat,1 $ eplot" \n
   \n
   )
 
@@ -10105,6 +10107,8 @@ Signal an error if the keywords are incompatible."
   "!! Mu0 = 1.2566e-6 ! field constant in Vs/(Am)" \n
   "!! Br = .4 ! residual induction in Tesla" \n
   "!! mp,murx,Magnet,Br/(Mu0*Hc)" \n
+  \n
+  "!! /pnum,mat,1 $ eplot"\n
   \n)
 
 (define-skeleton ansys-skeleton-bc

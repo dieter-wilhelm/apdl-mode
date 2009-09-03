@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 13:47:50 uidg1626"
+;; Time-stamp: "2009-09-03 14:28:55 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9889,6 +9889,9 @@ Signal an error if the keywords are incompatible."
   "!! esurf !,,top ![default] beam element's top direction" \n
   "!! esurf !,,bottom ! for beam elements top direction" \n
   "!! esurf !,,reverse ! reverse dir. on existing elem." \n
+  "!! -- Target generation --" \n
+  "!! type,Target" \n
+  \n
   "!! enorm ! change the underlying elem."
 
   "!! -- check contact status --" \n
@@ -10040,6 +10043,8 @@ Signal an error if the keywords are incompatible."
   "!! lesize,all,,,3 ! line divisions"
   "vmesh,all" \n
   "!! amesh,all" \n
+  "!! cyclic ! check sectors in case of cyclic sym." \n
+  "!! *status ! look for CYCLIC_XREF" \n
   \n
   "!! /pnum,mat,1 $ eplot" \n
   \n
@@ -10118,7 +10123,7 @@ Signal an error if the keywords are incompatible."
   nil
   "! --- Boundary conditions --- " \n
   \n
-  "!kbc,1: 1:stepped loading"
+  "!kbc,1 ![0] (antype,static): ramped 1:stepped loading" \n
   "!nsel,s,loc,y,0" \n
   "!    ,a,loc,y,1" \n
   "!    ,r,loc,x,0" \n
@@ -10128,7 +10133,7 @@ Signal an error if the keywords are incompatible."
   "nsel,s,loc,x,1" \n
   "cp,next,uy,all !couple dofs" \n
   "f,1,fx,1" \n
-  "!flist" \n
+  "!flist ! list force nodes" \n
   "allsel" \n
   "/pbc,all,on" \n
   "!gplot" \n
@@ -10204,8 +10209,12 @@ Signal an error if the keywords are incompatible."
   "!! rescontrol,file_summary !check restart files" \n
   "!! antyp,,rest,1,last"\n
   "!! time,1.2 !time at the end of load step" \n
+  \n
   "!! --- magnetics ---" \n
   "!! magsolv" \n
+  \n
+  "!! --- cyclic symmetry ---" \n
+  "!! cycopt" \n
   "solve" \n
   \n)
 
@@ -10261,6 +10270,8 @@ Signal an error if the keywords are incompatible."
   "!antime" \n
   "!andata" \n
   "!anmres !multiple result files" \n
+  \n
+  "!! cycexpand,on" \n
   \n)
 
 (define-skeleton ansys-skeleton-output-to-file

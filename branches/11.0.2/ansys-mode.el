@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 14:28:55 uidg1626"
+;; Time-stamp: "2009-09-03 14:34:59 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10174,17 +10174,10 @@ Signal an error if the keywords are incompatible."
   nil
   "! --- Solution --- " \n
   \n
-  "finish" \n
-  "!! /config,nres,2000 !No of substeps in result file [1000]" \n
   "/solu" \n
+  "allsel" \n
   \n
-  "!! nlhist,on !nonlinear tracking in .nlh" \n
   "!! solcontrol,on! optimised nonlinear solution defaults" \n
-  "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
-  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
-  "!! nequit,30! No of equilibr. iterations"
-  "!! nldiag,nrre,on! store residual file" \n
-  "!! nldiag,maxf,2! maximum files written" \n
   "!! n1=20" \n
   "!! n2=n1*100" \n
   "!! n3=n1/4" \n
@@ -10194,8 +10187,19 @@ Signal an error if the keywords are incompatible."
   "!! nlgeom,on" \n
   "!! autots,on" \n
   \n
+  "solve" \n
+  \n
+  "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
+  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
+  "!! nequit,30! No of equilibr. iterations"
+  "!! nldiag,nrre,on! store residual file" \n
+  "!! nldiag,maxf,2! maximum files written" \n
   "!! rescontrol,,1,last !create restart file(s)" \n
   "!!           ,status" \n
+  "!! /config,nres,2000 !No of substeps in result file [1000]" \n
+  "/solu" \n
+  \n
+  "!! nlhist,on !nonlinear tracking in .nlh" \n
   "!! eqslv,pcg,1e-4" \n
   "!! nropt,unsym !frictional contacts not converging?" \n
   "!! coupling of sliding and normal stiffness" \n
@@ -10215,7 +10219,6 @@ Signal an error if the keywords are incompatible."
   \n
   "!! --- cyclic symmetry ---" \n
   "!! cycopt" \n
-  "solve" \n
   \n)
 
 (define-skeleton ansys-skeleton-post1
@@ -10271,7 +10274,7 @@ Signal an error if the keywords are incompatible."
   "!andata" \n
   "!anmres !multiple result files" \n
   \n
-  "!! cycexpand,on" \n
+  "!! cycexpand,on ! graphical expansion" \n
   \n)
 
 (define-skeleton ansys-skeleton-output-to-file

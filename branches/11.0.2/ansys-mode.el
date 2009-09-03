@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 13:25:42 uidg1626"
+;; Time-stamp: "2009-09-03 13:47:50 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9883,7 +9883,7 @@ Signal an error if the keywords are incompatible."
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
-  "!! -- Contact generation --"
+  "!! -- Contact generation --" \n
   "!! type,Contact" \n
   "!! real,Contact" \n
   "!! esurf !,,top ![default] beam element's top direction" \n
@@ -10060,8 +10060,10 @@ Signal an error if the keywords are incompatible."
   "Alpha2=+360./(2*N)" \n
   "Depth=30" \n
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
+  \n
   "!! --- booleans ---" \n
   "!! aovlap,all ! overlap areas" \n
+  "!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities"
   "!! /pnum,area,1 $ aplot" \n
   \n)
 

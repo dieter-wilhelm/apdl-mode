@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 12:25:21 uidg1626"
+;; Time-stamp: "2009-09-03 12:36:31 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -11024,7 +11024,7 @@ variable."
   (if (or (string= (process-status ansys-process) "run")
 	  (string= (process-status ansys-process) "stop"))
       (yes-or-no-p "Ansys process is active, quit buffer anyway? ")
-    t)
+    t))
 
 (defun ansys-process-status ()		;NEW
   "Show the process status in the Emacs command line (minibuffer).

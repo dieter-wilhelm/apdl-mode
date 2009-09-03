@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 08:46:55 dieter"
+;; Time-stamp: "2009-09-03 12:22:07 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10048,8 +10048,16 @@ Signal an error if the keywords are incompatible."
   nil
   "!! --- Geometry ---"\n
   "/prep7" \n
-  "rectng,x1,x2,y1,y2 ! 2d rectangle" \n
-  "cyl4,xc,yc,r1,alpha1,r2,alpha2,depth ! circular area or cylinder" \n
+  "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
+  "Xc = 0" \n
+  "Yc = 0" \n
+  "R1=4" \n
+  "R2=20" \n
+  "N = 14." \n
+  "Alpha1=-360./(2*N)" \n
+  "Alpha2=+360./(2*N)" \n
+  "Depth=30" \n
+  "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
   "!! --- booleans ---" \n
   "!! aovlap,all ! overlap areas" \n
   "!! /pnum,area,1 $ aplot" \n

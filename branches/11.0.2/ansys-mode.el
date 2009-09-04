@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-03 14:34:59 uidg1626"
+;; Time-stamp: "2009-09-04 18:04:17 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -62,10 +62,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; == Requirements ==
 
-;; The code is based on Ansys version 11.0 and is written for GNU
-;; Emacs.  It is tested with version 23.1 under XP and GNU/Linux.  The
-;; code definitely won't run with Emacs 21.4 and is not (consciously)
-;; targeted for XEmacs, there might be problems.  Please visit
+;; The code is based on Ansys version 11.0 and is written for the
+;; editor GNU Emacs and is not consciously targeted for XEmacs.  It is
+;; tested with Emacs 23.1 under XP and GNU/Linux.  The code won't run
+;; without some minor adaptions under Emacs 21.4.  Please visit
 ;; ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for an official,
 ;; precompiled Windows versions of GNU Emacs.  You can unpack Emacs in
 ;; any directory.  Optionally you can run the program addpm.exe
@@ -9845,12 +9845,6 @@ Signal an error if the keywords are incompatible."
   "!! --- Contact pair defintion ---" \n
   "Contact="_ \n
   "Target=Contact+1" \n
-  "Mu = 0 !contact friction" \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. < AnsysWB12)" \n
-  "Ftoln = .1 !penetration tolerance [.1] for lagr. mult." \n
-  "Icont = 0. !contact closure band size" \n
-  "Cnof = 0 !contact offset (neg.: penetr.)" \n
-  "Pinb = -1 !search radius, neg: absolut value (at least 1.1*CNOF)" \n
   "r,Contact" \n
   "et,Contact,conta174    !3d, 8 node" \n
   "!! et,Contact,conta173 !3d, 4 node" \n
@@ -9864,22 +9858,43 @@ Signal an error if the keywords are incompatible."
   "!! et,Target,targe169  !2d" \n
   \n
   "!! --- Contact Options --"\n
-  "keyo,Contact,2,1 !ALGORITHM 0:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
-  "!keyo,Contact,5,0 !AUTOMATED adjustment cnof (surface offset)/icont (node movement in a band),1:auto CNOF gap 2: pene CNOF 3: gap/pene. CNOF, 4: ICONT \"contact band\"" \n
-  "keyo,Contact,9,4 !pene./gap,0:include,1:remove,2:include ramped, 3: remove gap/penetr., include offset, 4:remove initial gaps/penetr, incl. offeset ramped" \n
+  "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
+  "!! " \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. < AnsysWB12)" \n
+  "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
+  "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  \n
+  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
+  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
+  \n
+  "!Pinb = -1 !search radius, neg: absolut value ( > CNOF!)" \n
+  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
+  \n
+  "!ICONT = -0.05 !initial contact closure [0] band size (neg. absolut)" \n
+  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  \n
+  "CNOF = 0 !contact surface offset ([0], neg.: penetr.)" \n
+  "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
+  \n
+  "keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
+  "    !! 0: no adjustm." \n
+  "    !! 1: close gap with auto CNOF" \n
+  "    !! 2: reduce penetr. w. auto CNOF" \n
+  "    !! 3: close gap/red. pene. w. auto CNOF" \n
+  "    !! 4: auto ICONT" \n
+  "keyo,Contact,9,4 !HANDLING of initial penetration/gap and CNOF" \n
+  "    !! 0: include everything" \n
+  "    !! 1: remove everything" \n
+  "    !! 2: include everyth. ramped" \n
+  "    !! 3: include offset only" \n
+  "    !! 4: incl. offset only, ramped" \n
   "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,1:each substep" \n
-  "!keyo,Contact,11,1 !Shell thickness effect" \n
-  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
+  "!keyo,Contact,11,1 !SHELL thickness effect" \n
+  "!keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
   "real,Contact" \n
   \n
-  "!! --- Contact values ---"\n
-  "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
-  "rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering"
-  "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
-  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
-  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
-  "!rmod,Contact,11,-1 !FKOP contact damping must be neg." \n
-  "!rmod,Contact,12,0. ! FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, must be neg." \n
+  \n
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
@@ -10043,8 +10058,11 @@ Signal an error if the keywords are incompatible."
   "!! lesize,all,,,3 ! line divisions"
   "vmesh,all" \n
   "!! amesh,all" \n
+  "!! -- cyclic symmetric meshing --" \n
   "!! cyclic ! check sectors in case of cyclic sym." \n
   "!! *status ! look for CYCLIC_XREF" \n
+  "!! cyclic,status" \n
+  "!! /cycexpand ! expand graphics rep." \n
   \n
   "!! /pnum,mat,1 $ eplot" \n
   \n
@@ -10218,7 +10236,7 @@ Signal an error if the keywords are incompatible."
   "!! magsolv" \n
   \n
   "!! --- cyclic symmetry ---" \n
-  "!! cycopt" \n
+  "!! cycopt,status" \n
   \n)
 
 (define-skeleton ansys-skeleton-post1
@@ -10226,6 +10244,8 @@ Signal an error if the keywords are incompatible."
   nil
   "!! --- post 1 ---" \n
   "/post1" \n
+  "set,last" \n
+  "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
   \n
   "!! /dscale,,1 !do not scale (for nlgeom)" \n
   "!! /dscale,,auto !or 0:scale automatically" \n
@@ -10245,10 +10265,8 @@ Signal an error if the keywords are incompatible."
   "!! /plopts,wp ! switch off working plane" \n
   "!! /plopts,minm ! switch off min max" \n
   \n
-  "set,last" \n
   "/efacet,2" \n
   "!psdisp,0" \n
-  "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
   "!/graphics,full ! results averaging also from interior" \n
   "!pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n

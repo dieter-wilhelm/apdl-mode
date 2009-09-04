@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-04 19:54:41 uidg1626"
+;; Time-stamp: "2009-09-04 21:17:19 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1789,10 +1789,12 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (defun ansys-in-indentation-p ()	;_C
   "Return t if in an indentation."
-  (let ((p (point)))
-    (save-excursion
-      (back-to-indentation)
-      (if (<= p (point)) t nil))))
+  (if (and (eolp) (bolp)) ; take care of empty lines
+      nil
+    (let ((p (point)))
+      (save-excursion
+	(back-to-indentation)
+	(if (<= p (point)) t nil)))))
 
 (defun ansys-first-line-p ()		;_C
   "Return t if at the first line."
@@ -8916,8 +8918,8 @@ previous command is found."
 	(string-match ".*" str)
 	(setq str (match-string-no-properties 0 str)))
        (t
-	(unless (ansys-in-indentation-p)
-	  (ansys-command-start))
+	(unless (ansys-in-indentation-p) ;FIXME: take care of commented out commands
+	  (ansys-command-start))	;go back to beginning of command
 	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	(setq str (match-string-no-properties 0)))))
     ;; display help string

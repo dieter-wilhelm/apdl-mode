@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-04 18:04:17 uidg1626"
+;; Time-stamp: "2009-09-04 19:54:41 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9349,7 +9349,8 @@ difference between NUM and actually moved code lines."
     (unless (ansys-first-line-p)	;in case we aren't at b-o-l
       (beginning-of-line)		;for forward-comment
       (forward-comment (-(buffer-size))) ;and in case we are in a comment line
-      (move-to-column temporary-goal-column)
+      (move-to-column (truncate temporary-goal-column)) ;with Emacs 23.1
+					;t-g-c might be a float!
       (setq num (1- num)
 	    p num)
       (when (/= num 0)

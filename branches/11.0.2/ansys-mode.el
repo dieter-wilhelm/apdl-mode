@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-07 11:35:07 uidg1626"
+;; Time-stamp: "2009-09-07 12:15:32 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10146,18 +10146,27 @@ Signal an error if the keywords are incompatible."
   "/prep7" \n
   \n
   "!kbc,1 ![0] (antype,static): ramped 1:stepped loading" \n
+  \n
+  "!! --- displacements ---" \n
   "!nsel,s,loc,y,0" \n
   "!    ,a,loc,y,1" \n
   "!    ,r,loc,x,0" \n
   "d,all,all" \n
   "!dlist,all" \n
+  \n
+  "!! --- Loads ---" \n
   "!f,all,fx,1" \n
   \n
   "!! --- inertia relief ---" \n
-  "!! LOADS: nonlinearities are not supported" \n
-  "!! irlf,1 !0: none,1:ir,-1:printout masses" \n
+  "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
+  "!! irlf,1 !0: none,1:ir on,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
   \n
+  "!! --- corriolis effects ---" \n
+  "!! cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
+  "!! dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
+  \n
+  "nsel,s,loc,x,1" \n
   "cp,next,uy,all !couple dofs" \n
   "f,1,fx,1" \n
   "!flist ! list force nodes" \n

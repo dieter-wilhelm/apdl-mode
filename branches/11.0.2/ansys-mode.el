@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-04 21:17:19 uidg1626"
+;; Time-stamp: "2009-09-07 11:35:07 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10143,6 +10143,7 @@ Signal an error if the keywords are incompatible."
   ""
   nil
   "! --- Boundary conditions --- " \n
+  "/prep7" \n
   \n
   "!kbc,1 ![0] (antype,static): ramped 1:stepped loading" \n
   "!nsel,s,loc,y,0" \n
@@ -10151,7 +10152,12 @@ Signal an error if the keywords are incompatible."
   "d,all,all" \n
   "!dlist,all" \n
   "!f,all,fx,1" \n
+  \n
+  "!! --- inertia relief ---" \n
+  "!! LOADS: nonlinearities are not supported" \n
+  "!! irlf,1 !0: none,1:ir,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
+  \n
   "cp,next,uy,all !couple dofs" \n
   "f,1,fx,1" \n
   "!flist ! list force nodes" \n

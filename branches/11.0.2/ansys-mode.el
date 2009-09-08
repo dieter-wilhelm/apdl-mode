@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-07 12:15:32 uidg1626"
+;; Time-stamp: "2009-09-08 13:29:13 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -394,7 +394,7 @@ It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
 specification.  For example:
 \"/ansys_inc/v110/ansys/bin/anshelp110\" or with the windows OS
-\"c:\\\\Program\ Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP
+\"c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP
 \\en-us\\ansyshelp.chm\"."
   :type 'string
   :group 'Ansys)
@@ -8443,10 +8443,10 @@ following example in your .emacs file.
       (cond
        ((string= system-type \"windows-nt\")
          (setq ansys-lmutil-program \"C:\\\\Program Files\\\\Ansys Inc\\\\Shared Files\\\\Licensing\\\\intel\\\\anslic_admin.exe\"
-         (setq ansys-help-file \"C:\\\\Program Files\\\\Ansys Inc\\\\v110\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\"))
+         (setq ansys-help-file \"C:\\\\Program Files\\\\Ansys Inc\\\\v120\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\"))
         (t
          (setq ansys-lmutil-program \"/ansys_inc/shared_files/licensing/linop64/lmutil\")
-         (setq ansys-help-file \"/ansys_inc/v110/ansys/bin/anshelp110\")))
+         (setq ansys-help-file \"/ansys_inc/v110/ansys/bin/anshelp120\")))
 
 * Ansys solver control and communication (mainly restricted to
   UNIX systems)
@@ -10041,7 +10041,7 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
  "!! et,ID,infin110 !2d semi infinit electromagnetic elem." \n
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
- "!! keyopt,ID,2,1 !(2)=1:8-node" \n
+ "!! keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
  "!! --- assign attributes ---" \n
  "!! aatt,ID ! associate mat. ID with selected areas" \n
  \n
@@ -10200,7 +10200,7 @@ Signal an error if the keywords are incompatible."
   "bucopt,lanb,3" \n
   "outres,all,all" \n
   "solve" \n
-  "fini $ /solu		 !creazy" \n
+  "fini $ /solu		 !crazy" \n
   "expass,on" \n
   "mxpand,3" \n
   \n)

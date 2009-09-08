@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-08 14:38:12 uidg1626"
+;; Time-stamp: "2009-09-08 15:44:28 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10342,6 +10342,15 @@ Signal an error if the keywords are incompatible."
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
   "!! node in POS of element E" \n
   "!! bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
+  "!! !unsel midnodes of 8-node 2d elem" \n
+  "!! *get,En,elem,,count" \n
+  "!! *get,E,elem,,num,min" \n
+  "!! *do,I,1,En,1" \n
+  "!!   Face = nmface(E)" \n
+  "!!   Ntmp = ndface(E,Face,3)" \n
+  "!!   nsel,u,,,Ntmp" \n
+  "!!   *get,E,elem,E,nxth" \n
+  "!! *enddo  " \n
 \n)
 
 (define-skeleton ansys-skeleton-path-plot

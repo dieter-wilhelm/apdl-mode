@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-08 13:29:13 uidg1626"
+;; Time-stamp: "2009-09-08 14:38:12 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10334,6 +10334,15 @@ Signal an error if the keywords are incompatible."
   "*enddo  " \n
   "*cfclos ! close file" \n
   \n)
+
+(define-skeleton ansys-skeleton-select
+  ""
+  nil
+  "!! lowest face No of element E from selected nodes"
+  "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
+  "!! node in POS of element E" \n
+  "!! bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
+\n)
 
 (define-skeleton ansys-skeleton-path-plot
   ""

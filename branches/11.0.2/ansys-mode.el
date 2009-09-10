@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-08 15:44:28 uidg1626"
+;; Time-stamp: "2009-09-10 16:06:36 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10283,6 +10283,17 @@ Signal an error if the keywords are incompatible."
   "!! /plopts,wp ! switch off working plane" \n
   "!! /plopts,minm ! switch off min max" \n
   \n
+  "!! -- graphics output & invert background colour --" \n
+  "!/RGB,index,100,100,100,0" \n
+  "!/RGB,index,0,0,0,15" \n
+  "!/show,png !creates jobnameXXX.png files" \n
+  "!pngr !additional options" \n
+  "!plvect,B" \n
+  "!noerase" \n
+  "!lplot" \n
+  "!/show,close" \n
+  "!erase" \n
+  \n
   "/efacet,2" \n
   "!psdisp,0" \n
   "!/graphics,full ! results averaging also from interior" \n
@@ -10338,7 +10349,7 @@ Signal an error if the keywords are incompatible."
 (define-skeleton ansys-skeleton-select
   ""
   nil
-  "!! lowest face No of element E from selected nodes"
+    "!! lowest face No of element E from selected nodes"
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
   "!! node in POS of element E" \n
   "!! bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
@@ -10364,6 +10375,8 @@ Signal an error if the keywords are incompatible."
   "pdef,By,b,y" \n
   "plpath,By		 !plot in graph" \n
   "plpagm,By,5		 !plot on geom." \n
+  "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
+  "paget,Path,table" \n
   \n
 )
 

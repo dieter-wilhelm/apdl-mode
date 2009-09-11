@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-10 16:06:36 uidg1626"
+;; Time-stamp: "2009-09-11 20:21:42 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9737,6 +9737,23 @@ Signal an error if the keywords are incompatible."
 
 ;;; --- Macros and skeletons ---FIXME: redundant macros
 
+(defun ansys-display-skeleton (skel)	;NEW
+  "Displays skeleton SKEL in another buffer."
+  (interactive "CSkeleton name: ")
+  (let* ((current-buffer (buffer-name))
+	 (new-buffer-name "*Ansys-skeleton*")
+	 (skeleton-buffer (get-buffer-create new-buffer-name)))
+    (save-excursion
+      (set-buffer skeleton-buffer)
+      ;(toggle-read-only -1)
+      (kill-region (point-min) (point-max))
+      ;(ansys-skeleton-configuration)
+;      (message skel)
+      (call-interactively skel)
+      (ansys-mode)
+      (set-buffer current-buffer)
+      (display-buffer new-buffer-name 'other-window))))
+
 (define-skeleton ansys_do		;NEW
   ""
   "Which *do counter [i]: "
@@ -11402,7 +11419,7 @@ Pre-process the findings into the variable
     (goto-char p2)))
 
 (defun ansys-display-variables ()	;NEW
-  "Displays APDL variable assignments in the current Buffer.
+  "Displays APDL variable assignments in the current buffer.
 Together with the corresponding line number N (type \\[goto-line]
 N for skipping to line N or place the cursor over the number and
 C-u \\[goto-line] takes the number automatically)."

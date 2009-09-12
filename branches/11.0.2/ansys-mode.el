@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-12 03:24:27 dieter"
+;; Time-stamp: "2009-09-12 09:41:31 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -97,21 +97,22 @@
 ;;   keyword (case-sensitive)
 
 ;; * Code navigation,extended keyboard shortcuts for code lines,
-;; * number blocks, *DO,*IF, DOWHILE, *CREATE block etc.
+;;   number blocks, *DO,*IF, DOWHILE, *CREATE block etc.
 
 ;; * Sophisticated highlighting (optionally also for user variables)
 
 ;; * Displays summary for all definitions (*GET, *DIM, *SET, = and
-;; * *DO) of APDL variables.
+;;   *DO) of APDL variables.
 
 ;; * Use of the Emacs abbreviation facility for block templates
 
 ;; * Convenient comment handling, commenting out of whole paragraphs
 
 ;; * Outlining (hiding and navigating) of code sections with Emacs'
-;; * outline-minor-mode
+;;   outline-minor-mode
 
-;; * Auto-insertion of header and code templates into new APDL files
+;; * Auto-insertion (and priview) of header and code templates into
+;;   new APDL files
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; == Installation ==
@@ -220,12 +221,17 @@
 
 ;; == History: ==
 
-;; * The version scheme is a mixture of the used Ansys version (11.0)
-;;   and the version of the Ansys mode (2).
+;; * The version scheme is a mixture of the Ansys version (11.0) on
+;;   which some code is based and the version of the Ansys mode (2)
+;;   itself.
 
 ;; === Version 11.0.2 ===
 
-;; cleared "buffer has no process" bug when killing an ansys-mode buffer
+;; * Enabled the preview of code templates or fragments (called
+;;   skeletons in this mode, please inspect `ansys-display-skeleton').
+
+;; * Cleared "buffer has no process" bug when killing an ansys-mode
+;;   buffer
 
 ;; === Version 11.0.1 ===
 
@@ -10430,6 +10436,13 @@ Signal an error if the keywords are incompatible."
   "!/show,close" \n
   "!!prvar,3" \n
   \n)
+
+(defun ansys-skeleton-compilation ()
+  "Collection of basic code fragments for an APDL file."
+  (interactive)
+  (ansys-skeleton-header)
+  (ansys-skeleton-import)
+  (ansys-skeleton-configuration))
 
 (define-skeleton ansys-skeleton		;NEW
   "Insert full framework of an Ansys APDL file."

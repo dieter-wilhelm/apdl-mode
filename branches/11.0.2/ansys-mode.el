@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-11 20:21:42 dieter"
+;; Time-stamp: "2009-09-12 03:24:27 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8119,6 +8119,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
     (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
     (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
     (define-key map "\C-c\C-r" 'ansys-replot)
+    (define-key map "\C-c\C-s" 'ansys-display-skeleton)
 ;      (define-key map "\C-c\C-t" 'ansys-if-then)
     (define-key map "\C-c\C-t" 'ansys-exit-ansys)
     (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)

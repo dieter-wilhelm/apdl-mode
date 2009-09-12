@@ -1,7 +1,11 @@
 * Bugs:
 ** M-?: following a variable allocation with `='
+** fontification of ansys commands and variables still clashing
 
-rework ansys-skeleton and documentation   
+- autoinsertion: choice between header only or header with  skeleton compilation
+- rework ansys-skeleton and documentation   
+- is outline-mode enabled, outline headers are not complete.
+- rework skeleton-header  
 
 * Interesting stuff   
 ** *repeate command

@@ -1,5 +1,8 @@
 * Bugs:
 ** M-?: following a variable allocation with `='
+
+rework ansys-skeleton and documentation   
+
 * Interesting stuff   
 ** *repeate command
    

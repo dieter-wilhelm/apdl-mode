@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-12 09:41:31 dieter"
+;; Time-stamp: "2009-09-13 16:22:22 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9046,9 +9046,10 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	["Insert Parentheses"           insert-parentheses]
 	["Complete Expression"          ansys-complete-symbol]
 	["Close Block"                  ansys-close-block]
+	["Preview Macro Template"        ansys-display-skeleton]
 	"-"
 	(list "Insert Template"
-	      ["*IF ,Action *ENDIF"    ansys-if]
+	      ["*IF ,Action *ENDIF"     ansys-if]
 	      ["*IF ,THEN *ENDIF"	ansys-if-then]
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
@@ -9074,7 +9075,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Output to file"         ansys-skeleton-output-to-file]
 	      ["Element Table Operations"ansys-skeleton-element-table]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26]
-	      ["Big Macro Skeleton" ansys-skeleton])
+	      ["Template compilation" ansys-skeleton])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line]
 	      ["Next Code Line"		ansys-next-code-line]

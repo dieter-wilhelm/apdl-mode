@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-13 16:22:22 dieter"
+;; Time-stamp: "2009-09-14 17:30:44 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10393,7 +10393,7 @@ Signal an error if the keywords are incompatible."
   ""
   nil
   "!! -- path plot --" \n
-  "path,axis,2 ! define active path "axis"" \n
+  "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path "Name" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
   "!psel,s,axis,...    	 !select multiple paths" \n

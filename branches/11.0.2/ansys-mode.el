@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-14 17:30:44 uidg1626"
+;; Time-stamp: "2009-09-15 15:44:06 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10155,9 +10155,10 @@ Signal an error if the keywords are incompatible."
   "!! Air = 4" \n
   "!! mp,murx,Air,1 ! murx permeability" \n
   "!! Magnet = 5" \n
-  "!! Hc = 28e4 ! coercive force in A/m" \n
+  "!! Hc = 2.8e5 ! ferrit magnet coercive force in A/m" \n
   "!! mp,mgxx,Magnet,Hc " \n
-  "!! Mu0 = 1.2566e-6 ! field constant in Vs/(Am)" \n
+  "!! Pi = acos(-1)" \n
+  "!! Mu0 = .4*Pi*1e-6 ! field constant in Vs/(Am)" \n
   "!! Br = .4 ! residual induction in Tesla" \n
   "!! mp,murx,Magnet,Br/(Mu0*Hc)" \n
   \n
@@ -10393,7 +10394,7 @@ Signal an error if the keywords are incompatible."
   ""
   nil
   "!! -- path plot --" \n
-  "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path "Name" \n
+  "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
   "!psel,s,axis,...    	 !select multiple paths" \n

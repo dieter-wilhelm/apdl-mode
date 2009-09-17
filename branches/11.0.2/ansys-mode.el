@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-15 15:44:06 uidg1626"
+;; Time-stamp: "2009-09-17 15:06:41 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10065,10 +10065,11 @@ Signal an error if the keywords are incompatible."
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
  "!! keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
  "!! et,ID,infin110 !2d semi infinit electromagnetic elem." \n
+ "!! !only 1 element layer, sized in the order of the problem domain" \n
  "!! keyopt,ID,3,1 !(3)=1:axissym." \n
  "!! keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
  "!! --- assign attributes ---" \n
- "!! aatt,ID ! associate mat. ID with selected areas" \n
+ "!! aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
  \n
  "!! /pnum,type,1 $ eplot ! display materials" \n
  \n

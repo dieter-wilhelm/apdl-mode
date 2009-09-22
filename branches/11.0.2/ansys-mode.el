@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-17 15:06:41 uidg1626"
+;; Time-stamp: "2009-09-22 12:17:08 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10009,8 +10009,9 @@ Signal an error if the keywords are incompatible."
 (define-skeleton ansys-skeleton-numbering-controls
   ""
   nil
-  "!/pnum,kp,line,area,volu,node,elem,tabn,sval,on" \n
-  "!/replot"
+  "/pnum,kp!,line,area,volu,node,elem,tabn,sval,on" \n
+  "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
+  "/replot"
   \n)
 
 ;; PlotCtrls -> Symbols

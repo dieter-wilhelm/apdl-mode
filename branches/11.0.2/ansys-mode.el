@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-22 12:17:08 uidg1626"
+;; Time-stamp: "2009-09-24 16:48:06 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9863,8 +9863,11 @@ Signal an error if the keywords are incompatible."
   nil
   "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6" \n
   "!! /expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
-  "!! /expand,18,axis,,,10 !axissymmetric expansion" \n
+  "!! /expand,18,axis,,,10 !axissymmetric expansion (rot. around y-axis)" \n
   "!! /expand !switch off expansion" \n
+  "!! -- cyclic expansion --" \n
+  "!! cyclic,status" \n
+  "!! /cycexpand ! expand graphics rep." \n
   \n)
 
 (define-skeleton ansys-skeleton-contact-definition

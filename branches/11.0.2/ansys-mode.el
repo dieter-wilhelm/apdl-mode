@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-27 11:08:31 dieter"
+;; Time-stamp: "2009-09-27 20:43:27 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10995,6 +10995,8 @@ the job name with \"\\[ansys-job]\"."
 ;;     (error "Run canceled"))
   (message "Copied from beginning of buffer to cursor."))
 
+;; TODO: use comint-send-input, comint-use-prompt-regexp
+
 (defun ansys-send-to-ansys (beg end)	;NEW
   "Send code line or region to running Ansys process.
 Argument BEG is the beginning of the region.
@@ -11051,10 +11053,21 @@ Argument END is the end of the region."
     (force-mode-line-update)
     (display-buffer "*Ansys*" 'other-window)))
 
+(require 'comint)
 ;; TODO defvar ansys-buffer??
 
 (defun ansys-start-ansys ()		;NEW
-  (setq ansys-buffer (make-comint "ansys" ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
+  (interactive)
+  (setq ansys-license "bla"
+	ansys-license-file "bla"
+	ansys-lmutil-program "bla")
+  (let* ()
+  (setq ansys-process "Ansys")
+  (make-comint "Ansys" "gnuplot")
+  (message "Started Ansys run")))
+
+(defun ansys-start-ansys ()		;NEW
+  (setq ansys-buffer (make-comint "Ansys" ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 
   ;; (make-local-variable 'comint-output-filter-functions)
   ;; (setq comint-output-filter-functions

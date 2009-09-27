@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-24 16:48:06 uidg1626"
+;; Time-stamp: "2009-09-27 11:08:31 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -11050,6 +11050,20 @@ Argument END is the end of the region."
     (setq mode-line-process (format ":%s" (process-status ansys-process)))
     (force-mode-line-update)
     (display-buffer "*Ansys*" 'other-window)))
+
+;; TODO defvar ansys-buffer??
+
+(defun ansys-start-ansys ()		;NEW
+  (setq ansys-buffer (make-comint "ansys" ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
+
+  ;; (make-local-variable 'comint-output-filter-functions)
+  ;; (setq comint-output-filter-functions
+  ;; 	(append comint-output-filter-functions
+  ;; 		'(comint-postoutput-scroll-to-bottom
+  ;; 		  ;gnuplot-protect-prompt-fn
+  ;; 		  )))
+
+  )
 
 (defun ansys-start-ansys ()		;NEW
   "Start an Ansys run (when no run is already active).

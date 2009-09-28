@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-27 20:43:27 dieter"
+;; Time-stamp: "2009-09-28 13:03:15 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10058,6 +10058,7 @@ Signal an error if the keywords are incompatible."
  "! --- element definition ---" \n
  "ID=Steel" \n
  "et,ID,solid186 !3d, 20 node" \n
+ "etlist !list defined elements" \n
  "!! et,ID,solid185 !3d, 8 node" \n
  "!! et,ID,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric" \n
  "!! et,ID,plane182 !2d, 4 node"\n
@@ -10130,6 +10131,7 @@ Signal an error if the keywords are incompatible."
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
+  "mplist" \n
   "!! tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
   "!! yield_stress=140" \n
   "!! tangent_modulus=1400" \n
@@ -10207,6 +10209,7 @@ Signal an error if the keywords are incompatible."
   "!! --- magnetics ---" \n
   "!! fmagbc,'Component' ! flag force calculation" \n
   "!! bfa,all,js, ! js current density" \n
+  "bflist" \n
   "!! dl,all,,asym ! flux parallel to lines" \n
   "!! nsel,s,ext ! select exterior nodes" \n
   "!! dsym,asym ! flux parallel to lines"
@@ -11058,12 +11061,9 @@ Argument END is the end of the region."
 
 (defun ansys-start-ansys ()		;NEW
   (interactive)
-  (setq ansys-license "bla"
-	ansys-license-file "bla"
-	ansys-lmutil-program "bla")
   (let* ()
   (setq ansys-process "Ansys")
-  (make-comint "Ansys" "gnuplot")
+  (setq ansys-buffer (make-comint "Ansys" ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
   (message "Started Ansys run")))
 
 (defun ansys-start-ansys ()		;NEW

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-30 14:55:32 uidg1626"
+;; Time-stamp: "2009-09-30 23:29:16 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -11097,6 +11097,7 @@ Argument END is the end of the region."
   (save-excursion
     (set-buffer ansys-process-buffer)
     (setq comint-prompt-regexp "POST1:\\|PREP7:\\|SOLU:\\|BEGIN:\\|POST26:"
+	  font-lock-defaults ((comint-prompt-regexp . font-lock-string-face))
 	  comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer))
     ))
 

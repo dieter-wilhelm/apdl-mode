@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-29 17:46:26 uidg1626"
+;; Time-stamp: "2009-09-30 14:55:32 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -11052,12 +11052,15 @@ Argument END is the end of the region."
     ;;    (lambda (w)
     ;;      (when (string= (buffer-name (window-buffer w)) "*Ansys*")
     ;;        (with-selected-window w (goto-char (point-max))))))
-    (setq mode-line-process (format ":%s" (process-status ansys-process)))
-    (force-mode-line-update)
+    ;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
+    ;; (force-mode-line-update)
     (display-buffer "*Ansys*" 'other-window)))
 
 (defun ansys-process-running-p ()
-  (string= "run" (process-status (get-process ansys-process-name)))) ;TODO
+  (let ((proc (get-process ansys-process-name)))
+    (if proc
+	(string= "run" (process-status proc))
+      nil)))
 
 ;; (defun ansys-update-mode-line ()
 ;;   (setq mode-line-process (format ":%s" (process-status ansys-process)))
@@ -11088,7 +11091,7 @@ Argument END is the end of the region."
   (setq ansys-process-name "Ansys")
   (setq comint-use-prompt-regexp t)
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
-  (comint-send-string (get-process ansys-process-name) "\n")
+;  (comint-send-string (get-process ansys-process-name) "\n")
   (message "Starting Ansys run, please wait...")
   (display-buffer ansys-process-buffer 'other-window)
   (save-excursion
@@ -11293,7 +11296,7 @@ displaying the license status."
 (defun ansys-replot ()			;NEW_C
   "Replot the Ansys interactive graphics screen."
   (interactive)
-  (unless (ansys-process-running-p))
+  (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
   (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
   (display-buffer "*Ansys*" 'other-window))

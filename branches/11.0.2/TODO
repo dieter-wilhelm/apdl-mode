@@ -1,14 +1,22 @@
 * Bugs:
 ** M-?: following a variable allocation with `='
-** fontification of ansys commands and variables still clashing
+** display-run-status
+
+* Priority
+o fontification of ansys commands and variables still clashing
+o mode line update
+o Skeleton preview write only
+o M-? for commented out variables
+o C-c C-c does not skip empty lines and comments this is not always
+  desirable -> make this optional
 
 - autoinsertion: choice between header only or header with  skeleton compilation
+- rework skeleton-header  
 - rework ansys-skeleton and documentation   
 - is outline-mode enabled, outline headers are not complete.
-- rework skeleton-header  
 
 * Interesting stuff   
-** *repeate command
+ * *repeate command
    
 * improve ansys-kill-buffer-query-function
   is it possible to quit Ansys in an orderly fashion?
@@ -26,9 +34,10 @@
 - Complete ansys-send-or-copy-above
 - substring-no-properties
 - C-c C-c currently does not work for large regions: check this!
-- Provide Ansys command completion in comint buffer
+- C-c C-c does not skip empty lines and comments
+- Provide Ansys command completion and command-help in comint buffer
 - Ansys process status is not working properly process-sentinel or some comint-hook?
-- pick up ansys-process when renaming buffer file and restarting
+- pick up ansys-process when RENAMING buffer file and restarting
   ansys-mode, otherwise process is without buffer
 - warn when abandoning macro file with an associated Ansys process,
   this should be redundant with Emacs 23.

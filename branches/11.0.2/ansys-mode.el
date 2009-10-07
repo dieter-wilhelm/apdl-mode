@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-09-30 23:29:16 dieter"
+;; Time-stamp: "2009-10-05 18:43:00 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -11094,23 +11094,12 @@ Argument END is the end of the region."
 ;  (comint-send-string (get-process ansys-process-name) "\n")
   (message "Starting Ansys run, please wait...")
   (display-buffer ansys-process-buffer 'other-window)
-  (save-excursion
-    (set-buffer ansys-process-buffer)
-    (setq comint-prompt-regexp "POST1:\\|PREP7:\\|SOLU:\\|BEGIN:\\|POST26:"
-	  font-lock-defaults ((comint-prompt-regexp . font-lock-string-face))
-	  comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer))
-    ))
+;  (switch-to-buffer ansys-process-buffer)
+  (other-window 1)
+  (setq comint-prompt-regexp "POST1:\\|PREP7:\\|SOLU_LS[0-9]+:\\|BEGIN:\\|POST26:")
+  (font-lock-add-keywords nil (list comint-prompt-regexp))
 
-(defun ansys-start-ansys ()		;NEW
-  (setq ansys-process-buffer (make-comint "Ansys" ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
-
-  ;; (make-local-variable 'comint-output-filter-functions)
-  ;; (setq comint-output-filter-functions
-  ;; 	(append comint-output-filter-functions
-  ;; 		'(comint-postoutput-scroll-to-bottom
-  ;; 		  ;gnuplot-protect-prompt-fn
-  ;; 		  )))
-
+	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
   )
 
 (defun ansys-start-ansys ()		;NEW
@@ -11183,9 +11172,9 @@ with the Ansys /EXIT,all command which saves all model data."
        "Do you want to exit the Ansys run?")
       (progn
 	(message "Trying to exit run ...")
-	(process-send-string ansys-process "finish $ /exit,all\n")
-	(setq mode-line-process (format ":%s" (process-status ansys-process)))
-	(force-mode-line-update))
+	(process-send-string (get-process ansys-process-name) "finish $ /exit,all\n"))
+	;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
+	;; (force-mode-line-update))
     (error "Exiting of Ansys run canceled")))
 
 ;;;###autoload
@@ -11281,8 +11270,10 @@ displaying the license status."
   (interactive)
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
+  (progn (comint-send-string (get-process ansys-process-name)
+		      "/show,X11c\n") ;valid in any processor
   (comint-send-string (get-process ansys-process-name)
-		       "/show,X11 \n /menu,grph") ;valid in any processor
+		       "/menu,grph\n")) ;valid in any processor
 ;  (display-buffer "*Ansys*" 'other-window)
   )
 

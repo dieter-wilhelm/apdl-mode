@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-05 18:43:00 uidg1626"
+;; Time-stamp: "2009-10-07 16:46:14 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9227,7 +9227,7 @@ comment with fixed goal column."
 	(error "Unmatched end keyword") ;FIXME: this is probably wrong
       (indent-line-to icol)
       (if (> relpos 0)
-	  (move-to-column (+ icol relpos))))))
+	  (move-to-column (truncate (+ icol relpos)))))))
 
 ;;;; Electric characters & friends
 
@@ -9338,7 +9338,7 @@ Skips past all empty - and comment lines."
     (setq temporary-goal-column (current-column)))
   (forward-line 1)
   (forward-comment (buffer-size))
-  (move-to-column temporary-goal-column)
+  (move-to-column (truncate temporary-goal-column))
   (setq arg (1- arg))
   (when (and (not (ansys-last-line-p))
 	     (/= arg 0))
@@ -9824,6 +9824,7 @@ Signal an error if the keywords are incompatible."
   "/title," _ \n
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot" \n
+  "!/cwd,DIR !changes working directory" \n
   \n)
 
 (define-skeleton ansys-skeleton-view-settings
@@ -11045,8 +11046,8 @@ Argument END is the end of the region."
 	   (end-of-line)
 	   (setq eol (point))
 	   (setq s (buffer-substring-no-properties bol eol))
-	   (forward-line)))
-					;(ansys-next-code-line) ;; not always desirable!
+	   ;(forward-line)))
+	   (ansys-next-code-line))) ;; not always desirable!
     (comint-send-string (get-process ansys-process-name) (concat s "\n"))
     ;;  (walk-windows
     ;;    (lambda (w)
@@ -11092,7 +11093,7 @@ Argument END is the end of the region."
   (setq comint-use-prompt-regexp t)
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 ;  (comint-send-string (get-process ansys-process-name) "\n")
-  (message "Starting Ansys run, please wait...")
+  (message "Starting Ansys run...")
   (display-buffer ansys-process-buffer 'other-window)
 ;  (switch-to-buffer ansys-process-buffer)
   (other-window 1)
@@ -11102,45 +11103,45 @@ Argument END is the end of the region."
 	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
   )
 
-(defun ansys-start-ansys ()		;NEW
-  "Start an Ansys run (when no run is already active).
-Ask for confirmation with some run particulars before actually
-starting the process."
-  (interactive)
-  (cond ((string= ansys-license "")
-	 (error "You must set the `ansys-license' variable"))
-	((string= ansys-license-file "")
-	 (error "You must set the `ansys-license-file' variable"))
-	((string= ansys-program "")
-	 (error "You must set the `ansys-program' variable")))
-  (when (and ansys-process (string= "run" (process-status ansys-process)))
-    (error "Ansys already running, won't start subsequent runs"))
-  (ansys-license)
-  (ansys-job)
-  (if (y-or-n-p
-       (concat
-	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
-      (message "Starting run...")
-    (error "Run canceled"))
-  (setenv "LM_LICENSE_FILE" ansys-license-file)
-  (setenv "PATH" (concat "/appl/ansys/ansys110/bin:" (getenv "PATH")))
-  (setq ansys-process
-	(start-process
-	 "ansys" "*Ansys*" ansys-program
-	 (concat "-p " ansys-license " -j " ansys-job)))
-  (display-buffer "*Ansys*" 'other-window)
-  ;;  (process-send-string ansys-process "\n") Ansys idiosynncrasy, skip
-  ;;the license agreement, normally harmless but not possible when
-  ;;there is a lock-file from a crashed run!
-  (message "Starting run...done, process status: %s, Id: %d"
-	   (process-status ansys-process)
-	   (process-id ansys-process))
-  (setq mode-line-process (format ":%s" (process-status ansys-process)))
-  (force-mode-line-update)
-  (walk-windows				;HINT: Markus Triska
-   (lambda (w)
-     (when (string= (buffer-name (window-buffer w)) "*Ansys*")
-       (with-selected-window w (goto-char (point-max)))))))
+;; (defun ansys-start-ansys ()		;NEW
+;;   "Start an Ansys run (when no run is already active).
+;; Ask for confirmation with some run particulars before actually
+;; starting the process."
+;;   (interactive)
+;;   (cond ((string= ansys-license "")
+;; 	 (error "You must set the `ansys-license' variable"))
+;; 	((string= ansys-license-file "")
+;; 	 (error "You must set the `ansys-license-file' variable"))
+;; 	((string= ansys-program "")
+;; 	 (error "You must set the `ansys-program' variable")))
+;;   (when (and ansys-process (string= "run" (process-status ansys-process)))
+;;     (error "Ansys already running, won't start subsequent runs"))
+;;   (ansys-license)
+;;   (ansys-job)
+;;   (if (y-or-n-p
+;;        (concat
+;; 	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
+;;       (message "Starting run...")
+;;     (error "Run canceled"))
+;;   (setenv "LM_LICENSE_FILE" ansys-license-file)
+;;   (setenv "PATH" (concat "/appl/ansys/ansys110/bin:" (getenv "PATH")))
+;;   (setq ansys-process
+;; 	(start-process
+;; 	 "ansys" "*Ansys*" ansys-program
+;; 	 (concat "-p " ansys-license " -j " ansys-job)))
+;;   (display-buffer "*Ansys*" 'other-window)
+;;   ;;  (process-send-string ansys-process "\n") Ansys idiosynncrasy, skip
+;;   ;;the license agreement, normally harmless but not possible when
+;;   ;;there is a lock-file from a crashed run!
+;;   (message "Starting run...done, process status: %s, Id: %d"
+;; 	   (process-status ansys-process)
+;; 	   (process-id ansys-process))
+;;   (setq mode-line-process (format ":%s" (process-status ansys-process)))
+;;   (force-mode-line-update)
+;;   (walk-windows				;HINT: Markus Triska
+;;    (lambda (w)
+;;      (when (string= (buffer-name (window-buffer w)) "*Ansys*")
+;;        (with-selected-window w (goto-char (point-max)))))))
 
 (defun ansys-kill-ansys ()		;NEW
   "Kill the current Ansys run under Emacs.
@@ -11155,9 +11156,9 @@ the function `ansys-exit-ansys'."
        "Do you want to kill the Ansys run?")
       (progn
 ;	(message "Killing run...")
-	(delete-process ansys-process)
+	(delete-process (get-process ansys-process-name))
 	(message "Killing run...done.")
-	(setq mode-line-process (format ":%s" (process-status ansys-process)))
+	(setq mode-line-process (format ":%s" (process-status (get-process ansys-process-name))))
 	(force-mode-line-update))
     (error "Killing of Ansys run canceled")))
 
@@ -11188,7 +11189,7 @@ variable."
   (if (string= ansys-help-file "")
       (error "You must set the `ansys-help-file' variable")
     (progn
-      (message "Starting the Ansys help system.")
+      (message "Starting the Ansys help system...")
       (cond
        (ansys-is-unix-system-flag
 	(start-process "ansys-help-file" nil ansys-help-file))
@@ -11197,8 +11198,8 @@ variable."
 
 ;; TODO: this function is obsolete with Emacs 23.2
 (defun ansys-kill-buffer-query-function ()
-  (if (or (string= (process-status ansys-process) "run")
-	  (string= (process-status ansys-process) "stop"))
+  (if (or (string= (process-status (get-process ansys-process-name)) "run")
+	  (string= (process-status (get-process ansys-process-name)) "stop"))
       (yes-or-no-p "Ansys process is active, quit buffer anyway? ")
     t))
 
@@ -11229,8 +11230,8 @@ variable."
           if PROCESS-NAME is not the name of an existing process."
   (interactive)
   (message "Ansys process status: %s, process identification No: %d"
-	   (process-status ansys-process)
-	   (process-id ansys-process)))
+	   (process-status (get-process ansys-process-name))
+	   (process-id (get-process ansys-process-name))))
 
 ;;;###autoload
 (defun ansys-license-status ()		;NEW

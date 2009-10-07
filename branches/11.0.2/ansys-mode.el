@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-07 16:46:14 uidg1626"
+;; Time-stamp: "2009-10-07 19:47:05 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10133,7 +10133,7 @@ Signal an error if the keywords are incompatible."
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
-  "mplist" \n
+  "!mplist,all" \n
   "!! mpplot !plots mat. against temperature" \n
   "!! tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
   "!! yield_stress=140" \n
@@ -10192,6 +10192,7 @@ Signal an error if the keywords are incompatible."
   \n
   "!! --- Loads ---" \n
   "!f,all,fx,1" \n
+  "!flist,all" \n
   \n
   "!! --- inertia relief ---" \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
@@ -10212,7 +10213,7 @@ Signal an error if the keywords are incompatible."
   "!! --- magnetics ---" \n
   "!! fmagbc,'Component' ! flag force calculation" \n
   "!! bfa,all,js, ! js current density" \n
-  "bflist" \n
+  "!bflist,all" \n
   "!! dl,all,,asym ! flux parallel to lines" \n
   "!! nsel,s,ext ! select exterior nodes" \n
   "!! dsym,asym ! flux parallel to lines"
@@ -11272,11 +11273,9 @@ displaying the license status."
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
   (progn (comint-send-string (get-process ansys-process-name)
-		      "/show,X11c\n") ;valid in any processor
-  (comint-send-string (get-process ansys-process-name)
-		       "/menu,grph\n")) ;valid in any processor
+		      "/show,X11c\n/menu,grph\n") ;valid in any processor
 ;  (display-buffer "*Ansys*" 'other-window)
-  )
+  ))
 
 (defun ansys-start-pzr-box ()		;NEW PanZoomRotate box
   "Start the Ansys Pan/Zoom/Rotate dialog box in interactive mode."

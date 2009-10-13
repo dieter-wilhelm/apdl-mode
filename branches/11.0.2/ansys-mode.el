@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-07 19:47:05 uidg1626"
+;; Time-stamp: "2009-10-13 15:31:46 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8006,7 +8006,7 @@ XVAROPT, Lab" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 ;   '(ansys-highlight) ;function searches user variables ; TODO BUG
    ansys-undocumented-commands
    ansys-elements
-   '(("\\(a\\)=" 1 nil t))
+   '(("\\([[:alpha:]][[:alnum:]_]\\{0,7\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 8 chars long)
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
       2 'font-lock-doc-face prepend))
    '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-13 15:31:46 uidg1626"
+;; Time-stamp: "2009-10-14 18:19:17 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -8705,7 +8705,7 @@ the following options:
   (make-local-variable 'kill-buffer-query-functions)
 
   ;; the following might become obselete with Emacs 23.2 (see TODO)
-  (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
+;;  (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
 
   ;; FIXME:
   ;;  (setq comment-fill-column 50)???
@@ -9823,7 +9823,7 @@ Signal an error if the keywords are incompatible."
   \n
   "/title," _ \n
   "/plopts,wp,1 !display working plane" \n
-  "/triad,rbot" \n
+  "/triad,rbot !off, orig, ltop, ..." \n
   "!/cwd,DIR !changes working directory" \n
   \n)
 
@@ -9831,13 +9831,13 @@ Signal an error if the keywords are incompatible."
   ""
   nil
   "!! --- view settings ---" \n
-  "!/view or /vup !viewing direction"_ \n
+  "!/view !viewing direction"_ \n
   "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "!/dist !magnification" \n
   "!/focus !focus point" \n
   "!/zoom,1,off !off:refit" \n
-  "!/auto !?" \n
-  "!/user,all !automatic fit mode"
+  "!/auto ! automatic fit mode" \n
+  "!/user ! keep last display scaling"\n
   \n)
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -11092,9 +11092,23 @@ Argument END is the end of the region."
   (interactive)
   (setq ansys-process-name "Ansys")
   (setq comint-use-prompt-regexp t)
+  (cond ((string= ansys-license "")
+	 (error "You must set the `ansys-license' variable"))
+	((string= ansys-license-file "")
+	 (error "You must set the `ansys-license-file' variable"))
+	((string= ansys-program "")
+	 (error "You must set the `ansys-program' variable")))
+  (when (ansys-process-running-p)
+    (error "Ansys already running, won't start subsequent runs"))
+  (ansys-license)
+  (ansys-job)
+  (if (y-or-n-p
+       (concat
+	"Start this Ansys run: (license type: " ansys-license ", jobname: " ansys-job ")? "))
+      (message "Starting the Ansys run...")
+    (error "Ansys run canceled"))
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 ;  (comint-send-string (get-process ansys-process-name) "\n")
-  (message "Starting Ansys run...")
   (display-buffer ansys-process-buffer 'other-window)
 ;  (switch-to-buffer ansys-process-buffer)
   (other-window 1)
@@ -11197,12 +11211,12 @@ variable."
        ((string= system-type "windows-nt")
 	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
 
-;; TODO: this function is obsolete with Emacs 23.2
-(defun ansys-kill-buffer-query-function ()
-  (if (or (string= (process-status (get-process ansys-process-name)) "run")
-	  (string= (process-status (get-process ansys-process-name)) "stop"))
-      (yes-or-no-p "Ansys process is active, quit buffer anyway? ")
-    t))
+;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
+;; (defun ansys-kill-buffer-query-function ()
+;;   (if (or (string= (process-status (get-process ansys-process-name)) "run")
+;; 	  (string= (process-status (get-process ansys-process-name)) "stop"))
+;;       (yes-or-no-p "Ansys process is active, quit buffer anyway? ")
+;;     t))
 
 (defun ansys-process-status ()		;NEW
   "Show the process status in the Emacs command line (minibuffer).

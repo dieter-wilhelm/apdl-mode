@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-14 18:19:17 uidg1626"
+;; Time-stamp: "2009-10-14 19:14:19 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -9754,11 +9754,13 @@ Signal an error if the keywords are incompatible."
     (save-excursion
       (set-buffer skeleton-buffer)
       ;(toggle-read-only -1)
+      (toggle-read-only 0)		;zero means switch off read-only
       (kill-region (point-min) (point-max))
       ;(ansys-skeleton-configuration)
 ;      (message skel)
       (call-interactively skel)
       (ansys-mode)
+      (toggle-read-only t)
       (set-buffer current-buffer)
       (display-buffer new-buffer-name 'other-window))))
 

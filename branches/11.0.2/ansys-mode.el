@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-14 19:14:19 uidg1626"
+;; Time-stamp: "2009-10-15 13:36:35 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -10304,6 +10304,10 @@ Signal an error if the keywords are incompatible."
   "/post1" \n
   "set,last" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
+  "!plnsol,s,eqv ! von Mises" \n
+  "!plnsol,s,1 ! maximum principle: Lamé" \n
+  "!plnsol,s,int ! stress intensity: Tresca" \n
+  "!plnsol,s,xy ! shear in xy-dir." \n
   \n
   "!! /dscale,,1 !do not scale (for nlgeom)" \n
   "!! /dscale,,auto !or 0:scale automatically" \n

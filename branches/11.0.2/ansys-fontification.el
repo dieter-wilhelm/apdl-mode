@@ -27,9 +27,10 @@
 ;; HINT: every line starting with an # will be ignored
 ;; 1.) command parameter help: copy file
 ;;     ansys/docu/dynpromptXXX.ans -> `ansys-dynpromptXXX.txt'
+;;     done for A12
 ;; 2.) elements: copy&pasted from the help documentation:
 ;;     -> `ansys_elementsXXX.txt'
-;; 3.) command keywords:
+;; 3.) command keywords: apdl * commands and regular Ansys commands
 ;;     copied from the ansys help ->`ansys_keywordsXXX.txt'
 ;;     kill /eof from the keywords (see: -font-lock-keywords)
 ;; 4.) parametric functions:
@@ -48,7 +49,7 @@
 ;; 1.) `ansys_undocumented_commands'
 ;; 2.) `ansys_written_out_commands'
 
-(setq Ansys-version "11.0")
+(setq Ansys-version "12.0")
 
 (defconst Ansys_undocumented_commands	;or macros?
   '(
@@ -199,6 +200,48 @@ Argument LIST is a list of ansys commands."
 		    '(3 (quote shadow) keep))
 		   tmp_list (cons tmp tmp_list)))
 	    ((> l 4);;long stuff
+	     (setq
+	      tmp2 (make_unique M)
+	      l2 (length tmp2)
+	      tmp
+	      (list
+	       (concat "\\(^\\|\\$\\)\\s-*\\("
+		       (asterisk tmp2) "\\)\\("
+		       (slice (substring M l2 l)) "\\)\\(\\w*\\)"
+		       ) 
+	       '(2 font-lock-type-face keep)
+	       '(3 font-lock-constant-face keep)
+	       '(4 (quote shadow) keep))
+	      tmp_list (cons tmp tmp_list)))))))
+
+;; 3 is for Ansys v12
+(defun Prepare_list3 (List)
+  "simplified fontification v12.
+Argument LIST is a list of ansys commands."
+  (let ( tmp tmp2 tmp_list l l2)
+    (message "Preparing Ansys font lock regexps...")
+    (dolist (M List tmp_list)
+      (setq l (length M))		;FIXME: cond is better
+      (cond ((written_out_p M)		
+	     (setq tmp
+		   (list
+		    ;; we take into account $ command sequences
+		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>") ;/*~ aren't word characters!
+		    '(2 font-lock-type-face keep))
+		   tmp_list (cons tmp tmp_list)))
+	    ((< l 4)			;shorter stuff
+	     (setq tmp
+		   (list
+		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>")	;condensed input line
+		    '(2 font-lock-type-face keep))
+		   tmp_list (cons tmp tmp_list)))
+	    ((= l 4)			;short stuff
+	     (setq tmp
+		   (list
+		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)")	;condensed input line
+		    '(2 font-lock-type-face keep)) 
+		   tmp_list (cons tmp tmp_list)))
+	    ((> l 4);;long stuff ;----- till here v12
 	     (setq
 	      tmp2 (make_unique M)
 	      l2 (length tmp2)

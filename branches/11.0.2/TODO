@@ -1,15 +1,16 @@
 * Bugs:
-** M-?: following a variable allocation with `='
-** display-run-status
+** buffer has no process: process-status is delicate! -> commented out -kill-buffer-query-f.
 
 * Priority
-o fontification of ansys commands and variables still clashing
+o C-c C-q sequences are not shown (and stored) in the comint buffer
 o mode line update
-o Skeleton preview write only
 o M-? for commented out variables
+o Mohr-Coulomb criterion
 o C-c C-c does not skip empty lines and comments this is not always
   desirable -> make this optional
+o M-?: following a variable allocation with `='
 
+- Skeleton preview write only, yes?
 - autoinsertion: choice between header only or header with  skeleton compilation
 - rework skeleton-header  
 - rework ansys-skeleton and documentation   
@@ -21,7 +22,6 @@ o C-c C-c does not skip empty lines and comments this is not always
 * improve ansys-kill-buffer-query-function
   is it possible to quit Ansys in an orderly fashion?
   what happens with the asynchronous process?
-
 ** This is osolete/redundant with Emacs 23.2:
   
  ** Killing a buffer with a running process now asks a confirmation.
@@ -29,12 +29,13 @@ o C-c C-c does not skip empty lines and comments this is not always
  `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
  setting the appropriate process flag with `set-process-query-on-exit-flag'.
 
+
 * improve Ansys interpreter buffer with `comint-mode'
    example: gnuplot-mode
-- Complete ansys-send-or-copy-above
-- substring-no-properties
-- C-c C-c currently does not work for large regions: check this!
+- substring-no-properties?
 - C-c C-c does not skip empty lines and comments
+  C-c C-c shouldn't send empty lines in regions, especially at the
+  end, to the solver.  Use a filter?
 - Provide Ansys command completion and command-help in comint buffer
 - Ansys process status is not working properly process-sentinel or some comint-hook?
 - pick up ansys-process when RENAMING buffer file and restarting
@@ -42,6 +43,7 @@ o C-c C-c does not skip empty lines and comments this is not always
 - warn when abandoning macro file with an associated Ansys process,
   this should be redundant with Emacs 23.
 - provide Ansys `y' request and carriage return? superflouous?
+   a single `y' does the trick
 - indicate with activation/inactivation of menu items that an
   asynchronous job is already running or not.
 - check for EXIT command and wait some time to update the mode line
@@ -52,8 +54,6 @@ o C-c C-c does not skip empty lines and comments this is not always
   o with background
   o maximum line
   o reset highlighting, when?
-- C-c C-c shouldn't send empty lines in regions, especially at the
-  end, to the solver.  Use a filter?
 
 * Dissect skeleton into smaller more useful subjects   
 - spider beams, _bolt.mac, screw.mac
@@ -76,7 +76,7 @@ o C-c C-c does not skip empty lines and comments this is not always
 
 * *set strings may be only 32 character long!
 * correct *set assignment printout
-* trigger timer when showing the ansys-comand-parametr-help
+* trigger a timer when showing the ansys-comand-parametr-help
 * add cmblock and cm assignments to the variable list
 
 * take care of setup procedure: v110/ansys/apdl/start110.ans

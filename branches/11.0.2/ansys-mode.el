@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-15 13:36:35 uidg1626"
+;; Time-stamp: "2009-10-15 18:03:05 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -89,7 +89,10 @@
 ;;   dynamic prompt)
 
 ;; * Keyword (case-sensitive) completion of commands, elements, get-
-;;   and parametric-functions (nearly 1900 Ansys symbols).
+;;   and parametric-functions (nearly 1900 Ansys symbols).  There
+;;   might be undocumented entities, especially legacy elements, which
+;;   do not highlight or complete.  Please have a look in the Ansys
+;;   documentation for their current-technology replacements.
 
 ;; * Auto-indentation of looping and conditional blocks
 

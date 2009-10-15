@@ -26,24 +26,26 @@
 
 ;; HINT: every line starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-;;     ansys/docu/dynpromptXXX.ans -> `ansys-dynpromptXXX.txt'
-;;     done for A12
+;;     ansys/docu/dynpromptXXX.ans -> `ansys-dynprompt.txt'
+;;     done for v12
 ;; 2.) elements: copy&pasted from the help documentation:
-;;     -> `ansys_elementsXXX.txt'
+;;     -> `ansys_elements.txt'
+;;     done: v12
 ;; 3.) command keywords: apdl * commands and regular Ansys commands
-;;     copied from the ansys help ->`ansys_keywordsXXX.txt'
+;;     copied from the ansys help ->`ansys_keywords.txt'
+;;     done: v12
 ;;     kill /eof from the keywords (see: -font-lock-keywords)
 ;; 4.) parametric functions:
 ;;     ansys help chapter 3.8, trigonometric functions and their inverse functions must
 ;;     be separated by hand!!! The same applies to hyperbolic functions
-;;     ->`ansys_parametric_functionsXXX.txt'
+;;     ->`ansys_parametric_functions.txt'
 ;; 5.) get functions: ansys 11.0 APDL Programmer's guide Appendix B.
 ;;     i) one has to comment (#) out some headlines!!!
 ;;     ii) Prepend some string function descriptions with their name e.g.
 ;;         StrOut = STRCAT(... with STRCAT(...)
-;;     get function summary ->`ansys_get_functionsXXX.txt'
+;;     get function summary ->`ansys_get_functions.txt'
 ;; 6.) _RETURN values from APDL guide chapter 4.6 (Ansys 11)
-;;     -> `ansys_return_valuesXXX.txt'	       
+;;     -> `ansys_return_values.txt'	       
 ;;     
 ;;; necessary variables:
 ;; 1.) `ansys_undocumented_commands'

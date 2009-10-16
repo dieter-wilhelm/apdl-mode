@@ -1,13 +1,23 @@
 * Bugs:
-** buffer has no process: process-status command is delicate! -> commented out -kill-buffer-query-f.
+** buffer has no process: process-status command is brittle! -> commented out -kill-buffer-query-f.
 
-* v12.1:
+* v12.0.1:
+  - makefile for ansys-mode version packages ansys-mode.tar.bz2
+  - load or load-file, what happens with compilation and autoload?
+    o a-skeleton.el
+    o a-process.el
+    o a-keyword.el
+    (a-mode.el)
+    TODO, README, INSTALLATION?, defaults.el?
   - check whether undocumented commands are still working in v12
     document this contradicting behaviour (legacy elements)
   - why an alist with cons cells for try-completion, a list of strings
     should suffice?
+  - update wiki, gcode
 
 * Priority
+  - generalise C-c C-c when no process is running (copy line/region)
+  - filter output of -license-status
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
   - M-? for commented out variables
@@ -15,6 +25,9 @@
   - C-c C-c does not skip empty lines and comments this is not always
     desirable -> make this optional
   - M-?: following a variable allocation with `='
+  - change C-h behaviour advising functions
+  - For non-comint-mode usage: display .log file with tail mode
+  - explain what a "logical block" means
   - Skeleton preview write only? currently: write only
   - autoinsertion: choice between header only or header with  skeleton compilation
   - rework skeleton-header  
@@ -50,7 +63,6 @@
      asynchronous job is already running or not.
    - check for EXIT command and wait some time to update the mode line
      run status correctly 
-   - For non-comint-mode usage: display .log file with tail mode
    - show/mark sent lines in apdl file C-c C-u, C-c C-c,
      o with fringes
      o with background
@@ -131,7 +143,7 @@ checkdoc
 byte-compile-file
 
 
-11.0.1
+12.0.1
 
 1.) - comint-mode
     - proper skeletons
@@ -139,22 +151,27 @@ byte-compile-file
 --
 3.) feature freeze & checking
 4.) publishing
+5.) ask Alwin for taking part in analysts' meeting
+
 -- April
 
 User's meeting
+October/November
 
 1.) Need LICENSE!
      Ansys academic solutions for V11
 
--- Very brief introduction: Why not Emacs, even on Windows?
+-- Very brief introduction: Why not Emacs, especially on Windows?
+before Microsoft was founded, working on all current OS
+bells and whistle of an editor (drop file into E)
 -- casual APDL file viewer (whetting the appetite)
    convenience features?
    fontification
-   menu
+   Ansys menu
    command-help   M-n/p M-?
-   code navigation (number blocks in .inp)
+   code navigation (number blocks in .inp) C-c {
 -- APDL hacking
-   	C-c C-u -- copy-from-above
+   	C-c C-u, C-c C-c
    	$ needs space(s)?
 	,commands
 	colon loop: e.g.: lfillt,(1:3),(2:4),Rad
@@ -163,15 +180,18 @@ User's meeting
 	display user variables
 	*go not for interactive mode! -> *if *else *endif
 		commenting out
-	copy upper code C-c C-u
 	selecting blocks C-M-a/b setting mark!
 	loading help navigator
-	display license status (optionally filtered)
+	display license status (optionally filtered not yet)
 -- hardcore Ansys/APDL user
+        switch off menu, tools, scroll-bar
    	Ansys mode help
+        C-c ] -- -close-block
 	Emacs-calc
+	-license-status C-c C-l
         online Ansys/Emacs process and debugging environment
-	tail mode of *.err
+	C-c C-u, C-c C-c,  C-c C-q
+	tail mode of *.err C-c C-e
 	abort file
 	bookmarks?
 ------------------------------
@@ -186,11 +206,12 @@ User's meeting
 * Sluggish font-locking? 12.0.1
 - choice of fontification level
 - simplify: multi file package -> rework of makefile -> README
-   (require 'feature)
+   (require 'feature) -> better load-file?
 
 * Rework README generation (from "makefile")
    
 * implement C-c { and } like C-x z (repeate) zzzz
+
    
 * Emacs: old-style backquotes?
    used in the old template macro system

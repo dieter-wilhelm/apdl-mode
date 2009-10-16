@@ -1,78 +1,80 @@
 * Bugs:
-** buffer has no process: process-status is delicate! -> commented out -kill-buffer-query-f.
+** buffer has no process: process-status command is delicate! -> commented out -kill-buffer-query-f.
+
+* v12.1:
+  - check whether undocumented commands are still working in v12
+    document this contradicting behaviour (legacy elements)
+  - why an alist with cons cells for try-completion, a list of strings
+    should suffice?
 
 * Priority
-o C-c C-q sequences are not shown (and stored) in the comint buffer
-o mode line update
-o M-? for commented out variables
-o Mohr-Coulomb criterion
-o C-c C-c does not skip empty lines and comments this is not always
-  desirable -> make this optional
-o M-?: following a variable allocation with `='
-
-- Skeleton preview write only, yes?
-- autoinsertion: choice between header only or header with  skeleton compilation
-- rework skeleton-header  
-- rework ansys-skeleton and documentation   
-- is outline-mode enabled, outline headers are not complete.
+  - C-c C-q sequences are not shown (and stored) in the comint buffer
+  - mode line update
+  - M-? for commented out variables
+  - Mohr-Coulomb criterion
+  - C-c C-c does not skip empty lines and comments this is not always
+    desirable -> make this optional
+  - M-?: following a variable allocation with `='
+  - Skeleton preview write only? currently: write only
+  - autoinsertion: choice between header only or header with  skeleton compilation
+  - rework skeleton-header  
+  - rework ansys-skeleton and documentation   
+  - is outline-mode enabled, outline headers are not complete.
 
 * Interesting stuff   
  * *repeate command
    
 * improve ansys-kill-buffer-query-function
-  is it possible to quit Ansys in an orderly fashion?
-  what happens with the asynchronous process?
 ** This is osolete/redundant with Emacs 23.2:
+   is it possible to quit Ansys in an orderly fashion?
+   what happens with the asynchronous process?
   
- ** Killing a buffer with a running process now asks a confirmation.
- You can remove this query in two ways: either removing
- `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
- setting the appropriate process flag with `set-process-query-on-exit-flag'.
+** Killing a buffer with a running process now asks a confirmation.
+   You can remove this query in two ways: either removing
+   `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
+   setting the appropriate process flag with `set-process-query-on-exit-flag'.
 
 
 * improve Ansys interpreter buffer with `comint-mode'
    example: gnuplot-mode
-- substring-no-properties?
-- C-c C-c does not skip empty lines and comments
-  C-c C-c shouldn't send empty lines in regions, especially at the
-  end, to the solver.  Use a filter?
-- Provide Ansys command completion and command-help in comint buffer
-- Ansys process status is not working properly process-sentinel or some comint-hook?
-- pick up ansys-process when RENAMING buffer file and restarting
-  ansys-mode, otherwise process is without buffer
-- warn when abandoning macro file with an associated Ansys process,
-  this should be redundant with Emacs 23.
-- provide Ansys `y' request and carriage return? superflouous?
-   a single `y' does the trick
-- indicate with activation/inactivation of menu items that an
-  asynchronous job is already running or not.
-- check for EXIT command and wait some time to update the mode line
-  run status correctly 
-- For non-comint-mode usage: display .log file with tail mode
-- show/mark sent lines in apdl file C-c C-u, C-c C-c,
-  o with fringes
-  o with background
-  o maximum line
-  o reset highlighting, when?
+   - substring-no-properties?
+   - Provide Ansys command completion and command-help in comint buffer
+   - Ansys process status is not working properly process-sentinel or some comint-hook?
+   - pick up ansys-process when RENAMING buffer file and restarting
+     ansys-mode, otherwise process is without buffer
+   - warn when abandoning macro file with an associated Ansys process,
+     this should be redundant with Emacs 23.
+   - provide Ansys `y' request and carriage return? superflouous?
+     a single `y' does the trick
+   - indicate with activation/inactivation of menu items that an
+     asynchronous job is already running or not.
+   - check for EXIT command and wait some time to update the mode line
+     run status correctly 
+   - For non-comint-mode usage: display .log file with tail mode
+   - show/mark sent lines in apdl file C-c C-u, C-c C-c,
+     o with fringes
+     o with background
+     o maximum line
+     o reset highlighting, when?
 
 * Dissect skeleton into smaller more useful subjects   
-- spider beams, _bolt.mac, screw.mac
-- optional setting of (Ansys-mode-)bookmarks?   
-- rework concept with respect to the Ansys menu structure
-  sort skeletons in menu
-- Make skeleton-header properly working (info "(autotype)")
-- Optimise templates: completing-read, read-from-minibuffer abbrev `d
-  does not indent properly in another block level Implement choice when
-  completing *IF commands (*ELSEIF or *ENDIF ?THEN?).
-- Warn when including skeleton in read only file.
-- skeleton for numbering ansys-skeleton-numbering-controls
-(skeleton-insert docu)
-- suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
-- negation 
-- skeleton for skipping code	 *if,then *else*endif
-   if selection: wrap around and indenting
-  *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
-   must *go:label be unambiguous?
+  - spider beams, _bolt.mac, screw.mac
+  - optional setting of (Ansys-mode-)bookmarks?   
+  - rework concept with respect to the Ansys menu structure
+    sort skeletons in menu
+  - Make skeleton-header properly working (info "(autotype)")
+  - Optimise templates: completing-read, read-from-minibuffer abbrev `d
+    does not indent properly in another block level Implement choice when
+    completing *IF commands (*ELSEIF or *ENDIF ?THEN?).
+  - Warn when including skeleton in read only file.
+  - skeleton for numbering ansys-skeleton-numbering-controls
+    (skeleton-insert docu)
+  - suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
+  - negation 
+  - skeleton for skipping code	 *if,then *else*endif
+    if selection: wrap around and indenting
+    *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
+    must *go:label be unambiguous?
 
 * *set strings may be only 32 character long!
 * correct *set assignment printout
@@ -252,7 +254,7 @@ b.) splice any input line behind the BEGIN: symbol in the *Ansys* buffer
 
 remove vestiges of ansys-mod.el for making ansys-mode.el GPL
 proof.  Check whether octave-mod.el really is GPL compliant, use
-octave-mod.el from 1997, kill octave-mod.el afterwards in makefile
+-ctave-mod.el from 1997, kill octave-mod.el afterwards in makefile
 read every symbol docu string ->NEW_C or _C or OCTAVE_C
 
 ==== Less Important ====
@@ -265,7 +267,7 @@ generalise -insert-pi in code line ($ PI=...), in comment (\n
 Pi=...)
 
 replace/extend column-ruler with ruler-mode or ruler implemented as
-overlay in buffer
+-verlay in buffer
 
 Capitalized variable fontification clashes with small letter Ansys
 predicates.  Fx=3 -> *GET,Fx,fsum,,item,fx, make fontification case
@@ -293,8 +295,8 @@ sort customisation options for processes into subgroup
 provide a list of options for the -license function, set this
 function in the defcustom lmstat -a etc.
 
-Optimisation (look at regexp with *), nested repetition regexp
-operators
+-ptimisation (look at regexp with *), nested repetition regexp
+-perators
 
 -start-ansys
 finding an Ansys /filnam command in current macro file
@@ -354,7 +356,7 @@ highlighting of plot commands inside the /GCMD command
 Warn when - unintentionally - arguments are used for Ansys commands
 which do not allow arguments.  Or implement some auto-newline
 feature?  But problematic in condensed command lines
-or when applying code comments!
+-r when applying code comments!
 
 Indicate that character parameters are restricted to only 8
 characters.
@@ -362,7 +364,7 @@ characters.
 DEFSUBSTs with DEFUNs inside aren't particularly helpful?
 
 ansys-indicate-empty-lines also for non-window systems (with
-overlays)
+-verlays)
 
 see www.apdl.de for further ideas and extensions
 

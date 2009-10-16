@@ -1,6 +1,6 @@
 ;;; ansys-fontification.el --- produces keywords for fontification
 
-;; Copyright (C) 2006 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2009 H. Dieter Wilhelm
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -175,46 +175,46 @@ STRING is more than 4 characters
     (dotimes (i l s)
       (setq s (concat s "\\)?")))))
 
-(defun Prepare_list2 (List)
-  "Bla.
-Argument LIST is a list of ansys commands."
-  (let ( tmp tmp2 tmp_list l l2)
-    (message "Preparing Ansys font lock regexps...")
-    (dolist (M List tmp_list)
-      (setq l (length M))		;FIXME: cond is better
-      (cond ((written_out_p M)		
-	     (setq tmp
-		   (list
-		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>") ;/*~ aren't word characters!
-		    '(2 font-lock-type-face keep))
-		   tmp_list (cons tmp tmp_list)))
-	    ((< l 4)			;shorter stuff
-	     (setq tmp
-		   (list
-		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>")	;condensed input line
-		    '(2 font-lock-type-face keep))
-		   tmp_list (cons tmp tmp_list)))
-	    ((= l 4)			;short stuff
-	     (setq tmp
-		   (list
-		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\(\\w*\\)")	;condensed input line
-		    '(2 font-lock-type-face keep)
-		    '(3 (quote shadow) keep))
-		   tmp_list (cons tmp tmp_list)))
-	    ((> l 4);;long stuff
-	     (setq
-	      tmp2 (make_unique M)
-	      l2 (length tmp2)
-	      tmp
-	      (list
-	       (concat "\\(^\\|\\$\\)\\s-*\\("
-		       (asterisk tmp2) "\\)\\("
-		       (slice (substring M l2 l)) "\\)\\(\\w*\\)"
-		       ) 
-	       '(2 font-lock-type-face keep)
-	       '(3 font-lock-constant-face keep)
-	       '(4 (quote shadow) keep))
-	      tmp_list (cons tmp tmp_list)))))))
+;; (defun Prepare_list2 (List)
+;;   "Bla.
+;; Argument LIST is a list of ansys commands."
+;;   (let ( tmp tmp2 tmp_list l l2)
+;;     (message "Preparing Ansys font lock regexps...")
+;;     (dolist (M List tmp_list)
+;;       (setq l (length M))		;FIXME: cond is better
+;;       (cond ((written_out_p M)		
+;; 	     (setq tmp
+;; 		   (list
+;; 		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>") ;/*~ aren't word characters!
+;; 		    '(2 font-lock-type-face keep))
+;; 		   tmp_list (cons tmp tmp_list)))
+;; 	    ((< l 4)			;shorter stuff
+;; 	     (setq tmp
+;; 		   (list
+;; 		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>")	;condensed input line
+;; 		    '(2 font-lock-type-face keep))
+;; 		   tmp_list (cons tmp tmp_list)))
+;; 	    ((= l 4)			;short stuff
+;; 	     (setq tmp
+;; 		   (list
+;; 		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\(\\w*\\)")	;condensed input line
+;; 		    '(2 font-lock-type-face keep)
+;; 		    '(3 (quote shadow) keep))
+;; 		   tmp_list (cons tmp tmp_list)))
+;; 	    ((> l 4);;long stuff
+;; 	     (setq
+;; 	      tmp2 (make_unique M)
+;; 	      l2 (length tmp2)
+;; 	      tmp
+;; 	      (list
+;; 	       (concat "\\(^\\|\\$\\)\\s-*\\("
+;; 		       (asterisk tmp2) "\\)\\("
+;; 		       (slice (substring M l2 l)) "\\)\\(\\w*\\)"
+;; 		       ) 
+;; 	       '(2 font-lock-type-face keep)
+;; 	       '(3 font-lock-constant-face keep)
+;; 	       '(4 (quote shadow) keep))
+;; 	      tmp_list (cons tmp tmp_list)))))))
 
 ;; 3 is for Ansys v12
 (defun Prepare_list3 (List)
@@ -243,20 +243,13 @@ Argument LIST is a list of ansys commands."
 		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)")	;condensed input line
 		    '(2 font-lock-type-face keep)) 
 		   tmp_list (cons tmp tmp_list)))
-	    ((> l 4);;long stuff ;----- till here v12
-	     (setq
-	      tmp2 (make_unique M)
-	      l2 (length tmp2)
-	      tmp
-	      (list
-	       (concat "\\(^\\|\\$\\)\\s-*\\("
-		       (asterisk tmp2) "\\)\\("
-		       (slice (substring M l2 l)) "\\)\\(\\w*\\)"
-		       ) 
-	       '(2 font-lock-type-face keep)
-	       '(3 font-lock-constant-face keep)
-	       '(4 (quote shadow) keep))
-	      tmp_list (cons tmp tmp_list)))))))
+	    ((> l 4) ;;long command names
+	     (setq tmp2 (make_unique M)
+		   l2 (length tmp2)
+		   tmp (list
+			(concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk tmp2) "\\)")
+				'(2 font-lock-type-face keep))
+		   tmp_list (cons tmp tmp_list)))))))
 
 (defun Ansys-initialize-completions ()
   "Create an alist for Ansys completions.
@@ -273,22 +266,19 @@ Function names are distinguished by `()'."
 		      (concat str "()"))
 		   Ansys_parametric_functions))))
 
-(let* ((dir "~/ansys-mode/")
-       (file1 (concat dir "ansys_keywords"))
-       (file2 (concat dir "ansys-dynprompt"))
-       (file3 (concat dir "ansys_elements"))
-       (file4 (concat dir "ansys_get_functions"))
-       (file5 (concat dir "ansys_parametric_functions"))
-       (buffer (find-file (concat dir "ansys-mode.el")))
+(let* ((dir "")
+       (file1 (concat dir "ansys_keywords.txt"))
+       (file2 (concat dir "ansys-dynprompt.txt"))
+       (file3 (concat dir "ansys_elements.txt"))
+       (file4 (concat dir "ansys_get_functions.txt"))
+       (file5 (concat dir "ansys_parametric_functions.txt"))
+       (buffer (find-file (concat dir "ansys-font-lock.el")))
        list
        elements)
   ;; ---------- command parameter help ----------
   (with-temp-buffer
     (insert-file-contents file1)
     (insert-file-contents file2)
-;;     (insert-file-contents file3)
-;;     (insert-file-contents file4)
-;;     (insert-file-contents file5)
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
@@ -296,29 +286,24 @@ Function names are distinguished by `()'."
     (while (re-search-forward "^\\(.\\w*\\>\\).*\n\\1.*" nil t)
       (add-to-list 'list (match-string 0) 'append)))
   (set-buffer buffer)
-  (goto-char (point-min))
-  (when (re-search-forward "(defconst\\s-+ansys-dynamic-prompt" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
+  (delete-region (point-min) (point-max))
+  ;; (goto-char (point-min))
   (insert (concat
 	   "(defconst ansys-dynamic-prompt ;ansys/docu/dynprompt"
 	   Ansys-version ".ans\n'"))
   (setq print-length nil)		;nil: print all members of list
   (prin1 list buffer)
-  (insert "\n\"Help strings for the parameters of Ansys keywords.\"\n)")
+  (insert "\n\"Help strings for the parameters of Ansys keywords.\"\n)\n")
   (message "command parameter help...done")
   ;; no formatting, it interferes with the output!
-  
+
   ;; ---------- undocumented commands ----------
   (goto-char (point-min))
-  (when (re-search-forward "(defconst\\s-+ansys-undocumented-commands" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
   (insert "(defconst ansys-undocumented-commands\n'")
-  (prin1 Ansys-undocumented-commands buffer)
+  (prin1 Ansys_undocumented_commands buffer)
   (insert "\n\"Ansys commands not documented in the manuals.
 Seen mainly in Workbench output files and Ansys verification
-models.\"\n)")
+models.\"\n)\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "undocumented commands...done")
@@ -333,17 +318,14 @@ models.\"\n)")
     (goto-char (point-min))
     (while (re-search-forward "^\\w+\\>" nil t)
       (add-to-list 'list (match-string 0) 'append)))
-  (setq Ansys_elements list)
+  ;; (setq Ansys_elements list)
   (set-buffer buffer)
   (goto-char (point-min))
-  (when (re-search-forward "(defconst\\s-+ansys-elements" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
   (insert (concat
 	   "(defconst ansys-elements\n'"))
   (setq print-length nil)		;nil: print all members of list
-  (prin1 (Ansys-elements list) buffer)
-  (insert "\n\"Ansys elements.\"\n)")
+ (prin1 (Ansys-elements list) buffer)
+  (insert "\n\"Ansys element library.\"\n)\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "elements...done")
@@ -359,16 +341,13 @@ models.\"\n)")
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
   (set-buffer buffer)
-  (setq Ansys_get_functions list)
   (goto-char (point-min))
-  (when (re-search-forward "(defconst\\s-+ansys-get-functions" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
   (insert (concat
 	   "(defconst ansys-get-functions\n'"))
   (setq print-length nil)		;nil: print all members of list
+  (setq Ansys_get_functions list)	;we need this variable for the completions!
   (prin1 (Ansys-get-functions list) buffer)
-  (insert "\n\"Ansys get functions.\"\n)")
+  (insert "\n\"Ansys get functions.\"\n)\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "get-functions...done")
@@ -384,16 +363,13 @@ models.\"\n)")
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
   (set-buffer buffer)
-  (setq Ansys_parametric_functions)
   (goto-char (point-min))
-  (when (re-search-forward "(defconst\\s-+ansys-parametric-functions" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
   (insert (concat
 	   "(defconst ansys-parametric-functions\n'"))
   (setq print-length nil)		;nil: print all members of list
+  (setq Ansys_parametric_functions list) ;we need this later for completions!
   (prin1 (Ansys-parametric-functions list) buffer)
-  (insert "\n\"Ansys parametric functions.\"\n)")
+  (insert "\n\"Ansys parametric functions.\"\n)\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "parametric functions...done")
@@ -412,22 +388,16 @@ models.\"\n)")
   (setq Ansys_commands list)
   (goto-char (point-min))
 ;  (debug)
-  (when (re-search-forward "(defconst\\s-+ansys-commands" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
   (insert "(defconst ansys-commands\n'")
   (setq print-length nil)		;nil: print all members of list
-  (prin1 (Prepare_list2 list) buffer)
-  (insert "\n\"Ansys keywords\"\n)")
+  (prin1 (Prepare_list3 list) buffer)
+  (insert "\n\"Ansys keywords\"\n)\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "keywords...done")
   
   ;; ---------- completions ----------
   (goto-char (point-min))
-  (when (re-search-forward "(defvar\\s-+ansys-completion-alist" nil t)
-      (beginning-of-defun)
-      (kill-sexp))
   (insert "(defvar ansys-completion-alist\n'")
   (setq print-length nil)		;nil: print all members of list
   (prin1 (Ansys-initialize-completions) buffer)
@@ -435,10 +405,10 @@ models.\"\n)")
 Each element looks like (VAR . VAR), where the car and cdr
 are the same symbol (an Ansys command or variable name).  By
 default keywords, get-functions, parametric-function and elements
-are completed.\"\n)")
+are completed.\"\n)\n")
   (beginning-of-defun)
   (fill-paragraph nil)
-  (message "completions...done\n Ansys formatting completed.")
+  (message "completions...done\n Ansys font-lock formatting done.")
 ;  (message (car list))
 ;  (save-buffer)
   )

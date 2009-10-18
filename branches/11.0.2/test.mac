@@ -1,0 +1,100 @@
+!@ --- configuration ---
+! *afun,deg ! trig. functions accept angle arguments
+*afun,rad
+True = 1
+False = 0
+
+/title,
+/plopts,wp,1 !display working plane
+/triad,rbot
+!/cwd,DIR !changes working directory
+!@ --- preprocessing ---
+!@@ -- geometry --
+/prep7
+rectng,X1,X2,Y1,Y2 ! 2d rectangle
+!!arsym,y,all ! reflection of areas
+Yc = 0
+R1=4
+R2=20
+N = 14.
+Alpha1=-360./(2*N)
+Alpha2=+360./(2*N)
+Depth=30
+cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder
+!@@ --- booleans ---
+aovlap,all ! overlap areas
+asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities!! /pnum,area,1 $ aplot
+!@@ -- bc --
+!@ --- postprocessing ---
+!@@ -- post 1 --
+/post1
+set,last
+plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges
+
+!! /dscale,,1 !do not scale (for nlgeom)
+!! /dscale,,auto !or 0:scale automatically
+!! !*get,Ds,graph,WN,dscale,dmult
+!! /contour,,ncont,min,inc,max
+!! /contour,,auto !switch off user contours
+!! /edge,,1 !1:display elements in contour plots
+!! /edge,,0 !0:switch off display of elements in contour plots
+!! /plopts,minm,off !switch off min-max symbols
+!! /plopts,minm,on
+!! /pbc,rfor,,1 !1:show reaction f. symbols
+!! /pbc,rfor,,0
+!! /dist,,1/2,1 !enlarge twice
+!! /noerase ! don't erase screen between plots
+!! erase!! /triad,rbot ! coordinate system to right bot
+!! /plopts,wp ! switch off working plane
+!! /plopts,minm ! switch off min max
+
+!! -- graphics output & invert background colour --
+!/RGB,index,100,100,100,0
+!/RGB,index,0,0,0,15
+!/show,png !creates jobnameXXX.png files
+!pngr !additional options
+!plvect,B
+!noerase
+!lplot
+!/show,close
+!erase
+
+/efacet,2
+!psdisp,0
+!/graphics,full ! results averaging also from interior
+!pletab,Pene
+plls,Pene,Pene !line element results
+!!! --- magnetics ---
+!! plf2d,27 ! flux lines, equipotentials
+!! plvect,b,! induction vector plot
+!! fmagsum,'component_name'
+
+nldpost,nrre,stat !element information nonlinear
+plnsol,nrre,,,,001 !plot residual file .nr001 
+!! etable,Pene,cont,pene
+!! etable,chat,cont,cnos
+!! etable,cpre,cont,pres
+!! etable,Slid,cont,slide
+!! etable,St,cont,stat	 !3-closed sticking
+!! 			 !2-closed sliding
+!! 			 !1-open but near
+!! 			 !0-open and far, outside pinball
+set,list
+set,last!first
+plnsol,s,1
+!antime
+!andata
+!anmres !multiple result files
+
+!! cycexpand,on ! graphical expansion
+
+
+!********************************************************************************
+!*                                                                              *
+C*** test.mac                                                                   *
+!*                                                                              *
+!*                                                                              *
+!*                                                                              *
+!*   Called by: !! ------------------------------
+!@@ -- post 26 --
+

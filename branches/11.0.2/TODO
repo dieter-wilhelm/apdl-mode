@@ -4,23 +4,34 @@
 
 * v12.0.1:
   - load or load-file, what happens with compilation and autoload?
-    o a-skeleton.el
+    o a-skeleton.el -- license disclaimer
     o a-process.el
     o a-keyword.el
+    defaults.el
     (a-mode.el)
-    TODO, README, INSTALLATION?, defaults.el?
+    TODO, README, LICENSE
+  - provide different levels of fontifications
+    font-lock-maximum-decoration '((ansys-mode . 2) (t . t))
   - check whether undocumented commands are still working in v12
     document this contradicting behaviour (legacy elements)
   - why an alist with cons cells for try-completion, a list of strings
     should suffice?
-  - update wiki, gcode
+  - update emacs wiki, gcode wiki
+  - publication: ANSYS.net (Ansys !!! Sheldon Imaoka
+    <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
+    sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
+    <lkrueger@cadfem.de>), Alwin Perras
+    <alwin.perras@continental-corporation.com>, AnsysWB community,
+    Ansys users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the
+    Focus guys (PADT) <info@padtinc.com>, Holger Sparr
+    <sparr@mfkrs1.mw.tu-dresden.de>.
 
 * Priority
-  - strange C-c C-v output
   - generalise C-c C-c when no process is running (copy line/region)
   - filter output of -license-status
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
+  - strange C-c C-v output for *get assignment etc.
   - M-? for commented out variables
   - Mohr-Coulomb criterion
   - C-c C-c does not skip empty lines and comments this is not always

@@ -1,8 +1,8 @@
 * Bugs:
 ** buffer has no process: process-status command is brittle! -> commented out -kill-buffer-query-f.
+** fontification of "vars =" in comments!
 
 * v12.0.1:
-  - makefile for ansys-mode version packages ansys-mode.tar.bz2
   - load or load-file, what happens with compilation and autoload?
     o a-skeleton.el
     o a-process.el
@@ -16,6 +16,7 @@
   - update wiki, gcode
 
 * Priority
+  - strange C-c C-v output
   - generalise C-c C-c when no process is running (copy line/region)
   - filter output of -license-status
   - C-c C-q sequences are not shown (and stored) in the comint buffer
@@ -25,7 +26,6 @@
   - C-c C-c does not skip empty lines and comments this is not always
     desirable -> make this optional
   - M-?: following a variable allocation with `='
-  - change C-h behaviour advising functions
   - For non-comint-mode usage: display .log file with tail mode
   - explain what a "logical block" means
   - indent format line? M-j
@@ -392,7 +392,7 @@ see www.apdl.de for further ideas and extensions
 
 Emphasise better implied (colon) loops n,(1:6),(2:12:2) => n,1,2 $
 n,2,4 $... (little used, I know, but any ideas going beyond the
-colon?).  *REPEATE command might be interesting
+colon?).
 
 Code line restriction of 640 characters is not taken care of.
 Block level restriction of 20 levels of nested *DO loops (except

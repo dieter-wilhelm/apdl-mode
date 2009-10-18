@@ -25,6 +25,45 @@ cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder
 aovlap,all ! overlap areas
 asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities!! /pnum,area,1 $ aplot
 !@@ -- bc --
+! --- Boundary conditions --- 
+/prep7
+
+!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+
+!! --- displacements ---
+!nsel,s,loc,y,0
+!    ,a,loc,y,1
+!    ,r,loc,x,0
+d,all,all
+!dlist,all
+
+!! --- Loads ---
+!f,all,fx,1
+!flist,all
+
+!! --- inertia relief ---
+!! LOADS: nonlinearities aren't supported, fix all DOFs!
+!! irlf,1 !0: none,1:ir on,-1:printout masses
+nsel,s,loc,x,1
+
+!! --- corriolis effects ---
+!! cgmga,x,y,z, ! rotational velocity about globla coord. sys.
+!! dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+f,1,fx,1
+!flist ! list force nodes
+allsel
+/pbc,all,on
+!gplot
+!! --- magnetics ---
+!! fmagbc,'Component' ! flag force calculation
+!! bfa,all,js, ! js current density
+!bflist,all
+!! dl,all,,asym ! flux parallel to lines
+!! nsel,s,ext ! select exterior nodes
+!! dsym,asym ! flux parallel to lines
 !@ --- postprocessing ---
 !@@ -- post 1 --
 /post1

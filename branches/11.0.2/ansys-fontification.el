@@ -272,7 +272,7 @@ Function names are distinguished by `()'."
        (file3 (concat dir "ansys_elements.txt"))
        (file4 (concat dir "ansys_get_functions.txt"))
        (file5 (concat dir "ansys_parametric_functions.txt"))
-       (buffer (find-file (concat dir "ansys-font-lock.el")))
+       (buffer (find-file (concat dir "ansys-keyword.el")))
        list
        elements)
   ;; ---------- command parameter help ----------

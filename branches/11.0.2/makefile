@@ -7,7 +7,8 @@ PACKAGE := ansys-mode-$(VERSION).tar.bz2
 # EL_FILES := ansys-mode.el ansys-fontification.el \
 #   ansys-process.el default.el
 
-EL_FILES := ansys-mode.el ansys-keyword.el
+EL_FILES := ansys-mode.el ansys-keyword.el default.el \
+  ansys-skeleton.el ansys-process.el
 
 # FILES := makefile LICENSE README TODO \
 #   ansys-process.mac ansys-dynprompt.txt \

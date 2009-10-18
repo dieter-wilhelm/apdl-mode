@@ -28,11 +28,12 @@
   - change C-h behaviour advising functions
   - For non-comint-mode usage: display .log file with tail mode
   - explain what a "logical block" means
-  - Skeleton preview write only? currently: write only
-  - autoinsertion: choice between header only or header with  skeleton compilation
+  - indent format line? M-j
+  - autoinsertion: choice between header only or header with skeleton compilation
+  - is outline-mode enabled? no! make default?, outline headers are not complete in skeletons.
   - rework skeleton-header  
   - rework ansys-skeleton and documentation   
-  - is outline-mode enabled, outline headers are not complete.
+  - Skeleton preview write only? currently: write only
 
 * Interesting stuff   
  * *repeate command

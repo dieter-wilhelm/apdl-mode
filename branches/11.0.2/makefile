@@ -8,16 +8,14 @@ PACKAGE := ansys-mode-$(VERSION).tar.bz2
 #   ansys-process.el default.el
 
 EL_FILES := ansys-mode.el ansys-keyword.el default.el \
-  ansys-skeleton.el ansys-process.el
+  ansys-template.el ansys-process.el
 
-# FILES := makefile LICENSE README TODO \
+FILES := LICENSE README TODO 
 #   ansys-process.mac ansys-dynprompt.txt \
 #   ansys_return_values.txt ansys_elements.txt \
 #   ansys_keywords.txt ansys_parametric_functions.txt \
 #   ansys_get_functions.txt TAGS ansys-mode.mac \
 #   bug-report.sh padt.mac
-
-FILES := README TODO
 
 .PHONEY : ALL
 ALL : $(PACKAGE) TAGS
@@ -26,7 +24,7 @@ ALL : $(PACKAGE) TAGS
 # 	@cp -v $^ ~/tmp
 
 $(PACKAGE) : $(FILES) $(EL_FILES)
-	@tar -cjvf $@ $^
+	@tar -cjvf $@".tar.bz2" $^
 	@echo
 	@echo $@...done
 	@echo ------------------------------

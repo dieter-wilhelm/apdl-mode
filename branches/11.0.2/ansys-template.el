@@ -1,4 +1,34 @@
 
+;; Time-stamp: "2009-10-19 18:07:13 uidg1626"
+
+;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
+
+;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Maintainer: H. Dieter Wilhelm
+;; Created: 2006-02
+;; Version: 12.0.1
+;; Keywords: Languages, Convenience
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This code is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation; either version 3, or (at your
+;; option) any later version.
+;;
+;; This lisp script is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+;;
+;; Permission is granted to distribute copies of this lisp script
+;; provided the copyright notice and this permission are preserved in
+;; all copies.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, you can either send email to this
+;; program's maintainer or write to: The Free Software Foundation,
+;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+
+
 ;;; --- Macros and skeletons ---FIXME: redundant macros
 
 (defun ansys-display-skeleton (skel)	;NEW
@@ -73,7 +103,7 @@
 (define-skeleton ansys-skeleton-configuration
   ""
   nil
-  "!! --- configurations ---" \n
+  "!@ -- configurations --" \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
   "*afun,rad" \n
   "True = 1"  \n
@@ -88,7 +118,7 @@
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
-  "!! --- view settings ---" \n
+  "!@@ --- view settings ---" \n
   "!/view !viewing direction"_ \n
   "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "!/dist !magnification" \n
@@ -101,6 +131,7 @@
 (define-skeleton ansys-skeleton-import	;NEW
   "Import commands."
   nil
+  "!@@ -- cad import --" \n
   "!! ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " --- Cad Import --- " \n
   "!! ------------------------------" \n
@@ -120,6 +151,7 @@
 (define-skeleton ansys-skeleton-expand	;NEW
   "Symmetry expansion."
   nil
+  "!@@@ - symmetry expansion -" \n
   "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6" \n
   "!! /expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
   "!! /expand,18,axis,,,10 !axissymmetric expansion (rot. around y-axis)" \n
@@ -132,7 +164,7 @@
 (define-skeleton ansys-skeleton-contact-definition
   ""
   nil
-  "!! --- Contact pair defintion ---" \n
+  "!@@ -- contact pair defintion --" \n
   "Contact="_ \n
   "Target=Contact+1" \n
   "r,Contact" \n
@@ -188,7 +220,7 @@
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
-  "!! -- Contact generation --" \n
+  "!@@ -- Contact generation --" \n
   "!! type,Contact" \n
   "!! real,Contact" \n
   "!! esurf !,,top ![default] beam element's top direction" \n
@@ -222,7 +254,7 @@
 (define-skeleton ansys-skeleton-rigid-target ;NEW
   ""
   nil
-  "!! --- Rigid Target creation --- " \n
+  "!@@ -- rigid target creation -- " \n
   "Contact="_ \n
   "Target=Contact+1" \n
   "real,Contact" \n
@@ -244,6 +276,7 @@
 (define-skeleton ansys-skeleton-display-coord
   ""
   nil
+  "!@@@ - coordinate system display -" \n
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot"_ \n
   \n)
@@ -251,6 +284,7 @@
 (define-skeleton ansys-skeleton-working-plane
   ""
   nil
+  "!@@@ - working plane setup -" \n
   "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "!wpoffs,,-100 !x,y,z offset" \n
   "!wprota,0,90,0 !z,x,y axis of rotation" \n
@@ -262,6 +296,7 @@
 (define-skeleton ansys-skeleton-multi-plot
   ""
   nil
+  "!@@@ - multiplot controls -" \n
   "/gtype,all,node,0 !turn off nodes" \n
   "!/gcmd,1,u,sum"
   "gplot" \n
@@ -271,6 +306,7 @@
 (define-skeleton ansys-skeleton-numbering-controls
   ""
   nil
+  "!@@@ - numbering controls -" \n
   "/pnum,kp!,line,area,volu,node,elem,tabn,sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/replot"
@@ -280,7 +316,7 @@
 (define-skeleton ansys-skeleton-symbols
   ""
   nil
-  "!! --- symbols ---" \n
+  "!@@@ - symbol display -" \n
   "!! /pbc,all,,1 !bc symbols"\n
   "!! /psf !surface loads" \n
   "!! /pbf !body loads"
@@ -291,7 +327,7 @@
 (define-skeleton ansys-skeleton-element-table
   ""
   nil
-    "!! --------- etables ----------" \n
+  "!@@ -- etables --" \n
   "!! etables don't take into account higher element order!"
   "!! ---- Mohr-Coulomb failure criterion" \n
   "Z1 = 60 !tensile strength" \n
@@ -314,7 +350,7 @@
 (define-skeleton ansys-skeleton-element-def
  ""
  nil
- "! --- element definition ---" \n
+ "!@@ -- element definition --" \n
  "ID=Steel" \n
  "et,ID,solid186 !3d, 20 node" \n
  "etlist !list defined elements" \n
@@ -342,7 +378,7 @@
 (define-skeleton ansys-skeleton-meshing
   ""
   nil
-  "!! --- Meshing ---" \n
+  "!@@ -- meshing --" \n
   \n
   "!! mat,Steel" \n
   "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
@@ -364,7 +400,7 @@
 (define-skeleton ansys-skeleton-geometry
   ""
   nil
-  "!! --- Geometry ---"\n
+  "!@@ -- geometry --"\n
   "/prep7" \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
   "!!arsym,y,all ! reflection of areas "
@@ -378,7 +414,7 @@
   "Depth=30" \n
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
   \n
-  "!! --- booleans ---" \n
+  "!@@@ - booleans -" \n
   "!! aovlap,all ! overlap areas" \n
   "!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities"
   "!! /pnum,area,1 $ aplot" \n
@@ -387,7 +423,7 @@
 (define-skeleton ansys-skeleton-material-def
   ""
   nil
-  "!! --- Material definitions ---" \n
+  "!@@ -- material definitions --" \n
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
@@ -436,28 +472,28 @@
 (define-skeleton ansys-skeleton-bc
   ""
   nil
-  "! --- Boundary conditions --- " \n
+  "!@@ -- boundary conditions -- " \n
   "/prep7" \n
   \n
   "!kbc,1 ![0] (antype,static): ramped 1:stepped loading" \n
   \n
-  "!! --- displacements ---" \n
+  "!@@@ - displacements -" \n
   "!nsel,s,loc,y,0" \n
   "!    ,a,loc,y,1" \n
   "!    ,r,loc,x,0" \n
   "d,all,all" \n
   "!dlist,all" \n
   \n
-  "!! --- Loads ---" \n
+  "!@@@ - loads -" \n
   "!f,all,fx,1" \n
   "!flist,all" \n
   \n
-  "!! --- inertia relief ---" \n
+  "!@@@ - inertia relief -" \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
   "!! irlf,1 !0: none,1:ir on,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
   \n
-  "!! --- corriolis effects ---" \n
+  "!@@@ - corriolis effects -" \n
   "!! cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
   "!! dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
@@ -468,7 +504,7 @@
   "allsel" \n
   "/pbc,all,on" \n
   "!gplot" \n
-  "!! --- magnetics ---" \n
+  "!@@@ - magnetics -" \n
   "!! fmagbc,'Component' ! flag force calculation" \n
   "!! bfa,all,js, ! js current density" \n
   "!bflist,all" \n
@@ -480,7 +516,7 @@
 (define-skeleton ansys-skeleton-buckling
   ""
   nil
-  "!! --- buckling ---" \n
+  "!@@ - buckling -" \n
   \n
   "!! -- static --"
   "/solu" \n
@@ -504,7 +540,7 @@
 (define-skeleton ansys-skeleton-solve
   ""
   nil
-  "! --- Solution --- " \n
+  "!@ --- solution --- " \n
   \n
   "/solu" \n
   "allsel" \n
@@ -546,17 +582,17 @@
   "!! antyp,,rest,1,last"\n
   "!! time,1.2 !time at the end of load step" \n
   \n
-  "!! --- magnetics ---" \n
+  "!@@ -- magnetics --" \n
   "!! magsolv" \n
   \n
-  "!! --- cyclic symmetry ---" \n
+  "!@ -- cyclic symmetry --" \n
   "!! cycopt,status" \n
   \n)
 
 (define-skeleton ansys-skeleton-post1
   ""
   nil
-  "!! --- post 1 ---" \n
+  "!@ --- post 1 ---" \n
   "/post1" \n
   "set,last" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
@@ -627,6 +663,7 @@
 (define-skeleton ansys-skeleton-output-to-file
   ""
   nil
+  "!@@ -- output to file --" \n
   "!! /output,test.txt	 !write Ansys output to file" \n
   "!! /com,# dist from center | axial mag. induction" \n
   "!! /output ! redirect output to screen" \n
@@ -649,7 +686,8 @@
 (define-skeleton ansys-skeleton-select
   ""
   nil
-    "!! lowest face No of element E from selected nodes"
+  "!@@@ - select stuff -" \n
+  "!! lowest face No of element E from selected nodes"
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
   "!! node in POS of element E" \n
   "!! bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
@@ -667,7 +705,7 @@
 (define-skeleton ansys-skeleton-path-plot
   ""
   nil
-  "!! -- path plot --" \n
+  "!@@ -- path plot --" \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
@@ -683,7 +721,7 @@
 (define-skeleton ansys-skeleton-post26
   ""
   nil
-  "!! --- Time-History Postprocessing ---" \n
+  "!@ --- time-history postprocessing ---" \n
   \n
   "/post26" \n
   "!! numvar,200 !maximum No of variables"
@@ -717,6 +755,7 @@
 (defun ansys-skeleton-array ()
   "arrays"
   nil
+  "!@@ -- arrays --" \n
   "*dim,A,array,10,1" \n
   "*get,A(,x,,item,fx" \n
   \n

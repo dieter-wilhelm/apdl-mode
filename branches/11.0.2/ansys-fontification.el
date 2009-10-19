@@ -20,8 +20,6 @@
 ;; program's maintainer or write to: The Free Software Foundation,
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 
-;;; necessary files (best copied under Windows 8-/)
-
 ;; help also for get-functions, elements, 
 
 ;; HINT: every line starting with an # will be ignored
@@ -94,7 +92,7 @@ models."
 
     )
   "Commands which aren't allowed to be abbreviated and the solver
-  won't allow to append to."  )
+  won't allow characters appended to."  )
 
 (defun Ansys-elements (list)
       (mapcar

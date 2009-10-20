@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-10-19 18:07:13 uidg1626"
+;; Time-stamp: "2009-10-20 15:15:21 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -104,6 +104,7 @@
   ""
   nil
   "!@ -- configurations --" \n
+  \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
   "*afun,rad" \n
   "True = 1"  \n
@@ -119,6 +120,7 @@
   ""
   nil
   "!@@ --- view settings ---" \n
+  \n
   "!/view !viewing direction"_ \n
   "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "!/dist !magnification" \n
@@ -132,6 +134,7 @@
   "Import commands."
   nil
   "!@@ -- cad import --" \n
+  \n
   "!! ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " --- Cad Import --- " \n
   "!! ------------------------------" \n
@@ -152,6 +155,7 @@
   "Symmetry expansion."
   nil
   "!@@@ - symmetry expansion -" \n
+  \n
   "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6" \n
   "!! /expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
   "!! /expand,18,axis,,,10 !axissymmetric expansion (rot. around y-axis)" \n
@@ -165,6 +169,7 @@
   ""
   nil
   "!@@ -- contact pair defintion --" \n
+  \n
   "Contact="_ \n
   "Target=Contact+1" \n
   "r,Contact" \n
@@ -221,6 +226,7 @@
   "mat,Contact" \n
   \n
   "!@@ -- Contact generation --" \n
+  \n
   "!! type,Contact" \n
   "!! real,Contact" \n
   "!! esurf !,,top ![default] beam element's top direction" \n
@@ -231,7 +237,8 @@
   \n
   "!! enorm ! change the underlying elem."
 
-  "!! -- check contact status --" \n
+  "!@@@ - check contact status -" \n
+  \n
   "!save"\n
   "!cncheck,adjust !adjust the elements!"
   "!resume,file.db" \n
@@ -255,6 +262,7 @@
   ""
   nil
   "!@@ -- rigid target creation -- " \n
+  \n
   "Contact="_ \n
   "Target=Contact+1" \n
   "real,Contact" \n
@@ -277,6 +285,7 @@
   ""
   nil
   "!@@@ - coordinate system display -" \n
+  \n
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot"_ \n
   \n)
@@ -285,6 +294,7 @@
   ""
   nil
   "!@@@ - working plane setup -" \n
+  \n
   "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "!wpoffs,,-100 !x,y,z offset" \n
   "!wprota,0,90,0 !z,x,y axis of rotation" \n
@@ -297,6 +307,7 @@
   ""
   nil
   "!@@@ - multiplot controls -" \n
+  \n
   "/gtype,all,node,0 !turn off nodes" \n
   "!/gcmd,1,u,sum"
   "gplot" \n
@@ -307,6 +318,7 @@
   ""
   nil
   "!@@@ - numbering controls -" \n
+  \n
   "/pnum,kp!,line,area,volu,node,elem,tabn,sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/replot"
@@ -317,6 +329,7 @@
   ""
   nil
   "!@@@ - symbol display -" \n
+  \n
   "!! /pbc,all,,1 !bc symbols"\n
   "!! /psf !surface loads" \n
   "!! /pbf !body loads"
@@ -328,6 +341,7 @@
   ""
   nil
   "!@@ -- etables --" \n
+  \n
   "!! etables don't take into account higher element order!"
   "!! ---- Mohr-Coulomb failure criterion" \n
   "Z1 = 60 !tensile strength" \n
@@ -351,6 +365,7 @@
  ""
  nil
  "!@@ -- element definition --" \n
+ \n
  "ID=Steel" \n
  "et,ID,solid186 !3d, 20 node" \n
  "etlist !list defined elements" \n
@@ -401,6 +416,7 @@
   ""
   nil
   "!@@ -- geometry --"\n
+  \n
   "/prep7" \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
   "!!arsym,y,all ! reflection of areas "
@@ -415,6 +431,7 @@
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
   \n
   "!@@@ - booleans -" \n
+  \n
   "!! aovlap,all ! overlap areas" \n
   "!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities"
   "!! /pnum,area,1 $ aplot" \n
@@ -424,6 +441,7 @@
   ""
   nil
   "!@@ -- material definitions --" \n
+  \n
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
@@ -473,11 +491,13 @@
   ""
   nil
   "!@@ -- boundary conditions -- " \n
+  \n
   "/prep7" \n
   \n
   "!kbc,1 ![0] (antype,static): ramped 1:stepped loading" \n
   \n
   "!@@@ - displacements -" \n
+  \n
   "!nsel,s,loc,y,0" \n
   "!    ,a,loc,y,1" \n
   "!    ,r,loc,x,0" \n
@@ -485,15 +505,18 @@
   "!dlist,all" \n
   \n
   "!@@@ - loads -" \n
+  \n
   "!f,all,fx,1" \n
   "!flist,all" \n
   \n
   "!@@@ - inertia relief -" \n
+  \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
   "!! irlf,1 !0: none,1:ir on,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
   \n
   "!@@@ - corriolis effects -" \n
+  \n
   "!! cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
   "!! dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
@@ -505,6 +528,7 @@
   "/pbc,all,on" \n
   "!gplot" \n
   "!@@@ - magnetics -" \n
+  \n
   "!! fmagbc,'Component' ! flag force calculation" \n
   "!! bfa,all,js, ! js current density" \n
   "!bflist,all" \n
@@ -583,9 +607,11 @@
   "!! time,1.2 !time at the end of load step" \n
   \n
   "!@@ -- magnetics --" \n
+  \n
   "!! magsolv" \n
   \n
   "!@ -- cyclic symmetry --" \n
+  \n
   "!! cycopt,status" \n
   \n)
 
@@ -593,6 +619,7 @@
   ""
   nil
   "!@ --- post 1 ---" \n
+  \n
   "/post1" \n
   "set,last" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
@@ -664,6 +691,7 @@
   ""
   nil
   "!@@ -- output to file --" \n
+  \n
   "!! /output,test.txt	 !write Ansys output to file" \n
   "!! /com,# dist from center | axial mag. induction" \n
   "!! /output ! redirect output to screen" \n
@@ -687,6 +715,7 @@
   ""
   nil
   "!@@@ - select stuff -" \n
+  \n
   "!! lowest face No of element E from selected nodes"
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
   "!! node in POS of element E" \n
@@ -706,6 +735,7 @@
   ""
   nil
   "!@@ -- path plot --" \n
+  \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
@@ -756,6 +786,7 @@
   "arrays"
   nil
   "!@@ -- arrays --" \n
+  \n
   "*dim,A,array,10,1" \n
   "*get,A(,x,,item,fx" \n
   \n

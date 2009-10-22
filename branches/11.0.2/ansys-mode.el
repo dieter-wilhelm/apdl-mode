@@ -1,5 +1,40 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
+;; Time-stamp: "2009-10-22 15:56:43 uidg1626"
+
+;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
+
+;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Maintainer: H. Dieter Wilhelm
+;; Created: 2006-02
+;; Version: 11.0.2
+;; Keywords: Languages, Convenience
+
+;; This file contains code from a dated octave-mod.el:
+;; Copyright (C) 1997 Free Software Foundation, Inc.  Author: Kurt
+;; Hornik <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
+;; <jwe@bevo.che.wisc.edu>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This code is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation; either version 3, or (at your
+;; option) any later version.
+;;
+;; This lisp script is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+;;
+;; Permission is granted to distribute copies of this lisp script
+;; provided the copyright notice and this permission are preserved in
+;; all copies.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, you can either send email to this
+;; program's maintainer or write to: The Free Software Foundation,
+;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+
+
 ;; Time-stamp: "2009-10-19 17:52:49 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
@@ -131,14 +166,14 @@ installation).  5.) The license file itself."
 This list should contain the license types you can choose from.  Below
 are often used license types (as e.g. seen with the function
 `ansys-license-status') and their corresponding WorkBench
-terminologies.
+terminology.
 
 \"ansys\" - Mechanical U (without thermal capability)
 \"struct\" - Structural U (with thermal capability)
 \"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
 \"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics
-\"preppost\" - PrepPost (just pre- and post-processing)"
+\"preppost\" - PrepPost (no solver capabilities)"
   :group 'Ansys)
 
 (defcustom ansys-license "struct"		;NEW_C
@@ -596,7 +631,7 @@ comment."
     (define-key map "\C-c\C-r" 'ansys-replot)
     (define-key map "\C-c\C-s" 'ansys-display-skeleton)
 ;      (define-key map "\C-c\C-t" 'ansys-if-then)
-    (define-key map "\C-c\C-t" 'ansys-exit-ansys)
+    (define-key map "\C-c\C-t" 'ansys-license)
     (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
     (define-key map "\C-c\C-v" 'ansys-display-variables)
     (define-key map "\M-?" 'ansys-show-command-parameters)
@@ -636,7 +671,7 @@ comment."
 ;   '(ansys-highlight) ;function searches user variables ; TODO BUG
    ansys-undocumented-commands
    ansys-elements
-   '(("\\([[:alpha:]][[:alnum:]_]\\{0,7\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 8 chars long)
+   '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,7\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 8 chars long)
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
       2 'font-lock-doc-face prepend))
    '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char

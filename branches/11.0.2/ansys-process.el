@@ -126,7 +126,7 @@ Argument END is the end of the region."
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;    (force-mode-line-update)
     (error "No Ansys process is running"))
-  (let ((s (read-string "Ansys command: ")))
+  (let ((s (read-string "Send to solver: ")))
     (comint-send-string (get-process ansys-process-name) (concat s "\n"))
     ;;  (walk-windows
     ;;    (lambda (w)
@@ -299,6 +299,48 @@ variable."
 	   (process-status (get-process ansys-process-name))
 	   (process-id (get-process ansys-process-name))))
 
+(setq ansys-license-filter-keywords
+      )
+
+(defun ansys-license-filter (proc string)
+  (display-buffer (process-buffer proc))
+  (with-current-buffer (process-buffer proc)
+    ;; (font-lock-mode t)
+    (let ((keywords (list (concat "\\<" ansys-license "\\>") 0 font-lock-keyword-face t))
+	  )
+  		;(= (point) (process-mark proc))))
+      (setq font-lock-keywords keywords)
+      ;; (save-excursion
+  	;; Insert the text, advancing the process marker.
+  	;; (set-marker (process-mark proc) (point))
+  	;; (setq start (process-mark proc))
+  	;; (goto-char start)
+	(goto-char (process-mark proc))
+  	(insert string)
+  	(insert "--- todo ---\n")
+	(set-marker (process-mark proc) (point))
+	;; (goto-char start)
+  	;; (push-mark)
+  	;; (search-forward "Users of" nil t)
+  	;; (forward-line -1)
+  	;; (delete-region (mark) (point))
+  	;; (set-marker (process-mark proc) (point))
+  	;)
+      ;; (goto-char (point-max))
+      (goto-char (process-mark proc))
+      ))
+  )
+
+     (defun ordinary-insertion-filter (proc string)
+       (with-current-buffer (process-buffer proc)
+         (let ((moving (= (point) (process-mark proc))))
+           (save-excursion
+             ;; Insert the text, advancing the process marker.
+             (goto-char (process-mark proc))
+             (insert string)
+             (set-marker (process-mark proc) (point)))
+           (if moving (goto-char (process-mark proc))))))
+
 ;;;###autoload
 (defun ansys-license-status ()		;NEW
   "Display the Ansys license status.
@@ -311,24 +353,26 @@ displaying the license status."
 	((string= ansys-lmutil-program "")
 	 (error "You must set the `ansys-lmutil-program' variable")))
   (let ((current-b (buffer-name))
-	(buffer (buffer-name (get-buffer-create "*LMutil*"))))
+	;; (buffer (buffer-name (get-buffer-create "*LMutil*")))
+	)
     (message "Retrieving license status information from %s." ansys-license-file)
     (cond
      (ansys-is-unix-system-flag
       (setenv "LM_LICENSE_FILE" ansys-license-file)
-      (set-buffer buffer)
-      (toggle-read-only -1)
-      (insert "\n\n======================================================================\n\n\n")
+      ;; (get-buffer-create "*LMutil*")
+      ;; (delete-process "lmutil")
       (start-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a")
+      (set-process-filter (get-process "lmutil") 'ordinary-insertion-filter); 'ansys-license-filter)
       ;;       (while (string= "run" (process-status "lmutil"))
       ;; 	(sit-for 1))
-      (toggle-read-only 1)
-      (set-buffer current-b)
-      (display-buffer "*LMutil*" 'other-window)
-      (walk-windows
-       (lambda (w)
-	 (when (string= (buffer-name (window-buffer w)) "*LMutil*")
-	   (with-selected-window w (goto-char (point-max)))))))
+      ;; (toggle-read-only 1)
+      ;; (set-buffer current-b)
+      ;; (display-buffer "*LMutil*" 'other-window)
+      ;; (walk-windows
+      ;;  (lambda (w)
+      ;; 	 (when (string= (buffer-name (window-buffer w)) "*LMutil*")
+      ;; 	   (with-selected-window w (goto-char (point-max))))))
+      )
      ((string= system-type "windows-nt")
       (w32-shell-execute nil ansys-lmutil-program))))) ;nil for executable
 

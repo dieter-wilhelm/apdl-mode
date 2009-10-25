@@ -1,8 +1,8 @@
 * Bugs:
-** buffer has no process: process-status command is brittle! -> commented out -kill-buffer-query-f.
-** fontification of "vars =" in comments!
+** mode is still slow with big files
 
 * v12.0.1:
+  - todo- or org-mode for README, wiki formatting!
   - load or load-file, what happens with compilation and autoload?
     o a-skeleton.el -- license disclaimer
     o a-process.el
@@ -27,15 +27,14 @@
     <sparr@mfkrs1.mw.tu-dresden.de>.
 
 * Priority
-  - generalise C-c C-c when no process is running (copy line/region)
-  - filter output of -license-status
+  - filter output of -license-status set-process-filter
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
   - strange C-c C-v output for *get assignment etc.
   - M-? for commented out variables
   - Mohr-Coulomb criterion
   - C-c C-c does not skip empty lines and comments this is not always
-    desirable -> make this optional
+    desirable -> make this optional -> filter process input?
   - M-?: following a variable allocation with `='
   - For non-comint-mode usage: display .log file with tail mode
   - explain what a "logical block" means
@@ -48,11 +47,6 @@
 
 * Interesting stuff   
  * *repeate command
-   
-* improve ansys-kill-buffer-query-function
-** This is osolete/redundant with Emacs 23.2:
-   is it possible to quit Ansys in an orderly fashion?
-   what happens with the asynchronous process?
   
 ** Killing a buffer with a running process now asks a confirmation.
    You can remove this query in two ways: either removing
@@ -65,10 +59,6 @@
    - substring-no-properties?
    - Provide Ansys command completion and command-help in comint buffer
    - Ansys process status is not working properly process-sentinel or some comint-hook?
-   - pick up ansys-process when RENAMING buffer file and restarting
-     ansys-mode, otherwise process is without buffer
-   - warn when abandoning macro file with an associated Ansys process,
-     this should be redundant with Emacs 23.
    - provide Ansys `y' request and carriage return? superflouous?
      a single `y' does the trick
    - indicate with activation/inactivation of menu items that an
@@ -201,6 +191,7 @@ bells and whistle of an editor (drop file into E)
         C-c ] -- -close-block
 	Emacs-calc
 	-license-status C-c C-l
+	- C-c @ outline stuff
         online Ansys/Emacs process and debugging environment
 	C-c C-u, C-c C-c,  C-c C-q
 	tail mode of *.err C-c C-e

@@ -298,8 +298,8 @@ variable."
 	   (process-status (get-process ansys-process-name))
 	   (process-id (get-process ansys-process-name))))
 
-(setq ansys-license-filter-keywords
-      )
+;; (setq ansys-license-filter-keywords
+;;       )
 
 (defun ansys-license-filter (proc string)
   (display-buffer (process-buffer proc))
@@ -360,8 +360,9 @@ displaying the license status."
       (setenv "LM_LICENSE_FILE" ansys-license-file)
       ;; (get-buffer-create "*LMutil*")
       ;; (delete-process "lmutil")
-      (start-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a")
-      (set-process-filter (get-process "lmutil") 'ordinary-insertion-filter); 'ansys-license-filter)
+      ;; (start-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a"); async
+      (call-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a") ;syncronous call
+      ;; (set-process-filter (get-process "lmutil") 'ordinary-insertion-filter); 'ansys-license-filter)
       ;;       (while (string= "run" (process-status "lmutil"))
       ;; 	(sit-for 1))
       ;; (toggle-read-only 1)
@@ -374,6 +375,23 @@ displaying the license status."
       )
      ((string= system-type "windows-nt")
       (w32-shell-execute nil ansys-lmutil-program))))) ;nil for executable
+
+(defun ansys-license-status ()		;NEW
+  "Display the Ansys license status.
+For Unix systems do this in a separate buffer, under Windows
+start the anslic_admin.exe utility, which has a button for
+displaying the license status."
+  (interactive)
+  (message "Retrieving license status information from .")
+  (call-process "ls" nil "*LM-Util*" nil  "-l") ;syncronous call
+  (with-current-buffer "*LM-Util*"
+    (setq font-lock-keywords '(("make" 0 font-lock-constant-face) ("test" 0 font-lock-keyword-face)))
+    (goto-char (point-max))
+    (insert "----------------------------------\n")
+    (goto-char (point-max))
+    (set-window-point (get-buffer-window "*LM-Util*") (point)))
+  (display-buffer "*LM-Util*" 'otherwindow)
+    )
 
 (defun ansys-start-graphics ()		;NEW
   "Start the Ansys display in interactive mode."

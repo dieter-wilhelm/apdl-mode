@@ -75,39 +75,38 @@ the job name with \"\\[ansys-job]\"."
 	(display-buffer (process-buffer (get-process ansys-process-name)) 'other-window))
     (message "Copied from beginning of buffer to cursor.")))
 
-;; TODO: use comint-send-input, comint-use-prompt-regexp
-
 (defun ansys-send-to-ansys (beg end)	;NEW
-  "Send code line or region to running Ansys process.
-Argument BEG is the beginning of the region.
-Argument END is the end of the region."
+  "Send code line or region to an Ansys process otherwise copy it.
+Argument BEG is the beginning of the region.  Argument END is the
+end of the region.  If there is no active region, either go to
+the next code line or send the current one.  When there is no
+running Ansys process just copy the respective code to the
+clipboard."
   (interactive "r")
-  (unless (ansys-process-running-p)
-    ;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
-    ;; (force-mode-line-update)
-    (error "No Ansys process is running"))
-  (let (bol eol s)
-    (cond ((and mark-active (not (= beg end)))
+  ;; copy the region, current line or go to next! code line
+  (let (eol bol s)
+    (cond ((use-region-p)
 	   (when (< (point) (region-end))
 	     (exchange-point-and-mark))
 	   (setq s (buffer-substring-no-properties beg end))
-	   (setq mark-active nil))
+	   (kill-ring-save beg end)
+	   (ansys-next-code-line))		;not always desirable
+	  ((not (ansys-code-line-p))
+	   (ansys-next-code-line)
+	   (error "There was no valid code line"))
 	  (t
 	   (back-to-indentation)
 	   (setq bol (point))
 	   (end-of-line)
 	   (setq eol (point))
 	   (setq s (buffer-substring-no-properties bol eol))
-	   ;(forward-line)))
-	   (ansys-next-code-line))) ;; not always desirable!
-    (comint-send-string (get-process ansys-process-name) (concat s "\n"))
-    ;;  (walk-windows
-    ;;    (lambda (w)
-    ;;      (when (string= (buffer-name (window-buffer w)) "*Ansys*")
-    ;;        (with-selected-window w (goto-char (point-max))))))
-    ;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
-    ;; (force-mode-line-update)
-    (display-buffer "*Ansys*" 'other-window)))
+	   (kill-ring-save bol eol)
+	   (ansys-next-code-line)))
+    (cond ((ansys-process-running-p)
+	   (comint-send-string (get-process ansys-process-name) s); (concat s "\n"))
+	   (display-buffer "*Ansys*" 'other-window))
+	  (t
+	   (message "Copied code line or region.")))))
 
 (defun ansys-process-running-p ()
   (let ((proc (get-process ansys-process-name)))

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-22 15:56:43 uidg1626"
+;; Time-stamp: "2009-10-26 13:17:18 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1902,7 +1902,7 @@ WorkBench APDL files."
 
 (defun ansys-next-code-line (&optional arg)
   "Move ARG lines of Ansys code forward, default for ARG is 1.
-Skips past all empty - and comment lines."
+Skips past intermediate comment and empty lines."
   (interactive "p")
   (unless arg (setq arg 1))
   (unless (memq last-command '(next-line
@@ -1910,6 +1910,8 @@ Skips past all empty - and comment lines."
 			       ansys-next-code-line
 			       ansys-previous-code-line))
     (setq temporary-goal-column (current-column)))
+  (when (eobp)
+    (error "End of buffer"))
   (forward-line 1)
   (forward-comment (buffer-size))
   (move-to-column (truncate temporary-goal-column))

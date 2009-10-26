@@ -84,29 +84,32 @@ running Ansys process just copy the respective code to the
 clipboard."
   (interactive "r")
   ;; copy the region, current line or go to next! code line
-  (let (eol bol s)
+  (let (eol bol s reg)
     (cond ((use-region-p)
+	   (setq reg t)
 	   (when (< (point) (region-end))
 	     (exchange-point-and-mark))
 	   (setq s (buffer-substring-no-properties beg end))
-	   (kill-ring-save beg end)
-	   (ansys-next-code-line))		;not always desirable
+	   (kill-ring-save beg end))
 	  ((not (ansys-code-line-p))
 	   (ansys-next-code-line)
 	   (error "There was no valid code line"))
 	  (t
-	   (back-to-indentation)
-	   (setq bol (point))
-	   (end-of-line)
-	   (setq eol (point))
+	   (save-excursion
+	     (back-to-indentation)
+	     (setq bol (point))
+	     (end-of-line)
+	     (setq eol (point)))
 	   (setq s (buffer-substring-no-properties bol eol))
 	   (kill-ring-save bol eol)
 	   (ansys-next-code-line)))
     (cond ((ansys-process-running-p)
-	   (comint-send-string (get-process ansys-process-name) s); (concat s "\n"))
+	   (comint-send-string (get-process ansys-process-name) (concat s "\n"))
 	   (display-buffer "*Ansys*" 'other-window))
 	  (t
-	   (message "Copied code line or region.")))))
+	   (if reg
+	       (message "Copied region.")
+	     (message "Copied code line."))))))
 
 (defun ansys-process-running-p ()
   (let ((proc (get-process ansys-process-name)))
@@ -294,104 +297,115 @@ variable."
     'nil'
           if PROCESS-NAME is not the name of an existing process."
   (interactive)
-  (message "Ansys process status: %s, process identification No: %d"
-	   (process-status (get-process ansys-process-name))
-	   (process-id (get-process ansys-process-name))))
-
+  (message "Ansys process status: %s" ;, process identification No: %d"
+	   (process-status ansys-process-name))
+	   ;; (process-id (get-process ansys-process-name))
+  )
 ;; (setq ansys-license-filter-keywords
 ;;       )
 
-(defun ansys-license-filter (proc string)
-  (display-buffer (process-buffer proc))
-  (with-current-buffer (process-buffer proc)
-    ;; (font-lock-mode t)
-    (let ((keywords (list (concat "\\<" ansys-license "\\>") 0 font-lock-keyword-face t))
-	  )
-  		;(= (point) (process-mark proc))))
-      (setq font-lock-keywords keywords)
-      ;; (save-excursion
-  	;; Insert the text, advancing the process marker.
-  	;; (set-marker (process-mark proc) (point))
-  	;; (setq start (process-mark proc))
-  	;; (goto-char start)
-	(goto-char (process-mark proc))
-  	(insert string)
-  	(insert "--- todo ---\n")
-	(set-marker (process-mark proc) (point))
-	;; (goto-char start)
-  	;; (push-mark)
-  	;; (search-forward "Users of" nil t)
-  	;; (forward-line -1)
-  	;; (delete-region (mark) (point))
-  	;; (set-marker (process-mark proc) (point))
-  	;)
-      ;; (goto-char (point-max))
-      (goto-char (process-mark proc))
+;; (defun ansys-license-filter (proc string)
+;;   (display-buffer (process-buffer proc))
+;;   (with-current-buffer (process-buffer proc)
+;;     ;; (font-lock-mode t)
+;;     (let ((keywords (list (concat "\\<" ansys-license "\\>") 0 font-lock-keyword-face t))
+;; 	  )
+;;   		;(= (point) (process-mark proc))))
+;;       (setq font-lock-keywords keywords)
+;;       ;; (save-excursion
+;;   	;; Insert the text, advancing the process marker.
+;;   	;; (set-marker (process-mark proc) (point))
+;;   	;; (setq start (process-mark proc))
+;;   	;; (goto-char start)
+;; 	(goto-char (process-mark proc))
+;;   	(insert string)
+;;   	(insert "--- todo ---\n")
+;; 	(set-marker (process-mark proc) (point))
+;; 	;; (goto-char start)
+;;   	;; (push-mark)
+;;   	;; (search-forward "Users of" nil t)
+;;   	;; (forward-line -1)
+;;   	;; (delete-region (mark) (point))
+;;   	;; (set-marker (process-mark proc) (point))
+;;   	;)
+;;       ;; (goto-char (point-max))
+;;       (goto-char (process-mark proc))
+;;       ))
+;;   )
+
+;; ;;;###autoload
+;; (defun ansys-license-status ()		;NEW
+;;   "Display the Ansys license status.
+;; For Unix systems do this in a separate buffer, under Windows
+;; start the anslic_admin.exe utility, which has a button for
+;; displaying the license status."
+;;   (interactive)
+;;   (cond ((string= ansys-license-file "")
+;; 	 (error "You must set the `ansys-license-file' variable"))
+;; 	((string= ansys-lmutil-program "")
+;; 	 (error "You must set the `ansys-lmutil-program' variable")))
+;;   (let ((current-b (buffer-name))
+;; 	;; (buffer (buffer-name (get-buffer-create "*LMutil*")))
+;; 	)
+;;     (message "Retrieving license status information from %s." ansys-license-file)
+;;     (cond
+;;      (ansys-is-unix-system-flag
+;;       (setenv "LM_LICENSE_FILE" ansys-license-file)
+;;       ;; (get-buffer-create "*LMutil*")
+;;       ;; (delete-process "lmutil")
+;;       ;; (start-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a"); async
+;;       (call-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a") ;syncronous call
+;;       ;; (set-process-filter (get-process "lmutil") 'ordinary-insertion-filter); 'ansys-license-filter)
+;;       ;;       (while (string= "run" (process-status "lmutil"))
+;;       ;; 	(sit-for 1))
+;;       ;; (toggle-read-only 1)
+;;       ;; (set-buffer current-b)
+;;       ;; (display-buffer "*LMutil*" 'other-window)
+;;       ;; (walk-windows
+;;       ;;  (lambda (w)
+;;       ;; 	 (when (string= (buffer-name (window-buffer w)) "*LMutil*")
+;;       ;; 	   (with-selected-window w (goto-char (point-max))))))
+;;       )
+;;      ((string= system-type "windows-nt")
+;;       (w32-shell-execute nil ansys-lmutil-program))))) ;nil for executable
+
+(defun ansys-license-status ()		;NEW
+  "Display the Ansys license status.
+For Unix systems do this in a separate buffer, under Windows
+start the anslic_admin.exe utility, which has a button for
+displaying the license status."
+  (interactive)
+  (message "Retrieving license status, please wait...")
+  ;; syncronous call
+  (with-current-buffer (get-buffer-create "*LM-Util*")
+    (delete-region (point-min) (point-max)))
+  (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-a")
+  (let ((kw (list
+	     (concat "\\<" ansys-license "\\>:.*")
+	     0 font-lock-keyword-face t)))
+    (with-current-buffer "*LM-Util*"
+      (font-lock-mode 1)
+      (setq font-lock-keywords kw)
+      (goto-char (point-min))
+      (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\>\\|\\<rdacis\\>")
+
+      (goto-char (point-min))
+      (while (not (eobp))
+      	(push-mark (point))
+      	(search-forward-regexp "Users of \\|---" nil t)
+      	(delete-region (mark) (point))
+      	(forward-line 1))
+
+      (goto-char (point-min))
+      (delete-matching-lines "^$")
+
+      (goto-char (point-min))
+      (while (re-search-forward "Total of " nil t)
+      	(replace-match ""))
+
+      ;; (set-window-point (get-buffer-window "*LM-Util*") (point))
       ))
-  )
-
-     (defun ordinary-insertion-filter (proc string)
-       (with-current-buffer (process-buffer proc)
-         (let ((moving (= (point) (process-mark proc))))
-           (save-excursion
-             ;; Insert the text, advancing the process marker.
-             (goto-char (process-mark proc))
-             (insert string)
-             (set-marker (process-mark proc) (point)))
-           (if moving (goto-char (process-mark proc))))))
-
-;;;###autoload
-(defun ansys-license-status ()		;NEW
-  "Display the Ansys license status.
-For Unix systems do this in a separate buffer, under Windows
-start the anslic_admin.exe utility, which has a button for
-displaying the license status."
-  (interactive)
-  (cond ((string= ansys-license-file "")
-	 (error "You must set the `ansys-license-file' variable"))
-	((string= ansys-lmutil-program "")
-	 (error "You must set the `ansys-lmutil-program' variable")))
-  (let ((current-b (buffer-name))
-	;; (buffer (buffer-name (get-buffer-create "*LMutil*")))
-	)
-    (message "Retrieving license status information from %s." ansys-license-file)
-    (cond
-     (ansys-is-unix-system-flag
-      (setenv "LM_LICENSE_FILE" ansys-license-file)
-      ;; (get-buffer-create "*LMutil*")
-      ;; (delete-process "lmutil")
-      ;; (start-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a"); async
-      (call-process "lmutil" "*LMutil*" ansys-lmutil-program "lmstat" "-a") ;syncronous call
-      ;; (set-process-filter (get-process "lmutil") 'ordinary-insertion-filter); 'ansys-license-filter)
-      ;;       (while (string= "run" (process-status "lmutil"))
-      ;; 	(sit-for 1))
-      ;; (toggle-read-only 1)
-      ;; (set-buffer current-b)
-      ;; (display-buffer "*LMutil*" 'other-window)
-      ;; (walk-windows
-      ;;  (lambda (w)
-      ;; 	 (when (string= (buffer-name (window-buffer w)) "*LMutil*")
-      ;; 	   (with-selected-window w (goto-char (point-max))))))
-      )
-     ((string= system-type "windows-nt")
-      (w32-shell-execute nil ansys-lmutil-program))))) ;nil for executable
-
-(defun ansys-license-status ()		;NEW
-  "Display the Ansys license status.
-For Unix systems do this in a separate buffer, under Windows
-start the anslic_admin.exe utility, which has a button for
-displaying the license status."
-  (interactive)
-  (message "Retrieving license status information from .")
-  (call-process "ls" nil "*LM-Util*" nil  "-l") ;syncronous call
-  (with-current-buffer "*LM-Util*"
-    (setq font-lock-keywords '(("make" 0 font-lock-constant-face) ("test" 0 font-lock-keyword-face)))
-    (goto-char (point-max))
-    (insert "----------------------------------\n")
-    (goto-char (point-max))
-    (set-window-point (get-buffer-window "*LM-Util*") (point)))
-  (display-buffer "*LM-Util*" 'otherwindow)
-    )
+  (display-buffer "*LM-Util*" 'otherwindow))
 
 (defun ansys-start-graphics ()		;NEW
   "Start the Ansys display in interactive mode."

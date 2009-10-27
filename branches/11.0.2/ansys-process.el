@@ -387,25 +387,34 @@ displaying the license status."
       (font-lock-mode 1)
       (setq font-lock-keywords kw)
       (goto-char (point-min))
-      (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\>\\|\\<rdacis\\>")
+      (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
 
       (goto-char (point-min))
       (while (not (eobp))
       	(push-mark (point))
-      	(search-forward-regexp "Users of \\|---" nil t)
+      	(search-forward-regexp "Users of " nil t)
+	(beginning-of-line)
       	(delete-region (mark) (point))
       	(forward-line 1))
+      (goto-char (point-max))
+      (push-mark (point))
+      (search-backward-regexp "Users of " nil t)
+      (forward-line 1)
+      (delete-region (mark) (point))
 
       (goto-char (point-min))
       (delete-matching-lines "^$")
 
       (goto-char (point-min))
-      (while (re-search-forward "Total of " nil t)
+      (while (re-search-forward "Total of \\|Users of " nil t)
       	(replace-match ""))
 
+      (goto-char (point-max))
+      (insert "\n " (current-time-string))
       ;; (set-window-point (get-buffer-window "*LM-Util*") (point))
       ))
-  (display-buffer "*LM-Util*" 'otherwindow))
+  (display-buffer "*LM-Util*" 'otherwindow)
+  (message "Updated license status: %s." (current-time-string)))
 
 (defun ansys-start-graphics ()		;NEW
   "Start the Ansys display in interactive mode."

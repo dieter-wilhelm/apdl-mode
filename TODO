@@ -1,0 +1,406 @@
+* Bugs:
+** take care when region isn't complete in -send-to-ansys (send whole line)
+** load-path for .el files necessary!
+** mode is still slow with big files
+
+* v12.0.1:
+  - load or load-file, what happens with compilation and autoload?
+  - provide different levels of fontifications
+    font-lock-maximum-decoration '((ansys-mode . 2) (t . t))
+  - check whether undocumented commands are still working in v12
+    document this contradicting behaviour (legacy elements)
+SHELL43 - SHELL181
+SOLID46 - SOLID185 (KEYOPT(3) = 1), or SOLSH190
+VISCO88 - PLANE183
+VISCO89 - SOLID186
+SHELL91, SHELL93, SHELL99 - SHELL281
+VISCO106 - PLANE182
+VISCO107 - SOLID185
+VISCO108 - PLANE183
+SOLID191 - SOLID186 (KEYOPT(3) = 1)
+
+  - update emacs wiki, gcode wiki, todo- or org-mode for README, wiki
+    formatting!
+  - publication: ANSYS.net (Ansys !!! Sheldon Imaoka
+    <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
+    sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
+    <lkrueger@cadfem.de>), Alwin Perras
+    <alwin.perras@continental-corporation.com>, AnsysWB community,
+    Ansys users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the
+    Focus guys (PADT) <info@padtinc.com>, Holger Sparr
+    <sparr@mfkrs1.mw.tu-dresden.de>.
+
+* Priority
+  - C-c C-q sequences are not shown (and stored) in the comint buffer
+  - mode line update
+  - strange C-c C-v output for *get assignment etc.
+  - M-? for commented out variables
+  - Mohr-Coulomb criterion
+  - M-?: following a variable allocation with `='
+  - For non-comint-mode usage: display .log file with tail mode
+  - explain what a "logical block" means
+  - indent format line? M-j
+  - autoinsertion: choice between header only or header with skeleton compilation
+  - is outline-mode enabled? no! make default?, outline headers are not complete in skeletons.
+  - rework skeleton-header  
+  - rework ansys-skeleton and documentation   
+  - Skeleton preview write only? currently: write only
+  - make outline string in skeletons configurable
+  - why an alist with cons cells for try-completion, a list of strings
+    should suffice?
+  - C-c C-c skips empty lines and comments this is not always
+    desirable -> make this optional -> filter process input?
+
+* Interesting stuff   
+ * *repeate command
+  
+** Killing a buffer with a running process now asks a confirmation.
+   You can remove this query in two ways: either removing
+   `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
+   setting the appropriate process flag with `set-process-query-on-exit-flag'.
+
+
+* improve Ansys interpreter buffer with `comint-mode'
+   example: gnuplot-mode
+   - substring-no-properties necessary?
+   - Provide Ansys command completion and command-help in comint buffer
+   - Ansys process status is not working properly process-sentinel or some comint-hook?
+   - provide Ansys `y' request and carriage return? superflouous?
+     a single `y' does the trick
+   - indicate with activation/inactivation of menu items that an
+     asynchronous job is already running or not.
+   - check for EXIT command and wait some time to update the mode line
+     run status correctly 
+   - show/mark sent lines in apdl file C-c C-u, C-c C-c,
+     o with fringes
+     o with background
+     o maximum line
+     o reset highlighting, when?
+
+* Dissect skeleton into smaller more useful subjects   
+  - spider beams, _bolt.mac, screw.mac
+  - optional setting of (Ansys-mode-)bookmarks?   
+  - rework concept with respect to the Ansys menu structure
+    sort skeletons in menu
+  - Make skeleton-header properly working (info "(autotype)")
+  - Optimise templates: completing-read, read-from-minibuffer abbrev `d
+    does not indent properly in another block level Implement choice when
+    completing *IF commands (*ELSEIF or *ENDIF ?THEN?).
+  - Warn when including skeleton in read only file.
+  - skeleton for numbering ansys-skeleton-numbering-controls
+    (skeleton-insert docu)
+  - suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
+  - negation 
+  - skeleton for skipping code	 *if,then *else*endif
+    if selection: wrap around and indenting
+    *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
+    must *go:label be unambiguous?
+
+* *set strings may be only 32 character long!
+* correct *set assignment printout
+* trigger a timer when showing the ansys-comand-parametr-help
+* add cmblock and cm assignments to the variable list
+
+* take care of setup procedure: v110/ansys/apdl/start110.ans
+  /MPLIB,READ,/ansys_inc/v110/ansys/matlib
+
+* C-c C-v show (optionally) only variables defined up to current cursor line
+
+* C-c ] removes empty lines?
+
+* C-j is not skipping to `,' whith default command (from second line onwards)!
+
+* removing/renaming abort file?
+
+* Improve ansys-show-command-parameters
+- undocumented aks parameter
+- explain also commented out commands   
+- add undocumented-commands into the command help.
+- nint, rand not yet in the help list Parameter help also for *GET and parametric functions e. g. nint().
+- Include the _RETURN value of the solid modelling
+commands into their help strings of parameter help.  
+- mode-line-format nil);no mode line for this buffer Unambiguous
+  Ansys commands with additional characters at the end are not found
+  in the parameter help (C-c C-h) example: *VWROOOO
+
+------------------------------
+dry run: Emacs 22.1 -Q testing: padt.mac /*commands and default
+command lines, every menu entry.
+
+update Emacs wiki, Google Code with download, home page
+
+publication: ANSYS.net (Ansys !!! Sheldon Imaoka
+<sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
+sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
+<lkrueger@cadfem.de>), Perras <alwin.perras@siemens.com>, AnsysWB
+community, Ansys users club <tom.tumbrink@t-online.de>
+<admin@auc-ev.de>, the Focus guys (PADT) <info@padtinc.com>, Holger
+Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
+
+Emacs package repository, elpa http://tromey.com/elpa/
+
+Emacs installation for Ansys under XP, default.el in site-lisp dir
+and byte-compiled ansys-mode.
+
+update all version numbers everywhere: Emacs wiki, Google Code with
+download, home page, elpa?
+
+update the mode help
+update defcustom list in ansys-submit-bug-report
+checkdoc
+byte-compile-file
+
+
+12.0.1
+
+1.) - comint-mode
+    - proper skeletons
+2.) working state, compiling
+--
+3.) feature freeze & checking
+4.) publishing
+5.) ask Alwin for taking part in analysts' meeting
+
+-- April
+
+User's meeting
+October/November
+
+1.) Need LICENSE!
+     Ansys academic solutions for V11
+
+-- Very brief introduction: Why not Emacs, especially on Windows?
+before Microsoft was founded, working on all current OS
+bells and whistle of an editor (drop file into E)
+-- casual APDL file viewer (whetting the appetite)
+   convenience features?
+   fontification
+   Ansys menu
+   command-help   M-n/p M-?
+   code navigation (number blocks in .inp) C-c {
+-- APDL hacking
+   	C-c C-u, C-c C-c
+   	$ needs space(s)?
+	,commands
+	colon loop: e.g.: lfillt,(1:3),(2:4),Rad
+	ansys completion and emacs expansion
+	skeletons
+	display user variables
+	*go not for interactive mode! -> *if *else *endif
+		commenting out
+	selecting blocks C-M-a/b setting mark!
+	loading help navigator
+	display license status (optionally filtered not yet)
+-- hardcore Ansys/APDL user
+        switch off menu, tools, scroll-bar
+   	Ansys mode help
+        C-c ] -- -close-block
+	Emacs-calc
+	-license-status C-c C-l
+	- C-c @ outline stuff
+        online Ansys/Emacs process and debugging environment
+	C-c C-u, C-c C-c,  C-c C-q
+	tail mode of *.err C-c C-e
+	abort file
+	bookmarks?
+------------------------------
+12.0.1
+
+0.) update keywords to V12.0
+1.) remaining font-lock issues, fontifiction levels
+2.) code dissection & gnu coding style
+3.) possible language additions
+4.) feature freeze & checking
+   
+* Sluggish font-locking? 12.0.1
+- choice of fontification level
+- simplify: multi file package -> rework of makefile -> README
+   (require 'feature) -> better load-file?
+
+* Rework README generation (from "makefile")
+   
+* implement C-c { and } like C-x z (repeate) zzzz
+   
+* Emacs: old-style backquotes?
+   used in the old template macro system
+
+------------------------------
+split
+  0.) ansys-mode.el				
+  1.) highlighting patterns ->	ansys-keyword.el
+  2.) templates <-> menus? ->	ansys-templates.el
+  3.) interactive stuff ->      ansys-process.el	system-type-p
+  4.) documentation ->		README, INSTALL, TODO, LICENSE
+
+*create is only completed by *end
+
+completion of function names: cursor should end within parentheses
+
+?clear message: ansys-mode perform auto insertion?
+?condition -highlight in the fontlock variable?
+
+c*** highlighting
+
+comment above user variable problem
+
+*VAR*VAR highlighting problem
+
+==== Important ====
+
+does setting of -hook trigger immediately the effects or is a
+restart necessary? other function as well
+
+-up/down-block when we are over a begin-keyword and in a block-end
+line
+
+read ansys-license-file from env, supply sane standard Ansys values
+for the helper programs and check for existance
+
+concentrate variable defining functions for user variable search
+and - display.  Variables are getting overwritten with Ansys
+keywords.
+
+component names also fontified as variables? or separate cmlist?
+
+format string for *VWRITE: line(s) below, in parens, when FORTRAN
+format specifiers are used, keyword SEQU povides row numbers, up to
+19 parameters are allowed
+
+what the heck is the *UILIST command?
+
+make M-C-h more intelligent like M-h
+
+Enable input directly in the Ansys output buffer (*Ansys*) like in
+the *shell*, *math* or *Python* buffer (run-python)
+a.) enable highlighting of the *Ansys* buffer -> ansys-interactive-mode
+b.) splice any input line behind the BEGIN: symbol in the *Ansys* buffer
+
+remove vestiges of ansys-mod.el for making ansys-mode.el GPL
+proof.  Check whether octave-mod.el really is GPL compliant, use
+-ctave-mod.el from 1997, kill octave-mod.el afterwards in makefile
+read every symbol docu string ->NEW_C or _C or OCTAVE_C
+
+==== Less Important ====
+
+*MSG command can only have 9 additional continuation lines
+
+FIXMEs
+
+generalise -insert-pi in code line ($ PI=...), in comment (\n
+Pi=...)
+
+replace/extend column-ruler with ruler-mode or ruler implemented as
+-verlay in buffer
+
+Capitalized variable fontification clashes with small letter Ansys
+predicates.  Fx=3 -> *GET,Fx,fsum,,item,fx, make fontification case
+dependent?
+
+startup screen for Ansys mode: Mode help, Ansys version, supressing
+the startup screen
+'ansys-mode-startup-message
+ maybe as advice when sluggish -> compiliation
+
+Try to ask only for the installation directory for the -license-file,
+-program, etc.  variables.  Read some information from getenv.
+
+make everything completely customisable, eg auto-insert stuff
+customisable enable Emacs customisation of auto-insert-query and
+
+Fontify *completion list* distinguishing elements: commands,
+functions and keywords.
+
+sort customisation options for processes into subgroup
+(defgroup octave-inferior nil
+  "Running Octave as an inferior Emacs process."
+  :group 'octave)
+
+provide a list of options for the -license function, set this
+function in the defcustom lmstat -a etc.
+
+-ptimisation (look at regexp with *), nested repetition regexp
+-perators
+
+-start-ansys
+finding an Ansys /filnam command in current macro file
+and suggesting this as current job-name optionally
+kill old job when called again with working run
+warn and optionally remove the ansys lock file before starting a run
+
+Enable one run for every Ansys macro buffer
+
+Enable choice for /show,3d or x11
+
+Wrong highlighting of variables in /com, C*** text strings
+variable highlighting overwrites ansys commands with the same name
+dynamic highlighting is only implemented for .mac files
+
+Comments in c*** commands are not possible and highlighted wrongly
+
+multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable
+fontification is not working
+
+*DO parameters are not restricted to the respective block deleting
+parameters with `PARAM=' or `*SET,PARAM,' is not taken into account
+when dynamically highlighting user variables.  Redefinition of
+variables leaves the old definitions valid ->invalidate
+font-locking there.  Variable highlighting in strings is not
+working (string substitution).  display-user-variables displays
+message strings as well
+
+make the line number display in `ansys-display-variables'
+(hyper-)links to the corresponding code line in the respective APDL
+file.  (See `occur' function.)  Or use the imenu mechanism for this
+and display the variables in the speedbar
+
+Better documentation, info file, refcard, etc; GNU programming
+guideline: More requires?, indicate replacement of standard Emacs
+facilities (e. g M-C-n, M-C-p), profiling, major mode conventions:
+multiple loading of this mode?, XEmacs testing.
+
+Provide customisable choice whether commands, functions and/or
+elements are assembled in the completion list.
+
+auto-indent-switch as defcustom?
+
+inhibit the unnecessary blink-matching-block display when closing a
+block behind a block-end keyword
+
+tool-tips for the menus
+
+highlight matching block keywords (similar to show-paren-mode) when
+point is at keyword
+
+Implement highlighting of brackets with the correct level in Ansys
+GET- and parametric- functions.
+
+highlighting of plot commands inside the /GCMD command
+
+Warn when - unintentionally - arguments are used for Ansys commands
+which do not allow arguments.  Or implement some auto-newline
+feature?  But problematic in condensed command lines
+-r when applying code comments!
+
+Indicate that character parameters are restricted to only 8
+characters.
+
+DEFSUBSTs with DEFUNs inside aren't particularly helpful?
+
+ansys-indicate-empty-lines also for non-window systems (with
+-overlays)
+
+see www.apdl.de for further ideas and extensions
+
+Emphasise better implied (colon) loops n,(1:6),(2:12:2) => n,1,2 $
+n,2,4 $... (little used, I know, but any ideas going beyond the
+colon?).
+
+Code line restriction of 640 characters is not taken care of.
+Block level restriction of 20 levels of nested *DO loops (except
+with /INPUT and *USE)
+Block level restriction of 10 levels of nested *IF blocks
+Macro level restriction: 20 macros
+
+# local variables:
+# mode: org
+# end:

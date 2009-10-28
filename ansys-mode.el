@@ -1,18 +1,18 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-26 13:17:18 uidg1626"
+;; Time-stamp: "2009-10-28 19:32:48 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 11.0.2
+;; Version: 12.0.1
 ;; Keywords: Languages, Convenience
 
-;; This file contains code from a dated octave-mod.el:
-;; Copyright (C) 1997 Free Software Foundation, Inc.  Author: Kurt
-;; Hornik <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
+;; Parts of this mode were originally base on octave-mod.el: Copyright
+;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
+;; <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
 ;; <jwe@bevo.che.wisc.edu>
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -33,61 +33,28 @@
 ;; along with this program; if not, you can either send email to this
 ;; program's maintainer or write to: The Free Software Foundation,
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
-
-
-;; Time-stamp: "2009-10-19 17:52:49 uidg1626"
-
-;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
-
-;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Maintainer: H. Dieter Wilhelm
-;; Created: 2006-02
-;; Version: 11.0.2
-;; Keywords: Languages, Convenience
-
-;; This file contains code from a dated octave-mod.el:
-;; Copyright (C) 1997 Free Software Foundation, Inc.  Author: Kurt
-;; Hornik <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
-;; <jwe@bevo.che.wisc.edu>
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This code is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published
-;; by the Free Software Foundation; either version 3, or (at your
-;; option) any later version.
-;;
-;; This lisp script is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-;;
-;; Permission is granted to distribute copies of this lisp script
-;; provided the copyright notice and this permission are preserved in
-;; all copies.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, you can either send email to this
-;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 
 ;;; Commentary:
 
 ;; This Emacs Lisp package provides support for the FEA (Finite
-;; Element Analysis) program Ansys (http://www.ansys.com) under Unix
-;; and Window systems.  It defines 'Ansys mode', a major mode for
-;; viewing, writing and navigating in APDL (Ansys Parametric Design
-;; Language) files as well as providing managing and communication
-;; capabilities for various Ansys solver processes.
+;; Element Analysis) program Ansys (http://www.ansys.com) under
+;; Windows and Unix systems.  It defines 'Ansys mode', a major mode
+;; for viewing, writing and navigating in APDL (Ansys Parametric
+;; Design Language) files as well as providing managing and
+;; communication capabilities for an associated Ansys solver process.
 
-;; The mode's capabilities are rather sophisticated but still the
-;; documentation is targeted for Ansys users with little Emacs
-;; experience. Please consult the accompanying README file.
+;; The mode's capabilities are rather sophisticated but the
+;; documentation is still targeted for Ansys users with little Emacs
+;; experience. Please consult the accompanying README file for
+;; further, especially, installation information.
 
 ;;; Code:
 
-(defconst ansys_version "11.0"		;NEW_C
+(defconst ansys_version "12.0"		;NEW_C
   "Ansys version on which Ansys mode is based.")
 
-(defconst ansys_mode_version "2"	;NEW_C
+(defconst ansys_mode_version "1"	;NEW_C
   "Ansys mode minor version number.")
 
 ;; --- defcustoms ---
@@ -96,7 +63,7 @@
 
 (defgroup Ansys nil			;NEW_C from Octave-Mod.el
   "Customisation group for the Ansys mode."
-  :version "22.1"
+  :version "23.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link "http://www.emacswiki.org")
   :link '(url-link "http://www.code.google.com/p/ansys-mode")
@@ -118,7 +85,7 @@ To take effect after setting this variable you have to recall
   "The Ansys executable name.
 When the file is not in your search path, you have to funish the
 complete path specification.  For example:
-\"/ansys_inc/v110/ansys/bin/ansys110\"."
+\"/ansys_inc/v120/ansys/bin/ansys120\"."
   :type 'string
   :group 'Ansys)
 
@@ -127,7 +94,7 @@ complete path specification.  For example:
 It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
 specification.  For example:
-\"/ansys_inc/v110/ansys/bin/anshelp110\" or with the windows OS
+\"/ansys_inc/v120/ansys/bin/anshelp120\" or with the windows OS
 \"c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP
 \\en-us\\ansyshelp.chm\"."
   :type 'string
@@ -1681,7 +1648,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Specify Job Name of Run" ansys-job :active ansys-is-unix-system-flag]
 	      ["Specify Ansys Executable " ansys-program :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run" ansys-start-ansys :active ansys-is-unix-system-flag]
-	      ["Display Run Status" ansys-process-status :active ansys-is-unix-system-flag]
+	      ["Display Ansys Run Status" ansys-process-status :active ansys-is-unix-system-flag]
 	      "-"
 	      ["Send Ansys Command Interactively" ansys-query-ansys-command :active ansys-is-unix-system-flag]
 	      ["Send Code Line/Region to Ansys" ansys-send-to-ansys :active ansys-is-unix-system-flag]
@@ -1689,8 +1656,9 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Start Graphics Screen" ansys-start-graphics :active ansys-is-unix-system-flag]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :active ansys-is-unix-system-flag]
 	      "-"
-	      ["Display Running Processes" list-processes]
-	      ["Display Error File" ansys-display-error-file]
+	      ["Display Emacs Processes" list-processes]
+	      ["Display Ansys Run Status" ansys-process-status :active ansys-is-unix-system-flag]
+	      ["Display Ansys Error File" ansys-display-error-file]
 	      ["Write Ansys Stop File" ansys-abort-file]
 	      ["Exit Ansys Run" ansys-exit-ansys :active ansys-is-unix-system-flag]
 	      "-"
@@ -1699,9 +1667,10 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	"-"
 	["Start Ansys help system" ansys-start-ansys-help]
 	["Display License Status" ansys-license-status]
-	["Display Command Help"      ansys-show-command-parameters]
-	["Display User Variables" ansys-display-variables]
+	["Display Ansys Command Help"      ansys-show-command-parameters]
+	["Display Variable Definitions" ansys-display-variables]
 	["Insert Temporary Ruler"         ansys-column-ruler]
+	["Toggle Outline Mode"         outline-minor-mode]
 	["Show Ansys Mode version"  ansys-mode-version]
 	["Describe Ansys Mode"		describe-mode]
 	["Customise Ansys Mode"         (customize-group "Ansys")]

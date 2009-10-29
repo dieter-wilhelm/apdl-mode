@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-28 19:32:48 uidg1626"
+;; Time-stamp: "2009-10-29 14:36:19 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -632,38 +632,40 @@ comment."
 
 (defconst ansys-font-lock-keywords	;NEW_C
   (append
-   ansys-get-functions
-   ansys-parametric-functions
    ansys-commands			;command overwrite variables
-;   '(ansys-highlight) ;function searches user variables ; TODO BUG
    ansys-undocumented-commands
-   ansys-elements
    '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,7\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 8 chars long)
+   ;; this is for level 2
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
       2 'font-lock-doc-face prepend))
-   '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
-   '(("\\(%\\)" 1 'font-lock-comment-face prepend))
-					;single % acts as a format specifier and pair %.% is an
-					;ansys parameter substitution
    '(("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 'font-lock-doc-face keep))
-					;highlight message of comment command /COM (no comment (!)
-					;is possible behind /COM), no separating comma necessary
+   					;highlight message of comment command /COM (no comment (!)
+   					;is possible behind /COM), no separating comma necessary
    '(("^\\s-*\\([cC]\\*\\*\\*\\).?\\(.\\{1,75\\}\\)" ;c*** should get immediate fontification
       (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
-					;only 75 characters possible no separator necessary
+   					;only 75 characters possible no separator necessary
    '(("^\\s-*\\(/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 2
       'font-lock-doc-face keep))	;the same for /title
    '(("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 'font-lock-doc-face keep))
-					;/SYS command sends string to OP, no parameter substitution!
-					;for variables with command names
+   					;/SYS command sends string to OP, no parameter substitution!
+   					;for variables with command names
    '(("\\( \\*[^[:alpha:]].*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
-					;^[:alpha:] to avoid spurious asterisk command fontification
-   '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
-					; more than 32 character long variables are not allowed
+   					;^[:alpha:] to avoid spurious asterisk command fontification
+   ansys-elements
+   ansys-get-functions
+   ansys-parametric-functions
    '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
+   '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
+   					; more than 32 character long variables are not allowed
+   ;; this is for level 3
+;   '(ansys-highlight) ;function searches user variables ; TODO BUG
+   '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
+   '(("\\(%\\)" 1 'font-lock-comment-face prepend))
+   					;single % acts as a format specifier and pair %.% is an
+   					;ansys parameter substitution
    '(("\\(:\\)" 1 'font-lock-warning-face keep))   ;colon loops
    '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
-   '(("\\(\\<_\\w+\\>\\)" 1 'font-lock-warning-face prepend)) ;reserved words
+   '(("\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
    ) "Regexp for the highlighting."  )
 
 (defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and

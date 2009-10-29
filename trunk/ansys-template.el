@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-10-26 11:33:02 uidg1626"
+;; Time-stamp: "2009-10-29 15:46:44 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -615,7 +615,7 @@
   \n
   "!! magsolv" \n
   \n
-  "!@ -- cyclic symmetry --" \n
+  "!@@ -- cyclic symmetry --" \n
   \n
   "!! cycopt,status" \n
   \n)
@@ -807,12 +807,29 @@
 )
 
 (defun ansys-skeleton-compilation ()
-  "Collection of basic code fragments for an APDL file."
+  "Collection of important code templates for an APDL file."
   (interactive)
   (ansys-skeleton-header)
+  (goto-char (point-max))
   (ansys-skeleton-import)
-  (ansys-skeleton-configuration))
+  (goto-char (point-max))
+  (ansys-skeleton-configuration)
+  (goto-char (point-max))
+  (ansys-skeleton-geometry)
+  (goto-char (point-max))
+  (ansys-skeleton-material-def)
+  (goto-char (point-max))
+  (ansys-skeleton-element-def)
+  (goto-char (point-max))
+  (ansys-skeleton-meshing)
+  (goto-char (point-max))
+  (ansys-skeleton-bc)
+  (goto-char (point-max))
+  (ansys-skeleton-solve)
+  (goto-char (point-max))
+  (ansys-skeleton-post1))
 
+;; TODO: dated
 (define-skeleton ansys-skeleton		;NEW
   "Insert full framework of an Ansys APDL file."
   "Insert brief purpose of file: "
@@ -877,7 +894,7 @@
   "/prep7" \n
   "Pi=3.14159265359" \n
   \n
-a  "!! /pnum,area,1"\n
+  "!! /pnum,area,1"\n
   \n
   "!! --- Materials and element types ---" \n
   "Steel=1" \n

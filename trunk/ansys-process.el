@@ -333,6 +333,82 @@ variable."
 ;;       ))
 ;;   )
 
+
+
+(defun ansys-license-file-check ()
+  "Returns t if Ansys license file (server) information is found.
+Checks whether `ansys-license-file' is preset in Emacs or uses
+the environment variable ANSYSLMD_LICENSE_FILE or LM_LICENSE_FILE
+for it, in the order of preference."
+  (cond
+   (ansys-license-file
+    t)
+   ((getenv "ANSYSLMD_LICENSE_FILE")
+    (setq ansys-license-file (getenv "ANSYSLMD_LICENSE_FILE"))
+    t)
+   ((getenv "LM_LICENSE_FILE")
+    (setq ansys-license-file (getenv "LM_LICENSE_FILE"))
+    t)
+   (t
+    (error "Please specify the license server information in the `ansys-license-file' variable or use the environment variables ANSYSLMD_LICENSE_FILE or ANSYS-LICENSE-FILE"))))
+
+(defun ansys-license-status ()		;NEW
+  "Display the Ansys license status or starts a license tool.
+For Unix systems do this in a separate buffer, under Windows
+start the anslic_admin.exe utility, which has a button for
+displaying the license status."
+  (interactive)
+  (cond
+   ((ansys-is-unix-system-flag)
+    (message "Retrieving license status, please wait...")
+    (ansys-license-file-check)
+    (with-current-buffer (get-buffer-create "*LM-Util*")
+      (delete-region (point-min) (point-max)))
+    ;; syncronous call
+    (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c \"" ansys-license-file "\" -a")
+    (let ((kw (list
+	       (concat "\\<" ansys-license "\\>:.*")
+	       0 font-lock-keyword-face t)))
+      (with-current-buffer "*LM-Util*"
+	(font-lock-mode 1)
+	(setq font-lock-keywords kw)
+	(goto-char (point-min))
+	(delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
+
+	(goto-char (point-min))
+	(while (not (eobp))
+	  (push-mark (point))
+	  (search-forward-regexp "Users of " nil t)
+	  (beginning-of-line)
+	  (delete-region (mark) (point))
+	  (forward-line 1))
+	(goto-char (point-max))
+	(push-mark (point))
+	(search-backward-regexp "Users of " nil t)
+	(forward-line 1)
+	(delete-region (mark) (point))
+
+	(goto-char (point-min))
+	(delete-matching-lines "^$")
+
+	(goto-char (point-min))
+	(while (re-search-forward "Total of \\|Users of " nil t)
+	  (replace-match ""))
+
+	(goto-char (point-max))
+	(insert "\n " (current-time-string))
+	;; (set-window-point (get-buffer-window "*LM-Util*") (point))
+	))
+    (display-buffer "*LM-Util*" 'otherwindow)
+    (message "Updated license status: %s." (current-time-string)))
+   ((string= system-type "windows-nt")
+    ;; TODO: check for -lmutil-program
+    (if (string= ansys-lmutil-program "")
+	(error "You must set the `ansys-lmutil-program' variable")
+      (w32-shell-execute nil ansys-lmutil-program))) ;nil for executable
+   (t
+    (error "No license status available on %s" system-type))))
+
 ;; ;;;###autoload
 ;; (defun ansys-license-status ()		;NEW
 ;;   "Display the Ansys license status.
@@ -368,53 +444,6 @@ variable."
 ;;       )
 ;;      ((string= system-type "windows-nt")
 ;;       (w32-shell-execute nil ansys-lmutil-program))))) ;nil for executable
-
-(defun ansys-license-status ()		;NEW
-  "Display the Ansys license status.
-For Unix systems do this in a separate buffer, under Windows
-start the anslic_admin.exe utility, which has a button for
-displaying the license status."
-  (interactive)
-  (message "Retrieving license status, please wait...")
-  ;; syncronous call
-  (with-current-buffer (get-buffer-create "*LM-Util*")
-    (delete-region (point-min) (point-max)))
-  (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-a")
-  (let ((kw (list
-	     (concat "\\<" ansys-license "\\>:.*")
-	     0 font-lock-keyword-face t)))
-    (with-current-buffer "*LM-Util*"
-      (font-lock-mode 1)
-      (setq font-lock-keywords kw)
-      (goto-char (point-min))
-      (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
-
-      (goto-char (point-min))
-      (while (not (eobp))
-      	(push-mark (point))
-      	(search-forward-regexp "Users of " nil t)
-	(beginning-of-line)
-      	(delete-region (mark) (point))
-      	(forward-line 1))
-      (goto-char (point-max))
-      (push-mark (point))
-      (search-backward-regexp "Users of " nil t)
-      (forward-line 1)
-      (delete-region (mark) (point))
-
-      (goto-char (point-min))
-      (delete-matching-lines "^$")
-
-      (goto-char (point-min))
-      (while (re-search-forward "Total of \\|Users of " nil t)
-      	(replace-match ""))
-
-      (goto-char (point-max))
-      (insert "\n " (current-time-string))
-      ;; (set-window-point (get-buffer-window "*LM-Util*") (point))
-      ))
-  (display-buffer "*LM-Util*" 'otherwindow)
-  (message "Updated license status: %s." (current-time-string)))
 
 (defun ansys-start-graphics ()		;NEW
   "Start the Ansys display in interactive mode."

@@ -226,27 +226,27 @@ Argument LIST is a list of ansys commands."
 	     (setq tmp
 		   (list
 		    ;; we take into account $ command sequences
-		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>") ;/*~ aren't word characters!
-		    '(2 font-lock-type-face keep))
+		    (concat "^\\s-*" (asterisk M) "\\>") ;/*~ aren't word characters!
+		    '(0 font-lock-type-face keep))
 		   tmp_list (cons tmp tmp_list)))
 	    ((< l 4)			;shorter stuff
 	     (setq tmp
 		   (list
-		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)\\>")	;condensed input line
-		    '(2 font-lock-type-face keep))
+		    (concat "^\\s-*" (asterisk M) "\\>")	;condensed input line
+		    '(0 font-lock-type-face keep))
 		   tmp_list (cons tmp tmp_list)))
 	    ((= l 4)			;short stuff
 	     (setq tmp
 		   (list
-		    (concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk M) "\\)")	;condensed input line
-		    '(2 font-lock-type-face keep)) 
+		    (concat "^\\s-*" (asterisk M))	;condensed input line
+		    '(0 font-lock-type-face keep)) 
 		   tmp_list (cons tmp tmp_list)))
 	    ((> l 4) ;;long command names
 	     (setq tmp2 (make_unique M)
 		   l2 (length tmp2)
 		   tmp (list
-			(concat "\\(^\\|\\$\\)\\s-*\\(" (asterisk tmp2) "\\)")
-				'(2 font-lock-type-face keep))
+			(concat "^\\s-*" (asterisk tmp2))
+				'(0 font-lock-type-face keep))
 		   tmp_list (cons tmp tmp_list)))))))
 
 (defun Ansys-initialize-completions ()

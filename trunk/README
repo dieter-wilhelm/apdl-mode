@@ -104,17 +104,15 @@ TODO:
                   "c:\\your\\directory\\where\\mode\\files\\recides")
      (autoload 'ansys-mode "ansys-mode" "Activate Ansys mode." 'interactive)
 
-  So far you only have to type "M-x ansys-mode RET" for every
-  interesting APDL file.  With the following code you are also able
-  to use the certain Ansys related functions without the need of
-  previously having called Ansys mode.  When in your Emacs session
-  there is already a file under Ansys mode, then they are available
-  anyway.
+  With the following code you are also able to use certain Ansys
+  related tools without the need of previously having called Ansys
+  mode.
 
-     (autoload 'ansys-abort-file "ansys-mode" "Activate Ansys abort file function." 'interactive)
-     (autoload 'ansys-display-error-file "ansys-mode" "Activate Ansys display error file function." 'interactive)
-     (autoload 'ansys-start-ansys-help "ansys-mode" "Activate Ansys start help function." 'interactive)
-     (autoload 'ansys-license-status "ansys-mode" "Activate Ansys license status function." 'interactive)
+     (autoload 'ansys-abort-file "ansys-process" "Activate Ansys abort file function." 'interactive)
+     (autoload 'ansys-display-error-file "ansys-process" "Activate Ansys display error file function." 'interactive)
+     (autoload 'ansys-start-ansys-help "ansys-process" "Activate Ansys start help function." 'interactive)
+ TODO: -license-file, -license-program variables
+     (autoload 'ansys-license-status "ansys-process" "Activate Ansys license status function." 'interactive)
 
 * When you intend to use the mode automatically, e.g. for all files
   you are opening with the extension '.mac' and '.inp' (WorkBench

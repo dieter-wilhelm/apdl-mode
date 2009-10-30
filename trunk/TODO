@@ -1,12 +1,20 @@
 * Bugs:
-** take care when region isn't complete in -send-to-ansys (send whole line)
-** load-path for .el files necessary!
-** mode is still slow with big files
+** -is-unix-sytem must be set for helper functions when
+   ansys-mode is not yet invoked like -license-status!
+   -check-sytem-type
+** skeleton autoload: -skeleton-header is daft
+** autoload of helper functions not working   
+** Comments in c*** commands are not possible and highlighted wrongly 
+** multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable fontification is not working 
 
 * v12.0.1:
   - load or load-file, what happens with compilation and autoload?
+  - The experimental user variable highlighting is currently only
+    implemented for files with a '.mac' extension.
   - provide different levels of fontifications
     font-lock-maximum-decoration '((ansys-mode . 2) (t . t))
+    Provide customisable choice whether commands, functions and/or
+    elements are assembled in the completion list <- redundant?.
   - check whether undocumented commands are still working in v12
     document this contradicting behaviour (legacy elements)
 SHELL43 - SHELL181
@@ -31,6 +39,12 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
     <sparr@mfkrs1.mw.tu-dresden.de>.
 
 * Priority
+  - read env
+    Try to ask only for the installation directory for the -license-file,
+    -program, etc.  variables.  Read some information from getenv.
+    read ansys-license-file from env, supply sane standard Ansys values
+    for the helper programs and check for existance
+  - tool-tips for skeletons (and menus?)
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
   - strange C-c C-v output for *get assignment etc.
@@ -50,15 +64,16 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
     should suffice?
   - C-c C-c skips empty lines and comments this is not always
     desirable -> make this optional -> filter process input?
+  - take care when region isn't complete in -send-to-ansys (send whole line)
+
 
 * Interesting stuff   
- * *repeate command
+** *repeate command
   
 ** Killing a buffer with a running process now asks a confirmation.
    You can remove this query in two ways: either removing
    `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
    setting the appropriate process flag with `set-process-query-on-exit-flag'.
-
 
 * improve Ansys interpreter buffer with `comint-mode'
    example: gnuplot-mode
@@ -79,8 +94,7 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
 
 * Dissect skeleton into smaller more useful subjects   
   - spider beams, _bolt.mac, screw.mac
-  - optional setting of (Ansys-mode-)bookmarks?   
-  - rework concept with respect to the Ansys menu structure
+   - rework concept with respect to the Ansys menu structure
     sort skeletons in menu
   - Make skeleton-header properly working (info "(autotype)")
   - Optimise templates: completing-read, read-from-minibuffer abbrev `d
@@ -89,13 +103,14 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
   - Warn when including skeleton in read only file.
   - skeleton for numbering ansys-skeleton-numbering-controls
     (skeleton-insert docu)
-  - suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
-  - negation 
+  - suggestions with auto-completion of kp,line,area,volu,node,elem,tabn,sval
+  - negation, what negation?
   - skeleton for skipping code	 *if,then *else*endif
     if selection: wrap around and indenting
     *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
     must *go:label be unambiguous?
 
+* optional setting of (Ansys-mode-)bookmarks?   
 * *set strings may be only 32 character long!
 * correct *set assignment printout
 * trigger a timer when showing the ansys-comand-parametr-help
@@ -253,9 +268,6 @@ restart necessary? other function as well
 -up/down-block when we are over a begin-keyword and in a block-end
 line
 
-read ansys-license-file from env, supply sane standard Ansys values
-for the helper programs and check for existance
-
 concentrate variable defining functions for user variable search
 and - display.  Variables are getting overwritten with Ansys
 keywords.
@@ -284,8 +296,6 @@ read every symbol docu string ->NEW_C or _C or OCTAVE_C
 
 *MSG command can only have 9 additional continuation lines
 
-FIXMEs
-
 generalise -insert-pi in code line ($ PI=...), in comment (\n
 Pi=...)
 
@@ -301,9 +311,6 @@ the startup screen
 'ansys-mode-startup-message
  maybe as advice when sluggish -> compiliation
 
-Try to ask only for the installation directory for the -license-file,
--program, etc.  variables.  Read some information from getenv.
-
 make everything completely customisable, eg auto-insert stuff
 customisable enable Emacs customisation of auto-insert-query and
 
@@ -318,10 +325,10 @@ sort customisation options for processes into subgroup
 provide a list of options for the -license function, set this
 function in the defcustom lmstat -a etc.
 
--ptimisation (look at regexp with *), nested repetition regexp
--perators
-
+-optimisation (look at regexp with *), nested repetition regexp
+-operators
 -start-ansys
+
 finding an Ansys /filnam command in current macro file
 and suggesting this as current job-name optionally
 kill old job when called again with working run
@@ -334,11 +341,6 @@ Enable choice for /show,3d or x11
 Wrong highlighting of variables in /com, C*** text strings
 variable highlighting overwrites ansys commands with the same name
 dynamic highlighting is only implemented for .mac files
-
-Comments in c*** commands are not possible and highlighted wrongly
-
-multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable
-fontification is not working
 
 *DO parameters are not restricted to the respective block deleting
 parameters with `PARAM=' or `*SET,PARAM,' is not taken into account
@@ -356,17 +358,12 @@ and display the variables in the speedbar
 Better documentation, info file, refcard, etc; GNU programming
 guideline: More requires?, indicate replacement of standard Emacs
 facilities (e. g M-C-n, M-C-p), profiling, major mode conventions:
-multiple loading of this mode?, XEmacs testing.
-
-Provide customisable choice whether commands, functions and/or
-elements are assembled in the completion list.
+multiple loading of this mode?.
 
 auto-indent-switch as defcustom?
 
 inhibit the unnecessary blink-matching-block display when closing a
 block behind a block-end keyword
-
-tool-tips for the menus
 
 highlight matching block keywords (similar to show-paren-mode) when
 point is at keyword
@@ -385,9 +382,6 @@ Indicate that character parameters are restricted to only 8
 characters.
 
 DEFSUBSTs with DEFUNs inside aren't particularly helpful?
-
-ansys-indicate-empty-lines also for non-window systems (with
--overlays)
 
 see www.apdl.de for further ideas and extensions
 

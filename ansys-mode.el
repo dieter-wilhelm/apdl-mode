@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-10-29 14:36:19 uidg1626"
+;; Time-stamp: "2009-11-05 18:40:41 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -46,8 +46,12 @@
 
 ;; The mode's capabilities are rather sophisticated but the
 ;; documentation is still targeted for Ansys users with little Emacs
-;; experience. Please consult the accompanying README file for
+;; experience.  Please consult the accompanying README file for
 ;; further, especially, installation information.
+
+;;; History:
+
+;; Please consult the accompanying README file.
 
 ;;; Code:
 
@@ -111,7 +115,7 @@ command `ansys-license-status'."
   :type 'string
   :group 'Ansys)
 
-(defcustom ansys-license-file ""	;NEW_C
+(defcustom ansys-license-file nil ;NEW_C
   "The FlexLM license file name or license server specification(s).
 The license server specification(s) must include the port number
 when it isn't 1055, i. e. the default port number:
@@ -120,10 +124,10 @@ example \"27005@rbgs421x:27005@rbgs422x\".
 
 System settings and order of precedence: 1. ANSYSLMD_LICENSE_FILE
 environment variable, 2.)  The FLEXlm resource file: ~/.flexlmrc
-on Unix or the Windows registry. 3.) The LM_LICENSE_FILE
-variable. 4.) The ansyslmd.ini file in the licensing
-directory (This is what anslic_admin is doing in a recommended
-installation).  5.) The license file itself."
+on Unix or somewhere in the Windows registry. 3.) The
+LM_LICENSE_FILE variable. 4.) The ansyslmd.ini file in the
+licensing directory (This is what anslic_admin is doing in an
+Ansys recommended installation).  5.) The license file itself."
   :type 'string
   :group 'Ansys)
 
@@ -256,9 +260,6 @@ See `ansys-abort-file' for a way of stopping a run in a
 controlled way and `ansys-display-error-file' for viewing the
 error file.")
 
-(defvar ansys-is-unix-system-flag nil	;NEW_C
-  "Non-nil means computer runs a Unix system.")
-
 (defvar ansys-user-variables () ;NEW_C
   "Variable containing the user variables and first occurance.
 The list is used for the fontification of these variables.")
@@ -266,6 +267,9 @@ The list is used for the fontification of these variables.")
 (defvar ansys-process-name "Ansys"		;NEW_C
   "Variable containing Emacs' name of a running ansys process.
 Variable is only used internally in the mode.")
+
+(defvar ansys-is-unix-system-flag nil	;NEW_C
+  "Non-nil means computer runs a Unix system.")
 
 ;; --- constants ---
 
@@ -1274,6 +1278,8 @@ the following options:
   (make-local-variable 'outline-regexp)
   (setq outline-regexp (concat "^!\\(" ansys-outline-string "\\)+"))
 
+  (setq ansys-is-unix-system-flag (ansys-is-unix-system-p))
+
   ;;   (make-local-variable 'ansys-column-ruler-wide) ;FIXEME
   ;;   (make-local-variable 'ansys-column-ruler-narrow)
   ;;   (make-local-variable 'ansys-ruler-wide-flag)
@@ -1284,14 +1290,6 @@ the following options:
   (setq ansys-format (intern "mac"))	;FIXME: this is for the ansys-macro
 					;? why intern?
   ;; menu
-  (or (string= system-type "darwin")
-      (string= system-type "macos")
-      (string= system-type "ms-dos")
-      (string= system-type "windows-nt")
-      (string= system-type "cygwin")
-      (string= system-type "vax-vms")
-      (string= system-type "axp-vms")
-      (setq ansys-is-unix-system-flag t))
   (ansys-add-ansys-menu)
 
   ;; --- user variables ---
@@ -1309,6 +1307,16 @@ the following options:
 
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook))
+
+(defun ansys-is-unix-system-p ()
+  (not
+   (or (string= system-type "darwin")
+       (string= system-type "macos")
+       (string= system-type "ms-dos")
+       (string= system-type "windows-nt")
+       (string= system-type "cygwin")
+       (string= system-type "vax-vms")
+       (string= system-type "axp-vms"))))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -1603,7 +1611,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Working Plane Operations"ansys-skeleton-working-plane]
 	      ["Multiplot Commands"     ansys-skeleton-multi-plot]
 	      ["Numbering Controls"     ansys-skeleton-numbering-controls]
-	      ["Geometry Import"        ansys-skeleton-import]
+	      [ "Geometry Import"       ansys-skeleton-import]
 	      ["Symmetry Expansions"    ansys-skeleton-expand]
 	      ["Element Definitions"    ansys-skeleton-element-def]
 	      ["Material Definitions"   ansys-skeleton-material-def]
@@ -2410,19 +2418,19 @@ C-u \\[goto-line] takes the number automatically)."
       (insert
        (propertize
 	(concat "-*- APDL variables of buffer " current-buffer " -*-\n")
-	'face 'bold))
+	'face 'match))
       (set-buffer variable-buffer)
       (insert
        (propertize
 	(concat"      ----------  =  assignments ----------\n")
-	'face 'bold))
+	'face 'font-lock-warning-face))
       (set-buffer current-buffer)
       (goto-char (point-min))
       (setq r "^\\s-*[^!\n=]*\\<.+\\>\\s-*=\\s-*[^=\n]*")
       (while (re-search-forward r nil t)
 	(unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
 	  (setq s (concat
-		   (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold)
+		   (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold))
 		   (match-string 0)
 		   "\n")))
 	(set-buffer variable-buffer)
@@ -2433,7 +2441,7 @@ C-u \\[goto-line] takes the number automatically)."
 	(insert
 	 (propertize
 	  (concat"      ---------- " tmp " assignments ----------\n")
-	  'face 'bold))
+	  'face 'font-lock-warning-face)
 	(set-buffer current-buffer)
 	(goto-char (point-min))
 	(setq r (concat "^[^!\n]*" (ansys-asterisk-regexp tmp) ".*"))

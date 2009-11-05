@@ -1,8 +1,9 @@
 * Bugs:
+** when there is an comman-help overlay in the *Ansys-skeleton*
+   buffer, it's not erased for the next skeleton
 ** -is-unix-sytem must be set for helper functions when
    ansys-mode is not yet invoked like -license-status!
    -check-sytem-type
-** skeleton autoload: -skeleton-header is daft
 ** autoload of helper functions not working   
 ** Comments in c*** commands are not possible and highlighted wrongly 
 ** multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable fontification is not working 
@@ -44,10 +45,14 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
     -program, etc.  variables.  Read some information from getenv.
     read ansys-license-file from env, supply sane standard Ansys values
     for the helper programs and check for existance
-  - tool-tips for skeletons (and menus?)
+  - substitute text "header" in -variable-view and skeleton-preview
+    for an overlay
+  - strange C-c C-v output for *get assignment etc. and sort full
+    entries at the top!
+  - tool-tips in menus especially for skeletons -> (info "(elisp)Keymaps")
+    :help "this is a tooltip"
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
-  - strange C-c C-v output for *get assignment etc.
   - M-? for commented out variables
   - Mohr-Coulomb criterion
   - M-?: following a variable allocation with `='

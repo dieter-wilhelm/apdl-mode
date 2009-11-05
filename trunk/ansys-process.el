@@ -251,15 +251,15 @@ with the Ansys /EXIT,all command which saves all model data."
   "Start the Ansys help system.
 Alternatively one can use the Ansys \"/SYS, anshelp110\" command
 when running Ansys interactively and provided that anshelp110 (or
-anshelp110.chm on Windows) is found within the PATH environment
-variable."
+anshelp110.chm on Windows) is found e. g. through the PATH
+environment variable."
   (interactive)
   (if (string= ansys-help-file "")
       (error "You must set the `ansys-help-file' variable")
     (progn
       (message "Starting the Ansys help system...")
       (cond
-       (ansys-is-unix-system-flag
+       ((ansys-is-unix-system-p)
 	(start-process "ansys-help-file" nil ansys-help-file))
        ((string= system-type "windows-nt")
 	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
@@ -359,19 +359,21 @@ start the anslic_admin.exe utility, which has a button for
 displaying the license status."
   (interactive)
   (cond
-   ((ansys-is-unix-system-flag)
+   ((ansys-is-unix-system-p)
     (message "Retrieving license status, please wait...")
     (ansys-license-file-check)
     (with-current-buffer (get-buffer-create "*LM-Util*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
-    (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c \"" ansys-license-file "\" -a")
+    (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c "  ansys-license-file  "-a")
     (let ((kw (list
 	       (concat "\\<" ansys-license "\\>:.*")
 	       0 font-lock-keyword-face t)))
       (with-current-buffer "*LM-Util*"
-	(font-lock-mode 1)
+	;; (font-lock-mode 1)
 	(setq font-lock-keywords kw)
+
+	;; remove unintersting licenses
 	(goto-char (point-min))
 	(delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
 
@@ -388,15 +390,24 @@ displaying the license status."
 	(forward-line 1)
 	(delete-region (mark) (point))
 
+	;; remove empty lines
 	(goto-char (point-min))
 	(delete-matching-lines "^$")
 
+	;; shorten lines
 	(goto-char (point-min))
 	(while (re-search-forward "Total of \\|Users of " nil t)
 	  (replace-match ""))
 
+	;; some comments
+	(goto-char (point-min))
+	(insert (propertize
+		 " -*- License status -*-\n" 'face 'match))
+
 	(goto-char (point-max))
-	(insert "\n " (current-time-string))
+	(insert "\n")
+	(insert (propertize (current-time-string)
+			    'face 'match))
 	;; (set-window-point (get-buffer-window "*LM-Util*") (point))
 	))
     (display-buffer "*LM-Util*" 'otherwindow)
@@ -503,7 +514,7 @@ And specify it in the variable `ansys-help-file'."
     (if (and ansys-help-file
 	     (not (string= ansys-help-file "")))
 	(setq pr ansys-help-file)
-      (if ansys-is-unix-system-flag
+      (if (ansys-is-unix-system-p)
 	  (setq pr "/ansys_inc/v110/ansys/bin/anshelp110")
 	(setq pr "c:\\\\Program\ Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP\\en-us\\ansyshelp.chm")))
     (setq ansys-program
@@ -522,7 +533,7 @@ when the variable `insert-default-directory' is not nil."
     (if (and ansys-lmutil-program
 	     (not (string= ansys-lmutil-program "")))
 	(setq pr ansys-lmutil-program)
-      (if ansys-is-unix-system-flag
+      (if (ansys-is-unix-system-p)
 	  (setq pr "/ansys_inc/shared_files/licensing/linop64/lmutil")
 	(setq pr "c:\\\\Program Files\\Ansys Inc\\Shared\\\
                    Files\\Licensing\\intel\\anslic_admin.exe")))

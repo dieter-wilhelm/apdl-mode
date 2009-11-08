@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-05 18:40:41 uidg1626"
+;; Time-stamp: "2009-11-08 21:53:16 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -284,12 +284,13 @@ Variable is only used internally in the mode.")
   )
 
 (defconst ansys-variable-defining-commands ;NEW FIXME: correct unnecessary full names
-  '("*do" "*get\\w*" "*dim" "*set.?"	   ;funny *SET works only with on add. char
+  '("*do" "*get\\w*" "*dim" "*set.?" ;funny *SET works only with one
+				     ;additional character
     "*ask" "path" "pdef" "*vget" "*vfun" "*mfun" "*vitrp"
     "*toper""*voper" "*moper" "*sread" "*vscfun" "/inq\\w*"
     "/fil\\w*")
-  "List of commands which define user variables.
-Except the \"=\" assignment.")
+  "Regexps for commands which define user variables.
+(Excluded the \"=\" assignment.)")
 
 (defconst ansys-use-variables		;NEW_C
   '("ARG[1-9]" "AR[1][0-9]")

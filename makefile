@@ -1,6 +1,7 @@
 ANSYS_MAJOR := 12
 ANSYS_MINOR := 0
-MODE_VERSION := 1 # this is the current ansys-mode version
+# this is the current ansys-mode version
+MODE_VERSION := 1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tar.bz2
 
@@ -10,7 +11,7 @@ PACKAGE := ansys-mode-$(VERSION).tar.bz2
 EL_FILES := ansys-mode.el ansys-keyword.el default.el \
   ansys-template.el ansys-process.el
 
-FILES := LICENSE README TODO 
+FILES := LICENSE README TODO
 #   ansys-process.mac ansys-dynprompt.txt \
 #   ansys_return_values.txt ansys_elements.txt \
 #   ansys_keywords.txt ansys_parametric_functions.txt \
@@ -23,19 +24,21 @@ ALL : $(PACKAGE) TAGS
 # ALL : $(PACKAGE) ansys-mode.el.gz
 # 	@cp -v $^ ~/tmp
 
-$(PACKAGE) : $(FILES) $(EL_FILES)
-	@tar -cjvf $@".tar.bz2" $^
+$(PACKAGE) : $(FILES) $(EL_FILES) makefile
+	@echo "Packaging $@ ..."
 	@echo
-	@echo $@...done
-	@echo ------------------------------
+	@tar -cjvf $@ $^
+	@echo
+	@echo "... $@ done."
+	@echo "------------------------------"
+
+TAGS : makefile $(EL_FILES)
+	etags $(EL_FILES)
 
 # ansys-mode.el.gz : ansys-mode.el
 # 	@gzip -c $^ > $@
 # 	@echo $@...done
 # 	@echo ------------------------------
-
-TAGS : makefile $(EL_FILES)
-	etags $(EL_FILES)
 
 # README : makefile ansys-mode.el
 # 	@echo This is the $@ for $(PACKAGE) > $@

@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-11-04 20:24:02 uidg1626"
+;; Time-stamp: "2009-11-09 17:56:56 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -38,18 +38,22 @@
 	 (new-buffer-name "*Ansys-skeleton*")
 	 (skeleton-buffer (get-buffer-create new-buffer-name))
 	 (skel (completing-read "Template: " obarray 'commandp
-	 t "ansys-skeleton-" t )))
+	 t "ansys-skeleton-" nil)))
     (save-excursion
       (set-buffer skeleton-buffer)
+      (delete-overlay ansys-help-overlay)
       ;(toggle-read-only -1)
       (toggle-read-only 0)		;zero means switch off read-only
       (kill-region (point-min) (point-max))
       ;; TODO: remove possible command-help overlays!
       ;(ansys-skeleton-configuration)
-;      (message skel)
-      (insert " --- Template:" skel " ---\n")
-      (funcall (intern-soft skel))
+;      (message skel) ;add-text-properties
       (ansys-mode)
+      (insert
+       (propertize
+	(concat " 111 Template: " skel " ---\n\n")
+	'face 'match))
+      (funcall (intern-soft skel))
       (set-buffer-modified-p nil)
 ;      (toggle-read-only t)
       (set-buffer current-buffer)
@@ -78,52 +82,14 @@
   )
 
 (define-skeleton ansys-skeleton-header	 ;NEW
-  "Insert header for an APDL script" nil ;;"Name of file: "
-;  "! 	$Id" ":$\n"
-  "Insert brief purpose of file: "
-  "!" ansys-outline-string " ********* first line ***************\n"
+  "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
+  "Brief description of the file: "
+  "!" ansys-outline-string " --- header ---" \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
   "!! ------------------------------" \n
-  "!! COMMENTARY: User parameters start in upper case." \n
-  "!!  Ansys command names may be ommitted (defaulting to the" \n
-  "!!  previous command, except slash and asterisk commands)." \n
-  "!! WARNING: Variables starting with an underscore are reserved"  \n
-  "!!  (for  components and Ansys furnished macros, like" \n
-  "!!  the %_FIX% table name for current displacement values or" \n
-  "!!  the _RETURN and _STATUS variable (_STATUS: 0 no error, 1" \n
-  "!!  note, 2 warning, 3 error)!" \n \n
-  "!! ==============================" \n
-  "!" ansys-outline-string " --- Setup ---" \n
-  "!! ==============================" \n
-  \n
-  ;; "!"(insert (make-string 80 ?*))"\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "C*** " (buffer-name) (insert (make-string (- 80 5 (length
-  ;; 						      (buffer-name))) ? ))"*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "!*   Called by: " _
-  ;; (let ((called (read-file-name "Calling Script File: " "")))
-  ;;   (insert called)
-  ;;   (insert (make-string (- 80 2 (length "   Called by: ") (length
-  ;; 							    called)) ? ))) "*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "!*   Calling:"(insert (make-string (- 80 2 (length "   Calling:")) ?
-  ;; 				      ))"*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-
-  ;; "!*   Macros: "
-  ;; (let ((mlib (read-file-name "Macro Library: " "")))
-  ;;   (insert mlib " ()")
-  ;;   (insert (make-string (- 80 2 (length "   Macros: ") (length mlib) 3)
-  ;; 			 ? )))"*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "!*"(insert (make-string (- 80 2) ? ))"*\n"
-  ;; "!"(insert (make-string 80 ?*))"\n"
   )
 
 (define-skeleton ansys-skeleton-configuration

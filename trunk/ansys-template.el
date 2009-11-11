@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-11-09 17:56:56 uidg1626"
+;; Time-stamp: "2009-11-09 18:21:01 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -84,12 +84,12 @@
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
   "Brief description of the file: "
-  "!" ansys-outline-string " --- header ---" \n
-  "!! FILENAME: " (buffer-file-name) \n
+  "!" ansys-outline-string " --- Header ---" \n
+  "!! FILENAME: " (file-name-nondirectory (buffer-file-name)) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
-  "!! ------------------------------" \n
+  "!! ------------------------------" \n\n
   )
 
 (define-skeleton ansys-skeleton-configuration

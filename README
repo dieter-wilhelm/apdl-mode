@@ -60,53 +60,81 @@ restricted to UNIX systems.
 
 == Installation ==
 
-=== Short instructions ===
+=== Short instruction ===
 
-put the following paragraph into your ".emacs" file, restart Emacs (or
-evaluate the definitions) and enjoy.
+Important: For the mode to run Emacs must know where the code files
+reside.  Either extract them into an Emacs directory which is in its
+default load-path--this could be the site-lisp folder in your Emacs
+installation tree--or you must indicate their location to Emacs with
+the environment variable EMACSLOADPATH.  or use the following
 
-    (add-to-list 'load-path "c:\\directory-path\\where\\ansys-mode\\files\\reside")
-      ;assuming you extracted the files in drive c: on a windows system
-    (autoload 'ansys-mode "ansys-mode" nil t)
+Extract the ansys-mode files into some directory of your choice.  Put the
+following paragraph into your ".emacs" configuration file (in your
+home directory), adjust the stuff in capital letters, restart Emacs
+and enjoy.
+
+    (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
+      ;assuming you extracted the files on drive "c:"
+      ;for example: "c:\\emacs"
     (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
-       ;assuming the APDL files have the extension ".mac".
-    (auto-insert-mode 1) ;needed for inserting Ansys skeleton
-    (setq auto-insert-query t) ;insert skeleton only after request
-    (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
-    ;(setq ansys-dynamic-highlighting-flag t) ;helpful but still experimental
+    (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
+    (autoload 'ansys-mode "ansys-mode" nil t)
+      ;Above loads ansys-mode automatically for all files with
+      ;the suffixes ".mac" and ".inp".
 
 === Verbose instructions ===
 
-TODO:
 * The most direct way of using ansys-mode.el is extracting the mode
-  files somewhere on disk and loading the included definitions from
-  there with the standard Emacs command `load-file' i. e.  type "M-x
-  load-file RET", "M-x" means typing first the "Alt"-key and then the
-  "x"-key simultaneously.  This gives you a prompt where you can type
-  `load-file' followed by the "RET" key to conclude the command.  Then
-  Emacs will prompt you for a file location.
+  files in the load-path of Emacs (e. g. the site-lisp folder of your
+  Emacs directory tree) and loading the included definitions from
+  there with the Emacs command `load-file' i. e.  type "M-x load-file
+  RET", "M-x" means typing first the "Alt"-key and then the "x"-key
+  simultaneously.  This gives you a prompt where you can type
+  `load-file' followed by the "RET" key to conclude the command.
+  Emacs will then prompt you for a file.  Specify the path and the
+  file "ansys-mode.el".
 
-  If you feel new to these concepts I'd suggest scrolling through the
-  build-in tutorial of GNU Emacs (you'll find it in the help menu), it
-  doesn't take much time and it will be worth it since it might show
-  you some new editing tricks.
+  If you feel uncomfortable by above concepts I suggest working
+  through the build-in tutorial of GNU Emacs (you'll find it in the
+  help menu), it doesn't take much time and the investment will be
+  worth it since it will also accelerate general editing tasks.
 
-  After the definitions are loaded now into memory you have to type
-  "M-x ansys-mode RET" for the files of interest to activate the mode.
+  Since the code is now loaded into memory you are able to type "M-x
+  ansys-mode RET" to activate the mode for the current file.
 
-* When it becomes annoying loading the Lisp file 'ansys-mode.el'
-  every time you are starting Emacs anew, you should specify the
-  path for this file in your '~/.emacs' file (the configuration
-  file '.emacs' of GNU Emacs in your home directory '~\') and
-  auto-load the function `ansys-mode':
+* When it becomes tiring of loading 'ansys-mode.el' every time you are
+  starting Emacs anew, you can specify the installation path for the
+  mode files in your '~/.emacs' file (the configuration file '.emacs'
+  of GNU Emacs in your home directory '~\').
 
      (add-to-list 'load-path
-                  "c:\\your\\directory\\where\\mode\\files\\recides")
+                  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
+
+* When you intend to use the mode automatically, e. g. for all files
+  you are opening with the extensions '.mac' and '.inp' (WorkBench
+  default solver input file suffix), add the following to your
+  '.emacs' file:
+
+     (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+     (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
      (autoload 'ansys-mode "ansys-mode" "Activate Ansys mode." 'interactive)
 
-  With the following code you are also able to use certain Ansys
-  related tools without the need of previously having called Ansys
-  mode.
+  The suffix below belongs to the "anys neutral file" export format
+  which contains also an APDL header and footer.
+
+     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
+
+* In case you also want to enjoy the auto insertion feature, which
+  puts (optionally) some predefined body of Ansys commands to every
+  new APDL file insert the following into '.emacs':
+
+     (setq auto-insert-mode 1)
+     (setq auto-insert-query t) ;insert only after request
+     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+
+* With the below section you are also able to use in a new Emacs
+  session certain Ansys related commands without the need of
+  previously having explicitely called ansys-mode.
 
      (autoload 'ansys-abort-file "ansys-process" "Activate Ansys abort file function." 'interactive)
      (autoload 'ansys-display-error-file "ansys-process" "Activate Ansys display error file function." 'interactive)
@@ -114,27 +142,7 @@ TODO:
  TODO: -license-file, -license-program variables
      (autoload 'ansys-license-status "ansys-process" "Activate Ansys license status function." 'interactive)
 
-* When you intend to use the mode automatically, e.g. for all files
-  you are opening with the extension '.mac' and '.inp' (WorkBench
-  default solver input file suffix), add the following to your
-  '.emacs' file:
-
-     (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
-     (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
-
-  The suffix below belongs to the "anys neutral file" export format
-  which contains also an APDL header and footer text
-
-     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-
-* In case you also want to enjoy the auto insertion feature, which
-  puts (optionally) some predefined body of Ansys commands to every
-  new file--only those opened with `ansys-mode', of course--append
-  the following to '.emacs':
-
-     (setq auto-insert-mode 1)
-     (setq auto-insert-query t) ;insert only after request
-     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+* TODO: mention default.el
 
 == Usage ==
 
@@ -156,8 +164,6 @@ Eli Zaretzki,
 Markus Triska,
 Mathias Dahl,
 
-History:
-
 == History: ==
 
 * The version scheme is a mixture of the Ansys version (12.0) on
@@ -166,8 +172,8 @@ History:
 
 === Version 12.0.1 ===
 
-* The lisp code had to be split up for better maintance, the code for
-  ansys-mode is now provided in an archive file.
+* The lisp code had to be split up for better maintance, the code
+  files for are now provided in an .bz2 archive.
 
 * There are now 3 highlighting levels to choose from
 

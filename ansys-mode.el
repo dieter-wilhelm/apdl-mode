@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-08 21:53:16 dieter"
+;; Time-stamp: "2009-11-17 12:15:01 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1593,32 +1593,32 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 
 (defconst ansys-mode-menu
   (list "Ansys"
-	["Comment/Un~ Region"           comment-dwim]
-	["Insert Pi"                    ansys-insert-pi]
-	["Insert Parentheses"           insert-parentheses]
-	["Complete Expression"          ansys-complete-symbol]
-	["Close Block"                  ansys-close-block]
-	["Preview Macro Template"        ansys-display-skeleton]
+	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment commented out region"]
+	["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
+	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
+	["Complete Expression"          ansys-complete-symbol :help "Complete an Ansys command"]
+	["Close Block"                  ansys-close-block :help "Close an open Ansys block command with the corresponding end command"]
+	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
 	(list "Insert Template"
 	      ["*IF ,Action *ENDIF"     ansys-if]
 	      ["*IF ,THEN *ENDIF"	ansys-if-then]
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
-	      ["Header"                 ansys-skeleton-header]
-	      ["Configuration"          ansys-skeleton-configuration]
-	      ["View Settings"          ansys-skeleton-view-settings]
-	      ["Coordinate Sys. Display"ansys-skeleton-display-coord]
-	      ["Working Plane Operations"ansys-skeleton-working-plane]
-	      ["Multiplot Commands"     ansys-skeleton-multi-plot]
-	      ["Numbering Controls"     ansys-skeleton-numbering-controls]
-	      [ "Geometry Import"       ansys-skeleton-import]
-	      ["Symmetry Expansions"    ansys-skeleton-expand]
-	      ["Element Definitions"    ansys-skeleton-element-def]
-	      ["Material Definitions"   ansys-skeleton-material-def]
-	      ["Meshing Controls"       ansys-skeleton-meshing]
-	      ["Contact Pair Definition"           ansys-skeleton-contact-definition]
-	      ["Rigid Target"           ansys-skeleton-rigid-target]
+	      ["Header"                 ansys-skeleton-header :help "File header template"]
+	      ["Configuration"          ansys-skeleton-configuration help: "Configuration code template"]
+	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
+	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
+	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
+	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
+	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
+	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
+	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
+	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
+	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]
+	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
+	      ["Contact Pair Definition"           ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
+	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]
 	      ["Boundary Conditions"    ansys-skeleton-bc]
 	      ["Buckling Analysis Type" ansys-skeleton-buckling]
 	      ["Solve"                  ansys-skeleton-solve]

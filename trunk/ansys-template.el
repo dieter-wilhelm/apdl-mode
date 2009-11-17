@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-11-09 18:21:01 uidg1626"
+;; Time-stamp: "2009-11-17 12:00:05 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -41,23 +41,27 @@
 	 t "ansys-skeleton-" nil)))
     (save-excursion
       (set-buffer skeleton-buffer)
-      (delete-overlay ansys-help-overlay)
+      ;; TODO: remove possible command-help overlays!
+      ;; (if ansys-help-overlay
+      ;; 	  (delete-overlay ansys-help-overlay))
       ;(toggle-read-only -1)
       (toggle-read-only 0)		;zero means switch off read-only
       (kill-region (point-min) (point-max))
-      ;; TODO: remove possible command-help overlays!
       ;(ansys-skeleton-configuration)
 ;      (message skel) ;add-text-properties
-      (ansys-mode)
-      (insert
-       (propertize
-	(concat " 111 Template: " skel " ---\n\n")
-	'face 'match))
+      (unless (string= (symbol-name major-mode) "ansys-mode")
+	  (ansys-mode))
+      ;; TODO: overlay displaying skeleton name
+      ;; (insert
+      ;;  (propertize
+      ;; 	;; TODO
+      ;; 	(concat " 111 Template: " skel " ---\n\n")
+      ;; 	'face 'match))
       (funcall (intern-soft skel))
-      (set-buffer-modified-p nil)
+      (set-buffer-modified-p nil))
 ;      (toggle-read-only t)
-      (set-buffer current-buffer)
-      (display-buffer new-buffer-name 'other-window))))
+      ;; (set-buffer current-buffer))
+      (display-buffer new-buffer-name 'other-window)))
 
 (define-skeleton ansys_do		;NEW
   ""
@@ -84,7 +88,7 @@
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
   "Brief description of the file: "
-  "!" ansys-outline-string " --- Header ---" \n
+  "!" ansys-outline-string " --- header ---" \n
   "!! FILENAME: " (file-name-nondirectory (buffer-file-name)) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
@@ -273,11 +277,14 @@
   "e,Nmax+1" \n
   \n)
 
-(define-skeleton ansys-skeleton-display-coord
+(define-skeleton ansys-skeleton-coordinates
   ""
   nil
   "!@@@ - coordinate system display -" \n
   \n
+  "!csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
+  "!clocal,11,0 !define local coord. sys. from active" \n
+  "!psymb,cs,1 ! display local coord."
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot"_ \n
   \n)
@@ -326,9 +333,10 @@
   \n
   "!! /pbc,all,,1 !bc symbols"\n
   "!! /psf !surface loads" \n
-  "!! /pbf !body loads"
-  "!! /psymb,esys,1 !check element esys" \n
+  "!! /pbf !body loads" \n
+  "!! /psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
   "!! /psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
+  "!! /psymb,stat" \n
   \n)
 
 (define-skeleton ansys-skeleton-element-table
@@ -487,7 +495,7 @@
 (define-skeleton ansys-skeleton-bc
   ""
   nil
-  "!@@ -- boundary conditions -- " \n
+  "!@@ -- boundary conditions --"\n
   \n
   "/prep7" \n
   \n
@@ -531,7 +539,7 @@
   "!bflist,all" \n
   "!! dl,all,,asym ! flux parallel to lines" \n
   "!! nsel,s,ext ! select exterior nodes" \n
-  "!! dsym,asym ! flux parallel to lines"
+  "!! dsym,asym ! flux parallel to lines" \n
   \n)
 
 (define-skeleton ansys-skeleton-buckling

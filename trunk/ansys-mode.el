@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-17 12:15:01 uidg1626"
+;; Time-stamp: "2009-11-23 17:47:48 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1619,75 +1619,75 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
 	      ["Contact Pair Definition"           ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
 	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]
-	      ["Boundary Conditions"    ansys-skeleton-bc]
-	      ["Buckling Analysis Type" ansys-skeleton-buckling]
-	      ["Solve"                  ansys-skeleton-solve]
-	      ["Post1 Postprocessing"   ansys-skeleton-post1]
-	      ["Path plot operations"   ansys-skeleton-path-plot]
-	      ["Output to file"         ansys-skeleton-output-to-file]
-	      ["Element Table Operations"ansys-skeleton-element-table]
-	      ["Post26 Postprocessing"  ansys-skeleton-post26]
-	      ["Template compilation" ansys-skeleton])
+	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
+	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
+	      ["Solve"                  ansys-skeleton-solve :help "Solver commands and options"]
+	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
+	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
+	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
+	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
+	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
+	      ["Template compilation" ansys-skeleton :help "Insert compilation of the most often used templates"])
 	(list "Navigate Code Lines"
-	      ["Previous Code Line"	ansys-previous-code-line]
-	      ["Next Code Line"		ansys-next-code-line]
-	      ["Beginning of (Continuation) Command" ansys-command-start]
-	      ["End of (Continuation) Command"	ansys-command-end]
+	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
+	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
+	      ["Beginning of (Continuation) Command" ansys-command-start :help "Go to the beginning of the current command"]
+	      ["End of (Continuation) Command"	ansys-command-end :help "Go to the end of the current command"]
 	      "-"
-	      ["Split Format Line at Point"	ansys-indent-format-line]
+	      ["Split Format Line at Point"	ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an Ansys format line insert the continuation character before splitting the line"]
 	      )
 	(list "Work with Logical Blocks"
-	      ["Next Block End"		ansys-next-block-end]
-	      ["Previous Block Start"   ansys-previous-block-start-and-conditional]
-	      ["Down Block"		ansys-down-block]
-	      ["Up Block"		ansys-up-block]
-	      ["Skip Block Forward"     ansys-skip-block-forward]
-	      ["Skip Block Backwards"   ansys-skip-block-backwards]
-	      ["Beginning of N. Block" ansys-number-block-start]
-	      ["End of Number Block"    ansys-number-block-end]
+	      ["Next Block End"		ansys-next-block-end :help "Go to the end of the current or next control block (*do, *if, ...)"]
+	      ["Previous Block Start"   ansys-previous-block-start-and-conditional :help "Go to the beginning of the current or next control block (*do, *if, ...)"]
+	      ["Down Block"		ansys-down-block :help "Move down one control block level"]
+	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
+	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
+	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
+	      ["Beginning of N. Block" ansys-number-block-start :help "Go to the beginning of an Ansys number block (EBLOCK, NBLOCK)"]
+	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an Ansys number block (EBLOCK, NBLOCK)"]
 	      "-"
-	      ["Close Block"                  ansys-close-block]
-	      ["Mark Block"              ansys-mark-block]
+	      ["Close Block"                  ansys-close-block :help "Close the current Ansys control block with the respective closing command"]
+	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Processes"
-	      ["Specify License Server or - File"   ansys-license-file]
-	      ["Specify License Utility" ansys-lmutil-program]
-	      ["Display License Status" ansys-license-status]
-	      ["Start Ansys Help System" ansys-start-ansys-help]
+	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file"]
+	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
+	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server"]
+	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	      "-"
-	      ["Specify Ansys License Type" ansys-license :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" ansys-job :active ansys-is-unix-system-flag]
-	      ["Specify Ansys Executable " ansys-program :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run" ansys-start-ansys :active ansys-is-unix-system-flag]
+	      ["Specify Ansys License Type" :help "Specify the license type for a solver run" ansys-license :active ansys-is-unix-system-flag]
+	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a solver run" :active ansys-is-unix-system-flag]
+	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a solver run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Start Ansys Run" ansys-start-ansys :help "Start a solver run" :active ansys-is-unix-system-flag]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active ansys-is-unix-system-flag]
+	      ["Send Code Line/Region to Ansys" ansys-send-to-ansys :help "Send the current line or active region to a running solver process" :active ansys-is-unix-system-flag]
+	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
+	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active ansys-is-unix-system-flag]
+	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Display Emacs Processes" list-processes :help "Show all currently running Emacs Processes, like the Ansys help browser, etc."]
 	      ["Display Ansys Run Status" ansys-process-status :active ansys-is-unix-system-flag]
+	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the current Ansys error file"]
+	      ["Write Ansys Stop File" ansys-abort-file :help "Write a stop file for the solver (containing the word \"nonlinear\")"]
+	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active ansys-is-unix-system-flag]
 	      "-"
-	      ["Send Ansys Command Interactively" ansys-query-ansys-command :active ansys-is-unix-system-flag]
-	      ["Send Code Line/Region to Ansys" ansys-send-to-ansys :active ansys-is-unix-system-flag]
-	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above]
-	      ["Start Graphics Screen" ansys-start-graphics :active ansys-is-unix-system-flag]
-	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :active ansys-is-unix-system-flag]
-	      "-"
-	      ["Display Emacs Processes" list-processes]
-	      ["Display Ansys Run Status" ansys-process-status :active ansys-is-unix-system-flag]
-	      ["Display Ansys Error File" ansys-display-error-file]
-	      ["Write Ansys Stop File" ansys-abort-file]
-	      ["Exit Ansys Run" ansys-exit-ansys :active ansys-is-unix-system-flag]
-	      "-"
-	      ["Kill Ansys Run" ansys-kill-ansys :active ansys-is-unix-system-flag]
+	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active ansys-is-unix-system-flag]
 	      )
 	"-"
-	["Start Ansys help system" ansys-start-ansys-help]
-	["Display License Status" ansys-license-status]
-	["Display Ansys Command Help"      ansys-show-command-parameters]
-	["Display Variable Definitions" ansys-display-variables]
-	["Insert Temporary Ruler"         ansys-column-ruler]
-	["Toggle Outline Mode"         outline-minor-mode]
-	["Show Ansys Mode version"  ansys-mode-version]
-	["Describe Ansys Mode"		describe-mode]
-	["Customise Ansys Mode"         (customize-group "Ansys")]
-	["Submit Bug Report"            ansys-submit-bug-report]
+	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
+	["Display License Status" ansys-license-status :help "Show the license usage in another window or start the windows license manager"]
+	["Display Ansys Command Help"      ansys-show-command-parameters :helpl "Display a short help for the Ansys command in the current line and its parameters"]
+	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
+	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
+	["Toggle Outline Mode"         outline-minor-mode :help "Switch on/off the outline mode for structuring the file with headlines"]
+	["Show Ansys Mode version"  ansys-mode-version :help "Display the Ansys mode version in the mini buffer"]
+	["Describe Ansys Mode"		describe-mode :help "Open a window with a description of Ansys mode"]
+	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open an Emacs customisation window for Ansys mode"]
+	["Submit Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
 	"-"
-	["Return to previous mode"             ansys-toggle-mode])
+	["Return to previous mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
   "Menu items for the Ansys mode.")
 
 (defun ansys-add-ansys-menu ()

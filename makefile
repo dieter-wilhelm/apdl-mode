@@ -3,7 +3,7 @@ ANSYS_MINOR := 0
 # this is the current ansys-mode version
 MODE_VERSION := 1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
-PACKAGE := ansys-mode-$(VERSION).tar.bz2
+PACKAGE := ansys-mode-$(VERSION).tgz
 
 # EL_FILES := ansys-mode.el ansys-fontification.el \
 #   ansys-process.el default.el
@@ -27,7 +27,7 @@ ALL : $(PACKAGE) TAGS
 $(PACKAGE) : $(FILES) $(EL_FILES) makefile
 	@echo "Packaging $@ ..."
 	@echo
-	@tar -cjvf $@ $^
+	@tar -czvf $@ $^
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"

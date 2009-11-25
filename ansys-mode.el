@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-23 17:47:48 uidg1626"
+;; Time-stamp: "2009-11-25 17:04:54 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1409,7 +1409,7 @@ THEN action label."
 	      (setq str (downcase str))))
 	  (cond
 	   ((ansys-in-empty-line-p)
-	    (delete-blank-lines)
+	    ;(delete-blank-lines) deletes in 23.1 an isolated empty line
 	    (insert str)
 	    (indent-according-to-mode))
 	   ((ansys-in-indentation-p)
@@ -1593,11 +1593,11 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 
 (defconst ansys-mode-menu
   (list "Ansys"
-	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment commented out region"]
+	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Complete Expression"          ansys-complete-symbol :help "Complete an Ansys command"]
-	["Close Block"                  ansys-close-block :help "Close an open Ansys block command with the corresponding end command"]
+	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
 	(list "Insert Template"

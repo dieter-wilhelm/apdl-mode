@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-11-17 12:00:05 uidg1626"
+;; Time-stamp: "2009-11-25 17:38:14 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -89,11 +89,14 @@
   "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
   "Brief description of the file: "
   "!" ansys-outline-string " --- header ---" \n
-  "!! FILENAME: " (file-name-nondirectory (buffer-file-name)) \n
+  "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
+					      (buffer-file-name)
+					    (buffer-name))) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
-  "!! ------------------------------" \n\n
+  "!! ------------------------------" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-configuration
@@ -309,7 +312,7 @@
   nil
   "!@@@ - multiplot controls -" \n
   \n
-  "/gtype,all,node,0 !turn off nodes" \n
+  "/gtype,all,node,0 !turn off nodes (elem,keyp,line,area)" \n
   "!/gcmd,1,u,sum"
   "gplot" \n
   \n)
@@ -710,9 +713,9 @@
   "*vwrite,Strg1, Strg2, Strg3" \n
   "%S %S%/%S" \n
   "*do,I,1,Nn,1" \n
-  "*vwrite,B(1,I),B(2,I)" \n
-  "%E %E" \n
-  "*enddo  " \n
+  "*vwrite,B(1,I),B(2,I)" > \n
+  "%E %E" > \n
+  "*enddo" > \n
   "*cfclos ! close file" \n
   \n)
 

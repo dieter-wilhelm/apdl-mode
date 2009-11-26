@@ -27,7 +27,7 @@ ALL : $(PACKAGE) TAGS
 $(PACKAGE) : $(FILES) $(EL_FILES) makefile
 	@echo "Packaging $@ ..."
 	@echo
-	@tar -czvf $@ $^
+	@tar -czvf $@ $(FILES) $(EL_FILES)
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"

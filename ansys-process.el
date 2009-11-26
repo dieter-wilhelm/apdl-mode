@@ -333,8 +333,6 @@ environment variable."
 ;;       ))
 ;;   )
 
-
-
 (defun ansys-license-file-check ()
   "Returns t if Ansys license file (server) information is found.
 Checks whether `ansys-license-file' is preset in Emacs or uses
@@ -350,7 +348,7 @@ for it, in the order of preference."
     (setq ansys-license-file (getenv "LM_LICENSE_FILE"))
     t)
    (t
-    (error "Please specify the license server information in the `ansys-license-file' variable or use the environment variables ANSYSLMD_LICENSE_FILE or ANSYS-LICENSE-FILE"))))
+    (error "Please specify the license server information in the `ansys-license-file' variable or use the environment variables ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE"))))
 
 (defun ansys-license-status ()		;NEW
   "Display the Ansys license status or starts a license tool.
@@ -360,22 +358,17 @@ displaying the license status."
   (interactive)
   (cond
    ((ansys-is-unix-system-p)
-    (message "Retrieving license status, please wait...")
     (ansys-license-file-check)
+    (message "Retrieving license status, please wait...")
     (with-current-buffer (get-buffer-create "*LM-Util*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
     (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c "  ansys-license-file  "-a")
-    (let ((kw (list
-	       (concat "\\<" ansys-license "\\>:.*")
-	       0 font-lock-keyword-face t)))
+    (let (bol eol)
       (with-current-buffer "*LM-Util*"
-	;; (font-lock-mode 1)
-	(setq font-lock-keywords kw)
-
 	;; remove unintersting licenses
-	(goto-char (point-min))
-	(delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
+	;; (goto-char (point-min))
+	;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
 
 	(goto-char (point-min))
 	(while (not (eobp))
@@ -399,15 +392,26 @@ displaying the license status."
 	(while (re-search-forward "Total of \\|Users of " nil t)
 	  (replace-match ""))
 
-	;; some comments
+	;; sorting
+	(sort-lines nil (point-min) (point-max))
+
+	;; add some comments
 	(goto-char (point-min))
 	(insert (propertize
 		 " -*- License status -*-\n" 'face 'match))
 
 	(goto-char (point-max))
 	(insert "\n")
-	(insert (propertize (current-time-string)
+	(insert (propertize (concat (current-time-string) "\n") 
 			    'face 'match))
+	;; higlight current -license-type
+	(goto-char (point-min))
+	(search-forward-regexp (concat "\\<" ansys-license ":") nil t)
+	(forward-line)
+	(setq eol (point))
+	(forward-line -1)
+	(setq bol (point))
+	(put-text-property bol eol 'face 'font-lock-warning-face)
 	;; (set-window-point (get-buffer-window "*LM-Util*") (point))
 	))
     (display-buffer "*LM-Util*" 'otherwindow)
@@ -416,7 +420,8 @@ displaying the license status."
     ;; TODO: check for -lmutil-program
     (if (string= ansys-lmutil-program "")
 	(error "You must set the `ansys-lmutil-program' variable")
-      (w32-shell-execute nil ansys-lmutil-program))) ;nil for executable
+      (w32-shell-execute nil ansys-lmutil-program))
+    (message "Loading lmutil helper program...")) ;nil for executable
    (t
     (error "No license status available on %s" system-type))))
 
@@ -463,15 +468,15 @@ displaying the license status."
     (error "No Ansys process is running"))
   (progn (comint-send-string (get-process ansys-process-name)
 		      "/show,X11c\n/menu,grph\n") ;valid in any processor
-;  (display-buffer "*Ansys*" 'other-window)
-  ))
+	 (display-buffer "*Ansys*" 'other-window)))
 
 (defun ansys-start-pzr-box ()		;NEW PanZoomRotate box
   "Start the Ansys Pan/Zoom/Rotate dialog box in interactive mode."
   (interactive)
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
-  (comint-send-string (get-process ansys-process-name) "/ui,view\n") ;valid in any processor
+  (comint-send-string "*Ansys*";(get-process ansys-process-name)
+		      "/ui,view\n") ;valid in any processor
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-replot ()			;NEW_C

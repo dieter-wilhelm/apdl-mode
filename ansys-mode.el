@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-25 17:04:54 uidg1626"
+;; Time-stamp: "2009-11-26 16:01:40 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -284,13 +284,12 @@ Variable is only used internally in the mode.")
   )
 
 (defconst ansys-variable-defining-commands ;NEW FIXME: correct unnecessary full names
-  '("*do" "*get\\w*" "*dim" "*set.?" ;funny *SET works only with one
-				     ;additional character
+  '("*do" "*get\\w*" "*dim" "*set.?" ;funny *SET works only with one ;additional character
     "*ask" "path" "pdef" "*vget" "*vfun" "*mfun" "*vitrp"
     "*toper""*voper" "*moper" "*sread" "*vscfun" "/inq\\w*"
     "/fil\\w*")
   "Regexps for commands which define user variables.
-(Excluded the \"=\" assignment.)")
+(Intentionally excluded is the \"=\" assignment.)")
 
 (defconst ansys-use-variables		;NEW_C
   '("ARG[1-9]" "AR[1][0-9]")
@@ -1682,6 +1681,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
 	["Toggle Outline Mode"         outline-minor-mode :help "Switch on/off the outline mode for structuring the file with headlines"]
+	"-"
 	["Show Ansys Mode version"  ansys-mode-version :help "Display the Ansys mode version in the mini buffer"]
 	["Describe Ansys Mode"		describe-mode :help "Open a window with a description of Ansys mode"]
 	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open an Emacs customisation window for Ansys mode"]
@@ -2430,10 +2430,14 @@ C-u \\[goto-line] takes the number automatically)."
       (setq r "^\\s-*[^!\n=]*\\<.+\\>\\s-*=\\s-*[^=\n]*")
       (while (re-search-forward r nil t)
 	(unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
-	  (setq s (concat
-		   (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold))
-		   (match-string 0)
-		   "\n")))
+	  (setq s "bla"))
+
+	  ;; (setq s (concat
+	  ;; 	   (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold))
+	  ;; 	   (match-string 0)
+	  ;; 	   "\n"))
+
+	)
 	(set-buffer variable-buffer)
 	(insert s)
 	(set-buffer current-buffer))

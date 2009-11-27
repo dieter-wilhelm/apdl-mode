@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-26 16:01:40 uidg1626"
+;; Time-stamp: "2009-11-27 15:54:20 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1620,8 +1620,10 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]
 	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
 	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
+	      ["Listings, Information, Statistics" ansys-skeleton-information :help "Parameter listings, graphics, system information, run statistics"]
 	      ["Solve"                  ansys-skeleton-solve :help "Solver commands and options"]
 	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
+	      ["Array Operations" ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
 	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
 	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
@@ -1654,7 +1656,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	      "-"
-	      ["Specify Ansys License Type" :help "Specify the license type for a solver run" ansys-license :active ansys-is-unix-system-flag]
+	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a solver run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a solver run" :active ansys-is-unix-system-flag]
 	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a solver run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run" ansys-start-ansys :help "Start a solver run" :active ansys-is-unix-system-flag]
@@ -1667,7 +1669,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
 	      "-"
 	      ["Display Emacs Processes" list-processes :help "Show all currently running Emacs Processes, like the Ansys help browser, etc."]
-	      ["Display Ansys Run Status" ansys-process-status :active ansys-is-unix-system-flag]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
 	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the current Ansys error file"]
 	      ["Write Ansys Stop File" ansys-abort-file :help "Write a stop file for the solver (containing the word \"nonlinear\")"]
 	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active ansys-is-unix-system-flag]

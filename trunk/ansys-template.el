@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-11-25 17:38:14 uidg1626"
+;; Time-stamp: "2009-11-27 14:04:28 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -99,10 +99,28 @@
   \n
   )
 
+(define-skeleton ansys-skeleton-information
+  ""
+  nil
+  "!@@ -- informations --" \n
+  "/status,config" \n
+  "!*list,file,ext ! list file content" \n
+  "!/runst ! enter run statistics processor" \n
+  "!/pstatus ! display window stats specifications" \n
+  "!list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
+  "!*status ! parameters and abbreviations" \n
+  "!@@@ - solution info -" \n
+  "set,list ! list a summary of each load step" \n
+  "/status,solu" \n
+  "!@@@ - aux3 result file edit routine -" \n
+  "!/aux3" \n
+  "!list !result statistics"
+  \n)
+
 (define-skeleton ansys-skeleton-configuration
   ""
   nil
-  "!@ -- configurations --" \n
+  "!@@ -- configurations --" \n
   \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
   "*afun,rad" \n
@@ -118,7 +136,7 @@
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
-  "!@@ --- view settings ---" \n
+  "!@@ -- view settings --" \n
   \n
   "!/view !viewing direction"_ \n
   "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
@@ -127,6 +145,7 @@
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "!/auto ! automatic fit mode" \n
   "!/user ! keep last display scaling"\n
+  "!/pstatus ! display window stats specifications" \n
   \n)
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -298,7 +317,7 @@
   "!@@@ - working plane setup -" \n
   \n
   "/plopts,wp,1 !display working plane" \n
-  "\repl" \n
+  "/repl" \n
   "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "!wpoffs,,-100 !x,y,z offset" \n
   "!wprota,0,90,0 !z,x,y axis of rotation" \n

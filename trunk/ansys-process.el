@@ -165,7 +165,7 @@ clipboard."
   (display-buffer ansys-process-buffer 'other-window)
 ;  (switch-to-buffer ansys-process-buffer)
   (other-window 1)
-  (setq comint-prompt-regexp "POST1:\\|PREP7:\\|SOLU_LS[0-9]+:\\|BEGIN:\\|POST26:")
+  (setq comint-prompt-regexp "POST1:\\|PREP7:\\|SOLU_LS[0-9]+:\\|BEGIN:\\|POST26:\\|RUNSTAT:")
   (font-lock-add-keywords nil (list comint-prompt-regexp))
 
 	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)

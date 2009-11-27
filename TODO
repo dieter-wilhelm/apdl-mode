@@ -1,14 +1,29 @@
 * Bugs:
-** when there is an comman-help overlay in the *Ansys-skeleton*
-   buffer, it's not erased for the next skeleton
+** when there is already a `&' in a format command M-j inserts another one
+
+** when there is an command-help overlay in the *Ansys-skeleton*
+   buffer, it's not erased for the next skeleton delete-overlay?
+
 ** -is-unix-sytem must be set for helper functions when
    ansys-mode is not yet invoked like -license-status!
    -check-sytem-type
-** autoload of helper functions not working   
+
+** autoload of helper functions not yet working   
+
 ** Comments in c*** commands are not possible and highlighted wrongly 
-** multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable fontification is not working 
 
 * v12.0.1:
+
+o bugs
+o TODOS, FIXMES in the code
+o update -mode-help
+o clean and sort TODO
+o fontification levels
+o experimental user variable fontification
+  multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable fontification is not working 
+
+  - Dieter's M-h
+  - update -mode image on google-code to show tooltips
   - load or load-file, what happens with compilation and autoload?
   - The experimental user variable highlighting is currently only
     implemented for files with a '.mac' extension.
@@ -17,7 +32,8 @@
     Provide customisable choice whether commands, functions and/or
     elements are assembled in the completion list <- redundant?.
   - check whether undocumented commands are still working in v12
-    document this contradicting behaviour (legacy elements)
+  - warn when using legacy elements?  Document this contradicting behaviour
+
 SHELL43 - SHELL181
 SOLID46 - SOLID185 (KEYOPT(3) = 1), or SOLSH190
 VISCO88 - PLANE183
@@ -27,7 +43,6 @@ VISCO106 - PLANE182
 VISCO107 - SOLID185
 VISCO108 - PLANE183
 SOLID191 - SOLID186 (KEYOPT(3) = 1)
-
   - update emacs wiki, gcode wiki, todo- or org-mode for README, wiki
     formatting!
   - publication: ANSYS.net (Ansys !!! Sheldon Imaoka
@@ -40,17 +55,19 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
     <sparr@mfkrs1.mw.tu-dresden.de>.
 
 * Priority
+  - optimise -start-run with query of y (start immediately),n (exit),e
+    (change params),C-h (help)
   - read env
     Try to ask only for the installation directory for the -license-file,
     -program, etc.  variables.  Read some information from getenv.
     read ansys-license-file from env, supply sane standard Ansys values
     for the helper programs and check for existance
+  - make filter of -license-status optionally  
   - substitute text "header" in -variable-view and skeleton-preview
     for an overlay
   - strange C-c C-v output for *get assignment etc. and sort full
     entries at the top!
-  - tool-tips in menus especially for skeletons -> (info "(elisp)Keymaps")
-    :help "this is a tooltip"
+  - tool-tips in menus especially for skeletons
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
   - M-? for commented out variables
@@ -61,16 +78,14 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
   - indent format line? M-j
   - autoinsertion: choice between header only or header with skeleton compilation
   - is outline-mode enabled? no! make default?, outline headers are not complete in skeletons.
-  - rework skeleton-header  
   - rework ansys-skeleton and documentation   
-  - Skeleton preview write only? currently: write only
+  - Skeleton preview read only? currently: writable
   - make outline string in skeletons configurable
   - why an alist with cons cells for try-completion, a list of strings
     should suffice?
   - C-c C-c skips empty lines and comments this is not always
     desirable -> make this optional -> filter process input?
   - take care when region isn't complete in -send-to-ansys (send whole line)
-
 
 * Interesting stuff   
 ** *repeate command
@@ -82,24 +97,26 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
 
 * improve Ansys interpreter buffer with `comint-mode'
    example: gnuplot-mode
-   - substring-no-properties necessary?
+   - Enable one run for every Ansys macro buffer
+   - substring-no-properties necessary? Does not seem to be the case...
    - Provide Ansys command completion and command-help in comint buffer
-   - Ansys process status is not working properly process-sentinel or some comint-hook?
-   - provide Ansys `y' request and carriage return? superflouous?
-     a single `y' does the trick
+   - Ansys process status is not working properly process-sentinel or
+     some comint-hook?  check for EXIT command and wait some time to
+     update the mode line run status correctly
    - indicate with activation/inactivation of menu items that an
      asynchronous job is already running or not.
-   - check for EXIT command and wait some time to update the mode line
-     run status correctly 
    - show/mark sent lines in apdl file C-c C-u, C-c C-c,
      o with fringes
      o with background
      o maximum line
      o reset highlighting, when?
+   - provide Ansys `y' request and carriage return? superflouous?
+     a single `y' does the trick
 
-* Dissect skeleton into smaller more useful subjects   
+* Dissect skeleton into smaller more useful subjects
+  - insert skeleton with C-c C-s when typing twice
   - spider beams, _bolt.mac, screw.mac
-   - rework concept with respect to the Ansys menu structure
+  - rework concept with respect to the Ansys menu structure
     sort skeletons in menu
   - Make skeleton-header properly working (info "(autotype)")
   - Optimise templates: completing-read, read-from-minibuffer abbrev `d
@@ -116,7 +133,7 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
     must *go:label be unambiguous?
 
 * optional setting of (Ansys-mode-)bookmarks?   
-* *set strings may be only 32 character long!
+* *set strings may only be 32 character long!
 * correct *set assignment printout
 * trigger a timer when showing the ansys-comand-parametr-help
 * add cmblock and cm assignments to the variable list
@@ -125,8 +142,6 @@ SOLID191 - SOLID186 (KEYOPT(3) = 1)
   /MPLIB,READ,/ansys_inc/v110/ansys/matlib
 
 * C-c C-v show (optionally) only variables defined up to current cursor line
-
-* C-c ] removes empty lines?
 
 * C-j is not skipping to `,' whith default command (from second line onwards)!
 
@@ -173,6 +188,8 @@ byte-compile-file
 
 12.0.1
 
+-- New Year
+
 1.) - comint-mode
     - proper skeletons
 2.) working state, compiling
@@ -190,8 +207,8 @@ October/November
      Ansys academic solutions for V11
 
 -- Very brief introduction: Why not Emacs, especially on Windows?
-before Microsoft was founded, working on all current OS
-bells and whistle of an editor (drop file into E)
+Programmed before Microsoft was even founded, working on all current OS
+All bells and whistle of an editor (drop file into E)
 -- casual APDL file viewer (whetting the appetite)
    convenience features?
    fontification
@@ -203,21 +220,19 @@ bells and whistle of an editor (drop file into E)
    	$ needs space(s)?
 	,commands
 	colon loop: e.g.: lfillt,(1:3),(2:4),Rad
-	ansys completion and emacs expansion
-	skeletons
+	ansys completion and emacs expansion C-c ] -- -close-block
+	preview insert skeletons
 	display user variables
 	*go not for interactive mode! -> *if *else *endif
 		commenting out
 	selecting blocks C-M-a/b setting mark!
 	loading help navigator
-	display license status (optionally filtered not yet)
+	display license status	-license-status C-c C-l
 -- hardcore Ansys/APDL user
         switch off menu, tools, scroll-bar
    	Ansys mode help
-        C-c ] -- -close-block
 	Emacs-calc
-	-license-status C-c C-l
-	- C-c @ outline stuff
+	- C-c @ outline stuff with indirect-buffer
         online Ansys/Emacs process and debugging environment
 	C-c C-u, C-c C-c,  C-c C-q
 	tail mode of *.err C-c C-e
@@ -339,9 +354,7 @@ and suggesting this as current job-name optionally
 kill old job when called again with working run
 warn and optionally remove the ansys lock file before starting a run
 
-Enable one run for every Ansys macro buffer
-
-Enable choice for /show,3d or x11
+Enable choice for /show,3d or x11 (-start-graphics)
 
 Wrong highlighting of variables in /com, C*** text strings
 variable highlighting overwrites ansys commands with the same name
@@ -401,5 +414,5 @@ Block level restriction of 10 levels of nested *IF blocks
 Macro level restriction: 20 macros
 
 # local variables:
-# mode: org
+# mode: outline
 # end:

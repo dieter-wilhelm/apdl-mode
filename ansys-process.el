@@ -158,14 +158,14 @@ clipboard."
   (if (y-or-n-p
        (concat
 	"Start this Ansys run: (license type: " ansys-license ", jobname: " ansys-job ")? "))
-      (message "Starting the Ansys run...")
+      (message "Starting the Ansys solver...")
     (error "Ansys run canceled"))
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 ;  (comint-send-string (get-process ansys-process-name) "\n")
   (display-buffer ansys-process-buffer 'other-window)
 ;  (switch-to-buffer ansys-process-buffer)
   (other-window 1)
-  (setq comint-prompt-regexp "POST1:\\|PREP7:\\|SOLU_LS[0-9]+:\\|BEGIN:\\|POST26:\\|RUNSTAT:")
+  (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX3:")
   (font-lock-add-keywords nil (list comint-prompt-regexp))
 
 	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
@@ -257,7 +257,7 @@ environment variable."
   (if (string= ansys-help-file "")
       (error "You must set the `ansys-help-file' variable")
     (progn
-      (message "Starting the Ansys help system...")
+      (message "Starting the Ansys help browser...")
       (cond
        ((ansys-is-unix-system-p)
 	(start-process "ansys-help-file" nil ansys-help-file))

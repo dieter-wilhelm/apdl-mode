@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-27 15:54:20 uidg1626"
+;; Time-stamp: "2009-11-30 10:47:06 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -640,7 +640,8 @@ comment."
    ansys-undocumented-commands
    '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,7\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 8 chars long)
    ;; this is for level 2
-   '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
+   '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][r
+R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
       2 'font-lock-doc-face prepend))
    '(("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 'font-lock-doc-face keep))
    					;highlight message of comment command /COM (no comment (!)
@@ -669,7 +670,7 @@ comment."
    					;ansys parameter substitution
    '(("\\(:\\)" 1 'font-lock-warning-face keep))   ;colon loops
    '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
-   '(("\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
+   '(("\\s-*\\<\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
    ) "Regexp for the highlighting."  )
 
 (defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and

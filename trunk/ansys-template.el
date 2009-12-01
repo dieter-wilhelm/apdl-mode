@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-11-27 14:04:28 uidg1626"
+;; Time-stamp: "2009-12-01 15:28:52 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -85,6 +85,36 @@
   "*endif" >
   )
 
+(define-skeleton ansys-skeleton-looping
+  "Control constructs"
+  nil
+  "*if,I,eq,1,then" \n
+  "*elseif,val1,oper,val2" > \n
+  "*else" > \n
+  "*endif" > \n
+  \n
+  "!*if,val1,oper1,val2,base1,val3,oper2,val4,base2 ! oper: eq,ne,lt,gt,le,ge,ablt,abgt," \n
+  "! base: stop,exit,cycle,and,or,xor" \n
+  \n
+  "lfillt,(1:2),(3:4),5" \n
+  \n
+  "e,1,2" \n
+  "*repeat,5,0,1"\n
+  \n
+  "*do,I,1,6,2" \n
+  "*cycle" > \n
+  "*exit" > \n
+  "*enddo" > \n
+  \n
+  "*dowhile,PAR" \n
+  "*cycle" > \n
+  "*exit" > \n
+  "*enddo" > \n
+  \n
+  "*go,:BRANCH" \n
+  ":BRANCH" \n
+  \n)
+
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
   "Brief description of the file: "
@@ -108,9 +138,14 @@
   "!/runst ! enter run statistics processor" \n
   "!/pstatus ! display window stats specifications" \n
   "!list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
-  "!*status ! parameters and abbreviations" \n
+  "!@@@ - status command with preceding subjects -" \n
+  "!elem $ stat" \n
+  "!etype $ stat" \n
+  "!geometry $ stat" \n
+  "!*status ! parameters, arrays and abbreviations" \n
   "!@@@ - solution info -" \n
   "set,list ! list a summary of each load step" \n
+  "!wpstyl,stat !working plane status" \n
   "/status,solu" \n
   "!@@@ - aux3 result file edit routine -" \n
   "!/aux3" \n
@@ -321,7 +356,8 @@
   "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "!wpoffs,,-100 !x,y,z offset" \n
   "!wprota,0,90,0 !z,x,y axis of rotation" \n
-  "!wpstyl,,,,,,1 !type spec" \n
+  "!wpstyl,,,,,,1 !type spec 0,1,2" \n
+  "!wpstyl,stat" \n
   "!csys,wp !change co to wp" \n
   \n)
 
@@ -423,7 +459,8 @@
   "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
   "!! mshape,0 !0: quads 1:tri (supported shapes)" \n
   "esize,1 ! element edge length" \n
-  "!! lesize,all,,,3 ! line divisions"
+  "!! lesize,all,,,3 ! SPACE neg: center to end division" \n
+  "!! ! "
   "vmesh,all" \n
   "!! amesh,all" \n
   "!! -- cyclic symmetric meshing --" \n
@@ -764,6 +801,7 @@
   "!@@ -- path plot --" \n
   \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
+  "!ppath,P,N,x,y,z,CS coord. in global cartesian csys, but use CS for path" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
   "!psel,s,axis,...    	 !select multiple paths" \n
@@ -772,6 +810,7 @@
   "plpagm,By,5		 !plot on geom." \n
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
   "paget,Path,table" \n
+  "!path $ stat" \n
   \n
 )
 

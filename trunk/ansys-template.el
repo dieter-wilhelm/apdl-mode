@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-12-01 15:28:52 uidg1626"
+;; Time-stamp: "2009-12-02 17:12:11 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -524,6 +524,10 @@
   "!! /com, === Material %Alu% is Aluminium. ===" \n
   "!! --- hyperelastic mooney rivlin mat ---" \n
   "!! for 30 % compression 100 % tension strain" \n
+  \n
+  "!! -- orthotropic linear material --" \n
+  "!! mp, alp{x,y,z}, Steel, val" \n
+  "!! mp, e{x,y,z}, Steel, val" \n
   \n
   "!! --- Elastomers (hyperelastic) ---" \n
   "!! Rubber = 3" \n

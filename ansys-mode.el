@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-11-30 18:56:43 uidg1626"
+;; Time-stamp: "2009-12-01 15:33:05 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -1608,6 +1608,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
 	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
 	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
+	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling the program flow"]
 	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
 	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
 	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]

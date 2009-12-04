@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-12-02 17:12:11 uidg1626"
+;; Time-stamp: "2009-12-03 16:51:39 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -803,6 +803,7 @@
   ""
   nil
   "!@@ -- path plot --" \n
+  "!! avoid element borders for inaccuracies of the rounding algorithm." \n
   \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
   "!ppath,P,N,x,y,z,CS coord. in global cartesian csys, but use CS for path" \n

@@ -287,11 +287,14 @@ http://www.ansys.com
 http://www.ansyssolutions.com -- The Ansys solutions magazine
 http://www.xansys.org -- ansys online community
 
-== Bugs and Problems ==
+== Minor Bugs and Problems ==
 
 C*** does no parameter substitution, neither the /SYS command; this is
-wrongly suggested in the variable highlighting of Ansys mode.  A
-clearing of variables (VAR= ) is not taken into account
+wrongly suggested in the variable highlighting of Ansys mode.
+
+Comments behind the C*** are not possible and wrongly highlighted
+
+A resetting of variables (VAR= ) is not taken into account
 
 Ansys format line (multi-line) highlighting is somewhat brittle,
 please use M-o M-o to update the fontification in case the format line

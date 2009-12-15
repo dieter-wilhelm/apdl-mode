@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-12-03 16:51:39 uidg1626"
+;; Time-stamp: "2009-12-15 11:35:31 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -118,20 +118,22 @@
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
   "Brief description of the file: "
+  "!! ------------------------------" \n
   "!" ansys-outline-string " --- header ---" \n
+  "!! ------------------------------" \n
   "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
 					      (buffer-file-name)
 					    (buffer-name))) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
-  "!! ------------------------------" \n
   \n
   )
 
 (define-skeleton ansys-skeleton-information
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- informations --" \n
   "/status,config" \n
   "!*list,file,ext ! list file content" \n
@@ -155,6 +157,7 @@
 (define-skeleton ansys-skeleton-configuration
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- configurations --" \n
   \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
@@ -171,6 +174,7 @@
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- view settings --" \n
   \n
   "!/view !viewing direction"_ \n
@@ -186,11 +190,8 @@
 (define-skeleton ansys-skeleton-import	;NEW
   "Import commands."
   nil
-  "!@@ -- cad import --" \n
-  \n
   "!! ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string " --- Cad Import --- " \n
-  "!! ------------------------------" \n
+  "!" ansys-outline-string ansys-outline-string " -- cad import -- " \n
   \n
   "/aux15" \n
   "ioptn,iges,nodefeat" \n
@@ -221,6 +222,7 @@
 (define-skeleton ansys-skeleton-contact-definition
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- contact pair defintion --" \n
   \n
   "Contact="_ \n
@@ -314,6 +316,7 @@
 (define-skeleton ansys-skeleton-rigid-target ;NEW
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- rigid target creation -- " \n
   \n
   "Contact="_ \n
@@ -400,6 +403,7 @@
 (define-skeleton ansys-skeleton-element-table
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- etables --" \n
   \n
   "!! etables don't take into account higher element order!"
@@ -424,6 +428,7 @@
 (define-skeleton ansys-skeleton-element-def
  ""
  nil
+ "!! ------------------------------" \n
  "!@@ -- element definition --" \n
  \n
  "ID=Steel" \n
@@ -453,6 +458,7 @@
 (define-skeleton ansys-skeleton-meshing
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- meshing --" \n
   \n
   "!! mat,Steel" \n
@@ -476,6 +482,7 @@
 (define-skeleton ansys-skeleton-geometry
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- geometry --"\n
   \n
   "/prep7" \n
@@ -608,6 +615,7 @@
 (define-skeleton ansys-skeleton-buckling
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ - buckling -" \n
   \n
   "!! -- static --"
@@ -632,7 +640,9 @@
 (define-skeleton ansys-skeleton-solve
   ""
   nil
+  "!! ------------------------------" \n
   "!@ --- solution --- " \n
+  "!! ------------------------------" \n
   \n
   "/solu" \n
   "allsel" \n
@@ -686,7 +696,9 @@
 (define-skeleton ansys-skeleton-post1
   ""
   nil
+  "!! ------------------------------" \n
   "!@ --- post 1 ---" \n
+  "!! ------------------------------" \n
   \n
   "/post1" \n
   "set,last" \n
@@ -758,6 +770,7 @@
 (define-skeleton ansys-skeleton-output-to-file
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- output to file --" \n
   \n
   "!! /output,test.txt	 !write Ansys output to file" \n
@@ -802,6 +815,7 @@
 (define-skeleton ansys-skeleton-path-plot
   ""
   nil
+  "!! ------------------------------" \n
   "!@@ -- path plot --" \n
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
   \n
@@ -822,7 +836,9 @@
 (define-skeleton ansys-skeleton-post26
   ""
   nil
+  "!! ------------------------------" \n
   "!@ --- time-history postprocessing ---" \n
+  "!! ------------------------------" \n
   \n
   "/post26" \n
   "!! numvar,200 !maximum No of variables"
@@ -856,6 +872,7 @@
 (defun ansys-skeleton-array ()
   "arrays"
   nil
+  "!! ------------------------------" \n
   "!@@ -- arrays --" \n
   \n
   "*dim,A,array,10,1" \n
@@ -895,7 +912,7 @@
   (goto-char (point-max))
   (ansys-skeleton-post1))
 
-;; TODO: dated
+;; TODO: warning dated
 (define-skeleton ansys-skeleton		;NEW
   "Insert full framework of an Ansys APDL file."
   "Insert brief purpose of file: "

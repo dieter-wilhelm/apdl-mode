@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-01 15:33:05 uidg1626"
+;; Time-stamp: "2009-12-17 12:52:14 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -166,7 +166,7 @@ variable to take effect."
 
 (defcustom ansys-current-ansys-version ansys_version ;NEW_C
   "String describing the Ansys version installed by the user.
-This variable is used by the `ansys-skeleton' skeleton."
+This variable is used by the `ansys-skeleton-header' template."
   :type 'string
   :group 'Ansys)
 
@@ -1608,7 +1608,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
 	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
 	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
-	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling the program flow"]
+	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling loops (*do, ...) and the program flow (*if, ...)"]
 	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
 	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
 	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]
@@ -2459,7 +2459,7 @@ C-u \\[goto-line] takes the number automatically)."
       (goto-char (point-min))
       (toggle-read-only 1)
       (set-buffer current-buffer))
-    (display-buffer buffer-name 'other-window))))
+    (display-buffer buffer-name 'other-window)))
 
 (defun ansys-customise-ansys ()		;NEW_C
   "Call the Emacs customisation facility for Ansys mode."

@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-17 12:52:14 dieter"
+;; Time-stamp: "2009-12-21 13:21:34 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -271,6 +271,9 @@ Variable is only used internally in the mode.")
 (defvar ansys-is-unix-system-flag nil	;NEW_C
   "Non-nil means computer runs a Unix system.")
 
+(defvar ansys-last-skeleton nil
+  "Previously chosen Ansys template/skeleton name.")
+
 ;; --- constants ---
 
 (defconst ansys-parameter-substitution-commands-regexp	;NEW
@@ -283,13 +286,18 @@ Variable is only used internally in the mode.")
   "Regexp of command names which have a string behind them."
   )
 
-(defconst ansys-variable-defining-commands ;NEW FIXME: correct unnecessary full names
-  '("*do" "*get\\w*" "*dim" "*set.?" ;funny *SET works only with one ;additional character
-    "*ask" "path" "pdef" "*vget" "*vfun" "*mfun" "*vitrp"
-    "*toper""*voper" "*moper" "*sread" "*vscfun" "/inq\\w*"
-    "/fil\\w*")
-  "Regexps for commands which define user variables.
-Intentionally excluded is the \"=\" assignment.")
+(defconst ansys-variable-defining-commands ;association list
+  '(("*do" . "*DO") ("*get\\w*". "*GET") ("*dim\\w*"."*DIM")
+    ("*set.?"."*SET") ;funny *SET works only with one ;additional character
+    ("*ask\\w*" . "*ASK") ("path\\w"."PATH") ("pdef\\w*"."PDEF")
+    ("*vge\\w*"."*VGET") ("*vfu\\w*"."*VFUN") ("*mfu\\w*"."*MFUN")
+    ("*vit\\w*"."*VITRP") ("*top\\*w"."*TOPER") ("*vop\\w*"."*VOPER")
+    ("*mop\\w*"."*MOPER") ("*sre\\w*"."*SREAD") ("*vsc\\w*"."*VSCFUN")
+    ("/inq\\w*"."/INQUIRE"); ("/fil\\w*"."/FILNAME") how that, *vfil? TODO:
+    )
+  "Regexp alist for commands which define user variables.
+In the form of (regexp . command_string), intentionally excluded
+is the \"=\" assignment.")
 
 (defconst ansys-use-variables		;NEW_C
   '("ARG[1-9]" "AR[1][0-9]")
@@ -548,8 +556,8 @@ comment."
 (defconst ansys-mode-map		;_C
   (let ((map (make-sparse-keymap)))
     (define-key map "`" 'ansys-abbrev-start) ;``?' lists abbrevs
-					;    (define-key map "\t" 'indent-according-to-mode)		  ;redundant
-    ;;     standard behaviour of M-j is sufficient for me
+    ;; (define-key map "\t" 'indent-according-to-mode)		  ;redundant
+    ;; standard behaviour of M-j is sufficient for me
     (define-key map "\e\t" 'ansys-complete-symbol) ;or M-C-i
     ;; --- changed standard Emacs keybindings ---
     (define-key map " " 'ansys-electric-space)
@@ -632,6 +640,9 @@ comment."
       (error "Previous major mode was \"Ansys mode\"") ;buffers opended with auto-mode
     (funcall ansys-previous-major-mode)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --- font locking stuff ---
+
 (load "ansys-keyword")
 
 (defconst ansys-font-lock-keywords	;NEW_C
@@ -663,7 +674,7 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
    '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
    					; more than 32 character long variables are not allowed
    ;; this is for level 3
-;   '(ansys-highlight) ;function searches user variables ; TODO BUG
+   '(ansys-highlight) ;function searches user variables ; TODO BUG
    '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
    '(("\\(%\\)" 1 'font-lock-comment-face prepend))
    					;single % acts as a format specifier and pair %.% is an
@@ -687,9 +698,9 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
     (modify-syntax-entry ?\% "." table)
     (modify-syntax-entry ?| "."  table)
     (modify-syntax-entry ?\' "." table)
-    (modify-syntax-entry ?\` "_" table) ;ansys-mode abbreviation specifier,
-					;not an operator
-    (modify-syntax-entry ?_ "_"  table) ;not an operator in Ansys
+    (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,
+					;not an operator but "word".
+    (modify-syntax-entry ?_ "_"  table) ;in Ansys symbol component
     (modify-syntax-entry ?: "_"  table) ;Ansys label specifier, not an operator
     (modify-syntax-entry ?* "_"  table) ;Ansys asterisk commands syntax clashing
 					;with algebraic operators but blink-matching-
@@ -2307,7 +2318,7 @@ Signal an error if the keywords are incompatible."
 ;; Ansys variables or parameters in Ansys parlance:
 ;; 1.) Begin with a letter
 ;; 2.) Contain only letters, numbers and the underscore '_'
-;; 3.) Contain no more than 32 characters
+;; 3.) Have no more than 32 characters
 ;; 4.) Any variable ending with an underscore are *not* shown with the *STATUS command
 ;; 5.) The maximum number of parameter (< 5000) is retrieved by *GET,par,PARM,,MAX
 ;; 6.) (A<B) returns the value of A when A is less than B, B otherwise!
@@ -2327,21 +2338,23 @@ Signal an error if the keywords are incompatible."
       (pop l))
     p))
 
+;;with pseudo arguments a b c for after-change-functions
 (defun ansys-find-user-variables (&optional a b c) ;NEW
-					;pseudo arguments for after-change-functions
   "Find all user variables in the current buffer.
 Pre-process the findings into the variable
 `ansys-user-variables' for subsequent fontifications."
   (interactive)
   (save-excursion
     (save-match-data
-      (let (res var)	; Start with Ansys *USE vars
+      (let (res var com)	; Start with Ansys *USE vars
 	(setq ansys-user-variables ())
 	(goto-char (point-min))
 	(dolist (command ansys-variable-defining-commands)
+	  (setq com (car command))
+
 	  ;; format line, comment, message, C***
 	  (while (re-search-forward
-		  (concat (ansys-asterisk-regexp command)
+		  (concat (ansys-asterisk-regexp com)
 			  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
 	    (setq var (match-string-no-properties 1))
 	    (unless (or (ansys-in-string-or-comment-p)
@@ -2361,11 +2374,12 @@ Pre-process the findings into the variable
 		  (ansys-in-format-construct-p)
 		  (ansys-find-duplicate-p var ansys-user-variables))
 	    (add-to-list 'ansys-user-variables (list var (match-beginning 1))))))))
-  ;; we must sort the variables to their length otherwise some of them will be
-  ;; shadowed: the longer the earlier
+  ;; we must sort the variables to their length otherwise some of them
+  ;; will be shadowed: the longer the earlier
   (setq ansys-user-variables
-	(sort ansys-user-variables '(lambda (arg1 arg2)
-				      (> (length (car arg1)) (length (car arg2)))))))
+	(sort ansys-user-variables
+	      '(lambda (arg1 arg2)
+		 (> (length (car arg1)) (length (car arg2)))))))
 
 ;; in comments: ok
 ;; in * comments: ansys-in-asterisk-comment-p
@@ -2408,9 +2422,7 @@ C-u \\[goto-line] takes the number automatically)."
   (let* ((current-buffer (buffer-name))
 	 (buffer-name "*Ansys-variables*")
 	 (variable-buffer (get-buffer-create buffer-name))
-	 s
-	 r
-	 tmp)
+	 s r com nam)
     (save-excursion
       (set-buffer variable-buffer)
       (toggle-read-only -1)
@@ -2437,15 +2449,17 @@ C-u \\[goto-line] takes the number automatically)."
 	  (set-buffer variable-buffer)
 	  (insert s)
 	  (set-buffer current-buffer)))
-      (dolist (tmp ansys-variable-defining-commands)
+      (dolist (command ansys-variable-defining-commands)
+	(setq com (car command))
+	(setq nam (cdr command))
     	(set-buffer variable-buffer)
     	(insert
     	 (propertize
-    	  (concat"      ---------- " tmp " assignments ----------\n")
+    	  (concat"      ---------- " nam " assignments ----------\n")
     	  'face 'font-lock-warning-face))
     	(set-buffer current-buffer)
     	(goto-char (point-min))
-    	(setq r (concat "^[^!\n]*" (ansys-asterisk-regexp tmp) ".*"))
+    	(setq r (concat "^[^!\n]*" (ansys-asterisk-regexp com) ".*"))
     	(while (re-search-forward r nil t)
     	  (unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
     	    (setq s (concat

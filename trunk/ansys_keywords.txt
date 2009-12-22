@@ -1,75 +1,4 @@
 ##############################
-# Chapter 7. in Mechanical APDL Commands
-*ABBR
-ABBRES
-ABBSAV
-*AFUN
-*ASK
-*CFCLOS
-*CFOPEN
-*CFWRITE
-*CREATE
-*CYCLE
-*DEL
-/DFLAB
-*DIM
-/DIRECTORY
-*DO
-*DOWHILE
-*ELSE
-*ELSEIF
-*END
-*ENDDO
-*ENDIF
-*EXIT
-*GET
-*GO
-*IF
-/INQUIRE
-/MAIL
-*MFOURI
-*MFUN
-/MKDIR
-*MOPER
-*MSG
-*MWRITE
-PARRES
-PARSAV
-/PMACRO
-/PSEARCH
-*REPEAT
-*RETURN
-/RMDIR
-*SET
-*SREAD
-*STATUS
-*TAXIS
-/TEE
-*TOPER
-*TREAD
-/UCMD
-*ULIB
-*USE
-*VABS
-*VCOL
-*VCUM
-*VEDIT
-*VFACT
-*VFILL
-*VFUN
-*VGET
-*VITRP
-*VLEN
-*VMASK
-*VOPER
-*VPLOT
-*VPUT
-*VREAD
-*VSCFUN
-*VSTAT
-*VWRITE
-/WAIT
-##############################
 # Connection Commands
 ~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 ~CATIAIN - Transfers a CATIA model into the ANSYS program.
@@ -1106,7 +1035,6 @@ OUTPR - Controls the solution printout.
 /OUTPUT - Redirects text output to a file or to the screen.
 OUTRES - Controls the solution data written to the database.
 ##############################
-
 PADELE - Deletes a defined path.
 /PAGE - Defines the printout and screen page size.
 PAGET - Writes current path information into an array variable.

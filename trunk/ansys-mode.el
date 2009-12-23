@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-21 13:21:34 dieter"
+;; Time-stamp: "2009-12-23 15:11:02 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -645,11 +645,11 @@ comment."
 
 (load "ansys-keyword")
 
-(defconst ansys-font-lock-keywords	;NEW_C
+(defvar ansys-font-lock-keywords	;NEW_C
   (append
    ansys-commands			;command overwrite variables
    ansys-undocumented-commands
-   '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,7\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 8 chars long)
+   '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 32 chars long)
    ;; this is for level 2
    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][r
 R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
@@ -683,6 +683,76 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
    '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
    '(("\\s-*\\<\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
    ) "Regexp for the highlighting."  )
+
+
+;; font-lock-keyword-face is the default face
+(defconst ansys-font-lock-keywords-1
+  `(
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-command-regexp-1
+	      "\\)") 1 font-lock-keyword-face)
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
+     font-lock-variable-name-face t) ; variables (max. 32 chars long)
+    )
+  )
+
+(defconst ansys-font-lock-keywords-3
+  `(
+    ;; some string faces
+    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
+      ;/SYS command sends string to OP,no parameter substitution!
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+        ;TODO: c*** should get fontification from command regexp
+      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
+   	      ;only 75 characters possible no separator necessary
+    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
+     font-lock-doc-face) ;titles
+    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
+       ;highlight message of comment command /COM (no comment (!)
+       ;is possible behind /COM), no separating comma necessary
+    ;; outmoded goto labels (max 8 chars including the colon)
+    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+    ;; deprecated ansys-comment
+    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    					;^[:alpha:] to avoid spurious
+    ;; (" \\*[^[:alpha:]].*$" . font-lock-comment-face)
+    ;; 					;^[:alpha:] to avoid spurious
+    					;asterisk command fontification
+    (,ansys-deprecated-element-regexp . font-lock-warning-face)
+    (,ansys-elements-regexp . font-lock-type-face)
+    (,ansys-undocumented-command-regexp . font-lock-constant-face)
+    (,(concat "\\<\\("
+	      ansys-get-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+    (,(concat "\\<\\("
+	      ansys-parametric-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-command-regexp-2
+	      "\\)\\>") 1 font-lock-keyword-face)
+    ;; = variable defs, overwritting commands
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
+     font-lock-variable-name-face t) ; variables (max. 32 chars long)    ;; some operators
+    ("\\$" 0 font-lock-type-face) ;condensed line
+    (":" . font-lock-warning-face)   ;colon loops and branchs
+    ;; multiline format constructs
+("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
+      2 font-lock-doc-face t)
+    ;; ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
+    ("%" 0 font-lock-type-face t) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+;; reserved words
+    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
+    ;; /eof is special: it crashes Ansys in interactive mode
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 font-lock-warning-face t)
+    )
+  )
+
+(setq ansys-font-lock-keywords	;NEW_C
+      '(ansys-font-lock-keywords-1
+	ansys-font-lock-keywords-3
+	  ;; ansys-font-lock-keywords-4
+	  ))
 
 (defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and
 					;allowed variable characters
@@ -742,6 +812,12 @@ Usage
 All functions described in the following with key bindings can
 also be found in the Ansys menu.
 
+* Ansys command syntax help
+
+Typing \"\\[ansys-show-command-parameters]\" displays right above
+the current keyword it's syntax help, similar to (but often more
+complete) than the dynamic prompt of the classical Ansys GUI.
+
 * Ansys keyword completion (commands, elements, get- and
   parametric-functions)
 
@@ -749,28 +825,27 @@ Type the first letters of an Ansys command, function or element
 name and use the key binding \"\\[ansys-complete-symbol]\" for
 mode's function
 `ansys-complete-symbol' (\"\\[ansys-complete-symbol]\" means
-holding down the \"ALT\" key while pressing the \"TAB\" key),
-when your Unix window manager intercepts this key combination
+holding down the \"ALT\" key while pressing the \"TAB\" key), in
+case your Unix window manager intercepts this key combination
 type \"C-M-i\"
   (the \"CTRL\", \"ALT\" and \"i\" key simultaneously).
 
-There are nearly 1900 Ansys symbols available for completion.
+There are nearly 2000 Ansys symbols available for completion.
+Undocumented Ansys commands and deprecated element types are also
+completed.  The former are identified as such in their command
+syntax help and the later are exposed with a different
+highlighting. Please have a look at the variable
+`ansys-deprecated-element-alist' it's an association list with
+the deprecated elements and their respective replacments (for
+inspecting its content please type \"C-h v\" and then type this
+variable name).
 
-Undocumented Ansys commands are not completed (see the variable
-`ansys-undocumented-commands', for inspecting its content: please
-type \"C-h v\" and then the variable name at the prompt).  When
-the character combination before the cursor (or point in Emacs
-parlance) is not unambiguous: A completion list is shown,
+When the character combination before the cursor (or point in
+Emacs parlance) is not unambiguous: A completion list is shown,
 selecting the suitable word from the list with either the mouse
 or the cursor over the symbol and typing \"RET\" is completing
 the symbol.  Hitting space removes the listing window (in Emacs
-called 'buffer').
-
-* Ansys command syntax help
-
-Typing \"\\[ansys-show-command-parameters]\" displays right above
-the current keyword it's syntax help, similar to (but often more
-complete) than the dynamic prompt of the classical Ansys GUI.
+speak 'buffer').
 
 * Auto-indentation of looping and conditional blocks
 
@@ -1134,7 +1209,7 @@ terminologies.
   \"ansysds\" - Mechanical/LS-Dyna
   \"ane3fl\" - Multiphysics
   \"preppost\" - PrepPost (just pre- and post-processing)
-
+p
 `ansys-license': License type with which the Ansys solver will be
 started.
 
@@ -1277,7 +1352,7 @@ the following options:
   ;;  (setq parse-sexp-ignore-comments t)
 
   ;;  (make-local-variable 'font-lock-defaults) is always local
-  (setq font-lock-defaults '(ansys-font-lock-keywords nil 'case-ignore))
+  (setq font-lock-defaults `(,ansys-font-lock-keywords nil 'case-ignore))
   ;; keywords
   ;; keywords-only -- nil: syntactic fontification
   ;; case-fold -- non nil: ignore case
@@ -1518,7 +1593,7 @@ element names."
       (let* ((end (point))
 	     (beg (save-excursion (backward-sexp 1) (point)))
 	     (string (buffer-substring-no-properties beg end))
-	     (completion (try-completion string ansys-completion-alist)))
+	     (completion (try-completion string ansys-completions)))
 	(cond ((eq completion t))	;perfect match do nothing
 	      ((null completion)	;completion is nil predicate
 	       (message "Can't find completion for \"%s\"" string)
@@ -1534,7 +1609,7 @@ element names."
 		   (insert (downcase completion)))))
 	      (t
 	       (let ((list
-		      (all-completions string ansys-completion-alist))
+		      (all-completions string ansys-completions))
 		     (conf (current-window-configuration)))
 		 ;; Taken from comint.el
 		 (message "Making completion list...")

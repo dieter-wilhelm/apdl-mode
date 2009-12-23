@@ -1,5 +1,15 @@
 = Ansys mode documentation =
 
+Ansys mode provides support for the FEA (Finite Element Analysis)
+program Ansys (http://www.ansys.com) under Computer systems where
+Ansys and Gnu Emacs is running.  It defines 'Ansys mode', a major mode
+for viewing, writing and navigating in APDL (Ansys Parametric Design
+Language) files and provides managing and communication capabilities
+for various Ansys solver processes as well.
+
+The mode's capabilities are rather sophisticated but the documentation
+is still targeted for Ansys users with little Emacs experience.
+
 == Requirements ==
 == Features ==
 == Installation ==
@@ -27,36 +37,43 @@ restricted to UNIX systems.
 
 * Ansys process management (viewing error files, license status, etc.)
 
-* Solver control and comunication facilities (UNIX only)
+* Solver control and comunication facilities i. e. sending code
+  fragments or commands directly to a runing solver instance (UNIX
+  only)
 
 * Command syntax help in the editor (similar to but more verbose then
-  the Ansys dynamic prompt)
+  the Ansys dynamic prompt) also with hints for undocumented commands
 
-* Keyword (case-sensitive) completion of commands, elements, get- and
-  parametric-functions of nearly 1900 Ansys symbols.
+* Keyword completion of commands, elements, get- and
+  parametric-functions (case-sensitive) of nearly 1900 Ansys symbols.
 
-* Auto-indentation of looping - and conditional blocks
+* Extended keyboard shortcuts for code navigation: Skipping comments,
+  navigating number blocks, searching *DO-, *IF-, *DOWHILE-,
+  *CREATE-blocks, etc.
 
-* Closing of open blocks with insertion of the appropriate end
-  keyword (case-sensitive)
+* Sophisticated highlighting in various decoration levels
+  (undocumented commands, deprecated elements, ...) and optionally
+  also user defined variables (experimental)
 
-* Code navigation,extended keyboard shortcuts for code lines, number
-  blocks, *DO -,*IF -, DOWHILE -, *CREATE-blocks etc.
+* Overview in a different window of all definitions (*GET, *DIM, *SET,
+  =, *DO, ...) of APDL variables in the current file.
 
-* Sophisticated highlighting (optionally for user variables)
+* Preview and insertion (optionally auto-insertion) of header and
+  Ansys code templates for APDL files
 
-* Displays summary for all definitions (*GET, *DIM, *SET, = and
-  *DO) of APDL variables.
+* Convenient comment handling, commenting out whole paragraphs or
+  whole control blocks and vice versa
 
-* Use of the Emacs abbreviation facility for block templates
-
-* Convenient comment handling, commenting out of whole paragraphs
+* Auto-indentation of looping blocks and conditional control blocks
+  together with closing of open blocks with auto-insertion of the
+  appropriate end keyword (case-sensitive)
 
 * Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode
 
-* Auto-insertion and preview of header and code templates for APDL
-  files
+* Use of the Emacs abbreviation facility for block templates
+  i. e. with writting a "nickname" Emacs exchanges the characters with
+  a whole code template
 
 == Installation ==
 
@@ -187,15 +204,18 @@ Mathias Dahl,
 * The lisp code had to be split up for better maintance, the code
   files for are now provided in an archive.
 
-* There are now 3 highlighting levels to choose from
+* Reworked the fontification mainly for the sake of speed.  There are
+  now highlighting levels to choose from, offering e. g. higlighting
+  of deprecated element types in a warning-face
 
 * The output from the LMUtil license status tool (C-c C-l) is now
   filtered
 
-* C-c C-c command is now generalised so that it does some useful work
-  without a running Ansys process
+* The `ansys-send-to-ansys' (C-c C-c) command is now generalised so
+  that it also does some useful work without a running Ansys process
+  (it copies the cursor line or the chosen region to the clipboard)
 
-* Added tooltips to the Ansys menu
+* Added tooltips to the Ansys menu entries
 
 === Version 11.0.2 ===
 

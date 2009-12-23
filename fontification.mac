@@ -1,0 +1,69 @@
+!! (setq font-lock-maximum-decoration '((ansys-mode . 2)))
+!(progn (unload-feature 'ansys-mode) (load-file "ansys-mode.el")(ansys-mode))
+
+f
+fi
+fin
+fini
+finis 
+finish $ /clear
+finishe
+
+!@ --- header ---
+!! FILENAME: test.mac
+!! ANSYS VERSION: 12.0
+
+/aux15
+igesin,'test','iges'
+
+*afun,rad
+True = 1
+False = 0
+
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+Vcoil = %G V (electrical angle = %G DEG) %/ &
+Icoil = %G A (electrical angle = %G DEG) %/ &
+APPARENT POWER = %G W %/ &
+ACTUAL POWER = %G W %/ &
+Power factor: %G %/ &
+Inductance = %G %/ &
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+
+/title,Nothing in particular
+/plopts,wp,1 !display working plane
+/prep7
+rectng,X1,X2,Y1,Y2 ! 2d rectangle
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+
+*if,I,eq,1,then
+*elseif,I,le,10
+*else
+*endif
+
+lfillt,(1:2),(3:4),5
+
+*dowhile,PAR
+*cycle, bla bla
+*cycle  
+  *exit
+*enddo
+
+! goto branching
+*go,:BRANCH
+:BRANCH
+
+nsel,s,loc,x,1
+    ,s,loc,x,1
+cp,next,uy,all !couple dofs
+f,1,fx,1
+!flist ! list force nodes
+allsel
+/pbc,all,on
+!gplot
+
+!@@@ - magnetics -
+

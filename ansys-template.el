@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-12-15 11:35:31 dieter"
+;; Time-stamp: "2009-12-23 08:18:47 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -34,34 +34,45 @@
 (defun ansys-display-skeleton ()	;NEW
   "Display existing code templates in another buffer."
   (interactive)
-  (let* ((current-buffer (buffer-name))
-	 (new-buffer-name "*Ansys-skeleton*")
-	 (skeleton-buffer (get-buffer-create new-buffer-name))
-	 (skel (completing-read "Template: " obarray 'commandp
-	 t "ansys-skeleton-" nil)))
-    (save-excursion
-      (set-buffer skeleton-buffer)
-      ;; TODO: remove possible command-help overlays!
-      ;; (if ansys-help-overlay
-      ;; 	  (delete-overlay ansys-help-overlay))
-      ;(toggle-read-only -1)
-      (toggle-read-only 0)		;zero means switch off read-only
-      (kill-region (point-min) (point-max))
-      ;(ansys-skeleton-configuration)
-;      (message skel) ;add-text-properties
-      (unless (string= (symbol-name major-mode) "ansys-mode")
+  (if (eq last-command this-command)
+      (funcall (intern-soft ansys-last-skeleton))
+    (let* ((current-buffer (buffer-name))
+	   (new-buffer-name "*Ansys-skeleton*")
+	   (skeleton-buffer (get-buffer-create new-buffer-name))
+	   s
+	   (skel (completing-read "Template: " obarray 'commandp
+				  t "ansys-skeleton-" nil)))
+      (save-excursion
+	(set-buffer skeleton-buffer)
+	;; (make-local-variable 'ansys-skeleton-overlay)
+	(remove-overlays)
+	(setq ansys-skeleton-overlay (make-overlay 1 1))
+	;; TODO: remove possible command-help overlays!
+	;; (if ansys-help-overlay
+	;; 	  (delete-overlay ansys-help-overlay))
+	;; (toggle-read-only -1)
+	(toggle-read-only 0)		;zero means switch off read-only
+	(kill-region (point-min) (point-max))
+					;(ansys-skeleton-configuration)
+					;      (message skel) ;add-text-properties
+	(unless (string= (symbol-name major-mode) "ansys-mode")
 	  (ansys-mode))
-      ;; TODO: overlay displaying skeleton name
-      ;; (insert
-      ;;  (propertize
-      ;; 	;; TODO
-      ;; 	(concat " 111 Template: " skel " ---\n\n")
-      ;; 	'face 'match))
-      (funcall (intern-soft skel))
-      (set-buffer-modified-p nil))
-;      (toggle-read-only t)
+	;; TODO: overlay displaying skeleton name
+	;; (insert
+	;;  (propertize
+	;; 	;; TODO
+	;; 	(concat " 111 Template: " skel " ---\n\n")
+	;; 	'face 'match))
+	(funcall (intern-soft skel))
+	(goto-char (point-min))
+	(setq ansys-last-skeleton skel)
+	(setq s (propertize (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
+	(overlay-put ansys-skeleton-overlay 'before-string s)
+	(set-buffer-modified-p nil))
+      ;;(toggle-read-only t)
       ;; (set-buffer current-buffer))
       (display-buffer new-buffer-name 'other-window)))
+  (setq this-command 'ansys-display-skeleton))
 
 (define-skeleton ansys_do		;NEW
   ""
@@ -88,19 +99,26 @@
 (define-skeleton ansys-skeleton-looping
   "Control constructs"
   nil
+  "\n!@@@ - branching, looping and control structures -"\n
+  \n
+  "! if controls" \n
   "*if,I,eq,1,then" \n
-  "*elseif,val1,oper,val2" > \n
+  "*elseif,I,le,10" > \n
   "*else" > \n
   "*endif" > \n
   \n
-  "!*if,val1,oper1,val2,base1,val3,oper2,val4,base2 ! oper: eq,ne,lt,gt,le,ge,ablt,abgt," \n
-  "! base: stop,exit,cycle,and,or,xor" \n
+  "! *if,val1,oper1,val2,base1,val3,oper2,val4,base2" \n
+  " ! oper: eq,ne,lt,gt,le,ge,ablt,abgt," \n
+  " ! base: stop,exit,cycle,and,or,xor" \n
   \n
+  "! implicit looping" \n
   "lfillt,(1:2),(3:4),5" \n
   \n
+  "! command repetition" \n
   "e,1,2" \n
   "*repeat,5,0,1"\n
   \n
+  "! do loops" \n
   "*do,I,1,6,2" \n
   "*cycle" > \n
   "*exit" > \n
@@ -111,9 +129,10 @@
   "*exit" > \n
   "*enddo" > \n
   \n
+  "! goto branching" \n
   "*go,:BRANCH" \n
   ":BRANCH" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-header	 ;NEW
   "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
@@ -127,13 +146,13 @@
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
-  \n
+  ;; "" \n
   )
 
 (define-skeleton ansys-skeleton-information
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- informations --" \n
   "/status,config" \n
   "!*list,file,ext ! list file content" \n
@@ -151,13 +170,13 @@
   "/status,solu" \n
   "!@@@ - aux3 result file edit routine -" \n
   "!/aux3" \n
-  "!list !result statistics"
-  \n)
+  "!list !result statistics" \n
+  )
 
 (define-skeleton ansys-skeleton-configuration
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- configurations --" \n
   \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
@@ -169,12 +188,12 @@
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot !off, orig, ltop, ..." \n
   "!/cwd,DIR !changes working directory" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- view settings --" \n
   \n
   "!/view !viewing direction"_ \n
@@ -185,12 +204,12 @@
   "!/auto ! automatic fit mode" \n
   "!/user ! keep last display scaling"\n
   "!/pstatus ! display window stats specifications" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-import	;NEW
   "Import commands."
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- cad import -- " \n
   \n
   "/aux15" \n
@@ -203,12 +222,12 @@
   \n
   "/input,filename,anf ! for APDL based input" \n
   "/facet,norm" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-expand	;NEW
   "Symmetry expansion."
   nil
-  "!@@@ - symmetry expansion -" \n
+  "\n!@@@ - symmetry expansion -" \n
   \n
   "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6" \n
   "!! /expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
@@ -217,12 +236,12 @@
   "!! -- cyclic expansion --" \n
   "!! cyclic,status" \n
   "!! /cycexpand ! expand graphics rep." \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-contact-definition
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- contact pair defintion --" \n
   \n
   "Contact="_ \n
@@ -311,12 +330,12 @@
   "!/efacet,2" \n
   "!plls,Pene,Pene !line element results" \n
   "!plls,st,st" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- rigid target creation -- " \n
   \n
   "Contact="_ \n
@@ -335,24 +354,24 @@
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo" \n
   "e,Nmax+1" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-coordinates
   ""
   nil
-  "!@@@ - coordinate system display -" \n
+  "\n!@@@ - coordinate system display -" \n
   \n
   "!csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
   "!clocal,11,0 !define local coord. sys. from active" \n
   "!psymb,cs,1 ! display local coord."
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot"_ \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-working-plane
   ""
   nil
-  "!@@@ - working plane setup -" \n
+  "\n!@@@ - working plane setup -" \n
   \n
   "/plopts,wp,1 !display working plane" \n
   "/repl" \n
@@ -362,35 +381,35 @@
   "!wpstyl,,,,,,1 !type spec 0,1,2" \n
   "!wpstyl,stat" \n
   "!csys,wp !change co to wp" \n
-  \n)
+  )
 
 ;; PlotCtrls ->Multi-plot-Ctrls???
 (define-skeleton ansys-skeleton-multi-plot
   ""
   nil
-  "!@@@ - multiplot controls -" \n
+  "\n!@@@ - multiplot controls -" \n
   \n
   "/gtype,all,node,0 !turn off nodes (elem,keyp,line,area)" \n
   "!/gcmd,1,u,sum"
   "gplot" \n
-  \n)
+  )
 
 ;; PlotCtrls ->Numbering Controls
 (define-skeleton ansys-skeleton-numbering-controls
   ""
   nil
-  "!@@@ - numbering controls -" \n
+  "\n!@@@ - numbering controls -" \n
   \n
   "/pnum,kp!,line,area,volu,node,elem,tabn,sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/replot"
-  \n)
+  )
 
 ;; PlotCtrls -> Symbols
 (define-skeleton ansys-skeleton-symbols
   ""
   nil
-  "!@@@ - symbol display -" \n
+  "\n!@@@ - symbol display -" \n
   \n
   "!! /pbc,all,,1 !bc symbols"\n
   "!! /psf !surface loads" \n
@@ -398,12 +417,12 @@
   "!! /psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
   "!! /psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
   "!! /psymb,stat" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-element-table
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- etables --" \n
   \n
   "!! etables don't take into account higher element order!"
@@ -423,12 +442,12 @@
   "*get,Mc,etab,sort,,max" \n
   "*msg,,Mc" \n
   "Mohr-Coulomb criterion (< 1): %G" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-element-def
  ""
  nil
- "!! ------------------------------" \n
+ "\n!! ------------------------------" \n
  "!@@ -- element definition --" \n
  \n
  "ID=Steel" \n
@@ -452,13 +471,12 @@
  "!! aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
  \n
  "!! /pnum,type,1 $ eplot ! display materials" \n
- \n
 )
 
 (define-skeleton ansys-skeleton-meshing
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- meshing --" \n
   \n
   "!! mat,Steel" \n
@@ -476,13 +494,12 @@
   "!! /cycexpand ! expand graphics rep." \n
   \n
   "!! /pnum,mat,1 $ eplot" \n
-  \n
   )
 
 (define-skeleton ansys-skeleton-geometry
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- geometry --"\n
   \n
   "/prep7" \n
@@ -506,12 +523,12 @@
   "!! asbw, !substract by wp" \n
   "!! /pnum,area,1 $ aplot" \n
   "!! vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-material-def
   ""
   nil
-  "!@@ -- material definitions --" \n
+  "\n!@@ -- material definitions --" \n
   \n
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
@@ -560,12 +577,12 @@
   "!! mp,murx,Magnet,Br/(Mu0*Hc)" \n
   \n
   "!! /pnum,mat,1 $ eplot"\n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-bc
   ""
   nil
-  "!@@ -- boundary conditions --"\n
+  "\n!@@ -- boundary conditions --"\n
   \n
   "/prep7" \n
   \n
@@ -595,13 +612,14 @@
   "!! cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
   "!! dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
+  "!@@@ - coupling -" \n
   "nsel,s,loc,x,1" \n
   "cp,next,uy,all !couple dofs" \n
-  "f,1,fx,1" \n
-  "!flist ! list force nodes" \n
+  \n
   "allsel" \n
   "/pbc,all,on" \n
   "!gplot" \n
+  \n
   "!@@@ - magnetics -" \n
   \n
   "!! fmagbc,'Component' ! flag force calculation" \n
@@ -610,12 +628,12 @@
   "!! dl,all,,asym ! flux parallel to lines" \n
   "!! nsel,s,ext ! select exterior nodes" \n
   "!! dsym,asym ! flux parallel to lines" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-buckling
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ - buckling -" \n
   \n
   "!! -- static --"
@@ -632,15 +650,15 @@
   "bucopt,lanb,3" \n
   "outres,all,all" \n
   "solve" \n
-  "fini $ /solu		 !crazy" \n
+  "fini $ /solu	 !switch to another loadstep?" \n
   "expass,on" \n
   "mxpand,3" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-solve
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@ --- solution --- " \n
   "!! ------------------------------" \n
   \n
@@ -661,7 +679,7 @@
   \n
   "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
   "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
-  "!! nequit,30! No of equilibr. iterations"
+  "!! neqit,30! No of equilibr. iterations"
   "!! nldiag,nrre,on! store residual file" \n
   "!! nldiag,maxf,2! maximum files written" \n
   "!! rescontrol,,1,last !create restart file(s)" \n
@@ -691,12 +709,12 @@
   "!@@ -- cyclic symmetry --" \n
   \n
   "!! cycopt,status" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-post1
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@ --- post 1 ---" \n
   "!! ------------------------------" \n
   \n
@@ -765,12 +783,12 @@
   "!anmres !multiple result files" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-output-to-file
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- output to file --" \n
   \n
   "!! /output,test.txt	 !write Ansys output to file" \n
@@ -790,12 +808,12 @@
   "%E %E" > \n
   "*enddo" > \n
   "*cfclos ! close file" \n
-  \n)
+  )
 
 (define-skeleton ansys-skeleton-select
   ""
   nil
-  "!@@@ - select stuff -" \n
+  "\n!@@@ - select stuff -" \n
   \n
   "!! lowest face No of element E from selected nodes"
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
@@ -810,12 +828,12 @@
   "!!   nsel,u,,,Ntmp" \n
   "!!   *get,E,elem,E,nxth" \n
   "!! *enddo  " \n
-\n)
+  )
 
 (define-skeleton ansys-skeleton-path-plot
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- path plot --" \n
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
   \n
@@ -830,13 +848,12 @@
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
   "paget,Path,table" \n
   "!path $ stat" \n
-  \n
-)
+  )
 
 (define-skeleton ansys-skeleton-post26
   ""
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@ --- time-history postprocessing ---" \n
   "!! ------------------------------" \n
   \n
@@ -866,13 +883,13 @@
   "plvar,3" \n
   "!/show,close" \n
   "!!prvar,3" \n
-  \n)
+  )
 
 ;; TODO: complete
 (defun ansys-skeleton-array ()
   "arrays"
   nil
-  "!! ------------------------------" \n
+  "\n!! ------------------------------" \n
   "!@@ -- arrays --" \n
   \n
   "*dim,A,array,10,1" \n
@@ -887,7 +904,7 @@
   "!!   fsum" \n
   "!!   Reaction(I)=Fx" \n
   "!! *enddo" > \n
-)
+  )
 
 (defun ansys-skeleton-compilation ()
   "Collection of important code templates for an APDL file."

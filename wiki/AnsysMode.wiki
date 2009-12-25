@@ -1,4 +1,4 @@
-#labels Phase-Deploy
+#labels Phase-Deploy,Featured
 == Requirements ==
 
 It is based on Ansys version 10.0 and is written with GNU Emacs 22.

@@ -1,5 +1,4 @@
-!! (setq font-lock-maximum-decoration '((ansys-mode . 1)))
-!(progn (unload-feature 'ansys-mode)(load-file "ansys-mode.el")(ansys-mode))
+!(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 1)(load-file "ansys-mode.el")(ansys-mode))
 f
 fi
 fin
@@ -8,27 +7,27 @@ finis
 finish
 finisher
 !! variables max. 32 chars long & condensed ($) input lines
-v123456789_123456789_123456789_123= 1 $ Alu=2 $ Copper= 3
-False = 0$True =1
+v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
+False = 0$True =1 ARG9,AR19 ! ARG1-9, AR10-19 *use/commandline macro variables
 _bla = 3		 ! _vars: macro reserved words
-nsel,s,_hans  '_otto'	 ! _vars: macro reserved words
-*afun,rad
-!! APDL get/parametricfunctions & old style (deprecated) Anys comments
-var1=sinh(nx(.3 *5)) !old style Ansys comments!!!!!
-var2 = tanh(cos(.3*5)) !not an old style Ansys comment
+nsel,s,_hans,'_otto' $  AR20 = 20 !AR20 - AR99 local macro variables
+!! APDL get/parametricfunctions & old style (deprecated) Ansys comments
+var1=sinh(cos(.3 *5)) !old style Ansys comments!!!!!
+var2 = tan(nx(.3*5)) !not an old style Ansys comment
 !! undocumented commands
 /xml
+*afun,rad
 /fil $ /filname
 !! string, message commands and comment behaviour && %$$% %% :: &&&
 igesin,'test','%iges%'
 /titl,Nothing in particular
-/com,hans holz ! this is really no comment
+/com,hans holz !!!! this is really not commented out!!!!
 c*** otto !otto otto %neither% here !!!!!!!
 /sys,ls "*.mac"
 !! multiline message format command this is tricky: use M-o M-o
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
-Icoil = %G A (electrical angle = %G DEG) %/ &
+Steel = %G A (electrical angle = %G DEG) %/ &
 _Power factor: %G %/ &
 Inductance = %G %/ &
 VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
@@ -41,21 +40,22 @@ alkd %D &
 /prep7 $ finish
 /prep7 !nothing behind
 /prep7 nothing behind
-rect,X1,_X2,Y1,Y2 ! 2d rectangle
+rect,var1,_X2,var2,X2 ! 2d rectangle
 nsel,s,loc,y,0
     ,a,loc,y,1
-d,all,all
+d,all,var1
 !! element types & deprecated element types
 et,Steel,beam3 $ et,Alu,shell91
 !! control constructs
 *if,I,eq,1,then
-*elseif,I,le,10
+*elseif,I,le,var2
 *endif
-!! implicit (colon) looping
+!!::: implicit : (colon) looping :::::
 lfillt,(1:2),(3:4),5
 *dowhile,PAR
-*cycle, bla _bla
-*cyc
+*cycle, var2 _bla
+  *cyc
+  *cycl
   *exit
 *enddo
 ! goto branching
@@ -1020,7 +1020,7 @@ plvar,3
 
 !@ +++++++++ last line +++++++++++++
 !! (setq font-lock-maximum-decoration '((ansys-mode . 1)))
-!(progn (unload-feature 'ansys-mode)(load-file "ansys-mode.el")(ansys-mode))
+!(progn (unload-feature 'ansys-mode)(load-file "ansys-mode.el")(ansys-mode)))
 f
 fi
 fin

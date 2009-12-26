@@ -1,26 +1,23 @@
-!(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 1)(load-file "ansys-mode.el")(ansys-mode))
-f
-fi
-fin
-fini
-finis 
-finish
-finisher
+!(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 2)(load-file "ansys-mode.el")(ansys-mode))
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !! variables max. 32 chars long & condensed ($) input lines
 v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
-False = 0$True =1 ARG9,AR19 ! ARG1-9, AR10-19 *use/commandline macro variables
+False = 0$True =1
+*if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
+  AR20 = 20 !AR20 - AR99 local macro variables
+*endif
 _bla = 3		 ! _vars: macro reserved words
-nsel,s,_hans,'_otto' $  AR20 = 20 !AR20 - AR99 local macro variables
+nsel,s,_hans,'_otto' 
 !! APDL get/parametricfunctions & old style (deprecated) Ansys comments
 var1=sinh(cos(.3 *5)) !old style Ansys comments!!!!!
 var2 = tan(nx(.3*5)) !not an old style Ansys comment
-!! undocumented commands
-/xml
+/xml		     ! undocumented command /xml
 *afun,rad
 /fil $ /filname
 !! string, message commands and comment behaviour && %$$% %% :: &&&
 igesin,'test','%iges%'
 /titl,Nothing in particular
+
 /com,hans holz !!!! this is really not commented out!!!!
 c*** otto !otto otto %neither% here !!!!!!!
 /sys,ls "*.mac"
@@ -36,14 +33,14 @@ this is not any longer in the *msg format construct
 *vwrite,B(1,1),B(2,1),_bla
 alkd %D &
 %E%/%E
-!! commands without arguments
-/prep7 $ finish
-/prep7 !nothing behind
-/prep7 nothing behind
-rect,var1,_X2,var2,X2 ! 2d rectangle
-nsel,s,loc,y,0
-    ,a,loc,y,1
-d,all,var1
+!! commands which do not allow arguments
+/prep7 $ FINISH ! $ is nothing behind?
+/prep7 !nothing behind?
+/prep7 nothing behind allowed
+rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+nsel = 3	      !you CAN have such var names 
+nsel,s,loc,y,nsel
+    ,a,loc,y,nsel
 !! element types & deprecated element types
 et,Steel,beam3 $ et,Alu,shell91
 !! control constructs
@@ -52,30 +49,28 @@ et,Steel,beam3 $ et,Alu,shell91
 *endif
 !!::: implicit : (colon) looping :::::
 lfillt,(1:2),(3:4),5
-*dowhile,PAR
-*cycle, var2 _bla
+*DOWHILE,PAR
+*CYCLE, VAR2 _bla
   *cyc
   *cycl
   *exit
 *enddo
 ! goto branching
 *go,:BRANCH
-:BRANCH
+aselsalsdkfjaölsdkfjaölskdjf,all
+:branch
 /eof === WARNING: /eof crashes Ansys GUI in interactive mode ===
-vvv!! ====================
- 
-alsalsdkfjaölsdkfjaölskdjf 
+a $ al $ all $ alls $ allse $ allsel $ allselllllll
+
 nsel,s,loc,x,1
     ,s,loc,x,1
 cp,next,uy,all !couple dofs
 f,1,fx,1
 !flist ! list force nodes
-allsel
+alls
 /pbc,all,on
 !gplot
-
-!@@@ - magnetics -
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
@@ -84,156 +79,42 @@ allsel
 !! ANSYS VERSION: 12.0
 !! DESCRIPTION: alsdkf
 !! ------------------------------
-!@@ -- cad import -- 
 
-/aux15
-ioptn,iges,nodefeat
-ioptn,merge,yes
-ioptn,solid,yes
-ioptn,small,yes
-ioptn,gtoler,defa
-igesin,'test','iges'
-
-/input,filename,anf ! for APDL based input
-/facet,norm
-!! ------------------------------
-!@@ -- configurations --
-
-! *afun,deg ! trig. functions accept angle arguments
-*afun,rad
-True = 1
-False = 0
-
-/title,
-/plopts,wp,1 !display working plane
-/triad,rbot !off, orig, ltop, ...
-!/cwd,DIR !changes working directory
-!! ------------------------------
-!@@ -- geometry --
-
+fini $ /cle
 /prep7
-rectng,X1,X2,Y1,Y2 ! 2d rectangle
-!!arsym,y,all ! reflection of areas Xc = 0
-Yc = 0
-R1=4
-R2=20
+
+/title, this is just an example
+Pi=acos(-1) $ True=1 $ False=0
+Xc = 0 $ Yc = 0 
+R1=4 $ R2=20
 N = 14.
 Alpha1=-360./(2*N)
 Alpha2=+360./(2*N)
 Depth=30
 cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder
-!shpere,rad1,rad2,th1,th2 !spherical volume
-
-!@@@ - booleans -
-
-!! aovlap,all ! overlap areas
-!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities
-!! asbw, !substract by wp
-!! /pnum,area,1 $ aplot
-!! vdele,all,,,1 !skwp 1:delete kp,l,a as well
-!@@ -- material definitions --
 
 Steel=1
 mp,nuxy,Steel,0.3 ! Poisson No
 mp,ex,Steel,200000 ! Elastic modulus
-!mplist,all
-!! mpplot !plots mat. against temperature
-!! tb,biso,Steel,1 ! bilinear isotropic plasticity
-!! yield_stress=140
-!! tangent_modulus=1400
-!! tbdata,,yield_stress,tangent_modulus !biso
 /com, === Material %Steel% is steel. ===
-!! Alu=2
-!! mp,nuxy,Alu,0.3
-!! mp,ex,Alu,70000
-!! tb,biso,Alu,1
-!! !! tbdata,,yield_stress,tangent_modulus !biso
-!! /com, === Material %Alu% is Aluminium. ===
-!! --- hyperelastic mooney rivlin mat ---
-!! for 30 % compression 100 % tension strain
-
-!! -- orthotropic linear material --
-!! mp, alp{x,y,z}, Steel, val
-!! mp, e{x,y,z}, Steel, val
-
-!! --- Elastomers (hyperelastic) ---
-!! Rubber = 3
-!! tb,hyper,Rubber,,,MOONEY
-!! Shore = 60
-!! ShearModule = 0.086*1.045**Shore
-!! tbdata,1,3*ShearModule/6.6
-!! tbdata,2,.3*ShearModule/6.6
-!! -- check whether to drop elem. midside nodes and use u-p formulation
-!! keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation
-!! ! ogden for high strain applic. (700 % strain)
-!! tb,hyper,Rubber,,,OGDEN
-
-!! --- Magnetic materials ---
-!! Air = 4
-!! mp,murx,Air,1 ! murx permeability
-!! Magnet = 5
-!! Hc = 2.8e5 ! ferrit magnet coercive force in A/m
-!! mp,mgxx,Magnet,Hc 
-!! Pi = acos(-1)
-!! Mu0 = .4*Pi*1e-6 ! field constant in Vs/(Am)
-!! Br = .4 ! residual induction in Tesla
-!! mp,murx,Magnet,Br/(Mu0*Hc)
-
-!! /pnum,mat,1 $ eplot
-!! ------------------------------
-!@@ -- element definition --
 
 ID=Steel
 et,ID,solid186 !3d, 20 node
-etlist !list defined elements
-!! et,ID,solid185 !3d, 8 node
-!! et,ID,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric
-!! et,ID,plane182 !2d, 4 node
-!! keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain.
-!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending
-!! !!for most elements the radial direction is the x-axis
-!! --- magnetics ---
-!! et,ID,plane13 !2d, legacy coupled-field ->plane53
-!! keyopt,ID,3,1 !(3)=1:axissym.
-!! keyopt,ID,5,2 !(5)=2:nodal magnetic field printout
-!! et,ID,infin110 !2d semi infinit electromagnetic elem.
-!! !only 1 element layer, sized in the order of the problem domain
-!! keyopt,ID,3,1 !(3)=1:axissym.
-!! keyopt,ID,2,1 !(2)=0:4-node,1:8-n
-!! --- assign attributes ---
-!! aatt,MAT,REAL,TYPE ! associate prop. with selected areas
 
-!! /pnum,type,1 $ eplot ! display materials
-!! ------------------------------
-!@@ -- meshing --
-
-!! mat,Steel
-!! mshkey,1 !1: mapped meshing,2: mapped if possible
-!! mshape,0 !0: quads 1:tri (supported shapes)
-esize,1 ! element edge length
-!! lesize,all,,,3 ! SPACE neg: center to end division
-!! ! vmesh,all
-!! amesh,all
-!! -- cyclic symmetric meshing --
-!! cyclic ! check sectors in case of cyclic sym.
-!! *status ! look for CYCLIC_XREF
-!! cyclic,status
-!! /cycexpand ! expand graphics rep.
-
-!! /pnum,mat,1 $ eplot
-!@@ -- boundary conditions --
-
-/prep7
-
-!kbc,1 ![0] (antype,static): ramped 1:stepped loading
-
-!@@@ - displacements -
-
-!nsel,s,loc,y,0
-!    ,a,loc,y,1
-!    ,r,loc,x,0
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
 d,all,all
 !dlist,all
+*if,Dim,le,1,then
+  *dim,Reaction,array,Ns,1
+*endif
+*do,I,1,Ns
+  set,Ls,I
+  fsum
+  *get,Fx,fsum,,item,fx
+  Reaction(I)=Fx
+*enddo
 
 !@@@ - loads -
 
@@ -12202,7 +12083,7 @@ set,Ls
   *get,Fx,fsum,,item,fx
   Reaction(I)=Fx
 *enddo
-/gcolumn,1,'Reaction'
+v/gcolumn,1,'Reaction'
 /axlab,x,Substep
 /axlab,y,Force in N
 *vplot,,Reaction

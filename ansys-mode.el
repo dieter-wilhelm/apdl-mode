@@ -1,8 +1,8 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-23 15:11:02 dieter"
+;; Time-stamp: "2009-12-26 10:01:28 dieter"
 
-;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -45,9 +45,9 @@
 ;; communication capabilities for an associated Ansys solver process.
 
 ;; The mode's capabilities are rather sophisticated but the
-;; documentation is still targeted for Ansys users with little Emacs
-;; experience.  Please consult the accompanying README file for
-;; further, especially, installation information.
+;; documentation is targeted for Ansys users with little Emacs
+;; experience.  Regarding installation and further information please
+;; consult the accompanying README file.
 
 ;;; History:
 
@@ -59,7 +59,7 @@
   "Ansys version on which Ansys mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C
-  "Ansys mode minor version number.")
+  "Ansys mode version number.")
 
 ;; --- defcustoms ---
 
@@ -69,9 +69,28 @@
   "Customisation group for the Ansys mode."
   :version "23.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
-  :link '(url-link "http://www.emacswiki.org")
-  :link '(url-link "http://www.code.google.com/p/ansys-mode")
+  :link '(url-link :tag "EmacsWiki" "http://www.emacswiki.org")
+  :link '(url-link :tag "GoogleCode" "http://www.code.google.com/p/ansys-mode")
   :group 'Languages)
+
+(defgroup Ansys-process nil
+  "Customisation 'process' subgroup for the Ansys mode."
+  :group 'Ansys)
+
+(defcustom ansys-highlighting-level 1
+  "This variable sets the level of highlighting.
+There are three levels available, 0, a minimalistic level
+optimised for speed and viewing of very large files (like
+WorkBench input files), 1 and 2 (the maximum decoration)."
+  :type 'integer
+  :group 'Ansys)
+  :link '(variable-link font-lock-maximum-decoration )
+
+(defcustom ansys-current-ansys-version ansys_version ;NEW_C
+  "String describing the Ansys version installed by the user.
+This variable is used by the `ansys-skeleton-header' template."
+  :type 'string
+  :group 'Ansys)
 
 (defcustom ansys-dynamic-highlighting-flag nil ;NEW_C
   "Non-nil means that Ansys mode highlights user defined variables.
@@ -85,13 +104,22 @@ To take effect after setting this variable you have to recall
   :type 'boolean
   :group 'Ansys)
 
+(defcustom ansys-job "file"			;NEW_C
+  "Variable determining the Ansys job name.
+The default job name is 'file'.  See `ansys-abort-file' for a way
+of stopping a run in a controlled way and
+`ansys-display-error-file' for viewing the respective error
+file."
+  :type 'string
+  :group 'Ansys-process)
+
 (defcustom ansys-program ""		;NEW_C
   "The Ansys executable name.
 When the file is not in your search path, you have to funish the
 complete path specification.  For example:
 \"/ansys_inc/v120/ansys/bin/ansys120\"."
   :type 'string
-  :group 'Ansys)
+  :group 'Ansys-process)
 
 (defcustom ansys-help-file ""		;NEW_C
   "The Ansys \"Help System\" file name.
@@ -102,7 +130,7 @@ specification.  For example:
 \"c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP
 \\en-us\\ansyshelp.chm\"."
   :type 'string
-  :group 'Ansys)
+  :group 'Ansys-process)
 
 (defcustom ansys-lmutil-program ""	;NEW_C
   "The FlexLM license manager utility executable name.
@@ -113,7 +141,7 @@ windows case \"c:\\\\Program Files\\Ansys Inc\\Shared\ Files
 \\Licensing\\intel\\anslic_admin.exe.  Necessary for the
 command `ansys-license-status'."
   :type 'string
-  :group 'Ansys)
+  :group 'Ansys-process)
 
 (defcustom ansys-license-file nil ;NEW_C
   "The FlexLM license file name or license server specification(s).
@@ -129,7 +157,7 @@ LM_LICENSE_FILE variable. 4.) The ansyslmd.ini file in the
 licensing directory (This is what anslic_admin is doing in an
 Ansys recommended installation).  5.) The license file itself."
   :type 'string
-  :group 'Ansys)
+  :group 'Ansys-process)
 
 (defcustom ansys-license-types		;NEW_C
   '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
@@ -145,7 +173,7 @@ terminology.
 \"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics
 \"preppost\" - PrepPost (no solver capabilities)"
-  :group 'Ansys)
+  :group 'Ansys-process)
 
 (defcustom ansys-license "struct"		;NEW_C
   "The License type with which the Ansys solver will be started.
@@ -154,7 +182,7 @@ See `ansys-license-types' for often used Ansys license types."
   :options ansys-license-types
   ;; options not available for strings (only hooks, alists, plists E22)
   :type 'string
-  :group 'Ansys)
+  :group 'Ansys-process)
 
 (defcustom ansys-indicate-empty-lines-flag nil ;NEW_C
   "Non-nil means indicate empty lines on window systems.
@@ -162,12 +190,6 @@ Do this visually at the end of an Ansys buffer in the left
 fringe.  You have to reload function `ansys-mode' for this
 variable to take effect."
   :type 'boolean
-  :group 'Ansys)
-
-(defcustom ansys-current-ansys-version ansys_version ;NEW_C
-  "String describing the Ansys version installed by the user.
-This variable is used by the `ansys-skeleton-header' template."
-  :type 'string
   :group 'Ansys)
 
 (defcustom ansys-comment-padding " "	;NEW_C
@@ -254,12 +276,6 @@ A hook is a variable which holds a collection of functions."
 (defvar ansys-run-flag nil		;NEW_C
   "Non-nil means an Ansys job is already running.")
 
-(defvar ansys-job nil			;NEW_C
-  "Variable determines the Ansys job name.
-See `ansys-abort-file' for a way of stopping a run in a
-controlled way and `ansys-display-error-file' for viewing the
-error file.")
-
 (defvar ansys-user-variables () ;NEW_C
   "Variable containing the user variables and first occurance.
 The list is used for the fontification of these variables.")
@@ -303,8 +319,8 @@ is the \"=\" assignment.")
   '("ARG[1-9]" "AR[1][0-9]")
   "Variable containing the Ansys *USE variables regexp.
 ARG[1-9] and AR[1][0-9] are macro local variables and can be
-passed to the *USE command.  AR[2-9][0-9] are also pure macro
-local variables.")
+passed to the *USE command.  Additionally AR[2-9][0-9] are pure
+macro local variables.")
 
 (defconst ansys-format-commands-regexp	;New
   "\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]"
@@ -632,6 +648,17 @@ comment."
 	   ansys_mode_version
 	   ansys_version))
 
+(defun ansys-reload-ansys-mode ()
+  "Reload the Ansys mayor mode.
+Clear the mode definitions if active, load the necessary code and
+call `ansys-mode'."
+  (interactive)
+  (progn
+    (when (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (load-file "ansys-mode.el")
+    (ansys-mode)
+    (message "Ansys mode reloaded.")))
 
 (defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
   "Restore the buffer's previous major mode, if possible."
@@ -645,58 +672,58 @@ comment."
 
 (load "ansys-keyword")
 
-(defvar ansys-font-lock-keywords	;NEW_C
-  (append
-   ansys-commands			;command overwrite variables
-   ansys-undocumented-commands
-   '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 32 chars long)
-   ;; this is for level 2
-   '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][r
-R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
-      2 'font-lock-doc-face prepend))
-   '(("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 'font-lock-doc-face keep))
-   					;highlight message of comment command /COM (no comment (!)
-   					;is possible behind /COM), no separating comma necessary
-   '(("^\\s-*\\([cC]\\*\\*\\*\\).?\\(.\\{1,75\\}\\)" ;c*** should get immediate fontification
-      (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
-   					;only 75 characters possible no separator necessary
-   '(("^\\s-*\\(/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 2
-      'font-lock-doc-face keep))	;the same for /title
-   '(("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 'font-lock-doc-face keep))
-   					;/SYS command sends string to OP, no parameter substitution!
-   					;for variables with command names
-   '(("\\( \\*[^[:alpha:]].*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
-   					;^[:alpha:] to avoid spurious asterisk command fontification
-   ansys-elements
-   ansys-get-functions
-   ansys-parametric-functions
-   '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
-   '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
-   					; more than 32 character long variables are not allowed
-   ;; this is for level 3
-   '(ansys-highlight) ;function searches user variables ; TODO BUG
-   '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
-   '(("\\(%\\)" 1 'font-lock-comment-face prepend))
-   					;single % acts as a format specifier and pair %.% is an
-   					;ansys parameter substitution
-   '(("\\(:\\)" 1 'font-lock-warning-face keep))   ;colon loops
-   '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
-   '(("\\s-*\\<\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
-   ) "Regexp for the highlighting."  )
+;; (defvar ansys-font-lock-keywords	;NEW_C
+;;   (append
+;;    ansys-commands			;command overwrite variables
+;;    ansys-undocumented-commands
+;;    '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 32 chars long)
+;;    ;; this is for level 2
+;;    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][r
+;; R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
+;;       2 'font-lock-doc-face prepend))
+;;    '(("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 'font-lock-doc-face keep))
+;;    					;highlight message of comment command /COM (no comment (!)
+;;    					;is possible behind /COM), no separating comma necessary
+;;    '(("^\\s-*\\([cC]\\*\\*\\*\\).?\\(.\\{1,75\\}\\)" ;c*** should get immediate fontification
+;;       (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
+;;    					;only 75 characters possible no separator necessary
+;;    '(("^\\s-*\\(/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 2
+;;       'font-lock-doc-face keep))	;the same for /title
+;;    '(("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 'font-lock-doc-face keep))
+;;    					;/SYS command sends string to OP, no parameter substitution!
+;;    					;for variables with command names
+;;    '(("\\( \\*[^[:alpha:]].*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
+;;    					;^[:alpha:] to avoid spurious asterisk command fontification
+;;    ansys-elements
+;;    ansys-get-functions
+;;    ansys-parametric-functions
+;;    '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
+;;    '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
+;;    					; more than 32 character long variables are not allowed
+;;    ;; this is for level 3
+;;    '(ansys-highlight) ;function searches user variables ; TODO BUG
+;;    '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
+;;    '(("\\(%\\)" 1 'font-lock-comment-face prepend))
+;;    					;single % acts as a format specifier and pair %.% is an
+;;    					;ansys parameter substitution
+;;    '(("\\(:\\)" 1 'font-lock-warning-face keep))   ;colon loops
+;;    '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
+;;    '(("\\s-*\\<\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
+;;    ) "Regexp for the highlighting."  )
 
 
 ;; font-lock-keyword-face is the default face
-(defconst ansys-font-lock-keywords-1
+(defconst ansys-font-lock-keywords
   `(
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-	      ansys-command-regexp-1
+	      ansys-command-regexp
 	      "\\)") 1 font-lock-keyword-face)
     ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
      font-lock-variable-name-face t) ; variables (max. 32 chars long)
     )
   )
 
-(defconst ansys-font-lock-keywords-3
+(defconst ansys-font-lock-keywords-1
   `(
     ;; some string faces
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
@@ -719,7 +746,7 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
     ;; 					;^[:alpha:] to avoid spurious
     					;asterisk command fontification
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
-    (,ansys-elements-regexp . font-lock-type-face)
+    (,ansys-element-regexp . font-lock-type-face)
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
     (,(concat "\\<\\("
 	      ansys-get-function-regexp
@@ -728,8 +755,75 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
 	      ansys-parametric-function-regexp
 	      "\\)(") 1 font-lock-function-name-face)
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-	      ansys-command-regexp-2
+	      ansys-command-regexp-1
 	      "\\)\\>") 1 font-lock-keyword-face)
+    ;; = variable defs, overwritting commands
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
+     font-lock-variable-name-face t) ; variables (max. 32 chars long)    ;; some operators
+    ("\\$" 0 font-lock-type-face) ;condensed line
+    (":" . font-lock-warning-face)   ;colon loops and branchs
+;;     ;; multiline format constructs
+;; ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
+;;       2 font-lock-doc-face t)
+
+    ;; ampersand highlighting
+    ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
+    ("%" 0 font-lock-type-face t) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+;; reserved words
+    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
+    ;; /eof is special: it crashes Ansys in interactive mode
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 font-lock-warning-face t)
+    ;; *use variables, local macro call arguments
+    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+    )
+  )
+
+(defconst ansys-font-lock-keywords-2
+  `(
+    ;; some string faces
+    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
+      ;/SYS command sends string to OP,no parameter substitution!
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+        ;TODO: c*** should get fontification from command regexp
+      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
+   	      ;only 75 characters possible no separator necessary
+    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
+     font-lock-doc-face) ;titles
+    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
+       ;highlight message of comment command /COM (no comment (!)
+       ;is possible behind /COM), no separating comma necessary
+    ;; outmoded goto labels (max 8 chars including the colon)
+    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+    ;; deprecated ansys-comment
+    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    					;^[:alpha:] to avoid spurious
+    ;; (" \\*[^[:alpha:]].*$" . font-lock-comment-face)
+    ;; 					;^[:alpha:] to avoid spurious
+    					;asterisk command fontification
+    (,ansys-deprecated-element-regexp . font-lock-warning-face)
+    (,ansys-element-regexp . font-lock-type-face)
+    (,ansys-undocumented-command-regexp . font-lock-constant-face)
+
+    ;; get- and parametric-functions
+    (,(concat "\\<\\("
+	      ansys-get-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+    (,(concat "\\<\\("
+	      ansys-parametric-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+
+    ;; command keywords first -2a no characters appended
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-command-regexp-2a
+	      "\\)\\>") 1 font-lock-keyword-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+    	      ansys-command-regexp-2b
+    	      "\\)") 1 font-lock-keyword-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+    	      ansys-command-regexp-2c
+    	      "\\)") 1 font-lock-keyword-face)
+
     ;; = variable defs, overwritting commands
     ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
      font-lock-variable-name-face t) ; variables (max. 32 chars long)    ;; some operators
@@ -738,6 +832,8 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
     ;; multiline format constructs
 ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
       2 font-lock-doc-face t)
+
+;; ampersand is redundant with multiline fontlocking
     ;; ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
     ("%" 0 font-lock-type-face t) ;single % acts as a format
     		  ;specifier and pair %.% is a parameter substitution
@@ -745,13 +841,15 @@ R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
     ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
     ;; /eof is special: it crashes Ansys in interactive mode
     ("\\s-*\\(/[eE][oO][fF].*\\)" 1 font-lock-warning-face t)
+    ;; *use variables, local macro call arguments
+    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
     )
   )
 
-(setq ansys-font-lock-keywords	;NEW_C
-      '(ansys-font-lock-keywords-1
-	ansys-font-lock-keywords-3
-	  ;; ansys-font-lock-keywords-4
+(defconst ansys-font-lock-keyword-list	;NEW_C
+      '(ansys-font-lock-keywords
+	ansys-font-lock-keywords-1
+	ansys-font-lock-keywords-2
 	  ))
 
 (defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and
@@ -936,9 +1034,10 @@ available with `describe-bindings' (for the function
 \\[describe-bindings]).
 
 The format strings of *MSG, *MWRITE, *VWRITE and *VREAD are also
-highlighted.  Below is a summary of the C-format descriptors (no
-parentheses needed in contrast to less powerful fortran
-descriptors):
+highlighted (in certain decoration levels, please refer to
+`ansys-highlighting-level').  Below is a summary of the C-format
+descriptors (no parentheses needed in contrast to less powerful
+fortran descriptors):
 
 %I	Integer data
 %F	Floating point format
@@ -1087,29 +1186,17 @@ complete the name from the various skeletons.
    buffer (\"\\[ansys-license-status]\").
 
 For the last two capabilities you need to customise some
-variables either with the Emacs customisation facility (menu
-entries: ->Ansys '->Customise Ansys Mode' and look there for the
+variables either with the Emacs customisation facility (M-x
+`ansys-customise-ansys' or from the menu bar -> 'Ansys' ->
+'Customise Ansys Mode' -> 'Ansys-process' and look there for the
 variables 'Ansys License File', 'Ansys Util Program' and 'Ansys
 Help Program') or setting the variables directly like the
-following example in your .emacs file.
-
-      (setq ansys-license-file \"27005@rbgs421x:1055@p46054\")
-      (cond
-       ((string= system-type \"windows-nt\")
-         (setq ansys-lmutil-program \"C:\\\\Program Files\\\\Ansys Inc\\\\Shared Files\\\\Licensing\\\\intel\\\\anslic_admin.exe\"
-         (setq ansys-help-file \"C:\\\\Program Files\\\\Ansys Inc\\\\v120\\\\CommonFiles\\\\HELP\\\\en-us\\\\ansyshelp.chm\"))
-        (t
-         (setq ansys-lmutil-program \"/ansys_inc/shared_files/licensing/linop64/lmutil\")
-         (setq ansys-help-file \"/ansys_inc/v110/ansys/bin/anshelp120\")))
+following example in your .emacs file.  How to do this, please
+have a look in the accompanying README or default.el example
+customisation file.
 
 * Ansys solver control and communication (mainly restricted to
   UNIX systems)
-
-You likely have to specify the following variable: 'Ansys
-Program' in the customisation menu or set it like the following
-example in your .emacs file:
-
-      (setq  ansys-program \"/ansys_inc/v110/ansys/bin/ansys110\")
 
 With the Ansys mode command `ansys-start-ansys' you can start the
 Ansys solver as an asynchronous process within Emacs.  After
@@ -1163,7 +1250,7 @@ Some helpful commands when working interactively:
 replotting: \\[ansys-replot]
 refitting: \\[ansys-fit]
 
-You might optimise the loading speed of Ansys mode with
+You might optimise the LOADING speed of Ansys mode with
 byte-compilation of the lisp files.  Please see the function
 `byte-compile-file'.
 
@@ -1172,98 +1259,18 @@ Keybindings
 
 \\{ansys-mode-map}
 
-Variables used for customising Ansys mode
-=============================================
+Ansys mode customising variables
+================================
 
-`ansys-dynamic-highlighting-flag': Controls experimental
-highlighting of user defined variables.  Warning: This option is
-computational expensive and depending on the file size and your
-system it might make your editing experience somewhat sluggish.
-Currently dynamic highlighting of user variables is only
-implemented for files with the extension \".mac\".
+For a summary and documentation of available Ansys mode
+customisations it's best to open the mode customisation buffer
+either with the command M-x `ansys-customise-ansys' or from the
+menu bar -> 'Ansys' -> 'Customise Ansys Mode'
 
-`ansys-program': The Ansys executable with complete path
-specification.
-
-`ansys-lmutil-program': License manager utility program with
-complete path specification.  Necessary for the command
-`ansys-license-status'.
-
-`ansys-license-file': License file or license server
-specification.  The license server specification must include the
-port number when it isn't 1055, the default port number:
-port_number@server_name.
-
-`ansys-help-file': The Ansys help system file with complete path
-specification
-
-`ansys-license-types':
-Available license types to choose from.
-Below are often used license types (as seen with the function
-`ansys-license-status') and their corresponding WorkBench
-terminologies.
-
-  \"ansys\": - Mechanical U
-  \"struct\" - Structural U (with thermal capability)
-  \"ane3\" - Mechanical/Emag
-  \"ansysds\" - Mechanical/LS-Dyna
-  \"ane3fl\" - Multiphysics
-  \"preppost\" - PrepPost (just pre- and post-processing)
-p
-`ansys-license': License type with which the Ansys solver will be
-started.
-
-`ansys-indicate-empty-lines-flag': When t indicate empty lines on
-window systems.  Do this visually at the end of buffer in the
-left fringe.
-
-`ansys-current-ansys-version': String describing the Ansys
-version installed by the user.  Variable is used by the
-`ansys-skeleton' skeleton.
-
-`ansys-comment-padding': Padding string that `comment-region'
-puts between comment chars and text.  Extra spacing between the
-comment character(s) and the comment text makes the comment
-easier to read.  This padding is only active for comments at the
-beginning of a line.
-
-`ansys-comment-add': How many more comment chars should be
-inserted by `comment-region'.  This determines the default value
-of the numeric argument of `comment-region'.  This should
-generally stay 0, except for a few modes like Lisp where it can
-be convenient to set it to 1 so that regions are commented with
-two semi-colons.
-
-`ansys-code-comment-column': Column where Ansys code
-comments (the one on the right hand side) are placed.
-
-`ansys-auto-indent-flag': Non-nil means indent line after a space
-in Ansys mode.
-
-`ansys-indent-comment-suffix': String placed after the comment
-char in an indented (code) comment.  See
-`ansys-indent-comment-string'.
-
-`ansys-ruler-wide-flag': Non-nil means show a 80 characters wide
-temporary ruler.  Nil means show a narrower temporary ruler with
-50 characters.
-
-`ansys-require-spaces-flag': If non-nil, `insert-parentheses'
-inserts whitespace before ().
-
-`ansys-blink-matching-block-flag': Control the blinking of
-matching Ansys block keywords.  Non-nil means show matching begin
-of block when inserting a newline after an else or end keyword.
-
-`ansys-blink-matching-delay': Time in seconds for showing a
-matching block.
-
-`ansys-block-offset': Extra indentation applied to statements in
-Ansys block structures.
-
-`ansys-outline-string': Character specifying outline headings.
-
-Turning on Ansys mode runs the hook `ansys-mode-hook'.
+For certain options to take effect it's necessary to reload Ansys
+mode.  You can do this with the interactive command M-x
+`ansys-reload-ansys-mode' or with the respective, toplevel Ansys
+menu entry.
 
 Bugs and Problems
 =================
@@ -1284,7 +1291,7 @@ the following options:
 * Emacs Wiki at http://www.emacswiki.org/cgi-bin/wiki/AnsysMode,
   here you can leave some comments or wishes.
 
-  ==================== End of Ansys mode help ===================="
+====================== End of Ansys mode help ===================="
   (interactive)
 
   (unless (string= major-mode "ansys-mode")
@@ -1304,7 +1311,10 @@ the following options:
   (set-syntax-table ansys-mode-syntax-table)
   (setq local-abbrev-table ansys-mode-abbrev-table)
 
-  (setq font-lock-multiline t)		;for *msg format strings
+  (setq font-lock-maximum-decoration `((ansys-mode . ,ansys-highlighting-level) (t . t)))
+
+  ;; (when (> ansys-highlighting-level 1)
+  ;;   (setq font-lock-multiline t)) ;for *msg, *vwrite,.. format strings
 
   (make-local-variable 'ansys-run-flag) ;FIXME: implement what exactly?
 
@@ -1313,8 +1323,6 @@ the following options:
 
   (make-local-variable 'parens-require-spaces)
   (setq parens-require-spaces ansys-require-spaces-flag)
-
-  (make-local-variable 'ansys-job)
 
   (make-local-variable 'indent-line-function)
   (setq indent-line-function 'ansys-indent-line-function)
@@ -1352,7 +1360,7 @@ the following options:
   ;;  (setq parse-sexp-ignore-comments t)
 
   ;;  (make-local-variable 'font-lock-defaults) is always local
-  (setq font-lock-defaults `(,ansys-font-lock-keywords nil 'case-ignore))
+  (setq font-lock-defaults `(,ansys-font-lock-keyword-list nil 'case-ignore))
   ;; keywords
   ;; keywords-only -- nil: syntactic fontification
   ;; case-fold -- non nil: ignore case
@@ -1769,9 +1777,10 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	"-"
 	["Show Ansys Mode version"  ansys-mode-version :help "Display the Ansys mode version in the mini buffer"]
 	["Describe Ansys Mode"		describe-mode :help "Open a window with a description of Ansys mode"]
-	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open an Emacs customisation window for Ansys mode"]
+	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["Submit Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
 	"-"
+	["Reload Ansys Mode" ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
 	["Return to previous mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
   "Menu items for the Ansys mode.")
 

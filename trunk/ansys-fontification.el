@@ -24,7 +24,7 @@
 
 ;; HINT: every line starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-;;     ansys/docu/dynpromptXXX.ans -> `ansys-dynprompt.txt'
+;;     ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
 ;;     done for v12
 ;; 2.) elements: copy&pasted from the help documentation:
 ;;     -> `ansys_elements.txt'
@@ -139,17 +139,6 @@ successor.")
 	   '(1 font-lock-function-name-face keep)))
        list))
 
-(defun written_out_p(STRING)
-  "Returns true if STRING is a member of
-  \"Ansys_written_out_commands\""
-  (let (v str (tmp Ansys_written_out_commands))
-    (while tmp
-      (setq str (car tmp))
-      (if (string= str STRING)
-	  (setq tmp nil v t)
-	(setq tmp (cdr tmp))))
-    v))
-
 (defun double_entry_p(strg commands)
   "Returns t if STRG occurs twice in COMMANDS."
   (let ( (n 0) (l (length strg)) (str))
@@ -194,8 +183,8 @@ The length of STRG is greater than 4 characters."
 ;; syntactical fontification is there
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-;; level 1 (just minimum command length)
-;; overwritten by variable defs (=)
+;; default level when font-lock-maximum-decoration is nil (just
+;; minimum command length) overwritten by variable defs (=)
 
 ;; 1.) no regard for appended chars just minimum fontification lengths
 ;;     written_out_p && if l > 4 make_unique
@@ -203,11 +192,13 @@ The length of STRG is greater than 4 characters."
 ;; 3.) undocumented commands are higlighted like documented
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; level 2 (official names, fixed in length)
-;; 1.) undocumented commands are differently highlighted
+;; level 1 this is the mode default level (official names, FIXED in
+;; length as suggested by command completion, no additional chars are
+;; allowed even when disregarded by the solver) The rest is the same
+;; as level 2 except no multiline stuff
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-;; level 3 (commands with variable and fixed fontification lengths)
+;; level 2 (commands with variable fontification lengths)
 
 ;; a.) regexp for commands which do not allow characters behind it
 ;;     1.) written_out_p
@@ -222,20 +213,67 @@ The length of STRG is greater than 4 characters."
 ;; c.) regexp for commands which allow characters and arguments behind it 
 ;;     1.) length >= 4 but not unique
 
-(defun Prepare_list_1 (List)
-  "simplified fontification v12.
-Argument LIST is a list of ansys commands."
-  (let ( tmp tmp2 tmp_list l l2)
-    (message "Preparing Ansys font lock regexps...")
+(defun written_out_p(STRING)
+  "Returns true if STRING is a member of
+  \"Ansys_written_out_commands\""
+  (member STRING Ansys_written_out_commands))
+
+;; (written_out_p "*END")
+
+(defun Prepare_list (List)
+  "Simplified fontification v12.
+Argument LIST is a list of ansys commands. Return a list of
+command strings"
+(let ( tmp tmp2 tmp_list l l2)
+    (message "Preparing Ansys font lock strings, list-length: %d." (length List))
     (dolist (M List tmp_list)
       (setq l (length M))
       (cond ((written_out_p M)		
 	     (setq tmp_list (cons M tmp_list)))
 	    ((<= l 4)			;shorter stuff
 	     (setq tmp_list (cons M tmp_list)))
-	    ((> l 4) ;;long command names
+	    (t ;;long command names
 	     (setq tmp (make_unique M List)
 		   tmp_list (cons tmp tmp_list)))))))
+
+(defun Overlapping (strg l) 
+"Return a list of a sequences of strings starting from L up to
+the length of the original string STRG."
+  (let (lisy
+	(n1 (length strg)))
+    (when (> l n1)
+      (error "string length too small"))
+    (dotimes (i (1+ (- n1 l)) lisy)
+      (setq lisy (cons (substring strg 0 (- n1 i)) lisy)))))
+
+;; TODO: we are still neglecting commands without parameters!
+(defun Prepare_list_2 (List)
+  "Return a list of 3 lists for level 2.
+Written out commands and 2 lists of commands which the solver
+allows characters appended behind."
+  (let ( tmp tmp_list list_a list_b list_c l l2)
+    (message "Preparing Ansys font lock 2 strings...")
+    (dolist (M List)
+      (setq l (length M))
+      (cond  ;written out stuff
+       ((written_out_p M)
+	(setq list_a (cons M list_a)))
+       ((< l 4)			;short stuff
+	(setq list_a (cons M list_a)))
+       ;; variable ending stuff
+       ((= l 4)
+	(setq tmp_list (cons M tmp_list)))
+       (t ;;the rest, longer command names
+	(setq tmp (make_unique M List)
+	      l2 (length tmp)
+	      tmp (Overlapping M l2)
+	      tmp_list (append tmp tmp_list)))))
+
+    (setq l2 (/ (length tmp_list) 2)
+	  list_b (butlast tmp_list l2)
+	  list_c (last tmp_list l2))
+    (message "length_a: %d length_b: %d length_c: %d" (length list_a) (length list_b) (length list_c) )
+    (list list_a list_b list_c)))
 
 (defun Ansys-initialize-completions ()
   "Create a list for Ansys completions.
@@ -259,6 +297,9 @@ Function names are distinguished by `()'."
       parameteric-functions
       elements
       deprecated_elements
+      list1
+      list2
+      list3
       )
   (set-buffer buffer)
   (delete-region (point-min) (point-max))
@@ -307,10 +348,10 @@ verification models.\")\n\n")
   ;; ---------- keywords ----------
 
   ;; ----- documented + written out + undocumented commands ---
-  ;; 1.) unique, solver type
-  ;; 2.) full Ansys name same as completed
-  ;; 3.) from unique to full name
-  ;; 4.) with all the bells and whistles
+  ;; 0.) unique, solver type
+  ;; 1.) full Ansys name same as completed
+  ;; 2.) from unique to full name
+
 
   (setq list ())			;initialise list
   (with-temp-buffer
@@ -323,27 +364,46 @@ verification models.\")\n\n")
       (add-to-list 'list (match-string 0) 'append)))
   (set-buffer buffer)
   (setq commands list)
-  ;; level 1
+
+  (message "starting minimal level.")
   (goto-char (point-min))
   (setq commands-1 (append commands Ansys_undocumented_commands))
 ;  (debug)
-  (insert "(defconst ansys-command-regexp-1\n'")
+  (insert "(defconst ansys-command-regexp\n")
   (setq print-length nil)		;nil: print all members of list
-  (prin1 (regexp-opt (Prepare_list_1 commands-1))
+  (prin1 (regexp-opt (Prepare_list commands-1))
 		     buffer)
   (insert "\n\"Ansys short keyword name regexp\")\n\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
-  ;; level 2
+
+  (message "starting level 1.")
   (goto-char (point-min))
-;  (debug)
-  (insert "(defconst ansys-command-regexp-2\n'")
-  (setq print-length nil)		;nil: print all members of list
+  (insert "(defconst ansys-command-regexp-1\n")
   (prin1 (regexp-opt commands)
 		     buffer)
   (insert "\n\"Ansys full keyword name regexp\")\n\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
+
+  (message "starting level 2.")
+  (goto-char (point-min))
+  ;;  regexp becoming too big for font-lock!!! when keywords are around 4000
+  (setq list (Prepare_list_2 commands)
+	list1 (car list)
+	list2 (nth 1 list)
+	list3 (nth 2 list)
+	list1 (regexp-opt list1)	;written out stuff
+	list2 (regexp-opt list2)
+	list3 (regexp-opt list3))
+  (insert "(defconst ansys-command-regexp-2a\n")
+  (prin1 list1 buffer)
+  (insert "\n\"Ansys keyword name regexp 2a\")\n\n")
+  ;; 
+  (insert "(defconst ansys-command-regexp-2b\n")
+  (prin1 list2 buffer)
+  (insert "\n\"Ansys keyword name regexp 2b\")\n\n")
+  ;; 
+  (insert "(defconst ansys-command-regexp-2c\n")
+  (prin1 list3 buffer)
+  (insert "\n\"Ansys keyword name regexp 2c\")\n\n")
+
 
   ;; ---------- ansys elements ----------
 
@@ -474,119 +534,119 @@ By default Ansys keywords, get-functions, parametric-function and elements
   ;; --- end of let
 )  
 
-(let* ((dir "")
-       (file1 (concat dir "ansys_keywords.txt"))
-p       (file2 (concat dir "ansys-dynprompt.txt"))
-       (file3 (concat dir "ansys_elements.txt"))
-       (file4 (concat dir "ansys_get_functions.txt"))
-       (file5 (concat dir "ansys_parametric_functions.txt"))
-       (buffer (find-file (concat dir "ansys-keyword.el")))
-       list
-       elements)
+;; (let* ((dir "")
+;;        (file1 (concat dir "ansys_keywords.txt"))
+;; p       (file2 (concat dir "ansys-dynprompt.txt"))
+;;        (file3 (concat dir "ansys_elements.txt"))
+;;        (file4 (concat dir "ansys_get_functions.txt"))
+;;        (file5 (concat dir "ansys_parametric_functions.txt"))
+;;        (buffer (find-file (concat dir "ansys-keyword.el")))
+;;        list
+;;        elements)
 
-  ;; ---------- ansys elements ----------
-  (setq list ())			;initialise list
-  (with-temp-buffer
-    (insert-file-contents file3)
-;    (setq sort-fold-case t)
-;    (sort-lines nil (point-min) (point-max))
-    (delete-matching-lines "^#.*" (point-min) (point-max))
-    (goto-char (point-min))
-    (while (re-search-forward "^\\w+\\>" nil t)
-      (add-to-list 'list (match-string 0) 'append)))
-  (setq Ansys_elements list)		;needed for completion list
-  (set-buffer buffer)
-  (goto-char (point-min))
-  (insert (concat
-	   "(defconst ansys-elements-regexp\n"))
-  (setq print-length nil)		;nil: print all members of list
-  (prin1 (regexp-opt list 'words) buffer)
-  (insert "\n\"Ansys elements regexp.\"\n)\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
-  ;; deprecated elements
-  (goto-char (point-min))
-  (insert (concat
-	   "(defconst ansys-deprecated-elements-regexp\n"))
-  (setq print-length nil)		;nil: print all members of list
-  (prin1 ansys_deprecated_elements_regexp buffer)
-  (insert "\n\"Ansys deprecated elements regexp.\"\n)\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
-  (message "elements...done")
-
-  ;; ---------- get functions ----------
-  (setq list ())			;initialise list
-  (with-temp-buffer
-    (insert-file-contents file4)
-;    (setq sort-fold-case t)
-;    (sort-lines nil (point-min) (point-max))
-    (delete-matching-lines "^#.*" (point-min) (point-max))
-    (goto-char (point-min))
-    (while (re-search-forward "^\\(\\w+\\)(" nil t)
-      (add-to-list 'list (match-string 1) 'append)))
-  (set-buffer buffer)
-  (goto-char (point-min))
-  (insert (concat
-	   "(defconst ansys-get-functions\n'"))
-  (setq print-length nil)		;nil: print all members of list
-  (setq Ansys_get_functions list)	;we need this variable for the completions!
-  (prin1 (Ansys-get-functions list) buffer)
-  (insert "\n\"Ansys get functions.\"\n)\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
-  (message "get-functions...done")
-
-  ;; ---------- parametric functions ----------
-  (setq list ())			;initialise list
-  (with-temp-buffer
-    (insert-file-contents file5)
-;    (setq sort-fold-case t)
-;    (sort-lines nil (point-min) (point-max))
-    (delete-matching-lines "^#.*" (point-min) (point-max))
-    (goto-char (point-min))
-    (while (re-search-forward "^\\(\\w+\\)(" nil t)
-      (add-to-list 'list (match-string 1) 'append)))
-  (set-buffer buffer)
-  (goto-char (point-min))
-  (insert (concat
-	   "(defconst ansys-parametric-functions\n'"))
-  (setq print-length nil)		;nil: print all members of list
-  (setq Ansys_parametric_functions list) ;we need this later for completions!
-  (prin1 (Ansys-parametric-functions list) buffer)
-  (insert "\n\"Ansys parametric functions.\"\n)\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
-  (message "parametric functions...done")
-
-  ;; ---------- keywords ----------
-
+;;   ;; ---------- ansys elements ----------
 ;;   (setq list ())			;initialise list
 ;;   (with-temp-buffer
-;;     (insert-file-contents file1)
+;;     (insert-file-contents file3)
 ;; ;    (setq sort-fold-case t)
 ;; ;    (sort-lines nil (point-min) (point-max))
 ;;     (delete-matching-lines "^#.*" (point-min) (point-max))
 ;;     (goto-char (point-min))
-;;     (while (re-search-forward "^.\\w*\\>" nil t)
+;;     (while (re-search-forward "^\\w+\\>" nil t)
 ;;       (add-to-list 'list (match-string 0) 'append)))
+;;   (setq Ansys_elements list)		;needed for completion list
 ;;   (set-buffer buffer)
-;;   (setq Ansys_commands list)
 ;;   (goto-char (point-min))
-;; ;  (debug)
-;;   (insert "(defconst ansys-commands\n'")
+;;   (insert (concat
+;; 	   "(defconst ansys-elements-regexp\n"))
 ;;   (setq print-length nil)		;nil: print all members of list
-;;   (prin1 (Prepare_list3 list) buffer)
-;;   (insert "\n\"Ansys keywords\"\n)\n")
+;;   (prin1 (regexp-opt list 'words) buffer)
+;;   (insert "\n\"Ansys elements regexp.\"\n)\n")
 ;;   (beginning-of-defun)
 ;;   (fill-paragraph 0)
+;;   ;; deprecated elements
+;;   (goto-char (point-min))
+;;   (insert (concat
+;; 	   "(defconst ansys-deprecated-elements-regexp\n"))
+;;   (setq print-length nil)		;nil: print all members of list
+;;   (prin1 ansys_deprecated_elements_regexp buffer)
+;;   (insert "\n\"Ansys deprecated elements regexp.\"\n)\n")
+;;   (beginning-of-defun)
+;;   (fill-paragraph 0)
+;;   (message "elements...done")
 
-  ;;  ---
-  (set-buffer buffer)
-  (goto-char (point-min))
-  (insert "(defconst ansys-written-out-command-regexp\n")
-  (prin1  ansys_written_out_commands_regexp buffer)
-  (insert "\n\"Ansys command which have to be written out\"\n)\n")
+;;   ;; ---------- get functions ----------
+;;   (setq list ())			;initialise list
+;;   (with-temp-buffer
+;;     (insert-file-contents file4)
+;; ;    (setq sort-fold-case t)
+;; ;    (sort-lines nil (point-min) (point-max))
+;;     (delete-matching-lines "^#.*" (point-min) (point-max))
+;;     (goto-char (point-min))
+;;     (while (re-search-forward "^\\(\\w+\\)(" nil t)
+;;       (add-to-list 'list (match-string 1) 'append)))
+;;   (set-buffer buffer)
+;;   (goto-char (point-min))
+;;   (insert (concat
+;; 	   "(defconst ansys-get-functions\n'"))
+;;   (setq print-length nil)		;nil: print all members of list
+;;   (setq Ansys_get_functions list)	;we need this variable for the completions!
+;;   (prin1 (Ansys-get-functions list) buffer)
+;;   (insert "\n\"Ansys get functions.\"\n)\n")
+;;   (beginning-of-defun)
+;;   (fill-paragraph 0)
+;;   (message "get-functions...done")
+
+;;   ;; ---------- parametric functions ----------
+;;   (setq list ())			;initialise list
+;;   (with-temp-buffer
+;;     (insert-file-contents file5)
+;; ;    (setq sort-fold-case t)
+;; ;    (sort-lines nil (point-min) (point-max))
+;;     (delete-matching-lines "^#.*" (point-min) (point-max))
+;;     (goto-char (point-min))
+;;     (while (re-search-forward "^\\(\\w+\\)(" nil t)
+;;       (add-to-list 'list (match-string 1) 'append)))
+;;   (set-buffer buffer)
+;;   (goto-char (point-min))
+;;   (insert (concat
+;; 	   "(defconst ansys-parametric-functions\n'"))
+;;   (setq print-length nil)		;nil: print all members of list
+;;   (setq Ansys_parametric_functions list) ;we need this later for completions!
+;;   (prin1 (Ansys-parametric-functions list) buffer)
+;;   (insert "\n\"Ansys parametric functions.\"\n)\n")
+;;   (beginning-of-defun)
+;;   (fill-paragraph 0)
+;;   (message "parametric functions...done")
+
+;;   ;; ---------- keywords ----------
+
+;; ;;   (setq list ())			;initialise list
+;; ;;   (with-temp-buffer
+;; ;;     (insert-file-contents file1)
+;; ;; ;    (setq sort-fold-case t)
+;; ;; ;    (sort-lines nil (point-min) (point-max))
+;; ;;     (delete-matching-lines "^#.*" (point-min) (point-max))
+;; ;;     (goto-char (point-min))
+;; ;;     (while (re-search-forward "^.\\w*\\>" nil t)
+;; ;;       (add-to-list 'list (match-string 0) 'append)))
+;; ;;   (set-buffer buffer)
+;; ;;   (setq Ansys_commands list)
+;; ;;   (goto-char (point-min))
+;; ;; ;  (debug)
+;; ;;   (insert "(defconst ansys-commands\n'")
+;; ;;   (setq print-length nil)		;nil: print all members of list
+;; ;;   (prin1 (Prepare_list3 list) buffer)
+;; ;;   (insert "\n\"Ansys keywords\"\n)\n")
+;; ;;   (beginning-of-defun)
+;; ;;   (fill-paragraph 0)
+
+;;   ;;  ---
+;;   (set-buffer buffer)
+;;   (goto-char (point-min))
+;;   (insert "(defconst ansys-written-out-command-regexp\n")
+;;   (prin1  ansys_written_out_commands_regexp buffer)
+;;   (insert "\n\"Ansys command which have to be written out\"\n)\n")
 
 ;;   ;; --- building keywords level 2 ---
 ;;   (setq list ())			;initialise list
@@ -605,12 +665,12 @@ p       (file2 (concat dir "ansys-dynprompt.txt"))
 ;;   ;; (insert (concat "^\\s-*" (regexp-opt Ansys_commands)))
 ;;   ;; (insert "\n\"Ansys keywords level 2\"\n)\n")
 
-  (message "keywords...done")
+  ;; (message "keywords...done")
   
 
 ;  (message (car list))
 ;  (save-buffer)
-  )
+  ;; )
 
 ;; ------------------------------------------------------------
 ;; ---------- repository, ok ok code cruft ----------

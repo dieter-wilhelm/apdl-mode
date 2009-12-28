@@ -9,22 +9,26 @@
 ;for example: "c:\\emacs\\emacs-23.1" with Windows
 ;or "/usr/local/src/emacs-23.1/site-lisp" with Gnu/Linux 8-)
 
-(setq ansys-current-ansys-version "12.0") ;which Ansys version is used
+(setq ansys-current-ansys-version "12.0") ;which Ansys version is 
 					;used in a header template
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) levels 0,1,2 are available
 
-(setq font-lock-maximum-decoration '((ansys-mode . 1) (t . t)))
+(setq ansys-highlighting-level 0)
+;; experimental user variables highlighting only in level 2 available
+;(setq ansys-dynamic-highlighting-flag t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autoloading of command definitions
 
-(autoload 'ansys-mode "ansys-mode" "Activate Ansys mode." 'interactive)
-(autoload 'ansys-customise-ansys "ansys-mode" "Activate the Ansys customisation buffer." 'interactive)
-(autoload 'ansys-display-error-file "ansys-mode" "Activate Ansys display error file function." 'interactive)
-(autoload 'ansys-start-ansys-help "ansys-mode" "Activate Ansys start help function." 'interactive)
-(autoload 'ansys-license-status "ansys-mode" "Activate Ansys license status function." 'interactive)
+     (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+calling a special Ansys customisation buffer." 'interactive)
+     (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting Ansys runs." 'interactive)
+     (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
+     (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the Ansys help browser." 'interactive)
+ TODO: -license-file, -license-program variables
+     (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file suffixes for autoloading of ansys-mode
@@ -71,9 +75,3 @@
 (add-hook 'find-file-hook 'auto-insert)
 (setq auto-insert-query t)
 (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; experimental user variables highlighting
-
-;(setq ansys-dynamic-highlighting-flag t)
-

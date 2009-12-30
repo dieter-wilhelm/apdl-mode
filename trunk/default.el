@@ -15,19 +15,20 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) levels 0,1,2 are available
 
-(setq ansys-highlighting-level 0)
+(setq ansys-highlighting-level 1)
 ;; experimental user variables highlighting only in level 2 available
 ;(setq ansys-dynamic-highlighting-flag t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autoloading of command definitions
 
-     (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+    (autoload 'ansys-mode "ansys-mode" nil t)
+    (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
 calling a special Ansys customisation buffer." 'interactive)
      (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting Ansys runs." 'interactive)
      (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
      (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the Ansys help browser." 'interactive)
- TODO: -license-file, -license-program variables
+; TODO: -license-file, -license-program variables
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

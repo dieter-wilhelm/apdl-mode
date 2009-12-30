@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-12-23 08:18:47 dieter"
+;; Time-stamp: "2009-12-30 11:52:46 dieter"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -32,47 +32,46 @@
 ;;; --- Macros and skeletons ---FIXME: redundant macros
 
 (defun ansys-display-skeleton ()	;NEW
-  "Display existing code templates in another buffer."
+  "Display code templates in another buffer."
   (interactive)
-  (if (eq last-command this-command)
-      (funcall (intern-soft ansys-last-skeleton))
-    (let* ((current-buffer (buffer-name))
-	   (new-buffer-name "*Ansys-skeleton*")
-	   (skeleton-buffer (get-buffer-create new-buffer-name))
-	   s
-	   (skel (completing-read "Template: " obarray 'commandp
-				  t "ansys-skeleton-" nil)))
-      (save-excursion
-	(set-buffer skeleton-buffer)
-	;; (make-local-variable 'ansys-skeleton-overlay)
-	(remove-overlays)
-	(setq ansys-skeleton-overlay (make-overlay 1 1))
-	;; TODO: remove possible command-help overlays!
-	;; (if ansys-help-overlay
-	;; 	  (delete-overlay ansys-help-overlay))
-	;; (toggle-read-only -1)
-	(toggle-read-only 0)		;zero means switch off read-only
-	(kill-region (point-min) (point-max))
+  (let* ((current-buffer (buffer-name))
+	 (new-buffer-name "*Ansys-skeleton*")
+	 (skeleton-buffer (get-buffer-create new-buffer-name))
+	 s
+	 (skel (completing-read "Template: " obarray 'commandp
+				t "ansys-skeleton-" nil)))
+    (save-excursion
+      (set-buffer skeleton-buffer)
+      ;; (make-local-variable 'ansys-skeleton-overlay)
+      (remove-overlays)
+      (setq ansys-skeleton-overlay (make-overlay 1 1))
+      ;; TODO: remove possible command-help overlays!
+      ;; (if ansys-help-overlay
+      ;; 	  (delete-overlay ansys-help-overlay))
+      ;; (toggle-read-only -1)
+      (toggle-read-only 0)		;zero means switch off read-only
+      (kill-region (point-min) (point-max))
 					;(ansys-skeleton-configuration)
 					;      (message skel) ;add-text-properties
-	(unless (string= (symbol-name major-mode) "ansys-mode")
-	  (ansys-mode))
-	;; TODO: overlay displaying skeleton name
-	;; (insert
-	;;  (propertize
-	;; 	;; TODO
-	;; 	(concat " 111 Template: " skel " ---\n\n")
-	;; 	'face 'match))
-	(funcall (intern-soft skel))
-	(goto-char (point-min))
-	(setq ansys-last-skeleton skel)
-	(setq s (propertize (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
-	(overlay-put ansys-skeleton-overlay 'before-string s)
-	(set-buffer-modified-p nil))
-      ;;(toggle-read-only t)
-      ;; (set-buffer current-buffer))
-      (display-buffer new-buffer-name 'other-window)))
-  (setq this-command 'ansys-display-skeleton))
+      (unless (string= (symbol-name major-mode) "ansys-mode")
+	(ansys-mode))
+      ;; TODO: overlay displaying skeleton name
+      ;; (insert
+      ;;  (propertize
+      ;; 	;; TODO
+      ;; 	(concat " 111 Template: " skel " ---\n\n")
+      ;; 	'face 'match))
+      (insert "\n")
+      (funcall (intern-soft skel))
+      (goto-char (point-min))
+      (setq ansys-last-skeleton skel)
+      (setq s (propertize (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
+      (overlay-put ansys-skeleton-overlay 'before-string s)
+      (set-buffer-modified-p nil))
+    ;;(toggle-read-only t)
+    ;; (set-buffer current-buffer))
+    (display-buffer new-buffer-name 'other-window)))
+
 
 (define-skeleton ansys_do		;NEW
   ""
@@ -146,7 +145,7 @@
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
-  ;; "" \n
+  "" \n
   )
 
 (define-skeleton ansys-skeleton-information

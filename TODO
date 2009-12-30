@@ -1,4 +1,10 @@
 * Bugs:
+** User variable highlighting does not take into account
+   a.) a clearing of variables and b.) usage of variables before their
+   definitions (uninitialised variables) c.) the variable
+   fontification clashes with Ansys specifiers
+
+** highlighting of % and & operators in comments 
 
 ** functions are not completed with parenthesis (`sin(')
 
@@ -8,63 +14,66 @@
    ansys-mode is not yet invoked like -license-status!
    -check-sytem-type
 
-** autoload of helper functions not yet working   
+**  c*** command is not completed
 
-** when there is an command-help overlay in the *Ansys-skeleton*
-   buffer, it's not erased for the next skeleton delete-overlay?
+** the command help does not work when there are solver ignored
+   characters behind the command
 
-** C-c C-v displays wrong variables (e. g. ppath etc.)
-
-** Comments in c*** commands are not possible and highlighted wrongly 
-
-**  multiple cleanup:_typ= $ _nm= $ _tag= $ _acnt= $ _temp=: variable fontification is not working 
 
 * v12.0.1:
-o bugs c*** highlighting,
-o write a functio for % outside comments  are highlighted in comments!
+o what is hyper56?
+o bug: c*** highlighting,
+o write a function for % outside comments, not highlighted in comments!
 o condensed input line ($) behind commands without arguments possible?
 o Are characters behind unique commands shorter than 4 characters
-possible?
+  possible? /sol(u) sufficient? 
 o *goto :branch with character labels such as :1 or :_2 possible?
-o /sol(u) sufficient? 
-o user variable fontification and f. levels
-     (setq font-lock-maximum-decoration '((ansys-mode . 2)))
-o update -mode-help
+o update -mode-help README
 o clean and sort TODO
-o experimental user variable fontification, *use variables ARG1-9, ...
-o TODOS, FIXMES in the code
+o TODOs, FIXMEs in the code
+o file coding is unix problematic for windows?
+o Dieter's M-h
+o load or load-file, what happens with compilation and autoload?
+o check whether all undocumented commands are still working in v12
+o update emacs wiki, gcode wiki, todo- or org-mode for README, wiki
+  formatting!
 
-  - Dieter's M-h
-  - update -mode image on google-code to show tooltips and fontification
-  - load or load-file, what happens with compilation and autoload?
-  - check whether undocumented commands are still working in v12
-  - warn when using legacy elements?  Document this contradicting behaviour
-  - update emacs wiki, gcode wiki, todo- or org-mode for README, wiki
-    formatting!
-  - publication: ANSYS.net (Ansys !!! Sheldon Imaoka
-    <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
-    sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
-    <lkrueger@cadfem.de>), Alwin Perras
-    <alwin.perras@continental-corporation.com>, AnsysWB community,
-    Ansys users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the
-    Focus guys (PADT) <info@padtinc.com>, Holger Sparr
-    <sparr@mfkrs1.mw.tu-dresden.de>.
+o publication with image: ANSYS.net (Ansys !!! Sheldon Imaoka
+  <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
+  sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
+  <lkrueger@cadfem.de>), Alwin Perras
+  <alwin.perras@continental-corporation.com>, AnsysWB community, Ansys
+  users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus
+  guys (PADT) <info@padtinc.com>, Holger Sparr
+  <sparr@mfkrs1.mw.tu-dresden.de>. Razvan.Curtean@continental-corporation.com
 
-* Priority
-  - help string hint for undocumented commands
-  - use abbrev facility for changing deprecated element types
-  - optimise -start-run with query of y (start immediately),n (exit),e
-    (change params),C-h (help)
-  - read env
-    Try to ask only for the installation directory for the -license-file,
-    -program, etc.  variables.  Read some information from getenv.
-    read ansys-license-file from env, supply sane standard Ansys values
-    for the helper programs and check for existance
-  - make filter of -license-status optionally  
-  - substitute text "header" in -variable-view and skeleton-preview
-    for an overlay
-  - C-c C-v: Sort used categories at the top and empty categories at the end!
-  - C-c C-q sequences are not shown (and stored) in the comint buffer
+* Further versions
+- replace -find-duplicate-p with function argument to add-to-list
+
+- documentation in info format, better documentation, info file,
+  refcard, etc; Emacs help guidelines GNU programming guideline: More
+  requires?, indicate replacement of standard Emacs facilities (e. g
+  M-C-n, M-C-p), profiling, major mode conventions: multiple loading
+  of this mode?.
+  
+- use abbrev facility for changing deprecated element types
+
+- optimise -start-run with query of y (start immediately),n (exit),e
+  (change params),C-h (help)
+
+- read env, try to ask only for the installation directory for the
+  ansys-license-file, -program, etc.  variables.  Read some
+  information from getenv.  read ansys-license-file from env, supply
+  sane standard Ansys values for the helper programs and check for
+  existance
+
+- make filter of -license-status optionally  
+
+- substitute text "header" in -variable-view and skeleton-preview for
+  an overlay
+
+- C-c C-q sequences are not shown (and stored) in the comint buffer
+
   - M-?: for commented out variables
   - M-?: unambiguous commands with following, solver ignored characters
   - M-?: following a variable allocation with `='
@@ -83,13 +92,11 @@ o TODOS, FIXMES in the code
     desirable -> make this optional -> filter process input?
   - take care when region isn't complete in -send-to-ansys (send whole line)
 
-* Interesting stuff   
-** *repeate command
-  
 ** Killing a buffer with a running process now asks a confirmation.
    You can remove this query in two ways: either removing
-   `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
-   setting the appropriate process flag with `set-process-query-on-exit-flag'.
+   `process-kill-buffer-query-function' from
+   `kill-buffer-query-functions' or setting the appropriate process
+   flag with `set-process-query-on-exit-flag'.
 
 * improve Ansys interpreter buffer with `comint-mode'
    example: gnuplot-mode
@@ -128,9 +135,7 @@ o TODOS, FIXMES in the code
     *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
     must *go:label be unambiguous?
 
-* optional setting of (Ansys-mode-)bookmarks?   
 * *set strings may only be 32 character long!
-* correct *set assignment printout
 * trigger a timer when showing the ansys-comand-parametr-help
 * add cmblock and cm assignments to the variable list
 
@@ -146,8 +151,6 @@ o TODOS, FIXMES in the code
 * Improve ansys-show-command-parameters
 - undocumented aks parameter
 - explain also commented out commands   
-- add undocumented-commands into the command help.
-- nint, rand not yet in the help list Parameter help also for *GET and parametric functions e. g. nint().
 - Include the _RETURN value of the solid modelling
 commands into their help strings of parameter help.  
 - mode-line-format nil);no mode line for this buffer Unambiguous
@@ -160,13 +163,7 @@ command lines, every menu entry.
 
 update Emacs wiki, Google Code with download, home page
 
-publication: ANSYS.net (Ansys !!! Sheldon Imaoka
-<sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
-sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
-<lkrueger@cadfem.de>), Perras <alwin.perras@siemens.com>, AnsysWB
-community, Ansys users club <tom.tumbrink@t-online.de>
-<admin@auc-ev.de>, the Focus guys (PADT) <info@padtinc.com>, Holger
-Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
+publication
 
 Emacs package repository, elpa http://tromey.com/elpa/
 
@@ -208,7 +205,7 @@ Programmed before Microsoft was even founded, working on all current OS
 All bells and whistle of an editor (drop file into E)
 -- casual APDL file viewer (whetting the appetite)
    convenience features?
-   fontification
+   fontification, especially variable highlighting
    Ansys menu
    command-help   M-n/p M-?
    code navigation (number blocks in .inp) C-c {
@@ -255,14 +252,6 @@ All bells and whistle of an editor (drop file into E)
    
 * Emacs: old-style backquotes?
    used in the old template macro system
-
-------------------------------
-split
-  0.) ansys-mode.el				
-  1.) highlighting patterns ->	ansys-keyword.el
-  2.) templates <-> menus? ->	ansys-templates.el
-  3.) interactive stuff ->      ansys-process.el	system-type-p
-  4.) documentation ->		README, INSTALL, TODO, LICENSE
 
 *create is only completed by *end
 
@@ -334,11 +323,6 @@ customisable enable Emacs customisation of auto-insert-query and
 Fontify *completion list* distinguishing elements: commands,
 functions and keywords.
 
-sort customisation options for processes into subgroup
-(defgroup octave-inferior nil
-  "Running Octave as an inferior Emacs process."
-  :group 'octave)
-
 provide a list of options for the -license function, set this
 function in the defcustom lmstat -a etc.
 
@@ -369,11 +353,6 @@ make the line number display in `ansys-display-variables'
 (hyper-)links to the corresponding code line in the respective APDL
 file.  (See `occur' function.)  Or use the imenu mechanism for this
 and display the variables in the speedbar
-
-Better documentation, info file, refcard, etc; GNU programming
-guideline: More requires?, indicate replacement of standard Emacs
-facilities (e. g M-C-n, M-C-p), profiling, major mode conventions:
-multiple loading of this mode?.
 
 auto-indent-switch as defcustom?
 

@@ -43,16 +43,16 @@ directory is not of your liking, use: `M-x cd'."
 
 ;;;###autoload
 (defun ansys-display-error-file ()	;NEW
-  "Open the current Ansys error file in the buffer default directory.
-You can change the directory with \"M-x cd\".  When the variable
-`ansys-job' is not specified use the Ansys default job name
-\"file\" i. e. \"file.err\" as the error file.  You can change
-the job name with \"\\[ansys-job]\"."
+  "Open the current solver error file in the current directory.
+You might change the directory with \"M-x `cd'\".  The error file
+name consists of the current job name and the suffix '.err'.  For
+the job name the variable `ansys-job' is used (which is
+initialised to \"file\", in accordance to the Ansys default job
+name). You can change the job name interactively either with the
+\"\\[ansys-job]\" or in the customisation facility (by calling
+`ansys-customise-ansys')."
   (interactive)
-  (let (file)
-    (if ansys-job
-	(setq file ansys-job)
-      (setq file "file"))
+  (let (file ansys-job)
     (setq file (concat file ".err"))
     (find-file-read-only-other-window file)
     (goto-char (point-max))

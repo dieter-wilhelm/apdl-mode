@@ -1,6 +1,7 @@
-This is the Ansys mode documentation
+This README is the Ansys mode documentation (The text formatting is
+targeted for the Emacs Wiki)
 
-Time-stamp: "2009-12-30 12:34:38 dieter"
+Time-stamp: "2009-12-30 17:15:40 dieter"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -64,9 +65,9 @@ restricted on non-UNIX systems.
   comments, navigating number blocks, searching *DO-, *IF-, *DOWHILE-,
   *CREATE-blocks, etc.
 
-* Sophisticated highlighting in various decoration levels (complete
-  Ansys keywords, undocumented commands, deprecated elements, ...)
-  and optionally also user defined variables (experimental)
+* Syntax highlighting in various decoration levels (complete Ansys
+  keywords, undocumented commands, deprecated elements, ...)  and
+  optionally also user defined variables (experimental)
 
 * Overview in a different window of all definitions (*GET, *DIM, *SET,
   =, *DO, ...) of APDL variables in the current file
@@ -91,12 +92,12 @@ restricted on non-UNIX systems.
   a whole code template
 
 As a visual example, a screen-shot on EmacsWiki and Google code show
-an Emacs frame with an APDL file in the right window.  The
-(experimental) user variable highlighting was switched on and a help
-overlay (in yellow background) was activated. The smaller windows on
-the left hand side are showing the "Variable definitions buffer" of
-the same file and a preview buffer of a certain code template,
-respectively.
+an Emacs frame with a ripped off Ansys menu field.  The APDL file is
+in the right window with the (experimental) user variable highlighting
+switched on and a help overlay (in yellow background) activated. The
+smaller windows on the left hand side are showing the "Variable
+definitions buffer" of the same file and a preview buffer of a certain
+code template, respectively.
 
 == Installation ==
 
@@ -201,12 +202,12 @@ automatically applied for all files with suffixes ".mac" and ".inp".
 * further configuration method
 
   As a summary and example to these and further customisation options
-  please have a look at the accompanying "default.el" example. This is
-  helpful especially if you intend to use the mode's solver
-  communication capabilities.  This file (name) can also be used as as
-  system wide startup file for Emacs in the
-  "EMACS_INSTALLDIR/site-lisp" directory and is therefore an
-  alternative to customisations in ".emacs", your personal
+  please have a look at the accompanying "default_.el" example. This
+  is helpful especially if you intend to use the mode's solver
+  communication capabilities.  This file can be used, after renaming
+  it to "default.el" and adjusting as as system wide startup file for
+  Emacs in the "EMACS_INSTALLDIR/site-lisp" directory and is therefore
+  an alternative to customisations in ".emacs", your personal
   configuration file.
 
 == Usage and customisation ==
@@ -218,9 +219,9 @@ key and subsequently the "m" key), which will display the Ansys mode
 help which is your "online" guide for its usage and customisation 8-).
 
 
-* Templates, code snippets, skeletons can extended "ansys-template.el"
-  and be used similar to a macro library.
-
+* Templates, i.e. code snippets or skeletons might be extended in
+  "ansys-template.el" and can be used similar or complementary to a
+  classical Ansys macro library.
 
 == Acknowledgements ==
 
@@ -276,8 +277,7 @@ some code is based and the version of the Ansys mode (1) itself.
   only written in a macro file) to the solver process,
   ansys-query-ansys-command (C-c C-q).
 
-=== ansys-mode.el version 11.0.1 in comparison to its predecessor
-  ansys-mod.el: ===
+=== ansys-mode.el version 11.0.1 in comparison to ansys-mod.el: ===
 
 * New: Provides Ansys command parameter- and syntax help.
 
@@ -307,7 +307,7 @@ some code is based and the version of the Ansys mode (1) itself.
   taken into account in the highlighting.
 
 * The apostrophe "'" is now assigned as the Ansys string and the
-  value of character parameters delimiter and not wrongly "''";
+  value of character parameters delimiter and not wrongly """;
   the strings are fontified accordingly.
 
 * The dollar sign "$" is now emphasised as the Ansys condensed
@@ -332,8 +332,8 @@ some code is based and the version of the Ansys mode (1) itself.
   subsequent format strings of the command are fontified.
 
 * New: " *" (SPC before *) is indicated as an (Ansys deprecated)
-  comment sign e. g.: "a = 3 **4" results in "a" setting to 3,
-  whereas "a = 3**4" sets "a" to 81!
+  comment sign e. g.: %% a = 3 **4 %% results in "a" having the value
+  3, whereas %% a = 3**4 %% sets "a" to 81!
 
 * New: A line beginning with a comma is indented to the lenght of
   the last non slash or asterisk command as a reminder that the

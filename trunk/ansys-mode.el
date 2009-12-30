@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-26 10:01:28 dieter"
+;; Time-stamp: "2009-12-30 12:44:18 dieter"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -81,7 +81,15 @@
   "This variable sets the level of highlighting.
 There are three levels available, 0, a minimalistic level
 optimised for speed and viewing of very large files (like
-WorkBench input files), 1 and 2 (the maximum decoration)."
+WorkBench input files), 1 and 2 (the maximum decoration).  Level
+0: highlights only the minimum (unambiguous) Ansys command names
+and variable names defined with '='.  In level 1: only the
+complete command names, together with functions, elements,
+deprecated elements, undocumented commands, strings in commands
+and the APDL operators.  In level 2: the same as in 1, except
+that user variables and unambiguous command names are highlighted
+as well (and possibly solver ignored characters which can be
+appended)."
   :type 'integer
   :group 'Ansys)
   :link '(variable-link font-lock-maximum-decoration )
@@ -276,9 +284,15 @@ A hook is a variable which holds a collection of functions."
 (defvar ansys-run-flag nil		;NEW_C
   "Non-nil means an Ansys job is already running.")
 
-(defvar ansys-user-variables () ;NEW_C
-  "Variable containing the user variables and first occurance.
-The list is used for the fontification of these variables.")
+(defvar ansys-user-variables nil ;NEW_C
+  "Variable containing the user variables and line No of first occurance.
+The list is used for the display of these
+ variables (`ansys-display-variables').")
+
+(defvar ansys-user-variable-regexp nil ;NEW_C
+  "Variable containing the user variables regexp.
+The regexp is used for the
+fontification (`ansys-highlight-variable') of these variables.")
 
 (defvar ansys-process-name "Ansys"		;NEW_C
   "Variable containing Emacs' name of a running ansys process.
@@ -303,15 +317,16 @@ Variable is only used internally in the mode.")
   )
 
 (defconst ansys-variable-defining-commands ;association list
-  '(("*do" . "*DO") ("*get\\w*". "*GET") ("*dim\\w*"."*DIM")
-    ("*set.?"."*SET") ;funny *SET works only with one ;additional character
-    ("*ask\\w*" . "*ASK") ("path\\w"."PATH") ("pdef\\w*"."PDEF")
-    ("*vge\\w*"."*VGET") ("*vfu\\w*"."*VFUN") ("*mfu\\w*"."*MFUN")
-    ("*vit\\w*"."*VITRP") ("*top\\*w"."*TOPER") ("*vop\\w*"."*VOPER")
-    ("*mop\\w*"."*MOPER") ("*sre\\w*"."*SREAD") ("*vsc\\w*"."*VSCFUN")
+  '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
+  . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
+    ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
+    ("\\*ask\\w*" . "*ASK") ("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
+    ("\\*vge\\w*"."*VGET") ("\\*vfu\\w*"."*VFUN") ("\\*mfu\\w*"."*MFUN")
+    ("\\*vit\\w*"."*VITRP") ("\\*top\\*w"."*TOPER") ("\\*vop\\w*"."*VOPER")
+    ("\\*mop\\w*"."*MOPER") ("\\*sre\\w*"."*SREAD") ("\\*vsc\\w*"."*VSCFUN")
     ("/inq\\w*"."/INQUIRE"); ("/fil\\w*"."/FILNAME") how that, *vfil? TODO:
     )
-  "Regexp alist for commands which define user variables.
+  "Alist for commands which define user variables.
 In the form of (regexp . command_string), intentionally excluded
 is the \"=\" assignment.")
 
@@ -718,13 +733,17 @@ call `ansys-mode'."
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
 	      ansys-command-regexp
 	      "\\)") 1 font-lock-keyword-face)
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
-     font-lock-variable-name-face t) ; variables (max. 32 chars long)
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
+     font-lock-variable-name-face t)) ; variables (max. 32 chars long)
     )
   )
 
 (defconst ansys-font-lock-keywords-1
   `(
+    ;; deprecated ansys-comment
+    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    					;^[:alpha:] to avoid spurious
+    					;asterisk command fontification
     ;; some string faces
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
       ;/SYS command sends string to OP,no parameter substitution!
@@ -737,16 +756,9 @@ call `ansys-mode'."
     ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
-    ;; outmoded goto labels (max 8 chars including the colon)
-    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
-    ;; deprecated ansys-comment
-    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
-    					;^[:alpha:] to avoid spurious
-    ;; (" \\*[^[:alpha:]].*$" . font-lock-comment-face)
-    ;; 					;^[:alpha:] to avoid spurious
-    					;asterisk command fontification
+
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
-    (,ansys-element-regexp . font-lock-type-face)
+    (,ansys-element-regexp . font-lock-builtin-face)
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
     (,(concat "\\<\\("
 	      ansys-get-function-regexp
@@ -758,10 +770,17 @@ call `ansys-mode'."
 	      ansys-command-regexp-1
 	      "\\)\\>") 1 font-lock-keyword-face)
     ;; = variable defs, overwritting commands
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
-     font-lock-variable-name-face t) ; variables (max. 32 chars long)    ;; some operators
+    ;; wie need something behind the = otherwise it's a cleanup
+  ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]"
+   1 font-lock-variable-name-face t) ; variables (max. 32 chars long)
+
+  ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
-    (":" . font-lock-warning-face)   ;colon loops and branchs
+    (":" . 'font-lock-type-face)   ;colon loops only
+    ;; outmoded goto labels (max 8 chars including the colon)
+    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face ) ;GOTO Labels, branching
+
+
 ;;     ;; multiline format constructs
 ;; ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
 ;;       2 font-lock-doc-face t)
@@ -773,7 +792,7 @@ call `ansys-mode'."
 ;; reserved words
     ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
     ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 font-lock-warning-face t)
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
     ;; *use variables, local macro call arguments
     ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
     )
@@ -781,6 +800,10 @@ call `ansys-mode'."
 
 (defconst ansys-font-lock-keywords-2
   `(
+    ;; deprecated ansys-comment
+    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    					;^[:alpha:] to avoid spurious
+    					;asterisk command fontification
     ;; some string faces
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
       ;/SYS command sends string to OP,no parameter substitution!
@@ -793,16 +816,8 @@ call `ansys-mode'."
     ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
-    ;; outmoded goto labels (max 8 chars including the colon)
-    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
-    ;; deprecated ansys-comment
-    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
-    					;^[:alpha:] to avoid spurious
-    ;; (" \\*[^[:alpha:]].*$" . font-lock-comment-face)
-    ;; 					;^[:alpha:] to avoid spurious
-    					;asterisk command fontification
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
-    (,ansys-element-regexp . font-lock-type-face)
+    (,ansys-element-regexp . font-lock-builtin-face)
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
 
     ;; get- and parametric-functions
@@ -819,30 +834,37 @@ call `ansys-mode'."
 	      "\\)\\>") 1 font-lock-keyword-face)
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
     	      ansys-command-regexp-2b
-    	      "\\)") 1 font-lock-keyword-face)
+    	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
     	      ansys-command-regexp-2c
-    	      "\\)") 1 font-lock-keyword-face)
+    	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
 
     ;; = variable defs, overwritting commands
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1
-     font-lock-variable-name-face t) ; variables (max. 32 chars long)    ;; some operators
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
+     font-lock-variable-name-face t)) ; variables (max. 32 chars long)    ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
-    (":" . font-lock-warning-face)   ;colon loops and branchs
+    (":" . 'font-lock-type-face)   ;colon loops only
+
+    ;; outmoded goto labels (max 8 chars including the colon)
+    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+
     ;; multiline format constructs
 ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
       2 font-lock-doc-face t)
 
 ;; ampersand is redundant with multiline fontlocking
-    ;; ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
-    ("%" 0 font-lock-type-face t) ;single % acts as a format
+    ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
+    ("%" 0 font-lock-type-face prepend) ;single % acts as a format
     		  ;specifier and pair %.% is a parameter substitution
 ;; reserved words
     ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
     ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 font-lock-warning-face t)
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
     ;; *use variables, local macro call arguments
     ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+
+    (ansys-highlight-variable . font-lock-variable-name-face)
+
     )
   )
 
@@ -856,6 +878,7 @@ call `ansys-mode'."
 					;allowed variable characters
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?\r " " table)
+    (modify-syntax-entry ?\t " " table)
     (modify-syntax-entry ?\$ "." table)
     (modify-syntax-entry ?+ "."  table)
     (modify-syntax-entry ?- "."  table)
@@ -1015,19 +1038,17 @@ Ansys comment string although deprecated! See the Ansys manual
 for the *LET command.)
 
 The fontification distinguishes between Ansys keywords (or
-commands), parametric-functions and element names.  For the Ansys
-commands the unique stem (at least 4 characters) is slightly
-distinguished from the rest of the complete command name.  In
-case of arbitrary characters after the unique word stem, they are
-shown in an unobtrusive font, since these characters are ignored
-by the intepreter anyways.
+commands), parametric- and get-functions and (deprecated) element
+names.  In case of arbitrary characters after the unique word
+stem, they are highlighted in an unobtrusive font, since these
+characters are ignored by the intepreter anyway.
 
 Macro expressions beginning with an underscore might be Ansys
 reserved variables and therefore are higlighted as warning in
-red.  Another example is the Ansys the fontification of the
+pink.  Another example is the Ansys the fontification of the
 percent sign.  It reminds you that the use of such a pair around
 a parameter name forces the parameter substitution, e. g. if I=5
-then TEST$I$ becomes TEST5.  You can input various pairs with
+then TEST%I% becomes TEST5.  You can input various pairs with
 keyboard shortcuts, e. g. apostrophies for Ansys character
 parameters with \"C-c '\", please have a look wich bindings are
 available with `describe-bindings' (for the function
@@ -1062,21 +1083,25 @@ example:
 *vwrite,B(1,1),B(2,1)
 %E%/%E
 
-Regarding the highlighting of user variables: see the menu
-entry: ->Ansys ->Customise Ansys Mode or include
-
-     (setq ansys-dynamic-highlighting-flag t)
-
-in your .emacs file.  In general you can also scroll further down
-to the == Customisation == section of this help and click on the
-respective variable (here in this case:
+Coming back to the highlighting of user variables: Please see the
+menu entry: ->Ansys ->Customise Ansys Mode.  Or you might scroll
+further down to the = customisation = section of this help and
+click on the respective variable (here in this case:
 `ansys-dynamic-highlighting-flag').  You will be presented with
 an help buffer for this variable in which you are can click on
-the underlined word 'customize'.  Then you also have the
-convenient Emacs customisation functionality at hand.
+the underlined word 'customize'.  Then you have the convenient
+Emacs customisation functionalities at hand.
 
-The user variable highlighting is currently only implemented
-for files with a '.mac' extension.
+Alternatively include
+
+     (setq ansys-highlighting-level 2)
+     (setq ansys-dynamic-highlighting-flag t)
+
+in your .emacs file
+
+The dynamic user variable highlighting is currently only
+implemented for files with a '.mac' extension and might slow down
+your editing.
 
 * Displaying a summary for all definitions (*GET, *DIM, **SET, =
   and DO, ...) for APDL variables.
@@ -1259,8 +1284,8 @@ Keybindings
 
 \\{ansys-mode-map}
 
-Ansys mode customising variables
-================================
+Ansys mode customisation
+========================
 
 For a summary and documentation of available Ansys mode
 customisations it's best to open the mode customisation buffer
@@ -1318,8 +1343,8 @@ the following options:
 
   (make-local-variable 'ansys-run-flag) ;FIXME: implement what exactly?
 
-  (make-local-variable 'ansys-user-variables-regexp) ;for font-lock
-  (setq ansys-user-variables-regexp nil)	     ;TODO
+  (make-local-variable 'ansys-user-variable-regexp) ;for font-lock
+  (setq ansys-user-variable-regexp nil)
 
   (make-local-variable 'parens-require-spaces)
   (setq parens-require-spaces ansys-require-spaces-flag)
@@ -1383,12 +1408,13 @@ the following options:
   (ansys-add-ansys-menu)
 
   ;; --- user variables ---
-  (if ansys-dynamic-highlighting-flag
+  (if (>= ansys-highlighting-level 2)
       (when (or
 	     (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	     (yes-or-no-p
 	      "File is bigger than 1MB, switch on user variable highlighting?"))
-	(if (string= (file-name-extension (buffer-file-name)) "mac")
+	(if (and ansys-dynamic-highlighting-flag
+		 (string= (file-name-extension (buffer-file-name)) "mac"))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (message "Experimental (dynamic) fontification of user variables activated."))
@@ -1685,7 +1711,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
-	["Complete Expression"          ansys-complete-symbol :help "Complete an Ansys command"]
+	["Complete Symbol"          ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
@@ -2422,48 +2448,63 @@ Signal an error if the keywords are incompatible."
       (pop l))
     p))
 
-;;with pseudo arguments a b c for after-change-functions
+;;with pseudo arguments a b c in case of usage as after-change-function
 (defun ansys-find-user-variables (&optional a b c) ;NEW
   "Find all user variables in the current buffer.
-Pre-process the findings into the variable
-`ansys-user-variables' for subsequent fontifications."
+Pre-process the findings into the variables `ansys-user-variables'
+and `ansys-user-variable-regexp' for subsequent fontifications."
+  ;; line-number-at-pos
   (interactive)
+  ;; (setq ansys-user-variables '(("bla" 1)("otto" 1)("coil" 1000))
+  ;; 	ansys-user-variable-regexp "\\<bla\\>"))
+
   (save-excursion
     (save-match-data
       (let (res var com)	; Start with Ansys *USE vars
 	(setq ansys-user-variables ())
-	(goto-char (point-min))
 	(dolist (command ansys-variable-defining-commands)
 	  (setq com (car command))
+	  (goto-char (point-min))
 
-	  ;; format line, comment, message, C***
 	  (while (re-search-forward
-		  (concat (ansys-asterisk-regexp com)
-			  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
+		  (concat com
+ "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
 	    (setq var (match-string-no-properties 1))
+	  ;; format line, comment, message, C***
 	    (unless (or (ansys-in-string-or-comment-p)
 			(ansys-in-string-command-line-p)
 			(ansys-in-format-construct-p)
 			(ansys-find-duplicate-p var ansys-user-variables))
-	      (add-to-list 'ansys-user-variables (list var (match-beginning 1)))))
-	  (goto-char (point-min)))
+	      (add-to-list 'ansys-user-variables
+;			   (match-beginning 1)
+			   (list var (line-number-at-pos))))))
 
-	;; Ansys = assignment
-	(while (re-search-forward
-		"[^_]\\(\\<[[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" nil t)
-	  (setq var (match-string-no-properties 1))
-	  (unless
-	      (or (ansys-in-string-or-comment-p)
-		  (ansys-in-string-command-line-p)
-		  (ansys-in-format-construct-p)
-		  (ansys-find-duplicate-p var ansys-user-variables))
-	    (add-to-list 'ansys-user-variables (list var (match-beginning 1))))))))
-  ;; we must sort the variables to their length otherwise some of them
-  ;; will be shadowed: the longer the earlier
+ 	;; Ansys = assignment
+ 	(while (re-search-forward
+ "[^_]\\(\\<[[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*="
+ nil t)
+ 	  (setq var (match-string-no-properties 1))
+ 	  (unless
+ 	      (or (ansys-in-string-or-comment-p)
+ 		  (ansys-in-string-command-line-p)
+ 		  (ansys-in-format-construct-p)
+ 		  (ansys-find-duplicate-p var ansys-user-variables)
+		  )
+ 	    (add-to-list 'ansys-user-variables
+ 			 (list var (line-number-at-pos)))))
+
+  ;; we must sort the variables according to their occurance
+	;; for the display
   (setq ansys-user-variables
-	(sort ansys-user-variables
-	      '(lambda (arg1 arg2)
-		 (> (length (car arg1)) (length (car arg2)))))))
+  	(sort ansys-user-variables
+ 	      '(lambda (arg1 arg2)
+ 	      	 (< (cadr arg1) (cadr arg2)))))
+
+  ;; make the regexp for fontification
+  (setq res (mapcar 'car ansys-user-variables)
+	res (regexp-opt res 'words)
+	ansys-user-variable-regexp res)))))
+
 
 ;; in comments: ok
 ;; in * comments: ansys-in-asterisk-comment-p
@@ -2478,85 +2519,62 @@ Pre-process the findings into the variable
 			  (ansys-in-string-command-line-p)
 			  (not (looking-at "%")))))))))
 
-(defun ansys-highlight (limit)		;NEW
-  "Find user variables from (point) to position LIMIT."
-  (let ((var-list ansys-user-variables)
-	(p1 (point))
-	(p2 limit)
-	m-data entry)
-    (setq m-data (match-data))
-    (dolist (var var-list)
-      (setq entry (concat "\\<" (car var) "\\>"))
-      (ansys-search-variable entry limit)
-      (setq p1 (match-end 0))
-      (when (and (> p1 0)
-		 (< p1 p2)
-		 (<= (cadr var) p1)	;do not highlight before defintion
-		 )
-	(setq p2 p1)
-	(set-match-data m-data)))
-    (goto-char p2)))
+(defun ansys-highlight-variable (limit)		;NEW
+  "Find user variables from (point) to position LIMIT.
+Use variable `ansys-user-variable-regexp'."
+;  (save-match-data
+    (let ((r ansys-user-variable-regexp))
+      (re-search-forward r limit t)))
+
+(defun ansys-copy-buffer-line (buffer line-no)
+  "Return line at position POS in buffer BUFFER as a string."
+  (save-excursion
+    (let (bol eol)
+      (set-buffer buffer)
+      (save-excursion
+	(goto-char (point-min))
+	(forward-line (- line-no 1))
+	(back-to-indentation)
+	(setq bol (point))
+	(end-of-line)
+	(setq eol (point))
+	(buffer-substring bol eol)))))
 
 (defun ansys-display-variables ()	;NEW
   "Displays APDL variable assignments in the current buffer.
 Together with the corresponding line number N (type \\[goto-line]
 N for skipping to line N or place the cursor over the number and
-C-u \\[goto-line] takes the number automatically)."
+C-u \\[goto-line] takes the nnumber automatically)."
   (interactive)
+  (ansys-find-user-variables)
   (let* ((current-buffer (buffer-name))
 	 (buffer-name "*Ansys-variables*")
 	 (variable-buffer (get-buffer-create buffer-name))
-	 s r com nam)
-    (save-excursion
-      (set-buffer variable-buffer)
-      (toggle-read-only -1)
-      (kill-region (point-min) (point-max))
-      (insert
-       (propertize
-	(concat "-*- APDL variables of buffer " current-buffer " -*-\n")
-	'face 'match))
-      (set-buffer variable-buffer)
-      (insert
-       (propertize
-	(concat"      ----------  =  assignments ----------\n")
-	'face 'font-lock-warning-face))
-      (set-buffer current-buffer)
-      (goto-char (point-min))
-      (setq r "^\\s-*[^!\n=]*\\<.+\\>\\s-*=\\s-*[^=\n]*")
-      (while (re-search-forward r nil t)
-	;; if we are not in a /com or c*** message line
-	(unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
-	  (setq s (concat
-	  	   (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold)
-	  	   (match-string 0)
-	  	   "\n"))
-	  (set-buffer variable-buffer)
-	  (insert s)
-	  (set-buffer current-buffer)))
-      (dolist (command ansys-variable-defining-commands)
-	(setq com (car command))
-	(setq nam (cdr command))
-    	(set-buffer variable-buffer)
-    	(insert
-    	 (propertize
-    	  (concat"      ---------- " nam " assignments ----------\n")
-    	  'face 'font-lock-warning-face))
-    	(set-buffer current-buffer)
-    	(goto-char (point-min))
-    	(setq r (concat "^[^!\n]*" (ansys-asterisk-regexp com) ".*"))
-    	(while (re-search-forward r nil t)
-    	  (unless (string-match "^\\s-*/com\\|^\\s-*c\\*\\*\\*" (match-string 0))
-    	    (setq s (concat
-    		     (propertize (format "%5d " (line-number-at-pos)) 'mouse-face 'highlight 'face 'bold)
-    		     (match-string 0)
-    		     "\n")))
-    	  (set-buffer variable-buffer)
-    	  (insert s)
-    	  (set-buffer current-buffer)))
-      (set-buffer variable-buffer)
-      (goto-char (point-min))
-      (toggle-read-only 1)
-      (set-buffer current-buffer))
+	 str old-nun com
+	 (num 0))
+    (set-buffer variable-buffer)
+    (toggle-read-only -1)
+    (kill-region (point-min) (point-max))
+    ;; insert header
+    (insert
+     (propertize
+      (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
+      'face 'match))
+    (insert "line:\n")
+    ;; insert variable lines
+    (dolist (command ansys-user-variables)
+      (setq old-num num
+	    num (cadr command)	;cadr same as nth 1
+	    com (ansys-copy-buffer-line current-buffer num)
+	    str (concat
+		 (propertize (format "%5d " num)
+			     'mouse-face 'highlight 'face 'bold)
+		 com "\n"))
+      (unless (= num old-num)
+	(insert str)))
+    (goto-char (point-min))
+    (toggle-read-only 1)
+    (set-buffer current-buffer)
     (display-buffer buffer-name 'other-window)))
 
 (defun ansys-customise-ansys ()		;NEW_C

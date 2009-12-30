@@ -6,7 +6,7 @@ MODE_VERSION := 1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
-EL_FILES := ansys-mode.el ansys-keyword.el default.el \
+EL_FILES := ansys-mode.el ansys-keyword.el default_.el \
   ansys-template.el ansys-process.el
 
 FILES := LICENSE README TODO fontification.mac

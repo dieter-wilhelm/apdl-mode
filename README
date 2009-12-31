@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2009-12-30 17:15:40 dieter"
+Time-stamp: "2009-12-31 18:50:59 dieter"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -46,6 +46,9 @@ the bin directory) to add an Emacs entry to the Windows Start menu
 The Ansys solver control and communication capabilities are somewhat
 restricted on non-UNIX systems.
 
+Ansys Mode needs now more than one lisp file, be sure you have all
+necessary, please see the == Installation == section for a list.
+
 == Features ==
 
 * Ansys process management (viewing error files, license status,
@@ -69,8 +72,8 @@ restricted on non-UNIX systems.
   keywords, undocumented commands, deprecated elements, ...)  and
   optionally also user defined variables (experimental)
 
-* Overview in a different window of all definitions (*GET, *DIM, *SET,
-  =, *DO, ...) of APDL variables in the current file
+* Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
+  CM, *vget, ...) in the current file, shown in another window
 
 * Preview and insertion (optionally auto-insertion) of header and
   Ansys code templates for APDL files.  Respective snippets represent
@@ -99,7 +102,26 @@ smaller windows on the left hand side are showing the "Variable
 definitions buffer" of the same file and a preview buffer of a certain
 code template, respectively.
 
+http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
+
 == Installation ==
+
+=== Files ===
+
+Code:
+-----
+ansys-mode.el
+ansys-keyword.el
+ansys-template.el
+ansys-process.el
+
+Auxiliaries:
+------------
+README -- this file
+TODO -- todos and deficiencies
+LICENSE -- GPL V3
+default_.el -- configuration example of an Emacs default.el
+fontification.mac -- highlighting APDL example
 
 === Short instructions ===
 
@@ -250,9 +272,11 @@ some code is based and the version of the Ansys mode (1) itself.
 * The output from the LMUtil license status tool (C-c C-l) is now
   filtered.
 
-* The `ansys-send-to-ansys' (C-c C-c) command is now generalised so
-  that it also does some useful work without a running Ansys process
-  (it copies the cursor line or the chosen region to the clipboard).
+* The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
+  (C-c C-u) commands are now generalised so that they are also doing
+  some useful stuff without a running Ansys process (they copy in that
+  case the cursor line/the chosen region and from the file beginning
+  to the cursor line, respectively, to the clipboard).
 
 * Added tooltips to all Ansys menu entries.
 

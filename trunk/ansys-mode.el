@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-31 10:45:06 dieter"
+;; Time-stamp: "2009-12-31 16:55:12 dieter"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -320,7 +320,8 @@ Variable is only used internally in the mode.")
   '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
   . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
     ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
-    ("\\*ask\\w*" . "*ASK") ("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
+    ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
+    . "CMBLOCK")("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
     ("\\*vge\\w*"."*VGET") ("\\*vfu\\w*"."*VFUN") ("\\*mfu\\w*"."*MFUN")
     ("\\*vit\\w*"."*VITRP") ("\\*top\\*w"."*TOPER") ("\\*vop\\w*"."*VOPER")
     ("\\*mop\\w*"."*MOPER") ("\\*sre\\w*"."*SREAD") ("\\*vsc\\w*"."*VSCFUN")

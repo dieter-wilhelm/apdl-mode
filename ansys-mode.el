@@ -1,6 +1,6 @@
 ;;; ansys-.el --- Emacs support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-30 12:44:18 dieter"
+;; Time-stamp: "2009-12-31 10:45:06 dieter"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -1721,7 +1721,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
 	      ["Header"                 ansys-skeleton-header :help "File header template"]
-	      ["Configuration"          ansys-skeleton-configuration help: "Configuration code template"]
+	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
 	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
 	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
 	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
@@ -1745,7 +1745,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
-	      ["Template compilation" ansys-skeleton :help "Insert compilation of the most often used templates"])
+	      ["Template compilation" ansys-skeleton :help "Insert compilation of often used templates"])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
 	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]

@@ -496,14 +496,14 @@ displaying the license status."
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-program ()			;NEW
-  "Change the Ansys program name.
-And specify it in the variable `ansys-program'."
+  "Change the Ansys executable name.
+And set the variable `ansys-program' accordingly."
   (interactive)
   (let (pr)
     (if (and ansys-program
 	     (not (string= ansys-program "")))
 	(setq pr ansys-program)
-      (setq pr "/ansys_inc/v110/ansys/bin/ansys110"))
+      (setq pr "/ansys_inc/v120/ansys/bin/ansys120"))
     (setq ansys-program
 	  (read-file-name
 	   (concat "Ansys program name [" pr "]: ") "" pr))
@@ -520,8 +520,8 @@ And specify it in the variable `ansys-help-file'."
 	     (not (string= ansys-help-file "")))
 	(setq pr ansys-help-file)
       (if (ansys-is-unix-system-p)
-	  (setq pr "/ansys_inc/v110/ansys/bin/anshelp110")
-	(setq pr "c:\\\\Program\ Files\\Ansys\ Inc\\v110\\CommonFiles\\HELP\\en-us\\ansyshelp.chm")))
+	  (setq pr "/ansys_inc/v120/ansys/bin/anshelp120")
+	(setq pr "c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP\\en-us\\ansyshelp.chm")))
     (setq ansys-program
 	  (read-file-name
 	   (concat "Ansys help file [" pr "]: ") "" pr))

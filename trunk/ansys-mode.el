@@ -1,6 +1,6 @@
-;;; ansys-.el --- Emacs support for working with Ansys FEA.
+;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2009-12-31 16:55:12 dieter"
+;; Time-stamp: "2010-01-02 08:57:31 dieter"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -37,21 +37,23 @@
 
 ;;; Commentary:
 
-;; This Emacs Lisp package provides support for the FEA (Finite
-;; Element Analysis) program Ansys (http://www.ansys.com) under
-;; Windows and Unix systems.  It defines 'Ansys mode', a major mode
-;; for viewing, writing and navigating in APDL (Ansys Parametric
-;; Design Language) files as well as providing managing and
-;; communication capabilities for an associated Ansys solver process.
+;; Editor support for working with Ansys FEA.
 
-;; The mode's capabilities are rather sophisticated but the
-;; documentation is targeted for Ansys users with little Emacs
-;; experience.  Regarding installation and further information please
-;; consult the accompanying README file.
+;; The Ansys mode package provides support for the FEA (Finite Element
+;; Analysis) program Ansys (http://www.ansys.com) under Windows and
+;; Unix systems.  It defines 'Ansys mode', a major mode for viewing,
+;; writing and navigating in APDL (Ansys Parametric Design Language)
+;; files as well as providing managing and communication capabilities
+;; for an associated Ansys solver process.
+
+;; The mode's capabilities are sophisticated but the documentation is
+;; targeted for Ansys users with little Emacs experience.  Regarding
+;; installation and further information please consult the
+;; accompanying README file.
 
 ;;; History:
 
-;; Please consult the accompanying README file.
+;; Please consult the history section in the accompanying README file.
 
 ;;; Code:
 
@@ -121,15 +123,16 @@ file."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-program ""		;NEW_C
-  "The Ansys executable name.
+(defcustom ansys-program "ansys"		;NEW_C
+  "This variable stores the Ansys executable name.
 When the file is not in your search path, you have to funish the
 complete path specification.  For example:
-\"/ansys_inc/v120/ansys/bin/ansys120\"."
+\"/ansys_inc/v120/ansys/bin/ansys120\".  You might use the
+function `ansys-program' for this."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-file ""		;NEW_C
+(defcustom ansys-help-file "anshelp120"		;NEW_C
   "The Ansys \"Help System\" file name.
 It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
@@ -140,14 +143,15 @@ specification.  For example:
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-lmutil-program ""	;NEW_C
+(defcustom ansys-lmutil-program
+  "/ansys_inc/shared_files/licensing/linop64/lmutil"	;NEW_C
   "The FlexLM license manager utility executable name.
 When the file is not in your search path, you have to furnish the
 complete path.  For example:
 \"/ansys_inc/shared_files/licensing/linop64/lmutil\" or in the
-windows case \"c:\\\\Program Files\\Ansys Inc\\Shared\ Files
-\\Licensing\\intel\\anslic_admin.exe.  Necessary for the
-command `ansys-license-status'."
+case of windows \"c:\\\\Program Files\\Ansys Inc\\Shared\ Files
+\\Licensing\\intel\\anslic_admin.exe.  Necessary for displaying
+the license status with `ansys-license-status'."
   :type 'string
   :group 'Ansys-process)
 
@@ -600,6 +604,8 @@ comment."
     ;; --- especially interesting for continuation lines and condensed input
     (define-key map "\M-a" 'ansys-command-start)
     (define-key map "\M-e" 'ansys-command-end)
+    ;; -- adaption of mark-paragraph
+    (define-key map "\M-h" 'ansys-mark-paragraph)
     ;; --- command movement --- (like defuns), skip comments and empty lines
     (define-key map "\M-p" 'ansys-previous-code-line)
     (define-key map "\M-n" 'ansys-next-code-line)
@@ -656,6 +662,39 @@ comment."
   "The buffer's previous major mode (before Ansys mode).")
 
   ;; --- functions ---
+
+
+(defun ansys-mark-paragraph (&optional arg allow-extend)
+  "Put mark at beginning of this paragraph,  point at end.
+The paragraph marked is the one that contains point or follows
+point.
+
+With argument ARG, puts point at end of a following paragraph, so
+that the number of paragraphs marked equals ARG.
+
+If ARG is negative, point is put at the beginning of this
+paragraph, mark is put at the end of this or a previous
+paragraph.
+
+Interactively, if this command is repeated
+or (in Transient Mark mode) if the mark is active,
+it marks the next ARG paragraphs after the ones already marked."
+  (interactive "p\np")
+  (unless arg (setq arg 1))
+  (when (zerop arg)
+    (error "Cannot mark zero paragraphs"))
+  (cond ((and allow-extend		;we already called this function
+	      (or (and (eq last-command this-command) (mark t))
+		  (and transient-mark-mode mark-active)))
+	 (forward-paragraph arg))
+	((and (bolp) (eolp))		;we are in an empty line
+	 (push-mark nil t t)
+	 (forward-paragraph arg))
+	(t				;we are within a paragraph
+	 (backward-paragraph arg)
+	 (push-mark nil t t)
+	 (forward-paragraph arg))))
+
 
 (defun ansys-mode-version ()
   "Display the Ansys mode version numbering scheme."
@@ -910,38 +949,37 @@ call `ansys-mode'."
 
 ;;;###autoload
 (defun ansys-mode ()
-"This is the Ansys mode help.
-It is a major mode for reading, navigating and coding in
-APDL (Ansys Parametric Design Language) files and providing
-managing and communication capabilities for various Ansys solver
-and license manager tasks.
+  "Support for working with Ansys FEA.
+The documentation is targeted at users with little Emacs
+experience, you will find relevant features indicated with **.
 
-Even though the mode's documentation is targeted at users with
-little Emacs experience, the mode caters also to experienced
-Ansys users with its sophisticated features.
+Minibuffer concept
 
-Documentation contents:
-=======================
+All functions described below can be found in the Ansys menu,
+even if their usage was only indicated as a direkt call or with
+keyboard shortcuts.
 
-* Usage
-* Keybindings
-* Customisation
-* Bugs and Problems
+A mouse click or typing the RETURN key, when the cursor is on the
+underlined function hyperlinks (you might skip to these with the
+TAB key) will display their help strings.
 
-Usage
-=====
+== Contents ==
 
-All functions described in the following with key bindings can
-also be found in the Ansys menu.
+= Usage
+= Keybindings
+= Customisation
+= Bugs and Problems
 
-* Ansys command syntax help
+== Usage ==
 
-Typing \"\\[ansys-show-command-parameters]\" displays right above
-the current keyword it's syntax help, similar to (but often more
-complete) than the dynamic prompt of the classical Ansys GUI.
+** Ansys command syntax help
 
-* Ansys keyword completion (commands, elements, get- and
-  parametric-functions)
+Typing \"\\[ansys-show-command-parameters]\" displays above the
+current keyword it's syntax help (similar to the help in the
+dynamic prompt of the classical Ansys GUI).
+
+** Ansys keyword completion (commands, elements, get- and
+   parametric-functions)
 
 Type the first letters of an Ansys command, function or element
 name and use the key binding \"\\[ansys-complete-symbol]\" for
@@ -957,7 +995,7 @@ Undocumented Ansys commands and deprecated element types are also
 completed.  The former are identified as such in their command
 syntax help and the later are exposed with a different
 highlighting. Please have a look at the variable
-`ansys-deprecated-element-alist' it's an association list with
+p`ansys-deprecated-element-alist' it's an association list with
 the deprecated elements and their respective replacments (for
 inspecting its content please type \"C-h v\" and then type this
 variable name).
@@ -969,7 +1007,7 @@ or the cursor over the symbol and typing \"RET\" is completing
 the symbol.  Hitting space removes the listing window (in Emacs
 speak 'buffer').
 
-* Auto-indentation of looping and conditional blocks
+** Auto-indentation of looping and conditional blocks
 
 You can customise the indentation depth (Ansys Block Offset),
 please have a look for the entry 'Customise Ansys Mode' in the
@@ -977,15 +1015,15 @@ Ansys mode menu.  The Emacs customisation facility optionally
 saves your choices automatically in your .emacs file for later
 sessions.
 
-* Closing of open control blocks (*do, *if, ...) with the
-  insertion of appropriate end keywords
+** Closing of open control blocks (*do, *if, ...) with the
+   insertion of appropriate end keywords
 
 Typing \"\\[ansys-close-block]\" completes the current Ansys
 block with the insertion of a newline and an appropriate end
 keyword.
 
-* Code navigation with extended keyboard shortcuts: Code lines,
-  number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc.
+** Code navigation with extended keyboard shortcuts: Code lines,
+   number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc.
 
 \\[ansys-next-code-line] -- `ansys-next-code-line'
 \\[ansys-previous-code-line] -- `ansys-previous-code-line'
@@ -1031,7 +1069,7 @@ input of '%%', the Ansys substitution operators.  Please have a
 look at the Emacs function `insert-pair' and below in the
 keybinding section.
 
-* Sophisticated highlighting (optionally also user variables)
+** Sophisticated highlighting (optionally also user variables)
 
 The fontification tries to follow the idiosyncratic Ansys
 interpreter logic as closely as possible. (` *' is still a valid
@@ -1114,7 +1152,7 @@ When you place the cursor on the respecitve line number and type
 \"C-u M-g M-g\" Emacs will place the cursor at the corresponding
 defintion in the macro file.
 
-* Use of the Emacs abbreviation facility for block templates
+** Use of the Emacs abbreviation facility for block templates
 
 E.g. typing \"`dd\" and SPC in an Ansys buffer triggers the
 insertion of an Emacs skeleton for an *Do loop.  (\"`d\" is a
@@ -1125,7 +1163,7 @@ commands: Just type the beginning and then \"TAB\"), or
 alternatively just type a \"?\" after the \"`\" in your file
 buffer.
 
-* Outlining (hiding) of code sections
+** Outlining (hiding) of code sections
 
 You might call the Outline Minor Mode with \"M-x
 outline-minor-mode\" or you could enable this mode permanently by
@@ -1145,10 +1183,10 @@ easiest way of working with outline headings is to go to the
 default in `ansys-mode') and check out what possibilities are at
 your convenience.
 
-* Convenient comment handling, for example the commenting/un- of
-  whole paragraphs
+** Convenient comment handling, for example the commenting/un- of
+   whole paragraphs
 
-** \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean ;-):
+- \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean ;-):
 
 In a code line: Insert comment char `ansys-indent-comment-string'
 at `ansys-code-comment-column' (if feasible).  With a prefix
@@ -1159,7 +1197,7 @@ Uncommenting (`uncomment-region') the region.
 
 In an empty line: Insert '!!\ ' at the line beginning.
 
-** \"\\[indent-new-comment-line]\" (or \"M-j\" --
+- \"\\[indent-new-comment-line]\" (or \"M-j\" --
   `indent-new-comment-line' or the alias
   `comment-indent-new-line')
 
@@ -1171,7 +1209,7 @@ the line beginning.
 
 In empty lines: Just insert a new line.
 
-* Auto-insertion of code templates into new APDL files
+** Auto-insertion of code templates into new APDL files
 
 See `ansys-skeleton-compilation' (type 'M-x
 ansys-skeleton-compilation' to insert a collection of code
@@ -1192,24 +1230,24 @@ You are able to preview the code templates with
 \"\\[ansys-display-skeleton]\" (`ansys-display-skeleton'), and
 complete the name from the various skeletons.
 
-* Ansys process management
+** Ansys process management
 
-** Writing an Ansys stop file (extension '.abt') in the current
-   directory (you can use \"M-x cd\" to change the current
-   directory), for halting the calculation in an re-start-able
-   fashion.
+- Writing an Ansys stop file (extension '.abt') in the current
+  directory (you can use \"M-x cd\" to change the current
+  directory), for halting the calculation in an re-start-able
+  fashion.
 
-** Opening the Ansys error file ('.err' in the current
-   directory).  The error file is opened in read only mode (see
-   `toggle-read-only') and with the mode function
-   `auto-revert-tail-mode', which scrolls the buffer
-   automatically for keeping the current Ansys output visible.
+- Opening the Ansys error file ('.err' in the current directory).
+  The error file is opened in read only mode (see
+  `toggle-read-only') and with the mode function
+  `auto-revert-tail-mode', which scrolls the buffer automatically
+  for keeping the current Ansys output visible.
 
-** Starting of the Ansys help
-   browser (\"\\[ansys-start-ansys-help]\").
+- Starting of the Ansys help
+  browser (\"\\[ansys-start-ansys-help]\").
 
-** Displaying of the current license status in another Emacs
-   buffer (\"\\[ansys-license-status]\").
+- Displaying of the current license status in another Emacs
+  buffer (\"\\[ansys-license-status]\").
 
 For the last two capabilities you need to customise some
 variables either with the Emacs customisation facility (M-x
@@ -1221,7 +1259,7 @@ following example in your .emacs file.  How to do this, please
 have a look in the accompanying README or default.el example
 customisation file.
 
-* Ansys solver control and communication (mainly restricted to
+** Ansys solver control and communication (mainly restricted to
   UNIX systems)
 
 With the Ansys mode command `ansys-start-ansys' you can start the
@@ -1280,13 +1318,11 @@ You might optimise the LOADING speed of Ansys mode with
 byte-compilation of the lisp files.  Please see the function
 `byte-compile-file'.
 
-Keybindings
-===========
+== Keybindings ==
 
 \\{ansys-mode-map}
 
-Ansys mode customisation
-========================
+== Ansys mode customisation ==
 
 For a summary and documentation of available Ansys mode
 customisations it's best to open the mode customisation buffer
@@ -1298,24 +1334,25 @@ mode.  You can do this with the interactive command M-x
 `ansys-reload-ansys-mode' or with the respective, toplevel Ansys
 menu entry.
 
-Bugs and Problems
-=================
+== Bugs and Problems ==
 
-If you experience problems installing or running this mode you have
-the following options:
+Feedback is very welcome.  If you have issues while
+installing/running this mode or simply would like to suggest some
+improvements you have the following options:
 
-* Write an email to the mode maintainer (you can trigger a bug
-  report from the menu--at least a useful template when you are
-  not able to send emails via Emacs--or call the function
-  `ansys-submit-bug-report' with \"\\[ansys-submit-bug-report]\").
+- Write an email to the mode maintainer, please trigger a bug
+  report from the menu or call the function
+  `ansys-submit-bug-report' with \"\\[ansys-submit-bug-report]\".
+  Even if you are not able to send emails directly via Emacs this
+  is, at least, a mail template with possibly valuable
+  information like mode settings and Emacs internals.
 
-* In case you have a Google account you are able to issue a bug
-  report at Google Code's hosted page
+- You might also issue a bug report at Google Code's hosted page
   http://code.google.com/p/ansys-mode/, where you can also
-  download the latest developer version of Ansys mode.
+  download the latest stable version of Ansys mode.
 
-* Emacs Wiki at http://www.emacswiki.org/cgi-bin/wiki/AnsysMode,
-  here you can leave some comments or wishes.
+- Or you could leave comments and hints at the Emacs Wiki
+  (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 ====================== End of Ansys mode help ===================="
   (interactive)
@@ -2379,9 +2416,9 @@ Signal an error if the keywords are incompatible."
   (interactive)
   (require 'reporter)
   (let (salutation
-	(reporter-prompt-for-summary-p t)) ;asks for summary goes into
-					;subject line
-    (when (y-or-n-p "Do you want to submit a bug report? ")
+	(reporter-prompt-for-summary-p t)) ;asks for a summary which
+					;goes in the subject line
+    (when (y-or-n-p "Do you want to write a bug report? ")
       (setq salutation
 	    "Please describe briefly what your problem is and which actions
   triggered the bug.  A self contained, reproducible test case
@@ -2390,19 +2427,21 @@ Signal an error if the keywords are incompatible."
        ansys-maintainer-address
        "Ansys mode"		  ;becomes prefix for the subject line
        (list
+	;; constants
 	'ansys_version
 	'ansys_mode_version
-
-	;; Ansys mode defcustoms are below
+	;; defcustoms
+	'ansys-highlighting-level
+	'ansys-current-ansys-version
 	'ansys-dynamic-highlighting-flag
+	'ansys-job
 	'ansys-program
 	'ansys-help-file
 	'ansys-lmutil-program
 	'ansys-license-file
-	'ansys-license
 	'ansys-license-types
+	'ansys-license
 	'ansys-indicate-empty-lines-flag
-	'ansys-current-ansys-version
 	'ansys-comment-padding
 	'ansys-comment-add
 	'ansys-code-comment-column

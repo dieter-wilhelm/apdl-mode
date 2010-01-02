@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-02 08:57:31 dieter"
+;; Time-stamp: "2010-01-02 09:25:39 dieter"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -56,12 +56,6 @@
 ;; Please consult the history section in the accompanying README file.
 
 ;;; Code:
-
-(defconst ansys_version "12.0"		;NEW_C
-  "Ansys version on which Ansys mode is based.")
-
-(defconst ansys_mode_version "1"	;NEW_C
-  "Ansys mode version number.")
 
 ;; --- defcustoms ---
 
@@ -283,7 +277,7 @@ A hook is a variable which holds a collection of functions."
   :options '(ansys-show-paren-mode ansys-font-lock-mode ansys-outline-minor-mode ansys-ruler-mode ansys-auto-insert-mode display-time)
   :group 'Ansys)
 
-;; --- Variables ---
+;; --- variables ---
 
 (defvar ansys-run-flag nil		;NEW_C
   "Non-nil means an Ansys job is already running.")
@@ -308,17 +302,24 @@ Variable is only used internally in the mode.")
 (defvar ansys-last-skeleton nil
   "Previously chosen Ansys template/skeleton name.")
 
+(defvar ansys-previous-major-mode ""	;NEW_C
+  "The buffer's previous major mode (before Ansys mode).")
+
 ;; --- constants ---
+
+(defconst ansys_version "12.0"		;NEW_C
+  "Ansys version on which Ansys mode is based.")
+
+(defconst ansys_mode_version "1"	;NEW_C
+  "Ansys mode version number.")
 
 (defconst ansys-parameter-substitution-commands-regexp	;NEW
   "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
-  "Regexp of command names which have a string behind them."
-  )
+  "Regexp of command names which have a string behind them.")
 
 (defconst ansys-string-commands-regexp	;NEW
   "C\\*\\*\\*\\|/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|\\*ABBR\\|/AN3D"
-  "Regexp of command names which have a string behind them."
-  )
+  "Regexp of command names which have a string behind them.")
 
 (defconst ansys-variable-defining-commands ;association list
   '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
@@ -456,7 +457,367 @@ Ruler strings are displayed above the current line with
   "Narrow ruler string.
 Ruler strings are displayed above the current line with \\[ansys-column-ruler].")
 
-;;FIXME DEFSUBSTs with DEFUNs inside aren't particularly helpful?
+(defconst ansys-mode-map		;_C
+  (let ((map (make-sparse-keymap)))
+    (define-key map "`" 'ansys-abbrev-start) ;``?' lists abbrevs
+    ;; (define-key map "\t" 'indent-according-to-mode)		  ;redundant
+    ;; standard behaviour of M-j is sufficient for me
+    (define-key map "\e\t" 'ansys-complete-symbol) ;or M-C-i
+    ;; --- changed standard Emacs keybindings ---
+    (define-key map " " 'ansys-electric-space)
+    (define-key map "\M-j" 'ansys-indent-format-line)
+    (define-key map "\n" 'ansys-reindent-then-newline-and-indent)
+    ;; end block indentation
+
+    ;; --- especially interesting for continuation lines and condensed input
+    (define-key map "\M-a" 'ansys-command-start)
+    (define-key map "\M-e" 'ansys-command-end)
+    ;; -- adaption of mark-paragraph
+    (define-key map "\M-h" 'ansys-mark-paragraph)
+    ;; --- command movement --- (like defuns), skip comments and empty lines
+    (define-key map "\M-p" 'ansys-previous-code-line)
+    (define-key map "\M-n" 'ansys-next-code-line)
+    ;; --- block movements ---
+    (define-key map "\C-\M-f" 'ansys-next-block-end)
+    (define-key map "\C-\M-b" 'ansys-previous-block-start-and-conditional)
+    (define-key map "\C-\M-n" 'ansys-skip-block-forward)
+    (define-key map "\C-\M-p" 'ansys-skip-block-backwards)
+    (define-key map "\C-\M-d" 'ansys-down-block)
+    (define-key map "\C-\M-u" 'ansys-up-block)
+    (define-key map "\C-\M-h" 'ansys-mark-block) ;formerly mark defun
+    ;; --- further block keys ---
+    (define-key map "\C-c]" 'ansys-close-block)
+    (define-key map "\C-c}" 'ansys-number-block-end)
+    (define-key map "\C-c{" 'ansys-number-block-start)
+    ;; --- pairs
+    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
+    (define-key map "\C-c[" 'insert-pair)
+    (define-key map "\C-c'" 'insert-pair)
+    (define-key map "\C-c%" 'insert-pair)
+    (define-key map [?\C-c?\C-%] 'insert-pair)
+    (define-key map [?\C-c?\C-[] 'insert-pair)
+    (define-key map [?\C-c?\C-'] 'insert-pair)
+    ;; --- miscellaneous ---
+    (define-key map "\C-x4k" 'ansys-delete-other-window)
+    (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
+    (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
+    (define-key map "\C-c\C-c" 'ansys-send-to-ansys)
+    (define-key map "\C-c\C-d" 'ansys-do)
+    (define-key map "\C-c\C-e" 'ansys-display-error-file)
+    (define-key map "\C-c\C-f" 'ansys-fit)
+    (define-key map "\C-c\C-g" 'ansys-start-graphics)
+    (define-key map "\C-c\C-i" 'ansys-if)
+    (define-key map "\C-c\C-j" 'ansys-job)
+    (define-key map "\C-c\C-k" 'ansys-kill-ansys)
+    (define-key map "\C-c\C-l" 'ansys-license-status)
+    (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
+    (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
+    (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
+    (define-key map "\C-c\C-r" 'ansys-replot)
+    (define-key map "\C-c\C-s" 'ansys-display-skeleton)
+;      (define-key map "\C-c\C-t" 'ansys-if-then)
+    (define-key map "\C-c\C-t" 'ansys-license)
+    (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
+    (define-key map "\C-c\C-v" 'ansys-display-variables)
+    (define-key map "\M-?" 'ansys-show-command-parameters)
+    (define-key map "\C-c?" 'ansys-show-command-parameters)
+;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
+;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
+       map)
+    "Keymap for the Ansys mode.")
+(defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
+  "Restore the buffer's previous major mode, if possible."
+  (interactive)
+  (if (string= ansys-previous-major-mode "ansys-mode")
+      (error "Previous major mode was \"Ansys mode\"") ;buffers opended with auto-mode
+    (funcall ansys-previous-major-mode)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; --- font locking stuff ---
+
+(load "ansys-keyword")
+
+;; font-lock-keyword-face is the default face
+(defconst ansys-font-lock-keywords
+  `(
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-command-regexp
+	      "\\)") 1 font-lock-keyword-face)
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
+     font-lock-variable-name-face t)) ; variables (max. 32 chars long)
+    )
+  )
+
+(defconst ansys-font-lock-keywords-1
+  `(
+    ;; deprecated ansys-comment
+    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    					;^[:alpha:] to avoid spurious
+    					;asterisk command fontification
+    ;; some string faces
+    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
+      ;/SYS command sends string to OP,no parameter substitution!
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+        ;TODO: c*** should get fontification from command regexp
+      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
+   	      ;only 75 characters possible no separator necessary
+    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
+     font-lock-doc-face) ;titles
+    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
+       ;highlight message of comment command /COM (no comment (!)
+       ;is possible behind /COM), no separating comma necessary
+
+    (,ansys-deprecated-element-regexp . font-lock-warning-face)
+    (,ansys-element-regexp . font-lock-builtin-face)
+    (,ansys-undocumented-command-regexp . font-lock-constant-face)
+    (,(concat "\\<\\("
+	      ansys-get-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+    (,(concat "\\<\\("
+	      ansys-parametric-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-command-regexp-1
+	      "\\)\\>") 1 font-lock-keyword-face)
+    ;; = variable defs, overwritting commands
+    ;; wie need something behind the = otherwise it's a cleanup
+  ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]"
+   1 font-lock-variable-name-face t) ; variables (max. 32 chars long)
+
+  ;; some operators
+    ("\\$" 0 font-lock-type-face) ;condensed line
+    (":" . 'font-lock-type-face)   ;colon loops only
+    ;; outmoded goto labels (max 8 chars including the colon)
+    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face ) ;GOTO Labels, branching
+
+
+;;     ;; multiline format constructs
+;; ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
+;;       2 font-lock-doc-face t)
+
+    ;; ampersand highlighting
+    ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
+    ("%" 0 font-lock-type-face t) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+;; reserved words
+    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
+    ;; /eof is special: it crashes Ansys in interactive mode
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
+    ;; *use variables, local macro call arguments
+    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+    ))
+
+(defconst ansys-font-lock-keywords-2
+  `(
+    ;; deprecated ansys-comment
+    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    					;^[:alpha:] to avoid spurious
+    					;asterisk command fontification
+    ;; some string faces
+    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
+      ;/SYS command sends string to OP,no parameter substitution!
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+        ;TODO: c*** should get fontification from command regexp
+      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
+   	      ;only 75 characters possible no separator necessary
+    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
+     font-lock-doc-face) ;titles
+    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
+       ;highlight message of comment command /COM (no comment (!)
+       ;is possible behind /COM), no separating comma necessary
+    (,ansys-deprecated-element-regexp . font-lock-warning-face)
+    (,ansys-element-regexp . font-lock-builtin-face)
+    (,ansys-undocumented-command-regexp . font-lock-constant-face)
+
+    ;; get- and parametric-functions
+    (,(concat "\\<\\("
+	      ansys-get-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+    (,(concat "\\<\\("
+	      ansys-parametric-function-regexp
+	      "\\)(") 1 font-lock-function-name-face)
+
+    ;; command keywords first -2a no characters appended
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-command-regexp-2a
+	      "\\)\\>") 1 font-lock-keyword-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+    	      ansys-command-regexp-2b
+    	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+    	      ansys-command-regexp-2c
+    	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
+
+    ;; = variable defs, overwritting commands
+    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
+     font-lock-variable-name-face t)) ; variables (max. 32 chars long)    ;; some operators
+    ("\\$" 0 font-lock-type-face) ;condensed line
+    (":" . 'font-lock-type-face)   ;colon loops only
+
+    ;; outmoded goto labels (max 8 chars including the colon)
+    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+
+    ;; multiline format constructs
+("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
+      2 font-lock-doc-face t)
+
+;; ampersand is redundant with multiline fontlocking
+    ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
+    ("%" 0 font-lock-type-face prepend) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+;; reserved words
+    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
+    ;; /eof is special: it crashes Ansys in interactive mode
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
+    ;; *use variables, local macro call arguments
+    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+
+    (ansys-highlight-variable . font-lock-variable-name-face)
+
+    ))
+
+(defconst ansys-font-lock-keyword-list	;NEW_C
+      '(ansys-font-lock-keywords
+	ansys-font-lock-keywords-1
+	ansys-font-lock-keywords-2
+	  ))
+
+(defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and
+					;allowed variable characters
+  (let ((table (make-syntax-table)))
+    (modify-syntax-entry ?\r " " table)
+    (modify-syntax-entry ?\t " " table)
+    (modify-syntax-entry ?\$ "." table)
+    (modify-syntax-entry ?+ "."  table)
+    (modify-syntax-entry ?- "."  table)
+    (modify-syntax-entry ?= "."  table)
+    (modify-syntax-entry ?> "."  table)
+    (modify-syntax-entry ?< "."  table)
+    (modify-syntax-entry ?. "."  table)
+    (modify-syntax-entry ?\% "." table)
+    (modify-syntax-entry ?| "."  table)
+    (modify-syntax-entry ?\' "." table)
+    (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,
+					;not an operator but "word".
+    (modify-syntax-entry ?_ "_"  table) ;in Ansys symbol component
+    (modify-syntax-entry ?: "_"  table) ;Ansys label specifier, not an operator
+    (modify-syntax-entry ?* "_"  table) ;Ansys asterisk commands syntax clashing
+					;with algebraic operators but blink-matching-
+					;needs this
+    ;;     (modify-syntax-entry ?/ "w"  table)	;Ansys slash commands
+    (modify-syntax-entry ?\! "<" table) ;Ansys comment character
+    (modify-syntax-entry ?\n ">" table)
+    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for Ansys
+    (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
+					;Normally Ansys string delimiter, but might clash
+					;with usages of genitives etc.!
+    (modify-syntax-entry ?~ "_" table) ;Ansys connection commands, not an operator
+    table)
+  "Syntax table in use in `ansys-mode' buffers.")
+
+(defconst ansys-mode-menu
+  (list "Ansys"
+	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
+	["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
+	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
+	["Complete Symbol"          ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
+	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
+	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
+	"-"
+	(list "Insert Template"
+	      ["*IF ,Action *ENDIF"     ansys-if]
+	      ["*IF ,THEN *ENDIF"	ansys-if-then]
+	      ["*DO *ENDDO"	        ansys-do]
+	      [" MP "	                ansys-mp]
+	      ["Header"                 ansys-skeleton-header :help "File header template"]
+	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
+	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
+	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
+	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
+	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
+	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
+	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
+	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling loops (*do, ...) and the program flow (*if, ...)"]
+	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
+	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
+	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]
+	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
+	      ["Contact Pair Definition"           ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
+	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]
+	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
+	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
+	      ["Listings, Information, Statistics" ansys-skeleton-information :help "Parameter listings, graphics, system information, run statistics"]
+	      ["Solve"                  ansys-skeleton-solve :help "Solver commands and options"]
+	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
+	      ["Array Operations" ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
+	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
+	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
+	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
+	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
+	      ["Template compilation" ansys-skeleton :help "Insert compilation of often used templates"])
+	(list "Navigate Code Lines"
+	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
+	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
+	      ["Beginning of (Continuation) Command" ansys-command-start :help "Go to the beginning of the current command"]
+	      ["End of (Continuation) Command"	ansys-command-end :help "Go to the end of the current command"]
+	      "-"
+	      ["Split Format Line at Point"	ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an Ansys format line insert the continuation character before splitting the line"]
+	      )
+	(list "Work with Logical Blocks"
+	      ["Next Block End"		ansys-next-block-end :help "Go to the end of the current or next control block (*do, *if, ...)"]
+	      ["Previous Block Start"   ansys-previous-block-start-and-conditional :help "Go to the beginning of the current or next control block (*do, *if, ...)"]
+	      ["Down Block"		ansys-down-block :help "Move down one control block level"]
+	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
+	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
+	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
+	      ["Beginning of N. Block" ansys-number-block-start :help "Go to the beginning of an Ansys number block (EBLOCK, NBLOCK)"]
+	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an Ansys number block (EBLOCK, NBLOCK)"]
+	      "-"
+	      ["Close Block"                  ansys-close-block :help "Close the current Ansys control block with the respective closing command"]
+	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
+	      )
+	(list "Manage Ansys Tasks"
+	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file"]
+	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
+	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server"]
+	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
+	      "-"
+	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a solver run" :active ansys-is-unix-system-flag]
+	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a solver run" :active ansys-is-unix-system-flag]
+	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a solver run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Start Ansys Run" ansys-start-ansys :help "Start a solver run" :active ansys-is-unix-system-flag]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active ansys-is-unix-system-flag]
+	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process" :active ansys-is-unix-system-flag]
+	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
+	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active ansys-is-unix-system-flag]
+	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Display Emacs Processes" list-processes :help "Show all currently running Emacs Processes, like the Ansys help browser, etc."]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
+	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the current Ansys error file"]
+	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver"]
+	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active ansys-is-unix-system-flag]
+	      )
+	"-"
+	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
+	["Display License Status" ansys-license-status :help "Show the license usage in another window or start the windows license manager"]
+	["Display Ansys Command Help"      ansys-show-command-parameters :helpl "Display a short help for the Ansys command in the current line and its parameters"]
+	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
+	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
+	["Toggle Outline Mode"         outline-minor-mode :help "Switch on/off the outline mode for structuring the file with headlines"]
+	"-"
+	["Show Ansys Mode version"  ansys-mode-version :help "Display the Ansys mode version in the mini buffer"]
+	["Describe Ansys Mode"		describe-mode :help "Open a window with a description of Ansys mode"]
+	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
+	["Submit Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
+	"-"
+	["Reload Ansys Mode" ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
+	["Return to previous mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
+  "Menu items for the Ansys mode.")
 
 ;;; --- predicates ---
 
@@ -561,6 +922,18 @@ This means at the end of code before whitespace or an Ansys
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
+(defun ansys-is-unix-system-p ()
+  (not
+   (or (string= system-type "darwin")
+       (string= system-type "macos")
+       (string= system-type "ms-dos")
+       (string= system-type "windows-nt")
+       (string= system-type "cygwin")
+       (string= system-type "vax-vms")
+       (string= system-type "axp-vms"))))
+
+;;FIXME DEFSUBSTs with DEFUNs inside aren't particularly helpful, are they?
+
 (defsubst ansys-in-comment-p ()		;_C
   "Return t if the cursor is inside an Ansys comment."
   (save-excursion
@@ -588,364 +961,8 @@ comment."
   (let ((pps (parse-partial-sexp (ansys-position 'bol) (point))))
     (or (nth 3 pps) (nth 4 pps))))
 
-
-(defconst ansys-mode-map		;_C
-  (let ((map (make-sparse-keymap)))
-    (define-key map "`" 'ansys-abbrev-start) ;``?' lists abbrevs
-    ;; (define-key map "\t" 'indent-according-to-mode)		  ;redundant
-    ;; standard behaviour of M-j is sufficient for me
-    (define-key map "\e\t" 'ansys-complete-symbol) ;or M-C-i
-    ;; --- changed standard Emacs keybindings ---
-    (define-key map " " 'ansys-electric-space)
-    (define-key map "\M-j" 'ansys-indent-format-line)
-    (define-key map "\n" 'ansys-reindent-then-newline-and-indent)
-    ;; end block indentation
-
-    ;; --- especially interesting for continuation lines and condensed input
-    (define-key map "\M-a" 'ansys-command-start)
-    (define-key map "\M-e" 'ansys-command-end)
-    ;; -- adaption of mark-paragraph
-    (define-key map "\M-h" 'ansys-mark-paragraph)
-    ;; --- command movement --- (like defuns), skip comments and empty lines
-    (define-key map "\M-p" 'ansys-previous-code-line)
-    (define-key map "\M-n" 'ansys-next-code-line)
-    ;; --- block movements ---
-    (define-key map "\C-\M-f" 'ansys-next-block-end)
-    (define-key map "\C-\M-b" 'ansys-previous-block-start-and-conditional)
-    (define-key map "\C-\M-n" 'ansys-skip-block-forward)
-    (define-key map "\C-\M-p" 'ansys-skip-block-backwards)
-    (define-key map "\C-\M-d" 'ansys-down-block)
-    (define-key map "\C-\M-u" 'ansys-up-block)
-    (define-key map "\C-\M-h" 'ansys-mark-block) ;formerly mark defun
-    ;; --- further block keys ---
-    (define-key map "\C-c]" 'ansys-close-block)
-    (define-key map "\C-c}" 'ansys-number-block-end)
-    (define-key map "\C-c{" 'ansys-number-block-start)
-    ;; --- pairs
-    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
-    (define-key map "\C-c[" 'insert-pair)
-    (define-key map "\C-c'" 'insert-pair)
-    (define-key map "\C-c%" 'insert-pair)
-    (define-key map [?\C-c?\C-%] 'insert-pair)
-    (define-key map [?\C-c?\C-[] 'insert-pair)
-    (define-key map [?\C-c?\C-'] 'insert-pair)
-    ;; --- miscellaneous ---
-    (define-key map "\C-x4k" 'ansys-delete-other-window)
-    (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
-    (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
-    (define-key map "\C-c\C-c" 'ansys-send-to-ansys)
-    (define-key map "\C-c\C-d" 'ansys-do)
-    (define-key map "\C-c\C-e" 'ansys-display-error-file)
-    (define-key map "\C-c\C-f" 'ansys-fit)
-    (define-key map "\C-c\C-g" 'ansys-start-graphics)
-    (define-key map "\C-c\C-i" 'ansys-if)
-    (define-key map "\C-c\C-j" 'ansys-job)
-    (define-key map "\C-c\C-k" 'ansys-kill-ansys)
-    (define-key map "\C-c\C-l" 'ansys-license-status)
-    (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
-    (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
-    (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
-    (define-key map "\C-c\C-r" 'ansys-replot)
-    (define-key map "\C-c\C-s" 'ansys-display-skeleton)
-;      (define-key map "\C-c\C-t" 'ansys-if-then)
-    (define-key map "\C-c\C-t" 'ansys-license)
-    (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
-    (define-key map "\C-c\C-v" 'ansys-display-variables)
-    (define-key map "\M-?" 'ansys-show-command-parameters)
-    (define-key map "\C-c?" 'ansys-show-command-parameters)
-;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
-;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
-       map)
-    "Keymap for the Ansys mode.")
-
-(defvar ansys-previous-major-mode ""	;NEW_C
-  "The buffer's previous major mode (before Ansys mode).")
-
-  ;; --- functions ---
-
-
-(defun ansys-mark-paragraph (&optional arg allow-extend)
-  "Put mark at beginning of this paragraph,  point at end.
-The paragraph marked is the one that contains point or follows
-point.
-
-With argument ARG, puts point at end of a following paragraph, so
-that the number of paragraphs marked equals ARG.
-
-If ARG is negative, point is put at the beginning of this
-paragraph, mark is put at the end of this or a previous
-paragraph.
-
-Interactively, if this command is repeated
-or (in Transient Mark mode) if the mark is active,
-it marks the next ARG paragraphs after the ones already marked."
-  (interactive "p\np")
-  (unless arg (setq arg 1))
-  (when (zerop arg)
-    (error "Cannot mark zero paragraphs"))
-  (cond ((and allow-extend		;we already called this function
-	      (or (and (eq last-command this-command) (mark t))
-		  (and transient-mark-mode mark-active)))
-	 (forward-paragraph arg))
-	((and (bolp) (eolp))		;we are in an empty line
-	 (push-mark nil t t)
-	 (forward-paragraph arg))
-	(t				;we are within a paragraph
-	 (backward-paragraph arg)
-	 (push-mark nil t t)
-	 (forward-paragraph arg))))
-
-
-(defun ansys-mode-version ()
-  "Display the Ansys mode version numbering scheme."
-  (interactive)
-  (message "Ansys mode version: %s.%s (based on Ansys %s)" ansys_version
-	   ansys_mode_version
-	   ansys_version))
-
-(defun ansys-reload-ansys-mode ()
-  "Reload the Ansys mayor mode.
-Clear the mode definitions if active, load the necessary code and
-call `ansys-mode'."
-  (interactive)
-  (progn
-    (when (featurep 'ansys-mode)
-      (unload-feature 'ansys-mode))
-    (load-file "ansys-mode.el")
-    (ansys-mode)
-    (message "Ansys mode reloaded.")))
-
-(defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
-  "Restore the buffer's previous major mode, if possible."
-  (interactive)
-  (if (string= ansys-previous-major-mode "ansys-mode")
-      (error "Previous major mode was \"Ansys mode\"") ;buffers opended with auto-mode
-    (funcall ansys-previous-major-mode)))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; --- font locking stuff ---
-
-(load "ansys-keyword")
-
-;; (defvar ansys-font-lock-keywords	;NEW_C
-;;   (append
-;;    ansys-commands			;command overwrite variables
-;;    ansys-undocumented-commands
-;;    '(("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=" 1 'default t)) ;remove fontification from variables (max. 32 chars long)
-;;    ;; this is for level 2
-;;    '(("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][r
-;; R]\\).*\n\\(\\(.*&\\s-*\n\\)*.*\\)" ;format constructs
-;;       2 'font-lock-doc-face prepend))
-;;    '(("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 'font-lock-doc-face keep))
-;;    					;highlight message of comment command /COM (no comment (!)
-;;    					;is possible behind /COM), no separating comma necessary
-;;    '(("^\\s-*\\([cC]\\*\\*\\*\\).?\\(.\\{1,75\\}\\)" ;c*** should get immediate fontification
-;;       (1 'font-lock-type-face keep) (2 'font-lock-doc-face keep)))
-;;    					;only 75 characters possible no separator necessary
-;;    '(("^\\s-*\\(/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 2
-;;       'font-lock-doc-face keep))	;the same for /title
-;;    '(("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 'font-lock-doc-face keep))
-;;    					;/SYS command sends string to OP, no parameter substitution!
-;;    					;for variables with command names
-;;    '(("\\( \\*[^[:alpha:]].*\\)$" 1 'font-lock-comment-face append)) ;deprecated Ansys comment!
-;;    					;^[:alpha:] to avoid spurious asterisk command fontification
-;;    ansys-elements
-;;    ansys-get-functions
-;;    ansys-parametric-functions
-;;    '(("\\(\\$\\)" 1 'font-lock-warning-face keep)) ;condensed line continuation char
-;;    '(("^[^ \t_]*\\(\\<\\w\\{33,\\}\\>\\)\\s-*=" 1 'font-lock-warning-face t))
-;;    					; more than 32 character long variables are not allowed
-;;    ;; this is for level 3
-;;    '(ansys-highlight) ;function searches user variables ; TODO BUG
-;;    '(("\\(&\\)\\s-*$" 1 'font-lock-comment-face prepend)) ;format continuation char
-;;    '(("\\(%\\)" 1 'font-lock-comment-face prepend))
-;;    					;single % acts as a format specifier and pair %.% is an
-;;    					;ansys parameter substitution
-;;    '(("\\(:\\)" 1 'font-lock-warning-face keep))   ;colon loops
-;;    '(("^\\s-*\\(:\\w\\{1,7\\}\\)" 1 'font-lock-warning-face t)) ;GOTO Labels, branching
-;;    '(("\\s-*\\<\\(_\\w+\\>\\)" 1 'font-lock-warning-face)) ;reserved words
-;;    ) "Regexp for the highlighting."  )
-
-
-;; font-lock-keyword-face is the default face
-(defconst ansys-font-lock-keywords
-  `(
-    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-	      ansys-command-regexp
-	      "\\)") 1 font-lock-keyword-face)
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
-     font-lock-variable-name-face t)) ; variables (max. 32 chars long)
-    )
-  )
-
-(defconst ansys-font-lock-keywords-1
-  `(
-    ;; deprecated ansys-comment
-    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
-    					;^[:alpha:] to avoid spurious
-    					;asterisk command fontification
-    ;; some string faces
-    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
-      ;/SYS command sends string to OP,no parameter substitution!
-    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
-        ;TODO: c*** should get fontification from command regexp
-      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
-   	      ;only 75 characters possible no separator necessary
-    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
-     font-lock-doc-face) ;titles
-    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
-       ;highlight message of comment command /COM (no comment (!)
-       ;is possible behind /COM), no separating comma necessary
-
-    (,ansys-deprecated-element-regexp . font-lock-warning-face)
-    (,ansys-element-regexp . font-lock-builtin-face)
-    (,ansys-undocumented-command-regexp . font-lock-constant-face)
-    (,(concat "\\<\\("
-	      ansys-get-function-regexp
-	      "\\)(") 1 font-lock-function-name-face)
-    (,(concat "\\<\\("
-	      ansys-parametric-function-regexp
-	      "\\)(") 1 font-lock-function-name-face)
-    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-	      ansys-command-regexp-1
-	      "\\)\\>") 1 font-lock-keyword-face)
-    ;; = variable defs, overwritting commands
-    ;; wie need something behind the = otherwise it's a cleanup
-  ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]"
-   1 font-lock-variable-name-face t) ; variables (max. 32 chars long)
-
-  ;; some operators
-    ("\\$" 0 font-lock-type-face) ;condensed line
-    (":" . 'font-lock-type-face)   ;colon loops only
-    ;; outmoded goto labels (max 8 chars including the colon)
-    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face ) ;GOTO Labels, branching
-
-
-;;     ;; multiline format constructs
-;; ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
-;;       2 font-lock-doc-face t)
-
-    ;; ampersand highlighting
-    ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
-    ("%" 0 font-lock-type-face t) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
-;; reserved words
-    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
-    ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
-    ;; *use variables, local macro call arguments
-    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-    )
-  )
-
-(defconst ansys-font-lock-keywords-2
-  `(
-    ;; deprecated ansys-comment
-    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
-    					;^[:alpha:] to avoid spurious
-    					;asterisk command fontification
-    ;; some string faces
-    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
-      ;/SYS command sends string to OP,no parameter substitution!
-    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
-        ;TODO: c*** should get fontification from command regexp
-      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
-   	      ;only 75 characters possible no separator necessary
-    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
-     font-lock-doc-face) ;titles
-    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
-       ;highlight message of comment command /COM (no comment (!)
-       ;is possible behind /COM), no separating comma necessary
-    (,ansys-deprecated-element-regexp . font-lock-warning-face)
-    (,ansys-element-regexp . font-lock-builtin-face)
-    (,ansys-undocumented-command-regexp . font-lock-constant-face)
-
-    ;; get- and parametric-functions
-    (,(concat "\\<\\("
-	      ansys-get-function-regexp
-	      "\\)(") 1 font-lock-function-name-face)
-    (,(concat "\\<\\("
-	      ansys-parametric-function-regexp
-	      "\\)(") 1 font-lock-function-name-face)
-
-    ;; command keywords first -2a no characters appended
-    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-	      ansys-command-regexp-2a
-	      "\\)\\>") 1 font-lock-keyword-face)
-    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-    	      ansys-command-regexp-2b
-    	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
-    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-    	      ansys-command-regexp-2c
-    	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
-
-    ;; = variable defs, overwritting commands
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
-     font-lock-variable-name-face t)) ; variables (max. 32 chars long)    ;; some operators
-    ("\\$" 0 font-lock-type-face) ;condensed line
-    (":" . 'font-lock-type-face)   ;colon loops only
-
-    ;; outmoded goto labels (max 8 chars including the colon)
-    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
-
-    ;; multiline format constructs
-("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
-      2 font-lock-doc-face t)
-
-;; ampersand is redundant with multiline fontlocking
-    ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
-    ("%" 0 font-lock-type-face prepend) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
-;; reserved words
-    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
-    ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
-    ;; *use variables, local macro call arguments
-    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-
-    (ansys-highlight-variable . font-lock-variable-name-face)
-
-    )
-  )
-
-(defconst ansys-font-lock-keyword-list	;NEW_C
-      '(ansys-font-lock-keywords
-	ansys-font-lock-keywords-1
-	ansys-font-lock-keywords-2
-	  ))
-
-(defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and
-					;allowed variable characters
-  (let ((table (make-syntax-table)))
-    (modify-syntax-entry ?\r " " table)
-    (modify-syntax-entry ?\t " " table)
-    (modify-syntax-entry ?\$ "." table)
-    (modify-syntax-entry ?+ "."  table)
-    (modify-syntax-entry ?- "."  table)
-    (modify-syntax-entry ?= "."  table)
-    (modify-syntax-entry ?> "."  table)
-    (modify-syntax-entry ?< "."  table)
-    (modify-syntax-entry ?. "."  table)
-    (modify-syntax-entry ?\% "." table)
-    (modify-syntax-entry ?| "."  table)
-    (modify-syntax-entry ?\' "." table)
-    (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,
-					;not an operator but "word".
-    (modify-syntax-entry ?_ "_"  table) ;in Ansys symbol component
-    (modify-syntax-entry ?: "_"  table) ;Ansys label specifier, not an operator
-    (modify-syntax-entry ?* "_"  table) ;Ansys asterisk commands syntax clashing
-					;with algebraic operators but blink-matching-
-					;needs this
-    ;;     (modify-syntax-entry ?/ "w"  table)	;Ansys slash commands
-    (modify-syntax-entry ?\! "<" table) ;Ansys comment character
-    (modify-syntax-entry ?\n ">" table)
-    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for Ansys
-    (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
-					;Normally Ansys string delimiter, but might clash
-					;with usages of genitives etc.!
-    (modify-syntax-entry ?~ "_" table) ;Ansys connection commands, not an operator
-    table)
-  "Syntax table in use in `ansys-mode' buffers.")
+;; ======================================================================
+;; --- functions ---
 
 ;;;###autoload
 (defun ansys-mode ()
@@ -1460,17 +1477,60 @@ improvements you have the following options:
 	(ansys-find-user-variables)))
 
   ;; --- hooks ---
-  (run-hooks 'ansys-mode-hook))
+  (run-hooks 'ansys-mode-hook)
 
-(defun ansys-is-unix-system-p ()
-  (not
-   (or (string= system-type "darwin")
-       (string= system-type "macos")
-       (string= system-type "ms-dos")
-       (string= system-type "windows-nt")
-       (string= system-type "cygwin")
-       (string= system-type "vax-vms")
-       (string= system-type "axp-vms"))))
+  ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
+  )
+
+(defun ansys-mark-paragraph (&optional arg allow-extend)
+  "Put mark at beginning of this paragraph,  point at end.
+The paragraph marked is the one that contains point or follows
+point.
+
+With argument ARG, puts point at end of a following paragraph, so
+that the number of paragraphs marked equals ARG.
+
+If ARG is negative, point is put at the beginning of this
+paragraph, mark is put at the end of this or a previous
+paragraph.
+
+Interactively, if this command is repeated
+or (in Transient Mark mode) if the mark is active,
+it marks the next ARG paragraphs after the ones already marked."
+  (interactive "p\np")
+  (unless arg (setq arg 1))
+  (when (zerop arg)
+    (error "Cannot mark zero paragraphs"))
+  (cond ((and allow-extend		;we already called this function
+	      (or (and (eq last-command this-command) (mark t))
+		  (and transient-mark-mode mark-active)))
+	 (forward-paragraph arg))
+	((and (bolp) (eolp))		;we are in an empty line
+	 (push-mark nil t t)
+	 (forward-paragraph arg))
+	(t				;we are within a paragraph
+	 (backward-paragraph arg)
+	 (push-mark nil t t)
+	 (forward-paragraph arg))))
+
+(defun ansys-mode-version ()
+  "Display the Ansys mode version numbering scheme."
+  (interactive)
+  (message "Ansys mode version: %s.%s (based on Ansys %s)" ansys_version
+	   ansys_mode_version
+	   ansys_version))
+
+(defun ansys-reload-ansys-mode ()
+  "Reload the Ansys mayor mode.
+Clear the mode definitions if active, load the necessary code and
+call `ansys-mode'."
+  (interactive)
+  (progn
+    (when (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (load-file "ansys-mode.el")
+    (ansys-mode)
+    (message "Ansys mode reloaded.")))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -1743,110 +1803,6 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 		   (not (bolp))))
 	    (indent-according-to-mode)))
     (self-insert-command 1)))
-
-(defconst ansys-mode-menu
-  (list "Ansys"
-	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
-	["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
-	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
-	["Complete Symbol"          ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
-	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
-	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
-	"-"
-	(list "Insert Template"
-	      ["*IF ,Action *ENDIF"     ansys-if]
-	      ["*IF ,THEN *ENDIF"	ansys-if-then]
-	      ["*DO *ENDDO"	        ansys-do]
-	      [" MP "	                ansys-mp]
-	      ["Header"                 ansys-skeleton-header :help "File header template"]
-	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
-	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
-	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
-	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
-	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
-	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
-	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
-	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling loops (*do, ...) and the program flow (*if, ...)"]
-	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
-	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
-	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]
-	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
-	      ["Contact Pair Definition"           ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
-	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]
-	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
-	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
-	      ["Listings, Information, Statistics" ansys-skeleton-information :help "Parameter listings, graphics, system information, run statistics"]
-	      ["Solve"                  ansys-skeleton-solve :help "Solver commands and options"]
-	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
-	      ["Array Operations" ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
-	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
-	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
-	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
-	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
-	      ["Template compilation" ansys-skeleton :help "Insert compilation of often used templates"])
-	(list "Navigate Code Lines"
-	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
-	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
-	      ["Beginning of (Continuation) Command" ansys-command-start :help "Go to the beginning of the current command"]
-	      ["End of (Continuation) Command"	ansys-command-end :help "Go to the end of the current command"]
-	      "-"
-	      ["Split Format Line at Point"	ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an Ansys format line insert the continuation character before splitting the line"]
-	      )
-	(list "Work with Logical Blocks"
-	      ["Next Block End"		ansys-next-block-end :help "Go to the end of the current or next control block (*do, *if, ...)"]
-	      ["Previous Block Start"   ansys-previous-block-start-and-conditional :help "Go to the beginning of the current or next control block (*do, *if, ...)"]
-	      ["Down Block"		ansys-down-block :help "Move down one control block level"]
-	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
-	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
-	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
-	      ["Beginning of N. Block" ansys-number-block-start :help "Go to the beginning of an Ansys number block (EBLOCK, NBLOCK)"]
-	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an Ansys number block (EBLOCK, NBLOCK)"]
-	      "-"
-	      ["Close Block"                  ansys-close-block :help "Close the current Ansys control block with the respective closing command"]
-	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
-	      )
-	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file"]
-	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
-	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server"]
-	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
-	      "-"
-	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a solver run" :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a solver run" :active ansys-is-unix-system-flag]
-	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a solver run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run" ansys-start-ansys :help "Start a solver run" :active ansys-is-unix-system-flag]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
-	      "-"
-	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active ansys-is-unix-system-flag]
-	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process" :active ansys-is-unix-system-flag]
-	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
-	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active ansys-is-unix-system-flag]
-	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
-	      "-"
-	      ["Display Emacs Processes" list-processes :help "Show all currently running Emacs Processes, like the Ansys help browser, etc."]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
-	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the current Ansys error file"]
-	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver"]
-	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active ansys-is-unix-system-flag]
-	      "-"
-	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active ansys-is-unix-system-flag]
-	      )
-	"-"
-	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
-	["Display License Status" ansys-license-status :help "Show the license usage in another window or start the windows license manager"]
-	["Display Ansys Command Help"      ansys-show-command-parameters :helpl "Display a short help for the Ansys command in the current line and its parameters"]
-	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
-	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
-	["Toggle Outline Mode"         outline-minor-mode :help "Switch on/off the outline mode for structuring the file with headlines"]
-	"-"
-	["Show Ansys Mode version"  ansys-mode-version :help "Display the Ansys mode version in the mini buffer"]
-	["Describe Ansys Mode"		describe-mode :help "Open a window with a description of Ansys mode"]
-	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
-	["Submit Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
-	"-"
-	["Reload Ansys Mode" ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
-	["Return to previous mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
-  "Menu items for the Ansys mode.")
 
 (defun ansys-add-ansys-menu ()
   "Add an \"Ansys\" entry to the Emacs menu bar."

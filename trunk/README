@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-01 23:24:54 dieter"
+Time-stamp: "2010-01-03 23:36:19 dieter"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -30,6 +30,7 @@ the Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 = Features
 = Installation
 = Usage and customisation
+= Experienced Emacs users
 = History
 = Resources
 = Bugs and Problems
@@ -97,6 +98,9 @@ of them.
 * Use of the Emacs abbreviation facility for block templates
   i. e. with writting a "nickname" Emacs exchanges the characters with
   a whole code template
+
+* Ansys mode changes Emacs default behaviours to smooth the transition
+  from other editors
 
 As a visual example, a screen-shot on EmacsWiki and Google code show
 an Emacs frame with a ripped off Ansys menu field.  The APDL file is
@@ -247,9 +251,19 @@ Templates, i.e. code snippets or skeletons might be extended in
 "ansys-template.el" and can be used similar or complementary to a
 classical Ansys macro library.
 
+== Experienced Emacs users ==
+
+Ansys mode changes the default behaviour of Emacs
+
+Warning globally: (delete-selection-mode t)
+
+locally: (setq scroll-preserve-screen-position t)
+locally: M-h (mark-paragraph) has improved, in my opinion
+
 == Acknowledgements ==
 
-(In no particular order):
+In no particular order:
+
 Holger Sparr,
 Eli Zaretzki,
 Markus Triska,

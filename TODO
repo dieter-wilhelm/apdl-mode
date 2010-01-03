@@ -27,6 +27,12 @@
 *** features?
 - insert skeleton with C-c C-s i, send line C-c C-c ccc
 *** miscellaneous
+- C-c C-v does not show variable defined in the first line with = 
+
+- strange warning when -license-file is not set
+
+- C-c C-s not working
+
 - Ansys mode with cua- and delete-selection-mode? 
   deleting with delete-selection-mode does not copy to kill-ring
   

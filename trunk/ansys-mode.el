@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-02 09:25:39 dieter"
+;; Time-stamp: "2010-01-03 23:38:38 dieter"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -1447,6 +1447,10 @@ improvements you have the following options:
 
   (make-local-variable 'outline-regexp)
   (setq outline-regexp (concat "^!\\(" ansys-outline-string "\\)+"))
+
+  ;; deviations from Emacs default behaviour
+  (delete-selection-mode t)
+  (set (make-local-variable 'scroll-preserve-screen-position) nil)
 
   (setq ansys-is-unix-system-flag (ansys-is-unix-system-p))
 

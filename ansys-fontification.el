@@ -1,6 +1,6 @@
-;;; ansys-fontification.el --- produces keywords for fontification
+;;; ansys-fontification.el-- building keywords and completions
 
-;; Copyright (C) 2006 - 2009 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2010 H. Dieter Wilhelm
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -526,10 +526,16 @@ By default Ansys keywords, get-functions, parametric-function and elements
   ;; (beginning-of-defun)
   ;; (fill-paragraph nil)
   (message "completions...done")
-  (goto-char (point-min))
-  (insert ";; This file was built by \"ansys-fontification.el\".\n\n")
-  (message "ansys-keywords.el done.")
 
+  ;; ---------- header ----------
+
+  (goto-char (point-min))
+  (insert ";; ansys-keyword.el -- Ansys mode completion and "
+  "highlighting variables. \n" ";; This file was built by "
+  "\"ansys-fontification.el\".\n\n"
+  ";; Copyright (C) 2006 - 2010 H. Dieter Wilhelm.\n\n")
+
+  (message "ansys-keywords.el done.")
 
   ;; --- end of let
 )  

@@ -1,25 +1,27 @@
-;;; --- managing ansys runs ---
+;;; ansys-process.el -- Managing Ansys runs and process
+
+;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 ;;;###autoload
 (defun ansys-abort-file (&optional arg) ;NEW
   "Writes an ansys abort file for terminating the current run.
 Normally the Ansys jobname is taken from the variable `ansys-job'
-you can change it with the equally named
-function (or type \\[ansys-job]).  The file (JOBNAME.abt) in the default
-directory contains the sole word \"nonlinear\".  The function
-prompts for an appropriate job name when ARG is negative,
-otherwise it uses a sensible default.  In case the default
-directory is not of your liking, use: `M-x cd'."
+you can change its value by calling the equally named
+function (or typing \\[ansys-job]).  The file (JOBNAME.abt) in
+the default directory contains the sole word \"nonlinear\".  The
+function prompts for an appropriate job name when ARG is
+negative, otherwise it uses a sensible default.  In case the
+default directory is not of your liking, use: `M-x cd'."
   (interactive "p")
   (unless arg (setq arg 0))
 					;  (debug)
-  (let ((filename ansys-job)
-	(default-job "file"))
+  (let (filename)
     (cond
      ((< arg 0)				;ask for job-name
       (setq filename
 	    (read-string
-	     (concat "job name: [" default-job "] ") nil nil default-job))
+	     (concat "job name: [" ansys-job "] ") nil nil
+	     ansys-job))
       (setq filename (concat filename ".abt")))
      (filename				;filname is known
       (setq filename (concat filename ".abt")))
@@ -28,7 +30,7 @@ directory is not of your liking, use: `M-x cd'."
 	(goto-char (point-min))
 	(if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
 	    (setq filename (concat (match-string 1) ".abt"))
-	  (setq filename "file.abt")))))
+	  (setq filename (concat ansys-job ".abt")))))
     (if (yes-or-no-p (concat "Write \"" default-directory filename "\"? "))
 	(ansys-write-abort-file filename)
       (message "Function \"ansys-abort-file\" canceled!"))))
@@ -192,7 +194,7 @@ clipboard."
 ;;       (message "Starting run...")
 ;;     (error "Run canceled"))
 ;;   (setenv "LM_LICENSE_FILE" ansys-license-file)
-;;   (setenv "PATH" (concat "/appl/ansys/ansys110/bin:" (getenv "PATH")))
+;;   (setenv "PATH" (concat "/appl/ansys/ansys120/bin:" (getenv "PATH")))
 ;;   (setq ansys-process
 ;; 	(start-process
 ;; 	 "ansys" "*Ansys*" ansys-program
@@ -249,9 +251,9 @@ with the Ansys /EXIT,all command which saves all model data."
 ;;;###autoload
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the Ansys help system.
-Alternatively one can use the Ansys \"/SYS, anshelp110\" command
-when running Ansys interactively and provided that anshelp110 (or
-anshelp110.chm on Windows) is found e. g. through the PATH
+Alternatively one can use the Ansys \"/SYS, anshelp120\" command
+when running Ansys interactively and provided that anshelp120 (or
+anshelp120.chm on Windows) is found e. g. through the PATH
 environment variable."
   (interactive)
   (if (string= ansys-help-file "")

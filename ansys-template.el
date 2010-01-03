@@ -1,35 +1,7 @@
+;;; ansys-template.el -- APDL code templates for Ansys mode
 
-;; Time-stamp: "2009-12-30 11:52:46 dieter"
+;; Copyright (C) 2006 - 20010  H. Dieter Wilhelm
 
-;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
-
-;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Maintainer: H. Dieter Wilhelm
-;; Created: 2006-02
-;; Version: 12.0.1
-;; Keywords: Languages, Convenience
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This code is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published
-;; by the Free Software Foundation; either version 3, or (at your
-;; option) any later version.
-;;
-;; This lisp script is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-;;
-;; Permission is granted to distribute copies of this lisp script
-;; provided the copyright notice and this permission are preserved in
-;; all copies.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, you can either send email to this
-;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
-
-
-;;; --- Macros and skeletons ---FIXME: redundant macros
 
 (defun ansys-display-skeleton ()	;NEW
   "Display code templates in another buffer."

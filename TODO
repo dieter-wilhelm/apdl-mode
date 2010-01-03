@@ -1,37 +1,43 @@
 * Bugs and deficiencies:
-** -help: cm is shadowed by cmblock
+** Parameter help: cm is shadowed by cmblock
 
-** User variable highlighting does not take into account
-   a.) a clearing of variables and b.) usage of variables before their
-   definitions (uninitialised variables) c.) the variable
-   fontification might clash with Ansys specifiers d.) string
-   substitution of %variables% in in strings does not highlight them
-   in the variable font
+** Highlighting: % and & operators in comments 
 
-** highlighting of % and & operators in comments 
-** VAR*VAR highlighting problem, when VAR clashes with Ansys command
+** Completion: Functions are not completed with parenthesis (`sin(')
 
-** functions are not completed with parenthesis (`sin(')
+** Completion: c*** command is not completed
 
-** when there is already a `&' in a format command M-j inserts another one
+** M-j: When there is already a `&' in a format command M-j
+   inserts a redundant one
 
-** -is-unix-sytem must be set for helper functions when
+** Setup: ansys-is-unix-sytem must be set for helper functions when
    ansys-mode is not yet invoked like -license-status!
    -check-sytem-type
 
-**  c*** command is not completed
+** Highlighting: User variable highlighting
+   does not take into account: a.) a clearing of variables and b.)
+   usage of variables before their definitions (uninitialised
+   variables) c.)  the variable fontification might clash with Ansys
+   specifiers d.)  string substitution of %variables% in in strings
+   does not highlight them in the variable font
 
 * v12.0.1:
 ** workload
 - bugs
 *** features?
-- Dieter's M-h
-
-- insert skeleton with C-c C-s when typing i
+- insert skeleton with C-c C-s i, send line C-c C-c ccc
 *** miscellaneous
-- update -mode-help, README
+- Ansys mode with cua- and delete-selection-mode? 
+  deleting with delete-selection-mode does not copy to kill-ring
+  
+- function for searching the job name -abort-file -display-error-file
+  file-exists-p working with $PATH or full function name only?  is
+  ansys a valid executable or rather ansys120?
 
-- what is now actually read from ENV?
+- -is-unix-sytem must be set for helper functions when ansys-mode is
+  not yet invoked like -license-status!  -check-sytem-type
+
+- update, restructure -mode-help
 
 - TODOs, FIXMEs in the code
 
@@ -56,9 +62,13 @@
 
 ** general release procedures
 
+README -- installation (Emacs Wiki) and accompanying files
+mode-help -- usage & configuration
+
 - update the mode help
   complete skeleton menus.
   update defcustom list in ansys-submit-bug-report
+  update version numbers, default names (tags-query-replace 120 130)
   checkdoc
   then dry run: Emacs 23.1 -Q testing: fontification,padt.mac /*commands
   and default command lines, every menu entry.
@@ -71,8 +81,8 @@
   page update all version numbers everywhere: Emacs wiki, Google Code
   with download, home page, elpa?
 
-- publication emails (with image): ANSYS.net (Ansys !!! Sheldon Imaoka
-  <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
+- publication emails (with image and news): ANSYS.net (Ansys !!!
+  Sheldon Imaoka <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
   sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
   <lkrueger@cadfem.de>), Alwin Perras
   <alwin.perras@continental-corporation.com>, AnsysWB community, Ansys
@@ -87,36 +97,14 @@
 
 ** schedule
 
--- January (workload, stabilisation)
-
--- February (freeze & checking & branching to 12.1.1 or 12.0.2)
-
-1.) bugs & documentation & updating
-2.) working state, compiling
-3.) feature freeze & checking
-4.) read Ansys release notes of 12.1 -> branch
-
--- April (release)
-
-0.) XP-Emacs package?
-3.) updating
-4.) release and publishing
-5.) enquire for users' meeting
-6.) presentation, ask Alwin for taking part in analysts' meeting
-
- a.) Need private LICENSE!
-     Ansys academic solutions for V11
- b.) The ultimate kick: Linux Notebook with windows emulation?
-
---- October/November
-
-User's meeting
-
 *** presentation
--- Very brief introduction: Why not Emacs?  Especially on Windows
-   Programmed before Microsoft was even founded, working on all
-   current OS All bells and whistle of a modern editor (drop file into
-   E)
+-- Very brief introduction: Emacs, why not?  Free, working on all
+   current OSs.  All bells and whistle of a modern editor (drop file
+   into E).  Chosen because with Vim, Emacs is the best editor of all,
+   but Especially on Windows Programmed before Microsoft was even
+   founded, Drawbacks of Emacs, need of getting used to it C-c, C-v,
+   C-x, C-y, C-z CUA-mode examples: (setq
+   scroll-preserve-screen-position t) (delete-selection-mode t)
 
 -- casual APDL file viewer (whetting the appetite)
    convenience features?
@@ -126,7 +114,8 @@ User's meeting
    code navigation (number blocks in .inp) C-c {
 
 -- APDL hacking
-   C-c C-u, C-c C-c
+   mouse selection ->copy to clipboard
+      C-c C-u, C-c C-c
    $ needs space(s)?
    ansys completion and emacs expansion C-c ] -- -close-block
    ,commands
@@ -143,16 +132,19 @@ User's meeting
    switch off menu, tools, scroll-bar
    Ansys mode help
    Emacs-calc
-   - C-c @ outline stuff with indirect-buffer
    online Ansys/Emacs process and debugging environment
    C-c C-u, C-c C-c,  C-c C-q
    tail mode of *.err C-c C-e
    abort file
-   bookmarks?
+   positions -> in bookmarks/registers/clone buffer?
+   C-c @ outline stuff with indirect-buffer
+
+Conclusion/Summary?
 
 * Further versions
 
 ** Parameter help and documentation
+- count number of user variables when displaying them
 
 - documentation in info format, refcard, etc; Emacs help guidelines
   GNU programming guideline: More requires?,
@@ -260,8 +252,9 @@ User's meeting
   must *go:label be unambiguous?
 
 ** Miscellaneous
+- Make Ansys mode also working solely with ansys-mode.el
 
-- make M-C-h more intelligent like M-h
+- make M-C-h more intelligent like M-h (if mark...)
 
 - speed concern: replace -find-duplicate-p with function argument to
   add-to-list

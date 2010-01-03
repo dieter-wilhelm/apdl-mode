@@ -2,6 +2,7 @@
 ;; `default_.el' can be used as a system wide startup file after
 ;; adjusting and renaming it to `default.el'.  And moving it e. g. to
 ;; `/usr/local/share/emacs/site-lisp' or `EMACS_INSTALLDIR/site-lisp'
+;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load-path

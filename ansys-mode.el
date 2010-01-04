@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-03 23:38:38 dieter"
+;; Time-stamp: "2010-01-04 16:20:33 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -56,6 +56,67 @@
 ;; Please consult the history section in the accompanying README file.
 
 ;;; Code:
+
+;; --- constants ---
+
+(defconst ansys_version "120"		;NEW_C
+  "Ansys version on which Ansys mode is based.")
+
+(defconst ansys_mode_version "1"	;NEW_C
+  "Ansys mode version number.")
+
+(defconst ansys-parameter-substitution-commands-regexp	;NEW
+  "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
+  "Regexp of command names which have a string behind them.")
+
+(defconst ansys-string-commands-regexp	;NEW
+  "C\\*\\*\\*\\|/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|\\*ABBR\\|/AN3D"
+  "Regexp of command names which have a string behind them.")
+
+(defconst ansys-variable-defining-commands ;association list
+  '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
+  . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
+    ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
+    ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
+    . "CMBLOCK")("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
+    ("\\*vge\\w*"."*VGET") ("\\*vfu\\w*"."*VFUN") ("\\*mfu\\w*"."*MFUN")
+    ("\\*vit\\w*"."*VITRP") ("\\*top\\*w"."*TOPER") ("\\*vop\\w*"."*VOPER")
+    ("\\*mop\\w*"."*MOPER") ("\\*sre\\w*"."*SREAD") ("\\*vsc\\w*"."*VSCFUN")
+    ("/inq\\w*"."/INQUIRE"); ("/fil\\w*"."/FILNAME") how that, *vfil? TODO:
+    )
+  "Alist for commands which define user variables.
+In the form of (regexp . command_string), intentionally excluded
+is the \"=\" assignment.")
+
+(defconst ansys-use-variables		;NEW_C
+  '("ARG[1-9]" "AR[1][0-9]")
+  "Variable containing the Ansys *USE variables regexp.
+ARG[1-9] and AR[1][0-9] are macro local variables and can be
+passed to the *USE command.  Additionally AR[2-9][0-9] are pure
+macro local variables.")
+
+(defconst ansys-format-commands-regexp	;New
+  "\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]"
+  "Regexp of command names which have one or more format lines.")
+
+(defconst ansys-maintainer-address	;FROM_C: Octave-mod
+  "Dieter Wilhelm <dieter@duenenhof-wilhelm.de>" ;bug-gnu-emacs@gnu.org
+  "Address of current maintainer of the Ansys mode.")
+
+(defconst ansys-comment-char ?!		;FROM_C: Octave-mod
+  "The Ansys comment character.")
+
+(defconst ansys-non-code-line-regexp "^\\s-*\\($\\|\\s<\\)" ;_C
+  "Regexp indicating a pure comment or an empty line.
+A \"pure comment\" line contrasting a \"code comment\" which
+follows code to be analysed from the Ansys interpreter.")
+
+(defconst ansys-condensed-input-line-regexp ".*\\$" ;NEW_C
+  "Regexp indicating a condensed input line.")
+
+(defconst ansys-comment-start-skip "\\S<+\\S-*" ;_C
+  "Regexp to match the start of an Ansys comment up to its body.
+Used for the variable `comment-start-skip'.")
 
 ;; --- defcustoms ---
 
@@ -117,7 +178,7 @@ file."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-program "ansys"		;NEW_C
+(defcustom ansys-program (concat "ansys" ansys-current-ansys-version)		;NEW_C
   "This variable stores the Ansys executable name.
 When the file is not in your search path, you have to funish the
 complete path specification.  For example:
@@ -126,7 +187,7 @@ function `ansys-program' for this."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-file "anshelp120"		;NEW_C
+(defcustom ansys-help-file (concat "anshelp" ansys-current-ansys-version)		;NEW_C
   "The Ansys \"Help System\" file name.
 It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to funish the complete path
@@ -279,6 +340,10 @@ A hook is a variable which holds a collection of functions."
 
 ;; --- variables ---
 
+(defvar ansys-indent-comment-string	;_C
+  (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
+  "String to insert when creating an Ansys code comment.")
+
 (defvar ansys-run-flag nil		;NEW_C
   "Non-nil means an Ansys job is already running.")
 
@@ -304,71 +369,6 @@ Variable is only used internally in the mode.")
 
 (defvar ansys-previous-major-mode ""	;NEW_C
   "The buffer's previous major mode (before Ansys mode).")
-
-;; --- constants ---
-
-(defconst ansys_version "12.0"		;NEW_C
-  "Ansys version on which Ansys mode is based.")
-
-(defconst ansys_mode_version "1"	;NEW_C
-  "Ansys mode version number.")
-
-(defconst ansys-parameter-substitution-commands-regexp	;NEW
-  "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
-  "Regexp of command names which have a string behind them.")
-
-(defconst ansys-string-commands-regexp	;NEW
-  "C\\*\\*\\*\\|/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|\\*ABBR\\|/AN3D"
-  "Regexp of command names which have a string behind them.")
-
-(defconst ansys-variable-defining-commands ;association list
-  '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
-  . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
-    ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
-    ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
-    . "CMBLOCK")("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
-    ("\\*vge\\w*"."*VGET") ("\\*vfu\\w*"."*VFUN") ("\\*mfu\\w*"."*MFUN")
-    ("\\*vit\\w*"."*VITRP") ("\\*top\\*w"."*TOPER") ("\\*vop\\w*"."*VOPER")
-    ("\\*mop\\w*"."*MOPER") ("\\*sre\\w*"."*SREAD") ("\\*vsc\\w*"."*VSCFUN")
-    ("/inq\\w*"."/INQUIRE"); ("/fil\\w*"."/FILNAME") how that, *vfil? TODO:
-    )
-  "Alist for commands which define user variables.
-In the form of (regexp . command_string), intentionally excluded
-is the \"=\" assignment.")
-
-(defconst ansys-use-variables		;NEW_C
-  '("ARG[1-9]" "AR[1][0-9]")
-  "Variable containing the Ansys *USE variables regexp.
-ARG[1-9] and AR[1][0-9] are macro local variables and can be
-passed to the *USE command.  Additionally AR[2-9][0-9] are pure
-macro local variables.")
-
-(defconst ansys-format-commands-regexp	;New
-  "\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]"
-  "Regexp of command names which have one or more format lines.")
-
-(defconst ansys-maintainer-address	;FROM_C: Octave-mod
-  "Dieter Wilhelm <dieter@duenenhof-wilhelm.de>" ;bug-gnu-emacs@gnu.org
-  "Address of current maintainer of the Ansys mode.")
-
-(defconst ansys-comment-char ?!		;FROM_C: Octave-mod
-  "The Ansys comment character.")
-
-(defconst ansys-non-code-line-regexp "^\\s-*\\($\\|\\s<\\)" ;_C
-  "Regexp indicating a pure comment or an empty line.
-A \"pure comment\" line contrasting a \"code comment\" which
-follows code to be analysed from the Ansys interpreter.")
-
-(defconst ansys-condensed-input-line-regexp ".*\\$" ;NEW_C
-  "Regexp indicating a condensed input line.")
-
-(defconst ansys-indent-comment-string	;_C
-  (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
-  "String to insert when creating an Ansys code comment.")
-
-(defconst ansys-comment-start-skip "\\S<+\\S-*" ;_C
-  "Regexp to match the start of an Ansys comment up to its body.
-Used for the variable `comment-start-skip'.")
 
 (defvar ansys-format "mac"	     ;FIXME:This is for the ansys macro
   "String representing the ansys format.")

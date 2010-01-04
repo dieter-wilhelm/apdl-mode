@@ -11,8 +11,7 @@
 ;for example: "c:\\emacs\\emacs-23.1" with Windows
 ;or "/usr/local/src/emacs-23.1/site-lisp" with Gnu/Linux 8-)
 
-(setq ansys-current-ansys-version "12.0") ;which Ansys version is 
-					;used in a header template
+(setq ansys-current-ansys-version "120") ;which Ansys version is used 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) levels 0,1,2 are available
@@ -52,23 +51,23 @@ calling a special Ansys customisation buffer." 'interactive)
 (if (string= window-system "x")		;Unix
     (progn
       ;; The Ansys executable
-      (setq  ansys-program "/appl/ansys_inc/v120/ansys/bin/ansys120")
+      (setq  ansys-program (concat "/appl/ansys_inc/v" ansys-current-ansys-version "/ansys/bin/ansys" ansys-current-ansys-version)
 
       ;; Tool for the license status
-      (setq ansys-lmutil-program "/appl/ansys_inc/shared_files/licensing/linop64/lmutil")
+      (setq ansys-lmutil-program "/appl/ansys_inc/shared_files/licensing/linx64/lmutil")
 
       ;; Ansys help browser executable
-      (setq ansys-help-file "/appl/ansys_inc/v120/ansys/bin/anshelp120"))
+      (setq ansys-help-file (concat "/appl/ansys_inc/v" ansys-current-ansys-version "/ansys/bin/anshelp" ansys-current-ansys-version)))
   ;; windows
   (progn
     (setq ansys-lmutil-program "C:\\Program Files\\Ansys Inc\\Shared Files\\licensing\\intel\\anslic_admin.exe")
 					;backslash '\"' on windows mandatory
-    (setq ansys-help-file "\"C:\\Program Files\\Ansys Inc\\v120\\CommonFiles\\HELP\\en-us\\ansyshelp.chm\"")))
+    (setq ansys-help-file (concat "\"C:\\Program Files\\Ansys Inc\\v"  ansys-current-ansys-version "\\CommonFiles\\HELP\\en-us\\ansyshelp.chm\""))))
 
 ;; for starting the solver
 (setq ansys-license "struct"	     ;which license to use for the run
       ansys-job "file"			;job name
-      ansys-license-file "27005@lic-rbg1" ;license server (or file)
+      ansys-license-file "27005@lic-rbg1" ;license server (or license file)
       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-04 16:20:33 uidg1626"
+;; Time-stamp: "2010-01-05 17:35:39 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -180,49 +180,61 @@ file."
 
 (defcustom ansys-program (concat "ansys" ansys-current-ansys-version)		;NEW_C
   "This variable stores the Ansys executable name.
-When the file is not in your search path, you have to funish the
-complete path specification.  For example:
-\"/ansys_inc/v120/ansys/bin/ansys120\".  You might use the
-function `ansys-program' for this."
+When the file is not in your search path, you have to specify the
+full qualified file name and not only the name of the executable.
+For example: \"/ansys_inc/v120/ansys/bin/ansys120\" and not only
+\"ansys120\".  You might customise this variable or use the
+function `ansys-program' to do this for the current session
+only."
   :type 'string
   :group 'Ansys-process)
 
 (defcustom ansys-help-file (concat "anshelp" ansys-current-ansys-version)		;NEW_C
   "The Ansys \"Help System\" file name.
 It is called with \\[ansys-start-ansys-help].  When the file is
-not in your search path, you have to funish the complete path
+not in your search path, you have to furnish the complete path
 specification.  For example:
-\"/ansys_inc/v120/ansys/bin/anshelp120\" or with the windows OS
-\"c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP
-\\en-us\\ansyshelp.chm\"."
+\"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX or under the
+Windows OS \"c:\\\\Program\ Files\\Ansys\
+Inc\\v120\\CommonFiles\\HELP \\en-us\\ansyshelp.chm\"."
   :type 'string
   :group 'Ansys-process)
 
 (defcustom ansys-lmutil-program
-  "/ansys_inc/shared_files/licensing/linop64/lmutil"	;NEW_C
+  "/ansys_inc/shared_files/licensing/linx64/lmutil"	;NEW_C
   "The FlexLM license manager utility executable name.
 When the file is not in your search path, you have to furnish the
 complete path.  For example:
-\"/ansys_inc/shared_files/licensing/linop64/lmutil\" or in the
-case of windows \"c:\\\\Program Files\\Ansys Inc\\Shared\ Files
-\\Licensing\\intel\\anslic_admin.exe.  Necessary for displaying
-the license status with `ansys-license-status'."
+\"/ansys_inc/shared_files/licensing/linx64/lmutil\" or in the
+case of a Windows OS \"c:\\\\Program Files\\Ansys Inc\\Shared\
+Files \\Licensing\\intel\\anslic_admin.exe.  This variable is
+used for displaying the license status with the function
+`ansys-license-status'."
   :type 'string
   :group 'Ansys-process)
 
 (defcustom ansys-license-file nil ;NEW_C
   "The FlexLM license file name or license server specification(s).
-The license server specification(s) must include the port number
-when it isn't 1055, i. e. the default port number:
-port_number@server_name, use the colon for multiple servers, for
-example \"27005@rbgs421x:27005@rbgs422x\".
+The license server specification(s) should include the port
+number even if it's the default port 1055 because the lmutil tool
+needs it in the following way: port_number@server_name, use the
+colon for multiple servers, for example
+\"27005@rbgs421x:27005@rbgs422x\".
 
-System settings and order of precedence: 1. ANSYSLMD_LICENSE_FILE
-environment variable, 2.)  The FLEXlm resource file: ~/.flexlmrc
-on Unix or somewhere in the Windows registry. 3.) The
-LM_LICENSE_FILE variable. 4.) The ansyslmd.ini file in the
-licensing directory (This is what anslic_admin is doing in an
-Ansys recommended installation).  5.) The license file itself."
+Setting this variable skips the effect of previously set
+environment variables, which have the following order of
+precedence: 1. ANSYSLMD_LICENSE_FILE environment variable, 2.)
+The FLEXlm resource file: ~/.flexlmrc on Unix or somewhere in the
+Windows registry. 3.) The LM_LICENSE_FILE variable. 4.) The
+ansyslmd.ini file in the licensing directory (This is what
+anslic_admin is doing in an Ansys recommended installation).  5.)
+The license file itself."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-ansysli-servers nil ;NEW_C
+  "Used to identify the server machine for the Licensing Interconnect.
+Set it to port@host. The default port is 2325."
   :type 'string
   :group 'Ansys-process)
 

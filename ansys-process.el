@@ -5,13 +5,13 @@
 ;;;###autoload
 (defun ansys-abort-file (&optional arg) ;NEW
   "Writes an ansys abort file for terminating the current run.
-Normally the Ansys jobname is taken from the variable `ansys-job'
-you can change its value by calling the equally named
-function (or typing \\[ansys-job]).  The file (JOBNAME.abt) in
-the default directory contains the sole word \"nonlinear\".  The
-function prompts for an appropriate job name when ARG is
-negative, otherwise it uses a sensible default.  In case the
-default directory is not of your liking, use: `M-x cd'."
+The jobname is taken from the variable `ansys-job' you can change
+it by calling the equally named function (or typing
+\\[ansys-job]).  The file jobname.abt in the current directory
+contains the sole word \"nonlinear\".  This function prompts for
+an appropriate job name when ARG is negative.  In case the
+default directory is not of your liking you could use previously:
+`M-x cd'."
   (interactive "p")
   (unless arg (setq arg 0))
 					;  (debug)
@@ -20,7 +20,7 @@ default directory is not of your liking, use: `M-x cd'."
      ((< arg 0)				;ask for job-name
       (setq filename
 	    (read-string
-	     (concat "job name: [" ansys-job "] ") nil nil
+	     (concat "Job name: [" ansys-job "] ") nil nil
 	     ansys-job))
       (setq filename (concat filename ".abt")))
      (t					;search for /filn
@@ -28,18 +28,18 @@ default directory is not of your liking, use: `M-x cd'."
 	(goto-char (point-min))
 	(if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
 	    (setq filename (concat (match-string 1) ".abt"))
-	  (setq filename (concat ansys-job ".abt")))))
+	  (setq filename (concat ansys-job ".abt"))))))
     (if (yes-or-no-p (concat "Write \"" default-directory filename "\"? "))
 	(ansys-write-abort-file filename)
-      (message "Function \"ansys-abort-file\" canceled!")))))
+      (message "ansys-abort-file canceled!"))))
 
 (defun ansys-write-abort-file (filename) ;NEW
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
   (find-file filename)
   (delete-region (point-min) (point-max))
-  (insert "nonlinear")
+  (insert "nonlinear\n")
   (save-buffer)
-  (message (concat "Wrote \"%s\" into " default-directory ".") filename))
+  (message "Wrote \"%s\" into \"%s\."" default-directory filename))
 
 ;;;###autoload
 (defun ansys-display-error-file ()	;NEW

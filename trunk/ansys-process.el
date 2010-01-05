@@ -46,13 +46,11 @@ default directory is not of your liking, use: `M-x cd'."
   "Open the current solver error file in the current directory.
 You might change the directory with \"M-x `cd'\".  The error file
 name consists of the current job name and the suffix '.err'.  For
-the job name the variable `ansys-job' is used (which is
-initialised to \"file\", in accordance to the Ansys default job
-name). You can change the job name interactively either with the
-\"\\[ansys-job]\" or in the customisation facility (by calling
-`ansys-customise-ansys')."
+the job name the variable `ansys-job' is used. You can change the
+job name interactively either with the \"\\[ansys-job]\" or in
+the customisation facility (by calling `ansys-customise-ansys')."
   (interactive)
-  (let (file ansys-job)
+  (let ((file ansys-job))
     (setq file (concat file ".err"))
     (find-file-read-only-other-window file)
     (goto-char (point-max))
@@ -266,7 +264,7 @@ displaying the license status."
   (cond
    ((ansys-is-unix-system-p)
     (ansys-license-file-check)
-    (ansys-ansysli-servers-check)
+;    (ansys-ansysli-servers-check)
     (message "Retrieving license status, please wait...")
     (with-current-buffer (get-buffer-create "*LM-Util*")
       (delete-region (point-min) (point-max)))
@@ -306,7 +304,8 @@ displaying the license status."
 	;; add some comments
 	(goto-char (point-min))
 	(insert (propertize
-		 " -*- License status -*-\n" 'face 'match))
+		 (concat " -*- License status from " ansys-license-file
+		 " -*-\n") 'face 'match))
 
 	(goto-char (point-max))
 	(insert "\n")
@@ -478,13 +477,14 @@ environment variable ANSYSLI_SERVERS for it."
     variable ANSYSLI_SERVERS."))))
 
 (defun ansys-license-file ( file)		;NEW
-  "Change the Ansys license file name.
-And specify it in the variable `ansys-license-file' which can
-either be the license file name or license server
-specification(s).  The server specification must include the port
-number when it isn't 1055, the default port number:
-port_number@server_name, multiple server names are separated by a
-colon, for example \"27005@rbgs421x:27005@rbgs422x:...\"."
+  "Change the Ansys license file name or license server(s).
+And specify the string FILE in the variable `ansys-license-file'
+which can either be the license file name or license server(s)
+specification.  The server specification should include the port
+number for the lmutil tool even when it's 1055, the default port
+number: port_number@server_name, multiple server names are
+separated by a colon, for example
+\"27005@rbgs421x:27005@rbgs422x:...\"."
   (interactive "sLicense server or license file :")
   (cond ((string= file "")
 	 (ansys-license-file-check))

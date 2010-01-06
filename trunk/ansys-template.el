@@ -167,14 +167,14 @@
   "\n!! ------------------------------" \n
   "!@@ -- view settings --" \n
   \n
-  "!/view !viewing direction"_ \n
-  "!/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
-  "!/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
-  "!/focus,1 $ /repl !focus to csys,0" \n
+  "/view !viewing direction"_ \n
+  "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
+  "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
+  "/focus,1 $ /repl !focus to csys,0" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
-  "!/auto ! automatic fit mode" \n
-  "!/user ! keep last display scaling"\n
-  "!/pstatus ! display window stats specifications" \n
+  "/auto ! automatic fit mode" \n
+  "/user ! keep last display scaling"\n
+  "/pstatus ! display window stats specifications" \n
   )
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -346,12 +346,12 @@
   \n
   "/plopts,wp,1 !display working plane" \n
   "/repl" \n
-  "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
-  "!wpoffs,,-100 !x,y,z offset" \n
-  "!wprota,0,90,0 !z,x,y axis of rotation" \n
-  "!wpstyl,,,,,,1 !type spec 0,1,2" \n
+  "wpcsys,1,0 !align wp in WIN with specified c-sys" \n
+  "wpoffs,,-100 !x,y,z offset" \n
+  "wprota,0,90,0 !z,x,y axis of rotation" \n
+  "wpstyl,,,,,,1 !type spec 0,1,2" \n
   "!wpstyl,stat" \n
-  "!csys,wp !change co to wp" \n
+  "csys,wp !change co to wp" \n
   )
 
 ;; PlotCtrls ->Multi-plot-Ctrls???
@@ -371,7 +371,7 @@
   nil
   "\n!@@@ - numbering controls -" \n
   \n
-  "/pnum,kp!,line,area,volu,node,elem,tabn,sval,on" \n
+  "/pnum,kp,1 !line;area;volu;node;elem;tabn;sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/replot"
   )
@@ -382,10 +382,10 @@
   nil
   "\n!@@@ - symbol display -" \n
   \n
-  "!! /pbc,all,,1 !bc symbols"\n
-  "!! /psf !surface loads" \n
-  "!! /pbf !body loads" \n
-  "!! /psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
+  "/pbc,all,,1 !bc symbols"\n
+  "/psf !surface loads" \n
+  "/pbf !body loads" \n
+  "/psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
   "!! /psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
   "!! /psymb,stat" \n
   )
@@ -450,21 +450,22 @@
   "\n!! ------------------------------" \n
   "!@@ -- meshing --" \n
   \n
+  ""					;
   "!! mat,Steel" \n
-  "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
-  "!! mshape,0 !0: quads 1:tri (supported shapes)" \n
+  "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
+  "mshape,0 !0: quads 1:tri (supported shapes)" \n
   "esize,1 ! element edge length" \n
-  "!! lesize,all,,,3 ! SPACE neg: center to end division" \n
-  "!! ! "
-  "vmesh,all" \n
-  "!! amesh,all" \n
-  "!! -- cyclic symmetric meshing --" \n
-  "!! cyclic ! check sectors in case of cyclic sym." \n
-  "!! *status ! look for CYCLIC_XREF" \n
-  "!! cyclic,status" \n
-  "!! /cycexpand ! expand graphics rep." \n
+  "lesize,all,,,3 ! SPACE neg: center to end division" \n
   \n
-  "!! /pnum,mat,1 $ eplot" \n
+  "vmesh,all" \n
+  "amesh,all" \n
+  "!! -- cyclic symmetric meshing --" \n
+  "cyclic ! check sectors in case of cyclic sym." \n
+  "*status ! look for CYCLIC_XREF" \n
+  "cyclic,status" \n
+  "/cycexpand ! expand graphics rep." \n
+  \n
+  "/pnum,mat,1 $ eplot" \n
   )
 
 (define-skeleton ansys-skeleton-geometry
@@ -489,11 +490,12 @@
   \n
   "!@@@ - booleans -" \n
   \n
-  "!! aovlap,all ! overlap areas" \n
-  "!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
-  "!! asbw, !substract by wp" \n
-  "!! /pnum,area,1 $ aplot" \n
-  "!! vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
+  "aovlap,all ! overlap areas" \n
+  "asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
+  "asbw, !substract by wp" \n
+  "/pnum,area,1 $ aplot" \n
+  "vglue,all" \n
+  "vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
   )
 
 (define-skeleton ansys-skeleton-material-def

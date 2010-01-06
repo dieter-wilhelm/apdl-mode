@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-06 16:56:07 uidg1626"
+;; Time-stamp: "2010-01-06 17:18:41 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -391,7 +391,7 @@ Variable is only used internally in the mode.")
   "Regexp indicating a continuation line (of the *MSG command).")
 
 (defconst ansys-begin-keywords		;NEW_C
-  '("\\*[dD][oO]" "\\*[dD][oO][wW][hH][iI][lL][eE]"
+  '("\\*[dD][oO]" "\\*[dD][oO][wW][hH]?[iI]?[lL]?[eE]?"
     "\\*[iI][fF].*[tT][hH][eE][nN]" "\\*[cC][rR][eE][aA][tT][eE]")
   "Regexps describing Ansys block begin keywords.")
 

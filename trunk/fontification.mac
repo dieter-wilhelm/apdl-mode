@@ -1,3 +1,4 @@
+bla = 3
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
@@ -19,7 +20,7 @@ N = rotx( 14.5)
 Alpha1 = -360./(2*N)
 Alpha2 = +360./(2*N)
 Depth=ARG1		 !ARG{1-9}, AR{10-19} = "*use" variables
-cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder
+cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
 Xc = != empty rhs clears variables
 Steel=1
 mp, nuxy,Steel,0.3 ! Poisson No

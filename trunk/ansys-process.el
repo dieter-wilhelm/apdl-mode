@@ -39,7 +39,7 @@ default directory is not of your liking you could use previously:
   (delete-region (point-min) (point-max))
   (insert "nonlinear\n")
   (save-buffer)
-  (message "Wrote \"%s\" into \"%s\."" default-directory filename))
+  (message "Wrote \"%s\" into \"%s\"." default-directory filename))
 
 ;;;###autoload
 (defun ansys-display-error-file ()	;NEW
@@ -150,9 +150,9 @@ clipboard."
     (error "Ansys already running, won't start subsequent runs"))
   (if (y-or-n-p
        (concat
-	"Start run: (l-type: " ansys-license ", job: " ansys-job ", server: " ansys-license-file ")? "))
+	"Start run?  (l-type: " ansys-license ", job: " ansys-job " in " default-directory ", server: " ansys-license-file ")"))
       (message "Starting the Ansys solver...")
-    (error "Ansys run canceled"))
+    (error "ansys-start-ansys canceled"))
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 ;  (comint-send-string (get-process ansys-process-name) "\n")
   (display-buffer ansys-process-buffer 'other-window)

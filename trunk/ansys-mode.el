@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-05 17:35:39 uidg1626"
+;; Time-stamp: "2010-01-06 16:53:24 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -76,6 +76,7 @@
 (defconst ansys-variable-defining-commands ;association list
   '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
   . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
+  ("\\*if\\>" . "\\*IF")
     ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
     ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
     . "CMBLOCK")("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
@@ -170,11 +171,11 @@ To take effect after setting this variable you have to recall
   :group 'Ansys)
 
 (defcustom ansys-job "file"			;NEW_C
-  "Variable determining the Ansys job name.
-The default job name is 'file'.  See `ansys-abort-file' for a way
-of stopping a run in a controlled way and
-`ansys-display-error-file' for viewing the respective error
-file."
+  "Variable storing the Ansys job name.
+It is initialised to 'file' (which is also the Ansys default job
+name).  See `ansys-abort-file' for a way of stopping a run in a
+controlled way and `ansys-display-error-file' for viewing the
+respective error file."
   :type 'string
   :group 'Ansys-process)
 
@@ -753,6 +754,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
 	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
 	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]
+	      ["Modeling" ansys-skeleton-geometry :help "Operations for geometric modeling"]
 	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
 	      ["Contact Pair Definition"           ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
 	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]

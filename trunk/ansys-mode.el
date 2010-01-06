@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-06 16:53:24 uidg1626"
+;; Time-stamp: "2010-01-06 16:56:07 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -76,7 +76,6 @@
 (defconst ansys-variable-defining-commands ;association list
   '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
   . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
-  ("\\*if\\>" . "\\*IF")
     ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
     ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
     . "CMBLOCK")("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")

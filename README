@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-03 23:36:19 dieter"
+Time-stamp: "2010-01-05 19:44:37 uidg1626"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -99,8 +99,8 @@ of them.
   i. e. with writting a "nickname" Emacs exchanges the characters with
   a whole code template
 
-* Ansys mode changes Emacs default behaviours to smooth the transition
-  from other editors
+* Ansys mode changes some Emacs defaults to smooth the transition from
+  other editors
 
 As a visual example, a screen-shot on EmacsWiki and Google code show
 an Emacs frame with a ripped off Ansys menu field.  The APDL file is
@@ -288,7 +288,7 @@ some code is based and the version of the Ansys mode (1) itself.
 * Reworked and hopefully improved the mode's help and README
 
 * The output from the LMUtil license status tool (C-c C-l) is now
-  filtered.
+  filtered to be more concise.
 
 * The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
   (C-c C-u) commands are now generalised so that they are also doing
@@ -300,10 +300,7 @@ some code is based and the version of the Ansys mode (1) itself.
 
 * Ansys mode tries to gather information from the OS environment when
   the variable `ansys-license-file' is not set by the user and uses
-  Ansys standard names as default values for others.
-
-* TODO:  job name Ansys mode searches in the current APDL file for the proper Ansys
-
+  now Ansys standard names as default values for some more variables.
 
 * The variable summary is now sorted according to their occurance and
   not any longer in variable "definition types"

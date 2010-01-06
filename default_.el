@@ -64,10 +64,12 @@ calling a special Ansys customisation buffer." 'interactive)
 					;backslash '\"' on windows mandatory
     (setq ansys-help-file (concat "\"C:\\Program Files\\Ansys Inc\\v"  ansys-current-ansys-version "\\CommonFiles\\HELP\\en-us\\ansyshelp.chm\""))))
 
-;; for starting the solver
+;; for starting the solver & ansys-license-status
 (setq ansys-license "struct"	     ;which license to use for the run
       ansys-job "file"			;job name
-      ansys-license-file "27005@lic-rbg1" ;license server (or license file)
+      ansys-license-file "27005@lic-rbg1:27005@lic-rbg2" ;
+					;license servers (or license file name)
+					;specify even the default port for lmutil 
       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

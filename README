@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-07 23:40:28 dieter"
+Time-stamp: "2010-01-07 23:46:40 dieter"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -414,7 +414,7 @@ ansys-dynamic-highlighting-flag is set or any time you are activating
 the variable display (with C-c C-v in the maximum highlighting level).
 
 Ansys "format line" (multi-line) and "user variable" highlighting
-(when above mentioned flag ist not set) are somewhat brittle, please
+(when above mentioned flag is not set) are somewhat brittle, please
 use M-o M-o to update the fontification in case the format line and
 all variables are not highlighted correctly.
 

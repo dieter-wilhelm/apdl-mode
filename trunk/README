@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-05 19:44:37 uidg1626"
+Time-stamp: "2010-01-07 10:14:19 uidg1626"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -154,12 +154,14 @@ RET' for every new or existing APDL file.
 Extract the files somewhere on disc and put the following paragraph
 into your ".emacs" configuration file (in your home directory), adjust
 the stuff in capital letters, restart Emacs and ansys-mode will be
-automatically applied for all files with suffixes ".mac" and ".inp".
+automatically applied for all files with suffixes ".mac", ".dat" and
+".inp".
 
     (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
       ;assuming you extracted the files on drive "c:"
       ;for example: "c:\\emacs\\emacs-23.1"
     (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
+    (add-to-list 'auto-mode-alist '("\\.dat\\'" . ansys-mode))
     (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
     (autoload 'ansys-mode "ansys-mode" nil t)
 
@@ -191,12 +193,13 @@ mode for every interesting file.
 
 * automatic mode assignment
 
-When you intend to apply the mode automatically, e. g. for all files
-you are opening with the extensions '.mac' and '.inp' ( .inp is the
-WorkBench default solver input file suffix), add the following to your
-'.emacs' file:
+When you intend to apply the mode automatically, for all files with
+the extensions ".mac", ".dat" and ".inp" ( .dat and .inp are
+WorkBench's solver input file suffixes) you are opening, add the
+following to your '.emacs' file:
 
      (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+     (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
 
 The suffix below belongs to the "anys neutral file" export format
@@ -302,8 +305,8 @@ some code is based and the version of the Ansys mode (1) itself.
   the variable `ansys-license-file' is not set by the user and uses
   now Ansys standard names as default values for some more variables.
 
-* The variable summary is now sorted according to their occurance and
-  not any longer in variable "definition types"
+* The variables in the variable summary are now sorted according to
+  their first occurance and not any longer in "definition types"
 
 * Added menu entry for reloading Ansys Mode for the case when certain
   customisation options in the code files itself are changed and

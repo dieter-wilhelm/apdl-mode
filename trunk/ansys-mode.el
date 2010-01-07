@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-06 17:18:41 uidg1626"
+;; Time-stamp: "2010-01-07 18:43:50 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -136,17 +136,17 @@ Used for the variable `comment-start-skip'.")
 
 (defcustom ansys-highlighting-level 1
   "This variable sets the level of highlighting.
-There are three levels available, 0, a minimalistic level
-optimised for speed and viewing of very large files (like
-WorkBench input files), 1 and 2 (the maximum decoration).  Level
-0: highlights only the minimum (unambiguous) Ansys command names
-and variable names defined with '='.  In level 1: only the
+There are three levels available, 0 a minimalistic level
+optimised for speed and working with very large files (like
+WorkBench solver input files), 1 and 2.  Level 0 highlights only
+the minimum (unambiguous) length of Ansys command names and
+variable names defined with '='.  Level 1 highlights only
 complete command names, together with functions, elements,
-deprecated elements, undocumented commands, strings in commands
-and the APDL operators.  In level 2: the same as in 1, except
-that user variables and unambiguous command names are highlighted
-as well (and possibly solver ignored characters which can be
-appended)."
+deprecated elements, undocumented commands, strings from string
+commands and the APDL operators.  Level 2 is the same as 1,
+except that all user variables and unambiguous command
+names (also solver-ignored characters behind them) are
+highlighted as well."
   :type 'integer
   :group 'Ansys)
   :link '(variable-link font-lock-maximum-decoration )
@@ -159,13 +159,14 @@ This variable is used by the `ansys-skeleton-header' template."
 
 (defcustom ansys-dynamic-highlighting-flag nil ;NEW_C
   "Non-nil means that Ansys mode highlights user defined variables.
-Warning: This option is computational expensive and--depending on
-the file size and your system--it might make your editing
+Warning: This option is computational expensive and --depending
+on the file size and your hardware --it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
 user variables is only implemented for files with the extension
-\".mac\" otherwise the fontification of variables is only static.
-To take effect after setting this variable you have to recall
-`ansys-mode'."
+\".mac\" and in the highest highlighting level (please see the
+variable `ansys-highlighting-level') otherwise the fontification
+of variables is only static.  To take effect after setting this
+variable you have to recall `ansys-mode'."
   :type 'boolean
   :group 'Ansys)
 
@@ -549,14 +550,23 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (load "ansys-keyword")
 
+(let (;; = variable defs + reserved _names
+      ;; wie need something behind the = otherwise it's a cleanup
+      ;; variables + reserved _names (max. 32 chars long)
+      (variable_r
+       "^\\s-*\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-_]")
+      ;; reserved vars consisting of a single "_" are valid in Ansys 12.1
+      (reserved_vars_r
+      "\\_<\\(_[[:alnum:]_]\\{0,31\\}\\>\\)"))
+
 ;; font-lock-keyword-face is the default face
 (defconst ansys-font-lock-keywords
   `(
+    (,variable_r 1 font-lock-variable-name-face); overwritting commands
+
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
 	      ansys-command-regexp
 	      "\\)") 1 font-lock-keyword-face)
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
-     font-lock-variable-name-face t)) ; variables (max. 32 chars long)
     )
   )
 
@@ -581,6 +591,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
     (,ansys-element-regexp . font-lock-builtin-face)
+
+    ;; reserved variable names
+    (,reserved_vars_r 1 font-lock-warning-face)
+
+    ;; variables
+    (,variable_r 1 font-lock-variable-name-face)
+
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
     (,(concat "\\<\\("
 	      ansys-get-function-regexp
@@ -591,10 +608,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
 	      ansys-command-regexp-1
 	      "\\)\\>") 1 font-lock-keyword-face)
-    ;; = variable defs, overwritting commands
-    ;; wie need something behind the = otherwise it's a cleanup
-  ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]"
-   1 font-lock-variable-name-face t) ; variables (max. 32 chars long)
 
   ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
@@ -611,8 +624,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
     ("%" 0 font-lock-type-face t) ;single % acts as a format
     		  ;specifier and pair %.% is a parameter substitution
-;; reserved words
-    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
+
     ;; /eof is special: it crashes Ansys in interactive mode
     ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
     ;; *use variables, local macro call arguments
@@ -639,6 +651,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
        ;is possible behind /COM), no separating comma necessary
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
     (,ansys-element-regexp . font-lock-builtin-face)
+
+    ;; reserved vars consisting of a single "_" are valid in A. 12.1
+    (,reserved_vars_r 1 font-lock-warning-face)
+
+    ;; = variable defs (with reserved _names), overwritting commands
+    (,variable_r (1
+		 font-lock-variable-name-face)) ; variables (max. 32 chars long)
+
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
 
     ;; get- and parametric-functions
@@ -660,9 +680,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     	      ansys-command-regexp-2c
     	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
 
-    ;; = variable defs, overwritting commands
-    ("^\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-]" (1
-     font-lock-variable-name-face t)) ; variables (max. 32 chars long)    ;; some operators
+    ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
     (":" . 'font-lock-type-face)   ;colon loops only
 
@@ -671,22 +689,21 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
     ;; multiline format constructs
 ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
-      2 font-lock-doc-face t)
+ 2 font-lock-doc-face t)
 
-;; ampersand is redundant with multiline fontlocking
+    ;; ampersand is redundant with multiline fontlocking
     ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
     ("%" 0 font-lock-type-face prepend) ;single % acts as a format
     		  ;specifier and pair %.% is a parameter substitution
-;; reserved words
-    ("\\_<\\(_\\w+\\>\\)" 1 font-lock-warning-face) ;reserved words
+
     ;; /eof is special: it crashes Ansys in interactive mode
     ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
     ;; *use variables, local macro call arguments
-    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
 
-    (ansys-highlight-variable . font-lock-variable-name-face)
-
-    ))
+(ansys-highlight-variable . font-lock-variable-name-face)
+))
+)
 
 (defconst ansys-font-lock-keyword-list	;NEW_C
       '(ansys-font-lock-keywords
@@ -2475,6 +2492,7 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
     (save-match-data
       (let (res var com)	; Start with Ansys *USE vars
 	(setq ansys-user-variables ())
+
 	(dolist (command ansys-variable-defining-commands)
 	  (setq com (car command))
 	  (goto-char (point-min))
@@ -2493,9 +2511,11 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
 			   (list var (line-number-at-pos))))))
 
  	;; Ansys = assignment
+	(goto-char (point-min))
  	(while (re-search-forward
- "[^_]\\(\\<[[:alpha:]][[:alnum:]_]\\{0,31\\}\\)\\s-*="
- nil t)
+		;; search for reserved variables as well
+		"\\_<\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*="
+		nil t)
  	  (setq var (match-string-no-properties 1))
  	  (unless
  	      (or (ansys-in-string-or-comment-p)

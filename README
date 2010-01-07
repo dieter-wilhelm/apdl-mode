@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-07 10:14:19 uidg1626"
+Time-stamp: "2010-01-07 23:40:28 dieter"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -293,11 +293,12 @@ some code is based and the version of the Ansys mode (1) itself.
 * The output from the LMUtil license status tool (C-c C-l) is now
   filtered to be more concise.
 
-* The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
-  (C-c C-u) commands are now generalised so that they are also doing
-  some useful stuff without a running Ansys process (they copy in that
-  case the cursor line/the chosen region and from the file beginning
-  to the cursor line, respectively, to the clipboard).
+* The `ansys-send-to-ansys' (C-c C-c) and the
+  `ansys-copy-or-send-above' (C-c C-u) commands are now generalised so
+  that they are also doing some useful stuff without a running Ansys
+  process (they copy in that case the cursor line/the chosen region
+  and from the file beginning to the cursor line, respectively, to the
+  clipboard).
 
 * Added tooltips to all Ansys menu entries.
 
@@ -306,7 +307,8 @@ some code is based and the version of the Ansys mode (1) itself.
   now Ansys standard names as default values for some more variables.
 
 * The variables in the variable summary are now sorted according to
-  their first occurance and not any longer in "definition types"
+  their first occurance and not any longer in "definition types".  Now
+  component names are included with the variable highlighting.
 
 * Added menu entry for reloading Ansys Mode for the case when certain
   customisation options in the code files itself are changed and
@@ -408,12 +410,13 @@ TODO file.
 
 The "user variable" highlighting is still experimental, new variable
 definitions are taken into account only when the variable
-ansys-dynamic-highlighting-flag is set or any times when you activate
+ansys-dynamic-highlighting-flag is set or any time you are activating
 the variable display (with C-c C-v in the maximum highlighting level).
 
-Ansys "format line" (multi-line) and "user variable" highlighting is
-somewhat brittle, please use M-o M-o to update the fontification in
-case the format line and all variables are not highlighted correctly.
+Ansys "format line" (multi-line) and "user variable" highlighting
+(when above mentioned flag ist not set) are somewhat brittle, please
+use M-o M-o to update the fontification in case the format line and
+all variables are not highlighted correctly.
 
 === Getting help ===
 

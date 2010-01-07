@@ -36,14 +36,15 @@ calling a special Ansys customisation buffer." 'interactive)
 ;; file suffixes for autoloading of ansys-mode
 
 ;; appropriate file suffixes for which Ansys mode is automatically
-;; called for
+;; called for .mac is the macro suffix of ansys i. e. these files can
+;; be called directly from the Ansys command line (without the suffix
+;; .mac)
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
-;; .mac is the macro suffix of ansys i. e. these files can be called
-;; directly from the command line (without the suffix)
-(add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
-;; this is the suffix of WorkBench solver input files
+;;  (.dat and .inp are WorkBench's solver input file suffixes)
+(add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
+(add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
+;; this is the suffix for "Ansys Neutral Files" which include some APDL.
 (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-;; this is the suffix for "Ansys Neutral Files".
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; processes stuff

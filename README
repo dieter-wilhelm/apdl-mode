@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-08 06:16:16 dieter"
+Time-stamp: "2010-01-08 10:29:48 uidg1626"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -31,7 +31,7 @@ the Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 = Installation
 = Usage and customisation
 = Experienced Emacs users
-= History
+= History and News
 = Resources
 = Bugs and Problems
 
@@ -194,13 +194,15 @@ mode for every interesting file.
 * automatic mode assignment
 
 When you intend to apply the mode automatically, for all files with
-the extensions ".mac", ".dat" and ".inp" ( .dat and .inp are
+the extensions ".mac", ".dat", ".inp" and ".anf" ( .dat and .inp are
 WorkBench's solver input file suffixes) you are opening, add the
 following to your '.emacs' file:
 
      (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
      (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
+     ;; this is the suffix for "Ansys Neutral Files" which include some APDL.
+     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
 The suffix below belongs to the "anys neutral file" export format
 which contains also an APDL header and footer.
@@ -258,7 +260,7 @@ classical Ansys macro library.
 
 Ansys mode changes the default behaviour of Emacs
 
-Warning globally: (delete-selection-mode t)
+globally: (delete-selection-mode t)
 
 locally: (setq scroll-preserve-screen-position t)
 locally: M-h (mark-paragraph) has improved, in my opinion
@@ -273,7 +275,7 @@ Markus Triska,
 Mathias Dahl,
 rms
 
-== History: ==
+== History and News ==
 
 The version scheme is a mixture of the Ansys version (12.0) on which
 some code is based and the version of the Ansys mode (1) itself.
@@ -291,14 +293,13 @@ some code is based and the version of the Ansys mode (1) itself.
 * Reworked and hopefully improved the mode's help and README
 
 * The output from the LMUtil license status tool (C-c C-l) is now
-  filtered to be more concise.
+  filtered to be better readable and concise.
 
-* The `ansys-send-to-ansys' (C-c C-c) and the
-  `ansys-copy-or-send-above' (C-c C-u) commands are now generalised so
-  that they are also doing some useful stuff without a running Ansys
-  process (they copy in that case the cursor line/the chosen region
-  and from the file beginning to the cursor line, respectively, to the
-  clipboard).
+* The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
+  (C-c C-u) commands are now generalised so that they are also doing
+  some useful stuff without a running Ansys process (they copy in that
+  case the cursor line/the chosen region and from the file beginning
+  to the cursor line, respectively, to the clipboard).
 
 * Added tooltips to all Ansys menu entries.
 
@@ -307,8 +308,7 @@ some code is based and the version of the Ansys mode (1) itself.
   now Ansys standard names as default values for some more variables.
 
 * The variables in the variable summary are now sorted according to
-  their first occurance and not any longer in "definition types".  Now
-  component names are included with the variable highlighting.
+  their first occurance and not any longer in "definition types"
 
 * Added menu entry for reloading Ansys Mode for the case when certain
   customisation options in the code files itself are changed and
@@ -321,6 +321,8 @@ some code is based and the version of the Ansys mode (1) itself.
 
 * Removed "buffer has no process" bug when killing an ansys-mode
   buffer.
+
+=== Version 11.0.1 ===
 
 * Submitting interactively Ansys commands (via minibuffer query not
   only written in a macro file) to the solver process,
@@ -406,15 +408,16 @@ http://www.xansys.org -- ansys online community
 For an overview of the outstanding issues please have a look in the
 TODO file.
 
-The "user variable" highlighting is still experimental, new variable
-definitions are taken into account only when the variable
-ansys-dynamic-highlighting-flag is set or any time you are activating
-the variable display (with C-c C-v in the maximum highlighting level).
+The "user variable" highlighting is still experimental, newly edited
+variable definitions are taken into account only when the variable
+ansys-dynamic-highlighting-flag is set (for very large files this
+slows Emacs and this flag is only implemented for ".mac" files) or any
+times when you activate the variable display (with C-c C-v) and the
+maximum highlighting level.
 
-Ansys "format line" (multi-line) and "user variable" highlighting
-(when above mentioned flag is not set) are somewhat brittle, please
-use M-o M-o to update the fontification in case the format line and
-all variables are not highlighted correctly.
+Ansys "format line" (multi-line) and "user variable" highlighting is
+somewhat brittle, please use M-o M-o to update the fontification in
+case the format line and all variables are not highlighted correctly.
 
 === Getting help ===
 

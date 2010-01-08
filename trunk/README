@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-07 23:46:40 dieter"
+Time-stamp: "2010-01-08 06:16:16 dieter"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -321,8 +321,6 @@ some code is based and the version of the Ansys mode (1) itself.
 
 * Removed "buffer has no process" bug when killing an ansys-mode
   buffer.
-
-=== Version 11.0.1 ===
 
 * Submitting interactively Ansys commands (via minibuffer query not
   only written in a macro file) to the solver process,

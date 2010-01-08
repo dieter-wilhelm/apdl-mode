@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-08 20:49:50 uidg1626"
+Time-stamp: "2010-01-08 21:10:05 uidg1626"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -40,13 +40,13 @@ the Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 The code is based on Ansys version 12.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
 Emacs 23.1 under XP and GNU/Linux.  The code won't run without minor
-adaptions with Emacs 21.4.  Please visit
-http://ftp.gnu.org/pub/gnu/emacs/windows/ for an official versions of
-GNU Emacs.  If possible grab the package with the preconfigured Ansys
-mode together together with Emacs at above Googel Code site and unpack
-the archive in any directory.  Optionally you can run the program
-addpm.exe (located in the bin directory) to add an Emacs entry to the
-Windows Start menu (please refer to the README.W32 file).
+adaptions with Emacs 21.4.
+
+If possible grab the Win32 package with a preconfigured Ansys mode
+together with a precompiled Emacs at above Googel Code site and unpack
+the archive in any directory on your system.  Or visit
+http://ftp.gnu.org/pub/gnu/emacs/ for an original versions of GNU
+Emacs.
 
 The Ansys solver control and communication capabilities are somewhat
 restricted on non-UNIX systems.
@@ -135,9 +135,12 @@ Auxiliaries:
 === Short instructions ===
 
 For Windows system please use the Emacs archive with a preconfigured
-Ansys mode.  Unpack it anywhere on the system run the Emacs executable
-and get used to the Editor.  Ansys mode is availabel without any
-configurations, e. g. open or create an APDL file with a .mac suffix.
+Ansys mode.  Unpack it anywhere on the system, you might run the
+program addpm.exe (located in the bin directory) to add an Emacs entry
+to the Windows Start menu (please refer to the README.W32 file).  Run
+the Emacs executable and get used to this great Editor.  Ansys mode is
+immediately availabel, please open or create an APDL file with a .mac
+suffix.
 
 ==== Direct way; no file configuration necessary ====
 

@@ -1,4 +1,3 @@
-bla = 3
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
@@ -10,14 +9,17 @@ bla = 3
 !@@ -- ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle !/clear
 /prep7
-/title, this is a string command similar to /com and c***
+otto = 9
+/title, this is a %otto% string command similar to /com and c***
 !@@ -- variable definitions and functions
-_aaa = 9		 !reserved variables
+k
+N = _RETURN		 !_RETURN value of k command
+_aaa = 9		 !reserved "_" variables
 Pi=acos(-1) $ True=1 $ False=0
 Xc = 0 $ Yc = 'char' 	 ! character string variables
 R1=4$R2=20
-N = rotx( 14.5)
-Alpha1 = -360./(2*N)
+N = 
+Alpha1 = rotx( 14.5) - 360./ (2*N)
 Alpha2 = +360./(2*N)
 Depth=ARG1		 !ARG{1-9}, AR{10-19} = "*use" variables
 cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
@@ -69,7 +71,8 @@ dcgomg,x,y,z ! rotational acceleration about global coord. sys.
 nsel,s,loc,x,1
 cp,next,uy,all !couple dofs
 
-!(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 2)(load-file "ansys-mode.el")(ansys-mode))
+!(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !! variables max. 32 chars long & condensed ($) input lines
 v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
@@ -77,6 +80,7 @@ False = 0$True =1 $ Yes = 'no' bla otto bla
 *if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
   AR20 = 20 !AR20 - AR99 local macro variables
 *endif
+vall,1,2
 _bla = 3		 ! _vars: macro reserved words
 otto =			 !`=' without rhs: variable clean up
 bla =
@@ -124,7 +128,8 @@ nsellllllbeam3SSSSSS
 *endif
 !!::: implicit : (colon) looping :::::
 lfillt,(1:2),(3:4),5
-*DOWHILE,PAR
+*DOWHILE,Par
+  Par = Par -1
 *CYCLE, VAR2 _bla
   *cyc
   *cyclon
@@ -145,3 +150,4 @@ f,1,fx,1
 alls
 /pbc,all,on
 !gplot
+/eof

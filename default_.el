@@ -16,8 +16,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) levels 0,1,2 are available
 
-(setq ansys-highlighting-level 1)
 ;; experimental user variables highlighting only in level 2 available
+(setq ansys-highlighting-level 1)
+;; uncommenting the following might slow the editing of large .mac files
+;; in level 2
 ;(setq ansys-dynamic-highlighting-flag t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

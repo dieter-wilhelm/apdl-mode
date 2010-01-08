@@ -1,3 +1,5 @@
+NDIST
+KDIST
 # Keypoints 
 K Defines a keypoint keypoint number 
 KL Keypoint on a line Keypoint number 

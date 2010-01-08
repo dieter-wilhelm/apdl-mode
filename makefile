@@ -12,7 +12,7 @@ EL_FILES := ansys-mode.el ansys-keyword.el default_.el \
 FILES := LICENSE README TODO fontification.mac
 
 .PHONEY : ALL
-ALL : $(PACKAGE) TAGS
+ALL : $(PACKAGE) TAGS EMACS
 
 $(PACKAGE) : $(FILES) $(EL_FILES) makefile
 	@echo "Packaging $@ ..."
@@ -21,6 +21,12 @@ $(PACKAGE) : $(FILES) $(EL_FILES) makefile
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
+
+EMACS : $(FILES)  $(EL_FILES) makefile
+	@echo "Packaging Ansys mode with Emacs 23.1 ..."
+	@cp $(FILES) $(EL_FILES) emacs-23.1/site-lisp
+	@tar -czf "ansys-mode+emacs-23.1-win32.tgz" emacs-23.1
+	@echo "... $@ done."
 
 TAGS : makefile $(EL_FILES)
 	etags $(EL_FILES)

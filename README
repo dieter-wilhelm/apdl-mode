@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-08 10:29:48 uidg1626"
+Time-stamp: "2010-01-08 19:26:37 uidg1626"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -41,7 +41,7 @@ The code is based on Ansys version 12.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
 Emacs 23.1 under XP and GNU/Linux.  The code won't run without minor
 adaptions with Emacs 21.4.  Please visit
-ftp://ftp.gnu.org/pub/gnu/emacs/windows/ for an official, precompiled
+http://ftp.gnu.org/pub/gnu/emacs/windows/ for an official, precompiled
 Windows versions of GNU Emacs.  You might unpack Emacs in any
 directory.  Optionally you can run the program addpm.exe (located in
 the bin directory) to add an Emacs entry to the Windows Start menu
@@ -308,7 +308,8 @@ some code is based and the version of the Ansys mode (1) itself.
   now Ansys standard names as default values for some more variables.
 
 * The variables in the variable summary are now sorted according to
-  their first occurance and not any longer in "definition types"
+  their first occurance and not any longer in "definition types".  Now
+  component names are included with the variable highlighting.
 
 * Added menu entry for reloading Ansys Mode for the case when certain
   customisation options in the code files itself are changed and
@@ -321,8 +322,6 @@ some code is based and the version of the Ansys mode (1) itself.
 
 * Removed "buffer has no process" bug when killing an ansys-mode
   buffer.
-
-=== Version 11.0.1 ===
 
 * Submitting interactively Ansys commands (via minibuffer query not
   only written in a macro file) to the solver process,
@@ -415,9 +414,10 @@ slows Emacs and this flag is only implemented for ".mac" files) or any
 times when you activate the variable display (with C-c C-v) and the
 maximum highlighting level.
 
-Ansys "format line" (multi-line) and "user variable" highlighting is
-somewhat brittle, please use M-o M-o to update the fontification in
-case the format line and all variables are not highlighted correctly.
+Ansys "format line" (multi-line highlighting) and "user variable"
+highlighting (when the mentioned flag above ist not set) are somewhat
+brittle, please use M-o M-o to update the fontification in case the
+format line and all variables are not highlighted correctly.
 
 === Getting help ===
 

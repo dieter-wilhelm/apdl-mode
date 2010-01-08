@@ -55,6 +55,7 @@
 
 (defconst Ansys_undocumented_commands	;or macros?
   '(
+    "/WB"			   ; signify a WB generated input file
     "XMLO" "/XML" 
     "CNTR" ; ,print,1 ! print out contact info and also make no initial contact an error
     "EBLOCK" "CMBLOCK" "NBLOCK" "/TRACK" "CWZPLOT" "~EUI"

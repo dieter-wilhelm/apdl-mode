@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-07 18:43:50 uidg1626"
+;; Time-stamp: "2010-01-08 10:52:00 uidg1626"
 
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
@@ -697,7 +697,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     		  ;specifier and pair %.% is a parameter substitution
 
     ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
+
     ;; *use variables, local macro call arguments
 ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
 

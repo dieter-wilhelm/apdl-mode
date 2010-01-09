@@ -1,7 +1,6 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Time-stamp: "2010-01-08 21:10:05 uidg1626"
 Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
@@ -43,9 +42,9 @@ Emacs 23.1 under XP and GNU/Linux.  The code won't run without minor
 adaptions with Emacs 21.4.
 
 If possible grab the Win32 package with a preconfigured Ansys mode
-together with a precompiled Emacs at above Googel Code site and unpack
-the archive in any directory on your system.  Or visit
-http://ftp.gnu.org/pub/gnu/emacs/ for an original versions of GNU
+together with a pre-compiled Emacs at above Googel Code site and
+unpack the archive in any directory on your system.  Or visit
+http://ftp.gnu.org/pub/gnu/emacs/ for an original version of GNU
 Emacs.
 
 The Ansys solver control and communication capabilities are somewhat
@@ -436,9 +435,11 @@ If you experience problems installing or running this mode you have
 the following options:
 
 * Write an email to the mode maintainer (you can trigger a bug report
-  from the menu--at least a useful template when you are not in the
-  position of sending emails within Emacs--or calling directly the
-  function `ansys-submit-bug-report').
+  from the menu or directly calling the function
+  `ansys-submit-bug-report'.  Even when you are not in the position of
+  sending emails from within Emacs this will give at least a useful
+  mail template with valuable information about internal mode
+  settings).
 
 * When you have already a (cost free) Google account you are able
   to issue a bug report at the Google Code hosted page
@@ -452,6 +453,5 @@ the following options:
 Local Variables:
 word-wrap: t
 show-trailing-whitespace: t
-time-stamp-active: t
 indicate-empty-lines: t
 End:

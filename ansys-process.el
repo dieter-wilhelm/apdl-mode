@@ -73,14 +73,15 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	(display-buffer (process-buffer (get-process ansys-process-name)) 'other-window))
     (message "Copied from beginning of buffer to cursor.")))
 
-(defun ansys-send-to-ansys (beg end)	;NEW
+(defun ansys-send-to-ansys (beg end stay)	;NEW
   "Send code line or region to an Ansys process otherwise copy it.
 Argument BEG is the beginning of the region.  Argument END is the
 end of the region.  If there is no active region, either go to
 the next code line or send the current one.  When there is no
 running Ansys process just copy the respective code to the
-clipboard."
-  (interactive "r")
+clipboard.  With a negative prefix argument STAY remain at the
+line."
+  (interactive "r\np")
   ;; copy the region, current line or go to next! code line
   (let (eol bol s reg)
     (cond ((use-region-p)
@@ -100,7 +101,9 @@ clipboard."
 	     (setq eol (point)))
 	   (setq s (buffer-substring-no-properties bol eol))
 	   (kill-ring-save bol eol)
-	   (ansys-next-code-line)))
+	   (message "stay: %d" stay)
+	   (unless (< stay 1)
+	     (ansys-next-code-line))))
     (cond ((ansys-process-running-p)
 	   (comint-send-string (get-process ansys-process-name) (concat s "\n"))
 	   (display-buffer "*Ansys*" 'other-window))
@@ -266,12 +269,12 @@ displaying the license status."
     (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
     (message "Retrieving license status, please wait...")
-    (with-current-buffer (get-buffer-create "*LM-Util*")
+    (with-current-buffer (get-buffer-create "*Ansys-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
-    (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c "  ansys-license-file  "-a")
+    (call-process ansys-lmutil-program nil "*Ansys-licenses*" nil "lmstat" "-c "  ansys-license-file  "-a")
     (let (bol eol)
-      (with-current-buffer "*LM-Util*"
+      (with-current-buffer "*Ansys-licenses*"
 	;; remove unintersting licenses
 	;; (goto-char (point-min))
 	;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
@@ -319,9 +322,9 @@ displaying the license status."
 	(forward-line -1)
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
-	;; (set-window-point (get-buffer-window "*LM-Util*") (point))
+	;; (set-window-point (get-buffer-window "*Ansys-licenses*") (point))
 	))
-    (display-buffer "*LM-Util*" 'otherwindow)
+    (display-buffer "*Ansys-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
     ;; TODO: check for -lmutil-program

@@ -80,7 +80,7 @@ end of the region.  If there is no active region, either go to
 the next code line or send the current one.  When there is no
 running Ansys process just copy the respective code to the
 clipboard.  With a negative prefix argument STAY remain at the
-line."
+code line."
   (interactive "r\np")
   ;; copy the region, current line or go to next! code line
   (let (eol bol s reg)
@@ -102,7 +102,7 @@ line."
 	   (setq s (buffer-substring-no-properties bol eol))
 	   (kill-ring-save bol eol)
 	   (message "stay: %d" stay)
-	   (unless (< stay 1)
+	   (unless (< stay 0)
 	     (ansys-next-code-line))))
     (cond ((ansys-process-running-p)
 	   (comint-send-string (get-process ansys-process-name) (concat s "\n"))

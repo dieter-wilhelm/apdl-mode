@@ -160,7 +160,10 @@ alls
 set,last
 *get,nmd,active,,set,sbst
 pfct= $ ffrq= $ adir=
+nsel,s,l
+
 *dim,pfct,,nmd,6
+,
 ,ffrq,,nmd
 ,adir,char,nmd
 
@@ -233,3 +236,35 @@ yy = .9
    yy = yy -.11
 *enddo
 /erase
+/annot,delete
+sz = .8
+xloc = 0
+yloc = 0
+
+*dim,data,,5
+data(1) = 12,15,28,10,32
+hsz = sz/2
+
+/pspec,0,1,1
+/poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+     	 1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+
+x0 = xloc + hsz
+y0 = yloc + .7*hsz
+lof = .05
+
+*vscfun,dsum,sum,data(1)
+/LSPE, 15, 0, 1.000
+/TSPEC, 15, 0.700, 1, 0, 0
+ang1 = 0
+*do,i,1,5
+  ang2 = ang1 + (360*data(i)/dsum) 
+  /PSPE, 2*i, 1, 1 
+  /PWED, xloc,yloc,sz*.4, ang1,ang2 
+  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
+  pvl = 100*data(i)/dsum 
+  /tlab, x0+1.5*lof,y0, %pvl% % 
+
+  y0 = y0 - 1.5*lof 
+  ang1 = ang2
+*enddo

@@ -1246,16 +1246,13 @@ of its definition.
 For this you must set `ansys-highlighting-level' to 2, please
 have a look at the == customisation == section on how to do this.
 
-
-
-and `ansys-dynamic-highlighting-flag'
-
-
-
-
-The dynamic user variable highlighting is currently only
-implemented for files with a '.mac' extension and might slow down
-your editing for very large files.
+The user variable highlighting is still experimental, newly
+edited variable definitions are taken into account only when the
+variable `ansys-dynamic-highlighting-flag' is set (for very large
+files this slows Emacs and therefore the flag is only effective
+for files ending in '.mac') or every times you activating the
+variable display (with \\[ansys-display-variables], see below) in
+the maximum highlighting level.
 
 ** Compilation for all definitions (*GET, *DIM, **SET, = and DO,
   ...) for APDL variables and component names **
@@ -1279,11 +1276,11 @@ list-abbrevs RET', alternatively type a '?' after the \"`\".
 
 ** Outlining (hiding) of code sections **
 
-You might call the Outline Minor Mode with \"M-x
-outline-minor-mode\" or you could enable this mode permanently by
+You might call the Outline Minor Mode with 'M-x
+outline-minor-mode' or you could enable this mode permanently by
 ticking on the option `ansys-outline-minor-mode' in the
-`ansys-mode-hook' variable.  Either type \"M-x
-ansys-customise-ansys\" or use the menu entries: ->Ansys
+`ansys-mode-hook' variable.  Either type 'M-x
+ansys-customise-ansys RET' or use the menu entries: ->Ansys
 ->Customise Ansys Mode.
 
 Then you can hide certain sections of your code or navigate to

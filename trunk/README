@@ -54,7 +54,7 @@ Ansys Mode needs now more than one lisp file, be sure you have all
 necessary files, please see the == Installation == section for a list
 of them.
 
-== Features ==
+== features ==
 
 * Ansys process management (viewing error files, license status,
   starting the Ansys help browser, etc.)
@@ -100,9 +100,6 @@ of them.
 * Use of the Emacs abbreviation facility for block templates
   i. e. with writting a "nickname" Emacs exchanges the characters with
   a whole code template
-
-* Ansys mode changes some Emacs defaults to smooth the transition from
-  other editors
 
 As a visual example, a screen-shot on EmacsWiki and Google code show
 an Emacs frame with a ripped off Ansys menu field.  The APDL file is
@@ -288,7 +285,8 @@ rms
 == History and News ==
 
 The version scheme is a mixture of the Ansys version (12.0) on which
-some code is based and the version of the Ansys mode (1) itself.
+the highlighting and completing code is based and the version
+increments (.1) of the mode itself.
 
 === Version 12.0.1 ===
 
@@ -300,7 +298,8 @@ some code is based and the version of the Ansys mode (1) itself.
   of deprecated element types in a warning-face, deprecated Ansys *
   comments, ...
 
-* Reworked and hopefully improved the mode's help and README
+* Updated and improved the readability of the mode's help and the
+  README file
 
 * The output from the LMUtil license status tool (C-c C-l) is now
   filtered to be better readable and concise.
@@ -324,6 +323,9 @@ some code is based and the version of the Ansys mode (1) itself.
 * Added menu entry for reloading Ansys Mode for the case when certain
   customisation options in the code files itself are changed and
   require a code reloading to take effect.
+
+* Ansys mode changes some Emacs default behaviour to smooth the
+  transition from other editors
 
 === Version 11.0.2 ===
 

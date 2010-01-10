@@ -866,17 +866,21 @@
   "!@@ -- arrays --" \n
   \n
   "*dim,A,array,10,1" \n
-  "*get,A(,x,,item,fx" \n
+  "*get,A,x,,item,fx" \n
   \n
-  "!! *get,Dim,parm,A,dim,x" \n
-  "!! *if,Dim,le,1,then" \n
-  "!!   *dim,A,array,10,1" \n
-  "!! *endif" > \n
-  "!! *do,I,1,Ns" \n
-  "!!   set,Ls,I" > \n
-  "!!   fsum" \n
-  "!!   Reaction(I)=Fx" \n
-  "!! *enddo" > \n
+  "!! -- check dimensions --" \n
+  "*get,Dim,parm,A,dim,x" \n
+  "*if,Dim,le,1,then" \n
+  "  *dim,A,array,10,1" \n
+  "*endif" > \n
+  "!! -- or simply clear A --" \n
+  "!!A =" \n
+  "!!*dim,A,array,10,1" \n
+  "*do,I,1,Ns" \n
+  "  set,Ls,I" > \n
+  "  fsum" \n
+  "  Reaction(I)=Fx" \n
+  "*enddo" > \n
   )
 
 (defun ansys-skeleton-compilation ()

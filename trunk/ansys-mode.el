@@ -1,7 +1,5 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Time-stamp: "2010-01-08 10:52:00 uidg1626"
-
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -554,23 +552,23 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
       ;; wie need something behind the = otherwise it's a cleanup
       ;; variables + reserved _names (max. 32 chars long)
       (variable_r
-       "^\\s-*\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*=\\s-*[[:alnum:]'+-_]")
+       "^\\s-*\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*=")
       ;; reserved vars consisting of a single "_" are valid in Ansys 12.1
       (reserved_vars_r
       "\\_<\\(_[[:alnum:]_]\\{0,31\\}\\>\\)"))
 
 ;; font-lock-keyword-face is the default face
-(defconst ansys-font-lock-keywords
-  `(
-    (,variable_r 1 font-lock-variable-name-face); overwritting commands
+  (defconst ansys-font-lock-keywords
+    `(
+      (,variable_r 1 font-lock-variable-name-face); overwritting commands
 
-    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
-	      ansys-command-regexp
-	      "\\)") 1 font-lock-keyword-face)
+      (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+		ansys-command-regexp
+		"\\)") 1 font-lock-keyword-face)
+      )
     )
-  )
 
-(defconst ansys-font-lock-keywords-1
+  (defconst ansys-font-lock-keywords-1
   `(
     ;; deprecated ansys-comment
     ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
@@ -626,29 +624,76 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     		  ;specifier and pair %.% is a parameter substitution
 
     ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'widget-button-pressed t)
+    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
     ;; *use variables, local macro call arguments
     ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
     ))
 
-(defconst ansys-font-lock-keywords-2
+;; C-u C-x = -- describe char
+;; order of execution
+
+;; syntacticoverwritting nothing fontification
+
+  ;; strings and /eof overwritting syntactic fonts and command face
+  ;; respectively
+
+;; /eof warning: overwriting keyword face
+;; * comments (must overwrite comments behind it)
+;; strings in string commands
+;; ?pairs of %VAR% with valid variable symbols
+;; %X % with format specifier
+;; *msg formatting
+;; & only at line endings
+
+;; c*** overwriting everything even %VAR%!
+;; /sys command no parameter substitution
+
+  ;; keep previous stuff
+
+;; *use variables in warning face
+;; = defs (overwritting commands)
+;; : $ operators
+;; elements
+;; commands
+;; experimental user variables
+
+  (defconst ansys-font-lock-keywords-2
   `(
+    ;; /eof is special: it crashes Ansys in interactive mode
+    ;; TODO /eof is highlighted only first in line not behind $
+    ("^\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
+
     ;; deprecated ansys-comment
-    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
+    ("[[:alnum:]_]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face prepend)
     					;^[:alpha:] to avoid spurious
     					;asterisk command fontification
     ;; some string faces
-    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
-      ;/SYS command sends string to OP,no parameter substitution!
-    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
-        ;TODO: c*** should get fontification from command regexp
-      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
-   	      ;only 75 characters possible no separator necessary
     ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
-     font-lock-doc-face) ;titles
+     font-lock-doc-face t) ;titles
     ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
+    ;; multiline format constructs
+("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
+ 2 font-lock-doc-face t)
+    ;; ampersand is redundant with multiline fontlocking
+
+    ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
+    ("%" 0 font-lock-type-face prepend) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+
+      ;/SYS command sends string to OP,no parameter substitution!
+    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
+     font-lock-doc-face t)
+    ;TODO: c*** should get fontification from command regexp
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+      (1 font-lock-keyword-face t) (2 font-lock-doc-face t))
+   	      ;only 75 characters possible no separator necessary
+
+    ;; *use variables, local macro call arguments
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+
+    ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
     (,ansys-element-regexp . font-lock-builtin-face)
 
@@ -656,8 +701,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (,reserved_vars_r 1 font-lock-warning-face)
 
     ;; = variable defs (with reserved _names), overwritting commands
-    (,variable_r (1
-		 font-lock-variable-name-face)) ; variables (max. 32 chars long)
+    (,variable_r 1
+		 font-lock-variable-name-face) ; variables (max. 32 chars long)
 
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
 
@@ -680,6 +725,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     	      ansys-command-regexp-2c
     	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
 
+    ;; user variables
+   (ansys-highlight-variable . font-lock-variable-name-face)
+
     ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
     (":" . 'font-lock-type-face)   ;colon loops only
@@ -687,29 +735,25 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ;; outmoded goto labels (max 8 chars including the colon)
     (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
 
-    ;; multiline format constructs
-("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
- 2 font-lock-doc-face t)
+)
+)
 
-    ;; ampersand is redundant with multiline fontlocking
-    ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
-    ("%" 0 font-lock-type-face prepend) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
-
-    ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
-
-    ;; *use variables, local macro call arguments
-("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-
-(ansys-highlight-variable . font-lock-variable-name-face)
-))
+;; testing
+(defconst ansys-font-lock-keywords-3
+  '(
+    ("%" (0 font-lock-builtin-face keep))
+    ("^/com.*" (0 font-lock-string-face prepend))
+    ("bla" (0 font-lock-variable-name-face prepend))
+    )
+)
 )
 
 (defconst ansys-font-lock-keyword-list	;NEW_C
       '(ansys-font-lock-keywords
 	ansys-font-lock-keywords-1
 	ansys-font-lock-keywords-2
+	;; testing
+	ansys-font-lock-keywords-3
 	  ))
 
 (defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and
@@ -953,17 +997,17 @@ This means at the end of code before whitespace or an Ansys
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
+;; hmmm, gnu/linux is some sort of Unix for my purposes
 (defun ansys-is-unix-system-p ()
   (not
-   (or (string= system-type "darwin")
-       (string= system-type "macos")
+   (or (string= system-type "gnu")
+       (string= system-type "darwin")
        (string= system-type "ms-dos")
        (string= system-type "windows-nt")
-       (string= system-type "cygwin")
-       (string= system-type "vax-vms")
-       (string= system-type "axp-vms"))))
+       (string= system-type "cygwin"))))
 
-;;FIXME DEFSUBSTs with DEFUNs inside aren't particularly helpful, are they?
+;;FIXME DEFSUBSTs with DEFUNs (ansys-position) inside aren't
+;;particularly speedy, are they?
 
 (defsubst ansys-in-comment-p ()		;_C
   "Return t if the cursor is inside an Ansys comment."
@@ -999,63 +1043,81 @@ comment."
 (defun ansys-mode ()
   "Support for working with Ansys FEA.
 The documentation is targeted at users with little Emacs
-experience, you will find relevant features indicated with **.
-
-Minibuffer concept
-
-All functions described below can be found in the Ansys menu,
-even if their usage was only indicated as a direkt call or with
-keyboard shortcuts.
-
-A mouse click or typing the RETURN key, when the cursor is on the
-underlined function hyperlinks (you might skip to these with the
-TAB key) will display their help strings.
+experience, the sections which deal with specific mode features
+are indicated with '**' at the beginning.
 
 == Contents ==
 
+= Introduction
 = Usage
 = Keybindings
 = Customisation
 = Bugs and Problems
 
+== Introduction ==
+
+In Emacs it is not only possible to run a specific command, let's
+say `ansys-start-ansys-help' from the Ansys menu or with keyboard
+shortcuts but additionally from the so called minibuffer.  This
+'interactive' option remains the only one if you have not yet
+activated Ansys mode or you are currently inspecting a file which
+is not intended for this mode.  Then neither Ansys menu nor
+keyboard shortcuts for Ansys mode commands are available.
+
+To run a command by its name, start with 'M-x', ('M-x' means
+holding down the 'ALT' key while pressing the 'x' key, in case
+your Unix window manager intercepts this key combination type
+'ESC' then 'x' instead) the cursor will skip to the minibuffer,
+there type 'ansys-start-ansys-help', then terminate it with the
+RET key.  The auto-completion feature of the minibuffer might
+save you some typing: Just enter the beginning characters of
+commands and then press the TAB key.
+
+Above procedure has the same effect as typing
+'\\[ansys-start-ansys-help]' for a file in Ansys mode ('C-c C-a'
+means holding down the CTRL key and the respective characters for
+the command `ansys-start-ansys-help').  All functions described
+in this help, regardless whether possessing a keyboard shortcut
+or not, can be called in this way or they are to be found in the
+Ansys menu.
+
+A mouse click or typing the RET key, when the cursor is on the
+underlined hyperlinks (you can skip to these links with the TAB
+key) will display their respective help strings.
+
 == Usage ==
 
-** Ansys command syntax help
+** Ansys command syntax help **
 
-Typing \"\\[ansys-show-command-parameters]\" displays above the
-current keyword it's syntax help (similar to the help in the
-dynamic prompt of the classical Ansys GUI).
+Typing '\\[ansys-show-command-parameters]', the 'CTRL' key
+simultaneously with the 'c' and then the the question
+mark (`ansys-show-command-parameters') displays above a code line
+a brief description of the Ansys command and its syntax.
 
 ** Ansys keyword completion (commands, elements, get- and
-   parametric-functions)
+   parametric-functions) **
 
 Type the first letters of an Ansys command, function or element
-name and use the key binding \"\\[ansys-complete-symbol]\" for
-mode's function
-`ansys-complete-symbol' (\"\\[ansys-complete-symbol]\" means
-holding down the \"ALT\" key while pressing the \"TAB\" key), in
-case your Unix window manager intercepts this key combination
-type \"C-M-i\"
-  (the \"CTRL\", \"ALT\" and \"i\" key simultaneously).
+name and use the key binding '\\[ansys-complete-symbol]' for
+function `ansys-complete-symbol'.
 
 There are nearly 2000 Ansys symbols available for completion.
 Undocumented Ansys commands and deprecated element types are also
 completed.  The former are identified as such in their command
 syntax help and the later are exposed with a different
 highlighting. Please have a look at the variable
-p`ansys-deprecated-element-alist' it's an association list with
+`ansys-deprecated-element-alist' it's an association list with
 the deprecated elements and their respective replacments (for
-inspecting its content please type \"C-h v\" and then type this
-variable name).
+inspecting its content please click on the hyperlink or type 'C-h
+v' and then type the mentioned variable name).
 
-When the character combination before the cursor (or point in
-Emacs parlance) is not unambiguous: A completion list is shown,
-selecting the suitable word from the list with either the mouse
-or the cursor over the symbol and typing \"RET\" is completing
-the symbol.  Hitting space removes the listing window (in Emacs
-speak 'buffer').
+When the character combination before the cursor is not
+unambiguous a completion list is shown, selecting the suitable
+word from the list either with the cursor over the symbol and
+typing \"RET\" or clicking with the mouse is completing the
+symbol.  Hitting space removes the listing window.
 
-** Auto-indentation of looping and conditional blocks
+** Auto-indentation of looping and conditional blocks **
 
 You can customise the indentation depth (Ansys Block Offset),
 please have a look for the entry 'Customise Ansys Mode' in the
@@ -1064,14 +1126,14 @@ saves your choices automatically in your .emacs file for later
 sessions.
 
 ** Closing of open control blocks (*do, *if, ...) with the
-   insertion of appropriate end keywords
+   insertion of appropriate end keywords **
 
-Typing \"\\[ansys-close-block]\" completes the current Ansys
-block with the insertion of a newline and an appropriate end
-keyword.
+Typing '\\[ansys-close-block]' for `ansys-close-block' completes
+the current Ansys block with the insertion of a newline and an
+appropriate end keyword.
 
 ** Code navigation with extended keyboard shortcuts: Code lines,
-   number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc.
+   number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc. **
 
 \\[ansys-next-code-line] -- `ansys-next-code-line'
 \\[ansys-previous-code-line] -- `ansys-previous-code-line'
@@ -1086,8 +1148,9 @@ inbuilt list/sexp navigiation.
 \\[ansys-previous-block-start-and-conditional] -- `ansys-previous-block-start-and-conditional'
 
 Above commands are skipping to the next/previous block end/start
-keyword regardless where you are in the block structure.
-\\[ansys-previous-block-start-and-conditional] finds also *IF
+keyword regardless where you are already in the block structure.
+\\[ansys-previous-block-start-and-conditional] for
+`ansys-previous-block-start-and-conditional' finds also *IF
 commands without bases of the keyword THEN; furthermore *CYCLE
 and *EXIT looping controls.  These provide APDL constructs but
 represent no block depth and therefore are not considered when
@@ -1097,7 +1160,8 @@ applying the following navigation commands.
 \\[ansys-skip-block-backwards] -- `ansys-skip-block-backwards'
 
 Are looking for and skipping over a complete block (at the
-current block level, skipping possibly deeper block structures).
+current block level, skipping possibly over deeper block
+structures).
 
 \\[ansys-up-block] -- `ansys-up-block'
 \\[ansys-down-block] -- `ansys-down-block'
@@ -1108,44 +1172,48 @@ current block level.
 \\[ansys-number-block-start] -- `ansys-number-block-start'
 \\[ansys-number-block-end] -- `ansys-number-block-end'
 
-Are searching for and skipping over \"pure\" number blocks are
-common (and quite big) in WorkBench input (.inp) files.
+Are searching for and skipping over \"pure\" number blocks, these
+are common (and quite large) in WorkBench solver input (.inp,
+.dat) files.
 
-Moreover there are keyboard shortcuts with whom you are able to
+Moreover there are keyboard shortcuts with which you are able to
 input pairs of corresponding characters, like \"C-c %\" for the
 input of '%%', the Ansys substitution operators.  Please have a
-look at the Emacs function `insert-pair' and below in the
-keybinding section.
+look for the Emacs function `insert-pair' and in the keybinding
+section below.
 
-** Sophisticated highlighting (optionally also user variables)
+** Sophisticated highlighting (optionally: User variables) **
 
-The fontification tries to follow the idiosyncratic Ansys
-interpreter logic as closely as possible. (` *' is still a valid
-Ansys comment string although deprecated! See the Ansys manual
-for the *LET command.)
+The highlighting in the highest decoration level (please refer to
+`ansys-highlighting-level') tries to follow the idiosyncratic
+Ansys interpreter logic as closely as possible.  For example: '
+*' is still a valid Ansys comment string (although deprecated,
+See the Ansys manual for the *LET command).  The fontification
+distinguishes between Ansys commands, undocumented commands,
+parametric- and get-functions, elements and deprecated elements.
+In case of arbitrary characters after the command names, they are
+still highlighted, since these characters are ignored by the
+Ansys intepreter.
 
-The fontification distinguishes between Ansys keywords (or
-commands), parametric- and get-functions and (deprecated) element
-names.  In case of arbitrary characters after the unique word
-stem, they are highlighted in an unobtrusive font, since these
-characters are ignored by the intepreter anyway.
+Macro variables beginning with an underscore might be Ansys
+reserved variables and therefore are higlighted in a warning
+face.  Another example is the Ansys the percent sign, its
+highlighting reminds you that the use of such a pair around a
+parameter name might force a parameter substitution, e. g. with
+the assignment 'I=5', 'TEST%I%' returns TEST5.
 
-Macro expressions beginning with an underscore might be Ansys
-reserved variables and therefore are higlighted as warning in
-pink.  Another example is the Ansys the fontification of the
-percent sign.  It reminds you that the use of such a pair around
-a parameter name forces the parameter substitution, e. g. if I=5
-then TEST%I% becomes TEST5.  You can input various pairs with
-keyboard shortcuts, e. g. apostrophies for Ansys character
-parameters with \"C-c '\", please have a look wich bindings are
-available with `describe-bindings' (for the function
-\\[describe-bindings]).
+In the context of pairs of '%' characters, you can also input
+various pairs with keyboard shortcuts, e. g. apostrophies for
+Ansys character parameters with 'C-c '', please have a look which
+bindings are available with \\[describe-bindings] (for
+`describe-bindings').
 
 The format strings of *MSG, *MWRITE, *VWRITE and *VREAD are also
-highlighted (in certain decoration levels, please refer to
+highlighted (in decoration levels 2, again please refer to
 `ansys-highlighting-level').  Below is a summary of the C-format
-descriptors (no parentheses needed in contrast to less powerful
-fortran descriptors):
+descriptors which can be used for above commands.  (with these
+format descriptors there are no parentheses needed in contrast to
+less general fortran ones):
 
 %I	Integer data
 %F	Floating point format
@@ -1166,52 +1234,50 @@ fortran descriptors):
 %-wS	Left justify character string (right justify is default).
 %wX	Include w blank characters.
 
-example:
+example code:
 *vwrite,B(1,1),B(2,1)
 %E%/%E
 
-Coming back to the highlighting of user variables: Please see the
-menu entry: ->Ansys ->Customise Ansys Mode.  Or you might scroll
-further down to the = customisation = section of this help and
-click on the respective variable (here in this case:
-`ansys-dynamic-highlighting-flag').  You will be presented with
-an help buffer for this variable in which you are can click on
-the underlined word 'customize'.  Then you have the convenient
-Emacs customisation functionalities at hand.
+Regarding the experimental highlighting of user variables: The
+idea is to give a visual hint whether variable names are spelled
+and used correctly everywhere in the file not only at the place
+of its definition.
 
-Alternatively include
+For this you must set `ansys-highlighting-level' to 2, please
+have a look at the == customisation == section on how to do this.
 
-     (setq ansys-highlighting-level 2)
-     (setq ansys-dynamic-highlighting-flag t)
 
-in your .emacs file
+
+and `ansys-dynamic-highlighting-flag'
+
+
+
 
 The dynamic user variable highlighting is currently only
 implemented for files with a '.mac' extension and might slow down
-your editing.
+your editing for very large files.
 
-* Displaying a summary for all definitions (*GET, *DIM, **SET, =
-  and DO, ...) for APDL variables.
+** Compilation for all definitions (*GET, *DIM, **SET, = and DO,
+  ...) for APDL variables and component names **
 
-Typing \"\\[ansys-display-variables]\" shows all variable
-definitions from your APDL file in a separate buffer.
+Typing \"\\[ansys-display-variables]\" (for
+`ansys-display-variables') shows all definitions in your APDL
+file in a separate window.
 
-When you place the cursor on the respecitve line number and type
-\"C-u M-g M-g\" Emacs will place the cursor at the corresponding
-defintion in the macro file.
+When you place the cursor on the respecitive line number and type
+'C-u M-g g' (C-u is a 'prefix' argument to M-g `goto-line').
+Emacs will then skip to the corresponding defintion line in the
+macro file.
 
-** Use of the Emacs abbreviation facility for block templates
+** Use of the Emacs abbreviation facility for block templates **
 
-E.g. typing \"`dd\" and SPC in an Ansys buffer triggers the
-insertion of an Emacs skeleton for an *Do loop.  (\"`d\" is a
-shorter abbreviation version without user input.)  You can see
-all the predefined abbreviations with the Emacs command \"M-x
-list-abbrevs RET\" (You should apply the auto-completion of Emacs
-commands: Just type the beginning and then \"TAB\"), or
-alternatively just type a \"?\" after the \"`\" in your file
-buffer.
+E.g. typing \"`dd\" and SPC in an Ansys mode buffer triggers the
+insertion of an Emacs skeleton for a *Do loop.  (\"`d\" is a
+abbreviated version of it without user input.)  You can see all
+the predefined abbreviations with the Emacs command 'M-x
+list-abbrevs RET', alternatively type a '?' after the \"`\".
 
-** Outlining (hiding) of code sections
+** Outlining (hiding) of code sections **
 
 You might call the Outline Minor Mode with \"M-x
 outline-minor-mode\" or you could enable this mode permanently by
@@ -1232,7 +1298,7 @@ default in `ansys-mode') and check out what possibilities are at
 your convenience.
 
 ** Convenient comment handling, for example the commenting/un- of
-   whole paragraphs
+   whole paragraphs **
 
 - \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean ;-):
 
@@ -1257,7 +1323,7 @@ the line beginning.
 
 In empty lines: Just insert a new line.
 
-** Auto-insertion of code templates into new APDL files
+** Auto-insertion of code templates into new APDL files **
 
 See `ansys-skeleton-compilation' (type 'M-x
 ansys-skeleton-compilation' to insert a collection of code
@@ -1278,7 +1344,7 @@ You are able to preview the code templates with
 \"\\[ansys-display-skeleton]\" (`ansys-display-skeleton'), and
 complete the name from the various skeletons.
 
-** Ansys process management
+** Ansys process management **
 
 - Writing an Ansys stop file (extension '.abt') in the current
   directory (you can use \"M-x cd\" to change the current
@@ -1308,7 +1374,7 @@ have a look in the accompanying README or default.el example
 customisation file.
 
 ** Ansys solver control and communication (mainly restricted to
-  UNIX systems)
+  UNIX systems) **
 
 With the Ansys mode command `ansys-start-ansys' you can start the
 Ansys solver as an asynchronous process within Emacs.  After
@@ -1372,19 +1438,40 @@ byte-compilation of the lisp files.  Please see the function
 
 == Ansys mode customisation ==
 
-For a summary and documentation of available Ansys mode
-customisations it's best to open the mode customisation buffer
-either with the command M-x `ansys-customise-ansys' or from the
-menu bar -> 'Ansys' -> 'Customise Ansys Mode'
+For a compilation (and respective documentation) of available
+Ansys mode customisations it's best to open the mode's
+customisation buffer either with the command
+`ansys-customise-ansys' or from the menu bar -> 'Ansys' ->
+'Customise Ansys Mode' and check interesting options.
 
-For certain options to take effect it's necessary to reload Ansys
-mode.  You can do this with the interactive command M-x
-`ansys-reload-ansys-mode' or with the respective, toplevel Ansys
-menu entry.
+Another way getting to the customisation facility is to open the
+specific documentation of respective variables.  Let's change for
+example the highlighting level which is stored in the
+customisation variable `ansys-highlighting-level'.  Click on the
+hyperlink and you will be presented with its help buffer in which
+you should click on the underlined word 'customize' at the
+bottom.  Then you have the convenient customisation
+functionalities for this particular variable at hand.  You can
+set the value for the current session or add your choices
+automatically in a .emacs file (the configuration file in your
+home directory) for futur sessions as well.
+
+Alternatively you might include the following Elisp code snippet
+
+     (setq ansys-highlighting-level 2)
+     ;(setq ansys-dynamic-highlighting-flag t)
+
+directly into your .emacs file.  (The semicolon is the comment
+character.)
+
+For certain options to take effect without restarting Emacs, it's
+necessary to reload Ansys mode.  You can do this with the
+interactive command M-x `ansys-reload-ansys-mode' or with the
+respective, toplevel Ansys menu entry.
 
 == Bugs and Problems ==
 
-Feedback is very welcome.  If you have issues while
+Feedback is always welcome.  If you have issues while
 installing/running this mode or simply would like to suggest some
 improvements you have the following options:
 
@@ -2636,7 +2723,6 @@ window in the current frame.  The default argument is 1."
 
 ;; Local Variables:
 ;; mode: outline-minor
-;; time-stamp-active: t
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
 ;; word-wrap: t

@@ -661,7 +661,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   `(
     ;; /eof is special: it crashes Ansys in interactive mode
     ;; TODO /eof is highlighted only first in line not behind $
-    ("^\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
+    ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
     ;; deprecated ansys * comment with 12.1
     ;; fini * bla : returns "* no longer valid as comment character - please use !"

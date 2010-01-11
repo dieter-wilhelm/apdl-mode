@@ -663,7 +663,10 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ;; TODO /eof is highlighted only first in line not behind $
     ("^\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
-    ;; deprecated ansys-comment
+    ;; deprecated ansys * comment with 12.1
+    ;; fini * bla : returns "* no longer valid as comment character - please use !"
+    ;; * bla : returns a warning *bla is not a command
+    ;; bla = 3 * 4 : returns still 3!
     ("[[:alnum:]_]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face prepend)
     					;^[:alpha:] to avoid spurious
     					;asterisk command fontification
@@ -1974,7 +1977,7 @@ level."
 					;	 )
 	 ((looking-at ansys-block-else-regexp)
 	  (setq keyword_c (+ keyword_c ansys-block-offset)))
-	 ((looking-at "[^*/\n,]") ;otherwise forbidden by default command stuff
+	 ((looking-at "[^\n,]") ; */ are also valid default commands 12.1
 	  (setq lep (line-end-position))
 	  (setq comma_c (re-search-forward "\\w+\\s-*" lep 'noerror))
 	  (when comma_c

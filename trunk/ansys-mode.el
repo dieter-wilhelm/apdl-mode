@@ -735,8 +735,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ("\\$" 0 font-lock-type-face) ;condensed line
     (":" . 'font-lock-type-face)   ;colon loops only
 
-    ;; outmoded goto labels (max 8 chars including the colon)
-    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+    ;; deprecated *go labels (max 8 chars including the colon)
+    (":\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
 
 )
 )

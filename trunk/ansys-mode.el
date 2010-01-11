@@ -1284,91 +1284,107 @@ ansys-customise-ansys RET' or use the menu entries: ->Ansys
 ->Customise Ansys Mode.
 
 Then you can hide certain sections of your code or navigate to
-customisable outline headings.  Certain characters--by default
-'!@' (see the variable `ansys_outline_string')--at the beginning
+customisable outline headings.  Certain characters --by default
+'!@' (see the variable `ansys_outline_string')-- at the beginning
 of a line in your code represent such headings.  '!@@' specifies
-a subheading and so on (type \"M-x ansys-skeleton-compilation\"
-to insert a code example of this in the current file).  The
-easiest way of working with outline headings is to go to the
-->Outline menu entry (outline-minor-mode is not switched on by
-default in `ansys-mode') and check out what possibilities are at
-your convenience.
+a subheading and so on (please call the function
+`ansys-skeleton-compilation' to insert a code example with these
+in your current file).  The easiest way of working with outline
+headings is to go to the ->Outline menu entry (outline-minor-mode
+is not switched on by default in `ansys-mode') and check out what
+possibilities are there for your convenience.
 
-** Convenient comment handling, for example the commenting/un- of
-   whole paragraphs **
+** Convenient comment handling, commenting/un- of whole
+   paragraphs **
 
-- \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean ;-):
+- '\\[comment-dwim]' calls `comment-dwim' (Do What I Mean ;-):
 
-In a code line: Insert comment char `ansys-indent-comment-string'
-at `ansys-code-comment-column' (if feasible).  With a prefix
+In a code line: This command inserts comment char
+`ansys-indent-comment-string' at `ansys-code-comment-column' (if
+feasible, i. e. the code line is not too long).  With a prefix
 argument: Kill existing code comment.
 
 With an active region: Commenting out (`comment-region') or
-Uncommenting (`uncomment-region') the region.
+Uncommenting (`uncomment-region') that region.
 
-In an empty line: Insert '!!\ ' at the line beginning.
+In an empty line: Insert '!!\ ' at the current indentation.
 
-- \"\\[indent-new-comment-line]\" (or \"M-j\" --
-  `indent-new-comment-line' or the alias
-  `comment-indent-new-line')
+- '\\[indent-new-comment-line]' (or 'M-j' -- calls
+  `indent-new-comment-line')
 
-Inserts a single '!' (`ansys-comment-char')in a code line at
-column `ansys-code-comment-column' (if possible).
+Breaks a code comment and inserts a single
+'!' (`ansys-comment-char') at column
+`ansys-code-comment-column' (if possible).
 
-In comment lines '!!\ ' (`ansys-indent-comment-string') at the
-the line beginning.
+In comment lines '!! ' with two comment
+chars (`ansys-indent-comment-string') break the comment and begin
+a the same comment style at the the current indentation.
 
-In empty lines: Just insert a new line.
+In an empty line or a line without comment: Just inserts a new
+line.
 
 ** Auto-insertion of code templates into new APDL files **
 
 See `ansys-skeleton-compilation' (type 'M-x
-ansys-skeleton-compilation' to insert a collection of code
-templates).
+ansys-skeleton-compilation RET' to insert a collection of some
+code templates).
 
 Include the following lisp expressions in your .emacs file, in
 case you want to be ask for inclusion for every new .inp and .mac
 file.
 
-      (add-to-list 'auto-mode-alist '(\"\\.inp$\" . ansys-mode))
-      (add-to-list 'auto-mode-alist '(\"\\.mac$\" . ansys-mode))
-
       (auto-insert-mode 1)
       (setq auto-insert-query t)
       (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
-You are able to preview the code templates with
-\"\\[ansys-display-skeleton]\" (`ansys-display-skeleton'), and
-complete the name from the various skeletons.
+You are able to preview the various code templates with
+'\\[ansys-display-skeleton]' (for `ansys-display-skeleton') doing
+this you might type 'TAB' to complete the available skeleton
+names.
 
 ** Ansys process management **
 
-- Writing an Ansys stop file (extension '.abt') in the current
-  directory (you can use \"M-x cd\" to change the current
-  directory), for halting the calculation in an re-start-able
-  fashion.
+- Writing an Ansys stop file (a file consisting of the `job-name'
+  and the extension '.abt') with `ansys-write-abort-file' in the
+  current directory (you can use the emacs command `cd' to change
+  the current directory).  This is for halting the calculation in
+  an orderly, re-startable fashion.
 
-- Opening the Ansys error file ('.err' in the current directory).
-  The error file is opened in read only mode (see
-  `toggle-read-only') and with the mode function
+- Viewing the Ansys error file (a file consisting of the
+  `job-name' and the suffix '.err' in the current directory) with
+  `ansys-display-error-file'.  The error file is opened in read
+  only mode (see `toggle-read-only') and with the mode function
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current Ansys output visible.
 
-- Starting of the Ansys help
-  browser (\"\\[ansys-start-ansys-help]\").
+- Starting of the Ansys help browser with
+  '\\[ansys-start-ansys-help]' (for `ansys-start-ansys-help').
 
 - Displaying of the current license status in another Emacs
-  buffer (\"\\[ansys-license-status]\").
+  buffer with '\\[ansys-license-status]' (for
+  `ansys-license-status').
 
-For the last two capabilities you need to customise some
-variables either with the Emacs customisation facility (M-x
-`ansys-customise-ansys' or from the menu bar -> 'Ansys' ->
-'Customise Ansys Mode' -> 'Ansys-process' and look there for the
-variables 'Ansys License File', 'Ansys Util Program' and 'Ansys
-Help Program') or setting the variables directly like the
-following example in your .emacs file.  How to do this, please
-have a look in the accompanying README or default.el example
-customisation file.
+If you haven't installed Ansys in the default locations or you
+are using a different Ansys version it's necessary for the last
+two capabilities to customise some variables either with the
+Emacs customisation facility (M-x `ansys-customise-ansys' or from
+the menu bar -> 'Ansys' -> 'Customise Ansys Mode' ->
+'Ansys-process' and look there for the variables 'Ansys License
+File', 'Ansys Util Program' and 'Ansys Help Program') or setting
+the variables directly like the following example in your .emacs
+file.  On how to do this, please have a look in the accompanying
+README or default_.el customisation file example.
+
+
+
+
+
+
+
+
+
+
+
 
 ** Ansys solver control and communication (mainly restricted to
   UNIX systems) **

@@ -14,8 +14,8 @@
 				t "ansys-skeleton-" nil)))
     (save-excursion
       (set-buffer skeleton-buffer)
-      (make-local-variable 'ansys-skeleton-overlay)
       (remove-overlays)
+      (make-local-variable 'ansys-skeleton-overlay)
       (setq ansys-skeleton-overlay (make-overlay 1 1))
       ;; TODO: remove possible command-help overlays!
       ;; (if ansys-help-overlay
@@ -873,9 +873,6 @@
   "*if,Dim,le,1,then" \n
   "  *dim,A,array,10,1" \n
   "*endif" > \n
-  "!! -- or simply clear A --" \n
-  "!!A =" \n
-  "!!*dim,A,array,10,1" \n
   "*do,I,1,Ns" \n
   "  set,Ls,I" > \n
   "  fsum" \n

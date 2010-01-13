@@ -73,15 +73,14 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	(display-buffer (process-buffer (get-process ansys-process-name)) 'other-window))
     (message "Copied from beginning of buffer to cursor.")))
 
-(defun ansys-send-to-ansys (beg end stay)	;NEW
+(defun ansys-send-to-ansys (beg end)	;NEW
   "Send code line or region to an Ansys process otherwise copy it.
 Argument BEG is the beginning of the region.  Argument END is the
 end of the region.  If there is no active region, either go to
 the next code line or send the current one.  When there is no
 running Ansys process just copy the respective code to the
-clipboard.  With a negative prefix argument STAY remain at the
-code line."
-  (interactive "r\np")
+clipboard."
+  (interactive "r")
   ;; copy the region, current line or go to next! code line
   (let (eol bol s reg)
     (cond ((use-region-p)
@@ -101,9 +100,7 @@ code line."
 	     (setq eol (point)))
 	   (setq s (buffer-substring-no-properties bol eol))
 	   (kill-ring-save bol eol)
-	   (message "stay: %d" stay)
-	   (unless (< stay 0)
-	     (ansys-next-code-line))))
+	   (ansys-next-code-line)))
     (cond ((ansys-process-running-p)
 	   (comint-send-string (get-process ansys-process-name) (concat s "\n"))
 	   (display-buffer "*Ansys*" 'other-window))
@@ -206,19 +203,23 @@ with the Ansys /EXIT,all command which saves all model data."
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the Ansys help system.
 Alternatively one can use the Ansys \"/SYS, anshelp120\" command
-when running Ansys interactively and provided that anshelp120 (or
-anshelp120.chm on Windows) is found e. g. through the PATH
-environment variable."
+when running Ansys interactively and provided that
+anshelp120 (under Unix) is found in the search path for
+executables (the PATH environment variable)."
   (interactive)
-  (if (string= ansys-help-file "")
-      (error "You must set the `ansys-help-file' variable")
+  (if (string= ansys-help-program "")
+      (error "You must set the `ansys-help-program' variable")
     (progn
       (message "Starting the Ansys help browser...")
       (cond
        ((ansys-is-unix-system-p)
-	(start-process "ansys-help-file" nil ansys-help-file))
+	(start-process "ansys-help-program" nil ansys-help-program))
        ((string= system-type "windows-nt")
-	(w32-shell-execute "Open" ansys-help-file)))))) ;HINT: Eli Z., M. Dahl
+	(w32-shell-execute "Open" ansys-help-program
+			   ansys-help-program-parameters)))))) ;HINT:
+											 ;Eli
+											 ;Z.,
+											 ;M. Dahl
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
 ;; (defun ansys-kill-buffer-query-function ()
@@ -269,12 +270,12 @@ displaying the license status."
     (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
     (message "Retrieving license status, please wait...")
-    (with-current-buffer (get-buffer-create "*Ansys-licenses*")
+    (with-current-buffer (get-buffer-create "*LM-Util*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
-    (call-process ansys-lmutil-program nil "*Ansys-licenses*" nil "lmstat" "-c "  ansys-license-file  "-a")
+    (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c "  ansys-license-file  "-a")
     (let (bol eol)
-      (with-current-buffer "*Ansys-licenses*"
+      (with-current-buffer "*LM-Util*"
 	;; remove unintersting licenses
 	;; (goto-char (point-min))
 	;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
@@ -322,9 +323,9 @@ displaying the license status."
 	(forward-line -1)
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
-	;; (set-window-point (get-buffer-window "*Ansys-licenses*") (point))
+	;; (set-window-point (get-buffer-window "*LM-Util*") (point))
 	))
-    (display-buffer "*Ansys-licenses*" 'otherwindow)
+    (display-buffer "*LM-Util*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
     ;; TODO: check for -lmutil-program
@@ -397,21 +398,21 @@ executable EXEC can be found."
   ;;   (message (concat "Ansys program is set to \"" ansys-program "\".")))
   )
 
-(defun ansys-help-file ()			;NEW
-  "Change the Ansys help file name.
-And specify it in the variable `ansys-help-file'."
+(defun ansys-help-program ()			;NEW
+  "Change the Ansys help executable.
+And specify it in the variable `ansys-help-program'."
   (interactive)
   (let (pr)
-    (if (and ansys-help-file
-	     (not (string= ansys-help-file "")))
-	(setq pr ansys-help-file)
+    (if (and ansys-help-program
+	     (not (string= ansys-help-program "")))
+	(setq pr ansys-help-program)
       (if (ansys-is-unix-system-p)
 	  (setq pr "/ansys_inc/v120/ansys/bin/anshelp120")
 	(setq pr "c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP\\en-us\\ansyshelp.chm")))
-    (setq ansys-help-file
+    (setq ansys-help-program
 	  (read-file-name
 	   (concat "Ansys help file [" pr "]: ") "" pr))
-    (message (concat "Ansys help file is set to \"" ansys-help-file "\"."))))
+    (message (concat "Ansys help file is set to \"" ansys-help-program "\"."))))
 
 (defun ansys-lmutil-program ( exec)		;NEW
   "Change the Ansys LMutil program name.

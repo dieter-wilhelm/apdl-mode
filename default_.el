@@ -1,5 +1,5 @@
 ;; Example customisation file for Ansys mode under Unix and Windows
-;; `default_.el' can be used as a system wide startup file after
+;; `default_el' can be used as a system wide startup file after
 ;; adjusting and renaming it to `default.el'.  And moving it e. g. to
 ;; `/usr/local/share/emacs/site-lisp' or `EMACS_INSTALLDIR/site-lisp'
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
@@ -116,3 +116,7 @@ calling a special Ansys customisation buffer." 'interactive)
 (add-hook 'find-file-hook 'auto-insert)
 (setq auto-insert-query t)
 (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+
+;; user variables:
+;; mode: emacs-lisp
+;; end

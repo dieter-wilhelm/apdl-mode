@@ -536,9 +536,8 @@ By default Ansys keywords, get-functions, parametric-function and elements
   "highlighting variables. \n" ";; This file was built by "
   "\"ansys-fontification.el\".\n\n"
   ";; Copyright (C) 2006 - 2010 H. Dieter Wilhelm.\n\n")
-
+  (save-buffer)
   (message "ansys-keywords.el done.")
-
   ;; --- end of let
 )  
 

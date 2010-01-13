@@ -188,14 +188,21 @@ only."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-file (concat "anshelp" ansys-current-ansys-version)		;NEW_C
-  "The Ansys \"Help System\" file name.
+(defcustom ansys-help-program (concat "anshelp" ansys-current-ansys-version)		;NEW_C
+  "The Ansys help executable.
 It is called with \\[ansys-start-ansys-help].  When the file is
 not in your search path, you have to furnish the complete path
 specification.  For example:
-\"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX or under the
-Windows OS \"c:\\\\Program\ Files\\Ansys\
-Inc\\v120\\CommonFiles\\HELP \\en-us\\ansyshelp.chm\"."
+\"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX and for Windows
+OS \"c:\\\\Program\ Files\\Ansys\
+Inc\\v120\\commonfiles\\jre\\intel\\bin\\Javaw.exe\".  Since
+Ansys version 12.0 it is a java interpreter."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-help-program-parameters "-cp \"c:\\Program Files\\Ansys Inc\\v120\\commonfiles\\help\" HelpDocViewer"
+  "Stores parameters for `ansys-help-program' under Windows.
+For example: '-cp \"c:\\Program Files\\Ansys Inc\\v120\\commonfiles\\help\" HelpDocViewer'."
   :type 'string
   :group 'Ansys-process)
 
@@ -1376,7 +1383,7 @@ the menu bar -> 'Ansys' -> 'Customise Ansys Mode' ->
 File', 'Ansys Util Program' and 'Ansys Help Program') or setting
 the variables directly like the following example in your .emacs
 file.  On how to do this, please have a look in the accompanying
-README or default_.el customisation file example.
+README or default_el customisation file example.
 
 
 
@@ -1444,9 +1451,9 @@ Some helpful commands when working interactively:
 replotting: \\[ansys-replot]
 refitting: \\[ansys-fit]
 
-You might optimise the LOADING speed of Ansys mode with
-byte-compilation of the lisp files.  Please see the function
-`byte-compile-file'.
+You can improve the loading and execution speed of Ansys mode
+with a byte-compilation of the lisp files.  Please see the
+function `byte-compile-file'.
 
 == Keybindings ==
 
@@ -2530,7 +2537,7 @@ Signal an error if the keywords are incompatible."
 	'ansys-dynamic-highlighting-flag
 	'ansys-job
 	'ansys-program
-	'ansys-help-file
+	'ansys-help-program
 	'ansys-lmutil-program
 	'ansys-license-file
 	'ansys-license-types

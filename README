@@ -101,6 +101,9 @@ of them.
   i. e. with writting a "nickname" Emacs exchanges the characters with
   a whole code template
 
+* Ansys mode changes some Emacs default behaviour to smooth the
+  transition from other editor
+
 As a visual example, a screen-shot on EmacsWiki and Google code show
 an Emacs frame with a ripped off Ansys menu field.  The APDL file is
 in the right window with the (experimental) user variable highlighting
@@ -125,18 +128,21 @@ Auxiliaries:
 * README -- this file
 * TODO -- todos and deficiencies
 * LICENSE -- the GPL V3 license
-* default_.el -- configuration example of an Emacs default.el
+* default_el -- configuration example of an Emacs default.el
 * fontification.mac -- highlighting APDL example
 
 === Short instructions ===
 
-For Windows system please use the Emacs archive with a preconfigured
-Ansys mode.  Unpack it anywhere on the system, you might run the
-program addpm.exe (located in the bin directory) to add an Emacs entry
-to the Windows Start menu (please refer to the README.W32 file).  Run
-the Emacs executable and get used to this great Editor.  Ansys mode is
+For Windows system please use the archive with Emacs and the latest
+preconfigured Ansys mode at http://code.google.com/p/ansys-mode.
+Unpack the archive anywhere on the system, you might run the program
+addpm.exe (located in the bin directory) to add an Emacs entry to the
+Windows Start menu (please refer to the README.W32 file).  Run the
+Emacs executable and get used to this great Editor.  Ansys mode is
 immediately availabel, please open or create an APDL file with a .mac
-suffix.
+suffix and have fun.
+
+For Unix systems and existing Emacs installations:
 
 ==== Direct way; no file configuration necessary ====
 
@@ -242,7 +248,7 @@ explicitely called ansys-mode.
 * further configuration method
 
 As a summary and example to these and further customisation options
-please have a look at the accompanying "default_.el" example. This is
+please have a look at the accompanying "default_el" example. This is
 helpful especially if you intend to use the mode's solver
 communication capabilities.  This file can be used, after renaming it
 to "default.el" and adjusting as as system wide startup file for Emacs

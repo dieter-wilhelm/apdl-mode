@@ -17,7 +17,7 @@
    variables) c.) the variable fontification might clash with Ansys
    specifiers d.) string substitution of %variables% in strings does
    not highlight them in the variable face
-
+   
 ** M-j: When there is already a `&' in a format command M-j
    inserts a redundant one
 
@@ -26,19 +26,18 @@
 - bugs
 *** features?
 - insert skeleton with C-c C-s i, send line C-c C-c ccc
-- narrow, outline eblocks, nblocks by default?
+
+- make C-j, M-j adhere to default (,) commands
 *** miscellaneous
+- move group ansys-process to -process.el?
+
+- last-command-char is obsolete
+
 - update, restructure -mode-help
 
+- update -font-lock-keywords-2
+
 - TODOs, FIXMEs in the code
-
-- /eof after $ working?
-
-- default command indentation for */ commands not allowed?
-
-- single asterisk * as comment possible?
-
-- *goto :branch with character labels such as :1 or :_2 possible?
 
 - load or load-file, what happens with compilation and autoload?
 
@@ -258,6 +257,8 @@ Conclusion/Summary?
   must *go:label be unambiguous?
 
 ** Miscellaneous
+- narrow, outline, transparent-font: eblocks, nblocks by default?
+
 - add notes for parameter help of undocumented commands (alist)
 
 - create filter variable for hiding not installed license types

@@ -18,7 +18,7 @@ _aaa = 9		 !reserved "_" variables
 Pi=acos(-1) $ True=1 $ False=0
 Xc = 0 $ Yc = 'char' 	 ! character string variables
 R1=4$R2=20
-N = 
+N =
 Alpha1 = rotx( 14.5) - 360./ (2*N)
 Alpha2 = +360./(2*N)
 Depth=ARG1		 !ARG{1-9}, AR{10-19} = "*use" variables
@@ -60,7 +60,7 @@ VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 !@@@ - loads -
 f,all,fx,1
 flist,all
-/eof
+fini $ /eof
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
 !@@@ - inertia relief -
 
@@ -72,6 +72,10 @@ nsel,s,loc,x,1
 cp,next,uy,all !couple dofs
 
 !(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+
+/prep7 * comment
+fini * comment
+otto = 3 * 4
 
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !! variables max. 32 chars long & condensed ($) input lines
@@ -85,7 +89,7 @@ _bla = 3		 ! _vars: macro reserved words
 otto =			 !`=' without rhs: variable clean up
 bla =
 Alpha3 = 4
-nsel,s,_hans,otto,'_otto' 
+nsel,s,_hans,otto,'_otto'
 !! APDL get/parametricfunctions & old style (deprecated) Ansys comments
 var1=sinh(cos(.3 *5)) !old style Ansys comments!!!!!
 var2 = tan(nx(.3*5)) !not an old style Ansys comment
@@ -163,9 +167,9 @@ pfct= $ ffrq= $ adir=
 nsel,s,l
 
 *dim,pfct,,nmd,6
-,
-,ffrq,,nmd
-,adir,char,nmd
+    ,
+    ,ffrq,,nmd
+    ,adir,char,nmd
 
 
 adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
@@ -192,9 +196,9 @@ yy = .9
 !  Change the window settings if you need different 
 !  aspect ratios for your geometry
 /win,1,-1,1,.5,1
-/win,2,-1,1,0,.5
-/win,3,-1,1,-.5,0
-/win,4,-1,1,-1,-.5
+    ,2,-1,1,0,.5
+    ,3,-1,1,-.5,0
+    ,4,-1,1,-1,-.5
 !
 /win,2,off
 /win,3,off

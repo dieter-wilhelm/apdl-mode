@@ -4,14 +4,18 @@
 ;; `/usr/local/share/emacs/site-lisp' or `EMACS_INSTALLDIR/site-lisp'
 ;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
 
+
+(setq ansys-install-directory "/appl")	; Unix
+;(setq ansys-install-directory "C:\\Program Files") ;Windows
+
+(setq ansys-current-ansys-version "120") ;which Ansys version is used 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; load-path
+;; load-path for the Ansys mode
 
 (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
 ;for example: "c:\\emacs\\emacs-23.1" with Windows
-;or "/usr/local/src/emacs-23.1/site-lisp" with Gnu/Linux 8-)
-
-(setq ansys-current-ansys-version "120") ;which Ansys version is used 
+;or "/usr/local/src/emacs-23.1/my-stuff" for a Gnu/Linux system
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) levels 0,1,2 are available
@@ -51,28 +55,58 @@ calling a special Ansys customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; processes stuff
 
-(if (string= window-system "x")		;Unix
-    (progn
-      ;; The Ansys executable
-      (setq  ansys-program (concat "/appl/ansys_inc/v" ansys-current-ansys-version "/ansys/bin/ansys" ansys-current-ansys-version)
-
+(cond ((string= window-system "x")		;Unix
+       ;; for starting the solver & ansys-license-status
+       ;;license servers (or license file name)
+       ;;specify even the default port for lmutil on Unix
+       (setq ansys-license-file
+	    "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")
+       ;; The Ansys executable
+       (setq  ansys-program
+	      (concat ansys-install-directory
+		      "/ansys_inc/v"
+		      ansys-current-ansys-version
+		      "/ansys/bin/ansys"
+		      ansys-current-ansys-version))
       ;; Tool for the license status
-      (setq ansys-lmutil-program "/appl/ansys_inc/shared_files/licensing/linx64/lmutil")
-
+       (setq ansys-lmutil-program
+	     (concat
+	      ansys-install-directory
+	      "/ansys_inc/shared_files/licensing/linx64/lmutil"))
       ;; Ansys help browser executable
-      (setq ansys-help-file (concat "/appl/ansys_inc/v" ansys-current-ansys-version "/ansys/bin/anshelp" ansys-current-ansys-version)))
-  ;; windows
-  (progn
-    (setq ansys-lmutil-program "C:\\Program Files\\Ansys Inc\\Shared Files\\licensing\\intel\\anslic_admin.exe")
-					;backslash '\"' on windows mandatory
-    (setq ansys-help-file (concat "\"C:\\Program Files\\Ansys Inc\\v"  ansys-current-ansys-version "\\CommonFiles\\HELP\\en-us\\ansyshelp.chm\""))))
+       (setq ansys-help-file
+	     (concat
+	      ansys-install-directory
+	      "/ansys_inc/v"
+	      ansys-current-ansys-version
+	      "/ansys/bin/anshelp"
+	      ansys-current-ansys-version)))
+      (t     
+       ;;else windows?
+       
+       (setq ansys-license-file "27005@lic-rbg1;27005@lic-rbg2") ;
+       (setq ansys-lmutil-program
+	     (concat
+	      ansys-install-directory
+	     "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe"))
+       ;;backslash '\"' on windows mandatory
+       (setq ansys-help-file
+	     '((concat "\""
+		       ansys-install-directory
+		       "\\Ansys Inc\\v"
+		       ansys-current-ansys-version
+		       "\\commonfiles\\jre\intel\\bin\\Javaw.exe\"")
+	       "-cp"
+	       (concat "\""
+		       ansys-install-directory
+		       "\\Ansys Inc\\v"
+		       ansys-current-ansys-version
+		       "\\commonfiles\\help\""
+		       "HelpDocView")))))
 
-;; for starting the solver & ansys-license-status
+;; for starting the solver
 (setq ansys-license "struct"	     ;which license to use for the run
       ansys-job "file"			;job name
-      ansys-license-file "27005@lic-rbg1:27005@lic-rbg2" ;
-					;license servers (or license file name)
-					;specify even the default port for lmutil 
       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

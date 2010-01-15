@@ -43,9 +43,7 @@
 
 - check whether all undocumented commands are still working in v12
 
-- C-c C-c copy whole line (with line-break)?
-
-- file coding is unix, problematic for window systems? seems OK
+- C-c C-c copy whole line (line with line-break)?
 
 ** general release procedures
 
@@ -257,6 +255,10 @@ Conclusion/Summary?
   must *go:label be unambiguous?
 
 ** Miscellaneous
+- supply command for clearing not important results, .rst, .log, ...
+
+- Ansys mode debian .deb package
+
 - narrow, outline, transparent-font: eblocks, nblocks by default?
 
 - add notes for parameter help of undocumented commands (alist)

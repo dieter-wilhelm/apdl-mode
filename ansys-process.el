@@ -57,7 +57,8 @@ the customisation facility (by calling `ansys-customise-ansys')."
     (auto-revert-tail-mode 1)))
 
 (defun ansys-copy-or-send-above	()	;NEW
-  "Copy or send to Ansys above code - up to the cursor"
+  "Copy or send to Ansys all of above code - up from the cursor
+position."
   (interactive)
   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
   ;; no-property stuff necessary?????
@@ -120,7 +121,7 @@ clipboard."
 ;;   (force-mode-line-update))
 
 (defun ansys-query-ansys-command ()	;NEW
-  ""
+  "Ask for a string which will be sent to the solver."
   (interactive)
   (unless (ansys-process-running-p)
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))

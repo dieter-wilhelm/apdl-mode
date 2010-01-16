@@ -74,39 +74,48 @@ position."
 	(display-buffer (process-buffer (get-process ansys-process-name)) 'other-window))
     (message "Copied from beginning of buffer to cursor.")))
 
-(defun ansys-send-to-ansys (beg end)	;NEW
-  "Send code line or region to an Ansys process otherwise copy it.
-Argument BEG is the beginning of the region.  Argument END is the
-end of the region.  If there is no active region, either go to
-the next code line or send the current one.  When there is no
-running Ansys process just copy the respective code to the
-clipboard."
-  (interactive "r")
-  ;; copy the region, current line or go to next! code line
-  (let (eol bol s reg)
-    (cond ((use-region-p)
-	   (setq reg t)
-	   (when (< (point) (region-end))
-	     (exchange-point-and-mark))
-	   (setq s (buffer-substring-no-properties beg end))
-	   (kill-ring-save beg end))
-	  ((not (ansys-code-line-p))
-	   (ansys-next-code-line)
-	   (error "There was no valid code line"))
-	  (t
-	   (save-excursion
-	     (back-to-indentation)
-	     (setq bol (point))
-	     (end-of-line)
-	     (setq eol (point)))
-	   (setq s (buffer-substring-no-properties bol eol))
-	   (kill-ring-save bol eol)
-	   (ansys-next-code-line)))
+(defun ansys-send-to-ansys (beg end stay)	;NEW
+  "Send region (or code line) to the Ansys solver, otherwise copy it.
+Argument BEG may the beginning of the region.  Argument END may
+be the end of the region.  If there is no region active send/copy
+the complete code line, if the cursor is in no code line (like a
+comment) go to the next code line and indicate an error.  When
+there is no running Ansys solver process just copy the respective
+code (region or line) to the system clipboard and skip to the
+subsequent code line.  With any prefix argument STAY copy or send
+code but remain at the current cursor position."
+  (interactive "r\nP")
+  (let (code)
+
+    ;; make a valid region if possible, when region is not active:
+    ;; region will be the whole code line (except \n)
+    (unless (setq region-active (use-region-p))
+      (unless (ansys-code-line-p)
+	(unless stay
+	    (ansys-next-code-line))
+	(error "There was no active region or code line"))
+      (save-excursion
+	(back-to-indentation)
+	(setq beg (point))
+	(end-of-line)
+	(setq end (point))))
+
+    ;; move cursor to subsequent code line unless stay
+    (unless stay
+      (if (and region-active
+	       (< (point) end))
+	(exchange-point-and-mark))
+      (ansys-next-code-line))
+
+    ;; send or copy region
     (cond ((ansys-process-running-p)
-	   (comint-send-string (get-process ansys-process-name) (concat s "\n"))
+	   (setq code (buffer-substring-no-properties beg end))
+	   (comint-send-string (get-process ansys-process-name)
+			       (concat code "\n"))
 	   (display-buffer "*Ansys*" 'other-window))
 	  (t
-	   (if reg
+	   (kill-ring-save beg end)
+	   (if region-active
 	       (message "Copied region.")
 	     (message "Copied code line."))))))
 
@@ -271,12 +280,12 @@ displaying the license status."
     (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
     (message "Retrieving license status, please wait...")
-    (with-current-buffer (get-buffer-create "*LM-Util*")
+    (with-current-buffer (get-buffer-create "*Ansys-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
-    (call-process ansys-lmutil-program nil "*LM-Util*" nil "lmstat" "-c "  ansys-license-file  "-a")
+    (call-process ansys-lmutil-program nil "*Ansys-licenses*" nil "lmstat" "-c "  ansys-license-file  "-a")
     (let (bol eol)
-      (with-current-buffer "*LM-Util*"
+      (with-current-buffer "*Ansys-licenses*"
 	;; remove unintersting licenses
 	;; (goto-char (point-min))
 	;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
@@ -324,9 +333,9 @@ displaying the license status."
 	(forward-line -1)
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
-	;; (set-window-point (get-buffer-window "*LM-Util*") (point))
+	;; (set-window-point (get-buffer-window "*Ansys-licenses*") (point))
 	))
-    (display-buffer "*LM-Util*" 'otherwindow)
+    (display-buffer "*Ansys-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
     ;; TODO: check for -lmutil-program

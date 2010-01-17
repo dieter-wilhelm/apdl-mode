@@ -1417,6 +1417,11 @@ sends all code from the beginning up to the current line to the
 solver.  If there is no running solver the function copies the
 code to the system tray.
 
+The commands \\[ansys-copy-or-send-above] and
+\\[ansys-send-to-ansys] skip to the next code line (if possible).
+If you don't want this behaviour please supply any prefix
+argument to them.
+
 When you are not familiar with Emacs' keybindings you probably
 want to select your part of interest with dragging the mouse
 pointer while pressing the first mouse button.  Often it is
@@ -1923,7 +1928,7 @@ If function `abbrev-mode' is on, expand the abbreviations first."
     (delete-region
      (point)
      (progn (skip-chars-backward " \t")
-	    (point)))			;clean trailing whitespace
+	    (point)))			;move trailing whitespace
     (indent-according-to-mode))
   (insert "\n")
   (indent-according-to-mode))
@@ -1990,7 +1995,7 @@ level."
 	  (when comma_c
 	    (setq lbp (line-beginning-position))
 	    (setq comma_c (- comma_c lbp))))
-	 ((looking-at ",")
+	 ((looking-at ",")		;TODO: shouldn't be possible
 	  (setq lep (line-end-position))
 	  (setq comma_c (1- (re-search-forward "," lep 'noerror))) ;excluding the comma
 	  (when comma_c

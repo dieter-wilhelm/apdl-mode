@@ -118,17 +118,19 @@ http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
 
 === Files ===
 
-Code:
+Sources:
 * ansys-mode.el
 * ansys-keyword.el
 * ansys-template.el
 * ansys-process.el
 
+(and likely their compiled version with the suffix '.elc'.)
+
 Auxiliaries:
 * README -- this file
 * TODO -- todos and deficiencies
-* LICENSE -- the GPL V3 license
-* default_el -- configuration example of an Emacs default.el
+* LICENSE -- the GPL (Gnu Puplic License) Version 3
+* default_el -- configuration examples (of an Emacs 'default.el')
 * fontification.mac -- highlighting APDL example
 
 === Short instructions ===
@@ -146,11 +148,11 @@ For Unix systems and existing Emacs installations:
 
 ==== Direct way; no file configuration necessary ====
 
-Important prerequisite: Emacs must know where all the code (.el) files
-reside!  Extract the mode archive into an Emacs directory which is in
-its default load-path (a good place is the "site-lisp" folder in your
-Emacs installation tree) or indicate the directory with the
-environment variable EMACSLOADPATH).
+Important prerequisite: Emacs must know where all the code (.el or its
+compiled versions .elc) files reside!  Extract the mode archive into
+an Emacs directory which is in its default load-path (a good place is
+the "site-lisp" folder in your Emacs installation tree) or indicate
+the directory with the environment variable EMACSLOADPATH).
 
 From there on you must load first the mode definitions with `M-x
 load-file ansys-mode RET', i. e. typing "M-x" (first) the "Alt" key
@@ -158,9 +160,11 @@ and then the "x" key simultaneously, you'll end up in the so called
 Emacs minibuffer prompt, now type "load-file" (you might apply the
 "TAB" key for the Emacs auto-completion feature at every intermediate
 stage 8-)) and conclude this input with the "RET" key. Emacs will then
-prompt you for a file, type in the path and "ansys-mode.el" and press
-RET.  Thereafter call the mode function itself with `M-x ansys-mode
-RET' for every new or existing APDL file.
+prompt you for a file, type in the directory where you have extracted
+the code and "ansys-mode.el" (or better "ansys-mode.elc" for speed
+reasons if the compiled version is available) and press RET to execude
+the loading.  Thereafter call the mode function itself with `M-x
+ansys-mode RET' for every new or existing APDL file.
 
 ==== More convenient way; file configuration necessary ====
 
@@ -192,10 +196,11 @@ in the future.
 
 * permanent configuration
 
-When it becomes tiring of loading 'ansys-mode.el' every time you are
-starting a new Emacs session, you should specify the installation path
-for the mode files in your '~/.emacs' file (the configuration file
-'.emacs' of GNU Emacs in your home directory '~\').
+When it becomes tiring of loading 'ansys-mode.el' (or
+'ansys-mode.elc') every time you are starting a new Emacs session, you
+should specify the installation path for the mode files in your
+'~/.emacs' file (the configuration file '.emacs' of GNU Emacs in your
+home directory '~\').
 
      (add-to-list 'load-path
 		  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
@@ -262,8 +267,8 @@ When you have a file under `ansys-mode' check out the menu bar's
 "Ansys" entry for its possibilities and select the entry "Describe
 Ansys Mode" or type "C-h m" (i. e. the CTRL key together with the "h"
 key and subsequently the "m" key), which will display the Ansys mode
-help which is your "online" guide for its usage and customisation 8-).
-
+help which is your "online" guide for its usage, keybindings and
+customisation options 8-).
 
 Templates, i.e. code snippets or skeletons might be extended in
 "ansys-template.el" and can be used similar or complementary to a
@@ -297,7 +302,8 @@ increments (.1) of the mode itself.
 === Version 12.0.1 ===
 
 * The lisp code had to be split up for better maintance, the code
-  files for are now provided in an archive.
+  files for are now provided in an archive together with their
+  compiled state for speed reasons.
 
 * Reworked the fontification mainly for the sake of speed.  There are
   now highlighting levels to choose from, offering e. g. higlighting
@@ -314,7 +320,9 @@ increments (.1) of the mode itself.
   (C-c C-u) commands are now generalised so that they are also doing
   some useful stuff without a running Ansys process (they copy in that
   case the cursor line/the chosen region and from the file beginning
-  to the cursor line, respectively, to the clipboard).
+  to the cursor line, respectively, to the clipboard).  Given a prefix
+  argument to these commands, the cursor won't move to the next code
+  line.
 
 * Added tooltips to all Ansys menu entries.
 
@@ -403,10 +411,10 @@ increments (.1) of the mode itself.
   comment sign e. g.: %% a = 3 **4 %% results in "a" having the value
   3, whereas %% a = 3**4 %% sets "a" to 81!
 
-* New: A line beginning with a comma is indented to the lenght of
-  the last non slash or asterisk command as a reminder that the
-  Ansys solver interprets this as a space holder for the last
-  command keyword (the Ansys default command concept).
+* New: A line beginning with a comma is indented to the length of the
+  last non slash or asterisk command as a reminder that the Ansys
+  solver interprets this as a space holder for the last command
+  keyword (the Ansys default command concept).
 
 * Extended documentation, code cleaning and simplification of
   commands (e.g. comment handling) with the application of standard
@@ -430,7 +438,9 @@ variable definitions are taken into account only when the variable
 ansys-dynamic-highlighting-flag is set (for very large files this
 slows Emacs and this flag is only implemented for ".mac" files) or any
 times when you activate the variable display (with C-c C-v) and the
-maximum highlighting level.
+maximum highlighting level.  If not already the case try to use the
+code in compiled form, please have a look at the documentation of the
+Emacs function `byte-recompile-directory'.
 
 Ansys "format line" (multi-line highlighting) and "user variable"
 highlighting (when the mentioned flag above ist not set) are somewhat

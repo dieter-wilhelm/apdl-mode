@@ -10,8 +10,10 @@
 	 (new-buffer-name "*Ansys-skeleton*")
 	 (skeleton-buffer (get-buffer-create new-buffer-name))
 	 s
-	 (skel (completing-read "Template: " obarray 'commandp
-				t "ansys-skeleton-" nil)))
+	 ;; (skel (completing-read "Template: " obarray 'commandp
+	 ;; 			t "ansys-skeleton-" nil))
+	 (skel 'ansys-skeleton-bc)
+	 )
     (save-excursion
       (set-buffer skeleton-buffer)
       (remove-overlays)
@@ -37,7 +39,8 @@
       (funcall (intern-soft skel))
       (goto-char (point-min))
       (setq ansys-last-skeleton skel)
-      (setq s (propertize (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
+      (setq s (propertize 
+	       (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
       (overlay-put ansys-skeleton-overlay 'before-string s)
       (set-buffer-modified-p nil))
     ;;(toggle-read-only t)
@@ -783,6 +786,7 @@
   "*cfclos ! close file" \n
   )
 
+;TODO: explain what's it for
 (define-skeleton ansys-skeleton-select
   ""
   nil
@@ -867,6 +871,10 @@
   \n
   "*dim,A,array,10,1" \n
   "*get,A,x,,item,fx" \n
+  \n
+  "*get,Nn,node,,count" \n
+  "*vget,PAR(1),node,1,nlist" \n
+  "" \n
   \n
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n

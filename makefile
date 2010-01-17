@@ -44,5 +44,5 @@ EMACS : $(PACKAGE) $(ELC_FILES) default.el
 	@tar -czf "ansys-mode+emacs-23.1-win32.tgz" emacs-23.1
 	@echo "... $@ done."
 
-TAGS : makefile $(EL_FILES) default_el
+TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
 	etags $(EL_FILES)

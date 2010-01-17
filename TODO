@@ -9,8 +9,6 @@
 ** Completion: c*** command is not completed (not in -completions)
     omission in fontification.el: c*** highlighting, harmless?
 
-** Highlighting: % and & operators in comments 
-
 ** Highlighting: Experimental user variable highlighting
    does not take into account: a.) a clearing of variables and b.)
    usage of variables before their definitions (uninitialised
@@ -22,28 +20,45 @@
    inserts a redundant one
 
 * v12.0.1:
-** workload
-- bugs
-*** features?
-- insert skeleton with C-c C-s i, send line C-c C-c ccc
+** schedule 
+Feb.: freeze, testing
+Mar.: preparations (planned Emacs 23.2 release)
+Apr.: release, presentation
 
-- make C-j, M-j adhere to default (,) commands
+** workload
+*** bugs
+- "string" commands are not fontified behind $
+
+- -skeleton-overlay bug resurfaced
+
+- C-c ?: *dim not found in keyword list
+
+- argument and -next-code-line for -send-above, check when
+  -next-code-line hits the eob!  Is this an error?
+
+- provide package with compiled code, what happens when some .el file
+  is changed, load or load-file, what happens with compilation and
+  autoload?
+
+- Highlighting: % and & operators in comments
+   update -font-lock-keywords-2
+
+- ansys-last-skeleton is not used   
+*** additional features?
+- insert skeleton with C-c C-s i, send line C-c C-c ccc
 *** miscellaneous
-- move group ansys-process to -process.el?
+- update, restructure -mode-help, section for code compilation?
+
+- move customisation group ansys-process to -process.el?
 
 - last-command-char is obsolete
 
-- update, restructure -mode-help
-
-- update -font-lock-keywords-2
-
 - TODOs, FIXMEs in the code
 
-- load or load-file, what happens with compilation and autoload?
+- check whether all undocumented commands (find-tag
+   "Ansys_undocumented_commands") are still working in v12
 
-- check whether all undocumented commands are still working in v12
-
-- C-c C-c copy whole line (line with line-break)?
+- C-c C-c copy whole line (line with line-break or not)?
 
 ** general release procedures
 
@@ -62,6 +77,9 @@ mode-help -- usage & configuration
   profiling, major mode conventions: multiple loading of this
   mode?.
 
+- check Emacs pretests, emacs-snapshots, clash with Emacs releases
+  (yearly Emacs cycle)?
+  
 - update Emacs wiki (README), Google Code with download packages, home
   page update all version numbers everywhere: Emacs wiki, Google Code
   with download, home page, elpa?
@@ -100,8 +118,6 @@ below you'll find a list of its features and what's new.
 
 - Emacs installation archive for Ansys under XP, default.el in
   site-lisp dir and byte-compiled ansys-mode?
-
-** schedule
 
 *** presentation
 -- Very brief introduction: Emacs, why not?  Free, working on all
@@ -149,7 +165,6 @@ below you'll find a list of its features and what's new.
 Conclusion/Summary?
 
 * Further versions
-
 ** Parameter help and documentation
 - count number of user variables when displaying them
 
@@ -176,28 +191,23 @@ Conclusion/Summary?
 ** Ansys interpreter buffer
    example: gnuplot-mode
 
-- warn when C-c C-c tries to send a block command (complete to full block?)   
+- warn when C-c C-c tries to send a block command (complete to full
+  block?)
 
-- try to ask only for the installation directory for the
-  ansys-license-file, -program, etc.  variables.  
+- C-c C-c skips empty lines and comments this is not always desirable
+  -> make this optional -> filter process input?
 
-- make filter of -license-status optionally  
+- C-c C-q, C-c C-u and C-c C-c sequences are not shown (and stored) in
+  the comint buffer
+
+- make filter of -license-status optional
 
 - optimise -start-run with query of y (start immediately),n (exit),e
   (change params),C-h (help)
 
-- C-c C-q sequences are not shown (and stored) in the comint buffer
-
 - Splice any input line behind the BEGIN: symbol in the *Ansys* buffer
 
-- Enable one run for every Ansys macro buffer
-
-- substring-no-properties necessary? Does not seem to be the case...
-
-
-- Ansys process status is not working properly process-sentinel or
-  some comint-hook?  check for EXIT command and wait some time to
-  update the mode line run status correctly
+- Enable one solver run for every Ansys macro buffer
 
 - indicate with activation/inactivation of menu items that an
   asynchronous job is already running or not.
@@ -212,10 +222,10 @@ Conclusion/Summary?
      a single `y' does the trick
 
 - Killing a buffer with a running process now asks a confirmation.
-   You can remove this query in two ways: either removing
-   `process-kill-buffer-query-function' from
-   `kill-buffer-query-functions' or setting the appropriate process
-   flag with `set-process-query-on-exit-flag'.
+  You can remove this query in two ways: either removing
+  `process-kill-buffer-query-function' from
+  `kill-buffer-query-functions' or setting the appropriate process
+  flag with `set-process-query-on-exit-flag'.
 
 - finding an Ansys /filnam command in current macro file and
   suggesting this as current job-name optionally kill old job when
@@ -255,6 +265,11 @@ Conclusion/Summary?
   must *go:label be unambiguous?
 
 ** Miscellaneous
+- the highlighting colours are only tested with white on black
+  background
+
+- make C-j, M-j adhere to default (,) commands
+
 - supply command for clearing not important results, .rst, .log, ...
 
 - Ansys mode debian .deb package
@@ -282,9 +297,6 @@ Conclusion/Summary?
 - For non-comint-mode usage: display .log file with tail mode
 
 - is outline-mode enabled? no! make default?, outline
-
-- C-c C-c skips empty lines and comments this is not always
-    desirable -> make this optional -> filter process input?
 
 - take care when region isn't complete in -send-to-ansys (send whole line)
 

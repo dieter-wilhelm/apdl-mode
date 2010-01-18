@@ -151,13 +151,13 @@ code but remain at the current cursor position."
 
 (defun ansys-start-ansys ()		;NEW
   (interactive)
+  (when (ansys-process-running-p)
+    (error "A Solver is already running under Emacs"))
+  (message "Preparing an Ansys solver start...")
   (setq ansys-process-name "Ansys")
   ;; (setq comint-use-prompt-regexp t) TODO: ???
   (ansys-program "")			;take exec from -program var.
   (ansys-license-file "")		;take file from license-file or env.
-
-  (when (ansys-process-running-p)
-    (error "Ansys already running, won't start subsequent runs"))
   (if (y-or-n-p
        (concat
 	"Start run?  (l-type: " ansys-license ", job: " ansys-job " in " default-directory ", server: " ansys-license-file ")"))

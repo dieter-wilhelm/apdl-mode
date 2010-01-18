@@ -675,12 +675,12 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ;; * bla : returns a warning *bla is not a command
     ;; bla = 3 * 4 : returns still 3!
     ("[[:alnum:]_]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face prepend)
-    					;^[:alpha:] to avoid spurious
+    					;^[:alnum:] to avoid spurious
     					;asterisk command fontification
     ;; some string faces
-    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
+    ("\\(?:^\\|\\$\\)\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
      font-lock-doc-face t) ;titles
-    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
+    ("\\(?:^\\|\\$\\)\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
     ;; multiline format constructs

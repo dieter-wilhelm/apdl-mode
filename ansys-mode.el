@@ -201,8 +201,9 @@ Ansys version 12.0 it is a java interpreter."
   :group 'Ansys-process)
 
 (defcustom ansys-help-program-parameters "-cp \"c:\\Program Files\\Ansys Inc\\v120\\commonfiles\\help\" HelpDocViewer"
-  "Stores parameters for `ansys-help-program' under Windows.
-For example: '-cp \"c:\\Program Files\\Ansys Inc\\v120\\commonfiles\\help\" HelpDocViewer'."
+  "Stores parameters for the variable `ansys-help-program' under Windows.
+For example: '-cp \"c:\\Program Files\\Ansys
+Inc\\v120\\commonfiles\\help\" HelpDocViewer'."
   :type 'string
   :group 'Ansys-process)
 
@@ -240,7 +241,7 @@ The license file itself."
 
 (defcustom ansys-ansysli-servers nil ;NEW_C
   "Used to identify the server machine for the Licensing Interconnect.
-Set it to port@host. The default port is 2325."
+Set it to port@host.  The default port is 2325."
   :type 'string
   :group 'Ansys-process)
 
@@ -1009,6 +1010,7 @@ comment."
 
 ;; hmmm, gnu/linux is some sort of Unix for my purposes
 (defun ansys-is-unix-system-p ()
+  "Return t when we are on a unix system."
   (not
    (or (string= system-type "gnu")
        (string= system-type "darwin")
@@ -1633,7 +1635,7 @@ improvements you have the following options:
   )
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
-  "Put mark at beginning of this paragraph,  point at end.
+  "Put mark at beginning of this paragraph, point at end.
 The paragraph marked is the one that contains point or follows
 point.
 

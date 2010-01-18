@@ -74,40 +74,45 @@ position."
 	(display-buffer (process-buffer (get-process ansys-process-name)) 'other-window))
     (message "Copied from beginning of buffer to cursor.")))
 
-(defun ansys-send-to-ansys (beg end stay)	;NEW
+(defun ansys-send-to-ansys ( &optional stay)	;NEW
   "Send region (or code line) to the Ansys solver, otherwise copy it.
-Argument BEG may the beginning of the region.  Argument END may
-be the end of the region.  If there is no region active send/copy
-the complete code line, if the cursor is in no code line (like a
-comment) go to the next code line and indicate an error.  When
-there is no running Ansys solver process just copy the respective
-code (region or line) to the system clipboard and skip to the
-subsequent code line.  With any prefix argument STAY copy or send
-code but remain at the current cursor position."
-  (interactive "r\nP")
-  (let (code)
-
+Argument BEG may the beginning of the region.  If there is no
+region active send/copy the complete code line, if the cursor is
+in no code line (like a comment) go to the next code line and
+indicate an error.  When there is no running Ansys solver process
+just copy the respective code (region or line) to the system
+clipboard and skip to the subsequent code line.  With any prefix
+argument STAY copy or send code but remain at the current cursor
+position."
+  (interactive "P")
+  (let (code
+	beg
+	end
+	(region (region-active-p)))
     ;; make a valid region if possible, when region is not active:
-    ;; region will be the whole code line (except \n)
-    (unless (setq region-active (use-region-p))
-      (unless (ansys-code-line-p)
-	(unless stay
-	    (ansys-next-code-line))
-	(error "There was no active region or code line"))
-      (save-excursion
-	(back-to-indentation)
-	(setq beg (point))
-	(end-of-line)
-	(setq end (point))))
+    ;; "region" will be the whole code line (excluding the line break)
+    (cond (region
+	   (setq beg (region-beginning)
+		 end (region-end)))
+	  (t 
+	   (unless (ansys-code-line-p)
+	     (unless stay
+	       (ansys-next-code-line))
+	     (error "There was no active region or code line"))
+	   (setq beg (line-beginning-position)
+		 end (line-end-position))))
 
     ;; move cursor to subsequent code line unless stay
     (unless stay
-      (if (and region-active
+      (if (and region
 	       (< (point) end))
 	(exchange-point-and-mark))
       (ansys-next-code-line))
 
-    ;; send or copy region
+    ;; invalidate region
+    (setq mark-active nil)
+
+    ;; send or copy region or line
     (cond ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string (get-process ansys-process-name)
@@ -115,7 +120,7 @@ code but remain at the current cursor position."
 	   (display-buffer "*Ansys*" 'other-window))
 	  (t
 	   (kill-ring-save beg end)
-	   (if region-active
+	   (if region
 	       (message "Copied region.")
 	     (message "Copied code line."))))))
 

@@ -2156,15 +2156,16 @@ Skips past intermediate comment and empty lines."
 			       ansys-next-code-line
 			       ansys-previous-code-line))
     (setq temporary-goal-column (current-column)))
-  (when (eobp)
-    (error "End of buffer"))
-  (forward-line 1)
-  (forward-comment (buffer-size))
-  (move-to-column (truncate temporary-goal-column))
-  (setq arg (1- arg))
-  (when (and (not (ansys-last-line-p))
-	     (/= arg 0))
-    (ansys-next-code-line arg)))
+  (cond ((eobp)
+	 (message "End of buffer"))
+	(t
+	 (forward-line 1)
+	 (forward-comment (buffer-size))
+	 (move-to-column (truncate temporary-goal-column))
+	 (setq arg (1- arg))
+	 (when (and (not (ansys-last-line-p))
+		    (/= arg 0))
+	   (ansys-next-code-line arg)))))
 
 (defun ansys-previous-code-line (&optional num)
   "Move NUM lines of Ansys code backward, default for NUM is 1.

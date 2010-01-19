@@ -173,7 +173,7 @@ position."
   (display-buffer ansys-process-buffer 'other-window)
 ;  (switch-to-buffer ansys-process-buffer)
   (other-window 1)
-  (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\AUX15:")
+  (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
   (font-lock-add-keywords nil (list comint-prompt-regexp))
 
 	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)

@@ -1599,7 +1599,15 @@ improvements you have the following options:
   ;; deviations from Emacs default behaviour
   (delete-selection-mode t)
   (set (make-local-variable 'scroll-preserve-screen-position) nil)
+  (defadvice kill-ring-save (before slick-copy activate compile) "When called
+  interactively with no active region, copy a single line instead."
+    (interactive (if mark-active
+		     (list (region-beginning) (region-end))
+		   (message "Copied line")
+		     (list (line-beginning-position)
+			   (line-beginning-position 2)))))
 
+  ;; on what system are we
   (setq ansys-is-unix-system-flag (ansys-is-unix-system-p))
 
   ;;   (make-local-variable 'ansys-column-ruler-wide) ;FIXEME

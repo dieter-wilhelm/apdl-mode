@@ -701,11 +701,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ;; multiline format constructs
 ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
  2 font-lock-doc-face t)
-    ;; ampersand is redundant with multiline fontlocking
-
-    ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
-    ("%" 0 font-lock-type-face prepend) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
 
       ;/SYS command sends string to OP,no parameter substitution!
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
@@ -750,8 +745,16 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     	      ansys-command-regexp-2c
     	      "\\)\\(\\w*\\)") (1 font-lock-keyword-face) (2 'font-lock-constant-face))
 
-    ;; user variables
-   (ansys-highlight-variable . font-lock-variable-name-face)
+;; user variables
+(ansys-highlight-variable . font-lock-variable-name-face)
+
+    ;; ampersand is redundant with multiline fontlocking
+
+    ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
+    ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+
+(ansys-higlight-procent-and-ampersand font-lock-type-face t)
 
     ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
@@ -1846,13 +1849,14 @@ THEN action label."
       (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
       (overlay-put ansys-help-overlay 'before-string s))))
 
-(defun ansys-show-command-parameters (&optional ask) ;NEW FIXME: "ask" is an undocumented feature
-  "Displays the Ansys command parameters help.
+(defun ansys-show-command-parameters (&optional ask)
+  "Displays the Ansys command parameters help for the command near the cursor.
 First it shows the parameters of the keyword and then a short
 explanation.  This is done for the previous Ansys command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the
-previous command is found."
+previous command is found.  With a prefix argument ASK inquire a
+function or command name in the mini buffer."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
@@ -2699,6 +2703,13 @@ Use variable `ansys-user-variable-regexp'."
     (let ((r ansys-user-variable-regexp))
       (re-search-forward r limit t)))
 
+(defun ansys-higlight-procent-and-ampersand (limit)
+  "Find procent sign and ampersand."
+  (re-search-forward "\\(:?%\\|&\\s-*$\\)" limit t)
+  ;; exclude the highlighting in comments
+  (when (and (not ansys-in-string-command-line-p) (ansys-in-comment-p)
+	     nil)))
+
 (defun ansys-copy-buffer-line (buffer line-no)
   "Return line at position POS in buffer BUFFER as a string."
   (save-excursion
@@ -2733,7 +2744,7 @@ C-u \\[goto-line] takes the nnumber automatically)."
      (propertize
       (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
       'face 'match))
-    (insert "line:\n")
+    (insert "Line: Definition\n")
     ;; insert variable lines
     (dolist (command ansys-user-variables)
       (setq old-num num

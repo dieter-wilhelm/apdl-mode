@@ -72,7 +72,8 @@
   "Regexp of command names which have a string behind them.")
 
 (defconst ansys-variable-defining-commands ;association list
-  '(("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
+  '(("/dir\\w*" . "/DIRECTORY")
+    ("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
   . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
     ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
     ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
@@ -2664,7 +2665,6 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
   (setq res (mapcar 'car ansys-user-variables)
 	res (regexp-opt res 'words)
 	ansys-user-variable-regexp res)))))
-
 
 ;; in comments: ok
 ;; in * comments: ansys-in-asterisk-comment-p

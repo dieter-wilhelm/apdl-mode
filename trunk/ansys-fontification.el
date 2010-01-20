@@ -313,14 +313,13 @@ Function names are distinguished by `()'."
   (setq undocumented-commands Ansys_undocumented_commands)
   (insert "(defconst ansys-undocumented-command-regexp\n")
   (prin1 (regexp-opt Ansys_undocumented_commands) buffer)
-  (insert "\n\" Regexp of commands not documented in the Ansys
+  (insert "\n\"Regexp of commands not documented in the Ansys
 manuals.  Seen mainly in Workbench output files and Ansys
 verification models.\")\n\n")
   ;; (beginning-of-defun)
   ;; (fill-paragraph 0)
   (message "undocumented commands...done")
   
-
   ;; ---------- command parameter help ----------
 
   ;; first include the undocumented commands
@@ -334,10 +333,10 @@ verification models.\")\n\n")
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
+;    (write-file "keyw+promt.txt")
     (goto-char (point-min))
     (while (re-search-forward "^\\(.\\w*\\>\\).*\n\\1.*" nil t)
       (add-to-list 'list (match-string 0) 'append)))
-  (sort list 'string< )
   (set-buffer buffer)
   (goto-char (point-min))
   (insert "(defconst ansys-dynamic-prompt\n'")

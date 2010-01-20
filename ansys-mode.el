@@ -72,20 +72,33 @@
   "Regexp of command names which have a string behind them.")
 
 (defconst ansys-variable-defining-commands ;association list
-  '(("/dir\\w*" . "/DIRECTORY")
-    ("\\*do\\>" . "\\*DO") ("\\*dow\\w*"
-  . "\\*DOWHILE") ("\\*get\\w*". "\\*GET") ("\\*dim\\w*"."\\*DIM")
-    ("\\*set.?"."*SET") ;funny *SET works only with one ;additional character
-    ("\\*ask\\w*" . "*ASK") ("\\<cm\\>" . "CM") ("\\<cmblock\\w*"
-    . "CMBLOCK")("\\<path\\w"."PATH") ("\\<pdef\\w*"."PDEF")
-    ("\\*vge\\w*"."*VGET") ("\\*vfu\\w*"."*VFUN") ("\\*mfu\\w*"."*MFUN")
-    ("\\*vit\\w*"."*VITRP") ("\\*top\\*w"."*TOPER") ("\\*vop\\w*"."*VOPER")
-    ("\\*mop\\w*"."*MOPER") ("\\*sre\\w*"."*SREAD") ("\\*vsc\\w*"."*VSCFUN")
-    ("/inq\\w*"."/INQUIRE"); ("/fil\\w*"."/FILNAME") how that, *vfil? TODO:
+  '(
+    ("\\*ask\\w*" . "*ASK")
+    ("\\<cm\\>" . "CM")
+    ("\\<cmblock\\w*" . "CMBLOCK")
+    ("\\*dim\\w*"."\\*DIM")
+    ("/dir\\w*" . "/DIRECTORY")
+    ("\\*do\\>" . "\\*DO")
+    ("\\*dow\\w*" . "\\*DOWHILE")
+    ("\\*get\\w*". "\\*GET")
+    ("/inq\\w*"."/INQUIRE")
+    ("\\*mfu\\w*"."*MFUN")
+    ("\\*mop\\w*"."*MOPER")
+    ("\\<path\\w"."PATH")
+    ("\\<pdef\\w*"."PDEF")
+    ("\\*sre\\w*"."*SREAD")
+    ("\\*set.?"."*SET") ;crasy *SET works only with one additional character
+    ("\\*top\\*w"."*TOPER")
+    ("\\*vge\\w*"."*VGET")
+    ("\\*vfu\\w*"."*VFUN")
+    ("\\*vit\\w*"."*VITRP")
+    ("\\*vop\\w*"."*VOPER")
+    ("\\*vsc\\w*"."*VSCFUN")
+    ("\\*vfi\\w*"."*vfill")
     )
   "Alist for commands which define user variables.
 In the form of (regexp . command_string), intentionally excluded
-is the \"=\" assignment.")
+is the \"=\" assignment command.")
 
 (defconst ansys-use-variables		;NEW_C
   '("ARG[1-9]" "AR[1][0-9]")

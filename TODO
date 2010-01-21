@@ -32,8 +32,10 @@ Apr.: release, presentation
 - -skeleton-overlay bug resurfaced
 
 - update -font-lock-keywords-2
+
 *** additional features?
 - insert skeleton with C-c C-s i, send line C-c C-c ccc
+
 *** miscellaneous
 - update, restructure -mode-help, section for code compilation?
 
@@ -51,14 +53,14 @@ Apr.: release, presentation
 - TODOs, FIXMEs in the code
 
 - check whether all undocumented commands (find-tag
-   "Ansys_undocumented_commands") are still working in v12
+  "Ansys_undocumented_commands") are still working in v12
 
 - C-c C-c copy whole line (line with line-break or not)?
-
+  make it consistent with M-w
+  
 - variable ansys-last-skeleton is not used   
 
 ** general release procedures
-
 README -- installation (Emacs Wiki) and accompanying files
 mode-help -- usage & configuration
 
@@ -401,13 +403,11 @@ Conclusion/Summary?
 - Macro level restriction: 20 macros
 
 ** unknown Ansys stuff
-
 - what the heck is the *UILIST command?
 
 - Is hyper56 a valid element?
 
 ** additional macro resources
-
 see www.apdl.de for further ideas and extensions
 
 

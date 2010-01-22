@@ -138,6 +138,7 @@
   "!etype $ stat" \n
   "!geometry $ stat" \n
   "!*status ! parameters, arrays and abbreviations" \n
+  "*stat,argx !list all ARGx values" \n
   "!@@@ - solution info -" \n
   "set,list ! list a summary of each load step" \n
   "!wpstyl,stat !working plane status" \n
@@ -161,7 +162,7 @@
   "/title," _ \n
   "/plopts,wp,1 !display working plane" \n
   "/triad,rbot !off, orig, ltop, ..." \n
-  "!/cwd,DIR !changes working directory" \n
+  "/cwd,DIR !changes working directory" \n
   )
 
 (define-skeleton ansys-skeleton-view-settings

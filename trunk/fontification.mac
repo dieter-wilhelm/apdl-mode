@@ -10,6 +10,7 @@
 finishThisNightmare $ /cle !/clear
 /prep7
 otto = 9
+c***, this is %wrong% shit!
 /title, this is a %otto% string command similar to /com and c***
 !@@ -- variable definitions and functions
 k
@@ -55,7 +56,7 @@ Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
 Steel = %G A (electrical angle = %G DEG) %/ &
 _Power factor: %G %/ &
 Inductance = %G %/ &
-VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
 
 !@@@ - loads -
 f,all,fx,1
@@ -66,19 +67,22 @@ fini $ /eof
 
 cgomga,x,y,z, ! rotational velocity about globla coord. sys.
 dcgomg,x,y,z ! rotational acceleration about global coord. sys.
-
+ 
 !@@@ - coupling -
 nsel,s,loc,x,1
 cp,next,uy,all !couple dofs
 
-!(progn (when (featurep 'ansys-mode)(unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+
+/prep7 $ /title,ototo
 
 /prep7 * comment
 fini * comment
 otto = 3 * 4
 
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
-!! variables max. 32 chars long & condensed ($) input lines
+Alu = 1 $ Steel = 3
+!! variables max. 32 chars long & condensed ($) input lines % %  &
 v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
 False = 0$True =1 $ Yes = 'no' bla otto bla
 *if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
@@ -96,14 +100,21 @@ var2 = tan(nx(.3*5)) !not an old style Ansys comment
 var3 = %Yes% $ *if	     !this is not a valid % string substition
 /xml		     ! undocumented command /xml
 *afun,rad
-/fil $ /filname
+/fil $ /filname%bla% 
 !! string, message commands and comment behaviour && %$$% %% :bla: &&&
+
 igesin,'test','%iges%'
-/titl,Nothing in particular
+/titl,Nothing in %particular%
 /com,beam3 %YES% ! this is *really not commented out!!!! &
 c*** *beam3 !otto *otto %neither% here !!!!!!! &
-/sys,ls "*.mac"
+/sys,ls "*.mac" %otto% &
+
+/com, bearm laskf %otto% !%otto% we are here 
+
+nsel,s,%bla%
+
 !! multiline message format command this is tricky: use M-o M-o
+alskdjf   
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
 Steel = %G A (electrical angle = %G DEG) %/ &
@@ -112,6 +123,7 @@ Inductance = %G %/ &
 VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 aldk this is not any longer in the *msg format construct
 /com this is not any longer in the *msg format construct
+
 *vwrite,B(1,1),B(2,1),%yes%
 alkd %D &
 %E%/%E

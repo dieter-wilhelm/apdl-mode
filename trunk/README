@@ -278,10 +278,13 @@ classical Ansys macro library.
 
 Ansys mode changes the default behaviour of Emacs
 
-globally: (delete-selection-mode t)
+globally:
+* (delete-selection-mode t)
+* Advised M-w (kill-ring-save) without active region to copy the whole line
 
-locally: (setq scroll-preserve-screen-position t)
-locally: M-h (mark-paragraph) has improved, in my opinion
+locally:
+* (setq scroll-preserve-screen-position t)
+* Changed M-h (mark-paragraph) to move the cursor to the end of the region
 
 == Acknowledgements ==
 

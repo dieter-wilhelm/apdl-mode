@@ -152,13 +152,18 @@ There are three levels available, 0 a minimalistic level
 optimised for speed and working with very large files (like
 WorkBench solver input files), 1 and 2.  Level 0 highlights only
 the minimum (unambiguous) length of Ansys command names and
-variable names defined with '='.  Level 1 highlights only
+variable definitions with the '=' operator.  Level 1 highlights
 complete command names, together with functions, elements,
 deprecated elements, undocumented commands, strings from string
 commands and the APDL operators.  Level 2 is the same as 1,
-except that all user variables and unambiguous command
+except that all defined user variables and unambiguous command
 names (also solver-ignored characters behind them) are
-highlighted as well."
+highlighted as well.  The user variables are highlighted
+\"statically\" only, newly defined variables are only taken
+into account after `ansys-display-variables'
+(\\[ansys-display-variables]) is called, this updating is done
+dynamically i. e. during editing when the variable
+`ansys-dynamic-highlighting-flag' is set to t."
   :type 'integer
   :group 'Ansys)
   :link '(variable-link font-lock-maximum-decoration )
@@ -654,7 +659,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 ;; C-u C-x = -- describe char
 ;; order of execution
 
-;; syntacticoverwritting nothing fontification
+;; syntactic overwritting nothing fontification
 
   ;; strings and /eof overwritting syntactic fonts and command face
   ;; respectively
@@ -698,9 +703,17 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ("\\(?:^\\|\\$\\)\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
+
     ;; multiline format constructs
-("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
- 2 font-lock-doc-face t)
+("^\\s-*\\(?:\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(?:.*&\\s-*\n\\)+.*\\)" ;format constructs
+ (1 font-lock-doc-face t))
+
+
+    ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
+    ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+(ansys-higlight-procent-and-ampersand 0 font-lock-type-face t)
+
 
       ;/SYS command sends string to OP,no parameter substitution!
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
@@ -748,23 +761,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 ;; user variables
 (ansys-highlight-variable . font-lock-variable-name-face)
 
-    ;; ampersand is redundant with multiline fontlocking
-
-    ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
-    ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
-
-(ansys-higlight-procent-and-ampersand font-lock-type-face t)
-
     ;; some operators
     ("\\$" 0 font-lock-type-face) ;condensed line
     (":" . 'font-lock-type-face)   ;colon loops only
 
     ;; deprecated *go labels (max 8 chars including the colon)
     (":\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
-
-)
-)
+))
 
 ;; testing
 (defconst ansys-font-lock-keywords-3
@@ -2697,18 +2700,19 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
 			  (not (looking-at "%")))))))))
 
 (defun ansys-highlight-variable (limit)		;NEW
-  "Find user variables from (point) to position LIMIT.
+  "Find user variables from (point) to position LIMIT for highlighting.
 Use variable `ansys-user-variable-regexp'."
 ;  (save-match-data
     (let ((r ansys-user-variable-regexp))
       (re-search-forward r limit t)))
 
 (defun ansys-higlight-procent-and-ampersand (limit)
-  "Find procent sign and ampersand."
-  (re-search-forward "\\(:?%\\|&\\s-*$\\)" limit t)
+  "Find procent and ampersand up to position LIMIT for highlighting."
+  (let ((res (re-search-forward "\\(?:%\\|&\\s-*$\\)" limit t)))
   ;; exclude the highlighting in comments
-  (when (and (not ansys-in-string-command-line-p) (ansys-in-comment-p)
-	     nil)))
+    (if (ansys-in-comment-p)
+	nil
+      res)))
 
 (defun ansys-copy-buffer-line (buffer line-no)
   "Return line at position POS in buffer BUFFER as a string."
@@ -2744,7 +2748,7 @@ C-u \\[goto-line] takes the nnumber automatically)."
      (propertize
       (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
       'face 'match))
-    (insert "Line: Definition\n")
+    (insert "Line | Definition\n")
     ;; insert variable lines
     (dolist (command ansys-user-variables)
       (setq old-num num

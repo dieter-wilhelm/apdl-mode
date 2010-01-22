@@ -21,12 +21,14 @@
 
 * v12.0.1:
 ** schedule 
-Feb.: freeze, documentation, testing
+Feb.: freeze, documentation, testing also with Emacs pretest
 Mar.: preparations (planned Emacs 23.2 release)
 Apr.: release, presentation
 
 ** workload
 *** bugs
+- :1 in a colon loop! distinguish *go labels and colon loops!
+
 - completion capitalises A, al to allsel is not working
 
 - -skeleton-overlay bug resurfaced

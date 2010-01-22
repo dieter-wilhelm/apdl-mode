@@ -6,9 +6,13 @@
 
 
 ;(setq ansys-install-directory "/appl")	; Unix
-(setq ansys-install-directory "C:\\Program Files") ;Windows
 
-(setq ansys-current-ansys-version "120") ;which Ansys version is used 
+(cond ((string= window-system "x")		;Unix
+       (setq ansys-install-directory "/appl"))
+      (t ;Windows
+       (setq ansys-install-directory "C:\\Program Files")))
+
+(setq ansys-current-ansys-version "121") ;which Ansys version is used 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load-path for the Ansys mode

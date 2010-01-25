@@ -10,9 +10,9 @@
 	 (new-buffer-name "*Ansys-skeleton*")
 	 (skeleton-buffer (get-buffer-create new-buffer-name))
 	 s
-	 ;; (skel (completing-read "Template: " obarray 'commandp
-	 ;; 			t "ansys-skeleton-" nil))
-	 (skel 'ansys-skeleton-bc)
+	 (skel (completing-read "Template: " obarray 'commandp
+	 			t "ansys-skeleton-" nil))
+	 ;; (skel "ansys-skeleton-bc")
 	 )
     (save-excursion
       (set-buffer skeleton-buffer)
@@ -460,9 +460,12 @@
   "mshape,0 !0: quads 1:tri (supported shapes)" \n
   "esize,1 ! element edge length" \n
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
+  "lccat,all !concatenate lines for meshing" \n
   \n
   "vmesh,all" \n
   "amesh,all" \n
+  "lsel,s,lcca !select all concatenated lines" \n
+  "ldele,all" \n
   "!! -- cyclic symmetric meshing --" \n
   "cyclic ! check sectors in case of cyclic sym." \n
   "*status ! look for CYCLIC_XREF" \n
@@ -870,12 +873,15 @@
   "\n!! ------------------------------" \n
   "!@@ -- arrays --" \n
   \n
-  "*dim,A,array,10,1" \n
+  "*dim,A,,10,1 ! type array is default" \n
+  "*dim,B,table,10,1,1,TIME !table type interpolating" \n
+  "B(1,0,1) = 0." \n
+  "B(2,0,1) = 1." \n
   "*get,A,x,,item,fx" \n
   \n
   "*get,Nn,node,,count" \n
   "*vget,PAR(1),node,1,nlist" \n
-  "" \n
+  "A = 1,2,3,4,5" \n
   \n
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n

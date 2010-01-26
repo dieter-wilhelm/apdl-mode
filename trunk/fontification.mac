@@ -10,7 +10,7 @@
 finishThisNightmare $ /cle !/clear
 /prep7
 otto = 9
-c***, this is %wrong% shit!
+c***, this is %right%! %bla%
 /title, this is a %otto% string command similar to /com and c***
 !@@ -- variable definitions and functions
 k
@@ -82,7 +82,7 @@ otto = 3 * 4
 
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 Alu = 1 $ Steel = 3
-!! variables max. 32 chars long & condensed ($) input lines % %  &
+n!! variables max. 32 chars long & condensed ($) input lines % %  &
 v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
 False = 0$True =1 $ Yes = 'no' bla otto bla
 *if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
@@ -103,6 +103,7 @@ var3 = %Yes% $ *if	     !this is not a valid % string substition
 /fil $ /filname%bla% 
 !! string, message commands and comment behaviour && %$$% %% :bla: &&&
 
+/com, bla = %bla%
 igesin,'test','%iges%'
 /titl,Nothing in %particular%
 /com,beam3 %YES% ! this is *really not commented out!!!! &
@@ -113,8 +114,7 @@ c*** *beam3 !otto *otto %neither% here !!!!!!! &
 
 nsel,s,%bla%
 
-!! multiline message format command this is tricky: use M-o M-o
-alskdjf   
+!@@ --! multiline message format command this is tricky: use M-o M-o
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
 Steel = %G A (electrical angle = %G DEG) %/ &
@@ -131,6 +131,7 @@ alkd %D &
 /prep7 $ FINISH ! $ is nothing behind?
 /prep7 !nothing behind?
 /prep7 nothing behind allowed
+X2=3
 rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
 nsel,s,loc,y,nsel
     ,a,loc,y,nsel

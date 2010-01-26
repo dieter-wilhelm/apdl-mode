@@ -597,64 +597,84 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
   (defconst ansys-font-lock-keywords-1
   `(
-    ;; deprecated ansys-comment
-    ("[[:alnum:]]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face t)
-    					;^[:alpha:] to avoid spurious
+    ;; /eof is special: it crashes Ansys in interactive mode
+    ;; TODO /eof is highlighted only first in line not behind $
+    ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
+
+    ;; deprecated ansys * comment with 12.1
+    ;; fini * bla : returns "* no longer valid as comment character - please use !"
+    ;; * bla : returns a warning *bla is not a command
+    ;; bla = 3 * 4 : returns still 3!
+    ("[[:alnum:]_]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face prepend)
+    					;^[:alnum:] to avoid spurious
     					;asterisk command fontification
     ;; some string faces
-    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1 font-lock-doc-face)
-      ;/SYS command sends string to OP,no parameter substitution!
-    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
-        ;TODO: c*** should get fontification from command regexp
-      (1 font-lock-keyword-face) (2 font-lock-doc-face t))
-   	      ;only 75 characters possible no separator necessary
-    ("^\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
-     font-lock-doc-face) ;titles
-    ("^\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
+    ("\\(?:^\\|\\$\\)\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
+     font-lock-doc-face t) ;titles
+    ("\\(?:^\\|\\$\\)\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1 font-lock-doc-face t)
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
 
+    ;; multiline format constructs
+;; ("^\\s-*\\(?:\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(?:.*&\\s-*\n\\)+.*\\)" ;format constructs
+;;  (1 font-lock-doc-face t))
+
+
+    ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
+    ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
+    		  ;specifier and pair %.% is a parameter substitution
+(ansys-higlight-procent-and-ampersand (0 'font-lock-type-face t))
+;("%\\|&\\s-*$" (0 'font-lock-type-face t))
+
+      ;/SYS command sends string to OP,no parameter substitution!
+    ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
+     font-lock-doc-face t)
+    ;TODO: c*** should get fontification from command regexp
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+      (1 font-lock-keyword-face t) (2 font-lock-doc-face t))
+   	      ;only 75 characters possible no separator necessary
+
+    ;; *use variables, local macro call arguments
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+
+    ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
     (,ansys-element-regexp . font-lock-builtin-face)
 
-    ;; reserved variable names
+    ;; reserved vars consisting of a single "_" are valid in A. 12.1
     (,reserved_vars_r 1 font-lock-warning-face)
 
-    ;; variables
-    (,variable_r 1 font-lock-variable-name-face)
+    ;; = variable defs (with reserved _names), overwritting commands
+    (,variable_r 1
+		 font-lock-variable-name-face) ; variables (max. 32 chars long)
 
     (,ansys-undocumented-command-regexp . font-lock-constant-face)
+
+    ;; get- and parametric-functions
     (,(concat "\\<\\("
 	      ansys-get-function-regexp
 	      "\\)(") 1 font-lock-function-name-face)
     (,(concat "\\<\\("
 	      ansys-parametric-function-regexp
 	      "\\)(") 1 font-lock-function-name-face)
+
+    ;; command keywords first
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
 	      ansys-command-regexp-1
 	      "\\)\\>") 1 font-lock-keyword-face)
 
-  ;; some operators
-    ("\\$" 0 font-lock-type-face) ;condensed line
+;; user variables
+;(ansys-highlight-variable . font-lock-variable-name-face)
+
+    ;; some operators
+    ("\\$" . 'font-lock-type-face) ;condensed input line
     (":" . 'font-lock-type-face)   ;colon loops only
-    ;; outmoded goto labels (max 8 chars including the colon)
-    (":\\([[:alpha:]]\\{1,7\\}\\)" 1 font-lock-type-face ) ;GOTO Labels, branching
 
-
-;;     ;; multiline format constructs
-;; ("^\\s-*\\(\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(.*&\\s-*\n\\)+.*\\)" ;format constructs
-;;       2 font-lock-doc-face t)
-
-    ;; ampersand highlighting
-    ("&\\s-*$" 0 font-lock-type-face) ;format continuation char
-    ("%" 0 font-lock-type-face t) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
-
-    ;; /eof is special: it crashes Ansys in interactive mode
-    ("\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
-    ;; *use variables, local macro call arguments
-    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-    ))
+    ;; deprecated *go labels (max 8 chars including the colon) only at
+;; the line beginning because they might clash with 'colon' loops
+    ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+)
+)
 
 ;; C-u C-x = -- describe char
 ;; order of execution
@@ -712,8 +732,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
     ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
     		  ;specifier and pair %.% is a parameter substitution
-(ansys-higlight-procent-and-ampersand 0 font-lock-type-face t)
-
+(ansys-higlight-procent-and-ampersand (0 'font-lock-type-face t))
+;("%\\|&\\s-*$" (0 'font-lock-type-face t))
 
       ;/SYS command sends string to OP,no parameter substitution!
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
@@ -762,11 +782,12 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 (ansys-highlight-variable . font-lock-variable-name-face)
 
     ;; some operators
-    ("\\$" 0 font-lock-type-face) ;condensed line
+    ("\\$" . 'font-lock-type-face) ;condensed input line
     (":" . 'font-lock-type-face)   ;colon loops only
 
-    ;; deprecated *go labels (max 8 chars including the colon)
-    (":\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
+    ;; deprecated *go labels (max 8 chars including the colon) only at
+;; the line beginning because they might clash with 'colon' loops
+    ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
 ))
 
 ;; testing
@@ -2702,17 +2723,18 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
 (defun ansys-highlight-variable (limit)		;NEW
   "Find user variables from (point) to position LIMIT for highlighting.
 Use variable `ansys-user-variable-regexp'."
-;  (save-match-data
-    (let ((r ansys-user-variable-regexp))
-      (re-search-forward r limit t)))
+  (let ((r ansys-user-variable-regexp))
+    (re-search-forward r limit t)))
 
 (defun ansys-higlight-procent-and-ampersand (limit)
   "Find procent and ampersand up to position LIMIT for highlighting."
-  (let ((res (re-search-forward "\\(?:%\\|&\\s-*$\\)" limit t)))
-  ;; exclude the highlighting in comments
-    (if (ansys-in-comment-p)
-	nil
-      res)))
+  (let (res )
+    (while
+	(progn
+	  (setq res (re-search-forward "%\\|&\\s-*$" limit t))
+	  ;; don't highlight in comments
+	  (and res (ansys-in-comment-p))))
+    res))
 
 (defun ansys-copy-buffer-line (buffer line-no)
   "Return line at position POS in buffer BUFFER as a string."

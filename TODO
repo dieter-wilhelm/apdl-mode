@@ -27,13 +27,9 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-- :1 in a colon loop! distinguish *go labels and colon loops!
-
 - completion capitalises A, al to allsel is not working
 
 - -skeleton-overlay bug resurfaced
-
-- update -font-lock-keywords-2
 
 *** additional features?
 - insert skeleton with C-c C-s i, send line C-c C-c ccc

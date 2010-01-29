@@ -27,9 +27,12 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-- completion capitalises A, al to allsel is not working
+- completion: capitalises A, al to allsel is not working
 
-- -skeleton-overlay bug resurfaced
+- completion: when exact mach e.g. 'file' completion list is not
+  updated and not shown
+
+- make-local-variable not possible in buffers without file?
 
 *** additional features?
 - insert skeleton with C-c C-s i, send line C-c C-c ccc
@@ -124,6 +127,8 @@ below you'll find a list of its features and what's new.
    founded, Drawbacks of Emacs, need of getting used to it: TAB key,
    C-c, C-v, C-x, C-y, C-z CUA-mode examples: (setq
    scroll-preserve-screen-position t) (delete-selection-mode t)
+
+   convenient pre-configured emacs archive with Ansys mode.
 
 -- casual APDL file viewer (whetting the appetite)
    convenience features?

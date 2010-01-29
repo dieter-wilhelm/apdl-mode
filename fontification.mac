@@ -1,3 +1,102 @@
+
+!@@ -- boundary conditions --
+
+/prep7
+
+!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+
+!@@@ - displacements -
+
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+dlist,all
+
+!@@@ - loads -
+
+f,all,fx,1
+flist,all
+
+!@@@ - inertia relief -
+
+!! LOADS: nonlinearities aren't supported, fix all DOFs!
+irlf,1 !0: none,1:ir on,-1:printout masses
+nsel,s,loc,x,1
+
+!@@@ - corriolis effects -
+
+cgmga,x,y,z, ! rotational velocity about globla coord. sys.
+dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+
+!@@@ - coupling -
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+
+allsel
+/pbc,all,on
+gplot
+
+!@@@ - magnetics -
+
+!! fmagbc,'Component' ! flag force calculation
+bfa,all,js, ! js current density
+bflist,all
+dl,all,,asym ! flux parallel to lines
+nsel,s,ext ! select exterior nodes
+dsym,asym ! flux parallel to lines
+!@@ -- boundary conditions --
+
+/prep7
+
+!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+
+!@@@ - displacements -
+
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+dlist,all
+
+!@@@ - loads -
+
+f,all,fx,1
+flist,all
+
+!@@@ - inertia relief -
+
+!! LOADS: nonlinearities aren't supported, fix all DOFs!
+irlf,1 !0: none,1:ir on,-1:printout masses
+nsel,s,loc,x,1
+
+!@@@ - corriolis effects -
+
+cgmga,x,y,z, ! rotational velocity about globla coord. sys.
+dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+
+!@@@ - coupling -
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+
+allsel
+/pbc,all,on
+gplot
+
+!@@@ - magnetics -
+
+!! fmagbc,'Component' ! flag force calculation
+bfa,all,js, ! js current density
+bflist,all
+dl,all,,asym ! flux parallel to lines
+nsel,s,ext ! select exterior nodes
+dsym,asym ! flux parallel to lines
+
+alls  
+*do
+*end
+ALLSELs
+
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
@@ -74,6 +173,52 @@ cp,next,uy,all !couple dofs
 
 !(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
 
+!@@ -- boundary conditions --
+
+/prep7
+
+!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+
+!@@@ - displacements -
+
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+dlist,all
+
+!@@@ - loads -
+
+f,all,fx,1
+flist,all
+
+!@@@ - inertia relief -
+
+!! LOADS: nonlinearities aren't supported, fix all DOFs!
+irlf,1 !0: none,1:ir on,-1:printout masses
+nsel,s,loc,x,1
+
+!@@@ - corriolis effects -
+
+cgmga,x,y,z, ! rotational velocity about globla coord. sys.
+dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+
+!@@@ - coupling -
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+
+allsel
+/pbc,all,on
+gplot
+
+!@@@ - magnetics -
+
+!! fmagbc,'Component' ! flag force calculation
+bfa,all,js, ! js current density
+bflist,all
+dl,all,,asym ! flux parallel to lines
+nsel,s,ext ! select exterior nodes
+dsym,asym ! flux parallel to lines
 /prep7 $ /title,ototo
 
 /prep7 * comment

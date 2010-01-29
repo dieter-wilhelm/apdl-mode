@@ -38,8 +38,8 @@ the Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 The code is based on Ansys version 12.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
-Emacs 23.1 under XP and GNU/Linux.  The code won't run without minor
-adaptions with Emacs 21.4.
+Emacs 23.1 under XP and GNU/Linux.  The code won't run flawlessly
+without minor adaptions for Emacs 21.4.
 
 If possible grab the Win32 package with a preconfigured Ansys mode
 together with a pre-compiled Emacs at above Googel Code site and
@@ -78,9 +78,9 @@ of them.
   optionally also user defined variables (experimental)
 
 * Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
-  CM, *VGET, ...) as well as component names in the current file,
-  shown in another window.  In the highest decoration level these
-  objects are highlighted as well.
+  CM, *VGET, ...), as well as component names, in the current file.
+  These are shown in another window.  In the highest decoration level
+  (2) these user variables are highlighted as well.
 
 * Preview and insertion (optionally auto-insertion) of header and
   Ansys code templates for APDL files.  Respective snippets represent
@@ -326,6 +326,8 @@ increments (.1) of the mode itself.
   to the cursor line, respectively, to the clipboard).  Given a prefix
   argument to these commands, the cursor won't move to the next code
   line.
+
+* The completion of Ansy keywords is reworked and has improved.
 
 * Added tooltips to all Ansys menu entries.
 

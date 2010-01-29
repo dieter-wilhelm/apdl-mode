@@ -12,7 +12,7 @@
       (t ;Windows
        (setq ansys-install-directory "C:\\Program Files")))
 
-(setq ansys-current-ansys-version "121") ;which Ansys version is used 
+(setq ansys-current-ansys-version "120") ;which Ansys version is used 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; load-path for the Ansys mode

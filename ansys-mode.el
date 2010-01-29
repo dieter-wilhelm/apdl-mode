@@ -209,13 +209,14 @@ only."
 
 (defcustom ansys-help-program (concat "anshelp" ansys-current-ansys-version)		;NEW_C
   "The Ansys help executable.
-It is called with \\[ansys-start-ansys-help].  When the file is
-not in your search path, you have to furnish the complete path
-specification.  For example:
-\"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX and for Windows
-OS \"c:\\\\Program\ Files\\Ansys\
-Inc\\v120\\commonfiles\\jre\\intel\\bin\\Javaw.exe\".  Since
-Ansys version 12.0 it is a java interpreter."
+It is called with
+\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
+executable is not in the search path, you have to give the
+executable with its complete path.  For example the default
+locations are \"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX
+and \"c:\\\\Program Files\\Ansys\
+Inc\\v120\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on Windows
+XP.  Since Ansys version 12.0 it is a java interpreter."
   :type 'string
   :group 'Ansys-process)
 
@@ -1666,11 +1667,14 @@ improvements you have the following options:
   ;; --- user variables ---
   (if (>= ansys-highlighting-level 2)
       (when (or
+	     (unless buffer-file-name
+	       t) ;skip rest is a buffer without a file
 	     (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	     (yes-or-no-p
 	      "File is bigger than 1MB, switch on user variable highlighting?"))
-	(if (and ansys-dynamic-highlighting-flag
-		 (string= (file-name-extension (buffer-file-name)) "mac"))
+	(if (and buffer-file-name ;we have a file in the buffer
+	     ansys-dynamic-highlighting-flag
+	     (string= (file-name-extension (buffer-file-name)) "mac"))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (message "Experimental (dynamic) fontification of user variables activated."))
@@ -1905,60 +1909,80 @@ function or command name in the mini buffer."
       (error "\"%s\" not found in keyword list" str))))
 
 (defun ansys-complete-symbol ()
-  "Perform completion on Ansys symbol preceding point.
-Compare that symbol against Ansys's reserved words, functions and
-element names."
+  "Perform a completion on Ansys keywords preceding the cursor.
+Complete the character(s) to Ansys's reserved words, functions
+and element names, otherwise throw an error.  When the keyword or
+the completed character(s) represent a unique Ansys keyword
+indicate this fact with a message. When the completion is not
+unique or only partial show the other possible completions in a
+temporary completion buffer, in which the completions might be
+chosen with the mouse.  You can remove the completion buffer with
+the SPACE key."
   ;; This code taken from lisp-complete-symbol
   (interactive "*")
-  (let ((window (get-buffer-window "*Completions*")))
+  (let* ((buffer-name "*Ansys-completions*")
+	(completion-buffer (get-buffer-create buffer-name))
+	(completion-window (get-buffer-window completion-buffer))
+	)
     (if (and (eq last-command this-command)
-	     window (window-live-p window) (window-buffer window)
-	     (buffer-name (window-buffer window)))
+	     completion-window		;already window there?
+	     (window-live-p completion-window)	;window is visible
+;	     (window-buffer window)
+	     ;; (buffer-name (window-buffer window))
+	     )
 	;; If this command was repeated, and
 	;; there's a fresh completion window with a live buffer,
 	;; and this command is repeated, scroll that window.
-	(with-current-buffer (window-buffer window)
-	  (if (pos-visible-in-window-p (point-max) window)
-	      (set-window-start window (point-min))
+	(with-current-buffer (window-buffer completion-window)
+	  (if (pos-visible-in-window-p (point-max) completion-window)
+	      (set-window-start completion-window (point-min))
 	    (save-selected-window
-	      (select-window window)
+	      (select-window completion-window)
 	      (scroll-up))))
       ;; Do completion.
       (let* ((end (point))
 	     (beg (save-excursion (backward-sexp 1) (point)))
-	     (string (buffer-substring-no-properties beg end))
-	     (completion (try-completion string ansys-completions)))
-	(cond ((eq completion t))	;perfect match do nothing
-	      ((null completion)	;completion is nil predicate
-	       (message "Can't find completion for \"%s\"" string)
+	     (completion-string (buffer-substring-no-properties beg end))
+	     (completion (try-completion
+			  completion-string ansys-completions))
+	     (completion-list (all-completions
+			       completion-string ansys-completions))
+	     )
+	(cond ((eq completion t)	;perfect match
+	       (message "Nothing to complet.")
+	       (when (> (length completion-list) 1)
+		 (message "bla")))
+	      ((null completion)	;completion did not succeed
+	       (message "Can't find completion for \"%s\"" completion-string)
 	       (ding))
-	      ((not (string= string completion))
+	      ((not (string= completion-string completion))
+	       (message completion)
 	       (delete-region beg end)
 	       ;; Completion w/o capitalisation (Suggestion: Holger Sparr)
 	       (let* ((case-fold-search nil)
-		      (sc (string-match
-			   "\\([a-z].\\)\\|\\(\\*\\|/\\|~\\)[a-z]" string)))
-		 (if (or (null sc) (> sc 0))
+		      (downcase (string-match
+			   "[*/~]?[a-z]"
+			   completion-string)))
+		 (if (or (null downcase) (> downcase 0))
 		     (insert completion)
 		   (insert (downcase completion)))))
 	      (t
-	       (let ((list
-		      (all-completions string ansys-completions))
-		     (conf (current-window-configuration)))
+	       (let ((conf (current-window-configuration)))
 		 ;; Taken from comint.el
-		 (message "Making completion list...")
-		 (with-output-to-temp-buffer "*Completions*"
-		   (display-completion-list list string))
+		 ;(message "Making completion list...")
+		 (with-output-to-temp-buffer "*Ansys-completions*"
+		   (display-completion-list
+		    completion-list completion-string))
 		 (message "Hit space to flush the completion buffer")
 		 (let (key first)
 		   (if (save-excursion
-			 (set-buffer (get-buffer "*Completions*"))
+			 (set-buffer (get-buffer completion-buffer))
 			 (setq key (read-key-sequence nil)
 			       first (aref key 0))
 			 (and (consp first) (consp (event-start first))
 			      (eq (window-buffer (posn-window (event-start
 							       first)))
-				  (get-buffer "*Completions*"))
+				  (get-buffer completion-buffer))
 			      (eq (key-binding key) 'mouse-choose-completion)))
 		       (progn
 			 (mouse-choose-completion first)

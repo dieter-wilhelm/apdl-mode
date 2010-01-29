@@ -6,7 +6,7 @@
 (defun ansys-display-skeleton ()	;NEW
   "Display code templates in another buffer."
   (interactive)
-  (let* ((current-buffer (buffer-name))
+  (let* (
 	 (new-buffer-name "*Ansys-skeleton*")
 	 (skeleton-buffer (get-buffer-create new-buffer-name))
 	 s
@@ -17,7 +17,7 @@
     (save-excursion
       (set-buffer skeleton-buffer)
       (remove-overlays)
-      (make-local-variable 'ansys-skeleton-overlay)
+      ;(make-local-variable 'ansys-skeleton-overlay)
       (setq ansys-skeleton-overlay (make-overlay 1 1))
       ;; TODO: remove possible command-help overlays!
       ;; (if ansys-help-overlay
@@ -27,7 +27,7 @@
       (kill-region (point-min) (point-max))
 					;(ansys-skeleton-configuration)
 					;      (message skel) ;add-text-properties
-      (unless (string= (symbol-name major-mode) "ansys-mode")
+      (unless  (eq major-mode 'ansys-mode)
 	(ansys-mode))
       ;; TODO: overlay displaying skeleton name
       ;; (insert
@@ -35,7 +35,6 @@
       ;; 	;; TODO
       ;; 	(concat " 111 Template: " skel " ---\n\n")
       ;; 	'face 'match))
-      (insert "\n")
       (funcall (intern-soft skel))
       (goto-char (point-min))
       (setq ansys-last-skeleton skel)
@@ -46,7 +45,6 @@
     ;;(toggle-read-only t)
     ;; (set-buffer current-buffer))
     (display-buffer new-buffer-name 'other-window)))
-
 
 (define-skeleton ansys_do		;NEW
   ""
@@ -454,7 +452,6 @@
   "\n!! ------------------------------" \n
   "!@@ -- meshing --" \n
   \n
-  ""					;
   "!! mat,Steel" \n
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
   "mshape,0 !0: quads 1:tri (supported shapes)" \n
@@ -462,6 +459,7 @@
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
   "lccat,all !concatenate lines for meshing" \n
   \n
+  "esys,12 !set element coordinates for a and v elements to 12" \n
   "vmesh,all" \n
   "amesh,all" \n
   "lsel,s,lcca !select all concatenated lines" \n
@@ -514,49 +512,51 @@
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
   "!mplist,all" \n
-  "!! mpplot !plots mat. against temperature" \n
-  "!! tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
-  "!! yield_stress=140" \n
-  "!! tangent_modulus=1400" \n
-  "!! tbdata,,yield_stress,tangent_modulus !biso" \n
+  "mpplot !plots mat. against temperature" \n
+  "tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
+  "yield_stress=140" \n
+  "tangent_modulus=1400" \n
+  "tbdata,,yield_stress,tangent_modulus !biso" \n
   "/com, === Material %Steel% is steel. ===" \n
-  "!! Alu=2" \n
-  "!! mp,nuxy,Alu,0.3" \n
-  "!! mp,ex,Alu,70000" \n
-  "!! tb,biso,Alu,1" \n
-  "!! !! tbdata,,yield_stress,tangent_modulus !biso" \n
-  "!! /com, === Material %Alu% is Aluminium. ===" \n
+  "Alu=2" \n
+  "mp,nuxy,Alu,0.3" \n
+  "mp,ex,Alu,70000" \n
+  "tb,biso,Alu,1" \n
+  "!! tbdata,,yield_stress,tangent_modulus !biso" \n
+  "/com, === Material %Alu% is Aluminium. ===" \n
   "!! --- hyperelastic mooney rivlin mat ---" \n
   "!! for 30 % compression 100 % tension strain" \n
   \n
   "!! -- orthotropic linear material --" \n
-  "!! mp, alp{x,y,z}, Steel, val" \n
-  "!! mp, e{x,y,z}, Steel, val" \n
+  "esel,s,mat,,bla" \n
+  "emodif,all,esys,12 !modify esys" \n
+  "mp, e{x,y,z}, Steel, VAL" \n
+  "mp, alp{x,y,z}, Steel, VAL !in element co-ordinate system" \n
   \n
   "!! --- Elastomers (hyperelastic) ---" \n
-  "!! Rubber = 3" \n
-  "!! tb,hyper,Rubber,,,MOONEY" \n
-  "!! Shore = 60" \n
-  "!! ShearModule = 0.086*1.045**Shore" \n
-  "!! tbdata,1,3*ShearModule/6.6" \n
-  "!! tbdata,2,.3*ShearModule/6.6" \n
+  "Rubber = 3" \n
+  "tb,hyper,Rubber,,,MOONEY" \n
+  "Shore = 60" \n
+  "ShearModule = 0.086*1.045**Shore" \n
+  "tbdata,1,3*ShearModule/6.6" \n
+  "tbdata,2,.3*ShearModule/6.6" \n
   "!! -- check whether to drop elem. midside nodes and use u-p formulation" \n
-  "!! keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
-  "!! ! ogden for high strain applic. (700 % strain)" \n
-  "!! tb,hyper,Rubber,,,OGDEN" \n
+  "keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
+  "! ogden for high strain applic. (700 % strain)" \n
+  "tb,hyper,Rubber,,,OGDEN" \n
   \n
   "!! --- Magnetic materials ---" \n
-  "!! Air = 4" \n
-  "!! mp,murx,Air,1 ! murx permeability" \n
-  "!! Magnet = 5" \n
-  "!! Hc = 2.8e5 ! ferrit magnet coercive force in A/m" \n
-  "!! mp,mgxx,Magnet,Hc " \n
-  "!! Pi = acos(-1)" \n
-  "!! Mu0 = .4*Pi*1e-6 ! field constant in Vs/(Am)" \n
-  "!! Br = .4 ! residual induction in Tesla" \n
-  "!! mp,murx,Magnet,Br/(Mu0*Hc)" \n
+  "Air = 4" \n
+  "mp,murx,Air,1 ! murx permeability" \n
+  "Magnet = 5" \n
+  "Hc = 2.8e5 ! ferrit magnet coercive force in A/m" \n
+  "mp,mgxx,Magnet,Hc " \n
+  "Pi = acos(-1)" \n
+  "Mu0 = .4*Pi*1e-6 ! field constant in Vs/(Am)" \n
+  "Br = .4 ! residual induction in Tesla" \n
+  "mp,murx,Magnet,Br/(Mu0*Hc)" \n
   \n
-  "!! /pnum,mat,1 $ eplot"\n
+  "/pnum,mat,1 $ eplot"\n
   )
 
 (define-skeleton ansys-skeleton-bc
@@ -570,27 +570,27 @@
   \n
   "!@@@ - displacements -" \n
   \n
-  "!nsel,s,loc,y,0" \n
-  "!    ,a,loc,y,1" \n
-  "!    ,r,loc,x,0" \n
+  "nsel,s,loc,y,0" \n
+  "    ,a,loc,y,1" \n
+  "    ,r,loc,x,0" \n
   "d,all,all" \n
-  "!dlist,all" \n
+  "dlist,all" \n
   \n
   "!@@@ - loads -" \n
   \n
-  "!f,all,fx,1" \n
-  "!flist,all" \n
+  "f,all,fx,1" \n
+  "flist,all" \n
   \n
   "!@@@ - inertia relief -" \n
   \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
-  "!! irlf,1 !0: none,1:ir on,-1:printout masses" \n
+  "irlf,1 !0: none,1:ir on,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
   \n
   "!@@@ - corriolis effects -" \n
   \n
-  "!! cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
-  "!! dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
+  "cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
+  "dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
   "!@@@ - coupling -" \n
   "nsel,s,loc,x,1" \n
@@ -598,16 +598,16 @@
   \n
   "allsel" \n
   "/pbc,all,on" \n
-  "!gplot" \n
+  "gplot" \n
   \n
   "!@@@ - magnetics -" \n
   \n
   "!! fmagbc,'Component' ! flag force calculation" \n
-  "!! bfa,all,js, ! js current density" \n
-  "!bflist,all" \n
-  "!! dl,all,,asym ! flux parallel to lines" \n
-  "!! nsel,s,ext ! select exterior nodes" \n
-  "!! dsym,asym ! flux parallel to lines" \n
+  "bfa,all,js, ! js current density" \n
+  "bflist,all" \n
+  "dl,all,,asym ! flux parallel to lines" \n
+  "nsel,s,ext ! select exterior nodes" \n
+  "dsym,asym ! flux parallel to lines" \n
   )
 
 (define-skeleton ansys-skeleton-buckling
@@ -645,50 +645,51 @@
   "/solu" \n
   "allsel" \n
   \n
-  "!! solcontrol,on! optimised nonlinear solution defaults" \n
-  "!! n1=20" \n
-  "!! n2=n1*100" \n
-  "!! n3=n1/4" \n
-  "!! nsubst,n1,n2,n3"\n
-  "!! outres,all,all"\n
-  "!! !antype,,rest, !perform restart operation" \n
-  "!! nlgeom,on" \n
-  "!! autots,on" \n
+  "solcontrol,on! optimised nonlinear solution defaults" \n
+  "n1=20" \n
+  "n2=n1*100" \n
+  "n3=n1/4" \n
+  "nsubst,n1,n2,n3"\n
+  "outres,all,all"\n
+  "antype,,rest, !perform restart operation" \n
+  "nlgeom,on" \n
+  "autots,on" \n
   \n
   "solve" \n
   \n
-  "!! cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
-  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
-  "!! neqit,30! No of equilibr. iterations"
-  "!! nldiag,nrre,on! store residual file" \n
-  "!! nldiag,maxf,2! maximum files written" \n
-  "!! rescontrol,,1,last !create restart file(s)" \n
-  "!!           ,status" \n
-  "!! /config,nres,2000 !No of substeps in result file [1000]" \n
+  "cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
+  "cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
+  "neqit,30! No of equilibr. iterations"
+  "nldiag,nrre,on! store residual file" \n
+  "nldiag,maxf,2! maximum files written" \n
+  "rescontrol,,1,last !create restart file(s)" \n
+  "          ,status" \n
+  "/config,nres,2000 !No of substeps in result file [1000]" \n
   "/solu" \n
   \n
-  "!! nlhist,on !nonlinear tracking in .nlh" \n
-  "!! eqslv,pcg,1e-4" \n
-  "!! nropt,unsym !frictional contacts not converging?" \n
-  "!! coupling of sliding and normal stiffness" \n
-  "!! stabilize,constant,energy,1e-4" \n
-  "!! !stabilize,off !reduce" \n
-  "!! !arclen,on ! arclen stabilisation" \n
+  "nlhist,on !nonlinear tracking in .nlh" \n
+  "eqslv,pcg,1e-4" \n
+  "nropt,unsym !frictional contacts not converging?" \n
+  "coupling of sliding and normal stiffness" \n
+  "stabilize,constant,energy,1e-4 !constant over LS" \n
+  "stabilize,reduce,energy,1e-4 !reduce to the end of LS" \n
+  "stabilize !decactivate stabilisation" \n
+  "arclen,on ! arclen stabilisation" \n
   \n
-  "!! /runst !enter the run statistics processor" \n
-  "!! rall !run statistics estimator" \n
+  "/runst !enter the run statistics processor" \n
+  "rall !run statistics estimator" \n
   \n
-  "!! rescontrol,file_summary !check restart files" \n
-  "!! antyp,,rest,1,last"\n
-  "!! time,1.2 !time at the end of load step" \n
+  "rescontrol,file_summary !check restart files" \n
+  "antyp,,rest,1,last"\n
+  "time,1.2 !time at the end of load step" \n
   \n
   "!@@ -- magnetics --" \n
   \n
-  "!! magsolv" \n
+  "magsolv" \n
   \n
   "!@@ -- cyclic symmetry --" \n
   \n
-  "!! cycopt,status" \n
+  "cycopt,status" \n
   )
 
 (define-skeleton ansys-skeleton-post1
@@ -701,66 +702,66 @@
   "/post1" \n
   "set,last" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
-  "!plnsol,s,eqv ! von Mises" \n
-  "!plnsol,s,1 ! maximum principle: Lamé" \n
-  "!plnsol,s,int ! stress intensity: Tresca" \n
-  "!plnsol,s,xy ! shear in xy-dir." \n
+  "plnsol,s,eqv ! von Mises" \n
+  "plnsol,s,1 ! maximum principle: Lamé" \n
+  "plnsol,s,int ! stress intensity: Tresca" \n
+  "plnsol,s,xy ! shear in xy-dir." \n
   \n
-  "!! /dscale,,1 !do not scale (for nlgeom)" \n
-  "!! /dscale,,auto !or 0:scale automatically" \n
-  "!! !*get,Ds,graph,WN,dscale,dmult" \n
-  "!! /contour,,ncont,min,inc,max" \n
-  "!! /contour,,auto !switch off user contours" \n
-  "!! /edge,,1 !1:display elements in contour plots" \n
-  "!! /edge,,0 !0:switch off display of elements in contour plots" \n
-  "!! /plopts,minm,off !switch off min-max symbols" \n
-  "!! /plopts,minm,on" \n
-  "!! /pbc,rfor,,1 !1:show reaction f. symbols" \n
-  "!! /pbc,rfor,,0" \n
-  "!! /dist,,1/2,1 !enlarge twice" \n
-  "!! /noerase ! don't erase screen between plots" \n
-  "!! erase"
-  "!! /triad,rbot ! coordinate system to right bot" \n
-  "!! /plopts,wp ! switch off working plane" \n
-  "!! /plopts,minm ! switch off min max" \n
+  "/dscale,,1 !do not scale (for nlgeom)" \n
+  "/dscale,,auto !or 0:scale automatically" \n
+  "*get,Ds,graph,WN,dscale,dmult" \n
+  "/contour,,ncont,min,inc,max" \n
+  "/contour,,auto !switch off user contours" \n
+  "/edge,,1 !1:display elements in contour plots" \n
+  "/edge,,0 !0:switch off display of elements in contour plots" \n
+  "/plopts,minm,off !switch off min-max symbols" \n
+  "/plopts,minm,on" \n
+  "/pbc,rfor,,1 !1:show reaction f. symbols" \n
+  "/pbc,rfor,,0" \n
+  "/dist,,1/2,1 !enlarge twice" \n
+  "/noerase ! don't erase screen between plots" \n
+  "erase"
+  "/triad,rbot ! coordinate system to right bot" \n
+  "/plopts,wp ! switch off working plane" \n
+  "/plopts,minm ! switch off min max" \n
   \n
   "!! -- graphics output & invert background colour --" \n
-  "!/RGB,index,100,100,100,0" \n
-  "!/RGB,index,0,0,0,15" \n
-  "!/show,png !creates jobnameXXX.png files" \n
-  "!pngr !additional options" \n
-  "!plvect,B" \n
-  "!noerase" \n
-  "!lplot" \n
-  "!/show,close" \n
-  "!erase" \n
+  "/RGB,index,100,100,100,0" \n
+  "/RGB,index,0,0,0,15" \n
+  "/show,png !creates jobnameXXX.png files" \n
+  "pngr !additional options" \n
+  "plvect,B" \n
+  "noerase" \n
+  "lplot" \n
+  "/show,close" \n
+  "erase" \n
   \n
   "/efacet,2" \n
-  "!psdisp,0" \n
-  "!/graphics,full ! results averaging also from interior" \n
-  "!pletab,Pene" \n
+  "psdisp,0" \n
+  "/graphics,full ! results averaging also from interior" \n
+  "pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
-  "!!! --- magnetics ---" \n
-  "!! plf2d,27 ! flux lines, equipotentials" \n
-  "!! plvect,b,! induction vector plot" \n
-  "!! fmagsum,'component_name'" \n
+  "!@@@ --- magnetics ---" \n
+  "plf2d,27 ! flux lines, equipotentials" \n
+  "plvect,b,! induction vector plot" \n
+  "fmagsum,'component_name'" \n
   \n
   "nldpost,nrre,stat !element information nonlinear" \n
   "plnsol,nrre,,,,001 !plot residual file .nr001 " \n
-  "!! etable,Pene,cont,pene" \n
-  "!! etable,chat,cont,cnos" \n
-  "!! etable,cpre,cont,pres" \n
-  "!! etable,Slid,cont,slide" \n
-  "!! etable,St,cont,stat	 !3-closed sticking" \n
+  "etable,Pene,cont,pene" \n
+  "etable,chat,cont,cnos" \n
+  "etable,cpre,cont,pres" \n
+  "etable,Slid,cont,slide" \n
+  "etable,St,cont,stat	 !3-closed sticking" \n
   "!! 			 !2-closed sliding" \n
   "!! 			 !1-open but near" \n
   "!! 			 !0-open and far, outside pinball" \n
   "set,list" \n
   "set,last!first" \n
   "plnsol,s,1" \n
-  "!antime" \n
-  "!andata" \n
-  "!anmres !multiple result files" \n
+  "antime" \n
+  "andata" \n
+  "anmres !multiple result files" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n
   )
@@ -771,13 +772,13 @@
   "\n!! ------------------------------" \n
   "!@@ -- output to file --" \n
   \n
-  "!! /output,test.txt	 !write Ansys output to file" \n
-  "!! /com,# dist from center | axial mag. induction" \n
-  "!! /output ! redirect output to screen" \n
-  "!! *create,test.txt ! no parameter substitution" \n
+  "/output,test.txt	 !write Ansys output to file" \n
+  "/com,# dist from center | axial mag. induction" \n
+  "/output ! redirect output to screen" \n
+  "*create,test.txt ! no parameter substitution" \n
   "*cfopen,test.txt!,,append ! appending to file" \n
-  "!! *cfwrite,A=5 ! interpreted output" \n
-  "!! *set strings are limited to 32 characters!!!" \n
+  "*cfwrite,A=5 ! interpreted output" \n
+  "*set strings are limited to 32 characters!!!" \n
   "Strg1='# cylindrical magnet: radius = %Rad%'" \n
   "Strg2=', lenght = %Len%'" \n
   "Strg3='# distance, magnetic induction'" \n
@@ -797,18 +798,18 @@
   "\n!@@@ - select stuff -" \n
   \n
   "!! lowest face No of element E from selected nodes"
-  "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
-  "!! node in POS of element E" \n
-  "!! bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
-  "!! !unsel midnodes of 8-node 2d elem" \n
-  "!! *get,En,elem,,count" \n
-  "!! *get,E,elem,,num,min" \n
-  "!! *do,I,1,En,1" \n
-  "!!   Face = nmface(E)" \n
-  "!!   Ntmp = ndface(E,Face,3)" \n
-  "!!   nsel,u,,,Ntmp" \n
-  "!!   *get,E,elem,E,nxth" \n
-  "!! *enddo  " \n
+  "a=nmface(E) !plane elements:faces =^= el. sides" \n
+  "node in POS of element E" \n
+  "bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
+  "!unsel midnodes of 8-node 2d elem" \n
+  "*get,En,elem,,count" \n
+  "*get,E,elem,,num,min" \n
+  "*do,I,1,En,1" \n
+  "  Face = nmface(E)" \n
+  "  Ntmp = ndface(E,Face,3)" \n
+  "  nsel,u,,,Ntmp" \n
+  "  *get,E,elem,E,nxth" \n
+  "*enddo  " \n
   )
 
 (define-skeleton ansys-skeleton-path-plot
@@ -822,7 +823,7 @@
   "!ppath,P,N,x,y,z,CS coord. in global cartesian csys, but use CS for path" \n
   "ppath,1" \n
   "ppath,2,,,Rair" \n
-  "!psel,s,axis,...    	 !select multiple paths" \n
+  "psel,s,axis,...    	 !select multiple paths" \n
   "pdef,By,b,y" \n
   "plpath,By		 !plot in graph" \n
   "plpagm,By,5		 !plot on geom." \n
@@ -839,30 +840,30 @@
   "!! ------------------------------" \n
   \n
   "/post26" \n
-  "!! numvar,200 !maximum No of variables"
-  "!! esol,2,1,,u,z,'displ z'" \n
+  "numvar,200 !maximum No of variables"
+  "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
   "rforce,3,1,f,z" \n
-  "!! add,4,2,,,displ,,,-1" \n
+  "add,4,2,,,displ,,,-1" \n
   "/grid,1" \n
   "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
-  "!! /xrange,0,1" \n
-  "!! /xrange,default" \n
-  "!! /yrange,0,1" \n
-  "!! /axlab,x,x" \n
-  "!! /axlab,y,y" \n
-  "!! timerange,0,1" \n
-  "!! /title,bla" \n
-  "!! /stitle,,blabla !subtitle line 1 (not shown in plot)" \n
-  "!! /stitle,2,blabla !subtitle line 2" \n
-  "!! /tlable,x,y,bla !annotation at (x,y)" \n
+  "/xrange,0,1" \n
+  "/xrange,default" \n
+  "/yrange,0,1" \n
+  "/axlab,x,x" \n
+  "/axlab,y,y" \n
+  "timerange,0,1" \n
+  "/title,bla" \n
+  "/stitle,,blabla !subtitle line 1 (not shown in plot)" \n
+  "/stitle,2,blabla !subtitle line 2" \n
+  "/tlable,x,y,bla !annotation at (x,y)" \n
   "xvar,2" \n
   "!! invert background colour" \n
-  "!/RGB,index,100,100,100,0" \n
-  "!/RGB,index,0,0,0,15" \n
-  "!/show,png !creates jobnameXXX.png files" \n
+  "/RGB,index,100,100,100,0" \n
+  "/RGB,index,0,0,0,15" \n
+  "/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
-  "!/show,close" \n
+  "/show,close" \n
   "!!prvar,3" \n
   )
 

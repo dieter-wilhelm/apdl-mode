@@ -456,6 +456,7 @@
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
   "mshape,0 !0: quads 1:tri (supported shapes)" \n
   "esize,1 ! element edge length" \n
+  "aesize,ANUM,SIZE ! element size on area ANUM" \n
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
   "lccat,all !concatenate lines for meshing" \n
   \n
@@ -868,7 +869,7 @@
   )
 
 ;; TODO: complete
-(defun ansys-skeleton-array ()
+(define-skeleton ansys-skeleton-array
   "arrays"
   nil
   "\n!! ------------------------------" \n

@@ -196,7 +196,8 @@ respective error file."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-program (concat "ansys" ansys-current-ansys-version)		;NEW_C
+(defcustom ansys-program (concat "ansys"
+		ansys-current-ansys-version)		;NEW_C
   "This variable stores the Ansys executable name.
 When the file is not in your search path, you have to specify the
 full qualified file name and not only the name of the executable.
@@ -207,7 +208,8 @@ only."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-program (concat "anshelp" ansys-current-ansys-version)		;NEW_C
+(defcustom ansys-help-program (concat "anshelp"
+ansys-current-ansys-version)		;NEW_C
   "The Ansys help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -1151,9 +1153,12 @@ a brief description of the Ansys command and its syntax.
 ** Ansys keyword completion (commands, elements, get- and
    parametric-functions) **
 
-Type the first letters of an Ansys command, function or element
-name and use the key binding '\\[ansys-complete-symbol]' for
-function `ansys-complete-symbol'.
+Type the first letter or letters of an Ansys command, function or
+element name and use the key binding '\\[ansys-complete-symbol]'
+to let the function `ansys-complete-symbol' do the (case
+sensitve) completion for you.  Depending on the case of your
+letter or letters to be completed, you will get a downcased,
+upcased or capitalised completion.
 
 There are nearly 2000 Ansys symbols available for completion.
 Undocumented Ansys commands and deprecated element types are also
@@ -1169,7 +1174,7 @@ When the character combination before the cursor is not
 unambiguous a completion list is shown, selecting the suitable
 word from the list either with the cursor over the symbol and
 typing \"RET\" or clicking with the mouse is completing the
-symbol.  Hitting space removes the listing window.
+symbol.  Hitting the SPACE key removes the listing window.
 
 ** Auto-indentation of looping and conditional blocks **
 
@@ -2027,7 +2032,7 @@ buffer with the SPACE key."
 	      (if (eq first ?\ )
 		  (kill-buffer completion-buffer)
 		(setq unread-command-events
-		      (listify-key-sequence key)))))))))))
+		      (listify-key-sequence key))))))))))
 
 ;; (defun ansys-complete-symbol ()
 ;;   "Perform a completion on Ansys keywords preceding the cursor.

@@ -38,12 +38,15 @@ the Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 The code is based on Ansys version 12.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
-Emacs 23.1 under XP and GNU/Linux.  The code won't run flawlessly
-without minor adaptions for Emacs 21.4.
+Emacs-23.1 under XP and GNU/Linux.  The code compiles also with
+Emacs-22.1, i. e. it should work with this and any newer version.
+(Emacs-23.1 was relased in Jul. 2009, Emacs-22.1 in Jul. 2007.)  The
+code can be loaded but won't run flawlessly without minor adaptions
+for Emacs-21.3 (release Mar. 2003).
 
-If possible grab the Win32 package with a preconfigured Ansys mode
-together with a pre-compiled Emacs at above Googel Code site and
-unpack the archive in any directory on your system.  Or visit
+If applicable grab the package of a pre-compiled Win32 Emacs-23.1 with
+a preconfigured Ansys mode at the above Google Code site and unpack
+the archive in any directory on your system.  Or visit
 http://ftp.gnu.org/pub/gnu/emacs/ for an original version of GNU
 Emacs.
 
@@ -124,7 +127,9 @@ Sources:
 * ansys-template.el
 * ansys-process.el
 
-(and likely their compiled version with the suffix '.elc'.)
+(and possibly their compiled versions with the suffix '.elc'.  If you
+are using these files for an older version of Emacs than 23 please
+remove the .elc files.)
 
 Auxiliaries:
 * README -- this file
@@ -135,16 +140,18 @@ Auxiliaries:
 
 === Short instructions ===
 
-For Windows system please use the archive with Emacs and the latest
-preconfigured Ansys mode at http://code.google.com/p/ansys-mode.
-Unpack the archive anywhere on the system, you might run the program
-addpm.exe (located in the bin directory) to add an Emacs entry to the
-Windows Start menu (please refer to the README.W32 file).  Run the
-Emacs executable and get used to this great Editor.  Ansys mode is
-immediately availabel, please open or create an APDL file with a .mac
-suffix and have fun.
+For Windows systems without an Emacs installation:
 
-For Unix systems and existing Emacs installations:
+Please use the Emacs archive bundeled with the latest preconfigured
+Ansys mode at http://code.google.com/p/ansys-mode.  Unpack the archive
+anywhere on the system, you might run the program addpm.exe (located
+in the bin directory) to add an Emacs entry to the Windows Start menu
+(please refer to the README.W32 file).  Run the Emacs executable and
+get used to this great Editor.  Ansys mode is immediately availabel,
+for example when you open or create an APDL file with a .mac suffix.
+Have fun!
+
+For existing Emacs installations:
 
 ==== Direct way; no file configuration necessary ====
 

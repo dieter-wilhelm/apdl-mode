@@ -1,6 +1,16 @@
 ANSYS_MAJOR := 12
 ANSYS_MINOR := 0
 
+HOSTNAME := $(shell hostname)
+
+ifeq ($(HOSTNAME),urmel)
+ E_DIR := /usr/local/src
+else
+ E_DIR := /appl/emacs
+endif
+
+EMACS := $(E_DIR)/emacs-23.1/src/emacs
+
 # this is the current ansys-mode version
 MODE_VERSION := 1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
@@ -14,7 +24,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 FILES := LICENSE README TODO fontification.mac default_el
 
 .PHONEY : MODE
-MODE : $(PACKAGE) TAGS CLEAN
+MODE : $(PACKAGE) TAGS
 
 .PHONEY : ALL
 ALL : $(PACKAGE) TAGS EMACS
@@ -23,7 +33,7 @@ ALL : $(PACKAGE) TAGS EMACS
 CLEAN :
 	rm $(ELC_FILES)
 
-PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(ELC_FILES)
+PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
@@ -34,16 +44,16 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "------------------------------"
 
 ansys-keyword.el : ansys-fontification.el
-	/appl/emacs/emacs-23.1/src/emacs --batch --load $<
+	$(EMACS) --batch --load $<
 
 %.elc : %.el
-	/appl/emacs/emacs-23.1/src/emacs --batch -f batch-byte-compile $<
+	$(EMACS) --batch -f batch-byte-compile $<
 
 default.el : default_el
 	@cp default_el emacs-23.1/site-lisp/default.el
 
 .PHONEY : EMACS
-EMACS : $(PACKAGE) default.el
+EMACS : $(PACKAGE)  $(ELC_FILES) default.el
 	@echo "Packaging Ansys mode with Emacs 23.1 ..."
 	@cp $(FILES) $(EL_FILES) emacs-23.1/site-lisp
 	mv $(ELC_FILES) emacs-23.1/site-lisp

@@ -80,7 +80,7 @@ of them.
 * Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
-  (2) these user variables are highlighted as well.
+  (2) these user variables are highlighted as well
 
 * Preview and insertion (optionally auto-insertion) of header and
   Ansys code templates for APDL files.  Respective snippets represent
@@ -101,8 +101,8 @@ of them.
   i. e. with writting a "nickname" Emacs exchanges the characters with
   a whole code template
 
-* Ansys mode changes some Emacs default behaviour to smooth the
-  transition from other editor
+* Ansys mode changes some Emacs default behaviour to alleviate the
+  transition from other editors and user interface standards
 
 As a visual example, a screen-shot on EmacsWiki and Google code show
 an Emacs frame with a ripped off Ansys menu field.  The APDL file is
@@ -311,13 +311,13 @@ increments (.1) of the mode itself.
 * Reworked the fontification mainly for the sake of speed.  There are
   now highlighting levels to choose from, offering e. g. higlighting
   of deprecated element types in a warning-face, deprecated Ansys *
-  comments, ...
+  comments and so on
 
 * Updated and improved the readability of the mode's help and the
   README file
 
 * The output from the LMUtil license status tool (C-c C-l) is now
-  filtered to be better readable and concise.
+  filtered to be more concise.
 
 * The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
   (C-c C-u) commands are now generalised so that they are also doing
@@ -327,9 +327,11 @@ increments (.1) of the mode itself.
   argument to these commands, the cursor won't move to the next code
   line.
 
-* The completion of Ansy keywords is reworked and has improved.
+* The completion of Ansy keywords is reworked and has improved.  Ansys
+  symbols are now completed in 3 ways: Upcase, downcase and
+  capitalise.
 
-* Added tooltips to all Ansys menu entries.
+* New: Added tooltips to all Ansys menu entries.
 
 * Ansys mode tries to gather information from the OS environment when
   the variable `ansys-license-file' is not set by the user and uses
@@ -354,8 +356,8 @@ increments (.1) of the mode itself.
 * Removed "buffer has no process" bug when killing an ansys-mode
   buffer.
 
-* Submitting interactively Ansys commands (via minibuffer query not
-  only written in a macro file) to the solver process,
+* Submitting interactively Ansys commands (via minibuffer query, not
+  only as written in a macro file) to the solver process,
   ansys-query-ansys-command (C-c C-q).
 
 === ansys-mode.el 11.0.1 in comparison to ansys-mod.el: ===

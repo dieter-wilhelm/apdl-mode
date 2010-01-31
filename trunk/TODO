@@ -1,13 +1,13 @@
 * Bugs and deficiencies:
 ** Closing of blocks and parameter help is not working when keywords
-   are in fact unambiguous but not written out
+   are in fact unambiguous but only partially spelled out.
+   Workaround: First complete keyword with ALT+TAB
 
-** Completion: Functions are not completed with parenthesis (`sin(')
-   try-completion has problems skipping over the parenthesis, maybe
-   another approach checking whether function the adding a pair of ()
-
-** Completion: c*** command is not completed (not in -completions)
+** Completion: c*** command is not completed (not in the -completions list)
     omission in fontification.el: c*** highlighting, harmless?
+
+** Completion: Mouse selections from the *Ansys-completion* buffer
+   are only inserted in the upcased state.
 
 ** Highlighting: Experimental user variable highlighting
    does not take into account: a.) a clearing of variables and b.)
@@ -19,6 +19,9 @@
 ** M-j: When there is already a `&' in a format command M-j
    inserts a redundant one
 
+** M-Tab is captured under windows and some Linux desktops
+   Workaround: Press instead M-Tab the ESC key and then the Tab key
+
 * v12.0.1:
 ** schedule 
 Feb.: freeze, documentation, testing also with Emacs pretest
@@ -27,17 +30,13 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-- completion: capitalises A, al to allsel is not working
+- -license-status does not correctly check for -lmutil-program
 
-- completion: when exact mach e.g. 'file' completion list is not
-  updated and not shown
+*** miscellaneous
+- emacs 22.1 Jun 2007, E 23 on RHEL?
 
 - make-local-variable not possible in buffers without file?
 
-*** additional features?
-- insert skeleton with C-c C-s i, send line C-c C-c ccc
-
-*** miscellaneous
 - update, restructure -mode-help, section for code compilation?
 
 - checkdoc
@@ -116,16 +115,17 @@ below you'll find a list of its features and what's new.
 
 - Emacs package repository, elpa http://tromey.com/elpa/?
 
-- Emacs installation archive for Ansys under XP, default.el in
-  site-lisp dir and byte-compiled ansys-mode?
-
 *** presentation
 -- Very brief introduction: Emacs, why not?  Free, working on all
    current OSs.  All bells and whistle of a modern editor (drop file
    into E).  Chosen because with Vim, Emacs is the best editor of all,
    but Especially on Windows Programmed before Microsoft was even
-   founded, Drawbacks of Emacs, need of getting used to it: TAB key,
-   C-c, C-v, C-x, C-y, C-z CUA-mode examples: (setq
+   founded, Drawbacks of Emacs, not adhering to established user
+   interface standards example: e. g. scroll-bar default location
+   Workaround: use in the beginning mouse and buttons.
+
+   TAB key, C-s, C-c,
+   C-v, C-x, C-y, C-z CUA-mode examples: (setq
    scroll-preserve-screen-position t) (delete-selection-mode t)
 
    convenient pre-configured emacs archive with Ansys mode.
@@ -135,13 +135,13 @@ below you'll find a list of its features and what's new.
    syntax fontification, especially variable highlighting
    Ansys menu
    command-help   M-n/p M-?
-   code navigation (number blocks in .inp) C-c {
+   code navigation (number blocks in .dat files) C-c {
 
 -- APDL hacking
    mouse selection ->copy to clipboard
+   Emacs-calc
       C-c C-u, C-c C-c
-   $ needs space(s)?
-   ansys completion and emacs expansion C-c ] -- -close-block
+   Ansys symbol completion and emacs expansion C-c ] -- -close-block
    default (,) commands but most */ can't be "*repeated"
    M-w (copies line)
    colon loop: e.g.: lfillt,(1:3),(2:4),Rad, lesize,(1:5:2),Esize
@@ -194,6 +194,8 @@ Conclusion/Summary?
 ** Ansys interpreter buffer
    example: gnuplot-mode
 
+- insert skeleton with C-c C-s i, send line C-c C-c ccc
+   
 - warn when C-c C-c tries to send a block command (complete to full
   block?)
 

@@ -88,19 +88,21 @@ position."
   (let (code
 	beg
 	end
-	(region (region-active-p)))
+	(region (and transient-mark-mode mark-active)))
+;    	(region (region-active-p))) ;this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
-    ;; "region" will be the whole code line (excluding the line break)
-    (cond (region
-	   (setq beg (region-beginning)
-		 end (region-end)))
-	  (t 
-	   (unless (ansys-code-line-p)
-	     (unless stay
-	       (ansys-next-code-line))
-	     (error "There was no active region or code line"))
-	   (setq beg (line-beginning-position)
-		 end (line-end-position))))
+    ;; "region" will be the whole code line (including \n)
+    (if region
+	(setq beg (region-beginning)
+	      end (region-end))
+      (unless (ansys-code-line-p)
+	(unless stay
+	  (ansys-next-code-line))
+	(error "There was no active region or code line"))
+      (save-excursion
+	(setq beg (line-beginning-position))
+	(forward-line 1)
+	(setq end (point))))
 
     ;; move cursor to subsequent code line unless stay
     (unless stay

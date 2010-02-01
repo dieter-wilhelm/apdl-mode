@@ -271,10 +271,13 @@ executables (the PATH environment variable)."
     'nil'
           if PROCESS-NAME is not the name of an existing process."
   (interactive)
-  (message "Ansys process status: %s" ;, process identification No: %d"
-	   (process-status ansys-process-name))
+  (let (status (process-status ansys-process-name))
+    (if status
+	(message "Ansys process status: %s" ;, process identification No: %d"
+		 (process-status ansys-process-name))
+      (message "No Ansys solver process is running."))
 	   ;; (process-id (get-process ansys-process-name))
-  )
+    ))
 
 (defun ansys-license-status ()		;NEW
   "Display the Ansys license status or starts a license tool.
@@ -282,6 +285,7 @@ For Unix systems do this in a separate buffer, under Windows
 start the anslic_admin.exe utility, which has a button for
 displaying the license status."
   (interactive)
+  (ansys-lmutil-program "")  ;check whether program is found on system
   (cond
    ((ansys-is-unix-system-p)
     (ansys-license-file-check)
@@ -345,11 +349,8 @@ displaying the license status."
     (display-buffer "*Ansys-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
-    ;; TODO: check for -lmutil-program
-    (if (string= ansys-lmutil-program "")
-	(error "You must set the `ansys-lmutil-program' variable")
-      (w32-shell-execute nil ansys-lmutil-program))
-    (message "Loading lmutil helper program...")) ;nil for executable
+    (w32-shell-execute nil ansys-lmutil-program)
+    (message "Loading ans_admin helper program..."))
    (t
     (error "No license status available on %s" system-type))))
 
@@ -432,16 +433,21 @@ And specify it in the variable `ansys-help-program'."
     (message (concat "Ansys help file is set to \"" ansys-help-program "\"."))))
 
 (defun ansys-lmutil-program ( exec)		;NEW
-  "Change the Ansys LMutil program name.
+  "Change the Ansys license management utility executable.
 And specify it in the variable `ansys-lmutil-program'.  The
 function inserts the string `default-directory' in the prompt
-when the variable `insert-default-directory' is not nil."
-  (interactive "FAnsys LMUtil executable: ")
-  (when (string= exec "")
+when the variable `insert-default-directory' is not nil.  For
+Lin64 it is the 'lmutil' executable
+/ansys_inc/shared_files/licensing/linx64/lmutil. For Windows the
+anslic_admin utility: `C:\\Ansys Inc\\Shared
+Files\\licensing\\win32\\anslic_admin.exe'"
+  (interactive "FAnsys License Management Utility executable: ")
+  (when (string= exec "")		;use default
     (setq exec ansys-lmutil-program))
 
   (unless (executable-find exec)
-    (error "Cannot find Ansys LMUtil executable \"%s\" on the system" exec))
+    (error "Cannot find Ansys LM Utility executable \"%s\" on the
+    system" exec))
 
   (setq ansys-lmutil-program exec)
   (message "ansys-lmutil-program is set to \"%s\"." ansys-lmutil-program))

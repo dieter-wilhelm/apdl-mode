@@ -27,7 +27,7 @@ FILES := LICENSE README TODO fontification.mac default_el
 MODE : $(PACKAGE) TAGS
 
 .PHONEY : ALL
-ALL : $(PACKAGE) TAGS EMACS
+ALL : MODE EMACS
 
 .PHONEY : CLEAN
 CLEAN :
@@ -49,14 +49,15 @@ ansys-keyword.el : ansys-fontification.el
 %.elc : %.el
 	$(EMACS) --batch -f batch-byte-compile $<
 
-default.el : default_el
-	@cp default_el emacs-23.1/site-lisp/default.el
+# default.el : default_el
+# 	@cp default_el emacs-23.1/site-lisp/default.el
 
 .PHONEY : EMACS
-EMACS : $(PACKAGE)  $(ELC_FILES) default.el
-	@echo "Packaging Ansys mode with Emacs 23.1 ..."
+EMACS : $(PACKAGE)  $(ELC_FILES) default_el
 	@cp $(FILES) $(EL_FILES) emacs-23.1/site-lisp
 	mv $(ELC_FILES) emacs-23.1/site-lisp
+	cp default_el emacs-23.1/site-lisp/default.el
+	@echo "Packaging Ansys mode with Emacs 23.1 ..."
 	@tar -czf "ansys-mode+emacs-23.1-win32.tgz" emacs-23.1
 	@echo "... $@ done."
 

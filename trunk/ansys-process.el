@@ -57,8 +57,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
     (auto-revert-tail-mode 1)))
 
 (defun ansys-copy-or-send-above	()	;NEW
-  "Copy or send to Ansys all of above code - up from the cursor
-position."
+  "Copy or send all of above code - up from the cursor position."
   (interactive)
   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
   ;; no-property stuff necessary?????
@@ -127,6 +126,7 @@ position."
 	     (message "Copied code line."))))))
 
 (defun ansys-process-running-p ()
+  "Return nil if no Ansys solver process is running."
   (let ((proc (get-process ansys-process-name)))
     (if proc
 	(string= "run" (process-status proc))
@@ -157,6 +157,7 @@ position."
 ;; TODO defvar ansys-process-buffer??
 
 (defun ansys-start-ansys ()		;NEW
+  "Start the Ansys solver process."
   (interactive)
   (when (ansys-process-running-p)
     (error "A Solver is already running under Emacs"))
@@ -169,7 +170,7 @@ position."
        (concat
 	"Start run?  (l-type: " ansys-license ", job: " ansys-job " in " default-directory ", server: " ansys-license-file ")"))
       (message "Starting the Ansys solver...")
-    (error "ansys-start-ansys canceled"))
+    (error "Function ansys-start-ansys canceled"))
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 ;  (comint-send-string (get-process ansys-process-name) "\n")
   (display-buffer ansys-process-buffer 'other-window)
@@ -280,10 +281,10 @@ executables (the PATH environment variable)."
     ))
 
 (defun ansys-license-status ()		;NEW
-  "Display the Ansys license status or starts a license tool.
-For Unix systems do this in a separate buffer, under Windows
-start the anslic_admin.exe utility, which has a button for
-displaying the license status."
+  "Display the Ansys license status or start the license tool.
+For Unix systems show the status in a separate buffer, under
+Windows start the anslic_admin.exe utility, which has a button
+for displaying the license status."
   (interactive)
   (ansys-lmutil-program "")  ;check whether program is found on system
   (cond
@@ -334,7 +335,7 @@ displaying the license status."
 
 	(goto-char (point-max))
 	(insert "\n")
-	(insert (propertize (concat (current-time-string) "\n") 
+	(insert (propertize (concat (current-time-string) "\n")
 			    'face 'match))
 	;; higlight current -license-type
 	(goto-char (point-min))
@@ -433,12 +434,12 @@ And specify it in the variable `ansys-help-program'."
     (message (concat "Ansys help file is set to \"" ansys-help-program "\"."))))
 
 (defun ansys-lmutil-program ( exec)		;NEW
-  "Change the Ansys license management utility executable.
+  "Change the Ansys license management utility executable to EXEC.
 And specify it in the variable `ansys-lmutil-program'.  The
 function inserts the string `default-directory' in the prompt
 when the variable `insert-default-directory' is not nil.  For
 Lin64 it is the 'lmutil' executable
-/ansys_inc/shared_files/licensing/linx64/lmutil. For Windows the
+/ansys_inc/shared_files/licensing/linx64/lmutil.  For Windows the
 anslic_admin utility: `C:\\Ansys Inc\\Shared
 Files\\licensing\\win32\\anslic_admin.exe'"
   (interactive "FAnsys License Management Utility executable: ")
@@ -466,10 +467,10 @@ And put it into the variable `ansys-job'."
 
 
 (defun ansys-license-file-check ()
-  "Returns t if Ansys license file (server) information is found.
-Checks whether `ansys-license-file' is set, if not sets its value
-to the environment variable ANSYSLMD_LICENSE_FILE or
-LM_LICENSE_FILE, in this order of precedence.  When also these
+  "Return t if Ansys license file (server) information is found.
+Checks whether the variable `ansys-license-file' is set, if not
+sets its value to the environment variable ANSYSLMD_LICENSE_FILE
+or LM_LICENSE_FILE, in this order of precedence.  When also these
 are not available returns an error."
   (cond
    (ansys-license-file
@@ -487,9 +488,9 @@ are not available returns an error."
     either ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE"))))
 
 (defun ansys-ansysli-servers-check ()
-  "Returns t if Ansys interconect server information is found.
-Checks whether `ansys-ansysli-servers' is set or uses the
-environment variable ANSYSLI_SERVERS for it."
+  "Return t if Ansys interconect server information is found.
+Checks whether the variable `ansys-ansysli-servers' is set or
+uses the environment variable ANSYSLI_SERVERS for it."
   (interactive)
   (cond
    (ansys-ansysli-servers
@@ -501,7 +502,7 @@ environment variable ANSYSLI_SERVERS for it."
    (t
     (error "Please specify the interconnect server information in
     the `ansys-ansysli-servers' variable or set the environment
-    variable ANSYSLI_SERVERS."))))
+    variable ANSYSLI_SERVERS"))))
 
 (defun ansys-license-file ( file)		;NEW
   "Change the Ansys license file name or license server(s).
@@ -521,7 +522,7 @@ separated by a colon, for example
 			  ansys-license-file "\".")))))
 
 (defun ansys-ansysli-servers ( servers)		;NEW
-  "Change the Ansys interconnect servers.
+  "Change the Ansys interconnect servers to SERVERS.
 And specify it in the variable `ansys-ansysli-servers'.  The
 server specification must include the port number when it isn't
 2325, the default port number: port_number@server_name, multiple
@@ -548,3 +549,7 @@ And specify it in the variable `ansys-license'."
 			   nil nil nil nil lic))
     (message (concat "Ansys license type is now set to \"" ansys-license "\"."))))
 
+
+(provide 'ansys-process)
+
+;;; ansys-process.el ends here

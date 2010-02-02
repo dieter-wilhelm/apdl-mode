@@ -27,16 +27,13 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-- -license-status does not correctly check for -lmutil-program
-
-- ansys-template.el:38:29:Warning: `save-excursion' defeated by `set-buffer'
 
 *** miscellaneous
 - update, restructure -mode-help, section for code compilation?
 
-- checkdoc
+- checkdoc, -process.el, -mode.el \\<keymap> & \\[function]
 
-- debian stable E22.2, emacs 22.1 Jun 2007, E 22 on RHEL?
+- ansys-mode.el: -complet-symbol: `save-excursion' defeated by `set-buffer'
 
 - dbus support of workbench or integrating emacs in workbench?
 

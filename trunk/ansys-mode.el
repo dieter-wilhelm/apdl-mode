@@ -159,9 +159,9 @@ commands and the APDL operators.  Level 2 is the same as 1,
 except that all defined user variables and unambiguous command
 names (also solver-ignored characters behind them) are
 highlighted as well.  The user variables are highlighted
-\"statically\" only, newly defined variables are only taken
-into account after `ansys-display-variables'
-(\\[ansys-display-variables]) is called, this updating is done
+\"statically\" only, newly defined variables are only taken into
+account after `ansys-display-variables'
+\(\\[ansys-display-variables]) is called, this updating is done
 dynamically i. e. during editing when the variable
 `ansys-dynamic-highlighting-flag' is set to t."
   :type 'integer
@@ -229,8 +229,7 @@ Inc\\v120\\commonfiles\\help\" HelpDocViewer'."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-lmutil-program
-  "/ansys_inc/shared_files/licensing/linx64/lmutil"	;NEW_C
+(defcustom ansys-lmutil-program "lmutil"	;NEW_C
   "The FlexLM license manager utility executable name.
 When the file is not in your search path, you have to furnish the
 complete path.  For example:
@@ -1931,7 +1930,7 @@ Return symbols capitalise, upcase and downcase."
 Complete the character(s) to Ansys's reserved words, functions
 and element names, otherwise throw an error.  When the keyword or
 the completed character(s) represent a unique Ansys keyword
-indicate this fact with a message. When the completion is not
+indicate this fact with a message.  When the completion is not
 unique or only partial show the other possible completions in a
 temporary completion buffer, from which the completions might be
 chosen with the mouse.  You might remove the *Ansys completion*
@@ -2788,9 +2787,11 @@ Signal an error if the keywords are incompatible."
   string)
 
 (defun ansys-string-length-predicate (s1 s2)
+  "Return t when string S1 is larger then S2."
   (< (length s1) (length s2)))
 
 (defun ansys-find-duplicate-p (entry list)
+  "Return t when ENTRY is already a member of LIST."
   (let ((l list) p)
     (while (and (not p) l)
       (setq p (assoc-string entry (car l) 'ignore-case))
@@ -2862,6 +2863,8 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
 ;; clashes with command names
 ;; in format strings without % chars
 (defun ansys-search-variable (variable limit)
+  "Search for the variable VARIABLE up to limit LIMIT.
+This function is used as a highlighting function."
   (save-excursion
     (while (progn
 	     (re-search-forward variable limit t)
@@ -2887,7 +2890,7 @@ Use variable `ansys-user-variable-regexp'."
     res))
 
 (defun ansys-copy-buffer-line (buffer line-no)
-  "Return line at position POS in buffer BUFFER as a string."
+  "Return from buffer BUFFER the line with LINE-NO as a string."
   (save-excursion
     (let (bol eol)
       (set-buffer buffer)

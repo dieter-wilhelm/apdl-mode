@@ -20,8 +20,9 @@
 
 ;; experimental user variables highlighting only in level 2 available
 (setq ansys-highlighting-level 1)
+
 ;; uncommenting the following might slow the editing of large .mac files
-;; in level 2
+;; but only in highlighting level 2
 ;(setq ansys-dynamic-highlighting-flag t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -59,7 +60,7 @@ calling a special Ansys customisation buffer." 'interactive)
 ;; installation directory for Ansys
 (cond ((string= window-system "x")		;Unix
        (setq ansys-install-directory "/appl"))
-      (t ;Windows
+      (t ;This is the default installation dir on Windows XP
        (setq ansys-install-directory "C:\\Program Files")))
 
 ;; which version of Ansys we are using
@@ -68,7 +69,7 @@ calling a special Ansys customisation buffer." 'interactive)
 (cond ((string= window-system "x")		;Unix
        ;; for starting the solver & ansys-license-status
        ;; license servers (or license file name)
-       ;; specify even the default port for lmutil on Unix
+       ;; specify even the default port for lmutil (A 12.0) on Unix
        ;; Unix: License servers separated by ":"
        (setq ansys-license-file
 	    "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
@@ -94,7 +95,6 @@ calling a special Ansys customisation buffer." 'interactive)
 	     ansys-current-ansys-version)))
       (t     
        ;;else windows?
-       ;; Windows: License servers separated by ";"
        (setq ansys-lmutil-program
 	     (concat
 	      ansys-install-directory
@@ -115,10 +115,13 @@ calling a special Ansys customisation buffer." 'interactive)
 		     "HelpDocView"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-;; for starting the solver
-(setq ansys-license "struct"	     ;which license to use for the run
-      ansys-job "file"			;job name
-      )
+;; necessary for starting the solver
+
+;; below commented out examples represent the default values
+
+;; (setq ansys-license "struct"	     ;which license type to use for the solver
+;;       ansys-job "file"	     ;Ansys job name
+;;       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto insertion stuff (in the moment of creating a new APDL file) ;;

@@ -4,47 +4,40 @@
 
 
 (defun ansys-display-skeleton ()	;NEW
+  
   "Display code templates in another buffer."
   (interactive)
   (let* (
+	 (old-buffer (buffer-name))
 	 (new-buffer-name "*Ansys-skeleton*")
-	 (skeleton-buffer (get-buffer-create new-buffer-name))
+	 (skeleton-buffer
+	  (get-buffer-create new-buffer-name))
 	 s
-	 (skel (completing-read "Template: " obarray 'commandp
+	 (skel (completing-read
+	 	"Template: " obarray 'commandp
 	 			t "ansys-skeleton-" nil))
-	 ;; (skel "ansys-skeleton-bc")
+	 ;; (skel "ansys-skeleton-numbering-controls")
 	 )
-    (save-excursion
-      (set-buffer skeleton-buffer)
-      (remove-overlays)
-      ;(make-local-variable 'ansys-skeleton-overlay)
-      (setq ansys-skeleton-overlay (make-overlay 1 1))
-      ;; TODO: remove possible command-help overlays!
-      ;; (if ansys-help-overlay
-      ;; 	  (delete-overlay ansys-help-overlay))
-      ;; (toggle-read-only -1)
-      (toggle-read-only 0)		;zero means switch off read-only
-      (kill-region (point-min) (point-max))
-					;(ansys-skeleton-configuration)
-					;      (message skel) ;add-text-properties
-      (unless  (eq major-mode 'ansys-mode)
-	(ansys-mode))
-      ;; TODO: overlay displaying skeleton name
-      ;; (insert
-      ;;  (propertize
-      ;; 	;; TODO
-      ;; 	(concat " 111 Template: " skel " ---\n\n")
-      ;; 	'face 'match))
-      (funcall (intern-soft skel))
-      (goto-char (point-min))
-      (setq ansys-last-skeleton skel)
-      (setq s (propertize 
-	       (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
-      (overlay-put ansys-skeleton-overlay 'before-string s)
-      (set-buffer-modified-p nil))
-    ;;(toggle-read-only t)
-    ;; (set-buffer current-buffer))
-    (display-buffer new-buffer-name 'other-window)))
+    (switch-to-buffer-other-window skeleton-buffer)
+    (remove-overlays)
+    ;;(make-local-variable 'ansys-skeleton-overlay)
+    (setq ansys-skeleton-overlay (make-overlay 1 1))
+    (kill-region (point-min) (point-max))
+    (funcall (intern-soft skel))
+;    (ansys-skeleton-numbering-controls)
+;    (insert "bla\n")
+    (goto-char (point-min))
+    (unless  (eq major-mode 'ansys-mode)
+      (ansys-mode))
+    (setq ansys-last-skeleton skel)
+    (setq s (propertize
+    	     (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
+    (overlay-put ansys-skeleton-overlay 'before-string s)
+    (set-buffer-modified-p nil)
+;    (toggle-read-only t)
+    (switch-to-buffer-other-window old-buffer)
+    ;; (display-buffer new-buffer-name 'other-window)
+    ))
 
 (define-skeleton ansys_do		;NEW
   ""
@@ -362,8 +355,9 @@
   nil
   "\n!@@@ - multiplot controls -" \n
   \n
+  "/gcmd,1,u,sum" \n
   "/gtype,all,node,0 !turn off nodes (elem,keyp,line,area)" \n
-  "!/gcmd,1,u,sum"
+  "/gtype,,volu,1 !turn on volumens" \n
   "gplot" \n
   )
 
@@ -456,7 +450,7 @@
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
   "mshape,0 !0: quads 1:tri (supported shapes)" \n
   "esize,1 ! element edge length" \n
-  "aesize,ANUM,SIZE ! element size on area ANUM" \n
+  "aesize,ANUM,SIZE ! element SIZE on area ANUM (or ALL)" \n
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
   "lccat,all !concatenate lines for meshing" \n
   \n
@@ -1391,3 +1385,53 @@ also do yourself."
 	  (read-string "Quartic Coefficient? : ")
 	  \n)
   (mac . format))
+
+!@@ -- boundary conditions --
+
+/prep7
+
+!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+
+!@@@ - displacements -
+
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+dlist,all
+
+!@@@ - loads -
+
+f,all,fx,1
+flist,all
+
+!@@@ - inertia relief -
+
+!! LOADS: nonlinearities aren't supported, fix all DOFs!
+irlf,1 !0: none,1:ir on,-1:printout masses
+nsel,s,loc,x,1
+
+!@@@ - corriolis effects -
+
+cgmga,x,y,z, ! rotational velocity about globla coord. sys.
+dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+
+!@@@ - coupling -
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+
+allsel
+/pbc,all,on
+gplot
+
+!@@@ - magnetics -
+
+!! fmagbc,'Component' ! flag force calculation
+bfa,all,js, ! js current density
+bflist,all
+dl,all,,asym ! flux parallel to lines
+nsel,s,ext ! select exterior nodes
+dsym,asym ! flux parallel to lines
+(provide 'ansys-template)
+
+;;; ansys-template.el ends here

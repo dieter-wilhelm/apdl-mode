@@ -142,14 +142,18 @@ Auxiliaries:
 
 For Windows systems without an Emacs installation:
 
-Please use the Emacs archive bundeled with the latest preconfigured
+Please use the Emacs archive bundled with the latest preconfigured
 Ansys mode at http://code.google.com/p/ansys-mode.  Unpack the archive
-anywhere on the system, you might run the program addpm.exe (located
-in the bin directory) to add an Emacs entry to the Windows Start menu
-(please refer to the README.W32 file).  Run the Emacs executable and
-get used to this great Editor.  Ansys mode is immediately availabel,
-for example when you open or create an APDL file with a .mac suffix.
-Have fun!
+anywhere on the system.  You might also run the program addpm.exe
+(located in the bin directory) to add an Emacs entry to the Windows
+Start menu (please refer to the README.W32 file).  Ansys mode is
+immediately availabel, for example when you open or create an APDL
+file with a .mac suffix.  Have fun!
+
+(If you did not install Ansys in its default Installation directory on
+drive C:, please adjust the `default.el' file in Emacs' `site-lisp'
+directory accordingly, otherwise you are not able to start
+'anslic_admin' or the Ansys help program from Emacs.)
 
 For existing Emacs installations:
 

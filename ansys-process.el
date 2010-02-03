@@ -272,9 +272,9 @@ executables (the PATH environment variable)."
     'nil'
           if PROCESS-NAME is not the name of an existing process."
   (interactive)
-  (let (status (process-status ansys-process-name))
+  (let ((status (process-status ansys-process-name)))
     (if status
-	(message "Ansys process status: %s" ;, process identification No: %d"
+	(message "Ansys process is in status \"%s\"" ;, process identification No: %d"
 		 (process-status ansys-process-name))
       (message "No Ansys solver process is running."))
 	   ;; (process-id (get-process ansys-process-name))
@@ -372,6 +372,22 @@ for displaying the license status."
   (comint-send-string "*Ansys*";(get-process ansys-process-name)
 		      "/ui,view\n") ;valid in any processor
   (display-buffer "*Ansys*" 'other-window))
+
+(defun ansys-zoom-in ()
+  "Zoom into the graphics window."
+  (interactive)
+  (unless (ansys-process-running-p)
+    (error "No Ansys process is running"))
+  (comint-send-string (get-process ansys-process-name) "/dist,,.7,1\n/replot\n") ;valid in any processor
+  (display-buffer "*Ansys*" 'other-window)  )
+
+(defun ansys-zoom-out ()
+  "Zoom out of the graphics window."
+  (interactive)
+  (unless (ansys-process-running-p)
+    (error "No Ansys process is running"))
+  (comint-send-string (get-process ansys-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
+  (display-buffer "*Ansys*" 'other-window)  )
 
 (defun ansys-replot ()			;NEW_C
   "Replot the Ansys interactive graphics screen."

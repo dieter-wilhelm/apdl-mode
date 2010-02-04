@@ -220,24 +220,22 @@ with the Ansys /EXIT,all command which saves all model data."
 ;;;###autoload
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the Ansys help system.
-Alternatively one can use the Ansys \"/SYS, anshelp120\" command
-when running Ansys interactively and provided that
-anshelp120 (under Unix) is found in the search path for
-executables (the PATH environment variable)."
+Alternatively under a Unix system, one can also use the Ansys
+command line \"/SYS, anshelp120\" when running Ansys
+interactively, provided that anshelp120 is found in the search
+path for executables (the PATH environment variable)."
   (interactive)
-  (if (string= ansys-help-program "")
-      (error "You must set the `ansys-help-program' variable")
-    (progn
-      (message "Starting the Ansys help browser...")
-      (cond
-       ((ansys-is-unix-system-p)
-	(start-process "ansys-help-program" nil ansys-help-program))
-       ((string= system-type "windows-nt")
-	(w32-shell-execute "Open" ansys-help-program
-			   ansys-help-program-parameters)))))) ;HINT:
-											 ;Eli
-											 ;Z.,
-											 ;M. Dahl
+  (ansys-help-program "")
+  (progn
+    (message "Starting the Ansys help browser...")
+    (cond
+     ((ansys-is-unix-system-p)
+      (start-process "Ansys-help-program" nil ansys-help-program))
+     ((string= system-type "Windows-nt")
+      (w32-shell-execute "Open" ansys-help-program
+			 ansys-help-program-parameters))  ;HINT: Eli Z.,M. Dahl
+     (t
+      (error "Can only start the Ansys help on Windows and UNIX systems")))))
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
 ;; (defun ansys-kill-buffer-query-function ()
@@ -373,6 +371,16 @@ for displaying the license status."
 		      "/ui,view\n") ;valid in any processor
   (display-buffer "*Ansys*" 'other-window))
 
+(defun ansys-move-up (arg)
+  "Move geometry up ARG steps in the graphics window.
+A Negative ARG moves ARG steps down."
+  (interactive "p")
+  (unless (ansys-process-running-p)
+    (error "No Ansys process is running"))
+  (comint-send-string (get-process ansys-process-name)
+		      (concat "/dist,,.7,1\n/replot\n")) ;valid in any processor
+  (display-buffer "*Ansys*" 'other-window)  )
+
 (defun ansys-zoom-in ()
   "Zoom into the graphics window."
   (interactive)
@@ -433,21 +441,16 @@ executable EXEC can be found."
   ;;   (message (concat "Ansys program is set to \"" ansys-program "\".")))
   )
 
-(defun ansys-help-program ()			;NEW
-  "Change the Ansys help executable.
-And specify it in the variable `ansys-help-program'."
-  (interactive)
-  (let (pr)
-    (if (and ansys-help-program
-	     (not (string= ansys-help-program "")))
-	(setq pr ansys-help-program)
-      (if (ansys-is-unix-system-p)
-	  (setq pr "/ansys_inc/v120/ansys/bin/anshelp120")
-	(setq pr "c:\\\\Program\ Files\\Ansys\ Inc\\v120\\CommonFiles\\HELP\\en-us\\ansyshelp.chm")))
-    (setq ansys-help-program
-	  (read-file-name
-	   (concat "Ansys help file [" pr "]: ") "" pr))
-    (message (concat "Ansys help file is set to \"" ansys-help-program "\"."))))
+(defun ansys-help-program ( exec)			;NEW
+  "Change the Ansys help executable to EXEC and check for its existence.
+And store the value EXEC in the variable `ansys-help-program'."
+  (interactive "FAnsys help executable: ")
+  (when (string= exec "")
+    (setq exec ansys-help-program))
+  (setq ansys-help-program exec)
+  (if (executable-find exec)
+      (message "ansys-program is set to \"%s\"." exec)
+    (error "Cannot find the Ansys help executable \"%s\" on the system" exec)))
 
 (defun ansys-lmutil-program ( exec)		;NEW
   "Change the Ansys license management utility executable to EXEC.

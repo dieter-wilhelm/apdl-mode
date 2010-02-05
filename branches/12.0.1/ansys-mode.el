@@ -906,7 +906,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file"]
+	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
@@ -918,7 +918,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
 	      "-"
 	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active ansys-is-unix-system-flag]
-	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process" :active ansys-is-unix-system-flag]
+	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process"]
 	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
 	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active ansys-is-unix-system-flag]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
@@ -2951,13 +2951,15 @@ A window is in Emacs parlance a \"field\" where a buffer is
 displayed in a window manager frame.  The command deletes only
 the display of this file, not the data itself.  A frame can have
 many windows (and Emacs can control many frames, by the way),
-often the Emacs beginners confuse the term window with an Emacs
-frame.  Optional prefix argument WIN is the WIN'th different
-window in the current frame.  The default argument is 1."
+often Emacs novices confuse the term window with an Emacs frame.
+Optional prefix argument WIN is the WIN'th different window in
+the current frame.  The default argument is 1."
   (interactive "p")
   (unless win (setq win 1))
-  (other-window win)
-  (delete-window))
+  (let ((swin (selected-window)))
+    (other-window win)
+    (delete-window)
+    (select-window swin)))
 
 (provide 'ansys-mode) ; this makes more sense when the file name is identical
 					;to the feature name, what are subfeatures anyway?

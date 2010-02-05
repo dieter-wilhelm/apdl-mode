@@ -231,8 +231,8 @@ path for executables (the PATH environment variable)."
     (cond
      ((ansys-is-unix-system-p)
       (start-process "Ansys-help-program" nil ansys-help-program))
-     ((string= system-type "Windows-nt")
-      (w32-shell-execute "Open" ansys-help-program
+     ((string= system-type "windows-nt")
+      (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
 			 ansys-help-program-parameters))  ;HINT: Eli Z.,M. Dahl
      (t
       (error "Can only start the Ansys help on Windows and UNIX systems")))))

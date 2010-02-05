@@ -4,7 +4,6 @@
 
 
 (defun ansys-display-skeleton ()	;NEW
-  
   "Display code templates in another buffer."
   (interactive)
   (let* (
@@ -170,6 +169,7 @@
   "/auto ! automatic fit mode" \n
   "/user ! keep last display scaling"\n
   "/pstatus ! display window stats specifications" \n
+  "/dscale,all,10 !set displacment multiplier" \n
   )
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -331,7 +331,11 @@
   "!clocal,11,0 !define local coord. sys. from active" \n
   "!psymb,cs,1 ! display local coord."
   "/plopts,wp,1 !display working plane" \n
+  "/plopts,wp,off !switch off wp" \n
+  "/plopts,frame,off !switch off graphics frame" \n
+  "/plopts,logo,off !switch off Ansys logo" \n
   "/triad,rbot"_ \n
+  "/triad,off"
   )
 
 (define-skeleton ansys-skeleton-working-plane
@@ -344,7 +348,11 @@
   "wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "wpoffs,,-100 !x,y,z offset" \n
   "wprota,0,90,0 !z,x,y axis of rotation" \n
-  "wpstyl,,,,,,1 !type spec 0,1,2" \n
+  "/plopts,wp,off !switch off wp" \n
+  "/plopts,frame,off !switch off graphics frame" \n
+  "/plopts,logo,off !switch off Ansys logo" \n
+  "wpstyl,,,,,,1 !type spec 0,1,2 cartesian,cylindrical,spherical" \n
+  "wpstyl,,,,,,,0 !grid spec: 0 grid+triad,1 grid,2 [triad]" \n
   "!wpstyl,stat" \n
   "csys,wp !change co to wp" \n
   )
@@ -367,7 +375,7 @@
   nil
   "\n!@@@ - numbering controls -" \n
   \n
-  "/pnum,kp,1 !line;area;volu;node;elem;tabn;sval,on" \n
+  "/pnum,kp,1 !line;area;volu;node;elem;mat;type;tabn;sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/replot"
   )
@@ -448,7 +456,7 @@
   \n
   "!! mat,Steel" \n
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
-  "mshape,0 !0: quads 1:tri (supported shapes)" \n
+  "mshape,0,3d !0: quads/hex 1:tri/tets, dimensions: 2d/3d" \n
   "esize,1 ! element edge length" \n
   "aesize,ANUM,SIZE ! element SIZE on area ANUM (or ALL)" \n
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
@@ -488,6 +496,9 @@
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
   "!shpere,rad1,rad2,th1,th2 !spherical volume" \n
   \n
+  "!@@@ - operations -" \n
+  "vdele,all,,,1 ! delete everything below" \n
+  \n
   "!@@@ - booleans -" \n
   \n
   "aovlap,all ! overlap areas" \n
@@ -495,6 +506,7 @@
   "asbw, !substract by wp" \n
   "/pnum,area,1 $ aplot" \n
   "vglue,all" \n
+  "vsbw,all,,delete !v substracted by wp" \n
   "vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
   )
 
@@ -1385,53 +1397,5 @@ also do yourself."
 	  (read-string "Quartic Coefficient? : ")
 	  \n)
   (mac . format))
-
-!@@ -- boundary conditions --
-
-/prep7
-
-!kbc,1 ![0] (antype,static): ramped 1:stepped loading
-
-!@@@ - displacements -
-
-nsel,s,loc,y,0
-    ,a,loc,y,1
-    ,r,loc,x,0
-d,all,all
-dlist,all
-
-!@@@ - loads -
-
-f,all,fx,1
-flist,all
-
-!@@@ - inertia relief -
-
-!! LOADS: nonlinearities aren't supported, fix all DOFs!
-irlf,1 !0: none,1:ir on,-1:printout masses
-nsel,s,loc,x,1
-
-!@@@ - corriolis effects -
-
-cgmga,x,y,z, ! rotational velocity about globla coord. sys.
-dcgomg,x,y,z ! rotational acceleration about global coord. sys.
-
-!@@@ - coupling -
-nsel,s,loc,x,1
-cp,next,uy,all !couple dofs
-
-allsel
-/pbc,all,on
-gplot
-
-!@@@ - magnetics -
-
-!! fmagbc,'Component' ! flag force calculation
-bfa,all,js, ! js current density
-bflist,all
-dl,all,,asym ! flux parallel to lines
-nsel,s,ext ! select exterior nodes
-dsym,asym ! flux parallel to lines
-(provide 'ansys-template)
 
 ;;; ansys-template.el ends here

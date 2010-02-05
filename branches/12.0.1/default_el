@@ -101,11 +101,10 @@ calling a special Ansys customisation buffer." 'interactive)
 	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
        ;;backslash '\"' on windows mandatory
 	     ansys-help-program
-	     (concat "\""
-		     ansys-install-directory
+	     (concat ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
-		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe\"")
+		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe")
 	     ansys-help-program-parameters
 	     (concat "-cp \""
 		     ansys-install-directory

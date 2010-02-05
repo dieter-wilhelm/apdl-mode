@@ -165,8 +165,8 @@ account after `ansys-display-variables'
 dynamically i. e. during editing when the variable
 `ansys-dynamic-highlighting-flag' is set to t."
   :type 'integer
-  :group 'Ansys)
-  :link '(variable-link font-lock-maximum-decoration )
+  :group 'Ansys
+  :link '(variable-link font-lock-maximum-decoration ))
 
 (defcustom ansys-current-ansys-version ansys_version ;NEW_C
   "String describing the Ansys version installed by the user.
@@ -213,7 +213,7 @@ ansys-current-ansys-version)		;NEW_C
   "The Ansys help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
-executable is not in the search path, you have to give the
+executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
 locations are \"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX
 and \"c:\\\\Program Files\\Ansys\
@@ -222,7 +222,8 @@ XP.  Since Ansys version 12.0 it is a java interpreter."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-program-parameters "-cp \"c:\\Program Files\\Ansys Inc\\v120\\commonfiles\\help\" HelpDocViewer"
+(defcustom ansys-help-program-parameters (concat "-cp \"c:\\Program Files\\Ansys Inc\\"
+ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
   "Stores parameters for the variable `ansys-help-program' under Windows.
 For example: '-cp \"c:\\Program Files\\Ansys
 Inc\\v120\\commonfiles\\help\" HelpDocViewer'."
@@ -538,6 +539,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map [?\C-c?\C-[] 'insert-pair)
     (define-key map [?\C-c?\C-'] 'insert-pair)
     ;; --- miscellaneous ---
+    (define-key map [?\C-c?\C-+] 'ansys-zoom-in)
+    (define-key map [?\C-c?\C--] 'ansys-zoom-out)
+    (define-key map [?\C-c?\C-<] 'ansys-move-left)
+    (define-key map [?\C-c?\C->] 'ansys-move-right)
+    (define-key map [?\C-c?\C-^] 'ansys-move-up)
     (define-key map "\C-x4k" 'ansys-delete-other-window)
     (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
     (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
@@ -565,6 +571,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 ;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
        map)
     "Keymap for the Ansys mode.")
+
 (defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
   "Restore the buffer's previous major mode, if possible."
   (interactive)
@@ -922,6 +929,10 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
 	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active ansys-is-unix-system-flag]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
+	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active ansys-is-unix-system-flag]
+	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active ansys-is-unix-system-flag]
+	      ["Zoom in" ansys-zoom-in :help "Zoom into the graphics" :active ansys-is-unix-system-flag]
+	      ["Zoom out" ansys-zoom-out :help "Zoom out of the graphics" :active ansys-is-unix-system-flag]
 	      "-"
 	      ["Display Emacs Processes" list-processes :help "Show all currently running Emacs Processes, like the Ansys help browser, etc."]
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
@@ -2706,10 +2717,10 @@ Signal an error if the keywords are incompatible."
   (let ((ac abbrevs-changed)) ;no offer to save unnecessary .abbrev_defs
     (define-abbrev-table 'ansys-mode-abbrev-table ())
     (define-abbrev ansys-mode-abbrev-table
-      "`i" "*IF,i,LT,0,THEN\n\n!! *ELSEIF,i,GT,10\n!! *ELSE\n*ENDIF\n"
+      "`i" "*if,I,lt,0,then\n\n!! *elseif,I,gt,10\n!! *else\n*endif\n"
       '(lambda () (previous-line 4)))
     (define-abbrev ansys-mode-abbrev-table
-      "`d" "*DO,i,1,10,1\n\n*CYCLE\n*ENDDO\n" '(lambda () (previous-line 3)))
+      "`d" "*do,I,1,10,1\n\n*cycle\n*enddo\n" '(lambda () (previous-line 3)))
     (define-abbrev ansys-mode-abbrev-table "`p" "" 'ansys-insert-pi)
     (define-abbrev ansys-mode-abbrev-table "`ii" "" 'ansys_if)
     (define-abbrev ansys-mode-abbrev-table "`dd" "" 'ansys_do)
@@ -2947,17 +2958,20 @@ C-u \\[goto-line] takes the nnumber automatically)."
 
 (defun ansys-delete-other-window (&optional win) ;NEW_C
   "Delete the other, not selected Emacs window.
-A window is in Emacs parlance a \"field\" where a buffer is
-displayed in a window manager frame.  The command deletes only
-the display of this file, not the data itself.  A frame can have
-many windows (and Emacs can control many frames, by the way),
-often the Emacs beginners confuse the term window with an Emacs
-frame.  Optional prefix argument WIN is the WIN'th different
-window in the current frame.  The default argument is 1."
+A window is in Emacs parlance a \"field\" where data is displayed
+and possibly others in a window manager frame.  The command
+deletes only the window and not the buffer, i. e. not the data
+itself.  A frame can have many windows (and Emacs can also
+control multiple frames, by the way), often the Emacs beginners
+confuse the term window with an Emacs frame.  Optional prefix
+argument WIN is the WIN'th different window in the current frame.
+The default argument is 1."
   (interactive "p")
   (unless win (setq win 1))
-  (other-window win)
-  (delete-window))
+  (let ((swin (selected-window)))
+    (other-window win)
+    (delete-window)
+    (select-window swin)))
 
 (provide 'ansys-mode) ; this makes more sense when the file name is identical
 					;to the feature name, what are subfeatures anyway?

@@ -27,13 +27,20 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-
 *** miscellaneous
+- no check for validity of -help-program-parameters (windows)
+
+- C-c C-+/- C-x4k in docu
+
 - update, restructure -mode-help, section for code compilation?
 
 - checkdoc, -process.el, -mode.el \\<keymap> & \\[function]
 
+- last-command-char is obsolete
+
 - ansys-mode.el: -complet-symbol: `save-excursion' defeated by `set-buffer'
+
+- old-style backquotes -skeleton.el
 
 - dbus support of workbench or integrating emacs in workbench?
 
@@ -41,10 +48,6 @@ Apr.: release, presentation
   happens with compilation and autoload?
 
 - move customisation group ansys-process to -process.el?
-
-- last-command-char is obsolete
-
-- old-style backquotes -skeleton.el
 
 - TODOs, FIXMEs in the code
 
@@ -143,7 +146,7 @@ release.
    Emacs-calc
       C-c C-u, C-c C-c
    Ansys symbol completion and emacs expansion C-c ] -- -close-block
-   M-/ -- expand abbrev
+   M-/ M-x abbrev-mode (list-abbrevs)
    default (,) commands but most */ can't be "*repeated"
    M-w (copies line)
    commenting out
@@ -161,12 +164,13 @@ release.
    switch off menu, tools, scroll-bar
    Ansys mode help: C-h m, selfdocumenting features
    online Ansys/Emacs process and debugging environment
-   C-c C-u, C-c C-c,  C-c C-q
+   interactive C-c C-u, C-c C-c,  C-c C-q
    tail mode of *.err C-c C-e
    abort file
    positions -> in bookmarks/registers/clone buffer?
    C-c @ outline stuff with indirect-buffer
    Dired, Calendar
+   loading time: emacsclient alias "e"
    shell-, config-mode, emacsclient, terminal-, ssh-support
    C-S-backspace
    

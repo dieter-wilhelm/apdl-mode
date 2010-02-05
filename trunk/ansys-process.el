@@ -359,7 +359,9 @@ for displaying the license status."
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
   (progn (comint-send-string (get-process ansys-process-name)
-		      "/show,X11c\n/menu,grph\n") ;valid in any processor
+		      ;; "/show,X11c\n/menu,grph\n"
+		      "/show,3d\n/menu,grph\n"
+		      )
 	 (display-buffer "*Ansys*" 'other-window)))
 
 (defun ansys-start-pzr-box ()		;NEW PanZoomRotate box
@@ -378,8 +380,24 @@ A Negative ARG moves ARG steps down."
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
   (comint-send-string (get-process ansys-process-name)
-		      (concat "/dist,,.7,1\n/replot\n")) ;valid in any processor
-  (display-buffer "*Ansys*" 'other-window)  )
+		      (format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
+  (display-buffer "*Ansys*" 'other-window))
+
+(defun ansys-move-right (arg)
+  "Move geometry right ARG steps in the graphics window.
+A Negative ARG moves ARG steps left."
+  (interactive "p")
+  (unless (ansys-process-running-p)
+    (error "No Ansys process is running"))
+  (comint-send-string (get-process ansys-process-name)
+		      (format "/focus,,0.25*(%d),,,1\n/replot\n" arg))
+  (display-buffer "*Ansys*" 'other-window))
+
+(defun ansys-move-left (arg)
+  "Move geometry left ARG steps in the graphics window.
+A Negative ARG moves ARG steps right."
+  (interactive "p")
+  (ansys-move-right (- arg)))
 
 (defun ansys-zoom-in ()
   "Zoom into the graphics window."
@@ -415,31 +433,16 @@ A Negative ARG moves ARG steps down."
 
 (defun ansys-program ( exec)			;NEW
   "Change the Ansys executable name to EXEC.
-And set the variable `ansys-program' accordingly if the
-executable EXEC can be found."
+And set the variable `ansys-program' accordingly if the for
+executable EXEC can be found on the system's search path."
   (interactive "FAnsys solver executable: ")
   (when (string= exec "")
     (setq exec ansys-program))
-
-  (unless (executable-find exec)
-    (error "Cannot find Ansys solver executable \"%s\" on the system" exec))
-
   (setq ansys-program exec)
-  (message "ansys-program is set to \"%s\"." ansys-program)
 
-  ;; ;; check default name in exec-path
-  ;; (let (pr)
-  ;;   (if (and ansys-program
-  ;; 	     (not (string= ansys-program "")))
-  ;; 	(setq pr ansys-program)
-  ;;     (setq pr "/ansys_inc/v120/ansys/bin/ansys120"))
-  ;;   (setq ansys-program
-  ;; 	  (read-file-name
-  ;; 	   (concat "Ansys program name [" pr "]: ") "" pr))
-  ;;   (if (not (file-exists-p ansys-program))
-  ;; 	(error "Error: File %s does not exist" ansys-program))
-  ;;   (message (concat "Ansys program is set to \"" ansys-program "\".")))
-  )
+  (if (executable-find exec)
+      (message "ansys-program is set to \"%s\"." ansys-program)
+    (error "Cannot find Ansys solver executable \"%s\" on the system" exec)))
 
 (defun ansys-help-program ( exec)			;NEW
   "Change the Ansys help executable to EXEC and check for its existence.
@@ -464,13 +467,12 @@ Files\\licensing\\win32\\anslic_admin.exe'"
   (interactive "FAnsys License Management Utility executable: ")
   (when (string= exec "")		;use default
     (setq exec ansys-lmutil-program))
-
-  (unless (executable-find exec)
-    (error "Cannot find Ansys LM Utility executable \"%s\" on the
-    system" exec))
-
   (setq ansys-lmutil-program exec)
-  (message "ansys-lmutil-program is set to \"%s\"." ansys-lmutil-program))
+
+  (if (executable-find exec)
+      (message "ansys-lmutil-program is set to \"%s\"." ansys-lmutil-program)
+  (error "Cannot find Ansys LM Utility executable \"%s\" on the
+    system" exec)))
 
 ;;;###autoload
 (defun ansys-job ()			;NEW

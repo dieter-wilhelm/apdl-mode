@@ -945,7 +945,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	"-"
 	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	["Display License Status" ansys-license-status :help "Show the license usage in another window or start the windows license manager"]
-	["Display Ansys Command Help"      ansys-show-command-parameters :helpl "Display a short help for the Ansys command in the current line and its parameters"]
+	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command in the current line and its parameters"]
 	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
 	["Toggle Outline Mode"         outline-minor-mode :help "Switch on/off the outline mode for structuring the file with headlines"]

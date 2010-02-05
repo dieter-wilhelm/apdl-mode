@@ -112,7 +112,7 @@ calling a special Ansys customisation buffer." 'interactive)
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
 		     "\\commonfiles\\help\" "
-		     "HelpDocView"))))
+		     "HelpDocViewer"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; necessary for starting the solver

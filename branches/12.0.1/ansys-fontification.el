@@ -321,22 +321,23 @@ verification models.\")\n\n")
   (message "undocumented commands...done")
   
   ;; ---------- command parameter help ----------
-
-  ;; first include the undocumented commands
-  (setq list
-	(mapcar '(lambda (m) (concat m " - Ansys undocumented command\n" m))
-		Ansys_undocumented_commands))
-  ;; then fill list with the documented commands
+  (setq list nil)
+  ;; first fill list with documented commands
   (with-temp-buffer
     (insert-file-contents "ansys_keywords.txt")
     (insert-file-contents "ansys_dynprompt.txt")
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
-;    (write-file "keyw+promt.txt")
+    ;(write-file "keyw+promt.txt")
     (goto-char (point-min))
     (while (re-search-forward "^\\(.\\w*\\>\\).*\n\\1.*" nil t)
       (add-to-list 'list (match-string 0) 'append)))
+  ;; now include the undocumented commands
+  (setq list (append list
+		     (mapcar '(lambda (m) (concat m " - Ansys undocumented command\n" m))
+		       Ansys_undocumented_commands)))
+;  (sort list 'string<)
   (set-buffer buffer)
   (goto-char (point-min))
   (insert "(defconst ansys-dynamic-prompt\n'")

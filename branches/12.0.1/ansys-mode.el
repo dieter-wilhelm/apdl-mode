@@ -1890,7 +1890,7 @@ explanation.  This is done for the previous Ansys command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the
 previous command is found.  With a prefix argument ASK inquire a
-function or command name in the mini buffer."
+function or command name from the mini buffer."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
@@ -2138,22 +2138,24 @@ If function `abbrev-mode' is on, expand the abbreviations first."
   "Insert a space in Ansys mode.
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
-  (interactive "*")
+  (interactive "*")			;error if read only
   (setq last-command-char ? )
-  (if (and (ansys-not-in-string-or-comment-p)
-	   (not (ansys-in-indentation-p))
-	   (not (ansys-in-empty-line-p)))
-      (progn
-	(indent-according-to-mode)
-	(self-insert-command 1)
-	(expand-abbrev)
-	(ansys-blink-matching-block)
-	(if (and ansys-auto-indent-flag
-		 (save-excursion
-		   (skip-syntax-backward " ")
-		   (not (bolp))))
+  (cond ((and mark-active transient-mark-mode)
+	 (self-insert-command 1))
+	((and (ansys-not-in-string-or-comment-p)
+	      (not (ansys-in-indentation-p))
+	      (not (ansys-in-empty-line-p)))
+	 (indent-according-to-mode)
+	 (self-insert-command 1)
+	 (expand-abbrev)
+	 (ansys-blink-matching-block)
+	 (if (and ansys-auto-indent-flag
+		  (save-excursion
+		    (skip-syntax-backward " ")
+		    (not (bolp))))
 	    (indent-according-to-mode)))
-    (self-insert-command 1)))
+	(t
+	 (self-insert-command 1))))
 
 (defun ansys-add-ansys-menu ()
   "Add an \"Ansys\" entry to the Emacs menu bar."

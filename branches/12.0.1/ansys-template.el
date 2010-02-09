@@ -476,6 +476,7 @@
   \n
   "/prep7" \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
+  "block,X1,X2,Y1,Y2,Z1,Z2 !3d hexahedron (wp)" \n
   "!!arsym,y,all ! reflection of areas "
   "Xc = 0" \n
   "Yc = 0" \n

@@ -27,7 +27,7 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-- delete-selection mode does not work with SPACE under Ansys mode
+- delete-selection mode does not work with -electric-space
 
 *** miscellaneous
 - update, restructure -mode-help, section for code compilation?
@@ -167,7 +167,7 @@ release.
    abort file
    positions -> in bookmarks/registers/clone buffer?
    C-c @ outline stuff with indirect-buffer
-   Dired, Calendar
+   Dired (textual renaming), Calendar
    shell-, config-mode, emacsclient, terminal-, ssh-support
    C-S-backspace
    

@@ -1,0 +1,52 @@
+!mouse copy and paste under Windows like under Linux!
+fini $ /clear
+/prep7
+
+*afun,deg
+Pi = acos(-1)
+*afun,rad
+
+!completion
+Pi = ac
+
+!Emacs calc
+Pi = 
+!! interpolation with Emacs calc '[[x1 x2][y1 y2 RET X_value a p
+
+!! abbrev `p
+p
+
+*!completion ESC Tab under Windows!
+
+!dynamic completion
+very_long_Variable = 3
+vsV = 8
+v
+
+I
+!closing of blocks
+*if,I,eq,1,then
+*elseif,I,le,10
+*else
+
+!C-M-h  
+!abbrev `d
+
+
+!C-c C-c, C-w copying lines, default command
+x2 = 1 $ y2 = 1 $ z2 = 1
+block,,x2,,y2,,z2
+
+vg
+!C-c C-u  copy above 
+! header skeleton
+
+Steel=1
+mp,nuxy,Steel,0.3 ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+ID=Steel
+et,ID,solid186 !3d, 20 node
+
+!meshing colon loop
+
+lesize,

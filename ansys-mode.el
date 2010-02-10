@@ -890,7 +890,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
-	      ["Template compilation" ansys-skeleton :help "Insert compilation of often used templates"])
+	      ["Template compilation" ansys-skeleton :help "Insert compilation of often used templates"]
+	      "-"
+	      ["List abbreviations" list-abbrevs :help "Display a list of all abbreviation definitions"])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
 	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
@@ -913,9 +915,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file"]
+	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file" active: ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
-	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server"]
+	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server or start a LM utility on Windows"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	      "-"
 	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a solver run" :active ansys-is-unix-system-flag]
@@ -924,23 +926,23 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Start Ansys Run" ansys-start-ansys :help "Start a solver run" :active ansys-is-unix-system-flag]
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
 	      "-"
-	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active ansys-is-unix-system-flag]
-	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process" :active ansys-is-unix-system-flag]
+	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active (ansys-process-running-p)]
+	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process"]
 	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
-	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active ansys-is-unix-system-flag]
-	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active ansys-is-unix-system-flag]
-	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active ansys-is-unix-system-flag]
-	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active ansys-is-unix-system-flag]
-	      ["Zoom in" ansys-zoom-in :help "Zoom into the graphics" :active ansys-is-unix-system-flag]
-	      ["Zoom out" ansys-zoom-out :help "Zoom out of the graphics" :active ansys-is-unix-system-flag]
+	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
+	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
+	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
+	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
+	      ["Zoom in" ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
+	      ["Zoom out" ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
 	      "-"
-	      ["Display Emacs Processes" list-processes :help "Show all currently running Emacs Processes, like the Ansys help browser, etc."]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
-	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the current Ansys error file"]
-	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver"]
-	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active ansys-is-unix-system-flag]
+	      ["Display all Emacs Processes" list-processes :help "Show all currently running Processes under Emacs, like the Ansys help browser, etc."]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possibly started Ansys solver run" :active ansys-is-unix-system-flag]
+	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
+	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver into the current directory"]
+	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active (ansys-process-running-p)]
 	      "-"
-	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active ansys-is-unix-system-flag]
+	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active (ansys-process-running-p)]
 	      )
 	"-"
 	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]

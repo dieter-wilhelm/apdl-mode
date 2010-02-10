@@ -7,7 +7,7 @@ Pi = acos(-1)
 *afun,rad
 
 !completion
-Pi = ac
+!Pi = ac
 
 !Emacs calc
 Pi = 
@@ -20,33 +20,54 @@ p
 
 !dynamic completion
 very_long_Variable = 3
-vsV = 8
+vlV = 8
 v
 
-I
 !closing of blocks
-*if,I,eq,1,then
-*elseif,I,le,10
-*else
 
-!C-M-h  
+I 
+*if,I,eq,1,then
+  c*** otto
+*elseif,I,le,10
+  /com,help me
+*else
+  /title,well well
+  
+!commenting out
+!Marking blocks: C-M-h  
+
 !abbrev `d
 
-
-!C-c C-c, C-w copying lines, default command
+d
+ 
+!C-c C-c, C-w copying lines, condensed input, default command
 x2 = 1 $ y2 = 1 $ z2 = 1
 block,,x2,,y2,,z2
 
+!mouse completion
 vg
+
+/pnum,line,1 $ lplo
+
+!material
+
 !C-c C-u  copy above 
-! header skeleton
 
-Steel=1
-mp,nuxy,Steel,0.3 ! Poisson No
-mp,ex,Steel,200000 ! Elastic modulus
-ID=Steel
-et,ID,solid186 !3d, 20 node
+!meshing, colon loops
+les,()
 
-!meshing colon loop
-
-lesize,
+!bc
+!solution 
+!post 1 
+ 
+!! switch off menu, tools, scroll-bar
+!! Ansys mode help: C-h m, selfdocumenting features
+!! online Ansys/Emacs process and debugging environment
+!! C-c C-u, C-c C-c,  C-c C-q
+!! tail mode of *.err C-c C-e
+!! abort file
+!! positions -> in bookmarks/registers/clone buffer?
+!! C-c @ outline stuff with indirect-buffer
+!! Dired (textual renaming), Calendar
+!! shell-, config-mode, emacsclient, terminal-, ssh-support
+!! C-S-backspace

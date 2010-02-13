@@ -2,7 +2,6 @@
 
 ;; Copyright (C) 2006 - 20010  H. Dieter Wilhelm
 
-
 (defun ansys-display-skeleton ()	;NEW
   "Display code templates in another buffer."
   (interactive)
@@ -224,7 +223,7 @@
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
   "!! et,Target,targe169  !2d" \n
   \n
-  "!! --- Contact Options --"\n
+  "!! --- contact options --"\n
   "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!! " \n
   "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. < Ansys 12.0)" \n
@@ -265,7 +264,7 @@
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
-  "!@@ -- Contact generation --" \n
+  "!@@ -- contact generation --" \n
   \n
   "!! type,Contact" \n
   "!! real,Contact" \n
@@ -484,6 +483,7 @@
   \n
   "/prep7" \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
+  "block,X1,X2,Y1,Y2,Z1,Z2 !3d hexahedron (wp)" \n
   "!!arsym,y,all ! reflection of areas "
   "Xc = 0" \n
   "Yc = 0" \n
@@ -670,7 +670,7 @@
   "nldiag,nrre,on! store residual file" \n
   "nldiag,maxf,2! maximum files written" \n
   "rescontrol,,1,last !create restart file(s)" \n
-  "          ,status" \n
+  ",status" > \n
   "/config,nres,2000 !No of substeps in result file [1000]" \n
   "/solu" \n
   \n
@@ -894,12 +894,12 @@
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n
   "*if,Dim,le,1,then" \n
-  "  *dim,A,array,10,1" \n
+  "*dim,A,array,10,1" > \n
   "*endif" > \n
   "*do,I,1,Ns" \n
-  "  set,Ls,I" > \n
-  "  fsum" \n
-  "  Reaction(I)=Fx" \n
+  "set,Ls,I" > \n
+  "fsum" \n
+  "Reaction(I)=Fx" \n
   "*enddo" > \n
   )
 
@@ -1090,7 +1090,7 @@
   "!! /psymb,ndir !only for rotated nodal co-ordinate systems!" \n
   "!! cncheck !initial contact status" \n
   \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Boundary conditions --- " \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- boundary conditions --- " \n
   \n
   "nsel,s,loc,y,0" \n
   "    ,a,loc,y,1" \n
@@ -1103,7 +1103,7 @@
   "/pbc,all,on" \n
   \n
   "!! ==============================" \n
-  "!" ansys-outline-string " --- Solution --- " \n
+  "!" ansys-outline-string " --- solution --- " \n
   "!! ==============================" \n
   \n
   "/solu" \n

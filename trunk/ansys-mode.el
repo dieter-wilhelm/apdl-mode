@@ -915,7 +915,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file" active: ansys-is-unix-system-flag]
+	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server or start a LM utility on Windows"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
@@ -1903,7 +1903,7 @@ explanation.  This is done for the previous Ansys command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the
 previous command is found.  With a prefix argument ASK inquire a
-function or command name in the mini buffer."
+function or command name from the mini buffer."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
@@ -2151,22 +2151,24 @@ If function `abbrev-mode' is on, expand the abbreviations first."
   "Insert a space in Ansys mode.
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
-  (interactive "*")
+  (interactive "*")			;error if read only
   (setq last-command-char ? )
-  (if (and (ansys-not-in-string-or-comment-p)
-	   (not (ansys-in-indentation-p))
-	   (not (ansys-in-empty-line-p)))
-      (progn
-	(indent-according-to-mode)
-	(self-insert-command 1)
-	(expand-abbrev)
-	(ansys-blink-matching-block)
-	(if (and ansys-auto-indent-flag
-		 (save-excursion
-		   (skip-syntax-backward " ")
-		   (not (bolp))))
+  (cond ((and mark-active transient-mark-mode)
+	 (self-insert-command 1))
+	((and (ansys-not-in-string-or-comment-p)
+	      (not (ansys-in-indentation-p))
+	      (not (ansys-in-empty-line-p)))
+	 (indent-according-to-mode)
+	 (self-insert-command 1)
+	 (expand-abbrev)
+	 (ansys-blink-matching-block)
+	 (if (and ansys-auto-indent-flag
+		  (save-excursion
+		    (skip-syntax-backward " ")
+		    (not (bolp))))
 	    (indent-according-to-mode)))
-    (self-insert-command 1)))
+	(t
+	 (self-insert-command 1))))
 
 (defun ansys-add-ansys-menu ()
   "Add an \"Ansys\" entry to the Emacs menu bar."

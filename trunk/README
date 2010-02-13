@@ -18,10 +18,13 @@ Ansys solver processes as well.
 The mode's capabilities are sophisticated but the comprehensive
 documentation is targeted for Ansys users with little Emacs
 experience.  Any suggestions for improvements are very welcome.  The
-current stable version (ansys-mode-12.0.1) and development versions
-are available at Google Code (http://code.google.com/p/ansys-mode).
-For installing, further instructions and issues please have a look at
-the Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
+current stable version 12.0.1 is available at the Google Code site
+http://code.google.com/p/ansys-mode ("wget
+http://ansys-mode.googlecode.com/files/ansys-mode-12.0.1.tgz",
+development versions can be checked out with "svn checkout
+http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
+installation, issues and comments please have a look at the Ansys mode
+Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 == Table of contents ==
 
@@ -108,12 +111,12 @@ for a list of them.
   transition from other editors and user interface standards
 
 As a visual example, a screen-shot on EmacsWiki and Google code show
-an Emacs frame with a ripped off Ansys menu field.  The APDL file is
-in the right window with the (experimental) user variable highlighting
-switched on and a help overlay (in yellow background) activated. The
-smaller windows on the left hand side are showing the "Variable
-definitions buffer" of the same file and a preview buffer of a certain
-code template, respectively.
+an Emacs frame (GTK+ toolkit under Linux) with a ripped off Ansys menu
+field.  The APDL file is in the right window with the (experimental)
+user variable highlighting switched on and a help overlay (in yellow
+background) activated. The smaller windows on the left hand side are
+showing the "Variable definitions buffer" of the same file and a
+preview buffer of a certain code template, respectively.
 
 http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
 

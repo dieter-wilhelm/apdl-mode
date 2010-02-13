@@ -21,8 +21,8 @@
 ;; experimental user variables highlighting only in level 2 available
 (setq ansys-highlighting-level 1)
 
-;; uncommenting the following might slow the editing of large .mac files
-;; but only in highlighting level 2
+;; uncommenting the following might slow the editing of large .mac
+;; files but only when ansys-highlighting-level is set to 2.
 ;(setq ansys-dynamic-highlighting-flag t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -101,18 +101,17 @@ calling a special Ansys customisation buffer." 'interactive)
 	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
        ;;backslash '\"' on windows mandatory
 	     ansys-help-program
-	     (concat "\""
-		     ansys-install-directory
+	     (concat ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
-		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe\"")
+		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe")
 	     ansys-help-program-parameters
 	     (concat "-cp \""
 		     ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
 		     "\\commonfiles\\help\" "
-		     "HelpDocView"))))
+		     "HelpDocViewer"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; necessary for starting the solver

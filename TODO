@@ -27,14 +27,15 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-*** miscellaneous
-- no check for validity of -help-program-parameters (windows)
+- delete-selection mode does not work with -electric-space
 
 - C-c C-+/- C-x4k in docu
 
+- docu of -delete-other-window
+
 - update, restructure -mode-help, section for code compilation?
 
-- checkdoc, -process.el, -mode.el \\<keymap> & \\[function]
+- checkdoc, -template.el, -process.el, -mode.el done except \\<keymap> & \\[function]
 
 - last-command-char is obsolete
 
@@ -169,7 +170,7 @@ release.
    abort file
    positions -> in bookmarks/registers/clone buffer?
    C-c @ outline stuff with indirect-buffer
-   Dired, Calendar
+   Dired (textual renaming), Calendar
    loading time: emacsclient alias "e"
    shell-, config-mode, emacsclient, terminal-, ssh-support
    C-S-backspace

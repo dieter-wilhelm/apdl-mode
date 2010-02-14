@@ -915,7 +915,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file :help "Insert or change the license server specification, either the license server or the actual license file" :active ansys-is-unix-system-flag]
+	      ["Specify License Server or - File"   ansys-license-file
+  :help "Change the license server specification (for a solver run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server or start a LM utility on Windows"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]

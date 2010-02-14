@@ -198,7 +198,7 @@ automatically applied for all files with suffixes ".mac", ".dat" and
 
 === Verbose instructions ===
 
-* direct way, no configuration necessary (loading "by hand")
+* Direct way, no configuration necessary (loading "by hand")
 
 Please consult the "direct way" description above.
 
@@ -208,7 +208,7 @@ the menu bar), it doesn't take too much time and the investment will
 be worth it since it will accelerate your general editing capabilities
 in the future.
 
-* permanent configuration
+* Permanent configuration
 
 When it becomes tiring of loading 'ansys-mode.el' (or
 'ansys-mode.elc') every time you are starting a new Emacs session, you
@@ -223,7 +223,7 @@ home directory '~\').
 From here you are able to type "M-x ansys-mode RET" to activate the
 mode for every interesting file.
 
-* automatic mode assignment
+* Automatic mode assignment
 
 When you intend to apply the mode automatically, for all files with
 the extensions ".mac", ".dat", ".inp" and ".anf" ( .dat and .inp are
@@ -241,7 +241,7 @@ which contains also an APDL header and footer.
 
      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
-* autoinsertion of code
+* Autoinsertion of code
 
 In case you also want to enjoy the auto insertion feature, which puts
 (optionally) some predefined body of Ansys commands to every new APDL
@@ -251,7 +251,7 @@ file insert the following into '.emacs':
      (setq auto-insert-query t) ;insert only after request
      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
 
-* autoloading of helper functions
+* Autoloading of helper functions
 
 With below section you are also able to use certain Ansys related
 commands in a new Emacs session without the need of previously having
@@ -264,7 +264,7 @@ explicitely called ansys-mode.
  TODO: -license-file, -license-program variables
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
 
-* further configuration method
+* A further configuration method
 
 As a summary and example to these and further customisation options
 please have a look at the accompanying "default_el" example. This is

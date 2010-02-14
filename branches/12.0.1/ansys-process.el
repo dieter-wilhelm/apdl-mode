@@ -223,7 +223,8 @@ with the Ansys /EXIT,all command which saves all model data."
 Alternatively under a Unix system, one can also use the Ansys
 command line \"/SYS, anshelp120\" when running Ansys
 interactively, provided that anshelp120 is found in the search
-path for executables (the PATH environment variable)."
+paths for executables (these are stored in the PATH environment
+variable)."
   (interactive)
   (ansys-help-program "")
   (progn

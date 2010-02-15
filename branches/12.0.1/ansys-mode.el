@@ -85,6 +85,7 @@
     ("\\*mfu\\w*"."*MFUN")
     ("\\*mop\\w*"."*MOPER")
     ("\\<path\\w"."PATH")
+    ("\\<page\\w" "PAGET")
     ("\\<pdef\\w*"."PDEF")
     ("\\*sre\\w*"."*SREAD")
     ("\\*set.?"."*SET") ;Ansys inconsistency *SET works only with one additional character

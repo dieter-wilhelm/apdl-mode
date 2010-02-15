@@ -84,8 +84,8 @@
     ("/inq\\w*"."/INQUIRE")
     ("\\*mfu\\w*"."*MFUN")
     ("\\*mop\\w*"."*MOPER")
-    ("\\<path\\w"."PATH")
-    ("\\<page\\w" "PAGET")
+    ("\\<path\\w*"."PATH")
+    ("\\<page\\w*" "PAGET")
     ("\\<pdef\\w*"."PDEF")
     ("\\*sre\\w*"."*SREAD")
     ("\\*set.?"."*SET") ;Ansys inconsistency *SET works only with one additional character
@@ -2840,7 +2840,8 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
 	  (goto-char (point-min))
 
 	  (while (re-search-forward
-		  (concat com
+		  ;; take care of variables clashing with command names
+		  (concat "\\(?:^\\|$\\)\\s-*" com
  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
 	    (setq var (match-string-no-properties 1))
 	  ;; format line, comment, message, C***

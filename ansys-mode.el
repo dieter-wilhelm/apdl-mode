@@ -42,7 +42,7 @@
 ;; Unix systems.  It defines 'Ansys mode', a major mode for viewing,
 ;; writing and navigating in APDL (Ansys Parametric Design Language)
 ;; files as well as providing managing and communication capabilities
-;; for an associated Ansys solver process.
+;; for an associated Ansys interpreter process.
 
 ;; The mode's capabilities are sophisticated but the documentation is
 ;; targeted for Ansys users with little Emacs experience.  Regarding
@@ -150,15 +150,15 @@ Used for the variable `comment-start-skip'.")
   "This variable sets the level of highlighting.
 There are three levels available, 0 a minimalistic level
 optimised for speed and working with very large files (like
-WorkBench solver input files), 1 and 2.  Level 0 highlights only
-the minimum (unambiguous) length of Ansys command names and
-variable definitions with the '=' operator.  Level 1 highlights
-complete command names, together with functions, elements,
-deprecated elements, undocumented commands, strings from string
-commands and the APDL operators.  Level 2 is the same as 1,
-except that all defined user variables and unambiguous command
-names (also solver-ignored characters behind them) are
-highlighted as well.  The user variables are highlighted
+interpreter input files from WorkBench), 1 and 2.  Level 0
+highlights only the minimum (unambiguous) length of Ansys command
+names and variable definitions with the '=' operator.  Level 1
+highlights complete command names, together with functions,
+elements, deprecated elements, undocumented commands, strings
+from string commands and the APDL operators.  Level 2 is the same
+as 1, except that all defined user variables and unambiguous
+command names (also interpreter-ignored characters behind them)
+are highlighted as well.  The user variables are highlighted
 \"statically\" only, newly defined variables are only taken into
 account after `ansys-display-variables'
 \(\\[ansys-display-variables]) is called, this updating is done
@@ -280,11 +280,11 @@ terminology.
 \"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
 \"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics
-\"preppost\" - PrepPost (no solver capabilities)"
+\"preppost\" - PrepPost (no solving capabilities)"
   :group 'Ansys-process)
 
 (defcustom ansys-license "struct"		;NEW_C
-  "The License type with which the Ansys solver will be started.
+  "The License type with which the Ansys interpreter will be started.
 See `ansys-license-types' for often used Ansys license types."
 ;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
   :options ansys-license-types
@@ -883,7 +883,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
 	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
 	      ["Listings, Information, Statistics" ansys-skeleton-information :help "Parameter listings, graphics, system information, run statistics"]
-	      ["Solve"                  ansys-skeleton-solve :help "Solver commands and options"]
+	      ["Solve"                  ansys-skeleton-solve :help "Ansys interpreter commands and options"]
 	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
 	      ["Array Operations" ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
 	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
@@ -916,20 +916,20 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      )
 	(list "Manage Ansys Tasks"
 	      ["Specify License Server or - File"   ansys-license-file
-  :help "Change the license server specification (for a solver run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
+  :help "Change the license server specification (for a interpreter run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server or start a LM utility on Windows"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	      "-"
-	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a solver run" :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a solver run" :active ansys-is-unix-system-flag]
-	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a solver run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run" ansys-start-ansys :help "Start a solver run" :active ansys-is-unix-system-flag]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible solver run (nil if not active)" :active ansys-is-unix-system-flag]
+	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a interpreter run" :active ansys-is-unix-system-flag]
+	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a interpreter run" :active ansys-is-unix-system-flag]
+	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Start Ansys Run" ansys-start-ansys :help "Start a interpreter run" :active ansys-is-unix-system-flag]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active ansys-is-unix-system-flag]
 	      "-"
-	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running solver process" :active (ansys-process-running-p)]
-	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running solver process"]
-	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the solver"]
+	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
+	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running interpreter process"]
+	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
 	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
@@ -938,16 +938,18 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Zoom out" ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
 	      "-"
 	      ["Display all Emacs Processes" list-processes :help "Show all currently running Processes under Emacs, like the Ansys help browser, etc."]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possibly started Ansys solver run" :active ansys-is-unix-system-flag]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possibly started Ansys interpreter run" :active ansys-is-unix-system-flag]
 	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
-	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver into the current directory"]
-	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active solver run" :active (ansys-process-running-p)]
+	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
+	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active interpreter run" :active (ansys-process-running-p)]
 	      "-"
 	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active (ansys-process-running-p)]
 	      )
 	"-"
 	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
-	["Display License Status" ansys-license-status :help "Show the license usage in another window or start the windows license manager"]
+	["License Status" ansys-license-status :label (if ansys-is-unix-system-flag
+	     "Display License Status"
+	   "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
 	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command in the current line and its parameters"]
 	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
@@ -1245,8 +1247,8 @@ current block level.
 \\[ansys-number-block-end] -- `ansys-number-block-end'
 
 Are searching for and skipping over \"pure\" number blocks, these
-are common (and quite large) in WorkBench solver input (.inp,
-.dat) files.
+are common (and quite large) in WorkBench interpreter
+input (.inp, .dat) files.
 
 Moreover there are keyboard shortcuts with which you are able to
 input pairs of corresponding characters, like \"C-c %\" for the
@@ -1458,26 +1460,27 @@ README or default_el customisation file example.
 
 
 
-** Ansys solver control and communication (mainly restricted to
-  UNIX systems) **
+** Ansys interpreter control and communication (mainly restricted
+  to UNIX systems) **
 
 With the Ansys mode command `ansys-start-ansys' you can start the
-Ansys solver as an asynchronous process within Emacs.  After
-starting the run you will see all solver output in a separate
-Emacs \"comint\" buffer.  You are now able to interact with this
-process in three ways, either by typing directly in the *Ansys*
-buffer or using \\[ansys-send-to-ansys] (`ansys-send-to-ansys').
-With it you can send either the current (code) line or a whole
-region to the running solver.  (A selected region here means
-highlighted lines of code.) Or you could send interactively Ansys
-commands with
+Ansys interpreter as an asynchronous process within Emacs.  After
+starting the run you will see all interpreter output in a
+separate Emacs \"comint\" buffer.  You are now able to interact
+with this process in three ways, either by typing directly in the
+*Ansys* buffer or using
+\\[ansys-send-to-ansys] (`ansys-send-to-ansys').  With it you can
+send either the current (code) line or a whole region to the
+running interpreter.  (A selected region here means highlighted
+lines of code.) Or you could send interactively Ansys commands
+with
 \"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command').
 
 Another very useful function in this context is
 \\[ansys-copy-or-send-above] (`ansys-copy-or-send-above'), which
 sends all code from the beginning up to the current line to the
-solver.  If there is no running solver the function copies the
-code to the system tray.
+interpreter.  If there is no running interpreter the function
+copies the code to the system tray.
 
 The commands \\[ansys-copy-or-send-above] and
 \\[ansys-send-to-ansys] skip to the next code line (if possible).
@@ -1504,7 +1507,7 @@ zoom, etc. the model interactively (very likely) you can call
 `ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a dialog
 box pops up.  This is the Pan/Zoom/Rotate dialog for the graphics
 screen.  But beware: Before you are able to send further commands
-to the solver, you first have to close the PZR dialog box.
+to the interpreter, you first have to close the PZR dialog box.
 
 Ansys mode has his own command for invoking the Ansys help
 system (\\[ansys-start-ansys-help], see above) because the

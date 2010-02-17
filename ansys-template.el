@@ -135,6 +135,8 @@
   "!@@@ - aux3 result file edit routine -" \n
   "!/aux3" \n
   "!list !result statistics" \n
+  "!@@@ - *get -" \n
+  "*get,bla,active,,mat![|csys|type|real|esys]" \n
   )
 
 (define-skeleton ansys-skeleton-configuration
@@ -279,8 +281,9 @@
   "!@@@ - check contact status -" \n
   \n
   "!save"\n
-  "!cncheck,adjust !adjust the elements!"
-  "!resume,file.db" \n
+  "!cncheck,adjust !adjust the elements!" \n
+  "/inquire,job_name,jobname" \n
+  "!resume,job_name,db" \n
   "!/solu" \n
   "!cncheck,post" \n
   "!/post1" \n
@@ -707,6 +710,8 @@
   "!! ------------------------------" \n
   \n
   "/post1" \n
+  "/inquire,job_name,jobname" \n
+  "!resume,job_name,db" \n
   "set,last" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
   "plnsol,s,eqv ! von Mises" \n

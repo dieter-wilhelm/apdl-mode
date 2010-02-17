@@ -43,7 +43,7 @@ default directory is not of your liking you could use previously:
 
 ;;;###autoload
 (defun ansys-display-error-file ()	;NEW
-  "Open the current solver error file in the current directory.
+  "Open the current interpreter error file in the current directory.
 You might change the directory with \"M-x `cd'\".  The error file
 name consists of the current job name and the suffix '.err'.  For
 the job name the variable `ansys-job' is used. You can change the
@@ -74,11 +74,11 @@ the customisation facility (by calling `ansys-customise-ansys')."
     (message "Copied from beginning of buffer to cursor.")))
 
 (defun ansys-send-to-ansys ( &optional stay)	;NEW
-  "Send region (or code line) to the Ansys solver, otherwise copy it.
+  "Send region (or code line) to the Ansys interpreter, otherwise copy it.
 Argument BEG may the beginning of the region.  If there is no
 region active send/copy the complete code line, if the cursor is
 in no code line (like a comment) go to the next code line and
-indicate an error.  When there is no running Ansys solver process
+indicate an error.  When there is no running Ansys interpreter process
 just copy the respective code (region or line) to the system
 clipboard and skip to the subsequent code line.  With any prefix
 argument STAY copy or send code but remain at the current cursor
@@ -126,7 +126,7 @@ position."
 	     (message "Copied code line."))))))
 
 (defun ansys-process-running-p ()
-  "Return nil if no Ansys solver process is running."
+  "Return nil if no Ansys interpreter process is running."
   (let ((proc (get-process ansys-process-name)))
     (if proc
 	(string= "run" (process-status proc))
@@ -137,13 +137,13 @@ position."
 ;;   (force-mode-line-update))
 
 (defun ansys-query-ansys-command ()	;NEW
-  "Ask for a string which will be sent to the solver."
+  "Ask for a string which will be sent to the interpreter."
   (interactive)
   (unless (ansys-process-running-p)
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;    (force-mode-line-update)
     (error "No Ansys process is running"))
-  (let ((s (read-string "Send to solver: ")))
+  (let ((s (read-string "Send to interpreter: ")))
     (comint-send-string (get-process ansys-process-name) (concat s "\n"))
     ;;  (walk-windows
     ;;    (lambda (w)
@@ -157,11 +157,11 @@ position."
 ;; TODO defvar ansys-process-buffer??
 
 (defun ansys-start-ansys ()		;NEW
-  "Start the Ansys solver process."
+  "Start the Ansys interpreter process."
   (interactive)
   (when (ansys-process-running-p)
-    (error "A Solver is already running under Emacs"))
-  (message "Preparing an Ansys solver start...")
+    (error "A Interpreter is already running under Emacs"))
+  (message "Preparing an Ansys interpreter start...")
   (setq ansys-process-name "Ansys")
   ;; (setq comint-use-prompt-regexp t) TODO: ???
   (ansys-program "")			;take exec from -program var.
@@ -169,7 +169,7 @@ position."
   (if (y-or-n-p
        (concat
 	"Start run?  (l-type: " ansys-license ", job: " ansys-job " in " default-directory ", server: " ansys-license-file ")"))
-      (message "Starting the Ansys solver...")
+      (message "Starting the Ansys interpreter...")
     (error "Function ansys-start-ansys canceled"))
   (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
 ;  (comint-send-string (get-process ansys-process-name) "\n")
@@ -274,7 +274,7 @@ path for executables (the PATH environment variable)."
     (if status
 	(message "Ansys process is in status \"%s\"" ;, process identification No: %d"
 		 (process-status ansys-process-name))
-      (message "No Ansys solver process is running."))
+      (message "No Ansys interpreter process is running."))
 	   ;; (process-id (get-process ansys-process-name))
     ))
 
@@ -435,14 +435,14 @@ A Negative ARG moves ARG steps right."
   "Change the Ansys executable name to EXEC.
 And set the variable `ansys-program' accordingly if the for
 executable EXEC can be found on the system's search path."
-  (interactive "FAnsys solver executable: ")
+  (interactive "FAnsys interpreter executable: ")
   (when (string= exec "")
     (setq exec ansys-program))
   (setq ansys-program exec)
 
   (if (executable-find exec)
       (message "ansys-program is set to \"%s\"." ansys-program)
-    (error "Cannot find Ansys solver executable \"%s\" on the system" exec)))
+    (error "Cannot find Ansys interpreter executable \"%s\" on the system" exec)))
 
 (defun ansys-help-program ( exec)			;NEW
   "Change the Ansys help executable to EXEC and check for its existence.

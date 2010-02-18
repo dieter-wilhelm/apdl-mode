@@ -72,7 +72,9 @@ dcgomg,x,y,z ! rotational acceleration about global coord. sys.
 nsel,s,loc,x,1
 cp,next,uy,all !couple dofs
 
-!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "/HOME/uidg1626/ansys-mode/trunk/ansys-mode.el")(ansys-mode))
+
+show-paren-mode
 
 !@@ -- boundary conditions --
 

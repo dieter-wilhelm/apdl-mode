@@ -316,6 +316,11 @@ The version scheme is a mixture of the Ansys version (12.0) on which
 the highlighting and completing code is based and the version
 increments (.1) of the mode itself.
 
+=== Version 12.0.2 ===
+
+* Some new graphics commands zoom-in, -out, move-left, -right, -up,
+  -down
+
 === Version 12.0.1 ===
 
 * The lisp code had to be split up for better maintance, the code

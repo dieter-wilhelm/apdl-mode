@@ -27,6 +27,8 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
+- licensing win32/win64? \\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe
+
 - delete-selection mode does not work with -electric-space
 
 - C-c C-+/- C-x4k in docu

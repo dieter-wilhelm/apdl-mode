@@ -190,9 +190,9 @@ variable you have to recall `ansys-mode'."
 (defcustom ansys-job "file"			;NEW_C
   "Variable storing the Ansys job name.
 It is initialised to 'file' (which is also the Ansys default job
-name).  See `ansys-abort-file' for a way of stopping a run in a
-controlled way and `ansys-display-error-file' for viewing the
-respective error file."
+name).  See `ansys-abort-file' for a way of stopping a solver run
+in a controlled way and `ansys-display-error-file' for viewing
+the respective error file."
   :type 'string
   :group 'Ansys-process)
 
@@ -269,11 +269,11 @@ Set it to port@host.  The default port is 2325."
 
 (defcustom ansys-license-types		;NEW_C
   '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
-  "List of available license types to choose for a run.
-This list should contain the license types you can choose from.  Below
-are often used license types (as e.g. seen with the function
-`ansys-license-status') and their corresponding WorkBench
-terminology.
+  "List of available license types to choose for an Ansys run.
+This list should contain the license types you can choose from.
+Below are often used license types (as e.g. seen with the
+function `ansys-license-status') and their corresponding
+WorkBench terminology.
 
 \"ansys\" - Mechanical U (without thermal capability)
 \"struct\" - Structural U (with thermal capability)
@@ -376,7 +376,7 @@ See also the variable `ansys-blink-matching-block-flag'."
   "Normal hook run before entering Ansys mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
-  :options '(ansys-show-paren-mode ansys-font-lock-mode ansys-outline-minor-mode ansys-ruler-mode ansys-auto-insert-mode display-time)
+  :options '(ansys-show-paren-mode ansys-outline-minor-mode ansys-ruler-mode ansys-auto-insert-mode)
   :group 'Ansys)
 
 ;; --- variables ---
@@ -386,7 +386,7 @@ A hook is a variable which holds a collection of functions."
   "String to insert when creating an Ansys code comment.")
 
 (defvar ansys-run-flag nil		;NEW_C
-  "Non-nil means an Ansys job is already running.")
+  "Non-nil means an Ansys interpreter is already running.")
 
 (defvar ansys-user-variables nil ;NEW_C
   "Variable containing the user variables and line No of first occurance.
@@ -399,7 +399,7 @@ The regexp is used for the
 fontification (`ansys-highlight-variable') of these variables.")
 
 (defvar ansys-process-name "Ansys"		;NEW_C
-  "Variable containing Emacs' name of a running ansys process.
+  "Variable containing Emacs' name for an Ansys process.
 Variable is only used internally in the mode.")
 
 (defvar ansys-is-unix-system-flag nil	;NEW_C
@@ -852,14 +852,19 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (defconst ansys-mode-menu
   (list "Ansys"
+	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
 	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
-	["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
-	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Complete Symbol"          ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
+	["Send/Copy Code Line/Region" ansys-send-to-ansys :label (if (ansys-process-running-p)
+"Send Code Line/Region to Ansys"
+"Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
+	["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
 	(list "Insert Template"
+	      ["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
+	      ["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
 	      ["*IF ,Action *ENDIF"     ansys-if]
 	      ["*IF ,THEN *ENDIF"	ansys-if-then]
 	      ["*DO *ENDDO"	        ansys-do]
@@ -916,20 +921,25 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      )
 	(list "Manage Ansys Tasks"
 	      ["Specify License Server or - File"   ansys-license-file
-  :help "Change the license server specification (for a interpreter run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
+  :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
-	      ["Display License Status" ansys-license-status :help "Display a shortened license status from the license server or start a LM utility on Windows"]
+	      ["License Status" ansys-license-status :label
+	       (if ansys-is-unix-system-flag
+		   "Display License Status"
+		 "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
 	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	      "-"
-	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for a interpreter run" :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for a interpreter run" :active ansys-is-unix-system-flag]
-	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for a interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run" ansys-start-ansys :help "Start a interpreter run" :active ansys-is-unix-system-flag]
+	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
+	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for an interpreter run"]
+	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Start Ansys Run" ansys-start-ansys :help "Start an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active ansys-is-unix-system-flag]
 	      "-"
 	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
-	      ["Send/Copy Code Line/Region (to Ansys)" ansys-send-to-ansys :help "Send the current line or active region to a running interpreter process"]
-	      ["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
+	      ["Send/Copy Code Line/Region" ansys-send-to-ansys :label (if (ansys-process-running-p)
+"Send Code Line/Region to Ansys"
+"Copy Code Line/Region to system tray") :help "Send the current line or active region to a running interpreter process or else copy line or region"]
+	      ["Copy/Send above Code" ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active send it to the interpreter"]
 	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
@@ -937,7 +947,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Zoom in" ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
 	      ["Zoom out" ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
 	      "-"
-	      ["Display all Emacs Processes" list-processes :help "Show all currently running Processes under Emacs, like the Ansys help browser, etc."]
+	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possibly started Ansys interpreter run" :active ansys-is-unix-system-flag]
 	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
 	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
@@ -947,21 +957,22 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      )
 	"-"
 	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
+	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
+	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["License Status" ansys-license-status :label (if ansys-is-unix-system-flag
 	     "Display License Status"
 	   "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
-	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command in the current line and its parameters"]
-	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
-	["Toggle Outline Mode"         outline-minor-mode :help "Switch on/off the outline mode for structuring the file with headlines"]
+	[ "Outline Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline minor mode is for hiding and selectively displaying headlines and their sublevels"]
+	[ "Delete Selection Mode"         delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete selection mode replaces the selection with typed text"]
 	"-"
-	["Show Ansys Mode version"  ansys-mode-version :help "Display the Ansys mode version in the mini buffer"]
-	["Describe Ansys Mode"		describe-mode :help "Open a window with a description of Ansys mode"]
+	["Show Ansys Mode version"  ansys-mode-version :label (concat "Ansys Mode version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
+	["Ansys Mode Help"		describe-mode :help "Open a window with a description of Ansys mode"]
 	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
-	["Submit Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
-	"-"
+	["Ansys Mode Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
 	["Reload Ansys Mode" ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
-	["Return to previous mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
+	"-"
+	["Exit Ansys Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
   "Menu items for the Ansys mode.")
 
 ;;; --- predicates ---

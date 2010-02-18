@@ -23,7 +23,7 @@ very_long_Variable = 3
 vlV = 8
 v
 
-!closing of blocks
+!closing of blocks, dynamic variable fontification
 
 I 
 *if,I,eq,1,then
@@ -49,7 +49,8 @@ vg
 
 /pnum,line,1 $ lplo
 
-!material
+!materials :deprected elements
+et,10,solid46
 
 !C-c C-u  copy above 
 
@@ -60,6 +61,7 @@ les,()
 !solution 
 !post 1 
  
+
 !! switch off menu, tools, scroll-bar
 !! Ansys mode help: C-h m, selfdocumenting features
 !! online Ansys/Emacs process and debugging environment
@@ -68,6 +70,6 @@ les,()
 !! abort file
 !! positions -> in bookmarks/registers/clone buffer?
 !! C-c @ outline stuff with indirect-buffer
-!! Dired (textual renaming), Calendar
+!! image Dired (textual renaming), Calendar
 !! shell-, config-mode, emacsclient, terminal-, ssh-support
 !! C-S-backspace

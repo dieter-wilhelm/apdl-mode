@@ -920,40 +920,33 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file
-  :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
+	      ["Specify License Server or - File"   ansys-license-file :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
-	      ["License Status" ansys-license-status :label
-	       (if ansys-is-unix-system-flag
-		   "Display License Status"
-		 "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
-	      ["Start Ansys Help System" ansys-start-ansys-help :help "Start the Ansys help browser"]
 	      "-"
 	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for an interpreter run"]
 	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run" ansys-start-ansys :help "Start an interpreter run" :active ansys-is-unix-system-flag]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active ansys-is-unix-system-flag]
+	      ["Start Ansys Run" ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active (ansys-process-running-p)]
+	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
 	      "-"
 	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
-	      ["Send/Copy Code Line/Region" ansys-send-to-ansys :label (if (ansys-process-running-p)
-"Send Code Line/Region to Ansys"
-"Copy Code Line/Region to system tray") :help "Send the current line or active region to a running interpreter process or else copy line or region"]
-	      ["Copy/Send above Code" ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active send it to the interpreter"]
 	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
 	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
-	      ["Zoom in" ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
-	      ["Zoom out" ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
+	      ["Zoom In" ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
+	      ["Zoom Out" ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
+	      ["Move Up" ansys-move-up :help "Move graphics objects up" :active (ansys-process-running-p)]
+	      ["Move Down" ansys-move-down :help "Move graphics objects down" :active (ansys-process-running-p)]
+	      ["Move Right" ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
+	      ["Move Left" ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
 	      "-"
 	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possibly started Ansys interpreter run" :active ansys-is-unix-system-flag]
 	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
 	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
-	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active interpreter run" :active (ansys-process-running-p)]
 	      "-"
-	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":active (ansys-process-running-p)]
+	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
 	      )
 	"-"
 	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]

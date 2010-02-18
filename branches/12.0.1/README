@@ -335,17 +335,18 @@ increments (.1) of the mode itself.
 
 * The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
   (C-c C-u) commands are now generalised so that they are also doing
-  some useful stuff without a running Ansys process (they copy in that
-  case the cursor line/the chosen region and from the file beginning
-  to the cursor line, respectively, to the clipboard).  Given a prefix
-  argument to these commands, the cursor won't move to the next code
-  line.
+  some useful stuff without a running Ansys interpreter process (they
+  copy in that case the cursor line/the chosen region and copy from
+  the file beginning to the cursor line, respectively, to the
+  clipboard).  Given a prefix argument to these commands, the cursor
+  won't move to the next code line.
 
 * The completion of Ansy keywords is reworked and has improved.  Ansys
   symbols are now completed in 3 ways: Upcase, downcase and
   capitalise.
 
-* New: Added tooltips to all Ansys menu entries.
+* New: Added tooltips to all Ansys menu entries.  Activated or
+  deactivated menue entries according to the context
 
 * Ansys mode tries to gather information from the OS environment when
   the variable `ansys-license-file' is not set by the user and uses

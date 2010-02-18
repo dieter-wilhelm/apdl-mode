@@ -190,16 +190,18 @@ process is killed and not regularly exited.  You should prefere
 the function `ansys-exit-ansys'."
   (interactive)
   (unless (ansys-process-running-p)
-    (error "Error: No active Ansys process"))
+    (error "No active Ansys solver process"))
   (if (yes-or-no-p
-       "Do you want to kill the Ansys run?")
+       "Do you want to kill the running Ansys solver?")
       (progn
 ;	(message "Killing run...")
 	(delete-process (get-process ansys-process-name))
-	(message "Killing run...done.")
-	(setq mode-line-process (format ":%s" (process-status (get-process ansys-process-name))))
-	(force-mode-line-update))
-    (error "Killing of Ansys run canceled")))
+	(message "Killing Ansys run...done.")
+	(display-buffer "*Ansys*" 'otherwindow)
+	;; (setq mode-line-process (format ":%s" (process-status (get-process ansys-process-name))))
+	;; (force-mode-line-update)
+	)
+    (message "Killing of Ansys run canceled.")))
 
 (defun ansys-exit-ansys ()		;NEW
   "Exit normally the current Ansys run under Emacs.
@@ -381,6 +383,12 @@ A Negative ARG moves ARG steps down."
   (comint-send-string (get-process ansys-process-name)
 		      (concat "/dist,,.7,1\n/replot\n")) ;valid in any processor
   (display-buffer "*Ansys*" 'other-window)  )
+
+(defun ansys-move-down (arg)
+  "Move geometry down ARG steps in the graphics window.
+A Negative ARG moves ARG steps up."
+  (interactive "p")
+  (ansys-move-up (-arg)))
 
 (defun ansys-zoom-in ()
   "Zoom into the graphics window."

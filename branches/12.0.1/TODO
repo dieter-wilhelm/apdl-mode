@@ -29,7 +29,11 @@ Apr.: release, presentation
 *** bugs
 - delete-selection mode does not work with -electric-space
 
+- -kill-ansys
+
 *** miscellaneous
+- -run-flag is not used
+
 - update, restructure -mode-help, section for code compilation?
 
 - checkdoc, -template.el, -process.el, -mode.el done except \\<keymap> & \\[function]
@@ -38,8 +42,8 @@ Apr.: release, presentation
 
 - dbus support of workbench or integrating emacs in workbench?
 
-- .elc, what happens when some .el file is changed, load or load-file, what
-  happens with compilation and autoload?
+- .elc, what happens when some .el file is changed: Emacs loads newer
+  .el, load or load-file, what happens with compilation and autoload?
 
 - move customisation group ansys-process to -process.el?
 
@@ -83,12 +87,12 @@ mode-help -- mode usage & configuration
   with download, home page, elpa?
 
 - publication emails (with image and news): ANSYS.net (Ansys !!!
-  Sheldon Imaoka <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
-  sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
-  <lkrueger@cadfem.de>), AnsysWB community, Ansys users club
-  <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus guys (PADT)
-  <info@padtinc.com>, Holger Sparr <sparr@mfkrs1.mw.tu-dresden.de>.
+  Sheldon Imaoka <sheldonimaoka@yahoo.com>), AnsysWB community, Ansys
+  users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus
+  guys (PADT) <info@padtinc.com>, Holger Sparr
+  <sparr@mfkrs1.mw.tu-dresden.de>.
 
+  mike.brusoe@continental-corporation.com,
   klemens.kieninger@continental-corporation.com,
   zlakto.penzar@continental-corporation.com,
   saravana.kumar@continental-corporation.com,
@@ -120,16 +124,16 @@ release.
 *** presentation
 -- Very brief introduction: Emacs, why not?  Free, working on all
    current OSs.  All bells and whistle of a modern editor (drop file
-   into E).  Chosen because with Vim, Emacs is the best editor of all,
-   but Especially on Windows Programmed before Microsoft was even
-   founded, Drawbacks of Emacs, not adhering to established user
-   interface standards example: e. g. scroll-bar default location
+   into E), excellent documentation.  Chosen because with Vim, Emacs
+   is the best editor of all, but - especially on Windows - programmed
+   before Microsoft was even founded.  Drawbacks of Emacs, not
+   adhering to established user interface standards example:
+   e. g. scroll-bar default location on linux on the left,
+
+   TAB, M-TAB keys, C-s, C-c, C-v, C-x, C-y, C-z CUA-mode examples:
+   (setq scroll-preserve-screen-position t) (delete-selection-mode t)
    Workaround: use in the beginning mouse and buttons.
-
-   TAB, M-TAB keys, C-s, C-c,
-   C-v, C-x, C-y, C-z CUA-mode examples: (setq
-   scroll-preserve-screen-position t) (delete-selection-mode t)
-
+   
    convenient pre-configured emacs archive with Ansys mode.
 
 -- casual APDL file viewer (whetting the appetite)
@@ -169,7 +173,7 @@ release.
    C-c @ outline stuff with indirect-buffer
    Dired (textual renaming), Calendar
    shell-, config-mode, emacsclient, terminal-, ssh-support
-   C-S-backspace
+   C-S-backspace, basically the same keyboard shortcuts like bash
    
 Conclusion/Summary?
 
@@ -397,7 +401,9 @@ Conclusion/Summary?
 - Enable choice for /show,3d or x11 (-start-graphics)
 
 ** Ansys syntax restrictions not (yet) accounted for
-- *set parameter strings may only be 32 character long!
+- PATH name is restricted to 8 chars
+
+- *SET parameter strings may only be 32 character long!
 
 - Character parameters are restricted to only 8 characters.
 

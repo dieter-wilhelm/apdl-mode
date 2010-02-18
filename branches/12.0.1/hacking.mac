@@ -49,7 +49,7 @@ vg
 
 /pnum,line,1 $ lplo
 
-!materials :deprected elements
+!materials & deprecated elements
 et,10,solid46
 
 !C-c C-u  copy above 

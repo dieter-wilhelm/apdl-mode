@@ -1,17 +1,17 @@
-!mouse copy and paste under Windows like under Linux!
+!mouse copy and paste on Windows the same on Linux!
 fini $ /clear
 /prep7
 
 *afun,deg
 Pi = acos(-1)
 *afun,rad
+Pi = acos(-1)
 
-!completion
+!case sensitive completion
 !Pi = ac
 
 !Emacs calc
 Pi = 
-!! interpolation with Emacs calc '[[x1 x2][y1 y2 RET X_value a p
 
 !! abbrev `p
 p
@@ -23,7 +23,9 @@ very_long_Variable = 3
 vlV = 8
 v
 
-!closing of blocks, dynamic variable fontification
+!closing of blocks
+!(setq ansys-highlighting-level 1 ansys-dynamic-highlighting-flag nil)
+!(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)
 
 I 
 *if,I,eq,1,then
@@ -33,7 +35,7 @@ I
 *else
   /title,well well
   
-!commenting out
+!commenting out, code comments M-j
 !Marking blocks: C-M-h  
 
 !abbrev `d
@@ -60,8 +62,9 @@ les,()
 !bc
 !solution 
 !post 1 
- 
 
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+ 
 !! switch off menu, tools, scroll-bar
 !! Ansys mode help: C-h m, selfdocumenting features
 !! online Ansys/Emacs process and debugging environment

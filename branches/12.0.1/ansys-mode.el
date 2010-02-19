@@ -865,6 +865,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
 	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
 	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
+	      ["Symbol Controls" ansys-skeleton-symbols :help "Graphic commands which show boundary conditions, surface loads and other symbols"]
 	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
 	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling loops (*do, ...) and the program flow (*if, ...)"]
 	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]

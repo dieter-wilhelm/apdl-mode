@@ -84,10 +84,11 @@
     ("/inq\\w*"."/INQUIRE")
     ("\\*mfu\\w*"."*MFUN")
     ("\\*mop\\w*"."*MOPER")
-    ("\\<path\\w"."PATH")
+    ("\\<path\\w*"."PATH")
+    ("\\<page\\w*" "PAGET")
     ("\\<pdef\\w*"."PDEF")
     ("\\*sre\\w*"."*SREAD")
-    ("\\*set.?"."*SET") ;crasy *SET works only with one additional character
+    ("\\*set.?"."*SET") ;Ansys inconsistency *SET works only with one additional character
     ("\\*top\\*w"."*TOPER")
     ("\\*vge\\w*"."*VGET")
     ("\\*vfu\\w*"."*VFUN")
@@ -876,6 +877,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
 	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
 	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
+	      ["Symbol Controls" ansys-skeleton-symbols :help "Graphic commands which show boundary conditions, surface loads and other symbols"]
 	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
 	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling loops (*do, ...) and the program flow (*if, ...)"]
 	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
@@ -920,7 +922,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (port and) or the actual license file" :active ansys-is-unix-system-flag]
+	      ["Specify License Server or - File"   ansys-license-file
+	      :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (with port) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      "-"
 	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
@@ -1131,13 +1134,17 @@ are indicated with '**' at the beginning.
 
 == Introduction ==
 
-In Emacs it is not only possible to run a specific command, let's
-say `ansys-start-ansys-help' from the Ansys menu or with keyboard
-shortcuts but additionally from the so called minibuffer.  This
+In Emacs it is not only possible to run a certain command, let's
+say `ansys-start-ansys-help' from Ansys entries in Emacs' menu
+bar or with keyboard shortcuts (here: \\[ansys-start-ansys-help])
+but additionally from the so called minibuffer.  This
 'interactive' option remains the only one if you have not yet
 activated Ansys mode or you are currently inspecting a file which
 is not intended for this mode.  Then neither Ansys menu nor
-keyboard shortcuts for Ansys mode commands are available.
+keyboard shortcuts for Ansys mode commands are available.  You
+can cancel the minibuffer, and the command by typing `C-g',
+i. e. pressing the CTRL key and then the 'g' key at the same
+time.
 
 To run a command by its name, start with 'M-x', ('M-x' means
 holding down the 'ALT' key while pressing the 'x' key, in case
@@ -1157,17 +1164,21 @@ or not, can be called in this way or they are to be found in the
 Ansys menu.
 
 A mouse click or typing the RET key, when the cursor is on the
-underlined hyperlinks (you can skip to these links with the TAB
-key) will display their respective help strings.
+underlined hyperlinks (you can also skip to these links with the
+TAB key) will display their respective help strings (or typing
+RETURN when the cursor is over these links).
 
 == Usage ==
 
 ** Ansys command syntax help **
 
 Typing '\\[ansys-show-command-parameters]', the 'CTRL' key
-simultaneously with the 'c' and then the the question
-mark (`ansys-show-command-parameters') displays above a code line
-a brief description of the Ansys command and its syntax.
+simultaneously with the 'c' key and then the question mark (for
+command `ansys-show-command-parameters') displays above a code
+line a brief description of the Ansys command and its syntax.
+The command is looking for the next valid Ansys command near the
+cursor or when using a prefix argument it inquires an Ansys
+command name.
 
 ** Ansys keyword completion (commands, elements, get- and
    parametric-functions) **
@@ -1422,63 +1433,58 @@ names.
 
 ** Ansys process management **
 
-- Writing an Ansys stop file (a file consisting of the `job-name'
-  and the extension '.abt') with `ansys-write-abort-file' in the
-  current directory (you can use the emacs command `cd' to change
-  the current directory).  This is for halting the calculation in
+- Ansys mode writes for you an Ansys stop file in the current
+  directory (the file name is compiled from the variable
+  `job-name' and the extension '.abt'). You can do this with
+  \\[ansys-write-abort-file] (`ansys-write-abort-file', you might
+  previously use the Emacs command `M-x cd' to change the current
+  directory).  This stop file is halting a running calculation in
   an orderly, re-startable fashion.
 
-- Viewing the Ansys error file (a file consisting of the
-  `job-name' and the suffix '.err' in the current directory) with
-  `ansys-display-error-file'.  The error file is opened in read
-  only mode (see `toggle-read-only') and with the mode function
+- You are able to view the Ansys error file (a file consisting of
+  the `job-name' and the suffix '.err' in the current directory)
+  with \\[ansys-display-error-file] (this calls
+  `ansys-display-error-file').  The error file is opened in read
+  only mode (see `toggle-read-only') and with the minor mode
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current Ansys output visible.
 
-- Starting of the Ansys help browser with
+- You can start the Ansys help browser from Emacs
   '\\[ansys-start-ansys-help]' (for `ansys-start-ansys-help').
 
-- Displaying of the current license status in another Emacs
-  buffer with '\\[ansys-license-status]' (for
+- For displaying the available licenses (in another Emacs window)
+  please use '\\[ansys-license-status]' (for
   `ansys-license-status').
 
-If you haven't installed Ansys in the default locations or you
-are using a different Ansys version it's necessary for the last
+If you haven't installed Ansys in the default locations and the
+executables are not in your system search path or you are using a
+different Ansys version than '120' it is necessary for the last
 two capabilities to customise some variables either with the
 Emacs customisation facility (M-x `ansys-customise-ansys' or from
 the menu bar -> 'Ansys' -> 'Customise Ansys Mode' ->
 'Ansys-process' and look there for the variables 'Ansys License
-File', 'Ansys Util Program' and 'Ansys Help Program') or setting
-the variables directly like the following example in your .emacs
-file.  On how to do this, please have a look in the accompanying
-README or default_el customisation file example.
-
-
-
-
-
-
-
-
-
-
-
+File', 'Ansys Util Program' and 'Ansys Help Program' as well as
+'Ansys Help Program Parameters') or set the variables directly in
+your .emacs file.  Please have a look in the accompanying README
+and default_el customisation file example.
 
 ** Ansys interpreter control and communication (mainly restricted
   to UNIX systems) **
 
-With the Ansys mode command `ansys-start-ansys' you can start the
-Ansys interpreter as an asynchronous process within Emacs.  After
-starting the run you will see all interpreter output in a
-separate Emacs \"comint\" buffer.  You are now able to interact
-with this process in three ways, either by typing directly in the
-*Ansys* buffer or using
-\\[ansys-send-to-ansys] (`ansys-send-to-ansys').  With it you can
-send either the current (code) line or a whole region to the
-running interpreter.  (A selected region here means highlighted
-lines of code.) Or you could send interactively Ansys commands
-with
-\"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command').
+With the Ansys mode keyboard shortcut \\[ansys-start-ansys] (for
+the command `ansys-start-ansys') you can start the Ansys solver
+as an asynchronous process from Emacs.  After starting the run
+you will see all solver output in a separate Emacs \"comint\"
+window.  You are now able to interact with this process in three
+ways, either by typing directly in the *Ansys* window or using
+\\[ansys-send-to-ansys] (for `ansys-send-to-ansys').  With the
+latter you can send either the current code line or a whole
+selected region to the running solver.  (A selected region means
+highlighted lines of code.  If there is no running solver the
+function copies the code to the system tray.)  And lastly you are
+able to send interactively Ansys commands with
+\"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command')
+without switching to the *Ansys* window.
 
 Another very useful function in this context is
 \\[ansys-copy-or-send-above] (`ansys-copy-or-send-above'), which
@@ -1486,48 +1492,57 @@ sends all code from the beginning up to the current line to the
 interpreter.  If there is no running interpreter the function
 copies the code to the system tray.
 
-The commands \\[ansys-copy-or-send-above] and
-\\[ansys-send-to-ansys] skip to the next code line (if possible).
-If you don't want this behaviour please supply any prefix
-argument to them.
+The last two commands (`ansys-copy-or-send-above' and
+`ansys-send-to-ansys') are skipping to the next code line (if
+possible).  If you don't need this behaviour supply any prefix
+argument to them and the cursor will remain in the current line
+or in the last line of the previously highlighted region.
 
 When you are not familiar with Emacs' keybindings you probably
 want to select your part of interest with dragging the mouse
 pointer while pressing the first mouse button.  Often it is
 faster to select regions with specialised keyboard commands.  For
-example \\[ansys-mark-block] marks a whole block level,
-\\[mark-paragraph] marks the current paragraph.  Please check the
-code navigation commands which Ansys mode provides (type
-\"\\[describe-bindings]\" to see which are available) these can
-also be to create or to extend an existing selection.
+example \\[ansys-mark-block] (`ansys-mark-block') marks a whole
+block level, \\[mark-paragraph] (`mark-paragraph') marks the
+current paragraph, the last command can not only be used to
+initialise a new selection but also to extend an existing one
+when repeting the command.  Please check the code navigation
+commands which Ansys mode provides (type
+\"\\[describe-bindings]\" (`describe-bindings') to see which are
+available)
 
 In this mode you are able to start an Ansys graphics
-screen (without the whole graphical user interphase) by calling
-the function `ansys-start-graphics'.  Thus you are able to check
-and debug your macro file content visually.  The graphics is in
-this state only changeable with APDL commands (/view,1,1,1,1) and
-not through some mouse pointer.  If you feel the need to turn,
-zoom, etc. the model interactively (very likely) you can call
-`ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a dialog
-box pops up.  This is the Pan/Zoom/Rotate dialog for the graphics
-screen.  But beware: Before you are able to send further commands
-to the interpreter, you first have to close the PZR dialog box.
+screen (without the rest of graphical user interface) with
+\\[ansys-start-graphics] (function `ansys-start-graphics').  Thus
+you are able to check and debug your macro file content visually.
+The graphics is in this state only changeable with APDL
+commands (like /view,1,1,1,1) and not through some mouse
+interaction.  If must turn, zoom, etc. the model it is best to
+call `ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a
+dialog box pops up.  This is the usual Pan/Zoom/Rotate dialog for
+the graphics screen.  But beware: Before you are able to send
+further commands to the solver, you first have to close the PZR
+dialog box.
 
-Ansys mode has his own command for invoking the Ansys help
-system (\\[ansys-start-ansys-help], see above) because the
-following APDL commands do not work when the complete GUI system
-of Ansys is not active.
+Some essentiell commands when working interactively: Replotting
+works with \\[ansys-replot] (`ansys-replot') and a fit to the
+screen with \\[ansys-fit] (`ansys-fit')
 
-       !/ui,help  !is it not working in Ansys non-GUI modes
-       !help, nsel !is not working in Ansys non-GUI modes
+There is also a command for saving the data and ending the solver
+run: `ansys-exit-ansys' and a command for an emergency kill in
+case the solver is not stoppable any longer in an orderly way:
+`ansys-kill-ansys'.
 
-Some helpful commands when working interactively:
-replotting: \\[ansys-replot]
-refitting: \\[ansys-fit]
+As already indicated above Ansys mode has also its own command
+for invoking the Ansys help browser (\\[ansys-start-ansys-help]
+because unfortunately the following APDL commands do not work
+when the complete GUI system of Ansys is not active.
 
-You can improve the loading and execution speed of Ansys mode
-with a byte-compilation of the lisp files.  Please see the
-function `byte-compile-file'.
+    /ui,help  !is it not working in Ansys non-GUI modes
+    help, COMMAND !is not working in Ansys non-GUI modes
+
+So you are not able start the help browser for a specific Ansys
+command but must search within the help browser for it.
 
 == Keybindings ==
 
@@ -1566,6 +1581,12 @@ necessary to reload Ansys mode.  You can do this with the
 interactive command M-x `ansys-reload-ansys-mode' or with the
 respective, toplevel Ansys menu entry.
 
+You can improve the loading and execution speed of Ansys mode
+with a byte-compilation of its lisp files (if they are not
+already compiled, i. e. they have the suffix '.elc', please read
+the section 'Byte Compilation' in the Emacs lisp reference, which
+is availabe from the help menu).
+
 == Bugs and Problems ==
 
 Feedback is always welcome.  If you have issues while
@@ -1581,10 +1602,10 @@ improvements you have the following options:
 
 - You might also issue a bug report at Google Code's hosted page
   http://code.google.com/p/ansys-mode/, where you can also
-  download the latest stable version of Ansys mode.
+  download the latest versions of Ansys mode.
 
-- Or you could leave comments and hints at the Emacs Wiki
-  (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
+- Or you can leave comments and hints at the Ansys mode page of
+  Emacs Wiki http://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
 
 ====================== End of Ansys mode help ===================="
   (interactive)
@@ -2841,7 +2862,8 @@ and `ansys-user-variable-regexp' for subsequent fontifications."
 	  (goto-char (point-min))
 
 	  (while (re-search-forward
-		  (concat com
+		  ;; take care of variables clashing with command names
+		  (concat "\\(?:^\\|$\\)\\s-*" com
  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
 	    (setq var (match-string-no-properties 1))
 	  ;; format line, comment, message, C***

@@ -391,9 +391,11 @@
   "/pbc,all,,1 !bc symbols"\n
   "/psf !surface loads" \n
   "/pbf !body loads" \n
+  "/pice !element initial condition symbols" \n
   "/psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
-  "!! /psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
-  "!! /psymb,stat" \n
+  "/psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
+  "/psymb,stat" \n
+  "/repl" \n
   )
 
 (define-skeleton ansys-skeleton-element-table

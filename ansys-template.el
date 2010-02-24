@@ -228,7 +228,8 @@
   "!! --- contact options --"\n
   "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!! " \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. < Ansys 12.0)" \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic
+  mat. ONLY Ansys version < 12.0!)" \n
   "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
   "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n

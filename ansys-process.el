@@ -190,16 +190,18 @@ process is killed and not regularly exited.  You should prefere
 the function `ansys-exit-ansys'."
   (interactive)
   (unless (ansys-process-running-p)
-    (error "Error: No active Ansys process"))
+    (error "No active Ansys solver process"))
   (if (yes-or-no-p
-       "Do you want to kill the Ansys run?")
+       "Do you want to kill the running Ansys solver?")
       (progn
 ;	(message "Killing run...")
 	(delete-process (get-process ansys-process-name))
-	(message "Killing run...done.")
-	(setq mode-line-process (format ":%s" (process-status (get-process ansys-process-name))))
-	(force-mode-line-update))
-    (error "Killing of Ansys run canceled")))
+	(message "Killing Ansys run...done.")
+	(display-buffer "*Ansys*" 'otherwindow)
+	;; (setq mode-line-process (format ":%s" (process-status (get-process ansys-process-name))))
+	;; (force-mode-line-update)
+	)
+    (message "Killing of Ansys run canceled.")))
 
 (defun ansys-exit-ansys ()		;NEW
   "Exit normally the current Ansys run under Emacs.
@@ -223,7 +225,8 @@ with the Ansys /EXIT,all command which saves all model data."
 Alternatively under a Unix system, one can also use the Ansys
 command line \"/SYS, anshelp120\" when running Ansys
 interactively, provided that anshelp120 is found in the search
-path for executables (the PATH environment variable)."
+paths for executables (these are stored in the PATH environment
+variable)."
   (interactive)
   (ansys-help-program "")
   (progn
@@ -383,21 +386,11 @@ A Negative ARG moves ARG steps down."
 		      (format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
   (display-buffer "*Ansys*" 'other-window))
 
-(defun ansys-move-right (arg)
-  "Move geometry right ARG steps in the graphics window.
-A Negative ARG moves ARG steps left."
+(defun ansys-move-down (arg)
+  "Move geometry down ARG steps in the graphics window.
+A Negative ARG moves ARG steps up."
   (interactive "p")
-  (unless (ansys-process-running-p)
-    (error "No Ansys process is running"))
-  (comint-send-string (get-process ansys-process-name)
-		      (format "/focus,,0.25*(%d),,,1\n/replot\n" arg))
-  (display-buffer "*Ansys*" 'other-window))
-
-(defun ansys-move-left (arg)
-  "Move geometry left ARG steps in the graphics window.
-A Negative ARG moves ARG steps right."
-  (interactive "p")
-  (ansys-move-right (- arg)))
+  (ansys-move-up (-arg)))
 
 (defun ansys-zoom-in ()
   "Zoom into the graphics window."

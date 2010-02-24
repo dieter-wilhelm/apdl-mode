@@ -293,8 +293,10 @@ classical Ansys macro library.
 Ansys mode changes the default behaviour of Emacs
 
 globally:
-* (delete-selection-mode t)
+* switched on Delete Selection Mode (delete-selection-mode t)
 * Advised M-w (kill-ring-save) without active region to copy the whole line
+
+(Delete Selection Mode can be switched off in the Ansys menu.)
 
 locally:
 * (setq scroll-preserve-screen-position t)

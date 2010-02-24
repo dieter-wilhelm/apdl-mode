@@ -853,7 +853,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (defconst ansys-mode-menu
   (list "Ansys"
-	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
 	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Complete Symbol"          ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
 	["Send/Copy Code Line/Region" ansys-send-to-ansys :label (if (ansys-process-running-p)
@@ -861,10 +860,10 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 "Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
 	["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
+	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
 	(list "Insert Template"
-	      ["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	      ["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
 	      ["*IF ,Action *ENDIF"     ansys-if]
 	      ["*IF ,THEN *ENDIF"	ansys-if-then]
@@ -890,16 +889,16 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
 	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
 	      ["Listings, Information, Statistics" ansys-skeleton-information :help "Parameter listings, graphics, system information, run statistics"]
-	      ["Solve"                  ansys-skeleton-solve :help "Ansys interpreter commands and options"]
+	      ["Solving"                  ansys-skeleton-solve :help "Ansys interpreter commands and options"]
 	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
 	      ["Array Operations" ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
 	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
 	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
-	      ["Template compilation" ansys-skeleton :help "Insert compilation of often used templates"]
 	      "-"
-	      ["List abbreviations" list-abbrevs :help "Display a list of all abbreviation definitions"])
+	      ["Template compilation" ansys-skeleton :help "Insert a compilation of often used templates"]
+	      )
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
 	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
@@ -952,8 +951,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
 	      )
 	"-"
+	["Show Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
 	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
-	["Display Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
 	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["License Status" ansys-license-status :label (if ansys-is-unix-system-flag
 	     "Display License Status"
@@ -962,7 +961,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	[ "Outline Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline minor mode is for hiding and selectively displaying headlines and their sublevels"]
 	[ "Delete Selection Mode"         delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete selection mode replaces the selection with typed text"]
 	"-"
-	["Show Ansys Mode version"  ansys-mode-version :label (concat "Ansys Mode version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
+	["Show Ansys Mode version"  ansys-mode-version :label (concat "Ansys Mode Version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
+	["List Mode Abbreviations" list-abbrevs :help "Display a list of all abbreviation definitions for Ansys mode"]
 	["Ansys Mode Help"		describe-mode :help "Open a window with a description of Ansys mode"]
 	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["Ansys Mode Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
@@ -1787,7 +1787,7 @@ call `ansys-mode'."
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
-Matching parenthesis are highlighted."
+The Matching parenthesis is highlighted."
   (show-paren-mode 1))
 
 (defun ansys-ruler-mode ()		;_C

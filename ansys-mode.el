@@ -2751,9 +2751,9 @@ Signal an error if the keywords are incompatible."
     (define-abbrev-table 'ansys-mode-abbrev-table ())
     (define-abbrev ansys-mode-abbrev-table
       "`i" "*if,I,lt,0,then\n\n!! *elseif,I,gt,10\n!! *else\n*endif\n"
-      '(lambda () (previous-line 4)))
+      '(lambda () (previous-line 4)(indent-according-to-mode)))
     (define-abbrev ansys-mode-abbrev-table
-      "`d" "*do,I,1,10,1\n\n*cycle\n*enddo\n" '(lambda () (previous-line 3)))
+      "`d" "*do,I,1,10,1\n\n!*cycle\n*enddo\n" '(lambda () (previous-line 3)(indent-according-to-mode)))
     (define-abbrev ansys-mode-abbrev-table "`p" "" 'ansys-insert-pi)
     (define-abbrev ansys-mode-abbrev-table "`ii" "" 'ansys_if)
     (define-abbrev ansys-mode-abbrev-table "`dd" "" 'ansys_do)

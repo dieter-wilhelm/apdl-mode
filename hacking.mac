@@ -24,10 +24,10 @@ vlV = 8
 v
 
 !closing of blocks, dynamic variable fontification
-!(setq ansys-highlighting-level 1 ansys-dynamic-highlighting-flag nil)
-!(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)
 
 I 
+!(progn (setq ansys-highlighting-level 1 ansys-dynamic-highlighting-flag nil) (ansys-mode))
+!(progn (setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t) (ansys-mode))
 *if,I,eq,1,then
   c*** otto
 *elseif,I,le,10

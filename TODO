@@ -27,15 +27,11 @@ Apr.: release, presentation
 
 ** workload
 *** bugs
-- licensing win32/win64? \\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe
-
 - delete-selection mode does not work with -electric-space
 
 - C-c C-+/- C-x4k in docu
 
 - docu of -delete-other-window
-
-- -run-flag is not used
 
 - -run-flag is not used
 
@@ -51,8 +47,10 @@ Apr.: release, presentation
 
 - dbus support of workbench or integrating emacs in workbench?
 
-- .elc, what happens when some .el file is changed: Emacs loads newer
-  .el, load or load-file, what happens with compilation and autoload?
+- OK: .elc, what happens when some .el file is changed: Emacs loads newer
+  .el
+
+-  load or load-file, what happens with compilation and autoload?
 
 - move customisation group ansys-process to -process.el?
 
@@ -127,13 +125,16 @@ release.
 - Emacs package repository, elpa http://tromey.com/elpa/?
 
 *** presentation
--- Very brief introduction: Emacs, why not?  Free, working on all
-   current OSs.  All bells and whistle of a modern editor (drop file
-   into E), excellent documentation.  Chosen because with Vim, Emacs
-   is the best editor of all, but - especially on Windows - programmed
-   before Microsoft was even founded.  Drawbacks of Emacs, not
-   adhering to established user interface standards example:
-   e. g. scroll-bar default location on linux on the left,
+-- Very brief introduction: Emacs, why not?  Gnu Puplic Licens ->
+   Free, working on all current OSs.  All bells and whistle of a
+   modern editor (drop file into E), excellent documentation.  Chosen
+   because with Vim, Emacs is the best editor of all, but - especially
+   on Windows - programmed before Microsoft was even founded.
+   Drawbacks of Emacs, not adhering to established user interface
+   standards example: e. g. scroll-bar default location on linux on
+   the left,
+
+   Splitting windows (no tab concept for buffers)
 
    TAB, M-TAB keys, C-s, C-c, C-v, C-x, C-y, C-z CUA-mode examples:
    (setq scroll-preserve-screen-position t) (delete-selection-mode t)
@@ -142,13 +143,13 @@ release.
    convenient pre-configured emacs archive with Ansys mode.
 
 -- casual APDL file viewer (whetting the appetite)
-   convenience features? C-c C-v
+   convenience features? C-c C-v (not with big files)
    syntax fontification, especially variable highlighting
    Ansys menu
    command-help   M-n/p M-?
    code navigation (number blocks in .dat files) C-c {
 
--- APDL hacking
+-- APDL hacking(.mac)
    mouse selection ->copy to clipboard
    Emacs-calc
       C-c C-u, C-c C-c

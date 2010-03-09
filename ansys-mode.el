@@ -576,8 +576,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 (defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
   "Restore the buffer's previous major mode, if possible."
   (interactive)
-  (if (string= ansys-previous-major-mode "ansys-mode")
-      (error "Previous major mode was \"Ansys mode\"") ;buffers opended with auto-mode
+  (if (or (string= ansys-previous-major-mode "ansys-mode")
+	  (string= ansys-previous-major-mode ""))
+      (error "There was no previous major mode except \"Ansys mode\"") ;buffers opended with auto-mode
     (funcall ansys-previous-major-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

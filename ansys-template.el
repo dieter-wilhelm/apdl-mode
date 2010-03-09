@@ -430,6 +430,7 @@
  "\n!! ------------------------------" \n
  "!@@ -- element definition --" \n
  \n
+ "Steel = 1" \n
  "ID=Steel" \n
  "et,ID,solid186 !3d, 20 node" \n
  "etlist !list defined elements" \n

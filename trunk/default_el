@@ -94,11 +94,11 @@ calling a special Ansys customisation buffer." 'interactive)
 	     "/ansys/bin/anshelp"
 	     ansys-current-ansys-version)))
       (t     
-       ;;else windows?
+       ;;else windows (XP 32 Bit)?
        (setq ansys-lmutil-program
 	     (concat
 	      ansys-install-directory
-	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
+	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe");on 64 Bit excange "win32" with "winx64"
        ;;backslash '\"' on windows mandatory
 	     ansys-help-program
 	     (concat ansys-install-directory

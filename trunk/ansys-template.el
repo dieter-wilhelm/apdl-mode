@@ -722,6 +722,7 @@
   "plnsol,s,1 ! maximum principle: Lamé" \n
   "plnsol,s,int ! stress intensity: Tresca" \n
   "plnsol,s,xy ! shear in xy-dir." \n
+  "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
   \n
   "/dscale,,1 !do not scale (for nlgeom)" \n
   "/dscale,,auto !or 0:scale automatically" \n

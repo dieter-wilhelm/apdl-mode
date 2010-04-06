@@ -29,11 +29,13 @@ Apr.: release, presentation
 *** bugs
 - delete-selection mode does not work with -electric-space
 
+- C-c C-c shows doublicate prompts
+
 - C-c C-+/- C-x4k in docu
 
 - docu of -delete-other-window
 
-- -run-flag is not used
+- -run-flag is not used any longer
 
 - update, restructure -mode-help, section for code compilation?
 
@@ -177,7 +179,7 @@ release.
    abort file
    positions -> in bookmarks/registers/clone buffer?
    C-c @ outline stuff with indirect-buffer
-   Dired (textual renaming), Calendar
+   Dired (textual renaming), speedbar, calendar
    loading time: emacsclient alias "e"
    shell-, config-mode, emacsclient, terminal-, ssh-support
    C-S-backspace, basically the same keyboard shortcuts like bash
@@ -199,6 +201,8 @@ Conclusion/Summary?
 - M-? Provide also help for commented out commands
 
 - M-?: following a variable allocation with `='
+
+- M-?: remove also old overlay when new keyword is not found
 
 - Provide Ansys command completion and command-help in comint buffer
 
@@ -260,6 +264,8 @@ Conclusion/Summary?
   -display-error-file
 
 ** Skeletons and abbrevs
+- additional dialog boxes with: /ui,anno,ksel...,wpse,help,query,copy
+
 - make outline string in skeletons configurable
 
 - spider beams, _bolt.mac, screw.mac, Mohr-Coulomb criterion
@@ -292,6 +298,8 @@ Conclusion/Summary?
   must *go:label be unambiguous?
 
 ** Miscellaneous
+- Utility for clearing files like .rst, ... or using dired?
+
 - E23.2 mouse-choose-completion obsolete
 
 - Configure the highlighting colours with black on white background

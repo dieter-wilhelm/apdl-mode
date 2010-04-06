@@ -390,7 +390,7 @@
   "\n!@@@ - symbol display -" \n
   \n
   "/pbc,all,,1 !bc symbols"\n
-  "/psf !surface loads" \n
+  "/psf,pres,,2 !2 arrows, surface loads" \n
   "/pbf !body loads" \n
   "/pice !element initial condition symbols" \n
   "/psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
@@ -500,8 +500,10 @@
   "Alpha1=-360./(2*N)" \n
   "Alpha2=+360./(2*N)" \n
   "Depth=30" \n
+  "pcirc,r1,r2,th1,th2 ! circular area" \n
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
-  "!shpere,rad1,rad2,th1,th2 !spherical volume" \n
+  "shpere,rad1,rad2,th1,th2 !spherical volume" \n
+  "cylind,r1,r2,z1,z2,th1,th2 !cylinder V>0! " \n
   \n
   "!@@@ - operations -" \n
   "vdele,all,,,1 ! delete everything below" \n
@@ -526,11 +528,13 @@
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
   "!mplist,all" \n
-  "mpplot !plots mat. against temperature" \n
+  "mpplot,ex,Steel,100,500 !plots mat. vs temp." \n
   "tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
   "yield_stress=140" \n
   "tangent_modulus=1400" \n
   "tbdata,,yield_stress,tangent_modulus !biso" \n
+  "tblist !list data tables" \n
+  "tbplot,biso,Steel" \n
   "/com, === Material %Steel% is steel. ===" \n
   "Alu=2" \n
   "mp,nuxy,Alu,0.3" \n
@@ -594,6 +598,10 @@
   \n
   "f,all,fx,1" \n
   "flist,all" \n
+  "sf,all,pres,1 !surface loads on nodes" \n
+  "sflist,all" \n
+  "sfa,all,,pres," \n
+  "sfalist,all" \n
   \n
   "!@@@ - inertia relief -" \n
   \n
@@ -742,6 +750,7 @@
   "/plopts,wp ! switch off working plane" \n
   "/plopts,minm ! switch off min max" \n
   \n
+  "/image,save,test,png !save graphics window to file" \n
   "!! -- graphics output & invert background colour --" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
@@ -842,6 +851,8 @@
   "ppath,2,,,Rair" \n
   "psel,s,axis,...    	 !select multiple paths" \n
   "pdef,By,b,y" \n
+  "pcalc,add,By2,By,,2 !multiply By by 2" \n
+  "/axlab,x,distance !axis label" \n
   "plpath,By		 !plot in graph" \n
   "plpagm,By,5		 !plot on geom." \n
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
@@ -869,6 +880,7 @@
   "/yrange,0,1" \n
   "/axlab,x,x" \n
   "/axlab,y,y" \n
+  "/gthk,curve,3!set line thickness" \n
   "timerange,0,1" \n
   "/title,bla" \n
   "/stitle,,blabla !subtitle line 1 (not shown in plot)" \n

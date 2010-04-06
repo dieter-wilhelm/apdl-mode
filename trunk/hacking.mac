@@ -75,6 +75,6 @@ lesi,(:)
 !! abort file
 !! positions -> in bookmarks/registers/clone buffer?
 !! C-c @ outline stuff with indirect-buffer
-!! image Dired (textual renaming), Calendar
+!! image Dired (textual renaming), speedbar, calendar
 !! shell-, config-mode, emacsclient, terminal-, ssh-support
 !! C-S-backspace

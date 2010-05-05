@@ -104,7 +104,9 @@ calling a special Ansys customisation buffer." 'interactive)
 	     (concat ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
-		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe")
+		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
+;;		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
+
 	     ansys-help-program-parameters
 	     (concat "-cp \""
 		     ansys-install-directory

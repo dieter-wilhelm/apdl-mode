@@ -196,9 +196,9 @@
   nil
   "\n!@@@ - symmetry expansion -" \n
   \n
-  "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6" \n
-  "!! /expand,8,lpolar,half,,45 !local polar symmetry expansion" \n
-  "!! /expand,18,axis,,,10 !axissymmetric expansion (rot. around y-axis)" \n
+  "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian, half:mirror" \n
+  "!! /expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
+  "!! /expand,18,axis,,,10 !axisymmetric (360 ° rot. around y-axis)" \n
   "!! /expand !switch off expansion" \n
   "!! -- cyclic expansion --" \n
   "!! cyclic,status" \n

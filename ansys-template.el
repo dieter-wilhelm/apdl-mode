@@ -146,12 +146,14 @@
   "!@@ -- configurations --" \n
   \n
   "! *afun,deg ! trig. functions accept angle arguments" \n
-  "*afun,rad" \n
+  "*afun,rad !rad: default" \n
   "True = 1"  \n
   "False = 0" \n
   \n
   "/title," _ \n
+  "/plopts,wp ! switch off working plane" \n
   "/plopts,wp,1 !display working plane" \n
+  "/plopts,minm,0 !0: switch off min max" \n
   "/triad,rbot !off, orig, ltop, ..." \n
   "/cwd,DIR !changes working directory" \n
   )
@@ -166,6 +168,8 @@
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
   "/focus,1 $ /repl !focus to csys,0" \n
+  "/plopts,wp,1 !display working plane" \n
+  "/plopts,minm ! switch off min max" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "/auto ! automatic fit mode" \n
   "/user ! keep last display scaling"\n
@@ -196,6 +200,9 @@
   nil
   "\n!@@@ - symmetry expansion -" \n
   \n
+  "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3"\n
+  "!DX1,DY1,DZ1,... 1.) normal vector of reflection plane 2.) increments between patterns"\n
+  "! full: no tranlation->small nonzero value, half: increment is doubled" \n
   "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian, half:mirror" \n
   "!! /expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
   "!! /expand,18,axis,,,10 !axisymmetric (360 ° rot. around y-axis)" \n

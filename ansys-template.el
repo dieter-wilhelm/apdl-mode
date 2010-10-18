@@ -478,6 +478,7 @@
   "esys,12 !set element coordinates for a and v elements to 12" \n
   "vmesh,all" \n
   "amesh,all" \n
+  "shrink,.8 !shrink elements,l,a,v"\n
   "lsel,s,lcca !select all concatenated lines" \n
   "ldele,all" \n
   "!! -- cyclic symmetric meshing --" \n
@@ -507,10 +508,10 @@
   "Alpha1=-360./(2*N)" \n
   "Alpha2=+360./(2*N)" \n
   "Depth=30" \n
-  "pcirc,r1,r2,th1,th2 ! circular area" \n
+  "pcirc,R1,R2,Th1,Th2 ! circular area" \n
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
-  "shpere,rad1,rad2,th1,th2 !spherical volume" \n
-  "cylind,r1,r2,z1,z2,th1,th2 !cylinder V>0! " \n
+  "shpere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
+  "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
   \n
   "!@@@ - operations -" \n
   "vdele,all,,,1 ! delete everything below" \n
@@ -680,7 +681,7 @@
   "n3=n1/4" \n
   "nsubst,n1,n2,n3"\n
   "outres,all,all"\n
-  "antype,,rest, !perform restart operation" \n
+  "antype!,,rest, !rest: perform restart operation" \n
   "nlgeom,on" \n
   "autots,on" \n
   \n
@@ -878,6 +879,7 @@
   "numvar,200 !maximum No of variables"
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
+  "filldata,7,1,10,,20 !fills a variable by a ramp or constant"\n
   "rforce,3,1,f,z" \n
   "add,4,2,,,displ,,,-1" \n
   "/grid,1" \n

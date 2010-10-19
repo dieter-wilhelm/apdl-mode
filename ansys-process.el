@@ -390,7 +390,23 @@ A Negative ARG moves ARG steps down."
   "Move geometry down ARG steps in the graphics window.
 A Negative ARG moves ARG steps up."
   (interactive "p")
-  (ansys-move-up (-arg)))
+  (ansys-move-up (- arg)))
+
+(defun ansys-move-right (arg)
+  "Move geometry right ARG steps in the graphics window.
+A Negative ARG moves ARG steps left."
+  (interactive "p")
+  (unless (ansys-process-running-p)
+    (error "No Ansys process is running"))
+  (comint-send-string (get-process ansys-process-name)
+		      (format "/focus,,-0.25*(%d),,,1\n/replot\n" arg))
+  (display-buffer "*Ansys*" 'other-window))
+
+(defun ansys-move-left (arg)
+  "Move geometry left ARG steps in the graphics window.
+A Negative ARG moves ARG steps right."
+  (interactive "p")
+  (ansys-move-right (- arg)))
 
 (defun ansys-zoom-in ()
   "Zoom into the graphics window."

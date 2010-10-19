@@ -490,6 +490,32 @@
   "/pnum,mat,1 $ eplot" \n
   )
 
+(define-skeleton ansys-skeleton-function
+  "Standard FORTRAN functions"
+  nil
+  "A = ABS()" \n
+  "A = SIGN() !sign(absolute_value,sign)" \n
+  "A = EXP()" \n
+  "A = LOG()" \n
+  "A = LOG10()" \n
+  "A = SQRT()" \n
+  "A = NINT() !nearest integer" \n
+  "A = abs(nint()) !round" \n
+  "A = MOD() !mod(x,y): modulo x/y" \n
+  "A = RAND() !rand(lower_bound,upper_bound)" \n
+  "A = GDIS() !gdis(mean,stdd): gaussian distribution" \n
+  "A = SIN()" \n
+  "A = COS()" \n
+  "A = TAN()" \n
+  "A = SINH()" \n
+  "A = COSH()" \n
+  "A = TANH()" \n
+  "A = ASIN()" \n
+  "A = ACOS()" \n
+  "A = ATAN()" \n
+  "A = ATAN2()!gdis(mean,stdd): gaussian distribution"\n
+  )
+
 (define-skeleton ansys-skeleton-geometry
   ""
   nil
@@ -739,6 +765,9 @@
   "plnsol,s,int ! stress intensity: Tresca" \n
   "plnsol,s,xy ! shear in xy-dir." \n
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
+  "!! reactions"\n
+  "fsum !force sum from all selected nodes"\n
+  "*get,Fy,fsum,,item,fy"\n
   \n
   "/dscale,,1 !do not scale (for nlgeom)" \n
   "/dscale,,auto !or 0:scale automatically" \n
@@ -912,7 +941,8 @@
   "\n!! ------------------------------" \n
   "!@@ -- arrays --" \n
   \n
-  "*dim,A,,10,1 ! type array is default" \n
+  "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
+  "B = !deleting before redimensioning necessary" \n
   "*dim,B,table,10,1,1,TIME !table type interpolating" \n
   "B(1,0,1) = 0." \n
   "B(2,0,1) = 1." \n
@@ -932,6 +962,11 @@
   "fsum" \n
   "Reaction(I)=Fx" \n
   "*enddo" > \n
+  "!! -- plotting --" \n
+  "/gcol,1,'curve1'"\n
+  "/axlab,x,'x-variable in mm'" \n
+  "/xrange,0,10 !xrange of plot"\n
+  "*vplot,time(1,1),A(1,2)!plot column 2 of A "
   )
 
 (defun ansys-skeleton-compilation ()

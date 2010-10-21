@@ -128,6 +128,10 @@
   "!geometry $ stat" \n
   "!*status ! parameters, arrays and abbreviations" \n
   "*stat,argx !list all ARGx values" \n
+  "!@@@ - material info" \n
+  "mplist,all" \n
+  "tblist" \n
+  "tbplot,biso,1" \n
   "!@@@ - solution info -" \n
   "set,list ! list a summary of each load step" \n
   "!wpstyl,stat !working plane status" \n
@@ -220,34 +224,33 @@
   \n
   "Contact="_ \n
   "Target=Contact+1" \n
-  "r,Contact" \n
+  "r,Contact !define a real set" \n
   "et,Contact,conta174    !3d, 8 node" \n
-  "!! et,Contact,conta173 !3d, 4 node" \n
-  "!! et,Contact,conta172 !2d, 3 node" \n
-  "!! et,Contact,conta171 !2d, 2 node" \n
-  "!! et,Contact,conta175 !2/3d node to surf" \n
-  "!! et,Contact,conta176 !3d line to line, 3 node" \n
-  "!! et,Contact,conta177 !3d line to surf, 3 node" \n
+  "et,Contact,conta173 !3d, 4 node" \n
+  "et,Contact,conta172 !2d, 3 node" \n
+  "et,Contact,conta171 !2d, 2 node" \n
+  "et,Contact,conta175 !2/3d node to surf" \n
+  "et,Contact,conta176 !3d line to line, 3 node" \n
+  "et,Contact,conta177 !3d line to surf, 3 node" \n
   \n
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
-  "!! et,Target,targe169  !2d" \n
+  "et,Target,targe169  !2d" \n
   \n
   "!! --- contact options --"\n
   "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!! " \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic
-  mat. ONLY Ansys version < 12.0!)" \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY Ansys version < 12.0!)" \n
   "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
-  "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  "rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n
-  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
-  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
+  "Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
+  "rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
   \n
-  "!Pinb = -1 !search radius, neg: absolut value ( > CNOF!)" \n
-  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
+  "Pinb = -1 !search radius, neg: absolut value ( > CNOF!)" \n
+  "rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   \n
-  "!ICONT = -0.05 !initial contact closure [0] band size (neg. absolut)" \n
-  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  "ICONT = -0.05 !initial contact closure [0] band size (neg. absolut)" \n
+  "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   \n
   "CNOF = 0 !contact surface offset ([0], neg.: penetr.)" \n
   "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
@@ -265,47 +268,56 @@
   "    !! 3: include offset only" \n
   "    !! 4: incl. offset only, ramped" \n
   "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,1:each substep" \n
-  "!keyo,Contact,11,1 !SHELL thickness effect" \n
-  "!keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
+  "keyo,Contact,11,1 !SHELL thickness effect" \n
+  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
   "real,Contact" \n
   \n
-  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, must be neg." \n
+  "rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, must be neg." \n
   \n
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
   "!@@ -- contact generation --" \n
   \n
-  "!! type,Contact" \n
-  "!! real,Contact" \n
-  "!! esurf !,,top ![default] beam element's top direction" \n
-  "!! esurf !,,bottom ! for beam elements top direction" \n
-  "!! esurf !,,reverse ! reverse dir. on existing elem." \n
+  "type,Contact" \n
+  "real,Contact" \n
+  "esurf !,,top ![default] beam element's top direction" \n
+  "esurf !,,bottom ! for beam elements top direction" \n
+  "esurf !,,reverse ! reverse dir. on existing elem." \n
   "!! -- Target generation --" \n
-  "!! type,Target" \n
+  "type,Target" \n
   \n
-  "!! enorm ! change the underlying elem."
-
+  "!! check of contact normals" \n
+  "esel,s,type,,Contact" \n
+  "/psymb,esys,1" \n
+  "eplot" \n
+  \n
+  "enorm ! change the underlying elem." \n
+  \n
   "!@@@ - check contact status -" \n
   \n
-  "!save"\n
-  "!cncheck,adjust !adjust the elements!" \n
-  "/inquire,job_name,jobname" \n
-  "!resume,job_name,db" \n
-  "!/solu" \n
-  "!cncheck,post" \n
-  "!/post1" \n
-  "!file,file,rcn" \n
-  "!set,first" \n
-  "!plnsol,cont,gap,0,1" \n
-  "!esel,s,type,,Contact" \n
-  "!etable,St,cont,stat	 !3-closed sticking" \n
+  "cncheck !list contact pari properties" \n
+  "cncheck,summary !list only open/closed status" \n
+  "cncheck,adjust !adjust physically the elements!" \n
+  "/solu" \n
+  "cncheck,post !write contact config to jobname.rcn" \n
+  \n
+  "/post1" \n
+  "/inquire,Job_name,jobname" \n
+  "save"\n
+  "file,Job_name,rcn" \n
+  "set,first" \n
+  "plnsol,cont,gap,0,1" \n
+  "esel,s,type,,Contact" \n
+  "etable,Stat,cont,stat	 !3-closed sticking" \n
   "			 !2-closed sliding" \n
   "			 !1-open near" \n
   "			 !0-open far" \n
   "!/efacet,2" \n
-  "!plls,Pene,Pene !line element results" \n
-  "!plls,st,st" \n
+  "plls,stat,stat" \n
+  "etable,Pene,cont,pene !pres|sfric|stot|slide|gap|flux|cnos|fprs" \n
+  "plls,Pene,Pene !line element results" \n
+  "resume,Job_name,db" \n
   )
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
@@ -400,7 +412,7 @@
   "/psf,pres,,2 !2 arrows, surface loads" \n
   "/pbf !body loads" \n
   "/pice !element initial condition symbols" \n
-  "/psymb,esys,1 ![0]: fno display of element co-ordinate sys." \n
+  "/psymb,esys,1 ![0],1: display of element co-ordinate sys." \n
   "/psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
   "/psymb,stat" \n
   "/repl" \n
@@ -439,24 +451,26 @@
  \n
  "Steel = 1" \n
  "ID=Steel" \n
+ "real=Steel" \n
  "et,ID,solid186 !3d, 20 node" \n
  "etlist !list defined elements" \n
- "!! et,ID,solid185 !3d, 8 node" \n
- "!! et,ID,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric" \n
- "!! et,ID,plane182 !2d, 4 node"\n
- "!! keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
- "!! keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
- "!! !!for most elements the radial direction is the x-axis" \n
+ "et,ID,solid185 !3d, 8 node" \n
+ "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane strain, 3:plane stress with thickness real constant" \n
+ "r,ID,13 ! thickness" \n
+ "et,ID,plane182 !2d, 4 node"\n
+ "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
+ "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
+ "!!for most elements the radial direction is the x-axis" \n
  "!! --- magnetics ---" \n
- "!! et,ID,plane13 !2d, legacy coupled-field ->plane53" \n
- "!! keyopt,ID,3,1 !(3)=1:axissym." \n
- "!! keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
- "!! et,ID,infin110 !2d semi infinit electromagnetic elem." \n
- "!! !only 1 element layer, sized in the order of the problem domain" \n
- "!! keyopt,ID,3,1 !(3)=1:axissym." \n
- "!! keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
+ "et,ID,plane13 !2d, legacy coupled-field ->plane53" \n
+ "keyopt,ID,3,1 !(3)=1:axissym." \n
+ "keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
+ "et,ID,infin110 !2d semi infinit electromagnetic elem." \n
+ "!only 1 element layer, sized in the order of the problem domain" \n
+ "keyopt,ID,3,1 !(3)=1:axissym." \n
+ "keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
  "!! --- assign attributes ---" \n
- "!! aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
+ "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
  \n
  "!! /pnum,type,1 $ eplot ! display materials" \n
 )
@@ -561,12 +575,16 @@
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
-  "!mplist,all" \n
+  "mplist,all" \n
   "mpplot,ex,Steel,100,500 !plots mat. vs temp." \n
   "tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
-  "yield_stress=140" \n
-  "tangent_modulus=1400" \n
-  "tbdata,,yield_stress,tangent_modulus !biso" \n
+  "Yield_stress = 160" \n
+  "Tensile_strain = 0.3" \n
+  "True_tensile_strain = log( 1+Tensile_strain)" \n
+  "Tensile_stress = 260" \n
+  "True_tensile_stress = Tensile_stress*(1+Tensile_strain)" \n
+  "Tangent_modulus = (True_tensile_stress-Yield_stress) / True_tensile_strain" \n
+  "tbdata,,Yield_stress,Tangent_modulus" \n
   "tblist !list data tables" \n
   "tbplot,biso,Steel" \n
   "/com, === Material %Steel% is steel. ===" \n
@@ -574,7 +592,7 @@
   "mp,nuxy,Alu,0.3" \n
   "mp,ex,Alu,70000" \n
   "tb,biso,Alu,1" \n
-  "!! tbdata,,yield_stress,tangent_modulus !biso" \n
+  "tbdata,,Yield_stress,Tangent_modulus" \n
   "/com, === Material %Alu% is Aluminium. ===" \n
   "!! --- hyperelastic mooney rivlin mat ---" \n
   "!! for 30 % compression 100 % tension strain" \n
@@ -628,7 +646,7 @@
   "d,all,all" \n
   "dlist,all" \n
   \n
-  "!@@@ - loads -" \n
+  "!@@@ - structural loads -" \n
   \n
   "f,all,fx,1" \n
   "flist,all" \n
@@ -636,6 +654,12 @@
   "sflist,all" \n
   "sfa,all,,pres," \n
   "sfalist,all" \n
+  \n
+  "!@@@ -temperature loads-" \n
+  "tref,23 ![0] degree reference temperature" \n
+  "tunif,30 !uniform temperature" \n
+  "bf,all,temp,30 !on all selected nodes" \n
+  "bflist,all !list body loads" \n
   \n
   "!@@@ - inertia relief -" \n
   \n
@@ -787,7 +811,8 @@
   "/plopts,wp ! switch off working plane" \n
   "/plopts,minm ! switch off min max" \n
   \n
-  "/image,save,test,png !save graphics window to file" \n
+  "/image,save,test !save XWindow Dump xwd (or bmp on Windows)" \n
+  "/sys,convert test test.png" \n
   "!! -- graphics output & invert background colour --" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
@@ -800,7 +825,7 @@
   "erase" \n
   \n
   "/efacet,2" \n
-  "psdisp,0" \n
+;  "psdisp,0" \n
   "/graphics,full ! results averaging also from interior" \n
   "pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
@@ -964,6 +989,7 @@
   "*enddo" > \n
   "!! -- plotting --" \n
   "/gcol,1,'curve1'"\n
+  "/gropt,fill,1 !fill lines"
   "/axlab,x,'x-variable in mm'" \n
   "/xrange,0,10 !xrange of plot"\n
   "*vplot,time(1,1),A(1,2)!plot column 2 of A "
@@ -1262,6 +1288,7 @@
   "/gcolumn,1,'Reaction'" \n
   "/axlab,x,Substep" \n
   "/axlab,y,Force in N" \n
+  "/gropt,fill,1 ! fill curves" \n
   "*vplot,,Reaction" \n
   \n
   "!! --- Animations ---" \n

@@ -117,16 +117,83 @@
   nil
   "\n!! ------------------------------" \n
   "!@@ -- informations --" \n
-  "/status,config" \n
-  "!*list,file,ext ! list file content" \n
-  "!/runst ! enter run statistics processor" \n
-  "!/pstatus ! display window stats specifications" \n
-  "!list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
-  "!@@@ - status command with preceding subjects -" \n
-  "!elem $ stat" \n
-  "!etype $ stat" \n
-  "!geometry $ stat" \n
-  "!*status ! parameters, arrays and abbreviations" \n
+  "!@@@ - \"stat\" database settings - "\n
+  "/prep7" \n
+  "etype" \n
+  "stat" \n
+  "rcon$stat"\n
+  "!! prep7 stat topics" \n
+  " ! ETYPE - Element types" \n
+  " ! RCON - Real constants" \n
+  " ! MATER - Material properties" \n
+  " ! TBLE - Data table properties" \n
+  " ! PRIM - Solid model primitives" \n
+  " ! KEYPTS - Keypoints" \n
+  " ! LINE - Lines" \n
+  " ! AREAS - Areas" \n
+  " ! VOLUMES - Volumes" \n
+  " ! GEOMETRY - Solid model information" \n
+  " ! MESHING - Meshing" \n
+  " ! BOOL - Booleans" \n
+  " ! NODES - Nodes" \n
+  " ! ELEM - Elements" \n
+  " ! SELM - Superelements" \n
+  " ! PIPE - Pipe modeling" \n
+  " ! DIGIT - Node digitizing" \n
+  " ! COUPLE - Node coupling" \n
+  " ! CEQN - Constraint equations" \n
+  " ! REORDER - Model reordering" \n
+  \n
+  "!! solution stat topics" \n
+  " ! ATYPE - Analysis types" \n
+  " ! MASTER - Master DOF" \n
+  " ! GAP - Reduced transient gap conditions" \n
+  " ! DEACT - Element birth and death (deactivation)" \n
+  " ! LSOPER - Load step operations" \n
+  " ! FECONS - Constraints on nodes" \n
+  " ! FEFOR - Forces on nodes" \n
+  " ! FESURF - Surface loads on elements" \n
+  " ! FEBODY - Body loads on elements" \n
+  " ! SMCONS - Constraints on the solid model" \n
+  " ! SMFOR - Forces on the solid model" \n
+  " ! SMSURF - Surface loads on the solid model" \n
+  " ! SMBODY - Body loads on the solid model" \n
+  " ! INRTIA - Inertial loads" \n
+  " ! GENOPT - General options" \n
+  " ! DYNOPT - Dynamic analysis options" \n
+  " ! NLOPT - Nonlinear analysis options" \n
+  " ! OUTOPT - Output options" \n
+  " ! BIOOPT - Biot-Savart options" \n
+  " ! SPTOPT - Spectrum analysis options" \n
+  " ! SOLUOPT - Solution options" \n
+  " ! FLOTRAN - FLOTRAN data settings" \n
+  \n
+  "!! post1 stat topics" \n
+  " ! DEFINE - Data definition settings" \n
+  " ! SORT - Sort settings" \n
+  " ! PRINT - Print settings" \n
+  " ! DISPLAY - Display settings" \n
+  " ! CALC - Calculation settings" \n
+  " ! PATH - Path data settings" \n
+  " ! LCCALC - Load case settings" \n
+  " ! DATADEF - Directly defined data status" \n
+  " ! FATIGUE - Fatigue data status" \n
+  " ! POINT - Point flow tracing settings" \n
+  " ! SPEC - Miscellaneous specifications" \n
+  \n
+  "!! post26 stat topics" \n
+  " ! DEFINE - Data definition settings" \n
+  " ! OPERATE - Operation data" \n
+  " ! PRINT - Print settings" \n
+  " ! PLOTTING - Plotting settings" \n
+  \n  
+  "/status ![all], title,units,mem,db,config,global,solu,prod" \n
+  "*list,file,ext ! list file content" \n
+  "/runst ! enter run statistics processor" \n
+  "/pstatus ! display window stats specifications" \n
+  "list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
+  \n
+  "*status ! parameters, arrays and abbreviations" \n
   "*stat,argx !list all ARGx values" \n
   "!@@@ - material info" \n
   "mplist,all" \n
@@ -134,11 +201,11 @@
   "tbplot,biso,1" \n
   "!@@@ - solution info -" \n
   "set,list ! list a summary of each load step" \n
-  "!wpstyl,stat !working plane status" \n
-  "/status,solu" \n
+  "wpstyl,stat !working plane status" \n
+  "status,solu" \n
   "!@@@ - aux3 result file edit routine -" \n
-  "!/aux3" \n
-  "!list !result statistics" \n
+  "/aux3" \n
+  "list !result statistics" \n
   "!@@@ - *get -" \n
   "*get,bla,active,,mat![|csys|type|real|esys]" \n
   )

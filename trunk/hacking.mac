@@ -69,6 +69,7 @@ lesi,(:)
 
 !! switch off menu, tools, scroll-bar
 !! Ansys mode help: C-h m, selfdocumenting features
+!! calc: linear interpolation: a p [[x1,x2,..][y1,y2,...]] x
 !! online Ansys/Emacs process and debugging environment
 !! C-c C-u, C-c C-c,  C-c C-q
 !! tail mode of *.err C-c C-e

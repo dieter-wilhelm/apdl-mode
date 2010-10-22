@@ -1,8 +1,11 @@
 * Bugs and deficiencies:
-** Completion: c*** command is not completed
-   (is not in the -completions list) omission in fontification.el:
-    c*** highlighting, harmless?
+** parametric functions are not explained with the help command 
 
+** C-c C-c is not working any longer in E23.2
+
+** Completion: Of parametric function parentheses
+   completes redundant parens
+   
 ** Completion: Mouse selections from the *Ansys-completion* buffer
    are only inserted in the upcased state.
 
@@ -29,7 +32,7 @@ Apr.: release, presentation
 *** bugs
 - delete-selection mode does not work with -electric-space
 
-- C-c C-c shows doublicate prompts
+- C-c C-c shows dublicate prompts
 
 - C-c C-+/- C-x4k in docu
 

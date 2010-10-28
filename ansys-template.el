@@ -108,6 +108,7 @@
 					    (buffer-name))) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
+  "!! UNITS: mm-t-s" \n
   "!! DESCRIPTION: " str \n
   "" \n
   )
@@ -227,6 +228,11 @@
   "/plopts,minm,0 !0: switch off min max" \n
   "/triad,rbot !off, orig, ltop, ..." \n
   "/cwd,DIR !changes working directory" \n
+  \n
+  "/cwd !changes working dir" \n
+  "/filname !changes jobname" \n
+  "resume! resume the database" \n
+  "file !result file" \n
   )
 
 (define-skeleton ansys-skeleton-view-settings
@@ -642,6 +648,11 @@
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
+  "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
+  "mp,alpx,Steel,AlphaSteel !secant modulus of therm. exp.!" \n
+  "!mp,ctex,Steel,12e-6 ! instantaneous coofficient of therm. exp." \n
+  "KSteel = 60.5 !conductivity in W/(mK)" \n
+  "mp,kxx,Steel,KSteel" \n
   "mplist,all" \n
   "mpplot,ex,Steel,100,500 !plots mat. vs temp." \n
   "tb,biso,Steel,1 ! bilinear isotropic plasticity" \n
@@ -660,6 +671,10 @@
   "mp,ex,Alu,70000" \n
   "tb,biso,Alu,1" \n
   "tbdata,,Yield_stress,Tangent_modulus" \n
+  "mptemp !erase temperature table"  \n
+  "mptemp,,-100,0,100,200 !4 temperatures" \n
+  "mpdata,kxx,Alu,,114,144,165,175 !conductivities in W/(mK)" \n
+  "mptemp" \n
   "/com, === Material %Alu% is Aluminium. ===" \n
   "!! --- hyperelastic mooney rivlin mat ---" \n
   "!! for 30 % compression 100 % tension strain" \n

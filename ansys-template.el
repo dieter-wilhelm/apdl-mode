@@ -118,76 +118,7 @@
   nil
   "\n!! ------------------------------" \n
   "!@@ -- informations --" \n
-  "!@@@ - \"stat\" database settings - "\n
-  "/prep7" \n
-  "etype" \n
-  "stat" \n
-  "rcon$stat"\n
-  "!! prep7 stat topics" \n
-  " ! ETYPE - Element types" \n
-  " ! RCON - Real constants" \n
-  " ! MATER - Material properties" \n
-  " ! TBLE - Data table properties" \n
-  " ! PRIM - Solid model primitives" \n
-  " ! KEYPTS - Keypoints" \n
-  " ! LINE - Lines" \n
-  " ! AREAS - Areas" \n
-  " ! VOLUMES - Volumes" \n
-  " ! GEOMETRY - Solid model information" \n
-  " ! MESHING - Meshing" \n
-  " ! BOOL - Booleans" \n
-  " ! NODES - Nodes" \n
-  " ! ELEM - Elements" \n
-  " ! SELM - Superelements" \n
-  " ! PIPE - Pipe modeling" \n
-  " ! DIGIT - Node digitizing" \n
-  " ! COUPLE - Node coupling" \n
-  " ! CEQN - Constraint equations" \n
-  " ! REORDER - Model reordering" \n
-  \n
-  "!! solution stat topics" \n
-  " ! ATYPE - Analysis types" \n
-  " ! MASTER - Master DOF" \n
-  " ! GAP - Reduced transient gap conditions" \n
-  " ! DEACT - Element birth and death (deactivation)" \n
-  " ! LSOPER - Load step operations" \n
-  " ! FECONS - Constraints on nodes" \n
-  " ! FEFOR - Forces on nodes" \n
-  " ! FESURF - Surface loads on elements" \n
-  " ! FEBODY - Body loads on elements" \n
-  " ! SMCONS - Constraints on the solid model" \n
-  " ! SMFOR - Forces on the solid model" \n
-  " ! SMSURF - Surface loads on the solid model" \n
-  " ! SMBODY - Body loads on the solid model" \n
-  " ! INRTIA - Inertial loads" \n
-  " ! GENOPT - General options" \n
-  " ! DYNOPT - Dynamic analysis options" \n
-  " ! NLOPT - Nonlinear analysis options" \n
-  " ! OUTOPT - Output options" \n
-  " ! BIOOPT - Biot-Savart options" \n
-  " ! SPTOPT - Spectrum analysis options" \n
-  " ! SOLUOPT - Solution options" \n
-  " ! FLOTRAN - FLOTRAN data settings" \n
-  \n
-  "!! post1 stat topics" \n
-  " ! DEFINE - Data definition settings" \n
-  " ! SORT - Sort settings" \n
-  " ! PRINT - Print settings" \n
-  " ! DISPLAY - Display settings" \n
-  " ! CALC - Calculation settings" \n
-  " ! PATH - Path data settings" \n
-  " ! LCCALC - Load case settings" \n
-  " ! DATADEF - Directly defined data status" \n
-  " ! FATIGUE - Fatigue data status" \n
-  " ! POINT - Point flow tracing settings" \n
-  " ! SPEC - Miscellaneous specifications" \n
-  \n
-  "!! post26 stat topics" \n
-  " ! DEFINE - Data definition settings" \n
-  " ! OPERATE - Operation data" \n
-  " ! PRINT - Print settings" \n
-  " ! PLOTTING - Plotting settings" \n
-  \n  
+  "!@@@ - stati -" \n
   "/status ![all], title,units,mem,db,config,global,solu,prod" \n
   "*list,file,ext ! list file content" \n
   "/runst ! enter run statistics processor" \n
@@ -195,21 +126,139 @@
   "list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   \n
   "*status ! parameters, arrays and abbreviations" \n
-  "*stat,argx !list all ARGx values" \n
+  "*status,_STATUS !return value: 0:no error, 1:note, 2:warning, 3:error" \n
+  "*stat,argx !list all local ARGx values" \n
+  "*status,_RETURN !some solid modelling commands return this parameter" \n
+  "(see the _return value list below)"\n
+  \n
   "!@@@ - material info" \n
   "mplist,all" \n
   "tblist" \n
   "tbplot,biso,1" \n
   "!@@@ - solution info -" \n
+  \n
   "set,list ! list a summary of each load step" \n
   "wpstyl,stat !working plane status" \n
   "status,solu" \n
+  \n
+  "!@@@ - \"stat\" database settings - "\n
+  "/prep7" \n
+  "etype" \n
+  "stat" \n
+  "rcon$stat"\n
+  "!! prep7 stat topics" \n
+  "ETYPE $ stat ! - Element types" \n
+  "RCON $ stat ! - Real constants" \n
+  "MATER $ stat ! - Material properties" \n
+  "TBLE $ stat ! - Data table properties" \n
+  "PRIM $ stat ! - Solid model primitives" \n
+  "KEYPTS $ stat ! - Keypoints" \n
+  "LINE $ stat ! - Lines" \n
+  "AREAS $ stat ! - Areas" \n
+  "VOLUMES $ stat ! - Volumes" \n
+  "GEOMETRY $ stat ! - Solid model information" \n
+  "MESHING $ stat ! - Meshing" \n
+  "BOOL $ stat ! - Booleans" \n
+  "NODES $ stat ! - Nodes" \n
+  "ELEM $ stat ! - Elements" \n
+  "SELM $ stat ! - Superelements" \n
+  "PIPE $ stat ! - Pipe modeling" \n
+  "DIGIT $ stat ! - Node digitizing" \n
+  "COUPLE $ stat ! - Node coupling" \n
+  "CEQN $ stat ! - Constraint equations" \n
+  "REORDER $ stat ! - Model reordering" \n
+  \n
+  "!! solution stat topics" \n
+  "ATYPE $ stat ! - Analysis types" \n
+  "MASTER $ stat ! - Master DOF" \n
+  "GAP $ stat ! - Reduced transient gap conditions" \n
+  "DEACT $ stat ! - Element birth and death (deactivation)" \n
+  "LSOPER $ stat ! - Load step operations" \n
+  "FECONS $ stat ! - Constraints on nodes" \n
+  "FEFOR $ stat ! - Forces on nodes" \n
+  "FESURF $ stat ! - Surface loads on elements" \n
+  "FEBODY $ stat ! - Body loads on elements" \n
+  "SMCONS $ stat ! - Constraints on the solid model" \n
+  "SMFOR $ stat ! - Forces on the solid model" \n
+  "SMSURF $ stat ! - Surface loads on the solid model" \n
+  "SMBODY $ stat ! - Body loads on the solid model" \n
+  "INRTIA $ stat ! - Inertial loads" \n
+  "GENOPT $ stat ! - General options" \n
+  "DYNOPT $ stat ! - Dynamic analysis options" \n
+  "NLOPT $ stat ! - Nonlinear analysis options" \n
+  "OUTOPT $ stat ! - Output options" \n
+  "BIOOPT $ stat ! - Biot-Savart options" \n
+  "SPTOPT $ stat ! - Spectrum analysis options" \n
+  "SOLUOPT $ stat ! - Solution options" \n
+  "FLOTRAN $ stat ! - FLOTRAN data settings" \n
+  \n
+  "!! post1 stat topics" \n
+  "DEFINE $ stat ! - Data definition settings" \n
+  "SORT $ stat ! - Sort settings" \n
+  "PRINT $ stat ! - Print settings" \n
+  "DISPLAY $ stat ! - Display settings" \n
+  "CALC $ stat ! - Calculation settings" \n
+  "PATH $ stat ! - Path data settings" \n
+  "LCCALC $ stat ! - Load case settings" \n
+  "DATADEF $ stat ! - Directly defined data status" \n
+  "FATIGUE $ stat ! - Fatigue data status" \n
+  "POINT $ stat ! - Point flow tracing settings" \n
+  "SPEC $ stat ! - Miscellaneous specifications" \n
+  \n
+  "!! post26 stat topics" \n
+  "DEFINE $ stat ! - Data definition settings" \n
+  "OPERATE $ stat ! - Operation data" \n
+  "PRINT $ stat ! - Print settings" \n
+  "PLOTTING $ stat ! - Plotting settings" \n
+  \n  
   "!@@@ - aux3 result file edit routine -" \n
   "/aux3" \n
   "list !result statistics" \n
   "!@@@ - *get -" \n
   "*get,bla,active,,mat![|csys|type|real|esys]" \n
-  )
+  \n
+  "*status,_RETURN ! command, documenation, _return value" \n
+  "!Keypoints -" \n
+  "K ! Defines a keypoint - keypoint number"\n
+  "KL ! Keypoint on a line - Keypoint number"\n
+  "KNODE ! Keypoint at node - Keypoint number"\n
+  "KBETW ! Keypoint between two keypoints - KP number"\n
+  "KCENTER ! Keypoint at center - KP number"\n
+  "!Lines -" \n
+  "BSPLIN ! Generate spline - Line number"\n
+  "CIRCLE ! Generate circular arc lines - First line number"\n
+  "L ! Line between two keypoints - Line number"\n
+  "L2ANG ! Line at angle with two lines - Line number"\n
+  "LANG ! Line tangent to two lines - Line number"\n
+  "LARC ! Defines a circular arc - Line number"\n
+  "LAREA ! Line between two keypoints - Line number"\n
+  "LCOMB ! Combine two lines into one - Line number"\n
+  "LDIV ! Divide line into two or more lines - First keypoint number"\n
+  "LDRAG ! Line by keypoint sweep - First line number"\n
+  "LFILLT ! Fillet line between two liens - Fillet line number"\n
+  "LROTAT ! Arc by keypoint rotation - First line number"\n
+  "LSTR ! Straight line - Line number"\n
+  "LTAN ! Line at end and tangent - Line number"\n
+  "SPLINE ! Segmented spline - First line number"\n
+  "!Areas -" \n
+  "A ! Area connecting keypoints - Area number"\n
+  "ACCAT ! Concatenate two or more areas - Area number"\n
+  "ADRAG ! Drag lines along path - First area number"\n
+  "AFILLT ! Fillet at intersection of two areas - Fillet area number"\n
+  "AL ! Area bounded by lines - Area number"\n
+  "ALPFILL ! All loops - Area number"\n
+  "AOFFST ! Area offset from given area - Area number"\n
+  "AROTAT ! Rotate lines around axis - First area number"\n
+  "ASKIN ! Skin surface through guiding lines - First area number"\n
+  "ASUB ! Area using shape of existing area - Area number"\n
+  "!Volumes - "\n
+  "V ! Volume through keypoints - Volume number"\n
+  "VA ! Volume bounded through areas - Volume number"\n
+  "VDRAG ! Drag area pattern to create volume - First volume number"\n
+  "VEXT ! Volume by extruding areas - First volume number"\n
+  "VOFFST ! Volume offset from given area - Volume number"\n
+  "VROTAT ! Volume by rotating areas - First volume number"\n
+)
 
 (define-skeleton ansys-skeleton-configuration
   ""
@@ -534,6 +583,15 @@
  "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
  "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!!for most elements the radial direction is the x-axis" \n
+ \n
+ "!! --- shells and planes ---" \n
+ "et,ID,shell181 !4 node structural shell" \n
+ "et,ID,plane182 !2d 4 node structural solid" \n
+ "et,ID,plane183 !2d 6 node structural solid" \n
+ \n
+ "!! --- thermal ---" \n
+ "et,ID,solid90 !3D 20 nodes thermal solid" \n
+ \n
  "!! --- magnetics ---" \n
  "et,ID,plane13 !2d, legacy coupled-field ->plane53" \n
  "keyopt,ID,3,1 !(3)=1:axissym." \n
@@ -542,6 +600,7 @@
  "!only 1 element layer, sized in the order of the problem domain" \n
  "keyopt,ID,3,1 !(3)=1:axissym." \n
  "keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
+ \n
  "!! --- assign attributes ---" \n
  "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
  \n
@@ -676,6 +735,11 @@
   "mpdata,kxx,Alu,,114,144,165,175 !conductivities in W/(mK)" \n
   "mptemp" \n
   "/com, === Material %Alu% is Aluminium. ===" \n
+  "Air=3" \n
+  "mptemp,,-150,0,100,200,300,500,1000" \n
+  "mpdata,kxx,Air,,.012,.0243,.0314,.0386,.0454,.057,.0662" \n
+  "mptemp" \n
+  \n
   "!! --- hyperelastic mooney rivlin mat ---" \n
   "!! for 30 % compression 100 % tension strain" \n
   \n

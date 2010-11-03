@@ -85,6 +85,7 @@ calling a special Ansys customisation buffer." 'interactive)
 	    (concat
 	     ansys-install-directory
 	     "/ansys_inc/shared_files/licensing/linx64/lmutil")
+;	     "/ansys_inc/shared_files/licensing/intel/lmutil")
 	    ;; Ansys help browser executable
 	    ansys-help-program
 	    (concat
@@ -94,18 +95,19 @@ calling a special Ansys customisation buffer." 'interactive)
 	     "/ansys/bin/anshelp"
 	     ansys-current-ansys-version)))
       (t     
-       ;;else windows (XP 32 Bit)?
+       ;;else windows (XP 32/64 Bit)?
        (setq ansys-lmutil-program
 	     (concat
 	      ansys-install-directory
-	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe");on 64 Bit excange "win32" with "winx64"
+	      "\\Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
+;	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
        ;;backslash '\"' on windows mandatory
 	     ansys-help-program
 	     (concat ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
-		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
-;;		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
+		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
+;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
 
 	     ansys-help-program-parameters
 	     (concat "-cp \""

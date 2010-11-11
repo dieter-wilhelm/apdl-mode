@@ -959,8 +959,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	     "Display License Status"
 	   "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
 	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
-	[ "Outline Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline minor mode is for hiding and selectively displaying headlines and their sublevels"]
-	[ "Delete Selection Mode"         delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete selection mode replaces the selection with typed text"]
+	[ "Outline Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevels"]
+	[ "Show Paren Mode"         show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
+	[ "Delete Selection Mode"         delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
 	["Show Ansys Mode version"  ansys-mode-version :label (concat "Ansys Mode Version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
 	["List Mode Abbreviations" list-abbrevs :help "Display a list of all abbreviation definitions for Ansys mode"]
@@ -1685,8 +1686,9 @@ improvements you have the following options:
   (make-local-variable 'outline-regexp)
   (setq outline-regexp (concat "^!\\(" ansys-outline-string "\\)+"))
 
-  ;; deviations from Emacs default behaviour
+  ;; discrepancies from Emacs defaults
   (delete-selection-mode t)
+  (show-paren-mode t)
   (set (make-local-variable 'scroll-preserve-screen-position) nil)
   (defadvice kill-ring-save (before slick-copy activate compile) "When called
   interactively with no active region, copy a single line instead."
@@ -2405,11 +2407,15 @@ Skips past intermediate comment and empty lines."
 	(t
 	 (forward-line 1)
 	 (forward-comment (buffer-size))
-	 (move-to-column (truncate temporary-goal-column))
+	 ;; temporary-goal-column might be a cons cell in E23.2
+	 (move-to-column  (if (integerp temporary-goal-column)
+			      (truncate temporary-goal-column)
+			    (truncate (car temporary-goal-column))))
 	 (setq arg (1- arg))
 	 (when (and (not (ansys-last-line-p))
-		    (/= arg 0))
-	   (ansys-next-code-line arg)))))
+	 	    (/= arg 0))
+	   (ansys-next-code-line arg))
+	 )))
 
 (defun ansys-previous-code-line (&optional num)
   "Move NUM lines of Ansys code backward, default for NUM is 1.
@@ -2426,8 +2432,10 @@ difference between NUM and actually moved code lines."
     (unless (ansys-first-line-p)	;in case we aren't at b-o-l
       (beginning-of-line)		;for forward-comment
       (forward-comment (-(buffer-size))) ;and in case we are in a comment line
-      (move-to-column (truncate temporary-goal-column)) ;with Emacs 23.1
-					;t-g-c might be a float!
+       ; starting with Emacs 23.1 t-g-c might be a cons cell
+      (move-to-column   (if (integerp temporary-goal-column)
+			      (truncate temporary-goal-column)
+			    (truncate (car temporary-goal-column))))
       (setq num (1- num)
 	    p num)
       (when (/= num 0)

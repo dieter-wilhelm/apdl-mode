@@ -110,7 +110,9 @@
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! UNITS: mm-t-s" \n
   "!! DESCRIPTION: " str \n
-  "" \n
+  "!! ------------------------------" \n
+  "/units,mpa !indicate mm-t-s unit system" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-information
@@ -619,6 +621,8 @@
   "esize,1 ! element edge length" \n
   "aesize,ANUM,SIZE ! element SIZE on area ANUM (or ALL)" \n
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
+  "lcomb,all !combine adjacent lines" \n
+  "ldiv,all,1 !divide a single line" \n
   "lccat,all !concatenate lines for meshing" \n
   \n
   "esys,12 !set element coordinates for a and v elements to 12" \n
@@ -740,9 +744,6 @@
   "mpdata,kxx,Air,,.012,.0243,.0314,.0386,.0454,.057,.0662" \n
   "mptemp" \n
   \n
-  "!! --- hyperelastic mooney rivlin mat ---" \n
-  "!! for 30 % compression 100 % tension strain" \n
-  \n
   "!! -- orthotropic linear material --" \n
   "esel,s,mat,,bla" \n
   "emodif,all,esys,12 !modify esys" \n
@@ -750,6 +751,9 @@
   "mp, alp{x,y,z}, Steel, VAL !in element co-ordinate system" \n
   \n
   "!! --- Elastomers (hyperelastic) ---" \n
+  \n
+  "!! --- hyperelastic mooney rivlin mat ---" \n
+  "!! for 30 % compression 100 % tension strain" \n
   "Rubber = 3" \n
   "tb,hyper,Rubber,,,MOONEY" \n
   "Shore = 60" \n

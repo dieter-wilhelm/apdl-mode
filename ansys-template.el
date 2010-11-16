@@ -750,20 +750,31 @@
   "mp, e{x,y,z}, Steel, VAL" \n
   "mp, alp{x,y,z}, Steel, VAL !in element co-ordinate system" \n
   \n
-  "!! --- Elastomers (hyperelastic) ---" \n
+  "!! --- Elastomers (hyperelasticity) ---" \n
   \n
-  "!! --- hyperelastic mooney rivlin mat ---" \n
-  "!! for 30 % compression 100 % tension strain" \n
-  "Rubber = 3" \n
-  "tb,hyper,Rubber,,,MOONEY" \n
+  "!! --- Neo Hook ---" \n
+  "!! for 30 % strain" \n
   "Shore = 60" \n
-  "ShearModule = 0.086*1.045**Shore" \n
+  "ShearModule = 0.086*1.045**Shore !guestimate" \n
+  "NeoHook = 1" \n
+  "tb,hyper,NeoHook,,,neo" \n
+  "BulkModulus = 2000" \n
+  "tbdata,1,ShearModulus,1/(2*BulkModulus)" \n
+  \n
+  "!! --- Mooney-Rivlin ---" \n
+  "!! for 30 % compression 100 % tension strain" \n
+  "Mooney = 2" \n
+  "tb,hyper,Mooney,,,MOONEY" \n
   "tbdata,1,3*ShearModule/6.6" \n
   "tbdata,2,.3*ShearModule/6.6" \n
   "!! -- check whether to drop elem. midside nodes and use u-p formulation" \n
-  "keyopt,Rubber,6,1		 !(6)1: mixed u-p formulation" \n
-  "! ogden for high strain applic. (700 % strain)" \n
-  "tb,hyper,Rubber,,,OGDEN" \n
+  "!! -- u-p is not needed in plane stress configurations!" \n
+  "keyopt,Mooney,6,1		 !(6)1: mixed u-p formulation" \n
+  "!! --- Ogden for high strain applic. (700 % strain) ---" \n
+  "Ogden = 3" \n
+  "tb,hyper,Ogden,1,2,OGDEN !2nd order Ogden model" \n
+  "tbdata,1,3.5809,1.05e-9,3.8485e5" \n
+  "tbdata,4,-2.2e6,-.8778,0" \n
   \n
   "!! --- Magnetic materials ---" \n
   "Air = 4" \n
@@ -941,7 +952,14 @@
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
   "!! reactions"\n
   "fsum !force sum from all selected nodes"\n
-  "*get,Fy,fsum,,item,fy"\n
+  "*get,Fy,fsum,,item,fy" \n
+  "*get,T,active,,set,time" \n
+  "nforce !list of all nodal forces" \n
+  "/gcolumn,1,'Reaction'" \n
+  "/axlab,x,Substep" \n
+  "/axlab,y,Force in N" \n
+  "/gropt,fill,1 ! fill curves" \n
+  "*vplot,,Reaction" \n
   \n
   "/dscale,,1 !do not scale (for nlgeom)" \n
   "/dscale,,auto !or 0:scale automatically" \n
@@ -1013,7 +1031,10 @@
   "/output,test.txt	 !write Ansys output to file" \n
   "/com,# dist from center | axial mag. induction" \n
   "/output ! redirect output to screen" \n
-  "*create,test.txt ! no parameter substitution" \n
+  "*create,test.txt ! macro file, no parameter substitution!" \n
+  "*end !up to this command" \n
+  "!! can be used with the *use command to pass params into it" \n
+  "!! /input does not allow parameters" \n
   "*cfopen,test.txt!,,append ! appending to file" \n
   "*cfwrite,A=5 ! interpreted output" \n
   "*set strings are limited to 32 characters!!!" \n
@@ -1021,7 +1042,7 @@
   "Strg2=', lenght = %Len%'" \n
   "Strg3='# distance, magnetic induction'" \n
   "*vwrite,Strg1, Strg2, Strg3" \n
-  "%S %S%/%S" \n
+  "%S %S% %S" \n
   "*do,I,1,Nn,1" \n
   "*vwrite,B(1,I),B(2,I)" > \n
   "%E %E" > \n
@@ -1114,6 +1135,21 @@
   "arrays"
   nil
   "\n!! ------------------------------" \n
+  "!@@ -- table arrays --" \n
+  "!! table arrays are *set with integers" \n
+  "!! and accessed with real indices" \n
+  "NSS=100" \n
+  "*dim,F_y,table,NSS,3! three columns" \n
+  "F_y(0,1) = 1,2,3 ! column 'index'" \n
+  "*do,I,1,NSS" \n
+  "  set,1,I" \n
+  "  fsum" \n
+  "  *get,Tim,active,,set,time" \n
+  "  Strain = Tim*100*Displ/Leng" \n
+  "  F_y(I,0) = Strain ! row 'index'" \n
+  "  *get,Forc,fsum,,item,fy" \n
+  "  F_y(I,1) = Forc/(Width*Thick)" \n
+  "*enddo" \n
   "!@@ -- arrays --" \n
   \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
@@ -1124,7 +1160,7 @@
   "*get,A,x,,item,fx" \n
   \n
   "*get,Nn,node,,count" \n
-  "*vget,PAR(1),node,1,nlist" \n
+  "*vget,PAR,node,,nlist! array of nodenumbers" \n
   "A = 1,2,3,4,5" \n
   \n
   "!! -- check dimensions --" \n
@@ -1138,11 +1174,18 @@
   "Reaction(I)=Fx" \n
   "*enddo" > \n
   "!! -- plotting --" \n
+  "! arrays are plotted as histograms,tables are plotted as curves"
   "/gcol,1,'curve1'"\n
   "/gropt,fill,1 !fill lines"
   "/axlab,x,'x-variable in mm'" \n
   "/xrange,0,10 !xrange of plot"\n
-  "*vplot,time(1,1),A(1,2)!plot column 2 of A "
+  "*vplot,time(1,1),A(1,2)!plot column 2 of A " \n
+  "/gmarker,1,3,10" \n
+  "/gcolumn,1,'Neo-Hook'" \n
+  "/gcolumn,2,'Mooney-R'" \n
+  "/gcolumn,3,'Ogden'" \n
+  "/gthk,curve,4 !curve thickness" \n
+  "*vplot,F_y(1,0),F_y(1,1),2.0" 
   )
 
 (defun ansys-skeleton-compilation ()

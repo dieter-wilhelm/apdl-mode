@@ -1,13 +1,13 @@
 * Bugs and deficiencies:
 ** parametric functions are not explained with the help command 
 
-** C-c C-c is not working any longer in E23.2
-
 ** Completion: Of parametric function parentheses
    completes redundant parens
    
 ** Completion: Mouse selections from the *Ansys-completion* buffer
    are only inserted in the upcased state.
+
+** Highlighting: F_y in the beginning of a line is not highlighted as variable this clashes with the f command
 
 ** Highlighting: Experimental user variable highlighting
    does not take into account: a.) a clearing of variables and b.)

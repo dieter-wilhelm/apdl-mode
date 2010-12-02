@@ -797,29 +797,32 @@
   \n
   "/prep7" \n
   \n
-  "!kbc,1 ![0] (antype,static): ramped 1:stepped loading" \n
+  "kbc,1 ![0](antype,static):ramped, 1:stepped loading" \n
   \n
-  "!@@@ - displacements -" \n
+  "!@@@ - DOF constraints -" \n
   \n
   "nsel,s,loc,y,0" \n
-  "    ,a,loc,y,1" \n
-  "    ,r,loc,x,0" \n
-  "d,all,all" \n
+  ",a,loc,y,1" > \n
+  ",r,loc,x,0" > \n
+  "d,all,all!dk,dl,da" \n
   "dlist,all" \n
   \n
-  "!@@@ - structural loads -" \n
+  "!@@@ - concentrated loads -" \n
+  "f,all,fx,1 !fk" \n
+  "flist,all !fklist" \n
   \n
-  "f,all,fx,1" \n
-  "flist,all" \n
+  "!@@@ - surface loads -" \n
   "sf,all,pres,1 !surface loads on nodes" \n
   "sflist,all" \n
+  "sfe,all" \n
+  "sfl,all" \n
   "sfa,all,,pres," \n
   "sfalist,all" \n
   \n
-  "!@@@ -temperature loads-" \n
+  "!@@@ -body loads-" \n
   "tref,23 ![0] degree reference temperature" \n
   "tunif,30 !uniform temperature" \n
-  "bf,all,temp,30 !on all selected nodes" \n
+  "bf,all,temp,30 !bfe,bfk,bfl,bfa,bfv" \n
   "bflist,all !list body loads" \n
   \n
   "!@@@ - inertia relief -" \n
@@ -1028,13 +1031,20 @@
   "\n!! ------------------------------" \n
   "!@@ -- output to file --" \n
   \n
-  "/output,test.txt	 !write Ansys output to file" \n
+  "! redirect ansys text output to file" \n
+  "/output,test,txt,,append !append solver output to file" \n
   "/com,# dist from center | axial mag. induction" \n
-  "/output ! redirect output to screen" \n
+  "*vwrite,B(1,1),B(1,2)" > \n
+  "%G %G" \n
+  "/output ! redirect to screen" \n
+  \n
+  "! macro file" \n
   "*create,test.txt ! macro file, no parameter substitution!" \n
-  "*end !up to this command" \n
+  "*end !up to this command" > \n
   "!! can be used with the *use command to pass params into it" \n
   "!! /input does not allow parameters" \n
+  \n
+  "! create data file" \n
   "*cfopen,test.txt!,,append ! appending to file" \n
   "*cfwrite,A=5 ! interpreted output" \n
   "*set strings are limited to 32 characters!!!" \n
@@ -1043,10 +1053,8 @@
   "Strg3='# distance, magnetic induction'" \n
   "*vwrite,Strg1, Strg2, Strg3" \n
   "%S %S% %S" \n
-  "*do,I,1,Nn,1" \n
-  "*vwrite,B(1,I),B(2,I)" > \n
+  "*vwrite,B(1,1),B(1,2)" > \n
   "%E %E" > \n
-  "*enddo" > \n
   "*cfclos ! close file" \n
   )
 

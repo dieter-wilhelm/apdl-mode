@@ -120,6 +120,8 @@
   nil
   "\n!! ------------------------------" \n
   "!@@ -- informations --" \n
+  "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
+  "/inquire,param,date,file,ext !get date(size,lines) of file.ext"\n
   "!@@@ - stati -" \n
   "/status ![all], title,units,mem,db,config,global,solu,prod" \n
   "*list,file,ext ! list file content" \n
@@ -427,9 +429,10 @@
   "cncheck,post !write contact config to jobname.rcn" \n
   \n
   "/post1" \n
-  "/inquire,Job_name,jobname" \n
+  "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
+  "/inquire,param,date,file,ext !get date(size,lines) of file.ext"\n
   "save"\n
-  "file,Job_name,rcn" \n
+  "file,Job_name(1),rcn ! set result file to file.rcn" \n
   "set,first" \n
   "plnsol,cont,gap,0,1" \n
   "esel,s,type,,Contact" \n
@@ -1016,7 +1019,8 @@
   "!! 			 !1-open but near" \n
   "!! 			 !0-open and far, outside pinball" \n
   "set,list" \n
-  "set,last!first" \n
+  "set,last!first,next,previous" \n
+  "set,2,last ! set,last,last does not work!" \n
   "plnsol,s,1" \n
   "antime" \n
   "andata" \n
@@ -1045,7 +1049,7 @@
   "!! /input does not allow parameters" \n
   \n
   "! create data file" \n
-  "*cfopen,test.txt!,,append ! appending to file" \n
+  "*cfopen,test,txt,,append ! appending to file" \n
   "*cfwrite,A=5 ! interpreted output" \n
   "*set strings are limited to 32 characters!!!" \n
   "Strg1='# cylindrical magnet: radius = %Rad%'" \n
@@ -1056,6 +1060,8 @@
   "*vwrite,B(1,1),B(1,2)" > \n
   "%E %E" > \n
   "*cfclos ! close file" \n
+  "/input,test,txt,,:label ! read from label onwards"\n
+  \n
   )
 
 ;TODO: explain what's it for

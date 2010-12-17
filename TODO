@@ -1,11 +1,17 @@
 * Bugs and deficiencies:
-** parametric functions are not explained with the help command 
+** *vget is not a variable defining command
+
+** Skeleton header: document emacs Time-stamp string
+
+** Help: parametric functions are not explained with the help command 
 
 ** Completion: Of parametric function parentheses
    completes redundant parens
    
 ** Completion: Mouse selections from the *Ansys-completion* buffer
    are only inserted in the upcased state.
+
+** Highlighting: label :LABEL might appear in the /input command
 
 ** Highlighting: F_y in the beginning of a line is not highlighted as variable this clashes with the f command
 

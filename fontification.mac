@@ -201,7 +201,7 @@ lfillt,(1:2),(3:4),5
   *exit
 *enddo
 ! goto branching
-*go,:BRANCH
+*go,:branch
 aselsalsdkfjaölsdkfjaölskdjf,all
 :branch
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---

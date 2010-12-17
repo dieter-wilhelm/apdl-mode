@@ -9,7 +9,6 @@
 == Bugs and Problems ==
 == ToDo ==
 
-
 == Requirements ==
 
 The code is based on Ansys version 11.0 and is written for the
@@ -171,21 +170,31 @@ History:
 
 == History: ==
 
-* The version scheme is a mixture of the Ansys version (11.0) on
-  which some code is based and the version of the Ansys mode (2)
+* The version scheme is a mixture of the Ansys version (12.0) on
+  which some code is based and the version of the Ansys mode (1)
   itself.
+
+=== Version 12.0.1 ===
+
+* The lisp code had to be split up, the code is now provided in an
+  archive file.
+
+* There are now 3 highlighting levels to choose from
+
+* The output from the LMUtil license tool is now filter
+
+* C-c C-c command is now generalised that it does also work without a
+  running process
 
 === Version 11.0.2 ===
 
 * Enabled the preview of code templates or fragments (called
   skeletons in this mode, please inspect `ansys-display-skeleton').
 
-* Cleared "buffer has no process" bug when killing an ansys-mode
+* Removed "buffer has no process" bug when killing an ansys-mode
   buffer
 
 === Version 11.0.1 ===
-
-* Feature freeze: 2009
 
 * Submitting interactively Ansys commands (via minibuffer query not
   only written in a macro file) to the solver process,

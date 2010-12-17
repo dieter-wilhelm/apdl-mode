@@ -293,8 +293,9 @@ classical Ansys macro library.
 Ansys mode changes the default behaviour of Emacs
 
 globally:
-* switched on Delete Selection Mode (delete-selection-mode t)
+* Activated Delete Selection Mode (delete-selection-mode t)
 * Advised M-w (kill-ring-save) without active region to copy the whole line
+* Activated Show Paren Mode (show-paren-mode t)
 
 (Delete Selection Mode can be switched off in the Ansys menu.)
 
@@ -314,14 +315,15 @@ rms
 
 == History and News ==
 
-The version scheme is a mixture of the Ansys version (12.0) on which
-the highlighting and completing code is based and the version
-increments (.1) of the mode itself.
+The version scheme is a mixture of the Ansys release (currently 12.0)
+on which the highlighting and completing code is based and the version
+increments (currently .2) of Ansys mode for this particular Ansys
+release.
 
 === Version 12.0.2 ===
 
-* Some new graphics commands zoom-in, -out, move-left, -right, -up,
-  -down
+* Some new graphics commands like ansys-zoom-in, -zoom-out,
+-move-left, -right, -up, -down, etc.
 
 === Version 12.0.1 ===
 

@@ -90,7 +90,7 @@
     ("\\*sre\\w*"."*SREAD")
     ("\\*set.?"."*SET") ;Ansys inconsistency *SET works only with one additional character
     ("\\*top\\*w"."*TOPER")
-    ("\\*vge\\w*"."*VGET")
+    ;; ("\\*vge\\w*"."*VGET") ; variable must be dimensiond with *dim
     ("\\*vfu\\w*"."*VFUN")
     ("\\*vit\\w*"."*VITRP")
     ("\\*vop\\w*"."*VOPER")
@@ -1719,8 +1719,8 @@ improvements you have the following options:
 	     (unless buffer-file-name
 	       t) ;skip rest is a buffer without a file
 	     (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
-	     (yes-or-no-p
-	      "File is bigger than 1MB, switch on user variable highlighting?"))
+	     (y-or-n-p
+	      "File is larger than 1MB, switch on user variable highlighting?"))
 	(if (and buffer-file-name ;we have a file in the buffer
 	     ansys-dynamic-highlighting-flag
 	     (string= (file-name-extension (buffer-file-name)) "mac"))

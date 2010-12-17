@@ -1,5 +1,5 @@
 
-;; Time-stamp: "2009-10-20 15:15:21 uidg1626"
+;; Time-stamp: "2009-10-29 15:30:45 uidg1626"
 
 ;; Copyright (C) 2006 - 2009  H. Dieter Wilhelm
 
@@ -295,6 +295,8 @@
   nil
   "!@@@ - working plane setup -" \n
   \n
+  "/plopts,wp,1 !display working plane" \n
+  "\repl" \n
   "!wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "!wpoffs,,-100 !x,y,z offset" \n
   "!wprota,0,90,0 !z,x,y axis of rotation" \n
@@ -429,12 +431,15 @@
   "Alpha2=+360./(2*N)" \n
   "Depth=30" \n
   "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
+  "!shpere,rad1,rad2,th1,th2 !spherical volume" \n
   \n
   "!@@@ - booleans -" \n
   \n
   "!! aovlap,all ! overlap areas" \n
-  "!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities"
+  "!! asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
+  "!! asbw, !substract by wp" \n
   "!! /pnum,area,1 $ aplot" \n
+  "!! vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
   \n)
 
 (define-skeleton ansys-skeleton-material-def
@@ -808,6 +813,7 @@
   (ansys-skeleton-import)
   (ansys-skeleton-configuration))
 
+;; TODO: this skeleton is dated
 (define-skeleton ansys-skeleton		;NEW
   "Insert full framework of an Ansys APDL file."
   "Insert brief purpose of file: "
@@ -872,7 +878,7 @@
   "/prep7" \n
   "Pi=3.14159265359" \n
   \n
-a  "!! /pnum,area,1"\n
+  "!! /pnum,area,1"\n
   \n
   "!! --- Materials and element types ---" \n
   "Steel=1" \n

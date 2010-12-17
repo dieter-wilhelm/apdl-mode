@@ -103,10 +103,10 @@
   "!! ------------------------------" \n
   "!" ansys-outline-string " --- header ---" \n
   "!! ------------------------------" \n
-  "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
-					      (buffer-file-name)
-					    (buffer-name))) \n
-  "!! CREATION DATE: " (current-time-string) \n
+  ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
+  ;; 					      (buffer-file-name)
+  ;; 					    (buffer-name))) \n
+  "!! Time-stamp: <" (current-time-string) ">"\n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! UNITS: mm-t-s" \n
   "!! DESCRIPTION: " str \n
@@ -121,6 +121,7 @@
   "\n!! ------------------------------" \n
   "!@@ -- informations --" \n
   "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
+  "*stat,Job_name(1,1,1)" \n
   "/inquire,param,date,file,ext !get date(size,lines) of file.ext"\n
   "!@@@ - stati -" \n
   "/status ![all], title,units,mem,db,config,global,solu,prod" \n
@@ -134,6 +135,7 @@
   "*stat,argx !list all local ARGx values" \n
   "*status,_RETURN !some solid modelling commands return this parameter" \n
   "(see the _return value list below)"\n
+  "*vstat !status on arry operations"\n
   \n
   "!@@@ - material info" \n
   "mplist,all" \n
@@ -332,14 +334,14 @@
   \n
   "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3"\n
   "!DX1,DY1,DZ1,... 1.) normal vector of reflection plane 2.) increments between patterns"\n
-  "! full: no tranlation->small nonzero value, half: increment is doubled" \n
+  "! full: no tranlation<-small nonzero value, half: mirroring, increment is doubled" \n
   "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian, half:mirror" \n
-  "!! /expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
-  "!! /expand,18,axis,,,10 !axisymmetric (360 ° rot. around y-axis)" \n
-  "!! /expand !switch off expansion" \n
+  "/expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
+  "/expand,18,axis,,,10 !axisymmetric (360 ° rot. around y-axis)" \n
+  "/expand !switch off expansion" \n
   "!! -- cyclic expansion --" \n
-  "!! cyclic,status" \n
-  "!! /cycexpand ! expand graphics rep." \n
+  "cyclic,status" \n
+  "/cycexpand ! expand graphics rep." \n
   )
 
 (define-skeleton ansys-skeleton-contact-definition
@@ -415,6 +417,7 @@
   \n
   "!! check of contact normals" \n
   "esel,s,type,,Contact" \n
+  "esel,a,type,,Target" \n
   "/psymb,esys,1" \n
   "eplot" \n
   \n
@@ -558,6 +561,7 @@
   "etable,S1,s,1" \n
   "etable,S3,s,3" \n
   "sadd,R,S1,S3,1/Z1,-1/Z3" \n
+  "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
   "pletab,R,avg !avg: average over nodes" \n
   "esel,s,type,,2" \n
   "etable,Pene,cont,pene" \n
@@ -565,6 +569,7 @@
   "!etable,cpre,cont,pres"\n
   "!plls,Pene,Pene !line elem. results" \n
   "esort,etab,R" \n
+  "etable,refl !refill all element tables for latest load set" \n
   "*get,Mc,etab,sort,,max" \n
   "*msg,,Mc" \n
   "Mohr-Coulomb criterion (< 1): %G" \n
@@ -824,7 +829,7 @@
   \n
   "!@@@ -body loads-" \n
   "tref,23 ![0] degree reference temperature" \n
-  "tunif,30 !uniform temperature" \n
+  "tunif,30 !uniform temperature (default step applied!)" \n
   "bf,all,temp,30 !bfe,bfk,bfl,bfa,bfv" \n
   "bflist,all !list body loads" \n
   \n
@@ -893,6 +898,7 @@
   "allsel" \n
   \n
   "solcontrol,on! optimised nonlinear solution defaults" \n
+  "!! implies /kbc,0: ramped loading" \n
   "n1=20" \n
   "n2=n1*100" \n
   "n3=n1/4" \n
@@ -991,7 +997,7 @@
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
   "/show,png !creates jobnameXXX.png files" \n
-  "pngr !additional options" \n
+  "pngr,stat !additional png options (orientation,compression,...)" \n
   "plvect,B" \n
   "noerase" \n
   "lplot" \n
@@ -1062,6 +1068,15 @@
   "*cfclos ! close file" \n
   "/input,test,txt,,:label ! read from label onwards"\n
   \n
+  "!! graphical output" \n
+  "/RGB,index,100,100,100,0" \n
+  "/RGB,index,0,0,0,15" \n
+  "/show,png !creates jobnameXXX.png files" \n
+  "pngr !additional options" \n
+  "plvect,B" \n
+  "noerase" \n
+  "lplot" \n
+  "/show,close" \n
   )
 
 ;TODO: explain what's it for

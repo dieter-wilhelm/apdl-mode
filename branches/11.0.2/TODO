@@ -1,22 +1,28 @@
 * Bugs:
-** mode is still slow with big files
-
+** warn when -lmutil-program is not set
+** skeleton autoload: -skeleton-header is daft
+** autoload of helper functions not working   
+ 
 * v12.0.1:
-  - todo- or org-mode for README, wiki formatting!
   - load or load-file, what happens with compilation and autoload?
-    o a-skeleton.el -- license disclaimer
-    o a-process.el
-    o a-keyword.el
-    defaults.el
-    (a-mode.el)
-    TODO, README, LICENSE
+  - The experimental user variable highlighting is currently only
+    implemented for files with a '.mac' extension.
   - provide different levels of fontifications
     font-lock-maximum-decoration '((ansys-mode . 2) (t . t))
   - check whether undocumented commands are still working in v12
     document this contradicting behaviour (legacy elements)
-  - why an alist with cons cells for try-completion, a list of strings
-    should suffice?
-  - update emacs wiki, gcode wiki
+SHELL43 - SHELL181
+SOLID46 - SOLID185 (KEYOPT(3) = 1), or SOLSH190
+VISCO88 - PLANE183
+VISCO89 - SOLID186
+SHELL91, SHELL93, SHELL99 - SHELL281
+VISCO106 - PLANE182
+VISCO107 - SOLID185
+VISCO108 - PLANE183
+SOLID191 - SOLID186 (KEYOPT(3) = 1)
+
+  - update emacs wiki, gcode wiki, todo- or org-mode for README, wiki
+    formatting!
   - publication: ANSYS.net (Ansys !!! Sheldon Imaoka
     <sheldonimaoka@yahoo.com>), CadFem (Stephan Gotthold
     sgotthold@cadfem.de, Nelson <tnelson@cadfem.de>, Hanke , Krueger
@@ -27,14 +33,12 @@
     <sparr@mfkrs1.mw.tu-dresden.de>.
 
 * Priority
-  - filter output of -license-status set-process-filter
+  - tooltips for skeletons
   - C-c C-q sequences are not shown (and stored) in the comint buffer
   - mode line update
   - strange C-c C-v output for *get assignment etc.
   - M-? for commented out variables
   - Mohr-Coulomb criterion
-  - C-c C-c does not skip empty lines and comments this is not always
-    desirable -> make this optional -> filter process input?
   - M-?: following a variable allocation with `='
   - For non-comint-mode usage: display .log file with tail mode
   - explain what a "logical block" means
@@ -44,19 +48,25 @@
   - rework skeleton-header  
   - rework ansys-skeleton and documentation   
   - Skeleton preview write only? currently: write only
+  - make outline string in skeletons configurable
+  - why an alist with cons cells for try-completion, a list of strings
+    should suffice?
+  - C-c C-c skips empty lines and comments this is not always
+    desirable -> make this optional -> filter process input?
+  - take care when region isn't complete in -send-to-ansys (send whole line)
+
 
 * Interesting stuff   
- * *repeate command
+** *repeate command
   
 ** Killing a buffer with a running process now asks a confirmation.
    You can remove this query in two ways: either removing
    `process-kill-buffer-query-function' from `kill-buffer-query-functions' or
    setting the appropriate process flag with `set-process-query-on-exit-flag'.
 
-
 * improve Ansys interpreter buffer with `comint-mode'
    example: gnuplot-mode
-   - substring-no-properties?
+   - substring-no-properties necessary?
    - Provide Ansys command completion and command-help in comint buffer
    - Ansys process status is not working properly process-sentinel or some comint-hook?
    - provide Ansys `y' request and carriage return? superflouous?
@@ -73,8 +83,7 @@
 
 * Dissect skeleton into smaller more useful subjects   
   - spider beams, _bolt.mac, screw.mac
-  - optional setting of (Ansys-mode-)bookmarks?   
-  - rework concept with respect to the Ansys menu structure
+   - rework concept with respect to the Ansys menu structure
     sort skeletons in menu
   - Make skeleton-header properly working (info "(autotype)")
   - Optimise templates: completing-read, read-from-minibuffer abbrev `d
@@ -83,13 +92,14 @@
   - Warn when including skeleton in read only file.
   - skeleton for numbering ansys-skeleton-numbering-controls
     (skeleton-insert docu)
-  - suggestion with auto-completion of kp,line,area,volu,node,elem,tabn,sval
-  - negation 
+  - suggestions with auto-completion of kp,line,area,volu,node,elem,tabn,sval
+  - negation, what negation?
   - skeleton for skipping code	 *if,then *else*endif
     if selection: wrap around and indenting
     *go/*if label is not fontified at the command line (restriction of 7 characters with out the colon.)
     must *go:label be unambiguous?
 
+* optional setting of (Ansys-mode-)bookmarks?   
 * *set strings may be only 32 character long!
 * correct *set assignment printout
 * trigger a timer when showing the ansys-comand-parametr-help
@@ -214,28 +224,21 @@ bells and whistle of an editor (drop file into E)
 * Rework README generation (from "makefile")
    
 * implement C-c { and } like C-x z (repeate) zzzz
-
    
 * Emacs: old-style backquotes?
    used in the old template macro system
 
-
 ------------------------------
-
-* ansys-license-status
-- filter license-usage output, make it more readable
-  Argument specifying license type for for -license-status
-
 split
-  0.) ansys-mode.el						X
-  1.) highlighting patterns ->	ansys-highlight.el	X
-  2.) templates <-> menus? ->	ansys-templates.el	?
-  3.) interactive stuff ->		ansys-interactive.el	system-type-p
-  4.) documentation ->		README, INSTALL, TODO?
+  0.) ansys-mode.el				
+  1.) highlighting patterns ->	ansys-keyword.el
+  2.) templates <-> menus? ->	ansys-templates.el
+  3.) interactive stuff ->      ansys-process.el	system-type-p
+  4.) documentation ->		README, INSTALL, TODO, LICENSE
 
 *create is only completed by *end
 
-completion of function names: cursor should stay within parentheses
+completion of function names: cursor should end within parentheses
 
 ?clear message: ansys-mode perform auto insertion?
 ?condition -highlight in the fontlock variable?
@@ -388,7 +391,7 @@ characters.
 DEFSUBSTs with DEFUNs inside aren't particularly helpful?
 
 ansys-indicate-empty-lines also for non-window systems (with
--verlays)
+-overlays)
 
 see www.apdl.de for further ideas and extensions
 

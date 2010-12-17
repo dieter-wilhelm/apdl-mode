@@ -316,7 +316,7 @@ models.\"\n)\n")
     (goto-char (point-min))
     (while (re-search-forward "^\\w+\\>" nil t)
       (add-to-list 'list (match-string 0) 'append)))
-  ;; (setq Ansys_elements list)
+  (setq Ansys_elements list)
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat

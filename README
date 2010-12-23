@@ -26,17 +26,6 @@ http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
 installation, issues and comments please have a look at the Ansys mode
 Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
-== Table of contents ==
-
-= Requirements
-= Features
-= Installation
-= Usage and customisation
-= Experienced Emacs users
-= History and News
-= Resources
-= Bugs and Problems
-
 == Requirements ==
 
 The code is based on Ansys version 12.0 and is written for the editor
@@ -60,7 +49,7 @@ The latest Ansys Mode consists of more than one lisp file, be sure you
 have all necessary files, please consult the == Installation ==
 section for a list of them.
 
-== features ==
+== Features ==
 
 * Ansys process management (viewing error files, license status,
   starting the Ansys help browser, etc.)
@@ -143,8 +132,8 @@ Auxiliaries:
 
 === Short instructions ===
 
-For Windows systems:
---------------------
+__For Windows systems:__
+
 Please use the Emacs archive bundled with the latest stable
 preconfigured Ansys mode at http://code.google.com/p/ansys-mode.
 Unpack the archive anywhere on the system (you do not need
@@ -160,8 +149,8 @@ drive C:, please adjust the `default.el' file in Emacs' `site-lisp'
 directory accordingly, if you want to be ablet to start 'anslic_admin'
 or the Ansys help program directly from Ansys mode.)
 
-For existing Emacs installations on Windows or UNIX:
-----------------------------------------------------
+__For existing Emacs installations on Windows or UNIX:__
+
 ==== Direct way; no file configuration necessary ====
 
 Important prerequisite: Emacs must know where all the code (.el or its
@@ -175,7 +164,7 @@ load-file ansys-mode RET', i. e. typing "M-x" (first) the "Alt" key
 and then the "x" key simultaneously, you'll end up in the so called
 Emacs minibuffer prompt, now type "load-file" (you might apply the
 "TAB" key for the Emacs auto-completion feature at every intermediate
-stage 8-)) and conclude this input with the "RET" key. Emacs will then
+stage) and conclude this input with the "RET" key. Emacs will then
 prompt you for a file, type in the directory where you have extracted
 the code and "ansys-mode.el" (or better "ansys-mode.elc" for speed
 reasons if the compiled version is available) and press RET to execude
@@ -284,7 +273,7 @@ When you have a file under `ansys-mode' check out the menu bar's
 Ansys Mode" or type "C-h m" (i. e. the CTRL key together with the "h"
 key and subsequently the "m" key), which will display the Ansys mode
 help which is your "online" guide for its usage, keybindings and
-customisation options 8-).
+customisation options.
 
 Templates, i.e. code snippets or skeletons might be extended in
 "ansys-template.el" and can be used similarly or complementarily to a

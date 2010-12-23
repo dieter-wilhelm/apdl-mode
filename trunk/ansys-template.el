@@ -98,10 +98,12 @@
   )
 
 (define-skeleton ansys-skeleton-header	 ;NEW
-  "Insert header for an APDL script"  ;;"Name of file: " ;  "! 	$Id" ":$\n"
+  "Insert a file header for an APDL script.
+Together with an Emacs Time-stamp string.  You might update the
+time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
   "!! ------------------------------" \n
-  "!" ansys-outline-string " --- header ---" \n
+  "!" ansys-outline-string " --- file header ---" \n
   "!! ------------------------------" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; 					      (buffer-file-name)
@@ -109,7 +111,7 @@
   "!! Time-stamp: <" (current-time-string) ">"\n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! UNITS: mm-t-s" \n
-  "!! DESCRIPTION: " str \n
+  "!! NOTE: " str \n
   "!! ------------------------------" \n
   "/units,mpa !indicate mm-t-s unit system" \n
   \n

@@ -545,6 +545,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map [?\C-c?\C-<] 'ansys-move-left)
     (define-key map [?\C-c?\C->] 'ansys-move-right)
     (define-key map [?\C-c?\C-^] 'ansys-move-up)
+    (define-key map [?\C-c?\C-_] 'ansys-move-down)
     (define-key map "\C-x4k" 'ansys-delete-other-window)
     (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
     (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
@@ -553,6 +554,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-e" 'ansys-display-error-file)
     (define-key map "\C-c\C-f" 'ansys-fit)
     (define-key map "\C-c\C-g" 'ansys-start-graphics)
+    (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
     (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-j" 'ansys-job)
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
@@ -1517,34 +1519,35 @@ In this mode you are able to start an Ansys graphics
 screen (without the rest of graphical user interface) with
 \\[ansys-start-graphics] (function `ansys-start-graphics').  Thus
 you are able to check and debug your macro file content visually.
-The graphics is in this state only changeable with APDL
-commands (like /view,1,1,1,1) and not through some mouse
-interaction.  If must turn, zoom, etc. the model it is best to
-call `ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a
-dialog box pops up.  This is the usual Pan/Zoom/Rotate dialog for
-the graphics screen.  But beware: Before you are able to send
+The graphics in this state is changeable with APDL commands (like
+/view,1,1,1,1) but unfortunately not through mouse interactions!
+If you want to turn, zoom, etc. the model it is best to call
+`ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a dialog
+box will pop up.  This is the usual Ansys Pan/Zoom/Rotate dialog
+for the graphics screen.  But beware: Before you are able to send
 further commands to the solver, you first have to close the PZR
-dialog box.
-
-Some essentiell commands when working interactively: Replotting
-works with \\[ansys-replot] (`ansys-replot') and a fit to the
-screen with \\[ansys-fit] (`ansys-fit')
+dialog box.  There is also a family of interactive commands to
+reposition the graphics, like
+\\[ansys-zoom-in] (`ansys-zoom-in'), replotting works with
+\\[ansys-replot] (`ansys-replot') and a fit to the screen with
+\\[ansys-fit] (`ansys-fit'), of course, they are available from
+the menu as well.
 
 There is also a command for saving the data and ending the solver
 run: `ansys-exit-ansys' and a command for an emergency kill in
 case the solver is not stoppable any longer in an orderly way:
 `ansys-kill-ansys'.
 
-As already indicated above Ansys mode has also its own command
-for invoking the Ansys help browser (\\[ansys-start-ansys-help]
-because unfortunately the following APDL commands do not work
-when the complete GUI system of Ansys is not active.
+As already indicated Ansys mode has its own command for invoking
+the Ansys help browser (\\[ansys-start-ansys-help] because
+unfortunately the following APDL commands do not work when the
+complete GUI system of Ansys is not active.
 
     /ui,help  !is it not working in Ansys non-GUI modes
-    help, COMMAND !is not working in Ansys non-GUI modes
+    help, COMMAND !is also not working in Ansys non-GUI modes
 
-So you are not able start the help browser for a specific Ansys
-command but must search within the help browser for it.
+So you are not able start the help browser for a *specific* Ansys
+command but must search within the Ansys help browser.
 
 == Keybindings ==
 
@@ -2826,7 +2829,7 @@ Signal an error if the keywords are incompatible."
 ;;; --- dynamic highlighting ---
 
 ;; ---- Restrictions ----
-;; Ansys variables or parameters in Ansys parlance:
+;; Variables or 'parameters' in Ansys parlance:
 ;; 1.) Begin with a letter
 ;; 2.) Contain only letters, numbers and the underscore '_'
 ;; 3.) Have no more than 32 characters

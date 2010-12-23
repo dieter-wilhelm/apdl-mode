@@ -1,0 +1,338 @@
+!! ------------------------------
+!@ --- header ---
+!! ------------------------------
+!! Time-stamp: <2010-12-23 11:21:27 dieter>
+!! ANSYS VERSION: 120
+!! UNITS: mm-t-s
+!! NOTE: Pseudo code, checking the influence of
+!!  ansys-highlighting-level.  Please put the
+!!  the cursor below the next paragraph and type
+!!  C-x C-e to activate the settings
+
+!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+
+!! ------------------------------
+/units,mpa !indicate mm-t-s unit system
+
+!@@ -- ignored characters and condensed input line ($ operator)
+finishThisNightmare $ /cle !/clear
+/prep7
+otto = 9
+c***, this is %right%! %otto% no % parameter expansion
+/title, this is a %otto% string command similar to /com and c***
+!@@ -- variable definitions and functions
+k
+N = _RETURN		 !_RETURN value of k command
+_aaa = 9		 !reserved underscore "_" variables
+Pi=acos(-1) $ True=1 $ False=0
+Xc = 0 $ Yc = 'char' 	 ! character string variables
+R1=4$R2=20
+Alpha1 = rotx( 14.5) - 360./ (2*N)
+Alpha2 = +360./(2*N)
+Depth=ARG1		 !ARG{1-9}, AR{10-19} = "*use" variables
+cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
+Xc = != empty rhs clears variables
+Steel=1
+mp, nuxy,Steel,0.3 ! Poisson No
+mp, ex,Steel,200000 ! Elastic modulus
+!@@@ - parameter substitution
+/com, === Material %Steel% is steel. ===
+!! element types & deprecated element types
+et,Steel,beam3 $ et,Alu,shell91
+!@@ -- default commands
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+!@@ ::: implicit : (colon) looping :::::
+lfillt,(1:2),(3:4),5
+
+*get,Dim
+*if,Dim,le,1,then
+  *dim,Reaction,array,Ns,1
+*endif
+*do,I,1,Ns
+  set,Ls,I
+  fsum
+  *get,Fx,fsum,,item,fx
+  Reaction(I)=Fx
+*enddo
+!@@ -- multiline *msg formatting with the & operator
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+Steel = %G A (electrical angle = %G DEG) %/ &
+_Power factor: %G %/ &
+Inductance = %G %/ &
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
+
+!@@@ - loads -
+f,all,fx,1
+flist,all
+fini $ /eof
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!@@@ - inertia relief -
+
+cgomga,x,y,z, ! rotational velocity about globla coord. sys.
+dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+ 
+!@@@ - coupling -
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+
+!@@ -- boundary conditions --
+
+/prep7
+
+!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+
+!@@@ - displacements -
+
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+dlist,all
+
+!@@@ - loads -
+
+f,all,fx,1
+flist,all
+
+!@@@ - inertia relief -
+
+!! LOADS: nonlinearities aren't supported, fix all DOFs!
+irlf,1 !0: none,1:ir on,-1:printout masses
+nsel,s,loc,x,1
+
+!@@@ - corriolis effects -
+
+cgmga,x,y,z, ! rotational velocity about globla coord. sys.
+dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+
+!@@@ - coupling -
+nsel,s,loc,x,1
+cp,next,uy,all !couple dofs
+
+allsel
+/pbc,all,on
+gplot
+
+!@@@ - magnetics -
+
+!! fmagbc,'Component' ! flag force calculation
+bfa,all,js, ! js current density
+bflist,all
+dl,all,,asym ! flux parallel to lines
+nsel,s,ext ! select exterior nodes
+dsym,asym ! flux parallel to lines
+/prep7 $ /title,ototo
+
+/prep7 * comment
+fini * comment
+otto = 3 * 4
+
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+Alu = 1 $ Steel = 3
+n!! variables max. 32 chars long & condensed ($) input lines % %  &
+v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
+False = 0$True =1 $ Yes = 'no' bla otto bla
+*if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
+  AR20 = 20 !AR20 - AR99 local macro variables
+*endif
+vall,1,2
+_bla = 3		 ! _vars: macro reserved words
+otto =			 !`=' without rhs: variable clean up
+bla =
+Alpha3 = 4
+nsel,s,_hans,otto,'_otto'
+!! APDL get/parametricfunctions & old style (deprecated) Ansys comments
+var1=sinh(cos(.3 *5)) !old style Ansys comments!!!!!
+var2 = tan(nx(.3*5)) !not an old style Ansys comment
+var3 = %Yes% $ *if	     !this is not a valid % string substition
+/xml		     ! undocumented command /xml
+*afun,rad
+/fil $ /filname%bla% 
+!! string, message commands and comment behaviour && %$$% %% :bla: &&&
+
+/com, bla = %bla%
+igesin,'test','%iges%'
+/titl,Nothing in %particular%
+/com,beam3 %YES% ! this is *really not commented out!!!! &
+c*** *beam3 !otto *otto %neither% here !!!!!!! &
+/sys,ls "*.mac" %otto% &
+
+/com, bearm laskf %otto% !%otto% we are here 
+
+nsel,s,%bla%
+
+!@@ --! multiline message format command this is tricky: use M-o M-o
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+Steel = %G A (electrical angle = %G DEG) %/ &
+_Power factor: %G %/ &
+Inductance = %G %/ &
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+aldk this is not any longer in the *msg format construct
+/com this is not any longer in the *msg format construct
+
+*vwrite,B(1,1),B(2,1),%yes%
+alkd %D &
+%E%/%E
+!! commands which do not allow arguments
+/prep7 $ FINISH ! $ is nothing behind?
+/prep7 !nothing behind?
+/prep7 nothing behind allowed
+X2=3
+rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+nsel,s,loc,y,nsel
+    ,a,loc,y,nsel
+nsel = 	3  !you CAN have variable names clashing with commands 
+!! element types & deprecated element types
+et,Steel,beam3 $ et,Alu,shell91
+nsellllllbeam3SSSSSS
+!! control constructs
+*if,I,eq,1,then
+*elseif,I,le,var2
+*endif
+!!::: implicit : (colon) looping :::::
+lfillt,(1:2),(3:4),5
+*DOWHILE,Par
+  Par = Par -1
+*CYCLE, VAR2 _bla
+  *cyc
+  *cyclon
+  *exit
+*enddo
+! goto branching
+*go,:branch
+aselsalsdkfjaölsdkfjaölskdjf,all
+:branch
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+a $ al $ all $ alls $ allse $ allsel $ allselllllll
+
+nsel,s,loc,x,1
+    ,s,loc,x,1
+cp,next,uy,all !couple dofs
+f,1,fx,1
+!flist ! list force nodes
+alls
+/pbc,all,on
+!gplot
+/eof
+
+!-----------------------------------------------------------------------
+! mdlbl.mac
+! Puts Modal Info on Plot
+!-----------------------------------------------------------------------
+/post1
+set,last
+*get,nmd,active,,set,sbst
+pfct= $ ffrq= $ adir=
+nsel,s,l
+
+*dim,pfct,,nmd,6
+    ,
+    ,ffrq,,nmd
+    ,adir,char,nmd
+
+
+adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
+*stat,adir
+*do,i,1,nmd
+  *get,ffrq(i),mode,i,freq
+  *do,j,1,6
+    *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
+  *enddo
+*enddo
+/annot,delete
+/plopt,info,0
+/plopt,minm,off
+/triad,off
+/erase
+iadd = arg1
+*if,iadd,eq,0,then
+  iadd = 1
+*endif
+/tspe,15,1,1,0,0
+/TSPE, 15, 1.000,   1,   0,   0
+xx = 1.05
+yy = .9
+!  Change the window settings if you need different 
+!  aspect ratios for your geometry
+/win,1,-1,1,.5,1
+    ,2,-1,1,0,.5
+    ,3,-1,1,-.5,0
+    ,4,-1,1,-1,-.5
+!
+/win,2,off
+/win,3,off
+/win,4,off
+
+*get,vx,graph,1,view,x
+*get,vy,graph,1,view,y
+*get,vz,graph,1,view,z
+*get,va,graph,1,angle
+*get,vd,graph,1,dist
+*do,i,2,4
+  /view,i,vx,vy,vz
+  /dist,i,vd
+  /angle,i,va
+*enddo
+
+*do,i,1,4
+  ii = i - 1 + iadd 
+  set,1,ii
+  plnsol,u,sum
+  *if,i,eq,1,then
+    /noerase
+  *endif
+  /win,i,off
+  *if,i,ne,4,then
+    /win,i+1,on
+  *endif
+*enddo
+*do,i,1,4
+  ii = i - 1 + iadd
+  /TLAB, xx, yy  ,Mode: %ii%
+  yy = yy - .05
+  /TLAB, xx, yy,Freq: %ffrq(ii)%
+  yy = yy - .05
+  *do,j,1,6
+    /TLAB, xx, yy  ,PF %adir(j)%: %pfct(ii,j)%
+    yy = yy - .05
+  *enddo
+   yy = yy -.11
+*enddo
+/erase
+/annot,delete
+sz = .8
+xloc = 0
+yloc = 0
+
+*dim,data,,5
+data(1) = 12,15,28,10,32
+hsz = sz/2
+
+/pspec,0,1,1
+/poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+     	 1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+
+x0 = xloc + hsz
+y0 = yloc + .7*hsz
+lof = .05
+
+*vscfun,dsum,sum,data(1)
+/LSPE, 15, 0, 1.000
+/TSPEC, 15, 0.700, 1, 0, 0
+ang1 = 0
+*do,i,1,5
+  ang2 = ang1 + (360*data(i)/dsum) 
+  /PSPE, 2*i, 1, 1 
+  /PWED, xloc,yloc,sz*.4, ang1,ang2 
+  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
+  pvl = 100*data(i)/dsum 
+  /tlab, x0+1.5*lof,y0, %pvl% % 
+
+  y0 = y0 - 1.5*lof 
+  ang1 = ang2
+*enddo

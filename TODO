@@ -1,8 +1,4 @@
 * Bugs and deficiencies:
-** *vget is not a variable defining command
-
-** Skeleton header: document emacs Time-stamp string
-
 ** Help: parametric functions are not explained with the help command 
 
 ** Completion: Of parametric function parentheses
@@ -28,17 +24,12 @@
 ** M-Tab is captured under Windows and some Linux desktops
    Workaround: Press instead of M-Tab the ESC key and then the Tab key
 
-* v12.0.1:
-** schedule 
-Feb.: freeze, documentation, testing also with Emacs pretest
-Mar.: preparations (planned Emacs 23.2 release)
-Apr.: release, presentation
-
+* v12.0.2:
 ** workload
 *** bugs
 - delete-selection mode does not work with -electric-space
 
-- C-c C-c shows dublicate prompts
+- C-c C-c shows dublicate prompts in interactive mode
 
 - C-c C-+/- C-x4k in docu
 
@@ -197,6 +188,8 @@ Conclusion/Summary?
 
 * Further versions
 ** Parameter help and documentation
+- inspirations from eldoc-mode
+
 - count number of user variables when displaying them
 
 - documentation in info format, refcard, etc; Emacs help guidelines

@@ -1,25 +1,32 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! FILENAME: fontification.mac
-!! CREATION DATE: Wed Dec 23 15:13:39 2009
-!! ANSYS VERSION: 12.0
-!! DESCRIPTION: alsdkf
+!! Time-stamp: <2010-12-23 11:21:27 dieter>
+!! ANSYS VERSION: 120
+!! UNITS: mm-t-s
+!! NOTE: Pseudo code, checking the influence of
+!!  ansys-highlighting-level.  Please put the
+!!  the cursor below the next paragraph and type
+!!  C-x C-e to activate the settings
+
+!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+
+!! ------------------------------
+/units,mpa !indicate mm-t-s unit system
 
 !@@ -- ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle !/clear
 /prep7
 otto = 9
-c***, this is %right%! %bla%
+c***, this is %right%! %otto% no % parameter expansion
 /title, this is a %otto% string command similar to /com and c***
 !@@ -- variable definitions and functions
 k
 N = _RETURN		 !_RETURN value of k command
-_aaa = 9		 !reserved "_" variables
+_aaa = 9		 !reserved underscore "_" variables
 Pi=acos(-1) $ True=1 $ False=0
 Xc = 0 $ Yc = 'char' 	 ! character string variables
 R1=4$R2=20
-N =
 Alpha1 = rotx( 14.5) - 360./ (2*N)
 Alpha2 = +360./(2*N)
 Depth=ARG1		 !ARG{1-9}, AR{10-19} = "*use" variables
@@ -71,10 +78,6 @@ dcgomg,x,y,z ! rotational acceleration about global coord. sys.
 !@@@ - coupling -
 nsel,s,loc,x,1
 cp,next,uy,all !couple dofs
-
-!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "/HOME/uidg1626/ansys-mode/trunk/ansys-mode.el")(ansys-mode))
-
-show-paren-mode
 
 !@@ -- boundary conditions --
 

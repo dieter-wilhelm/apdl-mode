@@ -1,15 +1,26 @@
+# use make in the "tags" release directories
+
 ANSYS_MAJOR := 12
 ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
+DIR := $(shell pwd)
+RELEASE := $(shell $$($(DIR)))
 
 ifeq ($(HOSTNAME),urmel)
- E_DIR := /usr/local/src
+ EMACS_DIR := /usr/local/src
 else
- E_DIR := /appl/emacs
+ EMACS_DIR := /appl/emacs
 endif
 
-EMACS := $(E_DIR)/emacs-23.1/src/emacs
+
+
+EMACS_VERSION := emacs-23.2
+EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
+ADDRESS := ftp://ftp.informatik.rwth-aachen.de/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
+EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
+
+
 
 # this is the current ansys-mode version
 MODE_VERSION := 1
@@ -23,6 +34,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 
 FILES := LICENSE README TODO fontification.mac default_el
 
+# this is the Ansys mode package
 .PHONEY : MODE
 MODE : $(PACKAGE) TAGS
 
@@ -44,22 +56,27 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "------------------------------"
 
 ansys-keyword.el : ansys-fontification.el
-	$(EMACS) --batch --load $<
+	$(EMACS_EXE) --batch --load $<
 
 %.elc : %.el
-	$(EMACS) --batch -f batch-byte-compile $<
+	$(EMACS_EXE) --batch -f batch-byte-compile $<
 
 # default.el : default_el
 # 	@cp default_el emacs-23.1/site-lisp/default.el
 
+# This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
-EMACS : $(PACKAGE)  $(ELC_FILES) default_el
-	@cp $(FILES) $(EL_FILES) emacs-23.1/site-lisp
-	mv $(ELC_FILES) emacs-23.1/site-lisp
-	cp default_el emacs-23.1/site-lisp/default.el
-	@echo "Packaging Ansys mode with Emacs 23.1 ..."
-	@tar -czf "ansys-mode+emacs-23.1-win32.tgz" emacs-23.1
-	@echo "... $@ done."
+EMACS : $(EMACS_PACKAGE) $(PACKAGE)  $(ELC_FILES) default_el
+	test -d $(EMACS_VERSION)/site-lisp || mkdir -p $(EMACS_VERSION)/site-lisp
+	cp -uv $(FILES) $(EL_FILES) $(EMACS_VERSION)/site-lisp
+	cp -uv $(ELC_FILES) $(EMACS_VERSION)/site-lisp
+	cp -uv default_el $(EMACS_VERSION)/site-lisp/default.el
+	cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
+	zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) $(EMACS_VERSION)/site-lisp/*
+
+$(EMACS_PACKAGE) :
+		wget $(ADDRESS)
+
 
 TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
 	etags $(EL_FILES)

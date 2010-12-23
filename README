@@ -41,13 +41,13 @@ Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 The code is based on Ansys version 12.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
-Emacs-23.1 under XP32, XP64 and GNU/Linux.  The code compiles also
-with Emacs-22.1, i. e. it should work with this and any newer version.
-(Emacs-23.1 was relased in Jul. 2009, Emacs-22.1 in Jul. 2007.)  The
-code can be loaded but won't run flawlessly without minor adaptions
-for Emacs-21.3 (released in Mar. 2003).
+Emacs-23.2 and Emacs-23.1 under XP32, XP64 and GNU/Linux.  The code
+compiles also with Emacs-22.1, i. e. it should work with this and any
+newer version.  (Emacs-23.1 was relased in Jul. 2009, Emacs-22.1 in
+Jul. 2007.)  The code can be loaded but won't run flawlessly without
+minor adaptions for Emacs-21.3 (released in Mar. 2003).
 
-If applicable please grab the package of a pre-compiled Emacs-23.1 for
+If applicable please grab the package of a pre-compiled Emacs-23.2 for
 Windows together with a preconfigured Ansys mode at above Google Code
 site and unpack this archive anywhere on your system.  Alternatively
 visit http://ftp.gnu.org/pub/gnu/emacs/ for an original version of GNU
@@ -57,8 +57,8 @@ The Ansys solver control and communication capabilities are somewhat
 restricted on non-UNIX systems.
 
 The latest Ansys Mode consists of more than one lisp file, be sure you
-have all necessary files, please see the == Installation == section
-for a list of them.
+have all necessary files, please consult the == Installation ==
+section for a list of them.
 
 == features ==
 
@@ -130,8 +130,8 @@ Sources:
 * ansys-template.el
 * ansys-process.el
 
-(and possibly their compiled versions with the suffix '.elc'.  If you
-are using the mode with an older version of Emacs than 23 please
+(and possibly their compiled versions with the suffix '.elc'.  In case
+you are using the mode with an older version of Emacs than 23 please
 remove the .elc files.)
 
 Auxiliaries:
@@ -143,23 +143,25 @@ Auxiliaries:
 
 === Short instructions ===
 
-For Windows systems without an Emacs installation:
-
-Please use the Emacs archive bundled with the latest preconfigured
-Ansys mode at http://code.google.com/p/ansys-mode.  Unpack the archive
-anywhere on the system.  You might also run the program addpm.exe
-(located in the bin directory) to add an Emacs entry to the Windows
-Start menu (please refer to the README.W32 file).  Ansys mode is
-immediately availabel, for example when you open or create an APDL
-file with a .mac suffix.  Have fun!
+For Windows systems:
+--------------------
+Please use the Emacs archive bundled with the latest stable
+preconfigured Ansys mode at http://code.google.com/p/ansys-mode.
+Unpack the archive anywhere on the system (you do not need
+administrator rights).  You might subsequently run the program
+addpm.exe (located in the bin directory) to add an Emacs entry to the
+Windows Start menu (please refer to the README.W32 file) otherwise
+start the Emacs executable runemacs.exe from there.  Ansys mode is
+immediately availabel, by opening (check the fontification.mac
+example) or creating a new APDL file with a .mac suffix.  Have fun!
 
 (If you did not install Ansys in its default Installation directory on
 drive C:, please adjust the `default.el' file in Emacs' `site-lisp'
-directory accordingly, otherwise you are not able to start
-'anslic_admin' or the Ansys help program directly from Ansys mode.)
+directory accordingly, if you want to be ablet to start 'anslic_admin'
+or the Ansys help program directly from Ansys mode.)
 
-For existing Emacs installations:
-
+For existing Emacs installations on Windows or UNIX:
+----------------------------------------------------
 ==== Direct way; no file configuration necessary ====
 
 Important prerequisite: Emacs must know where all the code (.el or its
@@ -285,7 +287,7 @@ help which is your "online" guide for its usage, keybindings and
 customisation options 8-).
 
 Templates, i.e. code snippets or skeletons might be extended in
-"ansys-template.el" and can be used similar or complementary to a
+"ansys-template.el" and can be used similarly or complementarily to a
 classical Ansys macro library.
 
 == Experienced Emacs users ==
@@ -317,15 +319,13 @@ rms
 
 The version scheme is a mixture of the Ansys release (currently 12.0)
 on which the highlighting and completing code is based and the version
-increments (currently .2) of Ansys mode for this particular Ansys
+increments (currently .1) of Ansys mode for this particular Ansys
 release.
 
-=== Version 12.0.2 ===
+=== Version 12.0.1 ===
 
 * Some new graphics commands like ansys-zoom-in, -zoom-out,
--move-left, -right, -up, -down, etc.
-
-=== Version 12.0.1 ===
+  -move-left, -right, -up, -down, etc.
 
 * The lisp code had to be split up for better maintance, the code
   files for are now provided in an archive together with their
@@ -340,7 +340,7 @@ release.
   README file
 
 * The output from the LMUtil license status tool (C-c C-l) is now
-  filtered to be more concise.
+  filtered on UNIX to be more concise.
 
 * The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
   (C-c C-u) commands are now generalised so that they are also doing

@@ -352,7 +352,7 @@ for displaying the license status."
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
     (w32-shell-execute nil ansys-lmutil-program)
-    (message "Loading ans_admin helper program..."))
+    (message "Loading the anslic_admin program..."))
    (t
     (error "No license status available on %s" system-type))))
 

@@ -1,7 +1,7 @@
 This README is the Ansys mode documentation (The text formatting is
 targeted for the Emacs Wiki)
 
-Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
+Copyright (C) 2006 - 2011  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
 Editor support for working with Ansys FEA.
@@ -18,9 +18,9 @@ Ansys solver processes as well.
 The mode's capabilities are sophisticated but the comprehensive
 documentation is targeted for Ansys users with little Emacs
 experience.  Any suggestions for improvements are very welcome.  The
-current stable version 12.0.1 is available at the Google Code site
+current stable version 13.0.1 is available at the Google Code site
 http://code.google.com/p/ansys-mode ("wget
-http://ansys-mode.googlecode.com/files/ansys-mode-12.0.1.tgz",
+http://ansys-mode.googlecode.com/files/ansys-mode-13.0.1.tgz",
 development versions can be checked out with "svn checkout
 http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
 installation, issues and comments please have a look at the Ansys mode
@@ -28,7 +28,7 @@ Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 == Requirements ==
 
-The code is based on Ansys version 12.0 and is written for the editor
+The code is based on Ansys version 13.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
 Emacs-23.2 and Emacs-23.1 under XP32, XP64 and GNU/Linux.  The code
 compiles also with Emacs-22.1, i. e. it should work with this and any
@@ -284,9 +284,12 @@ classical Ansys macro library.
 Ansys mode changes the default behaviour of Emacs
 
 globally:
+
+* Switches on font-lock-mode if toggled off, e.g when calling Emacs with
+  the -D (basic display) option
 * Activated Delete Selection Mode (delete-selection-mode t)
-* Advised M-w (kill-ring-save) without active region to copy the whole line
 * Activated Show Paren Mode (show-paren-mode t)
+* Advised M-w (kill-ring-save) without active region to copy the whole line
 
 (Delete Selection Mode can be switched off in the Ansys menu.)
 
@@ -298,18 +301,27 @@ locally:
 
 In no particular order:
 
-Holger Sparr,
-Eli Zaretzki,
-Markus Triska,
-Mathias Dahl,
-rms
+* Alex Schroeder
+* Holger Sparr
+* Eli Zaretzki
+* Markus Triska
+* Mathias Dahl
+* rms
 
 == History and News ==
 
-The version scheme is a mixture of the Ansys release (currently 12.0)
+The version scheme is a mixture of the Ansys release (currently 13.0)
 on which the highlighting and completing code is based and the version
-increments (currently .1) of Ansys mode for this particular Ansys
-release.
+increments (currently .1) of Ansys mode (thus 13.0.1) for this
+particular Ansys release.
+
+=== Version 13.0.1 ===
+
+* Enhanced ansys-display-skeleton with an optional argument for
+  inserting the respective skeleton in the APDL buffer.
+
+* Updated keyword list, deprecated elements, undocumented commands,
+  etc. to release 13.0 of Ansys, as usual.
 
 === Version 12.0.1 ===
 
@@ -442,11 +454,11 @@ release.
 
 == Resources ==
 
-http://www.emacswiki.org
-http://www.ansys.net -- general Ansys repository
-http://www.ansys.com
-http://www.ansyssolutions.com -- The Ansys solutions magazine
-http://www.xansys.org -- ansys online community
+* http://www.emacswiki.org
+* http://www.ansys.net -- general Ansys repository
+* http://www.ansys.com
+* http://www.ansyssolutions.com -- The Ansys solutions magazine
+* http://www.xansys.org -- ansys online community
 
 == Bugs and Problems ==
 

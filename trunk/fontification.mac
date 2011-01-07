@@ -1,8 +1,8 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2010-12-23 11:21:27 dieter>
-!! ANSYS VERSION: 120
+!! Time-stamp: <2010-12-29 20:36:52 dieter>
+!! ANSYS VERSION: 130
 !! UNITS: mm-t-s
 !! NOTE: Pseudo code, checking the influence of
 !!  ansys-highlighting-level.  Please put the

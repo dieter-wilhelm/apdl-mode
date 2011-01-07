@@ -1,37 +1,153 @@
-;;; ansys-process.el -- Managing Ansys runs and process
+;;; ansys-process.el -- Managing runs and processes for the Ansys mode
 
-;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2011  H. Dieter Wilhelm GPL V3
 
-;;;###autoload
-(defun ansys-abort-file (&optional arg) ;NEW
-  "Writes an ansys abort file for terminating the current run.
-The jobname is taken from the variable `ansys-job' you can change
-it by calling the equally named function (or typing
-\\[ansys-job]).  The file jobname.abt in the current directory
-contains the sole word \"nonlinear\".  This function prompts for
-an appropriate job name when ARG is negative.  In case the
-default directory is not of your liking you could use previously:
-`M-x cd'."
-  (interactive "p")
-  (unless arg (setq arg 0))
-					;  (debug)
-  (let (filename)
-    (cond
-     ((< arg 0)				;ask for job-name
-      (setq filename
-	    (read-string
-	     (concat "Job name: [" ansys-job "] ") nil nil
-	     ansys-job))
-      (setq filename (concat filename ".abt")))
-     (t					;search for /filn
-      (save-excursion
-	(goto-char (point-min))
-	(if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
-	    (setq filename (concat (match-string 1) ".abt"))
-	  (setq filename (concat ansys-job ".abt"))))))
-    (if (yes-or-no-p (concat "Write \"" default-directory filename "\"? "))
-	(ansys-write-abort-file filename)
-      (message "ansys-abort-file canceled!"))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This code is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation; either version 3, or (at your
+;; option) any later version.
+;;
+;; This lisp script is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+;;
+;; Permission is granted to distribute copies of this lisp script
+;; provided the copyright notice and this permission are preserved in
+;; all copies.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, you can either send email to this
+;; program's maintainer or write to: The Free Software Foundation,
+;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- customisation ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defgroup Ansys-process nil
+  "Customisation 'process' subgroup for the Ansys mode."
+  :group 'Ansys)
+
+(defcustom ansys-job "file"			;NEW_C
+  "Variable storing the Ansys job name.
+It is initialised to 'file' (which is also the Ansys default job
+name).  See `ansys-abort-file' for a way of stopping a solver run
+in a controlled way and `ansys-display-error-file' for viewing
+the respective error file."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-program (concat "ansys"
+		ansys-current-ansys-version)		;NEW_C
+  "This variable stores the Ansys executable name.
+When the file is not in your search path, you have to specify the
+full qualified file name and not only the name of the executable.
+For example: \"/ansys_inc/v130/ansys/bin/ansys130\" and not only
+\"ansys130\".  You might customise this variable or use the
+function `ansys-program' to do this for the current session
+only."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-help-program (concat "anshelp"
+ansys-current-ansys-version)		;NEW_C
+  "The Ansys help executable.
+It is called with
+\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
+executable is not in the search path, you have to complement the
+executable with its complete path.  For example the default
+locations are \"/ansys_inc/v130/ansys/bin/anshelp130\" on UNIX
+and \"c:\\\\Program Files\\Ansys\
+Inc\\v130\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on Windows
+XP.  Since Ansys version 12.0 it is a java interpreter."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-help-program-parameters (concat "-cp \"c:\\Program Files\\Ansys Inc\\"
+ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
+  "Stores parameters for the variable `ansys-help-program' under Windows.
+For example: '-cp \"c:\\Program Files\\Ansys
+Inc\\v130\\commonfiles\\help\" HelpDocViewer'."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-lmutil-program "lmutil"	;NEW_C
+  "The FlexLM license manager utility executable name.
+When the file is not in your search path, you have to furnish the
+complete path.  For example:
+\"/ansys_inc/shared_files/licensing/linx64/lmutil\" or in the
+case of a Windows OS \"c:\\\\Program Files\\Ansys Inc\\Shared\
+Files \\Licensing\\intel\\anslic_admin.exe.  This variable is
+used for displaying the license status with the function
+`ansys-license-status'."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-license-file nil ;NEW_C
+  "The FlexLM license file name or license server specification(s).
+The license server specification(s) should include the port
+number even if it's the default port 1055 because the lmutil tool
+needs it in the following way: port_number@server_name, use the
+colon for multiple servers, for example
+\"27005@rbgs421x:27005@rbgs422x\".
+
+Setting this variable skips the effect of previously set
+environment variables, which have the following order of
+precedence: 1. ANSYSLMD_LICENSE_FILE environment variable, 2.)
+The FLEXlm resource file: ~/.flexlmrc on Unix or somewhere in the
+Windows registry. 3.) The LM_LICENSE_FILE variable. 4.) The
+ansyslmd.ini file in the licensing directory (This is what
+anslic_admin is doing in an Ansys recommended installation).  5.)
+The license file itself."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-ansysli-servers nil ;NEW_C
+  "Used to identify the server machine for the Licensing Interconnect.
+Set it to port@host.  The default port is 2325."
+  :type 'string
+  :group 'Ansys-process)
+
+(defcustom ansys-license-types		;NEW_C
+  '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
+  "List of available license types to choose for an Ansys run.
+This list should contain the license types you can choose from.
+Below are often used license types (as e.g. seen with the
+function `ansys-license-status') and their corresponding
+WorkBench terminology.
+
+\"ansys\" - Mechanical U (without thermal capability)
+\"struct\" - Structural U (with thermal capability)
+\"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
+\"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
+\"ane3fl\" - Multiphysics
+\"preppost\" - PrepPost (no solving capabilities)"
+  :group 'Ansys-process)
+
+(defcustom ansys-license "struct"		;NEW_C
+  "The License type with which the Ansys interpreter will be started.
+See `ansys-license-types' for often used Ansys license types."
+;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
+  :options ansys-license-types
+  ;; options not available for strings (only hooks, alists, plists E22)
+  :type 'string
+  :group 'Ansys-process)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- constants ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defconst ansys-process-name "Ansys"		;NEW_C
+  "Variable containing Emacs' name for an Ansys process.
+Variable is only used internally in the mode.")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- functions ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 
 (defun ansys-write-abort-file (filename) ;NEW
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -40,6 +156,43 @@ default directory is not of your liking you could use previously:
   (insert "nonlinear\n")
   (save-buffer)
   (message "Wrote \"%s\" into \"%s\"." default-directory filename))
+
+;;;###autoload
+(defun ansys-abort-file (&optional arg) ;NEW
+  "Writes an Ansys abort file for stopping the current run.
+The abort file does not terminate the current session but
+triggers the solver to stop solving in an orderly manner.  This
+function prompts for a job name when ARG is negative.  Otherwise
+it tries to guess it from the current file, if this fails the
+jobname is taken from the variable `ansys-job', you can change
+this variable by calling the equally named interactive
+function (i. e. typing \\[ansys-job]) or setting it directly as
+lisp expression (i. e.  typing \"\\[eval-expression] (setq
+ansys-job \"jobname\")\", where jobname is a name of your liking
+but must be enclosed with double quotes (\") to represent a lisp
+string).  The file jobname.abt in the current directory contains
+the sole word \"nonlinear\". In case the `default-directory' is
+not the working directory of the interesting job, you might
+change it with \"\\[cd]\"."
+  (interactive "p")
+  (let ((jobname ansys-job)
+	filename)
+    (cond
+     ((< arg 0)				;ask for job-name
+      (setq filename
+	    (read-string
+	     (concat "Job name: [" jobname "] ") nil nil
+	     jobname))
+      (setq filename (concat filename ".abt")))
+     (t					;search for /filn
+      (save-excursion
+	(goto-char (point-min))
+	(if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
+	    (setq filename (concat (match-string 1) ".abt"))
+	  (setq filename (concat jobname ".abt"))))))
+    (if (yes-or-no-p (concat "Write \"" default-directory filename "\"? "))
+	(ansys-write-abort-file filename)
+      (message "ansys-abort-file canceled!"))))
 
 ;;;###autoload
 (defun ansys-display-error-file ()	;NEW
@@ -59,6 +212,8 @@ the customisation facility (by calling `ansys-customise-ansys')."
 (defun ansys-copy-or-send-above	()	;NEW
   "Copy or send all of above code - up from the cursor position."
   (interactive)
+  (let (process  (get-process
+		  (if (boundp' ansys-process-name) ansys-process-name)))
   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
   ;; no-property stuff necessary?????
 
@@ -69,9 +224,9 @@ the customisation facility (by calling `ansys-customise-ansys')."
 ;;     (error "Run canceled"))
   (if (ansys-process-running-p)
       (progn
-	(comint-send-region (get-process ansys-process-name) (point-min) (point))
-	(display-buffer (process-buffer (get-process ansys-process-name)) 'other-window))
-    (message "Copied from beginning of buffer to cursor.")))
+	(comint-send-region process (point-min) (point))
+	(display-buffer (process-buffer process) 'other-window))
+    (message "Copied from beginning of buffer to cursor."))))
 
 (defun ansys-send-to-ansys ( &optional stay)	;NEW
   "Send region (or code line) to the Ansys interpreter, otherwise copy it.
@@ -87,6 +242,8 @@ position."
   (let (code
 	beg
 	end
+	(process (get-process
+		  (if (boundp 'ansys-process-name) ansys-process-name)))
 	(region (and transient-mark-mode mark-active)))
 ;    	(region (region-active-p))) ;this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
@@ -116,7 +273,7 @@ position."
     ;; send or copy region or line
     (cond ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
-	   (comint-send-string (get-process ansys-process-name)
+	   (comint-send-string process
 			       (concat code "\n"))
 	   (display-buffer "*Ansys*" 'other-window))
 	  (t
@@ -127,7 +284,8 @@ position."
 
 (defun ansys-process-running-p ()
   "Return nil if no Ansys interpreter process is running."
-  (let ((proc (get-process ansys-process-name)))
+  (let ((proc (get-process
+	       (if (boundp 'ansys-process-name) ansys-process-name))))
     (if proc
 	(string= "run" (process-status proc))
       nil)))
@@ -144,7 +302,9 @@ position."
 ;    (force-mode-line-update)
     (error "No Ansys process is running"))
   (let ((s (read-string "Send to interpreter: ")))
-    (comint-send-string (get-process ansys-process-name) (concat s "\n"))
+    (comint-send-string (get-process
+			 (if (boundp 'ansys-process-name)
+			     ansys-process-name)) (concat s "\n"))
     ;;  (walk-windows
     ;;    (lambda (w)
     ;;      (when (string= (buffer-name (window-buffer w)) "*Ansys*")
@@ -154,33 +314,36 @@ position."
     (display-buffer "*Ansys*" 'other-window)))
 
 (require 'comint)
-;; TODO defvar ansys-process-buffer??
 
 (defun ansys-start-ansys ()		;NEW
   "Start the Ansys interpreter process."
   (interactive)
-  (when (ansys-process-running-p)
-    (error "A Interpreter is already running under Emacs"))
-  (message "Preparing an Ansys interpreter start...")
-  (setq ansys-process-name "Ansys")
-  ;; (setq comint-use-prompt-regexp t) TODO: ???
-  (ansys-program "")			;take exec from -program var.
-  (ansys-license-file "")		;take file from license-file or env.
-  (if (y-or-n-p
-       (concat
-	"Start run?  (l-type: " ansys-license ", job: " ansys-job " in " default-directory ", server: " ansys-license-file ")"))
-      (message "Starting the Ansys interpreter...")
-    (error "Function ansys-start-ansys canceled"))
-  (setq ansys-process-buffer (make-comint ansys-process-name ansys-program nil (concat "-p " ansys-license " -j " ansys-job)))
-;  (comint-send-string (get-process ansys-process-name) "\n")
-  (display-buffer ansys-process-buffer 'other-window)
-;  (switch-to-buffer ansys-process-buffer)
-  (other-window 1)
-  (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
-  (font-lock-add-keywords nil (list comint-prompt-regexp))
+  (let (ansys-process-buffer)
+    (when (ansys-process-running-p)
+      (error "A Interpreter is already running under Emacs"))
+    (message "Preparing an Ansys interpreter start...")
+    ;; (setq comint-use-prompt-regexp t) TODO: ???
+    (ansys-program "")			;take exec from -program var.
+    (ansys-license-file "")		;take file from license-file or env.
+    (if (y-or-n-p
+	 (concat
+	  "Start run?  (l-type: " (if (boundp 'ansys-license) ansys-license)
+	  ", job: " (if (boundp 'ansys-job) ansys-job)
+	  " in " default-directory ", server: " ansys-license-file ")"))
+	(message "Starting the Ansys interpreter...")
+      (error "Function ansys-start-ansys canceled"))
+    (setq ansys-process-buffer
+	  (make-comint ansys-process-name ansys-program nil
+		       (concat "-p " ansys-license " -j " ansys-job)))
+    ;;  (comint-send-string (get-process ansys-process-name) "\n")
+    (display-buffer ansys-process-buffer 'other-window)
+    ;;  (switch-to-buffer ansys-process-buffer)
+    (other-window 1)
+    (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
+    (font-lock-add-keywords nil (list comint-prompt-regexp))
 
 	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
-  )
+  ))
 
 (defun ansys-kill-ansys ()		;NEW
   "Kill the current Ansys run under Emacs.
@@ -223,8 +386,8 @@ with the Ansys /EXIT,all command which saves all model data."
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the Ansys help system.
 Alternatively under a Unix system, one can also use the Ansys
-command line \"/SYS, anshelp120\" when running Ansys
-interactively, provided that anshelp120 is found in the search
+command line \"/SYS, anshelp130\" when running Ansys
+interactively, provided that anshelp130 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)
@@ -582,4 +745,9 @@ And specify it in the variable `ansys-license'."
 
 (provide 'ansys-process)
 
-;;; ansys-process.el ends here
+;; Local Variables:
+;; mode: outline-minor
+;; indicate-empty-lines: t
+;; show-trailing-whitespace: t
+;; word-wrap: t
+;; End:

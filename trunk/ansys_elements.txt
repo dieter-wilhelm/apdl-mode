@@ -1,30 +1,16 @@
-# ansys 12.0 element reference
-LINK1 - 2-D Spar (or Truss)
-BEAM3 - 2-D Elastic Beam
-BEAM4 - 3-D Elastic Beam
+# Ansys 13
 SOLID5 - 3-D Coupled-Field Solid
-COMBIN7 - Revolute Joint
-LINK8 - 3-D Spar (or Truss)
 INFIN9 - 2-D Infinite Boundary
-LINK10 - Tension-only or Compression-only Spar
 LINK11 - Linear Actuator
-CONTAC12 - 2-D Point-to-Point Contact
 PLANE13 - 2-D Coupled-Field Solid
 COMBIN14 - Spring-Damper
-PIPE16 - Elastic Straight Pipe
-PIPE17 - Elastic Pipe Tee
-PIPE18 - Elastic Curved Pipe
-PIPE20 - Plastic Straight Thin-Walled Pipe
 MASS21 - Structural Mass
-BEAM23 - 2-D Plastic Beam
-BEAM24 - 3-D Thin-walled Beam
 PLANE25 - Axisymmetric-Harmonic 4-Node Structural Solid
 MATRIX27 - Stiffness, Damping, or Mass Matrix
 SHELL28 - Shear/Twist Panel
 FLUID29 - 2-D Axisymmetric Harmonic Acoustic Fluid
 FLUID30 - 3-D Acoustic Fluid
 LINK31 - Radiation Link
-LINK32 - 2-D Conduction Bar
 LINK33 - 3-D Conduction Bar
 LINK34 - Convection Link
 PLANE35 - 2-D 6-Node Triangular Thermal Solid
@@ -34,25 +20,14 @@ FLUID38 - Dynamic Fluid Coupling
 COMBIN39 - Nonlinear Spring
 COMBIN40 - Combination
 SHELL41 - Membrane Shell
-PLANE42 - 2-D Structural Solid
-BEAM44 - 3-D Elastic Tapered Unsymmetric Beam
-SOLID45 - 3-D Structural Solid
 INFIN47 - 3-D Infinite Boundary
 MATRIX50 - Superelement (or Substructure)
-CONTAC52 - 3-D Point-to-Point Contact
 PLANE53 - 2-D 8-Node Magnetic Solid
-BEAM54 - 2-D Elastic Tapered Unsymmetric Beam
 PLANE55 - 2-D Thermal Solid
-SHELL57 - Thermal Shell
-PIPE59 - Immersed Pipe or Cable
-PIPE60 - Plastic Curved Thin-Walled Pipe
 SHELL61 - Axisymmetric-Harmonic Structural Shell
 SOLID62 - 3-D Magneto-Structural Solid
-SHELL63 - Elastic Shell
 SOLID65 - 3-D Reinforced Concrete Solid
-PLANE67 - 2-D Coupled Thermal-Electric Solid
 LINK68 - Coupled Thermal-Electric Line
-SOLID69 - 3-D Coupled Thermal-Electric Solid
 SOLID70 - 3-D Thermal Solid
 MASS71 - Thermal Mass
 PLANE75 - Axisymmetric-Harmonic 4-Node Thermal Solid
@@ -61,13 +36,10 @@ PLANE78 - Axisymmetric-Harmonic 8-Node Thermal Solid
 FLUID79 - 2-D Contained Fluid
 FLUID80 - 3-D Contained Fluid
 FLUID81 - Axisymmetric-Harmonic Contained Fluid
-PLANE82 - 2-D 8-Node Structural Solid
 PLANE83 - Axisymmetric-Harmonic 8-Node Structural Solid
 SOLID87 - 3-D 10-Node Tetrahedral Thermal Solid
 SOLID90 - 3-D 20-Node Thermal Solid
-SOLID92 - 3-D 10-Node Tetrahedral Structural Solid
 CIRCU94 - Piezoelectric Circuit
-SOLID95 - 3-D 20-Node Structural Solid
 SOLID96 - 3-D Magnetic Scalar Solid
 SOLID97 - 3-D Magnetic Solid
 SOLID98 - Tetrahedral Coupled-Field Solid
@@ -86,8 +58,6 @@ SOLID123 - 3-D 10-Node Tetrahedral Electrostatic Solid
 CIRCU124 - Electric Circuit
 CIRCU125 - Diode
 TRANS126 - Electromechanical Transducer
-SOLID127 - 3-D Tetrahedral Electrostatic Solid p-Element
-SOLID128 - 3-D Brick Electrostatic Solid p-Element
 FLUID129 - 2-D Infinite Acoustic
 FLUID130 - 3-D Infinite Acoustic
 SHELL131 - 4-Node Thermal Shell
@@ -98,17 +68,13 @@ FLUID139 - 3-D Slide Film Fluid Element
 FLUID141 - 2-D Fluid-Thermal
 FLUID142 - 3-D Fluid-Thermal
 ROM144 - Reduced Order Electrostatic-Structural
-PLANE145 - 2-D Quadrilateral Structural Solid p-Element 
-PLANE146 - 2-D Triangular Structural Solid p-Element
-SOLID147 - 3-D Brick Structural Solid p-Element
-SOLID148 - 3-D Tetrahedral Structural Solid p-Element
-SHELL150 - 8-Node Structural Shell p-Element
 SURF151 - 2-D Thermal Surface Effect
 SURF152 - 3-D Thermal Surface Effect
 SURF153 - 2-D Structural Surface Effect
 SURF154 - 3-D Structural Surface Effect
 SURF156 - 3-D Structural Surface Line Load Effect
 SHELL157 - Thermal-Electric Shell
+SURF159 - General Axisymmetric Surface
 LINK160 - Explicit 3-D Spar (or Truss)
 BEAM161 - Explicit 3-D Beam
 PLANE162 - Explicit 2-D Structural Solid
@@ -172,20 +138,28 @@ COMBI214 - 2-D Spring-Damper Bearing
 CPT215 - 3-D 8-Node Coupled Pore-Pressure Mechanical Solid
 CPT216 - 3-D 20-Node Coupled Pore-Pressure Mechanical Solid 
 CPT217 - 3-D 10-Node Coupled Pore-Pressure Mechanical Solid
+FLUID220 - 3-D Acoustic Fluid 20-Node Solid Element
+FLUID221 - 3-D Acoustic Fluid 10-Node Solid Element
 PLANE223 - 2-D 8-Node Coupled-Field Solid
 SOLID226 - 3-D 20-Node Coupled-Field Solid
 SOLID227 - 3-D 10-Node Coupled-Field Solid
 PLANE230 - 2-D 8-Node Electric Solid
 SOLID231 - 3-D 20-Node Electric Solid
 SOLID232 - 3-D 10-Node Tetrahedral Electric Solid
+PLANE233 - 2-D 8-Node Electromagnetic Solid 
 SOLID236 - 3-D 20-Node Electromagnetic Solid
 SOLID237 - 3-D 10-Node Electromagnetic Solid
+HSFLD241 - 2-D Hydrostatic Fluid
+HSFLD242 - 3-D Hydrostatic Fluid
 SURF251 - 2-D Radiosity Surface
 SURF252 - 3-D Thermal Radiosity Surface
+REINF263 - 2-D Smeared Reinforcing
 REINF264 - 3-D Discrete Reinforcing
 REINF265 - 3-D Smeared Reinforcing
 SOLID272 - General Axisymmetric Solid with 4 Base Nodes
 SOLID273 - General Axisymmetric Solid with 8 Base Nodes
+SOLID278 - 3-D 8-Node Thermal Solid
+SOLID279 - 3-D 20-Node Thermal Solid
 SHELL281 - 8-Node Structural Shell
 SOLID285 - 3-D 4-Node Tetrahedral Structural Solid with Nodal Pressures
 PIPE288 - 3-D 2-Node Pipe

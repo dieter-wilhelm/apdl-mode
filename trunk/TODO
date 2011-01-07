@@ -1,47 +1,58 @@
 * Bugs and deficiencies:
-** Help: parametric functions are not explained with the help command 
+** Highlighting: Experimental user variable highlighting
+   does not take into account:
+   a.) a clearing of variables and
+   b.) usage of variables before their definitions (uninitialised
+       variables)
+   c.) the variable fontification might clash with Ansys
+       specifiers
+   d.) string substitution of %variables% in strings does
+       not highlight them in the proper variable face
+   
+** Highlighting: A label :LABEL may appear behind the /input command
+   and is not highlighted as label
+
+** Keybinding: M-Tab is captured under Windows and some Linux desktops
+   Workaround: Press instead of M-Tab (ALT + TAB) the ESC key and then
+   the Tab key (ESC, TAB) or apply the command from the menu bar
+   
+** Keybinding: M-j: When there is already a `&' in a format command
+   (like *msg, *vwrite, *mwrite) ansys-indent-format-line inserts a
+   redundant one
 
 ** Completion: Of parametric function parentheses
-   completes redundant parens
+   completes redundant closing parentheses
    
-** Completion: Mouse selections from the *Ansys-completion* buffer
-   are only inserted in the upcased state.
+** Completion: A mouse selection from the *Ansys-completion* buffer
+   is only inserted upcased.
 
-** Highlighting: label :LABEL might appear in the /input command
+** Completion: Ansys command 'C***' will not be completed   
 
-** Highlighting: F_y in the beginning of a line is not highlighted as variable this clashes with the f command
-
-** Highlighting: Experimental user variable highlighting
-   does not take into account: a.) a clearing of variables and b.)
-   usage of variables before their definitions (uninitialised
-   variables) c.) the variable fontification might clash with Ansys
-   specifiers d.) string substitution of %variables% in strings does
-   not highlight them in the variable face
-   
-** M-j: When there is already a `&' in a format command M-j
-   inserts a redundant one
-
-** M-Tab is captured under Windows and some Linux desktops
-   Workaround: Press instead of M-Tab the ESC key and then the Tab key
-
-* v12.0.2:
+* v13.0.1:
 ** workload
 *** bugs
-- delete-selection mode does not work with -electric-space
+- Help:
+*mwrite
+*sread
+
+- does Ansys run under darwin, OSx, darwin? (-is-unix-system-p)
+
+- mouse-choose-completion is obsolete since E23.2
+
+- check kill-buffer-query-functions
+
+- *Abbrevs* buffer shows duplicate -mode abbrevs 
+
+- Help: parametric functions are not explained with the help command 
+
+- Help: if there are ignored characters behind the keyword, the
+  keyword is not found
 
 - C-c C-c shows dublicate prompts in interactive mode
-
-- C-c C-+/- C-x4k in docu
-
-- docu of -delete-other-window
-
-- -run-flag is not used any longer
 
 - update, restructure -mode-help, section for code compilation?
 
 - checkdoc, -template.el, -process.el, -mode.el done except \\<keymap> & \\[function]
-
-- last-command-char is obsolete
 
 - ansys-mode.el: -complet-symbol: `save-excursion' defeated by `set-buffer'
 
@@ -49,10 +60,7 @@
 
 - dbus support of workbench or integrating emacs in workbench?
 
-- OK: .elc, what happens when some .el file is changed: Emacs loads newer
-  .el
-
--  load or load-file, what happens with compilation and autoload?
+- load or load-file, what happens with compilation and autoload?
 
 - move customisation group ansys-process to -process.el?
 
@@ -61,11 +69,10 @@
 - check whether all undocumented commands (find-tag
   "Ansys_undocumented_commands") are still working in v12
   
-- variable ansys-last-skeleton is not used   
-
-- make-local-variable not possible in buffers without file?
+- make-local-variable not possible in buffers without associate file?
 
 ** general release procedures
+
 README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history
 
@@ -116,79 +123,25 @@ Subject: Editor support for working with Ansys APDL processes
 
 Hi,
 
-finally the release for Ansys Version 12 of Ansys mode for Emacs,
-downloadable from:
+finally a release for Ansys Version 13 of Ansys mode for the Emacs
+editor, downloadable from:
 
   http://code.google.com/p/ansys-mode
+
+You'll find there also the latest stable version of Emacs for Windows
+with Ansys mode preconfigured and ready to go.  Just unpack it and use
+the Editor for your APDL .mac files.
 
 Below you'll find a summary of its features and what's new in this
 release.
 
+
+
 - Emacs package repository, elpa http://tromey.com/elpa/?
-
-*** presentation
--- Very brief introduction: Emacs, why not?  Gnu Puplic Licens ->
-   Free, working on all current OSs.  All bells and whistle of a
-   modern editor (drop file into E), excellent documentation.  Chosen
-   because with Vim, Emacs is the best editor of all, but - especially
-   on Windows - programmed before Microsoft was even founded.
-   Drawbacks of Emacs, not adhering to established user interface
-   standards example: e. g. scroll-bar default location on linux on
-   the left,
-
-   Splitting windows (no tab concept for buffers)
-
-   TAB, M-TAB keys, C-s, C-c, C-v, C-x, C-y, C-z CUA-mode examples:
-   (setq scroll-preserve-screen-position t) (delete-selection-mode t)
-   Workaround: use in the beginning mouse and buttons.
-   
-   convenient pre-configured emacs archive with Ansys mode.
-
--- casual APDL file viewer (whetting the appetite)
-   convenience features? C-c C-v (not with big files)
-   syntax fontification, especially variable highlighting
-   Ansys menu
-   command-help   M-n/p M-?
-   code navigation (number blocks in .dat files) C-c {
-
--- APDL hacking(.mac)
-   mouse selection ->copy to clipboard
-   Emacs-calc
-      C-c C-u, C-c C-c
-   Ansys symbol completion and emacs expansion C-c ] -- -close-block
-   M-/ M-x abbrev-mode (list-abbrevs)
-   default (,) commands but most */ can't be "*repeated"
-   M-w (copies line)
-   commenting out
-   colon loop: e.g.: lfillt,(1:3),(2:4),Rad, lesize,(1:5:2),Esize
-   _return & _status values
-   preview C-c C-s (completion), insert skeletons
-   (alternatively abbrev mode?)
-   display user variables
-   *go not for interactive mode! -> *if *else *endif
-   selecting blocks C-M-a/b setting mark!
-   loading help navigator
-   display license status	-license-status C-c C-l
-
--- hardcore Ansys/APDL user <- Linux Notebook/machine
-   switch off menu, tools, scroll-bar
-   Ansys mode help: C-h m, selfdocumenting features
-   online Ansys/Emacs process and debugging environment
-   interactive C-c C-u, C-c C-c,  C-c C-q
-   tail mode of *.err C-c C-e
-   abort file
-   positions -> in bookmarks/registers/clone buffer?
-   C-c @ outline stuff with indirect-buffer
-   Dired (textual renaming), speedbar, calendar
-   loading time: emacsclient alias "e"
-   shell-, config-mode, emacsclient, terminal-, ssh-support
-   C-S-backspace, basically the same keyboard shortcuts like bash
-   
-Conclusion/Summary?
 
 * Further versions
 ** Parameter help and documentation
-- inspirations from eldoc-mode
+- inspirations from eldoc-mode, show replacements of deprecated elements?
 
 - count number of user variables when displaying them
 

@@ -3,7 +3,7 @@
 ;; adjusting and renaming it to `default.el'.  And moving it e. g. to
 ;; `/usr/share/emacs/site-lisp' or `c:\\EMACS_INSTALLDIR\\site-lisp'
 
-;; Copyright (C) 2006 - 2010 H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2011 H. Dieter Wilhelm GPL V3
 
 ;; IMPORTANT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -64,7 +64,7 @@ calling a special Ansys customisation buffer." 'interactive)
        (setq ansys-install-directory "C:\\Program Files")))
 
 ;; which version of Ansys we are using
-(setq ansys-current-ansys-version "120")
+(setq ansys-current-ansys-version "130")
 
 (cond ((string= window-system "x")		;Unix
        ;; for starting the solver & ansys-license-status
@@ -102,6 +102,7 @@ calling a special Ansys customisation buffer." 'interactive)
 	      "\\Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
 ;	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
        ;;backslash '\"' on windows mandatory
+
 	     ansys-help-program
 	     (concat ansys-install-directory
 		     "\\Ansys Inc\\v"

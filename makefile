@@ -1,6 +1,6 @@
 # use make in the "tags" release directories
 
-ANSYS_MAJOR := 12
+ANSYS_MAJOR := 13
 ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
@@ -13,14 +13,10 @@ else
  EMACS_DIR := /appl/emacs
 endif
 
-
-
 EMACS_VERSION := emacs-23.2
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
 ADDRESS := ftp://ftp.informatik.rwth-aachen.de/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
-
-
 
 # this is the current ansys-mode version
 MODE_VERSION := 1
@@ -55,7 +51,7 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "... $@ done."
 	@echo "------------------------------"
 
-ansys-keyword.el : ansys-fontification.el
+ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<
 
 %.elc : %.el
@@ -79,4 +75,4 @@ $(EMACS_PACKAGE) :
 
 
 TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
-	etags $(EL_FILES)
+	etags $(EL_FILES) default_el ansys-fontification.el

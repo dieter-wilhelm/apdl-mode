@@ -1,3 +1,4 @@
+# Ansys 13: 24 functions, the same as in V12
 ABS(x) Absolute value of x.  
 SIGN(x,y) Absolute value of x with sign of y. y=0 results in positive sign.  
 EXP(x)  Exponential of x (ex).  

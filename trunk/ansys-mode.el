@@ -1,11 +1,11 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Copyright (C) 2006 - 2010  H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2011  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 12.0.1
+;; Version: 13.0.1
 ;; Keywords: Languages, Convenience
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -55,9 +55,11 @@
 
 ;;; Code:
 
-;; --- constants ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- constants ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys_version "120"		;NEW_C
+(defconst ansys_version "130"		;NEW_C
   "Ansys version on which Ansys mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C
@@ -143,10 +145,6 @@ Used for the variable `comment-start-skip'.")
   :link '(url-link :tag "GoogleCode" "http://www.code.google.com/p/ansys-mode")
   :group 'Languages)
 
-(defgroup Ansys-process nil
-  "Customisation 'process' subgroup for the Ansys mode."
-  :group 'Ansys)
-
 (defcustom ansys-highlighting-level 1
   "This variable sets the level of highlighting.
 There are three levels available, 0 a minimalistic level
@@ -187,111 +185,6 @@ of variables is only static.  To take effect after setting this
 variable you have to recall `ansys-mode'."
   :type 'boolean
   :group 'Ansys)
-
-(defcustom ansys-job "file"			;NEW_C
-  "Variable storing the Ansys job name.
-It is initialised to 'file' (which is also the Ansys default job
-name).  See `ansys-abort-file' for a way of stopping a solver run
-in a controlled way and `ansys-display-error-file' for viewing
-the respective error file."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-program (concat "ansys"
-		ansys-current-ansys-version)		;NEW_C
-  "This variable stores the Ansys executable name.
-When the file is not in your search path, you have to specify the
-full qualified file name and not only the name of the executable.
-For example: \"/ansys_inc/v120/ansys/bin/ansys120\" and not only
-\"ansys120\".  You might customise this variable or use the
-function `ansys-program' to do this for the current session
-only."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-help-program (concat "anshelp"
-ansys-current-ansys-version)		;NEW_C
-  "The Ansys help executable.
-It is called with
-\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
-executable is not in the search path, you have to complement the
-executable with its complete path.  For example the default
-locations are \"/ansys_inc/v120/ansys/bin/anshelp120\" on UNIX
-and \"c:\\\\Program Files\\Ansys\
-Inc\\v120\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on Windows
-XP.  Since Ansys version 12.0 it is a java interpreter."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-help-program-parameters (concat "-cp \"c:\\Program Files\\Ansys Inc\\"
-ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
-  "Stores parameters for the variable `ansys-help-program' under Windows.
-For example: '-cp \"c:\\Program Files\\Ansys
-Inc\\v120\\commonfiles\\help\" HelpDocViewer'."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-lmutil-program "lmutil"	;NEW_C
-  "The FlexLM license manager utility executable name.
-When the file is not in your search path, you have to furnish the
-complete path.  For example:
-\"/ansys_inc/shared_files/licensing/linx64/lmutil\" or in the
-case of a Windows OS \"c:\\\\Program Files\\Ansys Inc\\Shared\
-Files \\Licensing\\intel\\anslic_admin.exe.  This variable is
-used for displaying the license status with the function
-`ansys-license-status'."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-license-file nil ;NEW_C
-  "The FlexLM license file name or license server specification(s).
-The license server specification(s) should include the port
-number even if it's the default port 1055 because the lmutil tool
-needs it in the following way: port_number@server_name, use the
-colon for multiple servers, for example
-\"27005@rbgs421x:27005@rbgs422x\".
-
-Setting this variable skips the effect of previously set
-environment variables, which have the following order of
-precedence: 1. ANSYSLMD_LICENSE_FILE environment variable, 2.)
-The FLEXlm resource file: ~/.flexlmrc on Unix or somewhere in the
-Windows registry. 3.) The LM_LICENSE_FILE variable. 4.) The
-ansyslmd.ini file in the licensing directory (This is what
-anslic_admin is doing in an Ansys recommended installation).  5.)
-The license file itself."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-ansysli-servers nil ;NEW_C
-  "Used to identify the server machine for the Licensing Interconnect.
-Set it to port@host.  The default port is 2325."
-  :type 'string
-  :group 'Ansys-process)
-
-(defcustom ansys-license-types		;NEW_C
-  '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
-  "List of available license types to choose for an Ansys run.
-This list should contain the license types you can choose from.
-Below are often used license types (as e.g. seen with the
-function `ansys-license-status') and their corresponding
-WorkBench terminology.
-
-\"ansys\" - Mechanical U (without thermal capability)
-\"struct\" - Structural U (with thermal capability)
-\"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
-\"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
-\"ane3fl\" - Multiphysics
-\"preppost\" - PrepPost (no solving capabilities)"
-  :group 'Ansys-process)
-
-(defcustom ansys-license "struct"		;NEW_C
-  "The License type with which the Ansys interpreter will be started.
-See `ansys-license-types' for often used Ansys license types."
-;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
-  :options ansys-license-types
-  ;; options not available for strings (only hooks, alists, plists E22)
-  :type 'string
-  :group 'Ansys-process)
 
 (defcustom ansys-indicate-empty-lines-flag nil ;NEW_C
   "Non-nil means indicate empty lines on window systems.
@@ -386,9 +279,6 @@ A hook is a variable which holds a collection of functions."
   (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
   "String to insert when creating an Ansys code comment.")
 
-(defvar ansys-run-flag nil		;NEW_C
-  "Non-nil means an Ansys interpreter is already running.")
-
 (defvar ansys-user-variables nil ;NEW_C
   "Variable containing the user variables and line No of first occurance.
 The list is used for the display of these
@@ -399,23 +289,18 @@ The list is used for the display of these
 The regexp is used for the
 fontification (`ansys-highlight-variable') of these variables.")
 
-(defvar ansys-process-name "Ansys"		;NEW_C
-  "Variable containing Emacs' name for an Ansys process.
-Variable is only used internally in the mode.")
-
 (defvar ansys-is-unix-system-flag nil	;NEW_C
   "Non-nil means computer runs a Unix system.")
-
-(defvar ansys-last-skeleton nil
-  "Previously chosen Ansys template/skeleton name.")
 
 (defvar ansys-previous-major-mode ""	;NEW_C
   "The buffer's previous major mode (before Ansys mode).")
 
-(defvar ansys-format "mac"	     ;FIXME:This is for the ansys macro
-  "String representing the ansys format.")
+(defvar ansys-mode-abbrev-table nil	;_C
+  "Abbreviation definition table for the Ansys mode.
+All Ansys abbrevs start with a grave accent \"`\".  \"`?\" lists
+the currently defined abbreviations.")
 
-;;; --- Indentation ---
+;;; --- constants ---
 
 (defconst ansys-continuation-line-regexp ".*?&\\s-*$" ;_C
   "Regexp indicating a continuation line (of the *MSG command).")
@@ -474,11 +359,6 @@ Used for skipping pure number lines and CMBLOCK format strings")
   "Alist with Ansys's matching block keywords.
 It has Ansys's begin keywords as keys and a list of the
 corresponding else or end keywords as associated values.")
-
-(defvar ansys-mode-abbrev-table nil	;_C
-  "Abbreviation definition table for the Ansys mode.
-All Ansys abbrevs start with a grave accent \"`\".  \"`?\" lists
-the currently defined abbreviations.")
 
 (defconst ansys-column-ruler-wide	;_C
   (propertize
@@ -556,7 +436,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-g" 'ansys-start-graphics)
     (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
     (define-key map "\C-c\C-i" 'ansys-if)
-    (define-key map "\C-c\C-j" 'ansys-job)
+    (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)
     (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
@@ -585,6 +465,20 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; --- font locking stuff ---
+
+(defvar ansys-command-regexp)
+(defvar	ansys-command-regexp)
+(defvar ansys-deprecated-element-regexp)
+(defvar ansys-undocumented-command-regexp)
+(defvar ansys-get-function-regexp)
+(defvar ansys-command-regexp-1)
+(defvar ansys-command-regexp-2a)
+(defvar ansys-command-regexp-2b)
+(defvar ansys-command-regexp-2c)
+(defvar ansys-element-regexp)
+(defvar ansys-parametric-function-regexp)
+(defvar ansys-dynamic-prompt)
+(defvar ansys-completions)
 
 (load "ansys-keyword")
 
@@ -929,7 +823,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      "-"
 	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for an interpreter run"]
+	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
 	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run" ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active (ansys-process-running-p)]
@@ -1078,12 +972,12 @@ This means at the end of code before whitespace or an Ansys
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
-;; hmmm, gnu/linux is some sort of Unix for my purposes
+;; hmmm, gnu/linux is also some sort of Unix for my purposes
 (defun ansys-is-unix-system-p ()
   "Return t when we are on a unix system."
   (not
-   (or (string= system-type "gnu")
-       (string= system-type "darwin")
+   (or (string= system-type "gnu")	;gnu with the hurd kernel
+       (string= system-type "darwin")	;mac
        (string= system-type "ms-dos")
        (string= system-type "windows-nt")
        (string= system-type "cygwin"))))
@@ -1350,9 +1244,11 @@ the maximum highlighting level.
 ** Compilation for all definitions (*GET, *DIM, **SET, = and DO,
   ...) for APDL variables and component names **
 
-Typing \"\\[ansys-display-variables]\" (for
-`ansys-display-variables') shows all definitions in your APDL
-file in a separate window.
+Typing \"\\[ansys-display-variables]\" (for `ansys-display-variables')
+shows all definitions in your APDL file in a separate window.
+
+You might remove the additional \"*Ansys-variables*\" window with
+\"\\[ansys-delete-other-window]\" (`ansys-delete-other-window').
 
 When you place the cursor on the respecitive line number and type
 'C-u M-g g' (C-u is a 'prefix' argument to M-g `goto-line').
@@ -1462,7 +1358,7 @@ names.
 
 If you haven't installed Ansys in the default locations and the
 executables are not in your system search path or you are using a
-different Ansys version than '120' it is necessary for the last
+different Ansys version than '130' it is necessary for the last
 two capabilities to customise some variables either with the
 Emacs customisation facility (M-x `ansys-customise-ansys' or from
 the menu bar -> 'Ansys' -> 'Customise Ansys Mode' ->
@@ -1637,8 +1533,6 @@ improvements you have the following options:
   ;; (when (> ansys-highlighting-level 1)
   ;;   (setq font-lock-multiline t)) ;for *msg, *vwrite,.. format strings
 
-  (make-local-variable 'ansys-run-flag) ;FIXME: implement what exactly?
-
   (make-local-variable 'ansys-user-variable-regexp) ;for font-lock
   (setq ansys-user-variable-regexp nil)
 
@@ -1660,8 +1554,7 @@ improvements you have the following options:
   (make-local-variable 'comment-column)
   (setq comment-column ansys-code-comment-column)
 
-  (make-local-variable 'kill-buffer-query-functions)
-
+;  (make-local-variable 'kill-buffer-query-functions)
   ;; the following might become obselete with Emacs 23.2 (see TODO)
 ;;  (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
 
@@ -1671,7 +1564,8 @@ improvements you have the following options:
 
   ;; overlay for command-parameter-help
   (make-local-variable 'ansys-help-overlay)
-  (setq ansys-help-overlay (make-overlay 1 1))
+;  (defvar ansys-help-overlay)
+;  (setq ansys-help-overlay (make-overlay 1 1))
 
   ;; look at newcomment.el
   (make-local-variable 'comment-start-skip)
@@ -1690,6 +1584,7 @@ improvements you have the following options:
   (setq outline-regexp (concat "^!\\(" ansys-outline-string "\\)+"))
 
   ;; discrepancies from Emacs defaults
+  (ansys-font-lock-mode)	;switch on font-lock when it's toggled
   (delete-selection-mode t)
   (show-paren-mode t)
   (set (make-local-variable 'scroll-preserve-screen-position) nil)
@@ -1704,15 +1599,16 @@ improvements you have the following options:
   ;; on what system are we
   (setq ansys-is-unix-system-flag (ansys-is-unix-system-p))
 
-  ;;   (make-local-variable 'ansys-column-ruler-wide) ;FIXEME
+  ;;   (make-local-variable 'ansys-column-ruler-wide) ;FIXME
   ;;   (make-local-variable 'ansys-column-ruler-narrow)
   ;;   (make-local-variable 'ansys-ruler-wide-flag)
   ;;   (setq wide-ansys-ruler-mode nil)
   ;;	"set to  nil for narrow, t for wide."
 
-  (make-local-variable 'ansys-format)
-  (setq ansys-format (intern "mac"))	;FIXME: this is for the ansys-macro
-					;? why intern?
+  ;; (make-local-variable 'ansys-format)
+  ;; (setq ansys-format (intern "mac"))	;FIXME: this is for the ansys-macro
+  ;; 					;? why intern?
+
   ;; menu
   (ansys-add-ansys-menu)
 
@@ -1804,7 +1700,8 @@ Display a ruler in the header line."
 (defun ansys-font-lock-mode ()		;NEW_C
   "Switch on function `font-lock-mode'.
 Font Lock is also known as \"syntax highlighting\"."
-  (font-lock-mode 1))
+  (unless font-lock-mode
+    (font-lock-mode 1)))
 
 (defun ansys-outline-minor-mode ()	;NEW_C
   "Switch on mode function `outline-minor-mode'.
@@ -2039,12 +1936,12 @@ buffer with the SPACE key."
 	    (setq completion (funcall cc completion))
 	    (delete-region beg end)
 	    (insert completion))
-	  ;; possibly move back into parenths
+	  ;; possibly move back into parens
 	  (skip-chars-backward ")" (1- (point)))
 	  (kill-buffer completion-buffer)
 	  (message "\"%s\" is a unique Ansys symbol." completion))
 
-	 ;;maybe complet, but not uniquely completable
+	 ;;maybe complete, but not uniquely completable
 	 (t
 	  (setq completion (funcall cc completion))
 	  (unless (string= completion completion-string)
@@ -2064,18 +1961,18 @@ buffer with the SPACE key."
 
 	  ;; mouse selections in the completion buffer?
 	  (let (key first)
-	    (if (save-excursion
+	    (if (progn
 		  (set-buffer (get-buffer completion-buffer))
+		  ;; we are temporarily in the completion buffer
 		  (setq key (read-key-sequence nil)
-			first (aref key 0))
-		  (and (consp first) (consp (event-start first))
-		       (eq (window-buffer (posn-window (event-start
-							first)))
-			   (get-buffer completion-buffer))
+			first (aref key 0)) ;first key of key sequence
+		  (and (consp first)	    ;is cons cell
+		       (consp (event-start first))
+		       (eq
+			(window-buffer (posn-window (event-start first)))
+			(get-buffer completion-buffer))
 		       (eq (key-binding key) 'mouse-choose-completion)))
-		(progn
-		  (mouse-choose-completion first)
-		  (kill-buffer completion-buffer))
+		(mouse-choose-completion first)
 	      (if (eq first ?\ )
 		  (kill-buffer completion-buffer)
 		(setq unread-command-events
@@ -2187,8 +2084,9 @@ If function `abbrev-mode' is on, expand the abbreviations first."
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
   (interactive "*")			;error if read only
-  (setq last-command-char ? )
-  (cond ((and mark-active transient-mark-mode)
+  (setq last-command-event ? )
+  (cond ((and mark-active transient-mark-mode delete-selection-mode)
+	 (kill-region (point) (mark))
 	 (self-insert-command 1))
 	((and (ansys-not-in-string-or-comment-p)
 	      (not (ansys-in-indentation-p))
@@ -2310,7 +2208,7 @@ Note that all Ansys mode abbrevs start with a grave accent."
 					;  (if (not abbrev-mode)			;FIXME: redundant with E22.?
 					;      (self-insert-command 1)
   (let (c)
-    (insert last-command-char)
+    (insert last-command-event)
     (if (or (eq (setq c (read-event)) ??)
 	    (eq c help-char))
 	(let ((abbrev-table-name-list '(ansys-mode-abbrev-table)))
@@ -2335,7 +2233,9 @@ The new line is properly indented."
    (t
     (ansys-reindent-then-newline-and-indent))))
 
-;;; Motion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;; --- Cursor movement ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-default-command-end ()	;NEW
   "Move cursor to the end of an Ansys default command construct."
@@ -2757,7 +2657,10 @@ Signal an error if the keywords are incompatible."
 	    (error "Block keywords `%s' and `%s' do not match"
 		   bb-keyword eb-keyword)))))))
 
-;;; Abbreviations
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- Abbreviations ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (unless ansys-mode-abbrev-table
   (let ((ac abbrevs-changed)) ;no offer to save unnecessary .abbrev_defs
     (define-abbrev-table 'ansys-mode-abbrev-table ())
@@ -2773,7 +2676,10 @@ Signal an error if the keywords are incompatible."
     (define-abbrev ansys-mode-abbrev-table "`c" "!! ====================\n" '(lambda () (indent-according-to-mode)))
     (setq abbrevs-changed ac))) ;reset `abbrevs-changed' to previous state
 
-;;; Bug reporting
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- Bug reporting ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (defun ansys-submit-bug-report ()	;from Octave
   "Open an Emacs mail buffer with an Ansys mode bug report."
@@ -2826,7 +2732,9 @@ Signal an error if the keywords are incompatible."
 (load "ansys-template")
 (load "ansys-process")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- dynamic highlighting ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ---- Restrictions ----
 ;; Variables or 'parameters' in Ansys parlance:
@@ -2970,7 +2878,7 @@ C-u \\[goto-line] takes the nnumber automatically)."
   (let* ((current-buffer (buffer-name))
 	 (buffer-name "*Ansys-variables*")
 	 (variable-buffer (get-buffer-create buffer-name))
-	 str old-nun com
+	 str old-num com
 	 (num 0))
     (set-buffer variable-buffer)
     (toggle-read-only -1)
@@ -3029,5 +2937,3 @@ The default argument is 1."
 ;; show-trailing-whitespace: t
 ;; word-wrap: t
 ;; End:
-
-;;; ansys-mode.el ends here

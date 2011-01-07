@@ -1,41 +1,93 @@
-;;; ansys-template.el -- APDL code templates for Ansys mode
+;;; ansys-template.el -- APDL code templates for the Ansys mode
 
-;; Copyright (C) 2006 - 20010  H. Dieter Wilhelm
+;; Copyright (C) 2006 - 20011  H. Dieter Wilhelm GPL V3
 
-(defun ansys-display-skeleton ()	;NEW
-  "Display code templates in another buffer."
-  (interactive)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This code is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation; either version 3, or (at your
+;; option) any later version.
+;;
+;; This lisp script is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+;;
+;; Permission is granted to distribute copies of this lisp script
+;; provided the copyright notice and this permission are preserved in
+;; all copies.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, you can either send email to this
+;; program's maintainer or write to: The Free Software Foundation,
+;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- variables ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+(defvar ansys-format "mac"	     ;FIXME:This is for the ansys macro
+  "String representing the ansys format.")
+
+(defvar ansys-last-skeleton nil
+  "Variable containing the last previewed skeleton")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- functions ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun ansys-display-skeleton (&optional arg)	;NEW
+  "Display code templates in another buffer.
+With an argument ARG insert the template into the current buffer
+instead of previewing it in a separate window."
+  (interactive "P")
   (let* (
 	 (old-buffer (buffer-name))
 	 (new-buffer-name "*Ansys-skeleton*")
 	 (skeleton-buffer
 	  (get-buffer-create new-buffer-name))
 	 s
-	 (skel (completing-read
-	 	"Template: " obarray 'commandp
-	 			t "ansys-skeleton-" nil))
-	 ;; (skel "ansys-skeleton-numbering-controls")
-	 )
-    (switch-to-buffer-other-window skeleton-buffer)
-    (remove-overlays)
-    ;;(make-local-variable 'ansys-skeleton-overlay)
-    (setq ansys-skeleton-overlay (make-overlay 1 1))
-    (kill-region (point-min) (point-max))
-    (funcall (intern-soft skel))
-;    (ansys-skeleton-numbering-controls)
-;    (insert "bla\n")
-    (goto-char (point-min))
-    (unless  (eq major-mode 'ansys-mode)
-      (ansys-mode))
-    (setq ansys-last-skeleton skel)
-    (setq s (propertize
-    	     (concat "-*- Ansys template: " skel " -*-\n") 'face 'match))
-    (overlay-put ansys-skeleton-overlay 'before-string s)
-    (set-buffer-modified-p nil)
-;    (toggle-read-only t)
-    (switch-to-buffer-other-window old-buffer)
-    ;; (display-buffer new-buffer-name 'other-window)
-    ))
+	 skel
+	 ;; if window is visible in selected frame
+	 (visible  (get-buffer-window new-buffer-name nil)))
+    (cond ((and arg visible)
+	   (setq skel (completing-read
+		 "Insert template: " obarray 'commandp t
+		 ansys-last-skeleton nil))
+	   (funcall (intern-soft skel)))
+	  (arg
+	   (setq skel (completing-read
+		 "Insert template: " obarray 'commandp t
+		 "ansys-skeleton-" nil))
+	   (funcall (intern-soft skel)))
+	  (t
+	   (setq skel (completing-read
+		 "Preview template: " obarray 'commandp t
+		 "ansys-skeleton-" nil))
+	   (switch-to-buffer-other-window skeleton-buffer)
+	   (remove-overlays)
+	   ;;(make-local-variable 'ansys-skeleton-overlay)
+	   (setq ansys-skeleton-overlay (make-overlay 1 1))
+	   (kill-region (point-min) (point-max))
+	   (funcall (intern-soft skel))
+	   ;;    (ansys-skeleton-numbering-controls)
+	   ;;    (insert "bla\n")
+	   (goto-char (point-min))
+	   (unless  (eq major-mode 'ansys-mode)
+	     (ansys-mode))
+	   (setq ansys-last-skeleton skel)
+	   (setq s (propertize
+		    (concat "-*- Ansys template: "
+			    skel " -*-\n") 'face 'match))
+	   (overlay-put ansys-skeleton-overlay 'before-string s)
+	   (set-buffer-modified-p nil)
+	   ;;    (toggle-read-only t)
+	   (switch-to-buffer-other-window old-buffer)
+	   ;; (display-buffer new-buffer-name 'other-window)
+	   ))))
 
 (define-skeleton ansys_do		;NEW
   ""
@@ -1173,14 +1225,14 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*dim,F_y,table,NSS,3! three columns" \n
   "F_y(0,1) = 1,2,3 ! column 'index'" \n
   "*do,I,1,NSS" \n
-  "  set,1,I" \n
-  "  fsum" \n
-  "  *get,Tim,active,,set,time" \n
-  "  Strain = Tim*100*Displ/Leng" \n
-  "  F_y(I,0) = Strain ! row 'index'" \n
-  "  *get,Forc,fsum,,item,fy" \n
-  "  F_y(I,1) = Forc/(Width*Thick)" \n
-  "*enddo" \n
+  "set,1,I"> \n
+  "fsum"> \n
+  "*get,Tim,active,,set,time"> \n
+  "Strain = Tim*100*Displ/Leng"> \n
+  "F_y(I,0) = Strain ! row 'index'"> \n
+  "*get,Forc,fsum,,item,fy"> \n
+  "F_y(I,1) = Forc/(Width*Thick)"> \n
+  "*enddo"> \n
   "!@@ -- arrays --" \n
   \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
@@ -1715,4 +1767,9 @@ also do yourself."
 	  \n)
   (mac . format))
 
-;;; ansys-template.el ends here
+;; Local Variables:
+;; mode: outline-minor
+;; indicate-empty-lines: t
+;; show-trailing-whitespace: t
+;; word-wrap: t
+;; End:

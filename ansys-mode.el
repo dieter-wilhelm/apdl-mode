@@ -761,11 +761,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
 	(list "Insert Template"
-	      ["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
-	      ["*IF ,Action *ENDIF"     ansys-if]
-	      ["*IF ,THEN *ELSEIF"	ansys-if-then]
-	      ["*DO *ENDDO"	        ansys-do]
-	      [" MP "	                ansys-mp]
+	      ["Insert Pi"                    ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
+	      ["*IF ... *ENDIF"     ansys-if :help "Insert interactively an *if .. *endif construct"]
+	      ["*DO ... *ENDDO"	        ansys-d :help "Insert interactively a *do .. *enddo loop"]
+	      ["*IF ,THEN *ELSEIF"	ansys-if-then :help ]
+	      [" MP "	                ansys-mp :help "Insert interactively an mp statement."]
 	      ["Header"                 ansys-skeleton-header :help "File header template"]
 	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
 	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]

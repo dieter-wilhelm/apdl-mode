@@ -320,6 +320,9 @@ particular Ansys release.
 * Enhanced ansys-display-skeleton with an optional argument for
   inserting the respective skeleton in the APDL buffer.
 
+* Enhanced some "interactive" code templates with lists for completing
+  the input
+
 * Updated keyword list, deprecated elements, undocumented commands,
   etc. to release 13.0 of Ansys, as usual.
 

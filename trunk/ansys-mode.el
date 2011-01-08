@@ -763,7 +763,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	(list "Insert Template"
 	      ["Insert Pi"                    ansys-insert-pi :help "Insert variable definition \"Pi = 3.1415...\""]
 	      ["*IF ,Action *ENDIF"     ansys-if]
-	      ["*IF ,THEN *ENDIF"	ansys-if-then]
+	      ["*IF ,THEN *ELSEIF"	ansys-if-then]
 	      ["*DO *ENDDO"	        ansys-do]
 	      [" MP "	                ansys-mp]
 	      ["Header"                 ansys-skeleton-header :help "File header template"]
@@ -1563,9 +1563,9 @@ improvements you have the following options:
   ;;  comment-indent -> fill-column?? only when line-wrap mode t?
 
   ;; overlay for command-parameter-help
-  (make-local-variable 'ansys-help-overlay)
-;  (defvar ansys-help-overlay)
-;  (setq ansys-help-overlay (make-overlay 1 1))
+  ;; (make-local-variable 'ansys-help-overlay)
+  (defvar ansys-help-overlay)
+  (setq ansys-help-overlay (make-overlay 1 1))
 
   ;; look at newcomment.el
   (make-local-variable 'comment-start-skip)

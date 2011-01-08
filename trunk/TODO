@@ -35,9 +35,15 @@
 *mwrite
 *sread
 
-- does Ansys run under darwin, OSx, darwin? (-is-unix-system-p)
+- ansys-if-then does not indet correctly, brethren ansys_if/_do are
+  not documentet
 
-- mouse-choose-completion is obsolete since E23.2
+- mismatch in customisaton buffer of -license-file and -ansysli-servers
+
+-  ansys-template.el:85:13:Warning: reference to free variable
+    `ansys-skeleton-overlay'
+
+- does Ansys run under darwin, OSx? (-is-unix-system-p)
 
 - check kill-buffer-query-functions
 
@@ -50,19 +56,11 @@
 
 - C-c C-c shows dublicate prompts in interactive mode
 
-- update, restructure -mode-help, section for code compilation?
-
 - checkdoc, -template.el, -process.el, -mode.el done except \\<keymap> & \\[function]
-
-- ansys-mode.el: -complet-symbol: `save-excursion' defeated by `set-buffer'
-
-- old-style backquotes -skeleton.el
 
 - dbus support of workbench or integrating emacs in workbench?
 
 - load or load-file, what happens with compilation and autoload?
-
-- move customisation group ansys-process to -process.el?
 
 - TODOs, FIXMEs in the code
 
@@ -70,6 +68,8 @@
   "Ansys_undocumented_commands") are still working in v12
   
 - make-local-variable not possible in buffers without associate file?
+
+- mouse-choose-completion is obsolete since E23.2
 
 ** general release procedures
 

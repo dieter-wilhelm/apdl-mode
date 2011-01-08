@@ -398,8 +398,9 @@ variable)."
      ((ansys-is-unix-system-p)
       (start-process "Ansys-help-program" nil ansys-help-program))
      ((string= system-type "windows-nt")
-      (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
-			 ansys-help-program-parameters))  ;HINT: Eli Z.,M. Dahl
+      (if (fboundp 'w32-shell-execute)
+	  (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
+			 ansys-help-program-parameters)))  ;HINT: Eli Z.,M. Dahl
      (t
       (error "Can only start the Ansys help on Windows and UNIX systems")))))
 
@@ -514,7 +515,8 @@ for displaying the license status."
     (display-buffer "*Ansys-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
-    (w32-shell-execute nil ansys-lmutil-program)
+    (if (fboundp 'w32-shell-execute)
+	(w32-shell-execute nil ansys-lmutil-program))
     (message "Loading the anslic_admin program..."))
    (t
     (error "No license status available on %s" system-type))))

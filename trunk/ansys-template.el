@@ -29,8 +29,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar ansys-format "mac"	     ;FIXME:This is for the ansys macro
-  "String representing the ansys format.")
+;; (defvar ansys-format "mac"	     ;FIXME:This is for the ansys macro
+;;   "String representing the ansys format.")
 
 (defvar ansys-last-skeleton nil
   "Variable containing the last previewed skeleton")
@@ -91,8 +91,11 @@ instead of previewing it in a separate window."
 
 (define-skeleton ansys_do		;NEW
   ""
-  "Which *do counter [i]: "
-  > "*do," str | "i" ",1," (skeleton-read "End condition: " "10") ",1\n"
+  "Which *do counter [I]: "
+  > "*do," str | "I" ","
+  (skeleton-read "Begin condition") ","
+  (skeleton-read "End condition: ") ","
+  (skeleton-read "Increment [1]: ") | "1" \n
   > _ \n
   "*cycle !bypass below commands in *do loop" > \n
   "*enddo" > \n
@@ -100,13 +103,13 @@ instead of previewing it in a separate window."
 
 (define-skeleton ansys_if		;NEW
   ""
-  "First operant [i]: "
-  "*if," str | "i" ","
-  (skeleton-read "Operator (EQ,NE,GT,LE,GE,ABLT,ABGT): " "LT") ","
-  (skeleton-read "Second operant: " "j") ","
-  (skeleton-read "Action (:label,STOP,EXIT,CYCLE): " "THEN") > \n
+  "First operant [I]: "
+  "*if," str | "I" ","
+  (skeleton-read "Operator (eq,ne,gt,le,ge,ablt,abgt): " "lt") ","
+  (skeleton-read "Second operant: " "J") ","
+  (skeleton-read "Action (:label,stop,exit,cycle): " "then") > \n
   > _ \n
-  "!! *elseif,i,GT,j" > \n
+  "!! *elseif,I,gt,J" > \n
   "!! *else" > \n
   "*endif" >
   )
@@ -270,7 +273,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "OPERATE $ stat ! - Operation data" \n
   "PRINT $ stat ! - Print settings" \n
   "PLOTTING $ stat ! - Plotting settings" \n
-  \n  
+  \n
   "!@@@ - aux3 result file edit routine -" \n
   "/aux3" \n
   "list !result statistics" \n
@@ -1268,7 +1271,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/gcolumn,2,'Mooney-R'" \n
   "/gcolumn,3,'Ogden'" \n
   "/gthk,curve,4 !curve thickness" \n
-  "*vplot,F_y(1,0),F_y(1,1),2.0" 
+  "*vplot,F_y(1,0),F_y(1,1),2.0"
   )
 
 (defun ansys-skeleton-compilation ()
@@ -1666,106 +1669,192 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n)
 
 
-(defmacro define-ansys-skeleton (command documentation &rest definitions) ;FIXME: documentation
-  "Define COMMAND with an optional docstring DOCUMENTATION.
-to insert statements as in DEFINITION ...  Prior
-DEFINITIONS (e.g. from ~/.emacs) are maintained.  Each definition
-is built up as (format PROMPT ELEMENT ...).  Alternately a
-synonym definition can be (format . PREVIOUSLY-DEFINED-FORMAT).
+;; (defmacro define-ansys-skeleton (command documentation &rest definitions) ;FIXME: documentation
+;;   "Define COMMAND with an optional docstring DOCUMENTATION.
+;; to insert statements as in DEFINITION ...  Prior
+;; DEFINITIONS (e.g. from ~/.emacs) are maintained.  Each definition
+;; is built up as (format PROMPT ELEMENT ...).  Alternately a
+;; synonym definition can be (format . PREVIOUSLY-DEFINED-FORMAT).
 
-For the meaning of (PROMPT ELEMENT ...) see `skeleton-insert'.
-Each DEFINITION is actually stored as
-	(put COMMAND format (PROMPT ELEMENT ...)), which you can
-also do yourself."
-  (unless (stringp documentation)
-    (setq definitions (cons documentation definitions)
-	  documentation ""))
-  ;; The compiled version doesn't. FIXME: Doesn't what?
-  (require 'backquote)
-  (`(progn
-      (let ((definitions '(, definitions)))
-	(while definitions
-	  ;; skeleton need not be loaded to define these
-	  (or (get '(, command) (car (car definitions)))
-	      (put '(, command) (car (car definitions))
-		   (if (symbolp (cdr (car definitions)))
-		       (get '(, command) (cdr (car definitions)))
-		     (cdr (car definitions)))))
-	  (setq definitions (cdr definitions))))
-      (defun (, command) ()
-	(, documentation)
-	(interactive)
-	(skeleton-insert
-	 (or (get '(, command) ansys-format)
-	     (error "%s statement syntax not defined for ansys format %s"
-		    '(, command) ansys-format)))))))
+;; For the meaning of (PROMPT ELEMENT ...) see `skeleton-insert'.
+;; Each DEFINITION is actually stored as
+;; 	(put COMMAND format (PROMPT ELEMENT ...)), which you can
+;; also do yourself."
+;;   (unless (stringp documentation)
+;;     (setq definitions (cons documentation definitions)
+;; 	  documentation ""))
+;;   ;; The compiled version doesn't work.
+;;   (require 'backquote)
+;;   (`(progn
+;;       (let ((definitions '(, definitions)))
+;; 	(while definitions
+;; 	  ;; skeleton need not be loaded to define these
+;; 	  (or (get '(, command) (car (car definitions)))
+;; 	      (put '(, command) (car (car definitions))
+;; 		   (if (symbolp (cdr (car definitions)))
+;; 		       (get '(, command) (cdr (car definitions)))
+;; 		     (cdr (car definitions)))))
+;; 	  (setq definitions (cdr definitions))))
+;;       (defun (, command) ()
+;; 	(, documentation)
+;; 	(interactive)
+;; 	(skeleton-insert
+;; 	 (or (get '(, command) ansys-format)
+;; 	     (error "%s statement syntax not defined for ansys format %s"
+;; 		    '(, command) ansys-format)))))))
 
-(define-ansys-skeleton ansys-if
+;; (define-ansys-skeleton ansys-if
+;;   "Insert an if statement in the current format's syntax."
+;;   (format "Value/Parameter 1: "
+;; 	  "*IF," str ","
+;; 	  (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;; 	  ","
+;; 	  (read-string "Value/Parameter 2: ")
+;; 	  ","
+;; 	  (read-string "Action: (:label,STOP,EXIT,CYCLE,THEN,otto) ") ;FIXME: remove otto!
+;; 	  \n >_
+;; 	  "*ENDIF"
+;; 	  \n)
+;;   (mac . format))
+
+
+(define-skeleton ansys-if
+  "Insert interactively an *if *endif statement."
+  "Value/Parameter 1 [I]: "
+  "*if," str | "I" ","
+  (completing-read "Operand [eq] (use TAB to complete): "
+		   '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
+		   nil			;predicate
+		   t			;require-match
+		   nil			;inital input
+		   nil			;history
+		   "eq"			;default
+		   )
+  ","
+  (skeleton-read "Value/Parameter 2 [J]: ") | "J"
+  ","
+  (completing-read "Action [then] (use TAB to complete): "
+		   '(":label" "stop" "exit" "cycle" "then")
+		   nil
+		   t
+		   nil
+		   nil
+		   "then") > \n
+  - \n
+  "*endif" > \n
+  \n)
+
+
+;; (define-ansys-skeleton ansys-if-then
+;;   "Insert an if statement in the current format's syntax."
+;;   (format "Value/Parameter 1: "
+;; 	  "*IF," str ","
+;; 	  (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;; 	  ","
+;; 	  (read-string "Value/Parameter 2: ")
+;; 	  ",THEN" \n
+;; 	  > _ \n
+;; 	  ("*ELSEIF? %s: "		;FIXME: here subskeleton!
+;; 	   > "*ELSEIF," str ","
+;; 	   (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;; 	   ","
+;; 	   (read-string "Next Value/Parameter: ")
+;; 	   ",THEN" \n
+;; 	   > \n)
+;; 	  "*ELSE" > \n
+;; 	  > \n
+;; 	  "*ENDIF" > \n)
+;;   (mac . format))
+
+;; (define-skeleton ansys-if-then
+;;   "Insert an if statement in the current format's syntax."
+;;   "Value/Parameter 1: "
+;;   "*IF," str ","
+;;   (completing-read "Operand [EQ] (use TAB to complete): "
+;; 		   '("EQ" "NE" "LT" "GT" "LE" "GE" "ABLT" "ABGT")
+;; 		   nil			;predicate
+;; 		   t			;require-match
+;; 		   nil			;inital input
+;; 		   nil			;history
+;; 		   "EQ"			;default
+;; 		   )
+;;   ","
+;;   (read-string "Value/Parameter 2: ")
+;;   ",THEN" \n
+;;   > _ \n
+;;   ("*ELSEIF? %s: "		;FIXME: here subskeleton!
+;;    > "*ELSEIF," str ","
+;;    (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;;    ","
+;;    (read-string "Next Value/Parameter: ")
+;;    ",THEN" \n
+;;    > \n)
+;;   "*ELSE" > \n
+;;   > \n
+;;   "*ENDIF" > \n)
+;;   (mac . format))
+
+;; (define-ansys-skeleton ansys-do
+;;   "Insert an if statement in the current format's syntax."
+;;   (format "Parameter: "
+;; 	  "*DO," str ","
+;; 	  (read-string "Start Value/Parameter: ")
+;; 	  ","
+;; 	  (read-string "Finish Value/Parameter: ")
+;; 	  ","
+;; 	  (read-string "Increment Value/Parameter: ") \n
+;; 	  > _ \n
+;; 	  "*ENDDO" > \n)
+;;   (mac . format))
+
+(define-skeleton ansys-do
+  "Insert a *do *enddo loop."
+  "Loop parameter [I]: "
+  "*do," str | "I" ","
+  (read-string "Start Value/Parameter [1]: ") | "1"
+  ","
+  (read-string "Finish Value/Parameter: ")
+  ","
+  (read-string "Increment Value/Parameter [1]: ") | "1" \n
+  > _ \n
+  "*enddo" > \n
+)
+
+;; (define-ansys-skeleton ansys-mp		;FIXME: skeleton a bit over the top
+;;   "Insert an if statement in the current format's syntax."
+;;   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
+;; 	  "MP," str ","
+;; 	  (read-string "Material Number: ")
+;; 	  ","
+;; 	  (read-string "Constant Value: ")
+;; 	  ","
+;; 	  (read-string "Linear Coefficient? : ")
+;; 	  ","
+;; 	  (read-string "Quadratic Coefficient? : ")
+;; 	  ","
+;; 	  (read-string "Cubic Coefficient? : ")
+;; 	  ","
+;; 	  (read-string "Quartic Coefficient? : ")
+;; 	  \n)
+;;   (mac . format))
+
+(define-skeleton ansys-mp		;FIXME: skeleton a bit over the top
   "Insert an if statement in the current format's syntax."
-  (format "Value/Parameter 1: "
-	  "*IF," str ","
-	  (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-	  ","
-	  (read-string "Value/Parameter 2: ")
-	  ","
-	  (read-string "Action: (:label,STOP,EXIT,CYCLE,THEN,otto) ") ;FIXME: remove otto!
-	  \n >_
-	  "*ENDIF"
-	  \n)
-  (mac . format))
-
-
-(define-ansys-skeleton ansys-if-then
-  "Insert an if statement in the current format's syntax."
-  (format "Value/Parameter 1: "
-	  "*IF," str ","
-	  (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-	  ","
-	  (read-string "Value/Parameter 2: ")
-	  ",THEN" \n
-	  > _ \n
-	  ("*ELSEIF? %s: "		;FIXME: here subskeleton!
-	   > "*ELSEIF," str ","
-	   (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-	   ","
-	   (read-string "Next Value/Parameter: ")
-	   ",THEN" \n
-	   > \n)
-	  "*ELSE" > \n
-	  > \n
-	  "*ENDIF" > \n)
-  (mac . format))
-
-(define-ansys-skeleton ansys-do
-  "Insert an if statement in the current format's syntax."
-  (format "Parameter: "
-	  "*DO," str ","
-	  (read-string "Start Value/Parameter: ")
-	  ","
-	  (read-string "Finish Value/Parameter: ")
-	  ","
-	  (read-string "Increment Value/Parameter: ") \n
-	  > _ \n
-	  "*ENDDO" > \n)
-  (mac . format))
-
-(define-ansys-skeleton ansys-mp		;FIXME: skeleton a bit over the top
-  "Insert an if statement in the current format's syntax."
-  (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
-	  "MP," str ","
-	  (read-string "Material Number: ")
-	  ","
-	  (read-string "Constant Value: ")
-	  ","
-	  (read-string "Linear Coefficient? : ")
-	  ","
-	  (read-string "Quadratic Coefficient? : ")
-	  ","
-	  (read-string "Cubic Coefficient? : ")
-	  ","
-	  (read-string "Quartic Coefficient? : ")
-	  \n)
-  (mac . format))
+  "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
+  "MP," str ","
+  (read-string "Material Number: ")
+  ","
+  (read-string "Constant Value: ")
+  ","
+  (read-string "Linear Coefficient? : ")
+  ","
+  (read-string "Quadratic Coefficient? : ")
+  ","
+  (read-string "Cubic Coefficient? : ")
+  ","
+  (read-string "Quartic Coefficient? : ")  \n
+  \n
+  )
 
 ;; Local Variables:
 ;; mode: outline-minor

@@ -1,67 +1,68 @@
 
-*** presentation
--- Very brief introduction: Emacs, why not?  Gnu Puplic Licens ->
-   Free, working on all current OSs.  All bells and whistle of a
-   modern editor (drop file into E), excellent documentation.  Chosen
-   because with Vim, Emacs is the best editor of all, but - especially
-   on Windows - programmed before Microsoft was even founded.
-   Drawbacks of Emacs, not adhering to established user interface
-   standards example: e. g. scroll-bar default location on linux on
-   the left,
+!! *** presentation
+!! -- Very brief introduction: Emacs, why not?  Gnu Puplic Licens ->
+!!    Free, working on all current OSs.  All bells and whistle of a
+!!    modern editor (drop file into E), excellent documentation.  Chosen
+!!    because with Vim, Emacs is the best editor of all, but - especially
+!!    on Windows - programmed before Microsoft was even founded.
+!!    Drawbacks of Emacs, not adhering to established user interface
+!!    standards example: e. g. scroll-bar default location on linux on
+!!    the left,
 
-   Splitting windows (no tab concept for buffers)
+!!    Splitting windows (no tab concept for buffers)
 
-   TAB, M-TAB keys, C-s, C-c, C-v, C-x, C-y, C-z CUA-mode examples:
-   (setq scroll-preserve-screen-position t) (delete-selection-mode t)
-   Workaround: use in the beginning mouse and buttons.
+!!    TAB, M-TAB keys, C-s, C-c, C-v, C-x, C-y, C-z CUA-mode examples:
+!!    (setq scroll-preserve-screen-position t) (delete-selection-mode t)
+!!    Workaround: use in the beginning mouse and buttons.
    
-   convenient pre-configured emacs archive with Ansys mode.
+!!    convenient pre-configured emacs archive with Ansys mode.
 
--- casual APDL file viewer (whetting the appetite)
-   convenience features? C-c C-v (not with big files)
-   syntax fontification, especially variable highlighting
-   Ansys menu
-   command-help   M-n/p M-?
-   code navigation (number blocks in .dat files) C-c {
+!! -- casual APDL file viewer (whetting the appetite)
+!!    convenience features? C-c C-v (not with big files)
+!!    syntax fontification, especially variable highlighting
+!!    Ansys menu
+!!    command-help   M-n/p M-?
+!!    code navigation (number blocks in .dat files) C-c {
 
--- APDL hacking(.mac)
-   mouse selection ->copy to clipboard
-   Emacs-calc
-      C-c C-u, C-c C-c
-   Ansys symbol completion and emacs expansion C-c ] -- -close-block
-   M-/ M-x abbrev-mode (list-abbrevs)
-   default (,) commands but most */ can't be "*repeated"
-   M-w (copies line)
-   commenting out
-   colon loop: e.g.: lfillt,(1:3),(2:4),Rad, lesize,(1:5:2),Esize
-   _return & _status values
-   preview C-c C-s (completion), insert skeletons
-   (alternatively abbrev mode?)
-   display user variables
-   *go not for interactive mode! -> *if *else *endif
-   selecting blocks C-M-a/b setting mark!
-   loading help navigator
-   display license status	-license-status C-c C-l
+!! -- APDL hacking(.mac)
+!!    mouse selection ->copy to clipboard
+!!    Emacs-calc
+!!       C-c C-u, C-c C-c
+!!    Ansys symbol completion and emacs expansion C-c ] -- -close-block
+!!    M-/ M-x abbrev-mode (list-abbrevs)
+!!    default (,) commands but most */ can't be "*repeated"
+!!    M-w (copies line)
+!!    commenting out
+!!    colon loop: e.g.: lfillt,(1:3),(2:4),Rad, lesize,(1:5:2),Esize
+!!    _return & _status values
+!!    preview C-c C-s (completion), insert skeletons
+!!    (alternatively abbrev mode?)
+!!    display user variables
+!!    *go not for interactive mode! -> *if *else *endif
+!!    selecting blocks C-M-a/b setting mark!
+!!    loading help navigator
+!!    display license status	-license-status C-c C-l
 
--- hardcore Ansys/APDL user <- Linux Notebook/machine
-   switch off menu, tools, scroll-bar
-   Ansys mode help: C-h m, selfdocumenting features
-   online Ansys/Emacs process and debugging environment
-   interactive C-c C-u, C-c C-c,  C-c C-q
-   tail mode of *.err C-c C-e
-   abort file
-   positions -> in bookmarks/registers/clone buffer?
-   C-c @ outline stuff with indirect-buffer
-   Dired (textual renaming), speedbar, calendar
-   loading time: emacsclient alias "e"
-   shell-, config-mode, emacsclient, terminal-, ssh-support
-   C-S-backspace, basically the same keyboard shortcuts like bash
+!! -- hardcore Ansys/APDL user <- Linux Notebook/machine
+!!    switch off menu, tools, scroll-bar
+!!    Ansys mode help: C-h m, selfdocumenting features
+!!    online Ansys/Emacs process and debugging environment
+!!    interactive C-c C-u, C-c C-c,  C-c C-q
+!!    tail mode of *.err C-c C-e
+!!    abort file
+!!    positions -> in bookmarks/registers/clone buffer?
+!!    C-c @ outline stuff with indirect-buffer
+!!    Dired (textual renaming), speedbar, calendar
+!!    loading time: emacsclient alias "e"
+!!    shell-, config-mode, emacsclient, terminal-, ssh-support
+!!    C-S-backspace, basically the same keyboard shortcuts like bash
    
-Conclusion/Summary?
+!! Conclusion/Summary?
 
 
 !mouse copy and paste on Windows the same on Linux!
 fini $ /clear
+
 /prep7
 
 *afun,deg

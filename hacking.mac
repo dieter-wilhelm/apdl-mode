@@ -29,7 +29,7 @@
 !!    Emacs-calc
 !!       C-c C-u, C-c C-c
 !!    Ansys symbol completion and emacs expansion C-c ] -- -close-block
-!!    M-/ M-x abbrev-mode (list-abbrevs)
+!!    M-/, M-x abbrev-mode (list-abbrevs 1) display locally
 !!    default (,) commands but most */ can't be "*repeated"
 !!    M-w (copies line)
 !!    commenting out
@@ -101,7 +101,7 @@ I
 !commenting out, code comments M-j
 !Marking blocks: C-M-h  
 
-!abbrev `d
+!abbrev `d do i if
 
 d
  

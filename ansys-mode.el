@@ -751,22 +751,21 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 (defconst ansys-mode-menu
   (list "Ansys"
 	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
-	["Complete Symbol"          ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
-	["Send/Copy Code Line/Region" ansys-send-to-ansys :label (if (ansys-process-running-p)
-"Send Code Line/Region to Ansys"
-"Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
-	["Copy/Send above Code (to Ansys)" ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
+	["Complete Symbol"              ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
+	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to Ansys" "Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
+	["Copy/Send above Code (to Ansys)"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
-	["Preview Macro Template"        ansys-display-skeleton :help "Preview macro templates in another window"]
+	["Preview Macro Template"       ansys-display-skeleton :help "Preview macro templates in another window"]
 	"-"
 	(list "Insert Template"
-	      ["Insert Pi"                    ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
-	      ["*IF ... *ENDIF"     ansys-if :help "Insert interactively an *if .. *endif construct"]
-	      ["*DO ... *ENDDO"	        ansys-d :help "Insert interactively a *do .. *enddo loop"]
-	      ["*IF ,THEN *ELSEIF"	ansys-if-then :help ]
-	      [" MP "	                ansys-mp :help "Insert interactively an mp statement."]
-	      ["Header"                 ansys-skeleton-header :help "File header template"]
+	      ["*IF ... *ENDIF"         ansys-if :help "Insert interactively an *if .. *endif construct"]
+	      ["*DO ... *ENDDO"	        ansys-do :help "Insert interactively a *do .. *enddo loop"]
+	      ["*IF ... *ELSEIF"	ansys-if-then :help "Insert interactively an *if,then .. (*elseif .. *else ..) *endif construct."]
+	      ["MP"	                ansys-mp :help "Insert interactively an mp statement."]
+	      ["Header"                 ansys-skeleton-header :help "Insert interactively the file header template"]
+	      "-"
+	      ["Insert Pi"              ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
 	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
 	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
 	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
@@ -775,34 +774,34 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
 	      ["Symbol Controls" ansys-skeleton-symbols :help "Graphic commands which show boundary conditions, surface loads and other symbols"]
 	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
-	      ["Control flow constructs"  ansys-skeleton-looping :help "Commands for controlling loops (*do, ...) and the program flow (*if, ...)"]
+	      ["Control flow constructs"ansys-skeleton-looping :help "Commands for controlling loops (*do) and the program flow (*if)"]
 	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
 	      ["Element Definitions"    ansys-skeleton-element-def :help "2D, 3D, Element defintions and their keyoptions"]
 	      ["Material Definitions"   ansys-skeleton-material-def :help "Various material definitions: Steel, alu, rubber, ..."]
 	      ["Modeling" ansys-skeleton-geometry :help "Operations for geometric modeling"]
 	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
-	      ["Contact Pair Definition"           ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
+	      ["Contact Pair Definition" ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
 	      ["Rigid Target"           ansys-skeleton-rigid-target :help "Full definition of rigid-flexible contact pairs"]
 	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
 	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
-	      ["Listings, Information, Statistics" ansys-skeleton-information :help "Parameter listings, graphics, system information, run statistics"]
-	      ["Solving"                  ansys-skeleton-solve :help "Ansys interpreter commands and options"]
-	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor commands"]
-	      ["Array Operations" ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
+	      ["Listings, Information, Statistics"ansys-skeleton-information :help "Parameter listings, graphic options, system information, run statistics"]
+	      ["Solving"                ansys-skeleton-solve :help "Ansys solver (/solu) commands and solver options"]
+	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor (/post1) commands"]
+	      ["Array Operations"       ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
 	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
-	      ["Output to file"         ansys-skeleton-output-to-file :help "Command for writing data to a file"]
+	      ["Output to file"         ansys-skeleton-output-to-file :help "Commands for writing data to a file"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
-	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history postprocessing commands"]
+	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
 	      "-"
-	      ["Template compilation" ansys-skeleton :help "Insert a compilation of often used templates"]
+	      ["Template compilation"   ansys-skeleton :help "Insert a compilation of most often used templates"]
 	      )
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
 	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
 	      ["Beginning of (Continuation) Command" ansys-command-start :help "Go to the beginning of the current command"]
-	      ["End of (Continuation) Command"	ansys-command-end :help "Go to the end of the current command"]
+	      ["End of (Continuation) Command"ansys-command-end :help "Go to the end of the current command"]
 	      "-"
-	      ["Split Format Line at Point"	ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an Ansys format line insert the continuation character before splitting the line"]
+	      ["Split Format Line at Point"ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an Ansys format line insert the continuation character before splitting the line"]
 	      )
 	(list "Work with Logical Blocks"
 	      ["Next Block End"		ansys-next-block-end :help "Go to the end of the current or next control block (*do, *if, ...)"]
@@ -811,60 +810,60 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
 	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
 	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
-	      ["Beginning of N. Block" ansys-number-block-start :help "Go to the beginning of an Ansys number block (EBLOCK, NBLOCK)"]
+	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an Ansys number block (EBLOCK, NBLOCK)"]
 	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an Ansys number block (EBLOCK, NBLOCK)"]
 	      "-"
-	      ["Close Block"                  ansys-close-block :help "Close the current Ansys control block with the respective closing command"]
-	      ["Mark Block"              ansys-mark-block :help "Mark the current control block"]
+	      ["Close Block"            ansys-close-block :help "Close the current Ansys control block with the respective closing command"]
+	      ["Mark Block"             ansys-mark-block :help "Mark the current control block"]
 	      )
 	(list "Manage Ansys Tasks"
-	      ["Specify License Server or - File"   ansys-license-file
+	      ["Specify License Server or - File"ansys-license-file
 	      :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (with port) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
 	      "-"
 	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
-	      ["Specify Ansys Executable " ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run" ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active (ansys-process-running-p)]
-	      ["Exit Ansys Run" ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
+	      ["Specify Ansys Executable "ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Start Ansys Run"        ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
+	      ["Display Ansys Run Status"ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active (ansys-process-running-p)]
+	      ["Exit Ansys Run"         ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
 	      "-"
-	      ["Send Ansys Command Interactively" ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
-	      ["Start Graphics Screen" ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
-	      ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
-	      ["Replot" ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
-	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
-	      ["Zoom In" ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
-	      ["Zoom Out" ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
-	      ["Move Up" ansys-move-up :help "Move graphics objects up" :active (ansys-process-running-p)]
-	      ["Move Down" ansys-move-down :help "Move graphics objects down" :active (ansys-process-running-p)]
-	      ["Move Right" ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
-	      ["Move Left" ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
+	      ["Send Ansys Command Interactively"ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
+	      ["Start Graphics Screen"  ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
+	      ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
+	      ["Replot"                 ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
+	      ["Fit Graphics into screen"ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
+	      ["Zoom In"                ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
+	      ["Zoom Out"               ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
+	      ["Move Up"                ansys-move-up :help "Move graphics objects up" :active (ansys-process-running-p)]
+	      ["Move Down"              ansys-move-down :help "Move graphics objects down" :active (ansys-process-running-p)]
+	      ["Move Right"             ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
+	      ["Move Left"              ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
 	      "-"
-	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
-	      ["Display Ansys Error File" ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
+	      ["Display all Emacs' Processes"list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
+	      ["Display Ansys Error File"ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
 	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
 	      "-"
-	      ["Kill Ansys Run" ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
+	      ["Kill Ansys Run"        ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
 	      )
 	"-"
-	["Show Ansys Command Help"      ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
-	["Start Ansys help system" ansys-start-ansys-help :help "Start the Ansys help browser"]
-	["Display Variable Definitions" ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
-	["License Status" ansys-license-status :label (if ansys-is-unix-system-flag
+	["Show Ansys Command Help"     ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
+	["Start Ansys help system"     ansys-start-ansys-help :help "Start the Ansys help browser"]
+	["Display Variable Definitions"ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
+	["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
 	     "Display License Status"
 	   "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
-	["Insert Temporary Ruler"         ansys-column-ruler :help "Show a temporary ruler above the current line"]
-	[ "Outline Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevels"]
-	[ "Show Paren Mode"         show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
-	[ "Delete Selection Mode"         delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
+	["Insert Temporary Ruler"      ansys-column-ruler :help "Show a temporary ruler above the current line"]
+	[ "Outline Mode"               outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevels"]
+	[ "Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
+	[ "Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Show Ansys Mode version"  ansys-mode-version :label (concat "Ansys Mode Version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
-	["List Mode Abbreviations" list-abbrevs :help "Display a list of all abbreviation definitions for Ansys mode"]
-	["Ansys Mode Help"		describe-mode :help "Open a window with a description of Ansys mode"]
-	["Customise Ansys Mode"         (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
-	["Ansys Mode Bug Report"            ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
-	["Reload Ansys Mode" ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
+	["Show Ansys Mode version"     ansys-mode-version :label (concat "Ansys Mode Version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
+	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for Ansys mode"]
+	["Ansys Mode Help"	       describe-mode :help "Open a window with a description of Ansys mode"]
+	["Customise Ansys Mode"        (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
+	["Ansys Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
+	["Reload Ansys Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
 	"-"
 	["Exit Ansys Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
   "Menu items for the Ansys mode.")
@@ -2211,9 +2210,24 @@ Note that all Ansys mode abbrevs start with a grave accent."
     (insert last-command-event)
     (if (or (eq (setq c (read-event)) ??)
 	    (eq c help-char))
-	(let ((abbrev-table-name-list '(ansys-mode-abbrev-table)))
-	  (list-abbrevs))
+	(list-abbrevs t)
       (setq unread-command-events (list c))))) ;)
+
+
+;; redefine function because of bug in Emacs 23.2 squashed in 23.3
+(defun prepare-abbrev-list-buffer (&optional local)
+  (let ((l-a-t-n  (abbrev-table-name local-abbrev-table)))
+   (with-current-buffer (get-buffer-create "*Abbrevs*")
+    (erase-buffer)
+    (if local
+        (insert-abbrev-table-description l-a-t-n t)
+      (dolist (table abbrev-table-name-list)
+        (insert-abbrev-table-description table t)))
+    (goto-char (point-min))
+    (set-buffer-modified-p nil)
+    (edit-abbrevs-mode)
+    (current-buffer))))
+
 
 (defun ansys-indent-format-line ()
   "Break Ansys line at point, continuing comment if within one.
@@ -2662,18 +2676,18 @@ Signal an error if the keywords are incompatible."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (unless ansys-mode-abbrev-table
-  (let ((ac abbrevs-changed)) ;no offer to save unnecessary .abbrev_defs
+  (let ((ac abbrevs-changed)) ;inhibit offer to save .abbrev_defs
     (define-abbrev-table 'ansys-mode-abbrev-table ())
     (define-abbrev ansys-mode-abbrev-table
-      "`i" "*if,I,lt,0,then\n\n!! *elseif,I,gt,10\n!! *else\n*endif\n"
-      '(lambda () (previous-line 4)(indent-according-to-mode)))
+      "`i" ""      'ansys_if)
     (define-abbrev ansys-mode-abbrev-table
-      "`d" "*do,I,1,10,1\n\n!*cycle\n*enddo\n" '(lambda () (previous-line 3)(indent-according-to-mode)))
+      "`d" ""      'ansys_do)
     (define-abbrev ansys-mode-abbrev-table "`p" "" 'ansys-insert-pi)
-    (define-abbrev ansys-mode-abbrev-table "`ii" "" 'ansys_if)
-    (define-abbrev ansys-mode-abbrev-table "`dd" "" 'ansys_do)
-    (define-abbrev ansys-mode-abbrev-table "`e" "/eof ------------------\n" '(lambda () (indent-according-to-mode)))
-    (define-abbrev ansys-mode-abbrev-table "`c" "!! ====================\n" '(lambda () (indent-according-to-mode)))
+    (define-abbrev ansys-mode-abbrev-table "`if" "" 'ansys-if)
+    (define-abbrev ansys-mode-abbrev-table "`ie" "" 'ansys-if-then)
+    (define-abbrev ansys-mode-abbrev-table "`do" "" 'ansys-do)
+    (define-abbrev ansys-mode-abbrev-table "`e" "/eof ----------------------------------------\n" '(lambda () (indent-according-to-mode)))
+    (define-abbrev ansys-mode-abbrev-table "`c" "!! ========================================\n" '(lambda () (indent-according-to-mode)))
     (setq abbrevs-changed ac))) ;reset `abbrevs-changed' to previous state
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

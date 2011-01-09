@@ -1758,7 +1758,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 ;;   (mac . format))
 
 (define-skeleton ansys-if-then
-  "Insert an if statement in the current format's syntax."
+  "Insert an *if,then .. (*elseif .. *else ..) *endif construct."
   "Value/Parameter 1 [I]: "
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "

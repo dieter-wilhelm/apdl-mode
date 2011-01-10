@@ -880,6 +880,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tunif,30 !uniform temperature (default step applied!)" \n
   "bf,all,temp,30 !bfe,bfk,bfl,bfa,bfv" \n
   "bflist,all !list body loads" \n
+  "!! e. g.: as harmonic acceleration load" n
+  "*dim,mytab,table,3,1,,freq" \n
+  "mytab(1,0)=5,12,100" \n
+  "mytab(1,1)=100e3,30e3,10e3" \n
   \n
   "!@@@ - inertia relief -" \n
   \n

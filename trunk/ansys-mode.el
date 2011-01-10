@@ -379,6 +379,11 @@ Ruler strings are displayed above the current line with
   "Narrow ruler string.
 Ruler strings are displayed above the current line with \\[ansys-column-ruler].")
 
+(add-to-list 'insert-pair-alist '(?\* ?\*))
+(add-to-list 'insert-pair-alist '(?\$ ?\$))
+(add-to-list 'insert-pair-alist '(?\% ?\%))
+
+
 (defconst ansys-mode-map		;_C
   (let ((map (make-sparse-keymap)))
     (define-key map "`" 'ansys-abbrev-start) ;``?' lists abbrevs
@@ -412,13 +417,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c}" 'ansys-number-block-end)
     (define-key map "\C-c{" 'ansys-number-block-start)
     ;; --- pairs
-    (define-key map [?\M-\"] 'insert-pair) ; needs insert-pair-alist in a
+    (define-key map [?\M-\"] 'insert-pair)
     (define-key map "\C-c[" 'insert-pair)
     (define-key map "\C-c'" 'insert-pair)
     (define-key map "\C-c%" 'insert-pair)
-    (define-key map [?\C-c?\C-%] 'insert-pair)
-    (define-key map [?\C-c?\C-[] 'insert-pair)
-    (define-key map [?\C-c?\C-'] 'insert-pair)
+    ;; (define-key map [?\C-c?\C-%] 'insert-pair)
+    ;; (define-key map [?\C-c?\C-[] 'insert-pair)
+    ;; (define-key map [?\C-c?\C-'] 'insert-pair)
     ;; --- miscellaneous ---
     (define-key map [?\C-c?\C-+] 'ansys-zoom-in)
     (define-key map [?\C-c?\C--] 'ansys-zoom-out)
@@ -1019,7 +1024,9 @@ comment."
   "Support for working with Ansys FEA.
 The documentation is targeted at users with little Emacs
 experience, the sections which deal with specific mode features
-are indicated with '**' at the beginning.
+are indicated with two asterisks (**) at the beginning.  Input as
+keyboard sequence is indicated in quotation marks (\"), the
+actual keys are quoted with <>.
 
 == Contents ==
 
@@ -1032,76 +1039,82 @@ are indicated with '**' at the beginning.
 == Introduction ==
 
 In Emacs it is not only possible to run a certain command, let's
-say `ansys-start-ansys-help' from Ansys entries in Emacs' menu
-bar or with keyboard shortcuts (here: \\[ansys-start-ansys-help])
-but additionally from the so called minibuffer.  This
-'interactive' option remains the only one if you have not yet
-activated Ansys mode or you are currently inspecting a file which
-is not intended for this mode.  Then neither Ansys menu nor
-keyboard shortcuts for Ansys mode commands are available.  You
-can cancel the minibuffer, and the command by typing `C-g',
-i. e. pressing the CTRL key and then the 'g' key at the same
-time.
+say `ansys-start-ansys-help', from entries in Emacs' Ansys menu
+bar or with keyboard shortcuts (here:
+\"\\[ansys-start-ansys-help]\") but additionally from the so
+called minibuffer.  This 'interactive' option remains the only
+one if you have not yet activated Ansys mode or you are currently
+inspecting a file which is not intended for this mode.  Then
+neither the Ansys menu nor keyboard shortcuts for Ansys mode
+commands are available.
 
-To run a command by its name, start with 'M-x', ('M-x' means
-holding down the 'ALT' key while pressing the 'x' key, in case
-your Unix window manager intercepts this key combination type
-'ESC' then 'x' instead) the cursor will skip to the minibuffer,
-there type 'ansys-start-ansys-help', then terminate it with the
-RET key.  The auto-completion feature of the minibuffer might
-save you some typing: Just enter the beginning characters of
-commands and then press the TAB key.
+To run `ansys-start-ansys-help' by its function name, start with
+\"M-x\", ('M-x' means holding down the <ALT> key while pressing
+the <x> key (in case your window manager is intercepting this key
+combination type <ESC> then <x> instead) the cursor will skip to
+the minibuffer, there type \"ansys-start-ansys-help\", then
+terminate it with the <RET> key.  The 'auto-completion' feature
+of the minibuffer might save you some typing: Just enter the
+first characters and then press the <TAB> key.
+
+All functions described in this help, regardless whether
+possessing a keyboard shortcut or not, can be called in this way
+or they are to be found in the Ansys menu.
 
 Above procedure has the same effect as typing
-'\\[ansys-start-ansys-help]' for a file in Ansys mode ('C-c C-a'
-means holding down the CTRL key and the respective characters for
-the command `ansys-start-ansys-help').  All functions described
-in this help, regardless whether possessing a keyboard shortcut
-or not, can be called in this way or they are to be found in the
-Ansys menu.
+\"\\[ansys-start-ansys-help]\" for a file in Ansys mode ('C-c
+C-a' means while holding down the <CTRL> key typing the
+respective characters ('c' then 'a') for
+`ansys-start-ansys-help').
 
-A mouse click or typing the RET key, when the cursor is on the
+A mouse click or typing the <RET> key, when the cursor is on the
 underlined hyperlinks (you can also skip to these links with the
-TAB key) will display their respective help strings (or typing
-RETURN when the cursor is over these links).
+<TAB> key) will display their respective help strings (or typing
+<RETURN> when the cursor is over these links).
+
+You can cancel the minibuffer command by typing
+\"C-g\" (`keyboard-quit'), i. e. pressing the <CTRL> key and then
+the <g> key at the same time.
 
 == Usage ==
 
 ** Ansys command syntax help **
 
-Typing '\\[ansys-show-command-parameters]', the 'CTRL' key
-simultaneously with the 'c' key and then the question mark (for
-command `ansys-show-command-parameters') displays above a code
-line a brief description of the Ansys command and its syntax.
-The command is looking for the next valid Ansys command near the
-cursor or when using a prefix argument it inquires an Ansys
-command name.
+Typing \"\\[ansys-show-command-parameters]\", the <CTRL> key
+simultaneously with the <c> key and then \"?\" the question
+mark (for the command `ansys-show-command-parameters') displays
+above a code line a brief description of the Ansys command and
+its syntax.  The command is looking for the next valid Ansys
+command near the cursor or when using a prefix argument it
+inquires an Ansys command name.
 
 ** Ansys keyword completion (commands, elements, get- and
    parametric-functions) **
 
 Type the first letter or letters of an Ansys command, function or
-element name and use the key binding '\\[ansys-complete-symbol]'
-to let the function `ansys-complete-symbol' do the (case
-sensitve) completion for you.  Depending on the case of your
-letter or letters to be completed, you will get a downcased,
-upcased or capitalised completion.
+element name and use the key binding
+\"\\[ansys-complete-symbol]\" to let the function
+`ansys-complete-symbol' do the (case sensitve) completion for
+you.  Depending on the case of your letter or letters to be
+completed, you will get a downcased, upcased or capitalised
+completion.
 
 There are nearly 2000 Ansys symbols available for completion.
 Undocumented Ansys commands and deprecated element types are also
-completed.  The former are identified as such in their command
-syntax help and the later are exposed with a different
-highlighting. Please have a look at the variable
-`ansys-deprecated-element-alist' it's an association list with
-the deprecated elements and their respective replacments (for
-inspecting its content please click on the hyperlink or type 'C-h
-v' and then type the mentioned variable name).
+completed.  The former are identified as such with a different
+highlighting in the 'command syntax help'.  Please have a look at
+the variable `ansys-deprecated-element-alist' it's an association
+list with the deprecated elements and their respective
+replacments (for inspecting its content please click on above
+hyperlink or type \"C-h v\" and then input the respective
+variable).
 
-When the character combination before the cursor is not
-unambiguous a completion list is shown, selecting the suitable
-word from the list either with the cursor over the symbol and
-typing \"RET\" or clicking with the mouse is completing the
-symbol.  Hitting the SPACE key removes the listing window.
+Using the <TAB> key you might complete the name, when the
+character combination before the cursor is not unambiguous a
+completion list is then shown, selecting the suitable word from
+the list, either by navigation the cursor over the symbol and
+typing <RET> or clicking with the mouse is completing the symbol.
+Hitting the <SPACE> key removes the listing window.
 
 ** Auto-indentation of looping and conditional blocks **
 
@@ -1114,84 +1127,88 @@ sessions.
 ** Closing of open control blocks (*do, *if, ...) with the
    insertion of appropriate end keywords **
 
-Typing '\\[ansys-close-block]' for `ansys-close-block' completes
-the current Ansys block with the insertion of a newline and an
-appropriate end keyword.
+Typing \"\\[ansys-close-block]\" for `ansys-close-block'
+completes the current Ansys block with the insertion of a newline
+and an appropriate end keyword.
 
 ** Code navigation with extended keyboard shortcuts: Code lines,
    number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc. **
 
-\\[ansys-next-code-line] -- `ansys-next-code-line'
-\\[ansys-previous-code-line] -- `ansys-previous-code-line'
-
-Are going to the next/previous code line, skipping intermediate
+\"\\[ansys-next-code-line]\" -- `ansys-next-code-line' and
+\"\\[ansys-previous-code-line]\" -- `ansys-previous-code-line'
+are going to the next/previous code line, skipping intermediate
 comments and empty lines.
 
 The following block navigation commands are analogous to Emacs'
 inbuilt list/sexp navigiation.
 
-\\[ansys-next-block-end] -- `ansys-next-block-end'
-\\[ansys-previous-block-start-and-conditional] -- `ansys-previous-block-start-and-conditional'
-
+\"\\[ansys-next-block-end]\" -- `ansys-next-block-end'
+\"\\[ansys-previous-block-start-and-conditional]\" --
+`ansys-previous-block-start-and-conditional'
 Above commands are skipping to the next/previous block end/start
 keyword regardless where you are already in the block structure.
-\\[ansys-previous-block-start-and-conditional] for
+\"\\[ansys-previous-block-start-and-conditional]\" for the function
 `ansys-previous-block-start-and-conditional' finds also *IF
-commands without bases of the keyword THEN; furthermore *CYCLE
+commands without bases of the keyword 'THEN'; furthermore *CYCLE
 and *EXIT looping controls.  These provide APDL constructs but
 represent no block depth and therefore are not considered when
 applying the following navigation commands.
 
-\\[ansys-skip-block-forward] -- `ansys-skip-block-forward'
-\\[ansys-skip-block-backwards] -- `ansys-skip-block-backwards'
+\"\\[ansys-skip-block-forward]\" -- `ansys-skip-block-forward'
+\"\\[ansys-skip-block-backwards]\" -- `ansys-skip-block-backwards'
 
 Are looking for and skipping over a complete block (at the
 current block level, skipping possibly over deeper block
 structures).
 
-\\[ansys-up-block] -- `ansys-up-block'
-\\[ansys-down-block] -- `ansys-down-block'
+\"\\[ansys-up-block]\" -- `ansys-up-block'
+\"\\[ansys-down-block]\" -- `ansys-down-block'
 
 Are searching for and skipping up/down a block structure from the
 current block level.
 
-\\[ansys-number-block-start] -- `ansys-number-block-start'
-\\[ansys-number-block-end] -- `ansys-number-block-end'
+\"\\[ansys-number-block-start]\" -- `ansys-number-block-start'
+\"\\[ansys-number-block-end]\" -- `ansys-number-block-end'
 
-Are searching for and skipping over \"pure\" number blocks, these
+Are searching for and skipping over 'pure' number blocks, these
 are common (and quite large) in WorkBench interpreter
-input (.inp, .dat) files.
+input (*.inp, *.dat) files.
 
 Moreover there are keyboard shortcuts with which you are able to
-input pairs of corresponding characters, like \"C-c %\" for the
-input of '%%', the Ansys substitution operators.  Please have a
-look for the Emacs function `insert-pair' and in the keybinding
-section below.
+input pairs of corresponding characters, like \"C-c %\" for '%%',
+the Ansys substitution operators.  The advantage is that the
+cursor is place between the pair and you might give a numerical
+argument to the call and enclose already existing words with the
+pair, e. q. \"C-1 C-c %\".  Please have a look for `insert-pair'
+and see below in the keybindings section.
 
 ** Sophisticated highlighting (optionally: User variables) **
 
 The highlighting in the highest decoration level (please refer to
 `ansys-highlighting-level') tries to follow the idiosyncratic
-Ansys interpreter logic as closely as possible.  For example: '
-*' is still a valid Ansys comment string (although deprecated,
-See the Ansys manual for the *LET command).  The fontification
-distinguishes between Ansys commands, undocumented commands,
-parametric- and get-functions, elements and deprecated elements.
-In case of arbitrary characters after the command names, they are
-still highlighted, since these characters are ignored by the
-Ansys intepreter.
+Ansys interpreter logic as closely as possible.  For example: '* ',
+an asterisk with following whitespace(s), is still a valid Ansys
+comment operator (although deprecated, see the Ansys manual for
+the *LET command).
+
+The fontification distinguishes between Ansys commands,
+undocumented commands, parametric- and get-functions, elements
+and deprecated elements.  In case of arbitrary characters after
+the command names, they are still highlighted, since these
+characters are ignored by the Ansys intepreter.
 
 Macro variables beginning with an underscore might be Ansys
 reserved variables and therefore are higlighted in a warning
 face.  Another example is the Ansys the percent sign, its
 highlighting reminds you that the use of such a pair around a
 parameter name might force a parameter substitution, e. g. with
-the assignment 'I=5', 'TEST%I%' returns TEST5.
+the assignment 'I=5' and '/com,TEST%I%', the /com command outputs
+TEST5.
 
 In the context of pairs of '%' characters, you can also input
 various pairs with keyboard shortcuts, e. g. apostrophies for
-Ansys character parameters with 'C-c '', please have a look which
-bindings are available with \\[describe-bindings] (for
+Ansys character parameters with \"C-c '\", please have a look
+which bindings are available with \"\\[describe-bindings]\" (for
 `describe-bindings').
 
 The format strings of *MSG, *MWRITE, *VWRITE and *VREAD are also
@@ -1237,8 +1254,8 @@ edited variable definitions are taken into account only when the
 variable `ansys-dynamic-highlighting-flag' is set (for very large
 files this slows Emacs and therefore the flag is only effective
 for files ending in '.mac') or every times you activating the
-variable display (with \\[ansys-display-variables], see below) in
-the maximum highlighting level.
+variable display (with \"\\[ansys-display-variables]\", see
+below) in the maximum highlighting level.
 
 ** Compilation for all definitions (*GET, *DIM, **SET, = and DO,
   ...) for APDL variables and component names **
@@ -1246,29 +1263,31 @@ the maximum highlighting level.
 Typing \"\\[ansys-display-variables]\" (for `ansys-display-variables')
 shows all definitions in your APDL file in a separate window.
 
-You might remove the additional \"*Ansys-variables*\" window with
-\"\\[ansys-delete-other-window]\" (`ansys-delete-other-window').
+You might remove '*Ansys-variables*' window with \"\\[ansys-delete-other-window]\" (`ansys-delete-other-window').
 
-When you place the cursor on the respecitive line number and type
-'C-u M-g g' (C-u is a 'prefix' argument to M-g `goto-line').
-Emacs will then skip to the corresponding defintion line in the
-macro file.
+When you place the cursor on the respective line number and type
+\"C-u M-g g\", where 'C-u' is a 'prefix' argument to 'M-g
+g' (`goto-line')).  Emacs will then skip to the corresponding
+defintion line in the macro file.
 
 ** Use of the Emacs abbreviation facility for block templates **
 
-E.g. typing \"`dd\" and SPC in an Ansys mode buffer triggers the
-insertion of an Emacs skeleton for a *Do loop.  (\"`d\" is a
-abbreviated version of it without user input.)  You can see all
-the predefined abbreviations with the Emacs command 'M-x
-list-abbrevs RET', alternatively type a '?' after the \"`\".
+E.g. typing \"`do\" (the backquote '`' then 'do') and the space
+key <SPC> under Ansys mode triggers an interactive code template
+which inserts a *DO loop.  \"`d\" (then <SPC>) is a more
+immediate version of it without requesting user input.  You can
+see all the predefined abbreviations with \"`?\", i. e. a
+question mark '?'  after the backquote '`'.  Alternatively you
+might use the Emacs command \"M-x list-abbrevs RET\" to inspect
+all definitions which Emacs knows.
 
 ** Outlining (hiding) of code sections **
 
-You might call the Outline Minor Mode with 'M-x
-outline-minor-mode' or you could enable this mode permanently by
-ticking on the option `ansys-outline-minor-mode' in the
-`ansys-mode-hook' variable.  Either type 'M-x
-ansys-customise-ansys RET' or use the menu entries: ->Ansys
+You might call the Outline Minor Mode with \"M-x
+outline-minor-mode\" or you could enable this mode permanently by
+ticking on the option `ansys-outline-minor-mode' for the
+`ansys-mode-hook' variable.  Either by typing \"M-x
+ansys-customise-ansys RET\" or use the menu bar: ->Ansys
 ->Customise Ansys Mode.
 
 Then you can hide certain sections of your code or navigate to
@@ -1285,36 +1304,36 @@ possibilities are there for your convenience.
 ** Convenient comment handling, commenting/un- of whole
    paragraphs **
 
-- '\\[comment-dwim]' calls `comment-dwim' (Do What I Mean ;-):
+- \"\\[comment-dwim]\" calls `comment-dwim' (Do What I Mean ;-):
 
 In a code line: This command inserts comment char
 `ansys-indent-comment-string' at `ansys-code-comment-column' (if
 feasible, i. e. the code line is not too long).  With a prefix
 argument: Kill existing code comment.
 
-With an active region: Commenting out (`comment-region') or
+With an highlighted region: Commenting out (`comment-region') or
 Uncommenting (`uncomment-region') that region.
 
-In an empty line: Insert '!!\ ' at the current indentation.
+In an empty line: Inserts '!! ' with the right indentation.
 
-- '\\[indent-new-comment-line]' (or 'M-j' -- calls
-  `indent-new-comment-line')
+- \"\\[indent-new-comment-line]\" (or \"M-j\", calls
+  `indent-new-comment-line').
 
-Breaks a code comment and inserts a single
+Breaks a code comment and inserts a single exclamation mark
 '!' (`ansys-comment-char') at column
 `ansys-code-comment-column' (if possible).
 
 In comment lines '!! ' with two comment
-chars (`ansys-indent-comment-string') break the comment and begin
-a the same comment style at the the current indentation.
+characters (`ansys-indent-comment-string') breaks the comment and
+begins a the same comment style at the the current indentation.
 
 In an empty line or a line without comment: Just inserts a new
 line.
 
 ** Auto-insertion of code templates into new APDL files **
 
-See `ansys-skeleton-compilation' (type 'M-x
-ansys-skeleton-compilation RET' to insert a collection of some
+See `ansys-skeleton-compilation' (type \"M-x
+ansys-skeleton-compilation RET\" to insert a collection of some
 code templates).
 
 Include the following lisp expressions in your .emacs file, in
@@ -1326,69 +1345,70 @@ file.
       (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
 
 You are able to preview the various code templates with
-'\\[ansys-display-skeleton]' (for `ansys-display-skeleton') doing
-this you might type 'TAB' to complete the available skeleton
-names.
+\"\\[ansys-display-skeleton]\" (for `ansys-display-skeleton'),
+doing this you might type <TAB> to complete the available
+skeleton names.
 
 ** Ansys process management **
 
 - Ansys mode writes for you an Ansys stop file in the current
   directory (the file name is compiled from the variable
   `job-name' and the extension '.abt'). You can do this with
-  \\[ansys-write-abort-file] (`ansys-write-abort-file', you might
-  previously use the Emacs command `M-x cd' to change the current
-  directory).  This stop file is halting a running calculation in
-  an orderly, re-startable fashion.
+  \"\\[ansys-write-abort-file]\" (`ansys-write-abort-file', you
+  might previously use the Emacs command 'cd' (\"M-x cd\") to
+  change the current directory).  This stop file is halting a
+  running calculation in an orderly, re-startable fashion.
 
 - You are able to view the Ansys error file (a file consisting of
   the `job-name' and the suffix '.err' in the current directory)
-  with \\[ansys-display-error-file] (this calls
+  with \"\\[ansys-display-error-file]\" (this calls
   `ansys-display-error-file').  The error file is opened in read
   only mode (see `toggle-read-only') and with the minor mode
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current Ansys output visible.
 
 - You can start the Ansys help browser from Emacs
-  '\\[ansys-start-ansys-help]' (for `ansys-start-ansys-help').
+  \"\\[ansys-start-ansys-help]\" (for `ansys-start-ansys-help').
 
 - For displaying the available licenses (in another Emacs window)
-  please use '\\[ansys-license-status]' (for
+  please use \"\\[ansys-license-status]\" (for
   `ansys-license-status').
 
 If you haven't installed Ansys in the default locations and the
 executables are not in your system search path or you are using a
 different Ansys version than '130' it is necessary for the last
-two capabilities to customise some variables either with the
-Emacs customisation facility (M-x `ansys-customise-ansys' or from
-the menu bar -> 'Ansys' -> 'Customise Ansys Mode' ->
-'Ansys-process' and look there for the variables 'Ansys License
-File', 'Ansys Util Program' and 'Ansys Help Program' as well as
-'Ansys Help Program Parameters') or set the variables directly in
-your .emacs file.  Please have a look in the accompanying README
-and default_el customisation file example.
+two capabilities to customise some variables either calling the
+Emacs customisation facility `ansys-customise-ansys' or from the
+menu bar -> 'Ansys' -> 'Customise Ansys Mode' -> 'Ansys-process'
+and look there for the variables 'Ansys License File', 'Ansys
+Util Program' and 'Ansys Help Program' as well as 'Ansys Help
+Program Parameters') or set the variables directly in your .emacs
+file.  Please have a look in the accompanying README and
+default_el customisation file example.
 
 ** Ansys interpreter control and communication (mainly restricted
   to UNIX systems) **
 
-With the Ansys mode keyboard shortcut \\[ansys-start-ansys] (for
-the command `ansys-start-ansys') you can start the Ansys solver
-as an asynchronous process from Emacs.  After starting the run
-you will see all solver output in a separate Emacs \"comint\"
-window.  You are now able to interact with this process in three
-ways, either by typing directly in the *Ansys* window or using
-\\[ansys-send-to-ansys] (for `ansys-send-to-ansys').  With the
-latter you can send either the current code line or a whole
-selected region to the running solver.  (A selected region means
-highlighted lines of code.  If there is no running solver the
-function copies the code to the system tray.)  And lastly you are
-able to send interactively Ansys commands with
+With the Ansys mode keyboard shortcut
+\"\\[ansys-start-ansys]\" (for the command `ansys-start-ansys')
+you can start the Ansys solver as an asynchronous process from
+Emacs.  After starting the run you will see all solver output in
+a separate Emacs 'comint' window.  You are now able to interact
+with this process in three ways, either by typing directly in the
+'*Ansys*' window or using \"\\[ansys-send-to-ansys]\" (for
+`ansys-send-to-ansys').  With the latter you can send either the
+current code line or a whole selected region to the running
+solver.  (A selected region means highlighted lines of code.  If
+there is no running solver the function copies the code to the
+system tray.)  And lastly you are able to send interactively
+Ansys commands with
 \"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command')
-without switching to the *Ansys* window.
+without switching to the '*Ansys*' window.
 
 Another very useful function in this context is
-\\[ansys-copy-or-send-above] (`ansys-copy-or-send-above'), which
-sends all code from the beginning up to the current line to the
-interpreter.  If there is no running interpreter the function
+\"\\[ansys-copy-or-send-above]\" (`ansys-copy-or-send-above'),
+which sends all code from the beginning up to the current line to
+the interpreter.  If there is no running interpreter the function
 copies the code to the system tray.
 
 The last two commands (`ansys-copy-or-send-above' and
@@ -1401,9 +1421,9 @@ When you are not familiar with Emacs' keybindings you probably
 want to select your part of interest with dragging the mouse
 pointer while pressing the first mouse button.  Often it is
 faster to select regions with specialised keyboard commands.  For
-example \\[ansys-mark-block] (`ansys-mark-block') marks a whole
-block level, \\[mark-paragraph] (`mark-paragraph') marks the
-current paragraph, the last command can not only be used to
+example \"\\[ansys-mark-block]\" (`ansys-mark-block') marks a
+whole block level, \"\\[mark-paragraph] (`mark-paragraph') marks
+the current paragraph, the last command can not only be used to
 initialise a new selection but also to extend an existing one
 when repeting the command.  Please check the code navigation
 commands which Ansys mode provides (type
@@ -1434,7 +1454,7 @@ case the solver is not stoppable any longer in an orderly way:
 `ansys-kill-ansys'.
 
 As already indicated Ansys mode has its own command for invoking
-the Ansys help browser (\\[ansys-start-ansys-help] because
+the Ansys help browser \"\\[ansys-start-ansys-help]\" because
 unfortunately the following APDL commands do not work when the
 complete GUI system of Ansys is not active.
 
@@ -1473,12 +1493,12 @@ Alternatively you might include the following Elisp code snippet
      (setq ansys-highlighting-level 2)
      ;(setq ansys-dynamic-highlighting-flag t)
 
-directly into your .emacs file.  (The semicolon is the comment
-character.)
+directly into your .emacs file.  (The semicolon ';' is the
+comment character.)
 
 For certain options to take effect without restarting Emacs, it's
 necessary to reload Ansys mode.  You can do this with the
-interactive command M-x `ansys-reload-ansys-mode' or with the
+interactive command `ansys-reload-ansys-mode' or with the
 respective, toplevel Ansys menu entry.
 
 You can improve the loading and execution speed of Ansys mode

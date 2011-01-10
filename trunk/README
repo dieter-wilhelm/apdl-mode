@@ -326,7 +326,9 @@ particular Ansys release.
   the input and sensible defaults
 
 * Refined some abbreviation definitions and focused the display of
-  abbreviations to the mode specific ones 
+  abbreviations to the mode specific ones
+
+* Fixed insert pair functions, like 'C-c %'
 
 * Updated keyword list, deprecated elements, undocumented commands,
   etc. to release 13.0 of Ansys, as usual.

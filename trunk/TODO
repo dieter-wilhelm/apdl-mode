@@ -73,6 +73,8 @@
 
 ** general release procedures
 
+- Mode Help: keyboard input quoting is "", emphasizing '', keys <>
+
 README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history
 

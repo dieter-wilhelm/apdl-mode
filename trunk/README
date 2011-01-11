@@ -20,7 +20,7 @@ documentation is targeted for Ansys users with little Emacs
 experience.  Any suggestions for improvements are very welcome.  The
 current stable version 13.0.1 is available at the Google Code site
 http://code.google.com/p/ansys-mode ("wget
-http://ansys-mode.googlecode.com/files/ansys-mode-13.0.1.tgz",
+http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-13.0.1.tgz",
 development versions can be checked out with "svn checkout
 http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
 installation, issues and comments please have a look at the Ansys mode

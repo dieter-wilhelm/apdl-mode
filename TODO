@@ -35,6 +35,22 @@
 *mwrite
 *sread
 
+- Alignment: Alignment of variables works only reliably for
+   the setting of real constants
+
+there must be at least one space between = and variable/value
+
+x	=	0.4	    !laskd
+y	=      33.0	    ! alskdl
+xzv	= 9999990.3	    !
+llk	=	0.333333333 !bla
+al_	=      00.40
+aslföas =     304
+i	=	4.	    !as
+ka	= .4		    !salkd
+kasd	=	3./0.4
+xxx	= asin(3.0)
+
 - ansys-if-then does not indet correctly, brethren ansys_if/_do are
   not documentet
 

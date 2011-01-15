@@ -319,6 +319,10 @@ particular Ansys release.
 
 === Version 13.0.1 ===
 
+* Added support for aligning whole sections of Ansys variable
+  definitions, both in the Ansys menu and as a keyboard shortcut 'C-c
+  C-a'
+
 * Enhanced ansys-display-skeleton with an optional argument for
   inserting the respective skeleton in the APDL buffer.
 
@@ -329,6 +333,8 @@ particular Ansys release.
   abbreviations to the mode specific ones
 
 * Fixed insert pair functions, like 'C-c %'
+
+* Changed keyboard shortcut for calling the Ansys help to 'C-c C-h'
 
 * Updated keyword list, deprecated elements, undocumented commands,
   etc. to release 13.0 of Ansys, as usual.

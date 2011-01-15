@@ -1,7 +1,7 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2010-12-29 20:36:52 dieter>
+!! Time-stamp: <2011-01-15 17:17:18 dieter>
 !! ANSYS VERSION: 130
 !! UNITS: mm-t-s
 !! NOTE: Pseudo code, checking the influence of
@@ -22,17 +22,20 @@ c***, this is %right%! %otto% no % parameter expansion
 /title, this is a %otto% string command similar to /com and c***
 !@@ -- variable definitions and functions
 k
+
 N = _RETURN		 !_RETURN value of k command
 _aaa = 9		 !reserved underscore "_" variables
 Pi=acos(-1) $ True=1 $ False=0
 Xc = 0 $ Yc = 'char' 	 ! character string variables
 R1=4$R2=20
+
 Alpha1 = rotx( 14.5) - 360./ (2*N)
 Alpha2 = +360./(2*N)
-Depth=ARG1		 !ARG{1-9}, AR{10-19} = "*use" variables
+Steel  =	1 !
+Depth  = ARG1	  !ARG{1-9}, AR{10-19} = "*use" variables
+Xc     =	  != empty rhs clears variables
+
 cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
-Xc = != empty rhs clears variables
-Steel=1
 mp, nuxy,Steel,0.3 ! Poisson No
 mp, ex,Steel,200000 ! Elastic modulus
 !@@@ - parameter substitution
@@ -139,11 +142,15 @@ False = 0$True =1 $ Yes = 'no' bla otto bla
 *if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
   AR20 = 20 !AR20 - AR99 local macro variables
 *endif
+
+
 vall,1,2
 _bla = 3		 ! _vars: macro reserved words
 otto =			 !`=' without rhs: variable clean up
 bla =
 Alpha3 = 4
+
+
 nsel,s,_hans,otto,'_otto'
 !! APDL get/parametricfunctions & old style (deprecated) Ansys comments
 var1=sinh(cos(.3 *5)) !old style Ansys comments!!!!!

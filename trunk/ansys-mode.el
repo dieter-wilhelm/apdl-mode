@@ -273,6 +273,34 @@ A hook is a variable which holds a collection of functions."
   :options '(ansys-show-paren-mode ansys-outline-minor-mode ansys-ruler-mode ansys-auto-insert-mode)
   :group 'Ansys)
 
+(require 'align)
+
+(defcustom ansys-align-rules-list
+    '(
+      (ansys-align-=
+       (regexp   . "\\(\\s-+\\)=")
+       (modes    . '(ansys-mode))
+       (justify  . t)
+       (tab-stop . nil))
+
+      (ansys-align-text-column
+       (regexp   . "\\(\\s-+[0-9]+\\)")
+       (modes    . '(ansys-mode))
+       (justify . t)
+       (tab-stop . nil))
+
+      (ansys-align-comment
+       (regexp   . "\\(\\s-+\\)\\!")
+       (modes    . '(ansys-mode))
+       (tab-stop . nil))
+      )
+    "Rules for aligning Ansys variable definitions."
+    :type align-rules-list-type
+    :group 'ansys-mode
+    )
+
+;; (put 'my-align-rules-list 'risky-local-variable t)
+
 ;; --- variables ---
 
 (defvar ansys-indent-comment-string	;_C
@@ -432,7 +460,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map [?\C-c?\C-^] 'ansys-move-up)
     (define-key map [?\C-c?\C-_] 'ansys-move-down)
     (define-key map "\C-x4k" 'ansys-delete-other-window)
-    (define-key map "\C-c\C-a" 'ansys-start-ansys-help)
+    (define-key map "\C-c\C-a" 'ansys-align)
     (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
     (define-key map "\C-c\C-c" 'ansys-send-to-ansys)
     (define-key map "\C-c\C-d" 'ansys-do)
@@ -709,7 +737,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ("^/com.*" (0 font-lock-string-face prepend))
     ("bla" (0 font-lock-variable-name-face prepend))
     )
-)
+  )
 )
 
 (defconst ansys-font-lock-keyword-list	;NEW_C
@@ -762,6 +790,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Preview Macro Template"       ansys-display-skeleton :help "Preview macro templates in another window"]
+	["Align section"       ansys-align :help "Align current section of Ansys variable definitions"]
 	"-"
 	(list "Insert Template"
 	      ["*IF ... *ENDIF"         ansys-if :help "Insert interactively an *if .. *endif construct"]
@@ -1018,6 +1047,11 @@ comment."
 
 ;; ======================================================================
 ;; --- functions ---
+
+(defun ansys-align ()
+  "Align current section of Ansys variable definitions."
+  (interactive)
+  (align-current))
 
 ;;;###autoload
 (defun ansys-mode ()
@@ -1549,6 +1583,7 @@ improvements you have the following options:
 
   (setq font-lock-maximum-decoration `((ansys-mode . ,ansys-highlighting-level) (t . t)))
 
+  (setq align-mode-rules-list ansys-align-rules-list)
   ;; (when (> ansys-highlighting-level 1)
   ;;   (setq font-lock-multiline t)) ;for *msg, *vwrite,.. format strings
 

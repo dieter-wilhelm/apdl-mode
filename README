@@ -73,6 +73,9 @@ section for a list of them.
   keywords, undocumented commands, deprecated elements, ...)  and
   optionally also user defined variables (experimental)
 
+* Alignment (beautification) of whole sections with variable
+  defintions
+
 * Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level

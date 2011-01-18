@@ -1150,6 +1150,15 @@ the list, either by navigation the cursor over the symbol and
 typing <RET> or clicking with the mouse is completing the symbol.
 Hitting the <SPACE> key removes the listing window.
 
+** Alignment (formatting) of variable definitions **
+
+Typing \"\\[ansys-align]\" for the function `ansys-align' will
+align complete sections of variable definitions in the form of
+the following example
+
+ 'xyz = 30.381 !this is a variable'
+ 'x   =  0.4   !this is another variable'
+
 ** Auto-indentation of looping and conditional blocks **
 
 You can customise the indentation depth (Ansys Block Offset),
@@ -1161,9 +1170,9 @@ sessions.
 ** Closing of open control blocks (*do, *if, ...) with the
    insertion of appropriate end keywords **
 
-Typing \"\\[ansys-close-block]\" for `ansys-close-block'
-completes the current Ansys block with the insertion of a newline
-and an appropriate end keyword.
+Typing \"\\[ansys-close-block]\" for the function
+`ansys-close-block' completes the current Ansys block with the
+insertion of a newline and an appropriate end keyword.
 
 ** Code navigation with extended keyboard shortcuts: Code lines,
    number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc. **

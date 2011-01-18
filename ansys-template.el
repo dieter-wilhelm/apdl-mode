@@ -677,6 +677,20 @@ time stamp with the Emacs command M-x `time-stamp'."
   "esize,1 ! element edge length" \n
   "aesize,ANUM,SIZE ! element SIZE on area ANUM (or ALL)" \n
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
+  \n
+  "!! max and min element sizes for a given 'lesize' spacing ratio" \n
+  "Length = 10		 !line segment length" \n
+  "Ratio = 1/500.0		 !spacing ratio" \n
+  "N = 10			 !number of line divisions" \n
+  "!! lesize uses a geometric series" \n
+  "Res = Length*(1-Ratio**(1/(N-1.0)))/(1-Ratio**(N/(N-1.0)))" \n
+  "/go" \n
+  "/com,first line segment length: %Res%" \n
+  "/nopr" \n
+  "Res = Res*Ratio" \n
+  "/go" \n
+  "/com,last line segment length: %Res%" \n
+  \n
   "lcomb,all !combine adjacent lines" \n
   "ldiv,all,1 !divide a single line" \n
   "lccat,all !concatenate lines for meshing" \n
@@ -699,27 +713,28 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-function
   "Standard FORTRAN functions"
   nil
-  "A = ABS()" \n
-  "A = SIGN() !sign(absolute_value,sign)" \n
-  "A = EXP()" \n
-  "A = LOG()" \n
-  "A = LOG10()" \n
+  "A = ABS()"  \n
+  "A = SIGN()  !sign(x,y) absolute value of x with sign of y)" \n
+  "A = EXP()   !exp(x): e^x" \n
+  "A = x**y    !exponentiation x**y: x^y" \n
+  "A = LOG()"  \n
+  "A = LOG10()"\n
   "A = SQRT()" \n
-  "A = NINT() !nearest integer" \n
+  "A = NINT()  !nearest integer" \n
   "A = abs(nint()) !round" \n
-  "A = MOD() !mod(x,y): modulo x/y" \n
-  "A = RAND() !rand(lower_bound,upper_bound)" \n
-  "A = GDIS() !gdis(mean,stdd): gaussian distribution" \n
-  "A = SIN()" \n
-  "A = COS()" \n
-  "A = TAN()" \n
+  "A = MOD()   !mod(x,y): modulo x/y" \n
+  "A = RAND()  !rand(lower_bound,upper_bound)" \n
+  "A = GDIS()  !gdis(mean,stdd): gaussian distribution" \n
+  "A = SIN()"  \n
+  "A = COS()"  \n
+  "A = TAN()"  \n
   "A = SINH()" \n
   "A = COSH()" \n
   "A = TANH()" \n
   "A = ASIN()" \n
   "A = ACOS()" \n
   "A = ATAN()" \n
-  "A = ATAN2()!gdis(mean,stdd): gaussian distribution"\n
+  "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
   )
 
 (define-skeleton ansys-skeleton-geometry
@@ -880,10 +895,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tunif,30 !uniform temperature (default step applied!)" \n
   "bf,all,temp,30 !bfe,bfk,bfl,bfa,bfv" \n
   "bflist,all !list body loads" \n
-  "!! e. g.: as harmonic acceleration load" n\
-  "*dim,mytab,table,3,1,,freq" \n
-  "mytab(1,0)=5,12,100" \n
-  "mytab(1,1)=100e3,30e3,10e3" \n
+  "!! e. g.: as harmonic acceleration load with amplitude steps" n\
+  "*dim,mytab,table,5,1,,freq" \n
+  "mytab(1,0)=   20,  199, 200, 999,1000" \n
+  "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
   "acel,%mytab%" \n
   \n
   "!@@@ - inertia relief -" \n
@@ -1006,6 +1021,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/post1" \n
+  "!! integration point solution (listing only)" \n
+  "!! centroidal solution (listing only)"
+  "!! nodal solution -> DOFs, constrained nodes" \n
+  "!! element solution" \n
+  "!! element nodal solution: element solution at integration points extrapolated to nodes" \n
   "/inquire,job_name,jobname" \n
   "!resume,job_name,db" \n
   "set,last" \n
@@ -1232,11 +1252,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*get,Forc,fsum,,item,fy"> \n
   "F_y(I,1) = Forc/(Width*Thick)"> \n
   "*enddo"> \n
-  "!! e. g.: as harmonic acceleration load" \n
-  "*dim,mytab,table,3,1,,freq" \n
-  "mytab(1,0)=5,12,100" \n
-  "mytab(1,1)=100e3,30e3,10e3" \n
-  "acel,%mytab%" \n
+  "!! e. g.: as harmonic acceleration load (with amplitude steps)" \n
+  "*dim,mytab,table,5,1,,freq" \n
+  "mytab(1,0)=   50,  199, 200, 999,1000" \n
+  "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
+  "acel,,,%mytab%" \n
   \n
   "!@@ -- arrays --" \n
   \n

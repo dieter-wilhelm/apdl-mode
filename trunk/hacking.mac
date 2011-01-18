@@ -83,6 +83,17 @@ i = 4. !as
 kasd =	3./0.4
 xxx = asin(3.0)
 
+!! alignment
+x	=	0.4	    !laskd
+y	=      33.0	    ! alskdl
+xzv	= 9999990.3	    !
+llk	=	0.333333333 !bla
+al_	=      00.40
+aslföas =     304
+ka	= .4		    !salkd
+i	=	4.	    !as
+kasd	=	3./0.4
+xxx	= asin(3.0)
 
 !case sensitive completion
 !Pi = ac
@@ -147,7 +158,6 @@ lesi,(:)
 !post 1 
 
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
- 
 
 !! switch off menu, tools, scroll-bar
 !! Ansys mode help: C-h m, selfdocumenting features

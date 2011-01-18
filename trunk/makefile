@@ -10,12 +10,13 @@ RELEASE := $(shell $$($(DIR)))
 ifeq ($(HOSTNAME),urmel)
  EMACS_DIR := /usr/local/src
 else
- EMACS_DIR := /appl/emacs
+ EMACS_DIR := ~
 endif
 
 EMACS_VERSION := emacs-23.2
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
-ADDRESS := ftp://ftp.informatik.rwth-aachen.de/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
+ADDRESS := http://ftp.cw.net/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
+# ftp://ftp.informatik.rwth-aachen.de/pub/gnu/
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version

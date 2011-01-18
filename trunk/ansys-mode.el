@@ -1064,13 +1064,13 @@ actual keys are quoted with <>.
 
 == Contents ==
 
-= Introduction
-= Usage
+= Introduction to Emacs
+= Usage of Ansys mode
 = Keybindings
 = Customisation
 = Bugs and Problems
 
-== Introduction ==
+== Introduction to Emacs ==
 
 In Emacs it is not only possible to run a certain command, let's
 say `ansys-start-ansys-help', from entries in Emacs' Ansys menu
@@ -1085,20 +1085,25 @@ commands are available.
 To run `ansys-start-ansys-help' by its function name, start with
 \"M-x\", ('M-x' means holding down the <ALT> key while pressing
 the <x> key (in case your window manager is intercepting this key
-combination type <ESC> then <x> instead) the cursor will skip to
-the minibuffer, there type \"ansys-start-ansys-help\", then
-terminate it with the <RET> key.  The 'auto-completion' feature
-of the minibuffer might save you some typing: Just enter the
-first characters and then press the <TAB> key.
+combination type <ESC> then <x> instead) the cursor will skip
+below the status line, into the minibuffer, there type
+\"ansys-start-ansys-help\", then terminate it with the <RET> key.
+The 'auto-completion' feature of the minibuffer might save you
+some typing: Just enter the first characters and then press the
+<TAB> key.
+
+You can always cancel minibuffer commands by typing
+\"C-g\" (`keyboard-quit'), i. e. pressing the <CTRL> key and then
+the <g> key at the same time.
 
 All functions described in this help, regardless whether
 possessing a keyboard shortcut or not, can be called in this way
 or they are to be found in the Ansys menu.
 
-Above procedure has the same effect as typing
-\"\\[ansys-start-ansys-help]\" for a file in Ansys mode ('C-c
-C-a' means while holding down the <CTRL> key typing the
-respective characters ('c' then 'a') for
+Above described procedure has the same effect as typing
+\"\\[ansys-start-ansys-help]\" in a file buffer under Ansys
+mode ('C-c C-a' means while holding down the <CTRL> key typing
+the respective characters ('c' then 'a') for
 `ansys-start-ansys-help').
 
 A mouse click or typing the <RET> key, when the cursor is on the
@@ -1106,11 +1111,11 @@ underlined hyperlinks (you can also skip to these links with the
 <TAB> key) will display their respective help strings (or typing
 <RETURN> when the cursor is over these links).
 
-You can cancel the minibuffer command by typing
-\"C-g\" (`keyboard-quit'), i. e. pressing the <CTRL> key and then
-the <g> key at the same time.
+In case something unintended happend to your code you are always
+able to resort to the Emacs `undo' functionality from the menu or
+with typing \"\\[undo]\".
 
-== Usage ==
+== Usage of Ansys mode ==
 
 ** Ansys command syntax help **
 

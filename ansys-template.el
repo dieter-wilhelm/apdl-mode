@@ -431,6 +431,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "CNOF = 0 !contact surface offset ([0], neg.: penetr.)" \n
   "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
+  "keyo,Contact,4,3 !keyo(4): location of contact detection" \n
+  "!! 0:Gauss points, 3(V13):surface projection method" \n
   "keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
   "    !! 0: no adjustm." \n
   "    !! 1: close gap with auto CNOF" \n
@@ -602,7 +604,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "\n!! ------------------------------" \n
   "!@@ -- etables --" \n
   \n
-  "!! etables don't take into account higher element order!"
+  "!! etables don't take into account higher element order!" \n
+  "!! they are averaged over the element" \n
   "!! ---- Mohr-Coulomb failure criterion" \n
   "Z1 = 60 !tensile strength" \n
   "Z3 = 160 !compressive strength" \n
@@ -610,7 +613,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "etable,S3,s,3" \n
   "sadd,R,S1,S3,1/Z1,-1/Z3" \n
   "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
-  "pletab,R,avg !avg: average over nodes" \n
+  "!! constant element values are transfered to the nodes and optionally averaged" \n
+  "pletab,R,avg !avg: average over nodes of neigbouring elements" \n
   "esel,s,type,,2" \n
   "etable,Pene,cont,pene" \n
   "!etable,chat,cont,cnos !chattering levels" \n
@@ -744,19 +748,25 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- geometry --"\n
   \n
   "/prep7" \n
+  "X1 = 0" \n
+  "X2 = 1" \n
+  "Y1 = X1" \n
+  "Y2 = X2" \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
+  "Z1 = 0" \n
+  "Z2 = 1" \n
   "block,X1,X2,Y1,Y2,Z1,Z2 !3d hexahedron (wp)" \n
   "!!arsym,y,all ! reflection of areas "
-  "Xc = 0" \n
-  "Yc = 0" \n
-  "R1=4" \n
-  "R2=20" \n
-  "N = 14." \n
-  "Alpha1=-360./(2*N)" \n
-  "Alpha2=+360./(2*N)" \n
+  "Xc  = 0 !centre x-coord." \n
+  "Yc  = 0 !centre y-coord." \n
+  "R1  = 4" \n
+  "R2  = 20" \n
+  "N   = 14." \n
+  "Th1 = -360./(2*N)" \n
+  "Th2 = +360./(2*N)" \n
   "Depth=30" \n
   "pcirc,R1,R2,Th1,Th2 ! circular area" \n
-  "cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth ! circular area or cylinder" \n
+  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth ! circular area or cylinder" \n
   "shpere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
   \n
@@ -1021,6 +1031,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/post1" \n
+  "!! prnsol, presol,s,x !components in global x-dir (except transformed: rsys)"\n
   "!! integration point solution (listing only)" \n
   "!! centroidal solution (listing only)"
   "!! nodal solution -> DOFs, constrained nodes" \n

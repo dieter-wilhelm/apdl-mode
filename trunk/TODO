@@ -1,4 +1,9 @@
 * Bugs and deficiencies:
+** Emacs 23.1 C-c C-c
+
+** Buffer  has no Ansys process
+   comint-send-region: Buffer bearing_gap.mac has no process
+
 ** Highlighting: Experimental user variable highlighting
    does not take into account:
    a.) a clearing of variables and
@@ -35,6 +40,10 @@
 *mwrite
 *sread
 
+- minimal running skeletons (test cases)
+  struct 2d  material, elements, geometry, bc, solve, post
+  struct 3d
+  ...
 
 - Alignment: Alignment of variables works only reliably for
    the setting of real constants

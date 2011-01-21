@@ -214,19 +214,19 @@ the customisation facility (by calling `ansys-customise-ansys')."
   (interactive)
   (let (process  (get-process
 		  (if (boundp' ansys-process-name) ansys-process-name)))
-  (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
-  ;; no-property stuff necessary?????
+    (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
+    ;; no-property stuff necessary?????
 
-;;   (if (y-or-n-p
-;;        (concat
-;; 	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
-;;       (message "Starting run...")
-;;     (error "Run canceled"))
-  (if (ansys-process-running-p)
-      (progn
-	(comint-send-region process (point-min) (point))
-	(display-buffer (process-buffer process) 'other-window))
-    (message "Copied from beginning of buffer to cursor."))))
+    ;;   (if (y-or-n-p
+    ;;        (concat
+    ;; 	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
+    ;;       (message "Starting run...")
+    ;;     (error "Run canceled"))
+    (if (ansys-process-running-p)
+	(progn
+	  (comint-send-region process (point-min) (point))
+	  (display-buffer (process-buffer process) 'other-window))
+      (message "Copied from beginning of buffer to cursor."))))
 
 (defun ansys-send-to-ansys ( &optional stay)	;NEW
   "Send region (or code line) to the Ansys interpreter, otherwise copy it.
@@ -521,6 +521,9 @@ for displaying the license status."
    (t
     (error "No license status available on %s" system-type))))
 
+;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
+;; => /menu,graph
+;; env variable ANS_CONSEC=YES disables dialog boxes
 (defun ansys-start-graphics ()		;NEW
   "Start the Ansys display in interactive mode."
   (interactive)

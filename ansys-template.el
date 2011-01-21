@@ -148,7 +148,6 @@ instead of previewing it in a separate window."
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
-  "!! ------------------------------" \n
   "!" ansys-outline-string " --- file header ---" \n
   "!! ------------------------------" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
@@ -373,6 +372,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/input,filename,anf ! for APDL based input" \n
   "/facet,norm" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-expand	;NEW
@@ -390,6 +390,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- cyclic expansion --" \n
   "cyclic,status" \n
   "/cycexpand ! expand graphics rep." \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-contact-definition
@@ -498,6 +499,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "etable,Pene,cont,pene !pres|sfric|stot|slide|gap|flux|cnos|fprs" \n
   "plls,Pene,Pene !line element results" \n
   "resume,Job_name,db" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-rigid-target ;NEW
@@ -522,6 +524,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo" \n
   "e,Nmax+1" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-coordinates
@@ -538,6 +541,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,logo,off !switch off Ansys logo" \n
   "/triad,rbot"_ \n
   "/triad,off"
+  \n
   )
 
 (define-skeleton ansys-skeleton-working-plane
@@ -557,6 +561,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "wpstyl,,,,,,,0 !grid spec: 0 grid+triad,1 grid,2 [triad]" \n
   "!wpstyl,stat" \n
   "csys,wp !change co to wp" \n
+  \n
   )
 
 ;; PlotCtrls ->Multi-plot-Ctrls???
@@ -569,6 +574,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/gtype,all,node,0 !turn off nodes (elem,keyp,line,area)" \n
   "/gtype,,volu,1 !turn on volumens" \n
   "gplot" \n
+  \n
   )
 
 ;; PlotCtrls ->Numbering Controls
@@ -579,7 +585,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/pnum,kp,1 !line;area;volu;node;elem;mat;type;tabn;sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
-  "/replot"
+  "/replot"\n
+  \n
   )
 
 ;; PlotCtrls -> Symbols
@@ -596,6 +603,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
   "/psymb,stat" \n
   "/repl" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-element-table
@@ -625,6 +633,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*get,Mc,etab,sort,,max" \n
   "*msg,,Mc" \n
   "Mohr-Coulomb criterion (< 1): %G" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-element-def
@@ -634,8 +643,8 @@ time stamp with the Emacs command M-x `time-stamp'."
  "!@@ -- element definition --" \n
  \n
  "Steel = 1" \n
- "ID=Steel" \n
- "real=Steel" \n
+ "ID = Steel" \n
+ "real = Steel" \n
  "et,ID,solid186 !3d, 20 node" \n
  "etlist !list defined elements" \n
  "et,ID,solid185 !3d, 8 node" \n
@@ -667,6 +676,7 @@ time stamp with the Emacs command M-x `time-stamp'."
  "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
  \n
  "!! /pnum,type,1 $ eplot ! display materials" \n
+ \n
 )
 
 (define-skeleton ansys-skeleton-meshing
@@ -712,6 +722,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/cycexpand ! expand graphics rep." \n
   \n
   "/pnum,mat,1 $ eplot" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-function
@@ -739,6 +750,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = ACOS()" \n
   "A = ATAN()" \n
   "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
+  \n
   )
 
 (define-skeleton ansys-skeleton-geometry
@@ -782,6 +794,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "vglue,all" \n
   "vsbw,all,,delete !v substracted by wp" \n
   "vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-material-def
@@ -869,6 +882,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,murx,Magnet,Br/(Mu0*Hc)" \n
   \n
   "/pnum,mat,1 $ eplot"\n
+  \n
   )
 
 (define-skeleton ansys-skeleton-bc
@@ -900,12 +914,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "sfa,all,,pres," \n
   "sfalist,all" \n
   \n
-  "!@@@ -body loads-" \n
+  "!@@@ - body loads -" \n
   "tref,23 ![0] degree reference temperature" \n
   "tunif,30 !uniform temperature (default step applied!)" \n
   "bf,all,temp,30 !bfe,bfk,bfl,bfa,bfv" \n
   "bflist,all !list body loads" \n
-  "!! e. g.: as harmonic acceleration load with amplitude steps" n\
+  "!! e. g.: as harmonic acceleration load with amplitude steps" \n
   "*dim,mytab,table,5,1,,freq" \n
   "mytab(1,0)=   20,  199, 200, 999,1000" \n
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
@@ -938,6 +952,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "dl,all,,asym ! flux parallel to lines" \n
   "nsel,s,ext ! select exterior nodes" \n
   "dsym,asym ! flux parallel to lines" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-buckling
@@ -963,6 +978,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "fini $ /solu	 !switch to another loadstep?" \n
   "expass,on" \n
   "mxpand,3" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-solve
@@ -1021,6 +1037,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- cyclic symmetry --" \n
   \n
   "cycopt,status" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-post1
@@ -1093,7 +1110,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/graphics,full ! results averaging also from interior" \n
   "pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
-  "!@@@ --- magnetics ---" \n
+  "!@@@ - magnetics -" \n
   "plf2d,27 ! flux lines, equipotentials" \n
   "plvect,b,! induction vector plot" \n
   "fmagsum,'component_name'" \n
@@ -1117,6 +1134,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "anmres !multiple result files" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-output-to-file
@@ -1161,6 +1179,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "noerase" \n
   "lplot" \n
   "/show,close" \n
+  \n
   )
 
 ;TODO: explain what's it for
@@ -1182,6 +1201,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "  nsel,u,,,Ntmp" \n
   "  *get,E,elem,E,nxth" \n
   "*enddo  " \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-path-plot
@@ -1204,6 +1224,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
   "paget,Path,table" \n
   "!path $ stat" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-post26
@@ -1241,6 +1262,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plvar,3" \n
   "/show,close" \n
   "!!prvar,3" \n
+  \n
   )
 
 ;; TODO: complete
@@ -1305,6 +1327,40 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/gcolumn,3,'Ogden'" \n
   "/gthk,curve,4 !curve thickness" \n
   "*vplot,F_y(1,0),F_y(1,1),2.0"
+  \n
+  )
+
+(define-skeleton ansys-skeleton-structural
+  "Minimum working structural APDL skeleton."
+  ""
+  "!@ --- Preprocessing ---"\n
+  "/prep7"\n
+  "!@@ -- Elements --"\n
+  "Steel = 1"\n
+  "ID = Steel"\n
+  "real = Steel"\n
+  "et,ID,solid186 !3d, 20 node"\n
+  "!@@ -- Material --"\n
+  "mp,nuxy,Steel,0.3 ! Poisson No"\n
+  "mp,ex,Steel,200000 ! Elastic modulus"\n
+  "!@@ -- Modeling --"\n
+  "block,0,1,0,1,0,1"\n
+  "!@@ -- Meshing --"\n
+  "esize,"
+  "vmesh,all"\n
+  "!@@ -- Loads --"\n
+  "nsel,s,loc,x,0"\n
+  "d,all,all"\n
+  "nsel,s,loc,x,1"\n
+  "d,all,ux,-.1"\n
+  "allsel"\n
+  "!@ --- Solving ---"\n
+  "\solu"\n
+  "solve"\n
+  "!@ --- Postprocessing --"\n
+  "/post1"\n
+  "plnsol,u,sum"\n
+  \n
   )
 
 (defun ansys-skeleton-compilation ()

@@ -1048,12 +1048,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/post1" \n
-  "!! prnsol, presol,s,x !components in global x-dir (except transformed: rsys)"\n
-  "!! integration point solution (listing only)" \n
-  "!! centroidal solution (listing only)"
-  "!! nodal solution -> DOFs, constrained nodes" \n
-  "!! element solution" \n
-  "!! element nodal solution: element solution at integration points extrapolated to nodes" \n
+  "!! prnsol|presol,s,x !components in global x-dir (except transformed: rsys)"\n
+  \n
+  "!! --- theory reference: Nodal and centroidal data evaluation ---" \n
+  "eresx!defa->elastic:extrapolate from integration points to nodes, nonlinear:copy, yes->extrapolate linear part, no->copy to nodes" \n
+  "!! --- derived nodal data computation ---" \n
+  "avprin !principal sums and vector sums" \n
+  "avres !result averaging for PowerGraphics" \n
+  "plnsol !continuous contours, averaged at neighbouring nodes" \n
+  "plesol !no nodal averaging" \n
+  "pletab !constant (centroidal) value per element" \n
+  "pletab,avg !constant element value, averaged at neigbouring nodes" \n
   "/inquire,job_name,jobname" \n
   "!resume,job_name,db" \n
   "set,last" \n
@@ -1332,7 +1337,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 (define-skeleton ansys-skeleton-structural
   "Minimum working structural APDL skeleton."
-  ""
+  nil
+  "bla"
+  (nil (ansys-skeleton-header)) \n
   "!@ --- Preprocessing ---"\n
   "/prep7"\n
   "!@@ -- Elements --"\n

@@ -1,9 +1,4 @@
 * Bugs and deficiencies:
-** Emacs 23.1 C-c C-c
-
-** Buffer  has no Ansys process
-   comint-send-region: Buffer bearing_gap.mac has no process
-
 ** Highlighting: Experimental user variable highlighting
    does not take into account:
    a.) a clearing of variables and
@@ -40,11 +35,6 @@
 *mwrite
 *sread
 
-- minimal running skeletons (test cases)
-  struct 2d  material, elements, geometry, bc, solve, post
-  struct 3d
-  ...
-
 - Alignment: Alignment of variables works only reliably for
    the setting of real constants
 
@@ -66,18 +56,14 @@ xxx	= asin(3.0)
   t(1,1) =  3,  4,   9,
 
 - ansys-if-then does not indet correctly, brethren ansys_if/_do are
-  not documentet
+  not documented
 
 - mismatch in customisaton buffer of -license-file and -ansysli-servers
 
--  ansys-template.el:85:13:Warning: reference to free variable
+- ansys-template.el:85:13:Warning: reference to free variable
     `ansys-skeleton-overlay'
 
 - does Ansys run under darwin, OSx? (-is-unix-system-p)
-
-- check kill-buffer-query-functions
-
-- *Abbrevs* buffer shows duplicate -mode abbrevs 
 
 - Help: parametric functions are not explained with the help command 
 

@@ -47,23 +47,19 @@ instead of previewing it in a separate window."
 	 (skeleton-buffer
 	  (get-buffer-create new-buffer-name))
 	 s
-	 skel
-	 ;; if window is visible in selected frame
-	 (visible  (get-buffer-window new-buffer-name nil)))
-    (cond ((and arg visible)
-	   (setq skel (completing-read
-		 "Insert template: " obarray 'commandp t
-		 ansys-last-skeleton nil))
-	   (funcall (intern-soft skel)))
-	  (arg
-	   (setq skel (completing-read
-		 "Insert template: " obarray 'commandp t
-		 "ansys-skeleton-" nil))
+	 ;; if skeleton window is visible in selected frame
+	 (visible  (get-buffer-window new-buffer-name nil))
+	 (skel-string
+	  (if (and arg ansys-last-skeleton visible)
+	      ansys-last-skeleton
+	    "ansys-skeleton-"))
+	 (skel (completing-read
+		       "Preview template: " obarray 'commandp t skel-string nil))
+	 )
+    (setq ansys-last-skeleton skel)
+    (cond (arg
 	   (funcall (intern-soft skel)))
 	  (t
-	   (setq skel (completing-read
-		 "Preview template: " obarray 'commandp t
-		 "ansys-skeleton-" nil))
 	   (switch-to-buffer-other-window skeleton-buffer)
 	   (remove-overlays)
 	   ;;(make-local-variable 'ansys-skeleton-overlay)
@@ -75,7 +71,6 @@ instead of previewing it in a separate window."
 	   (goto-char (point-min))
 	   (unless  (eq major-mode 'ansys-mode)
 	     (ansys-mode))
-	   (setq ansys-last-skeleton skel)
 	   (setq s (propertize
 		    (concat "-*- Ansys template: "
 			    skel " -*-\n") 'face 'match))
@@ -1048,8 +1043,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/post1" \n
-  "!! prnsol|presol,s,x !components in global x-dir (except transformed: rsys)"\n
-  \n
   "!! --- theory reference: Nodal and centroidal data evaluation ---" \n
   "eresx!defa->elastic:extrapolate from integration points to nodes, nonlinear:copy, yes->extrapolate linear part, no->copy to nodes" \n
   "!! --- derived nodal data computation ---" \n
@@ -1066,6 +1059,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plnsol,s,eqv ! von Mises" \n
   "plnsol,s,1 ! maximum principle: Lamé" \n
   "plnsol,s,int ! stress intensity: Tresca" \n
+  "prnsol,s,x !|presol components in global x-dir (except transformed:nrotat,rsys)"\n
   "plnsol,s,xy ! shear in xy-dir." \n
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
   "!! reactions"\n
@@ -1092,7 +1086,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/pbc,rfor,,0" \n
   "/dist,,1/2,1 !enlarge twice" \n
   "/noerase ! don't erase screen between plots" \n
-  "erase"
+  "erase" \n
   "/triad,rbot ! coordinate system to right bot" \n
   "/plopts,wp ! switch off working plane" \n
   "/plopts,minm ! switch off min max" \n
@@ -1105,7 +1099,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,png !creates jobnameXXX.png files" \n
   "pngr,stat !additional png options (orientation,compression,...)" \n
   "plvect,B" \n
-  "noerase" \n
+  "/noerase" \n
   "lplot" \n
   "/show,close" \n
   "erase" \n
@@ -1338,8 +1332,8 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-structural
   "Minimum working structural APDL skeleton."
   nil
-  "bla"
-  (nil (ansys-skeleton-header)) \n
+;  "bla"
+;  (nil (ansys-skeleton-header)) \n
   "!@ --- Preprocessing ---"\n
   "/prep7"\n
   "!@@ -- Elements --"\n
@@ -1353,16 +1347,16 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- Modeling --"\n
   "block,0,1,0,1,0,1"\n
   "!@@ -- Meshing --"\n
-  "esize,"
   "vmesh,all"\n
   "!@@ -- Loads --"\n
   "nsel,s,loc,x,0"\n
   "d,all,all"\n
   "nsel,s,loc,x,1"\n
-  "d,all,ux,-.1"\n
+  "d,all,uy,-.1"\n
   "allsel"\n
+  "save"\n
   "!@ --- Solving ---"\n
-  "\solu"\n
+  "/solu"\n
   "solve"\n
   "!@ --- Postprocessing --"\n
   "/post1"\n

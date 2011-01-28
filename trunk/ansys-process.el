@@ -212,21 +212,22 @@ the customisation facility (by calling `ansys-customise-ansys')."
 (defun ansys-copy-or-send-above	()	;NEW
   "Copy or send all of above code - up from the cursor position."
   (interactive)
-  (let (process  (get-process
-		  (if (boundp' ansys-process-name) ansys-process-name)))
-    (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
+  (let ((process (get-process
+		  (if (boundp' ansys-process-name)
+		      ansys-process-name
+		    "Ansys"))))
     ;; no-property stuff necessary?????
-
     ;;   (if (y-or-n-p
     ;;        (concat
     ;; 	"Start this Ansys run: (lic: " ansys-license ", job: " ansys-job ")? "))
     ;;       (message "Starting run...")
     ;;     (error "Run canceled"))
-    (if (ansys-process-running-p)
-	(progn
-	  (comint-send-region process (point-min) (point))
-	  (display-buffer (process-buffer process) 'other-window))
-      (message "Copied from beginning of buffer to cursor."))))
+    (cond ((ansys-process-running-p)
+	   (comint-send-region process (point-min) (point))
+	   (display-buffer (process-buffer process) 'other-window))
+	  (t
+	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
+	   (message "Copied from beginning of buffer to cursor.")))))
 
 (defun ansys-send-to-ansys ( &optional stay)	;NEW
   "Send region (or code line) to the Ansys interpreter, otherwise copy it.

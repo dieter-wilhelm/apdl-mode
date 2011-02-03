@@ -1331,9 +1331,8 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 (define-skeleton ansys-skeleton-structural
   "Minimum working structural APDL skeleton."
-  nil
-;  "bla"
-;  (nil (ansys-skeleton-header)) \n
+  nil					;no interactor needed
+  '(ansys-skeleton-header)
   "!@ --- Preprocessing ---"\n
   "/prep7"\n
   "!@@ -- Elements --"\n

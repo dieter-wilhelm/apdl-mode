@@ -82,7 +82,7 @@ instead of previewing it in a separate window."
 	   ))))
 
 (define-skeleton ansys_do		;NEW
-  ""
+  "Insert a *do .. *enddo loop."
   nil
   "*do,I,1,10,1" > \n
   - \n
@@ -91,7 +91,7 @@ instead of previewing it in a separate window."
   )
 
 (define-skeleton ansys_if		;NEW
-  ""
+  "Insert an *if .. *endif construct."
   nil
   "*if,I,eq,J,then" > \n
   > _ \n

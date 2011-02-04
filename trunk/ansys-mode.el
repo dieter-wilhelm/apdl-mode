@@ -1322,12 +1322,12 @@ defintion line in the macro file.
 
 E.g. typing \"`do\" (the backquote '`' then 'do') and the space
 key <SPC> under Ansys mode triggers an interactive code template
-which inserts a *DO loop.  \"`d\" (then <SPC>) is a more
-immediate version of it without requesting user input.  You can
-see all the predefined abbreviations with \"`?\", i. e. a
-question mark '?'  after the backquote '`'.  Alternatively you
-might use the Emacs command \"M-x list-abbrevs RET\" to inspect
-all definitions which Emacs knows.
+which inserts a *DO loop (`ansys-do').  \"`d\" (then <SPC>) is a
+more immediate version of it without requesting user
+input (`ansys_do').  You can see all the predefined abbreviations
+with \"`?\", i. e. a question mark '?'  after the backquote '`'.
+Alternatively you might use the Emacs command \"M-x list-abbrevs
+RET\" to inspect all definitions which Emacs knows.
 
 ** Outlining (hiding) of code sections **
 

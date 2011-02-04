@@ -1,11 +1,11 @@
-# use make in the "tags" release directories
-
 ANSYS_MAJOR := 13
 ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
-RELEASE := $(shell $$($(DIR)))
+
+# use make in the "tags" release directories
+#RELEASE := $(shell $$($(DIR)))
 
 ifeq ($(HOSTNAME),urmel)
  EMACS_DIR := /usr/local/src

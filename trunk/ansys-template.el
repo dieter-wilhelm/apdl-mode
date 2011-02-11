@@ -153,6 +153,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! UNITS: mm-t-s" \n
   "!! NOTE: " str \n
   "!! ------------------------------" \n
+  "! fini" \n
+  "! /clear" \n
+  "! y" \n
   "/units,mpa !indicate mm-t-s unit system" \n
   \n
   )
@@ -705,6 +708,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lccat,all !concatenate lines for meshing" \n
   \n
   "esys,12 !set element coordinates for a and v elements to 12" \n
+  "shpp,off,,nowarn! control mesh shape checking" \n
   "vmesh,all" \n
   "amesh,all" \n
   "shrink,.8 !shrink elements,l,a,v"\n
@@ -918,7 +922,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*dim,mytab,table,5,1,,freq" \n
   "mytab(1,0)=   20,  199, 200, 999,1000" \n
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
-  "acel,%mytab%" \n
+  "acel,%mytab%,, !acceleration in global coordinates" \n
   \n
   "!@@@ - inertia relief -" \n
   \n
@@ -1288,7 +1292,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*dim,mytab,table,5,1,,freq" \n
   "mytab(1,0)=   50,  199, 200, 999,1000" \n
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
-  "acel,,,%mytab%" \n
+  "acel,,,%mytab% !acceleration in global coordinates" \n
   \n
   "!@@ -- arrays --" \n
   \n
@@ -1330,7 +1334,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-structural
-  "Minimum working structural APDL skeleton."
+  "Minimum working structural APDL template."
   nil					;no interactor needed
   '(ansys-skeleton-header)
   "!@ --- Preprocessing ---"\n
@@ -1356,6 +1360,72 @@ time stamp with the Emacs command M-x `time-stamp'."
   "save"\n
   "!@ --- Solving ---"\n
   "/solu"\n
+  "solve"\n
+  "!@ --- Postprocessing --"\n
+  "/post1"\n
+  "plnsol,u,sum"\n
+  \n
+  )
+
+(define-skeleton ansys-skeleton-contact
+  "Minimum working structural contact APDL template."
+  nil					;no interactor needed
+  '(ansys-skeleton-header)
+  "!@ --- Preprocessing ---"\n
+  "/prep7"\n
+  "!@@ -- Elements --"\n
+  "Steel = 1"\n
+  "ID = Steel"\n
+  "real = Steel"\n
+  "et,ID,solid186 !3d, 20 node"\n
+  "tid = 4" \n
+  "cid = 3" \n
+  "r,cid" \n
+  "et,tid,170" \n
+  "et,cid,174" \n
+  "!@@ -- Material --"\n
+  "mp,nuxy,Steel,0.3 ! Poisson No"\n
+  "mp,ex,Steel,200000 ! Elastic modulus"\n
+  "!@@ -- Modeling --"\n
+  "block,0,1,0,1,0,1"\n
+  "block,1,2,0,1,0,1"\n
+  "!@@ -- Meshing --"\n
+  "vmesh,all"\n
+  "vsel,s,,,1" \n
+  "eslv,s" \n
+  "nsle,s" \n
+  "nsel,r,loc,x,1" \n
+  "type,cid" \n
+  "real,cid" \n
+  "esurf" \n
+  "" \n
+  "type,tid" \n
+  "real,cid" \n
+  "vsel,s,,,2" \n
+  "eslv,s" \n
+  "nsle,s" \n
+  "nsel,r,loc,x,1" \n
+  "esurf" \n
+  "keyo,cid,12,5              ! bonded always" \n
+  "keyo,cid,2,1               ! penalty function only" \n
+  "keyo,cid,9,1               ! ignore initial gaps/penetration" \n
+  "keyo,cid,7,0               ! No Prediction" \n
+  "rmod,cid,3,10.	! FKN" \n
+  "rmod,cid,5,0.	! ICONT" \n
+  "rmod,cid,6,0.	! PINB" \n
+  "rmod,cid,10,0.	! CNOF" \n
+  "rmod,cid,12,0.	! FKT" \n
+  "!@@ -- Loads --"\n
+  "nsel,s,loc,x,0"\n
+  "d,all,all"\n
+  "nsel,s,loc,y,1"\n
+  "esln,s" \n
+  "sf,all,pres,1e3"\n
+  "allsel"\n
+  "save"\n
+  "!@ --- Solving ---"\n
+  "/solu"\n
+  "nsubst,10"\n
   "solve"\n
   "!@ --- Postprocessing --"\n
   "/post1"\n

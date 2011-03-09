@@ -213,7 +213,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "NODES $ stat ! - Nodes" \n
   "ELEM $ stat ! - Elements" \n
   "SELM $ stat ! - Superelements" \n
-  "PIPE $ stat ! - Pipe modeling" \n
+;; Pipe is not supported any longer in v130  "PIPE $ stat ! - Pipe modeling" \n
   "DIGIT $ stat ! - Node digitizing" \n
   "COUPLE $ stat ! - Node coupling" \n
   "CEQN $ stat ! - Constraint equations" \n
@@ -551,14 +551,14 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/repl" \n
   "wpcsys,1,0 !align wp in WIN with specified c-sys" \n
   "wpoffs,,-100 !x,y,z offset" \n
-  "wprota,0,90,0 !z,x,y axis of rotation" \n
+  "wprota,0,90,0 !z,x,y axis of rotation!" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
   "/plopts,logo,off !switch off Ansys logo" \n
   "wpstyl,,,,,,1 !type spec 0,1,2 cartesian,cylindrical,spherical" \n
   "wpstyl,,,,,,,0 !grid spec: 0 grid+triad,1 grid,2 [triad]" \n
   "!wpstyl,stat" \n
-  "csys,wp !change co to wp" \n
+  "csys,wp ! or csys,4: change csys to wp" \n
   \n
   )
 
@@ -1059,6 +1059,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/inquire,job_name,jobname" \n
   "!resume,job_name,db" \n
   "set,last" \n
+  "pldisp,2 !display displaced structure" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
   "plnsol,s,eqv ! von Mises" \n
   "plnsol,s,1 ! maximum principle: Lamé" \n
@@ -1066,6 +1067,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "prnsol,s,x !|presol components in global x-dir (except transformed:nrotat,rsys)"\n
   "plnsol,s,xy ! shear in xy-dir." \n
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
+  "plvect,u !display vector results"\n
   "!! reactions"\n
   "fsum !force sum from all selected nodes"\n
   "*get,Fy,fsum,,item,fy" \n

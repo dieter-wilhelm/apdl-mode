@@ -30,14 +30,14 @@ Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 The code is based on Ansys version 13.0 and is written for the editor
 GNU Emacs (not consciously targeted for XEmacs).  It is tested with
-Emacs-23.2 and Emacs-23.1 under XP32, XP64 and GNU/Linux.  The code
-compiles and runs also with Emacs-22.1, i. e. it should work with this
-and any newer version.  (Emacs-23.1 was relased in Jul. 2009,
-Emacs-22.1 in Jul. 2007.)  The code can be loaded but won't run
-flawlessly without minor adaptions for Emacs-21.3 (released in
-Mar. 2003).
+Emacs-23.3, Emacs-23.2 and Emacs-23.1 under XP32, XP64 and GNU/Linux.
+The code compiles and runs also with Emacs-22.1, i. e. it should work
+with this and any newer version.  (Emacs-23.2 was relased in May 2010,
+Emacs-23.1 in July 2009, Emacs-22.1 in July 2007.)  The code can be
+loaded but won't run flawlessly without adaptions for Emacs-21.3
+(released in Mar. 2003).
 
-If applicable please grab the package of a pre-compiled Emacs-23.2 for
+If applicable please grab the package of a pre-compiled Emacs-23.3 for
 Windows together with a preconfigured Ansys mode at above Google Code
 site and unpack this archive anywhere on your system.  Alternatively
 visit http://ftp.gnu.org/pub/gnu/emacs/ for an original version of GNU

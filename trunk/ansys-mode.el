@@ -278,19 +278,19 @@ A hook is a variable which holds a collection of functions."
 (defcustom ansys-align-rules-list
     '(
       (ansys-align-=
-       (regexp   . "\\(\\s-+\\)=")
+       (regexp   . "\\(\\s-*=\\)")
        (modes    . '(ansys-mode))
        (justify  . t)
        (tab-stop . nil))
 
       (ansys-align-text-column
-       (regexp   . "\\(\\s-+[0-9]+\\)")
+       (regexp   . "=\\(\\s-*[0-9]+\\)")
        (modes    . '(ansys-mode))
        (justify . t)
        (tab-stop . nil))
 
       (ansys-align-comment
-       (regexp   . "\\(\\s-+\\)\\!")
+       (regexp   . "\\(\\s-*\\)\\!")
        (modes    . '(ansys-mode))
        (tab-stop . nil))
       )
@@ -473,6 +473,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)
     (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
+    (define-key map "\C-c\C-o" 'ansys-process-status)
     (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
     (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
     (define-key map "\C-c\C-r" 'ansys-replot)
@@ -484,7 +485,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\M-?" 'ansys-show-command-parameters)
     (define-key map "\C-c?" 'ansys-show-command-parameters)
 ;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
-;    (define-key map "\C-c\C-s" 'ansys-process-status) ;redundant with new mode line
        map)
     "Keymap for the Ansys mode.")
 
@@ -790,7 +790,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Preview Macro Template"       ansys-display-skeleton :help "Preview macro templates in another window"]
-	["Align section"       ansys-align :help "Align current section of Ansys variable definitions"]
+	["Align region/section"       ansys-align :help "Align current region or section of Ansys variable definitions"]
 	"-"
 	(list "Insert Template"
 	      ["*IF ... *ENDIF"         ansys-if :help "Insert interactively an *if .. *endif construct"]
@@ -827,7 +827,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
 	      "-"
-	      ["Template compilation"   ansys-skeleton :help "Insert a compilation of most often used templates"]
+	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
+	      ["Compilation of templates"   ansys-skeleton :help "Insert the compilation of most often used templates"]
 	      )
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
@@ -874,6 +875,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Move Right"             ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
 	      ["Move Left"              ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
 	      "-"
+	      ["Display Ansys Processes Status"list-processes :help "Show the run status of the current Ansys process in the mini buffer." :active (ansys-process-running-p)]
 	      ["Display all Emacs' Processes"list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
 	      ["Display Ansys Error File"ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
 	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
@@ -1005,9 +1007,14 @@ This means at the end of code before whitespace or an Ansys
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
-;; hmmm, gnu/linux is also some sort of Unix for my purposes
+;; Ansys will support in the future only Linux and Windows 64 for the
+;; entire Ansys platform, some support of legacy Unices (AIX IBM,
+;; HP-UX HP, SGI, Solaris SUN) for standalone apps will be provided so
+;; I don't restrict anys-mode to gnu/linux
 (defun ansys-is-unix-system-p ()
-  "Return t when we are on a unix system."
+  "Return t when we are on a unix system.
+gnu/linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
+usg-unix-v."
   (not
    (or (string= system-type "gnu")	;gnu with the hurd kernel
        (string= system-type "darwin")	;mac
@@ -1048,10 +1055,15 @@ comment."
 ;; ======================================================================
 ;; --- functions ---
 
-(defun ansys-align ()
-  "Align current section of Ansys variable definitions."
-  (interactive)
-  (align-current))
+(defun ansys-align (p-min p-max)	;TODO clarify `section'
+  "Align current section or selection of Ansys variable definitions.
+If a selection is active align the current selection (with the
+region borders P-MIN and P-MAX) otherwise align the current code
+section."
+  (interactive "r")
+  (if mark-active
+      (align p-min p-max)
+    (align-current)))
 
 ;;;###autoload
 (defun ansys-mode ()
@@ -1687,7 +1699,7 @@ improvements you have the following options:
 	       t) ;skip rest is a buffer without a file
 	     (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	     (y-or-n-p
-	      "File is larger than 1MB, switch on user variable highlighting?"))
+	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and buffer-file-name ;we have a file in the buffer
 	     ansys-dynamic-highlighting-flag
 	     (string= (file-name-extension (buffer-file-name)) "mac"))
@@ -2285,6 +2297,7 @@ Note that all Ansys mode abbrevs start with a grave accent."
 
 ;; redefine function because of bug in Emacs 23.2 squashed in 23.3
 (defun prepare-abbrev-list-buffer (&optional local)
+  "Temporary redefinition of internal Emacs function with the argument LOCAL."
   (let ((l-a-t-n  (abbrev-table-name local-abbrev-table)))
    (with-current-buffer (get-buffer-create "*Abbrevs*")
     (erase-buffer)
@@ -2849,7 +2862,8 @@ Signal an error if the keywords are incompatible."
 (defun ansys-find-user-variables (&optional a b c) ;NEW
   "Find all user variables in the current buffer.
 Pre-process the findings into the variables `ansys-user-variables'
-and `ansys-user-variable-regexp' for subsequent fontifications."
+and `ansys-user-variable-regexp' for subsequent fontifications.
+Added pseudo arguments A B C."
   ;; line-number-at-pos
   (interactive)
   ;; (setq ansys-user-variables '(("bla" 1)("otto" 1)("coil" 1000))
@@ -3020,3 +3034,7 @@ The default argument is 1."
 ;; show-trailing-whitespace: t
 ;; word-wrap: t
 ;; End:
+
+(provide 'ansys-mode)
+
+;;; ansys-mode.el ends here

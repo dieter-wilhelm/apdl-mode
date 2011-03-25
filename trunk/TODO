@@ -29,16 +29,32 @@
 ** Completion: Ansys command 'C***' will not be completed   
 
 * v13.0.1:
+2011-02 January: Freeze -> branch 13.0.1?
+2011-03 March: Release
+2011-06 June: Call for papers <= LinuxLaptop
+2011-11 November: Users' meeting http://www.usersmeeting.com/
 ** workload
 *** bugs
+- command "mpplot" is not fontified correctly
+  though "mpplo"
+
+- /title fontifitcation is not right
+
 - Help:
-*mwrite
-*sread
+ *mwrite
+ *sread
+
+- -if-then does not indent correctly
+
+- ansys-template.el:85:13:Warning: reference to free variable
+    `ansys-skeleton-overlay'
 
 - Alignment: Alignment of variables works only reliably for
    the setting of real constants
 
-there must be at least one space between = and variable/value
+- Alignment: alignment "section" is not clear in -align
+
+- Alignment: there must be at least one space between = and variable/value
 
 x	=	0.4	    !laskd
 y	=      33.0	    ! alskdl
@@ -55,25 +71,11 @@ xxx	= asin(3.0)
   t(1,0) = 20,300,3094,
   t(1,1) =  3,  4,   9,
 
-- ansys-if-then does not indent correctly
-
-- mismatch in customisaton buffer of -license-file and -ansysli-servers
-
-- ansys-template.el:85:13:Warning: reference to free variable
-    `ansys-skeleton-overlay'
-
-- does Ansys run under darwin, OSx? (-is-unix-system-p)
-
-- Help: parametric functions are not explained with the help command 
-
-- Help: if there are ignored characters behind the keyword, the
-  keyword is not found
+- mismatch in customisation buffer of -license-file and -ansysli-servers
 
 - C-c C-c shows dublicate prompts in interactive mode
 
 - checkdoc, -template.el, -process.el, -mode.el done except \\<keymap> & \\[function]
-
-- dbus support of workbench or integrating emacs in workbench?
 
 - load or load-file, what happens with compilation and autoload?
 
@@ -85,74 +87,6 @@ xxx	= asin(3.0)
 - make-local-variable not possible in buffers without associate file?
 
 - mouse-choose-completion is obsolete since E23.2
-
-** general release procedures
-
-- Mode Help: keyboard input quoting is "", emphasizing '', keys <>
-
-README -- installation (Emacs Wiki format) and accompanying files,
-       features, news, history
-
-mode-help -- mode usage & configuration
-
-- update the mode help
-  complete skeleton menus.
-  update defcustom list in ansys-submit-bug-report
-  update version numbers, default names (tags-query-replace 120 130)
-  checkdoc
-  then dry run: Emacs 23.1 -Q testing: fontification.mac /*commands
-  and default command lines, every menu entry.
-  byte-compile-file
-  then dry run
-  profiling, major mode conventions: multiple loading of this
-  mode?.
-
-- check Emacs versions on longterm OS systems compile with 22.X, then
-  pretests, emacs-snapshots, clash with Emacs releases (yearly Emacs
-  cycle)?
-  
-- update Emacs wiki (README), Google Code with download packages, home
-  page update all version numbers everywhere: Emacs wiki, Google Code
-  with download, home page, elpa?
-
-- publication emails (with image and news): ANSYS.net (Ansys !!!
-  Sheldon Imaoka <sheldonimaoka@yahoo.com>), AnsysWB community, Ansys
-  users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus
-  guys (PADT) <info@padtinc.com>, Holger Sparr
-  <sparr@mfkrs1.mw.tu-dresden.de>.
-
-  mike.brusoe@continental-corporation.com,
-  klemens.kieninger@continental-corporation.com,
-  zlakto.penzar@continental-corporation.com,
-  saravana.kumar@continental-corporation.com,
-  razvan.curtean@continental-corporation.com,
-  alwin.perras@continental-corporation.com,
-  sparr@mfkrs1.mw.tu-dresden.de,
-  info@padtinc.com,
-  tom.tumbrink@t-online.de,
-  admin@auc-ev.de,
-  tnelson@cadfem.de,	
-  lkrueger@cadfem.de,
-  sgotthold@cadfem.de,
-  sheldonimaoka@yahoo.com,
-
-Subject: Editor support for working with Ansys APDL processes
-
-Hi,
-
-finally a release for Ansys Version 13 of Ansys mode for the Emacs
-editor, downloadable from:
-
-  http://code.google.com/p/ansys-mode
-
-You'll find there also the latest stable version of Emacs for Windows
-with Ansys mode preconfigured and ready to go.  Just unpack it and use
-the Editor for your APDL .mac files.
-
-Below you'll find a summary of its features and what's new in this
-release.
-
-
 
 - Emacs package repository, elpa http://tromey.com/elpa/?
 
@@ -166,6 +100,11 @@ release.
   GNU programming guideline: More requires?,
   
 - display alternatives to/swap deprecated element types
+
+- M-? Help: parametric functions are not explained with the help command 
+
+- M-? Help: if there are ignored characters behind the keyword, the
+  keyword is not found
 
 - M-? the command help does not work when there are solver ignored
   characters behind the unique command name, example: *VWROOOOM.
@@ -181,11 +120,15 @@ release.
 - trigger a timer when showing the ansys-comand-parameter-help for
   switching off the overlay
 
+- Include all inquiry functions (see UPF documentation)
+
 - Include the _RETURN value of the solid modelling
   commands into their help strings of parameter help.  
 
-** Ansys interpreter buffer
+** Ansys process and interpreter buffer
    example: gnuplot-mode
+
+- dbus support of workbench or integrating emacs in workbench?
 
 - insert skeleton with C-c C-s i, send line C-c C-c ccc
    
@@ -420,3 +363,68 @@ see www.apdl.de for further ideas and extensions
 # local variables:
 # mode: outline
 # end:
+* Procedures
+
+- Mode Help: keyboard input quoting is "", emphasizing '', keys <>
+
+** General release procedures
+
+README -- installation (Emacs Wiki format) and accompanying files,
+       features, news, history
+
+- update the mode help
+  complete skeleton menus.
+  update defcustom list in ansys-submit-bug-report
+  update version numbers, default names (tags-query-replace 120 130)
+  checkdoc
+  then dry run: Emacs 23.1 -Q testing: fontification.mac /*commands
+  and default command lines, every menu entry.
+  byte-compile-file
+  then dry run
+  profiling, major mode conventions: multiple loading of this
+  mode?.
+
+- check Emacs versions on longterm OS systems compile with 22.X, then
+  pretests, emacs-snapshots, clash with Emacs releases (yearly Emacs
+  cycle)?
+  
+- update Emacs wiki (README), Google Code with download packages, home
+  page update all version numbers everywhere: Emacs wiki, Google Code
+  with download, home page, elpa?
+
+- publication emails (with image and news): ANSYS.net (Ansys !!!
+  Sheldon Imaoka <sheldonimaoka@yahoo.com>), AnsysWB community, Ansys
+  users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the Focus
+  guys (PADT) <info@padtinc.com>, Holger Sparr
+  <sparr@mfkrs1.mw.tu-dresden.de>.
+
+  mike.brusoe@continental-corporation.com,
+  klemens.kieninger@continental-corporation.com,
+  zlakto.penzar@continental-corporation.com,
+  saravana.kumar@continental-corporation.com,
+  razvan.curtean@continental-corporation.com,
+  alwin.perras@continental-corporation.com,
+  sparr@mfkrs1.mw.tu-dresden.de,
+  info@padtinc.com,
+  tom.tumbrink@t-online.de,
+  admin@auc-ev.de,
+  tnelson@cadfem.de,	
+  lkrueger@cadfem.de,
+  sgotthold@cadfem.de,
+  sheldonimaoka@yahoo.com,
+
+Subject: Editor support for working with Ansys APDL processes
+
+Hi,
+
+finally a release for Ansys Version 13 of Ansys mode for the Emacs
+editor, downloadable from:
+
+  http://code.google.com/p/ansys-mode
+
+You'll find there also the latest stable version of Emacs for Windows
+with Ansys mode preconfigured and ready to go.  Just unpack it and use
+the Editor for your APDL .mac files.
+
+Below you'll find a summary of its features and what's new in this
+release.

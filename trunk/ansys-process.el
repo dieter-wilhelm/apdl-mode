@@ -440,8 +440,8 @@ variable)."
   (interactive)
   (let ((status (process-status ansys-process-name)))
     (if status
-	(message "Ansys process is in status \"%s\"" ;, process identification No: %d"
-		 (process-status ansys-process-name))
+	(message "Ansys process is in state \"%s\"" ;, process identification No: %d"
+		 (symbol-name status))
       (message "No Ansys interpreter process is running."))
 	   ;; (process-id (get-process ansys-process-name))
     ))

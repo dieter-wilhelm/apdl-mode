@@ -783,7 +783,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (defconst ansys-mode-menu
   (list "Ansys"
-	["Comment/Un~ Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
+	["Comment/Un- Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Complete Symbol"              ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
 	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to Ansys" "Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
 	["Copy/Send above Code (to Ansys)"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
@@ -828,6 +828,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
 	      "-"
 	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
+	      ["Contact template"    ansys-skeleton-contact :help "Insert a minimal template for a structural contact simulation"]
 	      ["Compilation of templates"   ansys-skeleton :help "Insert the compilation of most often used templates"]
 	      )
 	(list "Navigate Code Lines"
@@ -860,7 +861,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
 	      ["Specify Ansys Executable "ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run"        ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
-	      ["Display Ansys Run Status"ansys-process-status :help "Display the status of a possible interpreter run (nil if not active)" :active (ansys-process-running-p)]
+	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible Ansys interpreter run" :active (ansys-process-running-p)]
 	      ["Exit Ansys Run"         ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
 	      "-"
 	      ["Send Ansys Command Interactively"ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
@@ -875,8 +876,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Move Right"             ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
 	      ["Move Left"              ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
 	      "-"
-	      ["Display Ansys Processes Status"list-processes :help "Show the run status of the current Ansys process in the mini buffer." :active (ansys-process-running-p)]
-	      ["Display all Emacs' Processes"list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
+	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
 	      ["Display Ansys Error File"ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
 	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
 	      "-"

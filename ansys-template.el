@@ -543,7 +543,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-working-plane
-  ""
+  "Settings for the working plane and related stuff."
   nil
   "\n!@@@ - working plane setup -" \n
   \n
@@ -553,6 +553,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "wpoffs,,-100 !x,y,z offset" \n
   "wprota,0,90,0 !z,x,y axis of rotation!" \n
   "/plopts,wp,off !switch off wp" \n
+  "/triad,off !off: switch off co-ordinate triad, rbot, ltop, ..." \n
   "/plopts,frame,off !switch off graphics frame" \n
   "/plopts,logo,off !switch off Ansys logo" \n
   "wpstyl,,,,,,1 !type spec 0,1,2 cartesian,cylindrical,spherical" \n

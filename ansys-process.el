@@ -147,7 +147,7 @@ Variable is only used internally in the mode.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- functions ---
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-write-abort-file (filename) ;NEW
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -155,7 +155,7 @@ Variable is only used internally in the mode.")
   (delete-region (point-min) (point-max))
   (insert "nonlinear\n")
   (save-buffer)
-  (message "Wrote \"%s\" into \"%s\"." default-directory filename))
+  (message "Wrote \"%s\" into \"%s\"." filename default-directory))
 
 ;;;###autoload
 (defun ansys-abort-file (&optional arg) ;NEW

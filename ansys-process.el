@@ -335,6 +335,7 @@ position."
       (error "Function ansys-start-ansys canceled"))
     (setq ansys-process-buffer
 	  (make-comint ansys-process-name ansys-program nil
+;		       (concat "-np 8 -p " ansys-license " -j " ansys-job)))
 		       (concat "-p " ansys-license " -j " ansys-job)))
     ;;  (comint-send-string (get-process ansys-process-name) "\n")
     (display-buffer ansys-process-buffer 'other-window)

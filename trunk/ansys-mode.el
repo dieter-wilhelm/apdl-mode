@@ -588,7 +588,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (,variable_r 1
 		 font-lock-variable-name-face) ; variables (max. 32 chars long)
 
-    (,ansys-undocumented-command-regexp . font-lock-constant-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-undocumented-command-regexp
+	      "\\)\\(\\w*\\)") . font-lock-constant-face)
 
     ;; get- and parametric-functions
     (,(concat "\\<\\("
@@ -697,7 +699,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (,variable_r 1
 		 font-lock-variable-name-face) ; variables (max. 32 chars long)
 
-    (,ansys-undocumented-command-regexp . font-lock-constant-face)
+    (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
+	      ansys-undocumented-command-regexp
+	      "\\)\\(\\w*\\)") . font-lock-constant-face)
 
     ;; get- and parametric-functions
     (,(concat "\\<\\("

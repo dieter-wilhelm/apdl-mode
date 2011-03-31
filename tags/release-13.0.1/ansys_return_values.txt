@@ -1,0 +1,42 @@
+NDIST
+KDIST
+# Keypoints 
+K Defines a keypoint keypoint number 
+KL Keypoint on a line Keypoint number 
+KNODE Keypoint at node Keypoint number 
+KBETW Keypoint between two keypoints KP number 
+KCENTER Keypoint at center KP number 
+# Lines     
+BSPLIN Generate spline Line number 
+CIRCLE Generate circular arc lines  First line number 
+L Line between two keypoints Line number 
+L2ANG Line at angle with two lines Line number 
+LANG Line tangent to two lines Line number 
+LARC Defines a circular arc Line number 
+LAREA Line between two keypoints Line number 
+LCOMB Combine two lines into one Line number 
+LDIV Divide line into two or more lines First keypoint number 
+LDRAG Line by keypoint sweep First line number 
+LFILLT Fillet line between two liens Fillet line number 
+LROTAT Arc by keypoint rotation First line number 
+LSTR Straight line Line number 
+LTAN Line at end and tangent Line number 
+SPLINE Segmented spline First line number 
+# Areas 
+A Area connecting keypoints Area number 
+ACCAT Concatenate two or more areas Area number 
+ADRAG Drag lines along path First area number 
+AFILLT Fillet at intersection of two areas Fillet area number 
+AL Area bounded by lines Area number 
+ALPFILL All loops Area number 
+AOFFST Area offset from given area Area number 
+AROTAT Rotate lines around axis First area number 
+ASKIN Skin surface through guiding lines First area number 
+ASUB Area using shape of existing area Area number 
+# Volumes 
+V Volume through keypoints Volume number 
+VA Volume bounded through areas Volume number 
+VDRAG Drag area pattern to create volume First volume number 
+VEXT Volume by extruding areas First volume number 
+VOFFST Volume offset from given area Volume number 
+VROTAT Volume by rotating areas First volume number 

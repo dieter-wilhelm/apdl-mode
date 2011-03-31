@@ -909,8 +909,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - surface loads -" \n
   "sf,all,pres,1 !surface loads on nodes" \n
   "sflist,all" \n
-  "sfe,all" \n
-  "sfl,all" \n
+  "sfe,all,pres" \n
+  "sfelist,all" \n
+  "sfl,all,pres" \n
+  "sfllist,all" \n
   "sfa,all,,pres," \n
   "sfalist,all" \n
   \n
@@ -993,12 +995,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "solcontrol,on! optimised nonlinear solution defaults" \n
   "!! implies /kbc,0: ramped loading" \n
-  "n1=20" \n
-  "n2=n1*100" \n
-  "n3=n1/4" \n
+  "n1=20 ! No of substeps for the first one" \n
+  "n2=n1*100 ! maximum No of substemps" \n
+  "n3=n1/4 ! minimum No of substeps " \n
   "nsubst,n1,n2,n3"\n
   "outres,all,all"\n
-  "antype!,,rest, !rest: perform restart operation" \n
+  "antype!,,rest,LoadStep,SubStep !rest: perform restart operation" \n
   "nlgeom,on" \n
   "autots,on" \n
   \n
@@ -1084,7 +1086,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/dscale,,auto !or 0:scale automatically" \n
   "*get,Ds,graph,WN,dscale,dmult" \n
   "/contour,,ncont,min,inc,max" \n
-  "/contour,,auto !switch off user contours" \n
+  "/contour !,,auto !switch off user contours" \n
+  "/cval,,10,20,30,40,50 !explicit contour values" \n
   "/edge,,1 !1:display elements in contour plots" \n
   "/edge,,0 !0:switch off display of elements in contour plots" \n
   "/plopts,minm,off !switch off min-max symbols" \n
@@ -1354,7 +1357,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "block,0,1,0,1,0,1"\n
   "!@@ -- Meshing --"\n
   "vmesh,all"\n
-  "!@@ -- Loads --"\n
+  "!@@ -- BCs, Loads --"\n
   "nsel,s,loc,x,0"\n
   "d,all,all"\n
   "nsel,s,loc,x,1"\n

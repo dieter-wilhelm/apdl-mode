@@ -7,44 +7,112 @@
     + the variable fontification might clash with Ansys specifiers
     + string substitution of %variables% in strings does not highlight
        them in the proper variable face
-  - Highlighting :: A label :LABEL may appear behind the /input command
-		     and is not highlighted as label
-  - Highlighting :: An apostrophy clashes with the Ansys "char" specifier
-		     Keybinding: M-Tab is captured under Windows and some Linux desktops
-		     Workaround: Press instead of M-Tab (ALT + TAB) the ESC key and then
-		     the Tab key (ESC, TAB) or apply the command from the menu bar
+  - Highlighting :: A label :LABEL may appear behind the /input
+                    command and is not highlighted as label
+  - Highlighting :: An apostrophy clashes with the Ansys "char"
+                    specifier Keybinding: M-Tab is captured under
+                    Windows and some Linux desktops Workaround: Press
+                    instead of M-Tab (ALT + TAB) the ESC key and then
+                    the Tab key (ESC, TAB) or apply the command from
+                    the menu bar
   - Keybinding :: M-j: When there is already a `&' in a format command
-   (like *msg, *vwrite, *mwrite) ansys-indent-format-line inserts a
-   redundant one
+                  (like *msg, *vwrite, *mwrite)
+                  ansys-indent-format-line inserts a redundant one
   - Completion :: Of parametric function parentheses
 		  completes redundant closing parentheses
   - Completion :: A mouse selection from the *Ansys-completion* buffer
-		  is only inserted upcased.
+                  is only inserted upcased.
   - Completion :: Ansys command 'C***' will not be completed   
-* v13.0.x:
-** schedule
-  - 2011-02 January: Freeze -> branch 13.0.1?
-  - 2011-03 March: Release
+* v13.0.x, v14.0.x:
+** Schedule
+   - trigger a timer when showing the ansys-comand-parameter-help for
+     switching off the overlay
+   - create an option for the number of processors for -start-ansys
+     (/config,nproc is obsolete)
+    - C-c C-c shows dublicate prompts in interactive mode
+
+  - 2011-02 January: Freeze
+  - 2011-03 March: Release -> tags: -12.0.1
   - 2011-06 June: Call for papers <= LinuxLaptop
   - 2011-11 November: Users' meeting http://www.usersmeeting.com/
-** workload
-*** bugs
+** Bugs
     - Help, M-? does not :
       *mwrite
       *sread M-? shows help for *mwrite
     - -if-then does not indent correctly
+    - mismatch in customisation buffer of -license-file and -ansysli-servers
+    - make-local-variable not possible in buffers without associate file?
+** Compiler warnings
     - ansys-template.el:85:13:Warning: reference to free variable
       `ansys-skeleton-overlay'
-    - mismatch in customisation buffer of -license-file and -ansysli-servers
-    - C-c C-c shows dublicate prompts in interactive mode
-    - checkdoc, -template.el, -process.el, -mode.el done except \\<keymap> & \\[function]
-    - load or load-file, what happens with compilation and autoload?
-    - TODOs, FIXMEs in the code
-    - check whether all undocumented commands (find-tag
-      "Ansys_undocumented_commands") are still working in v12
-    - make-local-variable not possible in buffers without associate file?
     - mouse-choose-completion is obsolete since E23.2
-* Further versions
+* Procedures
+** Freeze
+  - Mode Help: keyboard input quoting is "", emphasizing '', keys <>
+  - check whether all undocumented commands
+    [[elisp:(find-tag "Ansys_undocumented_commands")]]
+    are still working in v13
+  - TODOs, FIXMEs in the code
+  - checkdoc, -template.el, -process.el, -mode.el done except
+    \\<keymap> & \\[function]
+  - README -- installation (Emacs Wiki format) and accompanying files,
+       features, news, history
+  - load or load-file, what happens with compilation and autoload?
+  - update the mode help complete skeleton menus.  update defcustom
+    list in ansys-submit-bug-report update version numbers, default
+    names (tags-query-replace 120 130) checkdoc then dry run: Emacs
+    23.1 -Q testing: fontification.mac /*commands and default command
+    lines, every menu entry.  byte-compile-file then dry run
+    profiling, major mode conventions: multiple loading of this mode?.
+  - check Emacs versions on longterm OS systems compile with 22.X,
+    then pretests, emacs-snapshots, clash with Emacs releases (yearly
+    Emacs cycle)?
+** Release
+  - update Emacs wiki (README), Google Code with download packages,
+    home page update all version numbers everywhere: Emacs wiki,
+    Google Code with download, home page, elpa?
+  - publication emails (with image and news): ANSYS.net (Ansys !!!
+    Sheldon Imaoka <sheldonimaoka@yahoo.com>), AnsysWB community,
+    Ansys users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the
+    Focus guys (PADT) <info@padtinc.com>, Holger Sparr
+    <sparr@mfkrs1.mw.tu-dresden.de>.
+
+  mike.brusoe@continental-corporation.com,
+  klemens.kieninger@continental-corporation.com,
+  zlatko.penzar@continental-corporation.com,
+  saravana.kumar@continental-corporation.com,
+  razvan.lionel.curtean@continental-corporation.com,
+  alwin.perras@continental-corporation.com,
+  sparr@mfkrs1.mw.tu-dresden.de,
+  info@padtinc.com,
+  tom.tumbrink@t-online.de,
+  admin@auc-ev.de,
+  tnelson@cadfem.de,	
+  lkrueger@cadfem.de,
+  sgotthold@cadfem.de,
+  sheldonimaoka@yahoo.com,
+
+Subject: Editor support for working with Ansys APDL processes
+
+Hi,
+
+finally a release for Ansys Version 13 of Ansys mode for the Emacs
+editor, downloadable from:
+
+  http://code.google.com/p/ansys-mode
+
+You'll find there also the latest stable version of Emacs for Windows
+with Ansys mode preconfigured and ready to go.  Just unpack it and use
+the Editor for your APDL .mac files.
+
+Below you'll find a summary of its features and what's new in this
+release.
+
+#+STARTUP: showall
+# local variables:
+# mode: org
+# end:
+* Ideas for further versions
 ** Parameter help and documentation
    - inspirations from eldoc-mode, show replacements of deprecated
      elements?
@@ -63,15 +131,11 @@
    - M-?: remove also old overlay when new keyword is not found
    - Provide Ansys command completion and command-help in comint
      buffer
-   - trigger a timer when showing the ansys-comand-parameter-help for
-     switching off the overlay
    - Include all inquiry functions (see UPF documentation)
    - Include the _RETURN value of the solid modelling commands into
      their help strings of parameter help.
 ** Ansys process and interpreter buffer
    example: gnuplot-mode
-   - create an option for the number of processors for -start-ansys
-     (/config,nproc is obsolete)
    - dbus support of workbench or integrating emacs in workbench?
    - insert skeleton with C-c C-s i, send line C-c C-c ccc
    - warn when C-c C-c tries to send a block command (complete to full
@@ -240,67 +304,8 @@ xxx	= asin(3.0)
      with /INPUT and *USE)
    - Block level restriction of 10 levels of nested *IF blocks
    - Macro level restriction: 20 macros
-** unknown Ansys stuff
+** Unknown Ansys stuff
    - what the heck is the *UILIST command?
    - Is hyper56 a valid element?
-** additional macro resources
+** Additional APDL macro resources
    see www.apdl.de for further ideas and extensions
-* Procedures
-  - Mode Help: keyboard input quoting is "", emphasizing '', keys <>
-** General release procedures
-README -- installation (Emacs Wiki format) and accompanying files,
-       features, news, history
-
-   - update the mode help complete skeleton menus.  update defcustom
-     list in ansys-submit-bug-report update version numbers, default
-     names (tags-query-replace 120 130) checkdoc then dry run: Emacs
-     23.1 -Q testing: fontification.mac /*commands and default command
-     lines, every menu entry.  byte-compile-file then dry run
-     profiling, major mode conventions: multiple loading of this
-     mode?.
-   - check Emacs versions on longterm OS systems compile with 22.X,
-     then pretests, emacs-snapshots, clash with Emacs releases (yearly
-     Emacs cycle)?
-   - update Emacs wiki (README), Google Code with download packages,
-     home page update all version numbers everywhere: Emacs wiki,
-     Google Code with download, home page, elpa?
-   - publication emails (with image and news): ANSYS.net (Ansys !!!
-     Sheldon Imaoka <sheldonimaoka@yahoo.com>), AnsysWB community,
-     Ansys users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>,
-     the Focus guys (PADT) <info@padtinc.com>, Holger Sparr
-     <sparr@mfkrs1.mw.tu-dresden.de>.
-
-  mike.brusoe@continental-corporation.com,
-  klemens.kieninger@continental-corporation.com,
-  zlatko.penzar@continental-corporation.com,
-  saravana.kumar@continental-corporation.com,
-  razvan.lionel.curtean@continental-corporation.com,
-  alwin.perras@continental-corporation.com,
-  sparr@mfkrs1.mw.tu-dresden.de,
-  info@padtinc.com,
-  tom.tumbrink@t-online.de,
-  admin@auc-ev.de,
-  tnelson@cadfem.de,	
-  lkrueger@cadfem.de,
-  sgotthold@cadfem.de,
-  sheldonimaoka@yahoo.com,
-
-Subject: Editor support for working with Ansys APDL processes
-
-Hi,
-
-finally a release for Ansys Version 13 of Ansys mode for the Emacs
-editor, downloadable from:
-
-  http://code.google.com/p/ansys-mode
-
-You'll find there also the latest stable version of Emacs for Windows
-with Ansys mode preconfigured and ready to go.  Just unpack it and use
-the Editor for your APDL .mac files.
-
-Below you'll find a summary of its features and what's new in this
-release.
-
-# local variables:
-# mode: org
-# end:

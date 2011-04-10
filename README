@@ -320,6 +320,11 @@ on which the highlighting and completing code is based and the version
 increments (currently .1) of Ansys mode (thus 13.0.1) for this
 particular Ansys release.
 
+=== Version ===
+
+* Added a timer for getting rid of the parameter help overlays after
+  some time interval
+
 === Version 13.0.1 ===
 
 * Added support for aligning whole sections of Ansys variable

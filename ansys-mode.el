@@ -301,7 +301,16 @@ A hook is a variable which holds a collection of functions."
 
 ;; (put 'my-align-rules-list 'risky-local-variable t)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; --- variables ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar ansys-help-overlay nil
+  "Overlay for displaying the ansys parameter help.")
+
+(defvar ansys-timer nil
+  "Timer variable to set up a timer for overlay clearing.
+  Please have a look at `ansys-help-overlay'.")
 
 (defvar ansys-indent-comment-string	;_C
   (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
@@ -1647,8 +1656,8 @@ improvements you have the following options:
   ;;  comment-indent -> fill-column?? only when line-wrap mode t?
 
   ;; overlay for command-parameter-help
-  ;; (make-local-variable 'ansys-help-overlay)
-  (defvar ansys-help-overlay)
+  (make-local-variable 'ansys-timer)
+  (make-local-variable 'ansys-help-overlay)
   (setq ansys-help-overlay (make-overlay 1 1))
 
   ;; look at newcomment.el
@@ -1901,16 +1910,23 @@ THEN action label."
 
 ;;; --- Command parameters and command completions ----
 (defun ansys-manage-overlay ( str)
-  "Display or remove the command help overlay STR."
+  "Display or remove the command help overlay string STR.
+The help overlay will be automatically removed after some time
+interval.  The timer is sleeping, when the buffer is not the
+current one."
   (interactive)
   (let ((ho (overlay-start ansys-help-overlay))
 	(lb (line-beginning-position))
 	s)
+    (if ansys-timer
+	(cancel-timer ansys-timer))
     (delete-overlay ansys-help-overlay)
     (unless (eq lb ho)
       (move-overlay ansys-help-overlay lb lb)
       (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
-      (overlay-put ansys-help-overlay 'before-string s))))
+      (overlay-put ansys-help-overlay 'before-string s)
+      (setq ansys-timer (run-at-time "1 min" nil
+      '(lambda () (delete-overlay ansys-help-overlay)))))))
 
 (defun ansys-show-command-parameters (&optional ask)
   "Displays the Ansys command parameters help for the command near the cursor.

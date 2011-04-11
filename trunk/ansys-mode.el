@@ -873,6 +873,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
 	      ["Specify Ansys Executable "ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the Ansys run definition." :active ansys-is-unix-system-flag]
 	      ["Start Ansys Run"        ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
 	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible Ansys interpreter run" :active (ansys-process-running-p)]
 	      ["Exit Ansys Run"         ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
@@ -903,9 +904,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	     "Display License Status"
 	   "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
 	["Insert Temporary Ruler"      ansys-column-ruler :help "Show a temporary ruler above the current line"]
-	[ "Outline Mode"               outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevels"]
-	[ "Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
-	[ "Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
+	["Outline Minor Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
+	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
+	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
 	["Show Ansys Mode version"     ansys-mode-version :label (concat "Ansys Mode Version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
 	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for Ansys mode"]

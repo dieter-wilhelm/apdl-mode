@@ -137,6 +137,11 @@ See `ansys-license-types' for often used Ansys license types."
   :type 'string
   :group 'Ansys-process)
 
+(defcustom ansys-no-of-processors 2
+  "No of processors to use for an ansys run."
+  :type 'integer
+  :group 'Ansys-process)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -328,14 +333,19 @@ position."
     (ansys-license-file "")		;take file from license-file or env.
     (if (y-or-n-p
 	 (concat
-	  "Start run?  (l-type: " (if (boundp 'ansys-license) ansys-license)
+	  "Start run?  (license type: " (if (boundp
+	  'ansys-license) ansys-license)
+	  (if (>= ansys-no-of-processors 3)
+	      (concat ", No of processors: " (number-to-string ansys-no-of-processors)))
 	  ", job: " (if (boundp 'ansys-job) ansys-job)
 	  " in " default-directory ", server: " ansys-license-file ")"))
 	(message "Starting the Ansys interpreter...")
       (error "Function ansys-start-ansys canceled"))
     (setq ansys-process-buffer
 	  (make-comint ansys-process-name ansys-program nil
-;		       (concat "-np 8 -p " ansys-license " -j " ansys-job)))
+		       (if (>= ansys-no-of-processors 3)
+			   (concat "-np " (number-to-string ansys-no-of-processors)
+				   " -p " ansys-license " -j " ansys-job))
 		       (concat "-p " ansys-license " -j " ansys-job)))
     ;;  (comint-send-string (get-process ansys-process-name) "\n")
     (display-buffer ansys-process-buffer 'other-window)
@@ -665,6 +675,25 @@ And put it into the variable `ansys-job'."
 	  (read-string "job name: " "file")))
   (message (concat "Job-name is set to \"" ansys-job "\".")))
 
+(defun ansys-no-of-processors ()
+  "Change the No of processors to use for an Anys run.
+The number of processors will be put into the integer
+`ansys-no-of-processors'.  If this number is below 3 the variable
+won't affect the run definition since the default No of
+processors (if available) for a structural analysis in Ansys is
+2."
+  (interactive)
+  (let ((no-string (number-to-string ansys-no-of-processors))
+	no
+	query
+	s)
+    (setq query (concat "Put in the No of processors to use [" no-string "]: ")
+	  s (read-string query nil nil no-string)
+	  no (string-to-number s))
+    (if (integerp no)
+	(setq ansys-no-of-processors no)
+      (error "Specified number is not an integer"))
+    (message "No of processors for the next run definiton is %d" ansys-no-of-processors)))
 
 (defun ansys-license-file-check ()
   "Return t if Ansys license file (server) information is found.

@@ -13,7 +13,7 @@ powerful, yet free editor which is available for any operating system
 where Ansys is running.  The software defines 'Ansys mode', a mode for
 inspecting, writing and navigating in APDL (Ansys Parametric Design
 Language) files and offers managing and communication capabilities for
-Ansys solver processes as well.
+Ansys interpreter processes as well.
 
 The mode's capabilities are sophisticated but the comprehensive
 documentation is targeted for Ansys users with little Emacs
@@ -257,7 +257,6 @@ explicitely called ansys-mode.
      (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting Ansys runs." 'interactive)
      (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
      (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the Ansys help browser." 'interactive)
- TODO: -license-file, -license-program variables
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
 
 * A further configuration method
@@ -323,7 +322,11 @@ particular Ansys release.
 === Version ===
 
 * Added a timer for getting rid of the parameter help overlays after
-  some time interval
+  some time interval without user action
+
+* Added a (customisable) variable `ansys-no-of-processors' and
+  function with the same name for specifying the number of processors
+  for an Ansys run definition
 
 === Version 13.0.1 ===
 
@@ -482,10 +485,11 @@ particular Ansys release.
 * http://www.ansys.net -- general Ansys repository
 * http://www.ansys.com
 * http://www.xansys.org -- ansys online community
+* http://www.padtinc.com/pedal -- another APDL script editor
 
 == Bugs and Problems ==
 
-For an overview of the outstanding issues please have a look in the
+For an overview of the outstanding issues please have a look at the
 TODO file.
 
 The "user variable" highlighting is still experimental, newly edited
@@ -523,8 +527,8 @@ the following options:
   (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).  At the Wiki you
   can add some comments or wishes.
 
-Local Variables:
-word-wrap: t
-show-trailing-whitespace: t
-indicate-empty-lines: t
-End:
+# local variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# end:

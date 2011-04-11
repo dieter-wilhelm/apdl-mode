@@ -29,7 +29,7 @@
      switching off the overlay
    - create an option for the number of processors for -start-ansys
      (/config,nproc is obsolete)
-    - C-c C-c shows dublicate prompts in interactive mode
+   - C-c C-c shows duplicate prompts in interactive mode
 
   - 2011-02 January: Freeze
   - 2011-03 March: Release -> tags: -12.0.1
@@ -91,15 +91,17 @@
   lkrueger@cadfem.de,
   sgotthold@cadfem.de,
   sheldonimaoka@yahoo.com,
+  oleksiy.kurenkov@continental-corporation.com,
+  martin.bruehl@continental-corporation.com,
 
-Subject: Editor support for working with Ansys APDL processes
+Subject: New release 13.0.1: Editor support for working with Ansys APDL files & processes
 
 Hi,
 
-finally a release for Ansys Version 13 of Ansys mode for the Emacs
+finally a new release for Ansys V13 of Ansys mode for the Emacs
 editor, downloadable from:
 
-  http://code.google.com/p/ansys-mode
+http://code.google.com/p/ansys-mode
 
 You'll find there also the latest stable version of Emacs for Windows
 with Ansys mode preconfigured and ready to go.  Just unpack it and use
@@ -136,6 +138,7 @@ release.
      their help strings of parameter help.
 ** Ansys process and interpreter buffer
    example: gnuplot-mode
+   - autoloading of: -license-file, -license-program functions
    - dbus support of workbench or integrating emacs in workbench?
    - insert skeleton with C-c C-s i, send line C-c C-c ccc
    - warn when C-c C-c tries to send a block command (complete to full
@@ -309,3 +312,10 @@ xxx	= asin(3.0)
    - Is hyper56 a valid element?
 ** Additional APDL macro resources
    see www.apdl.de for further ideas and extensions
+
+#+STARTUP: content
+# local variables:
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# mode: org
+# end:   

@@ -25,8 +25,6 @@
   - Completion :: Ansys command 'C***' will not be completed   
 * v13.0.x, v14.0.x:
 ** Schedule
-   - trigger a timer when showing the ansys-comand-parameter-help for
-     switching off the overlay
    - create an option for the number of processors for -start-ansys
      (/config,nproc is obsolete)
    - C-c C-c shows duplicate prompts in interactive mode
@@ -41,7 +39,6 @@
       *sread M-? shows help for *mwrite
     - -if-then does not indent correctly
     - mismatch in customisation buffer of -license-file and -ansysli-servers
-    - make-local-variable not possible in buffers without associate file?
 ** Compiler warnings
     - ansys-template.el:85:13:Warning: reference to free variable
       `ansys-skeleton-overlay'
@@ -109,11 +106,6 @@ the Editor for your APDL .mac files.
 
 Below you'll find a summary of its features and what's new in this
 release.
-
-#+STARTUP: showall
-# local variables:
-# mode: org
-# end:
 * Ideas for further versions
 ** Parameter help and documentation
    - inspirations from eldoc-mode, show replacements of deprecated
@@ -131,6 +123,8 @@ release.
    - M-? Provide also help for commented out commands
    - M-?: following a variable allocation with `='
    - M-?: remove also old overlay when new keyword is not found
+   - M-?: In the last empty line displays overlay below command
+     instead above
    - Provide Ansys command completion and command-help in comint
      buffer
    - Include all inquiry functions (see UPF documentation)
@@ -198,13 +192,12 @@ release.
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
-   - Alignment: Alignment of variables works only reliably for the
-     setting of real constants
-   - Alignment: alignment "section" is not clearly defined in function
+   - Alignment :: Alignment of variables works only reliably for the
+     setting of real constants and not functions or algebraic expr.
+   - Alignment :: alignment "section" is not clearly defined in function
      -align
-   - Alignment: there must be at least one space between = and
-     variable/value
-
+   - Alignment :: don't align pure comment lines
+		  
 x	=	0.4	    !laskd
 y	=      33.0	    ! alskdl
 xzv	= 9999990.3	    !

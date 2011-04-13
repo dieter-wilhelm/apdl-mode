@@ -278,7 +278,7 @@ A hook is a variable which holds a collection of functions."
 (defcustom ansys-align-rules-list
     '(
       (ansys-align-=
-       (regexp   . "\\(\\s-*=\\)")
+       (regexp   . "\\(\\s-*\\)=")
        (modes    . '(ansys-mode))
        (justify  . t)
        (tab-stop . nil))

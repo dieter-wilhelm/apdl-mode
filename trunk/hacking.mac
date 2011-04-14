@@ -71,29 +71,23 @@ Pi = acos(-1)
 *afun,rad
 Pi = acos(-1)
 
-!! alignment
-x = 0.4 !laskd
-y = 33.0		 ! alskdl
-xzv = 9999990.3   	 !
-llk = 0.333333333 !bla
-al_ = 00.40
-aslföas =     304
-ka = .4		    !salkd
-i = 4. !as
-kasd =	3./0.4
-xxx = asin(3.0)
+x = 3.4 !lsk
+y = .8	!ach
+
 
 !! alignment
-x	=	0.4	    !laskd
-y	=      33.0	    ! alskdl
-xzv	= 9999990.3	    !
-llk	=	0.333333333 !bla
-al_	=      00.40
-aslföas =     304
-ka	= .4		    !salkd
-i	=	4.	    !as
-kasd	=	3./0.4
-xxx	= asin(3.0)
+x=0.4!laskd
+y= 33.0	    ! alskdl
+xzv= 9999990.3	    !!
+llk = 0.333333333 !bla
+al_=  00.40
+aslföas = 304
+ka= .4	    !salkd
+i = 4.		    !as
+kasd=.3/0.4
+kasd =3./0.4
+xxx =asin(3.0)
+y = cos(i)
 
 !case sensitive completion
 !Pi = ac

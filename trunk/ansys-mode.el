@@ -284,13 +284,13 @@ A hook is a variable which holds a collection of functions."
        (tab-stop . nil))
 
       (ansys-align-text-column
-       (regexp   . "=\\(\\s-*[0-9]+\\)")
+       (regexp   . "=\\(\\s-*[0-9]+\\|\\s-*\\)")
        (modes    . '(ansys-mode))
        (justify . t)
        (tab-stop . nil))
 
       (ansys-align-comment
-       (regexp   . "\\(\\s-*\\)\\!")
+       (regexp   . "[0-9.)]+\\(\\s-*\\)\\!")
        (modes    . '(ansys-mode))
        (tab-stop . nil))
       )

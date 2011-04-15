@@ -326,7 +326,7 @@ position."
   (interactive)
   (let (ansys-process-buffer)
     (when (ansys-process-running-p)
-      (error "A Interpreter is already running under Emacs"))
+      (error "An Interpreter is already running under Emacs"))
     (message "Preparing an Ansys interpreter start...")
     ;; (setq comint-use-prompt-regexp t) TODO: ???
     (ansys-program "")			;take exec from -program var.
@@ -336,7 +336,8 @@ position."
 	  "Start run?  (license type: " (if (boundp
 	  'ansys-license) ansys-license)
 	  (if (>= ansys-no-of-processors 3)
-	      (concat ", No of processors: " (number-to-string ansys-no-of-processors)))
+	      (concat ", No of processors: " (number-to-string ansys-no-of-processors))
+	    "")
 	  ", job: " (if (boundp 'ansys-job) ansys-job)
 	  " in " default-directory ", server: " ansys-license-file ")"))
 	(message "Starting the Ansys interpreter...")

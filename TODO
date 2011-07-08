@@ -25,9 +25,11 @@
   - Completion :: Ansys command 'C***' will not be completed   
 * v13.0.x, v14.0.x:
 ** Schedule
+   - supply the default path for `ansys-help-program'
    - create an option for the number of processors for -start-ansys
      (/config,nproc is obsolete)
    - C-c C-c shows duplicate prompts in interactive mode
+   - Lagrange contact behaviour for contact/press-fit skeleton
 
   - 2011-02 January: Freeze
   - 2011-03 March: Release -> tags: -12.0.1
@@ -45,7 +47,7 @@
     - mouse-choose-completion is obsolete since E23.2
 * Procedures
 ** Freeze
-  - Mode Help: keyboard input quoting is "", emphasizing '', keys <>
+  - Mode Help :: keyboard input quoting is "", emphasizing '', keys <>
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
     are still working in v13

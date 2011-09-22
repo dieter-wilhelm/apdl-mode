@@ -341,6 +341,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "\n!! ------------------------------" \n
   "!@@ -- view settings --" \n
   \n
+  "/eshape,1 !1:use real constant def. for element shapes"\n
   "/view !viewing direction"_ \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
@@ -648,6 +649,7 @@ time stamp with the Emacs command M-x `time-stamp'."
  "etlist !list defined elements" \n
  "et,ID,solid185 !3d, 8 node" \n
  "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane strain, 3:plane stress with thickness real constant" \n
+ "/eshape,1 !1:use real constant def. for element shapes"\n
  "r,ID,13 ! thickness" \n
  "et,ID,plane182 !2d, 4 node"\n
  "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
@@ -805,6 +807,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
+  "mp,dens,Steel,7.85e-9 !density" \n
   "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
   "mp,alpx,Steel,AlphaSteel !secant modulus of therm. exp.!" \n
   "!mp,ctex,Steel,12e-6 ! instantaneous coofficient of therm. exp." \n
@@ -1032,10 +1035,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   "antyp,,rest,1,last"\n
   "time,1.2 !time at the end of load step" \n
   \n
+  "!@@ -- modal --" \n
+  \n
+  "antype,modal" \n
+  "modopt,lanb,10,10,1e10!method,No of modes,freqB,freqE" \n
+  "mxpand"
+  \n
   "!@@ -- magnetics --" \n
   \n
   "magsolv" \n
   \n
+  "solve" \n
+
   "!@@ -- cyclic symmetry --" \n
   \n
   "cycopt,status" \n

@@ -341,18 +341,33 @@ time stamp with the Emacs command M-x `time-stamp'."
   "\n!! ------------------------------" \n
   "!@@ -- view settings --" \n
   \n
-  "/eshape,1 !1:use real constant def. for element shapes"\n
   "/view !viewing direction"_ \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
   "/focus,1 $ /repl !focus to csys,0" \n
-  "/plopts,wp,1 !display working plane" \n
   "/plopts,minm ! switch off min max" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "/auto ! automatic fit mode" \n
   "/user ! keep last display scaling"\n
   "/pstatus ! display window stats specifications" \n
   "/dscale,all,10 !set displacment multiplier" \n
+  \n
+  "!@@@ - element shape display -" \n
+  "/eshape,1 !1:use real constant def. for element shapes"\n
+  \n
+  "\n!@@@ - coordinate system display -" \n
+  \n
+  "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
+  "clocal,11,0 !define local coord. sys. from active" \n
+  "/psymb,cs,1 ! display local coord."
+  "/plopts,wp,1 !display working plane" \n
+  "/plopts,wp,off !switch off wp" \n
+  "/plopts,frame,off !switch off graphics frame" \n
+  "/plopts,logo,off !switch off Ansys logo" \n
+  "/triad,rbot"_ \n
+  "/triad,off"
+  \n
+
   )
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -531,9 +546,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!@@@ - coordinate system display -" \n
   \n
-  "!csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
-  "!clocal,11,0 !define local coord. sys. from active" \n
-  "!psymb,cs,1 ! display local coord."
+  "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
+  "clocal,11,0 !define local coord. sys. from active" \n
+  "/psymb,cs,1 ! display local coord."
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n

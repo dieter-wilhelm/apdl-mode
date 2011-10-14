@@ -359,7 +359,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
   "clocal,11,0 !define local coord. sys. from active" \n
-  "/psymb,cs,1 ! display local coord."
+  "/psymb,cs,1 ! display local coord." \n
+  "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
@@ -548,7 +549,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
   "clocal,11,0 !define local coord. sys. from active" \n
-  "/psymb,cs,1 ! display local coord."
+  "/psymb,cs,1 ! display local coord." \n
+  "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
@@ -921,7 +923,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "dlist,all" \n
   \n
   "!@@@ - concentrated loads -" \n
-  "f,all,fx,1 !fk" \n
+  "f,all,fx,1,1 !@nodes:real,imag" \n
+  "fk,all,fx,1,1 !@keypoints:real,imag" \n
   "flist,all !fklist" \n
   \n
   "!@@@ - surface loads -" \n
@@ -1054,7 +1057,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "antype,modal" \n
   "modopt,lanb,10,10,1e10!method,No of modes,freqB,freqE" \n
-  "mxpand"
+  "mxpand"\n
+  \n
+  "!@@ -- harmonic --" \n
+  \n
+  "antype,harmic" \n
+  "dmprat,.02                !const. damping ratio"\n
+  "hropt,full                ! Full harmonic response" \n
+  "hrout,off                 ! Print results as amplitudes and phase angles"\n
+  "outpr,basic,1             ! solution item printout" \n
+  "nsubst,30                 ! 30 Intervals within freq. range"\n
+  "harfrq,,7.5               ! Frequency range from 0 to 7.5 HZ"\n
+  "kbc,1                     ! Step boundary condition"\n
   \n
   "!@@ -- magnetics --" \n
   \n

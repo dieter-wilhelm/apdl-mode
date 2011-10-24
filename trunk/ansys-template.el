@@ -317,8 +317,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "\n!! ------------------------------" \n
   "!@@ -- configurations --" \n
   \n
-  "! *afun,deg ! trig. functions accept angle arguments" \n
-  "*afun,rad !rad: default" \n
+  "! *afun,rad ! trig. functions accept angle arguments" \n
+  "*afun,deg !rad: default" \n
   "True = 1"  \n
   "False = 0" \n
   \n
@@ -673,16 +673,18 @@ time stamp with the Emacs command M-x `time-stamp'."
  "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!!for most elements the radial direction is the x-axis" \n
  \n
- "!! --- shells and planes ---" \n
- "et,ID,shell181 !4 node structural shell" \n
- "et,ID,plane182 !2d 4 node structural solid" \n
- "et,ID,plane183 !2d 6 node structural solid" \n
+ "!! --- structural shells and planes ---" \n
+ "et,ID,shell181 !3d 4/3-node structural shell" \n
+ "et,ID,plane182 !2d 4/3-node structural solid" \n
+ "et,ID,plane183 !2d 8/6-node structural solid" \n
  \n
  "!! --- thermal ---" \n
+ "et,ID,plane35 !2d 6-node triangular thermal solid" \n
+ "et,ID,plane77 !2d 8-node thermal solid" \n
  "et,ID,solid90 !3D 20 nodes thermal solid" \n
  \n
  "!! --- magnetics ---" \n
- "et,ID,plane13 !2d, legacy coupled-field ->plane53" \n
+ "et,ID,plane13 !2d, legacy 4-node coupled-field ->plane233 8-node" \n
  "keyopt,ID,3,1 !(3)=1:axissym." \n
  "keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
  "et,ID,infin110 !2d semi infinit electromagnetic elem." \n
@@ -731,7 +733,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "shpp,off,,nowarn! control mesh shape checking" \n
   "vmesh,all" \n
   "amesh,all" \n
-  "shrink,.8 !shrink elements,l,a,v"\n
+  "/shrink,.8 !shrink elements,l,a,v"\n
   "lsel,s,lcca !select all concatenated lines" \n
   "ldele,all" \n
   "!! -- cyclic symmetric meshing --" \n
@@ -1181,6 +1183,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "antime" \n
   "andata" \n
   "anmres !multiple result files" \n
+  "/anfile,save !save/resume animation to/from job.anim" \n
+  "anharm !harmonics animation" \n
+  "anim,20,1 !20[5], cycles [0] forward-backward 1:forward-forward"\n
   \n
   "!! cycexpand,on ! graphical expansion" \n
   \n
@@ -1287,6 +1292,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "numvar,200 !maximum No of variables"
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
+  "extrem,2 !list extrema" \n
   "filldata,7,1,10,,20 !fills a variable by a ramp or constant"\n
   "rforce,3,1,f,z" \n
   "add,4,2,,,displ,,,-1" \n

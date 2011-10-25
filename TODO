@@ -23,19 +23,18 @@
   - Completion :: A mouse selection from the *Ansys-completion* buffer
                   is only inserted upcased.
   - Completion :: Ansys command 'C***' will not be completed   
-* v13.0.x, v14.0.x:
+*  v14.0.x:
 ** Schedule
    - supply the default path for `ansys-help-program'
+   - include embedded calc in hacking.mac
    - create an option for the number of processors for -start-ansys
      (/config,nproc is obsolete)
    - C-c C-c shows duplicate prompts in interactive mode
    - Lagrange contact behaviour for contact/press-fit skeleton
 
-  - 2011-02 January: Freeze
-  - 2011-03 March: Release -> tags: -12.0.1
-  - 2011-06 June: Call for papers <= LinuxLaptop
-  - 2011-11 November: Users' meeting http://www.usersmeeting.com/
+   -Ansys 14 scheduled in December 
 ** Bugs
+    - M-? help timer is not working on E23.3 but on E23.2
     - Help, M-? does not :
       *mwrite
       *sread M-? shows help for *mwrite

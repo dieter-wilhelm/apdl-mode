@@ -731,11 +731,19 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "esys,12 !set element coordinates for a and v elements to 12" \n
   "shpp,off,,nowarn! control mesh shape checking" \n
+  "type !element type" \n
   "vmesh,all" \n
   "amesh,all" \n
-  "/shrink,.8 !shrink elements,l,a,v"\n
+  "/shrink,.5 ![0] 0 to max 0.5, shrink elem.,l,a,v"\n
+  "eplot" \n
   "lsel,s,lcca !select all concatenated lines" \n
   "ldele,all" \n
+  \n
+  "!! -- extrusion --" \n
+  "esize,,1 !one element per extrusion" \n
+  "vext  !extrude areas by offset" \n
+  "vdrag !extrude areas along lines" \n
+  \n
   "!! -- cyclic symmetric meshing --" \n
   "cyclic ! check sectors in case of cyclic sym." \n
   "*status ! look for CYCLIC_XREF" \n
@@ -826,7 +834,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
-  "mp,dens,Steel,7.85e-9 !density" \n
+  "mp,dens,Steel,7850e-12 !density in t/mm³" \n
   "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
   "mp,alpx,Steel,AlphaSteel !secant modulus of therm. exp.!" \n
   "!mp,ctex,Steel,12e-6 ! instantaneous coofficient of therm. exp." \n
@@ -856,6 +864,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mptemp" \n
   "/com, === Material %Alu% is Aluminium. ===" \n
   "Air=3" \n
+  "mp,dens,Air,1.2e-12 !t/mm³" \n
   "mptemp,,-150,0,100,200,300,500,1000" \n
   "mpdata,kxx,Air,,.012,.0243,.0314,.0386,.0454,.057,.0662" \n
   "mptemp" \n
@@ -1362,6 +1371,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n
   "*if,Dim,le,1,then" \n
+  "! or just deleting A before dimensioning: A = " > \n
   "*dim,A,array,10,1" > \n
   "*endif" > \n
   "*do,I,1,Ns" \n
@@ -1490,9 +1500,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   (interactive)
   (ansys-skeleton-header)
   (goto-char (point-max))
-  (ansys-skeleton-import)
-  (goto-char (point-max))
   (ansys-skeleton-configuration)
+  (goto-char (point-max))
+  (ansys-skeleton-import)
   (goto-char (point-max))
   (ansys-skeleton-geometry)
   (goto-char (point-max))

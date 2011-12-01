@@ -25,16 +25,16 @@
   - Completion :: Ansys command 'C***' will not be completed   
 *  v14.0.x:
 ** Schedule
+   - constraint equations in -template.el and get functions
+   - activate optinally outline mode in default_el
    - supply the default path for `ansys-help-program'
    - include embedded calc in hacking.mac
    - create an option for the number of processors for -start-ansys
-     (/config,nproc is obsolete)
+     (/config,nproc is obsolete), show this thing in default_el
    - C-c C-c shows duplicate prompts in interactive mode
    - Lagrange contact behaviour for contact/press-fit skeleton
-
-   -Ansys 14 scheduled in December 
+   - Ansys 14 scheduled in December 
 ** Bugs
-    - M-? help timer is not working on E23.3 but on E23.2
     - Help, M-? does not :
       *mwrite
       *sread M-? shows help for *mwrite
@@ -109,6 +109,9 @@ Below you'll find a summary of its features and what's new in this
 release.
 * Ideas for further versions
 ** Parameter help and documentation
+   - show list of license products and their license feature names or
+     translate it in the license status from the licensing guide
+     (product variable table)
    - inspirations from eldoc-mode, show replacements of deprecated
      elements?
    - count number of user variables when displaying them

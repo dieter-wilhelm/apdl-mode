@@ -1,4 +1,3 @@
-
 !! *** presentation
 !! -- Very brief introduction: Emacs, why not?  Gnu Puplic Licens ->
 !!    Free, working on all current OSs.  All bells and whistle of a
@@ -93,7 +92,13 @@ y = cos(i)
 !Pi = ac
 
 !Emacs calc
-Pi = 
+Pi =
+
+!! Embeded calc
+
+0.416195720427
+
+2 x => 2 x
 
 !! abbrev `p
 p

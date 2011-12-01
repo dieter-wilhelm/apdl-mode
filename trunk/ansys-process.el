@@ -138,7 +138,7 @@ See `ansys-license-types' for often used Ansys license types."
   :group 'Ansys-process)
 
 (defcustom ansys-no-of-processors 2
-  "No of processors to use for an ansys run."
+  "No of processors to use for an Ansys solver run."
   :type 'integer
   :group 'Ansys-process)
 

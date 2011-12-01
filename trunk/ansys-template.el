@@ -256,6 +256,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "POINT $ stat ! - Point flow tracing settings" \n
   "SPEC $ stat ! - Miscellaneous specifications" \n
   \n
+  "!! post26" \n
+  "EXTREM,2 !post26 variable extrema listing" \n
   "!! post26 stat topics" \n
   "DEFINE $ stat ! - Data definition settings" \n
   "OPERATE $ stat ! - Operation data" \n
@@ -341,6 +343,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "\n!! ------------------------------" \n
   "!@@ -- view settings --" \n
   \n
+  "immed,1 !immediate display of generated geom. in /prep7" \n
+  "/uis,replot,0 !suppress automatic replot" \n
   "/view !viewing direction"_ \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
@@ -354,6 +358,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!@@@ - element shape display -" \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
+  "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
   "\n!@@@ - coordinate system display -" \n
   \n
@@ -780,6 +785,124 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = ATAN()" \n
   "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
   \n
+  "!get functions"
+NSEL(N) Status of node N: -1=unselected, 0=undefined, 1=selected. 
+ESEL(E) Status of element E: -1=unselected, 0=undefined, 1=selected. 
+KSEL(K) Status of keypoint K: -1=unselected, 0=undefined, 1=selected. 
+LSEL(L) Status of line L: -1=unselected, 0=undefined, 1=selected. 
+ASEL(A) Status of area A: -1=unselected, 0=undefined, 1=selected. 
+VSEL(V) Status of volume V: -1=unselected, 0=undefined, 1=selected. 
+# Next Selected Entity 
+NDNEXT(N) Next selected node having a node number greater than N. 
+ELNEXT(E) Next selected element having an element number greater than E. 
+KPNEXT(K) Next selected keypoint having a keypoint number greater than K.  
+LSNEXT(L) Next selected line having a line number greater than L. 
+ARNEXT(A) Next selected area having an area number greater than A. 
+VLNEXT(V) Next selected volume having a volume number greater than V. 
+# Locations 
+CENTRX(E) Centroid X-coordinate of element E in global Cartesian coordinate system. Centroid is determined from the selected nodes on the element. 
+CENTRY(E) Centroid Y-coordinate of element E in global Cartesian coordinate system. Centroid is determined from the selected nodes on the element. 
+CENTRZ(E) Centroid Z-coordinate of element E in global Cartesian coordinate system. Centroid is determined from the selected nodes on the element. 
+NX(N) X-coordinate of node N in the active coordinate system. 
+NY(N) Y-coordinate of node N in the active coordinate system. 
+NZ(N) Z-coordinate of node N in the active coordinate system. 
+KX(K) X-coordinate of keypoint K in the active coordinate system 
+KY(K) Y-coordinate of keypoint K in the active coordinate system 
+KZ(K) Z-coordinate of keypoint K in the active coordinate system 
+LX(L,LFRAC) X-coordinate of line L at length fraction LFRAC (0.0 to 1.0). 
+LY(L,LFRAC) Y-coordinate of line L at length fraction LFRAC (0.0 to 1.0). 
+LZ(L,LFRAC) Z-coordinate of line L at length fraction LFRAC (0.0 to 1.0). 
+LSX(L,LFRAC) X slope of line L at length fraction LFRAC (0.0 to 1.0). 
+LSY(L,LFRAC) Y slope of line L at length fraction LFRAC (0.0 to 1.0). 
+LSZ(L,LFRAC) Z slope of line L at length fraction LFRAC (0.0 to 1.0). 
+# Nearest to Location 
+NODE(X,Y,Z) Number of the selected node nearest the X,Y,Z point (in the active coordinate system, lowest number for coincident nodes). 
+KP(X,Y,Z) Number of the selected keypoint nearest the X,Y,Z point (in the active coordinate system, lowest number for coincident nodes). 
+# Distances 
+DISTND(N1,N2) Distance between nodes N1 and N2. 
+DISTKP(K1,K2) Distance between keypoints K1 and K2. 
+DISTEN(E,N) Distance between the centroid of element E and node N. Centroid is determined from the selected nodes on the element. 
+# Angles (in radians by default -- see the *AFUN command) 
+ANGLEN(N1,N2,N3) Subtended angle between two lines (defined by three nodes where N1 is the vertex node). Default is in radians. 
+ANGLEK(K1,K2,K3) Subtended angle between two lines (defined by three keypoints where K1 is the vertex keypoint). Default is in radians. 
+# Nearest to Entity 
+NNEAR(N) Selected node nearest node N. 
+KNEAR(K) Selected keypoint nearest keypoint K. 
+ENEARN(N) Selected element nearest node N. The element position is calculated from the selected nodes. 
+# Areas 
+AREAND(N1,N2,N3) Area of the triangle with vertices at nodes N1, N2, and N3. 
+AREAKP(K1,K2,K3) Area of the triangle with vertices at keypoints K1, K2, and K3. 
+ARNODE(N) Area at node N apportioned from selected elements attached to node N. For 2-D planar solids, returns edge area associated with the node. For axisymmetric solids, returns edge surface area associated with the node. For 3-D volumetric solids, returns face area associated with the node. For 3?D, select all the nodes of the surface of interest before using ARNODE. 
+# Normals 
+NORMNX(N1,N2,N3) X-direction cosine of the normal to the plane containing nodes N1, N2, and N3. 
+NORMNY(N1,N2,N3) Y-direction cosine of the normal to the plane containing nodes N1, N2, and N3. 
+NORMNZ(N1,N2,N3) Z-direction cosine of the normal to the plane containing nodes N1, N2, and N3. 
+NORMKX(K1,K2,K3) X-direction cosine of the normal to the plane containing keypoints K1, K2, and K3. 
+NORMKY(K1,K2,K3) Y-direction cosine of the normal to the plane containing keypoints K1, K2, and K3. 
+NORMKZ(K1,K2,K3) Z-direction cosine of the normal to the plane containing keypoints K1, K2, and K3. 
+# Connectivity 
+ENEXTN(N,LOC) Element connected to node N. LOC is the position in the resulting list when many elements share the node. A zero is returned at the end of the list. 
+NELEM(E,NPOS) Node number in position NPOS (1--20) of element E. 
+NODEDOF(N) Returns the bit pattern for the active DOFs at the specified node.bit 0 is UX, bit 1 is UY,... bit 5 is ROTZ bits 6,7,8 are AX,AY,AZ bits 9,10,11 are VX,VY,VZ bit 18 is PRES, bit 19 is TEMP, bit 20 is VOLT, bit 21 is MAG bit 24 is EMF, bit 25 is CURR For a node with UX,UY,UZ the return value will be 7 (bits 0,1,2) For a node with UX,UY,UZ,ROTX,ROTY,ROTZ the return value will be 63 (bits 0,1,2,3,4,5) 
+# Faces 
+ELADJ(E,FACE) For 2-D planar solids and 3-D volumetric solids, element adjacent to a face (FACE) of element E. The face number is the same as the surface load key number. Only elements of the same dimensionality and shape are considered. A -1 is returned if more than one is adjacent.  
+NDFACE(E,FACE,LOC) Node in position LOC of a face number FACE of element E. The face number is the same as the surface load key number. LOC is the nodal position on the face (for an IJLK face, LOC=1 is at node I, 2 is at node J, etc.) 
+NMFACE(E) Face number of element E containing the selected nodes. The face number output is the surface load key. If multiple load keys occur on a face (such as for line and area elements) the lowest load key for that face is output. 
+ARFACE(E) For 2-D planar solids and 3-D volumetric solids, returns the area of the face of element E containing the selected nodes. For axisymmetric elements, the area is the full (360 degree) area. 
+# Degree of Freedom Results 
+UX(N) UX structural displacement at node N. 
+UY(N) UY structural displacement at node N. 
+UZ(N) UZ structural displacement at node N. 
+ROTX(N) ROTX structural rotation at node N. 
+ROTY(N) ROTY structural rotation at node N. 
+ROTZ(N) ROTZ structural rotation at node N. 
+TEMP(N) Temperature at node N. For SHELL131 and SHELL132 elements with KEYOPT(3) = 0 or 1, use TBOT(N), TE2(N), TE3(N), . . ., TTOP(N) instead of TEMP(N). 
+PRES(N) Pressure at node N. 
+VX(N) VX fluid velocity at node N. 
+VY(N) VY fluid velocity at node N. 
+VZ(N) VZ fluid velocity at node N. 
+ENKE(N) Turbulent kinetic energy (FLOTRAN) at node N. 
+ENDS(N) Turbulent energy dissipation (FLOTRAN) at node N. 
+VOLT(N) Electric potential at node N. 
+MAG(N) Magnetic scalar potential at node N. 
+AX(N) AX magnetic vector potential at node N. 
+AY(N) AY magnetic vector potential at node N. 
+AZ(N) AZ magnetic vector potential at node N. 
+# Returns information about the data base manager 
+VIRTINQR(1) Number of pages in core. 
+VIRTINQR(4) Page size in integer words. 
+VIRTINQR(7) Maximum number of pages allowed on disk. 
+VIRTINQR(8) Number of read/write operations on page. 
+VIRTINQR(9) Maximum record number on page. 
+VIRTINQR(11) Maximum pages touched. 
+# Returns the current value of ANSYS filtering keywords. 
+KWGET(KEYWORD) Returns the current value the keyword specified by KEYWORD. See the ANSYS UIDL Programmer's Guide for a list of keywords and values. 
+# Character String Functions Strings must be dimensioned (see *DIM) as a character parameter or enclosed in single apostrophes ('char').  
+# Functions which return a double precision value of a numeric character string.  
+VALCHR(a8) a8 is a decimal value expressed in a string.  
+VALOCT (a8) a8 is an octal value expressed in a string.  
+VALHEX(a8) a8 is a hex value expressed in a string. 
+# Functions which return an 8 character string of a numeric value.  
+CHRVAL (dp) dp is a double precision variable.  
+CHROCT (dp) dp is an integer value.  
+CHRHEX(dp) dp is an integer value.  
+# Functions which manipulate strings: StrOut is the output string (or character parameter) Str1 and Str2 are input strings. Strings are a maximum of 128 characters. (see *DIM) StrOut = STRSUB(Str1, nLoc,nChar)  Get the nChar substring starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2) Add Str2 at the end of Str1. 
+STRFILL(Str1,Str2,nLoc) StrOut = STRFILL(Str1,Str2,nLoc)  Add Str2 to Str1 starting at character nLoc.  
+STRCOMP(Str1) StrOut = STRCOMP(Str1) Remove all blanks from Str1 
+STRCOMP(Str1) Left-justify Str1 
+STRPOS(Str1,Str2) nLoc = STRPOS(Str1,Str2) Get starting location of Str2 in Str1.  
+STRLENG(Str1) nLoc = STRLENG(Str1) Location of last nonblank character 
+UPCASE(Str1) StrOut = UPCASE(Str1) Upper case of Str1 
+LWCASE(Str1) StrOut = LWCASE(Str1) Lower case of Str1 
+# The following functions manipulate file names. 
+JOIN ('directory','filename','extension') Path String = JOIN ('directory','filename','extension')  Produces a contiguous pathstring. e.g. directory/filename.ext 
+JOIN ('directory','filename') Path String = JOIN ('directory','filename') Produces a contiguous pathstring. e.g. directory/filename 
+SPLIT('PathString', 'DIR')  Produces a separate output of the directory from the pathstring.  
+SPLIT('PathString', 'FILE')  Produces a separate output of the complete filename (with extension) from the pathstring.  
+SPLIT('PathString', 'NAME') Produces a separate output of the filename from the pathstring.  
+SPLIT('PathString', 'EXT')  Produces a separate output of the file extension from the pathstring.  
+
+
   )
 
 (define-skeleton ansys-skeleton-geometry
@@ -974,6 +1097,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "nsel,s,loc,x,1" \n
   "cp,next,uy,all !couple dofs" \n
   \n
+  "!@@@ - constraint equations -" \n
+  "nsel,s,loc,x,1" \n
+  "ce,next,uy,all !couple dofs" \n
+  \n
   "allsel" \n
   "/pbc,all,on" \n
   "gplot" \n
@@ -1165,6 +1292,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,close" \n
   "erase" \n
   \n
+  "!! --- acoustics ---" \n
+  "/view,,1,1,1" \n
+  "/graphics,full" \n
+  "/sscale,,1e5 !topographic display scaling" \n
+  "plnsol,pres" \n
+  "!! sound pressure level" \n
+  "etable,spl,nmisc,4 !read SPL into table" \n
+  "pletab,spl"\n
+  "!! SPL in nodal display" \n
+  
+  \n
+  "!! --- magnetics ---" \n
   "/efacet,2" \n
 ;  "psdisp,0" \n
   "/graphics,full ! results averaging also from interior" \n
@@ -1250,6 +1389,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "\n!@@@ - select stuff -" \n
+  "N1="
   \n
   "!! lowest face No of element E from selected nodes"
   "a=nmface(E) !plane elements:faces =^= el. sides" \n
@@ -1259,10 +1399,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*get,En,elem,,count" \n
   "*get,E,elem,,num,min" \n
   "*do,I,1,En,1" \n
-  "  Face = nmface(E)" \n
-  "  Ntmp = ndface(E,Face,3)" \n
-  "  nsel,u,,,Ntmp" \n
-  "  *get,E,elem,E,nxth" \n
+  "Face = nmface(E)" > \n
+  "Ntmp = ndface(E,Face,3)"> \n
+  "nsel,u,,,Ntmp"> \n
+  "*get,E,elem,E,nxth" \n
   "*enddo  " \n
   \n
   )
@@ -1358,7 +1498,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- arrays --" \n
   \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
-  "B = !deleting before redimensioning necessary" \n
+  "*del,B,,nopr !deleting before redimensioning necessary" \n
   "*dim,B,table,10,1,1,TIME !table type interpolating" \n
   "B(1,0,1) = 0." \n
   "B(2,0,1) = 1." \n
@@ -1371,7 +1511,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n
   "*if,Dim,le,1,then" \n
-  "! or just deleting A before dimensioning: A = " > \n
+  "! or just deleting before (re)dimensioning: *del,A,,nopr" > \n
   "*dim,A,array,10,1" > \n
   "*endif" > \n
   "*do,I,1,Ns" \n

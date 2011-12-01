@@ -319,7 +319,7 @@ on which the highlighting and completing code is based and the version
 increments (currently .1) of Ansys mode (thus 13.0.1) for this
 particular Ansys release.
 
-=== Version ===
+=== Version 14.0.1 ===
 
 * Added a timer for getting rid of the parameter help overlays after
   some time interval without user action
@@ -327,6 +327,8 @@ particular Ansys release.
 * Added a (customisable) variable `ansys-no-of-processors' and
   function with the same name for specifying the number of processors
   for an Ansys run definition
+
+* Extended commands and removed typos mainly in ansys-template.el
 
 === Version 13.0.1 ===
 

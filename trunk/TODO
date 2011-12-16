@@ -26,14 +26,18 @@
 *  v14.0.x:
 ** Schedule
    - constraint equations in -template.el and get functions
-   - activate optinally outline mode in default_el
+   - rigid-target
+   - check for new skeleton -template name in menu definitions!
+   - activate optionally outline mode in default_el
    - supply the default path for `ansys-help-program'
    - include embedded calc in hacking.mac
    - create an option for the number of processors for -start-ansys
-     (/config,nproc is obsolete), show this thing in default_el
+     (/config,nproc is obsolete), show this thing in the menu and
+     default_el
    - C-c C-c shows duplicate prompts in interactive mode
    - Lagrange contact behaviour for contact/press-fit skeleton
-   - Ansys 14 scheduled in December 
+   - give the minimal example templates a documentation string
+     explaining the model
 ** Bugs
     - Help, M-? does not :
       *mwrite
@@ -45,8 +49,10 @@
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
 * Procedures
-** Freeze
   - Mode Help :: keyboard input quoting is "", emphasizing '', keys <>
+  - apdl templates :: minimal working examples ending with -template		 
+		 
+** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
     are still working in v13

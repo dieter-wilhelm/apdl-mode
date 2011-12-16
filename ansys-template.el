@@ -522,7 +522,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-rigid-target ;NEW
+(define-skeleton ansys-skeleton-contact-rigid ;NEW
   ""
   nil
   "\n!! ------------------------------" \n
@@ -1535,7 +1535,7 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   \n
   )
 
-(define-skeleton ansys-skeleton-structural
+(define-skeleton ansys-skeleton-structural-template
   "Minimum working structural APDL template."
   nil					;no interactor needed
   '(ansys-skeleton-header)
@@ -1569,7 +1569,7 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   \n
   )
 
-(define-skeleton ansys-skeleton-contact
+(define-skeleton ansys-skeleton-contact-template
   "Minimum working structural contact APDL template."
   nil					;no interactor needed
   '(ansys-skeleton-header)

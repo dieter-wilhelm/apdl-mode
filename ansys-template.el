@@ -405,7 +405,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "! full: no tranlation<-small nonzero value, half: mirroring, increment is doubled" \n
   "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian, half:mirror" \n
   "/expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
-  "/expand,18,axis,,,10 !axisymmetric (360 ° rot. around y-axis)" \n
+  "/expand,18,axis,,,10 !axisymmetric (180 ° rot. around y-axis)" \n
   "/expand !switch off expansion" \n
   "!! -- cyclic expansion --" \n
   "cyclic,status" \n
@@ -1345,20 +1345,22 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   "\n!! ------------------------------" \n
   "!@@ -- output to file --" \n
   \n
-  "! redirect ansys text output to file" \n
+  "! --- redirect ansys text output to file" \n
   "/output,test,txt,,append !append solver output to file" \n
-  "/com,# dist from center | axial mag. induction" \n
-  "*vwrite,B(1,1),B(1,2)" > \n
-  "%G %G" \n
+  "/com,! dist from center | axial mag. induction" \n
+  "/com,*vwrite,B(1,1),B(1,2)" > \n
+  "/com, %G %G" \n
   "/output ! redirect to screen" \n
   \n
-  "! macro file" \n
+  "/input,test,txt ! input the content" \n
+  \n
+  "! --- write macro file" \n
   "*create,test.txt ! macro file, no parameter substitution!" \n
   "*end !up to this command" > \n
   "!! can be used with the *use command to pass params into it" \n
   "!! /input does not allow parameters" \n
   \n
-  "! create data file" \n
+  "! --- create data file" \n
   "*cfopen,test,txt,,append ! appending to file" \n
   "*cfwrite,A=5 ! interpreted output" \n
   "*set strings are limited to 32 characters!!!" \n
@@ -1372,8 +1374,8 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   "*cfclos ! close file" \n
   "/input,test,txt,,:label ! read from label onwards"\n
   \n
-  "!! graphical output" \n
-  "/RGB,index,100,100,100,0" \n
+  "!! --- graphical output" \n
+  "/RGB,index,100,100,100,0 !white background" \n
   "/RGB,index,0,0,0,15" \n
   "/show,png !creates jobnameXXX.png files" \n
   "pngr !additional options" \n
@@ -1381,6 +1383,9 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   "noerase" \n
   "lplot" \n
   "/show,close" \n
+  \n
+  "/image,save,bla,xwd !write in xwd bitmap format" \n
+  "/sys,mogrify -format png *.xwd" \n
   \n
   )
 
@@ -1782,7 +1787,7 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   "!! rectng,0,1,0,1 !x1,x2,y1,y2" \n
   "!! k,,1,0,0 & KN = _return !keypoint number" \n
   \n
-  "!! /number,1 !0: colour and number,1: colour" \n
+  "!! /number,1 !0:colours & numbers,1:colours,2:numbers" \n
   "!! /pnum,line,1 !1: turn on numbering" \n
   "!! lplot" \n
   "!! lesize,1,,,3" \n

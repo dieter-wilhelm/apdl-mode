@@ -345,10 +345,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "immed,1 !immediate display of generated geom. in /prep7" \n
   "/uis,replot,0 !suppress automatic replot" \n
-  "/view !viewing direction"_ \n
+  "/view,,1,1,1 !viewing direction vector"_ \n
+  "/triad,off !orig,lbot,rbot,ltop,rtop" \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
-  "/focus,1 $ /repl !focus to csys,0" \n
+  "/focus,1 $ /repl !focus wn 1 to csys,0" \n
   "/plopts,minm ! switch off min max" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "/auto ! automatic fit mode" \n
@@ -1345,45 +1346,53 @@ SPLIT('PathString', 'EXT')  Produces a separate output of the file extension fro
   "\n!! ------------------------------" \n
   "!@@ -- output to file --" \n
   \n
-  "! --- redirect ansys text output to file" \n
+  "! --- 1.) write macro file without parameter substitution" \n
+  "*create,test.txt ! macro file, no parameter substitution!" \n
+  "bla=otto" \n
+  "*vwrite,bla,otto" \n
+  "%G %G" \n
+  "*end !writes into file up to this command" > \n
+  "!! can be used with the *use command to pass params into it" \n
+  "!! /input does not allow parameters" \n
+  \n
+  "*list,test,txt ! display external file" \n
+  "/input,test,txt,,:LABEL ! read from label LABEL onwards"\n
+  \n
+  "! --- 2.) redirect ansys text output to file" \n
   "/output,test,txt,,append !append solver output to file" \n
   "/com,! dist from center | axial mag. induction" \n
   "/com,*vwrite,B(1,1),B(1,2)" > \n
   "/com, %G %G" \n
   "/output ! redirect to screen" \n
   \n
-  "/input,test,txt ! input the content" \n
+  "/input,test,txt ! input the content into the interpreter" \n
   \n
-  "! --- write macro file" \n
-  "*create,test.txt ! macro file, no parameter substitution!" \n
-  "*end !up to this command" > \n
-  "!! can be used with the *use command to pass params into it" \n
-  "!! /input does not allow parameters" \n
-  \n
-  "! --- create data file" \n
+  "! --- 3.) create a 'command' file with parameter substitution" \n
   "*cfopen,test,txt,,append ! appending to file" \n
   "*cfwrite,A=5 ! interpreted output" \n
-  "*set strings are limited to 32 characters!!!" \n
-  "Strg1='# cylindrical magnet: radius = %Rad%'" \n
-  "Strg2=', lenght = %Len%'" \n
-  "Strg3='# distance, magnetic induction'" \n
-  "*vwrite,Strg1, Strg2, Strg3" \n
-  "%S %S% %S" \n
+  "! SET strings are limited to 32 characters!!!" \n
+  "*cfwrite,Strg1='# cylindrical magnet: radius = %Rad%'" \n
+  "*cfwrite,Strg2=', length = %Len%'" \n
+  "*cfwrite,Strg3=', distance, magnetic induction'" \n
+  "*cfwrite,*vwrite,Strg1, Strg2, Strg3" \n
+  "*cfwrite,%S %S% %S" \n
   "*vwrite,B(1,1),B(1,2)" > \n
   "%E %E" > \n
   "*cfclos ! close file" \n
-  "/input,test,txt,,:label ! read from label onwards"\n
+  "/input,test,txt,,:LABEL ! read from label LABEL onwards"\n
   \n
-  "!! --- graphical output" \n
+  "!! --- 1.) graphical output" \n
   "/RGB,index,100,100,100,0 !white background" \n
   "/RGB,index,0,0,0,15" \n
   "/show,png !creates jobnameXXX.png files" \n
   "pngr !additional options" \n
   "plvect,B" \n
-  "noerase" \n
+  "noerase !prevent screen erase" \n
   "lplot" \n
   "/show,close" \n
+  "erase !erase screen" \n
   \n
+  "!! --- 2.) graphical output" \n
   "/image,save,bla,xwd !write in xwd bitmap format" \n
   "/sys,mogrify -format png *.xwd" \n
   \n

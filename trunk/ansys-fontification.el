@@ -1,6 +1,6 @@
 ;;; ansys-fontification.el-- building keywords and completions
 
-;; Copyright (C) 2006 - 2011 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2012 H. Dieter Wilhelm
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,19 +25,19 @@
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
-;;     done for v12,v13
+;;     done for v12,v13,v14
 ;; 2.) elements: copy&pasted from the help documentation:
-;;     table of contents -> `ansys_elements.txt'
+;;     Element refrence, table of contents -> `ansys_elements.txt'
 ;;     (ansys_inc/vXXX/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13
+;;     done: v12,v13,v14
 ;; 3.) ansys-help:
 ;;     command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
 ;;     copied from the ansys help ->`ansys_keywords.txt'
 ;;     kill /eof from the keywords (see: -font-lock-keywords) <- don't know why, seems to work now
 ;;     done: v12
-;;     read_tags.py
-;;     done: v13
+;;     extract_tags.py
+;;     done: v13,14
 ;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)
 ;;     ansys APDL guide chapter 3.8, trigonometric functions and their inverse functions must
 ;;     be separated by hand!!! The same applies to hyperbolic functions
@@ -53,12 +53,12 @@
 ;;     -> `ansys_return_values.txt'	       
 ;;     
 ;;; necessary variables:
-;; 1.) `Ansys_undocumented_commands'
+;; 1.) `Ansys_undocumented_commands' release notes
 ;; 2.) `Ansys_written_out_commands'
-;; 3.) `Ansys_deprecated_elements_alist'
+;; 3.) `Ansys_deprecated_elements_alist' release notes
 ;; 4.) `Ansys_commands_without_arguments'
 
-(setq Ansys-version "13.0")
+(setq Ansys-version "14.0")
 
 ;; 
 (defconst Ansys_undocumented_commands	;or macros?
@@ -120,10 +120,59 @@
    "SLPPLOT"
    "SLSPLOT"
    "VCVFILL"
+   "/OPT"				;v14
+   "OPEQN"
+   "OPFACT"
+   "OPFRST"
+   "OPGRAD"
+   "OPKEEP"
+   "OPLOOP"
+   "OPPRNT"
+   "OPRAND"
+   "OPSUBP"
+   "OPSWEEP"
+   "OPTYPE"
+   "OPUSER"
+   "OPVAR"
+   "OPADD"
+   "OPCLR"
+   "OPDEL"
+   "OPMAKE"
+   "OPSEL"
+   "OPANL"
+   "OPDATA"
+   "OPRESU"
+   "OPSAVE"
+   "OPEXE"
+   "OPLFA"
+   "OPLGR"
+   "OPLIST"
+   "OPLSW"
+   "OPRFA"
+   "OPRGR"
+   "OPRSW"
+   "PLVAROPT"
+   "PRVAROPT"
+   "TOCOMP"
+   "TODEF"
+   "TOFREQ"
+   "TOTYPE"
+   "TOVAR"
+   "TOEXE"
+   "TOLOOP"
+   "TOGRAPH"
+   "TOLIST"
+   "TOPLOT"
+   "TOPRINT"
+   "TOSTAT"
+   "TZAMESH"
+   "TZDELE"
+   "TZEGEN"
+   "XVAROPT"				;v14
    )			       
   "Ansys commands not documented in the manuals.
-Seen mainly in Workbench output files and Ansys verification
-models.")
+Either from dropped technologies or seen in Workbench output
+files and old macros or old Ansys verification models.")
 
 (defconst Ansys_written_out_commands
   '(
@@ -145,7 +194,7 @@ models.")
     )
   "Ansys commands which aren't allowed with arguments")
 
-;; deprecated element list is from Ansys version 12.0, 13.0
+;; deprecated element list is from Ansys version 12.0, 13.0, 14.0
 (defconst Ansys_deprecated_elements_alist
 '(
   ("BEAM3"    . "BEAM188")
@@ -155,6 +204,17 @@ models.")
   ("BEAM44"   . "BEAM188")
   ("BEAM54"   . "BEAM188")
   ("COMBIN7"  . "MPC184")
+  ("INFIN9"   . "INFIN110")		;v14
+  ("INFIN47"  . "INFIN111")		;v14
+  ("PLANE13"  . "PLANE223")		;v14
+  ("PLANE25"  . "PLANE272")		;v14
+  ("PLANE42"  . "PLANE182")
+  ("PLANE53"  . "PLANE233")		;v14
+  ("PLANE67"  . "PLANE223")
+  ("PLANE82"  . "PLANE183")
+  ("PLANE83"  . "SOLID273")		;v14
+  ("PLANE145" . "-")		       ;p-elements are out in 13.0
+  ("PLANE146" . "-")
   ("CONTAC12" . "CONTA178")
   ("CONTAC52" . "CONTA178")
   ("LINK1"    . "LINK180")
@@ -167,11 +227,7 @@ models.")
   ("PIPE20"   . "PIPE288")
   ("PIPE59"   . "PIPE288")
   ("PIPE60"   . "ELBOW290")
-  ("PLANE42"  . "PLANE182")
-  ("PLANE67"  . "PLANE223")
-  ("PLANE82"  . "PLANE183")
-  ("PLANE145" . "-")		       ;p-elements are out in 13.0
-  ("PLANE146" . "-")
+  ("SHELL41"  . "SHELL181")		;v14
   ("SHELL43"  . "SHELL181")
   ("SHELL57"  . "SHELL131")
   ("SHELL63"  . "SHELL181")
@@ -179,21 +235,24 @@ models.")
   ("SHELL93"  . "SHELL281")
   ("SHELL99"  . "SHELL281")
   ("SHELL150" . "-")		       ;p-elements are out in 13.0
+  ("SOLID5"   . "SOLID226")	       ;v14
   ("SOLID45"  . "SOLID185")
   ("SOLID46"  . "SOLID185")
   ("SOLID69"  . "SOLID226")
   ("SOLID92"  . "SOLID187")
   ("SOLID95"  . "SOLID186")
-  ("SOLID191" . "SOLID186")
+  ("SOLID117" . "SOLID236")		;v14
   ("SOLID127" . "-")		       ;p-elements are out in 13.0
   ("SOLID128" . "-")
   ("SOLID147" . "-")
   ("SOLID148" . "-")
+  ("SOLID191" . "SOLID186")
   ("VISCO88"  . "PLANE183")
   ("VISCO89"  . "SOLID186")
   ("VISCO106" . "PLANE182")
   ("VISCO107" . "SOLID185")
   ("VISCO108" . "PLANE183")
+  ("TRANS109" . "PLANE223")		;v14
 )
 "Association list of deprecated element types with their proposed
 successor.")
@@ -622,7 +681,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
   "\"ansys-fontification.el\".\n\n"
-  ";; Copyright (C) 2006 - 2011 H. Dieter Wilhelm.\n\n")
+  ";; Copyright (C) 2006 - 2012 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")
   ;; --- end of let

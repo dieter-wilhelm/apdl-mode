@@ -1,4 +1,4 @@
-# Ansys 13
+# Ansys 14
 SOLID5 - 3-D Coupled-Field Solid
 INFIN9 - 2-D Infinite Boundary
 LINK11 - Linear Actuator
@@ -43,12 +43,10 @@ CIRCU94 - Piezoelectric Circuit
 SOLID96 - 3-D Magnetic Scalar Solid
 SOLID97 - 3-D Magnetic Solid
 SOLID98 - Tetrahedral Coupled-Field Solid
-TRANS109 - 2-D Electromechanical Transducer
 INFIN110 - 2-D Infinite Solid
 INFIN111 - 3-D Infinite Solid
 INTER115 - 3-D Magnetic Interface
 FLUID116 - Coupled Thermal-Fluid Pipe
-SOLID117 - 3-D 20-Node Magnetic Solid
 HF118 - 2-D High-Frequency Quadrilateral Solid
 HF119 - 3-D High-Frequency Tetrahedral Solid
 HF120 - 3-D High-Frequency Brick Solid
@@ -152,7 +150,7 @@ SOLID237 - 3-D 10-Node Electromagnetic Solid
 HSFLD241 - 2-D Hydrostatic Fluid
 HSFLD242 - 3-D Hydrostatic Fluid
 SURF251 - 2-D Radiosity Surface
-SURF252 - 3-D Thermal Radiosity Surface
+SURF252 - 3-D Radiosity Surface
 REINF263 - 2-D Smeared Reinforcing
 REINF264 - 3-D Discrete Reinforcing
 REINF265 - 3-D Smeared Reinforcing

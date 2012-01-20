@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with Ansys FEA.
 
-;; Copyright (C) 2006 - 2011  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm

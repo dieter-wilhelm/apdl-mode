@@ -1,9 +1,9 @@
-# this file is created by a script
+# created by a script for Ansys V14
 # Hlp_C_CmdTOC.html
 ~CAT5IN - Transfers a .CATPart file into the ANSYS program.
 ~CATIAIN - Transfers a CATIA model into the ANSYS program.
 ~PARAIN - Transfers a Parasolid file into the ANSYS program.
-~PROEIN - Transfers a Pro/ENGINEER part into the ANSYS program.
+~PROEIN - Transfers a Creo Parametric part into the ANSYS program.
 ~SATIN - Transfers a .SAT file into the ANSYS program.
 ~UGIN - Transfers a NX part into the ANSYS program.
 A - Defines an area by connecting keypoints.
@@ -101,6 +101,7 @@ AUTOTS - Specifies whether to use automatic time stepping or load stepping.
 /AUX15 - Enters the IGES file transfer processor.
 AVPRIN - Specifies how principal and vector sums are to be calculated.
 AVRES - Specifies how results data will be averaged when PowerGraphics is enabled.
+AWAVE - Specifies input data for an acoustic incident wave.
 /AXLAB - Labels the X and Y axes on graph displays.
 *AXPY - Performs the matrix operation M2= v*M1 + w*M2.
 /BATCH - Sets the program mode to "batch."
@@ -178,6 +179,7 @@ CFACT - Defines complex scaling factors to be used with operations.
 /CFORMAT - Controls the graphical display of alphanumeric character strings for parameters, components, assemblies, and tables.
 CGLOC - Specifies the origin location of the acceleration coordinate system.
 CGOMGA - Specifies the rotational velocity of the global origin.
+CGROW - Defines crack-growth information
 CHECK - Checks current database items for completeness.
 CHKMSH - Checks area and volume entities for previous meshes.
 CINT - Defines parameters associated with fracture parameter calculations
@@ -201,11 +203,11 @@ CMLIST - Lists the contents of a component or assembly.
 CMMOD - Modifies the specification of a component.
 CMOMEGA - Specifies the rotational velocity of an element component about a user-defined rotational axis.
 CMPLOT - Plots the entities contained in a component or assembly.
-CMROTATE - Specifies the rotational velocity of an element component about a user-defined rotational axis
+CMROTATE - Specifies the rotational velocity of an element component in a brake squeal analysis.
 CMSEL - Selects a subset of components and assemblies.
 CMSFILE - Specifies a list of component mode synthesis (CMS) results files for plotting results on the assembly.
 CMSOPT - Specifies component mode synthesis (CMS) analysis options.
-CMWRITE - Writes components and assemblies to a file.
+CMWRITE - Writes node and element components and assemblies to a file.
 CNCHECK - Provides and/or adjusts the initial status of contact pairs.
 CNKMOD - Modifies contact element key options.
 CNVTOL - Sets convergence values for nonlinear analyses.
@@ -303,12 +305,14 @@ DLLIST - Lists DOF constraints on a line.
 *DMAT - Creates a dense matrix.
 DMOVE - Digitizes nodes on surfaces and along intersections.
 DMPEXT - Extracts modal damping coefficients in a specified frequency range.
+DMPOPTION - Specifies distributed memory parallel (Distributed ANSYS) file combination options.
 DMPRAT - Sets a constant damping ratio.
 DNSOL - Defines or modifies solution results at a node.
 *DO - Defines the beginning of a do-loop.
 DOF - Adds degrees of freedom to the current DOF set.
 DOFSEL - Selects a DOF label set for reference by other commands.
 DOMEGA - Specifies the rotational acceleration of the structure.
+*DOT - Computes the dot (or inner) product of two vectors.
 *DOWHILE - Loops repeatedly through the next *ENDDO command.
 DSCALE - Scales DOF constraint values.
 /DSCALE - Sets the displacement multiplier for displacement displays.
@@ -481,6 +485,7 @@ FECONS - Specifies "Constraints on nodes" as the subsequent status topic.
 FEFOR - Specifies "Forces on nodes" as the subsequent status topic.
 FELIST - Lists the fatigue event parameters.
 FESURF - Specifies "Surface loads on elements" as the subsequent status topic.
+*FFT - Computes the fast Fourier transformation of a specified matrix or vector.
 FILE - Specifies the data file where results are to be found.
 FILEAUX2 - Specifies the binary file to be dumped.
 FILEAUX3 - Specifies the results file to be edited.
@@ -621,7 +626,7 @@ GSSOL - Specifies which results to store from the results file when using genera
 GSUM - Calculates and prints geometry items.
 /GTHK - Sets line thicknesses for graph lines.
 /GTYPE - Controls the entities that the GPLOT command displays.
-HARFRQ - Defines the frequency range in the harmonic response analysis.
+HARFRQ - Defines the frequency range in a harmonic analysis.
 /HBC - Determines how boundary condition symbols are displayed in a display window.
 HBMAT - Writes an assembled global matrix in Harwell-Boeing format.
 /HEADER - Sets page and table heading print controls.
@@ -640,7 +645,7 @@ HFPCSWP - Calculates propagating constants and characteristic impedance of a tra
 HFPOWER - Calculates power terms of a multi-port network.
 HFPORT - Specifies input data for waveguide, plane wave, lumped gap, modal, and modal lumped gap ports.
 HFSCAT - Specifies a high-frequency scattering analysis.
-HFSYM - Indicates the presence of symmetry planes for the computation of high-frequency electromagnetic fields in the near and far field domains (beyond the finite element region).
+HFSYM - Indicates the presence of symmetry planes for the computation of high-frequency electromagnetic or acoustic fields in the near and far field domains (beyond the finite element region).
 HMAGSOLV - Specifies 2-D or axisymmetric harmonic magnetic solution options and initiates the solution.
 HPGL - Specifies various HP options.
 HPTCREATE - Defines a hard point.
@@ -648,6 +653,7 @@ HPTDELETE - Deletes selected hardpoints.
 HRCPLX - Computes and stores in the database the time-harmonic solution at a prescribed phase angle.
 HREXP - Specifies the phase angle for the harmonic analysis expansion pass.
 HROPT - Specifies harmonic analysis options.
+HROCEAN - Perform the harmonic ocean wave procedure (HOWP).
 HROUT - Specifies the harmonic analysis output options.
 IC - Specifies initial conditions at nodes.
 ICDELE - Deletes initial conditions at nodes.
@@ -667,6 +673,7 @@ IMESH - Generates nodes and interface elements along lines or areas.
 IMMED - Allows immediate display of a model as it is generated.
 IMPD - Calculates the impedance of a conductor at a reference plane.
 INISTATE - Defines initial state data and parameters.
+*INIT - Initializes a vector or dense matrix.
 /INPUT - Switches the input file for the commands that follow.
 /INQUIRE - Returns system information to a parameter.
 INRES - Identifies the data to be retrieved from the results file.
@@ -809,6 +816,7 @@ MAGOPT - Specifies options for a 3-D magnetostatic field analysis.
 MAGSOLV - Specifies magnetic solution options and initiates the solution.
 /MAIL - Mails file to the specifed address.
 MAPSOLVE - Maps solved node and element solutions from an original mesh to a new mesh.
+MAPVAR - Defines tensors and vectors in user-defined state variables for rezoning.
 MASTER - Specifies "Master DOF" as the subsequent status topic.
 MAT - Sets the element material attribute pointer.
 MATER - Specifies "Material properties" as the subsequent status topic.
@@ -819,7 +827,7 @@ MDPLOT - Plots frequency-dependent modal damping coefficients calculated by DMPE
 MEMM - Allows the current session to keep allocated memory 
 /MENU - Activates the Graphical User Interface (GUI).
 MESHING - Specifies "Meshing" as the subsequent status topic.
-MFANALYSIS - Turns an ANSYS Multi-field solver analysis on or off.
+MFANALYSIS - Activates or deactivates an ANSYS Multi-field solver analysis.
 MFBUCKET - Turns a bucket search on or off.
 MFCALC - Specifies a calculation frequency for a field in an ANSYS Multi-field solver analysis.
 MFCI - Sets the control parameters used by the conservative (CPP) interpolation scheme.
@@ -848,7 +856,7 @@ MFRSTART - Specifies restart status for an ANSYS Multi-field solver analysis.
 MFSORDER - Sets up the solution sequence of simultaneous field solver groups for code coupling analyses.
 MFSURFACE - Defines a surface load transfer for an ANSYS Multi-field solver analysis.
 MFTIME - Sets end time for an ANSYS Multi-field solver analysis.
-MFTOL - Turns normal distance checking on for surface mapping in an ANSYS Multi-field solver analysis.
+MFTOL - Activates or deactivates normal distance checking for surface mapping in an ANSYS Multi-field solver analysis.
 *MFUN - Copies or transposes an array parameter matrix.
 MFVOLUME - Defines a volume load transfer for an ANSYS Multi-field solver analysis.
 MFWRITE - Writes an ANSYS master input file for MFX multiple code coupling. 
@@ -978,46 +986,18 @@ NWRITE - Writes nodes to a file.
 OCDATA - Defines an ocean environment using non-table data.
 OCDELETE - Deletes ocean information from the ANSYS database.
 OCLIST - Summarizes all currently defined ocean environments.
+OCREAD - Reads externally defined ocean data.
 OCTABLE - Defines an ocean environment using table data.
 OCTYPE - Specifies the type of ocean environment data to follow.
 OMEGA - Specifies the rotational velocity of the structure.
-OPADD - Forms a set of optimization parameters by adding two sets.
-OPANL - Defines the analysis file to be used for optimization looping.
-OPCLR - Clears the optimization database.
-OPDATA - Identifies the file where optimization data is to be saved.
-OPDEL - Deletes optimization design sets.
-OPEQN - Controls curve fitting for the subproblem approximation method.
 OPERATE - Specifies "Operation data" as the subsequent status topic.
-OPEXE - Initiates optimization looping.
-OPFACT - Defines the type of factorial evaluation to be performed.
-OPFRST - Defines specifications for the first order optimization method.
-OPGRAD - Specifies which design set will be used for gradient evaluation.
-OPKEEP - Specifies whether to save the best-set results and database file.
-OPLFA - Displays the results of a factorial evaluation.
-OPLGR - Graphs the results of a gradient evaluation.
-OPLIST - Displays the parameters for design sets.
-OPLOOP - Specifies controls for optimization looping.
-OPLSW - Graphs the results of a global sweep generation.
-OPMAKE - Creates a design set using active scalar parameter values.
 OPNCONTROL - Sets decision parameter for automatically increasing the time step interval.
-OPPRNT - Activates detailed optimization summary printout.
-OPRAND - Defines the number of iterations for a random optimization.
-OPRESU - Reads optimization data into the optimization database.
-OPRFA - Prints the results of a factorial evaluation.
-OPRGR - Prints the results of a gradient evaluation.
-OPRSW - Prints the results of a global sweep generation.
-OPSAVE - Writes all optimization data to a file.
-OPSEL - Selects design sets for subsequent optimization looping.
-OPSUBP - Defines number of iterations for subproblem approximation method.
-OPSWEEP - Specifies the reference point and number of evaluation points for a sweep generation.
-/OPT - Enters the design optimizer.
-OPTYPE - Specifies the optimization method to be used.
-OPUSER - Defines specifications for user-supplied external optimization.
-OPVAR - Specifies the parameters to be treated as optimization variables.
+OUTAERO - Outputs the superelement matrices and load vectors to formatted files for aeroelastic analysis.
 OUTOPT - Specifies "Output options" as the subsequent status topic.
 OUTPR - Controls the solution printout.
 /OUTPUT - Redirects text output to a file or to the screen.
 OUTRES - Controls the solution data written to the database.
+OVCHECK - Checks for overconstraint among constraint equations and Lagrange multipliers.
 PADELE - Deletes a defined path.
 /PAGE - Defines the printout and screen page size.
 PAGET - Writes current path information into an array variable.
@@ -1076,6 +1056,14 @@ PGSELE - Select a subset of elements for display with the PGR viewer.
 PGWRITE - Writes selected solution data to the PGR file for faster post processing access. 
 PHYSICS - Writes, reads, or lists all element information
 /PICE - Shows initial conditions on elements as contours on displays.
+PILECALC - Invokes soil-pile calculations.
+PILEDISPSET - Sets up pile cap displacement data for soil-pile analysis.
+PILEGEN - Generates data for elements used in soil-pile analysis.
+PILELOAD - Applies pile cap loads to the specified node.
+PILEMASS - Gets pile cap mass and applies it to the specified element.
+PILERUN - Runs a soil-pile analysis.
+PILESEL - Selects all pile elements.
+PILESTIF - Gets pile cap stiffness and applies it to the specified element.
 PIVCHECK - Prevents a batch mode, linear static analysis from stopping when a negative or zero equation solver pivot value is encountered.
 PLCAMP - Plots Campbell diagram data for applications involving rotating structure dynamics.
 PLCINT - Plots the fracture parameter (CINT) result data.
@@ -1084,11 +1072,11 @@ PLCRACK - Displays cracking and crushing locations in SOLID65 elements.
 PLDISP - Displays the displaced structure.
 PLESOL - Displays the solution results as discontinuous element contours.
 PLETAB - Displays element table items.
-PLFAR - Plots electric far fields and far field parameters. 
+PLFAR - Plots electric or pressure far fields and far field parameters. 
 PLFSS - Plots reflection and transmission parameters of a frequency selective surface solution.
 PLF2D - Generates a contour line plot of equipotentials.
 PLLS - Displays element table items as contoured areas along elements.
-PLNEAR - Plots the electric field in the near zone exterior to the equivalent source surface.
+PLNEAR - Plots the electric field or pressure in the near zone exterior to the equivalent source surface.
 PLNSOL - Displays results as continuous contours.
 /PLOPTS - Controls graphics options on subsequent displays.
 PLORB - Displays the orbital motion of a rotating structure
@@ -1104,7 +1092,6 @@ PLTIME - Defines the time range for which data are to be displayed.
 PLTLINE - Plots port transmission line data generated by the HFPCSWP or SPSWP macros.
 PLTRAC - Displays a particle flow or charged particle trace on an element display.
 PLVAR - Displays up to ten variables in the form of a graph.
-PLVAROPT - Displays up to ten parameters in the form of a graph.
 PLVECT - Displays results as vectors.
 PLVFRC - Displays volume fractions in a volume of fluid (VOF) analysis.
 PLWAVE - Specifies a free-space time-harmonic incident plane electromagnetic wave.
@@ -1134,7 +1121,7 @@ PRENERGY - Prints the total energies of a model or the energies of the specified
 PRERR - Prints SEPC and TEPC.
 PRESOL - Prints the solution results for elements.
 PRETAB - Prints the element table items.
-PRFAR - Prints electric far fields and far field parameters. 
+PRFAR - Prints electric or pressure far fields and far field parameters. 
 PRI2 - Creates a polygonal area or a prism volume by vertices (GUI).
 PRIM - Specifies "Solid model primitives" as the subsequent status topic.
 PRINT - Specifies "Print settings" as the subsequent status topic.
@@ -1142,7 +1129,7 @@ PRINT - Specifies "Print settings" as the subsequent status topic.
 PRISM - Creates a prism volume based on working plane coordinate pairs.
 PRITER - Prints solution summary data.
 PRJSOL - Prints joint element output.
-PRNEAR - Prints the electric field in the near zone exterior to the equivalent source surface.
+PRNEAR - Prints the electric field or pressure in the near zone exterior to the equivalent source surface.
 PRNLD - Prints the summed element nodal loads.
 PRNSOL - Prints the nodal solution results.
 PROD - Multiplies variables.
@@ -1154,9 +1141,8 @@ PRSECT - Calculates and prints linearized stresses along a section path.
 PRSYZ - Converts and lists scattering, admittance, or impedance parameters.
 PRTIME - Defines the time range for which data are to be listed.
 PRVAR - Lists variables vs. time (or frequency).
-PRVAROPT - Lists up to ten optimization parameters.
 PRVECT - Prints results as vector magnitude and direction cosines.
-PSCONTROL - Turn shared-memory parallel operations on or off during solution.
+PSCONTROL - Enables or disables shared-memory parallel operations.
 PSCR - Specifies various PostScript options.
 PSDCOM - Specifies the power spectral density mode combination method.
 PSDFRQ - Defines the frequency points for the input spectrum tables PSDVAL vs. PSDFRQ for PSD analysis.
@@ -1171,7 +1157,6 @@ PSEL - Selects a path or paths.
 /PSF - Shows surface load symbols on model displays.
 PSMAT - Writes an assembled global matrix to a postscript format that graphically displays nonzero matrix values.
 PSMESH - Create and mesh a pretension section
-PSOLVE - Directs the program to perform a partial solution.
 /PSPEC - Creates annotation polygon attributes (GUI).
 /PSTATUS - Displays the global or window display specifications.
 PSTRES - Specifies whether prestress effects are calculated or included.
@@ -1189,7 +1174,7 @@ QUAD - Generates a quadratic line of nodes from three nodes.
 QUOT - Divides two variables.
 R - Defines the element real constants.
 RACE - Defines a "racetrack" current source. 
-RADOPT - Specifies Gauss-Seidel Radiosity Solver options.
+RADOPT - Specifies Radiosity Solver options.
 RAPPND - Appends results data from the database to the results file. 
 RATE - Specifies whether the effect of creep strain rate will be used in the solution of a load step.
 /RATIO - Distorts the object geometry. 
@@ -1200,11 +1185,12 @@ RDELE - Deletes real constant sets.
 REAL - Sets the element real constant set attribute pointer. 
 REALVAR - Forms a variable using only the real part of a complex variable. 
 RECTNG - Creates a rectangular area anywhere on the working plane. 
-REMESH - Specifies the starting and ending remeshing points, and other options, for manual rezoning.
+REMESH - Specifies the starting and ending remeshing points, and other options, for rezoning.
 /RENAME - Renames a file. 
 REORDER - Specifies "Model reordering" as the subsequent status topic. 
 *REPEAT - Repeats the previous command. 
 /REPLOT - Automatically reissues the last display command for convenience. 
+RESCOMBINE - Reads results from local results files into the database after a distributed memory parallel (Distributed ANSYS) solution.
 RESCONTROL - Controls file writing for multiframe restarts.
 RESET - Resets all POST1 or POST26 specifications to initial defaults. 
 /RESET - Resets display specifications to their initial defaults. 
@@ -1389,7 +1375,6 @@ SSPB - Specifies a preintegrated coupling stiffness for shell sections.
 SSPD - Specifies a preintegrated bending stiffness for shell sections.
 SSPE - Specifies a preintegrated transverse shear stiffness for shell sections.
 SSPM - Specifies mass density for a preintegrated shell section.
-SSTIF - Activates stress stiffness effects in a nonlinear analysis.
 SSUM - Calculates and prints the sum of element table items.
 STABILIZE - Activates stabilization for all elements that support nonlinear stabilization.
 STAOPT - Specifies static analysis options.
@@ -1425,7 +1410,7 @@ SYNCHRO - Specifies whether the excitation frequency is synchronous or asynchron
 /SYS - Passes a command string to the operating system.
 TALLOW - Defines the temperature table for safety factor calculations.
 *TAXIS - Defines table index numbers.
-TB - Activates a data table for nonlinear material properties or special element input.
+TB - Activates a data table for material properties or special element input.
 TBCOPY - Copies a data table from one material to another.
 TBDATA - Defines data for the material data table.
 TBDELE - Deletes previously defined material data tables.
@@ -1441,6 +1426,7 @@ TBTEMP - Defines a temperature for a material data table.
 TCHG - Converts 20-node degenerate tetrahedral elements to their 10-node non-degenerate counterparts.
 /TEE - Writes a list of commands to a specified file at the same time that the commands are being executed.
 TERM - Specifies various terminal driver options.
+THEXPAND - Enables or disables thermal loading
 THOPT - Nonlinear transient thermal solution option.
 TIFF - Provides TIFF file Export for ANSYS Displays.
 TIME - Sets the time for a load step.
@@ -1450,25 +1436,13 @@ TIMP - Improves the quality of tetrahedral elements that are not associated with
 TINTP - Defines transient integration parameters.
 /TITLE - Defines a main title.
 /TLABEL - Creates annotation text (GUI).
-TOCOMP - Defines single or multiple compliance as the topological optimization function.
-TODEF - Defines parameters for and initializes topological optimization.
-TOEXE - Executes one topological optimization iteration.
 TOFFST - Specifies the temperature offset from absolute zero to zero.
-TOFREQ - Defines single or mean frequency formulation as the topological optimization function.
-TOGRAPH - Plots iteration solution of topological optimization.
-TOLIST - Lists all topological optimization functions currently defined.
-TOLOOP - Execute several topological optimization iterations.
 *TOPER - Operates on table parameters.
-TOPLOT - Plot current topological density distribution.
-TOPRINT - Print iteration solution history of topological optimization.
 TORQ2D - Calculates torque on a body in a magnetic field.
 TORQC2D - Calculates torque on a body in a magnetic field based on a circular path.
 TORQSUM - Summarizes electromagnetic torque calculations on element components.
 TORUS - Creates a toroidal volume.
-TOSTAT - Displays topological optimization status and results information.
 TOTAL - Specifies automatic MDOF generation.
-TOTYPE - Specifies solution method for topological optimization.
-TOVAR - Specifies the objective and constraints for the topological optimization problem.
 TRANS - Reformats File.GRPH for improved performance with plotters.
 TRANSFER - Transfers a pattern of nodes to another coordinate system.
 *TREAD - Reads data from an external file into a table array parameter.
@@ -1488,9 +1462,6 @@ TVAR - Changes time to the cumulative iteration number.
 /TXTRE - Controls application of texture to selected items. 
 /TYPE - Defines the type of display.
 TYPE - Sets the element type attribute pointer.
-TZAMESH - Meshes the areas of a volume to create Trefftz nodes.
-TZDELE - Deletes the Trefftz superelement, associated constraint equations and all supporting Trefftz files.
-TZEGEN - Generates a Trefftz domain substructure and defines a Trefftz superelement for use in electrostatic analysis.
 /UCMD - Assigns a user-defined command name.
 /UDOC - Determines position and content for the multi-legend options. 
 /UI - Activates specified GUI dialog boxes.
@@ -1534,7 +1505,7 @@ VEXT - Generates additional volumes by extruding areas.
 *VFILL - Fills an array parameter.
 VFOPT - Specifies options for view factor file.
 VFQUERY - Queries and prints element Hemicube view factors and average view factor.
-VFSM - Scales view factor matrix to yield row sum values equal to one.
+VFSM - Adjusts view factor matrix to satisfy reciprocity and/or row sum properties.
 *VFUN - Performs a function on a single array parameter.
 VGEN - Generates additional volumes from a pattern of volumes.
 *VGET - Retrieves values and stores them into an array parameter.
@@ -1589,7 +1560,7 @@ VTRFIL - Specifies the file to which DesignXplorer results are written.
 VTRSLT - Defines a result quantity for the DesignXplorer.
 VTSEC - Defines a section property as an input variable for DesignXplorer.
 VTSFE - Defines a surface load as an input variable for the DesignXplorer.
-VTSL - Selects a subset of elements associated with an VT input variable.
+VTSL - Selects a subset of elements associated with a VT input variable.
 VTSTAT - Print the status of the DesignXplorer definitions and settings into a separate window.
 VTTEMP - Defines the temperature as input variable for the DesignXplorer.
 VTVMOD - Modifies the status or current value of an input variable for the DesignXplorer.
@@ -1614,9 +1585,9 @@ WRITE - Writes the radiation matrix file.
 WSORT - Initiates element reordering based upon a geometric sort.
 WSPRINGS - Creates weak springs on corner nodes of a bounding box of the currently selected elements.
 WSTART - Defines a starting wave list.
+WTBCREATE - Creates a USER300 element to model the turbine for full aeroelastic coupling analysis and specifies relevant settings for the analysis.
 /XFRM - Controls the centroid or the axis of dynamic rotation.
 /XRANGE - Specifies a linear abscissa (X) scale range.
 XVAR - Specifies the X variable to be displayed.
-XVAROPT - Specifies the parameter to be used as the X-axis variable.
 /YRANGE - Specifies a linear ordinate (Y) scale range.
 /ZOOM - Zooms a region of a display window.

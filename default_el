@@ -3,7 +3,7 @@
 ;; adjusting and renaming it to `default.el'.  And moving it e. g. to
 ;; `/usr/share/emacs/site-lisp' or `c:\\EMACS_INSTALLDIR\\site-lisp'
 
-;; Copyright (C) 2006 - 2011 H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2012 H. Dieter Wilhelm GPL V3
 
 ;; IMPORTANT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,7 +12,7 @@
 ;; load-path)
 
 ;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
-;for example: "c:\\emacs\\ansys-mode" for a Window system
+;for example: "c:\\emacs\\ansys-mode" for a Windows system
 ;or "/usr/local/src/emacs/ansys-mode" for a Gnu/Linux system
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,8 +26,8 @@
 ;(setq ansys-dynamic-highlighting-flag t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; activating outline mode
-;; ()
+;; activating outline minor mode for selectively hiding/unhiding sections
+;(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; autoloading of command definitions
@@ -68,7 +68,7 @@ calling a special Ansys customisation buffer." 'interactive)
        (setq ansys-install-directory "C:\\Program Files")))
 
 ;; which version of Ansys we are using
-(setq ansys-current-ansys-version "130")
+(setq ansys-current-ansys-version "140")
 
 (cond ((string= window-system "x")		;Unix
        ;; for starting the solver & ansys-license-status
@@ -123,21 +123,21 @@ calling a special Ansys customisation buffer." 'interactive)
 		     "HelpDocViewer"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-;; necessary for starting the solver
+;; options when starting the solver
 
-;; below commented out examples represent the default values
+;; below example shows the default values
 
-;; (setq ansys-license "struct"	     ;which license type to use for the solver
-;;       ansys-job "file"	     ;Ansys job name
-;;       )
+; (setq ansys-license "struct"	     ;which license type to use for the solver
+;       ansys-job "file"	     ;Ansys job name
+;       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto insertion stuff (in the moment of creating a new APDL file) ;;
 
-(auto-insert-mode 1)
-(add-hook 'find-file-hook 'auto-insert)
-(setq auto-insert-query t)
-(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+;(auto-insert-mode 1)
+;(add-hook 'find-file-hook 'auto-insert)
+;(setq auto-insert-query t)
+;(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; local variables:

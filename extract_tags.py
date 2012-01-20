@@ -1,20 +1,18 @@
 #!/bin/env python
 
-#create the ansys keywordlist from the help files
+#create the ansys keywordlist from the xml help files
 
 import os
 import glob
 #import sys
 
+version = "Ansys V14"
+#r_dir = "/appl"
+#a_dir = "/ansys_inc/v140/commonfiles/help/en-us/help/ans_cmd"
+#loc = r_dir + a_dir
+#os.chdir(loc)
 
-r_dir = "/tmp"
-a_dir = "/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd"
-
-loc = r_dir + a_dir
-
-os.chdir(loc)
-
-# CmdToc.html repesents (V13) the collection of all commands
+# CmdToc.html repesents (V13, V14) the collection of all commands
 f_list = glob.glob("Hlp_C_CmdTOC.html")
 
 #f_list = glob.glob("Hlp_*_TOC.html")
@@ -22,7 +20,7 @@ f_list = glob.glob("Hlp_C_CmdTOC.html")
 
 out = "ansys_keywords.txt"
 o = open(out,'w+')              # w+: write anew
-o.write("# this file is created by a script" + "\n")
+o.write("# created by a script for " + version + "\n")
 
 cmd = 'class="command">'
 cl = len( cmd)

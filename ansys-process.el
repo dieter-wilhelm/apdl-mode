@@ -1,6 +1,6 @@
 ;;; ansys-process.el -- Managing runs and processes for the Ansys mode
 
-;; Copyright (C) 2006 - 2011  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify

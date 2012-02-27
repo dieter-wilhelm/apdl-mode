@@ -16,14 +16,17 @@
 ;or "/usr/local/src/emacs/ansys-mode" for a Gnu/Linux system
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; fontification (highlighting) levels 0,1,2 are available
-
-;; experimental user variables highlighting only in level 2 available
-(setq ansys-highlighting-level 1)
+;; fontification (highlighting) of user variables and decoration
+;; levels (0,1,2 are available)
 
 ;; uncommenting the following might slow the editing of large .mac
-;; files but only when ansys-highlighting-level is set to 2.
+;; files (but only when ansys-highlighting-level is set to 2).
 ;(setq ansys-dynamic-highlighting-flag t)
+
+;; experimental user variables highlighting is in level 2 available
+;; (statical if above flag is not set)
+(setq ansys-highlighting-level 1)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; activating outline minor mode for selectively hiding/unhiding sections

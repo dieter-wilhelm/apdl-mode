@@ -49,16 +49,17 @@ calling a special Ansys customisation buffer." 'interactive)
 ;; appropriate file suffixes for which Ansys mode is automatically
 ;; called for
 
-;; .mac is the macro suffix of ansys i. e. these macros can be called
+;; .mac is the macro suffix of Ansys i. e. these macros can be called
 ;; in the Ansys command prompt like a regular Ansys function (without
 ;; the suffix .mac)
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
 
-;;  (.dat and .inp are WorkBench's solver input file suffixes)
+;; .dat and .inp are WorkBench's solver input file suffixes
 (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
 (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
 
-;; this is the suffix for "Ansys Neutral Files" which include some APDL.
+;; .anf is the suffix for "Ansys Neutral" files which include mostly
+;;  gometric data but also some APDL snippets.
 (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

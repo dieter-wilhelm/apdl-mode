@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 13.0.1
+;; Version: 14.0.1
 ;; Keywords: Languages, Convenience
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -416,10 +416,11 @@ Ruler strings are displayed above the current line with
   "Narrow ruler string.
 Ruler strings are displayed above the current line with \\[ansys-column-ruler].")
 
-(add-to-list 'insert-pair-alist '(?\* ?\*))
-(add-to-list 'insert-pair-alist '(?\$ ?\$))
-(add-to-list 'insert-pair-alist '(?\% ?\%))
-
+(when (> emacs-major-version 21)
+  (add-to-list 'insert-pair-alist '(?\* ?\*))
+  (add-to-list 'insert-pair-alist '(?\$ ?\$))
+  (add-to-list 'insert-pair-alist '(?\% ?\%))
+  )
 
 (defconst ansys-mode-map		;_C
   (let ((map (make-sparse-keymap)))
@@ -454,12 +455,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c}" 'ansys-number-block-end)
     (define-key map "\C-c{" 'ansys-number-block-start)
     ;; --- pairs
-    (when (> emacs-major-version 21)
-      (define-key map [?\M-\"] 'insert-pair)
-      (define-key map "\C-c[" 'insert-pair)
-      (define-key map "\C-c'" 'insert-pair)
-      (define-key map "\C-c%" 'insert-pair)
-    )
+    (define-key map [?\M-\"] 'insert-pair)
+    (define-key map "\C-c[" 'insert-pair)
+    (define-key map "\C-c'" 'insert-pair)
+    (define-key map "\C-c%" 'insert-pair)
+
     ;; (define-key map [?\C-c?\C-%] 'insert-pair)
     ;; (define-key map [?\C-c?\C-[] 'insert-pair)
     ;; (define-key map [?\C-c?\C-'] 'insert-pair)

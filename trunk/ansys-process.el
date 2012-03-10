@@ -46,8 +46,8 @@ the respective error file."
   "This variable stores the Ansys executable name.
 When the file is not in your search path, you have to specify the
 full qualified file name and not only the name of the executable.
-For example: \"/ansys_inc/v130/ansys/bin/ansys130\" and not only
-\"ansys130\".  You might customise this variable or use the
+For example: \"/ansys_inc/v140/ansys/bin/ansys140\" and not only
+\"ansys140\".  You might customise this variable or use the
 function `ansys-program' to do this for the current session
 only."
   :type 'string
@@ -60,9 +60,9 @@ It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v130/ansys/bin/anshelp130\" on UNIX
+locations are \"/ansys_inc/v140/ansys/bin/anshelp140\" on UNIX
 and \"c:\\\\Program Files\\Ansys\
-Inc\\v130\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on Windows
+Inc\\v140\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on Windows
 XP.  Since Ansys version 12.0 it is a java interpreter."
   :type 'string
   :group 'Ansys-process)
@@ -71,7 +71,7 @@ XP.  Since Ansys version 12.0 it is a java interpreter."
 ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
   "Stores parameters for the variable `ansys-help-program' under Windows.
 For example: '-cp \"c:\\Program Files\\Ansys
-Inc\\v130\\commonfiles\\help\" HelpDocViewer'."
+Inc\\v140\\commonfiles\\help\" HelpDocViewer'."
   :type 'string
   :group 'Ansys-process)
 
@@ -399,8 +399,8 @@ with the Ansys /EXIT,all command which saves all model data."
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the Ansys help system.
 Alternatively under a Unix system, one can also use the Ansys
-command line \"/SYS, anshelp130\" when running Ansys
-interactively, provided that anshelp130 is found in the search
+command line \"/SYS, anshelp140\" when running Ansys
+interactively, provided that anshelp140 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)

@@ -64,13 +64,14 @@
   - load or load-file, what happens with compilation and autoload?
   - update the mode help complete skeleton menus.  update defcustom
     list in ansys-submit-bug-report update version numbers, default
-    names (tags-query-replace 120 130) checkdoc then dry run: Emacs
+    names (tags-query-replace "130" "140") checkdoc then dry run: Emacs
     23.1 -Q testing: fontification.mac /*commands and default command
     lines, every menu entry.  byte-compile-file then dry run
     profiling, major mode conventions: multiple loading of this mode?.
   - check Emacs versions on longterm OS systems compile with 22.X,
     then pretests, emacs-snapshots, clash with Emacs releases (yearly
     Emacs cycle)?
+
 ** Release
   - update Emacs wiki (README), Google Code with download packages,
     home page update all version numbers everywhere: Emacs wiki,
@@ -98,11 +99,11 @@
   oleksiy.kurenkov@continental-corporation.com,
   martin.bruehl@continental-corporation.com,
 
-Subject: New release 13.0.1: Editor support for working with Ansys APDL files & processes
+Subject: New release 14.0.1: Editor support for working with Ansys APDL files & processes
 
 Hi,
 
-finally a new release for Ansys V13 of Ansys mode for the Emacs
+finally a new release for Ansys V14 of Ansys mode for the Emacs
 editor, downloadable from:
 
 http://code.google.com/p/ansys-mode
@@ -113,6 +114,8 @@ the Editor for your APDL .mac files.
 
 Below you'll find a summary of its features and what's new in this
 release.
+
+
 * Ideas for further versions
 ** Parameter help and documentation
    - show list of license products and their license feature names or

@@ -59,7 +59,7 @@
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys_version "130"		;NEW_C
+(defconst ansys_version "140"		;NEW_C
   "Ansys version on which Ansys mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C
@@ -1453,7 +1453,7 @@ skeleton names.
 
 If you haven't installed Ansys in the default locations and the
 executables are not in your system search path or you are using a
-different Ansys version than '130' it is necessary for the last
+different Ansys version than '140' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `ansys-customise-ansys' or from the
 menu bar -> 'Ansys' -> 'Customise Ansys Mode' -> 'Ansys-process'

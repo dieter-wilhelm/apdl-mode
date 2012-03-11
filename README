@@ -1,26 +1,26 @@
-This README is the Ansys mode documentation (The text formatting is
-targeted for the Emacs Wiki)
+This text is from README, the Ansys mode documentation (below
+formatting is targeted for the Emacs Wiki)
 
-Copyright (C) 2006 - 2011  H. Dieter Wilhelm GPL V3
+Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
 
 == Introduction ==
-Editor support for working with Ansys FEA.
+GNU Emacs Editor support for working with Ansys FEA.
 
 This project provides Gnu Emacs editor support for working with the
 FEA (Finite Element Analysis) program Ansys (http://www.ansys.com).
 Gnu Emacs (http://www.gnu.org/software/emacs/) is an up-to-date,
 powerful, yet free editor which is available for any operating system
-where Ansys is running.  The software defines 'Ansys mode', a mode for
-inspecting, writing and navigating in APDL (Ansys Parametric Design
-Language) files and offers managing and communication capabilities for
-Ansys interpreter processes as well.
+where Ansys is running.  The code defines 'Ansys mode', an Emacs mode
+for inspecting, writing and navigating in APDL (Ansys Parametric
+Design Language) files and offers managing and communication
+capabilities for Ansys solver/interpreter processes as well.
 
-The mode's capabilities are sophisticated but the comprehensive
-documentation is targeted for Ansys users with little Emacs
-experience.  Any suggestions for improvements are very welcome.  The
-current stable version 13.0.1 is available at the Google Code site
+Some features are quite sophisticated but the overall documentation is
+targeted for Ansys users with little Emacs experience.  Any
+suggestions for improvements are very welcome.  The current stable
+version 14.0.1 is available at the Google Code site
 http://code.google.com/p/ansys-mode ("wget
-http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-13.0.1.tgz",
+http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz",
 development versions can be checked out with "svn checkout
 http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
 installation, issues and comments please have a look at the Ansys mode
@@ -28,11 +28,11 @@ Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
 
 == Requirements ==
 
-The code is based on Ansys version 13.0 and is written for the editor
-GNU Emacs (not consciously targeted for XEmacs).  It is tested with
-Emacs-23.3, Emacs-23.2 and Emacs-23.1 under XP32, XP64 and GNU/Linux.
-The code compiles and runs also with Emacs-22.1, i. e. it should work
-with this and any newer version.  (Emacs-23.2 was relased in May 2010,
+The code is based on Ansys version 14.0 and is written for GNU Emacs
+and not consciously targeted for XEmacs.  It is tested with
+Emacs-23.3, Emacs-23.2 and Emacs-23.1, XP64 and GNU/Linux.  The code
+compiles and runs also with Emacs-22.1, i. e. it should work with this
+and any later version.  (Emacs-23.2 was relased in May 2010,
 Emacs-23.1 in July 2009, Emacs-22.1 in July 2007.)  The code can be
 loaded but won't run flawlessly without adaptions for Emacs-21.3
 (released in Mar. 2003).
@@ -46,7 +46,7 @@ Emacs and/or extract and configure the Ansys mode package separately.
 The Ansys solver control and communication capabilities are somewhat
 restricted on non-UNIX systems.
 
-The latest Ansys Mode consists of more than one lisp file, be sure you
+The latest Ansys mode consists of more than one lisp file, be sure you
 have all necessary files, please consult the == Installation ==
 section for a list of them.
 
@@ -63,7 +63,7 @@ section for a list of them.
   the Ansys dynamic prompt) also with hints for undocumented commands
 
 * Keyword completion of Ansys commands, elements, get- and
-  parametric-functions (case-sensitive) of nearly 2000 symbols
+  parametric-functions (case-sensitive) of nearly 2000 Ansys symbols
 
 * Comprehensive keyboard shortcuts for code navigation: Skipping
   comments, navigating number blocks, searching *DO-, *IF-, *DOWHILE-,
@@ -303,8 +303,9 @@ locally:
 
 == Acknowledgements ==
 
-In no particular order:
+In mainly cronological order:
 
+* Ilya Gurin
 * Alex Schroeder
 * Holger Sparr
 * Eli Zaretzki
@@ -314,9 +315,9 @@ In no particular order:
 
 == History and News ==
 
-The version scheme is a mixture of the Ansys release (currently 13.0)
+The version scheme is a mixture of the Ansys release (currently 14.0)
 on which the highlighting and completing code is based and the version
-increments (currently .1) of Ansys mode (thus 13.0.1) for this
+increments (currently .1) of Ansys mode (thus 14.0.1) for this
 particular Ansys release.
 
 === Version 14.0.1 ===
@@ -328,7 +329,14 @@ particular Ansys release.
   function with the same name for specifying the number of processors
   for an Ansys run definition
 
-* Extended commands and removed typos mainly in ansys-template.el
+* Included all "get" functions with documentation in the function
+  template
+
+* Extended template commands, templates and removed typos mainly in
+  ansys-template.el
+
+* Added a conditional test that also Emacs 21 can load Ansys mode
+  without error messages
 
 === Version 13.0.1 ===
 

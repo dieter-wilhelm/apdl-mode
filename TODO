@@ -24,20 +24,25 @@
                   is only inserted upcased.
   - Completion :: Ansys command 'C***' will not be completed   
 *  v14.0.x:
-** Schedule
-   - constraint equations in -template.el and get functions
-   - rigid-target
-   - check for new skeleton -template name in menu definitions!
-   - activate optionally outline mode in default_el
-   - supply the default path for `ansys-help-program'
-   - include embedded calc in hacking.mac
-   - create an option for the number of processors for -start-ansys
+** Tasks [%]
+   - [ ] check E21 loading
+   - [ ] activate optionally outline mode in default_el
+   - [ ] supply the default path for `ansys-help-program'
+   - [ ] include embedded calc in hacking.mac
+   - [ ] create an option for the number of processors for -start-ansys
      (/config,nproc is obsolete), show this thing in the menu and
      default_el
-   - C-c C-c shows duplicate prompts in interactive mode
-   - Lagrange contact behaviour for contact/press-fit skeleton
-   - give the minimal example templates a documentation string
-     explaining the model
+   - [ ] C-c C-c shows duplicate prompts in interactive mode
+   - [ ] document Lagrange contact behaviour for contact/press-fit
+     skeleton
+   - [ ] constraint equations in -template.el and get functions
+   - [ ] rigid-target minimal self-contained sample
+   - [ ] check for new skeleton -template name in menu definitions!
+   - [ ] give the minimal sample templates a documentation string
+     explaining the model purpose
+   - [ ] distinguish the two kinds of -templates: self contained samples
+     (include maybe the Ansys verification cases) and command examples
+     to various subjects
 ** Bugs
     - Help, M-? does not :
       *mwrite
@@ -55,7 +60,7 @@
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in v13
+    are still working in v14
   - TODOs, FIXMEs in the code
   - checkdoc, -template.el, -process.el, -mode.el done except
     \\<keymap> & \\[function]
@@ -64,8 +69,14 @@
   - load or load-file, what happens with compilation and autoload?
   - update the mode help complete skeleton menus.  update defcustom
     list in ansys-submit-bug-report update version numbers, default
-    names (tags-query-replace "130" "140") checkdoc then dry run: Emacs
-    23.1 -Q testing: fontification.mac /*commands and default command
+    names
+    
+    (tags-query-replace "130" "140")
+    (tags-query-replace "13.0" "14.0")
+    (tags-query-replace "- 2011" "- 2012")
+
+    checkdoc then dry run: Emacs
+    24.1 -Q testing: fontification.mac /*commands and default command
     lines, every menu entry.  byte-compile-file then dry run
     profiling, major mode conventions: multiple loading of this mode?.
   - check Emacs versions on longterm OS systems compile with 22.X,
@@ -73,38 +84,35 @@
     Emacs cycle)?
 
 ** Release
+  - elpa
   - update Emacs wiki (README), Google Code with download packages,
     home page update all version numbers everywhere: Emacs wiki,
-    Google Code with download, home page, elpa?
-  - publication emails (with image and news): ANSYS.net (Ansys !!!
-    Sheldon Imaoka <sheldonimaoka@yahoo.com>), AnsysWB community,
-    Ansys users club <tom.tumbrink@t-online.de> <admin@auc-ev.de>, the
-    Focus guys (PADT) <info@padtinc.com>, Holger Sparr
-    <sparr@mfkrs1.mw.tu-dresden.de>.
+    Google Code with download, home page
+  - publication emails (with image and news):
 
-  mike.brusoe@continental-corporation.com,
-  klemens.kieninger@continental-corporation.com,
-  zlatko.penzar@continental-corporation.com,
-  saravana.kumar@continental-corporation.com,
-  razvan.lionel.curtean@continental-corporation.com,
-  alwin.perras@continental-corporation.com,
-  sparr@mfkrs1.mw.tu-dresden.de,
-  info@padtinc.com,
-  tom.tumbrink@t-online.de,
-  admin@auc-ev.de,
-  tnelson@cadfem.de,	
-  lkrueger@cadfem.de,
-  sgotthold@cadfem.de,
-  sheldonimaoka@yahoo.com,
-  oleksiy.kurenkov@continental-corporation.com,
-  martin.bruehl@continental-corporation.com,
+    iivvgg@gmail.com
+    mike.brusoe@continental-corporation.com,
+    klemens.kieninger@continental-corporation.com,
+    zlatko.penzar@continental-corporation.com,
+    saravana.kumar@continental-corporation.com,
+    razvan.lionel.curtean@continental-corporation.com,
+    alwin.perras@continental-corporation.com,
+    sparr@mfkrs1.mw.tu-dresden.de,
+    info@padtinc.com,
+    tom.tumbrink@t-online.de,
+    admin@auc-ev.de,
+    tnelson@cadfem.de,	
+    lkrueger@cadfem.de,
+    sgotthold@cadfem.de,
+    sheldonimaoka@yahoo.com,
+    oleksiy.kurenkov@continental-corporation.com,
+    martin.bruehl@continental-corporation.com,
 
 Subject: New release 14.0.1: Editor support for working with Ansys APDL files & processes
 
 Hi,
 
-finally a new release for Ansys V14 of Ansys mode for the Emacs
-editor, downloadable from:
+finally a new release of Ansys mode for Ansys V14, downloadable from:
 
 http://code.google.com/p/ansys-mode
 

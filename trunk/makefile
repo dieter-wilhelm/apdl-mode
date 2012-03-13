@@ -13,13 +13,15 @@ else
  EMACS_DIR := ~
 endif
 
-EMACS_VERSION := emacs-23.2
+EMACS_VERSION := emacs-23.4
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
+EMACS_PACKAGE_SIG := $(EMACS_VERSION)-bin-i386.zip.sig
 EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.bz2
 EMACS_SOURCE_PACKAGE_SIG := $(EMACS_VERSION).tar.bz2.sig
-ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_PACKAGE)
+ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
+SIG_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
 SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE)
-SIG_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
+SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
 # ftp://ftp.informatik.rwth-aachen.de/pub/gnu/
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
@@ -89,8 +91,24 @@ EMACS : $(EMACS_PACKAGE) $(PACKAGE)  $(ELC_FILES) default_el
 	cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
 	zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) $(EMACS_VERSION)/site-lisp/*
 
+#	rm -r $(EMACS_VERSION)
+
+# get Emacs stuff
+# emacs_package is the windows zip file
+
 $(EMACS_PACKAGE) :
-		wget $(ADDRESS)
+	wget $(ADDRESS) $(SIG_ADDRESS)
+	gpg $(EMACS_PACKAGE_SIG)
+
+# getting the emacs source
+
+.PHONEY : EMACS_SOURCE
+EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE)
+
+$(EMACS_SOURCE_PACKAGE) :
+	wget $(SOURCE_ADDRESS) $(SIG_SOURCE_ADDRESS)
+	gpg $(EMACS_SOURCE_PACKAGE_SIG)
+
 
 TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
 	etags $(EL_FILES) default_el ansys-fontification.el

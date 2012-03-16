@@ -22,16 +22,19 @@
 		  completes redundant closing parentheses
   - Completion :: A mouse selection from the *Ansys-completion* buffer
                   is only inserted upcased.
-  - Completion :: Ansys command 'C***' will not be completed   
+  - Completion :: Ansys command 'C***' will not be completed
+
 *  v14.0.x:
 ** Tasks [%]
-   - [ ] check E21 loading
-   - [ ] activate optionally outline mode in default_el
-   - [ ] supply the default path for `ansys-help-program'
-   - [ ] include embedded calc in hacking.mac
+   - [ ] shall we capitalise ANSYS?
+   - [X] NEWS file -> makefile
    - [ ] create an option for the number of processors for -start-ansys
      (/config,nproc is obsolete), show this thing in the menu and
      default_el
+   - [ ] check E21 loading
+   - [X] activate optionally outline mode in default_el
+   - [ ] supply the default path for `ansys-help-program'
+   - [ ] include embedded calc in hacking.mac
    - [ ] C-c C-c shows duplicate prompts in interactive mode
    - [ ] document Lagrange contact behaviour for contact/press-fit
      skeleton
@@ -53,10 +56,10 @@
     - ansys-template.el:85:13:Warning: reference to free variable
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
+
 * Procedures
   - Mode Help :: keyboard input quoting is "", emphasizing '', keys <>
-  - apdl templates :: minimal working examples ending with -template		 
-		 
+  - apdl templates :: minimal working examples ending with -template
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
@@ -70,7 +73,7 @@
   - update the mode help complete skeleton menus.  update defcustom
     list in ansys-submit-bug-report update version numbers, default
     names
-    
+
     (tags-query-replace "130" "140")
     (tags-query-replace "13.0" "14.0")
     (tags-query-replace "- 2011" "- 2012")
@@ -101,7 +104,7 @@
     info@padtinc.com,
     tom.tumbrink@t-online.de,
     admin@auc-ev.de,
-    tnelson@cadfem.de,	
+    tnelson@cadfem.de,
     lkrueger@cadfem.de,
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
@@ -119,6 +122,8 @@ http://code.google.com/p/ansys-mode
 You'll find there also the latest stable version of Emacs for Windows
 with Ansys mode preconfigured and ready to go.  Just unpack it and use
 the Editor for your APDL .mac files.
+
+This release comes also with the advent of the latest Emacs 24
 
 Below you'll find a summary of its features and what's new in this
 release.

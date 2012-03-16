@@ -1,4 +1,4 @@
-ANSYS_MAJOR := 13
+ANSYS_MAJOR := 14
 ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
@@ -35,7 +35,7 @@ EL_FILES := ansys-mode.el ansys-keyword.el \
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := LICENSE README TODO fontification.mac default_el
+FILES := LICENSE README TODO NEWS fontification.mac default_el
 
 PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 
@@ -108,7 +108,6 @@ EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE)
 $(EMACS_SOURCE_PACKAGE) :
 	wget $(SOURCE_ADDRESS) $(SIG_SOURCE_ADDRESS)
 	gpg $(EMACS_SOURCE_PACKAGE_SIG)
-
 
 TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
 	etags $(EL_FILES) default_el ansys-fontification.el

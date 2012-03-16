@@ -93,7 +93,9 @@ calling a special Ansys customisation buffer." 'interactive)
 	    (concat
 	     ansys-install-directory
 	     "/ansys_inc/shared_files/licensing/linx64/lmutil")
-;	     "/ansys_inc/shared_files/licensing/intel/lmutil")
+	    ;;"/ansys_inc/shared_files/licensing/intel/lmutil")
+	    ;; lin32 not longer supported since V14
+	    ;; "/ansys_inc/shared_files/licensing/lin32/lmutil") 
 	    ;; Ansys help browser executable
 	    ansys-help-program
 	    (concat

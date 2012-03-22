@@ -27,7 +27,6 @@
 ;; (statical if above flag is not set)
 (setq ansys-highlighting-level 1)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; activating outline minor mode for selectively hiding/unhiding sections
 ;(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode)
@@ -66,9 +65,11 @@ calling a special Ansys customisation buffer." 'interactive)
 ;; Ansys processes stuff
 
 ;; installation directory for Ansys
-(cond ((string= window-system "x")		;Unix
-       (setq ansys-install-directory "/appl"))
-      (t ;This is the default installation dir on Windows XP
+(cond ((string= window-system "x")
+       ;; This is the default installation dir on Unix
+       (setq ansys-install-directory ""))
+      (t
+       ;;This is the default installation dir on Windows XP
        (setq ansys-install-directory "C:\\Program Files")))
 
 ;; which version of Ansys we are using

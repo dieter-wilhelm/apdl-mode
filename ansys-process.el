@@ -53,8 +53,12 @@ only."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-program (concat "anshelp"
-ansys-current-ansys-version)		;NEW_C
+(defcustom ansys-help-program
+  (if (string= window-system "x")
+      (concat "/ansys_inc/v"
+      ansys-current-ansys-version "/ansys/bin/anshelp"
+      ansys-current-ansys-version)
+    (concat "c:\\\\Program Files\\Ansys\ Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\intel\\bin\\Javaw.exe"))		;NEW_C
   "The Ansys help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -62,8 +66,8 @@ executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
 locations are \"/ansys_inc/v140/ansys/bin/anshelp140\" on UNIX
 and \"c:\\\\Program Files\\Ansys\
-Inc\\v140\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on Windows
-XP.  Since Ansys version 12.0 it is a java interpreter."
+Inc\\v140\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on
+Windows (XP).  Since V12.0 Ansys uses a java interpreter."
   :type 'string
   :group 'Ansys-process)
 

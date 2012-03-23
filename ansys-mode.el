@@ -1866,6 +1866,7 @@ THEN action label."
 		      (match-beginning 1) (match-end 1)) 0 3))))
 	  ;; prepare insertion of keyword
 	  (setq str (car (reverse	;FIXME: uncomplete, why?
+			  ;; RESTRICTED: asssoc-string Emacs 21.4
 			  (assoc-string bb-keyword
 					ansys-block-match-alist 1))))
 	  ;; capitalise properly
@@ -2888,7 +2889,7 @@ Signal an error if the keywords are incompatible."
 Pre-process the findings into the variables `ansys-user-variables'
 and `ansys-user-variable-regexp' for subsequent fontifications.
 Added pseudo arguments A B C."
-  ;; line-number-at-pos
+  ;; RESTRICTED: line-number-at-pos was introduced after Emacs 21.4
   (interactive)
   ;; (setq ansys-user-variables '(("bla" 1)("otto" 1)("coil" 1000))
   ;; 	ansys-user-variable-regexp "\\<bla\\>"))

@@ -24,6 +24,7 @@
                   is only inserted upcased.
   - Completion :: Ansys command 'C***' will not be completed
 
+
 *  v14.0.x:
 ** Tasks [%]
    - [ ] shall we capitalise ANSYS?
@@ -33,7 +34,7 @@
      default_el
    - [ ] check E21 loading
    - [X] activate optionally outline mode in default_el
-   - [ ] supply the default path for `ansys-help-program'
+   - [X] supply the default path for `ansys-help-program'
    - [ ] include embedded calc in hacking.mac
    - [ ] C-c C-c shows duplicate prompts in interactive mode
    - [ ] document Lagrange contact behaviour for contact/press-fit

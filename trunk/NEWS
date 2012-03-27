@@ -15,9 +15,8 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   ansys-template.el. For example added all *get functions in the
   ansys-skeleton-function template
 
-* Added a conditional test so that also Emacs 21 can load Ansys mode
-  without errors but the dynamic variable highlighting is not working
-  under this ancient version
+* Added a variable a and corresponding function ansys-ansysli-servers
+  for specifying the ansys interconnect license servers
 
 === Version 13.0.1 ===
 

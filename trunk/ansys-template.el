@@ -1200,7 +1200,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- harmonic --" \n
   \n
   "antype,harmic" \n
-  "dmprat,.02                !const. damping ratio"\n
+  "dmprat,.02                ! constant damping ratio"\n
   "hropt,full                ! Full harmonic response" \n
   "hrout,off                 ! Print results as amplitudes and phase angles"\n
   "outpr,basic,1             ! solution item printout" \n

@@ -284,7 +284,8 @@ position."
     (cond ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string process
-			       (concat code "\n"))
+			       (concat code ""); "\n"); why did I do \n?
+			       )
 	   (display-buffer "*Ansys*" 'other-window))
 	  (t
 	   (kill-ring-save beg end)
@@ -326,15 +327,20 @@ position."
 (require 'comint)
 
 (defun ansys-start-ansys ()		;NEW
-  "Start the Ansys interpreter process."
+  "Start the Ansys interpreter process.
+And display the run configuration. The specified No of cores is
+not shown if they are chosen smaller then 3 (see
+`ansys-number-of-processors')."
   (interactive)
   (let (ansys-process-buffer)
     (when (ansys-process-running-p)
       (error "An Interpreter is already running under Emacs"))
-    (message "Preparing an Ansys interpreter start...")
+    (message "Preparing an Ansys interpreter run...")
     ;; (setq comint-use-prompt-regexp t) TODO: ???
-    (ansys-program "")			;take exec from -program var.
-    (ansys-license-file "")		;take file from license-file or env.
+    (ansys-program "")		 ;take exec from -program var.
+    (ansys-license-file-check)	 ;take file from -license-file variable or environment
+    (ansys-ansysli-servers-check) ;take servers from -ansysli-servers variable or env.
+
     (if (y-or-n-p
 	 (concat
 	  "Start run?  (license type: " (if (boundp
@@ -350,8 +356,8 @@ position."
 	  (make-comint ansys-process-name ansys-program nil
 		       (if (>= ansys-no-of-processors 3)
 			   (concat "-np " (number-to-string ansys-no-of-processors)
-				   " -p " ansys-license " -j " ansys-job))
-		       (concat "-p " ansys-license " -j " ansys-job)))
+				   " -p " ansys-license " -j " ansys-job)
+		       (concat "-p " ansys-license " -j " ansys-job))))
     ;;  (comint-send-string (get-process ansys-process-name) "\n")
     (display-buffer ansys-process-buffer 'other-window)
     ;;  (switch-to-buffer ansys-process-buffer)
@@ -704,8 +710,8 @@ processors (if available) for a structural analysis in Ansys is
   "Return t if Ansys license file (server) information is found.
 Checks whether the variable `ansys-license-file' is set, if not
 sets its value to the environment variable ANSYSLMD_LICENSE_FILE
-or LM_LICENSE_FILE, in this order of precedence.  When also these
-are not available returns an error."
+or LM_LICENSE_FILE, in this order of precedence.  When these are
+not available returns an error."
   (cond
    (ansys-license-file
     (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
@@ -718,11 +724,12 @@ are not available returns an error."
     t)
    (t
     (error "Please specify the license server information in the
-    `ansys-license-file' variable or set an environment variable
-    either ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE"))))
+    `ansys-license-file' variable or set either
+    ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
+    variables"))))
 
 (defun ansys-ansysli-servers-check ()
-  "Return t if Ansys interconect server information is found.
+  "Return t if Ansys interconnect server information is found.
 Checks whether the variable `ansys-ansysli-servers' is set or
 uses the environment variable ANSYSLI_SERVERS for it."
   (interactive)

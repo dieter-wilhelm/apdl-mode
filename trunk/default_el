@@ -111,35 +111,43 @@ calling a special Ansys customisation buffer." 'interactive)
 ;        (setq ansys-install-directory "D:\\Programs")))
 
 (cond ((string= window-system "x")		;Unix
-       ;; for starting the solver & ansys-license-status
-       ;; license servers (or license file name)
-       ;; specify even the default port for lmutil (A 12.0) on Unix
-       ;; Unix: License servers separated by ":"
-       (setq ansys-license-file
-	    "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
-       ;; The Ansys executable
-	    ansys-program
-	    (concat ansys-install-directory
-		    "/ansys_inc/v"
-		    ansys-current-ansys-version
-		    "/ansys/bin/ansys"
-		    ansys-current-ansys-version)
-	    ;; Tool for the license status
-	    ansys-lmutil-program
-	    (concat
-	     ansys-install-directory
-	     "/ansys_inc/shared_files/licensing/linx64/lmutil")
-	    ;;"/ansys_inc/shared_files/licensing/intel/lmutil")
-	    ;; lin32 not longer supported with V14
-	    ;; "/ansys_inc/shared_files/licensing/lin32/lmutil") 
-	    ;; Ansys help browser executable
-	    ansys-help-program
-	    (concat
-	     ansys-install-directory
-	     "/ansys_inc/v"
-	     ansys-current-ansys-version
-	     "/ansys/bin/anshelp"
-	     ansys-current-ansys-version)))
+       ;; for starting the solver & ansys-license-status & Ansys help 
+       (setq
+	;; license servers (or license file name)
+	;; specify even the default port for lmutil (since Ansys V 12.0) on Unix
+	;; Unix: License servers separated by colons (":"), 1055 is the default port
+	ansys-license-file
+	"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
+
+	;; since Ansys 12.0 there is an intermediate server for
+	;; the communication between flexlm and Ansys, 2325 is the default port
+	ansys-ansysli-servers
+	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+
+	;; The Ansys executable
+	ansys-program
+	(concat ansys-install-directory
+		"/ansys_inc/v"
+		ansys-current-ansys-version
+		"/ansys/bin/ansys"
+		ansys-current-ansys-version)
+
+	;; Utility for the license status
+	ansys-lmutil-program
+	(concat
+	 ansys-install-directory
+	 "/ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
+	;;"/ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
+	;; lin32 not longer supported with V14
+	;; "/ansys_inc/shared_files/licensing/lin32/lmutil") 
+	;; Ansys help browser executable
+	ansys-help-program
+	(concat
+	 ansys-install-directory
+	 "/ansys_inc/v"
+	 ansys-current-ansys-version
+	 "/ansys/bin/anshelp"
+	 ansys-current-ansys-version)))
       (t     
        ;;else windows (XP 32/64 Bit)?
        (setq ansys-lmutil-program

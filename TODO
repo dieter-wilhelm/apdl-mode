@@ -26,31 +26,38 @@
 
 
 *  v14.0.x:
-** Tasks [%]
-   - [ ] shall we capitalise ANSYS?
-   - [X] NEWS file -> makefile
-   - [ ] create an option for the number of processors for -start-ansys
-     (/config,nproc is obsolete), show this thing in the menu and
-     default_el
-   - [ ] check E21 loading
-   - [X] activate optionally outline mode in default_el
-   - [X] supply the default path for `ansys-help-program'
-   - [ ] include embedded calc in hacking.mac
-   - [ ] C-c C-c shows duplicate prompts in interactive mode
+** Tasks [33%]
+   - [ ] supply the default paths for windows/unix 64 bit default
+     installation
+   - [ ] test server specifications (menu!) make interconnect
+     conditional of the Ansys version >= 120
+   - [ ] -license-file and -ansysli-servers should show the current selections
+   - [ ] give the minimal sample templates a documentation string
+     explaining the model purpose
    - [ ] document Lagrange contact behaviour for contact/press-fit
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
    - [ ] check for new skeleton -template name in menu definitions!
-   - [ ] give the minimal sample templates a documentation string
-     explaining the model purpose
    - [ ] distinguish the two kinds of -templates: self contained samples
      (include maybe the Ansys verification cases) and command examples
      to various subjects
+   - [ ] Filter empty lines when process is running, add an "\n" to
+     the input if missing, test C-c C-c, showed duplicate prompts in interactive
+     mode
+   - [X] create an option and the support functions for the number of
+     processors for -start-ansys (/config,nproc is obsolete), show
+     this thing in the menu and default_el
+   - [X] check E21 loading
+   - [X] shall we capitalise ANSYS? NO :-)
+   - [X] activate optionally outline mode in default_el
+   - [X] NEWS file -> makefile
 ** Bugs
     - Help, M-? does not :
       *mwrite
       *sread M-? shows help for *mwrite
+    - help overlay is only removed after 1 min if the buffer is active
+      at that time
     - -if-then does not indent correctly
     - mismatch in customisation buffer of -license-file and -ansysli-servers
 ** Compiler warnings
@@ -61,6 +68,7 @@
 * Procedures
   - Mode Help :: keyboard input quoting is "", emphasizing '', keys <>
   - apdl templates :: minimal working examples ending with -template
+  - Old Emacs versions :: flagged with RESTRICTED:
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
@@ -159,6 +167,9 @@ release.
      their help strings of parameter help.
 ** Ansys process and interpreter buffer
    example: gnuplot-mode
+   - check also the license status for hpc licenses if
+     -no-of-processors is greater then 3
+   - implement ANSWAIT variable
    - autoloading of: -license-file, -license-program functions
    - dbus support of workbench or integrating emacs in workbench?
    - insert skeleton with C-c C-s i, send line C-c C-c ccc
@@ -196,6 +207,7 @@ release.
     - search in -job for /filn arguments as default job name like in
       -display-error-file
 ** Skeletons and abbrevs
+   - use the Ansys sample input listing for template-examples
    - additional dialog boxes with:
      /ui,anno,ksel...,wpse,help,query,copy
    - make outline string in skeletons configurable
@@ -219,6 +231,7 @@ release.
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
+   - embedded calc :: include in hacking.mac
    - Alignment :: alignment "section" is not clearly defined in function
 		  -align
    - alignment :: extend to vector definitions

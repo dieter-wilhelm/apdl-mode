@@ -15,8 +15,15 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   ansys-template.el. For example added all *get functions in the
   ansys-skeleton-function template
 
-* Added a variable a and corresponding function ansys-ansysli-servers
-  for specifying the ansys interconnect license servers
+* Added a custom variable the corresponding function
+  ansys-ansysli-servers for specifying the ansys interconnect license
+  servers
+
+* Applied sensible defaults to ansys-lmutil-program, ansys-program and
+  ansys-help-program, for most needs it should now be enough just to
+  set the used ansys version (ansys-current-ansys-version, if it is
+  not 140, see the example config file default_el) and maybe
+  additionally the installation directory (ansys-install-directory).
 
 === Version 13.0.1 ===
 

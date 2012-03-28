@@ -168,8 +168,9 @@ dynamically i. e. during editing when the variable
   :link '(variable-link font-lock-maximum-decoration ))
 
 (defcustom ansys-current-ansys-version ansys_version ;NEW_C
-  "String describing the Ansys version installed by the user.
-This variable is used by the `ansys-skeleton-header' template."
+  "String of the used Ansys version.
+This variable is used by the `ansys-skeleton-header' template and
+for various variables with default path specifications."
   :type 'string
   :group 'Ansys)
 

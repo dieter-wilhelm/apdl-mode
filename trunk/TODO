@@ -25,12 +25,11 @@
   - Completion :: Ansys command 'C***' will not be completed
 
 
-*  v14.0.x:
-** Tasks [33%]
-   - [ ] supply the default paths for windows/unix 64 bit default
-     installation
+*  v14.0.1:
+** Tasks [37%]
+   - [ ] ELPA
    - [ ] test server specifications (menu!) make interconnect
-     conditional of the Ansys version >= 120
+     conditional of the Ansys version >= 120, check HPC support!
    - [ ] -license-file and -ansysli-servers should show the current selections
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
@@ -45,6 +44,8 @@
    - [ ] Filter empty lines when process is running, add an "\n" to
      the input if missing, test C-c C-c, showed duplicate prompts in interactive
      mode
+   - [X] supply the default paths for windows/unix 64 bit default
+     installation, check AWP_ROOT140
    - [X] create an option and the support functions for the number of
      processors for -start-ansys (/config,nproc is obsolete), show
      this thing in the menu and default_el
@@ -95,6 +96,7 @@
     then pretests, emacs-snapshots, clash with Emacs releases (yearly
     Emacs cycle)?
 
+
 ** Release
   - elpa
   - update Emacs wiki (README), Google Code with download packages,
@@ -102,7 +104,10 @@
     Google Code with download, home page
   - publication emails (with image and news):
 
-    iivvgg@gmail.com
+    Antonio.Zangaro@continental-corporation.com,
+    iivvgg@gmail.com,
+    oleksiy.kurenkov@continental-corporation.com,
+    martin.bruehl@continental-corporation.com,
     mike.brusoe@continental-corporation.com,
     klemens.kieninger@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
@@ -117,8 +122,6 @@
     lkrueger@cadfem.de,
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
-    oleksiy.kurenkov@continental-corporation.com,
-    martin.bruehl@continental-corporation.com,
 
 Subject: New release 14.0.1: Editor support for working with Ansys APDL files & processes
 
@@ -167,6 +170,8 @@ release.
      their help strings of parameter help.
 ** Ansys process and interpreter buffer
    example: gnuplot-mode
+   - use Ansys *env variables* like AWP_ROOT140 for checking
+     installation directories
    - check also the license status for hpc licenses if
      -no-of-processors is greater then 3
    - implement ANSWAIT variable

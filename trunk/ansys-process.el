@@ -32,6 +32,17 @@
   "Customisation 'process' subgroup for the Ansys mode."
   :group 'Ansys)
 
+(defcustom ansys-install-directory
+  (cond ((string= window-system "x")
+	 ;; This is the default installation directory on Unix
+	 "")
+	(t ;; the default is "C:\\Program Files" on Windows
+	 "C:\\Program Files"))
+  "This is the directory where Ansys is installed."
+  :type 'string
+  :group 'Ansys-process
+  )
+
 (defcustom ansys-job "file"			;NEW_C
   "Variable storing the Ansys job name.
 It is initialised to 'file' (which is also the Ansys default job
@@ -41,8 +52,12 @@ the respective error file."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-program (concat "ansys"
-		ansys-current-ansys-version)		;NEW_C
+(defcustom ansys-program
+  (if (string= window-system "x")
+      (concat ansys-install-directory "/ansys_inc/v"
+	      ansys-current-ansys-version "/ansys/bin/ansys"
+	      ansys-current-ansys-version)
+    (concat ansys-install-directory "\\Ansys\ Inc\\v" ansys-current-ansys-version "\\bin\\ansys" ansys-current-ansys-version))		;NEW_C
   "This variable stores the Ansys executable name.
 When the file is not in your search path, you have to specify the
 full qualified file name and not only the name of the executable.
@@ -55,10 +70,10 @@ only."
 
 (defcustom ansys-help-program
   (if (string= window-system "x")
-      (concat "/ansys_inc/v"
+      (concat ansys-install-directory "/ansys_inc/v"
       ansys-current-ansys-version "/ansys/bin/anshelp"
       ansys-current-ansys-version)
-    (concat "c:\\\\Program Files\\Ansys\ Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\intel\\bin\\Javaw.exe"))		;NEW_C
+    (concat ansys-install-directory "\\Ansys\ Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\intel\\bin\\Javaw.exe"))		;NEW_C
   "The Ansys help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -79,14 +94,16 @@ Inc\\v140\\commonfiles\\help\" HelpDocViewer'."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-lmutil-program "lmutil"	;NEW_C
-  "The FlexLM license manager utility executable name.
-When the file is not in your search path, you have to furnish the
-complete path.  For example:
-\"/ansys_inc/shared_files/licensing/linx64/lmutil\" or in the
-case of a Windows OS \"c:\\\\Program Files\\Ansys Inc\\Shared\
-Files \\Licensing\\intel\\anslic_admin.exe.  This variable is
-used for displaying the license status with the function
+(defcustom ansys-lmutil-program ;NEW_C
+  (if (string= window-system "x")
+      (concat ansys-install-directory "/ansys_inc/shared_files/licensing/linx64/lmutil")
+    (concat ansys-install-directory "\\Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe"))
+  "A FlexLM license manager executable.
+For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
+or in case of a Windows 32-bit OS \"c:\\\\Program Files\\Ansys
+Inc\\Shared\ Files \\Licensing\\intel\\anslic_admin.exe.  This
+variable is used for displaying the license status or starting
+the ansli_admin tool under Windows with the function
 `ansys-license-status'."
   :type 'string
   :group 'Ansys-process)
@@ -142,7 +159,9 @@ See `ansys-license-types' for often used Ansys license types."
   :group 'Ansys-process)
 
 (defcustom ansys-no-of-processors 2
-  "No of processors to use for an Ansys solver run."
+  "No of processors to use for an Ansys solver run.
+if smaller then 3 the run does not require additonal HPC
+licenses."
   :type 'integer
   :group 'Ansys-process)
 

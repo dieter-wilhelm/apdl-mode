@@ -558,7 +558,12 @@ for displaying the license status."
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
     (if (fboundp 'w32-shell-execute)
-	(w32-shell-execute nil ansys-lmutil-program))
+	(cond ((> (string-to-number ansys-current-ansys-version) 130)
+	       (w32-shell-execute nil ansys-lmutil-program "-client140"))
+	      ((< (string-to-number ansys-current-ansys-version) 120)
+	       (w32-shell-execute nil ansys-lmutil-program))
+	      (t
+	       (w32-shell-execute nil ansys-lmutil-program "-client"))))
     (message "Loading the anslic_admin program..."))
    (t
     (error "No license status available on %s" system-type))))
@@ -584,6 +589,15 @@ for displaying the license status."
     (error "No Ansys process is running"))
   (comint-send-string "*Ansys*";(get-process ansys-process-name)
 		      "/ui,view\n") ;valid in any processor
+  (display-buffer "*Ansys*" 'other-window))
+
+(defun ansys-iso-view (arg)
+  "Show current display in isometric view (/view,,1,1,1)."
+  (interactive "p")
+  (unless (ansys-process-running-p)
+    (error "No Ansys process is running"))
+  (comint-send-string (get-process ansys-process-name)
+		      (format "/view,,1,1,1\n/replot\n" arg))
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-move-up (arg)
@@ -702,7 +716,7 @@ And put it into the variable `ansys-job'."
       (setq ansys-job
 	    (read-string "job name: " ansys-job))
     (setq ansys-job
-	  (read-string "job name: " "file")))
+	  (read-string "job name: " ansys-job)))
   (message (concat "Job-name is set to \"" ansys-job "\".")))
 
 (defun ansys-no-of-processors ()
@@ -730,22 +744,25 @@ processors (if available) for a structural analysis in Ansys is
 Checks whether the variable `ansys-license-file' is set, if not
 sets its value to the environment variable ANSYSLMD_LICENSE_FILE
 or LM_LICENSE_FILE, in this order of precedence.  When these are
-not available returns an error."
+not available return an error."
   (cond
    (ansys-license-file
     (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
+    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to ansys-license-file")
     t)
-   ((getenv "ANSYSLMD_LICENSE_FILE")
+   ((getenv "ANSYSLMD_LICENSE_FILE")	;need this for -license-status
     (setq ansys-license-file (getenv "ANSYSLMD_LICENSE_FILE"))
+    (message "Read ansys-license-file from process environment variable ANSYSLMD_LICENSE_FILE")
     t)
    ((getenv "LM_LICENSE_FILE")
     (setq ansys-license-file (getenv "LM_LICENSE_FILE"))
+    (message "Read ansys-license-file from process environment variable LM_LICENSE_FILE")
     t)
    (t
-    (error "Please specify the license server information in the
-    `ansys-license-file' variable or set either
+    (error "Please specify the license server information with
+    the `ansys-license-file' function or either set
     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
-    variables"))))
+    variable"))))
 
 (defun ansys-ansysli-servers-check ()
   "Return t if Ansys interconnect server information is found.
@@ -755,14 +772,16 @@ uses the environment variable ANSYSLI_SERVERS for it."
   (cond
    (ansys-ansysli-servers
     (setenv "ANSYSLI_SERVERS" ansys-ansysli-servers)
+    (message "Set process environment variable ANSYSLI_SERVERS to ansys-ansysli-servers")
     t)
    ((getenv "ANSYSLI_SERVERS")
     (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
-    t)
+    (message "Read ansys-ansysli-servers from process environment
+    variable ANSYSLI_SERVERS") t)
    (t
-    (error "Please specify the interconnect server information in
-    the `ansys-ansysli-servers' variable or set the environment
-    variable ANSYSLI_SERVERS"))))
+    (error "Please specify the interconnect server information
+    with the `ansys-ansysli-servers' function or set the
+    environment variable ANSYSLI_SERVERS"))))
 
 (defun ansys-license-file ( file)		;NEW
   "Change the Ansys license file name or license server(s).

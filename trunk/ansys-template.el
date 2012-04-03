@@ -361,6 +361,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
+  "!@@@ - mesh line display -" \n
+  "/edge,,1 !1:display elements in contour plots" \n
+  "/edge,,0 !0:switch off display of elements in contour plots" \n
+  \n
   "\n!@@@ - coordinate system display -" \n
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
@@ -746,7 +750,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "ldele,all" \n
   \n
   "!! -- extrusion --" \n
-  "esize,,1 !one element per extrusion" \n
+  "! ESIZE must be set before vext extrusion!" \n
+  "esize,,1 ! here: one element per extrusion" \n
   "vext  !extrude areas by offset" \n
   "vdrag !extrude areas along lines" \n
   \n
@@ -1327,12 +1332,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
   "plnsol,s,1" \n
-  "antime" \n
-  "andata" \n
-  "anmres !multiple result files" \n
   "/anfile,save !save/resume animation to/from job.anim" \n
-  "anharm !harmonics animation" \n
+  "anmode !mode shape animation" \n
+  "anharm !harmonics animation or complex mode shapes" \n
   "anim,20,1 !20[5], cycles [0] forward-backward 1:forward-forward"\n
+  "antime !contour animation over time range" \n
+  "andata !contour animation over result data range" \n
+  "anmres !multiple result files" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n
   \n

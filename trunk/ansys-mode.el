@@ -480,7 +480,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-f" 'ansys-fit)
     (define-key map "\C-c\C-g" 'ansys-start-graphics)
     (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
-    (define-key map "\C-c\C-i" 'ansys-if)
+;    (define-key map "\C-c\C-i" 'ansys-if)
+    (define-key map "\C-c\C-i" 'ansys-iso-view)
     (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)
@@ -888,7 +889,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Start Graphics Screen"  ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
 	      ["Replot"                 ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
-	      ["Fit Graphics into screen"ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
+	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
+	      ["Show Graphics in iso-view" ansys-iso-view :help "Show the current Ansys graphic windows in isometric view" :active (ansys-process-running-p)]
 	      ["Zoom In"                ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
 	      ["Zoom Out"               ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
 	      ["Move Up"                ansys-move-up :help "Move graphics objects up" :active (ansys-process-running-p)]

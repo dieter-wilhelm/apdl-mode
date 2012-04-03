@@ -172,12 +172,21 @@ calling a special Ansys customisation buffer." 'interactive)
 ;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
 
 	     ansys-help-program-parameters
-	     (concat "-cp \""
+	     (concat "-Xmx500000000 -cp \""
 		     ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
 		     "\\commonfiles\\help\" "
 		     "HelpDocViewer"))))
+
+;; Ansys V 13:
+	     ;; ansys-help-program-parameters
+	     ;; (concat "-cp \""
+	     ;; 	     ansys-install-directory
+	     ;; 	     "\\Ansys Inc\\v"
+	     ;; 	     ansys-current-ansys-version
+	     ;; 	     "\\commonfiles\\help\" "
+	     ;; 	     "HelpDocViewer"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; options when starting the solver below example shows the Ansys mode

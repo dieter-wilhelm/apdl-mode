@@ -26,10 +26,15 @@
 
 
 *  v14.0.1:
-** Tasks [37%]
+   check -license-file var
+   - Emacs var
+   - env var
+   - activate -license-file function
+
+** Tasks [43%]
+   - [ ] V14 introduced new option for the ansyslic-admin utility to
+     distinguish client V13 and V12 "-client" and V14 "-client140"
    - [ ] ELPA
-   - [ ] test server specifications (menu!) make interconnect
-     conditional of the Ansys version >= 120, check HPC support!
    - [ ] -license-file and -ansysli-servers should show the current selections
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
@@ -44,6 +49,7 @@
    - [ ] Filter empty lines when process is running, add an "\n" to
      the input if missing, test C-c C-c, showed duplicate prompts in interactive
      mode
+   - [X] implement isometric 3d view
    - [X] supply the default paths for windows/unix 64 bit default
      installation, check AWP_ROOT140
    - [X] create an option and the support functions for the number of
@@ -53,6 +59,11 @@
    - [X] shall we capitalise ANSYS? NO :-)
    - [X] activate optionally outline mode in default_el
    - [X] NEWS file -> makefile
+
+** Freeze
+   - [ ] test server specifications (menu!) make interconnect
+     conditional of the Ansys version >= 120, check HPC support!
+
 ** Bugs
     - Help, M-? does not :
       *mwrite
@@ -143,6 +154,7 @@ release.
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - make the timer time interval customisable
    - show list of license products and their license feature names or
      translate it in the license status from the licensing guide
      (product variable table)

@@ -86,10 +86,12 @@ Windows (XP).  Since V12.0 Ansys uses a java interpreter."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-program-parameters (concat "-cp \"c:\\Program Files\\Ansys Inc\\"
-ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
+(defcustom ansys-help-program-parameters (concat "-Xmx500000000
+-cp \"c:\\Program Files\\Ansys Inc\\"
+ansys-current-ansys-version "\\commonfiles\\help\"
+HelpDocViewer")
   "Stores parameters for the variable `ansys-help-program' under Windows.
-For example: '-cp \"c:\\Program Files\\Ansys
+For example: '-Xmx500000000 -cp \"c:\\Program Files\\Ansys
 Inc\\v140\\commonfiles\\help\" HelpDocViewer'."
   :type 'string
   :group 'Ansys-process)

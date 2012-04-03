@@ -5,7 +5,7 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 === Version 14.0.1 ===
 
 * Added a timer for getting rid of the parameter help overlays after
-  some time interval without user action
+  some time interval (1 min) without reusing the parameter help
 
 * Added a (customisable) variable `ansys-no-of-processors' and
   function with the same name for specifying the number of processors
@@ -18,6 +18,8 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 * Added a custom variable the corresponding function
   ansys-ansysli-servers for specifying the ansys interconnect license
   servers
+
+* Added a new shortcut and menu entry isometric view
 
 * Applied sensible defaults to ansys-lmutil-program, ansys-program and
   ansys-help-program, for most needs it should now be enough just to

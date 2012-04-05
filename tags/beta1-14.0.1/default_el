@@ -1,0 +1,223 @@
+;; Example customisation file for Ansys mode under Unix and Windows
+;; `default_el' can be used as a system wide startup file after
+;; adjusting and renaming it to `default.el'.  And moving it e. g. to
+;; `/usr/share/emacs/site-lisp' or `c:\\EMACS_INSTALLDIR\\site-lisp'
+
+;; Copyright (C) 2006 - 2012 H. Dieter Wilhelm GPL V3
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; CONVENTION: Text comments are indicated with double semi-colons,
+;; optionally uncoment the lisp code commented out with SINGLE comment
+;; signs.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			;; IMPORTANT BEGINNING
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; if Ansys mode files are NOT placed in the default Emacs load-path
+;; it is necessary to supplement the variable with with the following
+
+;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
+
+;; for example: "c:\\emacs\\ansys-mode" for a Windows system or
+;; "/usr/local/src/emacs/ansys-mode" for a Gnu/Linux system (hint: The
+;; directory site-lisp in the Emacs installation tree is in its
+;; default load-path)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			   ;; IMPORTANT END
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			   ;; Fontification
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fontification (highlighting) of user variables and decoration
+;; levels (0,1,2 are available), uncommenting the following might slow
+;; the editing of large .mac files (but only when
+;; ansys-highlighting-level is set to 2).
+
+(setq ansys-dynamic-highlighting-flag nil)
+;(setq ansys-dynamic-highlighting-flag t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; experimental user variables highlighting is in level 2 available
+;; (statical if above flag is not set), the default is 1
+
+(setq ansys-highlighting-level 1)
+;(setq ansys-highlighting-level 2)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			    ;; Autoloading
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; autoloading of command definitions, these commands can then be
+;; called without having a file under ansys-mode
+
+(autoload 'ansys-mode "ansys-mode" nil t)
+(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+calling a special Ansys customisation buffer." 'interactive)
+(autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting Ansys runs." 'interactive)
+(autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
+(autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the Ansys help browser." 'interactive)
+(autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; file suffixes for autoloading of ansys-mode, appropriate file
+;; suffixes for which Ansys mode is automatically called for
+
+;; .mac is the macro suffix of Ansys i. e. these macros can be called
+;; in the Ansys command prompt like a regular Ansys function (without
+;; the suffix .mac)
+
+(add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+
+;; .dat and .inp are WorkBench's solver input file suffixes
+
+(add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
+(add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
+
+;; .anf is the suffix for "Ansys Neutral" files which include mostly
+;;  gometric data but also some APDL snippets.
+
+(add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		       ;; Ansys processes stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; IMPORTANT here you need probably configure
+;; ansys-current-ansys-version (the used Ansys version)
+;; ansys-license-file (your license server) and
+;; ansys-install-directory (your installation directory for Ansys)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; which version of Ansys we are using, the default is currently "140"
+
+(setq ansys-current-ansys-version "140")
+;(setq ansys-current-ansys-version "130")
+
+;; Number of cores for the run, 2 does not require HPC licenses
+
+(setq ansys-no-of-processors 2)
+;(setq ansys-no-of-processors 8)
+
+;; Ansys installation directory
+
+(cond ((string= window-system "x")
+       ;; This is the default installation directory on Unix
+       (setq ansys-install-directory ""))
+      (t
+       ;; the default is "C:\\Program Files" on Windows
+       (setq ansys-install-directory "C:\\Program Files")))
+
+;(cond ((string= window-system "x")
+;        ;; This is an example of an installation directory on Unix
+;        (setq ansys-install-directory "/appl"))
+;       (t
+;        ;;This an example of an installation dir. on Windows
+;        (setq ansys-install-directory "D:\\Programs")))
+
+;; license server configuration and executables
+
+(cond ((string= window-system "x")		;Unix
+       ;; for starting the solver & ansys-license-status & Ansys help 
+       (setq
+	;; license servers (or license file name)
+	;; specify even the default port for lmutil (since Ansys V 12.0) on Unix
+	;; Unix: License servers separated by colons (":"), 1055 is the default port
+	ansys-license-file
+	"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
+
+	;; since Ansys 12.0 there is an intermediate server for
+	;; the communication between flexlm and Ansys, 2325 is the default port
+	ansys-ansysli-servers
+	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+
+	;; The Ansys executable
+	ansys-program
+	(concat ansys-install-directory
+		"/ansys_inc/v"
+		ansys-current-ansys-version
+		"/ansys/bin/ansys"
+		ansys-current-ansys-version)
+
+	;; Utility for the license status
+	ansys-lmutil-program
+	(concat
+	 ansys-install-directory
+	 "/ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
+	;;"/ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
+	;; lin32 not longer supported with V14
+	;; "/ansys_inc/shared_files/licensing/lin32/lmutil") 
+	;; Ansys help browser executable
+	ansys-help-program
+	(concat
+	 ansys-install-directory
+	 "/ansys_inc/v"
+	 ansys-current-ansys-version
+	 "/ansys/bin/anshelp"
+	 ansys-current-ansys-version)))
+      (t     
+       ;;else windows (XP 32/64 Bit)?
+       (setq ansys-lmutil-program
+	     (concat
+	      ansys-install-directory
+	      "\\Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
+;	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
+       ;;backslash '\"' on windows mandatory
+
+	     ansys-help-program
+	     (concat ansys-install-directory
+		     "\\Ansys Inc\\v"
+		     ansys-current-ansys-version
+		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
+;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
+
+	     ansys-help-program-parameters
+	     (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
+		     ansys-install-directory
+		     "\\Ansys Inc\\v"
+		     ansys-current-ansys-version
+		     "\\commonfiles\\help\" "
+		     "HelpDocViewer"))))
+
+;; Ansys V12/V13:
+	     ;; ansys-help-program-parameters
+	     ;; (concat "-cp \""
+	     ;; 	     ansys-install-directory
+	     ;; 	     "\\Ansys Inc\\v"
+	     ;; 	     ansys-current-ansys-version
+	     ;; 	     "\\commonfiles\\help\" "
+	     ;; 	     "HelpDocViewer"))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+;; options when starting the solver below example shows the Ansys mode
+;; defaults
+
+(setq ansys-license "struct"		;which license type to use for
+					;the solver
+      ansys-job "file"			;Ansys job name
+      )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			  ;; Auto insertion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; auto insertion stuff (when creating a new APDL file) ;;
+
+;(auto-insert-mode 1)
+;(add-hook 'find-file-hook 'auto-insert)
+;(setq auto-insert-query t)
+;(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			     ;; Outlining
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; activating outline minor mode for selectively hiding/unhiding
+;; sections, by default this option is not activated
+
+;(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			      ;; The End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; local variables:
+;; mode: emacs-lisp
+;; end:

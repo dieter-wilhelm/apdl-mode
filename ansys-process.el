@@ -53,11 +53,13 @@ the respective error file."
   :group 'Ansys-process)
 
 (defcustom ansys-program
+  (let ((version (if (boundp 'ansys-current-ansys-version)
+		     ansys-current-ansys-version
+		   "140")))
   (if (string= window-system "x")
       (concat ansys-install-directory "/ansys_inc/v"
-	      ansys-current-ansys-version "/ansys/bin/ansys"
-	      ansys-current-ansys-version)
-    (concat ansys-install-directory "\\Ansys\ Inc\\v" ansys-current-ansys-version "\\bin\\ansys" ansys-current-ansys-version))		;NEW_C
+	      version "/ansys/bin/ansys" version)
+    (concat ansys-install-directory "\\Ansys\ Inc\\v" version "\\bin\\ansys" version)))		;NEW_C
   "This variable stores the Ansys executable name.
 When the file is not in your search path, you have to specify the
 full qualified file name and not only the name of the executable.
@@ -242,7 +244,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
   "Copy or send all of above code - up from the cursor position."
   (interactive)
   (let ((process (get-process
-		  (if (boundp' ansys-process-name)
+		  (if (boundp 'ansys-process-name)
 		      ansys-process-name
 		    "Ansys"))))
     ;; no-property stuff necessary?????
@@ -358,19 +360,15 @@ not shown if they are chosen smaller then 3 (see
     (message "Preparing an Ansys interpreter run...")
     ;; (setq comint-use-prompt-regexp t) TODO: ???
     (ansys-program "")		 ;take exec from -program var.
-    (unless (ansys-license-file-check)	 ;take file from -license-file
-				 ;variable or environment
-      (ansys-license-file))
-    (unless (ansys-ansysli-servers-check);take servers from
-					 ;-ansysli-servers variable or
-					 ;environment variable
-
-      (ansys-ansysli-servers))
+    (ansys-license-file "")	 ;
+    (ansys-ansysli-servers "")	 ;
+    ;(ansys-license "")		 ;
 
     (if (y-or-n-p
 	 (concat
-	  "Start run?  (license type: " (if (boundp
-	  'ansys-license) ansys-license)
+	  "Start run?  (license type: " ansys-license
+	  ;; "Start run?  (license type: " (if (boundp
+	  ;; 'ansys-license) ansys-license)
 	  (if (>= ansys-no-of-processors 3)
 	      (concat ", No of processors: " (number-to-string ansys-no-of-processors))
 	    "")
@@ -565,12 +563,15 @@ for displaying the license status."
     (message "Updated license status: %s." (current-time-string)))
    ((string= system-type "windows-nt")
     (if (fboundp 'w32-shell-execute)
-	(cond ((> (string-to-number ansys-current-ansys-version) 130)
+	(let ((version (if (boundp 'ansys-current-ansys-version)
+			   ansys-current-ansys-version
+			 "140")))
+	    (cond ((> (string-to-number version) 130)
 	       (w32-shell-execute nil ansys-lmutil-program "-client140"))
-	      ((< (string-to-number ansys-current-ansys-version) 120)
+	      ((< (string-to-number version) 120)
 	       (w32-shell-execute nil ansys-lmutil-program))
 	      (t
-	       (w32-shell-execute nil ansys-lmutil-program "-client"))))
+	       (w32-shell-execute nil ansys-lmutil-program "-client")))))
     (message "Loading the anslic_admin program..."))
    (t
     (error "No license status available on %s" system-type))))
@@ -594,8 +595,7 @@ for displaying the license status."
   (interactive)
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
-  (comint-send-string "*Ansys*";(get-process ansys-process-name)
-		      "/ui,view\n") ;valid in any processor
+  (comint-send-string (get-process ansys-process-name) "/ui,view\n")
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-iso-view (arg)
@@ -603,8 +603,7 @@ for displaying the license status."
   (interactive "p")
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
-  (comint-send-string (get-process ansys-process-name)
-		      (format "/view,,1,1,1\n/replot\n" arg))
+  (comint-send-string (get-process ansys-process-name) "/view,%d1,1,1\n/replot\n")
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-move-up (arg)
@@ -828,8 +827,8 @@ server names are separated by a colon, for example
 ;;     variable")
 
 (defun ansys-license ()			;NEW
-  "Change the Ansys license type.
-And specify it in the variable `ansys-license'."
+  "Change the Ansys license type to LIC.
+And store it in the variable `ansys-license'."
   (interactive)
   (let ((lic (if (not (string= ansys-license ""))
 		 ansys-license

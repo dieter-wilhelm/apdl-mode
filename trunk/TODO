@@ -31,11 +31,10 @@
    - env var
    - activate -license-file function
 
-** Tasks [43%]
-   - [ ] V14 introduced new option for the ansyslic-admin utility to
-     distinguish client V13 and V12 "-client" and V14 "-client140"
+** Tasks [47%]
    - [ ] ELPA
-   - [ ] -license-file and -ansysli-servers should show the current selections
+   - [ ] -help-program, -program, -lmutil-program, -license-file and
+     -ansysli-servers should show the current selections
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
    - [ ] document Lagrange contact behaviour for contact/press-fit
@@ -49,6 +48,8 @@
    - [ ] Filter empty lines when process is running, add an "\n" to
      the input if missing, test C-c C-c, showed duplicate prompts in interactive
      mode
+   - [X] V14 introduced new option for the ansyslic-admin utility to
+     distinguish client V13 and V12 "-client" and V14 "-client140"
    - [X] implement isometric 3d view
    - [X] supply the default paths for windows/unix 64 bit default
      installation, check AWP_ROOT140

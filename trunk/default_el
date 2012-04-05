@@ -172,14 +172,14 @@ calling a special Ansys customisation buffer." 'interactive)
 ;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
 
 	     ansys-help-program-parameters
-	     (concat "-Xmx500000000 -cp \""
+	     (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
 		     ansys-install-directory
 		     "\\Ansys Inc\\v"
 		     ansys-current-ansys-version
 		     "\\commonfiles\\help\" "
 		     "HelpDocViewer"))))
 
-;; Ansys V 13:
+;; Ansys V12/V13:
 	     ;; ansys-help-program-parameters
 	     ;; (concat "-cp \""
 	     ;; 	     ansys-install-directory

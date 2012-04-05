@@ -86,13 +86,12 @@ Windows (XP).  Since V12.0 Ansys uses a java interpreter."
   :type 'string
   :group 'Ansys-process)
 
-(defcustom ansys-help-program-parameters (concat "-Xmx500000000
--cp \"c:\\Program Files\\Ansys Inc\\"
-ansys-current-ansys-version "\\commonfiles\\help\"
-HelpDocViewer")
+(defcustom ansys-help-program-parameters (concat " -Xmx500000000 -cp \"c:\\Program Files\\Ansys Inc\\v"
+ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
   "Stores parameters for the variable `ansys-help-program' under Windows.
-For example: '-Xmx500000000 -cp \"c:\\Program Files\\Ansys
-Inc\\v140\\commonfiles\\help\" HelpDocViewer'."
+For example: ' -Xmx500000000 -cp \"c:\\Program Files\\Ansys
+Inc\\v140\\commonfiles\\help\" HelpDocViewer' (the whitespace
+before -X... is important)."
   :type 'string
   :group 'Ansys-process)
 
@@ -359,8 +358,14 @@ not shown if they are chosen smaller then 3 (see
     (message "Preparing an Ansys interpreter run...")
     ;; (setq comint-use-prompt-regexp t) TODO: ???
     (ansys-program "")		 ;take exec from -program var.
-    (ansys-license-file-check)	 ;take file from -license-file variable or environment
-    (ansys-ansysli-servers-check) ;take servers from -ansysli-servers variable or env.
+    (unless (ansys-license-file-check)	 ;take file from -license-file
+				 ;variable or environment
+      (ansys-license-file))
+    (unless (ansys-ansysli-servers-check);take servers from
+					 ;-ansysli-servers variable or
+					 ;environment variable
+
+      (ansys-ansysli-servers))
 
     (if (y-or-n-p
 	 (concat
@@ -435,7 +440,7 @@ interactively, provided that anshelp140 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)
-  (ansys-help-program "")
+  (ansys-help-program "")		;checking
   (progn
     (message "Starting the Ansys help browser...")
     (cond
@@ -674,7 +679,6 @@ executable EXEC can be found on the system's search path."
   (when (string= exec "")
     (setq exec ansys-program))
   (setq ansys-program exec)
-
   (if (executable-find exec)
       (message "ansys-program is set to \"%s\"." ansys-program)
     (error "Cannot find Ansys interpreter executable \"%s\" on the system" exec)))
@@ -703,7 +707,6 @@ Files\\licensing\\win32\\anslic_admin.exe'"
   (when (string= exec "")		;use default
     (setq exec ansys-lmutil-program))
   (setq ansys-lmutil-program exec)
-
   (if (executable-find exec)
       (message "ansys-lmutil-program is set to \"%s\"." ansys-lmutil-program)
   (error "Cannot find Ansys LM Utility executable \"%s\" on the
@@ -712,14 +715,14 @@ Files\\licensing\\win32\\anslic_admin.exe'"
 ;;;###autoload
 (defun ansys-job ()			;NEW
   "Change the Ansys job name.
-And put it into the variable `ansys-job'."
+And write it into the variable `ansys-job'."
   (interactive)
   (if ansys-job
-      (setq ansys-job
-	    (read-string "job name: " ansys-job))
-    (setq ansys-job
-	  (read-string "job name: " ansys-job)))
-  (message (concat "Job-name is set to \"" ansys-job "\".")))
+      (setq ansys-job (read-string "job name: " ansys-job))
+    (setq ansys-job (read-string "job name: ")))
+  (if (string= ansys-job "")
+      (error "job-name must not be the empty string")
+    (message (concat "Job name is set to \"" ansys-job "\"."))))
 
 (defun ansys-no-of-processors ()
   "Change the No of processors to use for an Anys run.
@@ -745,8 +748,8 @@ processors (if available) for a structural analysis in Ansys is
   "Return t if Ansys license file (server) information is found.
 Checks whether the variable `ansys-license-file' is set, if not
 sets its value to the environment variable ANSYSLMD_LICENSE_FILE
-or LM_LICENSE_FILE, in this order of precedence.  When these are
-not available return an error."
+or LM_LICENSE_FILE, in this order of precedence.  When the former
+are not available return nil."
   (cond
    (ansys-license-file
     (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
@@ -754,22 +757,20 @@ not available return an error."
     t)
    ((getenv "ANSYSLMD_LICENSE_FILE")	;need this for -license-status
     (setq ansys-license-file (getenv "ANSYSLMD_LICENSE_FILE"))
-    (message "Read ansys-license-file from process environment variable ANSYSLMD_LICENSE_FILE")
+    (message "Set ansys-license-file from process environment variable ANSYSLMD_LICENSE_FILE")
     t)
    ((getenv "LM_LICENSE_FILE")
     (setq ansys-license-file (getenv "LM_LICENSE_FILE"))
-    (message "Read ansys-license-file from process environment variable LM_LICENSE_FILE")
+    (message "Set ansys-license-file from process environment variable LM_LICENSE_FILE")
     t)
    (t
-    (error "Please specify the license server information with
-    the `ansys-license-file' function or either set
-    ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
-    variable"))))
+    nil)))
 
 (defun ansys-ansysli-servers-check ()
   "Return t if Ansys interconnect server information is found.
-Checks whether the variable `ansys-ansysli-servers' is set or
-uses the environment variable ANSYSLI_SERVERS for it."
+Checking whether the variable `ansys-ansysli-servers' is set or
+otherwise the environment variable ANSYSLI_SERVERS.  If neither
+is set return nil"
   (interactive)
   (cond
    (ansys-ansysli-servers
@@ -780,10 +781,7 @@ uses the environment variable ANSYSLI_SERVERS for it."
     (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
     (message "Read ansys-ansysli-servers from process environment
     variable ANSYSLI_SERVERS") t)
-   (t
-    (error "Please specify the interconnect server information
-    with the `ansys-ansysli-servers' function or set the
-    environment variable ANSYSLI_SERVERS"))))
+   (t nil)))
 
 (defun ansys-license-file ( file)		;NEW
   "Change the Ansys license file name or license server(s).
@@ -802,10 +800,15 @@ separated by a colon, for example
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
+;; (error "Please specify the license server information with
+;;     the `ansys-license-file' function or either set
+;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
+;;     variable")
+
 (defun ansys-ansysli-servers ( servers)		;NEW
   "Change the Ansys interconnect servers to SERVERS.
 And specify it in the variable `ansys-ansysli-servers'.  The
-server specification must include the port number when it isn't
+server specification must include the port number even when it is
 2325, the default port number: port_number@server_name, multiple
 server names are separated by a colon, for example
 \"rbgs421x:rbgs422x:...\"."
@@ -816,6 +819,11 @@ server names are separated by a colon, for example
 	 (setq ansys-ansysli-servers servers)
 	 (message (concat "Set ansys-ansysli-servers to \""
 			  ansys-ansysli-servers "\".")))))
+
+;; (error "Please specify the license server information with
+;;     the `ansys-license-file' function or either set
+;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
+;;     variable")
 
 (defun ansys-license ()			;NEW
   "Change the Ansys license type.

@@ -717,12 +717,14 @@ Files\\licensing\\win32\\anslic_admin.exe'"
   "Change the Ansys job name.
 And write it into the variable `ansys-job'."
   (interactive)
-  (if ansys-job
-      (setq ansys-job (read-string "job name: " ansys-job))
-    (setq ansys-job (read-string "job name: ")))
-  (if (string= ansys-job "")
-      (error "job-name must not be the empty string")
-    (message (concat "Job name is set to \"" ansys-job "\"."))))
+  (let ((job-name))
+    (if ansys-job
+	(setq job-name (read-string "job name: " ansys-job))
+      (setq job-name (read-string "job name: ")))
+    (if (string= job-name "")
+	(error "job-name must not be the empty string")
+      (message (concat "Job name is set to \"" ansys-job "\".")))
+    (setq ansys-job job-name)))
 
 (defun ansys-no-of-processors ()
   "Change the No of processors to use for an Anys run.

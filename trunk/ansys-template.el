@@ -1333,9 +1333,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,2,last ! set,last,last does not work!" \n
   "plnsol,s,1" \n
   "/anfile,save !save/resume animation to/from job.anim" \n
+  "anim,20,1 !20[5], cycles [0] forward-backward 1:forward-forward"\n
   "anmode !mode shape animation" \n
   "anharm !harmonics animation or complex mode shapes" \n
-  "anim,20,1 !20[5], cycles [0] forward-backward 1:forward-forward"\n
   "antime !contour animation over time range" \n
   "andata !contour animation over result data range" \n
   "anmres !multiple result files" \n

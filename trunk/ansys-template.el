@@ -1331,8 +1331,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,list" \n
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
+  \n
+  "!! --- animations ---"\n
   "plnsol,s,1" \n
-  "/anfile,save !save/resume animation to/from job.anim" \n
+  "/anfile,save !save/resume animation to/from jobname.anim" \n
+  "/anfile,save,cylind !save animation to cylind.anim" \n
   "anim,20,1 !20[5], cycles [0] forward-backward 1:forward-forward"\n
   "anmode !mode shape animation" \n
   "anharm !harmonics animation or complex mode shapes" \n

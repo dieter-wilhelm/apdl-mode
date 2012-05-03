@@ -603,7 +603,7 @@ for displaying the license status."
   (interactive "p")
   (unless (ansys-process-running-p)
     (error "No Ansys process is running"))
-  (comint-send-string (get-process ansys-process-name) "/view,%d1,1,1\n/replot\n")
+  (comint-send-string (get-process ansys-process-name) "/view,,1,1,1\n/replot\n")
   (display-buffer "*Ansys*" 'other-window))
 
 (defun ansys-move-up (arg)

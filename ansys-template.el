@@ -348,7 +348,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/view,,1,1,1 !viewing direction vector"_ \n
   "/triad,off !orig,lbot,rbot,ltop,rtop" \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
-  "/dist,1,1/2.,1 $ /repl !distance (zoom) to object " \n
+  "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
   "/focus,1 $ /repl !focus wn 1 to csys,0" \n
   "/plopts,minm ! switch off min max" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
@@ -371,6 +371,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "clocal,11,0 !define local coord. sys. from active" \n
   "/psymb,cs,1 ! display local coord." \n
   "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
+  "/plopts,info,off !switch off all descriptive text" \n
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
@@ -378,7 +379,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/triad,rbot"_ \n
   "/triad,off"
   \n
-
   )
 
 (define-skeleton ansys-skeleton-import	;NEW
@@ -663,7 +663,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-element-def
+(define-skeleton ansys-skeleton-element-defintion
  ""
  nil
  "\n!! ------------------------------" \n
@@ -683,17 +683,19 @@ time stamp with the Emacs command M-x `time-stamp'."
  "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
  "!!for most elements the radial direction is the x-axis" \n
  \n
- "!! --- structural shells and planes ---" \n
+ "!@@@ - structural shells and planes -" \n
  "et,ID,shell181 !3d 4/3-node structural shell" \n
+ "et,ID,shell281 !3d 8/6-node structural shell" \n
+ "!! - plane -" \n
  "et,ID,plane182 !2d 4/3-node structural solid" \n
  "et,ID,plane183 !2d 8/6-node structural solid" \n
  \n
- "!! --- thermal ---" \n
+ "!@@@ - thermal -" \n
  "et,ID,plane35 !2d 6-node triangular thermal solid" \n
  "et,ID,plane77 !2d 8-node thermal solid" \n
  "et,ID,solid90 !3D 20 nodes thermal solid" \n
  \n
- "!! --- magnetics ---" \n
+ "!@@@ - magnetics -" \n
  "et,ID,plane13 !2d, legacy 4-node coupled-field ->plane233 8-node" \n
  "keyopt,ID,3,1 !(3)=1:axissym." \n
  "keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
@@ -702,7 +704,7 @@ time stamp with the Emacs command M-x `time-stamp'."
  "keyopt,ID,3,1 !(3)=1:axissym." \n
  "keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
  \n
- "!! --- assign attributes ---" \n
+ "!@@@ - assign attributes -" \n
  "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
  \n
  "!! /pnum,type,1 $ eplot ! display materials" \n
@@ -954,7 +956,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-material-def
+(define-skeleton ansys-skeleton-material-definition
   ""
   nil
   "\n!@@ -- material definitions --" \n
@@ -1254,7 +1256,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plnsol,s,xy ! shear in xy-dir." \n
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
   "plvect,u !display vector results"\n
-  "!! reactions"\n
+  "!@@@ - reactions -"\n
   "fsum !force sum from all selected nodes"\n
   "*get,Fy,fsum,,item,fy" \n
   "*get,T,active,,set,time" \n
@@ -1289,6 +1291,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- graphics output & invert background colour --" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
+  "/gfile,1000 !set resolution height of 1000[800]"\n
   "/show,png !creates jobnameXXX.png files" \n
   "pngr,stat !additional png options (orientation,compression,...)" \n
   "plvect,B" \n
@@ -1297,7 +1300,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,close" \n
   "erase" \n
   \n
-  "!! --- acoustics ---" \n
+  "!@@ -- acoustics --" \n
   "/view,,1,1,1" \n
   "/graphics,full" \n
   "/sscale,,1e5 !topographic display scaling" \n
@@ -1307,17 +1310,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "pletab,spl"\n
   "!! SPL in nodal display" \n
   \n
-  "!! --- magnetics ---" \n
+  "!@@ -- magnetics --" \n
   "/efacet,2" \n
 ;  "psdisp,0" \n
   "/graphics,full ! results averaging also from interior" \n
   "pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
-  "!@@@ - magnetics -" \n
   "plf2d,27 ! flux lines, equipotentials" \n
   "plvect,b,! induction vector plot" \n
   "fmagsum,'component_name'" \n
   \n
+  "!@@ -- contact status --" \n
   "nldpost,nrre,stat !element information nonlinear" \n
   "plnsol,nrre,,,,001 !plot residual file .nr001 " \n
   "etable,Pene,cont,pene" \n
@@ -1332,11 +1335,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
   \n
-  "!! --- animations ---"\n
+  "!@@ -- animations --"\n
   "plnsol,s,1" \n
   "/anfile,save !save/resume animation to/from jobname.anim" \n
   "/anfile,save,cylind !save animation to cylind.anim" \n
-  "anim,20,1 !20[5], cycles [0] forward-backward 1:forward-forward"\n
+  "anim,20,1,.3 !cycles:20[5],mode:1[0],forward-reverse 1:forward-forward,delay: .3[.1]"\n
   "anmode !mode shape animation" \n
   "anharm !harmonics animation or complex mode shapes" \n
   "antime !contour animation over time range" \n
@@ -1354,6 +1357,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- output to file --" \n
   \n
   "! --- 1.) write macro file without parameter substitution" \n
+  "! *vwrite works only in batch mode" \n
   "*create,test.txt ! macro file, no parameter substitution!" \n
   "bla=otto" \n
   "*vwrite,bla,otto" \n
@@ -1374,7 +1378,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/input,test,txt ! input the content into the interpreter" \n
   \n
-  "! --- 3.) create a 'command' file with parameter substitution" \n
+  "! --- 3.) create a 'command' file test.mac with parameter substitution" \n
+  "*create,test,mac !write macro file" \n
   "*cfopen,test,txt,,append ! appending to file" \n
   "*cfwrite,A=5 ! interpreted output" \n
   "! SET strings are limited to 32 characters!!!" \n
@@ -1386,7 +1391,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*vwrite,B(1,1),B(1,2)" > \n
   "%E %E" > \n
   "*cfclos ! close file" \n
-  "/input,test,txt,,:LABEL ! read from label LABEL onwards"\n
+  "*end ! end macro file" \n
+  "/input,test,mac,,:LABEL ! read macro file from label LABEL onwards"\n
+  \n
+  "!! --- 4.) similar to 3.) without *cfopen/*cfclos"\n
+  "/output,test,mac !write macro file" \n
+  "/com,*mwrite,B(1),'bla','txt'"\n
+  "/com,%G" \n
+  "\output !redirect to standard ouput "\n
+  "/input,bla,mac"\n
   \n
   "!! --- 1.) graphical output" \n
   "/RGB,index,100,100,100,0 !white background" \n
@@ -1459,9 +1472,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/post26" \n
-  "numvar,200 !maximum No of variables"
+  "numvar,200 !maximum No of variables, 1 is always time"
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
+  "deriv,3,2,1,,vz !time derivative of uz" \n
   "extrem,2 !list extrema" \n
   "filldata,7,1,10,,20 !fills a variable by a ramp or constant"\n
   "rforce,3,1,f,z" \n
@@ -1480,6 +1494,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/stitle,2,blabla !subtitle line 2" \n
   "/tlable,x,y,bla !annotation at (x,y)" \n
   "xvar,2" \n
+  "!! --- graphical output --- " \n
   "!! invert background colour" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
@@ -1667,9 +1682,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   (goto-char (point-max))
   (ansys-skeleton-geometry)
   (goto-char (point-max))
-  (ansys-skeleton-material-def)
+  (ansys-skeleton-material-definition)
   (goto-char (point-max))
-  (ansys-skeleton-element-def)
+  (ansys-skeleton-element-definition)
   (goto-char (point-max))
   (ansys-skeleton-meshing)
   (goto-char (point-max))

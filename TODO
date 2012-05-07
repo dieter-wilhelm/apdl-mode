@@ -67,8 +67,9 @@
 
 ** Bugs
     - Help, M-? does not :
-      *mwrite
-      *sread M-? shows help for *mwrite
+      + *mwrite
+      + *cfclos
+      + *sread M-? shows help for *mwrite
     - help overlay is only removed after 1 min if the buffer is active
       at that time
     - -if-then does not indent correctly
@@ -183,6 +184,8 @@ release.
      their help strings of parameter help.
 ** Ansys process and interpreter buffer
    example: gnuplot-mode
+   - make display-buffer "*Ansys*" optional when sending commands to
+     the Ansys process
    - use Ansys *env variables* like AWP_ROOT140 for checking
      installation directories
    - check also the license status for hpc licenses if

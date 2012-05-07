@@ -168,11 +168,11 @@
    "TZAMESH"
    "TZDELE"
    "TZEGEN"
-   "XVAROPT"				;v14
+   "XVAROPT"				;v14 end
    )			       
   "Ansys commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output
-files and old macros or old Ansys verification models.")
+files, old macros or old Ansys verification models.")
 
 (defconst Ansys_written_out_commands
   '(

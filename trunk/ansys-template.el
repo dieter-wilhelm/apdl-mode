@@ -357,6 +357,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/pstatus ! display window stats specifications" \n
   "/dscale,all,10 !set displacment multiplier" \n
   \n
+  "!@@@ - material display -" \n
+  "/number,1 !0:colours & numbers,1:colours,2:numbers" \n
+  "/pnum,mat,1 !1: turn on numbering" \n
+  \n
   "!@@@ - element shape display -" \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
@@ -451,10 +455,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Pinb = -1 !search radius, neg: absolut value ( > CNOF!)" \n
   "rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   \n
-  "ICONT = -0.05 !initial contact closure [0] band size (neg. absolut)" \n
+  "ICONT = -0.05 !initial contact closure [0] relative band size (neg. absolut)" \n
   "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   \n
-  "CNOF = 0 !contact surface offset ([0], neg.: penetr.)" \n
+  "CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
   "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
   "keyo,Contact,4,3 !keyo(4): location of contact detection" \n
@@ -537,17 +541,25 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Target=Contact+1" \n
   "real,Contact" \n
   "type,Target" \n
-  "!!tshap,arc !clockwise arc" \n
+  "tshap,line !2d/3d" \n
+  "!!tshap,para !parabola 2d/3d"\n
+  "!!tshap,arc !clockwise arc 2d (targe169)" \n
+  "!!tshap,carc !counterclockwise arc 2d (targe169)" \n
+  "!!tshap,circ !2d  (targe169)" \n
+  "!!tshap,tria !3d" \n
+  "!!tshap,tri6 !6 node triangle 3d" \n
+  "!!tshap,quad !3d" \n
+  "!!tshap,quad8 !8-node quadrilateral 3D" \n
+  "!!tshap,cyli !3d" \n
   "!!tshap,cone" \n
-  "!!tshap,quad" \n
-  "!!tshap,sphere" \n
-  "!!tshap,qua8" \n
-  "tshap,line" \n
+  "!!tshap,sphe !sphere 3d" \n
+  "!!tshap,pilo !2d/3d" \n
+  "!!tshap,point !2d/3d" \n
   "*get,Nmax,node,,num,max" \n
   "n,Nmax+1,1,1,0" \n
   " ,Nmax+2,1,2,0" \n
   "e,Nmax+1,Nmax+2" \n
-  "tshap,pilo" \n
+  "tshap,pilo !2d/3d" \n
   "e,Nmax+1" \n
   \n
   )
@@ -953,6 +965,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "vglue,all" \n
   "vsbw,all,,delete !v substracted by wp" \n
   "vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
+  "vsym! symmetry reflections: arsym,esym"\n
   \n
   )
 
@@ -988,6 +1001,22 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,ex,Alu,70000" \n
   "tb,biso,Alu,1" \n
   "tbdata,,Yield_stress,Tangent_modulus" \n
+  \n
+  "!! - multilinear kinematic hardening of 0.5 mm hardened C75s spring sheet steel - " \n
+  "tbdele,kinh,Steel !redefine material" \n
+  "tb,kinh,Steel,1" \n
+  "tbpt,,.6e-2,1300." \n
+  "tbpt,,.75e-2,1430." \n
+  "tbpt,,1.e-2,1500." \n
+  "tbpt,,1.5e-2,1550." \n
+  "tbpt,,2.e-2,1580." \n
+  "tbpt,,4.e-2,1645." \n
+  "tbpt,,5.e-2,1640." \n
+  "tbpt,,5.4e-2,1600." \n
+  "mp,ex,Steel,1300/.6e-2	      ! Elastic modulus" \n
+  "mpwrite,c75s,mat,,lib,1 !write to library" \n
+  \n
+  "!! - conductivity -" \n
   "mptemp !erase temperature table"  \n
   "mptemp,,-100,0,100,200 !4 temperatures" \n
   "mpdata,kxx,Alu,,114,144,165,175 !conductivities in W/(mK)" \n
@@ -1292,7 +1321,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
   "/gfile,1000 !set resolution height of 1000[800]"\n
-  "/show,png !creates jobnameXXX.png files" \n
+  "/show,png !creates jobnameXXX.png files quality not as good as with /image" \n
   "pngr,stat !additional png options (orientation,compression,...)" \n
   "plvect,B" \n
   "/noerase" \n
@@ -1391,7 +1420,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*vwrite,B(1,1),B(1,2)" > \n
   "%E %E" > \n
   "*cfclos ! close file" \n
-  "*end ! end macro file" \n
+  "*end ! end macro file" > \n
   "/input,test,mac,,:LABEL ! read macro file from label LABEL onwards"\n
   \n
   "!! --- 4.) similar to 3.) without *cfopen/*cfclos"\n
@@ -1400,6 +1429,28 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/com,%G" \n
   "\output !redirect to standard ouput "\n
   "/input,bla,mac"\n
+  \n
+  "!! -- 5.) output from /post26" \n
+  "*get,Size,VARI,,NSETS !No of sets" \n
+  "*dim,Accx,array,Size" \n
+  "*dim,Tim,array,Size" \n
+  "*dim,Accy,array,Size" \n
+  "vget,Accx(1),5 ! post26 variable 5 into array" \n
+  "vget,Accy(1),7" \n
+  "vget,Tim(1),1" \n
+  "!! - export arrays -" \n
+  "*create,bla,mac" \n
+  "*cfopen,cyl_sim,txt" \n
+  "Strg='T AX AY'" \n
+  "*vwrite,Strg" \n
+  "%S" \n
+  "*vwrite,Tim(1), Accx(1), Accy(1)" \n
+  "%G %G %G" \n
+  "*cfclos" \n
+  "*end" > \n
+  "/input,bla,mac" \n
+  "*list,bla,mac" \n
+  "*list,bla2,txt" \n
   \n
   "!! --- 1.) graphical output" \n
   "/RGB,index,100,100,100,0 !white background" \n
@@ -1477,9 +1528,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "nsol,2,1,u,z" \n
   "deriv,3,2,1,,vz !time derivative of uz" \n
   "extrem,2 !list extrema" \n
-  "filldata,7,1,10,,20 !fills a variable by a ramp or constant"\n
-  "rforce,3,1,f,z" \n
-  "add,4,2,,,displ,,,-1" \n
+  "rforce,3,1,f,z ! reaction force" \n
+  "filldata,7,1,10,,20 !fill a variable by a ramp or constant"\n
+  "add,4,2,,,displ,,,-1 !sum variables" \n
+  "prod,3,2,,,,,-N*2 !product of variables" \n
   "/grid,1" \n
   "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
   "/xrange,0,1" \n

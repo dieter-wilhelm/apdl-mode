@@ -32,9 +32,12 @@
    - activate -license-file function
 
 ** Tasks [47%]
-   - [ ] ELPA
-   - [ ] -help-program, -program, -lmutil-program, -license-file and
-     -ansysli-servers should show the current selections
+   - [ ] gnu ELPA and/or marmalade 
+   - [ ] -program, -license-file and -ansysli-servers should show the
+     current selections
+   - [ ] Filter empty lines when process is running, add an "\n" to
+     the input if missing, test C-c C-c, showed duplicate prompts in interactive
+     mode
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
    - [ ] document Lagrange contact behaviour for contact/press-fit
@@ -45,9 +48,6 @@
    - [ ] distinguish the two kinds of -templates: self contained samples
      (include maybe the Ansys verification cases) and command examples
      to various subjects
-   - [ ] Filter empty lines when process is running, add an "\n" to
-     the input if missing, test C-c C-c, showed duplicate prompts in interactive
-     mode
    - [X] V14 introduced new option for the ansyslic-admin utility to
      distinguish client V13 and V12 "-client" and V14 "-client140"
    - [X] implement isometric 3d view

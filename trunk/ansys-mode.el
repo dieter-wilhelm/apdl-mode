@@ -170,7 +170,8 @@ dynamically i. e. during editing when the variable
 (defcustom ansys-current-ansys-version ansys_version ;NEW_C
   "String of the used Ansys version.
 This variable is used by the `ansys-skeleton-header' template and
-for various variables with default path specifications."
+for setting up variables defaults with Ansys path specifications,
+like `ansys-program'."
   :type 'string
   :group 'Ansys)
 

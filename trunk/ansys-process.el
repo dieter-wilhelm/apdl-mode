@@ -163,8 +163,8 @@ See `ansys-license-types' for often used Ansys license types."
 
 (defcustom ansys-no-of-processors 2
   "No of processors to use for an Ansys solver run.
-if smaller then 3 the run does not require additonal HPC
-licenses."
+If smaller then 3 the run does not require additonal HPC
+licenses. 2 is the Ansys default."
   :type 'integer
   :group 'Ansys-process)
 

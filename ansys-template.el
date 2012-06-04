@@ -351,6 +351,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
   "/focus,1 $ /repl !focus wn 1 to csys,0" \n
   "/plopts,minm ! switch off min max" \n
+  "/udoc,,,bottom !show legend on bottom" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "/auto ! automatic fit mode" \n
   "/user ! keep last display scaling"\n
@@ -675,7 +676,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-element-defintion
+(define-skeleton ansys-skeleton-element-definition
  ""
  nil
  "\n!! ------------------------------" \n
@@ -1004,7 +1005,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!! - multilinear kinematic hardening of 0.5 mm hardened C75s spring sheet steel - " \n
   "tbdele,kinh,Steel !redefine material" \n
-  "tb,kinh,Steel,1" \n
+  "tb,kinh,Steel,1,8 !1 temperature, 8 data points" \n
+  "tbtemp,20 !measurements @RT" \n
   "tbpt,,.6e-2,1300." \n
   "tbpt,,.75e-2,1430." \n
   "tbpt,,1.e-2,1500." \n
@@ -1014,7 +1016,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbpt,,5.e-2,1640." \n
   "tbpt,,5.4e-2,1600." \n
   "mp,ex,Steel,1300/.6e-2	      ! Elastic modulus" \n
-  "mpwrite,c75s,mat,,lib,1 !write to library" \n
+  "mpwrite,c75s_20deg_hardened,mat,,lib,1 !write to library" \n
   \n
   "!! - conductivity -" \n
   "mptemp !erase temperature table"  \n
@@ -1371,9 +1373,20 @@ time stamp with the Emacs command M-x `time-stamp'."
   "anim,20,1,.3 !cycles:20[5],mode:1[0],forward-reverse 1:forward-forward,delay: .3[.1]"\n
   "anmode !mode shape animation" \n
   "anharm !harmonics animation or complex mode shapes" \n
-  "antime !contour animation over time range" \n
+  "antime,20,.3,1,0,0,0,2!animate time data,20[5]: frames, .3[.1]: s delay, 1[5]: anim. cycles, [0]:no scaling,[0] current LS, 2:range,min tim, max time" \n
   "andata !contour animation over result data range" \n
   "anmres !multiple result files" \n
+  \n
+  "/show,spring_washer6,grph !ANSYS graphics format for the display utility" \n
+  "! display is saveing the animation in the HOME folder on Windows" \n
+  "*get,Nls,active,,set,nset" \n
+  "set,first" \n
+  "/user,! inhibit image size fit under large displacements" \n
+  "*do,I,1,Nls" \n
+  "  plnsol,epto,eqv" \n
+  "  set,next" \n
+  "*enddo" \n
+  "/show,close" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n
   \n

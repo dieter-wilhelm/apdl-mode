@@ -1383,9 +1383,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,first" \n
   "/user,! inhibit image size fit under large displacements" \n
   "*do,I,1,Nls" \n
-  "  plnsol,epto,eqv" \n
-  "  set,next" \n
-  "*enddo" \n
+  "  plnsol,epto,eqv" > \n
+  "  set,next" > \n
+  "*enddo" > \n
   "/show,close" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n

@@ -24,7 +24,9 @@ http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz",
 development versions can be checked out with "svn checkout
 http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
 installation, issues and comments please have a look at the Ansys mode
-Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode).
+Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) or submit a bug
+report at the issues list at its Google Code site
+(http://code.google.com/p/ansys-mode/issues/list).
 
 == Requirements ==
 

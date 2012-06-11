@@ -252,6 +252,7 @@ release.
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
+   - material properties :: add apdl libary of material data with mpwrite?
    - embedded calc :: include in hacking.mac
    - Alignment :: alignment "section" is not clearly defined in function
 		  -align

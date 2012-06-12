@@ -4,6 +4,8 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 === Version 14.0.1 ===
 
+* Included some tutorial slides for ANSYS mode: ansys-mode.pdf
+
 * Added a timer for getting rid of the parameter help overlays after
   some time interval (1 min) without reusing the parameter help
 

@@ -142,6 +142,7 @@ Auxiliaries:
 * LICENSE -- the GPL (Gnu Puplic License) Version 3
 * default_el -- configuration examples (of an Emacs 'default.el')
 * fontification.mac -- highlighting APDL example
+* ansys-mode.pdf -- A tutorial
 
 === Short instructions ===
 
@@ -154,7 +155,7 @@ administrator rights).  You might subsequently run the program
 addpm.exe (located in the bin directory) to add an Emacs entry to the
 Windows Start menu (please refer to the README.W32 file) otherwise
 start the Emacs executable runemacs.exe from there.  Ansys mode is
-immediately availabel, by opening (check the fontification.mac
+immediately available, by opening (check the fontification.mac
 example) or creating a new APDL file with a .mac suffix.  Have fun!
 
 (If you did not install Ansys in its default Installation directory on

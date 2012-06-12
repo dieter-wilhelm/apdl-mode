@@ -1,8 +1,12 @@
 #labels Featured
-The realease numbering scheme is a mixture of the targeted Ansys version, e. g. 13.0 and the mode version, e. g. .1 => Ansys mode version 13.0.1
+The realease numbering scheme is a mixture of the targeted Ansys version, e. g. 14.0 and the mode version, e. g. .1 => Ansys mode version 14.0.1
+
+===Tutorial:===
+
+ansys-mode_tutorial.pdf is in the Download section of this site
 
 ===Installation:===
 
-*Version 13 & 12*: Please have a look at the Emacs Wiki (http://www.emacswiki.org/emacs/AnsysMode) or the accompanying README file.
+*Version 14 - 12*: Please have a look at the Emacs Wiki (http://www.emacswiki.org/emacs/AnsysMode) or the accompanying README file.
 
 *Version 11*: Please read the instructions in the source file 'ansys-mode.el'.

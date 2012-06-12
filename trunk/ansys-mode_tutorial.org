@@ -134,4 +134,11 @@
 ** Help, bugs and issues
 *** Bugs   
   Have a look in the section [[http://code.google.com/p/ansys-mode/issues/list][Issues and bug reports]] at Google's Code
-  site or write directly to me.
+  site or send an email directly to [[mailto:dieter@duenenhof-wilhelm.de][me]].  Please use the ANSYS-Mode bug
+  report function (*C-c C-b*), it provides useful information.
+** Last slide of ANSYS-Mode tutorial
+#+ATTR_LaTeX: width=6cm
+#   ,angle=90
+   [[./gnu_emacs.png]]
+   
+#might be a new beginning...

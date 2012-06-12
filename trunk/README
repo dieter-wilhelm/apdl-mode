@@ -16,30 +16,28 @@ Design Language) files and offers managing and communication
 capabilities for Ansys solver/interpreter processes as well.
 
 Some features are quite sophisticated but the overall documentation is
-targeted for Ansys users with little Emacs experience.  Any
-suggestions for improvements are very welcome.  The current stable
-version 14.0.1 is available at the Google Code site
-http://code.google.com/p/ansys-mode ("wget
-http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz",
-development versions can be checked out with "svn checkout
-http://ansys-mode.googlecode.com/svn/trunk ansys-mode").  For the
-installation, issues and comments please have a look at the Ansys mode
-Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) or submit a bug
-report at the issues list at its Google Code site
+targeted for Ansys users with little Emacs experience.  The current
+stable version 14.0.1 is available at the Google Code site
+http://code.google.com/p/ansys-mode, you will find there also a
+tutorial ("wget
+http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz").
+For the installation, issues and comments please have a look at the
+Ansys mode Wiki (http://www.emacswiki.org/cgi-bin/wiki/AnsysMode) or
+submit a bug report at the issues list at its Google Code site
 (http://code.google.com/p/ansys-mode/issues/list).
 
 == Requirements ==
 
 The code is based on Ansys version 14.0 and is written for GNU Emacs
 and not consciously targeted for XEmacs.  It is tested with
-Emacs-23.3, Emacs-23.2 and Emacs-23.1, XP64 and GNU/Linux.  The code
-compiles and runs also with Emacs-22.1, i. e. it should work with this
-and any later version.  (Emacs-23.2 was relased in May 2010,
-Emacs-23.1 in July 2009, Emacs-22.1 in July 2007.)  The code can be
-loaded but won't run flawlessly without adaptions for Emacs-21.3
-(released in Mar. 2003).
+Emacs-24.1, Emacs-23.3, Emacs-23.2 and Emacs-23.1 under XP64 and
+GNU/Linux.  The code compiles and runs also with Emacs-22.1, i. e. it
+should work with this and any later version.  (Emacs-23.2 was relased
+in May 2010, Emacs-23.1 in July 2009, Emacs-22.1 in July 2007.)  The
+code can be loaded but won't run flawlessly without adaptions for
+Emacs-21.3 (released in Mar. 2003).
 
-If applicable please grab the package of a pre-compiled Emacs-23.3 for
+If applicable please grab the package of a pre-compiled Emacs-24.1 for
 Windows together with a preconfigured Ansys mode at above Google Code
 site and unpack this archive anywhere on your system.  Alternatively
 visit http://ftp.gnu.org/pub/gnu/emacs/ for an original version of GNU
@@ -142,7 +140,7 @@ Auxiliaries:
 * LICENSE -- the GPL (Gnu Puplic License) Version 3
 * default_el -- configuration examples (of an Emacs 'default.el')
 * fontification.mac -- highlighting APDL example
-* ansys-mode.pdf -- A tutorial
+* ansys-mode_tutorial.pdf -- A tutorial
 
 === Short instructions ===
 

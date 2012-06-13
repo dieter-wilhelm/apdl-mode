@@ -1,8 +1,8 @@
-#+TITLE:      Tutorial: ANSYS-Mode for the Emacs editor
+#+TITLE:      Tutorial: ANSYS-Mode for the Gnu Emacs editor
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 #+DATE:      2012-06-11 Mon
-#+DESCRIPTION: GNU Emacs Editor support for working with Ansys FEA.
+#+DESCRIPTION: GNU Emacs Editor support for working with ANSYS FEA.
 #+KEYWORDS: Emacs ANSYS FEA
 #+LANGUAGE:  en
 #+OPTIONS:   H:2 num:t toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
@@ -19,10 +19,23 @@
 #+XSLT:
 
 * Introduction
-  
+** GNU Emacs Editor support for working with ANSYS FEA
 
+This [[http://code.google.com/p/ansys-mode/][project]] provides Gnu Emacs editor support for working with the
+FEA (Finite Element Analysis) program [[http://www.ansys.com][ANSYS]].  [[http://www.gnu.org/software/emacs/][Gnu Emacs]] is an
+up-to-date, powerful, yet free editor which is available for any
+operating system where ANSYS is running.  The code defines
+*ANSYS-Mode*, an editor mode for inspecting, writing and navigating in
+APDL (ANSYS Parametric Design Language) files and offers managing and
+communication capabilities for ANSYS solver/interpreter processes as
+well.
+
+#+LaTeX: \\[.5cm]
+The notation *C-c* and *M-c* means in the following typing the
+*CTRL* and *ALT* key together with the *c* key.
+  
 * Download
-** Free download of ANSYS-Mode together with the Emacs editor
+** Free download of ANSYS-Mode together with the free Emacs editor
   For a Windows system download the pre-configured ANSYS-Mode packaged
   together with the latest Emacs editor binary from the ANSYS-Mode
   [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
@@ -33,112 +46,158 @@
 ** Installation of ANSYS-Mode together with the Emacs editor
   Extract the zip archive to an arbitrary location on your file
   system.  Optionally you might install Emacs shortcuts for your
-  system tray with /addpm.exe/ in the bin folder.
+  system tray with /addpm.exe/ in Emacs' /bin/ folder.
 
   [[./emacs_bin_folder.png]]
 
  /runemacs.exe/ there is the actual editor executable.
 
 * Usage
-** Opening an APDL macro file
-  Start the Emacs editor and open the example macro file
+** Open an APDL macro file with Emacs
+  Please start the Emacs editor and open the example macro file
   /fontification.mac/ in the /site-lisp/ folder (or any other APDL
   file).
   [[./find_file_dialog.png]]
 
-** Exploring the ANSYS-Mode menu
+** Explore the ANSYS-Mode menu
   Most things like opening the ANSYS help from the ANSYS-Mode menu
   should work out of the box if ANSYS is installed in its default
-  directory.
+  directory under /C:Program Files/.
   [[./ansys_menu.png]]
+
+* Selected ANSYS-Mode features  
+** Use the ANSYS-Mode APDL command help
+  Please type *M-?* on a code line and you will see the APDL
+  command's description together with its parameter syntax.
+  The yellow band remains active during your editing.
+  
+  [[./parameter_help.png]]
+  
+** Open a summary window of your APDL variables
+  Type *C-c C-v* to receive a summary window of your variables
+  definitions in the current APDL file.
+
+  [[./variable_buffer.png]]
+
+** Select and insert APDL code templates into your file
+
+   [[./template_menu.png]]
+
+** Take a short-cut to the code template preview
+   Type *C-c C-s* and select an interesting subject (the *TAB* key opens a
+   list of available template completions).
+   [[./template_selection.png]]
+
+** Preview APDL code templates
+   Besides your regular APDL file you are able to inspect and insert
+   interesting code snippets from a preview window (below).
+
+   [[./template.png]]
+
+** Align your variable assignments
+  Move the cursor to a variable definition paragraph or mark some
+  definitions and type C-c C-a.
+
+  [[./alignment.png]]
+
+** Debug your code interactively with the solver (Unix only)
+   You can run the ANSYS solver (interpreter) under Emacs and send
+   code lines from the APDL window (above) with *C-c C-c* directly to
+   this process. Below you get an interactive solver output window and
+   on the left hand side the corresponding ANSYS graphics.
+   
+  [[./process.png]]
+
+** Use the integrated programmable RPN calculator  
+   Type *C-x* * * for a calculator window, type *y* for copying
+   calculator results directly into the APDL file.
+
+  [[./calculator.png]]
 
 * Documentation
 
 ** Emacs editor tutorials
   Newcomers should start the interactive tutorial within Emacs
-  (translated to various languages) and/or take the fine [[http://www.gnu.org/software/emacs/tour/][Emacs tour]].
+  (translated to various languages) and/or take the fine [[http://www.gnu.org/software/emacs/tour/][Emacs tour]]
+  online.
 
   [[./emacs_tutorial.png]]
 
 ** ANSYS-Mode built-in documentation
-   Please type C-h m for the ANSYS-Mode help. Included is also a brief
+   Please type *C-h m* for the ANSYS-Mode help. Included is also a brief
    introduction to the Emacs editor.
 
    [[./mode_help.png]]
 
 ** Further ANSYS-Mode documentation
 
-*** News and history
-    is placed in the mode's accompanying NEWS file
+*** News and history:
+    This is placed in the mode's accompanying /NEWS/ file
 
-*** Detailed installation instructions especially for Unix systems
-   Please have a look in the accompanying README file.
+*** Detailed installation instructions especially for Unix systems:
+   Please have a look in the accompanying /README/ file.
     
-*** Features, keyboard short-cuts
-   Please see the mode's documentation from the ANSYS menu or type C-h
-   m.  Online: [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode wiki]]
+*** Usage and keyboard short-cuts:
+   Please see the mode's built-in documentation from Emacs' ANSYS menu
+   or type *C-h m*.  For an online help please see the [[http://www.emacswiki.org/emacs/ANSYSMode][ANSYS-Mode wiki]].
 
 * Configuration
 ** Configuration of ANSYS-Mode
-  If the need arises please adjust the ANSYS-Mode options documented
-  in /default.el/.  After changing there the options you should
-  restart Emacs.
+  If the need arises please adjust ANSYS-Mode options in /default.el/.
+  After changing there the options you should restart Emacs.
   [[./default_el.png]]
 
-* Selected ANSYS-Mode features  
-** APDL command help
-  Please type M-? in a code line and you will see the APDL
-  command's description together with its parameter syntax.
-  The yellow description remains active during editing.
-  
-  [[./parameter_help.png]]
-  
-** Insertion of APDL code templates
-   
-
-** Short-cut to a code template selection 
-   Type C-c C-s and select an interesting subject (the TAB key opens a
-   list of available completions)
-   [[./template_selection.png]]
-
-** Preview window of APDL code templates
-   Besides the regular APDL file you are now able to inspect and
-   insert interesting code snippets in a separate window.
-
-   [[./template.png]]
-
-** Summary window of APDL variable definitions
-  Type C-c C-v
-  [[./variable_buffer.png]]
-
-** Alignment of APDL variable definitions
-  Move cursor to variable definition paragraph or select the
- definitions and type C-c C-a
- [[./alignment.png]]
-
-** ANSYS process management available under Unix
-   You can run the ANSYS solver (interpreter) under Emacs and send
-   code lines from the APDL window (above) with C-c C-c directly to
-   this process. Below you get an interactive solver output window and
-   on the left hand side the corresponding ANSYS graphics.
-   
-  [[./process.png]]
-
-** Editor integrated programmable RPN calculator  
-   Type C-x * * for the calculator, 'y' copies calculator results
-   directly into the APDL file at the previous cursor position.
-
-  [[./calculator.png]]
-  
 * Help
 ** Help, bugs and issues
-*** Bugs   
-  Have a look in the section [[http://code.google.com/p/ansys-mode/issues/list][Issues and bug reports]] at Google's Code
-  site or send an email directly to [[mailto:dieter@duenenhof-wilhelm.de][me]].  Please use the ANSYS-Mode bug
-  report function (*C-c C-b*), it provides useful information.
-** Last slide of ANSYS-Mode tutorial
-#+ATTR_LaTeX: width=6cm
+  Have a look in the section 'Issues and bug reports'
+  at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].  Please use the
+  ANSYS-Mode bug report functionality (*C-c C-b*), which provides useful
+  information.
+
+  [[./bug_report.png]]
+
+** Last slide of the ANSYS-Mode tutorial
+***  Suggestion:
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[c]
+         :BEAMER_col: 0.5
+         :END:
+
+#+ATTR_LaTeX: width=5.5cm
 #   ,angle=90
    [[./gnu_emacs.png]]
-   
+
+*** Thank you for your attention
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+         :BEAMER_col: 0.5
+         :END:
+
 #might be a new beginning...
+
+# * This is the first structural section
+
+# ** Frame 1 \\ with a subtitle
+# *** Thanks to Eric Fraga                                      :BMCOL:B_block:
+#          :PROPERTIES:
+#          :BEAMER_env: block
+#          :BEAMER_envargs: C[t]
+#          :BEAMER_col: 0.5
+#          :END:
+#          for the first viable beamer setup in Org
+# *** Thanks to everyone else                                   :BMCOL:B_block:
+#          :PROPERTIES:
+#          :BEAMER_col: 0.5
+#          :BEAMER_env: block
+#          :BEAMER_envargs: <2->
+#          :END:
+#          for contributing to the discussion
+# **** This will be formatted as a beamer note                  :B_note:
+# ** Frame 2 \\ where we will not use columns
+# *** Request                                                   :B_block:
+#          Please test this stuff!
+#          :PROPERTIES:
+#          :BEAMER_env: block
+#          :END:

@@ -38,23 +38,23 @@ The notation *C-c* and *M-c* means in the following typing the
 *CTRL* and *ALT* key together with the *c* key.
   
 * Download
-** Free download of ANSYS-Mode in conjunction with the free Emacs editor
-  For your Windows system download the pre-configured ANSYS-Mode code
-  packaged together with the latest Emacs editor binary from the
-  ANSYS-Mode [[http://code.google.com/p/ansys-mode/downloads/list][download page]] below.
+** Download ANSYS-Mode together with the free Emacs editor \\ There are no license restrictions also for commercial use
+  Download the pre-configured ANSYS-Mode code in conjunction with the
+  latest Emacs editor binary (for Windows) from the ANSYS-Mode
+  [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
   
   [[./download.png]]
   
 * Installation
-** Installation of ANSYS-Mode together with the Emacs editor
+** Install ANSYS-Mode together with the Emacs editor
   Extract the former zip archive to an arbitrary location on your file
-  system.  Optionally you might install Emacs shortcut icons for your
+  system.  Optionally you might install Emacs shortcut icons for the
   system tray with /addpm.exe/ in Emacs' /bin/ folder.
 
 #+ATTR_LaTeX: width=11cm
   [[./emacs_bin_folder.png]]
 
- /runemacs.exe/ there is the actual editor executable.
+ In this list /runemacs.exe/ is the actual editor executable.
 
 * Usage
 ** Open an APDL macro file with Emacs
@@ -133,22 +133,22 @@ The notation *C-c* and *M-c* means in the following typing the
 
 * Documentation and licensing
 
-** Recommended Emacs editor tutorials
-  Newcomers should start the interactive tutorial within Emacs
-  (translated to various languages) and/or take the fine [[http://www.gnu.org/software/emacs/tour/][Emacs tour]]
-  online.
+** Check out Emacs editor features and tutorial
+  Newcomers to Emacs should take the fine [[http://www.gnu.org/software/emacs/tour/][online tour]] for an overview
+  of its features and start the interactive tutorial which is translated to
+  various languages (see below).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./emacs_tutorial.png]]
 
-** ANSYS-Mode built-in documentation
+** Use the ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help. Included is also a brief
    introduction to the Emacs editor.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./mode_help.png]]
 
-** Further ANSYS-Mode documentation
+** Read further ANSYS-Mode documentation
 
 *** News and history:
     This is placed in the mode's accompanying /NEWS/ file
@@ -164,16 +164,32 @@ The notation *C-c* and *M-c* means in the following typing the
     There are no restrictions for you using Emacs and ANSYS-Mode
     commerically.  Both are under the GNU puplic license, if you are
     interested see the /LICENSE/ file.
-* Configuration
-** Configuration of ANSYS-Mode
-  If the need arises please adjust ANSYS-Mode options in /default.el/.
-  After changing there the options you should restart Emacs.
 
-#+ATTR_LaTeX: height=7.5cm
+* Configuration
+
+** Configure ANSYS-Mode
+    If you need an in-depth configuration use either:
+*** The configuration file /default.el/
+
+          :PROPERTIES:
+          :BEAMER_env: block
+          :BEAMER_envargs: C[T]
+          :BEAMER_col: 0.5
+          :END:
+#+ATTR_LaTeX: width=5.5cm
   [[./default_el.png]]
 
+ After changing the file you should restart Emacs. 
+*** The built-in customisation system
+          :PROPERTIES:
+          :BEAMER_env: block
+          :BEAMER_envargs: C[T]
+          :BEAMER_col: 0.5
+          :END:
+#+ATTR_LaTeX: width=5.5cm
+    [[./customisation_system.png]]
 * Help
-** Help, bugs and issues
+** Search for help, report bugs and issues
   Have a look in the section 'Issues and bug reports'
   at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].  Please use the
   ANSYS-Mode bug report functionality (*C-c C-b*), which provides useful
@@ -203,6 +219,7 @@ The notation *C-c* and *M-c* means in the following typing the
 
 #might be a new beginning...
 
+
 # * This is the first structural section
 
 # ** Frame 1 \\ with a subtitle
@@ -227,3 +244,4 @@ The notation *C-c* and *M-c* means in the following typing the
 #          :PROPERTIES:
 #          :BEAMER_env: block
 #          :END:
+    

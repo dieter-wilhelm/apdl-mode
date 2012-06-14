@@ -35,7 +35,7 @@ The notation *C-c* and *M-c* means in the following typing the
 *CTRL* and *ALT* key together with the *c* key.
   
 * Download
-** Free download of ANSYS-Mode together with the free Emacs editor
+** Free download of ANSYS-Mode together with the  Emacs editor. The commercial usage is unrestricted.
   For a Windows system download the pre-configured ANSYS-Mode packaged
   together with the latest Emacs editor binary from the ANSYS-Mode
   [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
@@ -67,15 +67,15 @@ The notation *C-c* and *M-c* means in the following typing the
 
 * Selected ANSYS-Mode features  
 ** Use the ANSYS-Mode APDL command help
-  Please type *M-?* on a code line and you will see the APDL
-  command's description together with its parameter syntax.
-  The yellow band remains active during your editing.
+  Please type *M-?* on a code line and you will see the APDL command's
+  description together with its parameter syntax.  The yellow overlay
+  remains active during your editing.
   
   [[./parameter_help.png]]
   
 ** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window of your variables
-  definitions in the current APDL file.
+  Type *C-c C-v* to receive a summary window of variable definitions
+  in the current APDL file.
 
   [[./variable_buffer.png]]
 
@@ -116,20 +116,20 @@ The notation *C-c* and *M-c* means in the following typing the
 
 * Documentation
 
-** Emacs editor tutorials
+** Check-out the Emacs tutorials
   Newcomers should start the interactive tutorial within Emacs
   (translated to various languages) and/or take the fine [[http://www.gnu.org/software/emacs/tour/][Emacs tour]]
   online.
 
   [[./emacs_tutorial.png]]
 
-** ANSYS-Mode built-in documentation
+** Use the ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help. Included is also a brief
    introduction to the Emacs editor.
 
    [[./mode_help.png]]
 
-** Further ANSYS-Mode documentation
+** Read further ANSYS-Mode documentation
 
 *** News and history:
     This is placed in the mode's accompanying /NEWS/ file
@@ -142,13 +142,13 @@ The notation *C-c* and *M-c* means in the following typing the
    or type *C-h m*.  For an online help please see the [[http://www.emacswiki.org/emacs/ANSYSMode][ANSYS-Mode wiki]].
 
 * Configuration
-** Configuration of ANSYS-Mode
+** Configure ANSYS-Mode
   If the need arises please adjust ANSYS-Mode options in /default.el/.
   After changing there the options you should restart Emacs.
   [[./default_el.png]]
 
 * Help
-** Help, bugs and issues
+** Search for help, report bugs and issues
   Have a look in the section 'Issues and bug reports'
   at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].  Please use the
   ANSYS-Mode bug report functionality (*C-c C-b*), which provides useful

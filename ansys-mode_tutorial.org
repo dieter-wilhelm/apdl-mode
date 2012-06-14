@@ -21,33 +21,37 @@
 * Introduction
 ** GNU Emacs Editor support for working with ANSYS FEA
 
-This [[http://code.google.com/p/ansys-mode/][project]] provides Gnu Emacs editor support for working with the
-FEA (Finite Element Analysis) program [[http://www.ansys.com][ANSYS]].  [[http://www.gnu.org/software/emacs/][Gnu Emacs]] is an
-up-to-date, powerful, yet free editor which is available for any
-operating system where ANSYS is running.  The code defines
-*ANSYS-Mode*, an editor mode for inspecting, writing and navigating in
-APDL (ANSYS Parametric Design Language) files and offers managing and
-communication capabilities for ANSYS solver/interpreter processes as
-well.
+This [[http://code.google.com/p/ansys-mode/][project]] provides support for working with the FEA (Finite Element
+Analysis) program [[http://www.ansys.com][ANSYS]]. It is *not only* another way of syntax
+highlighting for APDL (ANSYS Parametric Design Language) code.
+
+The project defines *ANSYS-Mode*, an GNU Emacs editor mode for
+inspecting, writing and navigating in APDL files and offers managing
+and communication capabilities for ANSYS solver/interpreter processes
+as well.
+					      
+[[http://www.gnu.org/software/emacs/][Gnu Emacs]] is an up-to-date, powerful, yet free editor which is
+available for any operating system where ANSYS is running.
 
 #+LaTeX: \\[.5cm]
 The notation *C-c* and *M-c* means in the following typing the
 *CTRL* and *ALT* key together with the *c* key.
   
 * Download
-** Free download of ANSYS-Mode together with the  Emacs editor. The commercial usage is unrestricted.
-  For a Windows system download the pre-configured ANSYS-Mode packaged
-  together with the latest Emacs editor binary from the ANSYS-Mode
-  [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
+** Free download of ANSYS-Mode in conjunction with the free Emacs editor
+  For your Windows system download the pre-configured ANSYS-Mode code
+  packaged together with the latest Emacs editor binary from the
+  ANSYS-Mode [[http://code.google.com/p/ansys-mode/downloads/list][download page]] below.
   
   [[./download.png]]
   
 * Installation
 ** Installation of ANSYS-Mode together with the Emacs editor
-  Extract the zip archive to an arbitrary location on your file
-  system.  Optionally you might install Emacs shortcuts for your
+  Extract the former zip archive to an arbitrary location on your file
+  system.  Optionally you might install Emacs shortcut icons for your
   system tray with /addpm.exe/ in Emacs' /bin/ folder.
 
+#+ATTR_LaTeX: width=11cm
   [[./emacs_bin_folder.png]]
 
  /runemacs.exe/ there is the actual editor executable.
@@ -57,47 +61,58 @@ The notation *C-c* and *M-c* means in the following typing the
   Please start the Emacs editor and open the example macro file
   /fontification.mac/ in the /site-lisp/ folder (or any other APDL
   file).
+
+#+ATTR_LaTeX: height=7.5cm
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
-  Most things like opening the ANSYS help from the ANSYS-Mode menu
-  should work out of the box if ANSYS is installed in its default
-  directory under /C:Program Files/.
+  Most things - like opening the ANSYS help browser - from the
+  ANSYS-Mode menu (or *C-c C-h*) should work out of the box if ANSYS is
+  installed in its default folder /C:Program Files/.
+
+#+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode features  
 ** Use the ANSYS-Mode APDL command help
-  Please type *M-?* on a code line and you will see the APDL command's
-  description together with its parameter syntax.  The yellow overlay
-  remains active during your editing.
+  Please type *M-?* on a code line and you will see the APDL
+  command's description together with its parameter syntax.
+  The yellow band remains active during your editing.
   
+#+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
   
 ** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window of variable definitions
-  in the current APDL file.
+  Type *C-c C-v* to receive a summary window (see below) of your variables
+  definitions in the current APDL file.
 
+#+ATTR_LaTeX: height=7.5cm
   [[./variable_buffer.png]]
 
-** Select and insert APDL code templates into your file
+** Select and insert APDL code templates into your code
 
+#+ATTR_LaTeX: height=8.5cm
    [[./template_menu.png]]
 
 ** Take a short-cut to the code template preview
-   Type *C-c C-s* and select an interesting subject (the *TAB* key opens a
-   list of available template completions).
+   Type *C-c C-s* and select an interesting subject, the *TAB* key opens a
+   list of available template completions.
+
+#+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]
 
 ** Preview APDL code templates
    Besides your regular APDL file you are able to inspect and insert
-   interesting code snippets from a preview window (below).
+   interesting code snippets from a preview window (see below).
 
+#+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
 ** Align your variable assignments
   Move the cursor to a variable definition paragraph or mark some
-  definitions and type C-c C-a.
+  definitions and type *C-c C-a* to structure them.
 
+#+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
 
 ** Debug your code interactively with the solver (Unix only)
@@ -105,31 +120,35 @@ The notation *C-c* and *M-c* means in the following typing the
    code lines from the APDL window (above) with *C-c C-c* directly to
    this process. Below you get an interactive solver output window and
    on the left hand side the corresponding ANSYS graphics.
-   
+
+#+ATTR_LaTeX: height=6.4cm
   [[./process.png]]
 
 ** Use the integrated programmable RPN calculator  
    Type *C-x* * * for a calculator window, type *y* for copying
-   calculator results directly into the APDL file.
+   calculator results directly into the APDL file. *q* to quit *Calc*.
 
+#+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
 
-* Documentation
+* Documentation and licensing
 
-** Check-out the Emacs tutorials
+** Recommended Emacs editor tutorials
   Newcomers should start the interactive tutorial within Emacs
   (translated to various languages) and/or take the fine [[http://www.gnu.org/software/emacs/tour/][Emacs tour]]
   online.
 
+#+ATTR_LaTeX: height=7.5cm
   [[./emacs_tutorial.png]]
 
-** Use the ANSYS-Mode built-in documentation
+** ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help. Included is also a brief
    introduction to the Emacs editor.
 
+#+ATTR_LaTeX: height=7.5cm
    [[./mode_help.png]]
 
-** Read further ANSYS-Mode documentation
+** Further ANSYS-Mode documentation
 
 *** News and history:
     This is placed in the mode's accompanying /NEWS/ file
@@ -141,23 +160,30 @@ The notation *C-c* and *M-c* means in the following typing the
    Please see the mode's built-in documentation from Emacs' ANSYS menu
    or type *C-h m*.  For an online help please see the [[http://www.emacswiki.org/emacs/ANSYSMode][ANSYS-Mode wiki]].
 
+*** Licensing:
+    There are no restrictions for you using Emacs and ANSYS-Mode
+    commerically.  Both are under the GNU puplic license, if you are
+    interested see the /LICENSE/ file.
 * Configuration
-** Configure ANSYS-Mode
+** Configuration of ANSYS-Mode
   If the need arises please adjust ANSYS-Mode options in /default.el/.
   After changing there the options you should restart Emacs.
+
+#+ATTR_LaTeX: height=7.5cm
   [[./default_el.png]]
 
 * Help
-** Search for help, report bugs and issues
+** Help, bugs and issues
   Have a look in the section 'Issues and bug reports'
   at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].  Please use the
   ANSYS-Mode bug report functionality (*C-c C-b*), which provides useful
   information.
 
+#+ATTR_LaTeX: height=7.5cm
   [[./bug_report.png]]
 
 ** Last slide of the ANSYS-Mode tutorial
-***  Suggestion:
+***  Suggestion for the curious:
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[c]
@@ -168,7 +194,7 @@ The notation *C-c* and *M-c* means in the following typing the
 #   ,angle=90
    [[./gnu_emacs.png]]
 
-*** Thank you for your attention
+*** Thank you for your attention!
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]

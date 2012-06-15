@@ -3,10 +3,10 @@ The realease numbering scheme is a mixture of the targeted Ansys version, e. g. 
 
 ===Tutorial:===
 
-ansys-mode_tutorial.pdf is in the Download section of this site
+A PDF version (ansys-mode_tutorial.pdf) is in the Download section of this site or go directly to the [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html online version].
 
 ===Installation:===
 
-*Version 14 - 12*: Please have a look at the Emacs Wiki (http://www.emacswiki.org/emacs/AnsysMode) or the accompanying README file.
+*Version 14 - 12*: Please have a look online at the [http://www.emacswiki.org/emacs/AnsysMode Emacs Wiki] or the accompanying README file.
 
 *Version 11*: Please read the instructions in the source file 'ansys-mode.el'.

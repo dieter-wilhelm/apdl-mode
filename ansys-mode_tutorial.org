@@ -1,11 +1,11 @@
 #+TITLE:      Tutorial: ANSYS-Mode for the Gnu Emacs editor
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
-#+DATE:      2012-06-11 Mon
+#+DATE:      2012-06-15 Fr
 #+DESCRIPTION: GNU Emacs Editor support for working with ANSYS FEA.
 #+KEYWORDS: Emacs ANSYS FEA
 #+LANGUAGE:  en
-#+OPTIONS:   H:2 num:t toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
+#+OPTIONS:   H:2 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+LaTeX_CLASS: beamer

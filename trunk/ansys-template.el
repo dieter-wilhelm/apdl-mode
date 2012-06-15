@@ -1666,7 +1666,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "solve"\n
   "!@ --- Postprocessing --"\n
   "/post1"\n
-  "plnsol,u,sum"\n
+  "plnsol,u,sum,2"\n
   \n
   )
 

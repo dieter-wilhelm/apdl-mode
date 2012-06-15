@@ -23,7 +23,10 @@
   - Completion :: A mouse selection from the *Ansys-completion* buffer
                   is only inserted upcased.
   - Completion :: Ansys command 'C***' will not be completed
-
+  - Navigation :: M-n/p does not work from n-/eblocks (aternative to
+                  C-c {/})
+  - Skeleton :: Mouse selection of -structural-template does not work
+                (because of user text input)
 
 *  v14.0.1:
    check -license-file var
@@ -31,8 +34,8 @@
    - env var
    - activate -license-file function
 
-** Tasks [47%]
-   - [ ] gnu ELPA and/or marmalade 
+** TODO Tasks [58%]
+   - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
    - [ ] Filter empty lines when process is running, add an "\n" to
@@ -44,8 +47,8 @@
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
-   - [ ] check for new skeleton -template name in menu definitions!
-   - [ ] distinguish the two kinds of -templates: self contained samples
+   - [X] check for new skeleton -template name in menu definitions!
+   - [X] distinguish the two kinds of -templates: self contained samples
      (include maybe the Ansys verification cases) and command examples
      to various subjects
    - [X] V14 introduced new option for the ansyslic-admin utility to

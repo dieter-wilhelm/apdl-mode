@@ -68,7 +68,7 @@
 ** Explore the ANSYS-Mode menu
   Most things, like opening the ANSYS help browser, from the menu (or
   typing *C-c C-h*) should work out of the box if ANSYS is installed
-  in its default folder /C:Program Files/.
+  in its default folder /C:Program Files/ under XP64.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
@@ -149,12 +149,9 @@
    [[./mode_help.png]]
 
 ** Read further ANSYS-Mode documentation
-
-*** News and history:
-    This is placed in the mode's accompanying /NEWS/ file
-
-*** Detailed installation instructions especially for Unix systems:
-   Please have a look in the accompanying /README/ file.
+*** Installation:
+    Detailed installation instructions especially for Unix and Win32
+    systems: Please have a look in the accompanying /README/ file.
     
 *** Usage and keyboard short-cuts:
    Please see the mode's built-in documentation from Emacs' ANSYS menu
@@ -162,8 +159,12 @@
 
 *** Licensing:
     There are no restrictions for you using Emacs and ANSYS-Mode
-    commerically.  Both are under the GNU puplic license, if you are
-    interested see the /LICENSE/ file.
+    commerically.  Both are under the [[http://www.gnu.org/copyleft/gpl.html][GNU puplic license]], if you are
+    interested see also the /LICENSE/ file.
+
+*** News and history:
+    This is placed in the mode's accompanying /NEWS/ file
+
 
 * Configuration
 

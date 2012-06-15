@@ -19,23 +19,23 @@
 #+XSLT:
 
 * Introduction
-** GNU Emacs Editor support for working with ANSYS FEA
+** GNU Emacs editor support for working with ANSYS FEA
 
-This [[http://code.google.com/p/ansys-mode/][project]] provides support for working with the FEA (Finite Element
-Analysis) program [[http://www.ansys.com][ANSYS]]. It is *not only* another way of syntax
-highlighting for APDL (ANSYS Parametric Design Language) code.
+   This [[http://code.google.com/p/ansys-mode/][project]] provides support for working with the FEA (Finite
+   Element Analysis) program [[http://www.ansys.com][ANSYS]]. It is *not only* another way of
+   syntax highlighting for APDL (ANSYS Parametric Design Language) code.
 
-The project defines *ANSYS-Mode*, an GNU Emacs editor mode for
-inspecting, writing and navigating in APDL files and offers managing
-and communication capabilities for ANSYS solver/interpreter processes
-as well.
+   The project defines *ANSYS-Mode*, an editor mode for inspecting,
+   writing and navigating in APDL files offering managing and
+   communication capabilities for ANSYS solver (interpreter) processes
+   as well.
 					      
-[[http://www.gnu.org/software/emacs/][Gnu Emacs]] is an up-to-date, powerful, yet free editor which is
-available for any operating system where ANSYS is running.
+   [[http://www.gnu.org/software/emacs/][Gnu Emacs]] is an up-to-date, powerful, yet free editor which is
+   available for any operating system where ANSYS is running.
 
 #+LaTeX: \\[.5cm]
-The notation *C-c* and *M-c* means in the following typing the
-*CTRL* and *ALT* key together with the *c* key.
+   The notation *C-c* and *M-c* means in the following typing the
+   *CTRL* and *ALT* key together with the *c* key.
   
 * Download
 ** Download ANSYS-Mode together with the free Emacs editor \\ There are no license restrictions also for commercial use
@@ -66,9 +66,9 @@ The notation *C-c* and *M-c* means in the following typing the
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
-  Most things - like opening the ANSYS help browser - from the
-  ANSYS-Mode menu (or *C-c C-h*) should work out of the box if ANSYS is
-  installed in its default folder /C:Program Files/.
+  Most things, like opening the ANSYS help browser, from the menu (or
+  typing *C-c C-h*) should work out of the box if ANSYS is installed
+  in its default folder /C:Program Files/.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
@@ -77,7 +77,7 @@ The notation *C-c* and *M-c* means in the following typing the
 ** Use the ANSYS-Mode APDL command help
   Please type *M-?* on a code line and you will see the APDL
   command's description together with its parameter syntax.
-  The yellow band remains active during your editing.
+  This temporary overlay remains visible during your editing.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
@@ -95,8 +95,8 @@ The notation *C-c* and *M-c* means in the following typing the
    [[./template_menu.png]]
 
 ** Take a short-cut to the code template preview
-   Type *C-c C-s* and select an interesting subject, the *TAB* key opens a
-   list of available template completions.
+   Type *C-c C-s* and select an interesting subject, the *TAB* key
+   opens a list of available template (or skeleton) completions.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]
@@ -109,8 +109,8 @@ The notation *C-c* and *M-c* means in the following typing the
    [[./template.png]]
 
 ** Align your variable assignments
-  Move the cursor to a variable definition paragraph or mark some
-  definitions and type *C-c C-a* to structure them.
+  Move the cursor to a variable definition paragraph or mark (here in
+  yellow) some definitions and type *C-c C-a* to structure them.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
@@ -124,7 +124,7 @@ The notation *C-c* and *M-c* means in the following typing the
 #+ATTR_LaTeX: height=6.4cm
   [[./process.png]]
 
-** Use the integrated programmable RPN calculator  
+** Use the Emacs integrated, programmable RPN calculator  
    Type *C-x* * * for a calculator window, type *y* for copying
    calculator results directly into the APDL file. *q* to quit *Calc*.
 

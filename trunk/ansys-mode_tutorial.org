@@ -77,7 +77,7 @@
 ** Use the ANSYS-Mode APDL command help
   Please type *M-?* on a code line and you will see the APDL
   command's description together with its parameter syntax.
-  This temporary overlay remains visible during your editing.
+  This temporary overlay (in yellow) remains visible during your editing.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
@@ -89,9 +89,9 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./variable_buffer.png]]
 
-** Select and insert APDL code templates into your code
+** Select and insert APDL code templates into your code \\ Screenshot of Emacs (right) with the ANSYS Classics GUI (left)
 
-#+ATTR_LaTeX: height=8.5cm
+#+ATTR_LaTeX: height=8cm
    [[./template_menu.png]]
 
 ** Take a short-cut to the code template preview

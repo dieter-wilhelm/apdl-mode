@@ -161,7 +161,7 @@
 *** Installation:
     For detailed installation instructions - especially for Unix and
     Win32 systems - please have a look in the accompanying /README/
-    file. For an online help please see the [[http://www.emacswiki.org/emacs/ANSYSMode][ANSYS-Mode wiki]].
+    file. For an online help please see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode wiki]].
     
 *** Usage and keyboard short-cuts:
    Please see the mode's built-in documentation from the ANSYS menu or

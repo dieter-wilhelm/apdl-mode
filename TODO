@@ -112,9 +112,9 @@
     then pretests, emacs-snapshots, clash with Emacs releases (yearly
     Emacs cycle)?
 
-
 ** Release
   - elpa
+  - Add the latest news from NEWS to the README
   - update Emacs wiki (README), Google Code with download packages,
     home page update all version numbers everywhere: Emacs wiki,
     Google Code with download, home page

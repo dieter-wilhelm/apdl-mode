@@ -37,9 +37,9 @@
 
 ;; Editor support for working with ANSYS FEA.
 
-;; The ANSYS mode package provides support for the FEA (Finite Element
+;; The ANSYS-Mode package provides support for the FEA (Finite Element
 ;; Analysis) program ANSYS (http://www.ansys.com) under Windows and
-;; Unix systems.  It defines 'ANSYS mode', a major mode for viewing,
+;; Unix systems.  It defines 'ANSYS-Mode', a major mode for viewing,
 ;; writing and navigating in APDL (Ansys Parametric Design Language)
 ;; files as well as providing managing and communication capabilities
 ;; for an associated ANSYS interpreter process.
@@ -60,10 +60,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst ansys_version "140"		;NEW_C
-  "ANSYS version on which ANSYS mode is based.")
+  "ANSYS version on which ANSYS-Mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C
-  "ANSYS mode version number.")
+  "ANSYS-Mode version number.")
 
 (defconst ansys-parameter-substitution-commands-regexp	;NEW
   "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
@@ -116,7 +116,7 @@ macro local variables.")
 
 (defconst ansys-maintainer-address	;FROM_C: Octave-mod
   "Dieter Wilhelm <dieter@duenenhof-wilhelm.de>" ;bug-gnu-emacs@gnu.org
-  "Address of current maintainer of the ANSYS mode.")
+  "Address of current maintainer of the ANSYS-Mode.")
 
 (defconst ansys-comment-char ?!		;FROM_C: Octave-mod
   "The ANSYS comment character.")
@@ -138,7 +138,7 @@ Used for the variable `comment-start-skip'.")
 (require 'custom)
 
 (defgroup ANSYS nil			;NEW_C from Octave-Mod.el
-  "Customisation group for the ANSYS mode."
+  "Customisation group for the ANSYS-Mode."
   :version "23.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link :tag "EmacsWiki" "http://www.emacswiki.org")
@@ -176,7 +176,7 @@ like `ansys-program'."
   :group 'ANSYS)
 
 (defcustom ansys-dynamic-highlighting-flag nil ;NEW_C
-  "Non-nil means that ANSYS mode highlights user defined variables.
+  "Non-nil means that ANSYS-Mode highlights user defined variables.
 Warning: This option is computational expensive and --depending
 on the file size and your hardware --it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
@@ -269,7 +269,7 @@ See also the variable `ansys-blink-matching-block-flag'."
   :group 'ANSYS)
 
 (defcustom ansys-mode-hook nil ;NEW_C
-  "Normal hook run before entering ANSYS mode.
+  "Normal hook run before entering ANSYS-Mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
   :options '(ansys-show-paren-mode ansys-outline-minor-mode ansys-ruler-mode ansys-auto-insert-mode)
@@ -332,10 +332,10 @@ fontification (`ansys-highlight-variable') of these variables.")
   "Non-nil means computer runs a Unix system.")
 
 (defvar ansys-previous-major-mode ""	;NEW_C
-  "The buffer's previous major mode (before ANSYS mode).")
+  "The buffer's previous major mode (before ANSYS-Mode).")
 
 (defvar ansys-mode-abbrev-table nil	;_C
-  "Abbreviation definition table for the ANSYS mode.
+  "Abbreviation definition table for the ANSYS-Mode.
 All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
 
@@ -500,14 +500,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c?" 'ansys-show-command-parameters)
 ;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
        map)
-    "Keymap for the ANSYS mode.")
+    "Keymap for the ANSYS-Mode.")
 
 (defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
   "Restore the buffer's previous major mode, if possible."
   (interactive)
   (if (or (string= ansys-previous-major-mode "ansys-mode")
 	  (string= ansys-previous-major-mode ""))
-      (error "There was no previous major mode except \"ANSYS mode\"") ;buffers opended with auto-mode
+      (error "There was no previous major mode except \"ANSYS-Mode\"") ;buffers opended with auto-mode
     (funcall ansys-previous-major-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -917,15 +917,15 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
 	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys_version "."ansys_mode_version) :help "Display the ANSYS mode version in the mini buffer"]
-	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for ANSYS mode"]
-	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS mode"]
+	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys_version "."ansys_mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
+	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for ANSYS-Mode"]
+	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS-Mode"]
 	["Customise ANSYS Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
-	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS mode bug report"]
+	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
 	["Reload ANSYS Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
 	"-"
 	["Exit ANSYS Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
-  "Menu items for the ANSYS mode.")
+  "Menu items for the ANSYS-Mode.")
 
 ;;; --- predicates ---
 
@@ -1100,7 +1100,7 @@ actual keys are quoted with <>.
 == Contents ==
 
 = Introduction to Emacs
-= Usage of ANSYS mode
+= Usage of ANSYS-Mode
 = Keybindings
 = Customisation
 = Bugs and Problems
@@ -1112,9 +1112,9 @@ say `ansys-start-ansys-help', from entries in Emacs' ANSYS menu
 bar or with keyboard shortcuts (here:
 \"\\[ansys-start-ansys-help]\") but additionally from the so
 called minibuffer.  This 'interactive' option remains the only
-one if you have not yet activated ANSYS mode or you are currently
+one if you have not yet activated ANSYS-Mode or you are currently
 inspecting a file which is not intended for this mode.  Then
-neither the ANSYS menu nor keyboard shortcuts for ANSYS mode
+neither the ANSYS menu nor keyboard shortcuts for ANSYS-Mode
 commands are available.
 
 To run `ansys-start-ansys-help' by its function name, start with
@@ -1150,7 +1150,7 @@ In case something unintended happend to your code you are always
 able to resort to the Emacs `undo' functionality from the menu or
 with typing \"\\[undo]\".
 
-== Usage of ANSYS mode ==
+== Usage of ANSYS-Mode ==
 
 ** ANSYS command syntax help **
 
@@ -1203,7 +1203,7 @@ the following example
 
 You can customise the indentation depth (ANSYS Block Offset),
 please have a look for the entry 'Customise ANSYS Mode' in the
-ANSYS mode menu.  The Emacs customisation facility optionally
+ANSYS-Mode menu.  The Emacs customisation facility optionally
 saves your choices automatically in your .emacs file for later
 sessions.
 
@@ -1356,7 +1356,7 @@ defintion line in the macro file.
 ** Use of the Emacs abbreviation facility for block templates **
 
 E.g. typing \"`do\" (the backquote '`' then 'do') and the space
-key <SPC> under ANSYS mode triggers an interactive code template
+key <SPC> under ANSYS-Mode triggers an interactive code template
 which inserts a *DO loop (`ansys-do').  \"`d\" (then <SPC>) is a
 more immediate version of it without requesting user
 input (`ansys_do').  You can see all the predefined abbreviations
@@ -1434,7 +1434,7 @@ skeleton names.
 
 ** ANSYS process management **
 
-- ANSYS mode writes for you an ANSYS stop file in the current
+- ANSYS-Mode writes for you an ANSYS stop file in the current
   directory (the file name is compiled from the variable
   `job-name' and the extension '.abt'). You can do this with
   \"\\[ansys-write-abort-file]\" (`ansys-write-abort-file', you
@@ -1472,7 +1472,7 @@ default_el customisation file example.
 ** ANSYS interpreter control and communication (mainly restricted
   to UNIX systems) **
 
-With the ANSYS mode keyboard shortcut
+With the ANSYS-Mode keyboard shortcut
 \"\\[ansys-start-ansys]\" (for the command `ansys-start-ansys')
 you can start the ANSYS solver as an asynchronous process from
 Emacs.  After starting the run you will see all solver output in
@@ -1509,7 +1509,7 @@ whole block level, \"\\[mark-paragraph] (`mark-paragraph') marks
 the current paragraph, the last command can not only be used to
 initialise a new selection but also to extend an existing one
 when repeting the command.  Please check the code navigation
-commands which ANSYS mode provides (type
+commands which ANSYS-Mode provides (type
 \"\\[describe-bindings]\" (`describe-bindings') to see which are
 available)
 
@@ -1536,7 +1536,7 @@ run: `ansys-exit-ansys' and a command for an emergency kill in
 case the solver is not stoppable any longer in an orderly way:
 `ansys-kill-ansys'.
 
-As already indicated ANSYS mode has its own command for invoking
+As already indicated ANSYS-Mode has its own command for invoking
 the ANSYS help browser \"\\[ansys-start-ansys-help]\" because
 unfortunately the following APDL commands do not work when the
 complete GUI system of ANSYS is not active.
@@ -1551,10 +1551,10 @@ command but must search within the ANSYS help browser.
 
 \\{ansys-mode-map}
 
-== ANSYS mode customisation ==
+== ANSYS-Mode customisation ==
 
 For a compilation (and respective documentation) of available
-ANSYS mode customisations it's best to open the mode's
+ANSYS-Mode customisations it's best to open the mode's
 customisation buffer either with the command
 `ansys-customise-ansys' or from the menu bar -> 'ANSYS' ->
 'Customise ANSYS Mode' and check interesting options.
@@ -1580,11 +1580,11 @@ directly into your .emacs file.  (The semicolon ';' is the
 comment character.)
 
 For certain options to take effect without restarting Emacs, it's
-necessary to reload ANSYS mode.  You can do this with the
+necessary to reload ANSYS-Mode.  You can do this with the
 interactive command `ansys-reload-ansys-mode' or with the
 respective, toplevel ANSYS menu entry.
 
-You can improve the loading and execution speed of ANSYS mode
+You can improve the loading and execution speed of ANSYS-Mode
 with a byte-compilation of its lisp files (if they are not
 already compiled, i. e. they have the suffix '.elc', please read
 the section 'Byte Compilation' in the Emacs lisp reference, which
@@ -1605,12 +1605,12 @@ improvements you have the following options:
 
 - You might also issue a bug report at Google Code's hosted page
   http://code.google.com/p/ansys-mode/, where you can also
-  download the latest versions of ANSYS mode.
+  download the latest versions of ANSYS-Mode.
 
-- Or you can leave comments and hints at the ANSYS mode page of
+- Or you can leave comments and hints at the ANSYS-Mode page of
   Emacs Wiki http://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
 
-====================== End of ANSYS mode help ===================="
+====================== End of ANSYS-Mode help ===================="
   (interactive)
 
   (unless (string= major-mode "ansys-mode")
@@ -1772,9 +1772,9 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 	 (forward-paragraph arg))))
 
 (defun ansys-mode-version ()
-  "Display the ANSYS mode version numbering scheme."
+  "Display the ANSYS-Mode version numbering scheme."
   (interactive)
-  (message "ANSYS mode version: %s.%s (based on ANSYS %s)" ansys_version
+  (message "ANSYS-Mode version: %s.%s (based on ANSYS %s)" ansys_version
 	   ansys_mode_version
 	   ansys_version))
 
@@ -1788,7 +1788,7 @@ call `ansys-mode'."
       (unload-feature 'ansys-mode))
     (load-file "ansys-mode.el")
     (ansys-mode)
-    (message "ANSYS mode reloaded.")))
+    (message "ANSYS-Mode reloaded.")))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -2191,7 +2191,7 @@ If function `abbrev-mode' is on, expand the abbreviations first."
   (indent-according-to-mode))
 
 (defun ansys-electric-space ()
-  "Insert a space in ANSYS mode.
+  "Insert a space in ANSYS-Mode.
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
   (interactive "*")			;error if read only
@@ -2218,7 +2218,7 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
   "Add an \"ANSYS\" entry to the Emacs menu bar."
   (require 'easymenu)
   (easy-menu-define ansys-mode-menu-map ansys-mode-map
-    "Menu keymap for ANSYS mode." ansys-mode-menu)
+    "Menu keymap for ANSYS-Mode." ansys-mode-menu)
   (easy-menu-add ansys-mode-menu-map ansys-mode-map))
 
 (defun ansys-calculate-indent ()   ;FIXME: comment, fixed goal column,
@@ -2314,7 +2314,7 @@ comment with fixed goal column."
 If Abbrev mode is turned on, typing ` (grave accent) followed by ? or
 \\[help-command] lists all ANSYS abbrevs.  Any other key combination is
 executed normally.
-Note that all ANSYS mode abbrevs start with a grave accent."
+Note that all ANSYS-Mode abbrevs start with a grave accent."
   (interactive)
 					;  (if (not abbrev-mode)			;FIXME: redundant with E22.?
 					;      (self-insert-command 1)
@@ -2809,7 +2809,7 @@ Signal an error if the keywords are incompatible."
 
 
 (defun ansys-submit-bug-report ()	;from Octave
-  "Open an Emacs mail buffer with an ANSYS mode bug report."
+  "Open an Emacs mail buffer with an ANSYS-Mode bug report."
   (interactive)
   (require 'reporter)
   (let (salutation
@@ -2822,7 +2822,7 @@ Signal an error if the keywords are incompatible."
   would be advantageous.")
       (reporter-submit-bug-report
        ansys-maintainer-address
-       "ANSYS mode"		  ;becomes prefix for the subject line
+       "ANSYS-Mode"		  ;becomes prefix for the subject line
        (list
 	;; constants
 	'ansys_version
@@ -3034,7 +3034,7 @@ C-u \\[goto-line] takes the nnumber automatically)."
     (display-buffer buffer-name 'other-window)))
 
 (defun ansys-customise-ansys ()		;NEW_C
-  "Call the Emacs customisation facility for ANSYS mode."
+  "Call the Emacs customisation facility for ANSYS-Mode."
   (interactive)
   (customize-group "ANSYS"))
 

@@ -1,4 +1,4 @@
-;;; ansys-process.el -- Managing runs and processes for the ANSYS mode
+;;; ansys-process.el -- Managing runs and processes for the ANSYS-Mode
 
 ;; Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
 
@@ -29,7 +29,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defgroup ANSYS-process nil
-  "Customisation 'process' subgroup for the ANSYS mode."
+  "Customisation 'process' subgroup for the ANSYS-Mode."
   :group 'ANSYS)
 
 (defcustom ansys-install-directory
@@ -701,7 +701,7 @@ when the variable `insert-default-directory' is not nil.  For
 Lin64 it is the 'lmutil' executable
 /ansys_inc/shared_files/licensing/linx64/lmutil.  For Windows the
 anslic_admin utility: `C:\\Ansys Inc\\Shared
-Files\\licensing\\win32\\anslic_admin.exe'"
+Files\\licensing\\win64\\anslic_admin.exe'"
   (interactive "FANSYS License Management Utility executable: ")
   (when (string= exec "")		;use default
     (setq exec ansys-lmutil-program))

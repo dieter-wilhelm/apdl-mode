@@ -1,4 +1,4 @@
-;;; ansys-template.el -- APDL code templates for the ANSYS mode
+;;; ansys-template.el -- APDL code templates for the ANSYS-Mode
 
 ;; Copyright (C) 2006 - 20011  H. Dieter Wilhelm GPL V3
 

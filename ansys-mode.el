@@ -1,4 +1,4 @@
-;;; ansys-mode.el -- Editor support for working with Ansys FEA.
+;;; ansys-mode.el -- Editor support for working with ANSYS FEA.
 
 ;; Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
 
@@ -35,17 +35,17 @@
 
 ;;; Commentary:
 
-;; Editor support for working with Ansys FEA.
+;; Editor support for working with ANSYS FEA.
 
-;; The Ansys mode package provides support for the FEA (Finite Element
-;; Analysis) program Ansys (http://www.ansys.com) under Windows and
-;; Unix systems.  It defines 'Ansys mode', a major mode for viewing,
+;; The ANSYS mode package provides support for the FEA (Finite Element
+;; Analysis) program ANSYS (http://www.ansys.com) under Windows and
+;; Unix systems.  It defines 'ANSYS mode', a major mode for viewing,
 ;; writing and navigating in APDL (Ansys Parametric Design Language)
 ;; files as well as providing managing and communication capabilities
-;; for an associated Ansys interpreter process.
+;; for an associated ANSYS interpreter process.
 
 ;; The mode's capabilities are sophisticated but the documentation is
-;; targeted for Ansys users with little Emacs experience.  Regarding
+;; targeted for ANSYS users with little Emacs experience.  Regarding
 ;; installation and further information please consult the
 ;; accompanying README file.
 
@@ -60,10 +60,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst ansys_version "140"		;NEW_C
-  "Ansys version on which Ansys mode is based.")
+  "ANSYS version on which ANSYS mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C
-  "Ansys mode version number.")
+  "ANSYS mode version number.")
 
 (defconst ansys-parameter-substitution-commands-regexp	;NEW
   "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
@@ -90,7 +90,7 @@
     ("\\<page\\w*" "PAGET")
     ("\\<pdef\\w*"."PDEF")
     ("\\*sre\\w*"."*SREAD")
-    ("\\*set.?"."*SET") ;Ansys inconsistency *SET works only with one additional character
+    ("\\*set.?"."*SET") ;ANSYS inconsistency *SET works only with one additional character
     ("\\*top\\*w"."*TOPER")
     ;; ("\\*vge\\w*"."*VGET") ; variable must be dimensiond with *dim
     ("\\*vfu\\w*"."*VFUN")
@@ -105,7 +105,7 @@ is the \"=\" assignment command.")
 
 (defconst ansys-use-variables		;NEW_C
   '("ARG[1-9]" "AR[1][0-9]")
-  "Variable containing the Ansys *USE variables regexp.
+  "Variable containing the ANSYS *USE variables regexp.
 ARG[1-9] and AR[1][0-9] are macro local variables and can be
 passed to the *USE command.  Additionally AR[2-9][0-9] are pure
 macro local variables.")
@@ -116,29 +116,29 @@ macro local variables.")
 
 (defconst ansys-maintainer-address	;FROM_C: Octave-mod
   "Dieter Wilhelm <dieter@duenenhof-wilhelm.de>" ;bug-gnu-emacs@gnu.org
-  "Address of current maintainer of the Ansys mode.")
+  "Address of current maintainer of the ANSYS mode.")
 
 (defconst ansys-comment-char ?!		;FROM_C: Octave-mod
-  "The Ansys comment character.")
+  "The ANSYS comment character.")
 
 (defconst ansys-non-code-line-regexp "^\\s-*\\($\\|\\s<\\)" ;_C
   "Regexp indicating a pure comment or an empty line.
 A \"pure comment\" line contrasting a \"code comment\" which
-follows code to be analysed from the Ansys interpreter.")
+follows code to be analysed from the ANSYS interpreter.")
 
 (defconst ansys-condensed-input-line-regexp ".*\\$" ;NEW_C
   "Regexp indicating a condensed input line.")
 
 (defconst ansys-comment-start-skip "\\S<+\\S-*" ;_C
-  "Regexp to match the start of an Ansys comment up to its body.
+  "Regexp to match the start of an ANSYS comment up to its body.
 Used for the variable `comment-start-skip'.")
 
 ;; --- defcustoms ---
 
 (require 'custom)
 
-(defgroup Ansys nil			;NEW_C from Octave-Mod.el
-  "Customisation group for the Ansys mode."
+(defgroup ANSYS nil			;NEW_C from Octave-Mod.el
+  "Customisation group for the ANSYS mode."
   :version "23.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link :tag "EmacsWiki" "http://www.emacswiki.org")
@@ -150,7 +150,7 @@ Used for the variable `comment-start-skip'.")
 There are three levels available, 0 a minimalistic level
 optimised for speed and working with very large files (like
 interpreter input files from WorkBench), 1 and 2.  Level 0
-highlights only the minimum (unambiguous) length of Ansys command
+highlights only the minimum (unambiguous) length of ANSYS command
 names and variable definitions with the '=' operator.  Level 1
 highlights complete command names, together with functions,
 elements, deprecated elements, undocumented commands, strings
@@ -164,19 +164,19 @@ account after `ansys-display-variables'
 dynamically i. e. during editing when the variable
 `ansys-dynamic-highlighting-flag' is set to t."
   :type 'integer
-  :group 'Ansys
+  :group 'ANSYS
   :link '(variable-link font-lock-maximum-decoration ))
 
 (defcustom ansys-current-ansys-version ansys_version ;NEW_C
-  "String of the used Ansys version.
+  "String of the used ANSYS version.
 This variable is used by the `ansys-skeleton-header' template and
-for setting up variables defaults with Ansys path specifications,
+for setting up variables defaults with ANSYS path specifications,
 like `ansys-program'."
   :type 'string
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-dynamic-highlighting-flag nil ;NEW_C
-  "Non-nil means that Ansys mode highlights user defined variables.
+  "Non-nil means that ANSYS mode highlights user defined variables.
 Warning: This option is computational expensive and --depending
 on the file size and your hardware --it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
@@ -186,15 +186,15 @@ variable `ansys-highlighting-level') otherwise the fontification
 of variables is only static.  To take effect after setting this
 variable you have to recall `ansys-mode'."
   :type 'boolean
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-indicate-empty-lines-flag nil ;NEW_C
   "Non-nil means indicate empty lines on window systems.
-Do this visually at the end of an Ansys buffer in the left
+Do this visually at the end of an ANSYS buffer in the left
 fringe.  You have to reload function `ansys-mode' for this
 variable to take effect."
   :type 'boolean
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-comment-padding " "	;NEW_C
   "Padding string that `comment-dwim' puts between comment chars and text.
@@ -202,7 +202,7 @@ Extra spacing between the comment character(s) and the comment
 text makes the comment easier to read.  This padding is not
 effective for code comments (comments behind code)."
   :type 'string
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-comment-add 1		;NEW_C
   "How many additional comment characters are inserted by \\[comment-dwim].
@@ -211,69 +211,69 @@ This determines the default value of the numeric argument of
 modes like Lisp where it can be convenient to set it to 1 so that
 regions are commented with two semi-colons."
   :type 'integer
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-code-comment-column 25 ;NEW_C
-  "Column where Ansys code comments (behind code) are placed."
+  "Column where ANSYS code comments (behind code) are placed."
   :type 'integer
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-auto-indent-flag t	;NEW_C
   "Non-nil means indent line when typing the SPC key.
 The space character is also inserted."
   :type 'boolean
 					;  :options '(t nil) ; not necessary with booleans in Customise
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-indent-comment-suffix "" ;NEW_C
-  "String placed after the Ansys comment char in an code comment.
+  "String placed after the ANSYS comment char in an code comment.
 See `ansys-indent-comment-string'."
   :type 'string
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-ruler-wide-flag nil	;NEW_C
   "Non-nil means show a 80 characters wide temporary ruler.
 Nil means show a narrower temporary ruler with 50 characters."
   :type 'boolean
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-require-spaces-flag nil ;NEW_C
   "Non-nil means \\[insert-parentheses] inserts whitespace before ().
 When there is a region marked function `insert-parentheses'
 inserts the parentheses around the active region."
   :type 'boolean
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-blink-matching-block-flag t ;NEW_C
-  "Non-nil means blinking of matching Ansys block keywords.
+  "Non-nil means blinking of matching ANSYS block keywords.
 Skip temporary to the matching beginning of the block when
 inserting a newline after an *ELSE or *END keyword."
   :type 'boolean
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-blink-matching-delay .7 ;NEW_C
   "Time in seconds for skipping to a matching block.
 See also the variable `ansys-blink-matching-block-flag'."
   :type 'number
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-block-offset 2		;NEW_C
   "Indentation column(s) for statements in a block structure."
   :type 'integer
 					;  :options only for types hook, plist and alist
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-outline-string "@" ;NEW_C string building outline-regexp
   "String specifying outline headings (see `outline-regexp')."
   :type 'string
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (defcustom ansys-mode-hook nil ;NEW_C
-  "Normal hook run before entering Ansys mode.
+  "Normal hook run before entering ANSYS mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
   :options '(ansys-show-paren-mode ansys-outline-minor-mode ansys-ruler-mode ansys-auto-insert-mode)
-  :group 'Ansys)
+  :group 'ANSYS)
 
 (require 'align)
 
@@ -296,7 +296,7 @@ A hook is a variable which holds a collection of functions."
        (modes    . '(ansys-mode))
        (tab-stop . nil))
       )
-    "Rules for aligning Ansys variable definitions."
+    "Rules for aligning ANSYS variable definitions."
     :type align-rules-list-type
     :group 'ansys-mode
     )
@@ -316,7 +316,7 @@ A hook is a variable which holds a collection of functions."
 
 (defvar ansys-indent-comment-string	;_C
   (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
-  "String to insert when creating an Ansys code comment.")
+  "String to insert when creating an ANSYS code comment.")
 
 (defvar ansys-user-variables nil ;NEW_C
   "Variable containing the user variables and line No of first occurance.
@@ -332,11 +332,11 @@ fontification (`ansys-highlight-variable') of these variables.")
   "Non-nil means computer runs a Unix system.")
 
 (defvar ansys-previous-major-mode ""	;NEW_C
-  "The buffer's previous major mode (before Ansys mode).")
+  "The buffer's previous major mode (before ANSYS mode).")
 
 (defvar ansys-mode-abbrev-table nil	;_C
-  "Abbreviation definition table for the Ansys mode.
-All Ansys abbrevs start with a grave accent \"`\".  \"`?\" lists
+  "Abbreviation definition table for the ANSYS mode.
+All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
 
 ;;; --- constants ---
@@ -347,56 +347,56 @@ the currently defined abbreviations.")
 (defconst ansys-begin-keywords		;NEW_C
   '("\\*[dD][oO]" "\\*[dD][oO][wW][hH]?[iI]?[lL]?[eE]?"
     "\\*[iI][fF].*[tT][hH][eE][nN]" "\\*[cC][rR][eE][aA][tT][eE]")
-  "Regexps describing Ansys block begin keywords.")
+  "Regexps describing ANSYS block begin keywords.")
 
 (defconst ansys-else-keywords		;NEW_C
   '("\\*[eE][lL][sS][eE][iI][fF]" "\\*[eE][lL][sS][eE]"
     "\\*[cC][yY][cC][lL][eE]")
-  "Regexps describing Ansys block else keywords.")
+  "Regexps describing ANSYS block else keywords.")
 
 (defconst ansys-end-keywords		;NEW_C
   '("\\*[eE][nN][dD][dD][oO]" "\\*[eE][nN][dD][iI][fF]"
     "\\*[eE][nN][dD]")
-  "Regexps describing Ansys end keywords.")
+  "Regexps describing ANSYS end keywords.")
 
 (defconst ansys-number-line-regexp	;NEW_C
   "^\\s-*[(+-]?[[:digit:]]"
-  "Regexp describing an Ansys number line.
+  "Regexp describing an ANSYS number line.
 Used for skipping pure number lines and CMBLOCK format strings")
 
 (defconst ansys-block-begin-regexp	;_C
   (concat "\\("
 	  (mapconcat 'identity ansys-begin-keywords "\\|")
 	  "\\)\\>")
-  "Regexp containing the Ansys begin keywords.")
+  "Regexp containing the ANSYS begin keywords.")
 
 (defconst ansys-block-else-regexp	;_C
   (concat "\\("
 	  (mapconcat 'identity ansys-else-keywords "\\|")
 	  "\\)\\>")
-  "Regexp containing the Ansys else keywords.")
+  "Regexp containing the ANSYS else keywords.")
 
 (defconst ansys-block-end-regexp	;_C
   (concat "\\("
 	  (mapconcat 'identity ansys-end-keywords "\\|")
 	  "\\)\\>")
-  "Regexp containing the Ansys end keywords.")
+  "Regexp containing the ANSYS end keywords.")
 
 (defconst ansys-block-begin-or-end-regexp ;_C
   (concat ansys-block-begin-regexp "\\|" ansys-block-end-regexp)
-  "Regexp containing Ansys begin and end keywords.")
+  "Regexp containing ANSYS begin and end keywords.")
 
 (defconst ansys-block-else-or-end-regexp ;C_
   (concat ansys-block-else-regexp "\\|" ansys-block-end-regexp)
-  "Regexp containing the Ansys else or end keywords.")
+  "Regexp containing the ANSYS else or end keywords.")
 
 (defconst ansys-block-match-alist	;_C
   '(("*IF" . ("THEN" "*ELSE" "*ELSEIF" "*ENDIF"))
     ("*DO" . ("*ENDDO"))
     ("*DOWHILE" . ("*ENDDO"))
     ("*CREATE" . ("*END")))
-  "Alist with Ansys's matching block keywords.
-It has Ansys's begin keywords as keys and a list of the
+  "Alist with ANSYS's matching block keywords.
+It has ANSYS's begin keywords as keys and a list of the
 corresponding else or end keywords as associated values.")
 
 (defconst ansys-column-ruler-wide	;_C
@@ -500,14 +500,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c?" 'ansys-show-command-parameters)
 ;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
        map)
-    "Keymap for the Ansys mode.")
+    "Keymap for the ANSYS mode.")
 
 (defun ansys-toggle-mode nil ;NEW_C FIXME this toggles also all ansys minor-hooks?
   "Restore the buffer's previous major mode, if possible."
   (interactive)
   (if (or (string= ansys-previous-major-mode "ansys-mode")
 	  (string= ansys-previous-major-mode ""))
-      (error "There was no previous major mode except \"Ansys mode\"") ;buffers opended with auto-mode
+      (error "There was no previous major mode except \"ANSYS mode\"") ;buffers opended with auto-mode
     (funcall ansys-previous-major-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -534,7 +534,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
       ;; variables + reserved _names (max. 32 chars long)
       (variable_r
        "^\\s-*\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*=")
-      ;; reserved vars consisting of a single "_" are valid in Ansys 12.1
+      ;; reserved vars consisting of a single "_" are valid in ANSYS 12.1
       (reserved_vars_r
       "\\_<\\(_[[:alnum:]_]\\{0,31\\}\\>\\)"))
 
@@ -551,7 +551,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
   (defconst ansys-font-lock-keywords-1
   `(
-    ;; /eof is special: it crashes Ansys in interactive mode
+    ;; /eof is special: it crashes ANSYS in interactive mode
     ;; TODO /eof is highlighted only first in line not behind $
     ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
@@ -662,7 +662,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
   (defconst ansys-font-lock-keywords-2
   `(
-    ;; /eof is special: it crashes Ansys in interactive mode
+    ;; /eof is special: it crashes ANSYS in interactive mode
     ;; TODO /eof is highlighted only first in line not behind $
     ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
@@ -766,7 +766,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	ansys-font-lock-keywords-3
 	  ))
 
-(defconst ansys-mode-syntax-table     ;FIXME check Ansys operators and
+(defconst ansys-mode-syntax-table     ;FIXME check ANSYS operators and
 					;allowed variable characters
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?\r " " table)
@@ -783,32 +783,32 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (modify-syntax-entry ?\' "." table)
     (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,
 					;not an operator but "word".
-    (modify-syntax-entry ?_ "_"  table) ;in Ansys symbol component
-    (modify-syntax-entry ?: "_"  table) ;Ansys label specifier, not an operator
-    (modify-syntax-entry ?* "_"  table) ;Ansys asterisk commands syntax clashing
+    (modify-syntax-entry ?_ "_"  table) ;in ANSYS symbol component
+    (modify-syntax-entry ?: "_"  table) ;ANSYS label specifier, not an operator
+    (modify-syntax-entry ?* "_"  table) ;ANSYS asterisk commands syntax clashing
 					;with algebraic operators but blink-matching-
 					;needs this
-    ;;     (modify-syntax-entry ?/ "w"  table)	;Ansys slash commands
-    (modify-syntax-entry ?\! "<" table) ;Ansys comment character
+    ;;     (modify-syntax-entry ?/ "w"  table)	;ANSYS slash commands
+    (modify-syntax-entry ?\! "<" table) ;ANSYS comment character
     (modify-syntax-entry ?\n ">" table)
-    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for Ansys
+    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for ANSYS
     (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
-					;Normally Ansys string delimiter, but might clash
+					;Normally ANSYS string delimiter, but might clash
 					;with usages of genitives etc.!
-    (modify-syntax-entry ?~ "_" table) ;Ansys connection commands, not an operator
+    (modify-syntax-entry ?~ "_" table) ;ANSYS connection commands, not an operator
     table)
   "Syntax table in use in `ansys-mode' buffers.")
 
 (defconst ansys-mode-menu
-  (list "Ansys"
+  (list "ANSYS"
 	["Comment/Un- Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
-	["Complete Symbol"              ansys-complete-symbol :help "Complete an Ansys command, element or function name"]
-	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to Ansys" "Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
-	["Copy/Send above Code (to Ansys)"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to Ansys" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
+	["Complete Symbol"              ansys-complete-symbol :help "Complete an ANSYS command, element or function name"]
+	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to ANSYS" "Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
+	["Copy/Send above Code (to ANSYS)"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to ANSYS" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Preview Macro Template"       ansys-display-skeleton :help "Preview macro templates in another window"]
-	["Align region/section"       ansys-align :help "Align current region or section of Ansys variable definitions"]
+	["Align region/section"       ansys-align :help "Align current region or section of ANSYS variable definitions"]
 	"-"
 	(list "Insert Template"
 	      ["*IF ... *ENDIF"         ansys-if :help "Insert interactively an *if .. *endif construct"]
@@ -838,7 +838,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
 	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
 	      ["Listings, Information, Statistics"ansys-skeleton-information :help "Parameter listings, graphic options, system information, run statistics"]
-	      ["Solving"                ansys-skeleton-solve :help "Ansys solver (/solu) commands and solver options"]
+	      ["Solving"                ansys-skeleton-solve :help "ANSYS solver (/solu) commands and solver options"]
 	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor (/post1) commands"]
 	      ["Array Operations"       ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
 	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
@@ -856,7 +856,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Beginning of (Continuation) Command" ansys-command-start :help "Go to the beginning of the current command"]
 	      ["End of (Continuation) Command"ansys-command-end :help "Go to the end of the current command"]
 	      "-"
-	      ["Split Format Line at Point"ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an Ansys format line insert the continuation character before splitting the line"]
+	      ["Split Format Line at Point"ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an ANSYS format line insert the continuation character before splitting the line"]
 	      )
 	(list "Work with Logical Blocks"
 	      ["Next Block End"		ansys-next-block-end :help "Go to the end of the current or next control block (*do, *if, ...)"]
@@ -865,33 +865,33 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
 	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
 	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
-	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an Ansys number block (EBLOCK, NBLOCK)"]
-	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an Ansys number block (EBLOCK, NBLOCK)"]
+	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an ANSYS number block (EBLOCK, NBLOCK)"]
+	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an ANSYS number block (EBLOCK, NBLOCK)"]
 	      "-"
-	      ["Close Block"            ansys-close-block :help "Close the current Ansys control block with the respective closing command"]
+	      ["Close Block"            ansys-close-block :help "Close the current ANSYS control block with the respective closing command"]
 	      ["Mark Block"             ansys-mark-block :help "Mark the current control block"]
 	      )
-	(list "Manage Ansys Tasks"
+	(list "Manage ANSYS Tasks"
 	      ["Specify License Server or - File" ansys-license-file
 	      :help "Change the license server specification (for an interpreter run or the license status), either naming the license server machine (with port) or the actual license file" :active ansys-is-unix-system-flag]
 	      ["Specify the License Interconnect Servers" ansys-ansysli-servers
 	      :help "Change the interconnect server specification (for an interpreter run)" :active ansys-is-unix-system-flag]
-	      ["Specify License Utility" ansys-lmutil-program :help "Specify the Ansys license utility executable"]
+	      ["Specify License Utility" ansys-lmutil-program :help "Specify the ANSYS license utility executable"]
 	      "-"
-	      ["Specify Ansys License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
+	      ["Specify ANSYS License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
-	      ["Specify Ansys Executable "ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
-	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the Ansys run definition." :active ansys-is-unix-system-flag]
-	      ["Start Ansys Run"        ansys-start-ansys :help "Start an Ansys interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
-	      ["Display Ansys Run Status" ansys-process-status :help "Display the status of a possible Ansys interpreter run" :active (ansys-process-running-p)]
-	      ["Exit Ansys Run"         ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
+	      ["Specify ANSYS Executable "ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
+	      ["Start ANSYS Run"        ansys-start-ansys :help "Start an ANSYS interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
+	      ["Display ANSYS Run Status" ansys-process-status :help "Display the status of a possible ANSYS interpreter run" :active (ansys-process-running-p)]
+	      ["Exit ANSYS Run"         ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
 	      "-"
-	      ["Send Ansys Command Interactively"ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
-	      ["Start Graphics Screen"  ansys-start-graphics :help "Open the graphics screen of the Ansys GUI" :active (ansys-process-running-p)]
-	      ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI" :active (ansys-process-running-p)]
-	      ["Replot"                 ansys-replot :help "Replot the Ansys graphics window" :active (ansys-process-running-p)]
-	      ["Fit Graphics into screen" ansys-fit :help "Fit the Ansys graphics into the window" :active (ansys-process-running-p)]
-	      ["Show Graphics in iso-view" ansys-iso-view :help "Show the current Ansys graphic windows in isometric view" :active (ansys-process-running-p)]
+	      ["Send ANSYS Command Interactively"ansys-query-ansys-command :help "Send interactively an APDL command to a running interpreter process" :active (ansys-process-running-p)]
+	      ["Start Graphics Screen"  ansys-start-graphics :help "Open the graphics screen of the ANSYS GUI" :active (ansys-process-running-p)]
+	      ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI" :active (ansys-process-running-p)]
+	      ["Replot"                 ansys-replot :help "Replot the ANSYS graphics window" :active (ansys-process-running-p)]
+	      ["Fit Graphics into screen" ansys-fit :help "Fit the ANSYS graphics into the window" :active (ansys-process-running-p)]
+	      ["Show Graphics in iso-view" ansys-iso-view :help "Show the current ANSYS graphic windows in isometric view" :active (ansys-process-running-p)]
 	      ["Zoom In"                ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
 	      ["Zoom Out"               ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
 	      ["Move Up"                ansys-move-up :help "Move graphics objects up" :active (ansys-process-running-p)]
@@ -899,15 +899,15 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Move Right"             ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
 	      ["Move Left"              ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
 	      "-"
-	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the Ansys help browser, etc."]
-	      ["Display Ansys Error File"ansys-display-error-file :help "Display in another window the Ansys error file in the current directory"]
-	      ["Write Ansys Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
+	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the ANSYS help browser, etc."]
+	      ["Display ANSYS Error File"ansys-display-error-file :help "Display in another window the ANSYS error file in the current directory"]
+	      ["Write ANSYS Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running interpreter into the current directory"]
 	      "-"
-	      ["Kill Ansys Run"        ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
+	      ["Kill ANSYS Run"        ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
 	      )
 	"-"
-	["Show Ansys Command Help"     ansys-show-command-parameters :help "Display a short help for the Ansys command near the cursor with its parameters"]
-	["Start Ansys help system"     ansys-start-ansys-help :help "Start the Ansys help browser"]
+	["Show ANSYS Command Help"     ansys-show-command-parameters :help "Display a short help for the ANSYS command near the cursor with its parameters"]
+	["Start ANSYS help system"     ansys-start-ansys-help :help "Start the ANSYS help browser"]
 	["Display Variable Definitions"ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
 	     "Display License Status"
@@ -917,20 +917,20 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
 	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Show Ansys Mode version"     ansys-mode-version :label (concat "Ansys Mode Version: " ansys_version "."ansys_mode_version) :help "Display the Ansys mode version in the mini buffer"]
-	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for Ansys mode"]
-	["Ansys Mode Help"	       describe-mode :help "Open a window with a description of Ansys mode"]
-	["Customise Ansys Mode"        (customize-group "Ansys") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
-	["Ansys Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an Ansys mode bug report"]
-	["Reload Ansys Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
+	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys_version "."ansys_mode_version) :help "Display the ANSYS mode version in the mini buffer"]
+	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for ANSYS mode"]
+	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS mode"]
+	["Customise ANSYS Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
+	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS mode bug report"]
+	["Reload ANSYS Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
 	"-"
-	["Exit Ansys Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
-  "Menu items for the Ansys mode.")
+	["Exit ANSYS Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
+  "Menu items for the ANSYS mode.")
 
 ;;; --- predicates ---
 
 (defun ansys-in-asterisk-comment-p ()
-  "Return t if the cursor is inside an Ansys asterisk comment."
+  "Return t if the cursor is inside an ANSYS asterisk comment."
   (save-excursion
     (let ((lbp (line-beginning-position)))
       (if (search-backward " *" lbp t)
@@ -938,20 +938,20 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	nil))))
 
 (defun ansys-in-string-command-line-p () ;NEW
-  "Return t if in an Ansys string command line."
+  "Return t if in an ANSYS string command line."
   (save-excursion
    (back-to-indentation)
    (looking-at ansys-string-commands-regexp)))
 
 (defun ansys-number-line-p ()		;NEW_C
-  "Return t if in an Ansys number block."
+  "Return t if in an ANSYS number block."
   (save-excursion
     (beginning-of-line)
     (and (not (ansys-in-format-construct-p))
 	 (looking-at ansys-number-line-regexp)))) ;"(" is for CMBLOCK format string
 
 (defun ansys-default-command-p ()	;NEW_C
-  "Return t if in an Ansys default command line."
+  "Return t if in an ANSYS default command line."
   (save-excursion
     (beginning-of-line)
     (looking-at "^\\s-*,")))
@@ -984,7 +984,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (if (looking-at ansys-continuation-line-regexp) t nil)))
 
 (defun ansys-in-format-command-line-p ()	;_C
-  "Return t if in an Ansys format command line, nil otherwise.
+  "Return t if in an ANSYS format command line, nil otherwise.
 See the constant variable `ansys-format-commands-regexp' which
 includes the commands which need formatting lines."
   (save-excursion
@@ -993,7 +993,7 @@ includes the commands which need formatting lines."
 	 (concat "^\\s-*\\(" ansys-format-commands-regexp "\\)")) t nil)))
 
 (defun ansys-in-format-construct-p ()	;NEW_C
-  "Return t if in an Ansys format construct.
+  "Return t if in an ANSYS format construct.
 Otherwise nil, i.e. return nil when in a format command line."
   (cond ((ansys-continuation-line-p) t)
 	((ansys-first-line-p) nil)
@@ -1004,7 +1004,7 @@ Otherwise nil, i.e. return nil when in a format command line."
 		  (ansys-in-format-command-line-p)) t nil)))))
 
 (defun ansys-condensed-input-line-p ()	;NEW_C
-  "Return t if in an Ansys condensed (... $ ...) input line."
+  "Return t if in an ANSYS condensed (... $ ...) input line."
   (save-excursion
     (beginning-of-line)
     (if (ansys-in-format-construct-p)
@@ -1014,7 +1014,7 @@ Otherwise nil, i.e. return nil when in a format command line."
 	nil))))
 
 (defun ansys-code-line-p ()		;_C
-  "Return t if in an Ansys code line, nil otherwise.
+  "Return t if in an ANSYS code line, nil otherwise.
 A code line is the complementary of the regexp `ansys-non-code-line-regexp'."
   (save-excursion
     (beginning-of-line)
@@ -1026,12 +1026,12 @@ A code line is the complementary of the regexp `ansys-non-code-line-regexp'."
 
 (defun ansys-at-end-of-code-p ()	;_C
   "Return t if the cursor is at the end of code in a line.
-This means at the end of code before whitespace or an Ansys
+This means at the end of code before whitespace or an ANSYS
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
-;; Ansys will support in the future only Linux and Windows 64 for the
-;; entire Ansys platform, some support of legacy Unices (AIX IBM,
+;; ANSYS will support in the future only Linux and Windows 64 for the
+;; entire ANSYS platform, some support of legacy Unices (AIX IBM,
 ;; HP-UX HP, SGI, Solaris SUN) for standalone apps will be provided so
 ;; I don't restrict anys-mode to gnu/linux
 (defun ansys-is-unix-system-p ()
@@ -1049,13 +1049,13 @@ usg-unix-v."
 ;;particularly speedy, are they?
 
 (defsubst ansys-in-comment-p ()		;_C
-  "Return t if the cursor is inside an Ansys comment."
+  "Return t if the cursor is inside an ANSYS comment."
   (save-excursion
     (nth 4 (parse-partial-sexp (ansys-position 'bol) (point))))) ;nth -- nth element
 					;of list
 
 (defsubst ansys-in-string-p () ;_C FIXME:are there strings defined in ansys?
-  "Return t if the cursor is inside an Ansys string."
+  "Return t if the cursor is inside an ANSYS string."
   (save-excursion
     (nth 3 (parse-partial-sexp (ansys-position 'bol) (point)))))
 
@@ -1079,7 +1079,7 @@ usg-unix-v."
 ;; --- functions ---
 
 (defun ansys-align (p-min p-max)	;TODO clarify `section'
-  "Align current section or selection of Ansys variable definitions.
+  "Align current section or selection of ANSYS variable definitions.
 If a selection is active align the current selection (with the
 region borders P-MIN and P-MAX) otherwise align the current code
 section."
@@ -1090,7 +1090,7 @@ section."
 
 ;;;###autoload
 (defun ansys-mode ()
-  "Support for working with Ansys FEA.
+  "Support for working with ANSYS FEA.
 The documentation is targeted at users with little Emacs
 experience, the sections which deal with specific mode features
 are indicated with two asterisks (**) at the beginning.  Input as
@@ -1100,7 +1100,7 @@ actual keys are quoted with <>.
 == Contents ==
 
 = Introduction to Emacs
-= Usage of Ansys mode
+= Usage of ANSYS mode
 = Keybindings
 = Customisation
 = Bugs and Problems
@@ -1108,13 +1108,13 @@ actual keys are quoted with <>.
 == Introduction to Emacs ==
 
 In Emacs it is not only possible to run a certain command, let's
-say `ansys-start-ansys-help', from entries in Emacs' Ansys menu
+say `ansys-start-ansys-help', from entries in Emacs' ANSYS menu
 bar or with keyboard shortcuts (here:
 \"\\[ansys-start-ansys-help]\") but additionally from the so
 called minibuffer.  This 'interactive' option remains the only
-one if you have not yet activated Ansys mode or you are currently
+one if you have not yet activated ANSYS mode or you are currently
 inspecting a file which is not intended for this mode.  Then
-neither the Ansys menu nor keyboard shortcuts for Ansys mode
+neither the ANSYS menu nor keyboard shortcuts for ANSYS mode
 commands are available.
 
 To run `ansys-start-ansys-help' by its function name, start with
@@ -1133,10 +1133,10 @@ the <g> key at the same time.
 
 All functions described in this help, regardless whether
 possessing a keyboard shortcut or not, can be called in this way
-or they are to be found in the Ansys menu.
+or they are to be found in the ANSYS menu.
 
 Above described procedure has the same effect as typing
-\"\\[ansys-start-ansys-help]\" in a file buffer under Ansys
+\"\\[ansys-start-ansys-help]\" in a file buffer under ANSYS
 mode ('C-c C-a' means while holding down the <CTRL> key typing
 the respective characters ('c' then 'a') for
 `ansys-start-ansys-help').
@@ -1150,22 +1150,22 @@ In case something unintended happend to your code you are always
 able to resort to the Emacs `undo' functionality from the menu or
 with typing \"\\[undo]\".
 
-== Usage of Ansys mode ==
+== Usage of ANSYS mode ==
 
-** Ansys command syntax help **
+** ANSYS command syntax help **
 
 Typing \"\\[ansys-show-command-parameters]\", the <CTRL> key
 simultaneously with the <c> key and then \"?\" the question
 mark (for the command `ansys-show-command-parameters') displays
-above a code line a brief description of the Ansys command and
-its syntax.  The command is looking for the next valid Ansys
+above a code line a brief description of the ANSYS command and
+its syntax.  The command is looking for the next valid ANSYS
 command near the cursor or when using a prefix argument it
-inquires an Ansys command name.
+inquires an ANSYS command name.
 
-** Ansys keyword completion (commands, elements, get- and
+** ANSYS keyword completion (commands, elements, get- and
    parametric-functions) **
 
-Type the first letter or letters of an Ansys command, function or
+Type the first letter or letters of an ANSYS command, function or
 element name and use the key binding
 \"\\[ansys-complete-symbol]\" to let the function
 `ansys-complete-symbol' do the (case sensitve) completion for
@@ -1173,8 +1173,8 @@ you.  Depending on the case of your letter or letters to be
 completed, you will get a downcased, upcased or capitalised
 completion.
 
-There are nearly 2000 Ansys symbols available for completion.
-Undocumented Ansys commands and deprecated element types are also
+There are nearly 2000 ANSYS symbols available for completion.
+Undocumented ANSYS commands and deprecated element types are also
 completed.  The former are identified as such with a different
 highlighting in the 'command syntax help'.  Please have a look at
 the variable `ansys-deprecated-element-alist' it's an association
@@ -1201,9 +1201,9 @@ the following example
 
 ** Auto-indentation of looping and conditional blocks **
 
-You can customise the indentation depth (Ansys Block Offset),
-please have a look for the entry 'Customise Ansys Mode' in the
-Ansys mode menu.  The Emacs customisation facility optionally
+You can customise the indentation depth (ANSYS Block Offset),
+please have a look for the entry 'Customise ANSYS Mode' in the
+ANSYS mode menu.  The Emacs customisation facility optionally
 saves your choices automatically in your .emacs file for later
 sessions.
 
@@ -1211,7 +1211,7 @@ sessions.
    insertion of appropriate end keywords **
 
 Typing \"\\[ansys-close-block]\" for the function
-`ansys-close-block' completes the current Ansys block with the
+`ansys-close-block' completes the current ANSYS block with the
 insertion of a newline and an appropriate end keyword.
 
 ** Code navigation with extended keyboard shortcuts: Code lines,
@@ -1259,7 +1259,7 @@ input (*.inp, *.dat) files.
 
 Moreover there are keyboard shortcuts with which you are able to
 input pairs of corresponding characters, like \"C-c %\" for '%%',
-the Ansys substitution operators.  The advantage is that the
+the ANSYS substitution operators.  The advantage is that the
 cursor is place between the pair and you might give a numerical
 argument to the call and enclose already existing words with the
 pair, e. q. \"C-1 C-c %\".  Please have a look for `insert-pair'
@@ -1269,20 +1269,20 @@ and see below in the keybindings section.
 
 The highlighting in the highest decoration level (please refer to
 `ansys-highlighting-level') tries to follow the idiosyncratic
-Ansys interpreter logic as closely as possible.  For example: '* ',
-an asterisk with following whitespace(s), is still a valid Ansys
-comment operator (although deprecated, see the Ansys manual for
+ANSYS interpreter logic as closely as possible.  For example: '* ',
+an asterisk with following whitespace(s), is still a valid ANSYS
+comment operator (although deprecated, see the ANSYS manual for
 the *LET command).
 
-The fontification distinguishes between Ansys commands,
+The fontification distinguishes between ANSYS commands,
 undocumented commands, parametric- and get-functions, elements
 and deprecated elements.  In case of arbitrary characters after
 the command names, they are still highlighted, since these
-characters are ignored by the Ansys intepreter.
+characters are ignored by the ANSYS intepreter.
 
-Macro variables beginning with an underscore might be Ansys
+Macro variables beginning with an underscore might be ANSYS
 reserved variables and therefore are higlighted in a warning
-face.  Another example is the Ansys the percent sign, its
+face.  Another example is the ANSYS the percent sign, its
 highlighting reminds you that the use of such a pair around a
 parameter name might force a parameter substitution, e. g. with
 the assignment 'I=5' and '/com,TEST%I%', the /com command outputs
@@ -1290,7 +1290,7 @@ TEST5.
 
 In the context of pairs of '%' characters, you can also input
 various pairs with keyboard shortcuts, e. g. apostrophies for
-Ansys character parameters with \"C-c '\", please have a look
+ANSYS character parameters with \"C-c '\", please have a look
 which bindings are available with \"\\[describe-bindings]\" (for
 `describe-bindings').
 
@@ -1346,7 +1346,7 @@ below) in the maximum highlighting level.
 Typing \"\\[ansys-display-variables]\" (for `ansys-display-variables')
 shows all definitions in your APDL file in a separate window.
 
-You might remove '*Ansys-variables*' window with \"\\[ansys-delete-other-window]\" (`ansys-delete-other-window').
+You might remove '*ANSYS-variables*' window with \"\\[ansys-delete-other-window]\" (`ansys-delete-other-window').
 
 When you place the cursor on the respective line number and type
 \"C-u M-g g\", where 'C-u' is a 'prefix' argument to 'M-g
@@ -1356,7 +1356,7 @@ defintion line in the macro file.
 ** Use of the Emacs abbreviation facility for block templates **
 
 E.g. typing \"`do\" (the backquote '`' then 'do') and the space
-key <SPC> under Ansys mode triggers an interactive code template
+key <SPC> under ANSYS mode triggers an interactive code template
 which inserts a *DO loop (`ansys-do').  \"`d\" (then <SPC>) is a
 more immediate version of it without requesting user
 input (`ansys_do').  You can see all the predefined abbreviations
@@ -1370,8 +1370,8 @@ You might call the Outline Minor Mode with \"M-x
 outline-minor-mode\" or you could enable this mode permanently by
 ticking on the option `ansys-outline-minor-mode' for the
 `ansys-mode-hook' variable.  Either by typing \"M-x
-ansys-customise-ansys RET\" or use the menu bar: ->Ansys
-->Customise Ansys Mode.
+ansys-customise-ansys RET\" or use the menu bar: ->ANSYS
+->Customise ANSYS Mode.
 
 Then you can hide certain sections of your code or navigate to
 customisable outline headings.  Certain characters --by default
@@ -1432,9 +1432,9 @@ You are able to preview the various code templates with
 doing this you might type <TAB> to complete the available
 skeleton names.
 
-** Ansys process management **
+** ANSYS process management **
 
-- Ansys mode writes for you an Ansys stop file in the current
+- ANSYS mode writes for you an ANSYS stop file in the current
   directory (the file name is compiled from the variable
   `job-name' and the extension '.abt'). You can do this with
   \"\\[ansys-write-abort-file]\" (`ansys-write-abort-file', you
@@ -1442,51 +1442,51 @@ skeleton names.
   change the current directory).  This stop file is halting a
   running calculation in an orderly, re-startable fashion.
 
-- You are able to view the Ansys error file (a file consisting of
+- You are able to view the ANSYS error file (a file consisting of
   the `job-name' and the suffix '.err' in the current directory)
   with \"\\[ansys-display-error-file]\" (this calls
   `ansys-display-error-file').  The error file is opened in read
   only mode (see `toggle-read-only') and with the minor mode
   `auto-revert-tail-mode', which scrolls the buffer automatically
-  for keeping the current Ansys output visible.
+  for keeping the current ANSYS output visible.
 
-- You can start the Ansys help browser from Emacs
+- You can start the ANSYS help browser from Emacs
   \"\\[ansys-start-ansys-help]\" (for `ansys-start-ansys-help').
 
 - For displaying the available licenses (in another Emacs window)
   please use \"\\[ansys-license-status]\" (for
   `ansys-license-status').
 
-If you haven't installed Ansys in the default locations and the
+If you haven't installed ANSYS in the default locations and the
 executables are not in your system search path or you are using a
-different Ansys version than '140' it is necessary for the last
+different ANSYS version than '140' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `ansys-customise-ansys' or from the
-menu bar -> 'Ansys' -> 'Customise Ansys Mode' -> 'Ansys-process'
-and look there for the variables 'Ansys License File', 'Ansys
-Util Program' and 'Ansys Help Program' as well as 'Ansys Help
+menu bar -> 'ANSYS' -> 'Customise ANSYS Mode' -> 'ANSYS-process'
+and look there for the variables 'ANSYS License File', 'ANSYS
+Util Program' and 'ANSYS Help Program' as well as 'ANSYS Help
 Program Parameters') or set the variables directly in your .emacs
 file.  Please have a look in the accompanying README and
 default_el customisation file example.
 
-** Ansys interpreter control and communication (mainly restricted
+** ANSYS interpreter control and communication (mainly restricted
   to UNIX systems) **
 
-With the Ansys mode keyboard shortcut
+With the ANSYS mode keyboard shortcut
 \"\\[ansys-start-ansys]\" (for the command `ansys-start-ansys')
-you can start the Ansys solver as an asynchronous process from
+you can start the ANSYS solver as an asynchronous process from
 Emacs.  After starting the run you will see all solver output in
 a separate Emacs 'comint' window.  You are now able to interact
 with this process in three ways, either by typing directly in the
-'*Ansys*' window or using \"\\[ansys-send-to-ansys]\" (for
+'*ANSYS*' window or using \"\\[ansys-send-to-ansys]\" (for
 `ansys-send-to-ansys').  With the latter you can send either the
 current code line or a whole selected region to the running
 solver.  (A selected region means highlighted lines of code.  If
 there is no running solver the function copies the code to the
 system tray.)  And lastly you are able to send interactively
-Ansys commands with
+ANSYS commands with
 \"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command')
-without switching to the '*Ansys*' window.
+without switching to the '*ANSYS*' window.
 
 Another very useful function in this context is
 \"\\[ansys-copy-or-send-above]\" (`ansys-copy-or-send-above'),
@@ -1509,11 +1509,11 @@ whole block level, \"\\[mark-paragraph] (`mark-paragraph') marks
 the current paragraph, the last command can not only be used to
 initialise a new selection but also to extend an existing one
 when repeting the command.  Please check the code navigation
-commands which Ansys mode provides (type
+commands which ANSYS mode provides (type
 \"\\[describe-bindings]\" (`describe-bindings') to see which are
 available)
 
-In this mode you are able to start an Ansys graphics
+In this mode you are able to start an ANSYS graphics
 screen (without the rest of graphical user interface) with
 \\[ansys-start-graphics] (function `ansys-start-graphics').  Thus
 you are able to check and debug your macro file content visually.
@@ -1521,7 +1521,7 @@ The graphics in this state is changeable with APDL commands (like
 /view,1,1,1,1) but unfortunately not through mouse interactions!
 If you want to turn, zoom, etc. the model it is best to call
 `ansys-start-pzr-box' with \\[ansys-start-pzr-box] and a dialog
-box will pop up.  This is the usual Ansys Pan/Zoom/Rotate dialog
+box will pop up.  This is the usual ANSYS Pan/Zoom/Rotate dialog
 for the graphics screen.  But beware: Before you are able to send
 further commands to the solver, you first have to close the PZR
 dialog box.  There is also a family of interactive commands to
@@ -1536,28 +1536,28 @@ run: `ansys-exit-ansys' and a command for an emergency kill in
 case the solver is not stoppable any longer in an orderly way:
 `ansys-kill-ansys'.
 
-As already indicated Ansys mode has its own command for invoking
-the Ansys help browser \"\\[ansys-start-ansys-help]\" because
+As already indicated ANSYS mode has its own command for invoking
+the ANSYS help browser \"\\[ansys-start-ansys-help]\" because
 unfortunately the following APDL commands do not work when the
-complete GUI system of Ansys is not active.
+complete GUI system of ANSYS is not active.
 
-    /ui,help  !is it not working in Ansys non-GUI modes
-    help, COMMAND !is also not working in Ansys non-GUI modes
+    /ui,help  !is it not working in ANSYS non-GUI modes
+    help, COMMAND !is also not working in ANSYS non-GUI modes
 
-So you are not able start the help browser for a *specific* Ansys
-command but must search within the Ansys help browser.
+So you are not able start the help browser for a *specific* ANSYS
+command but must search within the ANSYS help browser.
 
 == Keybindings ==
 
 \\{ansys-mode-map}
 
-== Ansys mode customisation ==
+== ANSYS mode customisation ==
 
 For a compilation (and respective documentation) of available
-Ansys mode customisations it's best to open the mode's
+ANSYS mode customisations it's best to open the mode's
 customisation buffer either with the command
-`ansys-customise-ansys' or from the menu bar -> 'Ansys' ->
-'Customise Ansys Mode' and check interesting options.
+`ansys-customise-ansys' or from the menu bar -> 'ANSYS' ->
+'Customise ANSYS Mode' and check interesting options.
 
 Another way getting to the customisation facility is to open the
 specific documentation of respective variables.  Let's change for
@@ -1580,11 +1580,11 @@ directly into your .emacs file.  (The semicolon ';' is the
 comment character.)
 
 For certain options to take effect without restarting Emacs, it's
-necessary to reload Ansys mode.  You can do this with the
+necessary to reload ANSYS mode.  You can do this with the
 interactive command `ansys-reload-ansys-mode' or with the
-respective, toplevel Ansys menu entry.
+respective, toplevel ANSYS menu entry.
 
-You can improve the loading and execution speed of Ansys mode
+You can improve the loading and execution speed of ANSYS mode
 with a byte-compilation of its lisp files (if they are not
 already compiled, i. e. they have the suffix '.elc', please read
 the section 'Byte Compilation' in the Emacs lisp reference, which
@@ -1605,12 +1605,12 @@ improvements you have the following options:
 
 - You might also issue a bug report at Google Code's hosted page
   http://code.google.com/p/ansys-mode/, where you can also
-  download the latest versions of Ansys mode.
+  download the latest versions of ANSYS mode.
 
-- Or you can leave comments and hints at the Ansys mode page of
+- Or you can leave comments and hints at the ANSYS mode page of
   Emacs Wiki http://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
 
-====================== End of Ansys mode help ===================="
+====================== End of ANSYS mode help ===================="
   (interactive)
 
   (unless (string= major-mode "ansys-mode")
@@ -1619,7 +1619,7 @@ improvements you have the following options:
 
   (kill-all-local-variables)		; convention
   (setq major-mode 'ansys-mode)
-  (setq mode-name "Ansys")		; mode line string
+  (setq mode-name "ANSYS")		; mode line string
 
   ;; only effective for window systems!
   (setq indicate-empty-lines ansys-indicate-empty-lines-flag)
@@ -1772,14 +1772,14 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 	 (forward-paragraph arg))))
 
 (defun ansys-mode-version ()
-  "Display the Ansys mode version numbering scheme."
+  "Display the ANSYS mode version numbering scheme."
   (interactive)
-  (message "Ansys mode version: %s.%s (based on Ansys %s)" ansys_version
+  (message "ANSYS mode version: %s.%s (based on ANSYS %s)" ansys_version
 	   ansys_mode_version
 	   ansys_version))
 
 (defun ansys-reload-ansys-mode ()
-  "Reload the Ansys mayor mode.
+  "Reload the ANSYS mayor mode.
 Clear the mode definitions if active, load the necessary code and
 call `ansys-mode'."
   (interactive)
@@ -1788,7 +1788,7 @@ call `ansys-mode'."
       (unload-feature 'ansys-mode))
     (load-file "ansys-mode.el")
     (ansys-mode)
-    (message "Ansys mode reloaded.")))
+    (message "ANSYS mode reloaded.")))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -1850,7 +1850,7 @@ inserted or evaluated unless it is the SPC key."
     (point)))
 
 (defun ansys-close-block ()		;_C FIXME: choices for *IF
-  "Complete an Ansys block command with the appropriate end keyword.
+  "Complete an ANSYS block command with the appropriate end keyword.
 Insert the end keyword on a separate line.  An error is signaled
 if no block to close is found.  For example the *IF command
 represents only a proper block command when it is followed by a
@@ -1940,9 +1940,9 @@ current one."
       '(lambda () (delete-overlay ansys-help-overlay)))))))
 
 (defun ansys-show-command-parameters (&optional ask)
-  "Displays the Ansys command parameters help for the command near the cursor.
+  "Displays the ANSYS command parameters help for the command near the cursor.
 First it shows the parameters of the keyword and then a short
-explanation.  This is done for the previous Ansys command
+explanation.  This is done for the previous ANSYS command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the
 previous command is found.  With a prefix argument ASK inquire a
@@ -1971,7 +1971,7 @@ function or command name from the mini buffer."
       (error "\"%s\" not found in keyword list" str))))
 
 (defun ansys-check-capitalisation ( string)
-"Check case of Ansys keyword STRING.
+"Check case of ANSYS keyword STRING.
 Return symbols capitalise, upcase and downcase."
 (interactive)
 ;; preferences: downcase, capitalize, upcase
@@ -1982,18 +1982,18 @@ Return symbols capitalise, upcase and downcase."
  (t 'downcase)))
 
 (defun ansys-complete-symbol ()
-  "Perform a completion on Ansys keywords preceding the cursor.
-Complete the character(s) to Ansys's reserved words, functions
+  "Perform a completion on ANSYS keywords preceding the cursor.
+Complete the character(s) to ANSYS's reserved words, functions
 and element names, otherwise throw an error.  When the keyword or
-the completed character(s) represent a unique Ansys keyword
+the completed character(s) represent a unique ANSYS keyword
 indicate this fact with a message.  When the completion is not
 unique or only partial show the other possible completions in a
 temporary completion buffer, from which the completions might be
-chosen with the mouse.  You might remove the *Ansys completion*
+chosen with the mouse.  You might remove the *ANSYS completion*
 buffer with the SPACE key."
   ;; This code taken from lisp-complete-symbol
   (interactive "*")
-  (let* ((buffer-name "*Ansys-completion*")
+  (let* ((buffer-name "*ANSYS-completion*")
 	(completion-buffer (get-buffer-create buffer-name))
 	(completion-window (get-buffer-window completion-buffer))
 	)
@@ -2026,7 +2026,7 @@ buffer with the SPACE key."
 	(cond
 	 ;; completion not possible
 	 ((null completion)
-	  (message "\"%s\" can't be completed to an Ansys symbol"
+	  (message "\"%s\" can't be completed to an ANSYS symbol"
 		   completion-string)
 	  (if completion-window	;bury completion buffer
 	      (save-selected-window
@@ -2036,7 +2036,7 @@ buffer with the SPACE key."
 
 	 ;; unique and upcased like in the -completions variable
 	 ((equal completion t)
-	  (message "\"%s\" is a unique Ansys symbol."
+	  (message "\"%s\" is a unique ANSYS symbol."
 		   completion-string)
 	  (kill-buffer completion-buffer))
 
@@ -2050,7 +2050,7 @@ buffer with the SPACE key."
 	  ;; possibly move back into parens
 	  (skip-chars-backward ")" (1- (point)))
 	  (kill-buffer completion-buffer)
-	  (message "\"%s\" is a unique Ansys symbol." completion))
+	  (message "\"%s\" is a unique ANSYS symbol." completion))
 
 	 ;;maybe complete, but not uniquely completable
 	 (t
@@ -2064,10 +2064,10 @@ buffer with the SPACE key."
 	  (if (= (apply 'min (mapcar 'length completion-list))
 		 (length completion))
 	      (message
-	       (concat "Complete Ansys symbol.  Hit SPACE to remove the "
+	       (concat "Complete ANSYS symbol.  Hit SPACE to remove the "
 		       buffer-name " buffer."))
 	    (message
-	     (concat "Incomplete Ansys symbol.  Hit SPACE to remove the "
+	     (concat "Incomplete ANSYS symbol.  Hit SPACE to remove the "
 		     buffer-name " buffer.")))
 
 	  ;; mouse selections in the completion buffer?
@@ -2090,10 +2090,10 @@ buffer with the SPACE key."
 		      (listify-key-sequence key))))))))))
 
 ;; (defun ansys-complete-symbol ()
-;;   "Perform a completion on Ansys keywords preceding the cursor.
-;; Complete the character(s) to Ansys's reserved words, functions
+;;   "Perform a completion on ANSYS keywords preceding the cursor.
+;; Complete the character(s) to ANSYS's reserved words, functions
 ;; and element names, otherwise throw an error.  When the keyword or
-;; the completed character(s) represent a unique Ansys keyword
+;; the completed character(s) represent a unique ANSYS keyword
 ;; indicate this fact with a message. When the completion is not
 ;; unique or only partial show the other possible completions in a
 ;; temporary completion buffer, in which the completions might be
@@ -2101,7 +2101,7 @@ buffer with the SPACE key."
 ;; the SPACE key."
 ;;   ;; This code taken from lisp-complete-symbol
 ;;   (interactive "*")
-;;   (let* ((buffer-name "*Ansys-completions*")
+;;   (let* ((buffer-name "*ANSYS-completions*")
 ;; 	(completion-buffer (get-buffer-create buffer-name))
 ;; 	(completion-window (get-buffer-window completion-buffer))
 ;; 	)
@@ -2151,7 +2151,7 @@ buffer with the SPACE key."
 ;; 	       (let ((conf (current-window-configuration)))
 ;; 		 ;; Taken from comint.el
 ;; 		 ;(message "Making completion list...")
-;; 		 (with-output-to-temp-buffer "*Ansys-completions*"
+;; 		 (with-output-to-temp-buffer "*ANSYS-completions*"
 ;; 		   (display-completion-list
 ;; 		    completion-list completion-string))
 ;; 		 (message "Hit space to flush the completion buffer")
@@ -2176,7 +2176,7 @@ buffer with the SPACE key."
 ;;;; Electric characters & friends
 
 (defun ansys-reindent-then-newline-and-indent () ; (&ptional non-matching) ;FIXME: docu
-  "Reindent current Ansys line, insert newline, and indent the new line.
+  "Reindent current ANSYS line, insert newline, and indent the new line.
 If function `abbrev-mode' is on, expand the abbreviations first."
   (interactive "*") 			;* means signal error if read-only
   (expand-abbrev)
@@ -2191,7 +2191,7 @@ If function `abbrev-mode' is on, expand the abbreviations first."
   (indent-according-to-mode))
 
 (defun ansys-electric-space ()
-  "Insert a space in Ansys mode.
+  "Insert a space in ANSYS mode.
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `ansys-auto-indent-flag' is non-nil."
   (interactive "*")			;error if read only
@@ -2215,14 +2215,14 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 	 (self-insert-command 1))))
 
 (defun ansys-add-ansys-menu ()
-  "Add an \"Ansys\" entry to the Emacs menu bar."
+  "Add an \"ANSYS\" entry to the Emacs menu bar."
   (require 'easymenu)
   (easy-menu-define ansys-mode-menu-map ansys-mode-map
-    "Menu keymap for Ansys mode." ansys-mode-menu)
+    "Menu keymap for ANSYS mode." ansys-mode-menu)
   (easy-menu-add ansys-mode-menu-map ansys-mode-map))
 
 (defun ansys-calculate-indent ()   ;FIXME: comment, fixed goal column,
-  "Return appropriate indentation for current line as Ansys code.
+  "Return appropriate indentation for current line as ANSYS code.
 Returns an integer (the column to indent to) unless the line is a
 comment line with fixed goal column.  In that case, returns a list whose
 car is the column to indent to, and whose cdr is the current indentation
@@ -2273,7 +2273,7 @@ level."
 	 ((and (looking-at ansys-block-end-regexp)
 	       (ansys-not-in-string-or-comment-p))
 	  (setq column (- keyword_c ansys-block-offset)))
-	 ((and (looking-at ",")	   ;Ansys default command substitution
+	 ((and (looking-at ",")	   ;ANSYS default command substitution
 	       (ansys-not-in-string-or-comment-p)) ;FIXME:for *msg lines etc.?
 	  (if comma_c
 	      (setq column comma_c)
@@ -2291,7 +2291,7 @@ level."
     column))
 
 (defun ansys-indent-line-function (&optional arg)
-  "Indent current line in Ansys coding style.
+  "Indent current line in ANSYS coding style.
 With optional ARG, use this as offset unless this line is a
 comment with fixed goal column."
   (interactive "*p")
@@ -2310,11 +2310,11 @@ comment with fixed goal column."
 ;;;; Electric characters & friends
 
 (defun ansys-abbrev-start ()
-  "Start entering an Ansys abbreviation.
+  "Start entering an ANSYS abbreviation.
 If Abbrev mode is turned on, typing ` (grave accent) followed by ? or
-\\[help-command] lists all Ansys abbrevs.  Any other key combination is
+\\[help-command] lists all ANSYS abbrevs.  Any other key combination is
 executed normally.
-Note that all Ansys mode abbrevs start with a grave accent."
+Note that all ANSYS mode abbrevs start with a grave accent."
   (interactive)
 					;  (if (not abbrev-mode)			;FIXME: redundant with E22.?
 					;      (self-insert-command 1)
@@ -2343,8 +2343,8 @@ Note that all Ansys mode abbrevs start with a grave accent."
 
 
 (defun ansys-indent-format-line ()
-  "Break Ansys line at point, continuing comment if within one.
-If within code, insert the Ansys continuation character `&'
+  "Break ANSYS line at point, continuing comment if within one.
+If within code, insert the ANSYS continuation character `&'
 before breaking the line.  If within a string, signal an error.
 The new line is properly indented."
   (interactive "*")
@@ -2365,7 +2365,7 @@ The new line is properly indented."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-default-command-end ()	;NEW
-  "Move cursor to the end of an Ansys default command construct."
+  "Move cursor to the end of an ANSYS default command construct."
   (unless (ansys-default-command-p)
     (re-search-forward "^\\s-*,"))
   (while (ansys-default-command-p)
@@ -2398,7 +2398,7 @@ futher number line is in the file signal an error."
 
 (defun ansys-number-block-start()	;NEW
   "Move to the line beginning before a pure number block.
-For example an Ansys NBLOCK or EBLOCK typically found in
+For example an ANSYS NBLOCK or EBLOCK typically found in
 WorkBench APDL files.  If there is no code before a number block,
 signal an error."
   (interactive)
@@ -2411,7 +2411,7 @@ signal an error."
 
 (defun ansys-number-block-end()		;NEW
   "Move to the end of a pure number block.
-For example an Ansys NBLOCK or EBLOCK typically found in
+For example an ANSYS NBLOCK or EBLOCK typically found in
 WorkBench APDL files."
   (interactive)
   (when (or (ansys-at-end-of-text-p)
@@ -2423,7 +2423,7 @@ WorkBench APDL files."
   (end-of-line))
 
 (defun ansys-next-code-line (&optional arg)
-  "Move ARG lines of Ansys code forward, default for ARG is 1.
+  "Move ARG lines of ANSYS code forward, default for ARG is 1.
 Skips past intermediate comment and empty lines."
   (interactive "p")
   (unless arg (setq arg 1))
@@ -2448,7 +2448,7 @@ Skips past intermediate comment and empty lines."
 	 )))
 
 (defun ansys-previous-code-line (&optional num)
-  "Move NUM lines of Ansys code backward, default for NUM is 1.
+  "Move NUM lines of ANSYS code backward, default for NUM is 1.
 Skips before all empty - and comment lines and return the
 difference between NUM and actually moved code lines."
   (interactive "p")
@@ -2500,7 +2500,7 @@ previous command or to the first line if no previous command is
 there.  When on a condensed input line, go to previous `$'
 statement or to the line's first command.  When in a format
 command string move backward to the beginning of the respective
-command.  When no Ansys command is to be found signal an error.
+command.  When no ANSYS command is to be found signal an error.
 When NUM is 0 move to the current code line indentation."
   (interactive "p")
   (unless num (setq num 1))
@@ -2538,7 +2538,7 @@ When NUM is 0 move to the current code line indentation."
       (setq num (1- num))))))
 
 (defun ansys-command-end (&optional num) ;_C
-  "Move to the end of the NUMth next Ansys command or assignment statement.
+  "Move to the end of the NUMth next ANSYS command or assignment statement.
 Default for NUM is 1.  If in a comment or empty line, go to the
 next command or to the last line if no following command is
 there.  When on a condensed input line, go to the end of the next
@@ -2584,7 +2584,7 @@ then skip to the next code line's end."
       (setq num (1- num))))))
 
 (defun ansys-scan-blocks (count level-offset)
-  "Scan from (point) COUNT balanced Ansys begin-end blocks.
+  "Scan from (point) COUNT balanced ANSYS begin-end blocks.
 Return the position thus found.  COUNT may be negative.
 
 If LEVEL-OFFSET is nonzero, the block level gets an offset of
@@ -2650,7 +2650,7 @@ backward across |ARG| blocks."
 		   (message "No %d block start(s) before cursor position" arg)))))
 
 (defun ansys-skip-block-backwards (&optional arg)
-  "Move backward across one balanced Ansys begin-end block.
+  "Move backward across one balanced ANSYS begin-end block.
 With argument, do it that many times.
 Negative ARG means move forward across |ARG| blocks."
   (interactive "p")
@@ -2711,7 +2711,7 @@ or conditional or looping construct."
     (goto-char c)))
 
 (defun ansys-down-block (&optional down-level)
-  "Move forward down one begin-end block level of Ansys code.
+  "Move forward down one begin-end block level of ANSYS code.
 Position cursor behind the beginning keyword of the respective
 block.  With argument DOWN-LEVEL, do this for that many levels.
 A negative argument means move backwards up DOWN-LEVEL
@@ -2725,7 +2725,7 @@ levels (see `ansys-up-block')."
       (setq down-level (- down-level inc)))))
 
 (defun ansys-up-block (&optional depth)
-  "Move backwards up one begin-end block level of Ansys code.
+  "Move backwards up one begin-end block level of ANSYS code.
 Position cursor before the beginning keyword of the respective
 block.  With argument DEPTH, do this for that many levels.  A
 negative argument DEPTH means move forward down DEPTH levels (see
@@ -2735,8 +2735,8 @@ negative argument DEPTH means move forward down DEPTH levels (see
   (ansys-down-block (- depth)))
 
 (defun ansys-blink-matching-block ()
-  "Blink the matching Ansys begin block keyword.
-If point is right after an Ansys else or end type block keyword,
+  "Blink the matching ANSYS begin block keyword.
+If point is right after an ANSYS else or end type block keyword,
 move cursor momentarily to the corresponding begin keyword.
 Signal an error if the keywords are incompatible."
   (interactive)
@@ -2809,7 +2809,7 @@ Signal an error if the keywords are incompatible."
 
 
 (defun ansys-submit-bug-report ()	;from Octave
-  "Open an Emacs mail buffer with an Ansys mode bug report."
+  "Open an Emacs mail buffer with an ANSYS mode bug report."
   (interactive)
   (require 'reporter)
   (let (salutation
@@ -2822,7 +2822,7 @@ Signal an error if the keywords are incompatible."
   would be advantageous.")
       (reporter-submit-bug-report
        ansys-maintainer-address
-       "Ansys mode"		  ;becomes prefix for the subject line
+       "ANSYS mode"		  ;becomes prefix for the subject line
        (list
 	;; constants
 	'ansys_version
@@ -2864,7 +2864,7 @@ Signal an error if the keywords are incompatible."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ---- Restrictions ----
-;; Variables or 'parameters' in Ansys parlance:
+;; Variables or 'parameters' in ANSYS parlance:
 ;; 1.) Begin with a letter
 ;; 2.) Contain only letters, numbers and the underscore '_'
 ;; 3.) Have no more than 32 characters
@@ -2902,7 +2902,7 @@ Added pseudo arguments A B C."
 
   (save-excursion
     (save-match-data
-      (let (res var com)	; Start with Ansys *USE vars
+      (let (res var com)	; Start with ANSYS *USE vars
 	(setq ansys-user-variables ())
 
 	(dolist (command ansys-variable-defining-commands)
@@ -2923,7 +2923,7 @@ Added pseudo arguments A B C."
 ;			   (match-beginning 1)
 			   (list var (line-number-at-pos))))))
 
- 	;; Ansys = assignment
+ 	;; ANSYS = assignment
 	(goto-char (point-min))
  	(while (re-search-forward
 		;; search for reserved variables as well
@@ -3004,7 +3004,7 @@ C-u \\[goto-line] takes the nnumber automatically)."
   (interactive)
   (ansys-find-user-variables)
   (let* ((current-buffer (buffer-name))
-	 (buffer-name "*Ansys-variables*")
+	 (buffer-name "*ANSYS-variables*")
 	 (variable-buffer (get-buffer-create buffer-name))
 	 str old-num com
 	 (num 0))
@@ -3034,9 +3034,9 @@ C-u \\[goto-line] takes the nnumber automatically)."
     (display-buffer buffer-name 'other-window)))
 
 (defun ansys-customise-ansys ()		;NEW_C
-  "Call the Emacs customisation facility for Ansys mode."
+  "Call the Emacs customisation facility for ANSYS mode."
   (interactive)
-  (customize-group "Ansys"))
+  (customize-group "ANSYS"))
 
 (defun ansys-delete-other-window (&optional win) ;NEW_C
   "Delete the other, not selected Emacs window.

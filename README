@@ -121,7 +121,7 @@ a certain code template, respectively.
 
 * Added a (customisable) variable `ansys-no-of-processors' and
   function with the same name for specifying the number of processors
-  for an Ansys multiprocessor run
+  for an ANSYS multiprocessor run
 
 * Extended mode commands, templates and removed typos mainly in
   ansys-template.el. For example added all *get functions in the
@@ -160,12 +160,13 @@ remove the .elc files.)
 
 Auxiliaries:
 * README -- this file
-* NEWS -- and history
+* NEWS -- news and history
 * TODO -- todos and deficiencies
 * LICENSE -- the GPL (Gnu Puplic License) Version 3
-* default_el -- configuration examples (of an Emacs 'default.el')
-* fontification.mac -- highlighting APDL example
-* ansys-mode_tutorial.pdf -- A tutorial
+* default_el -- configuration example file of an Emacs 'default.el'
+* fontification.mac -- APDL syntax highlighting example
+* ansys-mode_tutorial.pdf -- An introductory tutorial
+* APDL_tutorial.mac -- An APDL hacking tutorial
 
 === Short instructions ===
 
@@ -186,7 +187,7 @@ ANSYS-Mode is now immediately available, by opening (check out the
 
 Most functionalities should work but if you have not installed ANSYS
 in its default installation directory on drive `C:Program Files' on
-Win64 and you want to start for example 'anslic_admin' or the Ansys
+Win64 and you want to start for example 'anslic_admin' or the ANSYS
 help browser directly from Emacs please adjust the configuration file
 `default.el' file in Emacs' `site-lisp' directory according to the
 commented code examples.
@@ -337,7 +338,7 @@ globally:
 * Activated Show Paren Mode (show-paren-mode t)
 * Advised M-w (kill-ring-save) without active region to copy the whole line
 
-(Delete Selection Mode can be switched off in the ANSYS menu.)
+(Delete Selection Mode can be switched off in the ANSYS-Mode menu.)
 
 locally:
 * (setq scroll-preserve-screen-position t)

@@ -114,4 +114,4 @@ TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
 
 .PHONEY : TAG
 TAG :
-	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/beta1-14.0.1 -m "tagging beta1-14.0.1"
+	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.0.1 -m "tagging 14.0.1"

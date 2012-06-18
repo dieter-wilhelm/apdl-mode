@@ -28,7 +28,7 @@
    This [[http://code.google.com/p/ansys-mode/][project]] strives to improve your workflows with the FEA (Finite
    Element Analysis) suite [[http://www.ansys.com][ANSYS]]\texttrademark  (ANalysis SYStem).
 #+LaTeX: \\[.2cm]
-   It provides *ANSYS-Mode*, an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
+   It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
    navigating, inspecting and writing APDL (ANSYS Parametric Design
    Language) files.  The mode offers also managing and communication
    capabilities for ANSYS processes, like interactive code debugging
@@ -219,7 +219,7 @@
 #   ,angle=90
    [[./gnu_emacs.png]]
 
-*** Thank you for your attention!
+*** Thank you for your time getting acquainted with ANSYS-Mode!
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: <2>

@@ -33,6 +33,47 @@
 
 !!  insert -structural-template
 
+!@ --- file header ---
+!! ------------------------------
+!! Time-stamp: <Mon Jun 18 18:03:45 2012>
+!! ANSYS VERSION: 140
+!! UNITS: mm-t-s
+!! NOTE: bla
+!! ------------------------------
+! fini
+! /clear
+! y
+/units,mpa !indicate mm-t-s unit system
+!@ --- Preprocessing ---
+/prep7
+!@@ -- Elements --
+Steel =
+Steel = 1
+ID = Steel
+real = Steel
+et,ID,solid186 !3d, 20 node
+!@@ -- Material --
+mp,nuxy,Steel,0.3 ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+!@@ -- Modeling --
+block,0,1,0,1,0,1
+vplot
+!@@ -- Meshing --
+vmesh,all
+eplot
+!@@ -- BCs, Loads --
+nsel,s,loc,x,0
+d,all,all
+nsel,s,loc,x,1
+d,all,uy,-.1
+allsel
+save
+!@ --- Solving ---
+/solu
+solve
+!@ --- Postprocessing --
+/post1
+plnsol,u,sum
 
 
 !! convenience features? C-c C-v (not with big 60 MB files)

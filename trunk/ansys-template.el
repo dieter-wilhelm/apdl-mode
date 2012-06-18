@@ -1,4 +1,4 @@
-;;; ansys-template.el -- APDL code templates for the Ansys mode
+;;; ansys-template.el -- APDL code templates for the ANSYS mode
 
 ;; Copyright (C) 2006 - 20011  H. Dieter Wilhelm GPL V3
 
@@ -43,7 +43,7 @@ instead of previewing it in a separate window."
   (interactive "P")
   (let* (
 	 (old-buffer (buffer-name))
-	 (new-buffer-name "*Ansys-skeleton*")
+	 (new-buffer-name "*ANSYS-skeleton*")
 	 (skeleton-buffer
 	  (get-buffer-create new-buffer-name))
 	 s
@@ -72,7 +72,7 @@ instead of previewing it in a separate window."
 	   (unless  (eq major-mode 'ansys-mode)
 	     (ansys-mode))
 	   (setq s (propertize
-		    (concat "-*- Ansys template: "
+		    (concat "-*- ANSYS template: "
 			    skel " -*-\n") 'face 'match))
 	   (overlay-put ansys-skeleton-overlay 'before-string s)
 	   (set-buffer-modified-p nil)
@@ -380,7 +380,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off Ansys logo" \n
+  "/plopts,logo,off !switch off ANSYS logo" \n
   "/triad,rbot"_ \n
   "/triad,off"
   \n
@@ -446,9 +446,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- contact options --"\n
   "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!! " \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY Ansys version < 12.0!)" \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY ANSYS version < 12.0!)" \n
   "rmod,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
-  "rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
+  "rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for ANSYS!!!" \n
   \n
   "Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
   "rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
@@ -577,7 +577,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off Ansys logo" \n
+  "/plopts,logo,off !switch off ANSYS logo" \n
   "/triad,rbot"_ \n
   "/triad,off"
   \n
@@ -596,7 +596,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,off !switch off wp" \n
   "/triad,off !off: switch off co-ordinate triad, rbot, ltop, ..." \n
   "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off Ansys logo" \n
+  "/plopts,logo,off !switch off ANSYS logo" \n
   "wpstyl,,,,,,1 !type spec 0,1,2 cartesian,cylindrical,spherical" \n
   "wpstyl,,,,,,,0 !grid spec: 0 grid+triad,1 grid,2 [triad]" \n
   "!wpstyl,stat" \n
@@ -1761,7 +1761,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 ;; TODO: warning dated
 (define-skeleton ansys-skeleton		;NEW
-  "Insert full framework of an Ansys APDL file."
+  "Insert full framework of an ANSYS APDL file."
   "Insert brief purpose of file: "
   "!" ansys-outline-string " ********* first line ***************\n"
   "!! FILENAME: " (buffer-file-name) \n
@@ -1770,10 +1770,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! DESCRIPTION: " str \n
   "!! ------------------------------" \n
   "!! COMMENTARY: User parameters start in upper case." \n
-  "!!  Ansys command names may be ommitted (defaulting to the" \n
+  "!!  ANSYS command names may be ommitted (defaulting to the" \n
   "!!  previous command, except slash and asterisk commands)." \n
   "!! WARNING: Variables starting with an underscore are reserved"  \n
-  "!!  (for  components and Ansys furnished macros, like" \n
+  "!!  (for  components and ANSYS furnished macros, like" \n
   "!!  the %_FIX% table name for current displacement values or" \n
   "!!  the _RETURN and _STATUS variable (_STATUS: 0 no error, 1" \n
   "!!  note, 2 warning, 3 error)!" \n \n
@@ -1796,7 +1796,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/triad,rbot" \n
   "!! /output, !change solver output file" \n
   "!! /input," \n
-  "/filname," (setq ansys-job (skeleton-read "Ansys jobname: " "file")) \n
+  "/filname," (setq ansys-job (skeleton-read "ANSYS jobname: " "file")) \n
   \n
   "!! ==============================" \n
   "!" ansys-outline-string " --- Preprocessing --- " \n
@@ -1874,7 +1874,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
   "!! rmod,Contact,10,0. !CNOF:contact surface offset" \n
   "!! mp,mu,Contact,0.4 !friction factor" \n
-  "!! rmod,Contact,12,0. ! FKT:tangent stiffness factor (corresp. to FKN),0:means 1 for Ansys!!!" \n
+  "!! rmod,Contact,12,0. ! FKT:tangent stiffness factor (corresp. to FKN),0:means 1 for ANSYS!!!" \n
   \n
   "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Geometry ---" \n
   \n

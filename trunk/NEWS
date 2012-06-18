@@ -1,8 +1,10 @@
+(the formatting is targeted for the Emacs Wiki)
+
 == News and History ==
 
 Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
-=== Version 14.0.1 ===
+=== Version 14.0.1 June 2012 ===
 
 * Included some tutorial slides for ANSYS-Mode:
   ansys-mode_tutorial.pdf
@@ -30,7 +32,7 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   not 140, see the example config file default_el) and maybe
   additionally the installation directory (ansys-install-directory).
 
-=== Version 13.0.1 ===
+=== Version 13.0.1 March 2011 ===
 
 * Added support for aligning whole sections of Ansys variable
   definitions, both in the Ansys menu and as a keyboard shortcut 'C-c
@@ -52,7 +54,7 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 * Updated keyword list, deprecated elements, undocumented commands,
   etc. to release 13.0 of Ansys, as usual.
 
-=== Version 12.0.1 ===
+=== Version 12.0.1 Dec 2010 ===
 
 * Some new graphics commands like ansys-zoom-in, -zoom-out,
   -move-left, -right, -up, -down, etc.
@@ -102,7 +104,7 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 * Ansys mode changes some Emacs default behaviour to smooth the
   transition from other editors
 
-=== Version 11.0.2 ===
+=== Version 11.0.2 Nov 2009 ===
 
 * Enabled the preview of code templates or fragments (called
   skeletons in this mode, please inspect `ansys-display-skeleton').

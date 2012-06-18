@@ -35,7 +35,7 @@ EL_FILES := ansys-mode.el ansys-keyword.el \
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := LICENSE README TODO NEWS fontification.mac default_el ansys-mode_tutorial.pdf
+FILES := LICENSE README TODO NEWS fontification.mac default_el ansys-mode_tutorial.pdf APDL_tutorial.mac
 
 PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 

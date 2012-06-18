@@ -15,7 +15,8 @@
 !! APDL viewer
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!! Interesting also WB users: true understanding!
+!! Interesting even for pure WB users: true understanding with input
+!! files!
 
 !! drag and drop: finite_field60.dat (M-n/p does not work in element
 !!  numbered eblocks, nblocks!)
@@ -26,52 +27,13 @@
 
 !!  navigation (number blocks in .dat files) C-c {
 
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! -- APDL hacking(.mac)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!!  insert structural-template
+!!  insert -structural-template
 
 
-!@ --- file header ---
-!! ------------------------------
-!! Time-stamp: <Fri Jun 15 20:09:28 2012>
-!! ANSYS VERSION: 130
-!! UNITS: mm-t-s
-!! NOTE: bla
-!! ------------------------------
-! fini
-! /clear
-! y
-/units,mpa !indicate mm-t-s unit system
-!@ --- Preprocessing ---
-/prep7
-!@@ -- Elements --
-Steel = 1
-ID = Steel
-real = Steel
-et,ID,solid186 !3d, 20 node
-!@@ -- Material --
-mp,nuxy,Steel,0.3 ! Poisson No
-mp,ex,Steel,200000 ! Elastic modulus
-!@@ -- Modeling --
-block,0,1,0,1,0,1
-!@@ -- Meshing --
-vmesh,all
-!@@ -- BCs, Loads --
-nsel,s,loc,x,0
-d,all,all
-nsel,s,loc,x,1
-d,all,uy,-.1
-allsel
-save
-!@ --- Solving ---
-/solu
-solve
-!@ --- Postprocessing --
-/post1
-plnsol,u,sum,2
 
 !! convenience features? C-c C-v (not with big 60 MB files)
 

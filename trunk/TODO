@@ -26,7 +26,7 @@
   - Navigation :: M-n/p does not work from n-/eblocks (aternative to
                   C-c {/})
   - Skeleton :: Mouse selection of -structural-template does not work
-                (because of user text input)
+                (because of stipulated user text input from this skeleton)
 
 *  v14.0.1:
    check -license-file var

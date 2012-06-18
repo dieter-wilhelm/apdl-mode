@@ -1,6 +1,20 @@
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! Tutorial
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!! How ANSYS-Mode improving some workflow with ANSYS
+
+!! Two parts: Run through some documentation then hands-on presentation
+
+!! Simple download, installation (no admin rights), no configuration
+!! (for Win64, but most things should run anyway)
+
+!! Practically no license restrictions for commercial use
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! APDL viewer
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 !! Interesting also WB users: true understanding!
 
 !! drag and drop: finite_field60.dat (M-n/p does not work in element

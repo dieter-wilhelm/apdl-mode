@@ -155,7 +155,7 @@ Sources:
 * ansys-process.el
 
 (and possibly their compiled versions with the suffix '.elc'.  In case
-you are using the mode with an older version of Emacs than 23 please
+you are using the mode with an older version of Emacs than 24 please
 remove the .elc files.)
 
 Auxiliaries:

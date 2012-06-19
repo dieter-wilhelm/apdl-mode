@@ -1,14 +1,15 @@
 This is the text of the ANSYS-Mode README file (the formatting is
-targeted for the Emacs Wiki)
+targeted for the EmacsWiki)
 
 Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 == Introduction ==
 
 This [http://code.google.com/p/ansys-mode/ project] supports working
-with the FEA (Finite Element Analysis) suite [http://www.ansys.com ANSYS].
+with the FEA (Finite Element Analysis) suite [http://www.ansys.com
+ANSYS] (ANalysis SYStem).
 
-It provides *ANSYS-Mode*, an add-on to the
+It provides 'ANSYS-Mode', an add-on to the
 [http://www.gnu.org/software/emacs/ Gnu Emacs] editor for navigating,
 inspecting and writing APDL files.  The mode offers managing and
 communication capabilities for ANSYS processes, like interactive code
@@ -17,19 +18,21 @@ etc. Some features are quite sophisticated but the overall
 documentation is targeted for ANSYS users with little Emacs
 experience.
 
-[http://www.gnu.org/home.en.html Gnu] Emacs is an up-to-date,
-powerful, yet free editor which is available for any operating system
-where ANSYS is running.
+[http://www.gnu.org/home.en.html Gnu] Emacs (Gnu's Not Unix) is an
+up-to-date, powerful, yet free editor which is available for any
+operating system where ANSYS is running.
 
-The current stable version (14.0.1) of ANSYS-Mode is available at
-[http://code.google.com/p/ansys-mode Google's Code site] (or paste
-"wget
+The current stable version (14.0.1) of ANSYS-Mode is available at the
+[http://code.google.com/p/ansys-mode Google Code site] (or paste "wget
 http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz"
-to the console).  You will find at the download section a tutorial in
-PDF as well, or check out the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html online version] of it.
+to the console).  You will find in this archive two tutorials, one
+called APDL_tutorial.mac and the other is an introductory presentation
+in PDF.  The presentation is also to be found in the download section
+of Google Code or go to the
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html
+online version] of it.
 
-Please report bugs! You can do this at Google Code's
+Please report bugs! Write an email or use Google Code's
 [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==

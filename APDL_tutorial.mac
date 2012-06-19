@@ -31,15 +31,17 @@
 			   !! APDL hacking
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-!!  insert -structural-template
+!!  insert below this line the skeleton (C-u C-c C-s)  -structural-template
 
 
 
-!! convenience features? C-c C-v (not with big 60 MB files)
+!! convenience features? C-c C-v (not with big, 60 MB, files ;-)
 
-!! C-c C-u, C-c C-c
+!! -copy-above C-c C-u, copy line or marked region C-c C-c
 
 !!  M-;  commenting out
+
+
 
 !!    Emacs-calc
 !!    Ansys symbol completion and emacs expansion C-c ] -- -close-block

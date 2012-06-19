@@ -36,7 +36,7 @@
    Some features are quite sophisticated but its documentation is
    targeted for ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
-   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu is Not Unix) is an up-to-date, powerful, yet free
+   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful, yet free
    editor which is available for any operating system where ANSYS is
    running.
 

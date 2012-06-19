@@ -1,0 +1,224 @@
+#+TITLE:     APDL_tutorial.org
+#+AUTHOR:    H. Dieter Wilhelm
+#+EMAIL:     dieter@duenenhof-wilhelm.de
+#+DATE:      2012-06-19 Tue
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+##+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP:   
+#+LINK_HOME: 
+#+XSLT:
+#+PROPERTY: tangle yes
+
+* Introductory tutorial ansys-mode_tutorial.pdf
+** ANSYS-Mode improving some workflow with ANSYS
+** Two parts: Run through some documentation then hands-on presentation
+** Simple download, installation (no admin rights), no configuration
+   (for Win64, but most things should run anyway)
+** Practically no license restrictions for commercial use
+* APDL viewer
+!! Interesting even for pure WB users: true understanding with input
+!! files!
+
+!! drag and drop: finite_field60.dat (M-n/p does not work in element
+!!  numbered eblocks, nblocks!)
+
+!!  command-help from menu
+
+!!  -start-ansys-help from menu
+
+!!  navigation (number blocks in .dat files) C-c {
+
+* APDL hacking
+#+begin_src ansys 
+  ! insert here below this line the skeleton (C-u C-c C-s)  -structural-template
+  /com, I think this is great :-)
+#+end_src
+
+
+
+
+!! convenience features? C-c C-v (not with big, 60 MB, files ;-)
+
+!! -copy-above C-c C-u, copy line or marked region C-c C-c
+
+!!  M-;  commenting out
+
+
+
+!!    Emacs-calc
+!!    Ansys symbol completion and emacs expansion C-c ] -- -close-block
+!!    M-/, M-x abbrev-mode (list-abbrevs 1) display locally
+!!    default (,) commands but most */ can't be "*repeated"
+!!    C-c %,',M-"
+!!    M-w (copies line)
+!!    colon loop: e.g.: lfillt,(1:3),(2:4),Rad, lesize,(1:5:2),Esize
+!!    _return & _status values
+!!    preview C-c C-s (completion), insert skeletons
+!!    (alternatively abbrev mode?)
+!!    display user variables
+!!    *go not for interactive mode! -> *if *else *endif
+!!    selecting blocks C-M-a/b setting mark!
+!!    loading help navigator
+!!    display license status	-license-status C-c C-l
+
+
+!!    mouse selection ->copy to clipboard
+!! 0.) mouse selection does not work under Windows mouse-drag-copy-region!
+!! mouse copy on Windows the same on Linux only if (setq mouse-drag-copy-region t)
+
+
+fini $ /clear
+/prep7
+*afun,deg
+Pi = acos(-1)
+*afun,rad
+Pi = acos(-1)
+x = 3.4 !lsk
+y = .8	!ach
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! --- alignment ---
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! place the cursor on the following paragraph and type C-c a
+x=0.4!laskd
+y= 33.0	    ! alskdl
+xzv= 9999990.3	    !!
+llk = 0.333333333 !bla
+al_=  00.40
+aslföas = 304
+ka= .4	    !salkd
+i = 4.		    !as
+kasd=.3/0.4
+kasd =3./0.4
+xxx =asin(3.0)
+y = cos(i)
+
+!case sensitive completion
+!Pi = ac
+
+!Emacs calc
+Pi =
+
+
+!! abbrev `p
+p
+
+*!completion ESC Tab under Windows!
+
+!dynamic completion
+very_long_Variable = 3
+vlV = 8
+v
+
+XX=55			 !C-c %
+/com,this is %XX% XX
+
+!closing of blocks, dynamic variable fontification
+
+I 
+!(progn (setq ansys-highlighting-level 1 ansys-dynamic-highlighting-flag nil) (ansys-mode))
+!(progn (setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t) (ansys-mode))
+*if,I,eq,1,then
+  c*** otto
+*elseif,I,le,10
+  /com,help me
+*else
+  /title,well well
+  
+!commenting out, code comments M-j
+!Marking blocks: C-M-h  
+
+!abbrev `d do i if
+
+d
+ 
+!C-c C-c, C-w copying lines, condensed input, default command
+x2 = 1 $ y2 = 1 $ z2 = 1
+immed,on
+block,,x2,,y2,,z2
+,x2,2*x2,,2*y2,,2*z2
+	   
+!mouse completion of vglue
+vg
+
+/pnum,line,1 $ lplo
+
+!materials & deprecated elements
+et,10,solid46
+
+!C-c C-u  copy above 
+
+!meshing, colon loops, repeating
+lesi,(:)
+*repeat,2
+
+!bc
+!solution 
+!post 1 
+
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+		      !! hardcore APDL on linux
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+!!    switch off menu, tools, scroll-bar
+!!    Ansys mode help: C-h m, selfdocumenting features
+!!    online Ansys/Emacs process and debugging environment
+!!    interactive C-c C-u, C-c C-c,  C-c C-q
+!!    tail mode of *.err C-c C-e
+!!    abort file
+!!    positions -> in bookmarks/registers/clone buffer?
+!!    C-c @ outline stuff with indirect-buffer
+!!    Dired (textual renaming), speedbar, calendar
+!!    loading time: emacsclient alias "e"
+!!    shell-, config-mode, emacsclient, terminal-, ssh-support
+!!    C-S-backspace, basically the same keyboard shortcuts like bash
+!! switch off menu, tools, scroll-bar
+!! Ansys mode help: C-h m, selfdocumenting features
+!! calc: linear interpolation: a p [[x1,x2,..][y1,y2,...]] x
+!! online Ansys/Emacs process and debugging environment
+!! C-c C-u, C-c C-c,  C-c C-q
+!! tail mode of *.err C-c C-e
+!! abort file
+!! positions -> in bookmarks/registers/clone buffer?
+!! C-c @ outline stuff with indirect-buffer
+!! image Dired (textual renaming), speedbar, calendar
+!! shell-, config-mode, emacsclient, terminal-, ssh-support
+!! C-S-backspace
+   
+!! Conclusion/Summary?
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+
+!! -- Very brief introduction: Emacs, why not?  Gnu Puplic Licens ->
+!!    Free, working on all current OSs.  All bells and whistle of a
+!!    modern editor (drop file into E), excellent documentation.  Chosen
+!!    because with Vim, Emacs is the best editor of all, but - especially
+!!    on Windows - programmed before Microsoft was even founded.
+!!    Drawbacks of Emacs, not adhering to established user interface
+!!    standards example: e. g. scroll-bar default location on linux on
+!!    the left,
+
+!!    Splitting windows (no tab concept for buffers)
+
+!!    TAB, M-TAB keys, C-s, C-c, C-v, C-x, C-y, C-z CUA-mode examples:
+!!    (setq scroll-preserve-screen-position t) (delete-selection-mode t)
+!!    Workaround: use in the beginning mouse and buttons.
+   
+!!    convenient pre-configured emacs archive with Ansys mode.
+
+!! Embeded calc
+
+0.416195720427
+
+2 x => 2 x

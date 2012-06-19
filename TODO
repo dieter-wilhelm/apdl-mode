@@ -69,6 +69,8 @@
      conditional of the Ansys version >= 120, check HPC support!
 
 ** Bugs
+    - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
     - Help, M-? does not :
       + *mwrite
       + *cfclos

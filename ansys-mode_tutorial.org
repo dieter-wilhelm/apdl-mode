@@ -30,7 +30,7 @@
    Element Analysis) suite [[http://www.ansys.com][ANSYS]] (registered TM, ANalysis SYStem).
 #+LaTeX: \\[.2cm]
    It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
-   navigating, inspecting and writing APDL (ANSYS Parametric Design
+   navigating, inspecting and writing APDL (Ansys Parametric Design
    Language) files.  The mode offers also managing and communication
    capabilities for ANSYS processes, like interactive code debugging
    with the ANSYS solver or listing the current license status, etc.

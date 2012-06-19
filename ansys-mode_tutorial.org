@@ -14,6 +14,7 @@
 ##+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
 #+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=5cm]{./ansys+emacs.png}}
+#+LATEX_HEADER: \usepackage{textcomp}
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
@@ -26,7 +27,7 @@
 ** GNU Emacs editor support for working with ANSYS FEA
 
    This [[http://code.google.com/p/ansys-mode/][project]] strives to improve your workflows with the FEA (Finite
-   Element Analysis) suite [[http://www.ansys.com][ANSYS]]\texttrademark  (ANalysis SYStem).
+   Element Analysis) suite [[http://www.ansys.com][ANSYS]] (registered TM, ANalysis SYStem).
 #+LaTeX: \\[.2cm]
    It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
    navigating, inspecting and writing APDL (ANSYS Parametric Design
@@ -143,8 +144,8 @@
 
 ** Get to know Emacs and check out its tutorial
   Newcomers to Emacs should take the guided [[http://www.gnu.org/software/emacs/tour/][online tour]] to get a
-  background of its capabilities and start the interactive tutorial (*C-h t*)
-  which is translated to various languages.
+  background of its capabilities and fire up the interactive tutorial
+  (*C-h t*) which is translated to various languages.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./emacs_tutorial.png]]
@@ -160,25 +161,26 @@
 ** Read further ANSYS-Mode documentation
 
 *** Installation:
-    For detailed instructions - necessary if you are not using the
-    pre-configured mode - please have a look in the /README/ file,
-    which is included in the mode's archive. For an online version of
-    it see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at the EmacsWiki.
+    More detailed instructions are necessary if you are not using the
+    pre-configured and bundled mode.  Please have a look in the
+    /README/ file, which is included in the mode's archive. For an
+    online version of it see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at the EmacsWiki.
     
 *** News and project history:
     They are placed in the mode's accompanying /NEWS/ file
 
 *** Licensing and costs:
-    This is free software, there are no costs and effectively no
+    This is free and open software, there are no costs and effectively no
     restrictions for you using Emacs and ANSYS-Mode also commerically.
-    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (GNU Puplic License), see also the
+    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License), see also the
     /LICENSE/ file.
     
 * Configuration
 
 ** Configure ANSYS-Mode
-    If you need an in-depth configuration use either:
-*** The well commented configuration file /default.el/
+    The mode comes pre-configured for a default installation of
+    ANSYS V14 for 64 bit.  If a functionality is missing please adjust either:
+*** The well commented configuration file /default.el/...
 
           :PROPERTIES:
           :BEAMER_env: block
@@ -188,8 +190,8 @@
 #+ATTR_LaTeX: width=5.5cm
   [[./default_el.png]]
 
- After changing the file you should restart Emacs. 
-*** The interactive customisation system
+  ... and restart Emacs. 
+*** The user options with Emacs' customisation system
           :PROPERTIES:
           :BEAMER_env: block
           :BEAMER_envargs: <2->
@@ -201,9 +203,9 @@
 * Help
 ** Search for help, report bugs and issues
   Have a look in the section 'Issues and bug reports'
-  at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].  Please use the
-  ANSYS-Mode bug report functionality (*C-c C-b*), which provides useful
-  information.
+  at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].
+  Please use the ANSYS-Mode bug report functionality (*C-c C-b*),
+  which provides useful information.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./bug_report.png]]

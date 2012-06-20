@@ -783,10 +783,12 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-function
   "Standard FORTRAN and get functions"
   nil
+  "!@ --- Parameteric functions ---" \n
   "A = ABS()"  \n
   "A = SIGN()  !sign(x,y) absolute value of x with sign of y)" \n
   "A = EXP()   !exp(x): e^x" \n
-  "A = x**y    !exponentiation x**y: x^y" \n
+  "X = 2 $ Y = 1/3" \n
+  "A = X**Y    !exponentiation x**y: x^y" \n
   "A = LOG()"  \n
   "A = LOG10()"\n
   "A = SQRT()" \n
@@ -806,7 +808,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = ATAN()" \n
   "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
   \n
-  "!! --- get functions ---" \n
+  "!@ --- get functions ---" \n
   "! -- selections -- " \n
   "NSEL(N) ! Status of node N: -1=unselected, 0=undefined, 1=selected." \n
   "ESEL(E) ! Status of element E: -1=unselected, 0=undefined, 1=selected." \n

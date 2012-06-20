@@ -36,9 +36,9 @@
    quite sophisticated but its documentation is targeted for ANSYS
    users with little Emacs experience.
 #+LaTeX: \\[.2cm]
-   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful, yet free
-   editor which is available for any operating system where ANSYS is
-   running.
+   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful, extensible,
+   yet free editor which is available for any operating system where
+   ANSYS is running.
 
 #+LaTeX: \\[.5cm]
    In the following *C-c* or *M-c* means typing the *CTRL* or *ALT*
@@ -91,8 +91,8 @@
   [[./parameter_help.png]]
   
 ** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window (see below) of your variables
-  definitions in the current APDL file.
+  Type *C-c C-v* to receive a summary window (see below) of your
+  variables definitions (also implicit) in the current APDL file.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./variable_buffer.png]]
@@ -109,7 +109,7 @@
 #+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]
 
-** Preview APDL code templates
+** Preview the extensible APDL code templates
    Besides your regular APDL file you are able to inspect and insert
    interesting code snippets from a preview window (see below).
 
@@ -119,6 +119,13 @@
 ** Align your variable assignments
   Move the cursor to a variable definition paragraph or mark (here in
   yellow) some definitions and type *C-c C-a* to structure them.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./alignment.png]]
+
+** Completion of around 2000 ANSYS symbols
+  Move the cursor behind a character or word fragment and type *M-TAB*
+  (or *ESC TAB* on Windows).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]

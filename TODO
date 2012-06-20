@@ -4,12 +4,12 @@
     + clearing of variables and
     + usage of variables before their definitions (uninitialised
       variables)
-    + the variable fontification might clash with Ansys specifiers
+    + the variable fontification might clash with ANSYS specifiers
     + string substitution of %variables% in strings does not highlight
        them in the proper variable face
   - Highlighting :: A label :LABEL may appear behind the /input
                     command and is not highlighted as label
-  - Highlighting :: An apostrophy clashes with the Ansys "char"
+  - Highlighting :: An apostrophy clashes with the ANSYS "char"
                     specifier Keybinding: M-Tab is captured under
                     Windows and some Linux desktops Workaround: Press
                     instead of M-Tab (ALT + TAB) the ESC key and then
@@ -20,11 +20,9 @@
                   ansys-indent-format-line inserts a redundant one
   - Completion :: Of parametric function parentheses
 		  completes redundant closing parentheses
-  - Completion :: A mouse selection from the *Ansys-completion* buffer
+  - Completion :: A mouse selection from the *ANSYS-completion* buffer
                   is only inserted upcased.
-  - Completion :: Ansys command 'C***' will not be completed
-  - Navigation :: M-n/p does not work from node-/element-blocks (aternative to
-                  C-c {/}).  C-c { before a number-block does not work
+  - Completion :: ANSYS command 'C***' will not be completed
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
@@ -49,7 +47,7 @@
    - [ ] rigid-target minimal self-contained sample
    - [X] check for new skeleton -template name in menu definitions!
    - [X] distinguish the two kinds of -templates: self contained samples
-     (include maybe the Ansys verification cases) and command examples
+     (include maybe the ANSYS verification cases) and command examples
      to various subjects
    - [X] V14 introduced new option for the ansyslic-admin utility to
      distinguish client V13 and V12 "-client" and V14 "-client140"
@@ -66,9 +64,14 @@
 
 ** Freeze
    - [ ] test server specifications (menu!) make interconnect
-     conditional of the Ansys version >= 120, check HPC support!
+     conditional of the ANSYS version >= 120
+   - [X] check HPC support!
 
 ** Bugs
+    - M-n/p does not work from node-/element-blocks (aternative to C-c
+      {/}).
+    - C-c { before a number-block does not work
+    - with multiple Emacs frames the ANSYS menu is shown only in one frame
     - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
     - Help, M-? does not :
@@ -141,16 +144,16 @@
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
 
-Subject: New release 14.0.1: Editor support for working with Ansys APDL files & processes
+Subject: New release 14.0.1: Editor support for working with ANSYS APDL files & processes
 
 Hi,
 
-finally a new release of Ansys mode for Ansys V14, downloadable from:
+finally a new release of ANSYS mode for ANSYS V14, downloadable from:
 
 http://code.google.com/p/ansys-mode
 
 You'll find there also the latest stable version of Emacs for Windows
-with Ansys mode preconfigured and ready to go.  Just unpack it and use
+with ANSYS mode preconfigured and ready to go.  Just unpack it and use
 the Editor for your APDL .mac files.
 
 This release comes also with the advent of the latest Emacs 24
@@ -161,6 +164,8 @@ release.
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - call the ANSYS help browser with APDL command? 
+   - template of all *get functionalities
    - make the timer time interval customisable
    - show list of license products and their license feature names or
      translate it in the license status from the licensing guide
@@ -182,16 +187,16 @@ release.
    - M-?: remove also old overlay when new keyword is not found
    - M-?: In the last empty line displays overlay below command
      instead above
-   - Provide Ansys command completion and command-help in comint
+   - Provide ANSYS command completion and command-help in comint
      buffer
    - Include all inquiry functions (see UPF documentation)
    - Include the _RETURN value of the solid modelling commands into
      their help strings of parameter help.
-** Ansys process and interpreter buffer
+** ANSYS process and interpreter buffer
    example: gnuplot-mode
-   - make display-buffer "*Ansys*" optional when sending commands to
-     the Ansys process
-   - use Ansys *env variables* like AWP_ROOT140 for checking
+   - make display-buffer "*ANSYS*" optional when sending commands to
+     the ANSYS process
+   - use ANSYS *env variables* like AWP_ROOT140 for checking
      installation directories
    - check also the license status for hpc licenses if
      -no-of-processors is greater then 3
@@ -209,9 +214,9 @@ release.
    - make filter of -license-status optional
    - optimise -start-run with query of y (start immediately),n
      (exit),e (change params),C-h (help)
-   - Splice any input line behind the BEGIN: symbol in the *Ansys*
+   - Splice any input line behind the BEGIN: symbol in the *ANSYS*
      buffer
-   - Enable one solver run for every Ansys macro buffer
+   - Enable one solver run for every ANSYS macro buffer
    - indicate with activation/inactivation of menu items that an
      asynchronous job is already running or not.
    - show/mark sent lines in apdl file C-c C-u, C-c C-c,
@@ -219,27 +224,27 @@ release.
      + with background
      + maximum line
      + reset highlighting, when?
-   - provide Ansys `y' request and carriage return? superflouous?  a
+   - provide ANSYS `y' request and carriage return? superflouous?  a
      single `y' does the trick
    - Killing a buffer with a running process now asks a confirmation.
      You can remove this query in two ways: either removing
      `process-kill-buffer-query-function' from
      `kill-buffer-query-functions' or setting the appropriate process
      flag with `set-process-query-on-exit-flag'.
-    - finding an Ansys /filnam command in current macro file and
+    - finding an ANSYS /filnam command in current macro file and
       suggesting this as current job-name optionally kill old job when
       called again with working run warn and optionally remove the
       ansys lock file before starting a run
     - search in -job for /filn arguments as default job name like in
       -display-error-file
 ** Skeletons and abbrevs
-   - use the Ansys sample input listing for template-examples
+   - use the ANSYS sample input listing for template-examples
    - additional dialog boxes with:
      /ui,anno,ksel...,wpse,help,query,copy
    - make outline string in skeletons configurable
    - spider beams, _bolt.mac, screw.mac, Mohr-Coulomb criterion
-   - rework concept with respect to the Ansys menu structure sort
-     skeletons in menu. Concept: 1.) Ansys Workflow 2.) specialised
+   - rework concept with respect to the ANSYS menu structure sort
+     skeletons in menu. Concept: 1.) ANSYS Workflow 2.) specialised
      macro library
    - Make skeleton-header properly working (info "(autotype)")
    - Optimise templates: completing-read, read-from-minibuffer
@@ -271,14 +276,14 @@ release.
      line onwards)!
    - supply command for clearing recursively not important process files:
      .rst, .log, ..., supply a customisaton variable
-   - Ansys mode debian .deb package
+   - ANSYS mode debian .deb package
    - narrow, outline, transparent-font: eblocks, nblocks by default?
    - add notes for parameter help of undocumented commands (alist)
    - create filter variable for hiding not installed license types
      ("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"
    - commands shorter than 4 chars are not allowed with additional chars
      adjust this to -highlighting-level 0
-   - Make Ansys mode also working solely with ansys-mode.el
+   - Make ANSYS mode also working solely with ansys-mode.el
    - make M-C-h more intelligent like M-h (if mark...)
    - speed concern: replace -find-duplicate-p with function argument to
      add-to-list
@@ -297,7 +302,7 @@ release.
      possible? No /sol(u) sufficient? Yes condensed input line ($)
      behind commands without arguments possible? Yes have a look in
      -variable-defining-commands!  Warn when - unintentionally -
-     arguments are used for Ansys commands which do not allow
+     arguments are used for ANSYS commands which do not allow
      arguments.  Or implement some auto-newline feature?  But
      problematic in condensed command lines or when applying code
      comments!
@@ -330,17 +335,17 @@ release.
    - highlight matching block keywords (similar to show-paren-mode) when
      point is at keyword
    - Implement highlighting of bracket pairs with the correct level in
-     Ansys GET- and parametric- functions.
+     ANSYS GET- and parametric- functions.
    - highlighting of plot commands inside the /GCMD command
    - DEFSUBSTs with DEFUNs inside aren't particularly helpful?
    - Emphasise better implied (colon) loops n,(1:6),(2:12:2) => n,1,2
      $ n,2,4 $... (little used, I know, but any ideas going beyond the
      colon?).
-   - startup screen for Ansys mode: Mode help, Ansys version,
+   - startup screen for ANSYS mode: Mode help, ANSYS version,
      supressing the startup screen 'ansys-mode-startup-message maybe
      as advice when sluggish -> compiliation
    - Enable choice for /show,3d or x11 (-start-graphics)
-** Ansys syntax restrictions not (yet) accounted for
+** ANSYS syntax restrictions not (yet) accounted for
    - Parentheses can only be nested 4 levels deep and only up to 9
      operations (+,-,*,...) within these set of parentheses
    - PATH name is restricted to 8 chars
@@ -352,7 +357,7 @@ release.
      with /INPUT and *USE)
    - Block level restriction of 10 levels of nested *IF blocks
    - Macro level restriction: 20 macros
-** Unknown Ansys stuff
+** Unknown ANSYS stuff
    - what the heck is the *UILIST command?
    - Is hyper56 a valid element?
 ** Additional APDL macro resources
@@ -363,4 +368,4 @@ release.
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
 # mode: org
-# end:   
+# end:

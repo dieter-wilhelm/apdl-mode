@@ -78,10 +78,12 @@ capabilities a UNIX systems is necessary.
   (2) these "user variables" are highlighted as well
 
 * Preview and insertion (optionally auto-insertion) of header and
-  ANSYS code templates for APDL files.  Respective snippets represent
-  examples of APDL work flows and considerable ANSYS know-how and are
-  easily extensible to boot.  The templates are partly interactive
-  i. e. they are asking for or completing user input.
+  ANSYS code templates for APDL files.  For example the
+  function-template shows *all* available ANSYS parameteric- and get
+  functions. The respective code snippets are examples of APDL work
+  flows and considerable ANSYS know-how and are easily extensible to
+  boot.  The templates are partly interactive i. e. they are asking
+  for or completing user input.
 
 * Convenient comment handling, commenting out whole paragraphs or
   whole control blocks and vice versa

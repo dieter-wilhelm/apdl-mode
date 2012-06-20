@@ -36,9 +36,9 @@
    quite sophisticated but its documentation is targeted for ANSYS
    users with little Emacs experience.
 #+LaTeX: \\[.2cm]
-   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful, extensible,
-   yet free editor which is available for any operating system where
-   ANSYS is running.
+   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful and
+   extensible - yet free - editor which is available for any operating
+   system where ANSYS is running.
 
 #+LaTeX: \\[.5cm]
    In the following *C-c* or *M-c* means typing the *CTRL* or *ALT*
@@ -158,8 +158,8 @@
 
 ** Use the ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help, especially for the
-   usage and keybindings of this mode. The help tries also to give a
-   brief introduction in the usage of the editor.
+   usage and keybindings of this mode.  In the beginning is also a
+   brief guide of basic Emacs concepts for Newcomers.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./mode_help.png]]
@@ -186,7 +186,7 @@
 ** Configure ANSYS-Mode
     The mode comes pre-configured for a default installation of
     ANSYS V14 for 64 bit.  If a functionality is missing please adjust either:
-*** The well commented configuration file /default.el/...
+*** The well commented configuration file /default.el/
 
           :PROPERTIES:
           :BEAMER_env: block
@@ -217,7 +217,7 @@
   [[./bug_report.png]]
 
 ** Last slide of the ANSYS-Mode tutorial
-***  Suggestion for the curious:
+***  Hint for the curious:
          :PROPERTIES:
          :BEAMER_env: block
  #        :BEAMER_envargs: <1>

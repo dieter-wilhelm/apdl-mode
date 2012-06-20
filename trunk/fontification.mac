@@ -1,7 +1,7 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2012-06-12 14:25:28 uidg1626>
+!! Time-stamp: <2012-06-20 18:57:01 uidg1626>
 !! ANSYS VERSION: 140
 !! UNITS: mm-t-s
 !! NOTE: Pseudo code, checking the influence of
@@ -350,7 +350,7 @@ y= 33.0	    ! alskdl
 xzv= 9999990.3	    !!
 llk = 0.333333333 !bla
 al_=  00.40
-aslföas = 304
+aslfoeas = 304
 ka= .4	    !salkd
 i = 4.		    !as
 kasd=.3/0.4

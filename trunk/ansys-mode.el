@@ -1137,8 +1137,8 @@ or they are to be found in the ANSYS menu.
 
 Above described procedure has the same effect as typing
 \"\\[ansys-start-ansys-help]\" in a file buffer under ANSYS
-mode ('C-c C-a' means while holding down the <CTRL> key typing
-the respective characters ('c' then 'a') for
+mode ('C-c C-h' means while holding down the <CTRL> key typing
+the respective characters ('c' then 'h') for
 `ansys-start-ansys-help').
 
 A mouse click or typing the <RET> key, when the cursor is on the

@@ -13,7 +13,7 @@
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
 ##+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
-#+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=5cm]{./ansys+emacs.png}}
+#+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=10cm]{./ansys+emacs.png}}
 #+LATEX_HEADER: \usepackage{textcomp}
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export

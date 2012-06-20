@@ -13,7 +13,7 @@
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
 ##+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
-#+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=10cm]{./ansys+emacs.png}}
+#+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
 #+LATEX_HEADER: \usepackage{textcomp}
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
@@ -25,17 +25,16 @@
 
 * Introduction
 ** GNU Emacs editor support for working with ANSYS FEA
-
-   This [[http://code.google.com/p/ansys-mode/][project]] strives to improve your workflows with the FEA (Finite
-   Element Analysis) suite [[http://www.ansys.com][ANSYS]] (registered TM, ANalysis SYStem).
+   This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
+   Analysis) suite [[http://www.ansys.com][ANSYS]] (registered TM, ANalysis SYStem).
 #+LaTeX: \\[.2cm]
    It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
-   navigating, inspecting and writing APDL (Ansys Parametric Design
-   Language) files.  The mode offers also managing and communication
+   investigating and coding APDL (Ansys Parametric Design Language)
+   files.  The mode offers also managing and communication
    capabilities for ANSYS processes, like interactive code debugging
-   with the ANSYS solver or listing the current license status, etc.
-   Some features are quite sophisticated but its documentation is
-   targeted for ANSYS users with little Emacs experience.
+   or listing the current license status, etc.  Some features are
+   quite sophisticated but its documentation is targeted for ANSYS
+   users with little Emacs experience.
 #+LaTeX: \\[.2cm]
    [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful, yet free
    editor which is available for any operating system where ANSYS is

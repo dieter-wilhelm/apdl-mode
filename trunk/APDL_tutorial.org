@@ -344,7 +344,7 @@ y = .8	!ach
 *** PDF viewer
 *** shell
 *** File manager
-*** Image viewer image-dired    
+*** TODO Image viewer image-dired    
 # !!  Free, open, extensible, working on all current OSs.  All bells
 # and whistle of a !!  modern editor (drop file into E), excellent
 # documentation.  Chosen !!  because with Vim, Emacs is the best
@@ -362,24 +362,30 @@ y = .8	!ach
 # !!    convenient pre-configured emacs archive with Ansys mode.
 
 
-# #+begin_src R :exports both
-# # this is a comment, yeah :-)
-#  bla <- 3
-# bla 
-# #+end_src
-# #+RESULTS:
-# : 3
-
-######################################################################
-#+begin_src ansys  :tangle no
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!! this is for Emacs:
-
-!! local variables:
-!! mode : ansys
-!! end:
+#+PROPERTY: session *R*
+#+begin_src R -n -r :exports both
+# this is a comment, yeah :-)
+ bla <- 4 # (ref:bla)
+bla 
 #+end_src
+#+RESULTS:
+: 4
+
+    this is line [[(bla)]]
 
 * Last slide, Conclusion/Summary?
 Thank you for your time
 
+######################################################################
+#+begin_src ansys  :tangle yes
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  !! this is for Emacs:
+  
+  !! local variables:
+  !! mode : ansys
+  !! end:
+#+end_src
+
+# local variables:
+# mode : org
+# end:

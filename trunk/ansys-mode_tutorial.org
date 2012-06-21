@@ -3,6 +3,9 @@
 
 ######################################################################
 # TODO
+# - in variable.png symbols Ns and Ls are not highlighted as variables
+# - change sequence of alignment.pgn first not aligned, second aligned
+# - show a copied result to the apdl window from calc in calculator.png (d f 3)
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -122,17 +125,17 @@
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
-** Align your variable assignments
+** Structure your variable assignments
   Move the cursor to a variable definition paragraph or mark (here in
-  yellow) some definitions and type *C-c C-a* to structure them.
+  yellow) some definitions and type *C-c C-a* to align them.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
 
-** Utilise the completion of around 2000 ANSYS symbols
+** Utilise the completion of around 2000 APDL symbols
   Move the cursor behind a character (here 'c') or word fragment and
-  type *ESC TAB* or *C-M-i* for completing all ANSYS command-,
-  element- and function names.
+  type *ESC TAB* or *C-M-i* for completing all APDL command-, element-
+  and function names.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./completion.png]]
@@ -183,9 +186,9 @@
     They are placed in the mode's accompanying /NEWS/ file
 
 *** Licensing and costs:
-    This is free and open software, there are no costs and effectively no
-    restrictions for you using Emacs and ANSYS-Mode also commerically.
-    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License), see also the
+    This is free and open software, there are *no costs* and effectively *no
+    restrictions* for you using Emacs and ANSYS-Mode also commerically.
+    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License) described in the
     /LICENSE/ file.
     
 * Configuration
@@ -205,7 +208,7 @@
   [[./default_el.png]]
 
   ... and restart Emacs. 
-*** The user options with Emacs' customisation system
+*** Or change the settings with Emacs' customisation system
           :PROPERTIES:
           :BEAMER_env: block
           :BEAMER_envargs: <2->
@@ -219,7 +222,7 @@
   Have a look in the section 'Issues and bug reports'
   at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].
   Please use the ANSYS-Mode bug report functionality (*C-c C-b*),
-  which provides useful information.
+  which might provide helpful status information.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./bug_report.png]]

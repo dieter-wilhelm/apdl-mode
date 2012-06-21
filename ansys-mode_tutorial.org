@@ -39,9 +39,9 @@
    investigating and coding APDL (Ansys Parametric Design Language)
    files.  The mode offers also managing and communication
    capabilities for ANSYS processes, like interactive code debugging
-   or listing the current license status, etc.  Some features are
-   quite sophisticated but its documentation is targeted for ANSYS
-   users with little Emacs experience.
+   with the solver or inquiring the license manager status, etc.  Some
+   features are quite sophisticated but its documentation is targeted
+   for ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
    [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful and
    extensible - yet free - editor which is available for any operating
@@ -132,8 +132,9 @@
   [[./alignment.png]]
 
 ** Completion of around 2000 ANSYS symbols
-  Move the cursor behind a character or word fragment and type *M-TAB*
-  (or *ESC TAB* on Windows).
+  Move the cursor behind a character or word fragment and type *ESC
+  TAB* (or *M-TAB* depending on the window manger setup) for getting
+  all command-, element- and function names.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
@@ -148,9 +149,8 @@
   [[./process.png]]
 
 ** Use the Emacs integrated, programmable RPN calculator  
-   Type *C-x* * * for a calculator window, type *y* for copying
-   calculator results directly into the APDL file. *q* to quit the
-   'Calc' windows.
+   Type *C-x* * * to open the calculator, type *y* for copying results
+   directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
@@ -194,7 +194,7 @@
 
 ** Configure ANSYS-Mode
     The mode comes pre-configured for a default installation of
-    ANSYS V14 for 64 bit.  If a functionality is missing please adjust either:
+    ANSYS 14.0 for 64 bit.  If a functionality is missing please adjust either:
 *** The well commented configuration file /default.el/
 
           :PROPERTIES:

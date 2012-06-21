@@ -71,7 +71,7 @@
     - M-n/p does not work from node-/element-blocks (aternative to C-c
       {/}).
     - C-c { before a number-block does not work
-    - with multiple Emacs frames the ANSYS menu is shown only in one frame
+    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
     - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
     - Help, M-? does not :

@@ -1,4 +1,11 @@
 #+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial*
+# Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
+
+######################################################################
+# TODO
+# - graphics for completions is missing
+# - variable_buffer.png does not highlight the implicit variables
+
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 #+DATE:      2012-06-17 Sa
@@ -83,15 +90,16 @@
 
 * Selected ANSYS-Mode features  
 ** Use the ANSYS-Mode APDL command help
-  Please type *M-?* on a code line and you will see the APDL
-  command's description together with its parameter syntax.
-  This temporary overlay (in yellow) remains visible during your editing.
+  Please type *M-?* (or *C-c ?*) on a code line and you will see the
+  APDL command's description together with its parameter syntax.  You
+  can continue working, this temporary overlay (here in yellow) remains
+  visible during your editing.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
   
 ** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window (see below) of your
+  Type *C-c C-v* to receive a summary window (see below) of all your
   variables definitions (also implicit) in the current APDL file.
 
 #+ATTR_LaTeX: height=7.5cm
@@ -141,7 +149,8 @@
 
 ** Use the Emacs integrated, programmable RPN calculator  
    Type *C-x* * * for a calculator window, type *y* for copying
-   calculator results directly into the APDL file. *q* to quit *Calc*.
+   calculator results directly into the APDL file. *q* to quit the
+   'Calc' windows.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
@@ -159,7 +168,7 @@
 ** Use the ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help, especially for the
    usage and keybindings of this mode.  In the beginning is also a
-   brief guide of basic Emacs concepts for Newcomers.
+   brief introduction of basic Emacs concepts.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./mode_help.png]]

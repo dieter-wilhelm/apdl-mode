@@ -129,10 +129,10 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
 
-** Completion of around 2000 ANSYS symbols
+** Utilise the completion of around 2000 ANSYS symbols
   Move the cursor behind a character (here 'c') or word fragment and
-  type *ESC TAB* (or *M-TAB*, depending on the window manager setup)
-  for completing all command-, element- and function names.
+  type *ESC TAB* or *C-M-i* for completing all ANSYS command-,
+  element- and function names.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./completion.png]]

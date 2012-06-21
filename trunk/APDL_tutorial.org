@@ -36,19 +36,30 @@
 #+LINK_HOME: 
 #+XSLT:
 
-Satisfaction without regret :-)
-Free, open, extensible
 
 * Introduction to ANSYS-Mode
+
+** Target audience  
+  Editor mode <- Text <- APDL solver/interpreter
+  
+*** APDL users
+*** Command snippets
+*** Interested WB user
+
 ** Read the introductory ansys-mode_tutorial.pdf
    or use the online version.  You will learn that
    
-  1. ANSYS-Mode is improving your workflow with
+   ANSYS-Mode is improving your workflow with
+
   2. Two parts: Run through some documentation then hands-on
   3. Simple download, installation (no admin rights), no configuration
      (for Win64/Lin64, but most things should run anyway)
-  4. No costs and practically no license restrictions also for
+
+   No costs and practically no license restrictions also for
      commercial use
+
+Immediate satisfaction, without regret :-)
+Free, open, extensible
 
 
 * Usage as APDL viewer
@@ -330,6 +341,10 @@ y = .8	!ach
 *** *M-g M-g* goto line
 *** Major mode menu
 *** Buffer selection menu with *C-LMB*
+*** PDF viewer
+*** shell
+*** File manager
+*** Image viewer image-dired    
 # !!  Free, open, extensible, working on all current OSs.  All bells
 # and whistle of a !!  modern editor (drop file into E), excellent
 # documentation.  Chosen !!  because with Vim, Emacs is the best

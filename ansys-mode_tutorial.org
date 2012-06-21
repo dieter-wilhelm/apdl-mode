@@ -192,9 +192,10 @@
     
 * Configuration
 
-** Configure ANSYS-Mode
-    The mode comes pre-configured for a default installation of
-    ANSYS 14.0 for 64 bit.  If a functionality is missing please adjust either:
+** Configure system dependent aspects and user options
+    The mode comes pre-configured for a default installation of ANSYS
+    14.0 for 64 bit.  If a functionality is missing please adjust
+    either:
 *** The well commented configuration file /default.el/
 
           :PROPERTIES:

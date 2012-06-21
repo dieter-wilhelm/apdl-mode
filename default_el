@@ -1,4 +1,4 @@
-;; Example customisation file for Ansys mode under Unix and Windows
+;; Example customisation file for ANSYS mode under Unix and Windows
 ;; `default_el' can be used as a system wide startup file after
 ;; adjusting and renaming it to `default.el'.  And moving it e. g. to
 ;; `/usr/share/emacs/site-lisp' or `c:\\EMACS_INSTALLDIR\\site-lisp'
@@ -13,7 +13,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			;; IMPORTANT BEGINNING
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; if Ansys mode files are NOT placed in the default Emacs load-path
+;; if ANSYS mode files are NOT placed in the default Emacs load-path
 ;; it is necessary to supplement the variable with with the following
 
 ;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
@@ -54,18 +54,18 @@
 
 (autoload 'ansys-mode "ansys-mode" nil t)
 (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
-calling a special Ansys customisation buffer." 'interactive)
-(autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting Ansys runs." 'interactive)
-(autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
-(autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the Ansys help browser." 'interactive)
-(autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
+calling a special ANSYS customisation buffer." 'interactive)
+(autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
+(autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
+(autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
+(autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file suffixes for autoloading of ansys-mode, appropriate file
-;; suffixes for which Ansys mode is automatically called for
+;; suffixes for which ANSYS mode is automatically called for
 
-;; .mac is the macro suffix of Ansys i. e. these macros can be called
-;; in the Ansys command prompt like a regular Ansys function (without
+;; .mac is the macro suffix of ANSYS i. e. these macros can be called
+;; in the ANSYS command prompt like a regular ANSYS function (without
 ;; the suffix .mac)
 
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
@@ -75,21 +75,24 @@ calling a special Ansys customisation buffer." 'interactive)
 (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
 (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
 
-;; .anf is the suffix for "Ansys Neutral" files which include mostly
+;; .anf is the suffix for "ANSYS Neutral" files which include mostly
 ;;  gometric data but also some APDL snippets.
 
 (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; Ansys processes stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; IMPORTANT here you need probably configure
-;; ansys-current-ansys-version (the used Ansys version)
-;; ansys-license-file (your license server) and
-;; ansys-install-directory (your installation directory for Ansys)
+		       ;; ANSYS processes stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; which version of Ansys we are using, the default is currently "140"
+;; IMPORTANT things you probably have to configure:
+
+;; ansys-current-ansys-version (your installed ANSYS version)
+;; ansys-license-file (your license server) and
+;; ansys-install-directory (your installation directory for ANSYS)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; which version of ANSYS we are using, the current version is "140"
 
 (setq ansys-current-ansys-version "140")
 ;(setq ansys-current-ansys-version "130")
@@ -99,7 +102,7 @@ calling a special Ansys customisation buffer." 'interactive)
 (setq ansys-no-of-processors 2)
 ;(setq ansys-no-of-processors 8)
 
-;; Ansys installation directory
+;; ANSYS installation directory
 
 (cond ((string= window-system "x")
        ;; This is the default installation directory on Unix
@@ -117,21 +120,24 @@ calling a special Ansys customisation buffer." 'interactive)
 
 ;; license server configuration and executables
 
-(cond ((string= window-system "x")		;Unix
-       ;; for starting the solver & ansys-license-status & Ansys help 
+(cond ((string= window-system "x")
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+			    ;; Unix 64 bit
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
+       ;; for starting the solver & ansys-license-status & ANSYS help 
        (setq
 	;; license servers (or license file name)
-	;; specify even the default port for lmutil (since Ansys V 12.0) on Unix
+	;; specify even the default port for lmutil (since ANSYS V 12.0) on Unix
 	;; Unix: License servers separated by colons (":"), 1055 is the default port
 	ansys-license-file
 	"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
-	;; since Ansys 12.0 there is an intermediate server for
-	;; the communication between flexlm and Ansys, 2325 is the default port
+	;; since ANSYS 12.0 there is an intermediate server for
+	;; the communication between flexlm and ANSYS, 2325 is the default port
 	ansys-ansysli-servers
 	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
 
-	;; The Ansys executable
+	;; The ANSYS executable
 	ansys-program
 	(concat ansys-install-directory
 		"/ansys_inc/v"
@@ -145,9 +151,10 @@ calling a special Ansys customisation buffer." 'interactive)
 	 ansys-install-directory
 	 "/ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
 	;;"/ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
-	;; lin32 not longer supported with V14
-	;; "/ansys_inc/shared_files/licensing/lin32/lmutil") 
-	;; Ansys help browser executable
+	;; lin32 not longer supported since ANSYS 14!
+	;; "/ansys_inc/shared_files/licensing/lin32/lmutil")
+
+	;; ANSYS help browser executable
 	ansys-help-program
 	(concat
 	 ansys-install-directory
@@ -156,7 +163,9 @@ calling a special Ansys customisation buffer." 'interactive)
 	 "/ansys/bin/anshelp"
 	 ansys-current-ansys-version)))
       (t     
-       ;;else windows (XP 32/64 Bit)?
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		   ;; else windows (XP 32/64 Bit)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
        (setq ansys-lmutil-program
 	     (concat
 	      ansys-install-directory
@@ -179,7 +188,8 @@ calling a special Ansys customisation buffer." 'interactive)
 		     "\\commonfiles\\help\" "
 		     "HelpDocViewer"))))
 
-;; Ansys V12/V13:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; still necessary for ANSYS 12 ?:
 	     ;; ansys-help-program-parameters
 	     ;; (concat "-cp \""
 	     ;; 	     ansys-install-directory
@@ -189,12 +199,12 @@ calling a special Ansys customisation buffer." 'interactive)
 	     ;; 	     "HelpDocViewer"))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
-;; options when starting the solver below example shows the Ansys mode
+;; options when starting the solver below example shows the ANSYS mode
 ;; defaults
 
 (setq ansys-license "struct"		;which license type to use for
 					;the solver
-      ansys-job "file"			;Ansys job name
+      ansys-job "file"			;ANSYS job name
       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

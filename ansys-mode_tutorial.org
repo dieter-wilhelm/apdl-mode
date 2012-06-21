@@ -3,8 +3,6 @@
 
 ######################################################################
 # TODO
-# - graphics for completions is missing
-# - variable_buffer.png does not highlight the implicit variables
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -132,12 +130,12 @@
   [[./alignment.png]]
 
 ** Completion of around 2000 ANSYS symbols
-  Move the cursor behind a character or word fragment and type *ESC
-  TAB* (or *M-TAB* depending on the window manger setup) for getting
-  all command-, element- and function names.
+  Move the cursor behind a character (here 'c') or word fragment and
+  type *ESC TAB* (or *M-TAB*, depending on the window manager setup)
+  for completing all command-, element- and function names.
 
 #+ATTR_LaTeX: height=7.5cm
-  [[./alignment.png]]
+  [[./completion.png]]
 
 ** Debug your code interactively with the solver (Unix only)
    You can run the ANSYS solver (interpreter) under Emacs and send

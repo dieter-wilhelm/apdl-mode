@@ -24,8 +24,9 @@
                   is only inserted upcased.
   - Completion :: ANSYS command 'C***' will not be completed
   - Completion :: Emacs shows M-TAB (which is not working on most
-                  Desktops) but not ESC TAB or M-C-i for
-                  -complete-symbol (sent a bug report 2012-06-21)
+                  Desktops) in the menu but not ESC TAB or M-C-i for
+                  -complete-symbol (sent a bug report 2012-06-21
+                  bug#11758 bug-gnu-emacs@gnu.org)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 

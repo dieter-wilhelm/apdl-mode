@@ -23,6 +23,9 @@
   - Completion :: A mouse selection from the *ANSYS-completion* buffer
                   is only inserted upcased.
   - Completion :: ANSYS command 'C***' will not be completed
+  - Completion :: Emacs shows M-TAB (which is not working on most
+                  Desktops) but not ESC TAB or M-C-i for
+                  -complete-symbol (sent a bug report 2012-06-21)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 

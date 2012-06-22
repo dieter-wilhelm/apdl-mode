@@ -78,13 +78,20 @@ capabilities a UNIX systems is necessary.
   These are shown in another window.  In the highest decoration level
   (2) these "user variables" are highlighted as well
 
-* Preview and insertion (optionally auto-insertion) of header and
-  ANSYS code templates for APDL files.  For example the
-  function-template shows *all* available ANSYS parameteric- and get
-  functions. The respective code snippets are examples of APDL work
-  flows and considerable ANSYS know-how and are easily extensible to
-  boot.  The templates are partly interactive i. e. they are asking
+* Preview and/or insertion of APDL code templates.  For example the
+  function template shows *all* available ANSYS parameteric- and get
+  functions. The respective code snippets show examples of APDL work
+  flows and considerable ANSYS know-how, these are easily extensible
+  to boot.  The templates are partly interactive i. e. they are asking
   for or completing user input.
+
+* Outlining (hiding and navigating) of code sections with Emacs'
+  outline-minor-mode. With outline strings '!@' you have a heading
+  structure which you can collapse or show.  This is the textual
+  analog to the WorkBench tree view.
+
+* Auto-insertion (optionally) of a header and outline code for every
+  new APDL file.
 
 * Convenient comment handling, commenting out whole paragraphs or
   whole control blocks and vice versa
@@ -93,12 +100,9 @@ capabilities a UNIX systems is necessary.
   together with closing of open blocks with auto-insertion of the
   appropriate end keyword (case-sensitive)
 
-* Outlining (hiding and navigating) of code sections with Emacs'
-  outline-minor-mode. This is the analog to the WorkBench tree view.
-
-* Use of the Emacs abbreviation facility for block templates
-  i. e. with writting a "nickname" Emacs exchanges the characters with
-  a whole code template
+* ANSYS-Mode defines abbreviations for APDL templates i. e. with
+  writing a "nickname" and a special key triggers an exchange of the
+  characters with a complete code template
 
 * You are able to use all Emacs' facilities, like the built-in
   calculator, file manager, image viewer and many others.  ANSYS-Mode

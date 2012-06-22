@@ -99,7 +99,7 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert APDL code templates into your code \\ Screenshot of Emacs (right) with the ANSYS Classics GUI (left)
+** Select and insert APDL code templates into your code \\ Screenshot the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 
 #+ATTR_LaTeX: height=8cm
    [[./template_menu.png]]
@@ -118,19 +118,13 @@
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
-** Outline your code (similar to WorkBench tree view)
-  Move the cursor to a variable definition paragraph or mark (here in
-  yellow) some definitions and type *C-c C-a* to align them.
+** Outline your code and hide the entries (tree view)
+  Create a new APDL file and let Emacs auto-insert an APDL skeleton.
+  Collapse it to a tree with *C-c @ C-t* and open (*C-c @ C-a*) all
+  again. '!@', '!@@' are the outline heading strings.
 
 #+ATTR_LaTeX: height=7.5cm
-  [[./alignment.png]]
-
-# ** Structure your variable assignments
-#   Move the cursor to a variable definition paragraph or mark (here in
-#   yellow) some definitions and type *C-c C-a* to align them.
-
-# #+ATTR_LaTeX: height=7.5cm
-#   [[./alignment.png]]
+  [[./outline.png]]
   
 ** Utilise the completion of around 2000 APDL symbols
   Move the cursor behind a character (here 'c') or word fragment and
@@ -147,6 +141,13 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./variable_buffer.png]]
 
+** Structure your variable assignments
+  Move the cursor to a variable definition paragraph or mark (here in
+  yellow) some definitions and type *C-c C-a* to align them.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./alignment.png]]
+
 ** Use the Emacs integrated, programmable RPN calculator  
    Type *C-x* * * to open the calculator, type *y* for copying results
    directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
@@ -160,8 +161,14 @@
    this process. Below you get an interactive solver output window and
    on the left hand side the corresponding ANSYS graphics.
 
-#+ATTR_LaTeX: height=6.4cm
+#+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
+** Display license state and some auxiliary processes
+   In the middle section you see the license state (*C-c C-l*) and
+   left below an Emacs thumbnail view of images in a folder.
+
+#+ATTR_LaTeX: height=7.3cm
+   [[./license.png]]
 
 * Documentation and licensing
 
@@ -235,32 +242,33 @@
   [[./bug_report.png]]
 
 * Summary
-** Summary: Levels of ANSYS-Mode usage
-*** APDL viewer
+** Use three levels of ANSYS-Mode to your needs and liking
+*** Simple APDL viewer
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-Navigating, viewing (highlighted code), inspecting APDL with the
-    inbuilt 'online' help
-*** APDL editor
+    Navigation, viewing (highlighted code), inspecting APDL with the
+    inbuilt 'online' help.
+*** Advanced APDL editor
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Convenience features: shortcut keybindings, outlining, code
-    templates, completions, indentation, Emacs' facilities, ...
-*** APDL process environment
+    Shortcut keybindings, outlining, code templates, completions,
+    auto-indentation, abbreviations, auto-insertion, all Emacs'
+    convenience features, ...
+*** Hardcore APDL processing environment
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Hybrid between coding and debugging (solver communication, UNIX
-    only), license status, error file viewing, writing an abort file,
-    ...
+    Hybrid between coding and debugging with solver communication
+    (UNIX only), retrieving license stati, error file viewing, abort
+    file handling, extending ANSYS-Mode, ...
 ** Last slide of the ANSYS-Mode tutorial
 ***  Hint for the curious:
          :PROPERTIES:

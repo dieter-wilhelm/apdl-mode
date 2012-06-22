@@ -29,10 +29,11 @@ The current stable version (14.0.1) of ANSYS-Mode is available at the
 http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz"
 to the console).  You will find in this archive two tutorials, one
 called APDL_tutorial.mac and the other is an introductory presentation
-in PDF.  The presentation is also to be found in the download section
-of Google Code or go to the
+in PDF (Portable Document Format).  The presentation is also to be
+found in the download section of Google Code or go to the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html
-online version] of it.
+online version] of it, where you can see the images in a higher
+resolution as in the PDF version.
 
 Please report bugs! Write an email or use Google Code's
 [http://code.google.com/p/ansys-mode/issues/list issues list].

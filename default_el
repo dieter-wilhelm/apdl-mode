@@ -221,9 +221,9 @@ calling a special ANSYS customisation buffer." 'interactive)
 			     ;; Outlining
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; activating outline minor mode for selectively hiding/unhiding
-;; sections, by default this option is not activated
+;; sections
 
-;(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode)
+(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			      ;; The End

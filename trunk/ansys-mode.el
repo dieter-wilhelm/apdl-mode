@@ -803,7 +803,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   (list "ANSYS"
 	["Comment/Un- Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Complete Symbol"              ansys-complete-symbol :help "Complete an ANSYS command, element or function name"]
-	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to ANSYS" "Copy Code Line/Region to system tray") :help "Send the current code line or active region to the running interpreter or else copy line or region to system tray"]
+	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to ANSYS" "Copy Code Line/Region to system clipboard") :help "Send the current code line or active region to the running interpreter or else copy line or region to system clipboard"]
 	["Copy/Send above Code (to ANSYS)"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to ANSYS" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
 	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
@@ -1483,7 +1483,7 @@ with this process in three ways, either by typing directly in the
 current code line or a whole selected region to the running
 solver.  (A selected region means highlighted lines of code.  If
 there is no running solver the function copies the code to the
-system tray.)  And lastly you are able to send interactively
+system clipboard.)  And lastly you are able to send interactively
 ANSYS commands with
 \"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command')
 without switching to the '*ANSYS*' window.
@@ -1492,7 +1492,7 @@ Another very useful function in this context is
 \"\\[ansys-copy-or-send-above]\" (`ansys-copy-or-send-above'),
 which sends all code from the beginning up to the current line to
 the interpreter.  If there is no running interpreter the function
-copies the code to the system tray.
+copies the code to the system clipboard.
 
 The last two commands (`ansys-copy-or-send-above' and
 `ansys-send-to-ansys') are skipping to the next code line (if

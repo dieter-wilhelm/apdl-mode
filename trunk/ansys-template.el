@@ -1738,8 +1738,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(defun ansys-skeleton-compilation ()
-  "Collection of important code templates for an APDL file."
+
+(defun ansys-skeleton-compilation-template ()
+  "Your collection of selected code templates."
   (interactive)
   (ansys-skeleton-header)
   (goto-char (point-max))
@@ -1761,216 +1762,72 @@ time stamp with the Emacs command M-x `time-stamp'."
   (goto-char (point-max))
   (ansys-skeleton-post1))
 
-;; TODO: warning dated
-(define-skeleton ansys-skeleton		;NEW
-  "Insert full framework of an ANSYS APDL file."
+;; TODO:
+(define-skeleton ansys-skeleton-outline-template		;NEW
+  "Insert outline framework into an ANSYS APDL file."
   "Insert brief purpose of file: "
-  "!" ansys-outline-string " ********* first line ***************\n"
+  "!! ==============================" \n
+  "!" ansys-outline-string " --- Header ---" \n
+  "!! ==============================" \n
+  \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
-  "!! ------------------------------" \n
-  "!! COMMENTARY: User parameters start in upper case." \n
-  "!!  ANSYS command names may be ommitted (defaulting to the" \n
-  "!!  previous command, except slash and asterisk commands)." \n
-  "!! WARNING: Variables starting with an underscore are reserved"  \n
-  "!!  (for  components and ANSYS furnished macros, like" \n
-  "!!  the %_FIX% table name for current displacement values or" \n
-  "!!  the _RETURN and _STATUS variable (_STATUS: 0 no error, 1" \n
-  "!!  note, 2 warning, 3 error)!" \n \n
+  \n
   "!! ==============================" \n
   "!" ansys-outline-string " --- Setup ---" \n
   "!! ==============================" \n
   \n
   "finish "\n
-  "/clear" \n
-  "y !necessary for /clear" \n
-  \n
-  "*get,Wallstrt,active,,time,wall" \n
-  "c*** Configuring for 2 processors does not harm when only 1 is present" \n
-  "/config,nproc,2" \n
-  "/uis,msgpop,3 !3: No warning popup boxes" \n
-  "*afun,deg !trig: funs accept degree args" \n
-  "*afun,rad" \n
-  "/title," _ \n
-  "/plopts,wp,1 !display working plane" \n
-  "/triad,rbot" \n
-  "!! /output, !change solver output file" \n
-  "!! /input," \n
-  "/filname," (setq ansys-job (skeleton-read "ANSYS jobname: " "file")) \n
   \n
   "!! ==============================" \n
   "!" ansys-outline-string " --- Preprocessing --- " \n
   "!! ==============================" \n
   \n
   "!! ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string " --- Cad Import --- " \n
+  "!" ansys-outline-string ansys-outline-string " -- Cad Import -- " \n
   "!! ------------------------------" \n
   \n
   "!! /aux15" \n
-  "!! ioptn,iges,nodefeat" \n
-  "!! ioptn,merge,yes" \n
-  "!! ioptn,solid,yes" \n
-  "!! ioptn,small,yes" \n
-  "!! ioptn,gtoler,defa" \n
-  "!! igesin,'test','iges'"\n
-  \n
-  "!! /input,fname,anf" \n
-  "!! /facet,norm" \n
   \n
   "!! ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string " --- General Preprocessing --- " \n
+  "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n
   "!! ------------------------------" \n
   \n
   "/prep7" \n
-  "Pi=3.14159265359" \n
   \n
-  "!! /pnum,area,1"\n
+  "!! .............................." \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Materials and element types -" \n
+  "!! .............................." \n
   \n
-  "!! --- Materials and element types ---" \n
-  "Steel=1" \n
-  "Alu=2" \n
-  "!! Contact = 3" \n
-  "!! Target = 4" \n
-  "mp,nuxy,Steel,0.3" \n
-  "mp,ex,Steel,200000" \n
-  "!! tb,biso,Steel,1" \n
-  "!! yield_stress=140" \n
-  "!! tangent_modulus=1400" \n
-  "!! tbdata,,yield_stress,tangent_modulus !biso" \n
-  "/com, === Material %Steel% is steel. ===" \n
-  "et,Steel,solid186 !3d, 20 node" \n
-  "!! et,Steel,solid185 !3d, 8 node" \n
-  "!! et,Steel,plane183,,,0 !2d, 8 node (3)0:plane stress, 1:axissymmetric" \n
-  "!! et,Steel,plane182 !2d, 4 node"\n
-  "!! keyopt,Steel,3,1 !keyopt(3)=1:axissym." \n
-  "!!   for most elements the radial direction is the x-axis" \n
+  "!! --- Solids ---" \n
   \n
-  "!! mp,nuxy,Alu,0.3" \n
-  "!! mp,ex,Alu,70000" \n
-  "!! tb,biso,Alu,1" \n
-  "!! !! tbdata,,yield_stress,tangent_modulus !biso" \n
-  "!! /com, === Material %Alu% is Aluminium. ===" \n
-  "!! et,Alu,solid186 !3d" \n
-  "!! !! et,Alu,plane183 !2d" \n
-  "!! !! et,Alu,plane182 !2d 4 node" \n
-  "!! !! keyopt,Alu,3,1 !0:plane stress, 1:axissym." \n
+  "!! --- Contacts ---" \n
   \n
-  "!! !! --- Contacts ---" \n
-  "!! r,Contact" \n
-  "!! et,Contact,conta174 !3d, 8 node" \n
-  "!! !! et,Contact,conta173, !3d, 4 node" \n
-  "!! !! et,Contact,conta172 !2d, 3 node" \n
-  "!! !! et,Contact,conta171 !2d, 2 node" \n
-  "!! et,Target,targe170 !3d" \n
-  "!! !! et,Target,targe169 !2d, 2/3 node" \n
-  "!! keyo,Contact,2,1 !algorithm 0:augm. Lagrange (default),1:penalty,2:MPC,4:pure Lagrange" \n
-  "!! keyo,Contact,5,1 !initial contact closure,1:auto CNOF adjustment to close geometric gap only" \n
-  "!! keyo,Contact,9,2 !initial penetration,1:ignore initial gaps/penetr 2:ramp" \n
-  "!! keyo,Contact,10,2 !contact stiffness update,2:each NR iteration,1:each substep" \n
-  "!! keyo,Contact,12,0 !contact behaviour,0:frictional/-less (default),1:rough" \n
-  "!! real,Contact" \n
-  "!! rmod,Contact,3,1. !FKN:normal penalty stiffness factor (default:1)" \n
-  "!! rmod,Contact,5,0.0 !ICONT:amount of initial contact closure (positiv:penetration)" \n
-  "!! rmod,Contact,6,-0.1 !PINB:pinball radius (negativ means no scaling:absolute distance)" \n
-  "!! rmod,Contact,10,0. !CNOF:contact surface offset" \n
-  "!! mp,mu,Contact,0.4 !friction factor" \n
-  "!! rmod,Contact,12,0. ! FKT:tangent stiffness factor (corresp. to FKN),0:means 1 for ANSYS!!!" \n
+  "!! .............................." \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Geometry -" \n
+  "!! .............................." \n
   \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- Geometry ---" \n
+  "!! .............................." \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Meshing -" \n
+  "!! .............................." \n
   \n
-  "bloc,0,1,0,1,0,1" \n
-  "*get,A1,area,,num,max" \n
-  "!! rectng,0,1,0,1 !x1,x2,y1,y2" \n
-  "!! k,,1,0,0 & KN = _return !keypoint number" \n
-  \n
-  "!! /number,1 !0:colours & numbers,1:colours,2:numbers" \n
-  "!! /pnum,line,1 !1: turn on numbering" \n
-  "!! lplot" \n
-  "!! lesize,1,,,3" \n
-  \n
-  "!! --- Meshing ---" \n
-  \n
-  "!! mat,Steel" \n
-  "!! mshkey,1 !1: mapped meshing,2: mapped if possible" \n
-  "!! mshape,0 !0: quadrilaterals" \n
-  "esize,1" \n
-  "vmesh,all" \n
-  \n
-  "!! amesh,all" \n
-  \n
-  "!! !! --- Rigid targets ---" \n
-  \n
-  "!! type,Target" \n
-  "!! real,Contact" \n
-  "!! tshap,line" \n
-  "!! *get,Nmax,node,,num,max" \n
-  "!! n,Nmax+1,1,1,0" \n
-  "!!  ,Nmax+2,1,2,0" \n
-  "!! e,Nmax+1,Nmax+2" \n
-  "!! tshap,pilo" \n
-  "!! e,Nmax+1" \n
-  \n
-  "!! !! --- Contacts --- " \n
-  \n
-  "!! type,Contact" \n
-  "!! real,Contact" \n
-  "!! esurf !,,reverse !also 2d" \n
-  \n
-  "!! /pcb !bc symbols"\n
-  "!! /psf !surface loads" \n
-  "!! /pbf !body loads"
-  "!! /psymb,esys,on !check element esys" \n
-  "!! /psymb,ndir !only for rotated nodal co-ordinate systems!" \n
-  "!! cncheck !initial contact status" \n
-  \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " --- boundary conditions --- " \n
-  \n
-  "nsel,s,loc,y,0" \n
-  "    ,a,loc,y,1" \n
-  "    ,r,loc,x,0" \n
-  "d,all,all" \n
-  "nsel,s,loc,x,1" \n
-  "cp,next,uy,all !couple dofs" \n
-  "f,1,fx,1" \n
-  "allsel" \n
-  "/pbc,all,on" \n
+  "!! .............................." \n
+  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Boundary conditions -" \n
+  "!! .............................." \n
   \n
   "!! ==============================" \n
-  "!" ansys-outline-string " --- solution --- " \n
+  "!" ansys-outline-string " --- Solution --- " \n
   "!! ==============================" \n
   \n
   "/solu" \n
+  "allsel" \n
   \n
-  "!! solcontrol,,on, ! ,,check contact state,pressure load stiffness"
-  \n
-  "!! n1=20" \n
-  "!! n2=n1*100" \n
-  "!! n3=n1/4" \n
-  "!! nsubst,n1,n2,n3"\n
-  "!! outres,all,all"\n
-  "!! nlgeom,on" \n
-  "!! autots,on" \n
-  \n
-  "!! rescontrol,,all,1 !restart files" \n
-  "!! eqslv,pcg,1e-4" \n
-  "!! cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
-  "!! nropt,unsym !frictional contacts not converging?" \n
-  "!! coupling of sliding and normal stiffness"
-  \n
-  "/eof ------------------------------" \n
-  \n
-  "/runst !enter the run statistics processor" \n
-  "rall !run statistics estimator" \n
-  "/solu"  \n
-  "*get,Wallasol,active,,time,wall" \n
-  \n
-  "solve" \n
-  "y" \n
-  "save $ finish" \n
-  \n
-  "*get,Wallbsol,active,,time,wall" \n
+  "!! ------------------------------" \n
+  "!" ansys-outline-string ansys-outline-string
+  " --  Solution controls -- " \n
+  "!! ------------------------------" \n
   \n
   "!! ==============================" \n
   "!" ansys-outline-string " --- Postprocessing ---" \n
@@ -1978,159 +1835,19 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!! ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string
-  " --- General Postprocessing --- " \n
+  " -- General Postprocessing -- " \n
   "!! ------------------------------" \n
   \n
   "/post1" \n
   \n
-  "!! /dscale,,1 !do not scale (for nlgeom)" \n
-  "!! /dscale,,auto !or 0:scale automatically" \n
-  "!! !*get,Ds,graph,WN,dscale,dmult" \n
-  "!! /contour,,ncont,min,inc,max" \n
-  "!! /contour,,auto !switch off user contours" \n
-  "!! /edge,,1 !1:display elements in contour plots" \n
-  "!! /edge,,0 !0:switch off display of elements in contour plots" \n
-  "!! /plopts,minm,off !switch off min-max symbols" \n
-  "!! /plopts,minm,on" \n
-  "!! /pbc,rfor,,1 !1:show reaction f. symbols" \n
-  "!! /pbc,rfor,,0" \n
-  "!! /expand,8,lpolar,half,,45 !polar symmetry expansion" \n
-  "!! /expand,8,lpolar,half,,45 !polar symmetry expansion" \n
-  "!!  !half symmetry(mirrored) and then 8 x 45° offset!" \n
-  "!! /expand,18,axis,,,10 !axis symmetry 180° expansion" \n
-  "!! /expand !switch off expansion" \n
-  "!! /dist,,1/2,1 !enlarge twice" \n
-  "!! " \n
-  \n
-  "set,last" \n
-  "/efacet,2" \n
-  "plnsol,u,sum !,2 !2:overlay undeformed edges" \n
-  \n
-  "!! --- Birth & Death --- " \n
-  "!! etable,strain,epto,1" \n
-  "!! esel,s,etab,strain,0.02" \n
-  "!! /solu" \n
-  "!! antype,,rest"\n
-  "!! ekill,all"\n
-  "!! esel,all" \n
-  \n
-  "!! --- Reactions" \n
-  "Ls=1" \n
-  "set,Ls" \n
-  "*get,Ns,active,,solu,ncmss !number of substeps" \n
-  "*get,Dim,parm,Reaction,dim,x" \n
-  "*if,Dim,le,1,then" \n
-  "*dim,Reaction,array,Ns,1" \n
-  "*endif" > \n
-  "*do,I,1,Ns" \n
-  "set,Ls,I" > \n
-  "fsum" \n
-  "*get,Fx,fsum,,item,fx" \n
-  "Reaction(I)=Fx" \n
-  "*enddo" > \n
-  "/gcolumn,1,'Reaction'" \n
-  "/axlab,x,Substep" \n
-  "/axlab,y,Force in N" \n
-  "/gropt,fill,1 ! fill curves" \n
-  "*vplot,,Reaction" \n
-  \n
-  "!! --- Animations ---" \n
-  "/seg,multi,process,0.15 !process.avi, delay .15" \n
-  "Ls=1 !Loadstep 1" \n
-  "!antime," \n
-  "!andata," \n
-  "set,LS" \n
-  "*get,Ns,active,,solu,ncmss !number of substeps" \n
-  "*do,I,1,Ns" \n
-  "set,Ls,I" > \n
-  "plnsol,s,eqv" \n
-  "*enddo" > \n
-  "/seg,off,process,.15" \n
-  \n
-  "!! --------- etables ----------" \n
-  "!! etables don't take into account higher element order!"
-  "!! ---- Mohr-Coulomb failure criterion" \n
-  "Z1 = 60 !tensile strength" \n
-  "Z3 = 160 !compressive strength" \n
-  "etable,S1,s,1" \n
-  "etable,S3,s,3" \n
-  "sadd,R,S1,S3,1/Z1,-1/Z3" \n
-  "pletab,R,avg !avg: average over nodes" \n
-  "esort,etab,R" \n
-  "*get,Mc,etab,sort,,max" \n
-  "*msg,,Mc" \n
-  "Mohr-Coulomb criterion (< 1): %G" \n
-  \n
-  "!! --- multiple graphics windows" \n
-  "/window,1,rtop" \n
-  "/window,2,ltop" > \n
-  "/window,3,lbot" > \n
-  "/window,4,rbot" > \n
-  "/gtype,all,node,0 !switch off node display" > \n
-  "/gcmd,1,pletab,s1" \n
-  "/gcmd,2,pletab,s3" > \n
-  "/gcmd,3,pletab,r,avg" > \n
-  "/gcmd,4,plvect,s" > \n
-  "gplot" > \n
-  \n
-  "/window,1,full" \n
-  \n
-  "!! --- cross section by working plane ---" \n
-  "/cplane,1 !1:cutting plane is x-y-wp" \n
-  "wpcsys,1,11 !align wp with specified c-sys" \n
-  "wpoffs,,-100" \n
-  "wprota,0,90,0 !z,x,y axis rotation" \n
-  \n
-  "/type,1,zcap ! z-buffered capping" \n
-  "!! /type,1,zqsl ! z-bufferd capping with outlines" \n
-  "!! /type,1,basic !switch off cross sections" \n
-  \n
   "!! ------------------------------" \n
   "!" ansys-outline-string
-  ansys-outline-string " --- Time-History Postprocessing ---" \n
+  ansys-outline-string " -- Time-History Postprocessing --" \n
   "!! ------------------------------" \n
   \n
   "/post26" \n
-  "!! esol,2,1,,u,z,'displ z'" \n
-  "nsol,2,1,u,z" \n
-  "rforce,3,1,f,z" \n
-  "!! add,4,2,,,displ,,,-1" \n
-  "/grid,1" \n
-  "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
-  "!! /xrange,0,1" \n
-  "!! /xrange,default" \n
-  "!! /yrange,0,1" \n
-  "!! /axlab,x,x" \n
-  "!! /axlab,y,y" \n
-  "!! timerange,0,1" \n
-  "!! /title,bla" \n
-  "!! /stitle,,blabla !subtitle line 1" \n
-  "!! /stitle,2,blabla !subtitle line 2" \n
-  "!! /tlable,x,y,bla !annotation at (x,y)" \n
-  "xvar,2" \n
-  "!! invert background colour" \n
-  "!/RGB,index,100,100,100,0" \n
-  "!/RGB,index,0,0,0,15" \n
-  "!/show,png !creates jobnameXXX.png files" \n
-  "plvar,3" \n
-  "!/show,close" \n
-  "!!prvar,3" \n
   \n
-  "!! ------------------------------" \n
-  "!" ansys-outline-string
-  ansys-outline-string " --- Time Stat Processing ---" \n
-  "!! ------------------------------" \n
-  \n
-  "*get,Walldone,active,,time,wall" \n
-  "Preptime=(Wallasol-Wallstrt)*60" \n
-  "Solvtime=(Wallbsol-Wallasol)*60" \n
-  "Totaltim=(Walldone-Wallstrt)" \n
-  "*msg,ui,Preptime,Solvtime,Totaltim" \n
-  "Time in min for preprocessing: %G %/ &" \n
-  "Time in min for Solving: %G %/ &" \n
-  "Total time in h: %G %/ &" \n
-  "=== End of timing messages ===" \n
-  \n)
+  )
 
 
 ;; (defmacro define-ansys-skeleton (command documentation &rest definitions) ;FIXME: documentation

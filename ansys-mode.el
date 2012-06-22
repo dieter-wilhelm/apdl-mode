@@ -818,6 +818,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Header"                 ansys-skeleton-header :help "Insert interactively the file header template"]
 	      "-"
 	      ["Insert Pi"              ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
+	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlining headers and sections"]
 	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
 	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
 	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
@@ -848,7 +849,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      "-"
 	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
 	      ["Contact template"    ansys-skeleton-contact :help "Insert a minimal template for a structural contact simulation"]
-	      ["Compilation of templates"   ansys-skeleton :help "Insert the compilation of most often used templates"]
+	      ["Compilation of templates"   ansys-skeleton :help "Insert a (your) compilation of selected templates"]
 	      )
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
@@ -1378,11 +1379,12 @@ customisable outline headings.  Certain characters --by default
 '!@' (see the variable `ansys_outline_string')-- at the beginning
 of a line in your code represent such headings.  '!@@' specifies
 a subheading and so on (please call the function
-`ansys-skeleton-compilation' to insert a code example with these
-in your current file).  The easiest way of working with outline
-headings is to go to the ->Outline menu entry (outline-minor-mode
-is not switched on by default in `ansys-mode') and check out what
-possibilities are there for your convenience.
+`ansys-skeleton-outline-template' to insert a skeleton of outline
+sections in your current file).  The easiest way of working with
+outline headings is to go to the ->Outline menu
+entry (outline-minor-mode is not switched on by default in
+`ansys-mode') and check out what possibilities are there for your
+convenience.
 
 ** Convenient comment handling, commenting/un- of whole
    paragraphs **
@@ -1415,9 +1417,9 @@ line.
 
 ** Auto-insertion of code templates into new APDL files **
 
-See `ansys-skeleton-compilation' (type \"M-x
-ansys-skeleton-compilation RET\" to insert a collection of some
-code templates).
+See `ansys-skeleton-outline-template' (type \"M-x
+ansys-skeleton-outline-template RET\" to insert a collection of a
+skeleton of outline code).
 
 Include the following lisp expressions in your .emacs file, in
 case you want to be ask for inclusion for every new .inp and .mac

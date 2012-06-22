@@ -210,12 +210,12 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			  ;; Auto insertion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; auto insertion stuff (when creating a new APDL file) ;;
+;; auto insertion stuff (when creating a new APDL file)
 
-;(auto-insert-mode 1)
-;(add-hook 'find-file-hook 'auto-insert)
-;(setq auto-insert-query t)
-;(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+(auto-insert-mode 1)
+(add-hook 'find-file-hook 'auto-insert)
+(setq auto-insert-query t)
+(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-outline-template]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			     ;; Outlining

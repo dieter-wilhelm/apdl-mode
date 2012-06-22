@@ -94,14 +94,16 @@ capabilities a UNIX systems is necessary.
   appropriate end keyword (case-sensitive)
 
 * Outlining (hiding and navigating) of code sections with Emacs'
-  outline-minor-mode
+  outline-minor-mode. This is the analog to the WorkBench tree view.
 
 * Use of the Emacs abbreviation facility for block templates
   i. e. with writting a "nickname" Emacs exchanges the characters with
   a whole code template
 
-* ANSYS-Mode changes some Emacs default behaviour to alleviate the
-  transition from other editors and user interface standards
+* You are able to use all Emacs' facilities, like the built-in
+  calculator, file manager, image viewer and many others.  ANSYS-Mode
+  changes some Emacs default behaviour to alleviate the transition
+  from other editors and user interface standards
 
 == Example applications ==
 

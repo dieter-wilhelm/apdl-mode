@@ -1,7 +1,7 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2012-06-20 18:57:01 uidg1626>
+!! Time-stamp: <2012-06-22 13:20:08 uidg1626>
 !! ANSYS VERSION: 140
 !! UNITS: mm-t-s
 !! NOTE: Pseudo code, checking the influence of
@@ -13,7 +13,7 @@
 
 !! ------------------------------
 /units,mpa !indicate mm-t-s unit system
-
+c
 !@@ -- ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle !/clear
 /prep7

@@ -45,6 +45,8 @@
 *** APDL users
 *** Command snippets
 *** Interested WB user
+    Interesting even for pure WB users: true understanding with input files!
+
 
 ** Read the introductory ansys-mode_tutorial.pdf
    or use the online version.  You will learn that
@@ -63,7 +65,6 @@ Free, open, extensible
 
 
 * Usage as APDL viewer
-*** Interesting even for pure WB users: true understanding with input files!
 
 *** drag and drop: finite_field60.dat (M-n/p does not work in element numbered eblocks, nblocks!)
 
@@ -130,7 +131,8 @@ y = cos(i)
 # !mouse completion of vglue
 # vg
 *** Completion of functions type *M-TAB*
-    place the cursor behind 'ac' and type *M-TAB*
+    place the cursor behind 'ac' and type *M-TAB*, function names have
+    parentheses appended
 #+begin_src ansys : tangle yes
   !@ --- Function completion ---
   !! place the cursor behind 'aco' and 'Aco' and type *M-TAB*

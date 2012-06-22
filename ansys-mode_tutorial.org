@@ -98,13 +98,6 @@
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
-  
-** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window (see below) of all your
-  variables definitions (also implicit) in the current APDL file.
-
-#+ATTR_LaTeX: height=7.5cm
-  [[./variable_buffer.png]]
 
 ** Select and insert APDL code templates into your code \\ Screenshot of Emacs (right) with the ANSYS Classics GUI (left)
 
@@ -125,13 +118,20 @@
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
-** Structure your variable assignments
+** Outline your code (similar to WorkBench tree view)
   Move the cursor to a variable definition paragraph or mark (here in
   yellow) some definitions and type *C-c C-a* to align them.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
 
+# ** Structure your variable assignments
+#   Move the cursor to a variable definition paragraph or mark (here in
+#   yellow) some definitions and type *C-c C-a* to align them.
+
+# #+ATTR_LaTeX: height=7.5cm
+#   [[./alignment.png]]
+  
 ** Utilise the completion of around 2000 APDL symbols
   Move the cursor behind a character (here 'c') or word fragment and
   type *ESC TAB* or *C-M-i* for completing all APDL command-, element-
@@ -139,6 +139,20 @@
 
 #+ATTR_LaTeX: height=7.5cm
   [[./completion.png]]
+  
+** Open a summary window of your APDL variables
+  Type *C-c C-v* to receive a summary window (see below) of all your
+  variables definitions (also implicit) in the current APDL file.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./variable_buffer.png]]
+
+** Use the Emacs integrated, programmable RPN calculator  
+   Type *C-x* * * to open the calculator, type *y* for copying results
+   directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./calculator.png]]
 
 ** Debug your code interactively with the solver (Unix only)
    You can run the ANSYS solver (interpreter) under Emacs and send
@@ -148,13 +162,6 @@
 
 #+ATTR_LaTeX: height=6.4cm
   [[./process.png]]
-
-** Use the Emacs integrated, programmable RPN calculator  
-   Type *C-x* * * to open the calculator, type *y* for copying results
-   directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
-
-#+ATTR_LaTeX: height=7.5cm
-  [[./calculator.png]]
 
 * Documentation and licensing
 
@@ -227,6 +234,33 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./bug_report.png]]
 
+* Summary
+** Summary: Levels of ANSYS-Mode usage
+*** APDL viewer
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+#         :BEAMER_col: 0.5
+         :END:
+Navigating, viewing (highlighted code), inspecting APDL with the
+    inbuilt 'online' help
+*** APDL editor
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+#         :BEAMER_col: 0.5
+         :END:
+    Convenience features: shortcut keybindings, outlining, code
+    templates, completions, indentation, Emacs' facilities, ...
+*** APDL process environment
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+#         :BEAMER_col: 0.5
+         :END:
+    Hybrid between coding and debugging (solver communication, UNIX
+    only), license status, error file viewing, writing an abort file,
+    ...
 ** Last slide of the ANSYS-Mode tutorial
 ***  Hint for the curious:
          :PROPERTIES:

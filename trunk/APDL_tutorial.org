@@ -1,33 +1,11 @@
-#+TITLE:     ANSYS-Mode Tutorial
-#+AUTHOR:    H. Dieter Wilhelm
-#+EMAIL:     dieter@duenenhof-wilhelm.de
-#+DATE:      2012-06-19 Tue
-#+DESCRIPTION:
-#+KEYWORDS:
-#+LANGUAGE:  en
-#+OPTIONS:   H:2 num:nil toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
-##+EXPORT_SELECT_TAGS: export
-#+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
-#+LINK_HOME: 
-#+XSLT:
-#+PROPERTY: tangle yes
-
-#+begin_src ansys  :tangle yes
-  !! This is the auto-generated APDL source of the ANSYS-Mode tutorial
-  !! from APDL_tutorial.org
-  !! Copyright (C) 2006 - 2012 H. Dieter Wilhelm GPL V3
-#+end_src
-#+TITLE:     APDL_tutorial.org
+#+TITLE:     ANSYS-Mode APDL hands-on Tutorial
 #+AUTHOR:    Hans-Dieter Wilhelm
 #+EMAIL:     uidg1626@sbav104x
 #+DATE:      2012-06-20 Wed
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -36,18 +14,17 @@
 #+LINK_HOME: 
 #+XSLT:
 
+#+PROPERTY: tangle yes
 
 * Introduction to ANSYS-Mode
 
 ** Target audience  
-  Editor mode <- Text <- APDL solver/interpreter
-  
-*** APDL users
-*** Command snippets
-*** Interested WB user
-    Interesting even for pure WB users: true understanding with input files!
+   Editor mode <- mainly dealing with Text <- for APDL solver/interpreter
+   1. APDL coders
+   2. WorkBench command snippets
+   3. WorkBench user interested in WB internals
 
-
+      Interesting even for pure WB users: true understanding with input files!
 ** Read the introductory ansys-mode_tutorial.pdf
    or use the online version.  You will learn that
    
@@ -63,30 +40,57 @@
 Immediate satisfaction, without regret :-)
 Free, open, extensible
 
-
 * Usage as APDL viewer
+** APDL inspection
+*** Open solver input file
+    Drag and drop finite_field60.dat or use the menu:
 
-*** drag and drop: finite_field60.dat (M-n/p does not work in element numbered eblocks, nblocks!)
+    [[./find_file_dialog.png]]
 
-*** command-help from menu *M-?*
-*** -start-ansys-help from menu *C-c C-h*
-***  navigation (number blocks in .dat files) *C-c {*
+    (shortcut: *C-x C-f*)
+*** ansys-command-help from the menu
+    [[./parameter_help.png]]
 
+     (*M-?*)
+*** ansys-start-ansys-help from menu
+    (*C-c C-h*)
+***  navigation (number blocks in .dat files) (*C-c {*)
 * Usage as APDL editor
 ** Extensible code templates
-Inspect some code templates (called skeletons in Emacs) in a preview window
-*** type *C-c C-s* or choose the template preview from the ANSYS-Mode menu
-Insert in the file APDL_tutorial.ansys here below this line the skeleton (C-u C-c C-s)  -structural-template
-*** type *C-u C-c C-s* and choose the structural template
-    or use the ANSYS-Mode menu to insert it
-#+begin_src ansys  :tangle yes
-  !@ --- Code templates ---
-  !! insert below this line the skeleton (C-u C-c C-s)  ansys-structural-template
-#+end_src
+   - Open the file /APDL_tutorial.ansys/ with *C-x C-f*
 
-*** select the function (parametric, *get) template    
-#+begin_src ansys  :tangle yes
-  !! check out all parametric - and *get functions in the ansys-function-template
+#+begin_src ansys :exports none
+  !! This is the auto-generated APDL source of the ANSYS-Mode
+  !! hands-on APDL tutorial (from APDL_tutorial.org)
+  !! Copyright (C) 2006 - 2012 H. Dieter Wilhelm GPL V3
+
+  !@ --- Code templates ---
+#+end_src
+*** Inspect some code templates
+   [[./template_menu.png]]
+
+    - Type *C-c C-s* and then *TAB* 
+
+    To see all templates (called skeletons in Emacs) in a preview
+    window.
+
+    [[./template_selection.png]]
+
+#+begin_src ansys :exports none
+  !! Inspect some code templates with C-c C-s and type TAB to
+  !! see all templates (called skeletons in Emacs) in a preview window.
+#+end_src
+*** Preview the function template ansys-skeleton-function 
+  Check out all available APDL functions (parametric and *get
+  functions)
+#+begin_src ansys exports: none  :tangle yes
+  !! Check out all available APDL functions (parametric and *get functions)
+  !! from the ansys-skeleton-function template with C-c C-s.
+#+end_src
+*** Choose the structural template for insertion *C-u C-c C-s* 
+    select the do this from ANSYS-Mode menu.  Insert the template below the following code
+#+begin_src ansys
+  !! Insert below this line the skeleton (C-u C-c C-s) ansys-structural-template
 #+end_src
 
 ** Copy features
@@ -107,11 +111,11 @@ Insert in the file APDL_tutorial.ansys here below this line the skeleton (C-u C-
 *** mark commented region again and type again *M-;*
 ** Alignment of variable definitions
 
-*** place the cursor on the following paragraph and type *C-c a*
+*** place the cursor on the following paragraph and type *C-c C-a*
 
-#+begin_src ansys : tangle yes
+#+begin_src ansys
 !@ --- Alignment of assignments ---
-!! place the cursor on the following paragraph and type C-c a
+!! place the cursor on the following paragraph and type C-c C-a
 x=0.4!laskd
 y= 33.0	    ! alskdl
 xzv= 9999990.3	    !!
@@ -126,28 +130,69 @@ xxx =asin(3.0)
 y = cos(i)
 #+end_src
 
+the result looks like this, the numbers are aligned around the decimal dot
+
+#+begin_src ansys :tangle no
+  !@ --- Alignment of assignments ---
+  !! place the cursor on the following paragraph and type C-c C-a
+  x       =       0.4         !laskd
+  y       =      33.0         ! alskdl
+  xzv     = 9999990.3         !!
+  llk     =       0.333333333 !bla
+  al_     =      00.40
+  aslföas =     304
+  ka      =        .4         !salkd
+  i       =       4.          !as
+  kasd    =        .3/0.4
+  kasd    =       3./0.4
+  xxx     =        asin(3.0)
+  y       =        cos(i)
+#+end_src
+
 **  Completions (around 2000 ANSYS symbols)
     Case sensitive completions except for mouse completion
+#+begin_src ansys  :tangle yes
+  !@ --- Completions ---
+  !! Check out all the APDL functions (parametric and *get functions)
+  !! from the ansys-skeleton-function template. Place the cursor behind
+  !! the 'c' character below and type ESC TAB.
+  c
+#+end_src
+  The complition window should look like this:
+
+      [[./completion.png]]
+
 # !mouse completion of vglue
 # vg
-*** Completion of functions type *M-TAB*
-    place the cursor behind 'ac' and type *M-TAB*, function names have
-    parentheses appended
+*** Completion of functions
+    place the cursor behind 'ac' and type *M-TAB* (function names have
+    parentheses appended) and so on
 #+begin_src ansys : tangle yes
-  !@ --- Function completion ---
-  !! place the cursor behind 'aco' and 'Aco' and type *M-TAB*
+  !@@ -- Function completion --
+  !! place the cursor behind 'aco' and type *M-TAB* and so on
   Pi = aco
-  Pi = Aco
+  Pi = Sig
+  Pi = ARNE
 #+end_src ansys
+    The completions are:
+#+begin_src ansys : tangle no
+  !@@ -- Function completion --
+  !! place the cursor behind 'aco' and 'Aco' and type *M-TAB*
+  Pi = acos()
+  Pi = Sign()
+  Pi = ARNEXT()
+#+end_src ansys
+
+
 *** completion of element names type *M-TAB*
 #+begin_src ansys : tangle yes
-  !@ --- Element name completion ---
+  !@@ -- Element name completion --
   !! Completion of elements: typ M-TAB
   shell
 #+end_src ansys
 *** Completion of APDL commands type *M-TAB*
 #+begin_src ansys : tangle yes
-  !@ --- APDL command completion ---
+  !@@ -- APDL command completion --
   !! Completion of command names: typ M-TAB
   ns
 #+end_src ansys
@@ -224,7 +269,7 @@ Depth  = ARG1	  !ARG{1-9}, AR{10-19} = "*use" variables
 #+end_src
 
 
-* APDL process interaction and debugging debugging environment (Unix only)
+* APDL process interaction and debugging environment 
   Switch off menu-, tool- and scroll-bars
 
 ** Start the ANSYS interpreter  
@@ -364,22 +409,21 @@ y = .8	!ach
 # !!    convenient pre-configured emacs archive with Ansys mode.
 
 
-#+PROPERTY: session *R*
-#+begin_src R -n -r :exports both
-# this is a comment, yeah :-)
- bla <- 4 # (ref:bla)
-bla 
-#+end_src
-#+RESULTS:
-: 4
-
-    this is line [[(bla)]]
+# #+PROPERTY: session *R*
+# #+begin_src R -n -r :exports both
+# # this is a comment, yeah :-)
+#  bla <- 4 # (ref:bla)
+# bla 
+# #+end_src
+# #+RESULTS:
+# : 4
+#    this is line [[(bla)]]
 
 * Last slide, Conclusion/Summary?
 Thank you for your time
 
 ######################################################################
-#+begin_src ansys  :tangle yes
+#+begin_src ansys  :tangle yes :exports none
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !! this is for Emacs:
   

@@ -1380,11 +1380,8 @@ customisable outline headings.  Certain characters --by default
 of a line in your code represent such headings.  '!@@' specifies
 a subheading and so on (please call the function
 `ansys-skeleton-outline-template' to insert a skeleton of outline
-sections in your current file).  The easiest way of working with
-outline headings is to go to the ->Outline menu
-entry (outline-minor-mode is not switched on by default in
-`ansys-mode') and check out what possibilities are there for your
-convenience.
+sections in your current file).  Check out the Outline menu
+entries (outline-minor-mode is switched on by default).
 
 ** Convenient comment handling, commenting/un- of whole
    paragraphs **

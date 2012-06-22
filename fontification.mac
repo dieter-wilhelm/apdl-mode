@@ -1,7 +1,7 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2012-06-22 13:20:08 uidg1626>
+!! Time-stamp: <2012-06-22 16:42:24 uidg1626>
 !! ANSYS VERSION: 140
 !! UNITS: mm-t-s
 !! NOTE: Pseudo code, checking the influence of
@@ -10,6 +10,38 @@
 !!  C-x C-e to activate the settings
 
 !(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+
+/units,mpa !indicate mm-t-s unit system
+!@ --- Preprocessing ---
+/prep7
+!@@ -- Elements --
+Steel = 1
+ID = Steel
+real = Steel
+et,ID,solid186 !3d, 20 node
+!@@ -- Material --
+mp,nuxy,Steel,0.3 ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+!@@ -- Modeling --
+block,0,1,0,1,0,1
+!@@ -- Meshing --
+vmesh,all
+!@@ -- BCs, Loads --
+nsel,s,loc,x,0
+d,all,all
+nsel,s,loc,x,1
+d,all,uy,-.1
+allsel
+save
+!@ --- Solving ---
+/solu
+solve
+!@ --- Postprocessing --
+/post1
+/view,,1,1,1
+plnsol,u,sum,2
+/image,save,test !save XWindow Dump xwd (or bmp on Windows)
+/sys,convert test test.png
 
 !! ------------------------------
 /units,mpa !indicate mm-t-s unit system

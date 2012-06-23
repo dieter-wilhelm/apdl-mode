@@ -59,6 +59,7 @@
   latest Emacs editor binary for Windows 32/64 bit from the Google
   Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
   
+#+ATTR_HTML: width="1200"
   [[./download.png]]
   
 * Installation
@@ -100,9 +101,10 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert APDL code templates into your code \\ Screenshot the ANSYS Classics GUI (left) and Emacs (right) on Win64 
+** Select and insert APDL code templates into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 
 #+ATTR_LaTeX: height=8cm
+#+ATTR_HTML: width="1200"
    [[./template_menu.png]]
 
 ** Take a short-cut to the code template preview
@@ -162,6 +164,7 @@
    this process. Below you get an interactive solver output window and
    on the left hand side the corresponding ANSYS graphics.
 
+#+ATTR_HTML: width="1200"
 #+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
 ** Display license state and some auxiliary processes
@@ -169,6 +172,7 @@
    left below an Emacs thumbnail view of images in a folder.
 
 #+ATTR_LaTeX: height=7.3cm
+#+ATTR_HTML: width="1200"
    [[./license.png]]
 
 * Documentation and licensing

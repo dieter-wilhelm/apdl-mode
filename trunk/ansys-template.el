@@ -22,6 +22,15 @@
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;;; Comment:
+;; Convention used for outlining
+;; !@ is surrounded by 30 equal signs  ==============================
+;; !@@ by 30 dashes ------------------------------
+;; !@@@ by 30 dots ..............................
+;; and an empty lines
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -103,7 +112,9 @@ instead of previewing it in a separate window."
 (define-skeleton ansys-skeleton-looping
   "Control constructs"
   nil
+  "!! .............................." \n
   "\n!@@@ - branching, looping and control structures -"\n
+  "!! .............................." \n
   \n
   "! if controls" \n
   "*if,I,eq,1,then" \n
@@ -143,16 +154,18 @@ instead of previewing it in a separate window."
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
-  "!" ansys-outline-string " --- file header ---" \n
-  "!! ------------------------------" \n
+  "!! ==============================" \n
+  "!" ansys-outline-string " ---  Header ---" \n
+  "!! ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; 					      (buffer-file-name)
   ;; 					    (buffer-name))) \n
   "!! Time-stamp: <" (current-time-string) ">"\n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
-  "!! UNITS: mm-t-s" \n
+;;  "!! UNITS: mm-t-s" \n
   "!! NOTE: " str \n
   "!! ------------------------------" \n
+  \n
   "! fini" \n
   "! /clear" \n
   "! y" \n
@@ -165,10 +178,16 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!! ------------------------------" \n
   "!@@ -- informations --" \n
+  "\n!! ------------------------------" \n
+  \n
   "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
   "*stat,Job_name(1,1,1)" \n
   "/inquire,param,date,file,ext !get date(size,lines) of file.ext"\n
-  "!@@@ - stati -" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - statuses -" \n
+  "!! .............................." \n
+  \n
   "/status ![all], title,units,mem,db,config,global,solu,prod" \n
   "*list,file,ext ! list file content" \n
   "/runst ! enter run statistics processor" \n
@@ -182,17 +201,26 @@ time stamp with the Emacs command M-x `time-stamp'."
   "(see the _return value list below)"\n
   "*vstat !status on arry operations"\n
   \n
+  "!! .............................." \n
   "!@@@ - material info" \n
+  "!! .............................." \n
+  \n
   "mplist,all" \n
   "tblist" \n
   "tbplot,biso,1" \n
+  \n
+  "!! .............................." \n
   "!@@@ - solution info -" \n
+  "!! .............................." \n
   \n
   "set,list ! list a summary of each load step" \n
   "wpstyl,stat !working plane status" \n
   "status,solu" \n
   \n
+  "!! .............................." \n
   "!@@@ - \"stat\" database settings - "\n
+  "!! .............................." \n
+  \n
   "/prep7" \n
   "etype" \n
   "stat" \n
@@ -264,10 +292,16 @@ time stamp with the Emacs command M-x `time-stamp'."
   "PRINT $ stat ! - Print settings" \n
   "PLOTTING $ stat ! - Plotting settings" \n
   \n
+  "!! .............................." \n
   "!@@@ - aux3 result file edit routine -" \n
+  "!! .............................." \n
+  \n
   "/aux3" \n
   "list !result statistics" \n
+  "!! .............................." \n
   "!@@@ - *get -" \n
+  "!! .............................." \n
+  \n
   "*get,bla,active,,mat![|csys|type|real|esys]" \n
   \n
   "*status,_RETURN ! command, documenation, _return value" \n
@@ -318,6 +352,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!! ------------------------------" \n
   "!@@ -- configurations --" \n
+  "\n!! ------------------------------" \n
   \n
   "! *afun,rad ! trig. functions accept angle arguments" \n
   "*afun,deg !rad: default" \n
@@ -342,6 +377,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!! ------------------------------" \n
   "!@@ -- view settings --" \n
+  "\n!! ------------------------------" \n
   \n
   "immed,1 !immediate display of generated geom. in /prep7" \n
   "/uis,replot,0 !suppress automatic replot" \n
@@ -358,19 +394,30 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/pstatus ! display window stats specifications" \n
   "/dscale,all,10 !set displacment multiplier" \n
   \n
+  "!! .............................." \n
   "!@@@ - material display -" \n
+  "!! .............................." \n
+  \n
   "/number,1 !0:colours & numbers,1:colours,2:numbers" \n
   "/pnum,mat,1 !1: turn on numbering" \n
   \n
+  "!! .............................." \n
   "!@@@ - element shape display -" \n
+  "\n!! ------------------------------" \n
+  \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
+  "\n!! ------------------------------" \n
   "!@@@ - mesh line display -" \n
+  "\n!! ------------------------------" \n
+  \n
   "/edge,,1 !1:display elements in contour plots" \n
   "/edge,,0 !0:switch off display of elements in contour plots" \n
   \n
+  "\n!! ------------------------------" \n
   "\n!@@@ - coordinate system display -" \n
+  "\n!! ------------------------------" \n
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
   "clocal,11,0 !define local coord. sys. from active" \n
@@ -408,7 +455,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-expand	;NEW
   "Symmetry expansion."
   nil
+  "\n!! ------------------------------" \n
   "\n!@@@ - symmetry expansion -" \n
+  "\n!! ------------------------------" \n
   \n
   "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3"\n
   "!DX1,DY1,DZ1,... 1.) normal vector of reflection plane 2.) increments between patterns"\n
@@ -428,6 +477,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!! ------------------------------" \n
   "!@@ -- contact pair defintion --" \n
+  "\n!! ------------------------------" \n
   \n
   "Contact="_ \n
   "Target=Contact+1" \n
@@ -486,7 +536,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
+  "\n!! ------------------------------" \n
   "!@@ -- contact generation --" \n
+  "\n!! ------------------------------" \n
   \n
   "type,Contact" \n
   "real,Contact" \n
@@ -504,7 +556,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "enorm ! change the underlying elem." \n
   \n
+  "!! .............................." \n
   "!@@@ - check contact status -" \n
+  "!! .............................." \n
   \n
   "cncheck !list contact pari properties" \n
   "cncheck,summary !list only open/closed status" \n
@@ -537,6 +591,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!! ------------------------------" \n
   "!@@ -- rigid target creation -- " \n
+  "\n!! ------------------------------" \n
   \n
   "Contact="_ \n
   "Target=Contact+1" \n
@@ -568,7 +623,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-coordinates
   ""
   nil
+  "!! .............................." \n
   "\n!@@@ - coordinate system display -" \n
+  "!! .............................." \n
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
   "clocal,11,0 !define local coord. sys. from active" \n
@@ -586,7 +643,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-working-plane
   "Settings for the working plane and related stuff."
   nil
+  "!! .............................." \n
   "\n!@@@ - working plane setup -" \n
+  "!! .............................." \n
   \n
   "/plopts,wp,1 !display working plane" \n
   "/repl" \n
@@ -608,7 +667,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-multi-plot
   ""
   nil
+  "!! .............................." \n
   "\n!@@@ - multiplot controls -" \n
+  "!! .............................." \n
   \n
   "/gcmd,1,u,sum" \n
   "/gtype,all,node,0 !turn off nodes (elem,keyp,line,area)" \n
@@ -621,7 +682,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-numbering-controls
   ""
   nil
+  "!! .............................." \n
   "\n!@@@ - numbering controls -" \n
+  "!! .............................." \n
   \n
   "/pnum,kp,1 !line;area;volu;node;elem;mat;type;tabn;sval,on" \n
   "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
@@ -633,7 +696,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-symbols
   ""
   nil
+  "!! .............................." \n
   "\n!@@@ - symbol display -" \n
+  "!! .............................." \n
   \n
   "/pbc,all,,1 !bc symbols"\n
   "/psf,pres,,2 !2 arrows, surface loads" \n
@@ -651,6 +716,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   nil
   "\n!! ------------------------------" \n
   "!@@ -- etables --" \n
+  "\n!! ------------------------------" \n
   \n
   "!! etables don't take into account higher element order!" \n
   "!! they are averaged over the element" \n
@@ -677,58 +743,72 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-element-definition
- ""
- nil
- "\n!! ------------------------------" \n
- "!@@ -- element definition --" \n
- \n
- "Steel = 1" \n
- "ID = Steel" \n
- "real = Steel" \n
- "et,ID,solid186 !3d, 20 node" \n
- "etlist !list defined elements" \n
- "et,ID,solid185 !3d, 8 node" \n
- "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane strain, 3:plane stress with thickness real constant" \n
- "/eshape,1 !1:use real constant def. for element shapes"\n
- "r,ID,13 ! thickness" \n
- "et,ID,plane182 !2d, 4 node"\n
- "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
- "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
- "!!for most elements the radial direction is the x-axis" \n
- \n
- "!@@@ - structural shells and planes -" \n
- "et,ID,shell181 !3d 4/3-node structural shell" \n
- "et,ID,shell281 !3d 8/6-node structural shell" \n
- "!! - plane -" \n
- "et,ID,plane182 !2d 4/3-node structural solid" \n
- "et,ID,plane183 !2d 8/6-node structural solid" \n
- \n
- "!@@@ - thermal -" \n
- "et,ID,plane35 !2d 6-node triangular thermal solid" \n
- "et,ID,plane77 !2d 8-node thermal solid" \n
- "et,ID,solid90 !3D 20 nodes thermal solid" \n
- \n
- "!@@@ - magnetics -" \n
- "et,ID,plane13 !2d, legacy 4-node coupled-field ->plane233 8-node" \n
- "keyopt,ID,3,1 !(3)=1:axissym." \n
- "keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
- "et,ID,infin110 !2d semi infinit electromagnetic elem." \n
- "!only 1 element layer, sized in the order of the problem domain" \n
- "keyopt,ID,3,1 !(3)=1:axissym." \n
- "keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
- \n
- "!@@@ - assign attributes -" \n
- "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
- \n
- "!! /pnum,type,1 $ eplot ! display materials" \n
- \n
-)
+  ""
+  nil
+  "\n!! ------------------------------" \n
+  "!@@ -- element definition --" \n
+  "\n!! ------------------------------" \n
+  \n
+  "Steel = 1" \n
+  "ID = Steel" \n
+  "real = Steel" \n
+  "et,ID,solid186 !3d, 20 node" \n
+  "etlist !list defined elements" \n
+  "et,ID,solid185 !3d, 8 node" \n
+  "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane strain, 3:plane stress with thickness real constant" \n
+  "/eshape,1 !1:use real constant def. for element shapes"\n
+  "r,ID,13 ! thickness" \n
+  "et,ID,plane182 !2d, 4 node"\n
+  "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
+  "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
+  "!!for most elements the radial direction is the x-axis" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - structural shells and planes -" \n
+  "!! .............................." \n
+  \n
+  "et,ID,shell181 !3d 4/3-node structural shell" \n
+  "et,ID,shell281 !3d 8/6-node structural shell" \n
+  "!! - plane -" \n
+  "et,ID,plane182 !2d 4/3-node structural solid" \n
+  "et,ID,plane183 !2d 8/6-node structural solid" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - thermal -" \n
+  "!! .............................." \n
+  \n
+  "et,ID,plane35 !2d 6-node triangular thermal solid" \n
+  "et,ID,plane77 !2d 8-node thermal solid" \n
+  "et,ID,solid90 !3D 20 nodes thermal solid" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - magnetics -" \n
+  "!! .............................." \n
+  \n
+  "et,ID,plane13 !2d, legacy 4-node coupled-field ->plane233 8-node" \n
+  "keyopt,ID,3,1 !(3)=1:axissym." \n
+  "keyopt,ID,5,2 !(5)=2:nodal magnetic field printout" \n
+  "et,ID,infin110 !2d semi infinit electromagnetic elem." \n
+  "!only 1 element layer, sized in the order of the problem domain" \n
+  "keyopt,ID,3,1 !(3)=1:axissym." \n
+  "keyopt,ID,2,1 !(2)=0:4-node,1:8-n" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - assign attributes -" \n
+  "!! .............................." \n
+  \n
+  "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
+  \n
+  "!! /pnum,type,1 $ eplot ! display materials" \n
+  \n
+  )
 
 (define-skeleton ansys-skeleton-meshing
   ""
   nil
   "\n!! ------------------------------" \n
   "!@@ -- meshing --" \n
+  "\n!! ------------------------------" \n
   \n
   "!! mat,Steel" \n
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
@@ -956,10 +1036,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "shpere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
   \n
+  "!! .............................." \n
   "!@@@ - operations -" \n
+  "!! .............................." \n
+  \n
   "vdele,all,,,1 ! delete everything below" \n
   \n
+  "!! .............................." \n
   "!@@@ - booleans -" \n
+  "!! .............................." \n
   \n
   "aovlap,all ! overlap areas" \n
   "asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
@@ -1088,7 +1173,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "kbc,1 ![0](antype,static):ramped, 1:stepped loading" \n
   \n
+  "!! .............................." \n
   "!@@@ - DOF constraints -" \n
+  "!! .............................." \n
   \n
   "nsel,s,loc,y,0" \n
   ",a,loc,y,1" > \n
@@ -1096,12 +1183,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   "d,all,all!dk,dl,da" \n
   "dlist,all" \n
   \n
+  "!! .............................." \n
   "!@@@ - concentrated loads -" \n
+  "!! .............................." \n
+  \n
   "f,all,fx,1,1 !@nodes:real,imag" \n
   "fk,all,fx,1,1 !@keypoints:real,imag" \n
   "flist,all !fklist" \n
   \n
+  "!! .............................." \n
   "!@@@ - surface loads -" \n
+  "!! .............................." \n
+  \n
   "sf,all,pres,1 !surface loads on nodes" \n
   "sflist,all" \n
   "sfe,all,pres" \n
@@ -1111,7 +1204,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "sfa,all,,pres," \n
   "sfalist,all" \n
   \n
+  "!! .............................." \n
   "!@@@ - body loads -" \n
+  "!! .............................." \n
+  \n
   "tref,23 ![0] degree reference temperature" \n
   "tunif,30 !uniform temperature (default step applied!)" \n
   "bf,all,temp,30 !bfe,bfk,bfl,bfa,bfv" \n
@@ -1122,22 +1218,32 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
   "acel,%mytab%,, !acceleration in global coordinates" \n
   \n
+  "!! .............................." \n
   "!@@@ - inertia relief -" \n
+  "!! .............................." \n
   \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
   "irlf,1 !0: none,1:ir on,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
   \n
+  "!! .............................." \n
   "!@@@ - corriolis effects -" \n
+  "!! .............................." \n
   \n
   "cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
   "dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
+  "!! .............................." \n
   "!@@@ - coupling -" \n
+  "!! .............................." \n
+  \n
   "nsel,s,loc,x,1" \n
   "cp,next,uy,all !couple dofs" \n
   \n
+  "!! .............................." \n
   "!@@@ - constraint equations -" \n
+  "!! .............................." \n
+  \n
   "nsel,s,loc,x,1" \n
   "ce,next,uy,all !couple dofs" \n
   \n
@@ -1145,7 +1251,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/pbc,all,on" \n
   "gplot" \n
   \n
+  "!! .............................." \n
   "!@@@ - magnetics -" \n
+  "!! .............................." \n
   \n
   "!! fmagbc,'Component' ! flag force calculation" \n
   "bfa,all,js, ! js current density" \n
@@ -1289,7 +1397,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plnsol,s,xy ! shear in xy-dir." \n
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
   "plvect,u !display vector results"\n
+  \n
+  "!! .............................." \n
   "!@@@ - reactions -"\n
+  "!! .............................." \n
+  \n
   "fsum !force sum from all selected nodes"\n
   "*get,Fy,fsum,,item,fy" \n
   "*get,T,active,,set,time" \n
@@ -1488,7 +1600,10 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-select
   ""
   nil
+  "!! .............................." \n
   "\n!@@@ - select stuff -" \n
+  "!! .............................." \n
+  \n
   "N1="
   \n
   "!! lowest face No of element E from selected nodes"

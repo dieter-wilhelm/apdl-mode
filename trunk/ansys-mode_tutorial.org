@@ -6,6 +6,7 @@
 # - in variable.png symbols Ns and Ls are not highlighted as variables
 # - change sequence of alignment.pgn first not aligned, second aligned
 # - show a copied result to the apdl window from calc in calculator.png (d f 3)
+# - slide of extensibility, showing Emacs function help
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -126,10 +127,10 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./outline.png]]
   
-** Utilise the completion of around 2000 APDL symbols
+** Utilise completions of all APDL symbols (around 2000)
   Move the cursor behind a character (here 'c') or word fragment and
-  type *ESC TAB* or *C-M-i* for completing all APDL command-, element-
-  and function names.
+  type *ESC TAB* or *C-M-i* for completing up to date APDL command-,
+  element- and function names.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./completion.png]]
@@ -189,6 +190,8 @@
    [[./mode_help.png]]
 
 ** Read further ANSYS-Mode documentation
+
+*** Hands on  APDL tutorial:   
 
 *** Installation:
     More detailed instructions are necessary if you are not using the

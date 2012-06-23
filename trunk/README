@@ -21,8 +21,8 @@ documentation is targeted for ANSYS users with little Emacs
 experience.
 
 [http://www.gnu.org/home.en.html Gnu] Emacs (Gnu's Not Unix) is an
-up-to-date, powerful, yet free editor which is available for any
-operating system where ANSYS is running.
+up-to-date, extensible, powerful, yet free editor which is available
+for any operating system where ANSYS is running.
 
 The current stable version (14.0.1) of ANSYS-Mode is available at the
 [http://code.google.com/p/ansys-mode Google Code site] (or paste "wget
@@ -35,8 +35,8 @@ found in the download section of Google Code or go to the
 online version] of it, where you can see the images in a higher
 resolution as in the PDF version.
 
-Please report bugs! Write an email or use Google Code's
-[http://code.google.com/p/ansys-mode/issues/list issues list].
+Please report bugs! Write an email to the maintainer or use Google
+Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==
 
@@ -78,12 +78,12 @@ capabilities a UNIX systems is necessary.
   These are shown in another window.  In the highest decoration level
   (2) these "user variables" are highlighted as well
 
-* Preview and/or insertion of APDL code templates.  For example the
-  function template shows *all* available ANSYS parameteric- and get
-  functions. The respective code snippets show examples of APDL work
-  flows and considerable ANSYS know-how, these are easily extensible
-  to boot.  The templates are partly interactive i. e. they are asking
-  for or completing user input.
+* Preview and/or insertion of extensible APDL code templates.  For
+  example the function template shows *all* available ANSYS
+  parameteric- and get functions. The respective code snippets show
+  examples of APDL work flows and considerable ANSYS know-how, these
+  are easily extensible to boot.  The templates are partly interactive
+  i. e. they are asking for or completing user input.
 
 * Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode. With outline strings '!@' you have a heading

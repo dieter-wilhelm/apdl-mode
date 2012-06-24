@@ -47,8 +47,8 @@
    for ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
    [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful and
-   extensible - yet free - editor which is available for any operating
-   system where ANSYS is running.
+   extensible - yet free - editor. High quality software available for
+   every operating system where ANSYS is running.
 
 #+LaTeX: \\[.5cm]
    In the following *C-c* or *M-c* means typing the *CTRL* or *ALT*
@@ -252,7 +252,7 @@
 
 * Summary
 ** Use three levels of ANSYS-Mode to your needs and liking
-*** Simple APDL viewer
+*** Simple APDL *viewer*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
@@ -260,7 +260,7 @@
          :END:
     Navigation, viewing (highlighted code), inspecting APDL with the
     inbuilt 'online' help.
-*** Advanced APDL editor
+*** Advanced APDL *editor*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
@@ -269,7 +269,7 @@
     Shortcut keybindings, outlining, code templates, completions,
     auto-indentation, abbreviations, auto-insertion, all Emacs'
     convenience features, ...
-*** Hardcore APDL processing environment
+*** Hardcore APDL *environment*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
@@ -300,6 +300,7 @@
          :END:
 
 Have fun...
+
 #+ATTR_LaTeX: width=6cm
     [[./editor_learning_curves.jpg]]
 

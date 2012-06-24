@@ -16,6 +16,8 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   function with the same name for specifying the number of processors
   for an Ansys multiprocessor run
 
+* Activated outline-minor-mode and auto-insertion (in default_el)
+
 * Extended mode commands, templates and removed typos mainly in
   ansys-template.el. For example added all *get functions in the
   ansys-skeleton-function template

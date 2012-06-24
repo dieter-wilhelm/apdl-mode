@@ -37,6 +37,7 @@
    - activate -license-file function
 
 ** TODO Tasks [58%]
+   - [ ] mode help :: outline section <- outline-minor is now default
    - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections

@@ -113,7 +113,7 @@ capabilities a UNIX systems is necessary.
 
 Visual examples you will find in the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html online tutorial]
-or the latter screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
+and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
 http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
 
@@ -140,6 +140,8 @@ a certain code template, respectively.
 * Extended mode commands, templates and removed typos mainly in
   ansys-template.el. For example added all *get functions in the
   ansys-skeleton-function template
+
+* Switched on outline-minor-mode and auto-insertion (in default_el)
 
 * Added a custom variable the corresponding function
   ansys-ansysli-servers for specifying the ansys interconnect license

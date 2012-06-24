@@ -759,7 +759,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 )
 
 (defconst ansys-font-lock-keyword-list	;NEW_C
-      '(ansys-font-lock-keywords
+      '(
+	ansys-font-lock-keywords
 	ansys-font-lock-keywords-1
 	ansys-font-lock-keywords-2
 	;; testing
@@ -1683,7 +1684,8 @@ improvements you have the following options:
   ;; case-fold -- non nil: ignore case
 
   (make-local-variable 'outline-regexp)
-  (setq outline-regexp (concat "^!\\(" ansys-outline-string "\\)+"))
+;  outline searches only at the line beginning
+  (setq outline-regexp (concat "!\\(" ansys-outline-string "\\)+"))
 
   ;; discrepancies from Emacs defaults
   (ansys-font-lock-mode)	;switch on font-lock when it's toggled

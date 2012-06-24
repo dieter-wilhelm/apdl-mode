@@ -27,7 +27,7 @@
 ;; !@ is surrounded by 30 equal signs  ==============================
 ;; !@@ by 30 dashes ------------------------------
 ;; !@@@ by 30 dots ..............................
-;; and an empty lines
+;; and empty lines
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -113,7 +113,7 @@ instead of previewing it in a separate window."
   "Control constructs"
   nil
   "!! .............................." \n
-  "\n!@@@ - branching, looping and control structures -"\n
+  "!@@@ - branching, looping and control structures -"\n
   "!! .............................." \n
   \n
   "! if controls" \n
@@ -154,9 +154,9 @@ instead of previewing it in a separate window."
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
-  "!! ==============================" \n
+  "!@ ==============================" \n
   "!" ansys-outline-string " ---  Header ---" \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; 					      (buffer-file-name)
   ;; 					    (buffer-name))) \n
@@ -176,9 +176,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-information
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- informations --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
   "*stat,Job_name(1,1,1)" \n
@@ -350,9 +350,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-configuration
   ""
   nil
-  "\n!! ------------------------------" \n
+  "@! ------------------------------" \n
   "!@@ -- configurations --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "! *afun,rad ! trig. functions accept angle arguments" \n
   "*afun,deg !rad: default" \n
@@ -375,9 +375,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-view-settings
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- view settings --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "immed,1 !immediate display of generated geom. in /prep7" \n
   "/uis,replot,0 !suppress automatic replot" \n
@@ -403,21 +403,21 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!! .............................." \n
   "!@@@ - element shape display -" \n
-  "\n!! ------------------------------" \n
+  "!! .............................." \n
   \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
-  "\n!! ------------------------------" \n
+  "!! .............................." \n
   "!@@@ - mesh line display -" \n
-  "\n!! ------------------------------" \n
+  "!! .............................." \n
   \n
   "/edge,,1 !1:display elements in contour plots" \n
   "/edge,,0 !0:switch off display of elements in contour plots" \n
   \n
-  "\n!! ------------------------------" \n
-  "\n!@@@ - coordinate system display -" \n
-  "\n!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ - coordinate system display -" \n
+  "!! .............................." \n
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
   "clocal,11,0 !define local coord. sys. from active" \n
@@ -455,9 +455,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-expand	;NEW
   "Symmetry expansion."
   nil
-  "\n!! ------------------------------" \n
-  "\n!@@@ - symmetry expansion -" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
+  "!@@@ - symmetry expansion -" \n
+  "!! ------------------------------" \n
   \n
   "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3"\n
   "!DX1,DY1,DZ1,... 1.) normal vector of reflection plane 2.) increments between patterns"\n
@@ -475,9 +475,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-contact-definition
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- contact pair defintion --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "Contact="_ \n
   "Target=Contact+1" \n
@@ -536,9 +536,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,mu,Contact,Mu !friction factor" \n
   "mat,Contact" \n
   \n
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- contact generation --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "type,Contact" \n
   "real,Contact" \n
@@ -589,9 +589,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-contact-rigid ;NEW
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- rigid target creation -- " \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "Contact="_ \n
   "Target=Contact+1" \n
@@ -624,7 +624,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!! .............................." \n
-  "\n!@@@ - coordinate system display -" \n
+  "!@@@ - coordinate system display -" \n
   "!! .............................." \n
   \n
   "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
@@ -644,7 +644,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Settings for the working plane and related stuff."
   nil
   "!! .............................." \n
-  "\n!@@@ - working plane setup -" \n
+  "!@@@ - working plane setup -" \n
   "!! .............................." \n
   \n
   "/plopts,wp,1 !display working plane" \n
@@ -668,7 +668,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!! .............................." \n
-  "\n!@@@ - multiplot controls -" \n
+  "!@@@ - multiplot controls -" \n
   "!! .............................." \n
   \n
   "/gcmd,1,u,sum" \n
@@ -683,7 +683,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!! .............................." \n
-  "\n!@@@ - numbering controls -" \n
+  "!@@@ - numbering controls -" \n
   "!! .............................." \n
   \n
   "/pnum,kp,1 !line;area;volu;node;elem;mat;type;tabn;sval,on" \n
@@ -697,7 +697,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!! .............................." \n
-  "\n!@@@ - symbol display -" \n
+  "!@@@ - symbol display -" \n
   "!! .............................." \n
   \n
   "/pbc,all,,1 !bc symbols"\n
@@ -714,9 +714,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-element-table
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- etables --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "!! etables don't take into account higher element order!" \n
   "!! they are averaged over the element" \n
@@ -745,9 +745,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-element-definition
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- element definition --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "Steel = 1" \n
   "ID = Steel" \n
@@ -806,9 +806,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-meshing
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- meshing --" \n
-  "\n!! ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "!! mat,Steel" \n
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
@@ -863,7 +863,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-function
   "Standard FORTRAN and get functions"
   nil
-  "!@ --- Parameteric functions ---" \n
+  "!! ==============================" \n
+  "!! --- Parameteric functions ---" \n
+  "!! ==============================" \n
   "A = ABS()"  \n
   "A = SIGN()  !sign(x,y) absolute value of x with sign of y)" \n
   "A = EXP()   !exp(x): e^x" \n
@@ -888,7 +890,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = ATAN()" \n
   "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
   \n
-  "!@ --- get functions ---" \n
+  "!! ==============================" \n
+  "!! --- get functions ---" \n
+  "!! ==============================" \n
   "! -- selections -- " \n
   "NSEL(N) ! Status of node N: -1=unselected, 0=undefined, 1=selected." \n
   "ESEL(E) ! Status of element E: -1=unselected, 0=undefined, 1=selected." \n
@@ -1010,8 +1014,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-geometry
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- geometry --"\n
+  "!! ------------------------------" \n
   \n
   "/prep7" \n
   "X1 = 0" \n
@@ -1060,7 +1065,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-material-definition
   ""
   nil
-  "\n!@@ -- material definitions --" \n
+  "!@ ------------------------------" \n
+  "!@@ -- material definitions --" \n
+  "!! ------------------------------" \n
   \n
   "Steel=1" \n
   "mp,nuxy,Steel,0.3 ! Poisson No" \n
@@ -1167,7 +1174,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-bc
   ""
   nil
-  "\n!@@ -- boundary conditions --"\n
+  "!@ ------------------------------" \n
+  "!@@ -- boundary conditions --"\n
+  "!! ------------------------------" \n
   \n
   "/prep7" \n
   \n
@@ -1267,8 +1276,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-buckling
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ - buckling -" \n
+  "!! ------------------------------" \n
   \n
   "!! -- static --"
   "/solu" \n
@@ -1293,9 +1303,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-solve
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ==============================" \n
   "!@ --- solution --- " \n
-  "!! ------------------------------" \n
+  "!! ==============================" \n
   \n
   "/solu" \n
   "allsel" \n
@@ -1339,13 +1349,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "antyp,,rest,1,last"\n
   "time,1.2 !time at the end of load step" \n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- modal --" \n
+  "!! ------------------------------" \n
   \n
   "antype,modal" \n
   "modopt,lanb,10,10,1e10!method,No of modes,freqB,freqE" \n
   "mxpand"\n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- harmonic --" \n
+  "!! ------------------------------" \n
   \n
   "antype,harmic" \n
   "dmprat,.02                ! constant damping ratio"\n
@@ -1356,13 +1370,16 @@ time stamp with the Emacs command M-x `time-stamp'."
   "harfrq,,7.5               ! Frequency range from 0 to 7.5 HZ"\n
   "kbc,1                     ! Step boundary condition"\n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- magnetics --" \n
+  "!! ------------------------------" \n
   \n
   "magsolv" \n
   \n
   "solve" \n
-
+  "!@ ------------------------------" \n
   "!@@ -- cyclic symmetry --" \n
+  "!! ------------------------------" \n
   \n
   "cycopt,status" \n
   \n
@@ -1371,9 +1388,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-post1
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ==============================" \n
   "!@ --- post 1 ---" \n
-  "!! ------------------------------" \n
+  "!@ ==============================" \n
   \n
   "/post1" \n
   "!! --- theory reference: Nodal and centroidal data evaluation ---" \n
@@ -1445,7 +1462,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,close" \n
   "erase" \n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- acoustics --" \n
+  "!! ------------------------------" \n
+  \n
   "/view,,1,1,1" \n
   "/graphics,full" \n
   "/sscale,,1e5 !topographic display scaling" \n
@@ -1455,7 +1475,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "pletab,spl"\n
   "!! SPL in nodal display" \n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- magnetics --" \n
+  "!! ------------------------------" \n
+  \n
   "/efacet,2" \n
 ;  "psdisp,0" \n
   "/graphics,full ! results averaging also from interior" \n
@@ -1465,7 +1488,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plvect,b,! induction vector plot" \n
   "fmagsum,'component_name'" \n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- contact status --" \n
+  "!! ------------------------------" \n
+  \n
   "nldpost,nrre,stat !element information nonlinear" \n
   "plnsol,nrre,,,,001 !plot residual file .nr001 " \n
   "etable,Pene,cont,pene" \n
@@ -1509,8 +1535,9 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-output-to-file
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- output to file --" \n
+  "!! ------------------------------" \n
   \n
   "! --- 1.) write macro file without parameter substitution" \n
   "! *vwrite works only in batch mode" \n
@@ -1601,7 +1628,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!! .............................." \n
-  "\n!@@@ - select stuff -" \n
+  "!@@@ - select stuff -" \n
   "!! .............................." \n
   \n
   "N1="
@@ -1625,8 +1652,10 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-path-plot
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- path plot --" \n
+  "!! ------------------------------" \n
+  \n
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
   \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
@@ -1648,7 +1677,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-post26
   ""
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@ --- time-history postprocessing ---" \n
   "!! ------------------------------" \n
   \n
@@ -1691,8 +1720,10 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-array
   "arrays"
   nil
-  "\n!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- table arrays --" \n
+  "!! ------------------------------" \n
+  \n
   "!! table arrays are *set with integers" \n
   "!! and accessed with real indices" \n
   "NSS=100" \n
@@ -1713,8 +1744,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
   "acel,,,%mytab% !acceleration in global coordinates" \n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- arrays --" \n
-  \n
+  "!! ------------------------------" \n
+   \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
   "*del,B,,nopr !deleting before redimensioning necessary" \n
   "*dim,B,table,10,1,1,TIME !table type interpolating" \n
@@ -1757,7 +1790,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Minimum working structural APDL template."
   nil					;no interactor needed
   '(ansys-skeleton-header)
+  "!@ ==============================" \n
   "!@ --- Preprocessing ---"\n
+  "!@ ==============================" \n
   "/prep7"\n
   "!@@ -- Elements --"\n
   "Steel = 1"\n
@@ -1778,10 +1813,14 @@ time stamp with the Emacs command M-x `time-stamp'."
   "d,all,uy,-.1"\n
   "allsel"\n
   "save"\n
+  "!@ ==============================" \n
   "!@ --- Solving ---"\n
+  "!@ ==============================" \n
   "/solu"\n
   "solve"\n
-  "!@ --- Postprocessing --"\n
+  "!@ ==============================" \n
+  "!@ --- Postprocessing ---"\n
+  "!@ ==============================" \n
   "/post1"\n
   "plnsol,u,sum,2"\n
   \n
@@ -1791,7 +1830,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Minimum working structural contact APDL template."
   nil					;no interactor needed
   '(ansys-skeleton-header)
+  "!@ ==============================" \n
   "!@ --- Preprocessing ---"\n
+  "!@ ==============================" \n
   "/prep7"\n
   "!@@ -- Elements --"\n
   "Steel = 1"\n
@@ -1843,11 +1884,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "sf,all,pres,1e3"\n
   "allsel"\n
   "save"\n
+  "!@ ==============================" \n
   "!@ --- Solving ---"\n
+  "!@ ==============================" \n
   "/solu"\n
   "nsubst,10"\n
   "solve"\n
-  "!@ --- Postprocessing --"\n
+  "!@ ==============================" \n
+  "!@ --- Postprocessing ---"\n
+  "!@ ==============================" \n
   "/post1"\n
   "plnsol,u,sum"\n
   \n
@@ -1881,32 +1926,32 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-outline-template		;NEW
   "Insert outline framework into an ANSYS APDL file."
   "Insert brief purpose of file: "
-  "!! ==============================" \n
+  "!@ ==============================" \n
   "!" ansys-outline-string " --- Header ---" \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! ANSYS VERSION: " ansys-current-ansys-version \n
   "!! DESCRIPTION: " str \n
   \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   "!" ansys-outline-string " --- Setup ---" \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   \n
   "finish "\n
   \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   "!" ansys-outline-string " --- Preprocessing --- " \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   \n
-  "!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- Cad Import -- " \n
   "!! ------------------------------" \n
   \n
   "!! /aux15" \n
   \n
-  "!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n
   "!! ------------------------------" \n
   \n
@@ -1932,30 +1977,30 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Boundary conditions -" \n
   "!! .............................." \n
   \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   "!" ansys-outline-string " --- Solution --- " \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   \n
   "/solu" \n
   "allsel" \n
   \n
-  "!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string
   " --  Solution controls -- " \n
   "!! ------------------------------" \n
   \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   "!" ansys-outline-string " --- Postprocessing ---" \n
-  "!! ==============================" \n
+  "!@ ==============================" \n
   \n
-  "!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string
   " -- General Postprocessing -- " \n
   "!! ------------------------------" \n
   \n
   "/post1" \n
   \n
-  "!! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!" ansys-outline-string
   ansys-outline-string " -- Time-History Postprocessing --" \n
   "!! ------------------------------" \n

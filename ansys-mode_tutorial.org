@@ -3,14 +3,15 @@
 
 ######################################################################
 # TODO
+# - slide of extensibility, showing Emacs self-documenting help system
+#   for a template function
 # - in variable.png symbols Ns and Ls are not highlighted as variables
 # - change sequence of alignment.pgn first not aligned, second aligned
 # - show a copied result to the apdl window from calc in calculator.png (d f 3)
-# - slide of extensibility, showing Emacs function help
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
-#+DATE:      2012-06-17 Sa
+##+DATE:      2012-06-17 Sa
 ##+TEXT: blabla
 #+DESCRIPTION: GNU Emacs Editor support for working with ANSYS FEA.
 #+KEYWORDS: Emacs ANSYS FEA
@@ -91,7 +92,7 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
 
-* Selected ANSYS-Mode features  
+* Selected ANSYS-Mode Features  
 ** Use the ANSYS-Mode APDL command help
   Please type *M-?* (or *C-c ?*) on a code line and you will see the
   APDL command's description together with its parameter syntax.  You
@@ -167,51 +168,14 @@
 #+ATTR_HTML: width="1200"
 #+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
-** Display license state and some auxiliary processes
-   In the middle section you see the license state (*C-c C-l*) and
-   left below an Emacs thumbnail view of images in a folder.
+** Display the license status and graphics (also PDF) on UNIX
+   In Emacs' mid-section you see the license state (*C-c C-l*)
+   and left Emacs window (below) a thumbnail view of images from a
+   folder.
 
 #+ATTR_LaTeX: height=7.3cm
 #+ATTR_HTML: width="1200"
    [[./license.png]]
-
-* Documentation and licensing
-
-** Get to know Emacs and check out its tutorial
-  Newcomers to Emacs should take the guided [[http://www.gnu.org/software/emacs/tour/][online tour]] to get a
-  background of its capabilities and fire up the interactive tutorial
-  (*C-h t*) which is translated to various languages.
-
-#+ATTR_LaTeX: height=7.5cm
-  [[./emacs_tutorial.png]]
-
-** Use the ANSYS-Mode built-in documentation
-   Please type *C-h m* for the ANSYS-Mode help, especially for the
-   usage and keybindings of this mode.  In the beginning is also a
-   brief introduction of basic Emacs concepts.
-
-#+ATTR_LaTeX: height=7.5cm
-   [[./mode_help.png]]
-
-** Read further ANSYS-Mode documentation
-
-*** Hands on  APDL tutorial:   
-
-*** Installation:
-    More detailed instructions are necessary if you are not using the
-    pre-configured and bundled mode.  Please have a look in the
-    /README/ file, which is included in the mode's archive. For an
-    online version of it see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at the EmacsWiki.
-    
-*** News and project history:
-    They are placed in the mode's accompanying /NEWS/ file
-
-*** Licensing and costs:
-    This is free and open software, there are *no costs* and effectively *no
-    restrictions* for you using Emacs and ANSYS-Mode also commerically.
-    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License) described in the
-    /LICENSE/ file.
-    
 * Configuration
 
 ** Configure system dependent aspects and user options
@@ -238,10 +202,48 @@
           :END:
 #+ATTR_LaTeX: width=5.5cm
     [[./customisation_system.png]]
-* Help
+
+* Documentation and Licensing
+
+** Get to know Emacs and check out its tutorial
+  Newcomers to Emacs should take the guided [[http://www.gnu.org/software/emacs/tour/][online tour]] to get a
+  background of its capabilities and fire up the interactive tutorial
+  (*C-h t*) which is translated to various languages.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./emacs_tutorial.png]]
+
+** Use the ANSYS-Mode built-in documentation
+   Please type *C-h m* for the ANSYS-Mode help, especially for the
+   usage and keybindings of this mode.  In the beginning is also a
+   brief introduction of basic Emacs concepts.
+
+#+ATTR_LaTeX: height=7.5cm
+   [[./mode_help.png]]
+
+** Read further ANSYS-Mode documentation
+
+*** Hands-on  APDL tutorial:
+    You will find this more in-depth tutorial included in the mode's
+    archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html][online]].
+*** Installation:
+    More detailed instructions are necessary if you are not using the
+    the mode bundled with Emacs for Windows.  Please have a look in
+    the /README/ file.  For an online version see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]]
+    at the EmacsWiki.
+    
+*** News and project history:
+    They are placed in the mode's accompanying /NEWS/ file
+
+*** Licensing and costs:
+    This is free and open software, there are *no costs* and effectively *no
+    restrictions* for you using Emacs and ANSYS-Mode also commerically.
+    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License) described in the
+    /LICENSE/ file.
+* Help and Bugs
 ** Search for help, report bugs and issues
-  Have a look in the section 'Issues and bug reports'
-  at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an email directly to the [[mailto:dieter@duenenhof-wilhelm.de][author]].
+  Besides the documentation, have a look in the section 'Issues and
+  bug reports' at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
   Please use the ANSYS-Mode bug report functionality (*C-c C-b*),
   which might provide helpful status information.
 
@@ -274,7 +276,7 @@
 #         :BEAMER_col: 0.5
          :END:
     Hybrid between coding and debugging with solver communication
-    (UNIX only), retrieving license stati, error file viewing, abort
+    (UNIX only), retrieving license states, error file viewing, abort
     file handling, extending ANSYS-Mode, ...
 ** Last slide of the ANSYS-Mode tutorial
 ***  Hint for the curious:
@@ -296,6 +298,11 @@
          :BEAMER_envargs: C[t]
          :BEAMER_col: 0.5
          :END:
+
+Have fun...
+#+ATTR_LaTeX: width=6cm
+    [[./editor_learning_curves.jpg]]
+
 ##+LaTeX: \transdissolve<2>
 
 #might be a new beginning...

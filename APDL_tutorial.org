@@ -204,13 +204,13 @@ You can modify, extend or create new code to your hearts content.
   !@@ -- Place comments --
 #+end_src
 #+begin_src ansys
-  !! Type "M-;" in the empty line below
+  !! Type "M-;" in the empty line below the code
   *if,I,eq,2,then
 
 #+end_src
-    which gives the comment at the right indentation
+    which places the comment characters already with the right indentation
 #+begin_src ansys :tangle no
-  !! Type "M-;" in the empty line below
+  !! Type "M-;" in the empty line below the code
   *if,I,eq,2,then
     !! 
 #+end_src
@@ -585,12 +585,23 @@ APDL processing and debugging environment
    !! 1) A configured ANSYS-Mode and
    !! 2) ANSYS running on a Unix/Linux system
 #+end_src
-  Switch off menu-, tool- and scroll-bars :-)
-
+  Finally switch off unnecessay stuff: Emacs' menu-, tool- and scroll-bar :-)
+#+begin_src ansys
+   !! Erase above APDL code and reinsert the `structural' template below
+   !! ("M-< C-w")
+#+end_src
+** Choose the license type for a run  
+#+begin_src ansys :exports none
+   !@ --- Choose the license type for a run ---
+#+end_src
+#+begin_src ansys
+   !! Type "C-c C-t"!  And select the required license type
+   !! Use the <TAB> key to see the predefined license types
+#+end_src
 ** Display the license status
    highlighted in red is your chosen license type
 #+begin_src ansys :exports none
-   !@ --- Display the license status ---
+   !@ --- Display available licenses ---
 #+end_src
 #+begin_src ansys
    !! Type "C-c C-l"!  Checking which licenses are free, in particular
@@ -613,14 +624,13 @@ APDL processing and debugging environment
 #+begin_src ansys :exports none
   !@ --- Interpreter communication  ---
 #+end_src
-#+begin_src ansys
-   !! Erase above APDL code and reinsert the `structural' template below
-#+end_src
 *** Sending file contents
 #+begin_src ansys :exports none
   !@@ -- Sending APDL window contents --
 #+end_src
 **** Send a code line or region
+Any time you communicate with the interpreter its output is shown in
+the \*ANSYS\* interactive window.
 #+begin_src ansys :exports none
   !@@@ - Send a code line or region to the interpreter  -
 #+end_src
@@ -632,61 +642,103 @@ APDL processing and debugging environment
   !@@@ - Send all code above the cursor position -
 #+end_src
 #+begin_src ansys
-  !! Type "C-c C-u" sending all code up to the beginning!
+  !! Place the cursor below `solve' command and
+  !! type "C-c C-u" sending all code up to the beginning!
 #+end_src
     *C-c C-u*, *C-c C-c* have changed their behaviour with the running
     interpreter.  Without a running ANSYS process they are sending the
     code to the system clipboard.
-*** Writing directly to interpeter
-#+begin_src ansys :exports none
-  !@@ -- Cummunicating directly with the interpeter  --
-#+end_src
-**** Direct communication from the APDL window
-#+begin_src ansys :exports none
-  !@@@ - Cummunicating from the APDL window  -
-#+end_src
 #+begin_src ansys
-  !! Type "C-c C-q" and send your input to the interpreter!
-  !! You are getting `queried' for input by Emacs.
+  !! We have got now data and results to work with
 #+end_src
-**** Direct communication from the `\*ANSYS\*' window
-#+begin_src ansys :exports none
-  !@@@ - Cummunicating from the `*ANSYS*' window  -
-#+end_src
-#+begin_src ansys
-  !! Place the cursor in the *ANSYS* window and write
-  !! some command, conclude the input with <RET>.
-#+end_src
-** Graphical feedback and interaction
+
+** Graphical feedback and graphics interaction
 Receive graphical feedback from the interpreter
 #+begin_src ansys :exports none
   !@ --- Graphical feedback ---
 #+end_src
 *** Open the `interactive graphics' window of ANSYS
 #+begin_src ansys :exports none
-  !@@ -- The ANSYS `interactive graphics' frame  --
+  !@@ -- Open the ANSYS `interactive graphics' frame  --
 #+end_src
 #+begin_src ansys
   !! Type "C-c C-g" to open the ANSYS `interactive' graphics frame.
-  !! Then type e. g. "C-c C-q eplot <RET>".
+  !! Then send the following line with "C-c C-c".
+  eplot
 #+end_src
 
 #+ATTR_HTML: width="1200"
 ##+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
 
-Unfortunately it is not possible to interact directly with the
-graphics except with APDL commands and through the Pan/Zoom/Rotate
-dialog!
-*** Open the ANSYS Pan/Zoom/Rotate dialog
+Unfortunately there are 4 severe restrictions using this approach.
+Firstly: It is not possible to interact directly with the graphics
+except with APDL commands and through the Pan/Zoom/Rotate dialog!  And
+secondly: As long as the dialog is open *no* other communication is
+possible! And thirdly: The size of the graphics is fixed. And
+fourthly: You must replot every time the graphics frame was hidden by
+other graphics (Desktop switching, etc.)!
+
+**** Open the ANSYS Pan/Zoom/Rotate dialog
 #+begin_src ansys :exports none
   !@@ -- The Pan/Zoom/Rotate dialog --
 #+end_src
 #+begin_src ansys
   !! Type "C-c C-p" to open the ANSYS Pan/Zoom/Rotate dialog!
 #+end_src
-*Warning:* As long as the dialog is open *no* communication is
- possible!
+
+To alleviate these severe restrictions ANSYS-Mode provides keybindings
+for replotting, zooming, fitting and moving graphical objects.
+**** Use the keybindings for zooming
+#+begin_src ansys :exports none
+  !@@ -- Use the keybindings for zooming --
+#+end_src
+#+begin_src ansys
+  !! "C-c C-f" Fit the graphics
+  !! "C-c C-+" Enlarge it and
+  !! "C-c C--" Shrink it
+#+end_src
+**** Use the keybindings for moving
+#+begin_src ansys :exports none
+  !@@ -- Use the keybindings for moving --
+#+end_src
+#+begin_src ansys
+  !! "C-c C->" Move right
+  !! "C-c C-_" Move down
+  !! "C-c C-<" Move left
+  !! "C-c C-^" Move up
+#+end_src
+**** Use the keybindings for replotting and iso-view
+#+begin_src ansys :exports none
+  !@@ -- Use the keybindings for replotting and iso-view  --
+#+end_src
+#+begin_src ansys
+  !! "C-c C-i" Show in Iso-view
+  !! "C-c C-r" Replot the graphics
+#+end_src
+
+*** Writing directly to interpeter
+#+begin_src ansys :exports none
+  !@@ -- Communicating directly with the interpeter  --
+#+end_src
+**** Direct communication from the APDL window
+#+begin_src ansys :exports none
+  !@@@ - Communicating from the APDL window  -
+#+end_src
+#+begin_src ansys
+  !! Type "C-c C-q" and send your input to the interpreter!
+  !! You are getting `queried' for input by Emacs.
+  !! Input "/post1 <RET>"
+#+end_src
+**** Direct communication from the `\*ANSYS\*' window
+#+begin_src ansys :exports none
+  !@@@ - Communicating within the `*ANSYS*' interactive window  -
+#+end_src
+#+begin_src ansys
+  !! Place the cursor in the *ANSYS* interactive window and write
+  !! "plnsol,u,sum", conclude the input with <RET>.
+#+end_src
+
 ** Visiting the ANSYS error file
    The solver error file (\*.err) is opened in tail-follow mode,
    i. e. you are seeing always the latest contend. (*C-c C-e*)
@@ -697,6 +749,7 @@ dialog!
   !! Type "C-c C-e" to open the run's error file in `tail-follow mode'!
   !! Always the latest content is shown...
 #+end_src
+
 # ** writing an abort file
 # ** bookmarks positions -> in bookmarks/registers/clone buffer?
 # ** Dired (textual renaming), speedbar, calendar

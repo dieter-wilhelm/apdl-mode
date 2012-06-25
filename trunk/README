@@ -42,7 +42,7 @@ Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 The code is based on ANSYS version 14.0 and is written for GNU Emacs
 and not consciously targeted for XEmacs.  It is tested with Emacs-24.1
-under XP32, XP64 and GNU/Linux.
+under XP32, XP64 and under `GNU/Linux' (there also with Emacs-23.2).
 
 For some of the ANSYS-Mode solver control and communication
 capabilities a UNIX systems is necessary.
@@ -53,7 +53,7 @@ capabilities a UNIX systems is necessary.
   starting the ANSYS help browser, etc.)
 
 * Solver comunication facilities, i. e. sending code fragments from
-  the macro file or commands interactively to an ANSYS solver instance
+  the macro file or commands interactively to an ANSYS solver process
   (UNIX only)
 
 * Command syntax help in the editor (similar to but more verbose then
@@ -70,9 +70,6 @@ capabilities a UNIX systems is necessary.
   keywords, undocumented commands, deprecated elements, ...)  and
   optionally also user defined variables (experimental)
 
-* Alignment (beautification) of whole sections with variable
-  defintions
-
 * Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
@@ -84,6 +81,9 @@ capabilities a UNIX systems is necessary.
   examples of APDL work flows and considerable ANSYS know-how, these
   are easily extensible to boot.  The templates are partly interactive
   i. e. they are asking for or completing user input.
+
+* Alignment (beautification) of whole sections with variable
+  defintions
 
 * Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode. With outline strings '!@' you have a heading

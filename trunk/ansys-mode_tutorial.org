@@ -51,8 +51,8 @@
    every operating system where ANSYS is running.
 
 #+LaTeX: \\[.5cm]
-   In the following *C-c* or *M-c* means typing the *CTRL* or *ALT*
-   key together with the *c* key.
+   In the following *C-c* or *M-c* means typing the <CTRL> or <ALT>
+   key together with the <c> key.
   
 * Download
 ** Download ANSYS-Mode together with the Emacs editor \\ There are no costs and license restrictions also for commercial use
@@ -109,8 +109,8 @@
    [[./template_menu.png]]
 
 ** Take a short-cut to the code template preview
-   Type *C-c C-s* and select an interesting subject, the *TAB* key
-   opens a list of available template (or skeleton) completions.
+   Type *C-c C-s* to select a template name, use the <TAB> key to open
+   a completion window of available subjects.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]
@@ -122,17 +122,17 @@
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
-** Outline your code and hide the entries (tree view)
-  Create a new APDL file and let Emacs auto-insert an APDL skeleton.
-  Collapse it to a tree with *C-c @ C-t* and open (*C-c @ C-a*) all
-  again. '!@', '!@@' are the outline heading strings.
+** Check auto-insertion and outline your code (tree view)
+  Create a new `macro' with the file suffix `.mac' and let Emacs
+  auto-insert a code skeleton with `outline' headings.  Collapse it to
+  a tree view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./outline.png]]
   
 ** Utilise completions of all APDL symbols (around 2000)
   Move the cursor behind a character (here 'c') or word fragment and
-  type *ESC TAB* or *C-M-i* for completing up to date APDL command-,
+  type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
   element- and function names.
 
 #+ATTR_LaTeX: height=7.5cm

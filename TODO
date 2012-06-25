@@ -73,6 +73,7 @@
    - [X] check HPC support!
 
 ** Bugs
+    - skeleton-function: abs(nint()) !round is wrong
     - some functions in -skeleton-function are not highlighted and
       completable
     - M-n/p does not work from node-/element-blocks (aternative to C-c

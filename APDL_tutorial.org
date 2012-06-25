@@ -11,7 +11,7 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:3 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -23,7 +23,7 @@
 ##+LaTeX_CLASS: koma-report
 #+LaTeX_CLASS: koma-article
 
-#+TEXT: This is still a work in progress!
+#+TEXT: This is still a work in progress, good documentation is hard work!
 #+TEXT: Please report remaining faults.
 
 ##+LATEX: \tableofcontents
@@ -54,12 +54,16 @@
 # Immediate satisfaction without regret. :-) Free, open and
 # extensible!
 *** Please, please work through this tutorial side by side *with* Emacs
-    Load the tutorial's APDL source as described further down. All
-    necessary APDL for doing hands-on code examples was copied to this
-    file, see the following pseudo code.
+    Especially for the APDL examples, which look like the following
+    pseudo code.
 #+begin_src ansys :tangle no
   Hello world!  This font represents APDL code!
 #+end_src
+
+    All necessary APDL code for working hands-on on the following
+    examples is available in a supplementary file, as described
+    further down.
+
 * APDL viewing
   You can achieve all actions in this section from the menu *or* with
   keyboard shortcuts.
@@ -93,13 +97,18 @@
   !! ==============================
 #+end_src
 ** Extensible APDL templates
-   (*Everything* is extensible in Emacs and ANSYS-Mode. ;-)
+   (*Everything* is extensible in Emacs and ANSYS-Mode. ;-) Some
+   templates are collections of (all) available commands to certain
+   subjects.  They are more intended to be previewed.  Others are
+   self-contained "mini simulations" or skeletons for starting a new
+   project. These are more apt for insertion.
 #+begin_src ansys :exports none
   !@ --- Extensible APDL templates ---
 #+end_src
 *** Open this tutorial's APDL source file
 #+begin_src ansys :tangle no
-   !! Open `APDL_tutorial.ansys' in Emacs' `site-lisp' folder with "C-x C-f"!
+  !! Open `APDL_tutorial.ansys' with "C-x C-f"!  You can take this
+  !! file from the latest mode's archives.
 #+end_src
 *** Inspect available code templates
     Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
@@ -179,6 +188,94 @@ After giving a short description, it should look like this:
   /post1
   plnsol,u,sum,2
 #+end_src
+#+begin_src ansys
+  !! Insert below the following line `ansys-skeleton-outline-template'!
+  !! Type "C-u C-c C-s" for insertion instead of previewing.
+#+end_src
+The idea is to have a skeleton for starting a new APDL project.
+#+begin_src ansys
+  !! Insert below the following line `ansys-skeleton-outline-template'!
+  !! Type "C-u C-c C-s" for insertion instead of previewing.
+  !@ ==============================
+  !@ --- Header ---
+  !@ ==============================
+  
+  !! FILENAME: /home/dieter/ansys-mode/trunk/APDL_tutorial.org[*Org Src APDL_tutorial.org[ ansys ]*]
+  !! CREATION DATE: Tue Jun 26 01:02:07 2012
+  !! ANSYS VERSION: 140
+  !! DESCRIPTION: outline example
+  
+  !@ ==============================
+  !@ --- Setup ---
+  !@ ==============================
+  
+  finish 
+  
+  !@ ==============================
+  !@ --- Preprocessing --- 
+  !@ ==============================
+  
+  !@ ------------------------------
+  !@@ -- Cad Import -- 
+  !! ------------------------------
+  
+  !! /aux15
+  
+  !@ ------------------------------
+  !@@ -- General Preprocessing -- 
+  !! ------------------------------
+  
+  /prep7
+  
+  !! ..............................
+  !@@@ - Materials and element types -
+  !! ..............................
+  
+  !! --- Solids ---
+  
+  !! --- Contacts ---
+  
+  !! ..............................
+  !@@@ - Geometry -
+  !! ..............................
+  
+  !! ..............................
+  !@@@ - Meshing -
+  !! ..............................
+  
+  !! ..............................
+  !@@@ - Boundary conditions -
+  !! ..............................
+  
+  !@ ==============================
+  !@ --- Solution --- 
+  !@ ==============================
+  
+  /solu
+  allsel
+  
+  !@ ------------------------------
+  !@@ --  Solution controls -- 
+  !! ------------------------------
+  
+  !@ ==============================
+  !@ --- Postprocessing ---
+  !@ ==============================
+  
+  !@ ------------------------------
+  !@@ -- General Postprocessing -- 
+  !! ------------------------------
+  
+  /post1
+  
+  !@ ------------------------------
+  !@@ -- Time-History Postprocessing --
+  !! ------------------------------
+  
+  /post26
+  
+#+end_src
+
 *** Extend or create a template
 Check out the code for a template, the Emacs self-documenting help
 principle will guide you to its definition file.
@@ -195,6 +292,52 @@ May the source be with you!
   !! directly to the relevant skeleton function.
 #+end_src
 You can modify, extend or create new code to your hearts content.
+
+
+** Outline and folding your code
+#+begin_src ansys :exports none
+  !@@ -- Outlining or folding --
+#+end_src
+!@, !@@, !@@@ are the heading indicators
+# *** Use the outline menu
+#+begin_src ansys
+  !! Type "C-c @ C-t" to collapse the code to its headings
+  !! Type "C-c @ C-e" to show a certain entry of a heading
+  !! Type "C-c @ C-a" to show all again
+#+end_src
+Helful to get an overview of large APDL file.
+#+begin_src ansys :tangle no
+  !@ ==============================
+  !@ --- Header ---
+  !@ ==============================...
+  !@ ==============================
+  !@ --- Setup ---
+  !@ ==============================...
+  !@ ==============================
+  !@ --- Preprocessing --- 
+  !@ ==============================...
+  !@ ------------------------------
+  !@@ -- Cad Import --...
+  !@ ------------------------------
+  !@@ -- General Preprocessing -- ...
+  !@@@ - Materials and element types -...
+  !@@@ - Geometry -...
+  !@@@ - Meshing -...
+  !@@@ - Boundary conditions -...
+  !@ ==============================
+  !@ --- Solution --- 
+  !@ ==============================...
+  !@ ------------------------------
+  !@@ --  Solution controls -- ...
+  !@ ==============================
+  !@ --- Postprocessing ---
+  !@ ==============================...
+  !@ ------------------------------
+  !@@ -- General Postprocessing -- ...
+  !@ ------------------------------
+  !@@ -- Time-History Postprocessing --...
+#+end_src
+
 ** Comments
 #+begin_src ansys :exports none
   !@ --- Comments ---
@@ -256,6 +399,12 @@ code should look like the following
   !! Type "M-;" somewhere in the following code line
   nsel,s,loc,x,0,1         ! this is an `inline comment'
 #+end_src
+#+begin_src ansys
+  !! If you input "M-;" in a line with an existing comment
+  !! then the cursor skips to the comment beginning.
+  nsel,s,loc,x,0,1         ! this is an `inline comment'
+#+end_src
+Is this not nicely thought out from Emacs' developers!
 *** Continue and indent your comments
 **** In inline comments
 #+begin_src ansys :exports none
@@ -331,19 +480,23 @@ y = cos(i)
 #+end_src
 The result looks like the code below, with the numbers aligned
 around the decimal point
+
+Yes, these assignments are a mess (intentionally), but imagine how
+nifty it will look with *your* code!
+
 #+begin_src ansys :tangle no
-  x       =       0.4         !laskd
-  y       =      33.0         ! alskdl
-  xzv     = 9999990.3         !!
-  llk     =       0.333333333 !bla
-  al_     =      00.40
+  x        =       0.4         !laskd
+  y        =      33.0         ! alskdl
+  xzv      = 9999990.3         !!
+  llk      =       0.333333333 !bla
+  al_      =      00.40
   aslfoeas =     304
-  ka      =        .4         !salkd
-  i       =       4.          !as
-  kasd    =        .3/0.4
-  kasd    =       3./0.4
-  xxx     =        asin(3.0)
-  y       =        cos(i)
+  ka       =        .4         !salkd
+  i        =       4.          !as
+  kasd     =        .3/0.4
+  kasd     =       3./0.4
+  xxx      =        asin(3.0)
+  y        =        cos(i)
 #+end_src
 ** Completions (around 2000 ANSYS symbols)
     Case sensitive completions except for mouse completion
@@ -395,13 +548,14 @@ you with a distinct highlighting!
 *** Completion of commands
 #+begin_src ansys :exports none
   !@@ -- APDL command completions --
-#+end_src ansys
+#+end_src
 #+begin_src ansys
   !! Completion of command names: type "<ESC> <TAB>" behind `ns'
   ns
 #+end_src ansys
 *** Dynamic completion
-    That is a completion of file content basis
+    That means completion on the basis of the window's content, the
+    following example will show what this means.
 #+begin_src ansys :exports none
   !@@ -- Dynamic completion --
 #+end_src
@@ -421,6 +575,9 @@ After the first *M-/*:
   !! type "M-/" repeatedly behind below character
   vlV
 #+end_src
+Emacs is looking above what matches the 'v' and finds `vlV' from
+the assignment `vlV = 8'.
+
 After the second *M-/*:
 #+begin_src ansys :tangle no
   !! ...
@@ -434,21 +591,27 @@ After the second *M-/*:
    Display all locally defined abbreviations with *C-u M-x list-abbrevs*
 *** Use the ANSYS-Mode defined abbreviations
 #+begin_src ansys
-  !! type a <SPACE> behind the following code characters
-  `p                      ! Pi assignment
-  `d                      ! do loop abbreviation
+  !! type a <SPACE> behind the special character ``' and abbreviation characters
+  `p                      ! This is the Pi assignment
+  `d                      ! Abbreviation of a *do loop
+  `do                     ! Interactive *do loop abbrev.
 #+end_src
     The abbreviations expand to:
 #+begin_src ansys :tangle no
-  !! type a <SPACE> behind the following code characters
+  !! type a <SPACE> behind the special character ``' and abbreviation characters
   Pi=3.14159265359
-  ! Pi assignment
+  ! This is the Pi assignment
   *do,I,1,10,1
     
   *cycle !bypass below commands in *do loop
   *enddo
   
-  ! do loop abbreviation
+  ! Abbreviation of a *do loop
+  *do,I,1,,1
+    
+  *enddo
+  
+  ! Interactive *do loop abbrev.
 #+end_src
 ** Logical blocks (control statements in "lesser" programming languages ;-)
 #+begin_src ansys :exports none
@@ -535,9 +698,9 @@ You are receiving
 You might round the input
 #+begin_src ansys
   !! Type "df" in Calc for `display fixed' and then <3> before pasting
-  Pi =
+  Pi = 
 #+end_src
-#+begin_src ansys
+#+begin_src ansys :tangle no
   !! Type "df" in Calc for `display fixed' and then <3> before pasting
   Pi = 3.142
 #+end_src
@@ -808,12 +971,6 @@ for replotting, zooming, fitting and moving graphical objects.
 # y = .8	!ach
 # #+end_src
 
-# ** Outlining of the APDL code
-#    !@, !@@, !@@@ are grouping indicators
-# *** Switch on outline-minor-mode
-# *** Use the outline menu
-#    type *C-c @ C-t* collapsing the bodies
-#    type *C-c @ C-a* showing everything
 
 # *** *C-c @* outline stuff with indirect-buffer
 # ** calc again

@@ -867,7 +867,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- Parameteric functions ---" \n
   "!! ==============================" \n
   "A = ABS()"  \n
-  "A = SIGN()  !sign(x,y) absolute value of x with sign of y)" \n
+  "A = SIGN()  !sign(x,y) absolute value of x with sign of y" \n
   "A = EXP()   !exp(x): e^x" \n
   "X = 2 $ Y = 1/3" \n
   "A = X**Y    !exponentiation x**y: x^y" \n
@@ -875,18 +875,19 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = LOG10()"\n
   "A = SQRT()" \n
   "A = NINT()  !nearest integer" \n
-  "A = abs(nint()) !round" \n
+; bullshit  "A = abs(nint()) !round" \n
   "A = MOD()   !mod(x,y): modulo x/y" \n
-  "A = RAND()  !rand(lower_bound,upper_bound)" \n
+  "A = RAND()  !rand(lower_bound,upper_bound):uniform dist." \n
   "A = GDIS()  !gdis(mean,stdd): gaussian distribution" \n
+  "!! the default for the trig. is radians, change this with *afun"\n
   "A = SIN()"  \n
   "A = COS()"  \n
   "A = TAN()"  \n
   "A = SINH()" \n
   "A = COSH()" \n
   "A = TANH()" \n
-  "A = ASIN()" \n
-  "A = ACOS()" \n
+  "A = ASIN()  !arg. between -1.0 and +1.0 " \n
+  "A = ACOS()  !arg. between -1.0 and +1.0 " \n
   "A = ATAN()" \n
   "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
   \n
@@ -1986,7 +1987,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string
-  " --  Solution controls -- " \n
+  " -- Solution controls -- " \n
   "!! ------------------------------" \n
   \n
   "!@ ==============================" \n

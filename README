@@ -362,7 +362,13 @@ locally:
 
 == Acknowledgements ==
 
-In mainly cronological order:
+* Tim Read
+* Geoff Foster
+
+For their ansys-mod.el from 1997 which gave the idea to ANSYS-Mode
+(the implementation is different and vastly extended)
+
+Then in mainly reversed cronological order:
 
 * Ilya Gurin
 * Alex Schroeder
@@ -371,7 +377,6 @@ In mainly cronological order:
 * Markus Triska
 * Mathias Dahl
 * rms
-
 
 == Resources ==
 

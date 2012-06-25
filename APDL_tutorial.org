@@ -23,8 +23,8 @@
 ##+LaTeX_CLASS: koma-report
 #+LaTeX_CLASS: koma-article
 
-#+TEXT: WARNING: This is still a work in progress!
-#+TEXT: Please report remaining deficiencies.
+#+TEXT: This is still a work in progress!
+#+TEXT: Please report remaining faults.
 
 ##+LATEX: \tableofcontents
 
@@ -39,13 +39,14 @@
    3. WorkBench users interested in the true understanding of their
       tool
 ** Using this tutorial
-*** Please read the *introductory* ANSYS-Mode tutorial
-    `ansys-mode_tutorial.pdf' or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html][online]] version first.
+*** Please read the *introductory* ANSYS-Mode tutorial first
+    It is `ansys-mode_tutorial.pdf' or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html][online]] version.
 
-    Ah yes, you are in a hurry, so *in summary:* You will get an
-    illustrated overiew how ANSYS-Mode will improve your workflow and
-    that it is available without any costs and with (practically) no
-    license restrictions also for commercial use.
+    Ah yes, you are in a hurry, I thought so. *In summary:* You will
+    get an illustrated overiew how ANSYS-Mode can improve your
+    workflows and that the software is available without any costs and
+    with (practically) no license restrictions also for commercial
+    use.
 
     Simply download an archive, extract it anywhere without the need
     of administrator rights.  For the Windows version all system
@@ -60,15 +61,15 @@
   Hello world!  This font represents APDL code!
 #+end_src
 * APDL viewing
-  You can achieve all actions in this section from the menu *and* with
+  You can achieve all actions in this section from the menu *or* with
   keyboard shortcuts.
 ** Open some WorkBench solver input file
-    Drag and drop it or use the `File' menu:
+    Drag and drop it on Emacs or use the `File' menu:
 
 #+ATTR_LaTeX: height=7.5cm
     [[./find_file_dialog.png]]
 
-    (Shortcut *C-x C-f*) and inspect its content.
+    (Shortcut *C-x C-f*) ... and inspect its content.
 ** Use ANSYS-Mode's `command help'
 
 #+ATTR_LaTeX: height=7.5cm
@@ -110,15 +111,15 @@
   !@@ -- Template preview --
 #+end_src
 #+begin_src ansys
-   !! Check out all available APDL functions!
-   !! Type "C-c C-s" to trigger the template preview
+   !! Check out all available and extendable APDL templates!
+   !! Type "C-c C-s" to trigger the ANSYS-Mode template preview
    !! and then the <TAB> key for a completion window.
 #+end_src
    
 #+ATTR_LaTeX: height=7.5cm
     [[./template_selection.png]]
 
-**** Preview the APDL `function' template
+**** Preview the APDL `function' template of parametric- and *get functions
 #+begin_src ansys :exports none
   !@@@ - APDL parametric- and *get functions -
 #+end_src
@@ -131,8 +132,8 @@
   !@@ -- Template insertion --
 #+end_src
 #+begin_src ansys
-  !! Insert below the following line the `ansys-structural-template'!
-  !! Type "C-u C-c C-s" to insert it directly into this file.
+  !! Insert below the following line the `ansys-skeleton-structural-template'!
+  !! Type "C-u C-c C-s" for insertion instead of previewing.
 #+end_src
 After giving a short description, it should look like this:
 #+begin_src ansys :tangle no
@@ -185,20 +186,41 @@ principle will guide you to its definition file.
   !@@ -- Extending your templates --
 #+end_src
 #+begin_src ansys
-  !! Type "C-h f" and write "ansys-skeleton-structural-template"
-  !! or let Emacs complete it!  
+  !! Type "C-h f" for Emacs' function help and write
+  !! "ansys-skeleton-structural-template" (let Emacs complete it)!
 #+end_src
+May the source be with you!
+#+begin_src ansys
+  !! In the *help* window follow the link to the source file
+  !! directly to the relevant skeleton function.
+#+end_src
+You can modify, extend or create new code to your hearts content.
 ** Comments
 #+begin_src ansys :exports none
   !@ --- Comments ---
 #+end_src
-*** Commenting and uncommenting
+*** Place comments
 #+begin_src ansys :exports none
-  !@@ -- Commenting and uncommenting --
+  !@@ -- Place comments --
 #+end_src
 #+begin_src ansys
-  !! Mark some text above (e. g. dragging the mouse with LMB)
-  !! and type "M-;"
+  !! Type "M-;" in the empty line below
+  *if,I,eq,2,then
+
+#+end_src
+    which gives the comment at the right indentation
+#+begin_src ansys :tangle no
+  !! Type "M-;" in the empty line below
+  *if,I,eq,2,then
+    !! 
+#+end_src
+*** Commenting out
+#+begin_src ansys :exports none
+  !@@ -- Commenting (out) --
+#+end_src
+#+begin_src ansys
+  !! Mark some text above (e. g. dragging the mouse with LMB or you
+  !! can mark the section with "M-h") and then type "M-;"
 #+end_src
 #  1. Marking blocks: *C-M-h*
 #  2. Marking paragraphs: *M-h*
@@ -206,51 +228,19 @@ principle will guide you to its definition file.
 After marking the whole paragraph with "M-h" and typing "M-;" above
 code should look like the following
 #+begin_src ansys :tangle no
-  !! !! Insert below the following line the ansys-structural-template
-  !! !! Type "C-u C-c C-s" to insert it directly into the file
-  !! !! ------------------------------
-  !! !@ --- file header ---
-  !! !! ------------------------------
-  !! !! Time-stamp: <Sat Jun 23 02:47:11 2012>
-  !! !! ANSYS VERSION: 140
-  !! !! UNITS: mm-t-s
-  !! !! NOTE: template example
-  !! !! ------------------------------
-  !! ! fini
-  !! ! /clear
-  !! ! y
-  !! /units,mpa !indicate mm-t-s unit system
-  !! !@ --- Preprocessing ---
-  !! /prep7
-  !! !@@ -- Elements --
-  !! Steel = 1
-  !! ID = Steel
-  !! real = Steel
-  !! et,ID,solid186 !3d, 20 node
-  !! !@@ -- Material --
-  !! mp,nuxy,Steel,0.3 ! Poisson No
-  !! mp,ex,Steel,200000 ! Elastic modulus
-  !! !@@ -- Modeling --
-  !! block,0,1,0,1,0,1
-  !! !@@ -- Meshing --
-  !! vmesh,all
-  !! !@@ -- BCs, Loads --
-  !! nsel,s,loc,x,0
-  !! d,all,all
-  !! nsel,s,loc,x,1
-  !! d,all,uy,-.1
-  !! allsel
-  !! save
-  !! !@ --- Solving ---
-  !! /solu
-  !! solve
-  !! !@ --- Postprocessing --
-  !! /post1
-  !! plnsol,u,sum,2
+  !! !! Type "M-;" in the empty line below
+  !! *if,I,eq,2,then
+  !!   !! 
 #+end_src
 *** Uncomment the code
 #+begin_src ansys
-  !! Mark above comments and retype "M-;"
+  !! Mark above commented out code and retype "M-;"
+#+end_src
+    Here we are again
+#+begin_src ansys :tangle no
+  !! Type "M-;" in the empty line below
+  *if,I,eq,2,then
+    !! 
 #+end_src
 *** Place inline comments
 #+begin_src ansys :exports none
@@ -278,7 +268,7 @@ code should look like the following
 #+begin_src ansys :tangle no
   !! Type "M-j" behind the inline comment
   nsel,s,loc,x,0,1         ! this is an `inline comment'
-                           ! continue this comment
+                           ! continued above comment
 #+end_src
 **** In regular comments
 #+begin_src ansys :exports none
@@ -286,22 +276,32 @@ code should look like the following
 #+end_src
 #+begin_src ansys
   !! Type "M-j" behind this `regular' comment
-  !! Emacs places comment characters before the new line
+  !! Emacs indents and places comment characters in the new line
 #+end_src
      Emacs places thus the comment characters for you, indented
      properly also within logical block structures.
 #+begin_src ansys :tangle no
   !! Type "M-j" behind this `regular' comment
   !!
-  !! Emacs places comment characters before the new line
+  !! Emacs indents and places comment characters in the new line
+#+end_src
+** Check out ANSYS-Mode's built-in documentation
+   It is allways with you.
+#+begin_src ansys :exports none
+  !@ --- The ANSYS-Mode help ---
+#+end_src
+#+begin_src ansys
+  !! Type "C-h m" for reading the built-in mode help
 #+end_src
 ** APDL variable listing
+This includes also implicit definitions (*vget, etc.) and component names
 #+begin_src ansys :exports none
   !@ --- List all variable definitions ---
 #+end_src
-    rather not with very big, say: 60 MB ANSYS input files
+#    rather not with very big, say: 60 MB ANSYS input files
 #+begin_src ansys
-  !! Type "C-c C-v" for a variable summary window of the current definitions
+  !! Type "C-c C-v" for a summary window of variable definitions
+  !! This includes also implicit definitions and component names
 #+end_src
 
 #+ATTR_LaTeX: height=7.5cm
@@ -313,7 +313,9 @@ code should look like the following
 !@ --- Alignment of assignments ---
 #+end_src
 #+begin_src ansys
-!! Place the cursor on this paragraph and type "C-c C-a"
+!! Place the cursor on the following section and type "C-c C-a"
+#+end_src
+#+begin_src ansys
 x=0.4!laskd
 y= 33.0	    ! alskdl
 xzv= 9999990.3	    !!
@@ -330,7 +332,6 @@ y = cos(i)
 The result looks like the code below, with the numbers aligned
 around the decimal point
 #+begin_src ansys :tangle no
-  !! Place the cursor on this paragraph and type "C-c C-a"
   x       =       0.4         !laskd
   y       =      33.0         ! alskdl
   xzv     = 9999990.3         !!
@@ -363,16 +364,18 @@ around the decimal point
 # vg
 *** Completion of functions
 #+begin_src ansys  :exports none
-  !@@ -- Function completion --
+  !@@ -- Completion of functions --
 #+end_src
-    Completed function names are getting their parentheses appended
+    Completed function names have parentheses appended
 #+begin_src ansys
-  !! place the cursor behind 'aco' and type "<ESC> <TAB>" and so on
+  !! place the cursor behind 'aco' and type "<ESC> <TAB>" and so forth
   P = aco
   P = Sig
   P = ARNE
 #+end_src ansys
-    The completions are unique in above examples and expand thus:
+    Note that the cursor is conveniently placed inside the
+    parentheses.  The completions are unique in above examples and
+    expand thus:
 #+begin_src ansys :tangle no
   !! place the cursor behind 'aco' and type "<ESC> <TAB>" and so on
   P = acos()
@@ -398,6 +401,7 @@ you with a distinct highlighting!
   ns
 #+end_src ansys
 *** Dynamic completion
+    That is a completion of file content basis
 #+begin_src ansys :exports none
   !@@ -- Dynamic completion --
 #+end_src
@@ -414,27 +418,27 @@ you with a distinct highlighting!
 After the first *M-/*:
 #+begin_src ansys :tangle no
   !! ...
-  !! type "<ESC> <TAB>" repeatedly behind below character
+  !! type "M-/" repeatedly behind below character
   vlV
 #+end_src
 After the second *M-/*:
 #+begin_src ansys :tangle no
   !! ...
-  !! type "<ESC> <TAB>" repeatedly behind below character
+  !! type "M-/" repeatedly behind below character
   very_long_Variable
 #+end_src
 ** Abbreviations facility
 #+begin_src ansys :exports none
   !@ --- ANSYS-Mode defined abbreviations ---
 #+end_src
-show the (locally) defined abbreviations with *C-u M-x list-abbrevs*
+   Display all locally defined abbreviations with *C-u M-x list-abbrevs*
 *** Use the ANSYS-Mode defined abbreviations
 #+begin_src ansys
   !! type a <SPACE> behind the following code characters
   `p                      ! Pi assignment
   `d                      ! do loop abbreviation
 #+end_src
-    The abbreviations should expand to:
+    The abbreviations expand to:
 #+begin_src ansys :tangle no
   !! type a <SPACE> behind the following code characters
   Pi=3.14159265359
@@ -446,16 +450,16 @@ show the (locally) defined abbreviations with *C-u M-x list-abbrevs*
   
   ! do loop abbreviation
 #+end_src
-** Logical blocks (control statements)
+** Logical blocks (control statements in "lesser" programming languages ;-)
 #+begin_src ansys :exports none
-   !@ --- Logical blocks ---
+   !@ --- Logical blocks (control statements) ---
 #+end_src
-*** Closing of blocks
+*** Closing of logical blocks
 # I 
 # !(progn (setq ansys-highlighting-level 1 ansys-dynamic-highlighting-flag nil) (ansys-mode))
 # !(progn (setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t) (ansys-mode))
 #+begin_src ansys :exports none
-   !@@ -- Closing of APDL blocks --
+   !@@ -- Closing of logical blocks --
 #+end_src
 #+begin_src ansys
   !! Place the cursor in the empty lines and type "C-c ]"!
@@ -485,7 +489,7 @@ show the (locally) defined abbreviations with *C-u M-x list-abbrevs*
    !@@ --- Auto-indentation --
 #+end_src
 #+begin_src ansys
-   !! Insert in the following block another `*if' statement!
+   !! Insert in between the following block another `*if' statement!
    !! Conclude the line(s) with "C-j" to receive an automatic indentation.
 #+end_src
 #+begin_src ansys
@@ -494,7 +498,7 @@ show the (locally) defined abbreviations with *C-u M-x list-abbrevs*
     /title,well well
   *endif
 #+end_src
-    The line is indented to, don't forgot the shortcut "C-c ]" for
+    The line is indented to, don't forgot the shortcut *C-c ]* for
     closing the blocks
 #+begin_src ansys :tangle no
   *if,I,eq,1,then
@@ -505,14 +509,14 @@ show the (locally) defined abbreviations with *C-u M-x list-abbrevs*
   *endif
 #+end_src
 ** Use the Emacs integrated RPN Calculator
-   RPN (Reversed Polish Notation), the HP calculators are using this input
-   convention.
+   RPN means Reversed Polish Notation, HP calculators are using this
+   superior input convention.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
 
 #+begin_src ansys :exports none
-  !@ --- Emacs integrated calculator ---
+  !@ --- Emacs integrated programmable RPN calculator ---
 #+end_src
    Type *C-x* * * to open the calculator, type *y* for copying results
    directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
@@ -527,6 +531,15 @@ You are receiving
   !! Place the cursor behind the equal sign and type "C-x * *"!
   Pi = 3.14159265359
   !! Type "P" (capital p) in `Calc' and paste the value back into
+#+end_src
+You might round the input
+#+begin_src ansys
+  !! Type "df" in Calc for `display fixed' and then <3> before pasting
+  Pi =
+#+end_src
+#+begin_src ansys
+  !! Type "df" in Calc for `display fixed' and then <3> before pasting
+  Pi = 3.142
 #+end_src
 ** Highlighting APDL specials
 #+begin_src  ansys : tangle yes
@@ -546,21 +559,22 @@ Depth  = ARG1	  !ARG{1-9}, AR{10-19} = "*use" variables
 #+end_src
 *** Deprecated elements
 #+begin_src ansys :tangle yes
-!@@ -- Valid element types & deprecated element types
+!@@ -- Current element types & deprecated elements
 #+end_src
 #+begin_src ansys :tangle yes
 et,10,solid186      !186 current element type
-et,Steel,beam3 $ et,Alu,shell91
+et,Steel,beam3 $ et,Alu,shell91  !deprecated
 #+end_src
 Let's make it better!
 #+begin_src ansys :tangle yes
   !! Complete the following element fragments!
   et,Steel,beam $ et,Alu,shell
 #+end_src
-For example to
+For example select the following elements
 #+begin_src ansys :tangle no
   et,Steel,beam188 $ et,Alu,shell28
 #+end_src
+and get another highlighting.
 * APDL environment 
 APDL processing and debugging environment
 #+begin_src ansys :exports none
@@ -574,12 +588,13 @@ APDL processing and debugging environment
   Switch off menu-, tool- and scroll-bars :-)
 
 ** Display the license status
-   highlighted is your current license choice
+   highlighted in red is your chosen license type
 #+begin_src ansys :exports none
-   !@ --- License status ---
+   !@ --- Display the license status ---
 #+end_src
 #+begin_src ansys
-   !! Type "C-c C-l"!  Checking whether a license is free
+   !! Type "C-c C-l"!  Checking which licenses are free, in particular
+   !! your chosen license
 #+end_src
 
 ##+ATTR_LaTeX: height=7.3cm
@@ -594,33 +609,34 @@ APDL processing and debugging environment
    !! Type "C-c RET"!
 #+end_src
     
-** Solver communication
+** Interpreter communication
 #+begin_src ansys :exports none
   !@ --- Interpreter communication  ---
 #+end_src
 #+begin_src ansys
-   !! Clear above APDL code and reinsert the `structural' template below
+   !! Erase above APDL code and reinsert the `structural' template below
 #+end_src
 *** Sending file contents
 #+begin_src ansys :exports none
-  !@@ -- Sending window contents --
+  !@@ -- Sending APDL window contents --
 #+end_src
 **** Send a code line or region
 #+begin_src ansys :exports none
-  !@@@ - Send code line or region to the interpreter  -
+  !@@@ - Send a code line or region to the interpreter  -
 #+end_src
 #+begin_src ansys
   !! Send code line by line with "C-c C-c"!
 #+end_src
 **** Send above code (from the cursor up to the beginning)
 #+begin_src ansys :exports none
-  !@@@ - Send all code above the cursor  -
+  !@@@ - Send all code above the cursor position -
 #+end_src
 #+begin_src ansys
   !! Type "C-c C-u" sending all code up to the beginning!
 #+end_src
     *C-c C-u*, *C-c C-c* have changed their behaviour with the running
-    interpreter.
+    interpreter.  Without a running ANSYS process they are sending the
+    code to the system clipboard.
 *** Writing directly to interpeter
 #+begin_src ansys :exports none
   !@@ -- Cummunicating directly with the interpeter  --
@@ -630,37 +646,38 @@ APDL processing and debugging environment
   !@@@ - Cummunicating from the APDL window  -
 #+end_src
 #+begin_src ansys
-  !! Type "C-c C-q" and send a command to the interpreter!
-  !! You are getting `queried' by Emacs.
+  !! Type "C-c C-q" and send your input to the interpreter!
+  !! You are getting `queried' for input by Emacs.
 #+end_src
-**** Direct communication from the *ANSYS* window
+**** Direct communication from the `\*ANSYS\*' window
 #+begin_src ansys :exports none
-  !@@@ - Cummunicating from the ANSYS window  -
+  !@@@ - Cummunicating from the `*ANSYS*' window  -
 #+end_src
 #+begin_src ansys
-  !! Place the cursor in the ANSYS window and write
+  !! Place the cursor in the *ANSYS* window and write
   !! some command, conclude the input with <RET>.
 #+end_src
 ** Graphical feedback and interaction
-Receive some graphical feedback from the interpreter
+Receive graphical feedback from the interpreter
 #+begin_src ansys :exports none
   !@ --- Graphical feedback ---
 #+end_src
-*** Open the interactive graphics window of ANSYS
+*** Open the `interactive graphics' window of ANSYS
 #+begin_src ansys :exports none
-  !@@ -- The ANSYS graphics frame  --
+  !@@ -- The ANSYS `interactive graphics' frame  --
 #+end_src
 #+begin_src ansys
   !! Type "C-c C-g" to open the ANSYS `interactive' graphics frame.
-  !! Then type "C-c C-q eplot <RET>".
+  !! Then type e. g. "C-c C-q eplot <RET>".
 #+end_src
 
 #+ATTR_HTML: width="1200"
 ##+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
 
-Unfortunately it is not possible to interact with the graphics except
-with APDL commands and with the Pan/Zoom/Rotate dialog!
+Unfortunately it is not possible to interact directly with the
+graphics except with APDL commands and through the Pan/Zoom/Rotate
+dialog!
 *** Open the ANSYS Pan/Zoom/Rotate dialog
 #+begin_src ansys :exports none
   !@@ -- The Pan/Zoom/Rotate dialog --
@@ -668,16 +685,17 @@ with APDL commands and with the Pan/Zoom/Rotate dialog!
 #+begin_src ansys
   !! Type "C-c C-p" to open the ANSYS Pan/Zoom/Rotate dialog!
 #+end_src
-*Warning:* As long as the dialog is open no other interaction is
+*Warning:* As long as the dialog is open *no* communication is
  possible!
 ** Visiting the ANSYS error file
-   in tail mode of \*.err with *C-c C-e* 
+   The solver error file (\*.err) is opened in tail-follow mode,
+   i. e. you are seeing always the latest contend. (*C-c C-e*)
 #+begin_src ansys :exports none
   !@@ -- Visiting the ANSYS error file --
 #+end_src
 #+begin_src ansys
-  !! Type "C-c C-e" to open the run's error file in `follow mode'!
-  !! Always the latest content will be shown...
+  !! Type "C-c C-e" to open the run's error file in `tail-follow mode'!
+  !! Always the latest content is shown...
 #+end_src
 # ** writing an abort file
 # ** bookmarks positions -> in bookmarks/registers/clone buffer?
@@ -792,11 +810,16 @@ with APDL commands and with the Pan/Zoom/Rotate dialog!
 # #    this is line [[(bla)]]
 * Summary and Acknowledgements
 Thank you for your time, have fun with Emacs...
+
+##+ATTR_LaTeX: width=6cm
+    [[./editor_learning_curves.jpg]]
+
 **  Acknowledgements
     - RMS :: GNU Emacs
     - Carsten Dominik :: Org-mode for Emacs
 ######################################################################
 #+begin_src ansys  :tangle yes :exports none
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !! End of APDL code
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !! this is for Emacs:

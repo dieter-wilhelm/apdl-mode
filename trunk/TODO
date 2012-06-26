@@ -37,6 +37,7 @@
    - activate -license-file function
 
 ** TODO Tasks [61%]
+   - [ ] Google Code project feed
    - [ ] -preview-template does not indicate when you intend to insert
      the template with a prefix C-u C-c C-s says `preview' and not `insert'
    - [ ] mode help :: rework outline section <- outline-minor is now default

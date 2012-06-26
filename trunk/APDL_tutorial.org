@@ -809,11 +809,28 @@ You might round the input
    _return & _status values
 #+begin_src  ansys
 !!
-N = _RETURN	  !_RETURN value of commands
-_aaa = 9          !reserved variables: preceding underscore "_" 
-Depth  = ARG1	  !ARG{1-9}, AR{10-19} = "*use" variables
-
+N = _RETURN	      ! return value of certain commands
+_aaa = 9              ! reserved variables: preceding underscore "_" 
+Depth  = ARG1         ! ARG{1-9}, AR{10-19} = "*use" variables
+#+end_src
+#+begin_src  ansys
+!@@ -- Old style APDL comments --
+#+end_src
+#+begin_src  ansys
+var1=sinh(cos(.3 *5)) ! old style Ansys comment!!!!!
+var2 = tan(nx(.3*5))  ! this is valid code
+!!
+#+end_src
+#+begin_src  ansys
+!@@ -- Ignored characters behind commands --
+#+end_src
+#+begin_src  ansys
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
+#+end_src
+#+begin_src  ansys
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
 #+end_src
 *** Deprecated elements
 #+begin_src ansys

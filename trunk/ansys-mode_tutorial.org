@@ -55,7 +55,7 @@
    key together with the <c> key.
   
 * Download
-** Download ANSYS-Mode together with the Emacs editor \\ There are no costs and license restrictions also for commercial use
+** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
   Download the pre-configured ANSYS-Mode in conjunction with the
   latest Emacs editor binary for Windows 32/64 bit from the Google
   Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].

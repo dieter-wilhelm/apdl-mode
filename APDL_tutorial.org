@@ -577,7 +577,7 @@ The result might look like this:
   !!
   cml
 #+end_src
-
+Gives you the `cmlist' command
 #+begin_src ansys :tangle no
   !! Let Emacs complete `cml' and apply (again) "M-?"
   !!
@@ -612,8 +612,8 @@ The result might look like this:
 #+begin_src ansys  :exports none
   !@@ -- Element completions --
 #+end_src
-ANSYS-Mode also complets also ANSYS deprecated element names but warns
-you with a distinct highlighting!
+ANSYS-Mode also complets ANSYS deprecated element names but warns you
+with a distinct highlighting!
 #+begin_src ansys
   !! Completion of element names: type "<ESC> <TAB>" behind `shell'
   !!
@@ -630,7 +630,7 @@ you with a distinct highlighting!
 #+end_src ansys
 #+begin_src ansys
   !! Note Emacs' message that `a' is already a valid ANSYS symbol!
-  !! It is highlighted as well, but it is further completable.
+  !! It is highlighted already as a command, but it is further completable.
 #+end_src ansys
 *** Dynamic completion
     That means completion on the basis of the window's content, the
@@ -667,12 +667,11 @@ After the second *M-/*:
 #+begin_src ansys :exports none
   !@ --- ANSYS-Mode defined abbreviations ---
 #+end_src
-   Display all locally defined abbreviations with *C-u M-x list-abbrevs*
 *** Use the ANSYS-Mode defined abbreviations
 #+begin_src ansys
   !! type a <SPACE> behind the special character ``' and abbreviation characters
   !!
-  `p                      ! This is the Pi assignment
+  `p                      ! The Pi assignment abbreviation
   `d                      ! Abbreviation of a *do loop
   `do                     ! Interactive *do loop abbrev.
 #+end_src
@@ -694,12 +693,12 @@ After the second *M-/*:
   
   ! Interactive *do loop abbrev.
 #+end_src
-Inspect available abbreviation definitions from ANSYS-Mode.
+Inspect available abbreviation definitions from ANSYS-Mode.  Display
+all (locally) defined abbreviations with *C-u M-x list-abbrevs*
 #+begin_src ansys
   !! Type a "C-u M-x list-abbrevs" for a list of all mode defined abbreviations
   !!
 #+end_src
-
 ** Logical blocks
    or control statements in "lesser" programming languages ;-)
 #+begin_src ansys :exports none
@@ -723,7 +722,7 @@ Inspect available abbreviation definitions from ANSYS-Mode.
 
   *create,test,mac
 #+end_src
-     Voila
+    Voila the proper closing statements:
 #+begin_src ansys :tangle no
   !! Place the cursor in the empty lines and type "C-c ]"!
   !!
@@ -751,8 +750,8 @@ Inspect available abbreviation definitions from ANSYS-Mode.
     /title,well well
   *endif
 #+end_src
-    The line is indented to, don't forgot the shortcut *C-c ]* for
-    closing the blocks
+    The line is indented too (don't forgot the shortcut *C-c ]* for
+    closing blocks)
 #+begin_src ansys :tangle no
   *if,I,eq,1,then
     *if,J,eq,2,then
@@ -777,7 +776,7 @@ Inspect available abbreviation definitions from ANSYS-Mode.
   !! Place the cursor behind the equal sign and type "C-x * *"!
   !!
   Pi = 
-  !! Type "P" (capital p) in `Calc' and paste the value back into
+  !! Type "P" (capital `p') in `Calc' and paste the value back into
   !! your APDL code with the <y> key, quit Calc with <q>.
 #+end_src
 You are receiving
@@ -799,41 +798,46 @@ You might round the input
   Pi = 3.142
 #+end_src
 ** Highlighting APDL specials
-#+begin_src  ansys
+#+begin_src  ansys :exports none
 !@ --- ANSYS-Mode is highlighting APDL specials ---
 #+end_src
 *** Reserved words and _RETURN statements
-#+begin_src  ansys
+#+begin_src ansys :exports none
 !@@ -- Reserved words and _RETURN statements --
 #+end_src
-   _return & _status values
-#+begin_src  ansys
+#+begin_src ansys
 !!
 N = _RETURN	      ! return value of certain commands
 _aaa = 9              ! reserved variables: preceding underscore "_" 
 Depth  = ARG1         ! ARG{1-9}, AR{10-19} = "*use" variables
 #+end_src
-#+begin_src  ansys
+***  Old style APDL comments
+#+begin_src ansys :exports none
 !@@ -- Old style APDL comments --
 #+end_src
 #+begin_src  ansys
-var1=sinh(cos(.3 *5)) ! old style Ansys comment!!!!!
-var2 = tan(nx(.3*5))  ! this is valid code
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
 !!
 #+end_src
-#+begin_src  ansys
+*** Ignored characters behind commands
+#+begin_src ansys :exports none
 !@@ -- Ignored characters behind commands --
 #+end_src
 #+begin_src  ansys
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !!
 #+end_src
+*** 
+#+begin_src  ansys :exports none
+!@@ -- End Of File command --
+#+end_src
 #+begin_src  ansys
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
 !!
 #+end_src
-*** Deprecated elements
-#+begin_src ansys
+*** Current element types and deprecated elements
+#+begin_src ansys :exports none
 !@@ -- Current element types & deprecated elements
 #+end_src
 #+begin_src ansys
@@ -855,8 +859,9 @@ For example select the following elements
   et,Steel,beam188 $ et,Alu,shell28
 #+end_src
 and get another highlighting.
+
 * APDL environment 
-APDL processing and debugging environment
+The APDL processing and debugging environment
 #+begin_src ansys :exports none
    !@ ==============================
    !@ --- APDL environment ---
@@ -880,7 +885,6 @@ APDL processing and debugging environment
    !!
 #+end_src
 ** Display the license status
-   highlighted in red is your chosen license type
 #+begin_src ansys :exports none
    !@ --- Display available licenses ---
 #+end_src
@@ -890,10 +894,16 @@ APDL processing and debugging environment
    !!
 #+end_src
 
+   Your Desktop might look like the following: In Emacs' mid-section
+   you see the license state (*C-c C-l*).  Highlighted in red is your
+   chosen license type.  And in the left hand Emacs window below a
+   thumbnail view of images from a folder.
+
 ##+ATTR_LaTeX: height=7.3cm
 #+ATTR_HTML: width="1200"
    [[./license.png]]
 
+   
 ** Start the ANSYS `interpreter' (solver)
 #+begin_src ansys :exports none
    !@ --- Start an ANSYS interpreter process ---
@@ -917,7 +927,7 @@ APDL processing and debugging environment
 #+end_src
 **** Send a code line or region
 Any time you communicate with the interpreter its output is shown in
-the \*ANSYS\* interactive window.
+the ~*ANSYS*~ interactive window.
 #+begin_src ansys :exports none
   !@@@ - Send a code line or region to the interpreter  -
 #+end_src
@@ -937,7 +947,7 @@ the \*ANSYS\* interactive window.
 #+end_src
     *C-c C-u*, *C-c C-c* have changed their behaviour with the running
     interpreter.  Without a running ANSYS process they are sending the
-    code to the system clipboard.
+    code to the system clipboard instead.
 #+begin_src ansys
   !! We have got now data and results to work with
 #+end_src
@@ -955,7 +965,6 @@ Receive graphical feedback from the interpreter
   !! Then send the following line with "C-c C-c".
   !!
   eplot
-
 #+end_src
 
 #+ATTR_HTML: width="1200"
@@ -970,7 +979,6 @@ the dialog is open *no* other communication is possible! And thirdly:
 The size of the graphics is fixed. And fourthly: You must replot every
 time the graphics frame was hidden by other graphics (Desktop
 switching, etc.)!
-
 **** Open the ANSYS Pan/Zoom/Rotate dialog
 #+begin_src ansys :exports none
   !@@ -- The Pan/Zoom/Rotate dialog --
@@ -1035,9 +1043,9 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
   !! Input "/post1 <RET>"
   !!
 #+end_src
-**** Direct communication from the `\*ANSYS\*' window
+**** Direct communication from the ~*ANSYS*~ interactive window
 #+begin_src ansys :exports none
-  !@@@ - Communicating within the `*ANSYS*' interactive window  -
+  !@@@ - Communicating within the *ANSYS* interactive window  -
 #+end_src
 #+begin_src ansys
   !! Place the cursor in the *ANSYS* interactive window and write

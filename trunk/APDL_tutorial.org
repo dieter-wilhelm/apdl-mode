@@ -200,7 +200,7 @@ The idea is to have a skeleton for starting a new APDL project.
   !@ --- Header ---
   !@ ==============================
   
-  !! FILENAME: /home/dieter/ansys-mode/trunk/APDL_tutorial.org[*Org Src APDL_tutorial.org[ ansys ]*]
+  !! FILENAME: /home/dieter/ansys-mode/trunk/APDL_tutorial.ansys
   !! CREATION DATE: Tue Jun 26 01:02:07 2012
   !! ANSYS VERSION: 140
   !! DESCRIPTION: outline example
@@ -305,7 +305,7 @@ You can modify, extend or create new code to your hearts content.
   !! Type "C-c @ C-e" to show a certain entry of a heading
   !! Type "C-c @ C-a" to show all again
 #+end_src
-Helful to get an overview of large APDL file.
+Helpful to get an overview of large APDL file.
 #+begin_src ansys :tangle no
   !@ ==============================
   !@ --- Header ---

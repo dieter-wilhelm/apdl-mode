@@ -97,11 +97,17 @@
   !! ==============================
 #+end_src
 ** Extensible APDL templates
-   (*Everything* is extensible in Emacs and ANSYS-Mode. ;-) Some
-   templates are collections of (all) available commands to certain
-   subjects.  They are more intended to be previewed.  Others are
-   self-contained "mini simulations" or skeletons for starting a new
-   project. These are more apt for insertion.
+
+   Some of the existing templates are collections of (all) available
+   commands to certain subjects.  They are more intended to be
+   previewed and only parts of it might be copied and inserted.
+   Others are self-contained "mini simulations" or skeletons for
+   starting a new project or, respectively, supplementing an existing
+   one. These are more apt for their complete insertion.
+
+   You can build your own library.  *Everything* is extensible in
+   Emacs and ANSYS-Mode, not only the APDL templates!
+
 #+begin_src ansys :exports none
   !@ --- Extensible APDL templates ---
 #+end_src

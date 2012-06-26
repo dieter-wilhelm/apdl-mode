@@ -252,32 +252,31 @@
 
 * Summary
 ** Use three levels of ANSYS-Mode to your needs and liking
-*** Simple APDL *viewer*
+*** Basic APDL *viewer*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Navigation, viewing (highlighted code), inspecting APDL with the
-    inbuilt 'online' help.
-*** Advanced APDL *editor*
+    Browsing, discerning (through highlighting), inspecting APDL with
+    the `online' help.
+*** Earnest APDL *editor*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
     Shortcut keybindings, outlining, code templates, completions,
-    auto-indentation, abbreviations, auto-insertion, all Emacs'
-    convenience features, ...
-*** Hardcore APDL *environment*
+    auto-indentation, abbreviations, auto-insertion, ...
+*** Advanced APDL *environment*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Hybrid between coding and debugging with solver communication
-    (UNIX only), retrieving license states, error file viewing, abort
-    file handling, extending ANSYS-Mode, ...
+    Solver communication/feedback - hybrid between coding and
+    debugging (UNIX only), retrieving license states, error file
+    viewing, abort file handling, extending APDL templates, ...
 ** Last slide of the ANSYS-Mode tutorial
 ***  Hint for the curious:
          :PROPERTIES:

@@ -2008,6 +2008,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/post26" \n
   \n
+  "/eof ------------------------------" \n
   )
 
 

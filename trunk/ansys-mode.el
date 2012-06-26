@@ -2065,7 +2065,7 @@ buffer with the SPACE key."
 	  (if (= (apply 'min (mapcar 'length completion-list))
 		 (length completion))
 	      (message
-	       (concat "Complete ANSYS symbol.  Hit SPACE to remove the "
+	       (concat "Already an ANSYS symbol.  Hit SPACE to remove the "
 		       buffer-name " buffer."))
 	    (message
 	     (concat "Incomplete ANSYS symbol.  Hit SPACE to remove the "
@@ -2792,16 +2792,18 @@ Signal an error if the keywords are incompatible."
 (unless ansys-mode-abbrev-table
   (let ((ac abbrevs-changed)) ;inhibit offer to save .abbrev_defs
     (define-abbrev-table 'ansys-mode-abbrev-table ())
-    (define-abbrev ansys-mode-abbrev-table
-      "`i" ""      'ansys_if)
-    (define-abbrev ansys-mode-abbrev-table
-      "`d" ""      'ansys_do)
+    (define-abbrev ansys-mode-abbrev-table "`i" ""      'ansys_if)
+    (define-abbrev ansys-mode-abbrev-table "`d" ""      'ansys_do)
     (define-abbrev ansys-mode-abbrev-table "`p" "" 'ansys-insert-pi)
     (define-abbrev ansys-mode-abbrev-table "`if" "" 'ansys-if)
     (define-abbrev ansys-mode-abbrev-table "`ie" "" 'ansys-if-then)
     (define-abbrev ansys-mode-abbrev-table "`do" "" 'ansys-do)
-    (define-abbrev ansys-mode-abbrev-table "`e" "/eof ----------------------------------------\n" '(lambda () (indent-according-to-mode)))
-    (define-abbrev ansys-mode-abbrev-table "`c" "!! ========================================\n" '(lambda () (indent-according-to-mode)))
+    (define-abbrev ansys-mode-abbrev-table "`e" "/eof ----------------------------------------\n"
+      '(lambda () (indent-according-to-mode)))
+    (define-abbrev ansys-mode-abbrev-table "`c" "!! ========================================\n"
+      '(lambda () (indent-according-to-mode)))
+    (define-abbrev ansys-mode-abbrev-table "`t" "/title,"
+      '(lambda () (indent-according-to-mode)))
     (setq abbrevs-changed ac))) ;reset `abbrevs-changed' to previous state
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

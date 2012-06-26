@@ -160,7 +160,7 @@
   [[./calculator.png]]
 
 ** Debug your code interactively with the solver (Unix only)
-   You can run the ANSYS solver (interpreter) under Emacs and send
+   You can run the ANSYS solver/interpreter under Emacs and send
    code lines from the APDL window (above) with *C-c C-c* directly to
    this process. Below you get an interactive solver output window and
    on the left hand side the corresponding ANSYS graphics.
@@ -251,15 +251,16 @@
   [[./bug_report.png]]
 
 * Summary
-** Use three levels of ANSYS-Mode to your needs and liking
+** Use the 3 levels of ANSYS-Mode appropriate to your needs \\ Since the relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with APDL, while mostly taking over the APDL `authoring' part from the user!
+
 *** Basic APDL *viewer*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Browsing, discerning (through highlighting), inspecting APDL with
-    the `online' help.
+    Navigating in input files, discerning relevant information through
+    highlighting, checking APDL commands with the `online' help.
 *** Earnest APDL *editor*
          :PROPERTIES:
          :BEAMER_env: block
@@ -267,7 +268,7 @@
 #         :BEAMER_col: 0.5
          :END:
     Shortcut keybindings, outlining, code templates, completions,
-    auto-indentation, abbreviations, auto-insertion, ...
+    auto-indentation, abbreviations, auto-insertion.
 *** Advanced APDL *environment*
          :PROPERTIES:
          :BEAMER_env: block

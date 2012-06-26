@@ -37,6 +37,8 @@
    - activate -license-file function
 
 ** TODO Tasks [61%]
+   - [ ] -preview-template does not indicate when you intend to insert
+     the template with a prefix C-u C-c C-s says `preview' and not `insert'
    - [ ] mode help :: rework outline section <- outline-minor is now default
    - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
@@ -250,20 +252,7 @@ the Editor for your APDL files and possibly other stuff as well...
 ** Skeletons and abbrevs
    - no round function in APDL, skeleton-function: abs(nint()) !round
      is wrong, commented out
-   - expand abbrev definitions, example:
-     (define-abbrev-table 'ansys-abbrev-table ())
-     (define-abbrev ansys-abbrev-table "`i" "*IF,,LT,,THEN" nil)
-     (define-abbrev ansys-abbrev-table "`eli" "*ELSEIF," nil)
-     (define-abbrev ansys-abbrev-table "`el" "*ELSE\n" nil)
-     (define-abbrev ansys-abbrev-table "`ei" "*ENDIF\n" nil)
-     (define-abbrev ansys-abbrev-table "`cy" "*CYCLE" nil)
-     (define-abbrev ansys-abbrev-table "`d" "*DO,,1,10,1\n\n*ENDDO" nil)
-     (define-abbrev ansys-abbrev-table "`ex" "*EXIT" nil)
-     (define-abbrev ansys-abbrev-table "`g" "*GO" nil)
-     (define-abbrev ansys-abbrev-table "`cr" "*CREATE\n\n*END" nil)
-     (define-abbrev ansys-abbrev-table "`e" "*END" nil)
-     (define-abbrev ansys-abbrev-table "`rp" "/REPLOT" nil)
-     (define-abbrev ansys-abbrev-table "`t" "/TITLE," nil)
+   - enhance abbrev definitions for *create, *dowhile logics:
    - use the ANSYS sample input listing for template-examples
    - additional dialog boxes with:
      /ui,anno,ksel...,wpse,help,query,copy

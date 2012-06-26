@@ -180,9 +180,10 @@ Auxiliaries:
 * TODO -- todos and deficiencies
 * LICENSE -- the GPL (Gnu Puplic License) Version 3
 * default_el -- configuration example file of an Emacs 'default.el'
-* fontification.mac -- APDL syntax highlighting example
+* fontification.mac -- APDL syntax highlighting examples
 * ansys-mode_tutorial.pdf -- An introductory tutorial
-* APDL_tutorial.mac -- An APDL hacking tutorial
+* APDL_tutorial.pdf -- The ANSYS-Mode hacking tutorial
+* APDL_tutorial.ansys -- Hacking tutorial's supplementary APDL code
 
 === Short instructions ===
 

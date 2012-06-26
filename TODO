@@ -36,20 +36,20 @@
    - env var
    - activate -license-file function
 
-** TODO Tasks [58%]
-   - [ ] mode help :: outline section <- outline-minor is now default
+** TODO Tasks [61%]
+   - [ ] mode help :: rework outline section <- outline-minor is now default
    - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
-   - [ ] Filter empty lines when process is running, add an "\n" to
-     the input if missing, test C-c C-c, showed duplicate prompts in interactive
-     mode
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
    - [ ] document Lagrange contact behaviour for contact/press-fit
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] Filter empty lines when process is running, add an "\n" to
+     the input if missing, test C-c C-c, showed duplicate prompts in interactive
+     mode
    - [X] check for new skeleton -template name in menu definitions!
    - [X] distinguish the two kinds of -templates: self contained samples
      (include maybe the ANSYS verification cases) and command examples
@@ -73,7 +73,6 @@
    - [X] check HPC support!
 
 ** Bugs
-    - skeleton-function: abs(nint()) !round is wrong
     - some functions in -skeleton-function are not highlighted and
       completable
     - M-n/p does not work from node-/element-blocks (aternative to C-c
@@ -102,16 +101,15 @@
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in v14
+    are still working in V14
   - TODOs, FIXMEs in the code
   - checkdoc, -template.el, -process.el, -mode.el done except
     \\<keymap> & \\[function]
   - README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history
-  - load or load-file, what happens with compilation and autoload?
-  - update the mode help complete skeleton menus.  update defcustom
-    list in ansys-submit-bug-report update version numbers, default
-    names
+  - update the mode help, complete skeleton menus, update defcustom
+    list in ansys-submit-bug-report, update version numbers, default
+    specifiers
 
     (tags-query-replace "130" "140")
     (tags-query-replace "13.0" "14.0")
@@ -126,12 +124,11 @@
     Emacs cycle)?
 
 ** Release
-  - elpa
   - Add the latest news from NEWS to the README
   - update Emacs wiki (README), Google Code with download packages,
-    home page update all version numbers everywhere: Emacs wiki,
-    Google Code with download, home page
-  - publication emails (with image and news):
+    home page update all version numbers:
+    Google Code with download, documentation page
+  - publication emails (with tutorial and news):
 
     Antonio.Zangaro@continental-corporation.com,
     iivvgg@gmail.com,
@@ -152,35 +149,40 @@
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
 
-Subject: New release 14.0.1: Editor support for working with ANSYS APDL files & processes
+Subject:  Release 14.0.1 of ANSYS-Mode: Editor support for working with ANSYS APDL files & processes
 
 Hi,
 
-finally a new release of ANSYS mode for ANSYS V14, downloadable from:
+a new release of ANSYS-Mode for ANSYS 14.
+
+And finally the mode comes with an introductory and illustrated
+tutorial!  (Which I attached to this email.)
+
+You can download the mode from:
 
 http://code.google.com/p/ansys-mode
 
-You'll find there also the latest stable version of Emacs for Windows
-with ANSYS mode preconfigured and ready to go.  Just unpack it and use
-the Editor for your APDL .mac files.
+You'll find also there the latest stable version of Emacs for Windows
+with ANSYS-Mode preconfigured and ready to go.  Just unpack it and use
+the Editor for your APDL files and possibly other stuff as well...
 
-This release comes also with the advent of the latest Emacs 24
-
-Below you'll find a summary of its features and what's new in this
-release.
-
+....
 
 * Ideas for further versions
 ** Parameter help and documentation
-   - call the ANSYS help browser with APDL command? 
-   - template of all *get functionalities
+   - call the ANSYS help browser with APDL command?
    - make the timer time interval customisable
    - show list of license products and their license feature names or
      translate it in the license status from the licensing guide
      (product variable table)
    - inspirations from eldoc-mode, show replacements of deprecated
      elements?
-   - count number of user variables when displaying them
+   - C-c C-v show (optionally) only variables defined up to current
+     cursor line.  Make the line number display in
+     `ansys-display-variables' (hyper-)links to the corresponding code
+     line in the respective APDL file.  (See `occur' function.)  Or
+     use the imenu mechanism for this and display the variables in the
+     speedbar. Count the number of user variables when displaying them
    - documentation in info format, refcard, etc; Emacs help guidelines
      GNU programming guideline: More requires?,
    - display alternatives to/swap deprecated element types
@@ -246,6 +248,22 @@ release.
     - search in -job for /filn arguments as default job name like in
       -display-error-file
 ** Skeletons and abbrevs
+   - no round function in APDL, skeleton-function: abs(nint()) !round
+     is wrong, commented out
+   - expand abbrev definitions, example:
+     (define-abbrev-table 'ansys-abbrev-table ())
+     (define-abbrev ansys-abbrev-table "`i" "*IF,,LT,,THEN" nil)
+     (define-abbrev ansys-abbrev-table "`eli" "*ELSEIF," nil)
+     (define-abbrev ansys-abbrev-table "`el" "*ELSE\n" nil)
+     (define-abbrev ansys-abbrev-table "`ei" "*ENDIF\n" nil)
+     (define-abbrev ansys-abbrev-table "`cy" "*CYCLE" nil)
+     (define-abbrev ansys-abbrev-table "`d" "*DO,,1,10,1\n\n*ENDDO" nil)
+     (define-abbrev ansys-abbrev-table "`ex" "*EXIT" nil)
+     (define-abbrev ansys-abbrev-table "`g" "*GO" nil)
+     (define-abbrev ansys-abbrev-table "`cr" "*CREATE\n\n*END" nil)
+     (define-abbrev ansys-abbrev-table "`e" "*END" nil)
+     (define-abbrev ansys-abbrev-table "`rp" "/REPLOT" nil)
+     (define-abbrev ansys-abbrev-table "`t" "/TITLE," nil)
    - use the ANSYS sample input listing for template-examples
    - additional dialog boxes with:
      /ui,anno,ksel...,wpse,help,query,copy
@@ -299,12 +317,6 @@ release.
    - is outline-mode enabled? no! make default?, outline
    - take care of setup procedure: v110/ansys/apdl/start110.ans
      /MPLIB,READ,/ansys_inc/v110/ansys/matlib
-   - C-c C-v show (optionally) only variables defined up to current
-     cursor line.  Make the line number display in
-     `ansys-display-variables' (hyper-)links to the corresponding code
-     line in the respective APDL file.  (See `occur' function.)  Or
-     use the imenu mechanism for this and display the variables in the
-     speedbar
    - removing/renaming/checking abort file?
    - Are characters behind unique commands shorter than 4 characters
      possible? No /sol(u) sufficient? Yes condensed input line ($)

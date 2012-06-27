@@ -72,6 +72,15 @@ CLEAN :
 # 	configure
 # 	make
 
+# APDL_tutorial.ansys : APDL_tutorial.org
+# 	$(EMACS_EXE) --batch --file $< --execute  "(org-babel-tangle)"
+
+APDL_tutorial.pdf : APDL_tutorial.org
+	$(EMACS_EXE) --batch --file $< --execute  "(org-export p)"
+
+ansys-mode_tutorial.pdf : ansys-mode_tutorial.org
+	$(EMACS_EXE) --batch --file $< --execute  "(org-export p)"
+
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<
 

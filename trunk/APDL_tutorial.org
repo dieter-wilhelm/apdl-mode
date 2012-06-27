@@ -203,7 +203,7 @@ After giving a short description, it should look like this:
 The idea is to have a skeleton for starting a new APDL project.
 #+begin_src ansys :tangle no
   !! Insert below the following line `ansys-skeleton-outline-template'!
-  !! Type "C-u C-c C-s" for insertion instead of previewing.
+  !! 
   !@ ==============================
   !@ --- Header ---
   !@ ==============================
@@ -600,9 +600,9 @@ Gives you the `cmlist' command
   P = Sig         ! upper case completion
   P = ARNE	  ! Capitalisation
 #+end_src ansys
-    Note that the cursor is conveniently placed inside the
-    parentheses.  The completions are unique in above examples and
-    expand thus:
+    Note that the cursor after the completion is conveniently placed
+    inside the parentheses.  The completions are unique in above
+    examples and expand immediately to:
 #+begin_src ansys :tangle no
   P = acos()
   P = Sign()
@@ -633,8 +633,8 @@ with a distinct highlighting!
   !! It is highlighted already as a command, but it is further completable.
 #+end_src ansys
 *** Dynamic completion
-    That means completion on the basis of the window's content, the
-    following example will show what this means.
+    Is a completion on the basis of the window's content, the
+    following example will demonstrate what this means.
 #+begin_src ansys :exports none
   !@@ -- Dynamic completion --
 #+end_src
@@ -648,7 +648,7 @@ with a distinct highlighting!
   !!
   v
 #+end_src
-After the first *M-/*:
+After typing the first time *M-/*:
 #+begin_src ansys :tangle no
   !! type "M-/" repeatedly behind below character `v'
   !!
@@ -657,7 +657,7 @@ After the first *M-/*:
 Emacs is looking above what matches the 'v' and finds `vlV' from
 the assignment `vlV = 8'.
 
-After the second *M-/*:
+After typing the second time *M-/*:
 #+begin_src ansys :tangle no
   !! type "M-/" repeatedly behind below character `v'
   !!
@@ -722,7 +722,7 @@ all (locally) defined abbreviations with *C-u M-x list-abbrevs*
 
   *create,test,mac
 #+end_src
-    Voila the proper closing statements:
+    Voila for every logical block type the proper closing statements:
 #+begin_src ansys :tangle no
   !! Place the cursor in the empty lines and type "C-c ]"!
   !!
@@ -750,8 +750,8 @@ all (locally) defined abbreviations with *C-u M-x list-abbrevs*
     /title,well well
   *endif
 #+end_src
-    The line is indented too (don't forgot the shortcut *C-c ]* for
-    closing blocks)
+    The line is indented too (don't forget to apply the shortcut *C-c
+    ]* for closing blocks)
 #+begin_src ansys :tangle no
   *if,I,eq,1,then
     *if,J,eq,2,then
@@ -762,7 +762,8 @@ all (locally) defined abbreviations with *C-u M-x list-abbrevs*
 #+end_src
 ** Use the Emacs integrated RPN Calculator
    RPN means Reversed Polish Notation, HP calculators are using this
-   arguably superior input convention.
+   arguably superior input convention.  Please read the Emacs
+   documentation.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
@@ -792,12 +793,14 @@ You might round the input
   !!
   Pi = 
 #+end_src
+Of course we are getting now a more compact form
 #+begin_src ansys :tangle no
   !! Type "df" in Calc for `display fixed' and then <3> before pasting
   !!
   Pi = 3.142
 #+end_src
 ** Highlighting APDL specials
+TODO! for this tutorial: Colour the code snippets. 
 #+begin_src  ansys :exports none
 !@ --- ANSYS-Mode is highlighting APDL specials ---
 #+end_src
@@ -828,7 +831,7 @@ var2 = sinh(cos(3*5))  ! this is valid code
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !!
 #+end_src
-*** 
+*** The End Of File command
 #+begin_src  ansys :exports none
 !@@ -- End Of File command --
 #+end_src
@@ -847,7 +850,7 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
   et,Steel,beam3 $ et,Alu,shell91
   !!
 #+end_src
-Let's make it better!
+Let's change the element types to current ones!
 #+begin_src ansys :tangle yes
   !! Complete the following element fragments to current ones!
   !!
@@ -858,7 +861,7 @@ For example select the following elements
 #+begin_src ansys :tangle no
   et,Steel,beam188 $ et,Alu,shell28
 #+end_src
-and get another highlighting.
+and you are getting a diffent element highlighting.
 
 * APDL environment 
 The APDL processing and debugging environment
@@ -870,7 +873,9 @@ The APDL processing and debugging environment
    !! 1) A fully configured ANSYS-Mode and
    !! 2) a Linux or UNIX system
 #+end_src
-  Finally switch off unnecessay stuff: Emacs' menu-, tool- and scroll-bar :-)
+  Finally switch off unnecessay stuff: Emacs' menu-, tool- and
+  scroll-bar to get more screen estate.  :-) And tidying the window
+  with removing above code.
 #+begin_src ansys
    !! Erase all APDL code above ("M-< C-w")
    !!
@@ -880,9 +885,8 @@ The APDL processing and debugging environment
    !@ --- Choose the license type for a run ---
 #+end_src
 #+begin_src ansys
-   !! Type "C-c C-t"!  And select the required license type
-   !! Use the <TAB> key to see the predefined license types
-   !!
+   !! Type "C-c C-t"!  And select the required license type Use the
+   !! <TAB> key to see the predefined types
 #+end_src
 ** Display the license status
 #+begin_src ansys :exports none
@@ -904,7 +908,7 @@ The APDL processing and debugging environment
    [[./license.png]]
 
    
-** Start the ANSYS `interpreter' (solver)
+** Start the ANSYS `solver/interpreter'
 #+begin_src ansys :exports none
    !@ --- Start an ANSYS interpreter process ---
 #+end_src
@@ -912,12 +916,14 @@ The APDL processing and debugging environment
    !! Type "C-c RET"!
    !!
 #+end_src
-    
-** Interpreter communication
+** Communication with the interpreter
 #+begin_src ansys :exports none
   !@ --- Interpreter communication  ---
 #+end_src
-*** Sending file contents
+*** Sending window (APDL file) contents
+    The window is called a buffer in Emacs terminology, when you are
+    saveing the buffer content then it represents the file content.
+    To make everything unclear. ;-)
 #+begin_src ansys :exports none
   !@@ -- Sending APDL window contents --
 #+end_src
@@ -1029,7 +1035,7 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
   !!
 #+end_src
 
-*** Writing directly to interpeter
+*** Sending directly to the interpeter
 #+begin_src ansys :exports none
   !@@ -- Communicating directly with the interpeter  --
 #+end_src
@@ -1038,9 +1044,9 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
   !@@@ - Communicating from the APDL window  -
 #+end_src
 #+begin_src ansys
-  !! Type "C-c C-q" and send your input to the interpreter!
+  !! Type "C-c C-q" and send your input directly to the interpreter!
   !! You are getting `queried' for input by Emacs.
-  !! Input "/post1 <RET>"
+  !! Input here: "/post1 <RET>"
   !!
 #+end_src
 **** Direct communication from the ~*ANSYS*~ interactive window
@@ -1178,7 +1184,7 @@ Thank you for your time, have fun with Emacs...
 
 **  Acknowledgements
     - RMS :: GNU Emacs
-    - Carsten Dominik :: Org-mode for Emacs
+    - Carsten Dominik :: [[http://orgmode.org/][Org-mode]] for Emacs
 ######################################################################
 #+begin_src ansys  :tangle yes :exports none
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

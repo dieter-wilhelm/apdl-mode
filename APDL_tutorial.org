@@ -142,6 +142,7 @@
 #+begin_src ansys
   !! Write now "ansys-skeleton-function"!  Let Emacs complete
   !! your input (use the <TAB> key).  Conclude it with <RET>.
+  !!
 #+end_src
 *** Add a certain code template to your APDL code
 #+begin_src ansys :exports none
@@ -359,7 +360,8 @@ Helpful to get an overview of large APDL file.
   *if,I,eq,2,then
   
 #+end_src
-    which places the comment characters already with the right indentation
+    which places the comment characters (here `!! ') already with the
+    right indentation
 #+begin_src ansys :tangle no
   !! Type "M-;" in the empty line below the code
   !!
@@ -411,15 +413,21 @@ code should look like the following
 #+begin_src ansys :tangle no
   !! Type "M-;" somewhere in the following code line
   !!
-  nsel,s,loc,x,0,1         ! this is an `inline comment'
+  nsel,s,loc,x,0,1         !this is an `inline comment'
 #+end_src
+For an existing inline comment *M-j* indents it and skips the cursor
+to the comment beginning.
 #+begin_src ansys
-  !! If you input "M-;" in a line with an existing comment
-  !! then the cursor skips to the comment beginning.
+  !! Place the cursor in this line and type "M-;"
   !!
-  nsel,s,loc,x,0,1         ! this is an `inline comment'
+  nsel,s,loc,x,0,1!another inline comment
 #+end_src
-Is this not nicely thought out from Emacs' developers!
+Is this not nicely thought out from Emacs' developers, is it?
+#+begin_src ansys :tangle no
+  !! Place the cursor in this line and type "M-;"
+  !!
+  nsel,s,loc,x,0,1         !another inline comment
+#+end_src
 *** Continue and indent your comments
 **** In inline comments
 #+begin_src ansys :exports none
@@ -462,6 +470,7 @@ Is this not nicely thought out from Emacs' developers!
 #+end_src
 #+begin_src ansys
   !! Type "C-h m" for reading the built-in mode help
+  !! search for the section with its keybindings!
   !!
 #+end_src
 ** APDL variable listing
@@ -740,7 +749,7 @@ all (locally) defined abbreviations with *C-u M-x list-abbrevs*
    !@@ --- Auto-indentation --
 #+end_src
 #+begin_src ansys
-   !! Insert in between the following block another `*if' statement!
+   !! Insert in between the following block e. g. a `*do' statement!
    !! Conclude the line(s) with "C-j" to receive an automatic indentation.
    !!
 #+end_src
@@ -762,8 +771,9 @@ all (locally) defined abbreviations with *C-u M-x list-abbrevs*
 #+end_src
 ** Use the Emacs integrated RPN Calculator
    RPN means Reversed Polish Notation, HP calculators are using this
-   arguably superior input convention.  Please read the Emacs
-   documentation.
+   arguably superior input convention.  Please read the `Calc'
+   documentation (*C-h i* for accessing Emacs the documentation
+   system).  There is also a nice reference card for its keybindings.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
@@ -1046,7 +1056,7 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
 #+begin_src ansys
   !! Type "C-c C-q" and send your input directly to the interpreter!
   !! You are getting `queried' for input by Emacs.
-  !! Input here: "/post1 <RET>"
+  !! Input here: "/post1 <RET>" and then "C-c C-q set,list"
   !!
 #+end_src
 **** Direct communication from the ~*ANSYS*~ interactive window

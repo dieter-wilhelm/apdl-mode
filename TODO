@@ -30,28 +30,28 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
-*  v15.0.1:
-** TODO Tasks [61%]
-   - [ ] call the ANSYS help browser with APDL command?
-   - [ ] Google Code project feed
-   - [ ] M-n/p does not work from node-/element-blocks (aternative to
-     C-c {/}).
+*  15.0.1:
+** TODO Tasks [8%]
    - [ ] document fontification.mac or make an org file from it as soon as
      the output becomes coloured, better merge it with APDL_tutorial.org
+   - [ ] call the ANSYS help browser with APDL command?
+   - [ ] M-n/p does not work from node-/element-blocks (aternative to
+     C-c {/}).
    - [ ] -complete-symbol: complet but not uniqe is missing
    - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
    - [ ] check -license-file var with -license-file-check
-       - Emacs var  :DONE:
-       - env vars  :DONE:
-       - activate -license-file function :TODO:
+     - Emacs var  :DONE:
+     - env vars  :DONE:
+     - activate -license-file function :TODO:
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
    - [ ] document Lagrange contact behaviour for contact/press-fit
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] Google Code project feed
 ** Freeze
    - [ ] test server specifications (menu!) make interconnect
      conditional of the ANSYS version >= 120
@@ -78,13 +78,15 @@
 * Procedures
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
+  - README :: emphasizing in `' does not work for Google Code Site!
+	      use '' instead
   - apdl templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in V14
+    are still working in V 14.0
   - TODOs, FIXMEs in the code
   - checkdoc, -template.el, -process.el, -mode.el done except
     \\<keymap> & \\[function]
@@ -94,9 +96,10 @@
     list in ansys-submit-bug-report, update version numbers, default
     specifiers
 
-    (tags-query-replace "130" "140")
-    (tags-query-replace "13.0" "14.0")
-    (tags-query-replace "- 2011" "- 2012")
+    (tags-query-replace "140" "150")
+    (tags-query-replace "24.1" "24.?")
+    (tags-query-replace "14.0" "15.0")
+    (tags-query-replace "- 2012" "- 2013")
 
     checkdoc then dry run: Emacs
     24.1 -Q testing: fontification.mac /*commands and default command
@@ -142,8 +145,8 @@ Subject:  Release 14.0.1 of ANSYS-Mode: Editor support for working with ANSYS AP
 
 Hi,
 
-a new release of ANSYS-Mode for ANSYS 14 (somewhat delayed, waited for
-the Emacs-24.1 release).
+a new release of ANSYS-Mode for ANSYS 14.0 (somewhat delayed, waited
+for the Emacs-24.1 release).
 
 ... And finally the mode comes with an introductory, illustrated
 tutorial!  (Which I attached to this email in the hope that it does

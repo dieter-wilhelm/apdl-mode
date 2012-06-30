@@ -77,7 +77,8 @@ APDL_tutorial.ansys : APDL_tutorial.org
 
 APDL_tutorial.pdf : APDL_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-pdf 3)"
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
+# htmlize does not yet work in batch mode
+	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
 ansys-mode_tutorial.pdf : ansys-mode_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute  "(org-export-as-pdf 3)"
@@ -121,9 +122,9 @@ $(EMACS_SOURCE_PACKAGE) :
 	wget $(SOURCE_ADDRESS) $(SIG_SOURCE_ADDRESS)
 	gpg $(EMACS_SOURCE_PACKAGE_SIG)
 
-TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
-	etags $(EL_FILES) default_el ansys-fontification.el
+TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO APDL_tutorial.org ansys-mode_tutorial.org
+	etags $(EL_FILES) default_el ansys-fontification.el README TODO APDL_tutorial.org ansys-mode_tutorial.org
 
-.PHONEY : TAG
+.PHONEY : TAG_RELEASE
 TAG :
 	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-15.0.1 -m "tagging 15.0.1"

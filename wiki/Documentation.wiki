@@ -1,9 +1,9 @@
 #labels Featured
 The realease numbering scheme is a mixture of the targeted Ansys version, e. g. 14.0 and the mode version, e. g. .1 => Ansys mode version 14.0.1
 
-===Tutorial:===
+===Tutorials:===
 
-A PDF version (ansys-mode_tutorial.pdf) is in the Download section of this site or go directly to the [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html online version].
+There are now two tutorials available (ansys-mode_tutorial.pdf and APDL_tutorial.pdf) in the download section of this site or go directly to the [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html introductory online version].
 
 ===Installation:===
 

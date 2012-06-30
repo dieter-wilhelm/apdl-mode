@@ -77,9 +77,11 @@ APDL_tutorial.ansys : APDL_tutorial.org
 
 APDL_tutorial.pdf : APDL_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-pdf 3)"
+	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
 ansys-mode_tutorial.pdf : ansys-mode_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute  "(org-export-as-pdf 3)"
+	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
@@ -124,4 +126,4 @@ TAGS : makefile $(EL_FILES) default_el ansys-fontification.el
 
 .PHONEY : TAG
 TAG :
-	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.0.1 -m "tagging 14.0.1"
+	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-15.0.1 -m "tagging 15.0.1"

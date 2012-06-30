@@ -10,7 +10,7 @@ http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png
 This [http://code.google.com/p/ansys-mode/ project] supports working
 with the FEA (Finite Element Analysis) suite [http://www.ansys.com ANSYS] (ANalysis SYStem).
 
-It provides 'ANSYS-Mode', an add-on to the
+It provides `ANSYS-Mode', an add-on to the
 [http://www.gnu.org/software/emacs/ Gnu Emacs] editor for navigating
 in, inspecting and writing APDL files.  The mode offers managing and
 communication capabilities for ANSYS processes, like interactive code
@@ -41,9 +41,10 @@ Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==
 
-The code is based on ANSYS version 14.0 and is written for GNU Emacs
-and not consciously targeted for XEmacs.  It is tested with Emacs-24.1
-under XP32, XP64 and under `GNU/Linux' (there also with Emacs-23.2).
+The code (completions, help strings etc.) is based on ANSYS version
+14.0 and written for GNU Emacs and is not consciously targeted for
+XEmacs.  It is tested with Emacs-24.1 under XP32, XP64 and under
+`GNU/Linux' (here also with Emacs-23.2).
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for UNIX systems.
@@ -175,7 +176,7 @@ Sources:
 * ansys-process.el
 
 (and possibly their compiled versions with the suffix '.elc'.  In case
-you are using the mode with an older version of Emacs than 24 please
+you are using the mode with an older version of Emacs than 24.1 please
 remove the .elc files.)
 
 Auxiliaries:
@@ -385,6 +386,8 @@ Then in mainly reversed cronological order:
 
 == Resources ==
 
+* The ANSYS-Mode atom feed for its downloads is
+  http://code.google.com/feeds/p/ansys-mode/downloads/basic
 * The [http://www.emacswiki.org Emacs Wiki]
 * A general [http://www.ansys.net  ANSYS macro repository] (ansys.net)
 * The [http://www.ansys.com ANSYS homepage]

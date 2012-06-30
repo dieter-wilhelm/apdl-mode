@@ -4,6 +4,10 @@
 # TODO
 # Extensibility, Emacs self-documenting function help
 # Get ansys-mode highlighted fonts into the tutorial
+#  1) latex
+#  2) html
+#     needed  htmlize.el > 1.36, used 1.4, works now interactively
+#     but not yet for --batch runs
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -55,9 +59,9 @@
 # extensible!
 *** Please, please work through this tutorial side by side *with* Emacs
     Especially for the APDL examples, which look like the following
-    pseudo code.
+    code line.
 #+begin_src ansys :tangle no
-  Hello world!  This font represents APDL code!
+  /com,Hello world         !This font represents APDL code!
 #+end_src
 
     All necessary APDL code for working hands-on on the following
@@ -346,7 +350,43 @@ Helpful to get an overview of large APDL file.
   !@ ------------------------------
   !@@ -- Time-History Postprocessing --...
 #+end_src
-
+Open now one entry with *C-c @ C-e*
+#+begin_src ansys :tangle no
+  !@ ==============================
+  !@ --- Header ---
+  !@ ==============================...
+  !@ ==============================
+  !@ --- Setup ---
+  !@ ==============================...
+  !@ ==============================
+  !@ --- Preprocessing --- 
+  !@ ==============================...
+  !@ ------------------------------
+  !@@ -- Cad Import --...
+  !@ ------------------------------
+  !@@ -- General Preprocessing -- ...
+  !@@@ - Materials and element types -...
+  !@@@ - Geometry -...
+  !@@@ - Meshing -...
+  !@@@ - Boundary conditions -...
+  !@ ==============================
+  !@ --- Solution --- 
+  !@ ==============================
+  
+  /solu
+  allsel
+  
+  !@ ------------------------------
+  !@@ --  Solution controls -- ...
+  !@ ==============================
+  !@ --- Postprocessing ---
+  !@ ==============================...
+  !@ ------------------------------
+  !@@ -- General Postprocessing -- ...
+  !@ ------------------------------
+  !@@ -- Time-History Postprocessing --...
+#+end_src
+In above example it was the entry below the `Solution' heading.
 ** Comments
 #+begin_src ansys :exports none
   !@ --- Comments ---
@@ -416,19 +456,19 @@ code should look like the following
   !!
   nsel,s,loc,x,0,1         !this is an `inline comment'
 #+end_src
-For an existing inline comment *M-j* indents it and skips the cursor
-to the comment beginning.
 #+begin_src ansys
   !! Place the cursor in this line and type "M-;"
   !!
   nsel,s,loc,x,0,1!another inline comment
 #+end_src
-Is this not nicely thought out from Emacs' developers, is it?
+For an existing inline comment *M-j* indents it and skips the cursor
+to the comment beginning.
 #+begin_src ansys :tangle no
   !! Place the cursor in this line and type "M-;"
   !!
   nsel,s,loc,x,0,1         !another inline comment
 #+end_src
+Is this not nicely thought out from Emacs' developers, is it?
 *** Continue and indent your comments
 **** In inline comments
 #+begin_src ansys :exports none

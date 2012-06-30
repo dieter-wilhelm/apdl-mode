@@ -1094,10 +1094,10 @@ section."
 (defun ansys-mode ()
   "Support for working with ANSYS FEA.
 The documentation is targeted at users with little Emacs
-experience, the sections which deal with specific mode features
-are indicated with two asterisks (**) at the beginning.  Input as
-keyboard sequence is indicated in quotation marks (\"), the
-actual keys are quoted with <>.
+experience. Sections dealing with features are indicated with two
+asterisks (**) at the beginning.  Your input as a keyboard
+sequence is indicated in quotation marks (\"), the actual keys
+are quoted with <>.
 
 == Contents ==
 
@@ -1146,7 +1146,7 @@ the respective characters ('c' then 'h') for
 A mouse click or typing the <RET> key, when the cursor is on the
 underlined hyperlinks (you can also skip to these links with the
 <TAB> key) will display their respective help strings (or typing
-<RETURN> when the cursor is over these links).
+<RET> when the cursor is over these links).
 
 In case something unintended happend to your code you are always
 able to resort to the Emacs `undo' functionality from the menu or
@@ -1364,25 +1364,29 @@ more immediate version of it without requesting user
 input (`ansys_do').  You can see all the predefined abbreviations
 with \"`?\", i. e. a question mark '?'  after the backquote '`'.
 Alternatively you might use the Emacs command \"M-x list-abbrevs
-RET\" to inspect all definitions which Emacs knows.
+<RET>\" to inspect all definitions which Emacs knows.
 
 ** Outlining (hiding) of code sections **
 
-You might call the Outline Minor Mode with \"M-x
-outline-minor-mode\" or you could enable this mode permanently by
-ticking on the option `ansys-outline-minor-mode' for the
-`ansys-mode-hook' variable.  Either by typing \"M-x
-ansys-customise-ansys RET\" or use the menu bar: ->ANSYS
-->Customise ANSYS Mode.
+If you are using the pre-configured ANSYS-Mode then
+`outline-minor-mode' is now switched on by default.
 
-Then you can hide certain sections of your code or navigate to
-customisable outline headings.  Certain characters --by default
-'!@' (see the variable `ansys_outline_string')-- at the beginning
-of a line in your code represent such headings.  '!@@' specifies
-a subheading and so on (please call the function
+With this mode you can hide certain sections of your code or
+navigate to customisable outline headings.  Certain characters
+--by default '!@' (see the variable `ansys_outline_string')-- at
+the beginning of a line in your code represent such headings.
+'!@@' specifies a subheading and so on (please call the function
 `ansys-skeleton-outline-template' to insert a skeleton of outline
 sections in your current file).  Check out the Outline menu
-entries (outline-minor-mode is switched on by default).
+entries.
+
+In case outlining is not activate you might call Outline Minor
+Mode with \"M-x outline-minor-mode\" or you can enable this mode
+for the current session by ticking on the respective option in
+the menu or permanently by setting `ansys-outline-minor-mode' for
+the `ansys-mode-hook' variable.  Please type \"M-x
+ansys-customise-ansys <RET>\" or use the customisaton system from
+the menu: ->ANSYS ->Customise ANSYS Mode.
 
 ** Convenient comment handling, commenting/un- of whole
    paragraphs **
@@ -1413,24 +1417,26 @@ begins a the same comment style at the the current indentation.
 In an empty line or a line without comment: Just inserts a new
 line.
 
+** Insertion of code template in an APDL file **
+
+You are able to preview various code templates with
+\"\\[ansys-display-skeleton]\" (for `ansys-display-skeleton'),
+while doing this, you might type <TAB> to complete all available
+skeleton names.
+
+See e. g. `ansys-skeleton-outline-template' (type \"M-x
+ansys-skeleton-outline-template <RET>\" to insert a skeleton of
+APDL code with outline headings).
+
 ** Auto-insertion of code templates into new APDL files **
 
-See `ansys-skeleton-outline-template' (type \"M-x
-ansys-skeleton-outline-template RET\" to insert a collection of a
-skeleton of outline code).
-
-Include the following lisp expressions in your .emacs file, in
-case you want to be ask for inclusion for every new .inp and .mac
-file.
+Put the following section in your .emacs file, in case you want
+to to include above skeleton (optionally) for every APDL file.
 
       (auto-insert-mode 1)
+      (add-hook 'find-file-hook 'auto-insert)
       (setq auto-insert-query t)
-      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton]))
-
-You are able to preview the various code templates with
-\"\\[ansys-display-skeleton]\" (for `ansys-display-skeleton'),
-doing this you might type <TAB> to complete the available
-skeleton names.
+      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-outline-template]))
 
 ** ANSYS process management **
 
@@ -2065,7 +2071,9 @@ buffer with the SPACE key."
 	  (if (= (apply 'min (mapcar 'length completion-list))
 		 (length completion))
 	      (message
-	       (concat "Already an ANSYS symbol.  Hit SPACE to remove the "
+	       (concat "Complete ANSYS symbol.  Hit SPACE to remove the "
+; TODO:
+;	       (concat "Complete ANSYS symbol but not uniqe.  Hit SPACE to remove the "
 		       buffer-name " buffer."))
 	    (message
 	     (concat "Incomplete ANSYS symbol.  Hit SPACE to remove the "

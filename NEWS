@@ -6,8 +6,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 === Version 14.0.1 June 2012 ===
 
-* Included some tutorial slides for ANSYS-Mode:
-  ansys-mode_tutorial.pdf
+* Enhanced the documentation, included is now an introductory tutorial
+  `ansys-mode_tutorial.pdf' and a hands-on tutorial
+  `APDL_tutorial.pdf'
 
 * Added a timer for getting rid of the parameter help overlays after
   some time interval (1 min) without reusing the parameter help

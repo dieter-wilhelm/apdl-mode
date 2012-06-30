@@ -47,29 +47,31 @@
 
 (defun ansys-display-skeleton (&optional arg)	;NEW
   "Display code templates in another buffer.
-With an argument ARG insert the template into the current buffer
-instead of previewing it in a separate window."
-  (interactive "P")
+With an argument ARG not equal 1 insert the template into the
+current buffer instead of previewing it in a separate window."
+  (interactive "p")
   (let* (
 	 (old-buffer (buffer-name))
 	 (new-buffer-name "*ANSYS-skeleton*")
 	 (skeleton-buffer
 	  (get-buffer-create new-buffer-name))
-	 s
+	 s  ;yellow indicator line in the preview buffer above content
 	 ;; if skeleton window is visible in selected frame
 	 (visible  (get-buffer-window new-buffer-name nil))
 	 (skel-string
-	  ;; we might want to insert it after previewing...
-	  (if (and arg ansys-last-skeleton visible)
+	  ;; we might want to insert it while previewing...
+	  (if (and (not (= arg 1)) ansys-last-skeleton visible)
 	      ansys-last-skeleton
 	    "ansys-skeleton-"))
-	 (skel (completing-read
-		       "Insert template: " obarray 'commandp t skel-string nil))
+	 (skel
+	  (if (= arg 1)
+	     (completing-read "Preview template: "
+			      obarray 'commandp t skel-string nil)
+	    (completing-read "Insert template: "
+			     obarray 'commandp t skel-string nil)))
 	 )
     (setq ansys-last-skeleton skel)
-    (cond (arg
-	   (funcall (intern-soft skel)))
-	  (t
+    (cond ((= arg 1)
 	   (switch-to-buffer-other-window skeleton-buffer)
 	   (remove-overlays)
 	   ;;(make-local-variable 'ansys-skeleton-overlay)
@@ -89,7 +91,10 @@ instead of previewing it in a separate window."
 	   ;;    (toggle-read-only t)
 	   (switch-to-buffer-other-window old-buffer)
 	   ;; (display-buffer new-buffer-name 'other-window)
-	   ))))
+	   )
+	  (t
+	   (funcall (intern-soft skel)))
+	  )))
 
 (define-skeleton ansys_do		;NEW
   "Insert a *do .. *enddo loop."

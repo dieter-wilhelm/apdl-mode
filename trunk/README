@@ -1,5 +1,5 @@
 This is the text of the ANSYS-Mode README file (the formatting is
-targeted for the EmacsWiki)
+targeted for the [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki])
 
 Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
@@ -8,8 +8,7 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png
 
 This [http://code.google.com/p/ansys-mode/ project] supports working
-with the FEA (Finite Element Analysis) suite [http://www.ansys.com
-ANSYS] (ANalysis SYStem).
+with the FEA (Finite Element Analysis) suite [http://www.ansys.com ANSYS] (ANalysis SYStem).
 
 It provides 'ANSYS-Mode', an add-on to the
 [http://www.gnu.org/software/emacs/ Gnu Emacs] editor for navigating
@@ -159,6 +158,8 @@ a certain code template, respectively.
   set the used ansys version (ansys-current-ansys-version, if it is
   not 140, see the example config file default_el) and maybe
   additionally the installation directory (ansys-install-directory).
+
+Please have a look in the NEWS file for the complete history
 
 == Installation ==
 

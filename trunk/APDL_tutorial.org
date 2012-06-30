@@ -21,7 +21,7 @@
 #+XSLT:
 #+PROPERTY: tangle yes
 ##+LaTeX_CLASS: koma-report
-#+LaTeX_CLASS: koma-article
+##+LaTeX_CLASS: koma-article
 
 #+TEXT: This is still a work in progress, good documentation is hard work!
 #+TEXT: Please report remaining faults.
@@ -149,14 +149,15 @@
   !@@ -- Template insertion --
 #+end_src
 #+begin_src ansys
-  !! Insert below the following line the `ansys-skeleton-structural-template'!
-  !! Type "C-u C-c C-s" for insertion instead of previewing.
+  !! Insert below the following line the structural template!  Type
+  !! "M-x ansys-skeleton-structural-template" for insertion instead of
+  !! previewing. (You can insert a template with "C-u C-c C-s" as well.)
   !!
 #+end_src
 After giving a short description, it should look like this:
 #+begin_src ansys :tangle no
-  !! Insert below the following line the `ansys-structural-template'!
-  !! Type "C-u C-c C-s" to insert it directly into this file
+  !! "M-x ansys-skeleton-structural-template" for insertion instead of
+  !! previewing. (You can insert a template with "C-u C-c C-s" as well.)
   !! ------------------------------
   !@ --- file header ---
   !! ------------------------------
@@ -1080,6 +1081,21 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
   !! Always the latest content is shown...
   !!
 #+end_src
+* Appendix
+** Regarding Emacs' keybindings
+   Even when these keybindings at first seem foreign and unhandy, an
+   additional advantage getting used to them is the fact that the
+   *bash* shell can also be operated with the most often used.
+
+* Summary and Acknowledgements
+Thank you for your time, have fun with Emacs...
+
+##+ATTR_LaTeX: width=6cm
+    [[./editor_learning_curves.jpg]]
+
+**  Acknowledgements
+    - RMS :: GNU Emacs
+    - Carsten Dominik :: [[http://orgmode.org/][Org-mode]] for Emacs
 
 # ** writing an abort file
 # ** bookmarks positions -> in bookmarks/registers/clone buffer?
@@ -1186,15 +1202,6 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
 # # #+RESULTS:
 # # : 4
 # #    this is line [[(bla)]]
-* Summary and Acknowledgements
-Thank you for your time, have fun with Emacs...
-
-##+ATTR_LaTeX: width=6cm
-    [[./editor_learning_curves.jpg]]
-
-**  Acknowledgements
-    - RMS :: GNU Emacs
-    - Carsten Dominik :: [[http://orgmode.org/][Org-mode]] for Emacs
 ######################################################################
 #+begin_src ansys  :tangle yes :exports none
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

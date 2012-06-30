@@ -30,81 +30,57 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
-*  v14.0.1:
-   check -license-file var
-   - Emacs var
-   - env var
-   - activate -license-file function
-
+*  v15.0.1:
 ** TODO Tasks [61%]
-   - [ ] document fontification.mac or make an org file from it as soon as
-     the output becomes coloured
+   - [ ] call the ANSYS help browser with APDL command?
    - [ ] Google Code project feed
-   - [ ] -preview-template does not indicate when you intend to insert
-     the template with a prefix C-u C-c C-s says `preview' and not `insert'
-   - [ ] mode help :: rework outline section <- outline-minor is now default
+   - [ ] M-n/p does not work from node-/element-blocks (aternative to
+     C-c {/}).
+   - [ ] document fontification.mac or make an org file from it as soon as
+     the output becomes coloured, better merge it with APDL_tutorial.org
+   - [ ] -complete-symbol: complet but not uniqe is missing
    - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
+   - [ ] check -license-file var with -license-file-check
+       - Emacs var  :DONE:
+       - env vars  :DONE:
+       - activate -license-file function :TODO:
    - [ ] give the minimal sample templates a documentation string
      explaining the model purpose
    - [ ] document Lagrange contact behaviour for contact/press-fit
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
-   - [X] Filter empty lines when process is running, add an "\n" to
-     the input if missing, test C-c C-c, showed duplicate prompts in interactive
-     mode
-   - [X] check for new skeleton -template name in menu definitions!
-   - [X] distinguish the two kinds of -templates: self contained samples
-     (include maybe the ANSYS verification cases) and command examples
-     to various subjects
-   - [X] V14 introduced new option for the ansyslic-admin utility to
-     distinguish client V13 and V12 "-client" and V14 "-client140"
-   - [X] implement isometric 3d view
-   - [X] supply the default paths for windows/unix 64 bit default
-     installation, check AWP_ROOT140
-   - [X] create an option and the support functions for the number of
-     processors for -start-ansys (/config,nproc is obsolete), show
-     this thing in the menu and default_el
-   - [X] check E21 loading
-   - [X] shall we capitalise ANSYS? NO :-)
-   - [X] activate optionally outline mode in default_el
-   - [X] NEWS file -> makefile
-
 ** Freeze
    - [ ] test server specifications (menu!) make interconnect
      conditional of the ANSYS version >= 120
-   - [X] check HPC support!
-
 ** Bugs
-    - seems to be a bug when C-u C-s C-s skeleton-structural-template
-      the header is below the body!
-    - some functions in -skeleton-function are not highlighted and
+   - some functions in -skeleton-function are not highlighted and
       completable
-    - M-n/p does not work from node-/element-blocks (aternative to C-c
-      {/}).
-    - C-c { before a number-block does not work
-    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
-    - C-c C-a does not align a pragraph if the mark was not set (first
+   - C-c { before a number-block does not work
+   - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
+   - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-    - Help, M-? does not :
+   - Help, M-? does not :
       + *mwrite
       + *cfclos
       + *sread M-? shows help for *mwrite
-    - help overlay is only removed after 1 min if the buffer is active
+   - help overlay is only removed after 1 min if the buffer is active
       at that time
-    - -if-then does not indent correctly
-    - mismatch in customisation buffer of -license-file and -ansysli-servers
+   - -if-then does not indent correctly
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
 ** Compiler warnings
     - ansys-template.el:85:13:Warning: reference to free variable
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
 
 * Procedures
-  - Mode Help :: keyboard input quoting is "", emphasizing '', keys <>
+  - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
+                 keys in <>
   - apdl templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
+  - Menu :: -> indicates the following sub menu entry
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
@@ -137,6 +113,9 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    Steffen.Kernbach@continental-corporation.com,
+    Johann.Massinger@continental-corporation.com,
+    Marco.Mechi@continental-corporation.com,
     Antonio.Zangaro@continental-corporation.com,
     iivvgg@gmail.com,
     oleksiy.kurenkov@continental-corporation.com,
@@ -148,7 +127,6 @@
     razvan.lionel.curtean@continental-corporation.com,
     alwin.perras@continental-corporation.com,
     sparr@mfkrs1.mw.tu-dresden.de,
-    info@padtinc.com,
     tom.tumbrink@t-online.de,
     admin@auc-ev.de,
     tnelson@cadfem.de,
@@ -156,16 +134,22 @@
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
 
+    the "competitor"
+    info@padtinc.com,
+
+
 Subject:  Release 14.0.1 of ANSYS-Mode: Editor support for working with ANSYS APDL files & processes
 
 Hi,
 
-a new release of ANSYS-Mode for ANSYS 14.
+a new release of ANSYS-Mode for ANSYS 14 (somewhat delayed, waited for
+the Emacs-24.1 release).
 
-And finally the mode comes with an introductory and illustrated
-tutorial!  (Which I attached to this email.)
+... And finally the mode comes with an introductory, illustrated
+tutorial!  (Which I attached to this email in the hope that it does
+not disturb you.)
 
-You can download the mode from:
+You can download the mode, as ever, from:
 
 http://code.google.com/p/ansys-mode
 
@@ -178,7 +162,6 @@ the Editor for your APDL files and possibly other stuff as well...
 * Ideas for further versions
 ** Parameter help and documentation
    - create a reference card
-   - call the ANSYS help browser with APDL command?
    - make the timer time interval customisable
    - show list of license products and their license feature names or
      translate it in the license status from the licensing guide

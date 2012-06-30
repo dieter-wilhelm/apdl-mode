@@ -33,13 +33,11 @@ the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html
 introductory online version], where you can see the images in a higher
 resolution as in the PDFs or the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html
-in-depth online tutorial].
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html in-depth online tutorial].
 
 Please report bugs and inconsistencies in the documention! Write an
-email to the [[mailto:dieter@duenenhof-wilhelm][maintainer]] or use
-Google Code's [http://code.google.com/p/ansys-mode/issues/list issues
-list].
+email to the [mailto:dieter@duenenhof-wilhelm maintainer] or use
+Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==
 
@@ -391,7 +389,8 @@ Then in mainly reversed cronological order:
 * A general [http://www.ansys.net  ANSYS macro repository] (ansys.net)
 * The [http://www.ansys.com ANSYS homepage]
 * Xansys, an [http://www.xansys.org ANSYS online community] (registration necessary for the forum)
-* Another APDL [http://www.padtinc.com/pedal  script editor]
+* A competitor of ANSYS-Mode: The [http://www.padtinc.com/pedal  Pedal]
+script editor
 
 == Bugs and Problems ==
 

@@ -59,11 +59,12 @@ instead of previewing it in a separate window."
 	 ;; if skeleton window is visible in selected frame
 	 (visible  (get-buffer-window new-buffer-name nil))
 	 (skel-string
+	  ;; we might want to insert it after previewing...
 	  (if (and arg ansys-last-skeleton visible)
 	      ansys-last-skeleton
 	    "ansys-skeleton-"))
 	 (skel (completing-read
-		       "Preview template: " obarray 'commandp t skel-string nil))
+		       "Insert template: " obarray 'commandp t skel-string nil))
 	 )
     (setq ansys-last-skeleton skel)
     (cond (arg

@@ -1419,14 +1419,16 @@ line.
 
 ** Insertion of code template in an APDL file **
 
-You are able to preview various code templates with
+You are able to preview the code templates with
 \"\\[ansys-display-skeleton]\" (for `ansys-display-skeleton'),
 while doing this, you might type <TAB> to complete all available
 skeleton names.
 
-See e. g. `ansys-skeleton-outline-template' (type \"M-x
-ansys-skeleton-outline-template <RET>\" to insert a skeleton of
-APDL code with outline headings).
+Check e. g. `ansys-skeleton-outline-template', type \"M-x
+ansys-skeleton-outline-template <RET>\" to insert this skeleton
+of APDL code with outline headings.  Alternatively you can use
+the binding \"C-u C-c C-s\" for inserting templates (instead of
+just previewing them).
 
 ** Auto-insertion of code templates into new APDL files **
 
@@ -2059,7 +2061,7 @@ buffer with the SPACE key."
 	  (kill-buffer completion-buffer)
 	  (message "\"%s\" is a unique ANSYS symbol." completion))
 
-	 ;;maybe complete, but not uniquely completable
+	 ;;complete or not, but not unique anyway
 	 (t
 	  (setq completion (funcall cc completion))
 	  (unless (string= completion completion-string)
@@ -2070,11 +2072,13 @@ buffer with the SPACE key."
 				       completion))
 	  (if (= (apply 'min (mapcar 'length completion-list))
 		 (length completion))
+	      ;; already a complete, valid symbol but fragment is further
+	      ;; completable
 	      (message
-	       (concat "Complete ANSYS symbol.  Hit SPACE to remove the "
-; TODO:
-;	       (concat "Complete ANSYS symbol but not uniqe.  Hit SPACE to remove the "
+;	       (concat "Complete ANSYS symbol.  Hit SPACE to remove the "
+	       (concat "Complete but not unique ANSYS symbol.  Hit SPACE to remove the "
 		       buffer-name " buffer."))
+	    ;; not yet complete
 	    (message
 	     (concat "Incomplete ANSYS symbol.  Hit SPACE to remove the "
 		     buffer-name " buffer.")))

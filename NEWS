@@ -4,6 +4,11 @@
 
 Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
+===  Version 1 ===
+
+* Improved the documentation with a section explaining and showing the
+  syntax highlighting coloured in pdf and html.
+
 === Version 14.0.1 June 2012 ===
 
 * Enhanced the documentation, included is now an introductory tutorial

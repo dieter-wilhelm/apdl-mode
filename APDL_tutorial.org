@@ -4,10 +4,17 @@
 # TODO
 # Extensibility, Emacs self-documenting function help
 # Get ansys-mode highlighted fonts into the tutorial
-#  1) latex
+#  1) latex: with listings.el, the general case is too hard
+#     see listings.org, strings, comments are feasible
+#     needs some configuration as well
+# (require 'org-latex)
+# (setq org-export-latex-listings t)
+# (add-to-list 'org-export-latex-packages-alist '("" "listings"))
+# (add-to-list 'org-export-latex-packages-alist '("" "color"))
 #  2) html
-#     needed  htmlize.el > 1.36, used 1.4, works now interactively
+#     needed  htmlize.el > 1.36 (debian), used 1.4, works now interactively
 #     but not yet for --batch runs
+# (setq org-src-fontify-natively t)
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -31,6 +38,43 @@
 #+TEXT: Please report remaining faults.
 
 ##+LATEX: \tableofcontents
+
+# so far just defining comments (old style too) and string for ansys
+#+BEGIN_LaTeX
+  \definecolor{dkgreen}{rgb}{0,0.5,0}
+  \definecolor{dkred}{rgb}{0.5,0,0}
+  \definecolor{gray}{rgb}{0.5,0.5,0.5}
+  \lstset{frame=none, %leftline
+    basicstyle=\ttfamily\bfseries\footnotesize,
+    morekeywords={virtualinvoke},
+    keywordstyle=\color{dkgreen},
+    ndkeywordstyle=\color{red},
+    commentstyle=\color{dkred},
+    stringstyle=\color{orange},
+%   numbers=left,
+%    numberstyle=\ttfamily\tiny\color{gray},
+%    stepnumber=1,
+%    numbersep=10pt,
+    backgroundcolor=\color{white},
+    tabsize=4,
+ %   showspaces=false,
+%    showstringspaces=false,
+    xleftmargin=.23in
+  }
+
+\lstdefinelanguage{ansys}
+  {
+  morecomment=[l]{!},
+  morecomment=[l]{\ *}, % olds style comments
+  morestring=[b]',
+  morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
+     aplot,eplot},
+  otherkeywords={*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
+    /units,/prep7,/solu,/post1,/post26,/eof},
+  sensitive=false
+}
+
+#+END_LaTeX  
 
 * Introduction
 #[[./ansys+emacs.png]]
@@ -471,6 +515,7 @@ to the comment beginning.
 Is this not nicely thought out from Emacs' developers, is it?
 *** Continue and indent your comments
 **** In inline comments
+     
 #+begin_src ansys :exports none
    !@@@ - Inline Comment continuation and indentation -
 #+end_src
@@ -487,6 +532,7 @@ Is this not nicely thought out from Emacs' developers, is it?
                            ! continued above comment
 #+end_src
 **** In regular comments
+     
 #+begin_src ansys :exports none
    !@@@ - Regular comment continuation and indentation -
 #+end_src

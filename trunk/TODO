@@ -116,6 +116,9 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    razvan.lionel.curtean@continental-corporation.com,
+    wrong!
+
     Steffen.Kernbach@continental-corporation.com,
     Johann.Massinger@continental-corporation.com,
     Marco.Mechi@continental-corporation.com,
@@ -127,7 +130,6 @@
     klemens.kieninger@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
     saravana.kumar@continental-corporation.com,
-    razvan.lionel.curtean@continental-corporation.com,
     alwin.perras@continental-corporation.com,
     sparr@mfkrs1.mw.tu-dresden.de,
     tom.tumbrink@t-online.de,
@@ -269,6 +271,7 @@ the Editor for your APDL files and possibly other stuff as well...
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
+   - LSDYN support, see lsdyna.el
    - material properties :: add apdl libary of material data with mpwrite?
    - embedded calc :: include in hacking.mac
    - Alignment :: alignment "section" is not clearly defined in function

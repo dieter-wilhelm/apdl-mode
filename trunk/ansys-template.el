@@ -46,8 +46,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-display-skeleton (&optional arg)	;NEW
-  "Display code templates in another buffer.
-With an argument ARG not equal 1 insert the template into the
+  "Display or insert code templates.
+With an argument ARG not equal to 1 insert the template into the
 current buffer instead of previewing it in a separate window."
   (interactive "p")
   (let* (

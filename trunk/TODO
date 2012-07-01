@@ -31,13 +31,12 @@
                 (because of stipulated user text input from this skeleton)
 
 *  15.0.1:
-** TODO Tasks [8%]
+** TODO Tasks [16%]
    - [ ] document fontification.mac or make an org file from it as soon as
      the output becomes coloured, better merge it with APDL_tutorial.org
    - [ ] call the ANSYS help browser with APDL command?
    - [ ] M-n/p does not work from node-/element-blocks (aternative to
      C-c {/}).
-   - [ ] -complete-symbol: complet but not uniqe is missing
    - [ ] gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
@@ -51,6 +50,7 @@
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] -complete-symbol: complete but not uniqe is missing
    - [X] Google Code project feed
 ** Freeze
    - [ ] test server specifications (menu!) make interconnect

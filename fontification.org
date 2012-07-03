@@ -1,14 +1,13 @@
 # -*- mode: org -*-
-#+TITLE: ANSYS-Mode Syntax Highlighting Tutorial
+#+TITLE:  Tutorial
 ######################################################################
-
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 ##+DATE:      2012-06-17 Sa
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS:   email:t H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -17,9 +16,17 @@
 #+LINK_HOME: 
 #+XSLT:
 #+PROPERTY: tangle yes
-##+LaTeX_CLASS: koma-report
+#+LaTeX_CLASS: koma-report
 ##+LaTeX_CLASS: koma-article
 ##+LATEX: \tableofcontents
+#+LATEX_HEADER: \usepackage{scrpage2}
+#+LATEX_HEADER: \titlehead{\includegraphics[width=15cm]{ansys+emacs.png}}
+#+LATEX_HEADER: \subject{ANSYS-Mode}
+#+LATEX_HEADER: \subtitle{APDL and Syntax Highlighting}
+#+LATEX_HEADER:\areaset{15cm}{25cm} %textarea on page
+#+LATEX_HEADER:\pagestyle{scrheadings}
+#+LATEX_HEADER:\ifoot{\author}
+#+LATEX_HEADER:\ofoot{\includegraphics[width=3cm]{ansys+emacs.png}}
 
 ##+TEXT: This is still a work in progress, good documentation is hard work!
 ##+TEXT: Please report remaining faults.

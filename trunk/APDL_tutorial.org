@@ -20,7 +20,7 @@
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 ##+DATE:      2012-06-17 Sa
 #+DESCRIPTION: Guided ANSYS-Mode hands-on APDL Tutorial
-#+KEYWORDS: Emacs ANSYS FEA APDL
+#+KEYWORDS: Emacs ANSYS FEA APDL MAPDL
 #+LANGUAGE:  en
 #+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
@@ -144,6 +144,7 @@
   !! --- APDL editing ---
   !! ==============================
 #+end_src
+** Use the log file from ANSYS Classics to get APDL
 ** Extensible APDL templates
 
    Some of the existing templates are collections of (all) available

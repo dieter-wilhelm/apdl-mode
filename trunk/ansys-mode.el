@@ -589,7 +589,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    	      ;only 75 characters possible no separator necessary
 
     ;; *use variables, local macro call arguments
-   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary)
 
     ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
@@ -700,7 +701,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    	      ;only 75 characters possible no separator necessary
 
     ;; *use variables, local macro call arguments
-   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary)
 
     ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)

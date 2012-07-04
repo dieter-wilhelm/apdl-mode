@@ -197,8 +197,6 @@ TODO! for this tutorial: Colour the code snippets.
 #+begin_src ansys
   !!
   N      =  _RETURN       !return value of certain commands
-  _aaa   = 9.    !reserved variables: preceding underscore "_" 
-  Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
   Alpha2 =  +360./(2*N)
   Xc     =  !empty rhs clears variables
 #+end_src
@@ -236,11 +234,6 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
   Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 #+end_src
 
-#+begin_src ansys
-  ! character string variables
-  Yc = 'char'
-  False = 0$True =1 $ Yes = 'no'
-#+end_src
 
 *** Ignored characters behind commands
 #+begin_src ansys :exports none
@@ -320,19 +313,61 @@ and you are getting a diffent element highlighting.
   VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
 #+end_src
 
+** Variable (called parameters in APDL) names
+*** Must begin with a letter or an underscore
 #+begin_src ansys
-  !! variables max. 32 chars long & condensed ($) input lines % %  &
-  short_variabl = 1
-  !! The following is not a valid variable
-  v23456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
-  !! The following is a valid variable
-  v23456789_123456789_123456789_12 = 1 $ Alu=2 $ Steel= 3
+  1ansys = 3			!is not a valid variable name
+  a1nsys = 3			!a1nsys is a valid variable name
+#+end_src
+*** Should not begin with an underscore
+    This convention is used in nameing variables in ANSYS supplied
+    macros and the GUI.
+#+begin_src ansys
+  _ansys = 3   !`_ansys' represents a reserved variable
+#+end_src
+      
+*** Must contain only letters, numbers and underscores
+#+begin_src ansys
+  a1n§sys = 3              !this is not a valid variable name
+  a1n_sys = 3              !this is
+#+end_src
+*** Must contain no more than 32 characters    
+#+begin_src ansys
+  !! The following is not a valid variable name
+  v23456789_123456789_123456789_123 = 3
+  !! The following is a valid variable name
+  v23456789_123456789_123456789_12  = 3
+#+end_src
+*** Variable names with a trailing underscore
+    These are hidden from the `*status' command output and can be
+    deleted as a group with `*del'.
+#+begin_src ansys
+ ansys_ = 3  !this is a `hidden' variable from *status
+ *status,ansys_ !TODO: ?
+ *del !TODO: how to delete a group
+#+end_src
+*** Erasing variables from memory
+#+begin_src ansys 
+  ansys =
+  *set,ansys
+  *del, !TODO:
+#+end_src    
+*** Character variables
+    Must not contain more than 8 characters
+#+begin_src ansys
+  ! character string variables
+  Yc = 'char'
+  False = 0$True =1 $ Yes = 'no'
+#+end_src
+    
+#+begin_src ansys
+  Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
 #+end_src
 
 #+begin_src ansys
   !undocumented commands are highlighted differently
-  /xml                     ! undocumented command /xml
-  /xfr                     !   documented command /xfrm
+  /xml                     !undocumented command /xml
+  /xfr                     !  documented command /xfrm
 #+end_src
 
 #+begin_src ansys

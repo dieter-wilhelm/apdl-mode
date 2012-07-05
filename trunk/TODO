@@ -32,6 +32,7 @@
 
 *  15.0.1:
 ** TODO Tasks [16%]
+   - [ ] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.
    - [ ] create a face for arg1-19 and _RETURN like the diary face (somewhat milder red)
    - [ ] document fontification.mac or make an org file from it as soon as
      the output becomes coloured, better merge it with APDL_tutorial.org

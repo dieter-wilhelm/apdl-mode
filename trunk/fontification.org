@@ -313,24 +313,107 @@ and you are getting a diffent element highlighting.
   VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
 #+end_src
 
-** Variable (called parameters in APDL) names
+* Introduction to the APDL
+#+begin_src ansys :exports none
+  c***,**************************************************
+  !@ --- Introduction to the APDL ---
+  c****************************************************** TODO: highlight c****
+  !! the comma behind `c***' is not necessary, one example of the many
+  !! APDL peculiarities, which are not documented!
+#+end_src
+** Variable names (called `parameter' in the ANSYS manual)
+All numeric values are stored as double precision values.  Not defined
+variables are assigned a tiny value near zero.  The interpreter is not case sensitve
 *** Must begin with a letter or an underscore
 #+begin_src ansys
-  1ansys = 3			!is not a valid variable name
-  a1nsys = 3			!a1nsys is a valid variable name
+  1ansys = 3                    !is not a valid variable name
+  a1nsys = 3                    !a1nsys is a valid variable name
+  A1NSys = 4                    !this is the same variable
+  A1NSys = Temp                 !`Temp' is not defined
 #+end_src
+    The following text is the respective ANSYS solver/interpreter output.
+#+begin_example -t :tangle no
+ BEGIN:
+  1ansys = 3                    !is not a valid variable name
+ PARAMETER 1ANSYS =     3.000000000    
+ *** ERROR ***                           CP =       0.259   TIME= 18:06:41
+ Invalid character in parameter name.                                    
+  The setting of parameter= 1ANSYS is ignored.                           
+ BEGIN:
+  a1nsys = 3                    !a1nsys is a valid variable name
+ PARAMETER A1NSYS =     3.000000000    
+ BEGIN:
+  A1NSys = 4                    !this is the same variable
+ PARAMETER A1NSYS =     4.000000000    
+ BEGIN:
+  A1NSys = Temp                 !`Temp' is not defined
+ *** WARNING ***                         CP =       0.260   TIME= 18:06:56
+ Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
+ PARAMETER A1NSYS =    0.7888609052E-30
+ BEGIN:
+#+end_example
 *** Should not begin with an underscore
     This convention is used in nameing variables in ANSYS supplied
     macros and the GUI.
 #+begin_src ansys
-  _ansys = 3   !`_ansys' represents a reserved variable
+  _ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
+  _ = 3        ! a single underscore definition is valid
+  X = _
 #+end_src
-      
+*** Variable names with a trailing underscore
+    These are hidden from the `*status' command output and can be
+    deleted as a group with `*del'.
+#+begin_src ansys
+  ansys_ = 3              !this is a `hidden' variable from *status
+  *status                 !does not show `ansys_'
+         ,PRM_            !show variables with trailing underscore
+  *del,,PRM_              !delete all variables with trailing underscore
+#+end_src
+#+begin_example -t :tangle no
+ BEGIN:
+ansys_ = 3
+ PARAMETER ANSYS_ =     3.000000000    
+ BEGIN:
+*status
+ ABBREVIATION STATUS-
+  ABBREV    STRING
+  SAVE_DB   SAVE
+  RESUM_DB  RESUME
+  QUIT      Fnc_/EXIT
+  POWRGRPH  Fnc_/GRAPHICS
+
+ PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
+                  (INCLUDING        4 INTERNAL PARAMETERS)
+
+ NAME                              VALUE                        TYPE  DIMENSIONS
+ X                                 3.00000000                    SCALAR
+ BEGIN:
+,PRM_
+ PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
+                  (INCLUDING        4 INTERNAL PARAMETERS)
+
+ NAME                              VALUE                        TYPE  DIMENSIONS
+ ANSYS_                            3.00000000                    SCALAR
+ BEGIN:
+#+end_example
 *** Must contain only letters, numbers and underscores
 #+begin_src ansys
+  !! only letters, numbers and underscores are allowed
   a1n§sys = 3              !this is not a valid variable name
-  a1n_sys = 3              !this is
+  a1n_sys = 3              !this is a valid variable name
 #+end_src
+the ANSYS interpreter output looks like this:
+#+begin_example -t :tangle no
+ BEGIN:
+  a1n§sys = 3              !this is not a valid variable name
+ *** ERROR ***                           CP =       0.256   TIME= 17:35:07
+ Invalid character in parameter name.                                    
+  The setting of parameter= A1N§SYS is ignored.                         
+ BEGIN:
+  a1n_sys = 3              !this is a valid variable name
+ PARAMETER A1N_SYS =     3.000000000    
+ BEGIN:
+#+end_example
 *** Must contain no more than 32 characters    
 #+begin_src ansys
   !! The following is not a valid variable name
@@ -338,26 +421,18 @@ and you are getting a diffent element highlighting.
   !! The following is a valid variable name
   v23456789_123456789_123456789_12  = 3
 #+end_src
-*** Variable names with a trailing underscore
-    These are hidden from the `*status' command output and can be
-    deleted as a group with `*del'.
-#+begin_src ansys
- ansys_ = 3  !this is a `hidden' variable from *status
- *status,ansys_ !TODO: ?
- *del !TODO: how to delete a group
-#+end_src
 *** Erasing variables from memory
 #+begin_src ansys 
   ansys =
   *set,ansys
-  *del, !TODO:
+  *del,all     !delete all variables
 #+end_src    
-*** Character variables
+*** Character strings
     Must not contain more than 8 characters
 #+begin_src ansys
-  ! character string variables
+  ! character string variables are enclosed with `''
   Yc = 'char'
-  False = 0$True =1 $ Yes = 'no'
+  Yes = 'yes'
 #+end_src
     
 #+begin_src ansys

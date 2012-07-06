@@ -332,26 +332,26 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   A1NSys = Temp                 !`Temp' is not defined
 #+end_src
     The following text is the respective ANSYS solver/interpreter output.
-#+begin_example -t :tangle no
- BEGIN:
-  1ansys = 3                    !is not a valid variable name
- PARAMETER 1ANSYS =     3.000000000    
- *** ERROR ***                           CP =       0.259   TIME= 18:06:41
- Invalid character in parameter name.                                    
-  The setting of parameter= 1ANSYS is ignored.                           
- BEGIN:
-  a1nsys = 3                    !a1nsys is a valid variable name
- PARAMETER A1NSYS =     3.000000000    
- BEGIN:
-  A1NSys = 4                    !this is the same variable
- PARAMETER A1NSYS =     4.000000000    
- BEGIN:
-  A1NSys = Temp                 !`Temp' is not defined
- *** WARNING ***                         CP =       0.260   TIME= 18:06:56
- Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
- PARAMETER A1NSYS =    0.7888609052E-30
- BEGIN:
-#+end_example
+#+begin_src ansys-solver :tangle no
+  BEGIN:
+   1ansys = 3                    !is not a valid variable name
+  PARAMETER 1ANSYS =     3.000000000    
+  ,*** ERROR ***                           CP =       0.259   TIME= 18:06:41
+  Invalid character in parameter name.                                    
+   The setting of parameter= 1ANSYS is ignored.                           
+  BEGIN:
+   a1nsys = 3                    !a1nsys is a valid variable name
+  PARAMETER A1NSYS =     3.000000000    
+  BEGIN:
+   A1NSys = 4                    !this is the same variable
+  PARAMETER A1NSYS =     4.000000000    
+  BEGIN:
+   A1NSys = Temp                 !`Temp' is not defined
+  ,*** WARNING ***                         CP =       0.260   TIME= 18:06:56
+  Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
+  PARAMETER A1NSYS =    0.7888609052E-30
+  BEGIN:
+#+end_src
 *** Should not begin with an underscore
     This convention is used in nameing variables in ANSYS supplied
     macros and the GUI.
@@ -369,33 +369,33 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
          ,PRM_            !show variables with trailing underscore
   *del,,PRM_              !delete all variables with trailing underscore
 #+end_src
-#+begin_example -t :tangle no
- BEGIN:
-ansys_ = 3
- PARAMETER ANSYS_ =     3.000000000    
- BEGIN:
-*status
- ABBREVIATION STATUS-
-  ABBREV    STRING
-  SAVE_DB   SAVE
-  RESUM_DB  RESUME
-  QUIT      Fnc_/EXIT
-  POWRGRPH  Fnc_/GRAPHICS
-
- PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
-                  (INCLUDING        4 INTERNAL PARAMETERS)
-
- NAME                              VALUE                        TYPE  DIMENSIONS
- X                                 3.00000000                    SCALAR
- BEGIN:
-,PRM_
- PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
-                  (INCLUDING        4 INTERNAL PARAMETERS)
-
- NAME                              VALUE                        TYPE  DIMENSIONS
- ANSYS_                            3.00000000                    SCALAR
- BEGIN:
-#+end_example
+#+begin_src ansys-solver :tangle no
+     BEGIN:
+    ansys_ = 3
+     PARAMETER ANSYS_ =     3.000000000    
+     BEGIN:
+     *status
+     ABBREVIATION STATUS-
+      ABBREV    STRING
+      SAVE_DB   SAVE
+      RESUM_DB  RESUME
+      QUIT      Fnc_/EXIT
+      POWRGRPH  Fnc_/GRAPHICS
+    
+     PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
+                      (INCLUDING        4 INTERNAL PARAMETERS)
+    
+     NAME                              VALUE                        TYPE  DIMENSIONS
+     X                                 3.00000000                    SCALAR
+     BEGIN:
+    ,PRM_
+     PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
+                      (INCLUDING        4 INTERNAL PARAMETERS)
+    
+     NAME                              VALUE                        TYPE  DIMENSIONS
+     ANSYS_                            3.00000000                    SCALAR
+     BEGIN:
+#+end_src
 *** Must contain only letters, numbers and underscores
 #+begin_src ansys
   !! only letters, numbers and underscores are allowed
@@ -403,17 +403,17 @@ ansys_ = 3
   a1n_sys = 3              !this is a valid variable name
 #+end_src
 the ANSYS interpreter output looks like this:
-#+begin_example -t :tangle no
- BEGIN:
-  a1n§sys = 3              !this is not a valid variable name
- *** ERROR ***                           CP =       0.256   TIME= 17:35:07
- Invalid character in parameter name.                                    
-  The setting of parameter= A1N§SYS is ignored.                         
- BEGIN:
-  a1n_sys = 3              !this is a valid variable name
- PARAMETER A1N_SYS =     3.000000000    
- BEGIN:
-#+end_example
+#+begin_src ansys-solver :tangle no
+  BEGIN:
+   a1n§sys = 3              !this is not a valid variable name
+  ,*** ERROR ***                           CP =       0.256   TIME= 17:35:07
+  Invalid character in parameter name.                                    
+   The setting of parameter= A1N§SYS is ignored.                         
+  BEGIN:
+   a1n_sys = 3              !this is a valid variable name
+  PARAMETER A1N_SYS =     3.000000000    
+  BEGIN:
+#+end_src
 *** Must contain no more than 32 characters    
 #+begin_src ansys
   !! The following is not a valid variable name
@@ -422,10 +422,14 @@ the ANSYS interpreter output looks like this:
   v23456789_123456789_123456789_12  = 3
 #+end_src
 *** Erasing variables from memory
-#+begin_src ansys 
+#+begin_src ansys
+  !! defining
+  ansys = 4
+  *set,ansys,4             !alternative to `ansys = 4'
+  !! deleting
   ansys =
-  *set,ansys
-  *del,all     !delete all variables
+  *set,ansys               !alternative to `ansys ='
+  *del,all                 !delete all variables!
 #+end_src    
 *** Character strings
     Must not contain more than 8 characters
@@ -447,7 +451,7 @@ the ANSYS interpreter output looks like this:
 
 #+begin_src ansys
   !@@ --! multiline message format command this is tricky: use M-o M-o
-  ,*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+  *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
   Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
   Steel = %G A (electrical angle = %G DEG) %/ &
   _Power factor: %G %/ &
@@ -456,7 +460,7 @@ the ANSYS interpreter output looks like this:
   aldk this is not any longer in the *msg format construct
   /com this is not any longer in the *msg format construct
   
-  ,*vwrite,B(1,1),B(2,1),%yes%
+  *vwrite,B(1,1),B(2,1),%yes%
   alkd %D &
   %E%/%E
 #+end_src
@@ -486,33 +490,33 @@ the ANSYS interpreter output looks like this:
   !-----------------------------------------------------------------------
   /post1
   set,last
-  *get,nmd,active,,set,sbst
+  ,*get,nmd,active,,set,sbst
   pfct= $ ffrq= $ adir=
   nsel,s,l
   
-  *dim,pfct,,nmd,6
+  ,*dim,pfct,,nmd,6
       ,
       ,ffrq,,nmd
       ,adir,char,nmd
   
   
   adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
-  *stat,adir
-  *do,i,1,nmd
+  ,*stat,adir
+  ,*do,i,1,nmd
     *get,ffrq(i),mode,i,freq
     *do,j,1,6
       *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
     *enddo
-  *enddo
+  ,*enddo
   /annot,delete
   /plopt,info,0
   /plopt,minm,off
   /triad,off
   /erase
   iadd = arg1
-  *if,iadd,eq,0,then
+  ,*if,iadd,eq,0,then
     iadd = 1
-  *endif
+  ,*endif
   /tspe,15,1,1,0,0
   /TSPE, 15, 1.000,   1,   0,   0
   xx = 1.05
@@ -528,18 +532,18 @@ the ANSYS interpreter output looks like this:
   /win,3,off
   /win,4,off
   
-  *get,vx,graph,1,view,x
-  *get,vy,graph,1,view,y
-  *get,vz,graph,1,view,z
-  *get,va,graph,1,angle
-  *get,vd,graph,1,dist
-  *do,i,2,4
+  ,*get,vx,graph,1,view,x
+  ,*get,vy,graph,1,view,y
+  ,*get,vz,graph,1,view,z
+  ,*get,va,graph,1,angle
+  ,*get,vd,graph,1,dist
+  ,*do,i,2,4
     /view,i,vx,vy,vz
     /dist,i,vd
     /angle,i,va
-  *enddo
+  ,*enddo
   
-  *do,i,1,4
+  ,*do,i,1,4
     ii = i - 1 + iadd 
     set,1,ii
     plnsol,u,sum
@@ -550,8 +554,8 @@ the ANSYS interpreter output looks like this:
     *if,i,ne,4,then
       /win,i+1,on
     *endif
-  *enddo
-  *do,i,1,4
+  ,*enddo
+  ,*do,i,1,4
     ii = i - 1 + iadd
     /TLAB, xx, yy  ,Mode: %ii%
     yy = yy - .05
@@ -562,14 +566,14 @@ the ANSYS interpreter output looks like this:
       yy = yy - .05
     *enddo
      yy = yy -.11
-  *enddo
+  ,*enddo
   /erase
   /annot,delete
   sz = .8
   xloc = 0
   yloc = 0
   
-  *dim,data,,5
+  ,*dim,data,,5
   data(1) = 12,15,28,10,32
   hsz = sz/2
   
@@ -581,11 +585,11 @@ the ANSYS interpreter output looks like this:
   y0 = yloc + .7*hsz
   lof = .05
   
-  *vscfun,dsum,sum,data(1)
+  ,*vscfun,dsum,sum,data(1)
   /LSPE, 15, 0, 1.000
   /TSPEC, 15, 0.700, 1, 0, 0
   ang1 = 0
-  *do,i,1,5
+  ,*do,i,1,5
     ang2 = ang1 + (360*data(i)/dsum) 
     /PSPE, 2*i, 1, 1 
     /PWED, xloc,yloc,sz*.4, ang1,ang2 
@@ -595,6 +599,6 @@ the ANSYS interpreter output looks like this:
   
     y0 = y0 - 1.5*lof 
     ang1 = ang2
-  *enddo
+  ,*enddo
   /eof
 #+end_src

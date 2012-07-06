@@ -32,6 +32,8 @@
 
 *  15.0.1:
 ** TODO Tasks [16%]
+   - [ ] add aux15 commands to the fontification and help stuff, kpt,
+     lcurv, etc. (ANF functions)
    - [ ] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.
    - [ ] create a face for arg1-19 and _RETURN like the diary face (somewhat milder red)
    - [ ] document fontification.mac or make an org file from it as soon as
@@ -39,7 +41,7 @@
    - [ ] call the ANSYS help browser with APDL command?
    - [ ] M-n/p does not work from node-/element-blocks (aternative to
      C-c {/}).
-   - [ ] gnu ELPA and/or marmalade
+   - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
    - [ ] check -license-file var with -license-file-check

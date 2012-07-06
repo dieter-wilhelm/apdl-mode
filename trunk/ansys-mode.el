@@ -589,8 +589,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    	      ;only 75 characters possible no separator necessary
 
     ;; *use variables, local macro call arguments
-;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary)
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+;;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary) TODO:
 
     ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
@@ -701,8 +701,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    	      ;only 75 characters possible no separator necessary
 
     ;; *use variables, local macro call arguments
-;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary)
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary)
 
     ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
@@ -1091,6 +1091,20 @@ section."
   (if mark-active
       (align p-min p-max)
     (align-current)))
+
+(defun ansys-solver-mode ()
+  "Helper mode for the fontification of the solver output"
+  (interactive)
+  (kill-all-local-variables)
+  (setq major-mode 'ansys-solver-mode)
+  (setq mode-name "ANSYS-Solver")		; mode line string
+  (setq
+			      solver-font-lock ;'("BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:"
+; 1 font-lock-warning-face) )
+						 '("BEGIN:" "PREP7:" "SOLU_LS[0-9]+:" "POST1:" "POST26:" "RUNSTAT:" "AUX2:" "AUX3:" "AUX12:" "AUX15:")
+			      )
+  (setq font-lock-defaults `(,solver-font-lock))
+  )
 
 ;;;###autoload
 (defun ansys-mode ()

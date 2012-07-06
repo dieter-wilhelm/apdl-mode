@@ -1052,16 +1052,23 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - operations -" \n
   "!! .............................." \n
   \n
+  "!! line" \n
+  "ldiv,1,.5 !divide line 1 in ratio .5" \n
+  "!! area" \n
+  "!! volume" \n
   "vdele,all,,,1 ! delete everything below" \n
   \n
   "!! .............................." \n
   "!@@@ - booleans -" \n
   "!! .............................." \n
   \n
+  "!! area" \n
   "aovlap,all ! overlap areas" \n
   "asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
   "asbw, !substract by wp" \n
   "/pnum,area,1 $ aplot" \n
+  \n
+  "!! volume" \n
   "vglue,all" \n
   "vsbw,all,,delete !v substracted by wp" \n
   "vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n

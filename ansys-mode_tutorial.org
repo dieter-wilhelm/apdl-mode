@@ -250,7 +250,7 @@
   [[./bug_report.png]]
 
 * Summary
-** Use the 3 levels of ANSYS-Mode appropriate to your needs \\ Since the relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with APDL, while mostly taking over the APDL `authoring' part from the user!
+** Use 3 levels with ANSYS-Mode appropriate to your needs \\ Since the relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, use APDL for *repetitive* tasks and command snippets, *extending* WB.
 
 *** Basic APDL *viewer*
          :PROPERTIES:

@@ -186,7 +186,6 @@ neither with ~c***~ nor with ~/sys~
 #+end_src
 
 ** Highlighting APDL specials
-TODO! for this tutorial: Colour the code snippets. 
 #+begin_src  ansys :exports none
 !@ --- ANSYS-Mode is highlighting APDL specials ---
 #+end_src
@@ -314,10 +313,13 @@ and you are getting a diffent element highlighting.
 #+end_src
 
 * Introduction to the APDL
+  - No function definitions <- write `command' files (.mac)
+  - no direct array to file export <- write command file for *vwrite
+  - 
 #+begin_src ansys :exports none
   c***,**************************************************
   !@ --- Introduction to the APDL ---
-  c****************************************************** TODO: highlight c****
+  c******************************************************
   !! the comma behind `c***' is not necessary, one example of the many
   !! APDL peculiarities, which are not documented!
 #+end_src
@@ -359,6 +361,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   _ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
   _ = 3        ! a single underscore definition is valid
   X = _
+  _ = 3 !the single underscore represents  also a `variable' in APDL
 #+end_src
 *** Variable names with a trailing underscore
     These are hidden from the `*status' command output and can be
@@ -424,10 +427,10 @@ the ANSYS interpreter output looks like this:
 *** Erasing variables from memory
 #+begin_src ansys
   !! defining
-  ansys = 4
-  *set,ansys,4             !alternative to `ansys = 4'
+  ansys = 3
+  *set,ansys,4             !the `=' assignment is a shorthand for `*set'
   !! deleting
-  ansys =
+  ansys =     !this is not a variable any more
   *set,ansys               !alternative to `ansys ='
   *del,all                 !delete all variables!
 #+end_src    
@@ -438,9 +441,10 @@ the ANSYS interpreter output looks like this:
   Yc = 'char'
   Yes = 'yes'
 #+end_src
-    
+
 #+begin_src ansys
   Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
+  AR18 = AR19
 #+end_src
 
 #+begin_src ansys

@@ -529,6 +529,24 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (load "ansys-keyword")
 
+
+(defface ansys-arg-face
+  '((((min-colors 88) (class color) (background light))
+     :foreground "red1")
+    (((class color) (background light))
+     :foreground "red")
+    (((min-colors 88) (class color) (background dark))
+     :foreground "yellow1")
+    (((class color) (background dark))
+     :foreground "yellow")
+    (t
+     :weight bold))
+  "Face for highlighting local variables AR(G)..."
+  :group 'ansys-faces)
+
+(defvar ansys-arg-face		'ansys-arg-face
+  "Face name to use for local vars AR(G)...")
+
 (let (;; = variable defs + reserved _names
       ;; wie need something behind the = otherwise it's a cleanup
       ;; variables + reserved _names (max. 32 chars long)
@@ -584,13 +602,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
      font-lock-doc-face t)
     ;TODO: c*** should get fontification from command regexp
-    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]?\\(.\\{1,75\\}\\)"
       (1 font-lock-keyword-face t) (2 font-lock-doc-face t))
    	      ;only 75 characters possible no separator necessary
 
     ;; *use variables, local macro call arguments
-   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-;;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary) TODO:
+;;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . ansys-arg-face)
 
     ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)
@@ -696,13 +714,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
      font-lock-doc-face t)
     ;TODO: c*** should get fontification from command regexp
-    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]\\(.\\{1,75\\}\\)"
+    ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]?\\(.\\{1,75\\}\\)"
       (1 font-lock-keyword-face t) (2 font-lock-doc-face t))
    	      ;only 75 characters possible no separator necessary
 
     ;; *use variables, local macro call arguments
-   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
-;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . diary)
+;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
+   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . ansys-arg-face)
 
     ;; elements
     (,ansys-deprecated-element-regexp . font-lock-warning-face)

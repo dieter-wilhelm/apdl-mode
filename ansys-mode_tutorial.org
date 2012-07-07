@@ -55,9 +55,9 @@
   
 * Download
 ** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
-  Download the pre-configured ANSYS-Mode in conjunction with the
-  latest Emacs editor binary for Windows 32/64 bit from the Google
-  Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
+  Most convenient is taking the pre-configured ANSYS-Mode in
+  conjunction with the latest Emacs editor binary for Windows 32/64
+  bit from the Google Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
   
 #+ATTR_HTML: width="1200"
   [[./download.png]]
@@ -75,25 +75,25 @@
 
 * Usage
 ** Open an APDL macro file with Emacs
-  Please start the Emacs editor and open the example macro file
-  /fontification.mac/ in the /site-lisp/ folder (or any other APDL
-  file).
+  Start the Emacs editor and open /fontification.mac/ in the
+  /site-lisp/ folder (or any other APDL file with the extensions
+  /mac/, /inp/, /dat/ or /anf/.  Otherwise additionally type *M-x ansys-mode* and <RET>).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
   Everything should work if ANSYS is installed in its default folder
-  /C:Program Files/ under Win64, otherwise you must configure system
-  dependent stuff, like opening the ANSYS help browser from the ANSYS-Mode
-  menu (or typing its keyboard shortcut *C-c C-h*).
+  /C:Program Files/ under Win64, otherwise you might configure system
+  dependent stuff, like opening the ANSYS help browser from the
+  ANSYS-Mode menu (or typing its keyboard shortcut *C-c C-h*).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
 ** Use the ANSYS-Mode APDL command help
-  Please type *M-?* (or *C-c ?*) on a code line and you will see the
+  Please type *M-?* (alternatively: *C-c ?*) on a code line and you will see the
   APDL command's description together with its parameter syntax.  You
   can continue working, this temporary overlay (here in yellow) remains
   visible during your editing.
@@ -101,7 +101,7 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert APDL code templates into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
+** Select and insert APDL templates into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 
 #+ATTR_LaTeX: height=8cm
 #+ATTR_HTML: width="1200"

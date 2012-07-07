@@ -80,7 +80,7 @@
 #[[./ansys+emacs.png]]
 ** Target audience  
    Being an editor mode, we are mainly dealing with text, i. e. APDL
-   code.  But *also* most things in its context.
+   code.  But *also* many things in this language's context.
 *** ANSYS-Mode is interesting for:
    1. APDL coders
    2. Users of WorkBench command snippets
@@ -562,7 +562,9 @@ Is this not nicely thought out from Emacs' developers, is it?
   !!
 #+end_src
 ** APDL variable listing
-This includes also implicit definitions (*vget, etc.) and component names
+The listing is an alternative to the `*status' command and includes
+also implicit definitions (*vget, etc.) and component names and the
+respective line No.
 #+begin_src ansys :exports none
   !@ --- List all variable definitions ---
 #+end_src
@@ -891,7 +893,7 @@ You might round the input
   !!
   Pi = 
 #+end_src
-Of course we are getting now a more compact form
+We are receiving now a more compact approximation of pi
 #+begin_src ansys :tangle no
   !! Type "df" in Calc for `display fixed' and then <3> before pasting
   !!

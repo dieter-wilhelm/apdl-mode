@@ -41,10 +41,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; experimental user variables highlighting is in level 2 available
-;; (statical if above flag is not set), the default is 1
+;; (statical if above flag is not set), the default is 2
 
-(setq ansys-highlighting-level 1)
-;(setq ansys-highlighting-level 2)
+(setq ansys-highlighting-level 2)
+;(setq ansys-highlighting-level 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			    ;; Autoloading

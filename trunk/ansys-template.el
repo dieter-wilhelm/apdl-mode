@@ -1567,13 +1567,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/input,test,txt,,:LABEL ! read from label LABEL onwards"\n
   \n
   "! --- 2.) redirect ansys text output to file" \n
-  "/output,test,txt,,append !append solver output to file" \n
+  "/output,tmp,mac,,append !append solver output to file" \n
   "/com,! dist from center | axial mag. induction" \n
   "/com,*vwrite,B(1,1),B(1,2)" > \n
   "/com, %G %G" \n
   "/output ! redirect to screen" \n
   \n
-  "/input,test,txt ! input the content into the interpreter" \n
+  "tmp ! read tmp.mac into the interpreter" \n
   \n
   "! --- 3.) create a 'command' file test.mac with parameter substitution" \n
   "*create,test,mac !write macro file" \n
@@ -1592,7 +1592,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/input,test,mac,,:LABEL ! read macro file from label LABEL onwards"\n
   \n
   "!! --- 4.) similar to 3.) without *cfopen/*cfclos"\n
-  "/output,test,mac !write macro file" \n
+  "/output,bla,mac !write macro file" \n
   "/com,*mwrite,B(1),'bla','txt'"\n
   "/com,%G" \n
   "\output !redirect to standard ouput "\n

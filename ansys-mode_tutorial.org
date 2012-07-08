@@ -85,8 +85,9 @@
 ** Explore the ANSYS-Mode menu
   Everything should work if ANSYS is installed in its default folder
   /C:Program Files/ under Win64, otherwise you might configure system
-  dependent stuff, like opening the ANSYS help browser from the
-  ANSYS-Mode menu (or typing its keyboard shortcut *C-c C-h*).
+  dependent stuff, like opening the ANSYS help browser with *C-c
+  C-h*. (All described features can be executed by the ANSYS-Mode menu
+  or with keyboard shortcuts.)
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
@@ -227,9 +228,9 @@
     archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html][online]].
 *** Installation:
     More detailed instructions are necessary if you are not using the
-    the mode bundled with Emacs for Windows.  Please have a look in
-    the /README/ file.  For an online version see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]]
-    at the EmacsWiki.
+    mode bundled with Emacs for Windows.  Please have a look in the
+    /README/ file.  For an online version see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at
+    the EmacsWiki.
     
 *** News and project history:
     They are placed in the mode's accompanying /NEWS/ file

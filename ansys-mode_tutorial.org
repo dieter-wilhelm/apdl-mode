@@ -45,11 +45,11 @@
    features are quite sophisticated but its documentation is targeted
    for ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
-   [[http://www.gnu.org/home.en.html][GNU]] Emacs (Gnu's Not Unix) is an up-to-date, powerful and
+   [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and
    extensible - yet free - editor. High quality software available for
    every operating system where ANSYS is running.
 
-#+LaTeX: \\[.5cm]
+#+LaTeX: \\[.4cm]
    In the following *C-c* or *M-c* means typing the <CTRL> or <ALT>
    key together with the <c> key.
   
@@ -101,18 +101,11 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert APDL templates into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
+** Select and insert from the menu templates into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 
 #+ATTR_LaTeX: height=8cm
 #+ATTR_HTML: width="1200"
    [[./template_menu.png]]
-
-** Take a short-cut to the code template preview
-   Type *C-c C-s* to select a template name, use the <TAB> key to open
-   a completion window of available subjects.
-
-#+ATTR_LaTeX: height=7.5cm
-   [[./template_selection.png]]
 
 ** Preview the extensible APDL code templates
    Besides your regular APDL file you are able to inspect and insert
@@ -121,10 +114,17 @@
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
+** Take a short-cut to the code template preview
+   Type *C-c C-s* to select a template name, use the <TAB> key to open
+   a completion window of available subjects.
+
+#+ATTR_LaTeX: height=7.5cm
+   [[./template_selection.png]]
+
 ** Check auto-insertion and outline your code (tree view)
-  Create a new `macro' with the file suffix `.mac' and let Emacs
-  auto-insert a code skeleton with `outline' headings.  Collapse it to
-  a tree view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
+  Create an APDL file with the suffix `.mac' and let Emacs auto-insert
+  a skeleton with `outline' headings.  Collapse the content to a tree
+  view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./outline.png]]
@@ -250,7 +250,7 @@
   [[./bug_report.png]]
 
 * Summary
-** Use 3 levels with ANSYS-Mode appropriate to your needs \\ Since the relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, use APDL for *repetitive* tasks and command snippets, *extending* WB.
+** Use ANSYS-Mode appropriate to your APDL needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Write APDL only for *repetitive* tasks and command snippets, *extending* WB.
 
 *** Basic APDL *viewer*
          :PROPERTIES:
@@ -259,7 +259,7 @@
 #         :BEAMER_col: 0.5
          :END:
     Navigating in input files, discerning relevant information through
-    highlighting, checking APDL commands with the `online' help.
+    highlighting, analysing APDL commands with the built-in help.
 *** Earnest APDL *editor*
          :PROPERTIES:
          :BEAMER_env: block

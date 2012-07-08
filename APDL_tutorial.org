@@ -1,4 +1,3 @@
-# -*- mode: org -*-
 #+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 ######################################################################
 # TODO
@@ -34,8 +33,8 @@
 ##+LaTeX_CLASS: koma-report
 ##+LaTeX_CLASS: koma-article
 
-#+TEXT: This is still a work in progress, good documentation is hard work!
-#+TEXT: Please report remaining faults.
+#+TEXT: This is still a work in progress, good documentation is hard work.
+#+TEXT: Please report faults!
 
 ##+LATEX: \tableofcontents
 
@@ -77,15 +76,30 @@
 #+END_LaTeX  
 
 * Introduction
+
 #[[./ansys+emacs.png]]
-** Target audience  
+
    Being an editor mode, we are mainly dealing with text, i. e. APDL
    code.  But *also* many things in this language's context.
-*** ANSYS-Mode is interesting for:
-   1. APDL coders
-   2. Users of WorkBench command snippets
-   3. WorkBench users interested in the true understanding of their
-      tool
+
+
+   Since the relevance of APDL remains tall: `WorkBench' operates
+   *exclusively* the ANSYS solver with it!  While for many
+   applications WorkBench is taking over the "code authoring" part
+   from the user, use APDL for *repetitive* tasks and command
+   snippets, *extending* WB.
+
+
+  
+** Target audience  
+   - APDL coders :: You have repetitive tasks and write APDL
+   - Users of WorkBench using command snippets :: extending WorkBench
+   - WorkBench users interested in the true understanding :: of their
+        tool, The WorkBench manual is informative but if you really
+        must know how a `remote force' is implemented and what the
+        options really mean.  You have no other choise as exporting
+        the solver input file (.inp) and studying it with the APDL
+        command reference.
 ** Using this tutorial
 *** Please read the *introductory* ANSYS-Mode tutorial first
     It is `ansys-mode_tutorial.pdf' or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html][online]] version.
@@ -99,6 +113,12 @@
     Simply download an archive, extract it anywhere without the need
     of administrator rights.  For the Windows version all system
     independent things should run without any configuration.
+
+   In the following *bold* character combinations like *C-c* or *M-c*
+   mean typing the <CTRL> key or <ALT> (formerly called `Meta') key
+   together with the <c> key.
+
+
 # Immediate satisfaction without regret. :-) Free, open and
 # extensible!
 *** Please, please work through this tutorial side by side *with* Emacs
@@ -898,6 +918,13 @@ We are receiving now a more compact approximation of pi
   !! Type "df" in Calc for `display fixed' and then <3> before pasting
   !!
   Pi = 3.142
+#+end_src
+I should have thought about a better example:
+#+begin_src ansys
+  !! Maybe above example is not so relevant because many of you are just
+  !! using
+  Pi = acos(-1)
+  !! instead, but I hope you are getting the idea why to use Calc ;-)
 #+end_src
 ** Highlighting APDL specials
 TODO! for this tutorial: Colour the code snippets. 

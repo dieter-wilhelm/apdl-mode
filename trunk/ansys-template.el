@@ -1467,7 +1467,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- graphics output & invert background colour --" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
-  "/gfile,1000 !set resolution height of 1000[800]"\n
+  "/gfile,1000 !set resolution height [800] to 1000, with is 1.33*height"\n
   "/show,png !creates jobnameXXX.png files quality not as good as with /image" \n
   "pngr,stat !additional png options (orientation,compression,...)" \n
   "plvect,B" \n
@@ -1623,6 +1623,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- 1.) graphical output" \n
   "/RGB,index,100,100,100,0 !white background" \n
   "/RGB,index,0,0,0,15" \n
+  "/gfile,700 !set height resolution [800] to 700, width=1.33*height"\n
   "/show,png !creates jobnameXXX.png files" \n
   "pngr !additional options" \n
   "plvect,B" \n

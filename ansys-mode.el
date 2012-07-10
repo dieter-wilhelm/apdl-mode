@@ -92,7 +92,7 @@
     ("\\*sre\\w*"."*SREAD")
     ("\\*set.?"."*SET") ;ANSYS inconsistency *SET works only with one additional character
     ("\\*top\\*w"."*TOPER")
-    ;; ("\\*vge\\w*"."*VGET") ; variable must be dimensiond with *dim
+    ("\\*vge\\w*"."*VGET") ; Not true in 14.0 variable must be dimensiond with *dim
     ("\\*vfu\\w*"."*VFUN")
     ("\\*vit\\w*"."*VITRP")
     ("\\*vop\\w*"."*VOPER")

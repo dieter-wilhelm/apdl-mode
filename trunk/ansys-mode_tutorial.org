@@ -102,7 +102,7 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert from the menu templates into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
+** Select and insert templates from the menu into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 
 #+ATTR_LaTeX: height=8cm
 #+ATTR_HTML: width="1200"
@@ -110,14 +110,15 @@
 
 ** Preview the extensible APDL code templates
    Besides your regular APDL file you are able to inspect and insert
-   interesting code snippets from a preview window (see below).
+   interesting code snippets from a preview window (see below and next
+   slide).
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
 ** Take a short-cut to the code template preview
-   Type *C-c C-s* to select a template name, use the <TAB> key to open
-   a completion window of available subjects.
+   Type *C-c C-s* to select a template name, use the <TAB> key to
+   complete or open a completion window of available subjects.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]
@@ -180,7 +181,7 @@
 
 ** Configure system dependent aspects and user options
     The mode comes pre-configured for a default installation of ANSYS
-    14.0 for 64 bit.  If a functionality is missing please adjust
+    14.0 for Win64.  If a functionality is missing please adjust
     either:
 *** The well commented configuration file /default.el/
 

@@ -1955,6 +1955,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ ==============================" \n
   \n
   "finish "\n
+  "!/clear" \n
+  "*afun,deg !Use degrees [rad] for input and output angular functions" \n
   \n
   "!@ ==============================" \n
   "!" ansys-outline-string " --- Preprocessing --- " \n
@@ -1964,7 +1966,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!" ansys-outline-string ansys-outline-string " -- Cad Import -- " \n
   "!! ------------------------------" \n
   \n
-  "!! /aux15" \n
+  "/aux15 !Enter the IGES file transfer processor" \n
+  "!ioptn, Lab, VAL1 !Control options relating to importing"\n
+  "!igesin, Fname, Ext,"\n
   \n
   "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n

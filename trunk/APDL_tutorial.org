@@ -415,7 +415,7 @@ Helpful to get an overview of large APDL file.
   !@ ------------------------------
   !@@ -- Time-History Postprocessing --...
 #+end_src
-Open now one entry with *C-c @ C-e*
+Open now one entry with *C-c @ C-e* (in a line with 3 dots)
 #+begin_src ansys :tangle no
   !@ ==============================
   !@ --- Header ---
@@ -1210,8 +1210,8 @@ Thank you for your time, have fun with Emacs...
     [[./editor_learning_curves.jpg]]
 
 **  Acknowledgements
-    - RMS :: GNU Emacs
-    - Carsten Dominik :: [[http://orgmode.org/][Org-mode]] for Emacs
+    - Carsten Dominik :: Ingenious [[http://orgmode.org/][Org-mode]] for Emacs
+    - RMS :: [[http://www.gnu.org/software/emacs/][GNU Emacs]] and many other great ideas
 
 # ** writing an abort file
 # ** bookmarks positions -> in bookmarks/registers/clone buffer?

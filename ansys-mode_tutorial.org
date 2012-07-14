@@ -1,13 +1,6 @@
 #+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial*
 # Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
-######################################################################
-# TODO
-# - slide of extensibility, showing Emacs self-documenting help system
-#   for a template function
-# - in variable.png symbols Ns and Ls are not highlighted as variables
-# - change sequence of alignment.pgn first not aligned, second aligned
-
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 ##+DATE:      2012-06-17 Sa
@@ -32,6 +25,14 @@
 #+XSLT:
 #+HTML: <img src="ansys+emacs.png" height=150 alt="Gmane">
 
+* TODO deficiencies						   :noexport:
+  - for default.el emacs does not show the tool-bar and make visible a
+    part of default_el
+  - in variable.png symbols Ns and Ls are not highlighted as variables
+  - change sequence of alignment.pgn first not aligned, second aligned
+  - Too difficult: slide of extensibility, showing Emacs
+    self-documenting help system for a template function
+
 * Introduction
 ** GNU Emacs editor support for working with ANSYS FEA
    This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
@@ -40,10 +41,10 @@
    It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
    investigating and coding APDL (Ansys Parametric Design Language)
    files.  The mode offers also managing and communication
-   capabilities for ANSYS processes, like interactive code debugging
-   with the solver or inquiring the license manager status, etc.  Some
-   features are quite sophisticated but its documentation is targeted
-   for ANSYS users with little Emacs experience.
+   capabilities for various ANSYS processes, like interactive code
+   debugging with the solver or inquiring the license manager status,
+   etc.  Some features are quite sophisticated but its documentation
+   is targeted for ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
    [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and
    extensible - yet free - editor. High quality software available for
@@ -177,6 +178,18 @@
 #+ATTR_LaTeX: height=7.3cm
 #+ATTR_HTML: width="1200"
    [[./license.png]]
+
+** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under Linux) with a ripped off ANSYS menu field
+
+# The
+# APDL file is in the right window with the (experimental) user variable
+# highlighting switched on and a help overlay (in yellow background)
+# activated. The smaller windows on the left hand side are showing the
+# `Variable definitions buffer' of the same file and a preview buffer of
+# a certain code template, respectively.
+
+   file:ansys-mode.jpg
+
 * Configuration
 
 ** Configure system dependent aspects and user options

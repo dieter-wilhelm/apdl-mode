@@ -55,6 +55,8 @@ c***, this is %right%! %otto% no % parameter expansion
 !@@ -- variable definitions and functions
 k
 
+_return = 
+
 N = _RETURN		 !_RETURN value of k command
 _aaa = 9		 !reserved underscore "_" variables
 Pi=acos(-1) $ True=1 $ False=0
@@ -513,3 +515,8 @@ allsel
 !! ------------------------------
 
 /post26
+
+-1
++ 2
+2
+4 56

@@ -121,10 +121,12 @@ macro local variables.")
 (defconst ansys-comment-char ?!		;FROM_C: Octave-mod
   "The ANSYS comment character.")
 
-(defconst ansys-non-code-line-regexp "^\\s-*\\($\\|\\s<\\)" ;_C
-  "Regexp indicating a pure comment or an empty line.
-A \"pure comment\" line contrasting a \"code comment\" which
-follows code to be analysed from the ANSYS interpreter.")
+(defconst ansys-non-code-line-regexp "^\\s-*\\($\\|\\s<\\|[+[:digit:]-]\\)" ;_C
+  "Regexp indicating a comment -, number - or an empty line.
+A comment line contrasting a \"code comment\" which follows code
+to be analysed from the ANSYS interpreter.  A \"number line\" is
+a line beginning with a number e. g. from an element block or
+with a `+' or `-' sign.")
 
 (defconst ansys-condensed-input-line-regexp ".*\\$" ;NEW_C
   "Regexp indicating a condensed input line.")
@@ -529,7 +531,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
 (load "ansys-keyword")
 
-
 (defface ansys-arg-face
   '((((min-colors 88) (class color) (background light))
      :foreground "red1")
@@ -541,11 +542,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
      :foreground "yellow")
     (t
      :weight bold))
-  "Face for highlighting local variables AR(G)..."
+  "Face for highlighting local variables AR(G), _return, ..."
   :group 'ansys-faces)
 
 (defvar ansys-arg-face		'ansys-arg-face
-  "Face name to use for local vars AR(G)...")
+  "Face name to use for local vars AR(G), _return, ...")
 
 (let (;; = variable defs + reserved _names
       ;; wie need something behind the = otherwise it's a cleanup
@@ -616,6 +617,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
     ;; reserved vars consisting of a single "_" are valid in A. 12.1
     (,reserved_vars_r 1 font-lock-warning-face)
+
+    ("_RETURN" 0 ansys-arg-face append)
 
     ;; = variable defs (with reserved _names), overwritting commands
     (,variable_r 1
@@ -728,6 +731,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 
     ;; reserved vars consisting of a single "_" are valid in A. 12.1
     (,reserved_vars_r 1 font-lock-warning-face)
+
+    ("_RETURN" 0 ansys-arg-face append)
 
     ;; = variable defs (with reserved _names), overwritting commands
     (,variable_r 1
@@ -1037,10 +1042,19 @@ Otherwise nil, i.e. return nil when in a format command line."
 
 (defun ansys-code-line-p ()		;_C
   "Return t if in an ANSYS code line, nil otherwise.
-A code line is the complementary of the regexp `ansys-non-code-line-regexp'."
+A code line is the complementary to the regexp
+`ansys-non-code-line-regexp'."
   (save-excursion
     (beginning-of-line)
     (if (looking-at ansys-non-code-line-regexp) nil t)))
+
+(defun ansys-not-in-code-line-p ()		;_C
+  "Return t if not in an ANSYS code line, nil otherwise.
+A code line is the complementary to the regexp
+`ansys-non-code-line-regexp'."
+  (save-excursion
+    (beginning-of-line)
+    (looking-at ansys-non-code-line-regexp)))
 
 (defun ansys-at-end-of-text-p ()	;_C
   "Return t if the cusor is at the end of text in a line."
@@ -2469,11 +2483,11 @@ WorkBench APDL files."
   (forward-line -1)
   (end-of-line))
 
-(defun ansys-next-code-line (&optional arg)
-  "Move ARG lines of ANSYS code forward, default for ARG is 1.
-Skips past intermediate comment and empty lines."
+(defun ansys-next-code-line (&optional num)
+  "Move NUM lines of ANSYS code forward, default for NUM is 1.
+Skip past intermediate comment and empty lines."
   (interactive "p")
-  (unless arg (setq arg 1))
+  (unless num (setq num 1))
   (unless (memq last-command '(next-line
 			       previous-line
 			       ansys-next-code-line
@@ -2483,20 +2497,23 @@ Skips past intermediate comment and empty lines."
 	 (message "End of buffer"))
 	(t
 	 (forward-line 1)
-	 (forward-comment (buffer-size))
-	 ;; temporary-goal-column might be a cons cell in E23.2
+	 (while (and (ansys-not-in-code-line-p)
+		     (not (ansys-last-line-p)))
+	     	 (forward-line 1))
+	 ;(forward-comment (buffer-size))
+	 ;; temporary-goal-column might be a cons cell since E23.2
 	 (move-to-column  (if (integerp temporary-goal-column)
 			      (truncate temporary-goal-column)
 			    (truncate (car temporary-goal-column))))
-	 (setq arg (1- arg))
+	 (setq num (1- num))
 	 (when (and (not (ansys-last-line-p))
-	 	    (/= arg 0))
-	   (ansys-next-code-line arg))
+		    (/= num 0))
+	   (ansys-next-code-line num))
 	 )))
 
 (defun ansys-previous-code-line (&optional num)
   "Move NUM lines of ANSYS code backward, default for NUM is 1.
-Skips before all empty - and comment lines and return the
+Skip before all empty - and comment lines and return the
 difference between NUM and actually moved code lines."
   (interactive "p")
   (unless num (setq num 1))
@@ -2506,17 +2523,21 @@ difference between NUM and actually moved code lines."
 			       ansys-previous-code-line))
     (setq temporary-goal-column (current-column)))
   (let ((p 0))
-    (unless (ansys-first-line-p)	;in case we aren't at b-o-l
-      (beginning-of-line)		;for forward-comment
-      (forward-comment (-(buffer-size))) ;and in case we are in a comment line
+    (while (and (ansys-not-in-code-line-p)
+		(not (ansys-first-line-p)))
+      (forward-line -1))
+    ;; (unless (ansys-first-line-p)	;in case we aren't at b-o-l
+    ;;   (beginning-of-line)		;for forward-comment
+    ;;   (forward-comment (-(buffer-size))) ;and in case we are in a comment line
        ; starting with Emacs 23.1 t-g-c might be a cons cell
-      (move-to-column   (if (integerp temporary-goal-column)
-			      (truncate temporary-goal-column)
-			    (truncate (car temporary-goal-column))))
-      (setq num (1- num)
-	    p num)
-      (when (/= num 0)
-	(setq p (ansys-previous-code-line num))))
+    (move-to-column   (if (integerp temporary-goal-column)
+			  (truncate temporary-goal-column)
+			(truncate (car temporary-goal-column))))
+    (setq num (1- num)
+	  p num)
+    (when (and (ansys-number-line-p)
+	       (/= num 0))
+      (setq p (ansys-previous-code-line num)))
     p))
 
 (defun ansys-back-to-format-command ()	;NEW_C

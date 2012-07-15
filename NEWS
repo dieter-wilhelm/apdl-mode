@@ -4,10 +4,14 @@
 
 Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
-===  Version 1 ===
+===  Version 14.5.1 ===
 
-* Improved the documentation with a section explaining and showing the
-  syntax highlighting coloured in pdf and html.
+* `ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
+  now skipping over node and elements blocks, which are pure number
+  blocks.
+
+* Improved the documentation with an introduction to APDL and a
+  section explaining the syntax highlighting coloured in pdf and html.
 
 === Version 14.0.1 June 2012 ===
 

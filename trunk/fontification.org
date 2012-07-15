@@ -149,41 +149,6 @@ c
   finishThisNightmare $ /cle !/clear
   f $ fi $ fin $ fini $ finis  $ finish $ finisher
 #+end_src
-** Parameter expansion with `%'
-#+begin_src ansys
-  Steel = 1
-  mp, nuxy,Steel,0.3 ! Poisson No
-  mp, ex,Steel,200000 ! Elastic modulus
-  !@@ -- Parameter expansion with `%' --
-  /com, === Material %Steel% is from steel. ===
-  
-  ,*afun,rad
-  /fil $ /filname%bla% 
-  !! string, message commands and comment behaviour && %$$% %% :bla: &&&
-  
-  /com, bla = %bla%
-  igesin,'test','%iges%'
-  /title,Nothing in %particular%
-  /com,beam3 %YES% ! this is *really not commented out!!!! &
-  c*** *beam3 !otto *otto %neither% here !!!!!!! &
-  /com, bearm laskf %otto% !%otto% we are here 
-  
-  nsel,s,%bla%
-  
-#+end_src
-*** In `string commands'
-~/title~ and ~/com~ are string commands similar to ~c***~ 
-#+begin_src ansys
-  /title, the value of right is  %right%
-  /com, this is %right%: /com does expand parameters as well
-#+end_src
-*** No expansion
-neither with ~c***~ nor with ~/sys~
-#+begin_src ansys
-  right = 9
-  c***,this is %right%: c*** allows no parameter expansion
-  /sys,ls "*.mac" %otto% &
-#+end_src
 
 ** Highlighting APDL specials
 #+begin_src  ansys :exports none
@@ -323,10 +288,11 @@ and you are getting a diffent element highlighting.
   !! the comma behind `c***' is not necessary, one example of the many
   !! APDL peculiarities, which are not documented!
 #+end_src
-** Variable names (called `parameter' in the ANSYS manual)
+** Defining parameters
+*** Variable names (called `parameter' in the ANSYS manual)
 All numeric values are stored as double precision values.  Not defined
 variables are assigned a tiny value near zero.  The interpreter is not case sensitve
-*** Must begin with a letter or an underscore
+**** Must begin with a letter or an underscore
 #+begin_src ansys
   1ansys = 3                    !is not a valid variable name
   a1nsys = 3                    !a1nsys is a valid variable name
@@ -354,7 +320,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   PARAMETER A1NSYS =    0.7888609052E-30
   BEGIN:
 #+end_src
-*** Should not begin with an underscore
+**** Should not begin with an underscore
     This convention is used in nameing variables in ANSYS supplied
     macros and the GUI.
 #+begin_src ansys
@@ -363,7 +329,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   X = _
   _ = 3 !the single underscore represents  also a `variable' in APDL
 #+end_src
-*** Variable names with a trailing underscore
+**** Variable names with a trailing underscore
     These are hidden from the `*status' command output and can be
     deleted as a group with `*del'.
 #+begin_src ansys
@@ -399,7 +365,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
      ANSYS_                            3.00000000                    SCALAR
      BEGIN:
 #+end_src
-*** Must contain only letters, numbers and underscores
+**** Must contain only letters, numbers and underscores
 #+begin_src ansys
   !! only letters, numbers and underscores are allowed
   a1n§sys = 3              !this is not a valid variable name
@@ -417,23 +383,13 @@ the ANSYS interpreter output looks like this:
   PARAMETER A1N_SYS =     3.000000000    
   BEGIN:
 #+end_src
-*** Must contain no more than 32 characters    
+**** Must contain no more than 32 characters    
 #+begin_src ansys
   !! The following is not a valid variable name
   v23456789_123456789_123456789_123 = 3
   !! The following is a valid variable name
   v23456789_123456789_123456789_12  = 3
 #+end_src
-*** Erasing variables from memory
-#+begin_src ansys
-  !! defining
-  ansys = 3
-  *set,ansys,4             !the `=' assignment is a shorthand for `*set'
-  !! deleting
-  ansys =     !this is not a variable any more
-  *set,ansys               !alternative to `ansys ='
-  *del,all                 !delete all variables!
-#+end_src    
 *** Character strings
     Must not contain more than 8 characters
 #+begin_src ansys
@@ -446,11 +402,68 @@ the ANSYS interpreter output looks like this:
   Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
   AR18 = AR19
 #+end_src
+** Erasing variables from memory
+#+begin_src ansys
+  !! defining
+  ansys = 3
+  *set,ansys,4             !the `=' assignment is a shorthand for `*set'
+  !! deleting
+  ansys =     !this is not a variable any more
+  *set,ansys               !alternative to `ansys ='
+  *del,all                 !delete all variables!
+#+end_src    
 
+** Parameter substitution with `%'
+In "string commands" like `/com', where a string follows the command
+name one can force the substitution of a parameter name to its value.
+Other examples are
+#+begin_src ansys
+  Steel = 1
+  mp, nuxy,Steel,0.3 ! Poisson No
+  mp, ex,Steel,200000 ! Elastic modulus
+  !@@ -- Parameter expansion with `%' --
+  /com, === Material %Steel% is from steel. ===
+#+end_src
+It is possible to substitute a command name
+#+begin_src ansys
+  R='RESUME'
+  %R%,MODEL,DB
+#+end_src
+#+begin_src ansys
+  ,*afun,rad
+  /fil $ /filname%bla% 
+  !! string, message commands and comment behaviour && %$$% %% :bla: &&&
+  
+  /com, bla = %bla%
+  igesin,'test','%iges%'
+  /title,Nothing in %particular%
+  /com,beam3 %YES% ! this is *really not commented out!!!! &
+  c*** *beam3 !otto *otto %neither% here !!!!!!! &
+  /com, bearm laskf %otto% !%otto% we are here 
+  
+  nsel,s,%bla%
+  
+#+end_src
+*** In `string commands'
+~/title~ and ~/com~ are string commands similar to ~c***~ 
+#+begin_src ansys
+  /title, the value of right is  %right%
+  /com, this is %right%: /com does expand parameters as well
+#+end_src
+*** No expansion
+neither with ~c***~ nor with ~/sys~
+#+begin_src ansys
+  right = 9
+  c***,this is %right%: c*** allows no parameter expansion
+  /sys,ls "*.mac" %otto% &
+#+end_src
+   
+
+** Undocumented commands
 #+begin_src ansys
   !undocumented commands are highlighted differently
   /xml                     !undocumented command /xml
-  /xfr                     !  documented command /xfrm
+  /xfrm                    !documented command   /xfrm
 #+end_src
 
 #+begin_src ansys

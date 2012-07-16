@@ -413,7 +413,8 @@ the ANSYS interpreter output looks like this:
   *del,all                 !delete all variables!
 #+end_src    
 
-** Parameter substitution with `%'
+** Variable substitution with `%'
+*** Substitution of Numeric Variables
 In "string commands" like `/com', where a string follows the command
 name one can force the substitution of a parameter name to its value.
 Other examples are
@@ -424,33 +425,31 @@ Other examples are
   !@@ -- Parameter expansion with `%' --
   /com, === Material %Steel% is from steel. ===
 #+end_src
+*** Substitution of Character Variables
 It is possible to substitute a command name
 #+begin_src ansys
   R='RESUME'
   %R%,MODEL,DB
 #+end_src
 #+begin_src ansys
-  ,*afun,rad
-  /fil $ /filname%bla% 
   !! string, message commands and comment behaviour && %$$% %% :bla: &&&
   
   /com, bla = %bla%
   igesin,'test','%iges%'
   /title,Nothing in %particular%
+  !! in "string commands" are no code comments possible
   /com,beam3 %YES% ! this is *really not commented out!!!! &
   c*** *beam3 !otto *otto %neither% here !!!!!!! &
   /com, bearm laskf %otto% !%otto% we are here 
   
-  nsel,s,%bla%
-  
 #+end_src
-*** In `string commands'
+**** In certain `string commands'
 ~/title~ and ~/com~ are string commands similar to ~c***~ 
 #+begin_src ansys
   /title, the value of right is  %right%
   /com, this is %right%: /com does expand parameters as well
 #+end_src
-*** No expansion
+**** No expansion possible
 neither with ~c***~ nor with ~/sys~
 #+begin_src ansys
   right = 9
@@ -458,6 +457,16 @@ neither with ~c***~ nor with ~/sys~
   /sys,ls "*.mac" %otto% &
 #+end_src
    
+*** Dynamic Substitution of Numeric or Character Variables
+#+begin_src ansys
+  Case = 'case 1'
+  /title,This is %Case%
+  aplot
+  Case = 'case 2'
+  !! not necessary to reissue /title, "This is case 2"
+  !! will appear on subsequent plots
+  aplot
+#+end_src    
 
 ** Undocumented commands
 #+begin_src ansys

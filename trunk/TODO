@@ -30,12 +30,17 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
-*  15.0.1:
+*  14.5.1:
 ** TODO Tasks [20%]
+   - [ ] M-p not yet working!
+   - [ ] (setq line-number-display-limit-width 2000)?
+   - [ ] force harmonic table example in -skeleton-bc, make a
+     -template out of two-mass-harmics.mac
+   - [ ] better write protected skeleton preview?
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
      lcurv, etc. (ANF functions)
    - [ ] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.
-   - [ ]  _RETURN somewhat milder red
+   - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
    - [ ] document fontification.mac or make an org file from it as soon as
      the output becomes coloured, better merge it with APDL_tutorial.org
    - [ ] call the ANSYS help browser with APDL command?
@@ -100,9 +105,9 @@
     list in ansys-submit-bug-report, update version numbers, default
     specifiers
 
-    (tags-query-replace "140" "150")
+    (tags-query-replace "140" "145")
     (tags-query-replace "24.1" "24.?")
-    (tags-query-replace "14.0" "15.0")
+    (tags-query-replace "14.0" "14.5")
     (tags-query-replace "- 2012" "- 2013")
 
     checkdoc then dry run: Emacs
@@ -134,8 +139,8 @@
     saravana.kumar@continental-corporation.com,
     alwin.perras@continental-corporation.com,
     sparr@mfkrs1.mw.tu-dresden.de,
-    tom.tumbrink@t-online.de,
-    admin@auc-ev.de,
+    gmueller1950@gmx.de,
+    info@auc-ev.de,
     tnelson@cadfem.de,
     lkrueger@cadfem.de,
     sgotthold@cadfem.de,

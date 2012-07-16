@@ -310,7 +310,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "*get,bla,active,,mat![|csys|type|real|esys]" \n
   \n
-  "*status,_RETURN ! command, documenation, _return value" \n
+  "*status,_RETURN ! command, documentation, _return value" \n
   "!Keypoints -" \n
   "K ! Defines a keypoint - keypoint number"\n
   "KL ! Keypoint on a line - Keypoint number"\n
@@ -872,30 +872,30 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ==============================" \n
   "!! --- Parameteric functions ---" \n
   "!! ==============================" \n
-  "A = ABS()"  \n
+  "A = ABS()   !Absolute value"  \n
   "A = SIGN()  !sign(x,y) absolute value of x with sign of y" \n
-  "A = EXP()   !exp(x): e^x" \n
+  "A = EXP()   !Exponential,exp(x): e^x" \n
   "X = 2 $ Y = 1/3" \n
-  "A = X**Y    !exponentiation x**y: x^y" \n
-  "A = LOG()"  \n
-  "A = LOG10()"\n
-  "A = SQRT()" \n
-  "A = NINT()  !nearest integer" \n
+  "A = X**Y    !Exponentiation x**y: x^y" \n
+  "A = LOG()   !Natural log"  \n
+  "A = LOG10() !Common log, Briggs' log"\n
+  "A = SQRT()  !Square root" \n
+  "A = NINT()  !Nearest integer" \n
 ; bullshit  "A = abs(nint()) !round" \n
   "A = MOD()   !mod(x,y): modulo x/y" \n
   "A = RAND()  !rand(lower_bound,upper_bound):uniform dist." \n
   "A = GDIS()  !gdis(mean,stdd): gaussian distribution" \n
   "!! the default for the trig. is radians, change this with *afun"\n
-  "A = SIN()"  \n
-  "A = COS()"  \n
-  "A = TAN()"  \n
-  "A = SINH()" \n
-  "A = COSH()" \n
-  "A = TANH()" \n
-  "A = ASIN()  !arg. between -1.0 and +1.0 " \n
-  "A = ACOS()  !arg. between -1.0 and +1.0 " \n
-  "A = ATAN()" \n
-  "A = ATAN2() !atan2(x,y): arctangent of y/x"\n
+  "A = SIN()   !Sine"  \n
+  "A = COS()   !Cosine"  \n
+  "A = TAN()   !Tangent"  \n
+  "A = SINH()  !Hyperbolic sine" \n
+  "A = COSH()  !Hyperbolic cosine" \n
+  "A = TANH()  !Hyperbolic tangent" \n
+  "A = ASIN()  !Arcsine,arg. between -1.0 and +1.0 " \n
+  "A = ACOS()  !Arccosine,arg. between -1.0 and +1.0 " \n
+  "A = ATAN()  !Arctangent" \n
+  "A = ATAN2() !atan2(x,y): arctangent of y/x with the sign of each component considered"\n
   \n
   "!! ==============================" \n
   "!! --- get functions ---" \n
@@ -1211,6 +1211,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "f,all,fx,1,1 !@nodes:real,imag" \n
+  "f,all,fx,%table% !table values" \n
   "fk,all,fx,1,1 !@keypoints:real,imag" \n
   "flist,all !fklist" \n
   \n
@@ -1253,7 +1254,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - corriolis effects -" \n
   "!! .............................." \n
   \n
-  "cgmga,x,y,z, ! rotational velocity about globla coord. sys." \n
+  "cgomga,x,y,z, ! rotational velocity about globla coord. sys." \n
   "dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
   "!! .............................." \n
@@ -1754,6 +1755,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "F_y(I,1) = Forc/(Width*Thick)"> \n
   "*enddo"> \n
   "!! e. g.: as harmonic acceleration load (with amplitude steps)" \n
+  "!! primary value: frequency"
   "*dim,mytab,table,5,1,,freq" \n
   "mytab(1,0)=   50,  199, 200, 999,1000" \n
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
@@ -1957,6 +1959,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "finish "\n
   "!/clear" \n
   "*afun,deg !Use degrees [rad] for input and output angular functions" \n
+  "\title," \n
   \n
   "!@ ==============================" \n
   "!" ansys-outline-string " --- Preprocessing --- " \n

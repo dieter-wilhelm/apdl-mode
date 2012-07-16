@@ -2523,6 +2523,7 @@ difference between NUM and actually moved code lines."
 			       ansys-previous-code-line))
     (setq temporary-goal-column (current-column)))
   (let ((p 0))
+    (forward-line -1)
     (while (and (ansys-not-in-code-line-p)
 		(not (ansys-first-line-p)))
       (forward-line -1))

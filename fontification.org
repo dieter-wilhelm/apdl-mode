@@ -446,10 +446,11 @@ It is possible to substitute a command name
 **** In certain `string commands'
 ~/title~ and ~/com~ are string commands similar to ~c***~ 
 #+begin_src ansys
+  right = 'wrong'
   /title, the value of right is  %right%
   /com, this is %right%: /com does expand parameters as well
 #+end_src
-**** No expansion possible
+**** Unfortunately here is no expansion possible
 neither with ~c***~ nor with ~/sys~
 #+begin_src ansys
   right = 9

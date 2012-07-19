@@ -1527,7 +1527,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/anfile,save,cylind !save animation to cylind.anim" \n
   "anim,20,1,.3 !cycles:20[5],mode:1[0],forward-reverse 1:forward-forward,delay: .3[.1]"\n
   "anmode !mode shape animation" \n
-  "anharm !harmonics animation or complex mode shapes" \n
+  "anharm,40,.3,1 !40[12]frames,.3[.1] s delay,1[5] cycles,harmonics animation or complex mode shapes" \n
   "antime,20,.3,1,0,0,0,2!animate time data,20[5]: frames, .3[.1]: s delay, 1[5]: anim. cycles, [0]:no scaling,[0] current LS, 2:range,min tim, max time" \n
   "andata !contour animation over result data range" \n
   "anmres !multiple result files" \n

@@ -33,13 +33,13 @@
 *  14.5.1:
 ** TODO Tasks [31%]
    - [ ] -mode_tutorial.org
-     - for default.el emacs does not show the tool-bar and make
-       visible a part of default_el
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
+   - [ ] C-c C-c needs a carriage return in the last line!
+   - [ ] I=3 $ /com, %I+1%, /com,%I+1% is not possible
    - [ ] check *vwrite with gui mode and interactive mode
    - [ ] explain fill under the "looping" commands: Generates a line
      of nodes between two existing nodes.

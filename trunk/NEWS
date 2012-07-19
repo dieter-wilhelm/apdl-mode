@@ -11,11 +11,12 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 * `ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
   now skipping over node and elements blocks, which are pure number
-  blocks
+  blocks.  They are now alternatives to `ansys-number-block-start' C-c
+  { and C-c } respectively
 
-* Improved the documentation with an introduction to APDL and a
-  section showcasing the syntax highlighting in the HTML version. (To
-  some degree coloured in PDF as well)
+* Improved and extended the documentation with an introduction to APDL
+  and a section showcasing the syntax highlighting in the HTML
+  version. (To some degree coloured in PDF as well)
 
 === Version 14.0.1 June 2012 ===
 

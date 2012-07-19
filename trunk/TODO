@@ -31,13 +31,20 @@
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
-** TODO Tasks [28%]
+** TODO Tasks [31%]
+   - [ ] -mode_tutorial.org
+     - for default.el emacs does not show the tool-bar and make
+       visible a part of default_el
+     - in variable.png symbols Ns and Ls are not highlighted as
+       variables
+     - change sequence of alignment.pgn first not aligned, second aligned
+     - Too difficult: slide of extensibility, showing Emacs
+       self-documenting help system for a template function
    - [ ] check *vwrite with gui mode and interactive mode
-   - [ ] explain fill under the "looping" commands Generates a line of
-     nodes between two existing nodes.
-   - [ ] (setq line-number-display-limit-width 2000)?
+   - [ ] explain fill under the "looping" commands: Generates a line
+     of nodes between two existing nodes.
    - [ ] force harmonic table (*vfill) example in -skeleton-bc, make a
-     -template out of two-mass-harmonics.mac
+     ansys...-template out of two-mass-harmonics.mac
    - [ ] better write protected skeleton preview?
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
      lcurv, etc. (ANF functions)
@@ -56,6 +63,7 @@
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] (setq line-number-display-limit-width 2000)?: no <- Emacs default
    - [X] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.
    - [X] give the minimal sample templates a documentation string
      explaining the model purpose

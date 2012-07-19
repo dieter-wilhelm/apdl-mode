@@ -25,14 +25,6 @@
 #+XSLT:
 #+HTML: <img src="ansys+emacs.png" height=150 alt="Gmane">
 
-* TODO deficiencies						   :noexport:
-  - for default.el emacs does not show the tool-bar and make visible a
-    part of default_el
-  - in variable.png symbols Ns and Ls are not highlighted as variables
-  - change sequence of alignment.pgn first not aligned, second aligned
-  - Too difficult: slide of extensibility, showing Emacs
-    self-documenting help system for a template function
-
 * Introduction
 ** GNU Emacs editor support for working with ANSYS FEA
    This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element

@@ -86,38 +86,41 @@
   !!  C-x C-e to activate the settings
 #+end_src
 
-#+begin_src  ansys
-/units,mpa !indicate mm-t-s unit system
-!@ --- Preprocessing ---
-/prep7
-!@@ -- Elements --
-Steel = 1
-ID = Steel
-real = Steel
-et,ID,solid186 !3d, 20 node
-!@@ -- Material --
-mp,nuxy,Steel,0.3 ! Poisson No
-mp,ex,Steel,200000 ! Elastic modulus
-!@@ -- Modeling --
-block,0,1,0,1,0,1
-!@@ -- Meshing --
-vmesh,all
-!@@ -- BCs, Loads --
-nsel,s,loc,x,0
-d,all,all
-nsel,s,loc,x,1
-d,all,uy,-.1
-allsel
-save
-!@ --- Solving ---
-/solu
-solve
-!@ --- Postprocessing --
-/post1
-/view,,1,1,1
-plnsol,u,sum,2
-/image,save,test !save XWindow Dump xwd (or bmp on Windows)
-/sys,convert test test.png
+#+begin_src ansys
+  /units,mpa !indicate mm-t-s unit system
+  !@ --- Preprocessing ---
+  /prep7
+  !@@ -- Elements --
+  Steel = 1
+  ID = Steel
+  real = Steel
+  et,ID,solid186 !3d, 20 node
+  !@@ -- Material --
+  mp,nuxy,Steel,0.3 ! Poisson No
+  mp,ex,Steel,200000 ! Elastic modulus
+  !@@ -- Modeling --
+  block,0,1,0,1,0,1
+  !@@ -- Meshing --
+  vmesh,all
+  !@@ -- BCs, Loads --
+  nsel,s,loc,x,0
+  d,all,all
+  nsel,s,loc,x,1
+  d,all,uy,-.1
+  allsel
+  save
+  !@ --- Solving ---
+  /solu
+  solve
+  !@ --- Postprocessing --
+  /post1
+  /view,,1,1,1
+  plnsol,u,sum,2
+  /image,save,test !save XWindow Dump xwd (or bmp on Windows)
+  /image,capture 		!TODO: what is this: file0001.xwd?
+  /sys,convert test test.png
+  /upwind                  !TODO: 2d-graphics library?
+  *fft                     !TODO: :-)
 #+end_src
 
 #+begin_src ansys
@@ -164,6 +167,15 @@ c
   Alpha2 =  +360./(2*N)
   Xc     =  !empty rhs clears variables
 #+end_src
+*** _RETURN values of macros
+#+begin_src ansys
+  *return                  !TODO: what is this?
+  *status,_RETURN          !0 normal
+                           !1 note
+                           !2 warning
+                           !3 error
+                           !4 fatal
+#+end_src    
 ***  Old style APDL comments
 #+begin_src ansys :exports none
 !@@ -- Old style APDL comments --
@@ -197,7 +209,6 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
   Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
   Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 #+end_src
-
 
 *** Ignored characters behind commands
 #+begin_src ansys :exports none
@@ -248,10 +259,19 @@ and you are getting a diffent element highlighting.
       ,r,loc,x,0
   d,all,all
 #+end_src
-** implicit or colon looping
-#+begin_src  ansys
+** implicit (implied or colon) looping
+#+begin_src ansys
   !@@ ::: implicit : (colon) looping :::::
+  !! (n1:n2:dn)
   lfillt,(1:2),(3:4),5
+  !! one subscript per array
+  bf,(1:10),temp,Tarray(1:10)
+  !! *get command is allowed
+  *get,Fx(1:10),node,(1:10),f,fz !TODO:
+  !! TODO:
+  Fx(1:10) = (1:100:10)    !is this working? :-)
+  !! alternative to *vfill
+  *vfill,Fx,ramp,1,10
 #+end_src
 
 #+begin_src ansys
@@ -289,6 +309,10 @@ and you are getting a diffent element highlighting.
   !! APDL peculiarities, which are not documented!
 #+end_src
 ** Defining parameters
+up to 5000
+*** Double, char38, char8?, logical? TODO:
+    in table only 8 chars?
+    
 *** Variable names (called `parameter' in the ANSYS manual)
 All numeric values are stored as double precision values.  Not defined
 variables are assigned a tiny value near zero.  The interpreter is not case sensitve
@@ -390,27 +414,33 @@ the ANSYS interpreter output looks like this:
   !! The following is a valid variable name
   v23456789_123456789_123456789_12  = 3
 #+end_src
-*** Character strings
-    Must not contain more than 8 characters
-#+begin_src ansys
-  ! character string variables are enclosed with `''
-  Yc = 'char'
-  Yes = 'yes'
-#+end_src
-
+**** Local Variables
 #+begin_src ansys
   Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
   AR18 = AR19
+  *stat,argx
+#+end_src
+
+*** Character strings
+    Must not contain more than 32 characters
+#+begin_src ansys
+  ! character string variables are enclosed with `''
+  Yc = '012345678901234567901234567890123' !not a character variable any more
+  Symetry = 'yes'
 #+end_src
 ** Erasing variables from memory
 #+begin_src ansys
   !! defining
-  ansys = 3
-  *set,ansys,4             !the `=' assignment is a shorthand for `*set'
+  Scalar = 3               !the `=' assignment is a shorthand for `*set'
+  *set,Scalar,4            !reassignment
+  *set,Vector,1,2,3,4,5,6,7,8,9,10
+  Vector = 0,1,2,3,4,5,6,7,8,9,10,11,12 !TODO:
+  Vector = 4               !TODO:
   !! deleting
-  ansys =     !this is not a variable any more
-  *set,ansys               !alternative to `ansys ='
+  Scalar =     !this is not a variable any more
+  *set,Scalar               !alternative to `Scalar ='
   *del,all                 !delete all variables!
+  *del,Vector   !TODO:
 #+end_src    
 
 ** Variable substitution with `%'
@@ -420,10 +450,11 @@ name one can force the substitution of a parameter name to its value.
 Other examples are
 #+begin_src ansys
   Steel = 1
-  mp, nuxy,Steel,0.3 ! Poisson No
-  mp, ex,Steel,200000 ! Elastic modulus
-  !@@ -- Parameter expansion with `%' --
-  /com, === Material %Steel% is from steel. ===
+  /com,Material %Steel% is steel
+  !! ATTENTION: in the following situation!
+  /com,%Steel% does NOT substitute variable Steel
+  /com, %Steel% does substitute variable Steel
+  /com,Stuff like %Steel+1% returns 2
 #+end_src
 *** Substitution of Character Variables
 It is possible to substitute a command name
@@ -456,12 +487,17 @@ neither with ~c***~ nor with ~/sys~
   right = 9
   c***,this is %right%: c*** allows no parameter expansion
   /sys,ls "*.mac" %otto% &
+  /syp,ls, %otto% !TODO: is this working?
 #+end_src
    
 *** Dynamic Substitution of Numeric or Character Variables
+ or forced substitution (deferred)
 #+begin_src ansys
   Case = 'case 1'
-  /title,This is %Case%
+  /title,This is %Case%    !/stitle
+                           !*ask
+                           !/tlabel
+                           !in tables TODO:
   aplot
   Case = 'case 2'
   !! not necessary to reissue /title, "This is case 2"
@@ -469,6 +505,32 @@ neither with ~c***~ nor with ~/sys~
   aplot
 #+end_src    
 
+** Expression
+*** Exponentiation Operator is `**'
+*** Multiplication Expression
+    Beware of the oldstyle ANSYS comment!
+#+begin_src  ansys
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+#+end_src
+*** < >
+#+begin_src ansys
+otto = 1.82
+karl = 1.97
+margret =  otto < karl
+maria = karl < otto
+#+end_src    
+** debugging
+#+begin_src ansys
+  debug                    !TODO: undocumented?
+#+end_src
+** Multiple runs
+#+begin_src ansys
+  *mrun                    !TODO:
+#+end_src   
 ** Undocumented commands
 #+begin_src ansys
   !undocumented commands are highlighted differently
@@ -629,3 +691,5 @@ neither with ~c***~ nor with ~/sys~
   ,*enddo
   /eof
 #+end_src
+
+file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/Hlp_C_GET.html 

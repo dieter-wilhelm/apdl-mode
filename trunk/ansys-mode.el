@@ -476,7 +476,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map [?\C-c?\C-_] 'ansys-move-down)
     (define-key map "\C-x4k" 'ansys-delete-other-window)
     (define-key map "\C-c\C-a" 'ansys-align)
-    (define-key map "\C-c\C-b" 'ansys-submit-bug-report)
+    (define-key map "\C-c\C-b" 'ansys-browse-ansys-help)
     (define-key map "\C-c\C-c" 'ansys-send-to-ansys)
     (define-key map "\C-c\C-d" 'ansys-do)
     (define-key map "\C-c\C-e" 'ansys-display-error-file)

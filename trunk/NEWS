@@ -6,6 +6,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 ===  Version 14.5.1 ===
 
+* Added a function (C-c C-b) to browse the ANSYS manual for an APDL
+  command near the cursor.
+
 * Values of the `_RETURN' variable are documented now in the
   ansys-skeleton-information function
 

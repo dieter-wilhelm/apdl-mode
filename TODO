@@ -31,7 +31,19 @@
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
-** TODO Tasks [31%]
+** TODO Tasks [32%]
+   - [ ] call the ANSYS help browser with APDL command? No! Call a
+     browser with the proper commands:
+     here is the tanslation of names to html files:
+       file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
+       file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/
+     first implementation: *get hlp_c_get.html!
+   - [ ] *vscfun: mean, stdev, ...
+   - [ ] TODOS: in fontification.org
+     deletion of vectors *del,Vector
+   - [ ] check character variables 32 Chars. and highlight accordingly
+     string 128
+     char 8
    - [ ] -mode_tutorial.org
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
@@ -39,9 +51,8 @@
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
    - [ ] C-c C-c needs a carriage return in the last line!
-   - [ ] I=3 $ /com, %I+1%, /com,%I+1% is not possible
    - [ ] check *vwrite with gui mode and interactive mode
-   - [ ] explain fill under the "looping" commands: Generates a line
+   - [ ] explain fill/*vfill under the "looping" commands: Generates a line
      of nodes between two existing nodes.
    - [ ] force harmonic table (*vfill) example in -skeleton-bc, make a
      ansys...-template out of two-mass-harmonics.mac
@@ -50,8 +61,8 @@
      lcurv, etc. (ANF functions)
    - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
    - [ ] document fontification.mac or make an org file from it as soon as
-     the output becomes coloured, better merge it with APDL_tutorial.org
-   - [ ] call the ANSYS help browser with APDL command?
+     the output becomes coloured, better merge it with APDL_tutorial.org?
+     or make an apdl reference?
    - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
@@ -63,6 +74,7 @@
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] I=3 $ /com, %I+1%, /com,%I+1% is not possible
    - [X] (setq line-number-display-limit-width 2000)?: no <- Emacs default
    - [X] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.
    - [X] give the minimal sample templates a documentation string

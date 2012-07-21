@@ -451,6 +451,22 @@ variable)."
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 
+(defun ansys-browse-ansys-help ()       ;NEW_C
+  "Start the ANSYS help in a browser."
+  (interactive)
+  (let ((file "/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/Hlp_C_GET.html"))
+    (message "Starting the browser...")
+    (cond
+     ((ansys-is-unix-system-p)
+      (start-process "help_browser" nil "chromium-browser" file))
+     ((string= system-type "windows-nt")
+      (if (fboundp 'w32-shell-execute)
+	  (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
+			 ansys-help-program-parameters)))  ;HINT: Eli Z.,M. Dahl
+     (t
+      (error "Can only start the ANSYS help on Windows and UNIX systems")))))
+
+
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
 ;; (defun ansys-kill-buffer-query-function ()
 ;;   (if (or (string= (process-status (get-process ansys-process-name)) "run")

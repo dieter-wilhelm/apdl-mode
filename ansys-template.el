@@ -874,6 +874,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ==============================" \n
   "A = ABS()   !Absolute value"  \n
   "A = SIGN()  !sign(x,y) absolute value of x with sign of y" \n
+  "A = CXABS() !cxabs(x,y) absolute value of complex number x+i*y" \n
   "A = EXP()   !Exponential,exp(x): e^x" \n
   "X = 2 $ Y = 1/3" \n
   "A = X**Y    !Exponentiation x**y: x^y" \n

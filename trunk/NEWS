@@ -9,8 +9,8 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 * Added a function (C-c C-b) to browse the ANSYS manual for an APDL
   command near the cursor.
 
-* Values of the `_RETURN' variable are documented now in the
-  ansys-skeleton-information function
+* Values of the `_RETURN' variable are now documented in the function
+  `ansys-skeleton-information'
 
 * `ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
   now skipping over node and elements blocks, which are pure number

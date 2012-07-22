@@ -224,9 +224,10 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
 #+begin_src  ansys :exports none
   !@@ -- End Of File command --
 #+end_src
-#+begin_src  ansys
-  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-!!
+#+begin_src ansys
+    /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+    /exit,nosave           !default is save the model data
+  !!
 #+end_src
 *** Current element types and deprecated elements
 #+begin_src ansys :exports none
@@ -259,15 +260,17 @@ and you are getting a diffent element highlighting.
       ,r,loc,x,0
   d,all,all
 #+end_src
-** implicit (implied or colon) looping
+** Implied (or colon) looping
 #+begin_src ansys
   !@@ ::: implicit : (colon) looping :::::
   !! (n1:n2:dn)
   lfillt,(1:2),(3:4),5
   !! one subscript per array
   bf,(1:10),temp,Tarray(1:10)
-  !! *get command is allowed
+  b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
+  !! The *get command and get functions are allowed
   *get,Fx(1:10),node,(1:10),f,fz !TODO:
+  a(1:5) = nx(1:5)
   !! TODO:
   Fx(1:10) = (1:100:10)    !is this working? :-)
   !! alternative to *vfill
@@ -298,9 +301,10 @@ and you are getting a diffent element highlighting.
 #+end_src
 
 * Introduction to the APDL
-  - No function definitions <- write `command' files (.mac)
-  - no direct array to file export <- write command file for *vwrite
-  - 
+  - No function definitions <- write `command' files (.mac), or *use
+  - no direct array to file export <- write command file for *vwrite,
+    or use a (lookup) table for this purpose
+  - still (v14) no round function there
 #+begin_src ansys :exports none
   c***,**************************************************
   !@ --- Introduction to the APDL ---
@@ -494,9 +498,11 @@ neither with ~c***~ nor with ~/sys~
  or forced substitution (deferred)
 #+begin_src ansys
   Case = 'case 1'
-  /title,This is %Case%    !/stitle
+  /title,This is  %Case%
+                           !/stitle
                            !*ask
                            !/tlabel
+                           !/an3d
                            !in tables TODO:
   aplot
   Case = 'case 2'
@@ -505,7 +511,7 @@ neither with ~c***~ nor with ~/sys~
   aplot
 #+end_src    
 
-** Expression
+** Expressions
 *** Exponentiation Operator is `**'
 *** Multiplication Expression
     Beware of the oldstyle ANSYS comment!
@@ -523,13 +529,30 @@ karl = 1.97
 margret =  otto < karl
 maria = karl < otto
 #+end_src    
+** Arrays
+   4 types: array, char of 8 characters, table and string 128 chars
+*** Specifiying array element values
+APDL Math works in its own workspace independent of the APDL
+environment!
+#+begin_src ansys
+  No = 100
+  Pi = acos(-1)
+  Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
+  Dat = 0:2*Pi:2*Pi/No
+  *vfun
+  *vec,import,apdl,Dat
+  *fft,Forw,Dat,OutDat,,,Full !what's the difference?
+  *fft,    ,Dat,OutDat,,,Part !what's the difference?
+  *export,OutDat,apdl,APDLOutDat
+#+end_src    
 ** debugging
 #+begin_src ansys
   debug                    !TODO: undocumented?
 #+end_src
-** Multiple runs
+** Multiple runs, probabilistic design
 #+begin_src ansys
-  *mrun                    !TODO:
+  PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
+  in V11: *mrun                    !TODO: 
 #+end_src   
 ** Undocumented commands
 #+begin_src ansys

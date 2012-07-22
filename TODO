@@ -40,7 +40,7 @@
      first implementation: *get hlp_c_get.html!
    - [ ] *vscfun: mean, stdev, ...
    - [ ] TODOS: in fontification.org
-     deletion of vectors *del,Vector
+     deletion of vectors *del,Vector without request? ,,nopr?
    - [ ] check character variables 32 Chars. and highlight accordingly
      string 128
      char 8

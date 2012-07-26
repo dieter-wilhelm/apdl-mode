@@ -106,10 +106,10 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 (cond ((string= window-system "x")
        ;; This is the default installation directory on Unix
-       (setq ansys-install-directory ""))
+       (setq ansys-install-directory "/"))
       (t
        ;; the default is "C:\\Program Files" on Windows
-       (setq ansys-install-directory "C:\\Program Files")))
+       (setq ansys-install-directory "C:\\Program Files\\")))
 
 ;(cond ((string= window-system "x")
 ;        ;; This is an example of an installation directory on Unix

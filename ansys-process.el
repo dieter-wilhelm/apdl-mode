@@ -34,10 +34,10 @@
 
 (defcustom ansys-install-directory
   (cond ((string= window-system "x")
-	 ;; This is the default installation directory on Unix
-	 "")
-	(t ;; the default is "C:\\Program Files" on Windows
-	 "C:\\Program Files"))
+	 ;; "/" (root) is the default installation directory on Unix
+	 "/")
+	(t ;; the default is "C:\\Program Files\\" on Windows
+	 "C:\\Program Files\\"))
   "This is the directory where ANSYS is installed."
   :type 'string
   :group 'ANSYS-process
@@ -57,9 +57,9 @@ the respective error file."
 		     ansys-current-ansys-version
 		   "140")))
   (if (string= window-system "x")
-      (concat ansys-install-directory "/ansys_inc/v"
+      (concat ansys-install-directory "ansys_inc/v"
 	      version "/ansys/bin/ansys" version)
-    (concat ansys-install-directory "\\Ansys\ Inc\\v" version "\\bin\\ansys" version)))		;NEW_C
+    (concat ansys-install-directory "Ansys\ Inc\\v" version "\\bin\\ansys" version)))		;NEW_C
   "This variable stores the ANSYS executable name.
 When the file is not in your search path, you have to specify the
 full qualified file name and not only the name of the executable.
@@ -72,10 +72,10 @@ only."
 
 (defcustom ansys-help-program
   (if (string= window-system "x")
-      (concat ansys-install-directory "/ansys_inc/v"
+      (concat ansys-install-directory "ansys_inc/v"
       ansys-current-ansys-version "/ansys/bin/anshelp"
       ansys-current-ansys-version)
-    (concat ansys-install-directory "\\Ansys\ Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\intel\\bin\\Javaw.exe"))		;NEW_C
+    (concat ansys-install-directory "Ansys\ Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\intel\\bin\\Javaw.exe"))		;NEW_C
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -99,8 +99,8 @@ before -X... is important)."
 
 (defcustom ansys-lmutil-program ;NEW_C
   (if (string= window-system "x")
-      (concat ansys-install-directory "/ansys_inc/shared_files/licensing/linx64/lmutil")
-    (concat ansys-install-directory "\\Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe"))
+      (concat ansys-install-directory "ansys_inc/shared_files/licensing/linx64/lmutil")
+    (concat ansys-install-directory "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe"))
   "A FlexLM license manager executable.
 For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
 or in case of a Windows 32-bit OS \"c:\\\\Program Files\\Ansys
@@ -454,25 +454,27 @@ variable)."
 (defun ansys-browse-ansys-help ( arg)       ;NEW_C
   "Open the ANSYS help for an APDL command in a browser.
 If argument ARG is not equal 1 query for the command name."
-  (interactive)
-  (let (file path)
-    (message "Starting the browser...")
+  (interactive "p")
+  (let (file path (command "add"))
+    (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (cond
+     ((not file)
+      (error "Command %s not found in keyword list" command))
      ((ansys-is-unix-system-p)
-       (setq path (concat( ansys-install-directory
-          "/ansys_inc/v" ansys-current-ansys-version
-	  "/commonfiles/help/en-us/help/ans_cmd/")))
-      (start-process "help_browser" nil "chromium-browser" file))
+      (setq path (concat ansys-install-directory
+			 "ansys_inc/v" ansys-current-ansys-version
+			 "/commonfiles/help/en-us/help/ans_cmd/"))
+      (start-process "help_browser" nil "chromium-browser" (concat path file)))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
 	  (setq path (concat( ansys-install-directory
-	    "\\Ansys Inc\\v" ansys-current-ansys-version
-	    "\\commonfiles\\help\\en-us\\help\\ans_cmd\\")))
-	  ;; wrapper of ShellExecute MS-Windows API
-	  (w32-shell-execute "Open" file)
+			      "Ansys Inc\\v" ansys-current-ansys-version
+			      "\\commonfiles\\help\\en-us\\help\\ans_cmd\\")))
+	;; wrapper of ShellExecute MS-Windows API
+	(w32-shell-execute "Open" (concat path file))
 	(error "Emacs cannot find w23-shell-execute")))
      (t
-      (error "Can only start the ANSYS help on Windows and UNIX systems"))))))
+      (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2

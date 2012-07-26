@@ -48,6 +48,7 @@
 ;;         StrOut = STRCAT(... with STRCAT(...)
 ;;     get function summary ->`ansys_get_functions.txt'
 ;; 6.) search index for the html help in /commonfiles/help/ansys_Index.hlp
+;;     remove the first line
 
 ;; _RETURN values are now in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
@@ -645,33 +646,6 @@ verification models.\")\n\n")
   (fill-paragraph 0)
   (message "parametric functions...done")
 
-  ;; ---------- help index ----------
-
-  (with-temp-buffer
-    (setq list ())			;initialise list
-    (insert-file-contents "ansys_Index.hlp")
-    ;; (dotimes (i 10) (re-search-forward
-    (while (re-search-forward "^\\(.*\\)" nil t)
-       "^\\([^[:space:]]*\\)[[:space:]]*\\([^[:space:]]*\\)$" nil t)
-      (add-to-list 'list (list (match-string 1) (match-string 2)) 'append))
-
-  (nth 1 (assoc-string "*abbr" list 'case-fold))
-
- 
-    (while (re-search-forward "^\\(\\w+\\)(" nil t)
-      (add-to-list 'list (match-string 1) 'append)))
-  (setq parametric-functions list) ;we need this later for completions!
-  (set-buffer buffer)
-  (goto-char (point-min))
-  (insert (concat
-	   "(defconst ansys-parametric-function-regexp\n"))
-  (setq print-length nil)		;nil: print all members of list
-  (prin1 (regexp-opt parametric-functions) buffer)
-  (insert "\n\"Ansys parametric function regexp.\")\n\n")
-  (beginning-of-defun)
-  (fill-paragraph 0)
-  (message "parametric functions...done")
-
   ;; ---------- completions ----------
 
   (goto-char (point-min))
@@ -701,6 +675,30 @@ By default Ansys keywords, get-functions, parametric-function and elements
   ;; (beginning-of-defun)
   ;; (fill-paragraph nil)
   (message "completions...done")
+
+  ;; ---------- help index ----------
+
+  (message "starting help index.")
+  (with-temp-buffer
+    (setq list ())			;initialise list
+    (insert-file-contents "ansys_Index.hlp")
+    ;; skip the first line
+    (next-line)
+    ;; (dotimes (i 10) (re-search-forward
+    (while (re-search-forward 
+       "^\\([^[:space:]]+\\)[[:space:]]+\\([^[:space:]]+\\)$" nil t)
+      (add-to-list 'list (list (match-string 1) (match-string 2)) 'append)))
+  (message "adding help index...")
+  (set-buffer buffer)
+  (goto-char (point-min))
+  (insert (concat
+	   "(defconst ansys-help-index\n'"))
+  (setq print-length nil)		;nil: print all members of list
+  (prin1 list buffer)
+  (insert "\n\"ANSYS help index alist.\")\n\n")
+  (beginning-of-defun)
+  (fill-paragraph 0)
+  (message "help index...done.")
 
   ;; ---------- header ----------
 

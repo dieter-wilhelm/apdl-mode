@@ -844,7 +844,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Header"                 ansys-skeleton-header :help "Insert interactively the file header template"]
 	      "-"
 	      ["Insert Pi"              ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
-headers and sections"]
 	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
 	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
 	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
@@ -873,7 +872,8 @@ headers and sections"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
 	      "-"
-	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlining 	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
+	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlineing headers and sections"]
+ 	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
 	      ["Contact template"    ansys-skeleton-contact :help "Insert a minimal template for a structural contact simulation"]
 	      ["Compilation of templates"   ansys-skeleton :help "Insert a compilation of selected templates"]
 	      )

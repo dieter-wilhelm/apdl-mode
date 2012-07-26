@@ -451,20 +451,28 @@ variable)."
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 
-(defun ansys-browse-ansys-help ()       ;NEW_C
-  "Start the ANSYS help in a browser."
+(defun ansys-browse-ansys-help ( arg)       ;NEW_C
+  "Open the ANSYS help for an APDL command in a browser.
+If argument ARG is not equal 1 query for the command name."
   (interactive)
-  (let ((file "/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/Hlp_C_GET.html"))
+  (let (file path)
     (message "Starting the browser...")
     (cond
      ((ansys-is-unix-system-p)
+       (setq path (concat( ansys-install-directory
+          "/ansys_inc/v" ansys-current-ansys-version
+	  "/commonfiles/help/en-us/help/ans_cmd/")))
       (start-process "help_browser" nil "chromium-browser" file))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
-	  (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
-			 ansys-help-program-parameters)))  ;HINT: Eli Z.,M. Dahl
+	  (setq path (concat( ansys-install-directory
+	    "\\Ansys Inc\\v" ansys-current-ansys-version
+	    "\\commonfiles\\help\\en-us\\help\\ans_cmd\\")))
+	  ;; wrapper of ShellExecute MS-Windows API
+	  (w32-shell-execute "Open" file)
+	(error "Emacs cannot find w23-shell-execute")))
      (t
-      (error "Can only start the ANSYS help on Windows and UNIX systems")))))
+      (error "Can only start the ANSYS help on Windows and UNIX systems"))))))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2

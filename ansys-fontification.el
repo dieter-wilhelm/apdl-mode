@@ -47,11 +47,11 @@
 ;;     ii) Prepend some string function descriptions with their name e.g.
 ;;         StrOut = STRCAT(... with STRCAT(...)
 ;;     get function summary ->`ansys_get_functions.txt'
+;; 6.) search index for the html help in /commonfiles/help/ansys_Index.hlp
 
-;;  The following is not (yet) implemented
-;; (6.) _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
-;;     -> `ansys_return_values.txt'	       
-;;     
+;; _RETURN values are now in the -skeleton-information.
+;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
+
 ;;; necessary variables:
 ;; 1.) `Ansys_undocumented_commands' release notes
 ;; 2.) `Ansys_written_out_commands'
@@ -631,6 +631,33 @@ verification models.\")\n\n")
 ;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (goto-char (point-min))
+    (while (re-search-forward "^\\(\\w+\\)(" nil t)
+      (add-to-list 'list (match-string 1) 'append)))
+  (setq parametric-functions list) ;we need this later for completions!
+  (set-buffer buffer)
+  (goto-char (point-min))
+  (insert (concat
+	   "(defconst ansys-parametric-function-regexp\n"))
+  (setq print-length nil)		;nil: print all members of list
+  (prin1 (regexp-opt parametric-functions) buffer)
+  (insert "\n\"Ansys parametric function regexp.\")\n\n")
+  (beginning-of-defun)
+  (fill-paragraph 0)
+  (message "parametric functions...done")
+
+  ;; ---------- help index ----------
+
+  (with-temp-buffer
+    (setq list ())			;initialise list
+    (insert-file-contents "ansys_Index.hlp")
+    ;; (dotimes (i 10) (re-search-forward
+    (while (re-search-forward "^\\(.*\\)" nil t)
+       "^\\([^[:space:]]*\\)[[:space:]]*\\([^[:space:]]*\\)$" nil t)
+      (add-to-list 'list (list (match-string 1) (match-string 2)) 'append))
+
+  (nth 1 (assoc-string "*abbr" list 'case-fold))
+
+ 
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
   (setq parametric-functions list) ;we need this later for completions!

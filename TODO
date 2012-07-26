@@ -37,7 +37,6 @@
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
        file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/
-     first implementation: *get hlp_c_get.html!
    - [ ] *vscfun: mean, stdev, ...
    - [ ] TODOS: in fontification.org
      deletion of vectors *del,Vector without request? ,,nopr?
@@ -45,6 +44,7 @@
      string 128
      char 8
    - [ ] -mode_tutorial.org
+     - add new function: C-C C-b but don't release until 14.5
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned
@@ -60,8 +60,10 @@
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
      lcurv, etc. (ANF functions)
    - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
-   - [ ] document fontification.mac or make an org file from it as soon as
-     the output becomes coloured, better merge it with APDL_tutorial.org?
+   - [ ] document fontification.mac
+     - Introduction TUTORIAL
+     - Indepth TUTORIAL
+     - APDL and highlighting REFERENCE -> fontification.mac
      or make an apdl reference?
    - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
@@ -74,6 +76,7 @@
      skeleton
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] check whether v14.0.1 has autoinsertion activated
    - [X] I=3 $ /com, %I+1%, /com,%I+1% is not possible
    - [X] (setq line-number-display-limit-width 2000)?: no <- Emacs default
    - [X] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.

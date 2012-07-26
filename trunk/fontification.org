@@ -545,6 +545,9 @@ environment!
   *fft,    ,Dat,OutDat,,,Part !what's the difference?
   *export,OutDat,apdl,APDLOutDat
 #+end_src    
+#+begin_src maxima
+
+#+end_src
 ** debugging
 #+begin_src ansys
   debug                    !TODO: undocumented?

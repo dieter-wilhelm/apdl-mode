@@ -117,7 +117,7 @@
    [[./template_selection.png]]
 
 ** Check auto-insertion and outline your code (tree view)
-  Create an APDL file with the suffix `.mac' and let Emacs auto-insert
+  Create a new APDL file with the suffix `.mac' and let Emacs auto-insert
   a skeleton with `outline' headings.  Collapse the content to a tree
   view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
 

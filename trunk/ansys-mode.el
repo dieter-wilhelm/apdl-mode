@@ -844,7 +844,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Header"                 ansys-skeleton-header :help "Insert interactively the file header template"]
 	      "-"
 	      ["Insert Pi"              ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
-	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlining headers and sections"]
+headers and sections"]
 	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
 	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
 	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
@@ -873,9 +873,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
 	      "-"
-	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
+	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlining 	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
 	      ["Contact template"    ansys-skeleton-contact :help "Insert a minimal template for a structural contact simulation"]
-	      ["Compilation of templates"   ansys-skeleton :help "Insert a (your) compilation of selected templates"]
+	      ["Compilation of templates"   ansys-skeleton :help "Insert a compilation of selected templates"]
 	      )
 	(list "Navigate Code Lines"
 	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
@@ -934,6 +934,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      )
 	"-"
 	["Show ANSYS Command Help"     ansys-show-command-parameters :help "Display a short help for the ANSYS command near the cursor with its parameters"]
+	["Open APDL help in Browser"   ansys-browse-ansys-help :help "Open ANSYS' APDL help to a command near the cursor in your default browser"]
 	["Start ANSYS help system"     ansys-start-ansys-help :help "Start the ANSYS help browser"]
 	["Display Variable Definitions"ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag

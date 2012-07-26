@@ -1034,7 +1034,6 @@ The APDL processing and debugging environment
 #+ATTR_HTML: width="1200"
    [[./license.png]]
 
-   
 ** Start the ANSYS `solver/interpreter'
 #+begin_src ansys :exports none
    !@ --- Start an ANSYS interpreter process ---

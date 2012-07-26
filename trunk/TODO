@@ -43,6 +43,7 @@
    - [ ] check character variables 32 Chars. and highlight accordingly
      string 128
      char 8
+   - [ ] wget download not possible any longer?
    - [ ] -mode_tutorial.org
      - add new function: C-C C-b but don't release until 14.5
      - in variable.png symbols Ns and Ls are not highlighted as

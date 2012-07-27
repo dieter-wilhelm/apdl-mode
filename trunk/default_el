@@ -105,7 +105,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;; ANSYS installation directory
 
 (cond ((string= window-system "x")
-       ;; This is the default installation directory on Unix
+       ;; "/" the root dir is the default installation directory on Unix
        (setq ansys-install-directory "/"))
       (t
        ;; the default is "C:\\Program Files" on Windows
@@ -113,10 +113,10 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 ;(cond ((string= window-system "x")
 ;        ;; This is an example of an installation directory on Unix
-;        (setq ansys-install-directory "/appl"))
+;        (setq ansys-install-directory "/appl/"))
 ;       (t
 ;        ;;This an example of an installation dir. on Windows
-;        (setq ansys-install-directory "D:\\Programs")))
+;        (setq ansys-install-directory "D:\\Programs\\")))
 
 ;; license server configuration and executables
 
@@ -140,7 +140,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 	;; The ANSYS executable
 	ansys-program
 	(concat ansys-install-directory
-		"/ansys_inc/v"
+		"ansys_inc/v"
 		ansys-current-ansys-version
 		"/ansys/bin/ansys"
 		ansys-current-ansys-version)
@@ -149,7 +149,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 	ansys-lmutil-program
 	(concat
 	 ansys-install-directory
-	 "/ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
+	 "ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
 	;;"/ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
 	;; lin32 not longer supported since ANSYS 14!
 	;; "/ansys_inc/shared_files/licensing/lin32/lmutil")
@@ -158,7 +158,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 	ansys-help-program
 	(concat
 	 ansys-install-directory
-	 "/ansys_inc/v"
+	 "ansys_inc/v"
 	 ansys-current-ansys-version
 	 "/ansys/bin/anshelp"
 	 ansys-current-ansys-version)))
@@ -169,7 +169,7 @@ calling a special ANSYS customisation buffer." 'interactive)
        (setq ansys-lmutil-program
 	     (concat
 	      ansys-install-directory
-	      "\\Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
+	      "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
 ;	      "\\Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
        ;;backslash '\"' on windows mandatory
 

@@ -32,6 +32,8 @@
 
 *  14.5.1:
 ** TODO Tasks [32%]
+   - [ ] update ansys_parametric_functions.txt there is a new function
+     since V14
    - [ ] call the ANSYS help browser with APDL command? No! Call a
      browser with the proper commands:
      here is the tanslation of names to html files:
@@ -177,24 +179,33 @@
     info@padtinc.com,
 
 
-Subject:  Release 14.0.1 of ANSYS-Mode: Editor support for working with ANSYS APDL files & processes
+Subject:  Release 14.0.1 of ANSYS-Mode: Editor support for working with APDL files & processes
 
 Hi,
 
-a new release of ANSYS-Mode for ANSYS 14.0 (somewhat delayed, waited
-for the Emacs-24.1 release).
+a new release of ANSYS-Mode for ANSYS 14.0.
 
-... And finally the mode comes with an introductory, illustrated
-tutorial!  (Which I attached to this email in the hope that it does
-not disturb you.)
+Are you also tired of the ANSYS help browser?  E. g. try searching for
+the `F' APDL command, it is not possible!  You have to pick it up from
+the alphabetical command list. But also in the general case finding
+the APDL documentation is just too cumbersome and slow.
 
-You can download the mode, as ever, from:
+As a special highlight of this release you can now read immeadiately
+the detailed ANSYS help in your web-browser for all APDL command and
+element names near the cursor.  Optionally you can input your search
+string interactively including its completion to valid ANSYS help
+keywords.
+
+This is an ideal complement to ANSYS-Mode's in-built `command syntax'
+help.
+
+You can download the mode, as always, from:
 
 http://code.google.com/p/ansys-mode
 
 You'll find also there the latest stable version of Emacs for Windows
 with ANSYS-Mode preconfigured and ready to go.  Just unpack it and use
-the Editor for your APDL files and possibly other stuff as well...
+the mode for your APDL files and likely other stuff as well...
 
 ....
 

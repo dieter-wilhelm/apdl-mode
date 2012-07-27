@@ -6,8 +6,14 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 ===  Version 14.5.1 ===
 
-* Added a function (C-c C-b) to browse the ANSYS manual for an APDL
-  command near the cursor.
+* Added a function (C-c C-b) showing the detailed ANSYS help in your
+  web-browser for an APDL command or element name (the element number
+  is enough) near the cursor.
+
+* Improved the introductory and the in-depth tutorial and extended the
+  documentation with an APDL and syntax highlighting reference in HTML
+  and PDF. (To some degree syntax highlighted in the PDF version as
+  well)
 
 * Values of the `_RETURN' variable are now documented in the function
   `ansys-skeleton-information'
@@ -16,10 +22,6 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   now skipping over node and elements blocks, which are pure number
   blocks.  They are now alternatives to `ansys-number-block-start' C-c
   { and C-c } respectively
-
-* Improved and extended the documentation with an introduction to APDL
-  and a section showcasing the syntax highlighting in the HTML
-  version. (To some degree coloured in PDF as well)
 
 === Version 14.0.1 June 2012 ===
 

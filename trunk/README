@@ -26,7 +26,7 @@ for any operating system where ANSYS is running.
 The current stable version (14.0.1) of ANSYS-Mode is available at the
 [http://code.google.com/p/ansys-mode Google Code site] (hint: paste
 e. g. "wget
-http://code.google.com/p/ansys-mode/downloads/list/ansys-mode-14.0.1.tgz"
+http://ansys-mode.googlecode.com/files/ansys-mode-14.0.1.tgz"
 to get the sources).  Besides the code and Emacs you will find also in
 the download section two PDF tutorials.  For an immediate access have
 a look at the
@@ -52,18 +52,24 @@ only implemented for UNIX systems.
 
 == Features ==
 
+* Command syntax help inbuilt in the mode (similar to but more verbose
+  then the ANSYS dynamic prompt), undocumented commands are hinted as
+  such.
+
+* Showing the ANSYS help in your web-browser for an APDL command or
+  element name (element number is enough) near the cursor.  It is also
+  possible to input the search string interactively with completion of
+  valid ANSYS names.
+
 * ANSYS process management (viewing error files, license status,
-  starting the ANSYS help browser, etc.)
+  starting the ANSYS help browser, etc.).
 
 * Solver comunication facilities, i. e. sending code fragments from
   the macro file or commands interactively to an ANSYS solver process
-  (UNIX only)
-
-* Command syntax help in the editor (similar to but more verbose then
-  the ANSYS dynamic prompt) also with hints for undocumented commands
+  (UNIX only).
 
 * Keyword completion of ANSYS commands, elements, get- and
-  parametric-functions (case-sensitive) of nearly 2000 ANSYS symbols
+  parametric-functions (case-sensitive) of around 2000 ANSYS symbols.
 
 * Comprehensive keyboard shortcuts for code navigation: Skipping
   comments, navigating number blocks, searching *DO-, *IF-, *DOWHILE-,
@@ -71,12 +77,12 @@ only implemented for UNIX systems.
 
 * Syntax highlighting in various decoration levels (complete ANSYS
   keywords, undocumented commands, deprecated elements, ...)  and
-  optionally also user defined variables (experimental)
+  optionally also user defined variables (experimental feature).
 
 * Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
-  (2) these `user variables' are highlighted as well
+  (2) these `user variables' are highlighted as well.
 
 * Preview and/or insertion of extensible APDL code templates.  For
   example the function template shows *all* available ANSYS
@@ -86,7 +92,7 @@ only implemented for UNIX systems.
   i. e. they are asking for or completing user input.
 
 * Alignment (beautification) of whole sections with variable
-  defintions
+  defintions.
 
 * Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode. With outline strings '!@' you have a heading
@@ -97,20 +103,20 @@ only implemented for UNIX systems.
   new APDL file.
 
 * Convenient comment handling, commenting out whole paragraphs or
-  whole control blocks and vice versa
+  whole control blocks and vice versa.
 
 * Auto-indentation of looping blocks and conditional control blocks
   together with closing of open blocks with auto-insertion of the
-  appropriate end keyword (case-sensitive)
+  appropriate end keyword (case-sensitive).
 
 * ANSYS-Mode defines abbreviations for APDL templates i. e. with
   writing a `nickname' after a special key triggers an exchange of the
-  characters with a complete code template
+  characters with a complete code template.
 
 * You are able to use all Emacs' facilities, like the built-in
   calculator, file manager, image viewer and many others.  ANSYS-Mode
   changes some Emacs default behaviour to alleviate the transition
-  from other editors and user interface standards
+  from other editors and user interface standards.
 
 == Example applications ==
 

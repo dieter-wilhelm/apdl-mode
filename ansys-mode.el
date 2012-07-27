@@ -934,7 +934,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      )
 	"-"
 	["Show ANSYS Command Help"     ansys-show-command-parameters :help "Display a short help for the ANSYS command near the cursor with its parameters"]
-	["Open APDL help in Browser"   ansys-browse-ansys-help :help "Open ANSYS' APDL help to a command near the cursor in your default browser"]
+	["Open APDL help in Browser"   ansys-browse-ansys-help :help "Open the original ANSYS help to a command or element name near the cursor in your default browser"]
 	["Start ANSYS help system"     ansys-start-ansys-help :help "Start the ANSYS help browser"]
 	["Display Variable Definitions"ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
 	["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
@@ -1213,6 +1213,12 @@ its syntax.  The command is looking for the next valid ANSYS
 command near the cursor or when using a prefix argument it
 inquires an ANSYS command name.
 
+** Browse the detailed ANSYS command and element help **
+
+Putting in \"\\[ansys-browse-ansys-help]\" will display the
+original ANSYS help in your web-browser for an APDL command or
+element name (the element number is enough) near the cursor.
+
 ** ANSYS keyword completion (commands, elements, get- and
    parametric-functions) **
 
@@ -1224,15 +1230,14 @@ you.  Depending on the case of your letter or letters to be
 completed, you will get a downcased, upcased or capitalised
 completion.
 
-There are nearly 2000 ANSYS symbols available for completion.
+There are around 2000 ANSYS symbols available for completion.
 Undocumented ANSYS commands and deprecated element types are also
 completed.  The former are identified as such with a different
 highlighting in the 'command syntax help'.  Please have a look at
-the variable `ansys-deprecated-element-alist' it's an association
-list with the deprecated elements and their respective
-replacments (for inspecting its content please click on above
-hyperlink or type \"C-h v\" and then input the respective
-variable).
+the variable `ansys-deprecated-element-alist' it's a list with
+the deprecated elements and their respective replacments (for
+inspecting its content please click on above hyperlink or type
+\"C-h v\" and then input the respective variable).
 
 Using the <TAB> key you might complete the name, when the
 character combination before the cursor is not unambiguous a

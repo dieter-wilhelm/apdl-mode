@@ -20,7 +20,8 @@
 ;; program's maintainer or write to: The Free Software Foundation,
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 
-;; help also for get-functions, elements, 
+;; at the moment it isn't working in batch mode but loading this file
+;; does work...
 
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
@@ -41,16 +42,16 @@
 ;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)
 ;;     ansys APDL guide chapter 3.8, trigonometric functions and their inverse functions must
 ;;     be separated by hand!!! The same applies to hyperbolic functions
+;;     there was a new one introduced in V14
 ;;     ->`ansys_parametric_functions.txt'
 ;; 5.) get functions: ansys 11.0 APDL Programmer's guide Appendix B.
 ;;     i) one has to comment (#) out some headlines!!!
 ;;     ii) Prepend some string function descriptions with their name e.g.
 ;;         StrOut = STRCAT(... with STRCAT(...)
 ;;     get function summary ->`ansys_get_functions.txt'
-;; 6.) search index for the html help in /commonfiles/help/ansys_Index.hlp
-;;     remove the first line
+;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
 
-;; _RETURN values are now in the -skeleton-information.
+;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
 ;;; necessary variables:

@@ -55,7 +55,7 @@ the respective error file."
 (defcustom ansys-program
   (let ((version (if (boundp 'ansys-current-ansys-version)
 		     ansys-current-ansys-version
-		   "140")))
+		   "145")))
   (if (string= window-system "x")
       (concat ansys-install-directory "ansys_inc/v"
 	      version "/ansys/bin/ansys" version)
@@ -63,8 +63,8 @@ the respective error file."
   "This variable stores the ANSYS executable name.
 When the file is not in your search path, you have to specify the
 full qualified file name and not only the name of the executable.
-For example: \"/ansys_inc/v140/ansys/bin/ansys140\" and not only
-\"ansys140\".  You might customise this variable or use the
+For example: \"/ansys_inc/v145/ansys/bin/ansys145\" and not only
+\"ansys145\".  You might customise this variable or use the
 function `ansys-program' to do this for the current session
 only."
   :type 'string
@@ -81,9 +81,9 @@ It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v140/ansys/bin/anshelp140\" on UNIX
+locations are \"/ansys_inc/v145/ansys/bin/anshelp145\" on UNIX
 and \"c:\\\\Program Files\\Ansys\
-Inc\\v140\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on
+Inc\\v145\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on
 Windows (XP).  Since V12.0 ANSYS uses a java interpreter."
   :type 'string
   :group 'ANSYS-process)
@@ -92,7 +92,7 @@ Windows (XP).  Since V12.0 ANSYS uses a java interpreter."
 ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
   "Stores parameters for the variable `ansys-help-program' under Windows.
 For example: ' -Xmx500000000 -cp \"c:\\Program Files\\Ansys
-Inc\\v140\\commonfiles\\help\" HelpDocViewer' (the whitespace
+Inc\\v145\\commonfiles\\help\" HelpDocViewer' (the whitespace
 before -X... is important)."
   :type 'string
   :group 'ANSYS-process)
@@ -433,8 +433,8 @@ with the ANSYS /EXIT,all command which saves all model data."
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the ANSYS help system.
 Alternatively under a Unix system, one can also use the ANSYS
-command line \"/SYS, anshelp140\" when running ANSYS
-interactively, provided that anshelp140 is found in the search
+command line \"/SYS, anshelp145\" when running ANSYS
+interactively, provided that anshelp145 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)
@@ -457,43 +457,51 @@ The function is looking for a keyword before or at the cursor
 location.  This is working also in a comment.  If argument ARG is
 a prefix argument query for the command name.  You can browse
 also predefined sections in the help manual, the use of
-completions is advisable.  For example
+completions is advisable.  For example apply the prefix `all' and
+browse compilations of element types:
 
-All- keyword e.g. allbeams, allcontacts TODO:
-Elements
-########
-ALLBEAMS
-ALLCIRCUS
-ALLCOMBINS
-ALLCOMBIS
-ALLCONTACS
-ALLCONTAS
-ALLCPTS
-ALLFLUIDS
-ALLFOLLW
-ALLHFS
-ALLHSFLDS
-ALLINFINS
-ALLINTERS
-ALLLINKS
-ALLMASS
-ALLMATRIXS
-ALLMESHS
-ALLMPCS
-ALLPIPES
-ALLPLANES
-ALLPRETS
-ALLREINF
-ALLROMS
-ALLSEL
-ALLSHELLS
-ALLSOLIDS
-ALLSOLSHS
-ALLSOURCS
-ALLSURFS
-ALLTARGES
-ALLTRANS
+UI_ -- User interface
+R_ -- Mechanical APDL release notes
+ALL -- Element categories
+
+SHELL --
+SHELLS -- ALLSHELLS
+PLANE -- ALLPLANES
+SOLID -- ALLSOLIDS
+
+ALLBEAMS -- Beam elem.
+ALLCIRCUS -- Electric/magnetic circuit elem.
+ALLCOMBINS -- Combination elem.
+ALLCOMBIS -- Combination elem.
+ALLCONTACS -- Contact elem.
+ALLCONTAS -- Contact elem.
+ALLCPTS -- Coupled pore-pressure mechanical solid elem.
+ALLFLUIDS -- Fluid elem.
+ALLFOLLW -- Follower load elem.
+ALLHFS -- High Frequency elem.
+ALLHSFLDS -- Hydrostatic elem.
+ALLINFINS -- Infinite Boundary/Solid elem.
+ALLINTERS -- Interface magnetic/gasket/cohesive elem.
+ALLLINKS -- Link radiation/conduction/convection/thermal-electric/spar/ elem.
+ALLMASS -- Mass elem
+ALLMATRIXS -- Matrix stiffness/damping/super elem
+ALLMESHS -- Mesh facet elem.
+ALLMPCS -- Structural multipoint constraint
+ALLPIPES -- Pipe/Elbow elem.
+ALLPLANES -- Plane elem.
+ALLPRETS -- Pretension combination elem.
+ALLREINF -- Reinforcing elem.
+ALLROMS -- Reduced order electrostatic-structural coupled-field elem.
+ALLSHELLS -- Shell elem.
+ALLSOLIDS -- Solid elem.
+ALLSOLSHS -- Structural solid shell elem.
+ALLSOURCS -- Magnetic Electric Current source elem.
+ALLSURFS -- Surface elem.
+ALLTARGES -- Target elem.
+ALLTRANS -- Electromechanical solid/transducer elem.
+
 #### Materials
+
 Hlp_AM_CH2anel
 Hlp_AM_CH2anis
 Hlp_AM_CH2bh
@@ -525,6 +533,8 @@ Hlp_AM_CH2swel
 Hlp_AM_CH2useh
 Hlp_AM_CH2user
 
+# basics
+
 Hlp_G_ADVREZ  Hlp_G_ADVREZ.html
 Hlp_G_ADVexad  Hlp_G_ADVexad.html
 Hlp_G_BAS6  Hlp_G_BAS6.html
@@ -538,331 +548,25 @@ Hlp_G_BASrlist  Hlp_G_BASrgenlist.html
 Hlp_G_BASrstart  Hlp_G_BASrgenstart.html
 Hlp_G_BASrtable  Hlp_G_BASrgentable.html
 Hlp_G_STRSHELL_4  Hlp_G_STRSHELL_3.html#abem0829010908
-Hlp_G_STR_CMAN  Hlp_ctec_contman.html
-Hlp_G_STR_CMAN  Hlp_ctec_contman.html
-Hlp_Help_Rev  viewer_help.html
-Hlp_O_WhatsNew  Hlp_R_RelNotes.html
+
+#####
+
 Hlp_PDSctrl  Hlp_G_ADVPDS3.html#PDSctrl
 Hlp_PDSfiles  Hlp_G_ADVPDS3.html#PDSfiles
 Hlp_PDShost  Hlp_G_ADVPDS3.html#PDShost
-Hlp_R_RelNotes  Hlp_R_RelNotes.html
+
+
+####
+Hlp_G_STR_CMAN  Hlp_ctec_contman.html
+Hlp_G_STR_CMAN  Hlp_ctec_contman.html
+
 
 #####
-UI
-
-Hlp_UI_ALE  Hlp_UI_ALE.html
-Hlp_UI_ANIMRES  Hlp_UI_ANIMRES.html
-Hlp_UI_ANSYSHelp  viewer_help.html
-Hlp_UI_AREAHARD  Hlp_UI_selectent.html
-Hlp_UI_ASEL_Acca  Hlp_UI_selectent.html
-Hlp_UI_ASEL_Attd  Hlp_UI_selectatt.html
-Hlp_UI_ASEL_Attr  Hlp_UI_SELbyatt.html
-Hlp_UI_ASEL_Ext  Hlp_UI_selectent.html
-Hlp_UI_ASEL_Hdpt  Hlp_UI_selectent.html
-Hlp_UI_ASEL_Loca  Hlp_UI_selectloc.html
-Hlp_UI_ASEL_Pick  Hlp_UI_selectent.html
-Hlp_UI_An3D_Arro  Hlp_UI_Annot.html
-Hlp_UI_An3D_Bitm  Hlp_UI_Annot.html
-Hlp_UI_An3D_Cont  Hlp_UI_Annot.html
-Hlp_UI_An3D_Line  Hlp_UI_Annot.html
-Hlp_UI_An3D_Poly  Hlp_UI_Annot.html
-Hlp_UI_An3D_Symb  Hlp_UI_Annot.html
-Hlp_UI_An3D_TxtB  Hlp_UI_Annot.html
-Hlp_UI_An3D_TxtS  Hlp_UI_Annot.html
-Hlp_UI_Anim  Hlp_G_BAS15_animprog.html#AnimControl
-Hlp_UI_Anno_Arcs  Hlp_UI_Annot.html
-Hlp_UI_Anno_Arro  Hlp_UI_Annot.html
-Hlp_UI_Anno_Circ  Hlp_UI_Annot.html
-Hlp_UI_Anno_Cont  Hlp_UI_Annot.html
-Hlp_UI_Anno_Dime  Hlp_UI_Annot.html
-Hlp_UI_Anno_Line  Hlp_UI_Annot.html
-Hlp_UI_Anno_Pies  Hlp_UI_Annot.html
-Hlp_UI_Anno_Poly  Hlp_UI_Annot.html
-Hlp_UI_Anno_Rect  Hlp_UI_Annot.html
-Hlp_UI_Anno_Symb  Hlp_UI_Annot.html
-Hlp_UI_Anno_TxtB  Hlp_UI_Annot.html
-Hlp_UI_Anno_TxtS  Hlp_UI_Annot.html
-Hlp_UI_Anno_Wedg  Hlp_UI_Annot.html
-Hlp_UI_Ansys_Rev  ai_legal.html
-Hlp_UI_Arry_Edit  Hlp_UI_Arry_Edit.html
-Hlp_UI_Arry_Stat  Hlp_UI_Arry_Stat.html
-Hlp_UI_Arry_Tabl  Hlp_UI_Arry_Table.html
-Hlp_UI_Beam_ASEC  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_CHAN  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_CSOL  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_CTUB  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_HATS  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_HREC  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_I  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_L  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_QUAD  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_RECT  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_T  Hlp_UI_Beamtool.html
-Hlp_UI_Beam_Z  Hlp_UI_Beamtool.html
-Hlp_UI_CIMAGE  Hlp_UI_CIMAGE.html
-Hlp_UI_CZ_MISC  Hlp_UI_contacset.html#wcontactsetmisc
-Hlp_UI_CZ_RIGID  Hlp_UI_contacset.html#wcontactsetrigid
-Hlp_UI_CZ_THERM  Hlp_UI_contacset.html#wcontactsetthermal
-Hlp_UI_Cz_CNST  Hlp_UI_contacset.html#wcontactsetcnst
-Hlp_UI_Cz_Done  Hlp_UI_contact.html#wfinishcontact
-Hlp_UI_Cz_Flip  Hlp_UI_contact.html#wflipnormals
-Hlp_UI_Cz_OCt  Hlp_UI_contacset.html#wcontactsetinitial
-Hlp_UI_Cz_OID  Hlp_UI_contacset.html#wcontactsetid
-Hlp_UI_Cz_OPar  Hlp_UI_contacset.html#wcontactsetbasic
-Hlp_UI_Cz_OTg  Hlp_UI_contacset.html#wcontactsetfriction
-Hlp_UI_Cz_PCt2D  Hlp_UI_contact.html#wselectcontact
-Hlp_UI_Cz_PCt3D  Hlp_UI_contact.html#wselectcontact
-Hlp_UI_Cz_PILO  Hlp_UI_contact.html#wsdefinepilot
-Hlp_UI_Cz_PTg2D  Hlp_UI_contact.html#wselecttarget
-Hlp_UI_Cz_PTg3D  Hlp_UI_contact.html#wselecttarget
-Hlp_UI_Cz_Pair2D  Hlp_UI_contact.html#wsetparameters
-Hlp_UI_Cz_Pair3D  Hlp_UI_contact.html#wsetparameters
-Hlp_UI_Cz_PrCNST  Hlp_UI_contact.html#wsetparamsurf
-Hlp_UI_Dummy  Hlp_UI_Dummy.html
-Hlp_UI_ESEL_Adja  Hlp_UI_selelem.html
-Hlp_UI_ESEL_Attd  Hlp_UI_selectatt.html
-Hlp_UI_ESEL_Attr  Hlp_UI_SELbyatt.html
-Hlp_UI_ESEL_Live  Hlp_UI_selectent.html
-Hlp_UI_ESEL_Name  Hlp_UI_selelem.html
-Hlp_UI_ESEL_Pick  Hlp_UI_selectent.html
-Hlp_UI_ESEL_Resu  Hlp_UI_selectent.html
-Hlp_UI_ElemType  Hlp_UI_Elem_Type.html
-Hlp_UI_HardCopy  Hlp_UI_HardCopy.html
-Hlp_UI_Help_Ins  installlic_set.html
-Hlp_UI_Help_Rev  viewer_help.html
-Hlp_UI_HomePage  Hlp_UI_HomePage.html
-Hlp_UI_KEYHARD  Hlp_UI_selectent.html
-Hlp_UI_KSEL_Attd  Hlp_UI_selectatt.html
-Hlp_UI_KSEL_Attr  Hlp_UI_SELbyatt.html
-Hlp_UI_KSEL_Ext  Hlp_UI_selectent.html
-Hlp_UI_KSEL_Hdpt  Hlp_UI_selectent.html
-Hlp_UI_KSEL_Loca  Hlp_UI_selectloc.html
-Hlp_UI_KSEL_Pick  Hlp_UI_selectent.html
-Hlp_UI_LECOPY  Hlp_UI_LECOPY.html
-Hlp_UI_LEFLIP  Hlp_UI_LEFLIP.html
-Hlp_UI_LINEHARD  Hlp_UI_selectent.html
-Hlp_UI_LSEL_Attd  Hlp_UI_selectatt.html
-Hlp_UI_LSEL_Attr  Hlp_UI_SELbyatt.html
-Hlp_UI_LSEL_Ext  Hlp_UI_selectent.html
-Hlp_UI_LSEL_Hdpt  Hlp_UI_selectent.html
-Hlp_UI_LSEL_Lcca  Hlp_UI_selectent.html
-Hlp_UI_LSEL_Lnrd  Hlp_UI_SELbylr.html
-Hlp_UI_LSEL_Loca  Hlp_UI_selectloc.html
-Hlp_UI_LSEL_Pick  Hlp_UI_selectent.html
-Hlp_UI_MFXSolu  Hlp_UI_MFXSolu.html
-Hlp_UI_MFXTCtrl  Hlp_UI_MFXTCtrl.html
-Hlp_UI_MFXmap  Hlp_UI_MFXmap.html
-Hlp_UI_MFdefine  Hlp_UI_MFdefine.html
-Hlp_UI_MFsetup  Hlp_UI_MFsetup.html
-Hlp_UI_MFsoln  Hlp_UI_MFsoln.html
-Hlp_UI_MFtime  Hlp_UI_MFtime.html
-Hlp_UI_MeshCtl  Hlp_UI_MeshCtl.html
-Hlp_UI_ModlQP  Hlp_UI_ModlQP.html
-Hlp_UI_NSEL_Attd  Hlp_UI_selectatt.html
-Hlp_UI_NSEL_Attr  Hlp_UI_SELbyatt.html
-Hlp_UI_NSEL_Ext  Hlp_UI_selectent.html
-Hlp_UI_NSEL_Loca  Hlp_UI_selectloc.html
-Hlp_UI_NSEL_Pick  Hlp_UI_selectent.html
-Hlp_UI_NSEL_Resu  Hlp_UI_selectent.html
-Hlp_UI_P1_Etable  Hlp_UI_P1_ETABLE.html
-Hlp_UI_P26_Var  Hlp_UI_P26.html
-Hlp_UI_PCHardCop  Hlp_UI_PC_HardCopy.html
-Hlp_UI_PIMAGE  Hlp_UI_PIMAGE.html
-Hlp_UI_PLNSOL  Hlp_UI_plnsol.html
-Hlp_UI_PanZoom  Hlp_UI_PanZoom.html
-Hlp_UI_QESOL  Hlp_UI_QUSOLU.html
-Hlp_UI_QNSOL  Hlp_UI_QUSOLU.html
-Hlp_UI_QSSOL  Hlp_UI_QUSOLU.html
-Hlp_UI_QUALITY  Hlp_G_BAS11_3.html#bstQwidbox3atwr
-Hlp_UI_QUERY  Hlp_UI_QUERY.html
-Hlp_UI_RIMAGE  Hlp_UI_RIMAGE.html
-Hlp_UI_RealCons  Hlp_UI_RealCons.html
-Hlp_UI_SOLU_ADVN  Hlp_UI_SOLUCNTRL.html
-Hlp_UI_SOLU_BASI  Hlp_UI_SOLUCNTRL.html
-Hlp_UI_SOLU_NONL  Hlp_UI_SOLUCNTRL.html
-Hlp_UI_SOLU_SOLN  Hlp_UI_SOLUCNTRL.html
-Hlp_UI_SOLU_TRAN  Hlp_UI_SOLUCNTRL.html
-Hlp_UI_SOL_CNVT  Hlp_UI_SOL_CNVT.html
-Hlp_UI_Scal_Parm  Hlp_UI_Scal_Parm.html
-Hlp_UI_Toolbar  Hlp_UI_Toolbar.html
-Hlp_UI_Tutorials  tutpreface.html
-Hlp_UI_VSEL_Attd  Hlp_UI_selectatt.html
-Hlp_UI_VSEL_Attr  Hlp_UI_SELbyatt.html
-Hlp_UI_VSEL_Loca  Hlp_UI_selectloc.html
-Hlp_UI_VSEL_Pick  Hlp_UI_selectent.html
-Hlp_UI_WIMAGE  Hlp_UI_WIMAGE.html
-Hlp_UI_WP_Offset  Hlp_UI_WP_Offset.html
-Hlp_UI_WP_Set  Hlp_UI_WP_Set.html
-Hlp_UI_Web_Site  Hlp_UI_HomePage.html
-Hlp_UI_Whats_New  Hlp_R_RelNotes.html
-Hlp_UI_advopt  Hlp_UI_advopt.html
-Hlp_UI_anopts0  Hlp_UI_anopts0.html
-Hlp_UI_anopts2  Hlp_UI_anopts2.html
-Hlp_UI_anopts3  Hlp_UI_anopts3.html
-Hlp_UI_anopts3a2  Hlp_UI_anopts3a2.html
-Hlp_UI_anopts4  Hlp_UI_anopts4.html
-Hlp_UI_anopts4a1  Hlp_UI_anopts4a1.html
-Hlp_UI_anopts4a2  Hlp_UI_anopts4a2.html
-Hlp_UI_anopts7  Hlp_UI_anopts7.html
-Hlp_UI_anopts8  Hlp_UI_anopts8.html
-Hlp_UI_arcopts  Hlp_UI_arcopts.html
-Hlp_UI_autofit  Hlp_UI_autofit.html
-Hlp_UI_boolopts  Hlp_UI_boolopts.html
-Hlp_UI_cfdprops  Hlp_UI_cfdprops.html
-Hlp_UI_cirr  Hlp_UI_cirr.html
-Hlp_UI_contstyle  Hlp_UI_contstyle.html
-Hlp_UI_coriolis  Hlp_UI_coriolis.html
-Hlp_UI_coval  Hlp_UI_coval.html
-Hlp_UI_damping  Hlp_UI_damping.html
-Hlp_UI_dataset  Hlp_UI_dataset.html
-Hlp_UI_ddam  Hlp_UI_ddam.html
-Hlp_UI_def_mat  Hlp_UI_def_mat.html
-Hlp_UI_def_mid  Hlp_UI_def_mid.html
-Hlp_UI_device  Hlp_UI_device.html
-Hlp_UI_dscale  Hlp_UI_dscale.html
-Hlp_UI_dump  Hlp_UI_dump.html
-Hlp_UI_edge  Hlp_UI_edge.html
-Hlp_UI_egsol  Hlp_UI_egsol.html
-Hlp_UI_eread  Hlp_UI_eread.html
-Hlp_UI_esol  Hlp_UI_esol.html
-Hlp_UI_etableadd  Hlp_UI_etableadd.html
-Hlp_UI_etadd  Hlp_UI_etadd.html
-Hlp_UI_etchgwid  Hlp_UI_etchgwid.html
-Hlp_UI_export  Hlp_UI_export.html
-Hlp_UI_expsolhrx  Hlp_UI_expsolhrx.html
-Hlp_UI_extopt  Hlp_UI_extopt.html
-Hlp_UI_fileopt  Hlp_UI_fileopt.html
-Hlp_UI_fileset  Hlp_UI_fileset.html
-Hlp_UI_fscale  Hlp_UI_fscale.html
-Hlp_UI_funcbld  Hlp_G_BASFUNCTOOL.html
-Hlp_UI_funcld  Hlp_G_BASFUNCLOAD.html
-Hlp_UI_grphset  Hlp_UI_grphset.html
-Hlp_UI_harfrqetc  Hlp_UI_harfrqetc.html
-Hlp_UI_hidden  Hlp_UI_hidden.html
-Hlp_UI_import2  Hlp_UI_import2.html
-Hlp_UI_lccreate  Hlp_UI_lccreate.html
-Hlp_UI_listset  Hlp_UI_listset.html
-Hlp_UI_maclib  Hlp_UI_maclib.html
-Hlp_UI_mattpgen  Hlp_UI_mattpgen.html
-Hlp_UI_mems  Hlp_UI_mems.html
-Hlp_UI_meshatt  Hlp_UI_meshatt.html
-Hlp_UI_modaxes  Hlp_UI_modaxes.html
-Hlp_UI_modcomsp  Hlp_UI_modcomsp.html
-Hlp_UI_modcurv  Hlp_UI_modcurv.html
-Hlp_UI_modgrid  Hlp_UI_modgrid.html
-Hlp_UI_mpanel  Hlp_UI_mpanel.html
-Hlp_UI_mpdelete  Hlp_UI_mpdelete.html
-Hlp_UI_mpdyn  Hlp_UI_mpdyn.html
-Hlp_UI_mpliblist  Hlp_UI_mpliblist.html
-Hlp_UI_mplibread  Hlp_UI_mplibread.html
-Hlp_UI_mplin  Hlp_UI_mplin.html
-Hlp_UI_msgctrls  Hlp_UI_msgctrls.html
-Hlp_UI_mshropts  Hlp_UI_mshropts.html
-Hlp_UI_multiplot  Hlp_UI_multiplot.html
-Hlp_UI_multspec  Hlp_UI_multspec.html
-Hlp_UI_nread  Hlp_UI_nread.html
-Hlp_UI_number  Hlp_UI_number.html
-Hlp_UI_numexphrx  Hlp_UI_numexphrx.html
-Hlp_UI_opanl  Hlp_UI_opanl.html
-Hlp_UI_opdel  Hlp_UI_opdel.html
-Hlp_UI_opsubp  Hlp_UI_opsubp.html
-Hlp_UI_optcntrls  Hlp_UI_optcntrls.html
-Hlp_UI_optnoprm  Hlp_UI_optnoprm.html
-Hlp_UI_optplvar  Hlp_UI_optplvar.html
-Hlp_UI_orient  Hlp_UI_orient.html
-Hlp_UI_outopts  Hlp_UI_outopts.html
-Hlp_UI_outstat  Hlp_UI_outstat.html
-Hlp_UI_plesol  Hlp_UI_plesol.html
-Hlp_UI_plvect  Hlp_UI_plvect.html
-Hlp_UI_presol  Hlp_UI_presol.html
-Hlp_UI_prnsol  Hlp_UI_prnsol.html
-Hlp_UI_prntctrl  Hlp_UI_prntctrl.html
-Hlp_UI_props  Hlp_UI_props.html
-Hlp_UI_pscr  Hlp_UI_pscr.html
-Hlp_UI_psdvalmul  Hlp_UI_psdvalmul.html
-Hlp_UI_qdval  Hlp_UI_qdval.html
-Hlp_UI_radopts  Hlp_UI_radopts.html
-Hlp_UI_rcon  Hlp_UI_rcon.html
-Hlp_UI_readopts  Hlp_UI_readopts.html
-Hlp_UI_refercond  Hlp_UI_refercond.html
-Hlp_UI_rotcoord  Hlp_UI_rotcoord.html
-Hlp_UI_setlstep  Hlp_UI_setlstep.html
-Hlp_UI_setupaux  Hlp_UI_setupaux.html
-Hlp_UI_sfarad  Hlp_UI_sfarad.html
-Hlp_UI_sferad  Hlp_UI_sferad.html
-Hlp_UI_sflrad  Hlp_UI_sflrad.html
-Hlp_UI_size  Hlp_UI_size.html
-Hlp_UI_slexit  Hlp_UI_slexit.html
-Hlp_UI_slshow  Hlp_UI_slshow.html
-Hlp_UI_spec  Hlp_UI_spec.html
-Hlp_UI_specgen  Hlp_UI_specgen.html
-Hlp_UI_steadctrl  Hlp_UI_steadctrl.html
-Hlp_UI_stgetelem  Hlp_UI_stgetelem.html
-Hlp_UI_stpctrl  Hlp_UI_stpctrl.html
-Hlp_UI_stvread  Hlp_UI_stvread.html
-Hlp_UI_stvset  Hlp_UI_stvset.html
-Hlp_UI_stvwrite  Hlp_UI_stvwrite.html
-Hlp_UI_svtypeetc  Hlp_UI_svtypeetc.html
-Hlp_UI_symbols  Hlp_UI_symbols.html
-Hlp_UI_tallow  Hlp_UI_tallow.html
-Hlp_UI_tapersect  Hlp_UI_tapersect.html
-Hlp_UI_timesub  Hlp_UI_timesub.html
-Hlp_UI_timetime  Hlp_UI_timetime.html
-Hlp_UI_timtint  Hlp_UI_timtint.html
-Hlp_UI_topobas  Hlp_UI_topobas.html
-Hlp_UI_topofunc  Hlp_UI_topofunc.html
-Hlp_UI_toporun  Hlp_UI_toporun.html
-Hlp_UI_transset  Hlp_UI_transset.html
-Hlp_UI_uimp  Hlp_UI_uimp.html
-Hlp_UI_usrbeam  Hlp_UI_usrbeam.html
-Hlp_UI_uvsol0  Hlp_UI_uvsol0.html
-Hlp_UI_varadd2  Hlp_UI_p26varadd2.html
-Hlp_UI_viewopts  Hlp_UI_viewopts.html
-Hlp_UI_windopts  Hlp_UI_windopts.html
-Hlp_UI_writeaux  Hlp_UI_writeaux.html
+User Interface
 
 #####
-linear material?
+LS-Dyna material
 
-Hlp_lanel  Hlp_L_matl3.html#lanel
-Hlp_lbiso  Hlp_L_matl3.html#lbiso
-Hlp_lbist  Hlp_L_matl3.html#lbist
-Hlp_lbkin  Hlp_L_matl3.html#lbkin
-Hlp_lblk  Hlp_L_matl3.html#lblk
-Hlp_lcab  Hlp_L_matl3.html#lcab
-Hlp_lcom  Hlp_L_matl3.html#lcom
-Hlp_lcon  Hlp_L_matl3.html#lcon
-Hlp_ldi0  Hlp_L_matl3.html#ldi0
-Hlp_ldi1  Hlp_L_matl3.html#ldi1
-Hlp_ldi2  Hlp_L_matl3.html#ldi2
-Hlp_ldi3  Hlp_L_matl3.html#ldi3
-Hlp_ldi4  Hlp_L_matl3.html#ldi4
-Hlp_ldi5  Hlp_L_matl3.html#ldi5
-Hlp_ldi6  Hlp_L_matl3.html#ldi6
-Hlp_ldi7  Hlp_L_matl3.html#ldi7
-Hlp_lelf  Hlp_L_matl3.html#lelf
-Hlp_leo1  Hlp_L_matl3.html#leo1
-Hlp_leo2  Hlp_L_matl3.html#leo2
-Hlp_leo3  Hlp_L_matl3.html#leo3
-Hlp_leo4  Hlp_L_matl3.html#leo4
-Hlp_leo5  Hlp_L_matl3.html#leo5
-Hlp_levi  Hlp_L_matl3.html#levi
-Hlp_lfo1  Hlp_L_matl3.html#lfo1
-Hlp_lfo2  Hlp_L_matl3.html#lfo2
-Hlp_lfo3  Hlp_L_matl3.html#lfo3
-Hlp_lfo4  Hlp_L_matl3.html#lfo4
-Hlp_lgca  Hlp_L_matl3.html#lgca
-Hlp_lhon  Hlp_L_matl3.html#lhon
-Hlp_lise  Hlp_L_matl3.html#lise
-Hlp_lmoon  Hlp_L_matl3.html#lmoon
-Hlp_lore  Hlp_L_matl3.html#lore
-Hlp_lpl1  Hlp_L_matl3.html#lpl1
-Hlp_lpl10  Hlp_L_matl3.html#lpl10
-Hlp_lpl11  Hlp_L_matl3.html#lpl11
-Hlp_lpl12  Hlp_L_matl3.html#lpl12
-Hlp_lpl2  Hlp_L_matl3.html#lpl2
-Hlp_lpl3  Hlp_L_matl3.html#lpl3
-Hlp_lpl4  Hlp_L_matl3.html#lpl4
 Hlp_lpl5  Hlp_L_matl3.html#lpl5
 Hlp_lpl6  Hlp_L_matl3.html#lpl6
 Hlp_lpl7  Hlp_L_matl3.html#lpl7
@@ -883,24 +587,35 @@ Hlp_lcom Hlp_smas, Hlp_yeoh MPC184 p26calc, p26export,p26plot"
 	(backward-word)
 	(search-forward-regexp "[[:word:]]+")
 	(setq command (match-string 0))
-	(assoc-string command ansys-help-index t))
+	(assoc-string command ansys-help-index t)))
     (message command)
     (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (unless  file
       (error "Command %s not found in keyword list" command))
     (message "Help file: %s" file)
-    (if (string-match "_C_" file)
-	(setq prefix "ans_cmd/")
-	(setq prefix "ans_elem/"))
+    (cond ((string-match "_C_" file)
+	   (setq prefix "ans_cmd/"))
+	  ((string-match "_E_" file)
+	   (setq prefix "ans_elem/"))
+	  ((string-match "_UI_" file)
+	   (setq prefix "ans_wid/"))
+	  ((string-match "_R_" file)
+	   (setq prefix "ai_rn/"))
+	  ((string-match "G_BAS" file)
+	   (setq prefix "ans_bas/"))
+	  ((string-match "G_ADV" file)
+	   (setq prefix "ans_adv/"))
+	  )
     (cond
      ((ansys-is-unix-system-p)
-      (setq path (concat ansys-install-directory
+      (setq path (concat "file://" ansys-install-directory
 			 "ansys_inc/v" ansys-current-ansys-version
 			 "/commonfiles/help/en-us/help/"))
       (start-process "help_browser" nil "chromium-browser" (concat path prefix file)))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
-	  (setq path (concat( ansys-install-directory
+	  (setq path (concat( "file://"
+			      ansys-install-directory
 			      "Ansys Inc\\v" ansys-current-ansys-version
 			      "\\commonfiles\\help\\en-us\\help\\")))
 	;; wrapper of ShellExecute MS-Windows API
@@ -1024,9 +739,9 @@ for displaying the license status."
     (if (fboundp 'w32-shell-execute)
 	(let ((version (if (boundp 'ansys-current-ansys-version)
 			   ansys-current-ansys-version
-			 "140")))
+			 "145")))
 	    (cond ((> (string-to-number version) 130)
-	       (w32-shell-execute nil ansys-lmutil-program "-client140"))
+	       (w32-shell-execute nil ansys-lmutil-program "-client145"))
 	      ((< (string-to-number version) 120)
 	       (w32-shell-execute nil ansys-lmutil-program))
 	      (t

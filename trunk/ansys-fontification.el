@@ -54,13 +54,13 @@
 ;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
-;;; necessary variables:
+;;; necessary variables, to be maintained:
 ;; 1.) `Ansys_undocumented_commands' release notes
 ;; 2.) `Ansys_written_out_commands'
 ;; 3.) `Ansys_deprecated_elements_alist' release notes
 ;; 4.) `Ansys_commands_without_arguments'
 
-(setq Ansys-version "14.0")
+(setq Ansys-version "14.5")
 
 ;; 
 (defconst Ansys_undocumented_commands	;or macros?
@@ -683,6 +683,28 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (with-temp-buffer
     (setq list ())			;initialise list
     (insert-file-contents "ansys_Index.hlp")
+    ;; clean up redundant keywords
+    (delete-matching-lines "^Hlp_C_")
+    (goto-char (point-min))
+    (delete-matching-lines "^Hlp_E_")
+    (goto-char (point-min))
+    ;; shorten keywords
+    (while (re-search-forward "^Hlp_UI" nil t)
+      (replace-match "UI" nil nil))
+    (goto-char (point-min))
+    (while (re-search-forward "^Hlp_G" nil t)
+      (replace-match "G" nil nil))
+    (goto-char (point-min))
+    (while (re-search-forward "^Hlp_R" nil t) ;releas notes
+      (replace-match "R" nil nil))
+    (goto-char (point-min))
+    (while (re-search-forward "^Hlp_AM" nil t) ;ANSYS materials
+      (replace-match "AM" nil nil))
+    (goto-char (point-min))
+    (while (re-search-forward "^Hlp_G" nil t) ;Basics?
+      (replace-match "G" nil nil))
+    (goto-char (point-min))
+
     ;; skip the first line
     (next-line)
     ;; (dotimes (i 10) (re-search-forward

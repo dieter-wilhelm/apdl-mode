@@ -31,21 +31,24 @@
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
-** TODO Tasks [32%]
+** TODO Tasks [35%]
    - [ ] update ansys_parametric_functions.txt there is a new function
      since V14
-   - [ ] call the ANSYS help browser with APDL command? No! Call a
-     browser with the proper commands:
+   - [20%] documentation
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
        file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/
+     - [X] Release notes APDL overview
+     - [ ] clean up index, then command and element name search
+     - [ ] Chapters of APDL Documentation
+     - [ ] Nonlinear material overview
+     - [ ] Complete ANSYS release notes?
    - [ ] *vscfun: mean, stdev, ...
    - [ ] TODOS: in fontification.org
      deletion of vectors *del,Vector without request? ,,nopr?
    - [ ] check character variables 32 Chars. and highlight accordingly
      string 128
      char 8
-   - [ ] wget download not possible any longer?
    - [ ] -mode_tutorial.org
      - add new function: C-C C-b but don't release until 14.5
      - in variable.png symbols Ns and Ls are not highlighted as
@@ -59,15 +62,13 @@
      of nodes between two existing nodes.
    - [ ] force harmonic table (*vfill) example in -skeleton-bc, make a
      ansys...-template out of two-mass-harmonics.mac
-   - [ ] better write protected skeleton preview?
+   - [ ] write protect skeleton preview?
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
      lcurv, etc. (ANF functions)
-   - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
-   - [ ] document fontification.mac
-     - Introduction TUTORIAL
-     - Indepth TUTORIAL
-     - APDL and highlighting REFERENCE -> fontification.mac
-     or make an apdl reference?
+   - [33%] document fontification.mac
+     - [X] Introduction TUTORIAL
+     - [ ] Indepth TUTORIAL
+     - [ ] APDL and highlighting REFERENCE -> fontification.mac
    - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
@@ -77,8 +78,10 @@
      - activate -license-file function :TODO:
    - [ ] document Lagrange contact behaviour for contact/press-fit
      skeleton
+   - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] wget download not possible any longer?
    - [X] check whether v14.0.1 has autoinsertion activated
    - [X] I=3 $ /com, %I+1%, /com,%I+1% is not possible
    - [X] (setq line-number-display-limit-width 2000)?: no <- Emacs default
@@ -124,7 +127,7 @@
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in V 14.0
+    are still working in V 14.5
   - TODOs, FIXMEs in the code
   - checkdoc, -template.el, -process.el, -mode.el done except
     \\<keymap> & \\[function]
@@ -134,9 +137,9 @@
     list in ansys-submit-bug-report, update version numbers, default
     specifiers
 
-    (tags-query-replace "140" "145")
+    (tags-query-replace "145" "150")
     (tags-query-replace "24.1" "24.?")
-    (tags-query-replace "14.0" "14.5")
+    (tags-query-replace "14.5" "15.0")
     (tags-query-replace "- 2012" "- 2013")
 
     checkdoc then dry run: Emacs
@@ -179,25 +182,24 @@
     info@padtinc.com,
 
 
-Subject:  Release 14.0.1 of ANSYS-Mode: Editor support for working with APDL files & processes
+Subject:  Release 14.5.1 of ANSYS-Mode: Editor support for working with APDL files & processes
 
 Hi,
 
-a new release of ANSYS-Mode for ANSYS 14.0.
+a new release of ANSYS-Mode for ANSYS 14.5.
 
 Are you also tired of the ANSYS help browser?  E. g. try searching for
 the `F' APDL command, it is not possible!  You have to pick it up from
-the alphabetical command list. But also in the general case finding
-the APDL documentation is just too cumbersome and slow.
+the alphabetical command list. Likewise when you are searching for an
+incomplete keyword, no hint, nothing!  Finding and browsing the
+relevant APDL documentation is still too slow and cumbersome.
 
-As a special highlight of this release you can now read immeadiately
-the detailed ANSYS help in your web-browser for all APDL command and
+Now as a highlight of this release you can now read immeadiately the
+detailed ANSYS help in your web-browser for *all* APDL command and
 element names near the cursor.  Optionally you can input your search
 string interactively including its completion to valid ANSYS help
-keywords.
-
-This is an ideal complement to ANSYS-Mode's in-built `command syntax'
-help.
+keywords. This is an ideal complement to ANSYS-Mode's in-built
+`command syntax' help.
 
 You can download the mode, as always, from:
 

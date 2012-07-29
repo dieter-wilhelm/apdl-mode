@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 14.0.1
+;; Version: 14.5.1
 ;; Keywords: Languages, Convenience
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -59,7 +59,7 @@
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys_version "140"		;NEW_C
+(defconst ansys_version "145"		;NEW_C
   "ANSYS version on which ANSYS-Mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C
@@ -1521,7 +1521,7 @@ to to include above skeleton (optionally) for every APDL file.
 
 If you haven't installed ANSYS in the default locations and the
 executables are not in your system search path or you are using a
-different ANSYS version than '140' it is necessary for the last
+different ANSYS version than '145' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `ansys-customise-ansys' or from the
 menu bar -> 'ANSYS' -> 'Customise ANSYS Mode' -> 'ANSYS-process'

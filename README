@@ -23,18 +23,18 @@ experience.
 up-to-date, extensible, powerful, yet free editor which is available
 for any operating system where ANSYS is running.
 
-The current stable version (14.0.1) of ANSYS-Mode is available at the
+The current stable version (14.5.1) of ANSYS-Mode is available at the
 [http://code.google.com/p/ansys-mode Google Code site] (hint: paste
 e. g. "wget
-http://ansys-mode.googlecode.com/files/ansys-mode-14.0.1.tgz"
+http://ansys-mode.googlecode.com/files/ansys-mode-14.5.1.tgz"
 to get the sources).  Besides the code and Emacs you will find also in
 the download section two PDF tutorials.  For an immediate access have
 a look at the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html introductory online version],
 here you are able to see the images in a higher resolution as in the
 PDF version.   And in the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html  in-depth online tutorial] there is the source code highlighting preserved
-in contrast to its PDF version.
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html  in-depth online tutorial] there is the source code highlighting better
+preserved as in its PDF version.
 
 Please report bugs and inconsistencies also in the documention! Write
 an email to the [mailto:dieter@duenenhof-wilhelm maintainer] or use
@@ -43,7 +43,7 @@ Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 == Requirements ==
 
 The code (completions, help strings etc.) is based on ANSYS version
-14.0 and written for GNU Emacs and is not consciously targeted for
+14.5 and written for GNU Emacs and is not consciously targeted for
 XEmacs.  It is tested with Emacs-24.1 under XP32, XP64 and under
 `GNU/Linux' (here also with Emacs-23.2).
 
@@ -162,16 +162,16 @@ a certain code template, respectively.
 * Applied sensible defaults to ansys-lmutil-program, ansys-program and
   ansys-help-program, for most needs it should now be enough just to
   set the used ansys version (ansys-current-ansys-version, if it is
-  not 140, see the example config file default_el) and maybe
+  not 145, see the example config file default_el) and maybe
   additionally the installation directory (ansys-install-directory).
 
 Please have a look in the NEWS file for the complete history
 
 == Installation ==
 
-The version scheme is a mixture of the ANSYS release (currently 14.0)
+The version scheme is a mixture of the ANSYS release (currently 14.5)
 on which the highlighting and completing code is based and the version
-increments (currently .1) of ANSYS-Mode (thus 14.0.1) for this
+increments (currently .1) of ANSYS-Mode (thus 14.5.1) for this
 particular ANSYS release.
 
 === Files ===

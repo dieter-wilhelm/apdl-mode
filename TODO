@@ -34,15 +34,19 @@
 ** TODO Tasks [35%]
    - [ ] update ansys_parametric_functions.txt there is a new function
      since V14
-   - [20%] documentation
+   - [77%] documentation
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
        file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/
-     - [X] Release notes APDL overview
      - [ ] clean up index, then command and element name search
-     - [ ] Chapters of APDL Documentation
-     - [ ] Nonlinear material overview
-     - [ ] Complete ANSYS release notes?
+     - [ ] Chapters of mechanical APDL documentation:
+     - [X] Release notes APDL overview
+     - [X] APDL guide: ans_apdl/Hlp_P_APDLTOC.html
+     - [X] Structural mechanics: /help/ans_str/Hlp_G_StrTOC.html
+     - [X] Advanced techniques: help/ans_adv/Hlp_G_AdvTOC.html
+     - [X] Nonlinear material overview: help/ans_mat/ans_mat.html
+     - [X] Contact technology: help/ans_ctec/ctectoc.html
+     - [X] Complete ANSYS release notes: help/ai_rn/ansysincreleasenotes.html
    - [ ] *vscfun: mean, stdev, ...
    - [ ] TODOS: in fontification.org
      deletion of vectors *del,Vector without request? ,,nopr?
@@ -178,7 +182,7 @@
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
 
-    the "competitor"
+    better not the "competitor"
     info@padtinc.com,
 
 
@@ -191,11 +195,11 @@ a new release of ANSYS-Mode for ANSYS 14.5.
 Are you also tired of the ANSYS help browser?  E. g. try searching for
 the `F' APDL command, it is not possible!  You have to pick it up from
 the alphabetical command list. Likewise when you are searching for an
-incomplete keyword, no hint, nothing!  Finding and browsing the
-relevant APDL documentation is still too slow and cumbersome.
+incomplete keyword, no hint, nothing!  Finding and browsing relevant
+APDL documentation is still too slow and cumbersome.
 
-Now as a highlight of this release you can now read immeadiately the
-detailed ANSYS help in your web-browser for *all* APDL command and
+As a highlight of this release you can now read immeadiately the
+detailed ANSYS help in your web-browser for *all* APDL command AND
 element names near the cursor.  Optionally you can input your search
 string interactively including its completion to valid ANSYS help
 keywords. This is an ideal complement to ANSYS-Mode's in-built

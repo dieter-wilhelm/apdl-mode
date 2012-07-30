@@ -56,10 +56,10 @@ only implemented for UNIX systems.
   then the ANSYS dynamic prompt), undocumented commands are hinted as
   such.
 
-* Showing the ANSYS help in your web-browser for an APDL command or
-  element name (element number is enough) near the cursor.  It is also
-  possible to input the search string interactively with completion of
-  valid ANSYS names.
+* Opening the detailed ANSYS help in your web-browser for an APDL
+  command or element name (the element number is sufficient) at or
+  before the cursor.  Optionally you can input the desired string
+  interactively with a completion of all valid keywords.
 
 * ANSYS process management (viewing error files, license status,
   starting the ANSYS help browser, etc.).
@@ -72,8 +72,8 @@ only implemented for UNIX systems.
   parametric-functions (case-sensitive) of around 2000 ANSYS symbols.
 
 * Comprehensive keyboard shortcuts for code navigation: Skipping
-  comments, navigating number blocks, searching *DO-, *IF-, *DOWHILE-,
-  *CREATE-blocks, etc.
+  comments, navigating number blocks, searching and creating *DO-,
+  *IF-, *DOWHILE-, *CREATE-blocks, etc.
 
 * Syntax highlighting in various decoration levels (complete ANSYS
   keywords, undocumented commands, deprecated elements, ...)  and
@@ -91,8 +91,8 @@ only implemented for UNIX systems.
   are easily extensible to boot.  The templates are partly interactive
   i. e. they are asking for or completing user input.
 
-* Alignment (beautification) of whole sections with variable
-  defintions.
+* Alignment (beautification) of whole paragraphs or marked sections
+  with variable defintions.
 
 * Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode. With outline strings '!@' you have a heading
@@ -136,34 +136,6 @@ a certain code template, respectively.
 
 == News ==
 
-* Enhanced the documentation, included is now an introductory tutorial
-  `ansys-mode_tutorial.pdf' and a hands-on tutorial
-  `APDL_tutorial.pdf'
-
-* Added a timer for getting rid of the parameter help overlays after
-  some time interval (1 min) without reusing the parameter help
-
-* Added a (customisable) variable `ansys-no-of-processors' and
-  function with the same name for specifying the number of processors
-  for an ANSYS multiprocessor run
-
-* Extended mode commands, templates and removed typos mainly in
-  ansys-template.el. For example added all *get functions in the
-  ansys-skeleton-function template
-
-* Switched on outline-minor-mode and auto-insertion (in default_el)
-
-* Added a custom variable the corresponding function
-  ansys-ansysli-servers for specifying the ansys interconnect license
-  servers
-
-* Added a new shortcut and menu entry isometric view
-
-* Applied sensible defaults to ansys-lmutil-program, ansys-program and
-  ansys-help-program, for most needs it should now be enough just to
-  set the used ansys version (ansys-current-ansys-version, if it is
-  not 145, see the example config file default_el) and maybe
-  additionally the installation directory (ansys-install-directory).
 
 Please have a look in the NEWS file for the complete history
 

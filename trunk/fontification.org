@@ -1,5 +1,5 @@
 # -*- mode: org -*-
-#+TITLE:  Tutorial
+#+TITLE:  ANSYS-Mode Highlighting and APDL Reference
 ######################################################################
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -7,7 +7,7 @@
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
-#+OPTIONS:   email:t H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS:   email:t H:5 num:t toc:2 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
@@ -31,10 +31,7 @@
 ##+TEXT: This is still a work in progress, good documentation is hard work!
 ##+TEXT: Please report remaining faults.
 
-* ANSYS-Mode Syntax Highlighting Tutorial
-** TODO Merge fontification.org with APDL_tutorial.org
-
-
+* ANSYS-Mode Syntax Highlighting Reference
 #+BEGIN_LaTeX
   \definecolor{dkgreen}{rgb}{0,0.5,0}
   \definecolor{dkred}{rgb}{0.5,0,0}
@@ -70,20 +67,18 @@
    *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
    /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
 }
-
 #+END_LaTeX  
    
 ** Header
 #+begin_src ansys
-  !! ------------------------------
-  !@ --- header ---
-  !! ------------------------------
-  !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
-  !! NOTE: This is pseudo code, checking
-  !!  ANSYS-Mode's highlighting and its
-  !!  ansys-highlighting-level.  Please put the
-  !!  the cursor below the next paragraph and type
-  !!  C-x C-e to activate the settings
+    !! ------------------------------
+    !@ --- header ---
+    !! ------------------------------
+    !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
+    !! NOTE: This is APDL pseudo code, checking
+    !!  ANSYS-Mode's highlighting capabilities and
+    !!  certain aspects of the language
+    !!  Please see further below.
 #+end_src
 
 #+begin_src ansys
@@ -119,11 +114,12 @@
   /image,save,test !save XWindow Dump xwd (or bmp on Windows)
   /image,capture 		!TODO: what is this: file0001.xwd?
   /sys,convert test test.png
-  /upwind                  !TODO: 2d-graphics library?
+  /upwind                  !TODO: 2d-graphics library? dated?
   *fft                     !TODO: :-)
 #+end_src
 
 #+begin_src ansys
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !!  Please put the the cursor below the next paragraph of emacs lisp
   !!  code and type "C-x C-e" to change the setting of
   !!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
@@ -131,6 +127,7 @@
   !!  `nil'.  Browse the file to check the differences.
 #+end_src
 
+# this is for the export
 #+begin_src lisp
   (progn
     (when
@@ -143,12 +140,26 @@
     (ansys-mode))
 #+end_src
 
+# and this is for the APDL file
+#+begin_src ansys :exports none
+! this is the lisp code
+  (progn
+    (when
+        (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (setq
+     ansys-highlighting-level 2
+     ansys-dynamic-highlighting-flag t)
+    (load-file "ansys-mode.el")
+    (ansys-mode))
+#+end_src
 
+:TODO
 !! ------------------------------
 /units,mpa !indicate mm-t-s unit system
 c
 #+begin_src ansys
-!@@ -- Ignored characters and condensed input line ($ operator)
+  !@@ -- Ignored characters and condensed input line ($ operator)
   finishThisNightmare $ /cle !/clear
   f $ fi $ fin $ fini $ finis  $ finish $ finisher
 #+end_src
@@ -300,14 +311,18 @@ and you are getting a diffent element highlighting.
   VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
 #+end_src
 
-* Introduction to the APDL
-  - No function definitions <- write `command' files (.mac), or *use
-  - no direct array to file export <- write command file for *vwrite,
-    or use a (lookup) table for this purpose
-  - still (v14) no round function there
+* APDL Reference
+** Idosyncracies
+  - No function definitions <- write `command' files (suffix: .mac),
+    or call a macro (arbitrary suffix) with `*use'
+  - No direct array to file export in GUI mode <- write command file
+    for *vwrite, or use a (lookup) table for this purpose
+  - Still (v14) no round function in sight
+  - One cannot easily get the variable value, either one must assign
+    the variable to another one, or use the `*stat' command
 #+begin_src ansys :exports none
   c***,**************************************************
-  !@ --- Introduction to the APDL ---
+  !@ --- APDL Reference ---
   c******************************************************
   !! the comma behind `c***' is not necessary, one example of the many
   !! APDL peculiarities, which are not documented!
@@ -321,6 +336,11 @@ up to 5000
 All numeric values are stored as double precision values.  Not defined
 variables are assigned a tiny value near zero.  The interpreter is not case sensitve
 **** Must begin with a letter or an underscore
+#+begin_src ansys :exports none
+  !@ --- Defining parameters ---
+  !@@ -- Variable names --
+  !! Must begin with a letter or an underscore
+#+end_src
 #+begin_src ansys
   1ansys = 3                    !is not a valid variable name
   a1nsys = 3                    !a1nsys is a valid variable name
@@ -332,7 +352,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   BEGIN:
    1ansys = 3                    !is not a valid variable name
   PARAMETER 1ANSYS =     3.000000000    
-  ,*** ERROR ***                           CP =       0.259   TIME= 18:06:41
+  *** ERROR ***                           CP =       0.259   TIME= 18:06:41
   Invalid character in parameter name.                                    
    The setting of parameter= 1ANSYS is ignored.                           
   BEGIN:
@@ -343,7 +363,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   PARAMETER A1NSYS =     4.000000000    
   BEGIN:
    A1NSys = Temp                 !`Temp' is not defined
-  ,*** WARNING ***                         CP =       0.260   TIME= 18:06:56
+  *** WARNING ***                         CP =       0.260   TIME= 18:06:56
   Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
   PARAMETER A1NSYS =    0.7888609052E-30
   BEGIN:
@@ -351,6 +371,11 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 **** Should not begin with an underscore
     This convention is used in nameing variables in ANSYS supplied
     macros and the GUI.
+
+#+begin_src ansys :exports none
+   !! Should not begin with an underscore
+#+end_src
+    
 #+begin_src ansys
   _ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
   _ = 3        ! a single underscore definition is valid
@@ -360,6 +385,10 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 **** Variable names with a trailing underscore
     These are hidden from the `*status' command output and can be
     deleted as a group with `*del'.
+#+begin_src ansys :exports none
+  !! Variable names with a trailing underscore
+#+end_src
+
 #+begin_src ansys
   ansys_ = 3              !this is a `hidden' variable from *status
   *status                 !does not show `ansys_'
@@ -394,6 +423,9 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
      BEGIN:
 #+end_src
 **** Must contain only letters, numbers and underscores
+#+begin_src ansys :exports none
+  !! Must contain only letters, numbers and underscores
+#+end_src
 #+begin_src ansys
   !! only letters, numbers and underscores are allowed
   a1n§sys = 3              !this is not a valid variable name
@@ -412,6 +444,9 @@ the ANSYS interpreter output looks like this:
   BEGIN:
 #+end_src
 **** Must contain no more than 32 characters    
+#+begin_src ansys :exports none
+  !! Must contain no more than 32 characters    
+#+end_src
 #+begin_src ansys
   !! The following is not a valid variable name
   v23456789_123456789_123456789_123 = 3
@@ -419,6 +454,9 @@ the ANSYS interpreter output looks like this:
   v23456789_123456789_123456789_12  = 3
 #+end_src
 **** Local Variables
+#+begin_src ansys :exports none
+  !! Local Variables
+#+end_src
 #+begin_src ansys
   Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
   AR18 = AR19
@@ -427,12 +465,19 @@ the ANSYS interpreter output looks like this:
 
 *** Character strings
     Must not contain more than 32 characters
+#+begin_src ansys :exports none
+  !@@ -- Character strings --
+  !! Must not contain more than 32 characters
+#+end_src
 #+begin_src ansys
   ! character string variables are enclosed with `''
   Yc = '012345678901234567901234567890123' !not a character variable any more
   Symetry = 'yes'
 #+end_src
 ** Erasing variables from memory
+#+begin_src ansys :exports none
+  !@@ -- Erasing variables from memory --
+#+end_src
 #+begin_src ansys
   !! defining
   Scalar = 3               !the `=' assignment is a shorthand for `*set'
@@ -448,10 +493,16 @@ the ANSYS interpreter output looks like this:
 #+end_src    
 
 ** Variable substitution with `%'
+#+begin_src ansys :exports none
+  !@@ -- Variable substitution with `%' --
+#+end_src
 *** Substitution of Numeric Variables
 In "string commands" like `/com', where a string follows the command
 name one can force the substitution of a parameter name to its value.
 Other examples are
+#+begin_src ansys :exports none
+  !! Substitution of Numeric Variables
+#+end_src
 #+begin_src ansys
   Steel = 1
   /com,Material %Steel% is steel
@@ -462,6 +513,9 @@ Other examples are
 #+end_src
 *** Substitution of Character Variables
 It is possible to substitute a command name
+#+begin_src ansys :exports none
+   !! Substitution of Character Variables
+#+end_src
 #+begin_src ansys
   R='RESUME'
   %R%,MODEL,DB
@@ -496,6 +550,10 @@ neither with ~c***~ nor with ~/sys~
    
 *** Dynamic Substitution of Numeric or Character Variables
  or forced substitution (deferred)
+#+begin_src ansys :exports none
+  !! Dynamic Substitution of Numeric or Character Variables
+#+end_src
+
 #+begin_src ansys
   Case = 'case 1'
   /title,This is  %Case%
@@ -513,8 +571,14 @@ neither with ~c***~ nor with ~/sys~
 
 ** Expressions
 *** Exponentiation Operator is `**'
+#+begin_src ansys :exports none
+   !! Exponentiation Operator is `**'
+#+end_src    
 *** Multiplication Expression
     Beware of the oldstyle ANSYS comment!
+#+begin_src ansys :exports none
+  !! Beware of the oldstyle ANSYS comment!
+#+end_src    
 #+begin_src  ansys
 var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
 var2 = sinh(cos(3*5))  ! this is valid code
@@ -522,16 +586,30 @@ fini * comment
 otto = 3 * 4 comment, the value of otto = 3!
 !!
 #+end_src
-*** < >
+*** Operators: `<' and  `>' :TODO
+#+begin_src ansys :exports none
+   !! Operators: `<' and  `>' :TODO
+#+end_src    
 #+begin_src ansys
-otto = 1.82
-karl = 1.97
-margret =  otto < karl
-maria = karl < otto
+  otto = 1.82
+  karl = 1.97
+  margret =  otto < karl
+  maria = karl < otto
+  *status,karl < otto
 #+end_src    
 ** Arrays
    4 types: array, char of 8 characters, table and string 128 chars
+#+begin_src ansys :exports none
+  !@@ -- Arrays --
+#+end_src   
 *** Specifiying array element values
+#+begin_src ansys :exports none
+   !! Specifiying array element values
+#+end_src
+*** APDL Math
+#+begin_src ansys :exports none
+   !! APDL Math
+#+end_src    
 APDL Math works in its own workspace independent of the APDL
 environment!
 #+begin_src ansys
@@ -545,9 +623,7 @@ environment!
   *fft,    ,Dat,OutDat,,,Part !what's the difference?
   *export,OutDat,apdl,APDLOutDat
 #+end_src    
-#+begin_src maxima
 
-#+end_src
 ** debugging
 #+begin_src ansys
   debug                    !TODO: undocumented?
@@ -564,6 +640,7 @@ environment!
   /xfrm                    !documented command   /xfrm
 #+end_src
 
+* And the rest
 #+begin_src ansys
   !@@ --! multiline message format command this is tricky: use M-o M-o
   *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
@@ -605,33 +682,33 @@ environment!
   !-----------------------------------------------------------------------
   /post1
   set,last
-  ,*get,nmd,active,,set,sbst
+  *get,nmd,active,,set,sbst
   pfct= $ ffrq= $ adir=
   nsel,s,l
   
-  ,*dim,pfct,,nmd,6
+  *dim,pfct,,nmd,6
       ,
       ,ffrq,,nmd
       ,adir,char,nmd
   
   
   adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
-  ,*stat,adir
-  ,*do,i,1,nmd
+  *stat,adir
+  *do,i,1,nmd
     *get,ffrq(i),mode,i,freq
     *do,j,1,6
       *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
     *enddo
-  ,*enddo
+  *enddo
   /annot,delete
   /plopt,info,0
   /plopt,minm,off
   /triad,off
   /erase
   iadd = arg1
-  ,*if,iadd,eq,0,then
+  *if,iadd,eq,0,then
     iadd = 1
-  ,*endif
+  *endif
   /tspe,15,1,1,0,0
   /TSPE, 15, 1.000,   1,   0,   0
   xx = 1.05
@@ -647,18 +724,18 @@ environment!
   /win,3,off
   /win,4,off
   
-  ,*get,vx,graph,1,view,x
-  ,*get,vy,graph,1,view,y
-  ,*get,vz,graph,1,view,z
-  ,*get,va,graph,1,angle
-  ,*get,vd,graph,1,dist
-  ,*do,i,2,4
+  *get,vx,graph,1,view,x
+  *get,vy,graph,1,view,y
+  *get,vz,graph,1,view,z
+  *get,va,graph,1,angle
+  *get,vd,graph,1,dist
+  *do,i,2,4
     /view,i,vx,vy,vz
     /dist,i,vd
     /angle,i,va
-  ,*enddo
+  *enddo
   
-  ,*do,i,1,4
+  *do,i,1,4
     ii = i - 1 + iadd 
     set,1,ii
     plnsol,u,sum
@@ -669,8 +746,8 @@ environment!
     *if,i,ne,4,then
       /win,i+1,on
     *endif
-  ,*enddo
-  ,*do,i,1,4
+  *enddo
+  *do,i,1,4
     ii = i - 1 + iadd
     /TLAB, xx, yy  ,Mode: %ii%
     yy = yy - .05
@@ -681,14 +758,14 @@ environment!
       yy = yy - .05
     *enddo
      yy = yy -.11
-  ,*enddo
+  *enddo
   /erase
   /annot,delete
   sz = .8
   xloc = 0
   yloc = 0
   
-  ,*dim,data,,5
+  *dim,data,,5
   data(1) = 12,15,28,10,32
   hsz = sz/2
   
@@ -700,11 +777,11 @@ environment!
   y0 = yloc + .7*hsz
   lof = .05
   
-  ,*vscfun,dsum,sum,data(1)
+  *vscfun,dsum,sum,data(1)
   /LSPE, 15, 0, 1.000
   /TSPEC, 15, 0.700, 1, 0, 0
   ang1 = 0
-  ,*do,i,1,5
+  *do,i,1,5
     ang2 = ang1 + (360*data(i)/dsum) 
     /PSPE, 2*i, 1, 1 
     /PWED, xloc,yloc,sz*.4, ang1,ang2 
@@ -714,8 +791,7 @@ environment!
   
     y0 = y0 - 1.5*lof 
     ang1 = ang2
-  ,*enddo
+  *enddo
   /eof
 #+end_src
 
-file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/Hlp_C_GET.html 

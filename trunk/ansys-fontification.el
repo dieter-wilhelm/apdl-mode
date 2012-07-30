@@ -684,25 +684,33 @@ By default Ansys keywords, get-functions, parametric-function and elements
     (setq list ())			;initialise list
     (insert-file-contents "ansys_Index.hlp")
     ;; clean up redundant keywords
-    (delete-matching-lines "^Hlp_C_")
+    (delete-matching-lines "^Hlp")
     (goto-char (point-min))
-    (delete-matching-lines "^Hlp_E_")
+    ;; (delete-matching-lines "^Hlp_E_")
+    ;; (goto-char (point-min))
+    ;; ;; shorten keywords
+    ;; (while (re-search-forward "^Hlp_UI" nil t)
+    ;;   (replace-match "UI" nil nil))
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward "^Hlp_G" nil t)
+    ;;   (replace-match "G" nil nil))
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward "^Hlp_R" nil t) ;releas notes
+    ;;   (replace-match "R" nil nil))
+    ;; (goto-char (point-min))
+
+    (while (re-search-forward "^SHELLS" nil t)
+      (replace-match "\"SHELLS\"" nil nil))
     (goto-char (point-min))
-    ;; shorten keywords
-    (while (re-search-forward "^Hlp_UI" nil t)
-      (replace-match "UI" nil nil))
+    (while (re-search-forward "^PLANE" nil t)
+      (replace-match "\"PLANES\"" nil nil))
     (goto-char (point-min))
-    (while (re-search-forward "^Hlp_G" nil t)
-      (replace-match "G" nil nil))
+    (while (re-search-forward "^SOLID" nil t)
+      (replace-match "\"SOLIDS\"" nil nil))
     (goto-char (point-min))
-    (while (re-search-forward "^Hlp_R" nil t) ;releas notes
-      (replace-match "R" nil nil))
-    (goto-char (point-min))
-    (while (re-search-forward "^Hlp_AM" nil t) ;ANSYS materials
-      (replace-match "AM" nil nil))
-    (goto-char (point-min))
-    (while (re-search-forward "^Hlp_G" nil t) ;Basics?
-      (replace-match "G" nil nil))
+    ;; Replace suffix ALL with "ALL"
+    (while (re-search-forward "^ALL" nil t)
+      (replace-match "\"all\"" nil nil))
     (goto-char (point-min))
 
     ;; skip the first line
@@ -711,11 +719,17 @@ By default Ansys keywords, get-functions, parametric-function and elements
     (while (re-search-forward 
        "^\\([^[:space:]]+\\)[[:space:]]+\\([^[:space:]]+\\)$" nil t)
       (add-to-list 'list (list (match-string 1) (match-string 2)) 'append)))
+  (add-to-list 'list (list "\"RELEASE NOTES\"" "ansysincreleasenotes.html") 'append)
+  (add-to-list 'list (list "\"CONTACT TECHNOLOGY GUIDE\"" "ctectoc.html") 'append)
+  (add-to-list 'list (list "\"PARAMETRIC DESIGN LANGUAGE GUIDE\"" "Hlp_P_APDLTOC.html") 'append)
+  (add-to-list 'list (list "\"STRUCTURAL ANALYSIS GUIDE\"" "Hlp_G_StrTOC.html") 'append)
+  (add-to-list 'list (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\"" "Hlp_G_AdvTOC.html") 'append)
+  (add-to-list 'list (list "\"MATERIAL MODELS\"" "ans_mat.html") 'append)
   (message "adding help index...")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-	   "(defconst ansys-help-index\n'"))
+    "(defconst ansys-help-index\n'"))
   (setq print-length nil)		;nil: print all members of list
   (prin1 list buffer)
   (insert "\n\"ANSYS help index alist.\")\n\n")
@@ -728,7 +742,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"ansys-fontification.el\".\n\n"
+  "\"ansys-fontification.el\" release 14.5.1.\n\n"
   ";; Copyright (C) 2006 - 2012 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")

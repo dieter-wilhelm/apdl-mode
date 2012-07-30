@@ -451,175 +451,139 @@ variable)."
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 
+(defun ansys-keyword()
+  "bla"
+  (interactive)
+  (let (seperator)
+    (setq
+     seperator (search-backward-regexp "[,$]" (line-beginning-position) t))
+      (if seperator (forward-char))
+;      (search-forward-regexp "[/*~]?")
+      ))
+
 (defun ansys-browse-ansys-help ( &optional arg)       ;NEW_C
-  "Open the ANSYS help for a command or element name in the web browser.
-The function is looking for a keyword before or at the cursor
-location.  This is working also in a comment.  If argument ARG is
-a prefix argument query for the command name.  You can browse
-also predefined sections in the help manual, the use of
-completions is advisable.  For example apply the prefix `all' and
-browse compilations of element types:
+  "Open the ANSYS help for APDL commands and element names in a web browser.
+The function is looking for the next keyword before or at the
+cursor location.  (This is working in a comment line as well.)
+If argument ARG is a prefix argument query for the search
+keyword.  Besides the regular command and element names you can
+also input predefined help sections or element categories.  The
+use of completions is advisable, for example: Type the character
+`\"' and the <TAB> key and you will see completions of the
+following:
 
-UI_ -- User interface
-R_ -- Mechanical APDL release notes
-ALL -- Element categories
+Help sections:
 
-SHELL --
-SHELLS -- ALLSHELLS
-PLANE -- ALLPLANES
-SOLID -- ALLSOLIDS
+\"RELEASE NOTES\"
+\"CONTACT TECHNOLOGY GUIDE\"
+\"PARAMETRIC DESIGN LANGUAGE GUIDE\"
+\"STRUCTURAL ANALYSIS GUIDE\"
+\"ADVANCED ANALYSIS TECHNIQUES GUIDE\"
+\"MATERIAL MODELS\"
 
-ALLBEAMS -- Beam elem.
-ALLCIRCUS -- Electric/magnetic circuit elem.
-ALLCOMBINS -- Combination elem.
-ALLCOMBIS -- Combination elem.
-ALLCONTACS -- Contact elem.
-ALLCONTAS -- Contact elem.
-ALLCPTS -- Coupled pore-pressure mechanical solid elem.
-ALLFLUIDS -- Fluid elem.
-ALLFOLLW -- Follower load elem.
-ALLHFS -- High Frequency elem.
-ALLHSFLDS -- Hydrostatic elem.
-ALLINFINS -- Infinite Boundary/Solid elem.
-ALLINTERS -- Interface magnetic/gasket/cohesive elem.
-ALLLINKS -- Link radiation/conduction/convection/thermal-electric/spar/ elem.
-ALLMASS -- Mass elem
-ALLMATRIXS -- Matrix stiffness/damping/super elem
-ALLMESHS -- Mesh facet elem.
-ALLMPCS -- Structural multipoint constraint
-ALLPIPES -- Pipe/Elbow elem.
-ALLPLANES -- Plane elem.
-ALLPRETS -- Pretension combination elem.
-ALLREINF -- Reinforcing elem.
-ALLROMS -- Reduced order electrostatic-structural coupled-field elem.
-ALLSHELLS -- Shell elem.
-ALLSOLIDS -- Solid elem.
-ALLSOLSHS -- Structural solid shell elem.
-ALLSOURCS -- Magnetic Electric Current source elem.
-ALLSURFS -- Surface elem.
-ALLTARGES -- Target elem.
-ALLTRANS -- Electromechanical solid/transducer elem.
+Element categories:
 
-#### Materials
+\"SHELLS\" = \"ALL\"SHELLS
+\"PLANES\" = \"ALL\"PLANES
+\"SOLIDS\" = \"ALL\"SOLIDS
 
-Hlp_AM_CH2anel
-Hlp_AM_CH2anis
-Hlp_AM_CH2bh
-Hlp_AM_CH2biso
-Hlp_AM_CH2bkin
-Hlp_AM_CH2boyc
-Hlp_AM_CH2chab
-Hlp_AM_CH2cree
-Hlp_AM_CH2crei
-Hlp_AM_CH2dp
-Hlp_AM_CH2dper
-Hlp_AM_CH2edpcap
-Hlp_AM_CH2evis
-Hlp_AM_CH2hfmatl
-Hlp_AM_CH2hill
-Hlp_AM_CH2jntma
-Hlp_AM_CH2mela
-Hlp_AM_CH2miso
-Hlp_AM_CH2mkin
-Hlp_AM_CH2moon
-Hlp_AM_CH2neo
-Hlp_AM_CH2nlis
-Hlp_AM_CH2ogde
-Hlp_AM_CH2piez
-Hlp_AM_CH2poly
-Hlp_AM_CH2pzrs
-Hlp_AM_CH2rate
-Hlp_AM_CH2swel
-Hlp_AM_CH2useh
-Hlp_AM_CH2user
+\"ALL\" -- Element categories
 
-# basics
-
-Hlp_G_ADVREZ  Hlp_G_ADVREZ.html
-Hlp_G_ADVexad  Hlp_G_ADVexad.html
-Hlp_G_BAS6  Hlp_G_BAS6.html
-Hlp_G_BASPGRP  Hlp_G_BASPGRP.html
-Hlp_G_BASrani  Hlp_G_BASrgenanim.html
-Hlp_G_BASrassy  Hlp_G_BASrgenassm.html
-Hlp_G_BASrcap  Hlp_G_BASrgenimg.html
-Hlp_G_BASrdef  Hlp_G_BASrgenset.html
-Hlp_G_BASrgen  Hlp_G_BASrgen.html
-Hlp_G_BASrlist  Hlp_G_BASrgenlist.html
-Hlp_G_BASrstart  Hlp_G_BASrgenstart.html
-Hlp_G_BASrtable  Hlp_G_BASrgentable.html
-Hlp_G_STRSHELL_4  Hlp_G_STRSHELL_3.html#abem0829010908
-
-#####
-
-Hlp_PDSctrl  Hlp_G_ADVPDS3.html#PDSctrl
-Hlp_PDSfiles  Hlp_G_ADVPDS3.html#PDSfiles
-Hlp_PDShost  Hlp_G_ADVPDS3.html#PDShost
-
-
-####
-Hlp_G_STR_CMAN  Hlp_ctec_contman.html
-Hlp_G_STR_CMAN  Hlp_ctec_contman.html
-
-
-#####
-User Interface
-
-#####
-LS-Dyna material
-
-Hlp_lpl5  Hlp_L_matl3.html#lpl5
-Hlp_lpl6  Hlp_L_matl3.html#lpl6
-Hlp_lpl7  Hlp_L_matl3.html#lpl7
-Hlp_lpl8  Hlp_L_matl3.html#lpl8
-Hlp_lpl9  Hlp_L_matl3.html#lpl9
-Hlp_lrig  Hlp_L_matl3.html#lrig
-
-### post26?
-Hlp_lcom Hlp_smas, Hlp_yeoh MPC184 p26calc, p26export,p26plot"
-
+\"ALL\"BEAMS -- Beam elem.
+\"ALL\"CIRCUS -- Electric/magnetic circuit elem.
+\"ALL\"COMBINS -- Combination elem.
+\"ALL\"COMBIS -- Combination elem.
+\"ALL\"CONTACS -- Contact elem.
+\"ALL\"CONTAS -- Contact elem.
+\"ALL\"CPTS -- Coupled pore-pressure mechanical solid elem.
+\"ALL\"FLUIDS -- Fluid elem.
+\"ALL\"FOLLW -- Follower load elem.
+\"ALL\"HFS -- High Frequency elem.
+\"ALL\"HSFLDS -- Hydrostatic elem.
+\"ALL\"INFINS -- Infinite Boundary/Solid elem.
+\"ALL\"INTERS -- Interface magnetic/gasket/cohesive elem.
+\"ALL\"LINKS -- Link radiation/conduction/convection/thermal-electric/spar/ elem.
+\"ALL\"MASS -- Mass elem
+\"ALL\"MATRIXS -- Matrix stiffness/damping/super elem
+\"ALL\"MESHS -- Mesh facet elem.
+\"ALL\"MPCS -- Structural multipoint constraint
+\"ALL\"PIPES -- Pipe/Elbow elem.
+\"ALL\"PLANES -- Plane elem.
+\"ALL\"PRETS -- Pretension combination elem.
+\"ALL\"REINF -- Reinforcing elem.
+\"ALL\"ROMS -- Reduced order electrostatic-structural coupled-field elem.
+\"ALL\"SHELLS -- Shell elem.
+\"ALL\"SOLIDS -- Solid elem.
+\"ALL\"SOLSHS -- Structural solid shell elem.
+\"ALL\"SOURCS -- Magnetic Electric Current source elem.
+\"ALL\"SURFS -- Surface elem.
+\"ALL\"TARGES -- Target elem.
+\"ALL\"TRANS -- Electromechanical solid/transducer elem.
+"
   (interactive "P")
   ;; we must change the path for elements!
-  (let (file path (command "aadd") prefix)
+  (let (file path (command "aadd") )
     (if arg
 	(setq command (completing-read "Browse help for keyword: "
 				       ansys-help-index))
+      ;; checking for keywords from comma to comma up to the first
+      ;; command in line
       (save-excursion
 	(backward-word)
 	(search-forward-regexp "[[:word:]]+")
 	(setq command (match-string 0))
 	(assoc-string command ansys-help-index t)))
+
     (message command)
     (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (unless  file
       (error "Command %s not found in keyword list" command))
     (message "Help file: %s" file)
-    (cond ((string-match "_C_" file)
-	   (setq prefix "ans_cmd/"))
-	  ((string-match "_E_" file)
-	   (setq prefix "ans_elem/"))
-	  ((string-match "_UI_" file)
-	   (setq prefix "ans_wid/"))
-	  ((string-match "_R_" file)
-	   (setq prefix "ai_rn/"))
-	  ((string-match "G_BAS" file)
-	   (setq prefix "ans_bas/"))
-	  ((string-match "G_ADV" file)
-	   (setq prefix "ans_adv/"))
-	  )
     (cond
      ((ansys-is-unix-system-p)
+      (cond ((string-match "_C_" file)
+	     (setq file (concat "ans_cmd/" file)))
+	    ((string-match "_E_" file)
+	     (setq file (concat "ans_elem/" file)))
+	    ((string-match "_P_APDL" file)
+	     (setq file (concat "ans_apdl/" file)))
+	    ((string-match "_G_AdvTOC" file)
+	     (setq file (concat "ans_adv/" file)))
+	    ((string-match "ans_mat.html" file)
+	     (setq file (concat "ans_mat/" file)))
+	    ((string-match "ctectoc.html" file)
+	     (setq file (concat "ans_ctec/" file)))
+	    ((string-match "ansysincrelease" file)
+	     (setq file (concat "ai_rn/" file)))
+	    )
       (setq path (concat "file://" ansys-install-directory
 			 "ansys_inc/v" ansys-current-ansys-version
 			 "/commonfiles/help/en-us/help/"))
-      (start-process "help_browser" nil "chromium-browser" (concat path prefix file)))
+      (start-process "help_browser"
+		     nil "chromium-browser" (concat path file)))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
+	  (cond ((string-match "_C_" file)
+		 (setq file (concat "ans_cmd\\" file)))
+		((string-match "_E_" file)
+		 (setq file (concat "ans_elem\\" file)))
+		((string-match "_P_APDL" file)
+		 (setq file (concat "ans_apdl\\" file)))
+		((string-match "_G_AdvTOC" file)
+		 (setq file (concat "ans_adv\\" file)))
+		((string-match "ans_mat.html" file)
+		 (setq file (concat "ans_mat\\" file)))
+		((string-match "ctectoc.html" file)
+		 (setq file (concat "ans_ctec\\" file)))
+		((string-match "ansysincrelease" file)
+		 (setq file (concat "ai_rn\\" file)))
+		)
 	  (setq path (concat( "file://"
 			      ansys-install-directory
 			      "Ansys Inc\\v" ansys-current-ansys-version
 			      "\\commonfiles\\help\\en-us\\help\\")))
 	;; wrapper of ShellExecute MS-Windows API
-	(w32-shell-execute "Open" (concat path prefix file))
+	(w32-shell-execute "Open" (concat path file))
 	(error "Emacs cannot find w23-shell-execute")))
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))

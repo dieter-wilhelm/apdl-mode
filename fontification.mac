@@ -1,15 +1,12 @@
+
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
 !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
-!! ANSYS VERSION: 140
-!! UNITS: mm-t-s
-!! NOTE: Pseudo code, checking the influence of
-!!  ansys-highlighting-level.  Please put the
-!!  the cursor below the next paragraph and type
-!!  C-x C-e to activate the settings
-
-!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+!! NOTE: This is APDL pseudo code, checking
+!!  ANSYS-Mode's highlighting capabilities and
+!!  certain aspects of the language
+!!  Please see further below.
 
 /units,mpa !indicate mm-t-s unit system
 !@ --- Preprocessing ---
@@ -41,49 +38,117 @@ solve
 /view,,1,1,1
 plnsol,u,sum,2
 /image,save,test !save XWindow Dump xwd (or bmp on Windows)
+/image,capture                !TODO: what is this: file0001.xwd?
 /sys,convert test test.png
+/upwind                  !TODO: 2d-graphics library? dated?
+*fft                     !TODO: :-)
 
-!! ------------------------------
-/units,mpa !indicate mm-t-s unit system
-c
-!@@ -- ignored characters and condensed input line ($ operator)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!  Please put the the cursor below the next paragraph of emacs lisp
+!!  code and type "C-x C-e" to change the setting of
+!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
+!!  change the level from 0 to 2 and toggle the flag from `t' to
+!!  `nil'.  Browse the file to check the differences.
+
+! this is the lisp code
+  (progn
+    (when
+        (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (setq
+     ansys-highlighting-level 2
+     ansys-dynamic-highlighting-flag t)
+    (load-file "ansys-mode.el")
+    (ansys-mode))
+
+!@@ -- Ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle !/clear
-/prep7
-otto = 9
-c***, this is %right%! %otto% no % parameter expansion
-/title, this is a %otto% string command similar to /com and c***
-!@@ -- variable definitions and functions
-k
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
 
-_return = 
+!@ --- ANSYS-Mode is highlighting APDL specials ---
 
-N = _RETURN		 !_RETURN value of k command
-_aaa = 9		 !reserved underscore "_" variables
-Pi=acos(-1) $ True=1 $ False=0
-Xc = 0 $ Yc = 'char' 	 ! character string variables
-R1=4$R2=20
+!@@ -- Reserved words and _RETURN statements --
 
-Alpha1 = rotx( 14.5) - 360./ (2*N)
-Alpha2 = +360./(2*N)
-Steel  =	1 !
-Depth  = ARG1	  !ARG{1-9}, AR{10-19} = "*use" variables
-Xc     =	  != empty rhs clears variables
+!!
+N      =  _RETURN       !return value of certain commands
+Alpha2 =  +360./(2*N)
+Xc     =  !empty rhs clears variables
 
-cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
-mp, nuxy,Steel,0.3 ! Poisson No
-mp, ex,Steel,200000 ! Elastic modulus
-!@@@ - parameter substitution
-/com, === Material %Steel% is steel. ===
-!! element types & deprecated element types
+*return                  !TODO: what is this?
+*status,_RETURN          !0 normal
+                         !1 note
+                         !2 warning
+                         !3 error
+                         !4 fatal
+
+!@@ -- Old style APDL comments --
+
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+
+!@@ -- Ignored characters behind commands --
+
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
+
+!@@ -- End Of File command --
+
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
+
+!@@ -- function names --
+Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
+Alpha1 = rotx( 14.5) - 360./ (2*Nn)
+
+!@@ -- Ignored characters behind commands --
+
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+a $ al $ all $ alls $ allse $ allsel $ allselllllll
+rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+!!
+
+!@@ -- End Of File command --
+
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+  /exit,nosave           !default is save the model data
+!!
+
+!@@ -- Current element types & deprecated elements
+
+!! A current element type:
+et,10,solid186
+!! deprecated element types:
 et,Steel,beam3 $ et,Alu,shell91
+!!
+
+!! Complete the following element fragments to current ones!
+!!
+et,Steel,beam $ et,Alu,shell
+
 !@@ -- default commands
 nsel,s,loc,y,0
     ,a,loc,y,1
     ,r,loc,x,0
 d,all,all
-!@@ ::: implicit : (colon) looping :::::
-lfillt,(1:2),(3:4),5
 
+!@@ ::: implicit : (colon) looping :::::
+!! (n1:n2:dn)
+lfillt,(1:2),(3:4),5
+!! one subscript per array
+bf,(1:10),temp,Tarray(1:10)
+b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
+!! The *get command and get functions are allowed
+*get,Fx(1:10),node,(1:10),f,fz !TODO:
+a(1:5) = nx(1:5)
+!! TODO:
+Fx(1:10) = (1:100:10)    !is this working? :-)
+!! alternative to *vfill
+*vfill,Fx,ramp,1,10
+
+!! looping
 *get,Dim
 *if,Dim,le,1,then
   *dim,Reaction,array,Ns,1
@@ -94,117 +159,176 @@ lfillt,(1:2),(3:4),5
   *get,Fx,fsum,,item,fx
   Reaction(I)=Fx
 *enddo
+
 !@@ -- multiline *msg formatting with the & operator
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
 Steel = %G A (electrical angle = %G DEG) %/ &
 _Power factor: %G %/ &
 Inductance = %G %/ &
-VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 
-!@@@ - loads -
-f,all,fx,1
-flist,all
-fini $ /eof
-/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-!@@@ - inertia relief -
+c***,**************************************************
+!@ --- APDL Reference ---
+c******************************************************
+!! the comma behind `c***' is not necessary, one example of the many
+!! APDL peculiarities, which are not documented!
 
-cgomga,x,y,z, ! rotational velocity about globla coord. sys.
-dcgomg,x,y,z ! rotational acceleration about global coord. sys.
- 
-!@@@ - coupling -
-nsel,s,loc,x,1
-cp,next,uy,all !couple dofs
+!@ --- Defining parameters ---
+!@@ -- Variable names --
+!! Must begin with a letter or an underscore
 
-!@@ -- boundary conditions --
+1ansys = 3                    !is not a valid variable name
+a1nsys = 3                    !a1nsys is a valid variable name
+A1NSys = 4                    !this is the same variable
+A1NSys = Temp                 !`Temp' is not defined
 
-/prep7
+!! Should not begin with an underscore
 
-!kbc,1 ![0] (antype,static): ramped 1:stepped loading
+_ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
+_ = 3        ! a single underscore definition is valid
+X = _
+_ = 3 !the single underscore represents  also a `variable' in APDL
 
-!@@@ - displacements -
+!! Variable names with a trailing underscore
 
-nsel,s,loc,y,0
-    ,a,loc,y,1
-    ,r,loc,x,0
-d,all,all
-dlist,all
+ansys_ = 3              !this is a `hidden' variable from *status
+*status                 !does not show `ansys_'
+       ,PRM_            !show variables with trailing underscore
+*del,,PRM_              !delete all variables with trailing underscore
 
-!@@@ - loads -
+!! Must contain only letters, numbers and underscores
 
-f,all,fx,1
-flist,all
+!! only letters, numbers and underscores are allowed
+a1n§sys = 3              !this is not a valid variable name
+a1n_sys = 3              !this is a valid variable name
 
-!@@@ - inertia relief -
+!! Must contain no more than 32 characters
 
-!! LOADS: nonlinearities aren't supported, fix all DOFs!
-irlf,1 !0: none,1:ir on,-1:printout masses
-nsel,s,loc,x,1
+!! The following is not a valid variable name
+v23456789_123456789_123456789_123 = 3
+!! The following is a valid variable name
+v23456789_123456789_123456789_12  = 3
 
-!@@@ - corriolis effects -
+!! Local Variables
 
-cgmga,x,y,z, ! rotational velocity about globla coord. sys.
-dcgomg,x,y,z ! rotational acceleration about global coord. sys.
+Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
+AR18 = AR19
+*stat,argx
 
-!@@@ - coupling -
-nsel,s,loc,x,1
-cp,next,uy,all !couple dofs
+!@@ -- Character strings --
+!! Must not contain more than 32 characters
 
-allsel
-/pbc,all,on
-gplot
+! character string variables are enclosed with `''
+Yc = '012345678901234567901234567890123' !not a character variable any more
+Symetry = 'yes'
 
-!@@@ - magnetics -
+!@@ -- Erasing variables from memory --
 
-!! fmagbc,'Component' ! flag force calculation
-bfa,all,js, ! js current density
-bflist,all
-dl,all,,asym ! flux parallel to lines
-nsel,s,ext ! select exterior nodes
-dsym,asym ! flux parallel to lines
-/prep7 $ /title,ototo
+!! defining
+Scalar = 3               !the `=' assignment is a shorthand for `*set'
+*set,Scalar,4            !reassignment
+*set,Vector,1,2,3,4,5,6,7,8,9,10
+Vector = 0,1,2,3,4,5,6,7,8,9,10,11,12 !TODO:
+Vector = 4               !TODO:
+!! deleting
+Scalar =     !this is not a variable any more
+*set,Scalar               !alternative to `Scalar ='
+*del,all                 !delete all variables!
+*del,Vector   !TODO:
 
-/prep7 * comment
-fini * comment
-otto = 3 * 4
+!@@ -- Variable substitution with `%' --
 
-f $ fi $ fin $ fini $ finis  $ finish $ finisher
-Alu = 1 $ Steel = 3
-n!! variables max. 32 chars long & condensed ($) input lines % %  &
-v123456789_123456789_123456789_123= 1 $ Alu=2 $ Steel= 3
-False = 0$True =1 $ Yes = 'no' bla otto bla
-*if,ARG9,eq,AR19,then ! ARG1-9, AR10-19 *use/commandline macro variables
-  AR20 = 20 !AR20 - AR99 local macro variables
-*endif
+!! Substitution of Numeric Variables
 
+Steel = 1
+/com,Material %Steel% is steel
+!! ATTENTION: in the following situation!
+/com,%Steel% does NOT substitute variable Steel
+/com, %Steel% does substitute variable Steel
+/com,Stuff like %Steel+1% returns 2
 
-vall,1,2
-_bla = 3		 ! _vars: macro reserved words
-otto =			 !`=' without rhs: variable clean up
-bla =
-Alpha3 = 4
+!! Substitution of Character Variables
 
+R='RESUME'
+%R%,MODEL,DB
 
-nsel,s,_hans,otto,'_otto'
-!! APDL get/parametricfunctions & old style (deprecated) Ansys comments
-var1=sinh(cos(.3 *5)) !old style Ansys comments!!!!!
-var2 = tan(nx(.3*5)) !not an old style Ansys comment
-var3 = %Yes% $ *if	     !this is not a valid % string substition
-/xml		     ! undocumented command /xml
-*afun,rad
-/fil $ /filname%bla% 
 !! string, message commands and comment behaviour && %$$% %% :bla: &&&
 
 /com, bla = %bla%
 igesin,'test','%iges%'
-/titl,Nothing in %particular%
+/title,Nothing in %particular%
+!! in "string commands" are no code comments possible
 /com,beam3 %YES% ! this is *really not commented out!!!! &
 c*** *beam3 !otto *otto %neither% here !!!!!!! &
+/com, bearm laskf %otto% !%otto% we are here
+
+right = 'wrong'
+/title, the value of right is  %right%
+/com, this is %right%: /com does expand parameters as well
+
+right = 9
+c***,this is %right%: c*** allows no parameter expansion
 /sys,ls "*.mac" %otto% &
+/syp,ls, %otto% !TODO: is this working?
 
-/com, bearm laskf %otto% !%otto% we are here 
+!! Dynamic Substitution of Numeric or Character Variables
 
-nsel,s,%bla%
+Case = 'case 1'
+/title,This is  %Case%
+                         !/stitle
+                         !*ask
+                         !/tlabel
+                         !/an3d
+                         !in tables TODO:
+aplot
+Case = 'case 2'
+!! not necessary to reissue /title, "This is case 2"
+!! will appear on subsequent plots
+aplot
+
+!! Exponentiation Operator is `**'
+
+!! Beware of the oldstyle ANSYS comment!
+
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+
+!! Operators: `<' and  `>' :TODO
+
+otto = 1.82
+karl = 1.97
+margret =  otto < karl
+maria = karl < otto
+*status,karl < otto
+
+!@@ -- Arrays --
+
+!! Specifiying array element values
+
+!! APDL Math
+
+No = 100
+Pi = acos(-1)
+Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
+Dat = 0:2*Pi:2*Pi/No
+*vfun
+*vec,import,apdl,Dat
+*fft,Forw,Dat,OutDat,,,Full !what's the difference?
+*fft,    ,Dat,OutDat,,,Part !what's the difference?
+*export,OutDat,apdl,APDLOutDat
+
+debug                    !TODO: undocumented?
+
+PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
+in V11: *mrun                    !TODO:
+
+!undocumented commands are highlighted differently
+/xml                     !undocumented command /xml
+/xfrm                    !documented command   /xfrm
 
 !@@ --! multiline message format command this is tricky: use M-o M-o
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
@@ -219,47 +343,20 @@ aldk this is not any longer in the *msg format construct
 *vwrite,B(1,1),B(2,1),%yes%
 alkd %D &
 %E%/%E
+
 !! commands which do not allow arguments
-/prep7 $ FINISH ! $ is nothing behind?
-/prep7 !nothing behind?
-/prep7 nothing behind allowed
-X2=3
-rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
-nsel,s,loc,y,nsel
-    ,a,loc,y,nsel
-nsel = 	3  !you CAN have variable names clashing with commands 
-!! element types & deprecated element types
-et,Steel,beam3 $ et,Alu,shell91
-nsellllllbeam3SSSSSS
-!! control constructs
-*if,I,eq,1,then
-*elseif,I,le,var2
-*endif
-!!::: implicit : (colon) looping :::::
-lfillt,(1:2),(3:4),5
-*DOWHILE,Par
-  Par = Par -1
-*CYCLE, VAR2 _bla
-  *cyc
-  *cyclon
-  *exit
-*enddo
-! goto branching
+/prep7 $ FINISH !$ means nothing behind
+/prep7 !still nothing behind
+/prep7 * old style comment, this is allowed
+/prep7 this is an error
+
+nsel,s,loc,x,1
+nsel = 3  !you CAN have variable names clashing with commands
+
+!@@ -- Goto branching --
 *go,:branch
 aselsalsdkfjaölsdkfjaölskdjf,all
 :branch
-/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-a $ al $ all $ alls $ allse $ allsel $ allselllllll
-
-nsel,s,loc,x,1
-    ,s,loc,x,1
-cp,next,uy,all !couple dofs
-f,1,fx,1
-!flist ! list force nodes
-alls
-/pbc,all,on
-!gplot
-/eof
 
 !-----------------------------------------------------------------------
 ! mdlbl.mac
@@ -356,7 +453,7 @@ hsz = sz/2
 
 /pspec,0,1,1
 /poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
-     	 1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+         1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
 
 x0 = xloc + hsz
 y0 = yloc + .7*hsz
@@ -377,146 +474,4 @@ ang1 = 0
   y0 = y0 - 1.5*lof 
   ang1 = ang2
 *enddo
-
-!! alignment
-x=0.4!laskd
-y= 33.0	    ! alskdl
-xzv= 9999990.3	    !!
-llk = 0.333333333 !bla
-al_=  00.40
-aslfoeas = 304
-ka= .4	    !salkd
-i = 4.		    !as
-kasd=.3/0.4
-kasd =3./0.4
-xxx =asin(3.0)
-y = cos(i)
-
-block,X1,X2,Y1,Y2,Z1,Z2 !3d hexahedron (wp)
-!@ ==============================
-!@ ---  Header ---
-!@ ==============================
-!! Time-stamp: <Sun Jun 24 02:05:32 2012>
-!! ANSYS VERSION: 140
-!! NOTE: alskd
-!! ------------------------------
-
-! fini
-! /clear
-! y
-/units,mpa !indicate mm-t-s unit system
-!@ ==============================
-!@ --- Preprocessing ---
-!@ ==============================
-/prep7
-!@@ -- Elements --
-Steel = 1
-ID = Steel
-real = Steel
-et,ID,solid186 !3d, 20 node
-!@@ -- Material --
-mp,nuxy,Steel,0.3 ! Poisson No
-mp,ex,Steel,200000 ! Elastic modulus
-!@@ -- Modeling --
-block,0,1,0,1,0,1
-!@@ -- Meshing --
-vmesh,all
-!@@ -- BCs, Loads --
-nsel,s,loc,x,0
-d,all,all
-nsel,s,loc,x,1
-d,all,uy,-.1
-allsel
-save
-!@ ==============================
-!@ --- Solving ---
-!@ ==============================
-/solu
-solve
-!@ ==============================
-!@ --- Postprocessing ---
-!@ ==============================
-/post1
-plnsol,u,sum,2
-!@ ==============================
-!@ --- Header ---
-!@ ==============================
-
-!! FILENAME: /home/dieter/ansys-mode/trunk/fontification.mac
-!! CREATION DATE: Sun Jun 24 02:09:08 2012
-!! ANSYS VERSION: 140
-!! DESCRIPTION: lskdjf
-
-!@ ==============================
-!@ --- Setup ---
-!@ ==============================
-
-finish 
-
-!@ ==============================
-!@ --- Preprocessing --- 
-!@ ==============================
-
-!@ ------------------------------
-!@@ -- Cad Import -- 
-!! ------------------------------
-
-!! /aux15
-
-!@ ------------------------------
-!@@ -- General Preprocessing -- 
-!! ------------------------------
-
-/prep7
-
-!! ..............................
-!@@@ - Materials and element types -
-!! ..............................
-
-!! --- Solids ---
-
-!! --- Contacts ---
-
-!! ..............................
-!@@@ - Geometry -
-!! ..............................
-
-!! ..............................
-!@@@ - Meshing -
-!! ..............................
-
-!! ..............................
-!@@@ - Boundary conditions -
-!! ..............................
-
-!@ ==============================
-!@ --- Solution --- 
-!@ ==============================
-
-/solu
-allsel
-
-!@ ------------------------------
-!@@ --  Solution controls -- 
-!! ------------------------------
-
-!@ ==============================
-!@ --- Postprocessing ---
-!@ ==============================
-
-!@ ------------------------------
-!@@ -- General Postprocessing -- 
-!! ------------------------------
-
-/post1
-
-!@ ------------------------------
-!@@ -- Time-History Postprocessing --
-!! ------------------------------
-
-/post26
-
--1
-+ 2
-2
-4 56
+/eof

@@ -34,7 +34,7 @@
 ** TODO Tasks [35%]
    - [ ] update ansys_parametric_functions.txt there is a new function
      since V14
-   - [77%] documentation
+   - [77%] HTML APDL documentation
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
        file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/
@@ -54,7 +54,8 @@
      string 128
      char 8
    - [ ] -mode_tutorial.org
-     - add new function: C-C C-b but don't release until 14.5
+     - add new function: C-C C-b instead of C-c C-h but don't release
+       until 14.5
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned
@@ -69,10 +70,11 @@
    - [ ] write protect skeleton preview?
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
      lcurv, etc. (ANF functions)
-   - [33%] document fontification.mac
+   - [66%] document fontification.mac
      - [X] Introduction TUTORIAL
-     - [ ] Indepth TUTORIAL
-     - [ ] APDL and highlighting REFERENCE -> fontification.mac
+     - [X] Indepth TUTORIAL
+     - [ ] APDL and highlighting REFERENCE -> fontification.mac.
+       !!!Don't release yet the APDL reference!!!!
    - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
@@ -123,9 +125,8 @@
 * Procedures
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
-  - README :: emphasizing in `' does not work for Google Code Site!
-	      use '' instead
-  - apdl templates :: minimal working examples ending with -template
+  - README :: same as Mode help
+  - APDL templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
 ** Freeze
@@ -190,18 +191,18 @@ Subject:  Release 14.5.1 of ANSYS-Mode: Editor support for working with APDL fil
 
 Hi,
 
-a new release of ANSYS-Mode for ANSYS 14.5.
+Release 1 of ANSYS-Mode for ANSYS 14.5.
 
 Are you also tired of the ANSYS help browser?  E. g. try searching for
-the `F' APDL command, it is not possible!  You have to pick it up from
+the `F' APDL command, it is impossible!  You have to pick it up from
 the alphabetical command list. Likewise when you are searching for an
-incomplete keyword, no hint, nothing!  Finding and browsing relevant
-APDL documentation is still too slow and cumbersome.
+incomplete keyword, no hint, no completion, nothing!  Finding and
+browsing relevant APDL documentation is still too slow and cumbersome.
 
 As a highlight of this release you can now read immeadiately the
 detailed ANSYS help in your web-browser for *all* APDL command AND
-element names near the cursor.  Optionally you can input your search
-string interactively including its completion to valid ANSYS help
+element names near the cursor.  You may input your search string also
+interactively, including its completion to valid ANSYS help
 keywords. This is an ideal complement to ANSYS-Mode's in-built
 `command syntax' help.
 

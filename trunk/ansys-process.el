@@ -451,15 +451,39 @@ variable)."
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 
-(defun ansys-keyword()
+(defun ansys-search-keyword()
   "bla"
   (interactive)
-  (let (seperator)
-    (setq
-     seperator (search-backward-regexp "[,$]" (line-beginning-position) t))
-      (if seperator (forward-char))
-;      (search-forward-regexp "[/*~]?")
-      ))
+  ;; 1. around point
+  ;; 2. forward up to lbp
+  ;; 3. backward lep
+  (save-excursion
+    (let* (
+	   (pt (point))
+	   (re "[~/*]?[[:word:]]+")
+	   (lbp (line-beginning-position))
+	   (eolp (save-excursion (end-of-line) (point)))
+	   (str (buffer-substring-no-properties
+		 (save-excursion
+		   (+ pt (skip-chars-backward re lbp)))
+		 (save-excursion
+		   (+ pt (skip-chars-forward re)))))
+	   (cmpl (try-completion str ansys-help-index))
+	   )
+      (message "keyword: %s" str)
+      (setq )
+      ;; checking against keywords, do we need completion, yes we
+      ;; complete here valid command and element names and check
+      ;; against help list
+
+      ;; around point is nothing: we are in whitespace/comma/$ behind
+      ;; or at an empty line or on a comment sign at the beginning
+
+      ;; (bolp)
+      ;; (backward-sexp)
+      ;; (setq
+      ;;  seperator (search-backward-regexp "[,$]"	 lbp t))
+      str)))
 
 (defun ansys-browse-ansys-help ( &optional arg)       ;NEW_C
   "Open the ANSYS help for APDL commands and element names in a web browser.
@@ -521,26 +545,20 @@ Element categories:
 \"ALL\"TRANS -- Electromechanical solid/transducer elem.
 "
   (interactive "P")
-  ;; we must change the path for elements!
   (let (file path (command "aadd") )
     (if arg
 	(setq command (completing-read "Browse help for keyword: "
 				       ansys-help-index))
       ;; checking for keywords from comma to comma up to the first
       ;; command in line
-      (save-excursion
-	(backward-word)
-	(search-forward-regexp "[[:word:]]+")
-	(setq command (match-string 0))
-	(assoc-string command ansys-help-index t)))
-
-    (message command)
+      (setq command (ansys-search-keyword)))
     (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (unless  file
       (error "Command %s not found in keyword list" command))
     (message "Help file: %s" file)
     (cond
      ((ansys-is-unix-system-p)
+      ;; we must adapt the path to various items!
       (cond ((string-match "_C_" file)
 	     (setq file (concat "ans_cmd/" file)))
 	    ((string-match "_E_" file)

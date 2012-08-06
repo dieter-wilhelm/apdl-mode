@@ -31,7 +31,9 @@
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
-** TODO Tasks [40%]
+** TODO [42%] Freeze
+   - [ ] test server specifications (menu!) make interconnect
+     conditional of the ANSYS version >= 120
    - [70%] HTML APDL documentation
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
@@ -46,43 +48,18 @@
      - [X] Contact technology: help/ans_ctec/ctectoc.html
      - [X] Complete ANSYS release notes: help/ai_rn/ansysincreleasenotes.html
    - [ ] TODOS: in fontification.org
-     deletion of vectors *del,Vector without request? ,,nopr?
-   - [ ] check character variables 32 Chars. and highlight accordingly
-     string 128
-     char 8
-   - [0%] fontification.el
-     - [ ] update ansys_parametric_functions.txt there is a new function
-       since V14
-     - [ ] some functions in -skeleton-function are not highlighted and
-       completable, whitespace problem befor paren...
-       and: "nele" undocumented command and function nelem()
-     - [ ] Help, M-? does not :
-       + *mwrite
-       + *cfclos
-       + *sread M-? shows help for *mwrite
-   - [ ] *vscfun: mean, stdev, ...
-   - [ ] -mode_tutorial.org
-     - add new function: C-C C-b instead of C-c C-h but don't release
-       until 14.5
-     - in variable.png symbols Ns and Ls are not highlighted as
-       variables
-     - change sequence of alignment.pgn first not aligned, second aligned
-     - Too difficult: slide of extensibility, showing Emacs
-       self-documenting help system for a template function
+     - deletion of vectors *del,Vector without request? ,,nopr?
+     - check character variables 32 Chars. and highlight accordingly
+       string 128, char 8
+     - *vscfun: mean, stdev, ...
    - [ ] C-c C-c needs a carriage return in the last line!
    - [ ] check *vwrite with gui mode and interactive mode
    - [ ] explain fill/*vfill under the "looping" commands: Generates a line
-     of nodes between two existing nodes.
+       of nodes between two existing nodes.
    - [ ] force harmonic table (*vfill) example in -skeleton-bc, make a
-     ansys...-template out of two-mass-harmonics.mac
+       ansys...-template out of two-mass-harmonics.mac
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
-     lcurv, etc. (functions in ANF files)
-   - [66%] document fontification.mac
-     - [X] Introduction TUTORIAL ansys-mode_tutorial.org ->
-       A-M_introductory_tutorial.org
-     - [X] Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
-     - [ ] APDL and highlighting REFERENCE, fontification.org. ->
-       A-M_APDL_reference.org !!!Don't release yet the APDL reference!!!!
+       lcurv, etc. (functions in ANF files)
    - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
@@ -108,9 +85,34 @@
      C-c {/}).
    - [X] -complete-symbol: complete but not uniqe is missing
    - [X] Google Code project feed
-** Freeze
-   - [ ] test server specifications (menu!) make interconnect
-     conditional of the ANSYS version >= 120
+** Release [0%]
+   - [0%] document fontification.org
+       - [ ] Introduction TUTORIAL ansys-mode_tutorial.org ->
+       A-M_introductory_tutorial.org
+       - [ ] Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
+       - [ ] APDL and highlighting REFERENCE, fontification.org. ->
+         A-M_APDL_reference.org and fontification.mac -> dito??
+       - [ ] Rename in README, makefile, docu, ...
+       - [ ] upload to Google code
+         !!!Don't release yet the APDL reference!!!!
+   - [0%] fontification.el
+     - [ ] update ansys_parametric_functions.txt there is a new function
+       since V14
+     - [ ] some functions in -skeleton-function are not highlighted and
+       completable, whitespace problem befor paren...
+       and: "nele" undocumented command and function nelem()
+     - [ ] Help, M-? does not :
+       + *mwrite
+       + *cfclos
+       + *sread M-? shows help for *mwrite
+   - [ ] -introductory_tutorial.org
+     - add new function: C-C C-b instead of C-c C-h but don't release
+       until 14.5
+     - in variable.png symbols Ns and Ls are not highlighted as
+       variables
+     - change sequence of alignment.pgn first not aligned, second aligned
+     - Too difficult: slide of extensibility, showing Emacs
+       self-documenting help system for a template function
 ** Bugs
    - C-c { before a number-block does not work
    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!

@@ -705,7 +705,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
     (while (re-search-forward "^PLANE" nil t)
       (replace-match "\"PLANES\"" nil nil))
     (goto-char (point-min))
-    (while (re-search-forward "^SOLID" nil t)
+    (while (re-search-forward "^SOLID " nil t)
       (replace-match "\"SOLIDS\"" nil nil))
     (goto-char (point-min))
     ;; Replace suffix ALL with "ALL"

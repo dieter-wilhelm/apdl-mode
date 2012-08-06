@@ -452,49 +452,52 @@ variable)."
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 
 (defun ansys-search-keyword()
-  "bla"
+  "Search the code line for a valid the keyword from `ansys-help-index'.
+"
   (interactive)
-  ;; 1. around point
-  ;; 2. forward up to lbp
-  ;; 3. backward lep
-  (save-excursion
-    (let* (
-	   (pt (point))
-	   (re "[~/*]?[[:word:]]+")
-	   (lbp (line-beginning-position))
-	   (eolp (save-excursion (end-of-line) (point)))
-	   (str (buffer-substring-no-properties
-		 (save-excursion
-		   (+ pt (skip-chars-backward re lbp)))
-		 (save-excursion
-		   (+ pt (skip-chars-forward re)))))
-	   (cmpl (try-completion str ansys-help-index))
-	   )
-      (message "keyword: %s" str)
-      (setq )
-      ;; checking against keywords, do we need completion, yes we
-      ;; complete here valid command and element names and check
-      ;; against help list
-
-      ;; around point is nothing: we are in whitespace/comma/$ behind
-      ;; or at an empty line or on a comment sign at the beginning
-
-      ;; (bolp)
-      ;; (backward-sexp)
-      ;; (setq
-      ;;  seperator (search-backward-regexp "[,$]"	 lbp t))
-      str)))
+  (when (ansys-in-empty-line-p)
+    (error "Cannot find keyword in an empty line"))
+  (let* (
+	 (pt (point))
+	 (re "~/*[:word:]")
+	 (lbp (line-beginning-position))
+	 (eolp (save-excursion (end-of-line) (point)))
+	 (str (upcase (buffer-substring-no-properties
+		       (save-excursion
+			 (+ pt (skip-chars-backward re lbp)))
+		       (save-excursion
+			 (+ pt (skip-chars-forward re))))))
+	 (cmpl (try-completion str ansys-help-index))
+	 )
+    (when (or (string= str "") (not cmpl))
+      ;; we are surrounded by whities, or not on a valid keyword, try
+      ;; the first command (possibly behind an comment char)
+      (save-excursion
+	(move-beginning-of-line 1)
+	(skip-chars-forward " !")
+	(setq pt (point)
+	      str (upcase
+		   (buffer-substring-no-properties pt
+		       (+ pt (skip-chars-forward re))))))
+      (setq cmpl (try-completion str ansys-help-index)))
+    (cond ((stringp cmpl)		;not unique
+	   (error "keyword: %s is not uniquely completable" ))
+	  ((equal cmpl nil)
+	   (error "%s is not a valid keyword" str))
+	  (t
+	   str))))
 
 (defun ansys-browse-ansys-help ( &optional arg)       ;NEW_C
   "Open the ANSYS help for APDL commands and element names in a web browser.
 The function is looking for the next keyword before or at the
-cursor location.  (This is working in a comment line as well.)
-If argument ARG is a prefix argument query for the search
-keyword.  Besides the regular command and element names you can
-also input predefined help sections or element categories.  The
-use of completions is advisable, for example: Type the character
-`\"' and the <TAB> key and you will see completions of the
-following:
+cursor location.  If that fails the command is looking for the
+keyword at the line beginning.  (This is working in a comment
+line as well.)  If argument ARG is a prefix argument query for
+the search keyword.  Besides the regular command and element
+names you can also input predefined help sections or element
+categories.  The use of completions is advisable, for example:
+Type the character `\"' and the <TAB> key and you will see
+completions of the following:
 
 Help sections:
 
@@ -545,17 +548,15 @@ Element categories:
 \"ALL\"TRANS -- Electromechanical solid/transducer elem.
 "
   (interactive "P")
-  (let (file path (command "aadd") )
+  (let (file path command)
     (if arg
 	(setq command (completing-read "Browse help for keyword: "
 				       ansys-help-index))
-      ;; checking for keywords from comma to comma up to the first
-      ;; command in line
       (setq command (ansys-search-keyword)))
     (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (unless  file
       (error "Command %s not found in keyword list" command))
-    (message "Help file: %s" file)
+;    (message "Help file: %s" file)
     (cond
      ((ansys-is-unix-system-p)
       ;; we must adapt the path to various items!

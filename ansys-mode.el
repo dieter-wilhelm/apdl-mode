@@ -1217,7 +1217,8 @@ inquires an ANSYS command name.
 
 Putting in \"\\[ansys-browse-ansys-help]\" will display the
 original ANSYS help in your web-browser for an APDL command or
-element name (the element number is enough) near the cursor.
+element name (the element number is enough) near the cursor or
+the code line's first APDL command.
 
 ** ANSYS keyword completion (commands, elements, get- and
    parametric-functions) **
@@ -1233,13 +1234,13 @@ completion.
 There are around 2000 ANSYS symbols available for completion.
 Undocumented ANSYS commands and deprecated element types are also
 completed.  The former are identified as such with a different
-highlighting in the 'command syntax help'.  Please have a look at
+highlighting and in their 'command syntax help'.  Please see also
 the variable `ansys-deprecated-element-alist' it's a list with
-the deprecated elements and their respective replacments (for
+the deprecated elements and their respective replacements (for
 inspecting its content please click on above hyperlink or type
 \"C-h v\" and then input the respective variable).
 
-Using the <TAB> key you might complete the name, when the
+Using the <TAB> key you might complete the name.  When the
 character combination before the cursor is not unambiguous a
 completion list is then shown, selecting the suitable word from
 the list, either by navigation the cursor over the symbol and

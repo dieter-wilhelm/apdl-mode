@@ -320,6 +320,7 @@ and you are getting a diffent element highlighting.
   - Still (v14) no round function in sight
   - One cannot easily get the variable value, either one must assign
     the variable to another one, or use the `*stat' command
+  - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
 #+begin_src ansys :exports none
   c***,**************************************************
   !@ --- APDL Reference ---
@@ -335,11 +336,14 @@ up to 5000
 *** Variable names (called `parameter' in the ANSYS manual)
 All numeric values are stored as double precision values.  Not defined
 variables are assigned a tiny value near zero.  The interpreter is not case sensitve
+:TODO except in strings?
 **** Must begin with a letter or an underscore
 #+begin_src ansys :exports none
   !@ --- Defining parameters ---
   !@@ -- Variable names --
-  !! Must begin with a letter or an underscore
+  
+  !! Must begin with a letter or an underscore The interpreter is not
+  !! case sensitive for expressions only for strings
 #+end_src
 #+begin_src ansys
   1ansys = 3                    !is not a valid variable name
@@ -593,9 +597,9 @@ otto = 3 * 4 comment, the value of otto = 3!
 #+begin_src ansys
   otto = 1.82
   karl = 1.97
-  margret =  otto < karl
-  maria = karl < otto
-  *status,karl < otto
+  margret =  otto < karl !margret = otto
+  maria = karl < otto    !maria = otto
+  *status,karl > otto
 #+end_src    
 ** Arrays
    4 types: array, char of 8 characters, table and string 128 chars

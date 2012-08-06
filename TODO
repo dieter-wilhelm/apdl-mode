@@ -31,15 +31,13 @@
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
-** TODO Tasks [35%]
-   - [ ] update ansys_parametric_functions.txt there is a new function
-     since V14
-   - [77%] HTML APDL documentation
+** TODO Tasks [40%]
+   - [70%] HTML APDL documentation
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
-       file:/usr/local/ansys_inc/v130/commonfiles/help/en-us/help/ans_cmd/
      - [ ] clean up index, then command and element name search
-     - [ ] Chapters of mechanical APDL documentation:
+     - [ ] link to ANSYS-Mode APDL reference:
+     - [ ] Chapters of structural APDL documentation:
      - [X] Release notes APDL overview
      - [X] APDL guide: ans_apdl/Hlp_P_APDLTOC.html
      - [X] Structural mechanics: /help/ans_str/Hlp_G_StrTOC.html
@@ -47,12 +45,22 @@
      - [X] Nonlinear material overview: help/ans_mat/ans_mat.html
      - [X] Contact technology: help/ans_ctec/ctectoc.html
      - [X] Complete ANSYS release notes: help/ai_rn/ansysincreleasenotes.html
-   - [ ] *vscfun: mean, stdev, ...
    - [ ] TODOS: in fontification.org
      deletion of vectors *del,Vector without request? ,,nopr?
    - [ ] check character variables 32 Chars. and highlight accordingly
      string 128
      char 8
+   - [0%] fontification.el
+     - [ ] update ansys_parametric_functions.txt there is a new function
+       since V14
+     - [ ] some functions in -skeleton-function are not highlighted and
+       completable, whitespace problem befor paren...
+       and: "nele" undocumented command and function nelem()
+     - [ ] Help, M-? does not :
+       + *mwrite
+       + *cfclos
+       + *sread M-? shows help for *mwrite
+   - [ ] *vscfun: mean, stdev, ...
    - [ ] -mode_tutorial.org
      - add new function: C-C C-b instead of C-c C-h but don't release
        until 14.5
@@ -67,14 +75,14 @@
      of nodes between two existing nodes.
    - [ ] force harmonic table (*vfill) example in -skeleton-bc, make a
      ansys...-template out of two-mass-harmonics.mac
-   - [ ] write protect skeleton preview?
    - [ ] add aux15 commands to the fontification and help stuff, kpt,
-     lcurv, etc. (ANF functions)
+     lcurv, etc. (functions in ANF files)
    - [66%] document fontification.mac
-     - [X] Introduction TUTORIAL
-     - [X] Indepth TUTORIAL
-     - [ ] APDL and highlighting REFERENCE -> fontification.mac.
-       !!!Don't release yet the APDL reference!!!!
+     - [X] Introduction TUTORIAL ansys-mode_tutorial.org ->
+       A-M_introductory_tutorial.org
+     - [X] Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
+     - [ ] APDL and highlighting REFERENCE, fontification.org. ->
+       A-M_APDL_reference.org !!!Don't release yet the APDL reference!!!!
    - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
    - [ ] -program, -license-file and -ansysli-servers should show the
      current selections
@@ -87,6 +95,7 @@
    - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
    - [ ] constraint equations in -template.el and get functions
    - [ ] rigid-target minimal self-contained sample
+   - [X] write protect skeleton preview?
    - [X] wget download not possible any longer?
    - [X] check whether v14.0.1 has autoinsertion activated
    - [X] I=3 $ /com, %I+1%, /com,%I+1% is not possible
@@ -103,16 +112,10 @@
    - [ ] test server specifications (menu!) make interconnect
      conditional of the ANSYS version >= 120
 ** Bugs
-   - some functions in -skeleton-function are not highlighted and
-      completable
    - C-c { before a number-block does not work
    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - Help, M-? does not :
-      + *mwrite
-      + *cfclos
-      + *sread M-? shows help for *mwrite
    - help overlay is only removed after 1 min if the buffer is active
       at that time
    - -if-then does not indent correctly

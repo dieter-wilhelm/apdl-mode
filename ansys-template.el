@@ -88,7 +88,7 @@ current buffer instead of previewing it in a separate window."
 			    skel " -*-\n") 'face 'match))
 	   (overlay-put ansys-skeleton-overlay 'before-string s)
 	   (set-buffer-modified-p nil)
-	   ;;    (toggle-read-only t)
+	   (toggle-read-only t)
 	   (switch-to-buffer-other-window old-buffer)
 	   ;; (display-buffer new-buffer-name 'other-window)
 	   )

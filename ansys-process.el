@@ -568,12 +568,16 @@ Element categories:
 	     (setq file (concat "ans_apdl/" file)))
 	    ((string-match "_G_AdvTOC" file)
 	     (setq file (concat "ans_adv/" file)))
+	    ((string-match "_G_StrTOC" file)
+	     (setq file (concat "ans_str/" file)))
 	    ((string-match "ans_mat.html" file)
 	     (setq file (concat "ans_mat/" file)))
 	    ((string-match "ctectoc.html" file)
 	     (setq file (concat "ans_ctec/" file)))
 	    ((string-match "ansysincrelease" file)
 	     (setq file (concat "ai_rn/" file)))
+	    ((string-match "ansys.theory" file)
+	     (setq file (concat "ans_thry/" file)))
 	    )
       (setq path (concat "file://" ansys-install-directory
 			 "ansys_inc/v" ansys-current-ansys-version
@@ -590,12 +594,16 @@ Element categories:
 		 (setq file (concat "ans_apdl\\" file)))
 		((string-match "_G_AdvTOC" file)
 		 (setq file (concat "ans_adv\\" file)))
+		((string-match "_G_StrTOC" file)
+		 (setq file (concat "ans_str\\" file)))
 		((string-match "ans_mat.html" file)
 		 (setq file (concat "ans_mat\\" file)))
 		((string-match "ctectoc.html" file)
 		 (setq file (concat "ans_ctec\\" file)))
 		((string-match "ansysincrelease" file)
 		 (setq file (concat "ai_rn\\" file)))
+		((string-match "ansys.theory" file)
+		 (setq file (concat "ans_thry\\" file)))
 		)
 	  (setq path (concat( "file://"
 			      ansys-install-directory
@@ -605,7 +613,8 @@ Element categories:
 	(w32-shell-execute "Open" (concat path file))
 	(error "Emacs cannot find w23-shell-execute")))
      (t
-      (error "Can only start the ANSYS help on Windows and UNIX systems")))))
+      (error "Can only start the ANSYS help on Windows and UNIX systems")))
+    (message "Calling html help for keyword %s" command)))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2

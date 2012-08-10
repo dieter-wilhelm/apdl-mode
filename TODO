@@ -31,81 +31,65 @@
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
-** TODO [42%] Freeze
-   - [ ] test server specifications (menu!) make interconnect
-     conditional of the ANSYS version >= 120
-   - [70%] HTML APDL documentation
+** TODO Freeze
+   - C-c { before a number-block does not work
+   - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
+   - -if-then does not indent correctly
+   - C-c C-c needs a carriage return in the last line!
+   - check *vwrite with gui mode and interactive mode
+   - WikEmacs, Melpa, GNU ELPA and/or marmalade
+   - HTML APDL documentation
      here is the tanslation of names to html files:
        file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
-     - [ ] clean up index, then command and element name search
-     - [ ] link to ANSYS-Mode APDL reference:
-     - [ ] Chapters of structural APDL documentation:
-     - [X] Release notes APDL overview
-     - [X] APDL guide: ans_apdl/Hlp_P_APDLTOC.html
-     - [X] Structural mechanics: /help/ans_str/Hlp_G_StrTOC.html
-     - [X] Advanced techniques: help/ans_adv/Hlp_G_AdvTOC.html
-     - [X] Nonlinear material overview: help/ans_mat/ans_mat.html
-     - [X] Contact technology: help/ans_ctec/ctectoc.html
-     - [X] Complete ANSYS release notes: help/ai_rn/ansysincreleasenotes.html
-   - [ ] TODOS: in fontification.org
+     - link to ANSYS-Mode APDL reference:
+     - Chapters of structural APDL documentation:
+   - TODOS: in fontification.org
      - deletion of vectors *del,Vector without request? ,,nopr?
      - check character variables 32 Chars. and highlight accordingly
        string 128, char 8
      - *vscfun: mean, stdev, ...
-   - [ ] C-c C-c needs a carriage return in the last line!
-   - [ ] check *vwrite with gui mode and interactive mode
-   - [ ] explain fill/*vfill under the "looping" commands: Generates a line
+   - test server specifications (menu!) make interconnect
+     conditional of the ANSYS version >= 120
+   - explain fill/*vfill under the "looping" commands: Generates a line
        of nodes between two existing nodes.
-   - [ ] force harmonic table (*vfill) example in -skeleton-bc, make a
+   - force harmonic table (*vfill) example in -skeleton-bc, make a
        ansys...-template out of two-mass-harmonics.mac
-   - [ ] add aux15 commands to the fontification and help stuff, kpt,
+   - add aux15 commands to the fontification and help stuff, kpt,
        lcurv, etc. (functions in ANF files)
-   - [ ] WikEmacs, Melpa, gnu ELPA and/or marmalade
-   - [ ] -program, -license-file and -ansysli-servers should show the
+   - -program, -license-file and -ansysli-servers should show the
      current selections
-   - [ ] check -license-file var with -license-file-check
+   - check -license-file var with -license-file-check
      - Emacs var  :DONE:
      - env vars  :DONE:
      - activate -license-file function :TODO:
-   - [ ] document Lagrange contact behaviour for contact/press-fit
+   - document Lagrange contact behaviour for contact/press-fit
      skeleton
-   - [ ]  _RETURN somewhat milder red, clashes with reseved vars!
-   - [ ] constraint equations in -template.el and get functions
-   - [ ] rigid-target minimal self-contained sample
-   - [X] write protect skeleton preview?
-   - [X] wget download not possible any longer?
-   - [X] check whether v14.0.1 has autoinsertion activated
-   - [X] I=3 $ /com, %I+1%, /com,%I+1% is not possible
-   - [X] (setq line-number-display-limit-width 2000)?: no <- Emacs default
-   - [X] make an ansys-solver-mode for highlighting BEGIN:, POST12:, etc.
-   - [X] give the minimal sample templates a documentation string
-     explaining the model purpose
-   - [X] M-p not yet working!
-   - [X] M-n/p does not work from node-/element-blocks (alternative to
-     C-c {/}).
-   - [X] -complete-symbol: complete but not uniqe is missing
-   - [X] Google Code project feed
-** Release [0%]
-   - [0%] document fontification.org
-       - [ ] Introduction TUTORIAL ansys-mode_tutorial.org ->
+   - _RETURN somewhat milder red, clashes with reseved vars!
+   - constraint equations in -template.el and get functions
+   - rigid-target minimal self-contained sample
+** Release
+   -  document fontification.org
+       - Introduction TUTORIAL ansys-mode_tutorial.org ->
        A-M_introductory_tutorial.org
-       - [ ] Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
-       - [ ] APDL and highlighting REFERENCE, fontification.org. ->
+       - Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
+       - APDL and highlighting REFERENCE, fontification.org. ->
          A-M_APDL_reference.org and fontification.mac -> dito??
-       - [ ] Rename in README, makefile, docu, ...
-       - [ ] upload to Google code
+       - Rename in README, makefile, docu, ...
+       - upload to Google code
          !!!Don't release yet the APDL reference!!!!
-   - [0%] fontification.el
-     - [ ] update ansys_parametric_functions.txt there is a new function
+   -  fontification.el
+     - update ansys_parametric_functions.txt there is a new function
        since V14
-     - [ ] some functions in -skeleton-function are not highlighted and
+     - some functions in -skeleton-function are not highlighted and
        completable, whitespace problem befor paren...
        and: "nele" undocumented command and function nelem()
-     - [ ] Help, M-? does not :
+     - es not :
        + *mwrite
        + *cfclos
        + *sread M-? shows help for *mwrite
-   - [ ] -introductory_tutorial.org
+   - -introductory_tutorial.org
      - add new function: C-C C-b instead of C-c C-h but don't release
        until 14.5
      - in variable.png symbols Ns and Ls are not highlighted as
@@ -114,13 +98,8 @@
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
 ** Bugs
-   - C-c { before a number-block does not work
-   - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
    - help overlay is only removed after 1 min if the buffer is active
       at that time
-   - -if-then does not indent correctly
    - mismatch in customisation buffer of -license-file and -ansysli-servers
 ** Compiler warnings
     - ansys-template.el:85:13:Warning: reference to free variable

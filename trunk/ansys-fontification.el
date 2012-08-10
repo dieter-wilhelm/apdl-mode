@@ -60,6 +60,7 @@
 ;; 3.) `Ansys_deprecated_elements_alist' release notes
 ;; 4.) `Ansys_commands_without_arguments'
 
+;(setq Ansys-version "13")
 (setq Ansys-version "14.5")
 
 ;; 
@@ -725,6 +726,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (add-to-list 'list (list "\"STRUCTURAL ANALYSIS GUIDE\"" "Hlp_G_StrTOC.html") 'append)
   (add-to-list 'list (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\"" "Hlp_G_AdvTOC.html") 'append)
   (add-to-list 'list (list "\"MATERIAL MODELS\"" "ans_mat.html") 'append)
+  (add-to-list 'list (list "\"THEORY REFERENCE\"" "ansys.theory.html") 'append)
   (message "adding help index...")
   (set-buffer buffer)
   (goto-char (point-min))

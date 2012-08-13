@@ -32,17 +32,18 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - add element numbers to the general completion list
+   - C-c C-c needs a carriage return in the last line if there is none
+     in the file!
    - C-c { before a number-block does not work
    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
    - -if-then does not indent correctly
-   - C-c C-c needs a carriage return in the last line!
    - check *vwrite with gui mode and interactive mode
    - WikEmacs, Melpa, GNU ELPA and/or marmalade
    - HTML APDL documentation
      here is the tanslation of names to html files:
-       file:/usr/local/ansys_inc/v130/commonfiles/help/ansys_Index.hlp
      - link to ANSYS-Mode APDL reference:
      - Chapters of structural APDL documentation:
    - TODOS: in fontification.org

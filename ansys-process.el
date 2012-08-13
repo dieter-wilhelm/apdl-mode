@@ -609,13 +609,14 @@ Element categories:
 		 (setq file (concat "ans_thry\\" file)))
 		)
 	(error "Emacs cannot find w23-shell-execute"))
-      (setq path (concat( "file://"
-			  ansys-install-directory
-			  "Ansys Inc\\v" ansys-current-ansys-version
-			  "\\commonfiles\\help\\en-us\\help\\")))
+      (setq path (concat
+		  "file://"
+		  ansys-install-directory
+			 "Ansys Inc\\v" ansys-current-ansys-version
+			 "\\commonfiles\\help\\en-us\\help\\"))
       ;; wrapper of ShellExecute MS-Windows API
-      (w32-shell-execute "Open" (concat path file))
-      )
+;      (message "file:%s path:%s" file path)
+      (w32-shell-execute "Open" (concat path file)))
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))
     (message "Calling html browser for keyword \"%s\"" command)))

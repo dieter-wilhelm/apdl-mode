@@ -257,7 +257,7 @@
   [[./bug_report.png]]
 
 * Summary
-** Use ANSYS-Mode appropriate to your APDL needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Write APDL only for *repetitive* tasks and command snippets, *extending* WB.
+** Use ANSYS-Mode appropriate to your APDL needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Moreover, write APDL only for *repetitive* tasks and command snippets, *extending* WB.
 
 *** Basic APDL *viewer*
          :PROPERTIES:

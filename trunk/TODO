@@ -71,13 +71,13 @@
    - rigid-target minimal self-contained sample
 ** Release
    -  document fontification.org
-       - Introduction TUTORIAL ansys-mode_tutorial.org ->
-       A-M_introductory_tutorial.org
+       - Introductory TUTORIAL ansys-mode_tutorial.org ->
+         A-M_introductory_tutorial.org
        - Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
        - APDL and highlighting REFERENCE, fontification.org. ->
          A-M_APDL_reference.org and fontification.mac -> dito??
        - Rename in README, makefile, docu, ...
-       - upload to Google code
+       - upload to Google code: file:googlecode_upload.py
          !!!Don't release yet the APDL reference!!!!
    -  fontification.el
      - update ansys_parametric_functions.txt there is a new function

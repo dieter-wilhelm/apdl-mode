@@ -481,9 +481,9 @@ variable)."
 		       (+ pt (skip-chars-forward re))))))
       (setq cmpl (try-completion str ansys-help-index)))
     (cond ((stringp cmpl)		;not unique
-	   (error "keyword: %s is not uniquely completable" ))
+	   str)
 	  ((equal cmpl nil)
-	   (error "%s is not a valid keyword" str))
+	   (error "\"%s\" is not a valid keyword" str))
 	  (t
 	   str))))
 
@@ -555,7 +555,7 @@ Element categories:
       (setq command (ansys-search-keyword)))
     (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (unless  file
-      (error "Command %s not found in keyword list" command))
+      (error "Keyword \"%s\" is not uniquely completable" command))
 ;    (message "Help file: %s" file)
     (cond
      ((ansys-is-unix-system-p)
@@ -582,8 +582,11 @@ Element categories:
       (setq path (concat "file://" ansys-install-directory
 			 "ansys_inc/v" ansys-current-ansys-version
 			 "/commonfiles/help/en-us/help/"))
-      (start-process "help_browser"
-		     nil "chromium-browser" (concat path file)))
+      (start-process "browser"
+;		     nil "chromium-browser" (concat path file)))
+		     nil "firefox" (concat path file)))
+;		     nil "xdg-open" (concat path file)))
+     ;; windows
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
 	  (cond ((string-match "_C_" file)
@@ -605,16 +608,17 @@ Element categories:
 		((string-match "ansys.theory" file)
 		 (setq file (concat "ans_thry\\" file)))
 		)
-	  (setq path (concat( "file://"
-			      ansys-install-directory
-			      "Ansys Inc\\v" ansys-current-ansys-version
-			      "\\commonfiles\\help\\en-us\\help\\")))
-	;; wrapper of ShellExecute MS-Windows API
-	(w32-shell-execute "Open" (concat path file))
-	(error "Emacs cannot find w23-shell-execute")))
+	(error "Emacs cannot find w23-shell-execute"))
+      (setq path (concat( "file://"
+			  ansys-install-directory
+			  "Ansys Inc\\v" ansys-current-ansys-version
+			  "\\commonfiles\\help\\en-us\\help\\")))
+      ;; wrapper of ShellExecute MS-Windows API
+      (w32-shell-execute "Open" (concat path file))
+      )
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))
-    (message "Calling html help for keyword %s" command)))
+    (message "Calling html browser for keyword \"%s\"" command)))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2

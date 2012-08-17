@@ -1,4 +1,4 @@
-#+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial*
+#+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* 14.5.1
 # Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 #+AUTHOR:    H. Dieter Wilhelm
@@ -78,9 +78,9 @@
 ** Explore the ANSYS-Mode menu
   Everything should work if ANSYS is installed in its default folder
   /C:Program Files/ under Win64, otherwise you might configure system
-  dependent stuff, like opening the ANSYS help browser with *C-c
-  C-h*. (All described features can be executed by the ANSYS-Mode menu
-  or with keyboard shortcuts.)
+  dependent stuff, like browsing the APDL help with *C-c C-b*. (All
+  described features can be executed through the ANSYS-Mode menu or
+  with keyboard shortcuts.)
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
@@ -209,6 +209,7 @@
 #+ATTR_LaTeX: width=5.5cm
     [[./customisation_system.png]]
 
+  ... and reload ANSYS-Mode. 
 * Documentation and Licensing
 
 ** Get to know Emacs and check out its tutorial

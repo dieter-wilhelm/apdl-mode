@@ -42,8 +42,8 @@ Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 The code (completions, help strings etc.) is based on ANSYS version
 14.5 and written for GNU Emacs and is not consciously targeted for
-XEmacs.  It is tested with Emacs-24.1 under XP32, XP64 and under
-`GNU/Linux' (here also with Emacs-23.2).
+XEmacs.  It is tested with Emacs-24.1 under XP64 and under GNU/Linux64
+(here also with Emacs-23.2).
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for UNIX systems.

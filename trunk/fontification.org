@@ -549,7 +549,10 @@ neither with ~c***~ nor with ~/sys~
   right = 9
   c***,this is %right%: c*** allows no parameter expansion
   /sys,ls "*.mac" %otto% &
-  /syp,ls, %otto% !TODO: is this working?
+  /syp,ls, %otto% !this is not working, no substitution!
+  I = 1
+  otto = 'file00%I%.eps'
+  /syp,ls, otto !this is working as intended
 #+end_src
    
 *** Dynamic Substitution of Numeric or Character Variables

@@ -49,7 +49,7 @@
 * Download
 ** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
-  conjunction with the latest Emacs editor binary for Windows 32/64
+  conjunction with the latest Emacs editor binary for Windows 64
   bit from the Google Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
   
 #+ATTR_HTML: width="1200"
@@ -186,7 +186,7 @@
 
 ** Configure system dependent aspects and user options
     The mode comes pre-configured for a default installation of ANSYS
-    14.0 for Win64.  If a functionality is missing please adjust
+    14.5 for Win64.  If a functionality is missing please adjust
     either:
 *** The well commented configuration file /default.el/
 
@@ -251,8 +251,8 @@
 ** Search for help, report bugs and issues
   Besides the documentation, have a look in the section 'Issues and
   bug reports' at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
-  Please use the ANSYS-Mode bug report functionality (*C-c C-b*),
-  which might provide helpful status information.
+  Please use the ANSYS-Mode bug report functionality, which might
+  provide helpful status information.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./bug_report.png]]

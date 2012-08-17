@@ -1796,6 +1796,60 @@ improvements you have the following options:
 	  (message "Experimental (non-dynamic) fontification of variables activated."))
 	(ansys-find-user-variables)))
 
+  ;; initialise
+
+  ;; license server configuration and executables
+
+  (cond ((string= window-system "x")
+	 (setq
+	  ;; The ANSYS executable
+	  ansys-program
+	  (concat ansys-install-directory
+		  "ansys_inc/v"
+		  ansys-current-ansys-version
+		  "/ansys/bin/ansys"
+		  ansys-current-ansys-version)
+	  ;; Utility for the license status
+	  ansys-lmutil-program
+	  (concat
+	   ansys-install-directory
+	   "ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
+	 ;; lin32 not longer supported since ANSYS 14!
+	 ;;"ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
+	 ;; "ansys_inc/shared_files/licensing/lin32/lmutil")
+
+	 ;; ANSYS help browser executable
+	  ansys-help-program
+	  (concat
+	   ansys-install-directory
+	   "ansys_inc/v"
+	   ansys-current-ansys-version
+	  "/ansys/bin/anshelp"
+	  ansys-current-ansys-version)))
+	(t
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		   ;; else windows (XP 32/64 Bit)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+	 (setq ansys-lmutil-program
+	       (concat
+		ansys-install-directory
+		"Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
+;	      "Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
+	       ;;backslash '\"' on windows mandatory
+	       ansys-help-program
+	       (concat ansys-install-directory
+		       "Ansys Inc\\v"
+		       ansys-current-ansys-version
+		       "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
+;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
+	       ansys-help-program-parameters
+	       (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
+		       ansys-install-directory
+		       "Ansys Inc\\v"
+		       ansys-current-ansys-version
+		       "\\commonfiles\\help\" "
+		       "HelpDocViewer"))))
+
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
 

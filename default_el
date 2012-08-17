@@ -95,6 +95,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;; which version of ANSYS we are using, the current version is "145"
 
 (setq ansys-current-ansys-version "145")
+;(setq ansys-current-ansys-version "140")
 ;(setq ansys-current-ansys-version "130")
 
 ;; Number of cores for the run, 2 does not require HPC licenses
@@ -118,7 +119,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;        ;;This an example of an installation dir. on Windows
 ;        (setq ansys-install-directory "D:\\Programs\\")))
 
-;; license server configuration and executables
+;; license server configuration and executable paths
 
 (cond ((string= window-system "x")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
@@ -137,56 +138,67 @@ calling a special ANSYS customisation buffer." 'interactive)
 	ansys-ansysli-servers
 	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
 
-	;; The ANSYS executable
-	ansys-program
-	(concat ansys-install-directory
-		"ansys_inc/v"
-		ansys-current-ansys-version
-		"/ansys/bin/ansys"
-		ansys-current-ansys-version)
+	;; the following is now executed in the mode function
+	;; ansys-mode itself, dropped 32 bit support
 
-	;; Utility for the license status
-	ansys-lmutil-program
-	(concat
-	 ansys-install-directory
-	 "ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
-	;; lin32 not longer supported since ANSYS 14!
-	;;"ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
-	;; "ansys_inc/shared_files/licensing/lin32/lmutil")
+	;; ;; The ANSYS executable
+	;; ansys-program
+	;; (concat ansys-install-directory
+	;; 	"ansys_inc/v"
+	;; 	ansys-current-ansys-version
+	;; 	"/ansys/bin/ansys"
+	;; 	ansys-current-ansys-version)
 
-	;; ANSYS help browser executable
-	ansys-help-program
-	(concat
-	 ansys-install-directory
-	 "ansys_inc/v"
-	 ansys-current-ansys-version
-	 "/ansys/bin/anshelp"
-	 ansys-current-ansys-version)))
+	;; ;; Utility for the license status
+	;; ansys-lmutil-program
+	;; (concat
+	;;  ansys-install-directory
+	;;  "ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
+	;; ;; lin32 not longer supported since ANSYS 14!
+	;; ;;"ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
+	;; ;; "ansys_inc/shared_files/licensing/lin32/lmutil")
+
+	;; ;; ANSYS help browser executable
+	;; ansys-help-program
+	;; (concat
+	;;  ansys-install-directory
+	;;  "ansys_inc/v"
+	;;  ansys-current-ansys-version
+	;;  "/ansys/bin/anshelp"
+	;;  ansys-current-ansys-version)
+	))
       (t     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		   ;; else windows (XP 32/64 Bit)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
-       (setq ansys-lmutil-program
-	     (concat
-	      ansys-install-directory
-	      "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
-;	      "Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
-       ;;backslash '\"' on windows mandatory
 
-	     ansys-help-program
-	     (concat ansys-install-directory
-		     "Ansys Inc\\v"
-		     ansys-current-ansys-version
-		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
-;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
+	;; the following is now executed in the mode function
+	;; ansys-mode itself, dropped 32 bit support
 
-	     ansys-help-program-parameters
-	     (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
-		     ansys-install-directory
-		     "Ansys Inc\\v"
-		     ansys-current-ansys-version
-		     "\\commonfiles\\help\" "
-		     "HelpDocViewer"))))
+
+;;        (setq ansys-lmutil-program
+;; 	     (concat
+;; 	      ansys-install-directory
+;; 	      "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
+;; ;	      "Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
+;;        ;;backslash '\"' on windows mandatory
+
+;; 	     ansys-help-program
+;; 	     (concat ansys-install-directory
+;; 		     "Ansys Inc\\v"
+;; 		     ansys-current-ansys-version
+;; 		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
+;; ;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
+
+;; 	     ansys-help-program-parameters
+;; 	     (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
+;; 		     ansys-install-directory
+;; 		     "Ansys Inc\\v"
+;; 		     ansys-current-ansys-version
+;; 		     "\\commonfiles\\help\" "
+;; 		     "HelpDocViewer")
+
+      ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; still necessary for ANSYS 12 ?:

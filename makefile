@@ -1,5 +1,5 @@
 ANSYS_MAJOR := 14
-ANSYS_MINOR := 0
+ANSYS_MINOR := 5
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)

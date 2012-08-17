@@ -23,6 +23,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   blocks.  They are now alternatives to `ansys-number-block-start' C-c
   { and C-c } respectively
 
+* Removed bug in customisation system and dropped 32 bit ANSYS
+  support.
+
 === Version 14.0.1 June 2012 ===
 
 * Enhanced the documentation, included is now an introductory tutorial

@@ -32,6 +32,7 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - add user variable for C-c C-c and next line or not
    - bug in customisation system
    - add element numbers to the general completion list
    - C-c C-c needs a carriage return in the last line if there is none

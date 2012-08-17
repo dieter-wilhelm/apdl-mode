@@ -32,6 +32,7 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - bug in customisation system
    - add element numbers to the general completion list
    - C-c C-c needs a carriage return in the last line if there is none
      in the file!
@@ -147,6 +148,7 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    Michaelk@vipac.com.au
     razvan.ionel.curtean@continental-corporation.com,
     Steffen.Kernbach@continental-corporation.com,
     Johann.Massinger@continental-corporation.com,

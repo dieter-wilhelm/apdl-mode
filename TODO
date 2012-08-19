@@ -74,12 +74,8 @@
    - constraint equations in -template.el and get functions
    - rigid-target minimal self-contained sample
 ** Release
-   -  document fontification.org
-       - Introductory TUTORIAL ansys-mode_tutorial.org ->
-         A-M_introductory_tutorial.org
-       - Indepth TUTORIAL, APDL_tutorial.org -> A-M_in-depth_tutorial.org
-       - APDL and highlighting REFERENCE, fontification.org. ->
-         A-M_APDL_reference.org and fontification.mac -> dito??
+   -  document A-M_in-depth_tutorial.org
+       - fontification.mac, leave it
        - Rename in README, makefile, docu, ...
        - upload to Google code: file:googlecode_upload.py
          !!!Don't release yet the APDL reference!!!!

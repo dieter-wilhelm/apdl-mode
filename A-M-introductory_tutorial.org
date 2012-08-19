@@ -28,7 +28,7 @@
 * Introduction
 ** GNU Emacs editor support for working with ANSYS FEA
    This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
-   Analysis) suite [[http://www.ansys.com][ANSYS]] (registered TM, ANalysis SYStem).
+   Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
 #+LaTeX: \\[.2cm]
    It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
    investigating and coding APDL (Ansys Parametric Design Language)
@@ -147,7 +147,7 @@
   [[./alignment.png]]
 
 ** Use the Emacs integrated, programmable RPN calculator  
-   Type *C-x* * * to open the calculator, type *y* for copying results
+   Type *C-x* * * to open the calculator, type *y* for pasting results
    directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
 
 #+ATTR_LaTeX: height=7.5cm
@@ -230,7 +230,7 @@
 
 ** Read further ANSYS-Mode documentation
 
-*** Hands-on  APDL tutorial:
+*** Hands-on tutorial:
     You will find this more in-depth tutorial included in the mode's
     archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html][online]].
 *** Installation:
@@ -250,7 +250,7 @@
 * Help and Bugs
 ** Search for help, report bugs and issues
   Besides the documentation, have a look in the section 'Issues and
-  bug reports' at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
+  bug reports' at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
   Please use the ANSYS-Mode bug report functionality, which might
   provide helpful status information.
 
@@ -258,7 +258,7 @@
   [[./bug_report.png]]
 
 * Summary
-** Use ANSYS-Mode appropriate to your APDL needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Moreover, write APDL only for *repetitive* tasks and command snippets, *extending* WB.
+** Use ANSYS-Mode appropriate to your needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Moreover, code APDL only for *repetitive* tasks and command snippets, *extending* WB.
 
 *** Basic APDL *viewer*
          :PROPERTIES:
@@ -266,8 +266,9 @@
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Navigating in input files, discerning relevant information through
-    highlighting, analysing APDL commands with the built-in help.
+    Navigating in WB solver input files, discerning relevant
+    information through highlighting, quickly analysing APDL commands
+    with the built-in help or studying them in detail in your browser.
 *** Earnest APDL *editor*
          :PROPERTIES:
          :BEAMER_env: block
@@ -307,6 +308,9 @@
          :END:
 
 Have fun...
+#+BEGIN_LaTeX
+\vspace{.2cm}
+#+END_LaTeX
 
 #+ATTR_LaTeX: width=6cm
     [[./editor_learning_curves.jpg]]

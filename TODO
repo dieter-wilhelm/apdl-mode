@@ -32,6 +32,7 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - update download page to 14.5.1 in the intro tutorial
    - add user variable for C-c C-c and next line or not
    - bug in customisation system
    - add element numbers to the general completion list
@@ -200,9 +201,7 @@ http://code.google.com/p/ansys-mode
 
 You'll find also there the latest stable version of Emacs for Windows
 with ANSYS-Mode preconfigured and ready to go.  Just unpack it and use
-the mode for your APDL files and likely other stuff as well...
-
-....
+the mode for your APDL files and hopefully for other stuff as well...
 
 * Ideas for further versions
 ** Parameter help and documentation

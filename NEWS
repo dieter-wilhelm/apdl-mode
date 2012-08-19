@@ -8,7 +8,21 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 * Added a function (C-c C-b) showing the detailed ANSYS help in your
   web-browser for an APDL command or element name (the element number
-  is enough) near the cursor.
+  is enough) around the cursor
+
+  Are you also tired of the ANSYS help browser?  E. g. try searching for
+  the `F' APDL command, it is impossible!  You have to pick it up from
+  the alphabetical command list. Likewise when you are searching for an
+  incomplete keyword, no hint, no completion, nothing!  Finding and
+  browsing relevant APDL documentation is still too slow and cumbersome
+
+  As a highlight of this release you can now read immeadiately the
+  detailed ANSYS help in your web-browser for *all* APDL command AND
+  element names around the cursor (or for the first command in the
+  current line if that fails to be valid keyword).  You may input your
+  search string also interactively, including its completion to valid
+  ANSYS help keywords. This is an ideal complement to ANSYS-Mode's
+  in-built `command syntax' help
 
 * Improved the introductory and the in-depth tutorial and extended the
   documentation with an APDL and syntax highlighting reference in HTML
@@ -24,7 +38,7 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   { and C-c } respectively
 
 * Removed bug in customisation system and dropped 32 bit ANSYS
-  support.
+  support
 
 === Version 14.0.1 June 2012 ===
 

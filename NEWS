@@ -29,6 +29,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   and PDF. (To some degree syntax highlighted in the PDF version as
   well)
 
+* When calling `ansys-show-command-parameters' with a prefix argument
+  for interactively entering command names, these are now completable
+
 * Values of the `_RETURN' variable are now documented in the function
   `ansys-skeleton-information'
 

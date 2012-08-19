@@ -481,10 +481,10 @@ variable)."
 		       (+ pt (skip-chars-forward re))))))
       (setq cmpl (try-completion str ansys-help-index)))
     (cond ((stringp cmpl)		;not unique
-	   str)
+	   cmpl)
 	  ((equal cmpl nil)
 	   (error "\"%s\" is not a valid keyword" str))
-	  (t
+	  (t				;perfect match
 	   str))))
 
 (defun ansys-browse-ansys-help ( &optional arg)       ;NEW_C
@@ -619,7 +619,7 @@ Element categories:
       (w32-shell-execute "Open" (concat path file)))
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))
-    (message "Calling html browser for keyword \"%s\"" command)))
+    (message "Called html browser for keyword \"%s\"..." command)))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2

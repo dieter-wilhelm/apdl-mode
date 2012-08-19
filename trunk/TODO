@@ -74,11 +74,11 @@
    - constraint equations in -template.el and get functions
    - rigid-target minimal self-contained sample
 ** Release
+   - make syntax help inquire command completable and usable in
+     comments!
    -  document A-M_in-depth_tutorial.org
-       - fontification.mac, leave it
-       - Rename in README, makefile, docu, ...
+       - fontification.mac, leave it in the mode archive for a while
        - upload to Google code: file:googlecode_upload.py
-         !!!Don't release yet the APDL reference!!!!
    -  fontification.el
      - update ansys_parametric_functions.txt there is a new function
        since V14

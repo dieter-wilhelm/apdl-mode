@@ -1206,21 +1206,23 @@ with typing \"\\[undo]\".
 ** ANSYS command syntax help **
 
 Typing \"\\[ansys-show-command-parameters]\", the <CTRL> key
-simultaneously with the <c> key and then \"?\" the question
+simultaneously with the <c> key and then <?>, the question
 mark (for the command `ansys-show-command-parameters') displays
 above a code line a brief description of the ANSYS command and
-its syntax.  The command is looking for the next valid ANSYS
-command near the cursor or when using a prefix argument it
-inquires an ANSYS keyword from you.  Keywords beginning with `\"'
-describe general manual sections, for example typing `\"beams\"'
-will show you the collection of all beam elements.
+its syntax.  The command is looking for the next valid command
+near the cursor or when using a prefix argument it inquires an
+ANSYS command from you.
 
-** Browse the detailed ANSYS command and element help **
+** Browse the detailed ANSYS command and element html help **
 
 Putting in \"\\[ansys-browse-ansys-help]\" will display the
 original ANSYS help in your web-browser for an APDL command or
-element name (the element number is enough) near the cursor or
-the code line's first APDL command.
+element name (stating the element number is sufficient) near the
+cursor or the code line's first APDL command.  When using a
+prefix argument it inquires an keyword from you.  Keywords
+beginning with `\"' describe general manual sections, for example
+typing `\"SHELLS\"' will call the collection of all shell
+elements in the ANSYS manual.
 
 ** ANSYS keyword completion (commands, elements, get- and
    parametric-functions) **

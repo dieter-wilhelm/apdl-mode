@@ -26,7 +26,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 1.preview2
+MODE_VERSION := 1.beta2
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 

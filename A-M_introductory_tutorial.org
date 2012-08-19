@@ -69,8 +69,9 @@
 * Usage
 ** Open an APDL macro file with Emacs
   Start the Emacs editor and open /fontification.mac/ in the
-  /site-lisp/ folder (or any other APDL file with the extensions
-  /mac/, /inp/, /dat/ or /anf/.  Otherwise additionally type *M-x ansys-mode* and <RET>).
+  /site-lisp/ folder or any other APDL file (with the extensions
+  /mac/, /inp/, /dat/ or /anf/, otherwise additionally type *M-x
+  ansys-mode* and <RET>).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./find_file_dialog.png]]
@@ -117,7 +118,11 @@
    [[./template_selection.png]]
 
 ** Check auto-insertion and outline your code (tree view)
-  Create a new APDL file with the suffix `.mac' and let Emacs auto-insert
+  Create a new APDL file with the suffix 
+#+BEGIN_LaTeX
+`{\sl .mac}'
+#+END_LaTeX
+  and let Emacs auto-insert
   a skeleton with `outline' headings.  Collapse the content to a tree
   view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
 
@@ -222,13 +227,13 @@
 
 ** Use the ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help, especially for the
-   usage and keybindings of this mode.  In the beginning is also a
+   usage and keybindings of this mode.  At the beginning is also a
    brief introduction of basic Emacs concepts.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./mode_help.png]]
 
-** Read further ANSYS-Mode documentation
+** You might read further ANSYS-Mode documentation
 
 *** Hands-on tutorial:
     You will find this more in-depth tutorial included in the mode's
@@ -268,7 +273,8 @@
          :END:
     Navigating in WB solver input files, discerning relevant
     information through highlighting, quickly analysing APDL commands
-    with the built-in help or studying them in detail in your browser.
+    with the built-in help or studying their detailed help in your
+    browser.
 *** Earnest APDL *editor*
          :PROPERTIES:
          :BEAMER_env: block

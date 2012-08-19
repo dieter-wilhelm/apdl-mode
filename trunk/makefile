@@ -35,7 +35,7 @@ EL_FILES := ansys-mode.el ansys-keyword.el \
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := LICENSE README TODO NEWS fontification.mac default_el ansys-mode_tutorial.pdf APDL_tutorial.ansys  APDL_tutorial.pdf fontification.html
+FILES := LICENSE README TODO NEWS fontification.mac default_el A-M_introductory_tutorial.pdf A-M_in-depth_tutorial.ansys  A-M_in-depth_tutorial.pdf A-M_APDL_reference.pdf
 
 PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 
@@ -75,12 +75,12 @@ CLEAN :
 APDL_tutorial.ansys : APDL_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")"--file $< --execute "(org-babel-tangle)"
 
-APDL_tutorial.pdf : APDL_tutorial.org
+A-M_in-depth_tutorial.pdf : A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-pdf 3)"
 # htmlize does not yet work in batch mode
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
-ansys-mode_tutorial.pdf : ansys-mode_tutorial.org
+A-M_introductory_tutorial.pdf : A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute  "(org-export-as-pdf 3)"
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 

@@ -157,15 +157,16 @@ you are using the mode with an older version of Emacs than 24.1 please
 remove the .elc files.)
 
 Auxiliaries:
-* README -- this file
-* NEWS -- news and history
-* TODO -- todos and deficiencies
-* LICENSE -- the GPL (Gnu Puplic License) Version 3
-* default_el -- configuration example file of an Emacs 'default.el'
-* fontification.mac -- APDL syntax highlighting examples
-* ansys-mode_tutorial.pdf -- An introductory tutorial
-* APDL_tutorial.pdf -- The ANSYS-Mode hacking tutorial
-* APDL_tutorial.ansys -- Hacking tutorial's supplementary APDL code
+* README -- This file
+* NEWS -- News and history
+* TODO -- Todos and deficiencies
+* LICENSE -- The GPL (Gnu Puplic License) Version 3
+* default_el -- Configuration example file of an Emacs 'default.el'
+* fontification.mac -- APDL example file
+* A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
+* A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
+* A-M_in-depth_tutorial.ansys -- Hands-on tutorial's supplementary APDL code
+* A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 === Short instructions ===
 

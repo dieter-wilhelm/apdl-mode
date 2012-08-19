@@ -1211,7 +1211,9 @@ mark (for the command `ansys-show-command-parameters') displays
 above a code line a brief description of the ANSYS command and
 its syntax.  The command is looking for the next valid ANSYS
 command near the cursor or when using a prefix argument it
-inquires an ANSYS command name.
+inquires an ANSYS keyword from you.  Keywords beginning with `\"'
+describe general manual sections, for example typing `\"beams\"'
+will show you the collection of all beam elements.
 
 ** Browse the detailed ANSYS command and element help **
 

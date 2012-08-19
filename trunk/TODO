@@ -32,9 +32,8 @@
 
 *  14.5.1:
 ** TODO Freeze
-   - update download page to 14.5.1 in the intro tutorial
-   - add user variable for C-c C-c and next line or not
-   - bug in customisation system
+   - add user variable for C-c C-c toggle move to next line or remain
+     on current one
    - add element numbers to the general completion list
    - C-c C-c needs a carriage return in the last line if there is none
      in the file!
@@ -74,9 +73,8 @@
    - constraint equations in -template.el and get functions
    - rigid-target minimal self-contained sample
 ** Release
-   - make syntax help inquire command completable and usable in
-     comments!
-   -  document A-M_in-depth_tutorial.org
+   - make syntax help usable in comments!
+   - document A-M_in-depth_tutorial.org
        - fontification.mac, leave it in the mode archive for a while
        - upload to Google code: file:googlecode_upload.py
    -  fontification.el
@@ -90,8 +88,7 @@
        + *cfclos
        + *sread M-? shows help for *mwrite
    - -introductory_tutorial.org
-     - add new function: C-C C-b instead of C-c C-h but don't release
-       until 14.5
+     - update download page to 14.5.1 in the intro tutorial
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned

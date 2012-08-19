@@ -2068,7 +2068,7 @@ explanation.  This is done for the previous ANSYS command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the
 previous command is found.  With a prefix argument ASK inquire a
-function or command name from the mini buffer."
+command name from the mini buffer, the names can be completed."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
@@ -2076,7 +2076,9 @@ function or command name from the mini buffer."
     (save-excursion
       (cond
        (ask
-	(setq str (read-from-minibuffer "Type function or command name for help: "))
+	(setq str (completing-read
+		   "Type function or command name for help: "
+		   ansys-dynamic-prompt))
 	(string-match ".*" str)
 	(setq str (match-string-no-properties 0 str)))
        (t

@@ -16,7 +16,7 @@
 #+LINK_HOME: 
 #+XSLT:
 #+PROPERTY: tangle yes
-#+LaTeX_CLASS: koma-report
+##+LaTeX_CLASS: koma-report
 ##+LaTeX_CLASS: koma-article
 ##+LATEX: \tableofcontents
 #+LATEX_HEADER: \usepackage{scrpage2}

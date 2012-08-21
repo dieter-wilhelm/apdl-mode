@@ -883,7 +883,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = LOG()   !Natural log"  \n
   "A = LOG10() !Common log, Briggs' log"\n
   "A = SQRT()  !Square root" \n
-  "A = NINT()  !Nearest integer" \n
+  "A = NINT()  !Nearest integer, poor man's round(x,2)=nint(x*100)/100" \n
 ; bullshit  "A = abs(nint()) !round" \n
   "A = MOD()   !mod(x,y): modulo x/y" \n
   "A = RAND()  !rand(lower_bound,upper_bound):uniform dist." \n

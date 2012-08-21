@@ -366,7 +366,9 @@ not shown if they are chosen smaller then 3 (see
 
     (if (y-or-n-p
 	 (concat
-	  "Start run?  (license type: " ansys-license
+	  "Start run?  (version: "
+	  ansys-current-ansys-version
+	  ", license type: " ansys-license
 	  ;; "Start run?  (license type: " (if (boundp
 	  ;; 'ansys-license) ansys-license)
 	  (if (>= ansys-no-of-processors 3)

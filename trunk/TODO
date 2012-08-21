@@ -276,8 +276,7 @@ the mode for your APDL files and hopefully for other stuff as well...
     - search in -job for /filn arguments as default job name like in
       -display-error-file
 ** Skeletons and abbrevs
-   - no round function in APDL, skeleton-function: abs(nint()) !round
-     is wrong, commented out
+   - no round function in APDL, skeleton-function: nint(x*100)/100
    - enhance abbrev definitions for *create, *dowhile logics:
    - use the ANSYS sample input listing for template-examples
    - additional dialog boxes with:

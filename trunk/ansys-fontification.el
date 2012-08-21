@@ -703,7 +703,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
     (while (re-search-forward "^SHELLS" nil t)
       (replace-match "\"SHELLS\"" nil nil))
     (goto-char (point-min))
-    (while (re-search-forward "^PLANE" nil t)
+    (while (re-search-forward "^PLANE " nil t)
       (replace-match "\"PLANES\"" nil nil))
     (goto-char (point-min))
     (while (re-search-forward "^SOLID " nil t)
@@ -736,7 +736,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (prin1 list buffer)
   (insert "\n\"ANSYS help index alist.\")\n\n")
   (beginning-of-defun)
-  (fill-paragraph 0)
+;  (fill-paragraph 0)
   (message "help index...done.")
 
   ;; ---------- header ----------

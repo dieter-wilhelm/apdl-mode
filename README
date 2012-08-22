@@ -7,21 +7,22 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png
 
-This [http://code.google.com/p/ansys-mode/ project] supports working
-with the FEA (Finite Element Analysis) suite [http://www.ansys.com ANSYS] (ANalysis SYStem).
+This [http://code.google.com/p/ansys-mode/ project] supports your
+workflows with the FEA (Finite Element Analysis) suite
+[http://www.ansys.com ANSYS] (ANalysis SYStem, registered TM).
 
 It provides `ANSYS-Mode', an add-on to the
-[http://www.gnu.org/software/emacs/ Gnu Emacs] editor for navigating
-in, inspecting and writing APDL files.  The mode offers managing and
-communication capabilities for ANSYS processes, like interactive code
-debugging with the ANSYS solver/interpreter or listing the current
-license status, etc. Some features are quite sophisticated but the
-overall documentation is targeted for ANSYS users with little Emacs
-experience.
+[http://www.gnu.org/software/emacs/ GNU Emacs] editor for
+investigating and coding APDL (Ansys Parametric Design Language).  The
+mode offers also managing and communication capabilities for various
+ANSYS processes, like interactive code debugging with the solver or
+inquiring the license manager status, etc.  Some features are quite
+sophisticated but its documentation is targeted for ANSYS users with
+little Emacs experience.
 
-[http://www.gnu.org/home.en.html Gnu] Emacs (Gnu's Not Unix) is an
-up-to-date, extensible, powerful, yet free editor which is available
-for any operating system where ANSYS is running.
+[http://www.gnu.org/home.en.html GNU] (Gnu's Not Unix) Emacs is an
+up-to-date, powerful and extensible - yet free - editor. High quality
+software available for every operating system where ANSYS is running.
 
 The current stable version (14.5.1) of ANSYS-Mode is available at the
 [http://code.google.com/p/ansys-mode Google Code site] (The command line way, e. g.: "wget

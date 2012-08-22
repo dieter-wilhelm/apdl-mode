@@ -30,9 +30,9 @@
    This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
    Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
 #+LaTeX: \\[.2cm]
-   It provides 'ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
-   investigating and coding APDL (Ansys Parametric Design Language)
-   files.  The mode offers also managing and communication
+   It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
+   investigating and coding APDL (Ansys Parametric Design Language).
+   The mode offers also managing and communication
    capabilities for various ANSYS processes, like interactive code
    debugging with the solver or inquiring the license manager status,
    etc.  Some features are quite sophisticated but its documentation
@@ -41,7 +41,6 @@
    [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and
    extensible - yet free - editor. High quality software available for
    every operating system where ANSYS is running.
-
 #+LaTeX: \\[.4cm]
    In the following *C-c* or *M-c* means typing the <CTRL> or <ALT>
    key together with the <c> key.
@@ -78,10 +77,10 @@
 
 ** Explore the ANSYS-Mode menu
   Everything should work if ANSYS is installed in its default folder
-  /C:Program Files/ under Win64, otherwise you might configure system
-  dependent stuff, like browsing the APDL help with *C-c C-b*. (All
-  described features can be executed through the ANSYS-Mode menu or
-  with keyboard shortcuts.)
+  /C:Program Files/ under Win64, otherwise, for system dependent
+  stuff, like browsing the APDL help with *C-c C-b* you can easily
+  reconfigure. (All described features can be executed through the
+  ANSYS-Mode menu or with keyboard shortcuts.)
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
@@ -190,11 +189,11 @@
 * Configuration
 
 ** Configure system dependent aspects and user options
+#   \\Mainly the ANSYS version and its installation directory
     The mode comes pre-configured for a default installation of ANSYS
     14.5 for Win64.  If a functionality is missing please adjust
     either:
 *** The well commented configuration file /default.el/
-
           :PROPERTIES:
           :BEAMER_env: block
           :BEAMER_envargs: C[T]
@@ -321,33 +320,5 @@ Have fun...
 #+ATTR_LaTeX: width=6cm
     [[./editor_learning_curves.jpg]]
 
-##+LaTeX: \transdissolve<2>
-
-#might be a new beginning...
 
 
-# * This is the first structural section
-
-# ** Frame 1 \\ with a subtitle
-# *** Thanks to Eric Fraga                                      :BMCOL:B_block:
-#          :PROPERTIES:
-#          :BEAMER_env: block
-#          :BEAMER_envargs: C[t]
-#          :BEAMER_col: 0.5
-#          :END:
-#          for the first viable beamer setup in Org
-# *** Thanks to everyone else                                   :BMCOL:B_block:
-#          :PROPERTIES:
-#          :BEAMER_col: 0.5
-#          :BEAMER_env: block
-#          :BEAMER_envargs: <2->
-#          :END:
-#          for contributing to the discussion
-# **** This will be formatted as a beamer note                  :B_note:
-# ** Frame 2 \\ where we will not use columns
-# *** Request                                                   :B_block:
-#          Please test this stuff!
-#          :PROPERTIES:
-#          :BEAMER_env: block
-#          :END:
-    

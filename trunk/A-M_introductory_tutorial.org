@@ -192,7 +192,7 @@
 #   \\Mainly the ANSYS version and its installation directory
     The mode comes pre-configured for a default installation of ANSYS
     14.5 for Win64.  If a functionality is missing please adjust
-    either:
+    either of:
 *** The well commented configuration file /default.el/
           :PROPERTIES:
           :BEAMER_env: block

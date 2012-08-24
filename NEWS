@@ -8,7 +8,8 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 * Added a function (C-c C-b) showing the detailed ANSYS help in your
   web-browser for an APDL command or element name (also the element
-  number is sufficient) around the cursor or at the line beginning.
+  number is sufficient) around the cursor (or if that fails at the
+  line beginning).
 
   Are you also tired of the ANSYS help browser?  E. g. try searching for
   the `F' APDL command, it is impossible!  You have to pick it up from
@@ -43,6 +44,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 * Removed bug in customisation system and dropped 32 bit ANSYS support
   in line with the ANSYS OS
   [http://www.ansys.com/Support/Platform+Support strategy] for 2013.
+
+* Described a poor man's round() workaround in ansys-template-function
+  under the nint() entry
 
 === Version 14.0.1 June 2012 ===
 

@@ -32,11 +32,11 @@
 #+LaTeX: \\[.2cm]
    It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
    investigating and coding APDL (Ansys Parametric Design Language).
-   The mode offers also managing and communication
-   capabilities for various ANSYS processes, like interactive code
-   debugging with the solver or inquiring the license manager status,
-   etc.  Some features are quite sophisticated but its documentation
-   is targeted for ANSYS users with little Emacs experience.
+   The mode offers also managing and communication capabilities for
+   various ANSYS processes, like interactive code debugging with the
+   solver or inquiring the license manager status, etc.  Some features
+   are quite sophisticated but its documentation is accessible for
+   ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
    [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and
    extensible - yet free - editor. High quality software available for
@@ -76,21 +76,21 @@
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
-  Everything should work if ANSYS is installed in its default folder
-  /C:Program Files/ under Win64, otherwise, for system dependent
-  stuff, like browsing the APDL help with *C-c C-b* you can easily
-  reconfigure. (All described features can be executed through the
-  ANSYS-Mode menu or with keyboard shortcuts.)
+  Everything should work also system dependent functions, like
+  browsing the APDL help with *C-c C-b*, if ANSYS is installed in its
+  default folder /C:Program Files/ under Win64, otherwise, you can
+  easily reconfigure. (All described features can be executed through
+  the ANSYS-Mode menu or with keyboard shortcuts.)
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
 ** Use the ANSYS-Mode APDL command help
-  Please type *M-?* (alternatively: *C-c ?*) on a code line and you will see the
-  APDL command's description together with its parameter syntax.  You
-  can continue working, this temporary overlay (here in yellow) remains
-  visible during your editing.
+  Please type *M-?* (alternatively: *C-c ?*) on a code line and you
+  will see the APDL command's description together with its parameter
+  syntax.  You can continue working, this temporary overlay (here in
+  yellow) remains visible for a while   during your editing.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
@@ -102,9 +102,9 @@
    [[./template_menu.png]]
 
 ** Preview the extensible APDL code templates
-   Besides your regular APDL file you are able to inspect and insert
-   interesting code snippets from a preview window (see below and next
-   slide).
+   Before inserting a code template completely you are able to inspect
+   the content in a preview window and you can copy the most relevant
+   snippets (see below and next slide).
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]

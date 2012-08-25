@@ -328,14 +328,15 @@ position."
 ;;   (force-mode-line-update))
 
 (defun ansys-query-ansys-command ()	;NEW
-  "Ask for a string which will be sent to the interpreter."
+  "Ask for a string which will be sent to the interpreter.
+The string is completable to all current ANSYS commands"
   (interactive)
   (unless (ansys-process-running-p)
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;    (force-mode-line-update)
     (error "No ANSYS process is running"))
-  (let ((s (read-string "Send to interpreter: ")))
-    (comint-send-string (get-process
+  (let ((s (completing-read "Send to interpreter: " ansys-help-index)))
+    (COMINT-send-string (get-process
 			 (if (boundp 'ansys-process-name)
 			     ansys-process-name)) (concat s "\n"))
     ;;  (walk-windows

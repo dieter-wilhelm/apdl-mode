@@ -76,11 +76,11 @@
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
-  Everything should work also system dependent functions, like
-  browsing the APDL help with *C-c C-b*, if ANSYS is installed in its
-  default folder /C:Program Files/ under Win64, otherwise, you can
-  easily reconfigure. (All described features can be executed through
-  the ANSYS-Mode menu or with keyboard shortcuts.)
+  If ANSYS is installed in its default folder /C:Program Files/ under
+  Win64 also system dependent functions are working, like browsing the
+  APDL help with *C-c C-b*, otherwise, you can easily
+  configure this. (All described features can be executed through the
+  ANSYS-Mode menu or with keyboard shortcuts.)
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]

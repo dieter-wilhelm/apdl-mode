@@ -32,6 +32,7 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - add command completion to C-c C-q
    - add user variable for C-c C-c toggle move to next line or remain
      on current one
    - add element numbers to the general completion list
@@ -276,7 +277,8 @@ the mode for your APDL files and hopefully for other stuff as well...
     - search in -job for /filn arguments as default job name like in
       -display-error-file
 ** Skeletons and abbrevs
-   - add a preview mode, with
+   - add a preview mode, with its own keymap for faster editing and
+     copying, like dired
    - enhance abbrev definitions for *create, *dowhile logics:
    - use the ANSYS sample input listing for template-examples
    - additional dialog boxes with:

@@ -23,23 +23,27 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   current line if that fails to be valid keyword).  You may input your
   search string also interactively, including its completion to valid
   ANSYS help keywords. This is an ideal complement to ANSYS-Mode's
-  in-built `command syntax' help
+  in-built `command syntax help'
+
+* When calling `ansys-show-command-parameters' (M-? - the in-built
+  `command syntax help') with a prefix argument for interactively
+  entering a command name, it is now completable
+
+* Also the input of `ansys-query-ansys-command' (C-c C-q) is now
+  completable to all current ANSYS commands
 
 * Improved the introductory and the in-depth tutorial and extended the
   documentation with an APDL and syntax highlighting reference in HTML
   and PDF. (To some degree syntax highlighted in the PDF version as
   well)
 
-* When calling `ansys-show-command-parameters' with a prefix argument
-  for interactively entering command names, these are now completable
-
 * Values of the `_RETURN' variable are now documented in the function
   `ansys-skeleton-information'
 
 * `ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
-  now skipping over node and elements blocks, which are pure number
-  blocks.  They are now alternatives to `ansys-number-block-start' C-c
-  { and C-c } respectively
+  now skipping over node and elements blocks, which are only pure
+  number blocks.  They are now alternatives to
+  `ansys-number-block-start' C-c { and C-c } respectively
 
 * Removed bug in customisation system and dropped 32 bit ANSYS support
   in line with the ANSYS OS

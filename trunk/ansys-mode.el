@@ -1216,7 +1216,7 @@ ANSYS command from you.
 ** Browse the detailed ANSYS command and element html help **
 
 Putting in \"\\[ansys-browse-ansys-help]\" will display the
-original ANSYS help in your web-browser for an APDL command or
+original ANSYS help in your web browser for an APDL command or
 element name (stating the element number is sufficient) near the
 cursor or the code line's first APDL command.  When using a
 prefix argument it inquires an keyword from you.  Keywords

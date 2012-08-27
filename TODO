@@ -33,7 +33,6 @@
 *  14.5.1:
 ** TODO Freeze
    - check *vwrite with gui mode and interactive mode
-   - make syntax help usable in comments as well!
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
    - C-c C-c needs a carriage return in the last line if there is none

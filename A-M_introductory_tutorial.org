@@ -1,4 +1,4 @@
-#+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* 14.5.1
+#+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.1
 # Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 #+AUTHOR:    H. Dieter Wilhelm
@@ -102,8 +102,8 @@
    [[./template_menu.png]]
 
 ** Preview the extensible APDL code templates
-   Before inserting a code template completely you are able to inspect
-   the content in a preview window and you can copy the most relevant
+   Before inserting an entire template you are able to inspect its
+   content in a preview window and you might copy the most relevant
    snippets (see below and next slide).
 
 #+ATTR_LaTeX: height=7.5cm

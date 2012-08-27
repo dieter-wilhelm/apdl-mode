@@ -26,7 +26,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 1.beta2
+MODE_VERSION := 1.beta3
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -35,7 +35,11 @@ EL_FILES := ansys-mode.el ansys-keyword.el \
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := LICENSE README TODO NEWS fontification.mac default_el A-M_introductory_tutorial.pdf A-M_in-depth_tutorial.ansys  A-M_in-depth_tutorial.pdf A-M_APDL_reference.pdf
+FILES := LICENSE README TODO NEWS fontification.mac default_el	\
+ A-M_introductory_tutorial-$(VERSION).pdf			\
+ A-M_in-depth_tutorial-$(VERSION).ansys				\
+ A-M_in-depth_tutorial-$(VERSION).pdf				\
+ A-M_APDL_reference-$(VERSION).pdf
 
 PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 
@@ -82,6 +86,7 @@ A-M_in-depth_tutorial.pdf : A-M_in-depth_tutorial.org
 
 A-M_introductory_tutorial.pdf : A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute  "(org-export-as-pdf 3)"
+	cp $@ A-M_introductory_tutorial-$(VERSION).pdf
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
 
@@ -122,8 +127,9 @@ $(EMACS_SOURCE_PACKAGE) :
 	wget $(SOURCE_ADDRESS) $(SIG_SOURCE_ADDRESS)
 	gpg $(EMACS_SOURCE_PACKAGE_SIG)
 
-TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO APDL_tutorial.org ansys-mode_tutorial.org
-	etags $(EL_FILES) default_el ansys-fontification.el README TODO APDL_tutorial.org ansys-mode_tutorial.org
+# need the org files for the versioning string
+TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+	etags $(EL_FILES) default_el ansys-fontification.el README TODO A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
 
 .PHONEY : TAG_RELEASE
 TAG :

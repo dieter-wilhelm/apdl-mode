@@ -1086,10 +1086,16 @@ usg-unix-v."
 ;;particularly speedy, are they?
 
 (defsubst ansys-in-comment-p ()		;_C
-  "Return t if the cursor is inside an ANSYS comment."
+  "Return t if the cursor is inside an ANSYS comment.
+The cursor is either in a code comment or comment line."
   (save-excursion
-    (nth 4 (parse-partial-sexp (ansys-position 'bol) (point))))) ;nth -- nth element
-					;of list
+    (nth 4 (parse-partial-sexp (ansys-position 'bol) (point))))) ;nth -- nth element of list
+
+(defsubst ansys-in-comment-line-p ()
+  "Return t if the cursor is in a comment line."
+  (save-excursion
+    (back-to-indentation)
+    (looking-at "!")))
 
 (defsubst ansys-in-string-p () ;_C FIXME:are there strings defined in ansys?
   "Return t if the cursor is inside an ANSYS string."
@@ -2081,11 +2087,15 @@ command name from the mini buffer, the names can be completed."
 		   ansys-dynamic-prompt))
 	(string-match ".*" str)
 	(setq str (match-string-no-properties 0 str)))
+       ((ansys-in-comment-line-p)
+	(back-to-indentation)
+	(skip-chars-forward " !"))
        (t
-	(unless (ansys-in-indentation-p) ;FIXME: take care of commented out commands
-	  (ansys-command-start))	;go back to beginning of command
+	(unless (ansys-in-indentation-p) ; we are before a possible command
+	  (ansys-command-start)	;go back to beginning of command or assignment
+	  )))
 	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
-	(setq str (match-string-no-properties 0)))))
+	(setq str (match-string-no-properties 0)))
     ;; display help string
     (catch 'foo
       (dolist (s ansys-dynamic-prompt)

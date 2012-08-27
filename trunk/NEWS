@@ -29,7 +29,10 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 * When calling `ansys-show-command-parameters' (M-? - the in-built
   `command syntax help') with a prefix argument for interactively
-  entering a command name, it is now completable
+  entering a command, the command name is now completable.  And in the
+  non-interactive mode `ansys-show-command-parameters' can be applied
+  for commands which are commented out (in the line beginning) as
+  well.
 
 * Also the input of `ansys-query-ansys-command' (C-c C-q) is now
   completable to all current ANSYS commands

@@ -32,18 +32,18 @@
 
 *  14.5.1:
 ** TODO Freeze
-   - add command completion to C-c C-q
-   - add user variable for C-c C-c toggle move to next line or remain
-     on current one
-   - add element numbers to the general completion list
+   - check *vwrite with gui mode and interactive mode
+   - make syntax help usable in comments as well!
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
    - C-c C-c needs a carriage return in the last line if there is none
      in the file!
    - C-c { before a number-block does not work
+   - add user variable for C-c C-c toggle move to next line or remain
+     on current one
    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
    - -if-then does not indent correctly
-   - check *vwrite with gui mode and interactive mode
+   - add element numbers to the general completion list
    - WikEmacs, Melpa, GNU ELPA and/or marmalade
    - HTML APDL documentation
      here is the tanslation of names to html files:
@@ -74,7 +74,6 @@
    - constraint equations in -template.el and get functions
    - rigid-target minimal self-contained sample
 ** Release
-   - make syntax help usable in comments!
    - document A-M_in-depth_tutorial.org
        - fontification.mac, leave it in the mode archive for a while
        - upload to Google code: file:googlecode_upload.py

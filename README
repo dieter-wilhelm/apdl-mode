@@ -53,9 +53,9 @@ only implemented for UNIX systems.
 
 * Command syntax help inbuilt in the mode (similar to but more verbose
   then the ANSYS dynamic prompt), undocumented commands are hinted as
-  such.
+  such. (There is no need to have ANSYS installed for it to work.)
 
-* Opening the detailed ANSYS help in your web-browser for an APDL
+* Opening the detailed ANSYS help in your web browser for an APDL
   command or element name (the element number is sufficient) at or
   before the cursor.  Optionally you can input the desired string
   interactively with a completion of all valid keywords.

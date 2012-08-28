@@ -59,8 +59,6 @@
        of nodes between two existing nodes.
    - force harmonic table (*vfill) example in -skeleton-bc, make a
        ansys...-template out of two-mass-harmonics.mac
-   - add aux15 commands to the fontification and help stuff, kpt,
-       lcurv, etc. (functions in ANF files)
    - -program, -license-file and -ansysli-servers should show the
      current selections
    - check -license-file var with -license-file-check
@@ -69,6 +67,7 @@
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
      skeleton
+   - add true strain - true stress computation
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
    - rigid-target minimal self-contained sample
@@ -76,7 +75,11 @@
    - document A-M_in-depth_tutorial.org
        - fontification.mac, leave it in the mode archive for a while
        - upload to Google code: file:googlecode_upload.py
-   -  fontification.el
+   - fontification.el
+     - add Hlp_G_OPE6_NeutralFile.html (aux15 utility functions)
+       commands to the fontification and help stuff: KPT, LCURV,
+       ASURF, VBODY. (functions in ANF files) from the operations
+       guide `ans_ope.pdf'
      - update ansys_parametric_functions.txt there is a new function
        since V14
      - some functions in -skeleton-function are not highlighted and
@@ -87,7 +90,7 @@
        + *cfclos
        + *sread M-? shows help for *mwrite
    - -introductory_tutorial.org
-     - update download page to 14.5.1 in the intro tutorial
+     - update download page to 14.5.1 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned

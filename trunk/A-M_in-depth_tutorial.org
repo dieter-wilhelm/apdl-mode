@@ -147,7 +147,7 @@
 #+ATTR_LaTeX: height=7.5cm
     [[./parameter_help.png]]
 
-     (keybinding *M-?*)
+    (keybinding *M-?*, it is working in comment lines as well)
 ** Open the `ANSYS help browser'
    for further assistence. (Keybinding *C-c C-h*)
 ** Navigate through the `number blocks' in .dat files

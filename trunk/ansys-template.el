@@ -695,7 +695,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "/pnum,kp,1 !line;area;volu;node;elem;mat;type;tabn;sval,on" \n
-  "/number,1 ![0]: colour & number, 1:colour only, 2 number only" \n
+  "/number,2 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/replot"\n
   \n
   )

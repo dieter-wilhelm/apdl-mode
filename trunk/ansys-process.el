@@ -336,7 +336,7 @@ The string is completable to all current ANSYS commands"
 ;    (force-mode-line-update)
     (error "No ANSYS process is running"))
   (let ((s (completing-read "Send to interpreter: " ansys-help-index)))
-    (COMINT-send-string (get-process
+    (comint-send-string (get-process
 			 (if (boundp 'ansys-process-name)
 			     ansys-process-name)) (concat s "\n"))
     ;;  (walk-windows

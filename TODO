@@ -66,11 +66,12 @@
      - env vars  :DONE:
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
-     skeleton
-   - add true strain - true stress computation
+     skeleton, critical to element differences!
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
    - rigid-target minimal self-contained sample
+   - add true strain - true stress computation, is done already in the
+     -skeleton-material-def
 ** Release
    - document A-M_in-depth_tutorial.org
        - fontification.mac, leave it in the mode archive for a while

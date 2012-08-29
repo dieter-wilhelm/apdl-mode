@@ -20,6 +20,10 @@ inquiring the license manager status, etc.  Some features are quite
 sophisticated but its documentation is targeted for ANSYS users with
 little Emacs experience.
 
+Advantages compared to other APDL editors: Largest feature set, user
+extensible, costfree, integrated calculator, available for all OS, for
+in-built help no ANSYS installation necessary.
+
 [http://www.gnu.org/home.en.html GNU] (Gnu's Not Unix) Emacs is an
 up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.

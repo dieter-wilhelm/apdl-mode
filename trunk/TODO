@@ -26,12 +26,14 @@
   - Completion :: Emacs shows M-TAB (which is not working on most
                   Desktops) in the menu but not ESC TAB or M-C-i for
                   -complete-symbol (sent a bug report 2012-06-21
-                  bug#11758 bug-gnu-emacs@gnu.org)
+                  bug#11758 bug-gnu-emacs@gnu.org, acknowledged and
+                  fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
 *  14.5.1:
 ** TODO Freeze
+   - put graphics dlls in windows package
    - check *vwrite with gui mode and interactive mode
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!

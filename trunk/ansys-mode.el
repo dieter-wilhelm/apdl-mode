@@ -2084,18 +2084,23 @@ command name from the mini buffer, the names can be completed."
        (ask
 	(setq str (completing-read
 		   "Type function or command name for help: "
-		   ansys-dynamic-prompt))
-	(string-match ".*" str)
-	(setq str (match-string-no-properties 0 str)))
+		   ansys-help-index))
+	(message "keyword %s" str)
+;	(setq str (match-string-no-properties 0 str))
+;	(message "keyword %s" str)
+	)
        ((ansys-in-comment-line-p)
 	(back-to-indentation)
-	(skip-chars-forward " !"))
+	(skip-chars-forward " !")
+	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	(setq str (match-string-no-properties 0)))
        (t
 	(unless (ansys-in-indentation-p) ; we are before a possible command
 	  (ansys-command-start)	;go back to beginning of command or assignment
-	  )))
+	  )
 	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	(setq str (match-string-no-properties 0)))
+	))
     ;; display help string
     (catch 'foo
       (dolist (s ansys-dynamic-prompt)

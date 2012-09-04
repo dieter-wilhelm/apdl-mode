@@ -335,7 +335,7 @@ The string is completable to all current ANSYS commands"
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;    (force-mode-line-update)
     (error "No ANSYS process is running"))
-  (let ((s (completing-read "Send to interpreter: " ansys-help-index)))
+  (let ((s (completing-read "Send to interpreter: " ansys-help-index nil nil)))
     (comint-send-string (get-process
 			 (if (boundp 'ansys-process-name)
 			     ansys-process-name)) (concat s "\n"))

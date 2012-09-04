@@ -33,7 +33,11 @@
 
 *  14.5.1:
 ** TODO Freeze
+<<<<<<< .mine
+   - -show-command-parameters allow deviation from completion list
+=======
    - put graphics dlls in windows package
+>>>>>>> .r642
    - check *vwrite with gui mode and interactive mode
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!

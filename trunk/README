@@ -45,10 +45,10 @@ Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==
 
-The code (completions, help strings etc.) is based on ANSYS version
-14.5 and written for GNU Emacs and is not consciously targeted for
-XEmacs.  It is tested with Emacs-24.1, Emacs-24.2 under XP64 and under
-GNU/Linux64 (here also with Emacs-23.2).
+Parts of the code are based on ANSYS version 14.5 (completions, help
+strings etc.) and written for GNU Emacs and is not consciously
+targeted for XEmacs.  It is tested with Emacs-24.1, Emacs-24.2 under
+XP64 and under GNU/Linux64 (here also with Emacs-23.2).
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for UNIX systems.

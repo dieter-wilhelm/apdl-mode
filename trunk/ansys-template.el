@@ -1709,7 +1709,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "rforce,3,1,f,z ! reaction force" \n
   "filldata,7,1,10,,20 !fill a variable by a ramp or constant"\n
   "add,4,2,,,displ,,,-1 !sum variables" \n
-  "prod,3,2,,,,,-N*2 !product of variables" \n
+  "prod,3,2,,,,,,-N*2 !product of variables" \n
   "/grid,1" \n
   "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
   "/xrange,0,1" \n

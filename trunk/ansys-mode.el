@@ -2085,8 +2085,6 @@ command name from the mini buffer, the names can be completed."
 	(setq str (completing-read
 		   "Type function or command name for help: "
 		   ansys-help-index))
-	(message "keyword %s" str)
-;	(setq str (match-string-no-properties 0 str))
 ;	(message "keyword %s" str)
 	)
        ((ansys-in-comment-line-p)

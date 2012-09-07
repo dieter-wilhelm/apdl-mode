@@ -443,14 +443,16 @@ variable)."
   (interactive)
   (ansys-help-program "")		;checking
   (progn
-    (message "Starting the ANSYS help browser...")
     (cond
      ((ansys-is-unix-system-p)
-      (start-process "ANSYS-help-program" nil ansys-help-program))
+      (start-process "ANSYS-help-program" nil ansys-help-program)
+      (message "Started the ANSYS help browser..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
 	  (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
-			 ansys-help-program-parameters)))  ;HINT: Eli Z.,M. Dahl
+			     ansys-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
+	(error "w32-shell-execute not bound"))
+      (message "Started the ANSYS help browser..."))
      (t
       (error "Can only start the ANSYS help on Windows and UNIX systems")))))
 

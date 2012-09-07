@@ -33,11 +33,8 @@
 
 *  14.5.1:
 ** TODO Freeze
-<<<<<<< .mine
-   - -show-command-parameters allow deviation from completion list
-=======
+   - ideas for preview also a/the macro directory?
    - put graphics dlls in windows package
->>>>>>> .r642
    - check *vwrite with gui mode and interactive mode
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
@@ -48,7 +45,7 @@
      on current one
    - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
    - -if-then does not indent correctly
-   - add element numbers to the general completion list
+   - add element numbers to the general completion list, or not?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade
    - HTML APDL documentation
      here is the tanslation of names to html files:

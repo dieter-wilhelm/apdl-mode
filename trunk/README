@@ -29,15 +29,19 @@ up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.
 
 The current stable version (14.5.1) of ANSYS-Mode is available at the
-[http://code.google.com/p/ansys-mode Google Code site] (The command line way, e. g.: "wget
-http://ansys-mode.googlecode.com/files/ansys-mode-14.5.1.tgz").  Besides the code and Emacs you will find also in
-the download section two PDF tutorials.  For an immediate access have
-a look at the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html introductory on-line version],
-here you are able to see the images in a higher resolution as in the
-PDF version.   And in the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html  in-depth on-line tutorial] there is the source code highlighting better
-preserved as in its PDF version.
+[http://code.google.com/p/ansys-mode Google Code site] (The command
+line way, e. g.: "wget
+http://ansys-mode.googlecode.com/files/ansys-mode-14.5.1.tgz").  The
+code is partially based on ANSYS version 14.5 (completions, help
+strings etc.).  Besides the code and Emacs you will find also in the
+download section two tutorials.  For an immediate access have a look
+at the
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html
+introductory on-line version], here you are able to see the images in
+a higher resolution as in the PDF version.  And in the
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html
+in-depth on-line tutorial] there is the source code highlighting
+better preserved as in its PDF version.
 
 Please report bugs and inconsistencies also in the documentation! Write
 an email to the [mailto:dieter@duenenhof-wilhelm maintainer] or use
@@ -45,10 +49,8 @@ Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==
 
-Parts of the code are based on ANSYS version 14.5 (completions, help
-strings etc.) and written for GNU Emacs and is not consciously
-targeted for XEmacs.  It is tested with Emacs-24.1, Emacs-24.2 under
-XP64 and under GNU/Linux64 (here also with Emacs-23.2).
+It is tested with Emacs-24.1, Emacs-24.2 under XP64 and under
+GNU/Linux64 (here also with Emacs-23.2).
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for UNIX systems.

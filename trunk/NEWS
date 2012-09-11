@@ -6,10 +6,10 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
 
 ===  Version 14.5.1 ===
 
-* Added a function (C-c C-b) showing the detailed ANSYS help in your
-  web-browser for an APDL command or element name (also the element
-  number is sufficient) around the cursor (or if that fails at the
-  line beginning).
+* Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
+  the detailed ANSYS help in your web-browser for an APDL command or
+  element name (also the element number is sufficient) around the
+  cursor (or if that fails at the line beginning).
 
   Are you also tired of the ANSYS help browser?  For example try
   searching for the `F' APDL command, it is impossible!  You have to
@@ -27,12 +27,13 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   and such. This is an ideal complement to ANSYS-Mode's in-built
   `command syntax help'
 
-* When calling `ansys-show-command-parameters' (M-? - the in-built
-  `command syntax help') with a prefix argument for interactively
-  entering a command, the command name is now completable.  And in the
-  non-interactive mode `ansys-show-command-parameters' can be applied
-  for commands which are commented out (in the line beginning) as
-  well.
+* When calling `ansys-browse-ansys-help' and
+  `ansys-show-command-parameters' (M-? - the in-built `command syntax
+  help') with a prefix argument for interactively entering a command
+  name, the name is now completable.  And in the non-interactive mode
+  both functions working also for APDL commands which are commented
+  out as well (only for the first command in case of
+  `ansys-show-command-parameters').
 
 * Also the input of `ansys-query-ansys-command' (C-c C-q) is now
   completable to all current ANSYS commands

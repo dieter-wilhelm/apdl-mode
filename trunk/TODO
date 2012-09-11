@@ -33,6 +33,9 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - check hard coded browser for linux of -browse-ansys-help
+   - prefix argument copying the current line for
+     -query-ansys-command?
    - ideas for preview also a/the macro directory?
    - put graphics dlls in windows package
    - check *vwrite with gui mode and interactive mode

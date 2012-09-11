@@ -2073,8 +2073,10 @@ First it shows the parameters of the keyword and then a short
 explanation.  This is done for the previous ANSYS command
 beginning, except when point is at the command beginning at the
 indentation.  See also the function `ansys-command-start' how the
-previous command is found.  With a prefix argument ASK inquire a
-command name from the mini buffer, the names can be completed."
+previous command is found.  The function shows also the
+parameters for commands in a comment line.  With a prefix
+argument ASK inquire a command name from the mini buffer, the
+names can be completed."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)

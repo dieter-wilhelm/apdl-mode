@@ -321,6 +321,7 @@ and you are getting a diffent element highlighting.
   - One cannot easily get the variable value, either one must assign
     the variable to another one, or use the `*stat' command
   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
+  - Inconsistent naming: /{x,y}range but /axlab,{x,y},
 #+begin_src ansys :exports none
   c***,**************************************************
   !@ --- APDL Reference ---

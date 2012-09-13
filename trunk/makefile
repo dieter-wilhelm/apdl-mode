@@ -1,5 +1,5 @@
 ANSYS_MAJOR := 14
-ANSYS_MINOR := 5
+ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -26,7 +26,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 1.beta3
+MODE_VERSION := 1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -76,19 +76,23 @@ CLEAN :
 # 	configure
 # 	make
 
-APDL_tutorial.ansys : APDL_tutorial.org
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")"--file $< --execute "(org-babel-tangle)"
+A-M_APDL_reference-$(VERSION).pdf : A-M_APDL_reference.org
+	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")"--file $< --execute "(org-export-as-pdf 3)"
+	cp A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
 
-A-M_in-depth_tutorial.pdf : A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-pdf 3)"
+A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
+	$(EMACS_EXE) --batch --file $<  --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-babel-tangle)"
+	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
+
+A-M_in-depth_tutorial-$(VERSION).pdf : A-M_in-depth_tutorial.org
+	$(EMACS_EXE) --batch  --file $< --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-export-as-pdf 3)"
 # htmlize does not yet work in batch mode
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
-A-M_introductory_tutorial.pdf : A-M_introductory_tutorial.org
+A-M_introductory_tutorial-$(VERSION).pdf : A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute  "(org-export-as-pdf 3)"
-	cp $@ A-M_introductory_tutorial-$(VERSION).pdf
+	cp  A-M_introductory_tutorial.pdf A-M_introductory_tutorial-$(VERSION).pdf
 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
-
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<

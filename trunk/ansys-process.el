@@ -327,15 +327,24 @@ position."
 ;;   (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;;   (force-mode-line-update))
 
-(defun ansys-query-ansys-command ()	;NEW
+(defun ansys-query-ansys-command ( &optional arg)	;NEW
   "Ask for a string which will be sent to the interpreter.
-The string is completable to all current ANSYS commands"
-  (interactive)
+The string is completable to all current ANSYS commands and with
+an optional prefix argument ARG the current command line is the
+initial input."
+  (interactive "P")
   (unless (ansys-process-running-p)
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;    (force-mode-line-update)
     (error "No ANSYS process is running"))
-  (let ((s (completing-read "Send to interpreter: " ansys-help-index nil nil)))
+  (let (s)
+    (if arg
+	(setq s (read-minibuffer "Send to interpreter: "
+				 (buffer-substring-no-properties
+				  (line-beginning-position)
+				  (line-end-position))))
+      (setq s completing-read "Send to interpreter: "
+	    ansys-help-index nil nil))
     (comint-send-string (get-process
 			 (if (boundp 'ansys-process-name)
 			     ansys-process-name)) (concat s "\n"))
@@ -497,12 +506,12 @@ variable)."
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
 keyword at the line beginning.  (This is working in a comment
-line as well.)  If argument ARG is a prefix argument query for
-the search keyword.  Besides the regular command and element
-names you can also input predefined help sections or element
-categories.  The use of completions is advisable, for example:
-Type the character `\"' and the <TAB> key and you will see
-completions of the following:
+line as well.)  If there is an optional argument ARG, query for a
+manual search keyword input.  Besides the regular command and
+element names you can also input predefined help sections or
+element categories.  The use of completions is advisable, for
+example: Type the character `\"' and the <TAB> key and you will
+see completions of the following:
 
 Help sections:
 

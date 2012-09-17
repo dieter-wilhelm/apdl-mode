@@ -36,7 +36,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   `ansys-show-command-parameters').
 
 * Also the input of `ansys-query-ansys-command' (C-c C-q) is now
-  completable to all current ANSYS commands
+  completable to all current ANSYS commands and with an optional
+  prefix argument the current code line is copied as the initial
+  input.
 
 * Improved the introductory and the in-depth tutorial and extended the
   documentation with an APDL and syntax highlighting reference in HTML

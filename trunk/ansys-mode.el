@@ -1559,7 +1559,10 @@ there is no running solver the function copies the code to the
 system clipboard.)  And lastly you are able to send interactively
 ANSYS commands with
 \"\\[ansys-query-ansys-command]\" (`ansys-query-ansys-command')
-without switching to the '*ANSYS*' window.
+without switching to the '*ANSYS*' window. If you would like to
+send your current code line in a slightly modified form, then
+give a prefix argument to `ansys-query-ansys-command' and the
+line will be the intial input for sending it to the interpreter.
 
 Another very useful function in this context is
 \"\\[ansys-copy-or-send-above]\" (`ansys-copy-or-send-above'),

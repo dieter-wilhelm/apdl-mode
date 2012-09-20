@@ -938,7 +938,8 @@ TODO! for this tutorial: Colour the code snippets.
 #+begin_src ansys
 !!
 N = _RETURN	      ! return value of certain commands
-_aaa = 9              ! reserved variables: preceding underscore "_" 
+_aaa = 9              ! reserved variables: preceding underscore "_"
+d,1,ux,%_FIX%	      ! “current” relative displacement value
 Depth  = ARG1         ! ARG{1-9}, AR{10-19} = "*use" variables
 #+end_src
 ***  Old style APDL comments
@@ -1367,3 +1368,6 @@ Thank you for your time, have fun with Emacs...
 
 # /pnum,line,1 $ lplo
 
+# local variables:
+# mode : ansys
+# end:

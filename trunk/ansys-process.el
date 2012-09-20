@@ -343,8 +343,8 @@ initial input."
 				 (buffer-substring-no-properties
 				  (line-beginning-position)
 				  (line-end-position))))
-      (setq s completing-read "Send to interpreter: "
-	    ansys-help-index nil nil))
+      (setq s (completing-read "Send to interpreter: "
+	    ansys-help-index nil nil)))
     (comint-send-string (get-process
 			 (if (boundp 'ansys-process-name)
 			     ansys-process-name)) (concat s "\n"))
@@ -501,8 +501,9 @@ variable)."
 	  (t				;perfect match
 	   str))))
 
+(require 'browse-url)
 (defun ansys-browse-ansys-help ( &optional arg)       ;NEW_C
-  "Open the ANSYS help for APDL commands and element names in a web browser.
+  "Open the ANSYS help for APDL commands and element names in the default web browser.
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
 keyword at the line beginning.  (This is working in a comment

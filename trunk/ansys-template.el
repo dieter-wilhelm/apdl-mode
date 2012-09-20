@@ -521,7 +521,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
   "keyo,Contact,4,3 !keyo(4): location of contact detection" \n
-  "!! 0:Gauss points, 3(V13):surface projection method" \n
+  "    !! 0:Gauss points, 3(V13):surface projection method" \n
   "keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
   "    !! 0: no adjustm." \n
   "    !! 1: close gap with auto CNOF" \n
@@ -1653,8 +1653,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "N1="
   \n
   "!! lowest face No of element E from selected nodes"
-  "a=nmface(E) !plane elements:faces =^= el. sides" \n
-  "node in POS of element E" \n
+  "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
+  "!! node in POS of element E" \n
   "bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
   "!unsel midnodes of 8-node 2d elem" \n
   "*get,En,elem,,count" \n
@@ -1664,7 +1664,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Ntmp = ndface(E,Face,3)"> \n
   "nsel,u,,,Ntmp"> \n
   "*get,E,elem,E,nxth" \n
-  "*enddo  " \n
+  "*enddo"> \n
   \n
   )
 
@@ -1962,7 +1962,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "finish "\n
   "!/clear" \n
   "*afun,deg !Use degrees [rad] for input and output angular functions" \n
-  "\title," \n
+  "/title," \n
   \n
   "!@ ==============================" \n
   "!" ansys-outline-string " --- Preprocessing --- " \n

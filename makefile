@@ -1,5 +1,5 @@
 ANSYS_MAJOR := 14
-ANSYS_MINOR := 0
+ANSYS_MINOR := 5
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -26,7 +26,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 1
+MODE_VERSION := 1.beta.3
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -76,23 +76,44 @@ CLEAN :
 # 	configure
 # 	make
 
+
+
 A-M_APDL_reference-$(VERSION).pdf : A-M_APDL_reference.org
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")"--file $< --execute "(org-export-as-pdf 3)"
-	cp A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
+	$(EMACS_EXE) --batch --file $< \
+          --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
+	  --load "ansys-mode.el"  --execute "(org-export-as-pdf 3)"
+	  cp A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
 
 A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch --file $<  --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-babel-tangle)"
-	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
+	$(EMACS_EXE) --batch --file $< \
+	  --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
+	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)" \
+	  cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
+
+# A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
+# 	$(EMACS_EXE) --batch --file $<  --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-babel-tangle)"
+# 	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
 
 A-M_in-depth_tutorial-$(VERSION).pdf : A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch  --file $< --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-export-as-pdf 3)"
+	$(EMACS_EXE) --batch  --file $< \
+	  --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
+	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
+	  cp A-M_in-depth_tutorial.pdf A-M_in-depth_tutorial-$(VERSION).pdf
+
+# $(EMACS_EXE) --batch  --file $< --load "/home/dieter/ansys-mode/trunk/ansys-mode.el" --execute "(org-export-as-pdf 3)"
 # htmlize does not yet work in batch mode
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
+#	$(EMACS_EXE) --batch --load "/home/dieter/ansys-mode/trunk/ansys-mode.el" \
+# 	--load "/home/dieter/ansys-modehtmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
+
+# A-M_in-depth_tutorial-$(VERSION).pdf : A-M_in-depth_tutorial.org
+# 	$(EMACS_EXE) --batch  --file $< --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-export-as-pdf 3)"
+# # htmlize does not yet work in batch mode
+# 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
 A-M_introductory_tutorial-$(VERSION).pdf : A-M_introductory_tutorial.org
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute  "(org-export-as-pdf 3)"
+	$(EMACS_EXE) --batch --file $< --execute  "(org-export-as-pdf 3)"
 	cp  A-M_introductory_tutorial.pdf A-M_introductory_tutorial-$(VERSION).pdf
-	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
+	$(EMACS_EXE) --batch  --file $< --execute "(org-export-as-html 1)"
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<

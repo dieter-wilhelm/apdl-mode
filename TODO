@@ -33,8 +33,12 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - -skeleton-select is not yet finished
+   - /Zoom not longer supported?! V14
+   - add to -display-variables a prefix argument for showing the value
+     of the variable around point.
    - switched to browse-url, customisation option for a special
-     browswer (or browse-url-generic?)
+     browswer (or browse-url-generic?) (require 'browse-url)?
    - ideas for preview also a/the macro directory?
    - put graphics dlls in windows package
    - check *vwrite with gui mode and interactive mode

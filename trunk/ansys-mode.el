@@ -186,7 +186,7 @@ user variables is only implemented for files with the extension
 \".mac\" and in the highest highlighting level (please see the
 variable `ansys-highlighting-level') otherwise the fontification
 of variables is only static.  To take effect after setting this
-variable you have to recall `ansys-mode'."
+variable you have to restart `ansys-mode'."
   :type 'boolean
   :group 'ANSYS)
 
@@ -3055,7 +3055,6 @@ Added pseudo arguments A B C."
   (interactive)
   ;; (setq ansys-user-variables '(("bla" 1)("otto" 1)("coil" 1000))
   ;; 	ansys-user-variable-regexp "\\<bla\\>"))
-
   (save-excursion
     (save-match-data
       (let (res var com)	; Start with ANSYS *USE vars
@@ -3094,18 +3093,16 @@ Added pseudo arguments A B C."
 		  )
  	    (add-to-list 'ansys-user-variables
  			 (list var (line-number-at-pos)))))
-
-  ;; we must sort the variables according to their occurance
+	;; we must sort the variables according to their occurance
 	;; for the display
-  (setq ansys-user-variables
-  	(sort ansys-user-variables
- 	      '(lambda (arg1 arg2)
- 	      	 (< (cadr arg1) (cadr arg2)))))
-
-  ;; make the regexp for fontification
-  (setq res (mapcar 'car ansys-user-variables)
-	res (regexp-opt res 'words)
-	ansys-user-variable-regexp res)))))
+	(setq ansys-user-variables
+	      (sort ansys-user-variables
+		    '(lambda (arg1 arg2)
+		       (< (cadr arg1) (cadr arg2)))))
+	;; make the regexp for fontification
+	(setq res (mapcar 'car ansys-user-variables)
+	      res (regexp-opt res 'words)
+	      ansys-user-variable-regexp res)))))
 
 ;; in comments: ok
 ;; in * comments: ansys-in-asterisk-comment-p
@@ -3172,14 +3169,14 @@ C-u \\[goto-line] takes the nnumber automatically)."
      (propertize
       (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
       'face 'match))
-    (insert "Line | Definition\n")
+    (insert "Line  | Definition\n")
     ;; insert variable lines
     (dolist (command ansys-user-variables)
       (setq old-num num
 	    num (cadr command)	;cadr same as nth 1
 	    com (ansys-copy-buffer-line current-buffer num)
 	    str (concat
-		 (propertize (format "%5d " num)
+		 (propertize (format "%5d | " num)
 			     'mouse-face 'highlight 'face 'bold)
 		 com "\n"))
       (unless (= num old-num)

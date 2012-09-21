@@ -33,14 +33,9 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - -dynamic-highlighting is sluggish, highlighting somehow
+     retarded!!!
    - -skeleton-select is not yet finished
-   - /Zoom not longer supported?! V14
-   - add to -display-variables a prefix argument for showing the value
-     of the variable around point.
-   - switched to browse-url, customisation option for a special
-     browswer (or browse-url-generic?) (require 'browse-url)?
-   - ideas for preview also a/the macro directory?
-   - put graphics dlls in windows package
    - check *vwrite with gui mode and interactive mode
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
@@ -314,6 +309,12 @@ the mode for your APDL files and hopefully for other stuff as well...
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
+   - /Zoom not longer supported?! V14
+   - add to -display-variables a prefix argument for showing the value
+     of the variable around point, or center the variables window...
+   - customisation option for a the web browser of -browse-ansys-help
+   - ideas for preview also of a/the macro directory?
+   - put graphics dlls in windows package
    - LSDYN support, see lsdyna.el
    - material properties :: add apdl libary of material data with mpwrite?
    - embedded calc :: include in hacking.mac

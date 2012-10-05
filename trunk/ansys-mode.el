@@ -3053,8 +3053,6 @@ and `ansys-user-variable-regexp' for subsequent fontifications.
 Added pseudo arguments A B C."
   ;; RESTRICTED: line-number-at-pos was introduced after Emacs 21.4
   (interactive)
-  ;; (setq ansys-user-variables '(("bla" 1)("otto" 1)("coil" 1000))
-  ;; 	ansys-user-variable-regexp "\\<bla\\>"))
   (save-excursion
     (save-match-data
       (let (res var com)	; Start with ANSYS *USE vars
@@ -3101,7 +3099,7 @@ Added pseudo arguments A B C."
 		       (< (cadr arg1) (cadr arg2)))))
 	;; make the regexp for fontification
 	(setq res (mapcar 'car ansys-user-variables)
-	      res (regexp-opt res 'words)
+	      res (regexp-opt res 'symbols) ;words inhibits variables ending in _!
 	      ansys-user-variable-regexp res)))))
 
 ;; in comments: ok
@@ -3169,7 +3167,8 @@ C-u \\[goto-line] takes the nnumber automatically)."
      (propertize
       (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
       'face 'match))
-    (insert "Line  | Definition\n")
+    (insert (propertize "Line  | Definition\n" 'mouse-face
+			     'highlight 'face 'bold))
     ;; insert variable lines
     (dolist (command ansys-user-variables)
       (setq old-num num

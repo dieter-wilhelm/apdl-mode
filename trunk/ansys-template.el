@@ -1652,7 +1652,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "N1="
   \n
-  "!! lowest face No of element E from selected nodes"
+  "!! lowest face No of element E from selected nodes" \n
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
   "!! node in POS of element E" \n
   "bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n

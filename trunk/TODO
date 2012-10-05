@@ -35,7 +35,6 @@
 ** TODO Freeze
    - -dynamic-highlighting is sluggish, highlighting somehow
      retarded!!!
-   - -skeleton-select is not yet finished
    - check *vwrite with gui mode and interactive mode
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
@@ -282,6 +281,7 @@ the mode for your APDL files and hopefully for other stuff as well...
     - search in -job for /filn arguments as default job name like in
       -display-error-file
 ** Skeletons and abbrevs
+   - -skeleton-select is a bit thin, not yet finished?
    - add a preview mode, with its own keymap for faster editing and
      copying, like dired
    - enhance abbrev definitions for *create, *dowhile logics:

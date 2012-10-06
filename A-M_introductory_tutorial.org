@@ -25,6 +25,8 @@
 #+XSLT:
 #+HTML: <img src="ansys+emacs.png" height=150 alt="Gmane">
 
+# the text and arrows (line width 4) in the drawings are done with inkscape
+
 * Introduction
 ** GNU Emacs editor support for working with ANSYS FEA
    This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
@@ -90,7 +92,7 @@
   Please type *M-?* (alternatively: *C-c ?*) on a code line and you
   will see the APDL command's description together with its parameter
   syntax.  You can continue working, this temporary overlay (here in
-  yellow) remains visible for a while   during your editing.
+  yellow) remains visible for a while during your editing.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
@@ -103,15 +105,15 @@
 
 ** Preview the extensible APDL code templates
    Before inserting an entire template you are able to inspect its
-   content in a preview window and you might copy the most relevant
-   snippets (see below and next slide).
+   content in a preview window (*C-c C-s*) and might copy the most
+   relevant snippets (see below and next slide).
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
 
-** Take a short-cut to the code template preview
-   Type *C-c C-s* to select a template name, use the <TAB> key to
-   complete or open a completion window of available subjects.
+** Select an interesting template from a completion window
+   Type *C-c C-s* to choose a template name, use the <TAB> key to
+   complete and to open the completion window of available items.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]

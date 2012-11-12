@@ -26,19 +26,25 @@
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
-;;     done for v12,v13,v14
+
+; (call-process "cp /appl/ansys_inc/v150/ansys/docu/dynprompt150.ans ./ansys_dynprompt.txt")
+
+;;     done for v12,v13,v14,v145
 ;; 2.) elements: copy&pasted from the help documentation:
 ;;     Element refrence, table of contents -> `ansys_elements.txt'
 ;;     (ansys_inc/vXXX/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13,v14
+;;     done: v12,v13,v14,v145
 ;; 3.) ansys-help:
 ;;     command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
 ;;     copied from the ansys help ->`ansys_keywords.txt'
 ;;     kill /eof from the keywords (see: -font-lock-keywords) <- don't know why, seems to work now
 ;;     done: v12
-;;     extract_tags.py
-;;     done: v13,14
+
+;;     use: extract_tags.py
+;;     cp Hlp_C_CmdTOC.html to ./
+;;     done: v13,14,145
+
 ;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)
 ;;     ansys APDL guide chapter 3.8, trigonometric functions and their inverse functions must
 ;;     be separated by hand!!! The same applies to hyperbolic functions
@@ -50,18 +56,22 @@
 ;;         StrOut = STRCAT(... with STRCAT(...)
 ;;     get function summary ->`ansys_get_functions.txt'
 ;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
+;; cp ansys_Index.hlp and check variable ansys-help-index
+;; done v145
 
 ;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
 ;;; necessary variables, to be maintained:
-;; 1.) `Ansys_undocumented_commands' release notes
+;; 1.) `Ansys_undocumented_commands' from the release notes,
+;;   done 145
 ;; 2.) `Ansys_written_out_commands'
 ;; 3.) `Ansys_deprecated_elements_alist' release notes
+;;    done 145
 ;; 4.) `Ansys_commands_without_arguments'
 
 ;(setq Ansys-version "13")
-(setq Ansys-version "14.5")
+;; what is this needed for?
 
 ;; 
 (defconst Ansys_undocumented_commands	;or macros?
@@ -172,7 +182,34 @@
    "TZDELE"
    "TZEGEN"
    "XVAROPT"				;v14 end
-   )			       
+   "PGSAVE"
+   "TOTAL"
+   "VTGEOM"
+   "VTREAL"
+   "VTSTAT"
+   "PGRAPH"
+   "/VT"
+   "VTIN"
+   "VTRFIL"
+   "VTTEMP"
+   "PGRSET"
+   "VTCLR"
+   "VTMETH"
+   "VTRSLT"
+   "VTVMOD"
+   "PGSELE"
+   "VTDISC"
+   "VTMP"
+   "VTSEC"
+   "PGWRITE"
+   "VTEVAL"
+   "VTOP"
+   "VTSFE"
+   "POUTRES"
+   "VTFREQ"
+   "VTPOST"
+   "VTSL"					;end of 14.5
+)			       
   "Ansys commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output
 files, old macros or old Ansys verification models.")
@@ -207,6 +244,8 @@ files, old macros or old Ansys verification models.")
   ("BEAM44"   . "BEAM188")
   ("BEAM54"   . "BEAM188")
   ("COMBIN7"  . "MPC184")
+  ("FLUID141" . "CFX")			;v145
+  ("FLUID142" . "CFX")			;v145
   ("INFIN9"   . "INFIN110")		;v14
   ("INFIN47"  . "INFIN111")		;v14
   ("PLANE13"  . "PLANE223")		;v14
@@ -241,6 +280,7 @@ files, old macros or old Ansys verification models.")
   ("SOLID5"   . "SOLID226")	       ;v14
   ("SOLID45"  . "SOLID185")
   ("SOLID46"  . "SOLID185")
+  ("SOLID65" .  "SOLID185")		;v145
   ("SOLID69"  . "SOLID226")
   ("SOLID92"  . "SOLID187")
   ("SOLID95"  . "SOLID186")

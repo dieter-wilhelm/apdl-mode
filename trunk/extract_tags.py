@@ -6,7 +6,7 @@ import os
 import glob
 #import sys
 
-version = "Ansys V14"
+version = "Ansys V145"
 #r_dir = "/appl"
 #a_dir = "/ansys_inc/v140/commonfiles/help/en-us/help/ans_cmd"
 #loc = r_dir + a_dir
@@ -22,7 +22,7 @@ out = "ansys_keywords.txt"
 o = open(out,'w+')              # w+: write anew
 o.write("# created by a script for " + version + "\n")
 
-cmd = 'class="command">'
+cmd = 'class="command"><strong>'
 cl = len( cmd)
 prp = 'class="refpurpose">'
 pl = len( prp)
@@ -37,7 +37,7 @@ for f in f_list:
         pos = s.find( cmd, pos2)
         if pos < 0:
             break
-        pos2 = s.find( '<',pos)
+        pos2 = s.find( '<',pos + cl)
         cs =  s[ pos+cl:pos2]
         pos = s.find( prp, pos2)
         pos2 = s.find('<',pos)

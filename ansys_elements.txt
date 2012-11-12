@@ -1,4 +1,4 @@
-# Ansys 14
+# Ansys 145
 SOLID5 - 3-D Coupled-Field Solid
 INFIN9 - 2-D Infinite Boundary
 LINK11 - Linear Actuator
@@ -25,7 +25,6 @@ MATRIX50 - Superelement (or Substructure)
 PLANE53 - 2-D 8-Node Magnetic Solid
 PLANE55 - 2-D Thermal Solid
 SHELL61 - Axisymmetric-Harmonic Structural Shell
-SOLID62 - 3-D Magneto-Structural Solid
 SOLID65 - 3-D Reinforced Concrete Solid
 LINK68 - Coupled Thermal-Electric Line
 SOLID70 - 3-D Thermal Solid
@@ -33,9 +32,6 @@ MASS71 - Thermal Mass
 PLANE75 - Axisymmetric-Harmonic 4-Node Thermal Solid
 PLANE77 - 2-D 8-Node Thermal Solid
 PLANE78 - Axisymmetric-Harmonic 8-Node Thermal Solid
-FLUID79 - 2-D Contained Fluid
-FLUID80 - 3-D Contained Fluid
-FLUID81 - Axisymmetric-Harmonic Contained Fluid
 PLANE83 - Axisymmetric-Harmonic 8-Node Structural Solid
 SOLID87 - 3-D 10-Node Tetrahedral Thermal Solid
 SOLID90 - 3-D 20-Node Thermal Solid
@@ -45,7 +41,6 @@ SOLID97 - 3-D Magnetic Solid
 SOLID98 - Tetrahedral Coupled-Field Solid
 INFIN110 - 2-D Infinite Solid
 INFIN111 - 3-D Infinite Solid
-INTER115 - 3-D Magnetic Interface
 FLUID116 - Coupled Thermal-Fluid Pipe
 HF118 - 2-D High-Frequency Quadrilateral Solid
 HF119 - 3-D High-Frequency Tetrahedral Solid
@@ -147,6 +142,9 @@ SOLID232 - 3-D 10-Node Tetrahedral Electric Solid
 PLANE233 - 2-D 8-Node Electromagnetic Solid 
 SOLID236 - 3-D 20-Node Electromagnetic Solid
 SOLID237 - 3-D 10-Node Electromagnetic Solid
+PLANE238 - 2-D 8-Node Diffusion Solid
+SOLID239 - 3-D 20-Node Diffusion Solid
+SOLID240 - 3-D 10-Node Tetrahedral Diffusion Solid
 HSFLD241 - 2-D Hydrostatic Fluid
 HSFLD242 - 3-D Hydrostatic Fluid
 SURF251 - 2-D Radiosity Surface

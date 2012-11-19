@@ -1631,10 +1631,20 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,png !creates jobnameXXX.png files" \n
   "pngr !additional options" \n
   "plvect,B" \n
-  "noerase !prevent screen erase" \n
+  "/noerase !prevent screen erase" \n
   "lplot" \n
   "/show,close" \n
   "erase !erase screen" \n
+  \n
+  "! eps output, default white background" \n
+  "/sys,rm file*.eps" \n
+  "pscr,color,2 ! coloured output" \n
+  "pscr,paper,a4,portrait" \n
+  "/title" \n
+  "/show,pscr" \n
+  "eplot" \n
+  "/show,close" \n
+  "/sys,epstopdf -hires file000.eps" \n
   \n
   "!! --- 2.) graphical output" \n
   "/image,save,bla,xwd !write in xwd bitmap format" \n

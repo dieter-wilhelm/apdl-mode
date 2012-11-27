@@ -26,7 +26,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 1.beta.3
+MODE_VERSION := 1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -76,8 +76,6 @@ CLEAN :
 # 	configure
 # 	make
 
-
-
 A-M_APDL_reference-$(VERSION).pdf : A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
@@ -87,8 +85,8 @@ A-M_APDL_reference-$(VERSION).pdf : A-M_APDL_reference.org
 A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
-	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)" \
-	  cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
+	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
+	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
 
 # A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --file $<  --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-babel-tangle)"
@@ -158,4 +156,4 @@ TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO A-M_AP
 
 .PHONEY : TAG_RELEASE
 TAG :
-	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-15.0.1 -m "tagging 15.0.1"
+	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.1 -m "tagging 14.5.1"

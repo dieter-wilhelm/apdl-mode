@@ -75,7 +75,7 @@ only."
       (concat ansys-install-directory "ansys_inc/v"
       ansys-current-ansys-version "/ansys/bin/anshelp"
       ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys\ Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\intel\\bin\\Javaw.exe"))		;NEW_C
+    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe"))		;NEW_C
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -366,7 +366,7 @@ not shown if they are chosen smaller then 3 (see
   (interactive)
   (let (ansys-process-buffer)
     (when (ansys-process-running-p)
-      (error "An Interpreter is already running under Emacs"))
+      (error "An ANSYS interpreter is already running under Emacs"))
     (message "Preparing an ANSYS interpreter run...")
     ;; (setq comint-use-prompt-regexp t) TODO: ???
     (ansys-program "")		 ;take exec from -program var.
@@ -470,7 +470,7 @@ variable)."
 "
   (interactive)
   (when (ansys-in-empty-line-p)
-    (error "Cannot find keyword in an empty line"))
+    (error "Cannot find a keyword in an empty line"))
   (let* (
 	 (pt (point))
 	 (re "~/*[:word:]")

@@ -33,6 +33,7 @@
 
 *  14.5.1:
 ** TODO Freeze
+   - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
      retarded!!!
    - check *vwrite with gui mode and interactive mode

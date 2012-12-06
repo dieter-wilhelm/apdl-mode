@@ -59,14 +59,15 @@ the respective error file."
   (if (string= window-system "x")
       (concat ansys-install-directory "ansys_inc/v"
 	      version "/ansys/bin/ansys" version)
-    (concat ansys-install-directory "Ansys\ Inc\\v" version "\\bin\\ansys" version)))		;NEW_C
+    (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))		;NEW_C
   "This variable stores the ANSYS executable name.
-When the file is not in your search path, you have to specify the
-full qualified file name and not only the name of the executable.
-For example: \"/ansys_inc/v145/ansys/bin/ansys145\" and not only
-\"ansys145\".  You might customise this variable or use the
-function `ansys-program' to do this for the current session
-only."
+Under Linux this should be the solver, under Windows the
+launcher.  When the respective executable is not in your search
+path, you have to specify the full qualified file name and not
+only executable's name.  For example:
+\"/ansys_inc/v145/ansys/bin/ansys145\" and not only \"ansys145\".
+You might customise this variable or use the function
+`ansys-program' to do this for the current session only."
   :type 'string
   :group 'ANSYS-process)
 
@@ -358,13 +359,15 @@ initial input."
 
 (require 'comint)
 
+;;;###autoload
 (defun ansys-start-ansys ()		;NEW
-  "Start the ANSYS interpreter process.
-And display the run configuration. The specified No of cores is
-not shown if they are chosen smaller then 3 (see
-`ansys-number-of-processors')."
+  "Start an ANSYS interpreter process under Linux or the launcher under Windows.
+For the interpreter process summarise the run's configuration
+first. The specified No of cores is not shown if they are chosen
+smaller than 3 (see `ansys-number-of-processors')."
   (interactive)
-  (let (ansys-process-buffer)
+  (if (ansys-is-unix-system-p)
+   (let (ansys-process-buffer)
     (when (ansys-process-running-p)
       (error "An ANSYS interpreter is already running under Emacs"))
     (message "Preparing an ANSYS interpreter run...")
@@ -402,7 +405,9 @@ not shown if they are chosen smaller then 3 (see
     (font-lock-add-keywords nil (list comint-prompt-regexp))
 
 	  ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
-  ))
+  )
+   (w32-shell-execute "Open" ansys-program)
+   ))
 
 (defun ansys-kill-ansys ()		;NEW
   "Kill the current ANSYS run under Emacs.

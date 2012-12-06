@@ -317,11 +317,13 @@ and you are getting a diffent element highlighting.
     or call a macro (arbitrary suffix) with `*use'
   - No direct array to file export in GUI mode <- write command file
     for *vwrite, or use a (lookup) table for this purpose
-  - Still (v14) no round function in sight
+  - *vwread does not work with C format specifiers in contrast to *vwrite
+  - Still (v14) no round function in sight, someting like nint(max*1e3)/1e3 can do
   - One cannot easily get the variable value, either one must assign
     the variable to another one, or use the `*stat' command
   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
   - Inconsistent naming: /{x,y}range but /axlab,{x,y},
+
 #+begin_src ansys :exports none
   c***,**************************************************
   !@ --- APDL Reference ---

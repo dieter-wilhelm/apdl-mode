@@ -413,6 +413,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - element shape display -" \n
   "!! .............................." \n
   \n
+  "/efacet,2! display 2 element facets (curvature)" \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
@@ -456,8 +457,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "igesin,'test','iges'"\n
   \n
   "/input,filename,anf ! for APDL based input" \n
-  "/facet,norm" \n
+  "/facet,fine" \n
   \n
+  "! read from file" \n
+  "*dim,bla" \n
+  "*vread,bla,file,dat,,ijk" \n
+  "(E10.3)! works only with FORTRAN not C specifiers!" \n
   )
 
 (define-skeleton ansys-skeleton-expand	;NEW
@@ -1048,7 +1053,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Depth=30" \n
   "pcirc,R1,R2,Th1,Th2 ! circular area" \n
   "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth ! circular area or cylinder" \n
-  "shpere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
+  "sphere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
   \n
   "!! .............................." \n
@@ -1058,6 +1063,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! line" \n
   "ldiv,1,.5 !divide line 1 in ratio .5" \n
   "!! area" \n
+  "atran" \n
   "!! volume" \n
   "vdele,all,,,1 ! delete everything below" \n
   \n
@@ -1461,7 +1467,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/pbc,rfor,,0" \n
   "/dist,,1/2,1 !enlarge twice" \n
   "/noerase ! don't erase screen between plots" \n
-  "erase" \n
+  "/erase" \n
   "/triad,rbot ! coordinate system to right bot" \n
   "/plopts,wp ! switch off working plane" \n
   "/plopts,minm ! switch off min max" \n
@@ -1478,7 +1484,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/noerase" \n
   "lplot" \n
   "/show,close" \n
-  "erase" \n
+  "/erase" \n
   \n
   "!@ ------------------------------" \n
   "!@@ -- acoustics --" \n
@@ -1638,7 +1644,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/noerase !prevent screen erase" \n
   "lplot" \n
   "/show,close" \n
-  "erase !erase screen" \n
+  "/erase !erase screen" \n
   \n
   "! eps output, default white background" \n
   "/sys,rm file*.eps" \n
@@ -1975,6 +1981,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "finish "\n
   "!/clear" \n
+  "!y" \n
   "*afun,deg !Use degrees [rad] for input and output angular functions" \n
   "/title," \n
   \n
@@ -1989,6 +1996,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/aux15 !Enter the IGES file transfer processor" \n
   "!ioptn, Lab, VAL1 !Control options relating to importing"\n
   "!igesin, Fname, Ext,"\n
+  "!/facet,fine"\n
   \n
   "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n

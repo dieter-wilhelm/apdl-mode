@@ -27,6 +27,9 @@ Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
   and such. This is an ideal complement to ANSYS-Mode's in-built
   `command syntax help'
 
+* The function `ansys-start-ansys' is now available under Windows as well
+  and starts the APDL product launcher under this platform.
+
 * When calling `ansys-browse-ansys-help' and
   `ansys-show-command-parameters' (M-? - the in-built `command syntax
   help') with a prefix argument for interactively entering a command

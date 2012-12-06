@@ -907,9 +907,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      "-"
 	      ["Specify ANSYS License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
-	      ["Specify ANSYS Executable "ansys-program :help "Specify the ansys executable for an interpreter run (with complete path if not in $PATH)" :active ansys-is-unix-system-flag]
+	      ["Specify ANSYS Executable or launcher" ansys-program :help "Specify the ANSYS interpreter under Linux or the launcher (with complete path if not in $PATH)"]
 	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
-	      ["Start ANSYS Run"        ansys-start-ansys :help "Start an ANSYS interpreter run under UNIX" :active (and ansys-is-unix-system-flag (not (ansys-process-running-p)))]
+	      [(concat (if ansys-is-unix-system-flag
+		   "Start the APDL interpreter"
+		   "Start the APDL product launcher"))   ansys-start-ansys :help "Start an APDL interpreter (solver) run under UNIX or the launcher under Windows" :active (not (ansys-process-running-p))]
+	      ["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
+               "Display License Status"
+	        "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
 	      ["Display ANSYS Run Status" ansys-process-status :help "Display the status of a possible ANSYS interpreter run" :active (ansys-process-running-p)]
 	      ["Exit ANSYS Run"         ansys-exit-ansys :help "Exit the active interpreter run" :visible (ansys-process-running-p)]
 	      "-"
@@ -1523,8 +1528,12 @@ to to include above skeleton (optionally) for every APDL file.
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current ANSYS output visible.
 
-- You can start the ANSYS help browser from Emacs
+- You can start the ANSYS help browser directly from Emacs with
   \"\\[ansys-start-ansys-help]\" (for `ansys-start-ansys-help').
+
+- You might also start the APDL product launcher from Emacs under
+  windows or the APDL interpeter under UNIX with \"\\[ansys-start-ansys]\" (for
+  `ansys-start-ansys').
 
 - For displaying the available licenses (in another Emacs window)
   please use \"\\[ansys-license-status]\" (for
@@ -1547,11 +1556,12 @@ default_el customisation file example.
 
 With the ANSYS-Mode keyboard shortcut
 \"\\[ansys-start-ansys]\" (for the command `ansys-start-ansys')
-you can start the ANSYS solver as an asynchronous process from
-Emacs.  After starting the run you will see all solver output in
-a separate Emacs 'comint' window.  You are now able to interact
-with this process in three ways, either by typing directly in the
-'*ANSYS*' window or using \"\\[ansys-send-to-ansys]\" (for
+you can start the APDL interpreter (solver) under UNIX as an
+asynchronous process from Emacs.  After starting the run you will
+see all interpreter output in a separate Emacs 'comint' (command
+interpreter) window.  You are now able to interact with this
+process in three ways, either by typing directly in the '*ANSYS*'
+window or using \"\\[ansys-send-to-ansys]\" (for
 `ansys-send-to-ansys').  With the latter you can send either the
 current code line or a whole selected region to the running
 solver.  (A selected region means highlighted lines of code.  If

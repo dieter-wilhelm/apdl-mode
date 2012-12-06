@@ -49,8 +49,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			    ;; Autoloading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; autoloading of command definitions, these commands can then be
-;; called without having a file under ansys-mode
+;; Set of useful commands which are now interactively available (M-x
+;; ...)  even when ANSYS Mode was not (yet) activated i.e. the lisp
+;; files not loaded.
 
 (autoload 'ansys-mode "ansys-mode" nil t)
 (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
@@ -58,6 +59,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
 (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
+(autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under Unix or product launcher under Windows." 'interactive)
 (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -169,7 +171,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 	))
       (t     
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		   ;; else windows (XP 32/64 Bit)
+		   ;; else Windows 64 bit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
 
 	;; the following is now executed in the mode function

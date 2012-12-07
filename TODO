@@ -36,7 +36,7 @@
    - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
      retarded!!!
-   - check *vwrite with gui mode and interactive mode
+   - check *vwrite with gui mode and interactive mode (graphics window?)
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
    - C-c C-c needs a carriage return in the last line if there is none
@@ -147,6 +147,7 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    joerg.menke@continental-corporation.com
     daniel.balint@continental-corporation.com,
     marius.tarnovetchi@continental-corporation.com,
     Michaelk@vipac.com.au,

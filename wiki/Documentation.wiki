@@ -9,4 +9,4 @@ There are now two tutorials available (ansys-mode_tutorial.pdf and APDL_tutorial
 
 *Version 14 - 12*: Please have a look online at the [http://www.emacswiki.org/emacs/AnsysMode Emacs Wiki] or the accompanying README file.
 
-*Version 11*: Please read the instructions in the source file 'ansys-mode.el'.
+*Version 11*: Does not run with Emacs-24!  Please read the instructions in the source file 'ansys-mode.el'.

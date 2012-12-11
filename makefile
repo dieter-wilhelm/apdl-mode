@@ -1,3 +1,10 @@
+# Targets:
+##############################
+# ALL = MODE +  
+# MODE = mode packe + tags
+# PACKAGE = Mode Package
+# EMACS = Windoze version of emacs with pre-configured mode
+
 ANSYS_MAJOR := 14
 ANSYS_MINOR := 5
 
@@ -155,5 +162,5 @@ TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO A-M_AP
 	etags $(EL_FILES) default_el ansys-fontification.el README TODO A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
 
 .PHONEY : TAG_RELEASE
-TAG :
+TAG_RELEASE :
 	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.1 -m "tagging 14.5.1"

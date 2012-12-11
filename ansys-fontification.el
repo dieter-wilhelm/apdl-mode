@@ -726,7 +726,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
     (insert-file-contents "ansys_Index.hlp")
     ;; clean up redundant keywords
     (delete-matching-lines "^Hlp")
-    (goto-char (point-min))
+    ;; (goto-char (point-min))	  
     ;; (delete-matching-lines "^Hlp_E_")
     ;; (goto-char (point-min))
     ;; ;; shorten keywords

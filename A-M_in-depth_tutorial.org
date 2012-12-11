@@ -88,8 +88,6 @@
    applications WorkBench is taking over the "code authoring" part
    from the user, use APDL for *repetitive* tasks and command
    snippets, *extending* WB.
-
-
   
 ** Target audience  
    - APDL coders :: You have repetitive tasks and write APDL
@@ -102,17 +100,19 @@
         command reference.
 ** Using this tutorial
 *** Please read the *introductory* ANSYS-Mode tutorial first
-    It is `ansys-mode_tutorial.pdf' or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys-mode_tutorial.html][online]] version.
+    This is the file `A-M_introductory_tutorial-14.5.1.pdf' in the
+    mode's archive or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html][online]] version.
 
-    Ah yes, you are in a hurry, I thought so. *In summary:* You will
-    get an illustrated overiew how ANSYS-Mode can improve your
+    Ah yes, you are in a hurry (I thought so). *In summary:* You
+    will get an illustrated overiew how ANSYS-Mode can improve your
     workflows and that the software is available without any costs and
     with (practically) no license restrictions also for commercial
     use.
 
-    Simply download an archive, extract it anywhere without the need
-    of administrator rights.  For the Windows version all system
-    independent things should run without any configuration.
+    Simply download the proper mode archive, extract it anywhere. For
+    the Windows version with the pre-configured mode all system
+    independent things should run without the need of any
+    configuration.
 
    In the following *bold* character combinations like *C-c* or *M-c*
    mean typing the <CTRL> key or <ALT> (formerly called `Meta') key
@@ -999,7 +999,7 @@ The APDL processing and debugging environment
    !@ ==============================
    !! Prerequisites:
    !! 1) A fully configured ANSYS-Mode and
-   !! 2) a Linux or UNIX system
+   !! 2) a Gnu/Linux or Gnu/Linux system
 #+end_src
   Finally switch off unnecessay stuff: Emacs' menu-, tool- and
   scroll-bar to get more screen estate.  :-) And tidying the window
@@ -1257,7 +1257,7 @@ Thank you for your time, have fun with Emacs...
 
 # # !!    mouse selection ->copy to clipboard
 # # !! 0.) mouse selection does not work under Windows mouse-drag-copy-region!
-# # !! mouse copy on Windows the same on Linux only if (setq mouse-drag-copy-region t)
+# # !! mouse copy on Windows the same on Gnu/Linux only if (setq mouse-drag-copy-region t)
 
 # #+begin_src ansys : tangle yes
 # ! continuation line with $

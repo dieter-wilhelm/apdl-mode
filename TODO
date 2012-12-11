@@ -11,7 +11,7 @@
                     command and is not highlighted as label
   - Highlighting :: An apostrophy clashes with the ANSYS "char"
                     specifier Keybinding: M-Tab is captured under
-                    Windows and some Linux desktops Workaround: Press
+                    Windows and some Gnu/Linux desktops Workaround: Press
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
@@ -31,7 +31,7 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
-*  14.5.1:
+*  15.0.1:
 ** TODO Freeze
    - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
@@ -73,7 +73,19 @@
      skeleton, critical to element differences!
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
+** Bugs
+   - mouse completion does not work in completion buffer (for
+     templates)
+   - help overlay is only removed after 1 min if the buffer is active
+      at that time
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
+** Compiler warnings
+    - ansys-template.el:85:13:Warning: reference to free variable
+      `ansys-skeleton-overlay'
+    - mouse-choose-completion is obsolete since E23.2
 ** Release
+   - makefile fontification of _tutorial PDFs is not working,
+     necessary to load them by hand before exporting
    - document A-M_in-depth_tutorial.org
        - fontification.mac, leave it in the mode archive for a while
        - upload to Google code: file:googlecode_upload.py
@@ -88,9 +100,9 @@
        completable, whitespace problem befor paren...
        and: "nele" undocumented command and function nelem()
      - es not :
-       + *mwrite
-       + *cfclos
-       + *sread M-? shows help for *mwrite
+        *mwrite
+        *cfclos
+	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -introductory_tutorial.org
      - update download page to 14.5.1 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
@@ -98,15 +110,6 @@
      - change sequence of alignment.pgn first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
-** Bugs
-   - help overlay is only removed after 1 min if the buffer is active
-      at that time
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
-** Compiler warnings
-    - ansys-template.el:85:13:Warning: reference to free variable
-      `ansys-skeleton-overlay'
-    - mouse-choose-completion is obsolete since E23.2
-
 * Procedures
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
@@ -128,12 +131,12 @@
     specifiers
 
     (tags-query-replace "145" "150")
-    (tags-query-replace "24.1" "24.?")
+    (tags-query-replace "24.2" "24.?")
     (tags-query-replace "14.5" "15.0")
     (tags-query-replace "- 2012" "- 2013")
 
     checkdoc then dry run: Emacs
-    24.1 -Q testing: fontification.mac /*commands and default command
+    24.2 -Q testing: fontification.mac /*commands and default command
     lines, every menu entry.  byte-compile-file then dry run
     profiling, major mode conventions: multiple loading of this mode?.
   - check Emacs versions on longterm OS systems compile with 22.X,

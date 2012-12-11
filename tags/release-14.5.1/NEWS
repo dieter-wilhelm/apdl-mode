@@ -1,0 +1,252 @@
+== News and History ==
+
+(the formatting is targeted for the Emacs Wiki)
+
+Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
+
+===  Version 14.5.1 ===
+
+* Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
+  the detailed ANSYS help in your web-browser for an APDL command or
+  element name (also the element number is sufficient) around the
+  cursor (or if that fails at the line beginning).
+
+  Are you also tired of the ANSYS help browser?  For example try
+  searching for the `F' APDL command, it is impossible!  You have to
+  pick it up from the alphabetical command list. Likewise when you are
+  searching for an incomplete keyword, no hint, no completion,
+  nothing!  Finding and browsing relevant APDL documentation is still
+  cumbersome and too slow
+
+  As a highlight of this release you can now read immeadiately the
+  detailed ANSYS help in your web browser for *all* APDL command AND
+  element names around the cursor (or for the first command in the
+  current line if that fails to be valid keyword).  You may input your
+  search string also interactively, including its completion to ANSYS
+  help keywords and of certain help categories, like `Release Notes'
+  and such. This is an ideal complement to ANSYS-Mode's in-built
+  `command syntax help'
+
+* The function `ansys-start-ansys' is now available under Windows as well
+  and starts the APDL product launcher under this platform.
+
+* When calling `ansys-browse-ansys-help' and
+  `ansys-show-command-parameters' (M-? - the in-built `command syntax
+  help') with a prefix argument for interactively entering a command
+  name, the name is now completable.  And in the non-interactive mode
+  both functions working also for APDL commands which are commented
+  out as well (only for the first command in case of
+  `ansys-show-command-parameters').
+
+* Also the input of `ansys-query-ansys-command' (C-c C-q) is now
+  completable to all current ANSYS commands and with an optional
+  prefix argument the current code line is copied as the initial
+  input.
+
+* Improved the introductory and the in-depth tutorial and extended the
+  documentation with an APDL and syntax highlighting reference in HTML
+  and PDF. (To some degree syntax highlighted in the PDF version as
+  well)
+
+* Values of the `_RETURN' variable are now documented in the function
+  `ansys-skeleton-information'
+
+* `ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
+  now skipping over node and elements blocks, which are only pure
+  number blocks.  They are now alternatives to
+  `ansys-number-block-start' C-c { and C-c } respectively
+
+* Removed bug in customisation system and dropped 32 bit ANSYS support
+  in line with the ANSYS OS
+  [http://www.ansys.com/Support/Platform+Support strategy] for 2013.
+
+* Described a poor man's round() workaround in ansys-template-function
+  under the nint() entry
+
+=== Version 14.0.1 June 2012 ===
+
+* Enhanced the documentation, included is now an introductory tutorial
+  `ansys-mode_tutorial.pdf' and a hands-on tutorial
+  `APDL_tutorial.pdf'
+
+* Added a timer for getting rid of the parameter help overlays after
+  some time interval (1 min) without reusing the parameter help
+
+* Added a (customisable) variable `ansys-no-of-processors' and
+  function with the same name for specifying the number of processors
+  for an Ansys multiprocessor run
+
+* Activated outline-minor-mode and auto-insertion (in default_el)
+
+* Extended mode commands, templates and removed typos mainly in
+  ansys-template.el. For example added all *get functions in the
+  ansys-skeleton-function template
+
+* Added a custom variable the corresponding function
+  ansys-ansysli-servers for specifying the ansys interconnect license
+  servers
+
+* Added a new shortcut and menu entry isometric view
+
+* Applied sensible defaults to ansys-lmutil-program, ansys-program and
+  ansys-help-program, for most needs it should now be enough just to
+  set the used ansys version (ansys-current-ansys-version, if it is
+  not 140, see the example config file default_el) and maybe
+  additionally the installation directory (ansys-install-directory).
+
+=== Version 13.0.1 March 2011 ===
+
+* Added support for aligning whole sections of Ansys variable
+  definitions, both in the Ansys menu and as a keyboard shortcut 'C-c
+  C-a'
+
+* Enhanced ansys-display-skeleton with an optional argument for
+  inserting the respective skeleton in the APDL buffer.
+
+* Enhanced some "interactive" code templates with lists for completing
+  the input and sensible defaults
+
+* Refined some abbreviation definitions and focused the display of
+  abbreviations to the mode specific ones
+
+* Fixed insert pair functions, like 'C-c %'
+
+* Changed keyboard shortcut for calling the Ansys help to 'C-c C-h'
+
+* Updated keyword list, deprecated elements, undocumented commands,
+  etc. to release 13.0 of Ansys, as usual.
+
+=== Version 12.0.1 Dec 2010 ===
+
+* Some new graphics commands like ansys-zoom-in, -zoom-out,
+  -move-left, -right, -up, -down, etc.
+
+* The lisp code had to be split up for better maintance, the code
+  files for are now provided in an archive together with their
+  compiled state for speed reasons.
+
+* Reworked the fontification mainly for the sake of speed.  There are
+  now highlighting levels to choose from, offering e. g. higlighting
+  of deprecated element types in a warning-face, deprecated Ansys *
+  comments and so on
+
+* Updated and improved the readability of the mode's help and the
+  README file
+
+* The output from the LMUtil license status tool (C-c C-l) is now
+  filtered on UNIX to be more concise.
+
+* The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
+  (C-c C-u) commands are now generalised so that they are also doing
+  some useful stuff without a running Ansys interpreter process (they
+  copy in that case the cursor line/the chosen region and copy from
+  the file beginning to the cursor line, respectively, to the
+  clipboard).  Given a prefix argument to these commands, the cursor
+  won't move to the next code line.
+
+* The completion of Ansy keywords is reworked and has improved.  Ansys
+  symbols are now completed in 3 ways: Upcase, downcase and
+  capitalise.
+
+* New: Added tooltips to all Ansys menu entries.  Activated or
+  deactivated menue entries according to the context
+
+* Ansys mode tries to gather information from the OS environment when
+  the variable `ansys-license-file' is not set by the user and uses
+  now Ansys standard names as default values for some more variables.
+
+* The variables in the variable summary are now sorted according to
+  their first occurance and not any longer in "definition types".  Now
+  component names are included with the variable highlighting.
+
+* Added menu entry for reloading Ansys Mode for the case when certain
+  customisation options in the code files itself are changed and
+  require a code reloading to take effect.
+
+* Ansys mode changes some Emacs default behaviour to smooth the
+  transition from other editors
+
+=== Version 11.0.2 Nov 2009 ===
+
+* Enabled the preview of code templates or fragments (called
+  skeletons in this mode, please inspect `ansys-display-skeleton').
+
+* Removed "buffer has no process" bug when killing an ansys-mode
+  buffer.
+
+* Submitting interactively Ansys commands (via minibuffer query, not
+  only as written in a macro file) to the solver process,
+  ansys-query-ansys-command (C-c C-q).
+
+=== ansys-mode.el 11.0.1 in comparison to ansys-mod.el: ===
+
+* New: Provides Ansys command parameter- and syntax help.
+
+* New: Offers Ansys process management: Acquiring license server
+  information in a buffer Starting and stopping asynchronously
+  Ansys runs.  Sending code lines to running Ansys process (sort of
+  code debugging facility) and getting the output into a buffer.
+
+* New: Experimental highlighting of user defined variables.
+  Redefinition and clearing of variables is not yet taken into
+  account.
+
+* New: Emacs customisation facility is available for the new Ansys
+  mode group.
+
+* New: Emacs outline-minor-mode is readily available in conjunction
+  with this mode.
+
+* Completions of Ansys commands are now case-sensitive, with
+  additional completion of function and element names.
+
+* Previously defined skeletons are fully functional now, new ones
+  are added and enabled with the abbreviation and auto-load
+  facilities of Emacs 22.
+
+* Ansys' interpreter's disregard of any capitalisation is now fully
+  taken into account in the highlighting.
+
+* The apostrophe "'" is now assigned as the Ansys string and the
+  value of character parameters delimiter and not wrongly """;
+  the strings are fontified accordingly.
+
+* The dollar sign "$" is now emphasised as the Ansys condensed
+  input character (multiple Ansys commands in one line).
+
+* The colon ":" is now emphasised as the Ansys colon do loop
+  character ("(x:y:z)" means from x to y, in z steps, z is equal to
+  one as default).  For example: "n,(1:6),(2:18:2)" runs 6 loops.
+  Colon loops are working also with real values: k,,(2.5:3:0.1) and
+  with array parameters: k,,A(1:100), but the latter is an
+  undocumented feature. Since ansys 11.0 the colon looping is also
+  working with *GET functions (example: A(1:5)=NX(1:5))). A ":"
+  indicates also a beginning of a label for the *GO and *IF
+  command.
+
+* "%" is now distinguished as the Ansys parameter substitution
+  and format specifier character.
+
+* The ampersand "&" is now correctly highlighted as the only
+  available Ansys continuation character applicable to the format
+  commands (*MSG, *MWRITE, *VREAD and *VWRITE) command and the
+  subsequent format strings of the command are fontified.
+
+* New: " *" (SPC before *) is indicated as an (Ansys deprecated)
+  comment sign e. g.: %% a = 3 **4 %% results in "a" having the value
+  3, whereas %% a = 3**4 %% sets "a" to 81!
+
+* New: A line beginning with a comma is indented to the length of the
+  last non slash or asterisk command as a reminder that the Ansys
+  solver interprets this as a space holder for the last command
+  keyword (the Ansys default command concept).
+
+* Extended documentation, code cleaning and simplification of
+  commands (e.g. comment handling) with the application of standard
+  Emacs 22 facilities among other things.
+
+# local variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# end:

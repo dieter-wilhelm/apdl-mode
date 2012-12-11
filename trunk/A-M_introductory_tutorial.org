@@ -13,7 +13,8 @@
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
-##+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
+##+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
+#+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
 #+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
 #+LATEX_HEADER: \usepackage{textcomp}
@@ -159,7 +160,7 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
 
-** Debug your code interactively with the solver (Unix only)
+** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][Gnu/Linux]])
    You can run the ANSYS solver/interpreter under Emacs and send
    code lines from the APDL window (above) with *C-c C-c* directly to
    this process. Below you get an interactive solver output window and
@@ -168,7 +169,7 @@
 #+ATTR_HTML: width="1200"
 #+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
-** Display the license status and graphics (also PDF) on UNIX
+** Display the license status and graphics on Gnu/Linux
    In Emacs' mid-section you see the license state (*C-c C-l*)
    and left Emacs window (below) a thumbnail view of images from a
    folder.
@@ -177,7 +178,7 @@
 #+ATTR_HTML: width="1200"
    [[./license.png]]
 
-** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under Linux) with a ripped off ANSYS menu field
+** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under Gnu/Linux) with a ripped off ANSYS menu field
 
 # The
 # APDL file is in the right window with the (experimental) user variable
@@ -219,9 +220,9 @@
 * Documentation and Licensing
 
 ** Get to know Emacs and check out its tutorial
-  Newcomers to Emacs should take the guided [[http://www.gnu.org/software/emacs/tour/][online tour]] to get a
-  background of its capabilities and fire up the interactive tutorial
-  (*C-h t*) which is translated to various languages.
+  Newcomers to Emacs should take the excellent [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to
+  get a background of its capabilities and fire up the interactive
+  tutorial (*C-h t*) which is translated to various languages.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./emacs_tutorial.png]]
@@ -238,7 +239,7 @@
 
 *** Hands-on tutorial:
     You will find this more in-depth tutorial included in the mode's
-    archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/APDL_tutorial.html][online]].
+    archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
 *** Installation:
     More detailed instructions are necessary if you are not using the
     mode bundled with Emacs for Windows.  Please have a look in the
@@ -291,7 +292,7 @@
 #         :BEAMER_col: 0.5
          :END:
     Solver communication/feedback - hybrid between coding and
-    debugging (UNIX only), retrieving license states, error file
+    debugging (Gnu/Linux only), retrieving license states, error file
     viewing, abort file handling, extending APDL templates, ...
 ** Last slide of the ANSYS-Mode tutorial
 ***  Hint for the curious:

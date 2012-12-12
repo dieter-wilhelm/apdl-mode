@@ -1,5 +1,5 @@
 #+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.1
-# Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
+# Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -54,8 +54,12 @@
   conjunction with the latest Emacs editor binary for Windows 64
   bit from the Google Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
   
-#+ATTR_HTML: width="1200"
-  [[./download.png]]
+##+ATTR_HTML: width="1200"
+#+BEGIN_LaTeX
+\href{http://code.google.com/p/ansys-mode/downloads/list}{%
+  \includegraphics[width=10cm]{./download.png}%
+}
+#+END_LaTeX 
   
 * Installation
 ** Install ANSYS-Mode together with Emacs
@@ -70,10 +74,10 @@
 
 * Usage
 ** Open an APDL macro file with Emacs
-  Start the Emacs editor and open /fontification.mac/ in the
-  /site-lisp/ folder or any other APDL file (with the extensions
-  /mac/, /inp/, /dat/ or /anf/, otherwise additionally type *M-x
-  ansys-mode* and <RET>).
+  Start the editor and open /fontification.mac/ in Emacs' /site-lisp/
+  folder or any other APDL file (with the extensions /mac/, /inp/,
+  /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
+  <RET>).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./find_file_dialog.png]]
@@ -226,6 +230,13 @@
 
 #+ATTR_LaTeX: height=7.5cm
   [[./emacs_tutorial.png]]
+##+ATTR_LaTeX: width=5cm
+#+BEGIN_LaTeX
+\href{http://www.gnu.org/software/emacs/tour/}{%
+  \includegraphics[width=5cm]{./tour_of_Emacs.png}%
+}
+
+#+END_LaTeX
 
 ** Use the ANSYS-Mode built-in documentation
    Please type *C-h m* for the ANSYS-Mode help, especially for the
@@ -237,23 +248,25 @@
 
 ** You might read further ANSYS-Mode documentation
 
-*** Hands-on tutorial:
-    You will find this more in-depth tutorial included in the mode's
-    archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
-*** Installation:
-    More detailed instructions are necessary if you are not using the
-    mode bundled with Emacs for Windows.  Please have a look in the
-    /README/ file.  For an online version see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at
-    the EmacsWiki.
-    
-*** News and project history:
-    They are placed in the mode's accompanying /NEWS/ file
-
 *** Licensing and costs:
     This is free and open software, there are *no costs* and effectively *no
     restrictions* for you using Emacs and ANSYS-Mode also commerically.
     Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License) described in the
     /LICENSE/ file.
+
+*** Installation:
+    More detailed instructions are necessary if you are not using the
+    mode bundled with Emacs for Windows.  Please have a look in the
+    /README/ file.  For an online version see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at
+    the EmacsWiki.
+
+*** Hands-on tutorial:
+    You will find this more in-depth tutorial included in the mode's
+    archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
+    
+*** News and project history:
+    They are placed in the mode's accompanying /NEWS/ file
+
 * Help and Bugs
 ** Search for help, report bugs and issues
   Besides the documentation, have a look in the section 'Issues and
@@ -283,8 +296,8 @@
          :BEAMER_envargs: C[t]
 #         :BEAMER_col: 0.5
          :END:
-    Shortcut keybindings, outlining, code templates, completions,
-    auto-indentation, abbreviations, auto-insertion.
+    Specific shortcut keybindings, outlining, code templates,
+    completions, auto-indentation, abbreviations, auto-insertion.
 *** Advanced APDL *environment*
          :PROPERTIES:
          :BEAMER_env: block
@@ -303,9 +316,13 @@
          :BEAMER_col: 0.5
          :END:
 
-#+ATTR_LaTeX: width=5.5cm
-#   ,angle=90
-   [[./gnu_emacs.png]]
+##+ATTR_LaTeX: width=5.5cm
+##   ,angle=90
+#+BEGIN_LaTeX
+\href{http://shop.oreilly.com/product/9780596006488.do}{%
+  \includegraphics[width=5.5cm]{./gnu_emacs.png}%
+}
+#+END_LaTeX 
 
 *** Thank you for your time getting acquainted with ANSYS-Mode!
          :PROPERTIES:

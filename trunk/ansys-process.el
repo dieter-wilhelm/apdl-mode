@@ -1,6 +1,6 @@
 ;;; ansys-process.el -- Managing runs and processes for the ANSYS-Mode
 
-;; Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2013  H. Dieter Wilhelm GPL V3
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -34,7 +34,7 @@
 
 (defcustom ansys-install-directory
   (cond ((string= window-system "x")
-	 ;; "/" the root dir is the default installation directory on Gnu/Linux
+	 ;; "/" the root dir is the default installation directory on GNU/Linux
 	 "/")
 	(t ;; the default is "C:\\Program Files\\" on Windows
 	 "C:\\Program Files\\"))
@@ -61,7 +61,7 @@ the respective error file."
 	      version "/ansys/bin/ansys" version)
     (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))		;NEW_C
   "This variable stores the ANSYS executable name.
-Under Gnu/Linux this should be the solver, under Windows the
+Under GNU/Linux this should be the solver, under Windows the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
@@ -82,7 +82,7 @@ It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v145/ansys/bin/anshelp145\" on Gnu/Linux
+locations are \"/ansys_inc/v145/ansys/bin/anshelp145\" on GNU/Linux
 and \"c:\\\\Program Files\\Ansys\
 Inc\\v145\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on
 Windows (XP).  Since V12.0 ANSYS uses a java interpreter."
@@ -123,7 +123,7 @@ colon for multiple servers, for example
 Setting this variable skips the effect of previously set
 environment variables, which have the following order of
 precedence: 1. ANSYSLMD_LICENSE_FILE environment variable, 2.)
-The FLEXlm resource file: ~/.flexlmrc on Gnu/Linux or somewhere in the
+The FLEXlm resource file: ~/.flexlmrc on GNU/Linux or somewhere in the
 Windows registry. 3.) The LM_LICENSE_FILE variable. 4.) The
 ansyslmd.ini file in the licensing directory (This is what
 anslic_admin is doing in an ANSYS recommended installation).  5.)
@@ -361,7 +361,7 @@ initial input."
 
 ;;;###autoload
 (defun ansys-start-ansys ()		;NEW
-  "Start an ANSYS interpreter process under Gnu/Linux or the launcher under Windows.
+  "Start an ANSYS interpreter process under GNU/Linux or the launcher under Windows.
 For the interpreter process summarise the run's configuration
 first. The specified No of cores is not shown if they are chosen
 smaller than 3 (see `ansys-number-of-processors')."
@@ -449,7 +449,7 @@ with the ANSYS /EXIT,all command which saves all model data."
 ;;;###autoload
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the ANSYS help system.
-Alternatively under a Gnu/Linux system, one can also use the ANSYS
+Alternatively under a GNU/Linux system, one can also use the ANSYS
 command line \"/SYS, anshelp145\" when running ANSYS
 interactively, provided that anshelp145 is found in the search
 paths for executables (these are stored in the PATH environment
@@ -468,7 +468,7 @@ variable)."
 	(error "w32-shell-execute not bound"))
       (message "Started the ANSYS help browser..."))
      (t
-      (error "Can only start the ANSYS help on Windows and Gnu/Linux systems")))))
+      (error "Can only start the ANSYS help on Windows and GNU/Linux systems")))))
 
 (defun ansys-search-keyword()
   "Search the code line for a valid the keyword from `ansys-help-index'.
@@ -640,7 +640,7 @@ Element categories:
 ;      (w32-shell-execute "Open" (concat path file)))
       (browse-url-default-windows-browser (concat path file)))
      (t
-      (error "Can only start the ANSYS help on Windows and Gnu/Linux systems")))
+      (error "Can only start the ANSYS help on Windows and GNU/Linux systems")))
     (message "Called html browser for keyword \"%s\"..." command)))
 
 
@@ -687,7 +687,7 @@ Element categories:
 
 (defun ansys-license-status ()		;NEW
   "Display the ANSYS license status or start the license tool.
-For Gnu/Linux systems show the status in a separate buffer, under
+For GNU/Linux systems show the status in a separate buffer, under
 Windows start the anslic_admin.exe utility, which has a button
 for displaying the license status."
   (interactive)

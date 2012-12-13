@@ -2,9 +2,12 @@
 
 (the formatting is targeted for the Emacs Wiki)
 
-Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
-===  Version 14.5.1 ===
+===  Version 14.5.?  ? 2013 ===
+
+
+===  Version 14.5.1 Sep 2012 ===
 
 * Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
   the detailed ANSYS help in your web-browser for an APDL command or

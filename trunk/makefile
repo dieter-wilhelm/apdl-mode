@@ -5,8 +5,8 @@
 # PACKAGE = Mode Package
 # EMACS = Windoze version of emacs with pre-configured mode
 
-ANSYS_MAJOR := 14
-ANSYS_MINOR := 5
+ANSYS_MAJOR := 15
+ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -33,7 +33,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 1
+MODE_VERSION := beta1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -158,9 +158,9 @@ $(EMACS_SOURCE_PACKAGE) :
 	gpg $(EMACS_SOURCE_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
-	etags $(EL_FILES) default_el ansys-fontification.el README TODO A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+	etags $(EL_FILES) default_el ansys-fontification.el README TODO NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :
-	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.1 -m "tagging 14.5.1"
+	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-15.0.1 -m "tagging 15.0.1"

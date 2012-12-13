@@ -1,7 +1,7 @@
 This is the text of the ANSYS-Mode README file (the formatting is
 targeted for the [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki])
 
-Copyright (C) 2006 - 2012  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
 == Introduction ==
 
@@ -51,7 +51,7 @@ It is tested with Emacs-24.1, Emacs-24.2 under XP64 and under
 GNU/Linux64 (here also with Emacs-23.2).
 
 Some of ANSYS-Mode's solver control and communication features are
-only implemented for Gnu/Linux systems.
+only implemented for GNU/Linux systems.
 
 == Features ==
 
@@ -69,7 +69,7 @@ only implemented for Gnu/Linux systems.
 
 * Solver comunication facilities, i. e. sending code fragments from
   the macro file or commands interactively to an ANSYS solver process
-  (Gnu/Linux only).
+  (GNU/Linux only).
 
 * Keyword completion of ANSYS commands, elements, get- and
   parametric-functions (case-sensitive) of around 2000 ANSYS symbols.
@@ -77,6 +77,9 @@ only implemented for Gnu/Linux systems.
 * Comprehensive keyboard shortcuts for code navigation: Skipping
   comments, navigating number blocks, searching and creating *DO-,
   *IF-, *DOWHILE-, *CREATE-blocks, etc.
+
+* Warning of deprecated element types with a different highlighting of
+  element names for current and deprecated technology ones.
 
 * Syntax highlighting in various decoration levels (complete ANSYS
   keywords, undocumented commands, deprecated elements, ...)  and
@@ -130,7 +133,7 @@ and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode Emacs
 http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
 
 Above image shows an Emacs frame (in reversed colour mode and compiled
-with the GTK+ toolkit under Gnu/Linux) with a ripped off menu field.  The
+with the GTK+ toolkit under GNU/Linux) with a ripped off menu field.  The
 APDL file is in the right window with the (experimental) user variable
 highlighting switched on and a help overlay (in yellow background)
 activated. The smaller windows on the left hand side are showing the
@@ -258,7 +261,7 @@ In case you want to download or have already installed the
 can also download and configure the ANSYS-Mode package
 separately. Please see below.
 
-__For existing Emacs installations on Windows and Gnu/Linux:__
+__For existing Emacs installations on Windows and GNU/Linux:__
 
 ==== Direct way; no file configuration necessary ====
 
@@ -361,7 +364,7 @@ explicitely called ansys-mode.
      (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
      (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
      (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-     (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under Gnu/Linux or product launcher under Windows." 'interactive)
+     (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 
 * A further configuration method

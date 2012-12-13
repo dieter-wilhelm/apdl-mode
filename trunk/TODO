@@ -11,7 +11,7 @@
                     command and is not highlighted as label
   - Highlighting :: An apostrophy clashes with the ANSYS "char"
                     specifier Keybinding: M-Tab is captured under
-                    Windows and some Gnu/Linux desktops Workaround: Press
+                    Windows and some GNU/Linux desktops Workaround: Press
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
@@ -33,6 +33,7 @@
 
 *  15.0.1:
 ** TODO Freeze
+   - no warning message, if html help files are not found
    - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
      retarded!!!
@@ -74,6 +75,7 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - menu-bar job-name not working
    - mouse completion does not work in completion buffer (for
      templates)
    - help overlay is only removed after 1 min if the buffer is active
@@ -130,10 +132,12 @@
     list in ansys-submit-bug-report, update version numbers, default
     specifiers
 
+#;  (tags-query-replace "GNU/Linux" "GnuLinux") ;-)
+#;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
     (tags-query-replace "145" "150")
     (tags-query-replace "24.2" "24.?")
     (tags-query-replace "14.5" "15.0")
-    (tags-query-replace "- 2012" "- 2013")
+    (tags-query-replace "- 2013" "- 2014")
 
     checkdoc then dry run: Emacs
     24.2 -Q testing: fontification.mac /*commands and default command
@@ -162,7 +166,6 @@
     iivvgg@gmail.com,
     oleksiy.kurenkov@continental-corporation.com,
     martin.bruehl@continental-corporation.com,
-    mike.brusoe@continental-corporation.com,
     klemens.kieninger@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
     saravana.kumar@continental-corporation.com,
@@ -179,42 +182,20 @@
     info@padtinc.com,
 
 
-Subject:  Release 14.5.1 of ANSYS-Mode: Editor support for working with APDL files & processes
+   unavailable
+    mike.brusoe@continental-corporation.com,
 
-Hi,
-
-Release 1 of ANSYS-Mode for ANSYS 14.5.
-
-Are you also tired of the ANSYS help browser?  E. g. try searching for
-the `F' APDL command, it is impossible!  You have to pick it up from
-the alphabetical command list. Likewise when you are searching for an
-incomplete keyword, no hint, no completion, nothing!  Finding and
-browsing relevant APDL documentation is still too slow and cumbersome.
-
-As a highlight of this release you can now read immeadiately the
-detailed ANSYS help in your web-browser for *all* APDL command AND
-element names near the cursor.  You may input your search string also
-interactively, including its completion to valid ANSYS help
-keywords. This is an ideal complement to ANSYS-Mode's in-built
-`command syntax' help.
-
-You can download the mode, as always, from:
-
-http://code.google.com/p/ansys-mode
-
-You'll find also there the latest stable version of Emacs for Windows
-with ANSYS-Mode preconfigured and ready to go.  Just unpack it and use
-the mode for your APDL files and hopefully for other stuff as well...
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - create a function showing deprecated elements and their
+     replacement.  Inspirations from eldoc-mode, show replacements of
+     deprecated elements?
    - create a reference card
    - make the timer time interval customisable
    - show list of license products and their license feature names or
      translate it in the license status from the licensing guide
      (product variable table)
-   - inspirations from eldoc-mode, show replacements of deprecated
-     elements?
    - C-c C-v show (optionally) only variables defined up to current
      cursor line.  Make the line number display in
      `ansys-display-variables' (hyper-)links to the corresponding code

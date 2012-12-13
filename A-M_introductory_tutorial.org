@@ -51,13 +51,13 @@
 * Download
 ** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
-  conjunction with the latest Emacs editor binary for Windows 64
-  bit from the Google Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
+  conjunction with the latest Emacs distribution for Win32/64 from the
+  Google Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
   
 ##+ATTR_HTML: width="1200"
 #+BEGIN_LaTeX
 \href{http://code.google.com/p/ansys-mode/downloads/list}{%
-  \includegraphics[width=10cm]{./download.png}%
+  \includegraphics[width=12cm]{./download.png}%
 }
 #+END_LaTeX 
   
@@ -118,7 +118,7 @@
 
 ** Select an interesting template from a completion window
    Type *C-c C-s* to choose a template name, use the <TAB> key to
-   complete and to open the completion window of available items.
+   complete or to open the completion window of available items.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template_selection.png]]
@@ -164,7 +164,7 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./calculator.png]]
 
-** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][Gnu/Linux]])
+** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU/Linux]])
    You can run the ANSYS solver/interpreter under Emacs and send
    code lines from the APDL window (above) with *C-c C-c* directly to
    this process. Below you get an interactive solver output window and
@@ -173,7 +173,7 @@
 #+ATTR_HTML: width="1200"
 #+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
-** Display the license status and graphics on Gnu/Linux
+** Display the license status and graphics on GNU/Linux
    In Emacs' mid-section you see the license state (*C-c C-l*)
    and left Emacs window (below) a thumbnail view of images from a
    folder.
@@ -182,7 +182,7 @@
 #+ATTR_HTML: width="1200"
    [[./license.png]]
 
-** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under Gnu/Linux) with a ripped off ANSYS menu field
+** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS menu field
 
 # The
 # APDL file is in the right window with the (experimental) user variable
@@ -305,7 +305,7 @@
 #         :BEAMER_col: 0.5
          :END:
     Solver communication/feedback - hybrid between coding and
-    debugging (Gnu/Linux only), retrieving license states, error file
+    debugging (GNU/Linux only), retrieving license states, error file
     viewing, abort file handling, extending APDL templates, ...
 ** Last slide of the ANSYS-Mode tutorial
 ***  Hint for the curious:
@@ -332,9 +332,12 @@
          :BEAMER_col: 0.5
          :END:
 
-Have fun...
 #+BEGIN_LaTeX
 \vspace{.2cm}
+#+END_LaTeX
+Have fun...
+#+BEGIN_LaTeX
+\vspace{.4cm}
 #+END_LaTeX
 
 #+ATTR_LaTeX: width=6cm

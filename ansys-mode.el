@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with ANSYS FEA.
 
-;; Copyright (C) 2006 - 2012  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2013  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -39,7 +39,7 @@
 
 ;; The ANSYS-Mode package provides support for the FEA (Finite Element
 ;; Analysis) program ANSYS (http://www.ansys.com) under Windows and
-;; Gnu/Linux systems.  It defines 'ANSYS-Mode', a major mode for viewing,
+;; GNU/Linux systems.  It defines 'ANSYS-Mode', a major mode for viewing,
 ;; writing and navigating in APDL (Ansys Parametric Design Language)
 ;; files as well as providing managing and communication capabilities
 ;; for an associated ANSYS interpreter process.
@@ -331,7 +331,7 @@ The regexp is used for the
 fontification (`ansys-highlight-variable') of these variables.")
 
 (defvar ansys-is-unix-system-flag nil	;NEW_C
-  "Non-nil means computer runs a Gnu/Linux system.")
+  "Non-nil means computer runs a GNU/Linux system.")
 
 (defvar ansys-previous-major-mode ""	;NEW_C
   "The buffer's previous major mode (before ANSYS-Mode).")
@@ -907,11 +907,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      "-"
 	      ["Specify ANSYS License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
-	      ["Specify ANSYS Executable or launcher" ansys-program :help "Specify the ANSYS interpreter under Gnu/Linux or the launcher (with complete path if not in $PATH)"]
+	      ["Specify ANSYS Executable or launcher" ansys-program :help "Specify the ANSYS interpreter under GNU/Linux or the launcher (with complete path if not in $PATH)"]
 	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
 	      [(concat (if ansys-is-unix-system-flag
 		   "Start the APDL interpreter"
-		   "Start the APDL product launcher"))   ansys-start-ansys :help "Start an APDL interpreter (solver) run under Gnu/Linux or the launcher under Windows" :active (not (ansys-process-running-p))]
+		   "Start the APDL product launcher"))   ansys-start-ansys :help "Start an APDL interpreter (solver) run under GNU/Linux or the launcher under Windows" :active (not (ansys-process-running-p))]
 	      ["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
                "Display License Status"
 	        "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
@@ -1072,7 +1072,7 @@ This means at the end of code before whitespace or an ANSYS
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
-;; ANSYS will support in the future only Gnu/Linux and Windows 64 for the
+;; ANSYS will support in the future only GNU/Linux and Windows 64 for the
 ;; entire ANSYS platform, some support of legacy Unices (AIX IBM,
 ;; HP-UX HP, SGI, Solaris SUN) for standalone apps will be provided so
 ;; I don't restrict anys-mode to gnu/linux
@@ -1532,7 +1532,7 @@ to to include above skeleton (optionally) for every APDL file.
   \"\\[ansys-start-ansys-help]\" (for `ansys-start-ansys-help').
 
 - You might also start the APDL product launcher from Emacs under
-  windows or the APDL interpeter under Gnu/Linux with \"\\[ansys-start-ansys]\" (for
+  windows or the APDL interpeter under GNU/Linux with \"\\[ansys-start-ansys]\" (for
   `ansys-start-ansys').
 
 - For displaying the available licenses (in another Emacs window)
@@ -1552,11 +1552,11 @@ file.  Please have a look in the accompanying README and
 default_el customisation file example.
 
 ** ANSYS interpreter control and communication (mainly restricted
-  to Gnu/Linux systems) **
+  to GNU/Linux systems) **
 
 With the ANSYS-Mode keyboard shortcut
 \"\\[ansys-start-ansys]\" (for the command `ansys-start-ansys')
-you can start the APDL interpreter (solver) under Gnu/Linux as an
+you can start the APDL interpreter (solver) under GNU/Linux as an
 asynchronous process from Emacs.  After starting the run you will
 see all interpreter output in a separate Emacs 'comint' (command
 interpreter) window.  You are now able to interact with this

@@ -99,6 +99,7 @@
         the solver input file (.inp) and studying it with the APDL
         command reference.
 ** Using this tutorial
+   
 *** Please read the *introductory* ANSYS-Mode tutorial first
     This is the file `A-M_introductory_tutorial-14.5.1.pdf' in the
     mode's archive or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html][online]] version.
@@ -117,7 +118,6 @@
    In the following *bold* character combinations like *C-c* or *M-c*
    mean typing the <CTRL> key or <ALT> (formerly called `Meta') key
    together with the <c> key.
-
 
 # Immediate satisfaction without regret. :-) Free, open and
 # extensible!
@@ -157,8 +157,8 @@
 * APDL editing
 #+begin_src ansys :exports none
   !! This is the auto-generated APDL source of the ANSYS-Mode
-  !! hands-on APDL tutorial (from APDL_tutorial.org)
-  !! Copyright (C) 2006 - 2012 H. Dieter Wilhelm GPL V3
+  !! hands-on APDL tutorial (from A-M_in-depth_tutorial.org)
+  !! Copyright (C) 2006 - 2013 H. Dieter Wilhelm GPL V3
 
   !! ==============================
   !! --- APDL editing ---
@@ -182,7 +182,7 @@
 #+end_src
 *** Open this tutorial's APDL source file
 #+begin_src ansys :tangle no
-  !! Open `APDL_tutorial.ansys' with "C-x C-f"!  You can take this
+  !! Open `A-M_in-depth_tutorial-14.5.1.ansys' with "C-x C-f"!  You can take this
   !! file from the latest mode's archives.
 #+end_src
 *** Inspect available code templates
@@ -999,7 +999,7 @@ The APDL processing and debugging environment
    !@ ==============================
    !! Prerequisites:
    !! 1) A fully configured ANSYS-Mode and
-   !! 2) a Gnu/Linux or Gnu/Linux system
+   !! 2) a GNU/Linux or GNU/Linux system
 #+end_src
   Finally switch off unnecessay stuff: Emacs' menu-, tool- and
   scroll-bar to get more screen estate.  :-) And tidying the window
@@ -1211,7 +1211,7 @@ Thank you for your time, have fun with Emacs...
 
 **  Acknowledgements
     - Carsten Dominik :: Ingenious [[http://orgmode.org/][Org-mode]] for Emacs
-    - RMS :: [[http://www.gnu.org/software/emacs/][GNU Emacs]] and many other great ideas
+    - [[http://stallman.org/][RMS]] :: [[http://www.gnu.org/software/emacs/][GNU Emacs]] and many other great ideas and programs
 
 # ** writing an abort file
 # ** bookmarks positions -> in bookmarks/registers/clone buffer?
@@ -1257,7 +1257,7 @@ Thank you for your time, have fun with Emacs...
 
 # # !!    mouse selection ->copy to clipboard
 # # !! 0.) mouse selection does not work under Windows mouse-drag-copy-region!
-# # !! mouse copy on Windows the same on Gnu/Linux only if (setq mouse-drag-copy-region t)
+# # !! mouse copy on Windows the same on GNU/Linux only if (setq mouse-drag-copy-region t)
 
 # #+begin_src ansys : tangle yes
 # ! continuation line with $

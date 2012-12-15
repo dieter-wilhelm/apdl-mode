@@ -75,9 +75,7 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
-   - menu-bar job-name not working
-   - mouse completion does not work in completion buffer (for
-     templates)
+   - menu-bar job-name is not working
    - help overlay is only removed after 1 min if the buffer is active
       at that time
    - mismatch in customisation buffer of -license-file and -ansysli-servers
@@ -178,16 +176,16 @@
     sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
 
-    better not the "competitor"
+    better not the "competitor":
     info@padtinc.com,
 
-
-   unavailable
+    unavailable:
     mike.brusoe@continental-corporation.com,
-
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - make completion of templates with <mouse 1> button additionally
+     to <mouse 2> as in -complete-symbol.
    - create a function showing deprecated elements and their
      replacement.  Inspirations from eldoc-mode, show replacements of
      deprecated elements?

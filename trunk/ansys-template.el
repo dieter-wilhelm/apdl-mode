@@ -48,7 +48,9 @@
 (defun ansys-display-skeleton (&optional arg)	;NEW
   "Display or insert code templates.
 With an argument ARG not equal to 1 insert the template into the
-current buffer instead of previewing it in a separate window."
+current buffer instead of previewing it in a separate window.
+You might trigger a completion of templates with the <TAB> or <?>
+key and choose with the mouse 2 button."
   (interactive "p")
   (let* (
 	 (old-buffer (buffer-name))

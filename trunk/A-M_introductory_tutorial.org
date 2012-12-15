@@ -33,7 +33,7 @@
    This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
    Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
 #+LaTeX: \\[.2cm]
-   It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs]] editor for
+   It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs editor]] for
    investigating and coding APDL (Ansys Parametric Design Language).
    The mode offers also managing and communication capabilities for
    various ANSYS processes, like interactive code debugging with the
@@ -41,7 +41,7 @@
    are quite sophisticated but its documentation is accessible for
    ANSYS users with little Emacs experience.
 #+LaTeX: \\[.2cm]
-   [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and
+   [[http://www.gnu.org/home.en.html][GNU (Gnu's Not Unix)]] Emacs is an up-to-date, powerful and
    extensible - yet free - editor. High quality software available for
    every operating system where ANSYS is running.
 #+LaTeX: \\[.4cm]
@@ -51,8 +51,8 @@
 * Download
 ** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
-  conjunction with the latest Emacs distribution for Win32/64 from the
-  Google Code [[http://code.google.com/p/ansys-mode/downloads/list][download page]].
+  conjunction with the latest Emacs distribution for Win32/64 from 
+  [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]].
   
 ##+ATTR_HTML: width="1200"
 #+BEGIN_LaTeX
@@ -235,7 +235,6 @@
 \href{http://www.gnu.org/software/emacs/tour/}{%
   \includegraphics[width=5cm]{./tour_of_Emacs.png}%
 }
-
 #+END_LaTeX
 
 ** Use the ANSYS-Mode built-in documentation
@@ -248,29 +247,31 @@
 
 ** You might read further ANSYS-Mode documentation
 
-*** Licensing and costs:
-    This is free and open software, there are *no costs* and effectively *no
-    restrictions* for you using Emacs and ANSYS-Mode also commerically.
-    Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL]] (Gnu Puplic License) described in the
-    /LICENSE/ file.
+#*** Licensing and costs:
+   - Licensing and costs: :: This is free and open software, there are
+     *no costs* and effectively *no restrictions* for you using Emacs
+     and ANSYS-Mode also commerically.  Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL (Gnu Puplic License)]] 
+     described in the /LICENSE/ file.
 
-*** Installation:
-    More detailed instructions are necessary if you are not using the
-    mode bundled with Emacs for Windows.  Please have a look in the
-    /README/ file.  For an online version see the [[http://www.emacswiki.org/emacs/AnsysMode][ANSYS-Mode page]] at
-    the EmacsWiki.
+#*** Installation:
+   - Installation: :: More detailed instructions are necessary if you
+                      are not using the mode bundled with Emacs for
+                      Windows.  Please have a look in the /README/
+                      file.  An online version of it represents
+                      [[http://www.emacswiki.org/emacs/AnsysMode][EmacsWiki's ANSYS-Mode page]].
 
-*** Hands-on tutorial:
-    You will find this more in-depth tutorial included in the mode's
-    archives on Google Code's [[http://code.google.com/p/ansys-mode/downloads/list][download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
+#*** Hands-on tutorial and reference:
+   - Hands-on tutorial and reference: :: You will find this more
+     in-depth documentation included in the mode's archives on [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
     
-*** News and project history:
-    They are placed in the mode's accompanying /NEWS/ file
+#*** News and project history:
+   - News and project history: :: They are placed in the mode's
+     accompanying /NEWS/ file
 
 * Help and Bugs
 ** Search for help, report bugs and issues
-  Besides the documentation, have a look in the section 'Issues and
-  bug reports' at [[http://code.google.com/p/ansys-mode/issues/list][Google's Code site]] or send an [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
+  Besides the documentation, have a look in the section [[http://code.google.com/p/ansys-mode/issues/list][Issues]] for bug
+  reports at Google Code's site or send an [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
   Please use the ANSYS-Mode bug report functionality, which might
   provide helpful status information.
 

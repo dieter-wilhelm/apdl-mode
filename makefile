@@ -1,8 +1,7 @@
 # Targets:
 ##############################
-# ALL = MODE +  
-# MODE = mode packe + tags
-# PACKAGE = Mode Package
+# ALL = MODE + EMACS
+# MODE = mode package + tags
 # EMACS = Windoze version of emacs with pre-configured mode
 
 ANSYS_MAJOR := 15

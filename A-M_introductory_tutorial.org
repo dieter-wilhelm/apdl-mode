@@ -1,4 +1,4 @@
-#+TITLE:      *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.1
+#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.1
 # Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
 #+AUTHOR:    H. Dieter Wilhelm
@@ -14,6 +14,7 @@
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
 ##+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
+#+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
 #+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
 #+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
@@ -29,21 +30,87 @@
 # the text and arrows (line width 4) in the drawings are done with inkscape
 
 * Introduction
-** GNU Emacs editor support for working with ANSYS FEA
-   This [[http://code.google.com/p/ansys-mode/][project]] supports your workflows with the FEA (Finite Element
-   Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
+** Introducing ANSYS-Mode - an APDL environment
+   [[http://code.google.com/p/ansys-mode/][This project]] supports your APDL
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Open true % if given then the text annotation will be opened
+/Contents % text contents
+(APDL = Ansys Parametric Design Language)
+}%\hspace{.4cm}%
+\quad%
+#+END_LaTeX   
+   workflows with the FEA
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Open true % if given then the text annotation will be opened
+/Contents % text contents
+(FEA = Finite Element Analysis)
+}%\hspace{.4cm}%
+\quad%
+#+END_LaTeX   
+ suite [[http://www.ansys.com][ANSYS]].
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Opepn true % if given then the text annotation will be opened
+/Contents % text contents
+(ANSYS = ANalysis SYStem, registered TM)
+}%
+#+END_LaTeX   
+   
 #+LaTeX: \\[.2cm]
-   It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs/][GNU Emacs editor]] for
-   investigating and coding APDL (Ansys Parametric Design Language).
-   The mode offers also managing and communication capabilities for
-   various ANSYS processes, like interactive code debugging with the
-   solver or inquiring the license manager status, etc.  Some features
-   are quite sophisticated but its documentation is accessible for
-   ANSYS users with little Emacs experience.
+   It provides an extra mode to the [[http://www.gnu.org/software/emacs/][GNU Emacs editor]] for investigating
+   and coding APDL.  The mode offers also managing and communication
+   capabilities for various ANSYS processes, like interactive code
+   debugging with the solver or inquiring the license manager status,
+   etc.  Some features are quite sophisticated but its documentation
+   is accessible for ANSYS users with little APDL and Emacs experience.
 #+LaTeX: \\[.2cm]
-   [[http://www.gnu.org/home.en.html][GNU (Gnu's Not Unix)]] Emacs is an up-to-date, powerful and
+   [[http://www.gnu.org/home.en.html][GNU]]
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+%/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+%/Open true % if given then the text annotation will be opened
+/Contents % text contents
+(GNU = Gnu's Not Unix, a free and open software collection)
+}%\hspace{.4cm}%
+\quad
+#+END_LaTeX   
+   Emacs is an up-to-date, powerful and
    extensible - yet free - editor. High quality software available for
    every operating system where ANSYS is running.
+
 #+LaTeX: \\[.4cm]
    In the following *C-c* or *M-c* means typing the <CTRL> or <ALT>
    key together with the <c> key.
@@ -75,7 +142,7 @@
 * Usage
 ** Open an APDL macro file with Emacs
   Start the editor and open /fontification.mac/ in Emacs' /site-lisp/
-  folder or any other APDL file (with the extensions /mac/, /inp/,
+  folder or any other APDL (file with the extensions /mac/, /inp/,
   /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
   <RET>).
 
@@ -86,23 +153,23 @@
   If ANSYS is installed in its default folder /C:Program Files/ under
   Win64 also system dependent functions are working, like browsing the
   APDL help with *C-c C-b*, otherwise, you can easily
-  configure this. (All described features can be executed through the
-  ANSYS-Mode menu or with keyboard shortcuts.)
+  configure this. All described features can be executed through the
+  ANSYS-Mode menu or with keyboard shortcuts.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
 ** Use the ANSYS-Mode APDL command help
-  Please type *M-?* (alternatively: *C-c ?*) on a code line and you
+  Please type *M-?*, alternatively: *C-c ?*, on a code line and you
   will see the APDL command's description together with its parameter
-  syntax.  You can continue working, this temporary overlay (here in
-  yellow) remains visible for a while during your editing.
+  syntax.  You can continue working, this temporary overlay - here in
+  yellow - remains visible for a while during your editing.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert templates from the menu into your code \\ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
+** Select and insert templates from the menu into your code \\ Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
 
 #+ATTR_LaTeX: height=8cm
 #+ATTR_HTML: width="1200"
@@ -111,7 +178,7 @@
 ** Preview the extensible APDL code templates
    Before inserting an entire template you are able to inspect its
    content in a preview window (*C-c C-s*) and might copy the most
-   relevant snippets (see below and next slide).
+   relevant snippets, please see below and next slide.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
@@ -135,8 +202,8 @@
 #+ATTR_LaTeX: height=7.5cm
   [[./outline.png]]
   
-** Utilise completions of all APDL symbols (around 2000)
-  Move the cursor behind a character (here 'c') or word fragment and
+** Utilise completions of all APDL symbols, around 2000
+  Move the cursor behind a character - here 'c' - or word fragment and
   type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
   element- and function names.
 
@@ -144,15 +211,15 @@
   [[./completion.png]]
   
 ** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window (see below) of all your
-  variables definitions (also implicit) in the current APDL file.
+  Type *C-c C-v* to receive a summary window of all your variables
+  definitions, also implicit ones, in the current APDL file.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./variable_buffer.png]]
 
 ** Structure your variable assignments
-  Move the cursor to a variable definition paragraph or mark (here in
-  yellow) some definitions and type *C-c C-a* to align them.
+  Move the cursor to a variable definition paragraph or mark, here in
+  yellow, some definitions and type *C-c C-a* to align them.
 
 #+ATTR_LaTeX: height=7.5cm
   [[./alignment.png]]
@@ -165,15 +232,15 @@
   [[./calculator.png]]
 
 ** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU/Linux]])
-   You can run the ANSYS solver/interpreter under Emacs and send
-   code lines from the APDL window (above) with *C-c C-c* directly to
-   this process. Below you get an interactive solver output window and
-   on the left hand side the corresponding ANSYS graphics.
+   You can run the ANSYS solver/interpreter under Emacs and send code
+   lines from above APDL window with *C-c C-c* directly to this
+   process. Below you see the *interactive* solver output window and
+   on the left hand side the corresponding ANSYS images.
 
 #+ATTR_HTML: width="1200"
 #+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
-** Display the license status and graphics on GNU/Linux
+** Display the license status and preview images on GNU/Linux
    In Emacs' mid-section you see the license state (*C-c C-l*)
    and left Emacs window (below) a thumbnail view of images from a
    folder.
@@ -182,7 +249,7 @@
 #+ATTR_HTML: width="1200"
    [[./license.png]]
 
-** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS menu field
+** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS-Mode menu field
 
 # The
 # APDL file is in the right window with the (experimental) user variable
@@ -198,8 +265,7 @@
 ** Configure system dependent aspects and user options
 #   \\Mainly the ANSYS version and its installation directory
     The mode comes pre-configured for a default installation of ANSYS
-    14.5 for Win64.  If a functionality is missing please adjust
-    either of:
+    14.5 for Win64.  If on other systems something is missing adjust
 *** The well commented configuration file /default.el/
           :PROPERTIES:
           :BEAMER_env: block
@@ -223,8 +289,8 @@
   ... and reload ANSYS-Mode. 
 * Documentation and Licensing
 
-** Get to know Emacs and check out its tutorial
-  Newcomers to Emacs should take the excellent [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to
+** Get to know Emacs and its excellent documentation
+  Newcomers to Emacs should take the [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to
   get a background of its capabilities and fire up the interactive
   tutorial (*C-h t*) which is translated to various languages.
 
@@ -237,9 +303,9 @@
 }
 #+END_LaTeX
 
-** Use the ANSYS-Mode built-in documentation
-   Please type *C-h m* for the ANSYS-Mode help, especially for the
-   usage and keybindings of this mode.  At the beginning is also a
+** Use the ANSYS-Mode built-in help
+   Please type *C-h m* to open the mode help, especially for
+   ANSYS-Mode's usage and keybindings.  At the beginning is also a
    brief introduction of basic Emacs concepts.
 
 #+ATTR_LaTeX: height=7.5cm
@@ -249,10 +315,10 @@
 
 #*** Licensing and costs:
    - Licensing and costs: :: This is free and open software, there are
-     *no costs* and effectively *no restrictions* for you using Emacs
-     and ANSYS-Mode also commerically.  Both are under the [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL (Gnu Puplic License)]] 
-     described in the /LICENSE/ file.
-
+        *no costs* and effectively *no restrictions* for you using
+        Emacs and ANSYS-Mode also commerically.  Both are under the
+        [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] described in the /LICENSE/ file.
+## ATTENTION: \pdfannot does not work in this environment!!!!
 #*** Installation:
    - Installation: :: More detailed instructions are necessary if you
                       are not using the mode bundled with Emacs for
@@ -262,11 +328,12 @@
 
 #*** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find this more
-     in-depth documentation included in the mode's archives on [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
+        in-depth documentation included in the mode's archives on
+        [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
     
 #*** News and project history:
    - News and project history: :: They are placed in the mode's
-     accompanying /NEWS/ file
+        accompanying /NEWS/ file
 
 * Help and Bugs
 ** Search for help, report bugs and issues

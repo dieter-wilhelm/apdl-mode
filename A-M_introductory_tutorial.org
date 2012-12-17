@@ -88,7 +88,23 @@
    capabilities for various ANSYS processes, like interactive code
    debugging with the solver or inquiring the license manager status,
    etc.  Some features are quite sophisticated but its documentation
-   is accessible for ANSYS users with little APDL and Emacs experience.
+   is accessible for ANSYS users with little APDL and [[http://en.wikipedia.org/wiki/Emacs][Emacs]]
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Opepn true % if given then the text annotation will be opened
+/Contents % text contents
+(Emacs originally EMACS = Editing MACroS, approx. 1976)
+}\quad%
+#+END_LaTeX   
+   experience.
 #+LaTeX: \\[.2cm]
    [[http://www.gnu.org/home.en.html][GNU]]
 #+BEGIN_LaTeX
@@ -112,7 +128,7 @@
    every operating system where ANSYS is running.
 
 #+LaTeX: \\[.4cm]
-   In the following *C-c* or *M-c* means typing the <CTRL> or <ALT>
+   In the following *C-c* or e. g. *M-c* means typing the <CTRL> or <ALT>
    key together with the <c> key.
   
 * Download
@@ -142,7 +158,7 @@
 * Usage
 ** Open an APDL macro file with Emacs
   Start the editor and open /fontification.mac/ in Emacs' /site-lisp/
-  folder or any other APDL (file with the extensions /mac/, /inp/,
+  folder or any other APDL file (with the extensions /mac/, /inp/,
   /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
   <RET>).
 
@@ -150,7 +166,7 @@
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
-  If ANSYS is installed in its default folder /C:Program Files/ under
+  If ANSYS 14.5 is installed in its default folder /C:Program Files/ under
   Win64 also system dependent functions are working, like browsing the
   APDL help with *C-c C-b*, otherwise, you can easily
   configure this. All described features can be executed through the
@@ -177,8 +193,8 @@
 
 ** Preview the extensible APDL code templates
    Before inserting an entire template you are able to inspect its
-   content in a preview window (*C-c C-s*) and might copy the most
-   relevant snippets, please see below and next slide.
+   content in a preview window (*C-c C-s*) and might just copy the
+   most relevant snippets, please see below and next slide.
 
 #+ATTR_LaTeX: height=7.5cm
    [[./template.png]]
@@ -403,7 +419,7 @@
 #+BEGIN_LaTeX
 \vspace{.2cm}
 #+END_LaTeX
-Have fun...
+[[http://www.gnu.org/fun/jokes/gnuemacs.acro.exp.html][Have fun...]]
 #+BEGIN_LaTeX
 \vspace{.4cm}
 #+END_LaTeX

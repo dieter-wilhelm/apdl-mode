@@ -1351,9 +1351,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
   "cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
-  "neqit,30! No of equilibr. iterations"
-  "nldiag,nrre,on! store residual file" \n
-  "nldiag,maxf,2! maximum files written" \n
+  "neqit,30! No of equilibr. iterations" \n
+  "nldiag,cont,iter !contact information file .cnd" \n
+  "nldiag,nrre,on !store residual file .nrXXX" \n
+  "!! plnsol,nrres" \n
+  "nldiag,maxf,2 !maximum  files nrXXX or ndXXX to be written" \n
   "rescontrol,,1,last !create restart file(s)" \n
   ",status" > \n
   "/config,nres,2000 !No of substeps in result file [1000]" \n

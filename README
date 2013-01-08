@@ -12,7 +12,7 @@ workflows with the FEA (Finite Element Analysis) suite
 [http://www.ansys.com ANSYS] (ANalysis SYStem, registered TM).
 
 It provides `ANSYS-Mode', an add-on to the
-[http://www.gnu.org/software/emacs/ GNU Emacs] editor for
+[http://www.gnu.org/software/emacs/ GNU Emacs editor] for
 investigating and coding APDL (Ansys Parametric Design Language).  The
 mode offers also managing and communication capabilities for various
 ANSYS processes, like interactive code debugging with the solver or
@@ -24,12 +24,12 @@ Advantages compared to other APDL editors: Largest feature set, user
 extensible, cost-free, integrated calculator, available for all OS, for
 in-built help no ANSYS installation necessary.
 
-[http://www.gnu.org/home.en.html GNU] (Gnu's Not Unix) Emacs is an
+[http://www.gnu.org/home.en.html GNU (Gnu's Not Unix)] Emacs is an
 up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.
 
 The current stable version 14.5.1 of ANSYS-Mode is available at the
-[http://code.google.com/p/ansys-mode Google Code site] or with the
+[http://code.google.com/p/ansys-mode Google Code site] or in the
 command line way, e. g.: "wget
 http://ansys-mode.googlecode.com/files/ansys-mode-14.5.1.tgz").  The
 some code (completions, help strings etc.) is based on ANSYS version

@@ -395,6 +395,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/triad,off !orig,lbot,rbot,ltop,rtop" \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
+  "/device,text,1,140 ! enlarge 140 % the text size" \n
   "/focus,1 $ /repl !focus wn 1 to csys,0" \n
   "/plopts,minm ! switch off min max" \n
   "/udoc,,,bottom !show legend on bottom" \n
@@ -1467,8 +1468,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/edge,,0 !0:switch off display of elements in contour plots" \n
   "/plopts,minm,off !switch off min-max symbols" \n
   "/plopts,minm,on" \n
-  "/pbc,rfor,,1 !1:show reaction f. symbols" \n
-  "/pbc,rfor,,0" \n
   "/dist,,1/2,1 !enlarge twice" \n
   "/noerase ! don't erase screen between plots" \n
   "/erase" \n
@@ -1489,6 +1488,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lplot" \n
   "/show,close" \n
   "/erase" \n
+  \n
+  "!@ ------------------------------" \n
+  "!@@ -- plot BCs --" \n
+  "!! ------------------------------" \n
+  \n
+  "/pbc,rfor,,1 !1:show reaction f. symbols" \n
+  "/pbc,rfor,,0" \n
   \n
   "!@ ------------------------------" \n
   "!@@ -- acoustics --" \n
@@ -1515,6 +1521,41 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plf2d,27 ! flux lines, equipotentials" \n
   "plvect,b,! induction vector plot" \n
   "fmagsum,'component_name'" \n
+  \n
+  "!@ ------------------------------" \n
+  "!@@ -- harmonics --" \n
+  "!! ------------------------------" \n
+  \n
+  "!! animation" \n
+  "lcdef,1,,1		 !real" \n
+  "lcdef,2,,1,1		 !complex" \n
+  "/show,pscr" \n
+  "*afun,deg" \n
+  "N = 20" \n
+  "I = 1" \n
+  "*do,Theta,0,360-360/N,360/N" \n
+  "/syp,rm -v file*.eps" \n
+  "Real =  cos(Theta)" \n
+  "Imag =  sin(Theta)" \n
+  "lcfact,1,real" \n
+  "lcfact,2,imag" \n
+  "*if,Real,eq,0,then" \n
+  "lcfact,1,1e-10" \n
+  "*endif" > \n
+  "*if,Imag,eq,0,then" \n
+  "lcfact,2,1e-10" \n
+  "*endif" > \n
+  "lcase,1" \n
+  "lcoper,add,2" \n
+  "/title" \n
+  "/replot                ! replot currently stored plot item" \n
+  "File='-o=eigenmodes/anim%I%.pdf'" \n
+  "I = I+1" \n
+  "/syp,epstopdf file000.eps,File" \n
+  "*enddo" > \n
+  "!/seg,off" \n
+  "!anim,5,1" \n
+  "/show,close" \n
   \n
   "!@ ------------------------------" \n
   "!@@ -- contact status --" \n
@@ -1650,15 +1691,26 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,close" \n
   "/erase !erase screen" \n
   \n
-  "! eps output, default white background" \n
-  "/sys,rm file*.eps" \n
+  "!! -- eps output, default white background" \n
   "pscr,color,2 ! coloured output" \n
   "pscr,paper,a4,portrait" \n
+  "pscr,hires,1 !1:high resolution" \n
+  "pscr,LWID,5 ! line width factor [3] 1-99" \n
+  "pscr,stat" \n
+  "/device,text,1,140 ! enlarge 140 % the text size" \n
+  "/plopts,info,off !switch off all descriptive text" \n
+  "/triad,off" \n
+  "/plopts,wp,1 !display working plane" \n
+  "/plopts,wp,off !switch off wp" \n
+  "/plopts,frame,off !switch off graphics frame" \n
   "/title" \n
+  "/sys,rm file*.eps" \n
   "/show,pscr" \n
   "eplot" \n
   "/show,close" \n
-  "/sys,epstopdf -hires file000.eps" \n
+  "/sys,epstopdf file000.eps" \n
+  "/sys,display file000.pdf" \n
+
   \n
   "!! --- 2.) graphical output" \n
   "/image,save,bla,xwd !write in xwd bitmap format" \n

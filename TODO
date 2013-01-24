@@ -33,6 +33,8 @@
 
 *  15.0.1:
 ** TODO Freeze
+   - Extend C-c C-v with the ability to show the value for a variable
+     around the cursor.
    - no warning message, if html help files are not found
    - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
@@ -75,6 +77,8 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - /sys,evince press-fit.pdf  triggers a "search failed"
+   - "modopt", "harfrq", "/gcolumn" not found in keywords!!!
    - menu-bar job-name is not working
    - help overlay is only removed after 1 min if the buffer is active
       at that time

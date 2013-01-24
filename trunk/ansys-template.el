@@ -191,7 +191,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
-  "*stat,Job_name(1,1,1)" \n
+  "*stat,Job_name(1)" \n
+  "/com,This is the jobname: \"%Job_name(1)%\"" \n
+  "/inquire,Dirname,directory" \n
+  "*stat,Dirname(1)" \n
   "/inquire,param,date,file,ext !get date(size,lines) of file.ext"\n
   \n
   "!! .............................." \n
@@ -1475,6 +1478,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp ! switch off working plane" \n
   "/plopts,minm ! switch off min max" \n
   \n
+  "!/image is not possible in batch mode" \n
   "/image,save,test !save XWindow Dump xwd (or bmp on Windows)" \n
   "/sys,convert test test.png" \n
   "!! -- graphics output & invert background colour --" \n
@@ -1658,22 +1662,22 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*dim,Accx,array,Size" \n
   "*dim,Tim,array,Size" \n
   "*dim,Accy,array,Size" \n
-  "vget,Accx(1),5 ! post26 variable 5 into array" \n
-  "vget,Accy(1),7" \n
-  "vget,Tim(1),1" \n
+  "vget,Accx(1),5,,0 ! post26 variable 5, 0:real into array" \n
+  "vget,Accy(1),7,,1 ! variable 7 complex value" \n
+  "vget,Tim(1),1 ! time or frequency" \n
   "!! - export arrays -" \n
-  "*create,bla,mac" \n
-  "*cfopen,cyl_sim,txt" \n
-  "Strg='T AX AY'" \n
-  "*vwrite,Strg" \n
-  "%S" \n
-  "*vwrite,Tim(1), Accx(1), Accy(1)" \n
-  "%G %G %G" \n
-  "*cfclos" \n
+  "*create,tmp,mac" \n
+  "  *cfopen,sim,txt" \n
+  "  Strg='T AX AY'" \n
+  "  *vwrite,Strg" \n
+  "  %S" \n
+  "  *vwrite,Tim(1), Accx(1), Accy(1)" \n
+  "  %G %G %G" \n
+  "  *cfclos" \n
   "*end" > \n
-  "/input,bla,mac" \n
-  "*list,bla,mac" \n
-  "*list,bla2,txt" \n
+  "*list,tmp,mac" \n
+  "/input,tmp,mac" \n
+  "*list,sim,txt" \n
   \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- 1.) graphical output ---" \n
@@ -1713,6 +1717,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
   \n
   "!! --- 2.) graphical output" \n
+  "! /image does not work in batch mode" \n
   "/image,save,bla,xwd !write in xwd bitmap format" \n
   "/sys,mogrify -format png *.xwd" \n
   \n
@@ -1808,6 +1813,27 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plvar,3" \n
   "/show,close" \n
   "!!prvar,3" \n
+  "!! --- data output --- " \n
+  "*get,Size,VARI,,NSETS !No of sets" \n
+  "*dim,Accx,array,Size" \n
+  "*dim,Tim,array,Size" \n
+  "*dim,Accy,array,Size" \n
+  "vget,Accx(1),5 ! post26 variable 5 into array" \n
+  "vget,Accy(1),7" \n
+  "vget,Tim(1),1" \n
+  "!! - export arrays -" \n
+  "*create,tmp,mac" \n
+  "*cfopen,sim,txt" \n
+  "Strg='T AX AY'" \n
+  "*vwrite,Strg" \n
+  "%S" \n
+  "*vwrite,Tim(1), Accx(1), Accy(1)" \n
+  "%G %G %G" \n
+  "*cfclos" \n
+  "*end" > \n
+  "*list,tmp,mac" \n
+  "/input,tmp,mac" \n
+  "*list,sim,txt" \n
   \n
   )
 

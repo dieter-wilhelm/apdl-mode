@@ -323,6 +323,10 @@ and you are getting a diffent element highlighting.
     the variable to another one, or use the `*stat' command
   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
   - Inconsistent naming: /{x,y}range but /axlab,{x,y},
+  - The /contour command does not work on device /show,PNG
+  - DELETION OF ARRY parameters without warning only possible with an
+    undocumented option: *del,Array,,nopr
+
 
 #+begin_src ansys :exports none
   c***,**************************************************

@@ -1,3 +1,5 @@
+# #+STARTUP: overview
+#+STARTUP: content
 * Deficiencies:
   - Highlighting :: Experimental user variable highlighting
 		    does not take into account:
@@ -33,6 +35,7 @@
 
 *  15.0.1:
 ** TODO Freeze
+   - Folding for e- and nblocks in .dat files with hs-minor-mode
    - Extend C-c C-v with the ability to show the value for a variable
      around the cursor.
    - no warning message, if html help files are not found
@@ -156,6 +159,7 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    jens.2.missung@continental-corporation.com
     joerg.menke@continental-corporation.com
     daniel.balint@continental-corporation.com,
     marius.tarnovetchi@continental-corporation.com,
@@ -399,7 +403,7 @@
 ** Additional APDL macro resources
    see www.apdl.de for further ideas and extensions
 
-#+STARTUP: content
+
 # local variables:
 # show-trailing-whitespace: t
 # indicate-empty-lines: t

@@ -4,8 +4,20 @@
 
 Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
-===  Version 14.5.?  ? 2013 ===
+===  Version 14.5.2  Feb 2013 ===
 
+* The number blocks (nblocks, eblocks and cmblocks) in WorkBench
+  created solver input files (.dat) are now hidden by default.
+  ANSYS-Mode uses for this end the hideshow minor mode.  Although this
+  is very helpful
+
+* Added a function for showing the current value/status of a user
+  variable at point, overcoming the drawback of C-c C-v
+  (ansys-display-variables) that variable definitions coming from
+  external files are not shown. You can activate this functionality
+  (Linux only) with a prefix argument: C-u C-c C-v.
+
+* Bug fixes
 
 ===  Version 14.5.1 Sep 2012 ===
 
@@ -19,7 +31,7 @@ Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
   pick it up from the alphabetical command list. Likewise when you are
   searching for an incomplete keyword, no hint, no completion,
   nothing!  Finding and browsing relevant APDL documentation is still
-  cumbersome and too slow
+  cumbersome and too slow.
 
   As a highlight of this release you can now read immeadiately the
   detailed ANSYS help in your web browser for *all* APDL command AND
@@ -28,7 +40,7 @@ Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
   search string also interactively, including its completion to ANSYS
   help keywords and of certain help categories, like `Release Notes'
   and such. This is an ideal complement to ANSYS-Mode's in-built
-  `command syntax help'
+  `command syntax help'.
 
 * The function `ansys-start-ansys' is now available under Windows as well
   and starts the APDL product launcher under this platform.

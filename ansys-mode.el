@@ -1423,7 +1423,14 @@ You might remove '*ANSYS-variables*' window with \"\\[ansys-delete-other-window]
 When you place the cursor on the respective line number and type
 \"C-u M-g g\", where 'C-u' is a 'prefix' argument to 'M-g
 g' (`goto-line')).  Emacs will then skip to the corresponding
-defintion line in the macro file.
+definition line in the macro file.
+
+Additionally you are able with a prefix argument for
+\"\\[ansys-display-variables]\" to receive the current value of
+your variables at the cursor position.  For this functionality it
+is necessary to have a running ANSYS process (GNU/Linux systems
+only, please see below the chapter about the solver
+communication).
 
 ** Use of the Emacs abbreviation facility for block templates **
 

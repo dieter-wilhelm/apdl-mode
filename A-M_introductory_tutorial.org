@@ -1,4 +1,4 @@
-#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.1
+#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.2
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
@@ -235,8 +235,9 @@
   [[./completion.png]]
   
 ** Open a summary window of your APDL variables
-  Type *C-c C-v* to receive a summary window of all your variables
-  definitions, also implicit ones, in the current APDL file.
+  Type *C-c C-v* to receive a summary window of all your variable
+  definitions. With an argument (*C-u C-c C-v*) you will get the
+  current value of your variable at the cursor (Linux only).
 
 #+ATTR_LaTeX: height=7.5cm
   [[./variable_buffer.png]]

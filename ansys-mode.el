@@ -1873,11 +1873,16 @@ improvements you have the following options:
 		       "\\commonfiles\\help\" "
 		       "HelpDocViewer"))))
 
-  ;; hideshow for hiding nlists and elists of .dat WorkBench solver
-  ;; input files
+  ;; hideshow for hiding nlists, elists and cmlists of .dat WorkBench
+  ;; solver input files
 
   (setq hs-special-modes-alist
 	  '((ansys-mode "\\(^nblock\\)\\|\\(^eblock\\)\\|\\(^cmblock\\)" "^-1" "!" (lambda (arg) (progn (forward-line) (search-forward-regexp "^[^ (-]"))) nil)))
+
+  (if (string= (file-name-extension (buffer-file-name)) "dat")
+      (progn
+	(hs-minor-mode 1)
+	(hs-hide-all)))
 
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
@@ -3163,43 +3168,61 @@ Use variable `ansys-user-variable-regexp'."
 	(setq eol (point))
 	(buffer-substring bol eol)))))
 
-(defun ansys-display-variables ()	;NEW
+(defun ansys-display-variables ( arg)	;NEW
   "Displays APDL variable assignments in the current buffer.
 Together with the corresponding line number N (type \\[goto-line]
 N for skipping to line N or place the cursor over the number and
-C-u \\[goto-line] takes the nnumber automatically)."
-  (interactive)
-  (ansys-find-user-variables)
-  (let* ((current-buffer (buffer-name))
-	 (buffer-name "*ANSYS-variables*")
-	 (variable-buffer (get-buffer-create buffer-name))
-	 str old-num com
-	 (num 0))
-    (set-buffer variable-buffer)
-    (toggle-read-only -1)
-    (kill-region (point-min) (point-max))
-    ;; insert header
-    (insert
-     (propertize
-      (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
-      'face 'match))
-    (insert (propertize "Line  | Definition\n" 'mouse-face
-			     'highlight 'face 'bold))
-    ;; insert variable lines
-    (dolist (command ansys-user-variables)
-      (setq old-num num
-	    num (cadr command)	;cadr same as nth 1
-	    com (ansys-copy-buffer-line current-buffer num)
-	    str (concat
-		 (propertize (format "%5d | " num)
-			     'mouse-face 'highlight 'face 'bold)
-		 com "\n"))
-      (unless (= num old-num)
-	(insert str)))
-    (goto-char (point-min))
-    (toggle-read-only 1)
-    (set-buffer current-buffer)
-    (display-buffer buffer-name 'other-window)))
+C-u \\[goto-line] takes the number automatically).  With a prefix
+argumen ARG, the function evaluates the variable at point."
+  (interactive "P")
+  (cond
+   (arg
+    (unless (ansys-process-running-p)
+      (error "No ANSYS process is running"))
+    (let* (
+	   (pt (point))
+	   (re "\s_[[:word:]]*")
+	   (lbp (line-beginning-position))
+	   (str (buffer-substring-no-properties
+		 (save-excursion (+ pt (skip-chars-backward re lbp)))
+		 (save-excursion (+ pt (skip-chars-forward re))))))
+      (comint-send-string (get-process ansys-process-name)
+			  (concat "*status," str "\n")
+		      )
+      (display-buffer "*ANSYS*" 'other-window)
+      (message str)))
+   (t
+     (ansys-find-user-variables)
+     (let* ((current-buffer (buffer-name))
+	    (buffer-name "*ANSYS-variables*")
+	    (variable-buffer (get-buffer-create buffer-name))
+	    str old-num com
+	    (num 0))
+       (set-buffer variable-buffer)
+       (toggle-read-only -1)
+       (kill-region (point-min) (point-max))
+       ;; insert header
+       (insert
+	(propertize
+	 (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
+	 'face 'match))
+       (insert (propertize "Line  | Definition\n" 'mouse-face
+			   'highlight 'face 'bold))
+       ;; insert variable lines
+       (dolist (command ansys-user-variables)
+	 (setq old-num num
+	       num (cadr command)	;cadr same as nth 1
+	       com (ansys-copy-buffer-line current-buffer num)
+	       str (concat
+		    (propertize (format "%5d | " num)
+				'mouse-face 'highlight 'face 'bold)
+		    com "\n"))
+	 (unless (= num old-num)
+	   (insert str)))
+       (goto-char (point-min))
+       (toggle-read-only 1)
+       (set-buffer current-buffer)
+       (display-buffer buffer-name 'other-window)))))
 
 (defun ansys-customise-ansys ()		;NEW_C
   "Call the Emacs customisation facility for ANSYS-Mode."

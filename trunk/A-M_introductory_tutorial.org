@@ -13,7 +13,7 @@
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
 #+LATEX_HEADER: \usepackage{textcomp}
 # #+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
-#+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
+# #+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
 #+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
 #+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
@@ -237,10 +237,19 @@
 ** Open a summary window of your APDL variables
   Type *C-c C-v* to receive a summary window of all your variable
   definitions. With an argument (*C-u C-c C-v*) you will get the
-  current value of your variable at the cursor (Linux only).
+  current value of your variable at the cursor (Linux only, right).
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: height=7cm
   [[./variable_buffer.png]]
+#+ATTR_LaTeX: height=7cm
+  [[file:variable_status.png]]
+# #+BEGIN_LaTeX
+# \href{http://www.gnu.org/software/emacs/tour/}{%
+#   \includegraphics[width=5cm]{./tour_of_Emacs.png}%
+# }
+# #+END_LaTeX
+# #+HTML: <img src="./tour_of_Emacs.png" alt="download page from Google Code">
+
 
 ** Structure your variable assignments
   Move the cursor to a variable definition paragraph or mark, here in

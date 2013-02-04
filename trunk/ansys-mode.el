@@ -1873,6 +1873,12 @@ improvements you have the following options:
 		       "\\commonfiles\\help\" "
 		       "HelpDocViewer"))))
 
+  ;; hideshow for hiding nlists and elists of .dat WorkBench solver
+  ;; input files
+
+  (setq hs-special-modes-alist
+	  '((ansys-mode "\\(^nblock\\)\\|\\(^eblock\\)\\|\\(^cmblock\\)" "^-1" "!" (lambda (arg) (progn (forward-line) (search-forward-regexp "^[^ (-]"))) nil)))
+
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
 

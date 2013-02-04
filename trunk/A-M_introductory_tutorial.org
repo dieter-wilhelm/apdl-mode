@@ -1,10 +1,8 @@
 #+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.1
-# Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
-
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
-##+DATE:      2012-06-17 Sa
-##+TEXT: blabla
+# #+DATE:      2012-06-17 Sa
+# #+TEXT: blabla
 #+DESCRIPTION: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA.
 #+KEYWORDS: Emacs ANSYS FEA APDL
 #+LANGUAGE:  en
@@ -14,7 +12,7 @@
 #+LaTeX_CLASS: beamer
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
 #+LATEX_HEADER: \usepackage{textcomp}
-##+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
+# #+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
 #+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
 #+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
@@ -22,13 +20,19 @@
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
+#+LINK_UP: http://duenenhof-wilhelm.de/dieter.html
 #+LINK_HOME: http://code.google.com/p/ansys-mode
+#+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/> 
+#+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+XSLT:
-#+HTML: <img src="ansys+emacs.png" height=150 alt="Gmane">
+# #+TEXT: Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
+
+
+#+HTML: <img src="ansys+emacs.png" height=150 alt="image">
 
 # the text and arrows (line width 4) in the drawings are done with inkscape
 # okular and acroread support PDF annotations, xpdf, Chrome and Evince not
+
 
 * Introduction
 ** Introducing ANSYS-Mode -- an APDL environment
@@ -140,7 +144,7 @@
   Most convenient is taking the pre-configured ANSYS-Mode in
   conjunction with the latest Emacs distribution for Win32/64 from 
   [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]].
-##+ATTR_HTML: width="1200"
+# #+ATTR_HTML: width="1200"
 #+BEGIN_LaTeX
 \href{http://code.google.com/p/ansys-mode/downloads/list}{%
   \includegraphics[width=12cm]{./download.png}%
@@ -316,7 +320,7 @@
 
 #+ATTR_LaTeX: height=7.5cm
   [[./emacs_tutorial.png]]
-##+ATTR_LaTeX: width=5cm
+# #+ATTR_LaTeX: width=5cm
 #+BEGIN_LaTeX
 \href{http://www.gnu.org/software/emacs/tour/}{%
   \includegraphics[width=5cm]{./tour_of_Emacs.png}%
@@ -334,25 +338,25 @@
 
 ** You might read further ANSYS-Mode documentation
 
-#*** Licensing and costs:
+# *** Licensing and costs:
    - Licensing and costs: :: This is free and open software, there are
         *no costs* and effectively *no restrictions* for you using
         Emacs and ANSYS-Mode also commerically.  Both are under the
         [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] described in the /LICENSE/ file.
-## ATTENTION: \pdfannot does not work in this environment!!!!
-#*** Installation:
+# # ATTENTION: \pdfannot does not work in this environment!!!!
+# *** Installation:
    - Installation: :: More detailed instructions are necessary if you
                       are not using the mode bundled with Emacs for
                       Windows.  Please have a look in the /README/
                       file.  An online version of it represents
                       [[http://www.emacswiki.org/emacs/AnsysMode][EmacsWiki's ANSYS-Mode page]].
 
-#*** Hands-on tutorial and reference:
+# *** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find this more
         in-depth documentation included in the mode's archives on
         [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
     
-#*** News and project history:
+# *** News and project history:
    - News and project history: :: They are placed in the mode's
         accompanying /NEWS/ file
 
@@ -405,8 +409,8 @@
          :BEAMER_col: 0.5
          :END:
 
-##+ATTR_LaTeX: width=5.5cm
-##   ,angle=90
+# #+ATTR_LaTeX: width=5.5cm
+# #   ,angle=90
 #+BEGIN_LaTeX
 \href{http://shop.oreilly.com/product/9780596006488.do}{%
   \includegraphics[width=5.5cm]{./gnu_emacs.png}%

@@ -892,8 +892,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
 	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
 	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
-	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an ANSYS number block (EBLOCK, NBLOCK)"]
-	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an ANSYS number block (EBLOCK, NBLOCK)"]
+	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      "-"
 	      ["Close Block"            ansys-close-block :help "Close the current ANSYS control block with the respective closing command"]
 	      ["Mark Block"             ansys-mark-block :help "Mark the current control block"]
@@ -1880,16 +1880,22 @@ improvements you have the following options:
 		       "\\commonfiles\\help\" "
 		       "HelpDocViewer"))))
 
-  ;; hideshow for hiding nlists, elists and cmlists of .dat WorkBench
-  ;; solver input files
+  ;; hideshow is too slow for hiding nlists, elists and cmlists of
+  ;; .dat WorkBench solver input files
 
-  (setq hs-special-modes-alist
-	  '((ansys-mode "\\(^nblock\\)\\|\\(^eblock\\)\\|\\(^cmblock\\)" "^-1" "!" (lambda (arg) (progn (forward-line) (search-forward-regexp "^[^ (-]"))) nil)))
+  ;; (setq hs-special-modes-alist
+  ;; 	  '((ansys-mode "\\(^nblock\\)\\|\\(^eblock\\)\\|\\(^cmblock\\)" "^-1" "!" (lambda (arg) (progn (forward-line) (search-forward-regexp "^[^ (-]"))) nil)))
 
-  (if (string= (file-name-extension (buffer-file-name)) "dat")
-      (progn
-	(hs-minor-mode 1)
-	(hs-hide-all)))
+  ;;   (setq hs-special-modes-alist
+  ;; 	  '((ansys-mode "{" "}" "!" nil nil)))
+
+
+  ;; (when (string= (file-name-extension (buffer-file-name)) "dat")
+  ;;   (hs-minor-mode 1)
+  ;;   (when (y-or-n-p "Would you like to hide all blocks? This may take some time...")
+  ;; 	    (hs-hide-all)))
+
+  
 
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
@@ -2965,6 +2971,32 @@ Signal an error if the keywords are incompatible."
 		  (sit-for ansys-blink-matching-delay)))
 	    (error "Block keywords `%s' and `%s' do not match"
 		   bb-keyword eb-keyword)))))))
+
+;; hiding regions heavily borrowed from M. Dahls hide-region.el
+(defvar ansys-hide-region-overlays nil
+  "Variable to store the regions we put an overlay on.")
+
+(defun ansys-hide-region ()
+  "Hide a region by making an invisible overlay over it and save
+the overlay on the `ansys-hide-region-overlays' \"ring\"."
+  (interactive)
+  (let ((new-overlay (make-overlay (mark) (point))))
+    (push new-overlay ansys-hide-region-overlays)
+    (overlay-put new-overlay 'invisible t)
+    (overlay-put new-overlay 'intangible t)
+    ;; (overlay-put new-overlay 'before-string
+    ;;              (if hide-region-propertize-markers
+    ;;                  (propertize hide-region-before-string
+    ;;                              'font-lock-face 'hide-region-before-string-face)
+    ;;                hide-region-before-string))
+    ;; (overlay-put new-overlay 'after-string
+    ;;              (if hide-region-propertize-markers
+    ;;                  (propertize hide-region-after-string
+    ;;                              'font-lock-face 'hide-region-after-string-face)
+    ;;                hide-region-after-string))
+    )
+  )
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- Abbreviations ---

@@ -80,6 +80,8 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated!
    - /sys,evince press-fit.pdf  triggers a "search failed"
    - "modopt", "harfrq", "/gcolumn" not found in keywords!!!
    - menu-bar job-name is not working

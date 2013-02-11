@@ -308,6 +308,8 @@ A hook is a variable which holds a collection of functions."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar ansys-hide-region-overlays nil
+  "Variable to store the regions we put an overlay on.")
 
 (defvar ansys-help-overlay nil
   "Overlay for displaying the ansys parameter help.")
@@ -1777,6 +1779,7 @@ improvements you have the following options:
   ;; case-fold -- non nil: ignore case
 
   (make-local-variable 'outline-regexp)
+  (make-local-variable 'ansys-hide-region-overlays)
 ;  outline searches only at the line beginning
   (setq outline-regexp (concat "!\\(" ansys-outline-string "\\)+"))
 
@@ -2972,9 +2975,8 @@ Signal an error if the keywords are incompatible."
 	    (error "Block keywords `%s' and `%s' do not match"
 		   bb-keyword eb-keyword)))))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hiding regions heavily borrowed from M. Dahls hide-region.el
-(defvar ansys-hide-region-overlays nil
-  "Variable to store the regions we put an overlay on.")
 
 (defun ansys-hide-region ()
   "Hide a region by making an invisible overlay over it and save
@@ -2996,6 +2998,17 @@ the overlay on the `ansys-hide-region-overlays' \"ring\"."
     ;;                hide-region-after-string))
     )
   )
+(defun ansys-hide-all-number-blocks ()
+  )
+
+(defun ansys-unhide-all-number-blocks ()
+  (interactive)
+  "Unhide all the regions in the current buffer."
+  (while hide-region-overlays
+    (if (car ansys-hide-region-overlays)
+        (progn
+          (delete-overlay (car ansys-hide-region-overlays))
+          (setq ansys-hide-region-overlays (cdr ansys-hide-region-overlays))))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -531,8 +531,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
   "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
-  "keyo,Contact,4,3 !keyo(4): location of contact detection" \n
-  "    !! 0:Gauss points, 3(V13):surface projection method" \n
+  "!keyo,Contact,4,0 !keyo(4): location of contact detection" \n
+  "    !! [0]:Gauss points, 3(V13):surface projection method" \n
   "keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
   "    !! 0: no adjustm." \n
   "    !! 1: close gap with auto CNOF" \n
@@ -1351,13 +1351,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "nlgeom,on" \n
   "autots,on" \n
   \n
+  "/gst,on !acitvate graphical solution tracking (convergence norms only?)"\n
   "solve" \n
   \n
   "cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
   "cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "neqit,30! No of equilibr. iterations" \n
   "nldiag,cont,iter !contact information file .cnd" \n
+  "nldiag,cont,stat !status" \n
   "nldiag,nrre,on !store residual file .nrXXX" \n
+  "!! alternatively" \n
+  "nlhist !all variables" \n
   "!! plnsol,nrres" \n
   "nldiag,maxf,2 !maximum  files nrXXX or ndXXX to be written" \n
   "rescontrol,,1,last !create restart file(s)" \n

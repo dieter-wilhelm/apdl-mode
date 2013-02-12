@@ -232,6 +232,8 @@
      their help strings of parameter help.
 ** ANSYS process and interpreter buffer
    example: gnuplot-mode
+   - call to start the ANSYS solution results tracker for .nlh und convergence .gst
+   - implement something like [[file:nlhist.sh]] for .cnd files
    - make display-buffer "*ANSYS*" optional when sending commands to
      the ANSYS process
    - use ANSYS *env variables* like AWP_ROOT140 for checking

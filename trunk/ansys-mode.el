@@ -147,6 +147,23 @@ Used for the variable `comment-start-skip'.")
   :link '(url-link :tag "GoogleCode" "http://www.code.google.com/p/ansys-mode")
   :group 'Languages)
 
+(defcustom ansys-hide-region-before-string "@[ ."
+  "String to mark the beginning of an invisible region. This string is
+not really placed in the text, it is just shown in an overlay"
+  :type '(string)
+  :group 'hide-region)
+
+(defcustom ansys-hide-region-after-string ". ]@"
+  "String to mark the beginning of an invisible region. This string is
+not really placed in the text, it is just shown in an overlay"
+  :type '(string)
+  :group 'hide-region)
+
+(defcustom ansys-hide-region-propertize-markers t
+  "If non-nil, add text properties (colour) to the region markers."
+  :type 'boolean
+  :group 'hide-region)
+
 (defcustom ansys-highlighting-level 1
   "This variable sets the level of highlighting.
 There are three levels available, 0 a minimalistic level
@@ -894,11 +911,15 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
 	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
 	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
+	      ["Hide Number Blocks"  ansys-hide-number-blocks :help "Hide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	      ["Unhide Number Blocks"  ansys-unhide-number-blocks :help "Unhide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      "-"
 	      ["Close Block"            ansys-close-block :help "Close the current ANSYS control block with the respective closing command"]
 	      ["Mark Block"             ansys-mark-block :help "Mark the current control block"]
+	      ["Hide Region"  ansys-hide-region :help "Hide a region"]
+	      ["Unhide Regions"  ansys-unhide-number-blocks :help "Unhide all regions"]
 	      )
 	(list "Manage ANSYS Tasks"
 	      ["Specify License Server or - File" ansys-license-file
@@ -2986,25 +3007,35 @@ the overlay on the `ansys-hide-region-overlays' \"ring\"."
     (push new-overlay ansys-hide-region-overlays)
     (overlay-put new-overlay 'invisible t)
     (overlay-put new-overlay 'intangible t)
-    ;; (overlay-put new-overlay 'before-string
-    ;;              (if hide-region-propertize-markers
-    ;;                  (propertize hide-region-before-string
-    ;;                              'font-lock-face 'hide-region-before-string-face)
-    ;;                hide-region-before-string))
-    ;; (overlay-put new-overlay 'after-string
-    ;;              (if hide-region-propertize-markers
-    ;;                  (propertize hide-region-after-string
-    ;;                              'font-lock-face 'hide-region-after-string-face)
-    ;;                hide-region-after-string))
+    (overlay-put new-overlay 'before-string
+                 (if ansys-hide-region-propertize-markers
+                     (propertize ansys-hide-region-before-string
+                                 'font-lock-face 'region)
+                   ansys-hide-region-before-string))
+    (overlay-put new-overlay 'after-string
+                 (if ansys-hide-region-propertize-markers
+                     (propertize ansys-hide-region-after-string
+                                 'font-lock-face 'region)
+                   ansys-hide-region-after-string))
     )
   )
-(defun ansys-hide-all-number-blocks ()
+
+(defun ansys-hide-number-blocks ()
+  ""
+  (interactive)
+  (goto-char (point-min))
+  (while (re-search-forward "nblock\\|eblock" nil nil)
+    (forward-line)
+    (set-mark (point))
+    (re-search-forward "^-1" nil nil)
+    (ansys-hide-region)
+    )
   )
 
-(defun ansys-unhide-all-number-blocks ()
+(defun ansys-unhide-number-blocks ()
   (interactive)
   "Unhide all the regions in the current buffer."
-  (while hide-region-overlays
+  (while ansys-hide-region-overlays
     (if (car ansys-hide-region-overlays)
         (progn
           (delete-overlay (car ansys-hide-region-overlays))

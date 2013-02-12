@@ -1340,6 +1340,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/solu" \n
   "allsel" \n
   \n
+  "!! --- basics ---" \n
   "solcontrol,on! optimised nonlinear solution defaults" \n
   "!! implies /kbc,0: ramped loading" \n
   "n1=20 ! No of substeps for the first one" \n
@@ -1354,22 +1355,24 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/gst,on !acitvate graphical solution tracking (convergence norms only?)"\n
   "solve" \n
   \n
+  "!! --- advanced controls ---" \n
   "cnvtol,u,,0.1! convergence [0.5 % solcontrol, on: 5 %] manipulation" \n
   "cnvtol,f,,0.05 !solcontol,on: [0.5% F,M; 5% U]" \n
   "neqit,30! No of equilibr. iterations" \n
+  "!! nonlinear tracking" \n
+  "nlhist,on ! [off], on: track all nonlinear variables in .nlh" \n
+  "nlhist,pair,ContArea,cont,carea,4 ! monitor contact area, of cid 4" \n
+  "!! nonlinear diagnostics" \n
+  "nldiag,maxf,2 !maximum  files nrXXX or ndXXX to be written" \n
   "nldiag,cont,iter !contact information file .cnd" \n
   "nldiag,cont,stat !status" \n
   "nldiag,nrre,on !store residual file .nrXXX" \n
-  "!! alternatively" \n
-  "nlhist !all variables" \n
   "!! plnsol,nrres" \n
-  "nldiag,maxf,2 !maximum  files nrXXX or ndXXX to be written" \n
   "rescontrol,,1,last !create restart file(s)" \n
   ",status" > \n
   "/config,nres,2000 !No of substeps in result file [1000]" \n
   "/solu" \n
   \n
-  "nlhist,on !nonlinear tracking in .nlh" \n
   "eqslv,pcg,1e-4" \n
   "nropt,unsym !frictional contacts not converging?" \n
   "coupling of sliding and normal stiffness" \n

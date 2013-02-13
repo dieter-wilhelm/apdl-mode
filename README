@@ -417,9 +417,9 @@ For their ansys-mod.el from 1997 which gave the ideas to start
 ANSYS-Mode (the implementation though is different and many
 capabilities are new or extended)
 
-Then in mainly reversed chronological order:
+Then in mainly reverse chronological order:
 
-* Mathias Dahl, for hide-region.el
+* Mathias Dahl, for hide-region.el (and yupeng for some additions)
 * Alwin Perras
 * Michael Kidner
 * Ilya Gurin

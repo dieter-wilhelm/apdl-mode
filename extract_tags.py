@@ -1,6 +1,8 @@
-#!/bin/env python
+#! /usr/bin/env python
+# #! /bin/env pyhton
 
 #create the ansys keywordlist from the xml help files
+# V14.5 introduced links in the refpurpose classes
 
 import os
 import glob
@@ -12,7 +14,7 @@ version = "Ansys V145"
 #loc = r_dir + a_dir
 #os.chdir(loc)
 
-# CmdToc.html repesents (V13, V14) the collection of all commands
+# CmdToc.html repesents (V13, V14, V14.5) the collection of all commands
 f_list = glob.glob("Hlp_C_CmdTOC.html")
 
 #f_list = glob.glob("Hlp_*_TOC.html")
@@ -22,6 +24,7 @@ out = "ansys_keywords.txt"
 o = open(out,'w+')              # w+: write anew
 o.write("# created by a script for " + version + "\n")
 
+ref = 'class="refentrytitle">'
 cmd = 'class="command"><strong>'
 cl = len( cmd)
 prp = 'class="refpurpose">'
@@ -33,6 +36,7 @@ for f in f_list:
     inf = open(f)                  # default: read only mode
     s = inf.read()
     pos2 = 0
+    n = 0
     while True:
         pos = s.find( cmd, pos2)
         if pos < 0:
@@ -43,6 +47,8 @@ for f in f_list:
         pos2 = s.find('<',pos)
         ps = s[ pos+pl:pos2].replace("\n"," ")
         o.write(cs + ps + "\n")
+        n = n + 1
     inf.close()
 o.close()
-print  "that's it"
+print "that's it!"
+print "we have ", n, "entries."

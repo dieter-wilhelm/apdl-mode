@@ -25,7 +25,9 @@ Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
   shown. You can activate this functionality (Linux only) with a
   prefix argument: C-u C-c C-v.
 
-* Bug fixes
+* Fixed the completion and highlighting of command keywords and their
+  help entries, in the previous release were many keywords missing or
+  entries incomplete.
 
 ===  Version 14.5.1 Sep 2012 ===
 

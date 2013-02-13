@@ -5,3 +5,5 @@
 
 cat ansys-mode.el | sed -n -e  "s/^(defcustom/ /p"| \
     sed -n -e "s/  \(\(\w*-*\)*\).*/'\1/p"
+cat ansys-process.el | sed -n -e  "s/^(defcustom/ /p"| \
+    sed -n -e "s/  \(\(\w*-*\)*\).*/'\1/p"

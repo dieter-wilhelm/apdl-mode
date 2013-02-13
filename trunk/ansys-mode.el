@@ -147,13 +147,13 @@ Used for the variable `comment-start-skip'.")
   :link '(url-link :tag "GoogleCode" "http://www.code.google.com/p/ansys-mode")
   :group 'Languages)
 
-(defcustom ansys-hide-region-before-string "@[ ."
+(defcustom ansys-hide-region-before-string "![ ... hidden"
   "String to mark the beginning of an invisible region. This string is
 not really placed in the text, it is just shown in an overlay"
   :type '(string)
   :group 'hide-region)
 
-(defcustom ansys-hide-region-after-string ". ]@"
+(defcustom ansys-hide-region-after-string " region ... ]"
   "String to mark the beginning of an invisible region. This string is
 not really placed in the text, it is just shown in an overlay"
   :type '(string)
@@ -1348,9 +1348,15 @@ current block level.
 \"\\[ansys-number-block-start]\" -- `ansys-number-block-start'
 \"\\[ansys-number-block-end]\" -- `ansys-number-block-end'
 
-Are searching for and skipping over 'pure' number blocks, these
-are common (and quite large) in WorkBench interpreter
-input (*.inp, *.dat) files.
+Are searching for and skipping over 'pure' number blocks (the
+nblock, eblocks and cmblocks), these are common (and often quite
+large) in WorkBench interpreter input files (*.inp, *.dat).
+
+You can also hide and unhide these - usually uninteresting -
+blocks with `ansys-hide-number-blocks' and
+`ansys-show-number-blocks' respectively or even a region of
+you (un)liking with `ansys-hide-region'.  In files with the
+suffix `.dat' number blocks are hidden by default.
 
 Moreover there are keyboard shortcuts with which you are able to
 input pairs of corresponding characters, like \"C-c %\" for '%%',
@@ -1904,22 +1910,12 @@ improvements you have the following options:
 		       "\\commonfiles\\help\" "
 		       "HelpDocViewer"))))
 
-  ;; hideshow is too slow for hiding nlists, elists and cmlists of
   ;; .dat WorkBench solver input files
 
-  ;; (setq hs-special-modes-alist
-  ;; 	  '((ansys-mode "\\(^nblock\\)\\|\\(^eblock\\)\\|\\(^cmblock\\)" "^-1" "!" (lambda (arg) (progn (forward-line) (search-forward-regexp "^[^ (-]"))) nil)))
-
-  ;;   (setq hs-special-modes-alist
-  ;; 	  '((ansys-mode "{" "}" "!" nil nil)))
-
-
-  ;; (when (string= (file-name-extension (buffer-file-name)) "dat")
-  ;;   (hs-minor-mode 1)
-  ;;   (when (y-or-n-p "Would you like to hide all blocks? This may take some time...")
-  ;; 	    (hs-hide-all)))
-
-  
+  (when (string= (file-name-extension (buffer-file-name)) "dat")
+    (ansys-hide-number-blocks))
+    ;; (when (y-or-n-p "Would you like to hide all blocks? This may take some time...")
+    ;; 	    (hs-hide-all)))
 
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
@@ -3000,8 +2996,10 @@ Signal an error if the keywords are incompatible."
 ;; hiding regions heavily borrowed from M. Dahls hide-region.el
 
 (defun ansys-hide-region ()
-  "Hide a region by making an invisible overlay over it and save
-the overlay on the `ansys-hide-region-overlays' \"ring\"."
+  "Hide a region by making an invisible overlay over it.
+Put some markers (`ansys-hide-region-before-string',
+`ansys-hide-region-after-string') around and save the overlay in
+the `ansys-hide-region-overlays' \"overlay ring\"."
   (interactive)
   (let ((new-overlay (make-overlay (mark) (point))))
     (push new-overlay ansys-hide-region-overlays)
@@ -3021,20 +3019,25 @@ the overlay on the `ansys-hide-region-overlays' \"ring\"."
   )
 
 (defun ansys-hide-number-blocks ()
-  ""
+  "Hide all number blocks (nblock, eblocks, cmblocks) in file.
+These constructs appear in WorkBench created solver input files."
   (interactive)
   (goto-char (point-min))
-  (while (re-search-forward "nblock\\|eblock" nil nil)
-    (forward-line)
+  (message "Hiding number blocks ...")
+  (while (re-search-forward "nblock\\|eblock\\|cmblock" nil nil)
+    (forward-line 3) ; show on line of numbers before markers
     (set-mark (point))
-    (re-search-forward "^-1" nil nil)
+    (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
+    (forward-line -2) ; show one line of numbers after markers
+    (end-of-line)
     (ansys-hide-region)
     )
+  (goto-char (point-min))
   )
 
 (defun ansys-unhide-number-blocks ()
+  "Unhide all hidden regions in the current buffer."
   (interactive)
-  "Unhide all the regions in the current buffer."
   (while ansys-hide-region-overlays
     (if (car ansys-hide-region-overlays)
         (progn
@@ -3088,16 +3091,12 @@ the overlay on the `ansys-hide-region-overlays' \"ring\"."
 	'ansys_version
 	'ansys_mode_version
 	;; defcustoms
+	'ansys-hide-region-before-string
+	'ansys-hide-region-after-string
+	'ansys-hide-region-propertize-markers
 	'ansys-highlighting-level
 	'ansys-current-ansys-version
 	'ansys-dynamic-highlighting-flag
-	'ansys-job
-	'ansys-program
-	'ansys-help-program
-	'ansys-lmutil-program
-	'ansys-license-file
-	'ansys-license-types
-	'ansys-license
 	'ansys-indicate-empty-lines-flag
 	'ansys-comment-padding
 	'ansys-comment-add
@@ -3111,6 +3110,18 @@ the overlay on the `ansys-hide-region-overlays' \"ring\"."
 	'ansys-block-offset
 	'ansys-outline-string
 	'ansys-mode-hook
+	'ansys-align-rules-list
+	'ansys-install-directory
+	'ansys-job
+	'ansys-program
+	'ansys-help-program
+	'ansys-help-program-parameters
+	'ansys-lmutil-program
+	'ansys-license-file
+	'ansys-ansysli-servers
+	'ansys-license-types
+	'ansys-license
+	'ansys-no-of-processors
 	)
        nil
        nil

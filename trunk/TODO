@@ -33,12 +33,12 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
-*  15.0.1:
+*  14.5.2:
 ** TODO Freeze
-   - Folding for e- and nblocks in .dat files with hs-minor-mode
-   - Extend C-c C-v with the ability to show the value for a variable
-     around the cursor.
-   - no warning message, if html help files are not found
+   - add functionallities to tutorial and manual
+   - take care of small eblocks, especially cmblocks, the might
+     consist of just a node for BCs!
+   - not yet warning message, if html help files are not found
    - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
      retarded!!!
@@ -135,12 +135,12 @@
     \\<keymap> & \\[function]
   - README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history
-  - update the mode help, complete skeleton menus, update defcustom
-    list in ansys-submit-bug-report, update version numbers, default
-    specifiers
+  - update the mode help, complete skeleton menus, update version
+    numbers, default specifiers
+  - update defcustom list in ./bug-report.sh -> ansys-submit-bug-report
 
-#;  (tags-query-replace "GNU/Linux" "GnuLinux") ;-)
-#;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
+# ;  (tags-query-replace "GNU/Linux" "GnuLinux") ;-)
+# ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
     (tags-query-replace "145" "150")
     (tags-query-replace "24.2" "24.?")
     (tags-query-replace "14.5" "15.0")
@@ -192,6 +192,9 @@
 
     unavailable:
     mike.brusoe@continental-corporation.com,
+
+
+    This is ideal for examine the WorkBench solver input files.
 
 * Ideas for further versions
 ** Parameter help and documentation

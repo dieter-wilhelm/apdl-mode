@@ -16,7 +16,7 @@ DIR := $(shell pwd)
 ifeq ($(HOSTNAME),urmel)
  EMACS_DIR := /usr/local/src
 else
- EMACS_DIR := ~
+ EMACS_DIR := /appl/
 endif
 
 EMACS_VERSION := emacs-24.2

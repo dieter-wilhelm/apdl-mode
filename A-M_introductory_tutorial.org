@@ -184,6 +184,14 @@
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
+** Inspect easily WorkBench solver input files (suffix .dat)
+   ANSYS-Mode hides the normally uninteresting (but usually very
+   large) number blocks.  On the right hand side the unhidden file.
+#+ATTR_LaTeX: height=7.5cm
+  [[./hidden_blocks.png]]
+#+ATTR_LaTeX: height=7.5cm
+  [[./unhidden_blocks.png]]
+
 ** Use the ANSYS-Mode APDL command help
   Please type *M-?*, alternatively: *C-c ?*, on a code line and you
   will see the APDL command's description together with its parameter

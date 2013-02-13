@@ -4,18 +4,26 @@
 
 Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
-===  Version 14.5.2  Feb 2013 ===
+===  Version 14.5.2  Mar 2013 ===
 
-* The number blocks (nblocks, eblocks and cmblocks) in WorkBench
-  created solver input files (.dat) are now hidden by default.
-  ANSYS-Mode uses for this end the hideshow minor mode.  Although this
-  is very helpful
+* The unwieldy and usually uninteresting pure number blocks (the
+  nblock, eblocks and cmblocks) in files with the suffix .dat are now
+  hidden by default.  WorkBench creates these as solver input files.
+  You can, off course, unhide these blocks and inspect them as well.
 
-* Added a function for showing the current value/status of a user
+  Functions: `ansys-hide-number-blocks', `ansys-show-number-blocks',
+  `ansys-hide-region'
+
+  Customisable variables: `ansys-hide-region-before-string',
+  `ansys-hide-region-after-string' and
+  `ansys-hide-region-propertize-markers'
+
+* Added a way for showing the current value and status of a user
   variable at point, overcoming the drawback of C-c C-v
-  (ansys-display-variables) that variable definitions coming from
-  external files are not shown. You can activate this functionality
-  (Linux only) with a prefix argument: C-u C-c C-v.
+  `ansys-display-variables' that it is showing only the variable
+  definitions and definitions coming from external files are not
+  shown. You can activate this functionality (Linux only) with a
+  prefix argument: C-u C-c C-v.
 
 * Bug fixes
 

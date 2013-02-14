@@ -3022,17 +3022,32 @@ the `ansys-hide-region-overlays' \"overlay ring\"."
   "Hide all number blocks (nblock, eblocks, cmblocks) in file.
 These constructs appear in WorkBench created solver input files."
   (interactive)
-  (goto-char (point-min))
-  (message "Hiding number blocks ...")
-  (while (re-search-forward "nblock\\|eblock\\|cmblock" nil nil)
-    (forward-line 3) ; show on line of numbers before markers
-    (set-mark (point))
-    (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
-    (forward-line -2) ; show one line of numbers after markers
-    (end-of-line)
-    (ansys-hide-region)
+  (let (
+	(p-orig (point))
+	p1
+	p2
+	lines
+	)
+    (message "Hiding number blocks ...")
+    (goto-char (point-min))
+    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil nil)
+      (setq p1 (point))
+      (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
+      (setq p2 (point)
+	    lines (count-lines p1 p2)
+	    )
+      (when (> lines 5) ;only hide blocks if larger then 5 lines
+	(goto-char p1)
+	(forward-line 3) ; show one line of numbers before markers
+	(set-mark (point))
+	(goto-char p2)
+	(forward-line -2) ; show one line of numbers after markers
+	(end-of-line)
+	(ansys-hide-region)
+	)
+      )
+    (goto-char (p-orig))
     )
-  (goto-char (point-min))
   )
 
 (defun ansys-unhide-number-blocks ()

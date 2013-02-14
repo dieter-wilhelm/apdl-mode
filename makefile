@@ -4,8 +4,8 @@
 # MODE = mode package + tags
 # EMACS = Windoze version of emacs with pre-configured mode
 
-ANSYS_MAJOR := 15
-ANSYS_MINOR := 0
+ANSYS_MAJOR := 14
+ANSYS_MINOR := 5
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -32,7 +32,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := beta1
+MODE_VERSION := 2-beta.1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 

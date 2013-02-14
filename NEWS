@@ -8,8 +8,9 @@ Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
 
 * The unwieldy and usually uninteresting pure number blocks (the
   nblock, eblocks and cmblocks) in files with the suffix .dat are now
-  hidden by default.  WorkBench creates these as solver input files.
-  You can, off course, unhide these blocks and inspect them as well.
+  hidden by default.  WorkBench creates these blocks in input files
+  for the solver.  You can, off course, unhide these blocks and
+  inspect them as well.
 
   Functions: `ansys-hide-number-blocks', `ansys-show-number-blocks',
   `ansys-hide-region'
@@ -26,8 +27,8 @@ Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
   prefix argument: C-u C-c C-v.
 
 * Fixed the completion and highlighting of command keywords and their
-  help entries, in the previous release were many keywords missing or
-  entries incomplete.
+  help entries, in the previous release were unfortunately many
+  keywords missing or entries incomplete.
 
 ===  Version 14.5.1 Sep 2012 ===
 

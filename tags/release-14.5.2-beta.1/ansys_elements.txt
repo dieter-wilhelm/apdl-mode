@@ -1,0 +1,164 @@
+# Ansys 145
+SOLID5 - 3-D Coupled-Field Solid
+INFIN9 - 2-D Infinite Boundary
+LINK11 - Linear Actuator
+PLANE13 - 2-D Coupled-Field Solid
+COMBIN14 - Spring-Damper
+MASS21 - Structural Mass
+PLANE25 - Axisymmetric-Harmonic 4-Node Structural Solid
+MATRIX27 - Stiffness, Damping, or Mass Matrix
+SHELL28 - Shear/Twist Panel
+FLUID29 - 2-D Axisymmetric Harmonic Acoustic Fluid
+FLUID30 - 3-D Acoustic Fluid
+LINK31 - Radiation Link
+LINK33 - 3-D Conduction Bar
+LINK34 - Convection Link
+PLANE35 - 2-D 6-Node Triangular Thermal Solid
+SOURC36 - Current Source
+COMBIN37 - Control
+FLUID38 - Dynamic Fluid Coupling
+COMBIN39 - Nonlinear Spring
+COMBIN40 - Combination
+SHELL41 - Membrane Shell
+INFIN47 - 3-D Infinite Boundary
+MATRIX50 - Superelement (or Substructure)
+PLANE53 - 2-D 8-Node Magnetic Solid
+PLANE55 - 2-D Thermal Solid
+SHELL61 - Axisymmetric-Harmonic Structural Shell
+SOLID65 - 3-D Reinforced Concrete Solid
+LINK68 - Coupled Thermal-Electric Line
+SOLID70 - 3-D Thermal Solid
+MASS71 - Thermal Mass
+PLANE75 - Axisymmetric-Harmonic 4-Node Thermal Solid
+PLANE77 - 2-D 8-Node Thermal Solid
+PLANE78 - Axisymmetric-Harmonic 8-Node Thermal Solid
+PLANE83 - Axisymmetric-Harmonic 8-Node Structural Solid
+SOLID87 - 3-D 10-Node Tetrahedral Thermal Solid
+SOLID90 - 3-D 20-Node Thermal Solid
+CIRCU94 - Piezoelectric Circuit
+SOLID96 - 3-D Magnetic Scalar Solid
+SOLID97 - 3-D Magnetic Solid
+SOLID98 - Tetrahedral Coupled-Field Solid
+INFIN110 - 2-D Infinite Solid
+INFIN111 - 3-D Infinite Solid
+FLUID116 - Coupled Thermal-Fluid Pipe
+HF118 - 2-D High-Frequency Quadrilateral Solid
+HF119 - 3-D High-Frequency Tetrahedral Solid
+HF120 - 3-D High-Frequency Brick Solid
+PLANE121 - 2-D 8-Node Electrostatic Solid
+SOLID122 - 3-D 20-Node Electrostatic Solid
+SOLID123 - 3-D 10-Node Tetrahedral Electrostatic Solid
+CIRCU124 - Electric Circuit
+CIRCU125 - Diode
+TRANS126 - Electromechanical Transducer
+FLUID129 - 2-D Infinite Acoustic
+FLUID130 - 3-D Infinite Acoustic
+SHELL131 - 4-Node Thermal Shell
+SHELL132 - 8-Node Thermal Shell
+FLUID136 - 3-D Squeeze Film Fluid Element
+FLUID138 - 3-D Viscous Fluid Link Element
+FLUID139 - 3-D Slide Film Fluid Element
+FLUID141 - 2-D Fluid-Thermal
+FLUID142 - 3-D Fluid-Thermal
+ROM144 - Reduced Order Electrostatic-Structural
+SURF151 - 2-D Thermal Surface Effect
+SURF152 - 3-D Thermal Surface Effect
+SURF153 - 2-D Structural Surface Effect
+SURF154 - 3-D Structural Surface Effect
+SURF156 - 3-D Structural Surface Line Load Effect
+SHELL157 - Thermal-Electric Shell
+SURF159 - General Axisymmetric Surface
+LINK160 - Explicit 3-D Spar (or Truss)
+BEAM161 - Explicit 3-D Beam
+PLANE162 - Explicit 2-D Structural Solid
+SHELL163 - Explicit Thin Structural Shell
+SOLID164 - Explicit 3-D Structural Solid
+COMBI165 - Explicit Spring-Damper
+MASS166 - Explicit 3-D Structural Mass
+LINK167 - Explicit Tension-Only Spar
+SOLID168 - Explicit 3-D 10-Node Tetrahedral Structural Solid
+TARGE169 - 2-D Target Segment
+TARGE170 - 3-D Target Segment
+CONTA171 - 2-D 2-Node Surface-to-Surface Contact
+CONTA172 - 2-D 3-Node Surface-to-Surface Contact 
+CONTA173 - 3-D 4-Node Surface-to-Surface Contact
+CONTA174 - 3-D 8-Node Surface-to-Surface Contact
+CONTA175 - 2-D/3-D Node-to-Surface Contact
+CONTA176 - 3-D Line-to-Line Contact
+CONTA177 - 3-D Line-to-Surface Contact
+CONTA178 - 3-D Node-to-Node Contact
+PRETS179 - Pretension
+LINK180 - 3-D Spar (or Truss)
+SHELL181 - 4-Node Structural Shell
+PLANE182 - 2-D 4-Node Structural Solid
+PLANE183 - 2-D 8-Node or 6-Node Structural Solid
+MPC184 - Multipoint Constraint Element
+MPC184-Link/Beam - Multipoint Constraint Element: Rigid Link or Rigid Beam
+MPC184-Slider - Multipoint Constraint Element: Slider
+MPC184-Revolute - Multipoint Constraint Element: Revolute Joint
+MPC184-Universal - Multipoint Constraint Element: Universal Joint
+MPC184-Slot - Multipoint Constraint Element: Slot Joint
+MPC184-Point - Multipoint Constraint Element: Point-in-plane Joint
+MPC184-Translational - Multipoint Constraint Element: Translational Joint
+MPC184-Cylindrical - Multipoint Constraint Element: Cylindrical Joint
+MPC184-Planar - Multipoint Constraint Element: Planar Joint
+MPC184-Weld - Multipoint Constraint Element: Weld Joint
+MPC184-Orient - Multipoint Constraint Element: Orient Joint
+MPC184-Spherical - Multipoint Constraint Element: Spherical Joint
+MPC184-General - Multipoint Constraint Element: General Joint
+MPC184-Screw - Multipoint Constraint Element: Screw Joint
+SOLID185 - 3-D 8-Node Structural Solid
+SOLID186 - 3-D 20-Node Structural Solid
+SOLID187 - 3-D 10-Node Tetrahedral Structural Solid
+BEAM188 - 3-D 2-Node Beam
+BEAM189 - 3-D 3-Node Beam
+SOLSH190 - 3-D 8-Node Structural Solid Shell
+INTER192 - 2-D 4-Node Gasket
+INTER193 - 2-D 6-Node Gasket
+INTER194 - 3-D 16-Node Gasket
+INTER195 - 3-D 8-Node Gasket
+MESH200 - Meshing Facet
+FOLLW201 - Follower Load
+INTER202 - 2-D 4-Node Cohesive
+INTER203 - 2-D 6-Node Cohesive
+INTER204 - 3-D 16-Node Cohesive
+INTER205 - 3-D 8-Node Cohesive
+SHELL208 - 2-Node Axisymmetric Shell
+SHELL209 - 3-Node Axisymmetric Shell
+CPT212 - 2-D 4-Node Coupled Pore-Pressure Mechanical Solid
+CPT213 - 2-D 8-Node Coupled Pore-Pressure Mechanical Solid
+COMBI214 - 2-D Spring-Damper Bearing
+CPT215 - 3-D 8-Node Coupled Pore-Pressure Mechanical Solid
+CPT216 - 3-D 20-Node Coupled Pore-Pressure Mechanical Solid 
+CPT217 - 3-D 10-Node Coupled Pore-Pressure Mechanical Solid
+FLUID220 - 3-D Acoustic Fluid 20-Node Solid Element
+FLUID221 - 3-D Acoustic Fluid 10-Node Solid Element
+PLANE223 - 2-D 8-Node Coupled-Field Solid
+SOLID226 - 3-D 20-Node Coupled-Field Solid
+SOLID227 - 3-D 10-Node Coupled-Field Solid
+PLANE230 - 2-D 8-Node Electric Solid
+SOLID231 - 3-D 20-Node Electric Solid
+SOLID232 - 3-D 10-Node Tetrahedral Electric Solid
+PLANE233 - 2-D 8-Node Electromagnetic Solid 
+SOLID236 - 3-D 20-Node Electromagnetic Solid
+SOLID237 - 3-D 10-Node Electromagnetic Solid
+PLANE238 - 2-D 8-Node Diffusion Solid
+SOLID239 - 3-D 20-Node Diffusion Solid
+SOLID240 - 3-D 10-Node Tetrahedral Diffusion Solid
+HSFLD241 - 2-D Hydrostatic Fluid
+HSFLD242 - 3-D Hydrostatic Fluid
+SURF251 - 2-D Radiosity Surface
+SURF252 - 3-D Radiosity Surface
+REINF263 - 2-D Smeared Reinforcing
+REINF264 - 3-D Discrete Reinforcing
+REINF265 - 3-D Smeared Reinforcing
+SOLID272 - General Axisymmetric Solid with 4 Base Nodes
+SOLID273 - General Axisymmetric Solid with 8 Base Nodes
+SOLID278 - 3-D 8-Node Thermal Solid
+SOLID279 - 3-D 20-Node Thermal Solid
+SHELL281 - 8-Node Structural Shell
+SOLID285 - 3-D 4-Node Tetrahedral Structural Solid with Nodal Pressures
+PIPE288 - 3-D 2-Node Pipe
+PIPE289 - 3-D 3-Node Pipe 
+ELBOW290 - 3-D 3-Node Elbow
+USER300 - User-Defined Element

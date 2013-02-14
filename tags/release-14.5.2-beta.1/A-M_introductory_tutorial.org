@@ -1,0 +1,459 @@
+#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.2
+#+AUTHOR:    H. Dieter Wilhelm
+#+EMAIL:     dieter@duenenhof-wilhelm.de
+# #+DATE:      2012-06-17 Sa
+# #+TEXT: blabla
+#+DESCRIPTION: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA.
+#+KEYWORDS: Emacs ANSYS FEA APDL
+#+LANGUAGE:  en
+#+OPTIONS:   H:2 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
+#+LATEX_HEADER: \usepackage{textcomp}
+# #+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
+# #+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
+#+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
+#+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
+#+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
+#+BEAMER_FRAME_LEVEL: 2
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+LINK_UP: http://duenenhof-wilhelm.de/dieter.html
+#+LINK_HOME: http://code.google.com/p/ansys-mode
+#+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/> 
+#+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/> 
+#+XSLT:
+# #+TEXT: Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
+
+
+#+HTML: <img src="ansys+emacs.png" height=150 alt="image">
+
+# the text and arrows (line width 4) in the drawings are done with inkscape
+# okular and acroread support PDF annotations, xpdf, Chrome and Evince not
+
+
+* Introduction
+** Introducing ANSYS-Mode -- an APDL environment
+   [[http://code.google.com/p/ansys-mode/][This project]] supports your APDL
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Open true % if given then the text annotation will be opened
+/Contents % text contents
+(APDL = Ansys Parametric Design Language)
+}%\hspace{.4cm}%
+\quad%
+#+END_LaTeX   
+   workflows with the FEA
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Open true % if given then the text annotation will be opened
+/Contents % text contents
+(FEA = Finite Element Analysis)
+}%\hspace{.4cm}%
+\quad%
+#+END_LaTeX   
+ suite [[http://www.ansys.com][ANSYS]].
+
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Opepn true % if given then the text annotation will be opened
+/Contents % text contents
+(ANSYS = ANalysis SYStem, registered TM)
+}%
+#+END_LaTeX   
+#+LaTeX: \\[.2cm]
+#+HTML: <br>   
+   It provides an extra mode to the [[http://www.gnu.org/software/emacs/][GNU Emacs editor]] for investigating
+   and coding APDL.  The mode offers also managing and communication
+   capabilities for various ANSYS processes, like interactive code
+   debugging with the solver or inquiring the license manager status,
+   etc.  Some features are quite sophisticated but its documentation
+   is accessible for ANSYS users with little APDL and [[http://en.wikipedia.org/wiki/Emacs][Emacs]]
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+% /Opepn true % if given then the text annotation will be opened
+/Contents % text contents
+(Emacs originally EMACS = Editing MACroS, approx. 1976)
+}\quad%
+#+END_LaTeX   
+   experience.
+
+#+LaTeX: \\[.2cm]
+#+HTML: <br>   
+   [[http://www.gnu.org/home.en.html][GNU]]
+#+BEGIN_LaTeX
+\pdfannot % generic annotation
+% width 4cm % the dimension of the annotation can be controlled
+% height 0cm % via <rule spec>; if some of dimensions in
+% depth 4cm % <rule spec> is not given, the corresponding
+% value of the parent box will be used.
+{ %
+/Subtype /Text % text annotation
+%/Author (H. Dieter Wilhelm) %
+/T (H. Dieter Wilhelm: Acronyms)
+%/Open true % if given then the text annotation will be opened
+/Contents % text contents
+(GNU = Gnu's Not Unix, a free and open software collection)
+}%\hspace{.4cm}%
+\quad
+#+END_LaTeX   
+   Emacs is an up-to-date, powerful and
+   extensible - yet free - editor. High quality software available for
+   every operating system where ANSYS is running.
+#+LaTeX: \\[.4cm]
+#+HTML: <br>   
+   In the following *C-c* or e. g. *M-c* means typing the <CTRL> or <ALT>
+   key together with the <c> key.
+  
+* Download
+** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
+  Most convenient is taking the pre-configured ANSYS-Mode in
+  conjunction with the latest Emacs distribution for Win32/64 from 
+  [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]].
+# #+ATTR_HTML: width="1200"
+#+BEGIN_LaTeX
+\href{http://code.google.com/p/ansys-mode/downloads/list}{%
+  \includegraphics[width=12cm]{./download.png}%
+}
+#+END_LaTeX 
+#+HTML: <img src="./download.png" alt="download page from Google Code">
+  
+* Installation
+** Install ANSYS-Mode together with Emacs
+  Extract the former zip archive to an arbitrary location on your file
+  system.  Optionally you might install Emacs shortcut icons for the
+  system tray with /addpm.exe/ in Emacs' /bin/ folder.
+
+#+ATTR_LaTeX: width=11cm
+  [[./emacs_bin_folder.png]]
+
+ In this list /runemacs.exe/ is the actual editor executable.
+
+* Usage
+** Open an APDL macro file with Emacs
+  Start the editor and open /fontification.mac/ in Emacs' /site-lisp/
+  folder or any other APDL file (with the extensions /mac/, /inp/,
+  /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
+  <RET>).
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./find_file_dialog.png]]
+
+** Explore the ANSYS-Mode menu
+  If ANSYS 14.5 is installed in its default folder /C:Program Files/ under
+  Win64 also system dependent functions are working, like browsing the
+  APDL help with *C-c C-b*, otherwise, you can easily
+  configure this. All described features can be executed through the
+  ANSYS-Mode menu or with keyboard shortcuts.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./ansys_menu.png]]
+
+* Selected ANSYS-Mode Features  
+** Inspect easily WorkBench solver input files (suffix /.dat/)
+   ANSYS-Mode hides the normally uninteresting but usually very
+   large number blocks.  On the right hand side is the unhidden content.
+#+ATTR_LaTeX: height=7.5cm
+  [[./hidden_blocks.png]]
+#+ATTR_LaTeX: height=7.5cm
+  [[./unhidden_blocks.png]]
+
+** Use the ANSYS-Mode APDL command help
+  Please type *M-?*, alternatively: *C-c ?*, on a code line and you
+  will see the APDL command's description together with its parameter
+  syntax.  You can continue working, this temporary overlay - here in
+  yellow - remains visible for a while during your editing.
+  
+#+ATTR_LaTeX: height=7.5cm
+  [[./parameter_help.png]]
+
+** Select and insert templates from the menu into your code \\ Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
+
+#+ATTR_LaTeX: height=8cm
+#+ATTR_HTML: width="1200"
+   [[./template_menu.png]]
+
+** Preview the extensible APDL code templates
+   Before inserting an entire template you are able to inspect its
+   content in a preview window (*C-c C-s*) and might just copy the
+   most relevant snippets, please see below and next slide.
+
+#+ATTR_LaTeX: height=7.5cm
+   [[./template.png]]
+
+** Select an interesting template from a completion window
+   Type *C-c C-s* to choose a template name, use the <TAB> key to
+   complete or to open the completion window of available items.
+
+#+ATTR_LaTeX: height=7.5cm
+   [[./template_selection.png]]
+
+** Check auto-insertion and outline your code (tree view)
+  Create a new APDL file with the suffix 
+#+BEGIN_LaTeX
+`{\sl .mac}'
+#+END_LaTeX
+  and let Emacs auto-insert
+  a skeleton with `outline' headings.  Collapse the content to a tree
+  view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./outline.png]]
+  
+** Utilise completions of all APDL symbols, around 2000
+  Move the cursor behind a character - here 'c' - or word fragment and
+  type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
+  element- and function names.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./completion.png]]
+  
+** Open a summary window of your APDL variables
+  Type *C-c C-v* to receive a summary window of all your variable
+  definitions. With an argument (*C-u C-c C-v*) you will get the
+  current value of your variable at the cursor (Linux only, right).
+
+#+ATTR_LaTeX: height=7cm
+  [[./variable_buffer.png]]
+#+ATTR_LaTeX: height=7cm
+  [[file:variable_status.png]]
+# #+BEGIN_LaTeX
+# \href{http://www.gnu.org/software/emacs/tour/}{%
+#   \includegraphics[width=5cm]{./tour_of_Emacs.png}%
+# }
+# #+END_LaTeX
+# #+HTML: <img src="./tour_of_Emacs.png" alt="download page from Google Code">
+
+
+** Structure your variable assignments
+  Move the cursor to a variable definition paragraph or mark, here in
+  yellow, some definitions and type *C-c C-a* to align them.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./alignment.png]]
+
+** Use the Emacs integrated, programmable RPN calculator  
+   Type *C-x* * * to open the calculator, type *y* for pasting results
+   directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./calculator.png]]
+
+** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU/Linux]])
+   You can run the ANSYS solver/interpreter under Emacs and send code
+   lines from above APDL window with *C-c C-c* directly to this
+   process. Below you see the *interactive* solver output window and
+   on the left hand side the corresponding ANSYS images.
+
+#+ATTR_HTML: width="1200"
+#+ATTR_LaTeX: height=6.5cm
+  [[./process.png]]
+** Display the license status and preview images on GNU/Linux
+   In Emacs' mid-section you see the license state (*C-c C-l*)
+   and left Emacs window (below) a thumbnail view of images from a
+   folder.
+
+#+ATTR_LaTeX: height=7.3cm
+#+ATTR_HTML: width="1200"
+   [[./license.png]]
+
+** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS-Mode menu field
+
+# The
+# APDL file is in the right window with the (experimental) user variable
+# highlighting switched on and a help overlay (in yellow background)
+# activated. The smaller windows on the left hand side are showing the
+# `Variable definitions buffer' of the same file and a preview buffer of
+# a certain code template, respectively.
+
+   file:ansys-mode.jpg
+
+* Configuration
+
+** Configure system dependent aspects and user options
+#   \\Mainly the ANSYS version and its installation directory
+    The mode comes pre-configured for a default installation of ANSYS
+    14.5 for Win64.  If on other systems something is missing adjust
+*** The well commented configuration file /default.el/
+          :PROPERTIES:
+          :BEAMER_env: block
+          :BEAMER_envargs: C[T]
+          :BEAMER_col: 0.5
+          :END:
+#+ATTR_LaTeX: width=5.5cm
+  [[./default_el.png]]
+
+  ... and restart Emacs. 
+*** Or change the settings with Emacs' customisation system
+          :PROPERTIES:
+          :BEAMER_env: block
+          :BEAMER_envargs: <2->
+          :BEAMER_envargs: C[T]
+          :BEAMER_col: 0.5
+          :END:
+#+ATTR_LaTeX: width=5.5cm
+    [[./customisation_system.png]]
+
+  ... and reload ANSYS-Mode. 
+* Documentation and Licensing
+
+** Get to know Emacs and its excellent documentation
+  Newcomers to Emacs should take the [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to
+  get a background of its capabilities and fire up the interactive
+  tutorial (*C-h t*) which is translated to various languages.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./emacs_tutorial.png]]
+# #+ATTR_LaTeX: width=5cm
+#+BEGIN_LaTeX
+\href{http://www.gnu.org/software/emacs/tour/}{%
+  \includegraphics[width=5cm]{./tour_of_Emacs.png}%
+}
+#+END_LaTeX
+#+HTML: <img src="./tour_of_Emacs.png" alt="download page from Google Code">
+
+** Use the ANSYS-Mode built-in help
+   Please type *C-h m* to open the mode help, especially for
+   ANSYS-Mode's usage and keybindings.  At the beginning is also a
+   brief introduction of basic Emacs concepts.
+
+#+ATTR_LaTeX: height=7.5cm
+   [[./mode_help.png]]
+
+** You might read further ANSYS-Mode documentation
+
+# *** Licensing and costs:
+   - Licensing and costs: :: This is free and open software, there are
+        *no costs* and effectively *no restrictions* for you using
+        Emacs and ANSYS-Mode also commerically.  Both are under the
+        [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] described in the /LICENSE/ file.
+# # ATTENTION: \pdfannot does not work in this environment!!!!
+# *** Installation:
+   - Installation: :: More detailed instructions are necessary if you
+                      are not using the mode bundled with Emacs for
+                      Windows.  Please have a look in the /README/
+                      file.  An online version of it represents
+                      [[http://www.emacswiki.org/emacs/AnsysMode][EmacsWiki's ANSYS-Mode page]].
+
+# *** Hands-on tutorial and reference:
+   - Hands-on tutorial and reference: :: You will find this more
+        in-depth documentation included in the mode's archives on
+        [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
+    
+# *** News and project history:
+   - News and project history: :: They are placed in the mode's
+        accompanying /NEWS/ file
+
+* Help and Bugs
+** Search for help, report bugs and issues
+  Besides the documentation, have a look in the section [[http://code.google.com/p/ansys-mode/issues/list][Issues]] for bug
+  reports at Google Code's site or send an [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
+  Please use the ANSYS-Mode bug report functionality, which might
+  provide helpful status information.
+
+#+ATTR_LaTeX: height=7.5cm
+  [[./bug_report.png]]
+
+* Summary
+** Use ANSYS-Mode appropriate to your needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Moreover, code APDL only for *repetitive* tasks and command snippets, *extending* WB.
+
+*** Basic APDL *viewer*
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+#         :BEAMER_col: 0.5
+         :END:
+    Navigating in WB solver input files, discerning relevant
+    information through highlighting, quickly analysing APDL commands
+    with the built-in help or studying their detailed help in your
+    browser.
+*** Earnest APDL *editor*
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+#         :BEAMER_col: 0.5
+         :END:
+    Specific shortcut keybindings, outlining, code templates,
+    completions, auto-indentation, abbreviations, auto-insertion.
+*** Advanced APDL *environment*
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: C[t]
+#         :BEAMER_col: 0.5
+         :END:
+    Solver communication/feedback - hybrid between coding and
+    debugging (GNU/Linux only), retrieving license states, error file
+    viewing, abort file handling, extending APDL templates, ...
+** Last slide of the ANSYS-Mode tutorial
+***  Hint for the curious:
+         :PROPERTIES:
+         :BEAMER_env: block
+ #        :BEAMER_envargs: <1>
+         :BEAMER_envargs: C[c]
+         :BEAMER_col: 0.5
+         :END:
+
+# #+ATTR_LaTeX: width=5.5cm
+# #   ,angle=90
+#+BEGIN_LaTeX
+\href{http://shop.oreilly.com/product/9780596006488.do}{%
+  \includegraphics[width=5.5cm]{./gnu_emacs.png}%
+}
+#+END_LaTeX 
+#+HTML: <img src="./gnu_emacs.png" alt="download page from Google Code">
+
+*** Thank you for your time getting acquainted with ANSYS-Mode!
+         :PROPERTIES:
+         :BEAMER_env: block
+         :BEAMER_envargs: <2>
+         :BEAMER_envargs: C[t]
+         :BEAMER_col: 0.5
+         :END:
+
+#+BEGIN_LaTeX
+\vspace{.2cm}
+#+END_LaTeX
+[[http://www.gnu.org/fun/jokes/gnuemacs.acro.exp.html][Have fun...]]
+#+BEGIN_LaTeX
+\vspace{.4cm}
+#+END_LaTeX
+
+#+ATTR_LaTeX: width=6cm
+    [[./editor_learning_curves.jpg]]
+
+
+

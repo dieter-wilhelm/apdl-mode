@@ -1,0 +1,418 @@
+# #+STARTUP: overview
+#+STARTUP: content
+* Deficiencies:
+  - Highlighting :: Experimental user variable highlighting
+		    does not take into account:
+    + clearing of variables and
+    + usage of variables before their definitions (uninitialised
+      variables)
+    + the variable fontification might clash with ANSYS specifiers
+    + string substitution of %variables% in strings does not highlight
+       them in the proper variable face
+  - Highlighting :: A label :LABEL may appear behind the /input
+                    command and is not highlighted as label
+  - Highlighting :: An apostrophy clashes with the ANSYS "char"
+                    specifier Keybinding: M-Tab is captured under
+                    Windows and some GNU/Linux desktops Workaround: Press
+                    instead of M-Tab (ALT + TAB) the ESC key and then
+                    the Tab key (ESC, TAB) or apply the command from
+                    the menu bar
+  - Keybinding :: M-j: When there is already a `&' in a format command
+                  (like *msg, *vwrite, *mwrite)
+                  ansys-indent-format-line inserts a redundant one
+  - Completion :: Of parametric function parentheses
+		  completes redundant closing parentheses
+  - Completion :: A mouse selection from the *ANSYS-completion* buffer
+                  is only inserted upcased.
+  - Completion :: ANSYS command 'C***' will not be completed
+  - Completion :: Emacs shows M-TAB (which is not working on most
+                  Desktops) in the menu but not ESC TAB or M-C-i for
+                  -complete-symbol (sent a bug report 2012-06-21
+                  bug#11758 bug-gnu-emacs@gnu.org, acknowledged and
+                  fixed 2012-09-02 => Emacs 24.3?)
+  - Skeleton :: Mouse selection of -structural-template does not work
+                (because of stipulated user text input from this skeleton)
+
+*  14.5.2:
+** TODO Freeze
+   - add functionallities to tutorial and manual
+   - take care of small eblocks, especially cmblocks, the might
+     consist of just a node for BCs!
+   - not yet warning message, if html help files are not found
+   - makefile errors: Check tutorials
+   - -dynamic-highlighting is sluggish, highlighting somehow
+     retarded!!!
+   - check *vwrite with gui mode and interactive mode (graphics window?)
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
+   - C-c C-c needs a carriage return in the last line if there is none
+     in the file!
+   - C-c { before a number-block does not work
+   - add user variable for C-c C-c toggle move to next line or remain
+     on current one
+   - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
+   - -if-then does not indent correctly
+   - add element numbers to the general completion list, or not?
+   - WikEmacs, Melpa, GNU ELPA and/or marmalade
+   - HTML APDL documentation
+     here is the tanslation of names to html files:
+     - link to ANSYS-Mode APDL reference:
+     - Chapters of structural APDL documentation:
+   - TODOS: in fontification.org
+     - deletion of vectors *del,Vector without request? ,,nopr?
+     - check character variables 32 Chars. and highlight accordingly
+       string 128, char 8
+     - *vscfun: mean, stdev, ...
+   - test server specifications (menu!) make interconnect
+     conditional of the ANSYS version >= 120
+   - explain fill/*vfill under the "looping" commands: Generates a line
+       of nodes between two existing nodes.
+   - force harmonic table (*vfill) example in -skeleton-bc, make a
+       ansys...-template out of two-mass-harmonics.mac
+   - -program, -license-file and -ansysli-servers should show the
+     current selections
+   - check -license-file var with -license-file-check
+     - Emacs var  :DONE:
+     - env vars  :DONE:
+     - activate -license-file function :TODO:
+   - document Lagrange contact behaviour for contact/press-fit
+     skeleton, critical to element differences!
+   - _RETURN somewhat milder red, clashes with reseved vars!
+   - constraint equations in -template.el and get functions
+** Bugs
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated!
+   - /sys,evince press-fit.pdf  triggers a "search failed"
+   - menu-bar job-name is not working
+   - help overlay is only removed after 1 min if the buffer is active
+      at that time!
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
+** Compiler warnings
+    - ansys-template.el:85:13:Warning: reference to free variable
+      `ansys-skeleton-overlay'
+    - mouse-choose-completion is obsolete since E23.2
+** Release
+   - makefile fontification of _tutorial PDFs is not working,
+     necessary to load them by hand before exporting
+   - document A-M_in-depth_tutorial.org
+       - fontification.mac, leave it in the mode archive for a while
+       - upload to Google code: file:googlecode_upload.py
+   - fontification.el
+     - add Hlp_G_OPE6_NeutralFile.html (aux15 utility functions)
+       commands to the fontification and help stuff: KPT, LCURV,
+       ASURF, VBODY. (functions in ANF files) from the operations
+       guide `ans_ope.pdf'
+     - update ansys_parametric_functions.txt there is a new function
+       since V14
+     - some functions in -skeleton-function are not highlighted and
+       completable, whitespace problem befor paren...
+       and: "nele" undocumented command and function nelem()
+     - es not :
+        *mwrite
+        *cfclos
+	 M-? shows help for *mwrite, when cursor behind *cfclos
+   - -introductory_tutorial.org
+     - update download page to 14.5.1 in the download slide
+     - in variable.png symbols Ns and Ls are not highlighted as
+       variables
+     - change sequence of alignment.pgn first not aligned, second aligned
+     - Too difficult: slide of extensibility, showing Emacs
+       self-documenting help system for a template function
+* Procedures
+  - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
+                 keys in <>
+  - README :: same as Mode help
+  - APDL templates :: minimal working examples ending with -template
+  - Old Emacs versions :: flagged with RESTRICTED:
+  - Menu :: -> indicates the following sub menu entry
+** Freeze
+  - check whether all undocumented commands
+    [[elisp:(find-tag "Ansys_undocumented_commands")]]
+    are still working in V 14.5
+  - TODOs, FIXMEs in the code
+  - checkdoc, -template.el, -process.el, -mode.el done except
+    \\<keymap> & \\[function]
+  - README -- installation (Emacs Wiki format) and accompanying files,
+       features, news, history
+  - update the mode help, complete skeleton menus, update version
+    numbers, default specifiers
+  - update defcustom list in ./bug-report.sh -> ansys-submit-bug-report
+
+# ;  (tags-query-replace "GNU/Linux" "GnuLinux") ;-)
+# ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
+    (tags-query-replace "145" "150")
+    (tags-query-replace "24.2" "24.?")
+    (tags-query-replace "14.5" "15.0")
+    (tags-query-replace "- 2013" "- 2014")
+
+    checkdoc then dry run: Emacs
+    24.2 -Q testing: fontification.mac /*commands and default command
+    lines, every menu entry.  byte-compile-file then dry run
+    profiling, major mode conventions: multiple loading of this mode?.
+  - check Emacs versions on longterm OS systems compile with 22.X,
+    then pretests, emacs-snapshots, clash with Emacs releases (yearly
+    Emacs cycle)?
+
+** Release
+  - Add the latest news from NEWS to the README
+  - update Emacs wiki (README), Google Code with download packages,
+    home page update all version numbers:
+    Google Code with download, documentation page
+  - publication emails (with tutorial and news):
+
+    afoleite@gmail.com,
+    jens.2.missung@continental-corporation.com,
+    joerg.menke@continental-corporation.com,
+    daniel.balint@continental-corporation.com,
+    marius.tarnovetchi@continental-corporation.com,
+    Michaelk@vipac.com.au,
+    razvan.ionel.curtean@continental-corporation.com,
+    Steffen.Kernbach@continental-corporation.com,
+    Johann.Massinger@continental-corporation.com,
+    Marco.Mechi@continental-corporation.com,
+    Antonio.Zangaro@continental-corporation.com,
+    iivvgg@gmail.com,
+    oleksiy.kurenkov@continental-corporation.com,
+    martin.bruehl@continental-corporation.com,
+    klemens.kieninger@continental-corporation.com,
+    zlatko.penzar@continental-corporation.com,
+    saravana.kumar@continental-corporation.com,
+    alwin.perras@continental-corporation.com,
+    sparr@mfkrs1.mw.tu-dresden.de,
+    gmueller1950@gmx.de,
+    info@auc-ev.de,
+    tnelson@cadfem.de,
+    lkrueger@cadfem.de,
+    sgotthold@cadfem.de,
+    sheldonimaoka@yahoo.com,
+
+    better not the "competitor":
+    info@padtinc.com,
+
+    unavailable:
+    mike.brusoe@continental-corporation.com,
+
+
+    This is ideal for examine the WorkBench solver input files.
+
+* Ideas for further versions
+** Parameter help and documentation
+   - make completion of templates with <mouse 1> button additionally
+     to <mouse 2> as in -complete-symbol.
+   - create a function showing deprecated elements and their
+     replacement.  Inspirations from eldoc-mode, show replacements of
+     deprecated elements?
+   - create a reference card
+   - make the timer time interval customisable
+   - show list of license products and their license feature names or
+     translate it in the license status from the licensing guide
+     (product variable table)
+   - C-c C-v show (optionally) only variables defined up to current
+     cursor line.  Make the line number display in
+     `ansys-display-variables' (hyper-)links to the corresponding code
+     line in the respective APDL file.  (See `occur' function.)  Or
+     use the imenu mechanism for this and display the variables in the
+     speedbar. Count the number of user variables when displaying them
+   - documentation in info format, refcard, etc; Emacs help guidelines
+     GNU programming guideline: More requires?,
+   - display alternatives to/swap deprecated element types
+   - M-? Help: parametric functions are not explained with the help
+     command
+   - M-? Help: if there are ignored characters behind the keyword, the
+     keyword is not found
+   - M-? the command help does not work when there are solver ignored
+     characters behind the unique command name, example: *VWROOOOM.
+   - M-? Provide also help for commented out commands
+   - M-?: following a variable allocation with `='
+   - M-?: remove also old overlay when new keyword is not found
+   - M-?: In the last empty line displays overlay below command
+     instead above
+   - Provide ANSYS command completion and command-help in comint
+     buffer
+   - Include all inquiry functions (see UPF documentation)
+   - Include the _RETURN value of the solid modelling commands into
+     their help strings of parameter help.
+** ANSYS process and interpreter buffer
+   example: gnuplot-mode
+   - call to start the ANSYS solution results tracker for .nlh und convergence .gst
+   - implement something like [[file:nlhist.sh]] for .cnd files
+   - make display-buffer "*ANSYS*" optional when sending commands to
+     the ANSYS process
+   - use ANSYS *env variables* like AWP_ROOT140 for checking
+     installation directories
+   - check also the license status for hpc licenses if
+     -no-of-processors is greater then 3
+   - implement ANSWAIT variable
+   - autoloading of: -license-file, -license-program functions
+   - dbus support of workbench or integrating emacs in workbench?
+   - insert skeleton with C-c C-s i, send line C-c C-c ccc
+   - warn when C-c C-c tries to send a block command (complete to full
+     block?)
+   - take care when region isn't complete in -send-to-ansys (send whole line)
+   - C-c C-c skips empty lines and comments this is not always desirable
+     -> make this optional -> filter process input?
+   - C-c C-q, C-c C-u and C-c C-c sequences are not shown (and stored)
+     in the comint buffer
+   - make filter of -license-status optional
+   - optimise -start-run with query of y (start immediately),n
+     (exit),e (change params),C-h (help)
+   - Splice any input line behind the BEGIN: symbol in the *ANSYS*
+     buffer
+   - Enable one solver run for every ANSYS macro buffer
+   - indicate with activation/inactivation of menu items that an
+     asynchronous job is already running or not.
+   - show/mark sent lines in apdl file C-c C-u, C-c C-c,
+     + with fringes
+     + with background
+     + maximum line
+     + reset highlighting, when?
+   - provide ANSYS `y' request and carriage return? superflouous?  a
+     single `y' does the trick
+   - Killing a buffer with a running process now asks a confirmation.
+     You can remove this query in two ways: either removing
+     `process-kill-buffer-query-function' from
+     `kill-buffer-query-functions' or setting the appropriate process
+     flag with `set-process-query-on-exit-flag'.
+    - finding an ANSYS /filnam command in current macro file and
+      suggesting this as current job-name optionally kill old job when
+      called again with working run warn and optionally remove the
+      ansys lock file before starting a run
+    - search in -job for /filn arguments as default job name like in
+      -display-error-file
+** Skeletons and abbrevs
+   - -skeleton-select is a bit thin, not yet finished?
+   - add a preview mode, with its own keymap for faster editing and
+     copying, like dired
+   - enhance abbrev definitions for *create, *dowhile logics:
+   - use the ANSYS sample input listing for template-examples
+   - additional dialog boxes with:
+     /ui,anno,ksel...,wpse,help,query,copy
+   - make outline string in skeletons configurable
+   - spider beams, _bolt.mac, screw.mac, Mohr-Coulomb criterion
+   - rework concept with respect to the ANSYS menu structure sort
+     skeletons in menu. Concept: 1.) ANSYS Workflow 2.) specialised
+     macro library
+   - Make skeleton-header properly working (info "(autotype)")
+   - Optimise templates: completing-read, read-from-minibuffer
+   - abbrev `d does not indent properly in another block level
+   - Implement choice when completing *IF commands (*ELSEIF or *ENDIF
+     ?THEN?).
+   - Warn when including skeleton in read only file.
+   - skeleton for numbering ansys-skeleton-numbering-controls
+     (skeleton-insert docu)
+   - suggestions with auto-completion of
+     kp,line,area,volu,node,elem,tabn,sval
+   - negation, what negation? TODO:
+   - skeleton for skipping code *if,then *else*endif if selection:
+     wrap around and indenting *go/*if label is not fontified at the
+     command line (restriction of 7 characters with out the colon.)
+     must *go:label be unambiguous?
+** Miscellaneous
+   - /Zoom not longer supported?! V14
+   - add to -display-variables a prefix argument for showing the value
+     of the variable around point, or center the variables window...
+   - customisation option for a the web browser of -browse-ansys-help
+   - ideas for preview also of a/the macro directory?
+   - put graphics dlls in windows package
+   - LSDYN support, see lsdyna.el
+   - material properties :: add apdl libary of material data with mpwrite?
+   - embedded calc :: include in hacking.mac
+   - Alignment :: alignment "section" is not clearly defined in function
+		  -align
+   - alignment :: extend to vector definitions
+		  t(1,0) = 20,300,3094,
+		  t(1,1) =  3,  4,   9,
+   - Utility for clearing files like .rst, ... or using dired?
+   - E23.2 mouse-choose-completion obsolete
+   - Configure the highlighting colours with black on white background
+   - C-j, M-j are not skipping to `,' whith default command (from second
+     line onwards)!
+   - supply command for clearing recursively not important process files:
+     .rst, .log, ..., supply a customisaton variable
+   - ANSYS mode debian .deb package
+   - narrow, outline, transparent-font: eblocks, nblocks by default?
+   - add notes for parameter help of undocumented commands (alist)
+   - create filter variable for hiding not installed license types
+     ("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"
+   - commands shorter than 4 chars are not allowed with additional chars
+     adjust this to -highlighting-level 0
+   - Make ANSYS mode also working solely with ansys-mode.el
+   - make M-C-h more intelligent like M-h (if mark...)
+   - speed concern: replace -find-duplicate-p with function argument to
+     add-to-list
+   - For non-comint-mode usage: display .log file with tail mode
+   - is outline-mode enabled? no! make default?, outline
+   - take care of setup procedure: v110/ansys/apdl/start110.ans
+     /MPLIB,READ,/ansys_inc/v110/ansys/matlib
+   - removing/renaming/checking abort file?
+   - Are characters behind unique commands shorter than 4 characters
+     possible? No /sol(u) sufficient? Yes condensed input line ($)
+     behind commands without arguments possible? Yes have a look in
+     -variable-defining-commands!  Warn when - unintentionally -
+     arguments are used for ANSYS commands which do not allow
+     arguments.  Or implement some auto-newline feature?  But
+     problematic in condensed command lines or when applying code
+     comments!
+   - undocumented ask parameter
+   - mode-line-format nil);no mode line for this buffer Unambiguous
+   - Emacs: old-style backquotes?  used in the old template macro system
+   - completion of function names: cursor should end within parentheses
+   - better hints for auto-insertion features
+   - up/down-block when we are over a begin-keyword and in a block-end
+     line
+   - component names are fontified as variables! separate them cmlist?
+   - format string for *VWRITE: line(s) below, in parens, when FORTRAN
+     format specifiers are used, keyword SEQU povides row numbers, up
+     to 19 parameters are allowed
+   - remove vestiges of ansys-mod.el for making ansys-mode.el GPL
+     proof.  Check whether octave-mod.el really is GPL compliant, use
+     -ctave-mod.el from 1997, kill octave-mod.el afterwards in
+     makefile read every symbol docu string ->NEW_C or _C or OCTAVE_C
+   - replace/extend column-ruler with ruler-mode or ruler implemented as
+     overlay in buffer
+   - make everything completely customisable, eg auto-insert stuff
+     customisable enable, Emacs customisation of auto-insert-query
+   - Fontify *completion list* distinguishing elements: commands,
+     functions and keywords.
+   - provide a list of options for the -license function, set this
+     function in the defcustom lmstat -a etc.
+   - auto-indent-switch as defcustom?
+   - inhibit the unnecessary blink-matching-block display when closing a
+     block behind a block-end keyword
+   - highlight matching block keywords (similar to show-paren-mode) when
+     point is at keyword
+   - Implement highlighting of bracket pairs with the correct level in
+     ANSYS GET- and parametric- functions.
+   - highlighting of plot commands inside the /GCMD command
+   - DEFSUBSTs with DEFUNs inside aren't particularly helpful?
+   - Emphasise better implied (colon) loops n,(1:6),(2:12:2) => n,1,2
+     $ n,2,4 $... (little used, I know, but any ideas going beyond the
+     colon?).
+   - startup screen for ANSYS mode: Mode help, ANSYS version,
+     supressing the startup screen 'ansys-mode-startup-message maybe
+     as advice when sluggish -> compiliation
+   - Enable choice for /show,3d or x11 (-start-graphics)
+** ANSYS syntax restrictions not (yet) accounted for
+   - Parentheses can only be nested 4 levels deep and only up to 9
+     operations (+,-,*,...) within these set of parentheses
+   - PATH name is restricted to 8 chars
+   - *SET parameter strings may only be 32 character long!
+   - Character parameters are restricted to only 8 characters.
+   - *MSG command can only have 9 additional continuation lines
+   - Code line restriction of 640 characters
+   - Block level restriction of 20 levels of nested *DO loops (except
+     with /INPUT and *USE)
+   - Block level restriction of 10 levels of nested *IF blocks
+   - Macro level restriction: 20 macros
+** Unknown ANSYS stuff
+   - what the heck is the *UILIST command?
+   - Is hyper56 a valid element?
+** Additional APDL macro resources
+   see www.apdl.de for further ideas and extensions
+
+
+# local variables:
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# mode: org
+# end:

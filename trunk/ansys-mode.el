@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 14.5.1
+;; Version: 14.5.2
 ;; Keywords: Languages, Convenience
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright

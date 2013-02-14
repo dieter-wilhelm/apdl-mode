@@ -88,6 +88,7 @@
       at that time!
    - mismatch in customisation buffer of -license-file and -ansysli-servers
 ** Compiler warnings
+    - makefile errors when doing -fontification.el
     - ansys-template.el:85:13:Warning: reference to free variable
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
@@ -112,7 +113,7 @@
         *cfclos
 	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -introductory_tutorial.org
-     - update download page to 14.5.1 in the download slide
+     - update download page to 14.5.2 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned
@@ -143,6 +144,7 @@
     (tags-query-replace "145" "150")
     (tags-query-replace "24.2" "24.?")
     (tags-query-replace "14.5" "15.0")
+    (tags-query-replace "14.5.1" "14.5.2")
     (tags-query-replace "- 2013" "- 2014")
 
     checkdoc then dry run: Emacs

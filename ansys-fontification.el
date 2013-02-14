@@ -784,7 +784,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"ansys-fontification.el\" release 14.5.1.\n\n"
+  "\"ansys-fontification.el\" release 14.5.2.\n\n"
   ";; Copyright (C) 2006 - 2013 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")

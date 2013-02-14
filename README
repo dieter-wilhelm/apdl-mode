@@ -28,10 +28,10 @@ in-built help no ANSYS installation necessary.
 up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.
 
-The current stable version 14.5.1 of ANSYS-Mode is available at the
+The current stable version 14.5.2 of ANSYS-Mode is available at the
 [http://code.google.com/p/ansys-mode Google Code site] or in the
 command line way, e. g.: "wget
-http://ansys-mode.googlecode.com/files/ansys-mode-14.5.1.tgz").  The
+http://ansys-mode.googlecode.com/files/ansys-mode-14.5.2.tgz").  The
 some code (completions, help strings etc.) is based on ANSYS version
 14.5.  Besides the mode and Emacs you will find also in the download
 section two tutorials.  For an immediate access have a look at the
@@ -46,8 +46,8 @@ Google Code's [http://code.google.com/p/ansys-mode/issues/list issues list].
 
 == Requirements ==
 
-It is tested with Emacs-24.1, Emacs-24.2 under XP64 and under
-GNU/Linux64 (here also with Emacs-23.2).
+The mode was tested with Emacs-24.2 under XP64, Win7 and GNU/Linux64.
+It should also run with Emacs-23 and under respective 32 bit systems.
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for GNU/Linux systems.
@@ -87,7 +87,10 @@ only implemented for GNU/Linux systems.
 * Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
-  (2) these `user variables' are highlighted as well.
+  (2) these `user variables' are dynamically highlighted as well.
+  With a running ANSYS interpreter process (GNU/Linux only) it is also
+  possible with a keyboard shortcut to query the current status of
+  variables near the cursor.
 
 * Preview and/or insertion of extensible APDL code templates.  For
   example the function template shows *all* available ANSYS
@@ -98,6 +101,11 @@ only implemented for GNU/Linux systems.
 
 * Alignment (beautification) of whole paragraphs or marked sections
   with variable definitions.
+
+* Narrowing, i. e. hiding, of uninteresting content. This is done by
+  default for number blocks (nblock, eblocks and cmblocks) in
+  WorkBench created solver input file (with the suffix .dat).  You
+  can, in case the need arises, unhide and inspect these as well.
 
 * Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode. With outline strings '!@' you have a heading
@@ -141,62 +149,7 @@ a certain code template, respectively.
 
 == News ==
 
-* Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
-  the detailed ANSYS help in your web-browser for an APDL command or
-  element name (also the element number is sufficient) around the
-  cursor (or if that fails at the line beginning).
 
-  Are you also tired of the ANSYS help browser?  For example try
-  searching for the `F' APDL command, it is impossible!  You have to
-  pick it up from the alphabetical command list. Likewise when you are
-  searching for an incomplete keyword, no hint, no completion,
-  nothing!  Finding and browsing relevant APDL documentation is still
-  cumbersome and too slow
-
-  As a highlight of this release you can now read immediately the
-  detailed ANSYS help in your web browser for *all* APDL command AND
-  element names around the cursor (or for the first command in the
-  current line if that fails to be valid keyword).  You may input your
-  search string also interactively, including its completion to ANSYS
-  help keywords and of certain help categories, like `Release Notes'
-  and such. This is an ideal complement to ANSYS-Mode's in-built
-  `command syntax help'
-
-* The function `ansys-start-ansys' is now available under Windows as well
-  and starts the APDL product launcher under this platform.
-
-* When calling `ansys-browse-ansys-help' and
-  `ansys-show-command-parameters' (M-? - the in-built `command syntax
-  help') with a prefix argument for interactively entering a command
-  name, the name is now completable.  And in the non-interactive mode
-  both functions working also for APDL commands which are commented
-  out as well (only for the first command in case of
-  `ansys-show-command-parameters').
-
-* Also the input of `ansys-query-ansys-command' (C-c C-q) is now
-  completable to all current ANSYS commands and with an optional
-  prefix argument the current code line is copied as the initial
-  input.
-
-* Improved the introductory and the in-depth tutorial and extended the
-  documentation with an APDL and syntax highlighting reference in HTML
-  and PDF. (To some degree syntax highlighted in the PDF version as
-  well)
-
-* Values of the `_RETURN' variable are now documented in the function
-  `ansys-skeleton-information'
-
-* `ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
-  now skipping over node and elements blocks, which are only pure
-  number blocks.  They are now alternatives to
-  `ansys-number-block-start' C-c { and C-c } respectively
-
-* Removed bug in customisation system and dropped 32 bit ANSYS support
-  in line with the ANSYS OS
-  [http://www.ansys.com/Support/Platform+Support strategy] for 2013.
-
-* Described a poor man's round() workaround in ansys-template-function
-  under the nint() entry
 
 Please have a look in the NEWS file for the complete history
 
@@ -204,7 +157,7 @@ Please have a look in the NEWS file for the complete history
 
 The version scheme is a mixture of the ANSYS release (currently 14.5)
 on which the highlighting and completing code is based and the version
-increments (currently .1) of ANSYS-Mode (thus 14.5.1) for this
+increments (currently .2) of ANSYS-Mode (thus 14.5.2) for this
 particular ANSYS release.
 
 === Files ===
@@ -226,10 +179,10 @@ Auxiliaries:
 * LICENSE -- The GPL (Gnu Public License) Version 3
 * default_el -- Configuration example file of an Emacs 'default.el'
 * fontification.mac -- APDL example file
-* A-M_introductory_tutorial-14.5.1.pdf -- Your first look at ANSYS-Mode?
-* A-M_in-depth_tutorial-14.5.1.pdf -- A hands-on ANSYS-Mode tutorial
-* A-M_in-depth_tutorial-14.5.1.ansys -- Hands-on tutorial's supplementary APDL code
-* A-M_APDL_reference-14.5.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+* A-M_introductory_tutorial-14.5.2.pdf -- Your first look at ANSYS-Mode?
+* A-M_in-depth_tutorial-14.5.2.pdf -- A hands-on ANSYS-Mode tutorial
+* A-M_in-depth_tutorial-14.5.2.ansys -- Hands-on tutorial's supplementary APDL code
+* A-M_APDL_reference-14.5.2.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 === Short instructions ===
 
@@ -419,8 +372,8 @@ capabilities are new or extended)
 
 Then in mainly reverse chronological order:
 
-* Mathias Dahl, for hide-region.el (and yupeng for some additions)
 * Alwin Perras
+* Mathias Dahl, for hide-region.el (and yupeng for some additions)
 * Michael Kidner
 * Ilya Gurin
 * Alex Schroeder

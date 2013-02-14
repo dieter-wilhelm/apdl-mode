@@ -6,25 +6,19 @@
 
 import os
 import glob
-#import sys
+import re
 
-version = "Ansys V145"
-#r_dir = "/appl"
-#a_dir = "/ansys_inc/v140/commonfiles/help/en-us/help/ans_cmd"
-#loc = r_dir + a_dir
-#os.chdir(loc)
-
-# CmdToc.html repesents (V13, V14, V14.5) the collection of all commands
+version = "145"
 f_list = glob.glob("Hlp_C_CmdTOC.html")
-
-#f_list = glob.glob("Hlp_*_TOC.html")
-#f_list.append("Hlp_conn_cmds.html")
-
 out = "ansys_keywords.txt"
 o = open(out,'w+')              # w+: write anew
-o.write("# created by a script for " + version + "\n")
+o.write("# Command list for ANSYS" + version + "\n")
 
-ref = 'class="refentrytitle">'
+# ref is the entry class for commands in a definition list
+ref = '<dt><span class="refentrytitle">'
+# end of definition
+ref2= '</span></dt>'
+
 cmd = 'class="command"><strong>'
 cl = len( cmd)
 prp = 'class="refpurpose">'
@@ -32,23 +26,30 @@ pl = len( prp)
 
 for f in f_list:
     print "reading", f
-    o.write("# " + f + "\n")
-    inf = open(f)                  # default: read only mode
+    inf = open( f)              # default: read only mode
+    o.write("# from " + f + "\n")
     s = inf.read()
     pos2 = 0
     n = 0
     while True:
-        pos = s.find( cmd, pos2)
+        pos = s.find( ref, pos2)
         if pos < 0:
             break
-        pos2 = s.find( '<',pos + cl)
-        cs =  s[ pos+cl:pos2]
-        pos = s.find( prp, pos2)
-        pos2 = s.find('<',pos)
-        ps = s[ pos+pl:pos2].replace("\n"," ")
+        # es = complete entry string of a command definition
+        pos2 = s.find( ref2, pos)
+        es =  s[ pos:pos2]
+        # finding command position of es
+        pos3 = es.find( cmd, 0)
+        pos4 = es.find( '<',pos3+cl)
+        cs = es[ pos3+cl:pos4]      # command keyword string
+        # finding the documentation string
+        pos3 = es.find( prp, pos4)
+        ps = es[ pos3+pl:len(es)].replace("\n"," ") # purpose string
+        ps = re.sub('<.*?>','',ps)
+        print ps
         o.write(cs + ps + "\n")
         n = n + 1
     inf.close()
 o.close()
-print "that's it!"
-print "we have ", n, "entries."
+print "We have ", n, "entries in the HlP_C_CmdTOC.html."
+print  "wrote " + out + ", that's it!"

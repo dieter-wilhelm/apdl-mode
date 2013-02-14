@@ -184,9 +184,9 @@
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
-** Inspect easily WorkBench solver input files (suffix .dat)
-   ANSYS-Mode hides the normally uninteresting (but usually very
-   large) number blocks.  On the right hand side the unhidden file.
+** Inspect easily WorkBench solver input files (suffix /.dat/)
+   ANSYS-Mode hides the normally uninteresting but usually very
+   large number blocks.  On the right hand side is the unhidden content.
 #+ATTR_LaTeX: height=7.5cm
   [[./hidden_blocks.png]]
 #+ATTR_LaTeX: height=7.5cm

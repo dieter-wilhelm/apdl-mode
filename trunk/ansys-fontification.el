@@ -42,7 +42,7 @@
 ;;     done: v12
 
 ;;     use: extract_tags.py
-;;     cp Hlp_C_CmdTOC.html to ./
+;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
 ;;     done: v13,14,145
 
 ;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)

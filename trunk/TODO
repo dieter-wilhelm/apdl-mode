@@ -83,10 +83,9 @@
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated!
    - /sys,evince press-fit.pdf  triggers a "search failed"
-   - "modopt", "harfrq", "/gcolumn" not found in keywords!!!
    - menu-bar job-name is not working
    - help overlay is only removed after 1 min if the buffer is active
-      at that time
+      at that time!
    - mismatch in customisation buffer of -license-file and -ansysli-servers
 ** Compiler warnings
     - ansys-template.el:85:13:Warning: reference to free variable

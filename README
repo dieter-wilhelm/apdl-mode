@@ -21,8 +21,8 @@ sophisticated but its documentation is targeted for ANSYS users with
 little Emacs experience.
 
 Advantages compared to other APDL editors: Largest feature set, user
-extensible, cost-free, integrated calculator, available for all OS, for
-in-built help no ANSYS installation necessary.
+extensible, cost-free, Emacs integrated tools, available for all OS,
+for in-built help no ANSYS installation necessary.
 
 [http://www.gnu.org/home.en.html GNU (Gnu's Not Unix)] Emacs is an
 up-to-date, powerful and extensible - yet free - editor. High quality
@@ -78,7 +78,7 @@ only implemented for GNU/Linux systems.
   *IF-, *DOWHILE-, *CREATE-blocks, etc.
 
 * Warning of deprecated element types with a different highlighting of
-  element names for current and deprecated technology ones.
+  element names in current and deprecated technology.
 
 * Syntax highlighting in various decoration levels (complete ANSYS
   keywords, undocumented commands, deprecated elements, ...)  and
@@ -374,13 +374,13 @@ Then in mainly reverse chronological order:
 
 * Alwin Perras
 * Mathias Dahl, for hide-region.el (and yupeng for some additions)
+* Thien-Thi Nguyen
 * Michael Kidner
 * Ilya Gurin
 * Alex Schroeder
 * Holger Sparr
 * Eli Zaretzki
 * Markus Triska
-* Mathias Dahl
 * [http://stallman.org/ RMS]
 
 == Resources ==

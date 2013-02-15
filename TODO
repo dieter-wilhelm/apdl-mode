@@ -80,6 +80,9 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - join not in function list
+   - /gcolumn in -skeleton-arry not higlighted
+   - *msg command's format string is not higlighted (-template-element-table)
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated!
    - /sys,evince press-fit.pdf  triggers a "search failed"
@@ -142,9 +145,9 @@
 # ;  (tags-query-replace "GNU/Linux" "GnuLinux") ;-)
 # ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
     (tags-query-replace "145" "150")
-    (tags-query-replace "24.2" "24.?")
+    (tags-query-replace "24.2" "24.3")
     (tags-query-replace "14.5" "15.0")
-    (tags-query-replace "14.5.1" "14.5.2")
+    (tags-query-replace "14.5.2" "15.0.1")
     (tags-query-replace "- 2013" "- 2014")
 
     checkdoc then dry run: Emacs

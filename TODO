@@ -80,6 +80,8 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - variables are not highlighted in -skeletons?
+   - *create file tmp,mac: macro call: tmp, is not highlighted
    - join not in function list
    - /gcolumn in -skeleton-arry not higlighted
    - *msg command's format string is not higlighted (-template-element-table)

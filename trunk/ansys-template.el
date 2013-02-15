@@ -211,7 +211,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*status,_STATUS !return value: 0:no error, 1:note, 2:warning, 3:error" \n
   "*stat,argx !list all local ARGx values" \n
   "*status,_RETURN !some solid modelling commands return this parameter" \n
-  "(see the _return value list below)"\n
+  "!(see the _return value list below)"\n
   "*vstat !status on arry operations"\n
   \n
   "!! .............................." \n
@@ -363,7 +363,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton ansys-skeleton-configuration
   ""
   nil
-  "@! ------------------------------" \n
+  "!@ ------------------------------" \n
   "!@@ -- configurations --" \n
   "!! ------------------------------" \n
   \n
@@ -468,7 +468,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "! read from file" \n
   "*dim,bla" \n
   "*vread,bla,file,dat,,ijk" \n
-  "(E10.3)! works only with FORTRAN not C specifiers!" \n
+  "(E10.3)"  \n
+  "! works only with FORTRAN not C specifiers!" \n
   )
 
 (define-skeleton ansys-skeleton-expand	;NEW
@@ -498,7 +499,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- contact pair defintion --" \n
   "!! ------------------------------" \n
   \n
-  "Contact="_ \n
+  "Contact=1"_ \n
   "Target=Contact+1" \n
   "r,Contact !define a real set" \n
   "et,Contact,conta174    !3d, 8 node" \n
@@ -885,12 +886,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ==============================" \n
   "!! --- Parameteric functions ---" \n
   "!! ==============================" \n
+  "X = 2 $ Y = 1/3 !Base X and (real) exponent Y for the following:" \n
+  "A = X**Y    !Exponentiation x**y: x^y" \n
   "A = ABS()   !Absolute value"  \n
   "A = SIGN()  !sign(x,y) absolute value of x with sign of y" \n
   "A = CXABS() !cxabs(x,y) absolute value of complex number x+i*y" \n
   "A = EXP()   !Exponential,exp(x): e^x" \n
-  "X = 2 $ Y = 1/3" \n
-  "A = X**Y    !Exponentiation x**y: x^y" \n
   "A = LOG()   !Natural log"  \n
   "A = LOG10() !Common log, Briggs' log"\n
   "A = SQRT()  !Square root" \n
@@ -1643,7 +1644,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "! --- 3.) create a 'command' file test.mac with parameter substitution" \n
   "*create,test,mac !write macro file" \n
-  "*cfopen,test,txt,,append ! appending to file" \n
+  "*cfopen,test,txt,,append ! appending to file" > \n
   "*cfwrite,A=5 ! interpreted output" \n
   "! SET strings are limited to 32 characters!!!" \n
   "*cfwrite,Strg1='# cylindrical magnet: radius = %Rad%'" \n
@@ -1674,13 +1675,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "vget,Tim(1),1 ! time or frequency" \n
   "!! - export arrays -" \n
   "*create,tmp,mac" \n
-  "  *cfopen,sim,txt" \n
-  "  Strg='T AX AY'" \n
-  "  *vwrite,Strg" \n
-  "  %S" \n
-  "  *vwrite,Tim(1), Accx(1), Accy(1)" \n
-  "  %G %G %G" \n
-  "  *cfclos" \n
+  "*cfopen,sim,txt" > \n
+  "Strg='T AX AY'" \n
+  "*vwrite,Strg" \n
+  "%S" \n
+  "*vwrite,Tim(1), Accx(1), Accy(1)" \n
+  "%G %G %G" \n
+  "*cfclos" \n
   "*end" > \n
   "*list,tmp,mac" \n
   "/input,tmp,mac" \n

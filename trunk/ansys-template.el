@@ -1879,7 +1879,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
    \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
-  "*del,B,,nopr !deleting before redimensioning necessary" \n
+  "*del,B,,nopr !undocumented feature: deleting without warning" \n
   "*dim,B,table,10,1,1,TIME !table type interpolating" \n
   "B(1,0,1) = 0." \n
   "B(2,0,1) = 1." \n
@@ -1892,7 +1892,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n
   "*if,Dim,le,1,then" \n
-  "! or just deleting before (re)dimensioning: *del,A,,nopr" > \n
+  "! or just deleting with warning: A =" > \n
+  "! deleting before (re)dimensioning without warning: *del,A,,nopr" > \n
   "*dim,A,array,10,1" > \n
   "*endif" > \n
   "*do,I,1,Ns" \n

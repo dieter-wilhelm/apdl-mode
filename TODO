@@ -35,9 +35,6 @@
 
 *  14.5.2:
 ** TODO Freeze
-   - add functionallities to tutorial and manual
-   - take care of small eblocks, especially cmblocks, the might
-     consist of just a node for BCs!
    - not yet warning message, if html help files are not found
    - makefile errors: Check tutorials
    - -dynamic-highlighting is sluggish, highlighting somehow
@@ -83,7 +80,6 @@
    - variables are not highlighted in -skeletons?
    - *create file tmp,mac: macro call: tmp, is not highlighted
    - join not in function list
-   - /gcolumn in -skeleton-arry not higlighted
    - *msg command's format string is not higlighted (-template-element-table)
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated!
@@ -150,6 +146,8 @@
     (tags-query-replace "24.2" "24.3")
     (tags-query-replace "14.5" "15.0")
     (tags-query-replace "14.5.2" "15.0.1")
+    # for _mode_version
+    (tags-query-replace "\"2\"" "\"1\"")
     (tags-query-replace "- 2013" "- 2014")
 
     checkdoc then dry run: Emacs
@@ -204,6 +202,7 @@
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - makeinfo documentation with ox exporter
    - make completion of templates with <mouse 1> button additionally
      to <mouse 2> as in -complete-symbol.
    - create a function showing deprecated elements and their
@@ -220,7 +219,7 @@
      line in the respective APDL file.  (See `occur' function.)  Or
      use the imenu mechanism for this and display the variables in the
      speedbar. Count the number of user variables when displaying them
-   - documentation in info format, refcard, etc; Emacs help guidelines
+   - refcard, etc; Emacs help guidelines
      GNU programming guideline: More requires?,
    - display alternatives to/swap deprecated element types
    - M-? Help: parametric functions are not explained with the help

@@ -30,7 +30,8 @@ Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
   help entries, in the previous release were unfortunately many
   keywords missing or entries incomplete.
 
-* As always: Enhancements and corrections for the APDL templates
+* As always: Enhancements and corrections for the APDL templates,
+  added a beam simulation template
 
 ===  Version 14.5.1 Sep 2012 ===
 

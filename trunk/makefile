@@ -19,7 +19,7 @@ else
  EMACS_DIR := /appl/
 endif
 
-EMACS_VERSION := emacs-24.2
+EMACS_VERSION := emacs-24.3
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
 EMACS_PACKAGE_SIG := $(EMACS_VERSION)-bin-i386.zip.sig
 EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.bz2
@@ -32,7 +32,7 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SI
 EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
 
 # this is the current ansys-mode version
-MODE_VERSION := 2-beta.1
+MODE_VERSION := 2-beta.2
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -162,4 +162,6 @@ TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO NEWS A
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :
-	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-15.0.1 -m "tagging 15.0.1"
+	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.2-beta.2 -m "tagging 14.5.2-beta.2"
+
+#	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.2-beta.1 -m "tagging 14.5.2-beta.1"

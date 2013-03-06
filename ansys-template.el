@@ -762,6 +762,89 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
+(define-skeleton ansys-beam-template
+  "example of a modal analysis with beams"
+  nil
+  '(ansys-skeleton-header)
+  "!fini" \n
+  "!/clear" \n
+  "!y" \n
+  "/units,mpa !indicate mm-t-s unit system" \n
+  "!@ ==============================" \n
+  "!@ --- Preprocessing ---" \n
+  "!@ ==============================" \n
+  "/prep7" \n
+  "!@@ -- Elements --" \n
+  "Steel = 1" \n
+  "ID = Steel" \n
+  "et,ID,beam188 !1883d, 2 node beam" \n
+  "" \n
+  "!! real = ID+1" \n
+  "!! et,ID+1,mass21,,,2!no rotary intertia" \n
+  "!! R,ID+1,100*7850e-12" \n
+  "!! !keyopt,ID+1,3,2" \n
+  "" \n
+  "!@@ -- Material --" \n
+  "mp,nuxy,Steel,0.3 ! Poisson No" \n
+  "mp,ex,Steel,200000 ! Elastic modulus" \n
+  "mp,dens,Steel,7850e-12 !density in t/mm³" \n
+  "" \n
+  "!@@ -- Modeling --" \n
+  "sectype,1,beam,rect" \n
+  "secdata,1,1" \n
+  "slist, 1, 1 !list section properties" \n
+  "secplot,1 ! show beam section" \n
+  "" \n
+  "n,1,0" \n
+  "*repeat,11,1,1" \n
+  "" \n
+  "type,1" \n
+  "mat,Steel" \n
+  "e,1,2" \n
+  "*repeat,10,1,1" \n
+  "" \n
+  "!! type,ID+1" \n
+  "!! real,ID+1" \n
+  "!! e,11" \n
+  "" \n
+  "!@@ -- BCs, Loads --" \n
+  "nsel,s,loc,x,0" \n
+  "d,all,all" \n
+  "" \n
+  "!! nsel,s,loc,x,1" \n
+  "!! d,all,uy,-.1" \n
+  "!! allsel" \n
+  "!! save" \n
+  "!@ ==============================" \n
+  "!@ --- Solving ---" \n
+  "!@ ==============================" \n
+  "/solu" \n
+  "allsel" \n
+  "antype,modal" \n
+  "modopt,lanb,10,10,1e10!method,No of modes,freqB,freqE" \n
+  "outres,all,all" \n
+  "mxpand,,,,yes" \n
+  "solve" \n
+  "save" \n
+  "" \n
+  "/solu" \n
+  "solve" \n
+  "!@ ==============================" \n
+  "!@ --- Postprocessing ---" \n
+  "!@ ==============================" \n
+  "/post1" \n
+  "set,list" \n
+  "set,1,1" \n
+  "prnsol,dof !print nodal solution results" \n
+  "prrsol,node !reaction solution" \n
+  "" \n
+  "/eshape,1" \n
+  "/view,,1,1,1" \n
+  "pldisp" \n
+  "plnsol,u,sum,2" \n
+  "anmode" \n
+  )
+
 (define-skeleton ansys-skeleton-element-definition
   ""
   nil
@@ -784,11 +867,20 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!!for most elements the radial direction is the x-axis" \n
   \n
   "!! .............................." \n
-  "!@@@ - structural shells and planes -" \n
+  "!@@@ - structural shells, beams, masses and planes -" \n
   "!! .............................." \n
   \n
   "et,ID,shell181 !3d 4/3-node structural shell" \n
   "et,ID,shell281 !3d 8/6-node structural shell" \n
+  "!! - beam -" \n
+  "et,ID,beam188 !3d 2-node beam" \n
+  "et,ID,beam189 !3d 3-node beam" \n
+  "sectype,1,beam,rect" \n
+  "secdata,1,1" \n
+  "slist, 1, 1 !list section properties" \n
+  "!! - mass -" \n
+  "et,ID,mass21,,,2 !(3)2 no rotary inertia" \n
+  "r,ID,1 ! mass for mass21" \n
   "!! - plane -" \n
   "et,ID,plane182 !2d 4/3-node structural solid" \n
   "et,ID,plane183 !2d 8/6-node structural solid" \n
@@ -1535,6 +1627,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "fmagsum,'component_name'" \n
   \n
   "!@ ------------------------------" \n
+  "!@@ -- modal --" \n
+  "!! ------------------------------" \n
+  \n
+  "pldisp,2 !show deformed shape and undefomed (2) contours" \n
+  \n
+  "!@ ------------------------------" \n
   "!@@ -- harmonics --" \n
   "!! ------------------------------" \n
   \n
@@ -1587,7 +1685,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
   \n
+  "!@ ------------------------------" \n
   "!@@ -- animations --"\n
+  "!@ ------------------------------" \n
+  \n
   "plnsol,s,1" \n
   "/anfile,save !save/resume animation to/from jobname.anim" \n
   "/anfile,save,cylind !save animation to cylind.anim" \n
@@ -2028,7 +2129,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plnsol,u,sum"\n
   \n
   )
-
 
 (defun ansys-skeleton-compilation-template ()
   "Your collection of selected code templates."

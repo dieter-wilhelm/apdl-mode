@@ -3299,7 +3299,7 @@ argumen ARG, the function evaluates the variable at point."
 			  (concat "*status," str "\n")
 		      )
       (display-buffer "*ANSYS*" 'other-window)
-      (message str)))
+      (message  (concat "Enquiring status for variable: " str))))
    (t
      (ansys-find-user-variables)
      (let* ((current-buffer (buffer-name))

@@ -327,6 +327,139 @@ and you are getting a diffent element highlighting.
   - DELETION OF ARRY parameters without warning only possible with an
     undocumented option: *del,Array,,nopr
 
+** File zoo/types (operations guide) under Gnu/Linux?
+   |  No | Type                                                             | Name     | temp. | Remark                             | Format  |
+   |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
+   |   1 | abort                                                            | .abt     |       |                                    | binary  |
+   |   2 | graphics annotation commands                                     | .ano     | yes   |                                    | ascii   |
+   |   3 | neutral file format                                              | .anf     | no    |                                    | ascii   |
+   |   4 | animation                                                        | .anim    |       |                                    | binary  |
+   |   5 |                                                                  | .ans_log |       |                                    | ascii   |
+   |   6 | input data copied from batch input file /batch                   | .bat     | yes   |                                    |         |
+   |   7 | sparce solver                                                    | .bcs     | no    | run time statistics                | ascii   |
+   |   8 | interpolated body forces (bfint)                                 | .bfin    | no    |                                    | ascii   |
+   |   9 |                                                                  | .cdb     |       |                                    |         |
+   |  10 | sparce solver                                                    | .dsp     |       | run time statistics                | ascii   |
+   |  11 | interpolated DOF data (cbdof)                                    | .cbdo    | no    |                                    | ascii   |
+   |  12 | color map                                                        | .cmap    | no    |                                    | ascii   |
+   |  13 | default command file suffix (*cfopen, *cfwrite)                  | .cmd     | no    |                                    | ascii   |
+   |  14 | component mode synthesis                                         | .cms     | no    |                                    | binary  |
+   |  15 | nonlinear diagnostics file (nldiag)                              | .cnd     | no    |                                    | ascii   |
+   |  16 | pcg solver                                                       | .pcs     |       | run time statistics                | ascii   |
+   |  17 | workbench solver input                                           | .dat     |       |                                    | ascii   |
+   |  18 | database                                                         | .db      |       |                                    | binary  |
+   |  19 | db backup                                                        | .dbb     |       |                                    | binary  |
+   |  20 | databas from vmseh failure in batch mode                         | .dbe     | no    |                                    | binary  |
+   |  21 | fortran solution information                                     | .dbg     | no    |                                    | ascii   |
+   |  22 | Do-loop nesting                                                  | .do#     | yes   |                                    |         |
+   |  23 | scratch file modal analysis                                      | .dscr    | yes   |                                    | binary  |
+   |  24 |                                                                  | .D#      |       |                                    |         |
+   |  25 | perfomance information sparse solver distributed                 | .dsp     | no    |                                    | ascii   |
+   |  26 | scratch file distributed sparse solver                           | .dsp#    |       |                                    | binary  |
+   |  27 | Superelement DOF solution from use pass                          | .dsub    | no    |                                    | binary  |
+   |  28 | Element definitions (EWRITE)                                     | .elem    | no    |                                    | ascii   |
+   |  29 | element matrices                                                 | .emat    |       |                                    | binary  |
+   |  30 | element saved data                                               | .esav    |       |                                    |         |
+   |  31 | errors and warnings                                              | .err     |       |                                    | ascii   |
+   |  32 | distributed memory                                               | #.err    |       |                                    |         |
+   |  33 | rotated element matrices                                         | .erot    | yes   |                                    |         |
+   |  34 | Element saved data ESAV files created by nonlinear analyses      | .esav    | yes   |                                    | binary  |
+   |  35 | scratch file PCG Lanczos eigensolver                             | .evc     | yes   |                                    | binary  |
+   |  36 | scratch file PCG Lanczos eigensolver                             | .evl     | yes   |                                    | binary  |
+   |  37 |                                                                  | .ext     |       |                                    |         |
+   |  38 |                                                                  | .exti    |       |                                    |         |
+   |  39 | local results file distributed memory                            | #.ext    |       |                                    |         |
+   |  40 | stiffness-mass matrices                                          | .full    |       |                                    | binary  |
+   |  41 | Fatigue data [FTWRITE]                                           | .fatg    | no    |                                    | ascii   |
+   |  42 | neutral graphics file                                            | .grph    | no    |                                    | ascii   |
+   |  43 | Graphical solution tracking file                                 | .gst     | no    |                                    | binary  |
+   |  44 | IGES file from ANSYS solid model data [IGESOUT]                  | .iges    | no    |                                    | ascii   |
+   |  45 | initial state                                                    | .ist     |       |                                    |         |
+   |  46 | Loading and bc of load steps (used for multiframe restart)       | .ldhi    |       |                                    | ascii   |
+   |  47 | Database command log file [LGWRITE]                              | .lgw     | no    |                                    | ascii   |
+   |  48 | scratch file for sparse solver                                   | ???.ln#  | yes   |                                    |         |
+   |  49 | Load case file (where nn = load case number) [LCWRITE]           | .l#      | no    |                                    | binary  |
+   |  50 | Factorized stiffness matrix                                      | .ln22    | no    |                                    | binary  |
+   |  51 | Command input history                                            | .log     | no    |                                    | ascii   |
+   |  52 | lock file                                                        | .lock    | yes   | prevent runs in the same directory | binary  |
+   |  53 | scratch file mode superposition                                  | .lscr    | yes   |                                    |         |
+   |  54 | scratch file substructure pass w/ more than 1 load vector        | .lv      | yes   |                                    | binary  |
+   |  55 | macro                                                            | .mac     |       |                                    | ascii   |
+   |  56 | Mapping data [HBMAT]                                             | .mapping | no    |                                    | ascii   |
+   |  57 | Mapping data in Harwell-Boeing format [HBMAT]                    | .matrix  | no    |                                    | asc/bin |
+   |  58 | Modal coordinates from harmonic or transient analysis            | .mcf     | no    |                                    | ascii   |
+   |  59 | modal element load vector                                        | .mlv     | no    |                                    | binary  |
+   |  60 | Nonlinear analysis convergence monitoring                        | .mntr    | no    |                                    | ascii   |
+   |  61 | modal analyses                                                   | .mode    |       |                                    | binary  |
+   |  62 | Material property definitions [MPWRITE]                          | .mp      |       |                                    | ascii   |
+   |  63 | Modal analysis frequencies and mode shapes                       | .modesym | no    |                                    | binary  |
+   |  64 | mode-superposition transient  (multiframe restart)               | .m#      |       |                                    | binary  |
+   |  65 | Nonlinear diagnostics file tracking contact quantities [NLHIST]  | .nlh     | no    |                                    | ascii   |
+   |  66 | Node definitions [NWRITE]                                        | .node    | no    |                                    | ascii   |
+   |  67 | Stores Newton-Raphson iteration information [NLDIAG,NRRE,ON]     | .nr      | no    |                                    | binary  |
+   |  68 | old element .esav data from converged solution                   | .osav    |       |                                    |         |
+   |  69 | Solver messages                                                  | .out     | no    |                                    | ascii   |
+   |  70 | slave output file distributed memory                             | #.out    |       |                                    |         |
+   |  71 | database virtual memory                                          | .page    | yes   | if database space unavailable      |         |
+   |  72 | Parameter definitions [PARSAV]                                   | .parm    | no    |                                    | ascii   |
+   |  73 | Stores performance information when running the PCG solver       | .pcs     | no    |                                    | ascii   |
+   |  74 | FLOTRAN printout file                                            | .pfl     | no    |                                    | ascii   |
+   |  75 | plot file extension for electromagnetic trainsient               | .plt     |       |                                    |         |
+   |  76 | Stores pivot information when running the sparse solver          | .pvts    | no    |                                    | ascii   |
+   |  77 | scratch file for PCG solver                                      | .pc#     | yes   |                                    | binary  |
+   |  78 | scratch file for PCG solver                                      | .pda     | yes   |                                    | binary  |
+   |  79 | scratch file for PCG solver                                      | .pma     | yes   |                                    |         |
+   |  80 | Results file for initial contact state                           | .rcn     | no    |                                    | binary  |
+   |  81 | restart database                                                 | .rdb     | no    |                                    |         |
+   |  82 | FLOTRAN residual file [FLDATA,OUTP]                              | .rdf     |       |                                    |         |
+   |  83 | Database from structural analyses after # times of rezoning      | .rd#     | no    |                                    | binary  |
+   |  84 | mode-superposition transient reduced displacements               | .rdsp    | no    |                                    | binary  |
+   |  85 | mode-superposition harmonic  reduced complex displacements       | .rfrq    | no    |                                    | binary  |
+   |  86 | flotran res.                                                     | .rfl     |       |                                    | binary  |
+   |  87 | magnetic res.                                                    | .rmg     |       |                                    | binary  |
+   |  88 | structural results                                               | .rst     |       |                                    | binary  |
+   |  89 | combination of local results file in distributed memory          | #.rst    |       |                                    |         |
+   |  90 | linear perturbation results                                      | .rstp    |       |                                    |         |
+   |  91 | FLOTRAN "wall" results file                                      | .rsw     | no    |                                    | ascii   |
+   |  92 | FLOTRAN run data                                                 | .run     | no    |                                    | ascii   |
+   |  93 | thermal results                                                  | .rth     |       |                                    | binary  |
+   |  94 | Results file from structural analyses after nn times of rezoning | .rs#     | no    |                                    | binary  |
+   |  95 | nonlinear static or full transient                               | .r#      |       |                                    |         |
+   |  96 | load step No #    [LSWRITE]                                      | .s#      |       |                                    | ascii   |
+   |  97 | scratch file for Jacobi Conjugate Gradient solver                | .scr     | yes   |                                    | binary  |
+   |  98 | Superelement load vector data from generation pass               | .seld    |       |                                    |         |
+   |  99 | scratch file for supernode solver                                | .snode#  | yes   |                                    | binary  |
+   | 100 | Superelement name and number from use pass                       | .sort    |       |                                    |         |
+   | 101 | Status of an ANSYS batch run                                     | .stat    | no    |                                    | ascii   |
+   | 102 | scratch file for substructure generation pass                    | .sscr    | yes   |                                    | binary  |
+   | 103 | substructure matrices                                            | .sub     |       |                                    |         |
+   | 104 | Hyperelastic material constants                                  | .tb      | no    |                                    | ascii   |
+   | 105 | Renamed DSUB File for input to substructure expansion pass       | .usub    | no    |                                    | binary  |
+   | 106 | FLOTRAN boundary condition data (ANSYS to FLOTRAN)               | .xbc     | no    |                                    | ascii   |
+   | 107 | FLOTRAN geometry data (ANSYS to FLOTRAN)                         | .xgm     | no    |                                    | ascii   |
+   | 108 | FLOTRAN initial condition data (ANSYS to FLOTRAN)                | .xic     | no    |                                    | ascii   |
+   | 109 | restart                                                          | .x#      |       |                                    |         |
+   |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
+   | 110 | Old (10/11) WorkBench database                                   | .wbdb    | no    |                                    | binary  |
+   | 111 |                                                                  | .dsdb    |       |                                    |         |
+   | 112 | WB archive                                                       | .wbpz    |       |                                    | binary  |
+   | 113 | FE Modeler                                                       | .fedb    |       |                                    |         |
+   | 114 | Engineering Data                                                 | .eddb    |       |                                    |         |
+   | 115 | Engineering Data                                                 | .xml     |       |                                    |         |
+   | 116 | DesignXplorer                                                    | .dxdb    |       |                                    |         |
+   | 117 |                                                                  | .mechdat |       |                                    |         |
+   | 118 | Mesh input file                                                  | .cmdb    |       |                                    |         |
+   | 119 |                                                                  | .meshdat |       |                                    |         |
+   | 120 | WorkBench project database                                       | .wbpj    |       |                                    |         |
+   | 121 | design point                                                     | .wbdp    |       |                                    |         |
+   | 122 | WB material - AKA "engineering" data                             | .engd    |       |                                    |         |
+   | 123 | DesignModeler database                                           | .agdb    |       |                                    |         |
+   #+TBLFM: $1=@#-1
+
+   - .mac
+   - .db
+   - .dbb
+   
 
 #+begin_src ansys :exports none
   c***,**************************************************

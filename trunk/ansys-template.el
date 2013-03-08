@@ -834,7 +834,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ ==============================" \n
   "/post1" \n
   "set,list" \n
-  "set,1,1" \n
+  "set,1,1 !1st eigenfrequency" \n
   "prnsol,dof !print nodal solution results" \n
   "prrsol,node !reaction solution" \n
   "" \n

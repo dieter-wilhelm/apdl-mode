@@ -14,22 +14,30 @@ DIR := $(shell pwd)
 #RELEASE := $(shell $$($(DIR)))
 
 ifeq ($(HOSTNAME),urmel)
- EMACS_DIR := /usr/local/src
+ EMACS_DIR := /usr/local/src/
 else
  EMACS_DIR := /appl/
 endif
 
+
 EMACS_VERSION := emacs-24.3
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
+# in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
 EMACS_PACKAGE_SIG := $(EMACS_VERSION)-bin-i386.zip.sig
-EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.bz2
-EMACS_SOURCE_PACKAGE_SIG := $(EMACS_VERSION).tar.bz2.sig
+EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.gz
+EMACS_SOURCE_PACKAGE_SIG := $(EMACS_VERSION).tar.gz.sig
 ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
 SIG_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
 SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE)
 SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
 # ftp://ftp.informatik.rwth-aachen.de/pub/gnu/
-EMACS_EXE := $(EMACS_DIR)/$(EMACS_VERSION)/src/emacs
+EMACS_EXE := $(EMACS_DIR)$(EMACS_VERSION)/src/emacs
+
+.PHONEY : EMACS_SOURCE
+EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
+
+.PHONEY : EXE
+EXE : $(EMACS_EXE)
 
 # this is the current ansys-mode version
 MODE_VERSION := 2-beta.2
@@ -68,19 +76,19 @@ ALL : MODE EMACS
 CLEAN :
 	rm $(ELC_FILES)
 
-# $(EMACS_SOURCE_PACKAGE_SIG) :
-# 	cd $(EMACS_DIR); wget $(SIG_ADDRESS)
+$(EMACS_SOURCE_PACKAGE_SIG) :
+	wget $(SIG_SOURCE_ADDRESS)
+	gpg $(EMACS_SOURCE_PACKAGE_SIG)
 
 # $(EMACS_SOURCE_PACKAGE) : $(EMACS_SOURCE_PACKAGE_SIG)
 # 	cd $(EMACS_DIR)
 # 	wget $(SOURCE_ADDRESS)
 # 	tar -xjvf $(EMACS_SOURCE_PACKAGE)
 
-# $(EMACS_EXE) : $(EMACS_SOURCE_PACKAGE)
-# 	cd $(EMACS_DIR)
-# 	cd $(EMACS_VERSION)
-# 	configure
-# 	make
+$(EMACS_EXE) : $(EMACS_SOURCE)
+	cp $(EMACS_SOURCE_PACKAGE) $(EMACS_DIR)
+	cd $(EMACS_DIR); tar -xzvf $(EMACS_SOURCE_PACKAGE)
+	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
 
 A-M_APDL_reference-$(VERSION).pdf : A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
@@ -147,14 +155,11 @@ $(EMACS_PACKAGE) :
 	wget $(ADDRESS) $(SIG_ADDRESS)
 	gpg $(EMACS_PACKAGE_SIG)
 
+##################################################
 # getting the emacs source
-
-.PHONEY : EMACS_SOURCE
-EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE)
-
-$(EMACS_SOURCE_PACKAGE) :
-	wget $(SOURCE_ADDRESS) $(SIG_SOURCE_ADDRESS)
-	gpg $(EMACS_SOURCE_PACKAGE_SIG)
+##################################################
+$(EMACS_SOURCE_PACKAGE) : 
+	wget $(SOURCE_ADDRESS)
 
 # need the org files for the versioning string
 TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org

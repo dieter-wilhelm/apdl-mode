@@ -1,3 +1,16 @@
+# #+DATE: <2013-05-22 Wed>
+# #+OPTIONS: H:1 texht:t
+# #+BEAMER_COLOR_THEME:
+# #+BEAMER_FONT_THEME:
+# #+BEAMER_HEADER:
+# #+BEAMER_INNER_THEME:
+# #+BEAMER_OUTER_THEME:
+# #+BEAMER_THEME: default
+# #+LATEX_CLASS: beamer
+# #+LATEX_CLASS_OPTIONS:
+# #+LATEX_HEADER:
+# #+LATEX_HEADER_EXTRA:
+
 #+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.2
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -6,7 +19,7 @@
 #+DESCRIPTION: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA.
 #+KEYWORDS: Emacs ANSYS FEA APDL
 #+LANGUAGE:  en
-#+OPTIONS:   H:2 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
+#+OPTIONS:   H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+LaTeX_CLASS: beamer
@@ -14,9 +27,9 @@
 #+LATEX_HEADER: \usepackage{textcomp}
 # #+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
 # #+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
-#+BEAMER_HEADER_EXTRA: \beamertemplatenavigationsymbolsempty
-#+BEAMER_HEADER_EXTRA: \setbeamertemplate{footline}[frame number]
-#+BEAMER_HEADER_EXTRA: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
+#+BEAMER_HEADER: \beamertemplatenavigationsymbolsempty
+#+BEAMER_HEADER: \setbeamertemplate{footline}[frame number]
+#+BEAMER_HEADER: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
@@ -140,7 +153,8 @@
    key together with the <c> key.
   
 * Download
-** Download ANSYS-Mode together with the Emacs editor \\ Remarkably there are *no* costs and license restrictions also for commercial use
+** Download ANSYS-Mode together with the Emacs editor
+***  Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
   conjunction with the latest Emacs distribution for Win32/64 from 
   [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]].
@@ -187,24 +201,25 @@
 ** Inspect easily WorkBench solver input files (suffix /.dat/)
    ANSYS-Mode hides the normally uninteresting but usually very
    large number blocks.  On the right hand side is the unhidden content.
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./hidden_blocks.png]]
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./unhidden_blocks.png]]
 
 ** Use the ANSYS-Mode APDL command help
   Please type *M-?*, alternatively: *C-c ?*, on a code line and you
-  will see the APDL command's description together with its parameter
-  syntax.  You can continue working, this temporary overlay - here in
-  yellow - remains visible for a while during your editing.
+  will see the APDL command's description and syntax (even when the
+  line is commented out).  You can continue editing, this temporary
+  overlay - here in yellow - remains visible for a while.
   
 #+ATTR_LaTeX: height=7.5cm
   [[./parameter_help.png]]
 
-** Select and insert templates from the menu into your code \\ Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
+** Select and insert templates from the menu into your code
+   Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
 
-#+ATTR_LaTeX: height=8cm
-#+ATTR_HTML: width="1200"
+#+ATTR_LaTeX: :height 8cm
+#+ATTR_HTML: :width "1200"
    [[./template_menu.png]]
 
 ** Preview the extensible APDL code templates
@@ -212,14 +227,14 @@
    content in a preview window (*C-c C-s*) and might just copy the
    most relevant snippets, please see below and next slide.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
    [[./template.png]]
 
 ** Select an interesting template from a completion window
    Type *C-c C-s* to choose a template name, use the <TAB> key to
    complete or to open the completion window of available items.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
    [[./template_selection.png]]
 
 ** Check auto-insertion and outline your code (tree view)
@@ -231,15 +246,15 @@
   a skeleton with `outline' headings.  Collapse the content to a tree
   view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./outline.png]]
   
-** Utilise completions of all APDL symbols, around 2000
+** Utilise completions of all -- around 2000 -- APDL symbols
   Move the cursor behind a character - here 'c' - or word fragment and
   type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
   element- and function names.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./completion.png]]
   
 ** Open a summary window of your APDL variables
@@ -247,9 +262,9 @@
   definitions. With an argument (*C-u C-c C-v*) you will get the
   current value of your variable at the cursor (Linux only, right).
 
-#+ATTR_LaTeX: height=7cm
+#+ATTR_LaTeX: :height 7cm
   [[./variable_buffer.png]]
-#+ATTR_LaTeX: height=7cm
+#+ATTR_LaTeX: :height 7cm
   [[file:variable_status.png]]
 # #+BEGIN_LaTeX
 # \href{http://www.gnu.org/software/emacs/tour/}{%
@@ -263,14 +278,14 @@
   Move the cursor to a variable definition paragraph or mark, here in
   yellow, some definitions and type *C-c C-a* to align them.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./alignment.png]]
 
 ** Use the Emacs integrated, programmable RPN calculator  
    Type *C-x* * * to open the calculator, type *y* for pasting results
    directly into the APDL file. *q* to quit the 'Emacs Calc' windows.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./calculator.png]]
 
 ** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU/Linux]])
@@ -279,19 +294,20 @@
    process. Below you see the *interactive* solver output window and
    on the left hand side the corresponding ANSYS images.
 
-#+ATTR_HTML: width="1200"
-#+ATTR_LaTeX: height=6.5cm
+#+ATTR_HTML: :width "1200"
+#+ATTR_LaTeX: :height 6.5cm
   [[./process.png]]
 ** Display the license status and preview images on GNU/Linux
    In Emacs' mid-section you see the license state (*C-c C-l*)
    and left Emacs window (below) a thumbnail view of images from a
    folder.
 
-#+ATTR_LaTeX: height=7.3cm
-#+ATTR_HTML: width="1200"
+#+ATTR_LaTeX: :height 7.3cm
+#+ATTR_HTML: :width "1200"
    [[./license.png]]
 
-** Arrange the ANSYS-Mode windows to your needs \\ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS-Mode menu field
+** Arrange the ANSYS-Mode windows to your needs
+   The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS-Mode menu field
 
 # The
 # APDL file is in the right window with the (experimental) user variable
@@ -314,7 +330,7 @@
           :BEAMER_envargs: C[T]
           :BEAMER_col: 0.5
           :END:
-#+ATTR_LaTeX: width=5.5cm
+#+ATTR_LaTeX: :width 5.5cm
   [[./default_el.png]]
 
   ... and restart Emacs. 
@@ -325,7 +341,7 @@
           :BEAMER_envargs: C[T]
           :BEAMER_col: 0.5
           :END:
-#+ATTR_LaTeX: width=5.5cm
+#+ATTR_LaTeX: :width 5.5cm
     [[./customisation_system.png]]
 
   ... and reload ANSYS-Mode. 
@@ -336,7 +352,7 @@
   get a background of its capabilities and fire up the interactive
   tutorial (*C-h t*) which is translated to various languages.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./emacs_tutorial.png]]
 # #+ATTR_LaTeX: width=5cm
 #+BEGIN_LaTeX
@@ -351,7 +367,7 @@
    ANSYS-Mode's usage and keybindings.  At the beginning is also a
    brief introduction of basic Emacs concepts.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
    [[./mode_help.png]]
 
 ** You might read further ANSYS-Mode documentation
@@ -385,13 +401,13 @@
   Please use the ANSYS-Mode bug report functionality, which might
   provide helpful status information.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./bug_report.png]]
 
 * Summary
-** Use ANSYS-Mode appropriate to your needs \\ The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  While for many applications WorkBench is taking over the "code authoring" part from the user, for a *true understanding* of this tool the study of APDL is still prerequisite.   Moreover, code APDL only for *repetitive* tasks and command snippets, *extending* WB.
-
-*** Basic APDL *viewer*
+** Use ANSYS-Mode appropriate to your needs
+**** The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is still prerequisite.   Moreover, code APDL only for *repetitive* tasks and WB command snippets.
+*** Basic APDL *Viewer*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
@@ -401,7 +417,7 @@
     information through highlighting, quickly analysing APDL commands
     with the built-in help or studying their detailed help in your
     browser.
-*** Earnest APDL *editor*
+*** Earnest APDL *Editor*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
@@ -409,7 +425,7 @@
          :END:
     Specific shortcut keybindings, outlining, code templates,
     completions, auto-indentation, abbreviations, auto-insertion.
-*** Advanced APDL *environment*
+*** Advanced APDL *Environment*
          :PROPERTIES:
          :BEAMER_env: block
          :BEAMER_envargs: C[t]
@@ -452,7 +468,7 @@
 \vspace{.4cm}
 #+END_LaTeX
 
-#+ATTR_LaTeX: width=6cm
+#+ATTR_LaTeX: :width 6cm
     [[./editor_learning_curves.jpg]]
 
 

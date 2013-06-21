@@ -409,6 +409,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/dscale,all,10 !set displacment multiplier" \n
   \n
   "!! .............................." \n
+  "!@@@ - translucency/transparency -" \n
+  "!! .............................." \n
+  \n
+  "/trlcy,elem,.5,all !make all selected elements translucent" \n
+  \n
+  "!! .............................." \n
   "!@@@ - material display -" \n
   "!! .............................." \n
   \n
@@ -464,6 +470,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/input,filename,anf ! for APDL based input" \n
   "/facet,fine" \n
+  "/title,new title" \n
   \n
   "! read from file" \n
   "*dim,bla" \n
@@ -721,6 +728,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "/pbc,all,,1 !bc symbols"\n
+  "/vscale,,10 !scale displayed vectors"\n
   "/psf,pres,,2 !2 arrows, surface loads" \n
   "/pbf !body loads" \n
   "/pice !element initial condition symbols" \n
@@ -1951,11 +1959,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "arrays"
   nil
   "!@ ------------------------------" \n
-  "!@@ -- table arrays --" \n
+  "!@@ -- \"table\" arrays --" \n
   "!! ------------------------------" \n
   \n
   "!! table arrays are *set with integers" \n
-  "!! and accessed with real indices" \n
+  "!! and might be accessed with real indices" \n
   "NSS=100" \n
   "*dim,F_y,table,NSS,3! three columns" \n
   "F_y(0,1) = 1,2,3 ! column 'index'" \n
@@ -1969,7 +1977,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "F_y(I,1) = Forc/(Width*Thick)"> \n
   "*enddo"> \n
   "!! e. g.: as harmonic acceleration load (with amplitude steps)" \n
-  "!! primary value: frequency"
+  "!! primary value: frequency"\n
+  "*taxis ! specify index values, only 10" \n
+  "*taxis,Test(1,0),.1,.2,.3,.4,.5,.6,.7,.8,.9,.10" \n
+  "Test(1,0) = .1,.2,.3,.4,.5,.6,.7,.8,.9,.10" \n
+  "*toper,R3,R1,add,R2,2 !add tables with mult. factors" \n
   "*dim,mytab,table,5,1,,freq" \n
   "mytab(1,0)=   50,  199, 200, 999,1000" \n
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
@@ -1989,6 +2001,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*get,Nn,node,,count" \n
   "*vget,PAR,node,,nlist! array of nodenumbers" \n
   "A = 1,2,3,4,5" \n
+  "*voper,R3,R1,prod,R2,50! operate on arrys" \n
   \n
   "!! -- check dimensions --" \n
   "*get,Dim,parm,A,dim,x" \n
@@ -2188,6 +2201,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!ioptn, Lab, VAL1 !Control options relating to importing"\n
   "!igesin, Fname, Ext,"\n
   "!/facet,fine"\n
+  "/title,new title !otherwise from iges" \n
   \n
   "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n

@@ -425,7 +425,14 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - element shape display -" \n
   "!! .............................." \n
   \n
-  "/efacet,2! display 2 element facets (curvature)" \n
+  "!! .............................." \n
+  "!@@@ - cutting planes and power graphics -" \n
+  "!! .............................." \n
+  \n
+  "/graphics,power !power (surface) graphics" \n
+  "/shade,,0 !bug in 14.5, shouldn't be necessary"\n
+  "/type,,zcap !capped z-buffered" \n
+  "/efacet,2! display 2 element facets (curvature) with power graphics" \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n

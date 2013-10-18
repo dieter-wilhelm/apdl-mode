@@ -394,7 +394,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "immed,1 !immediate display of generated geom. in /prep7" \n
   "/uis,replot,0 !suppress automatic replot" \n
-  "/view,,1,1,1 !viewing direction vector"_ \n
+  "/view,,1,1,1 !viewing direction vector [0,0,1]"_ \n
+  "/view,,wp !view normal to working plane" \n
   "/triad,off !orig,lbot,rbot,ltop,rtop" \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
@@ -432,6 +433,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/graphics,power !power (surface) graphics" \n
   "/shade,,0 !bug in 14.5, shouldn't be necessary"\n
   "/type,,zcap !capped z-buffered" \n
+  "/type,,zqsl !sliced z-buffered" \n
   "/efacet,2! display 2 element facets (curvature) with power graphics" \n
   "/eshape,1 !1:use real constant def. for element shapes"\n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
@@ -887,7 +889,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "et,ID,shell181 !3d 4/3-node structural shell" \n
   "et,ID,shell281 !3d 8/6-node structural shell" \n
-  "!! - beam -" \n
+  "!! - beams -" \n
   "et,ID,beam188 !3d 2-node beam" \n
   "et,ID,beam189 !3d 3-node beam" \n
   "sectype,1,beam,rect" \n
@@ -895,8 +897,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "slist, 1, 1 !list section properties" \n
   "!! - mass -" \n
   "et,ID,mass21,,,2 !(3)2 no rotary inertia" \n
-  "r,ID,1 ! mass for mass21" \n
-  "!! - plane -" \n
+  "et,ID,mass21   !keyo(3)=0 3d mass with rotary inertia" \n
+  "!keyopt,ID,1,1 !keyopt(1)=1: volume and rotary intertias/density" \n
+  "r,ID,1 ! mass or mass per density" \n
+  "mp,dens,ID,Density !if keyopt(1)=1" \n
+  "!! - planes -" \n
   "et,ID,plane182 !2d 4/3-node structural solid" \n
   "et,ID,plane183 !2d 8/6-node structural solid" \n
   \n
@@ -1169,6 +1174,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth ! circular area or cylinder" \n
   "sphere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
+  \n
+  "!! .............................." \n
+  "!@@@ - checks -" \n
+  "!! .............................." \n
+  \n
+  "gsum !geometry stats" \n
+  "asum !area statistics, mass, inertia" \n
+  "vsum !volume statistics" \n
+  "*get,Par,volu,,volu !get volume from last vsum" \n
   \n
   "!! .............................." \n
   "!@@@ - operations -" \n

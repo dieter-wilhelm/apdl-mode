@@ -936,7 +936,7 @@ processors (if available) for a structural analysis in ANSYS is
     (if (integerp no)
 	(setq ansys-no-of-processors no)
       (error "Specified number is not an integer"))
-    (message "No of processors for the next run definiton is %d" ansys-no-of-processors)))
+    (message "No of processors for the next run definition is %d" ansys-no-of-processors)))
 
 (defun ansys-license-file-check ()
   "Return t if ANSYS license file (server) information is found.

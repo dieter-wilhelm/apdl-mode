@@ -190,6 +190,19 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- informations --" \n
   "!! ------------------------------" \n
   \n
+  "!@ ------------------------------" \n
+  "!@@@ - Center of mass, mass, and mass moments of inertia -" \n
+  "!! ------------------------------" \n
+  \n
+  "psolve,elform !partial solution: forms element matrices" \n
+  \n
+  "!@ ------------------------------" \n
+  "!@@@ - geometry items -" \n
+  "!! ------------------------------" \n
+  \n
+  "gsum !combination of ksum, lsum, asum and vsum"\n
+  "!centroids, moments of inertia, length, area, volumen, ..." \n
+  \n
   "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
   "*stat,Job_name(1)" \n
   "/com,This is the jobname: \"%Job_name(1)%\"" \n
@@ -201,7 +214,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - statuses -" \n
   "!! .............................." \n
   \n
-  "/status ![all], title,units,mem,db,config,global,solu,prod" \n
+  "/status ![all],capabilities: title,units,mem,db,config,global,solu,prod" \n
   "*list,file,ext ! list file content" \n
   "/runst ! enter run statistics processor" \n
   "/pstatus ! display window stats specifications" \n
@@ -223,6 +236,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbplot,biso,1" \n
   \n
   "!! .............................." \n
+  "!@@@ - geom info" \n
+  "!! .............................." \n
+  \n
+  "asum" \n
+  "vsum" \n
+  \n
+  "!! .............................." \n
   "!@@@ - solution info -" \n
   "!! .............................." \n
   \n
@@ -236,7 +256,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/prep7" \n
   "etype" \n
-  "stat" \n
+  "stat ! load step options" \n
   "rcon$stat"\n
   "!! prep7 stat topics" \n
   "ETYPE $ stat ! - Element types" \n
@@ -455,6 +475,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
   "/plopts,info,off !switch off all descriptive text" \n
   "/plopts,wp,1 !display working plane" \n
+  "/plopts,minm,off !Min-max symbol [on]" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
   "/plopts,logo,off !switch off ANSYS logo" \n
@@ -660,11 +681,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!! .............................." \n
+  "!@@@ - coordinate system creations and modifications -" \n
+  "!! .............................." \n
+  \n
+  "csys,4 ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
+  "clocal,11,cylin !define local coord. sys. 11 from active, with type cylindrical" \n
+  "wpcsys,12 !set working plane to coordinate system 12" \n
+  "wprota,,,90 !rotate wp" \n
+  "wpstyl,SNAP,GRSPAC,GRMIN,GRMAX,WPTOL,WPCTYP,GRTYPE,WPVIS,SNAPANG !style of wp" \n
+  "!! .............................." \n
   "!@@@ - coordinate system display -" \n
   "!! .............................." \n
   \n
-  "csys ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
-  "clocal,11,0 !define local coord. sys. from active" \n
   "/psymb,cs,1 ! display local coord." \n
   "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
   "/plopts,wp,1 !display working plane" \n
@@ -794,7 +822,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- Elements --" \n
   "Steel = 1" \n
   "ID = Steel" \n
-  "et,ID,beam188 !1883d, 2 node beam" \n
+  "et,ID,beam189 !189 3d 3node, 188 3d, 2 node beam" \n
   "" \n
   "!! real = ID+1" \n
   "!! et,ID+1,mass21,,,2!no rotary intertia" \n
@@ -840,7 +868,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "antype,modal" \n
   "modopt,lanb,10,10,1e10!method,No of modes,freqB,freqE" \n
   "outres,all,all" \n
-  "mxpand,,,,yes" \n
+  "mxpand,,,,yes! write results to the results file" \n
   "solve" \n
   "save" \n
   "" \n
@@ -850,6 +878,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ --- Postprocessing ---" \n
   "!@ ==============================" \n
   "/post1" \n
+  "/graphics,power !for 3d result views" \n
   "set,list" \n
   "set,1,1 !1st eigenfrequency" \n
   "prnsol,dof !print nodal solution results" \n
@@ -890,8 +919,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "et,ID,shell181 !3d 4/3-node structural shell" \n
   "et,ID,shell281 !3d 8/6-node structural shell" \n
   "!! - beams -" \n
-  "et,ID,beam188 !3d 2-node beam" \n
-  "et,ID,beam189 !3d 3-node beam" \n
+  "et,ID,beam188 !3d 2-node beam, shows only line results" \n
+  "et,ID,beam189 !3d 3-node beam, shows 3d results with power graphics" \n
   "sectype,1,beam,rect" \n
   "secdata,1,1" \n
   "slist, 1, 1 !list section properties" \n
@@ -899,7 +928,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "et,ID,mass21,,,2 !(3)2 no rotary inertia" \n
   "et,ID,mass21   !keyo(3)=0 3d mass with rotary inertia" \n
   "!keyopt,ID,1,1 !keyopt(1)=1: volume and rotary intertias/density" \n
-  "r,ID,1 ! mass or mass per density" \n
+  "r,ID,1,...,R6 ! mass or mass per density" \n
+  "rmore,ID,R7,... R12" \n
   "mp,dens,ID,Density !if keyopt(1)=1" \n
   "!! - planes -" \n
   "et,ID,plane182 !2d 4/3-node structural solid" \n
@@ -1191,9 +1221,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! line" \n
   "ldiv,1,.5 !divide line 1 in ratio .5" \n
   "!! area" \n
-  "atran" \n
+  "agen,ITIME,NA1,NA2,NINC,DX,DY,DZ,KINC,NOELEM,IMOVE!Generate areas from a pattern of areas" \n
+  "atran !Transfers a pattern of areas to another coord.-system." \n
+  "arotat !areas from rotated lines" \n
   "!! volume" \n
   "vdele,all,,,1 ! delete everything below" \n
+  "vrotat !volumes from areas !" \n
   \n
   "!! .............................." \n
   "!@@@ - booleans -" \n
@@ -1349,6 +1382,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "f,all,fx,1,1 !@nodes:real,imag" \n
   "f,all,fx,%table% !table values" \n
+  "f,node(0,0,0),m,y !torque load" \n
+  "\pbc,m,,1 !show torque loeds" \n
   "fk,all,fx,1,1 !@keypoints:real,imag" \n
   "flist,all !fklist" \n
   \n
@@ -1470,7 +1505,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "n3=n1/4 ! minimum No of substeps " \n
   "nsubst,n1,n2,n3"\n
   "outres,all,all"\n
-  "antype!,,rest,LoadStep,SubStep !rest: perform restart operation" \n
+  "antype,static !,rest,LoadStep,SubStep ![new]rest: perform restart operation" \n
   "nlgeom,on" \n
   "autots,on" \n
   \n
@@ -1567,6 +1602,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!resume,job_name,db" \n
   "set,last" \n
   "pldisp,2 !display displaced structure" \n
+  "!! - contours -" \n
   "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
   "plnsol,s,eqv ! von Mises" \n
   "plnsol,s,1 ! maximum principle: Lamé" \n
@@ -1574,7 +1610,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "prnsol,s,x !|presol components in global x-dir (except transformed:nrotat,rsys)"\n
   "plnsol,s,xy ! shear in xy-dir." \n
   "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
+  "plnsol,eptt,1!principal total mechanical strain + thermal strain" \n
+  "!! - vectors -" \n
   "plvect,u !display vector results"\n
+  "plvect,epto" \n
+  "plvect,s" \n
   \n
   "!! .............................." \n
   "!@@@ - reactions -"\n
@@ -1897,13 +1937,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
   \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
-  "!ppath,P,N,x,y,z,CS coord. in global cartesian csys, but use CS for path" \n
-  "ppath,1" \n
-  "ppath,2,,,Rair" \n
-  "psel,s,axis,...    	 !select multiple paths" \n
+  "!ppath,P,N,x,y,z,CS !coord. in global cartesian csys, but use CS for path interpolation" \n
+  "ppath,1,N   !define path point by node No N" \n
+  "ppath,2,,X,Y,Z ! path point by coordinates" \n
   "pdef,By,b,y" \n
-  "pcalc,add,By2,By,,2 !multiply By by 2" \n
+  "pcalc,add,Res,By,Bx,2 !add Bx to 2*By" \n
+  "pcalc,intg,Res,By,S !integrate By with respect to the path length" \n
+  "pcalc,intg,L,1,S ! path length?" \n
   "/axlab,x,distance !axis label" \n
+  "psel,s,axis,...    	 !select multiple paths" \n
   "plpath,By		 !plot in graph" \n
   "plpagm,By,5		 !plot on geom." \n
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n

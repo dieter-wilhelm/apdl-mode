@@ -325,6 +325,9 @@ A hook is a variable which holds a collection of functions."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar ansys-help-overlay-str ""
+  "variable to store previous overlay string.")
+
 (defvar ansys-hide-region-overlays nil
   "Variable to store the regions we put an overlay on.")
 
@@ -2107,8 +2110,9 @@ THEN action label."
 ;;; --- Command parameters and command completions ----
 (defun ansys-manage-overlay ( str)
   "Display or remove the command help overlay string STR.
+Appying this function in the same line erases the help overlay.
 The help overlay will be automatically removed after some time
-interval.  The timer is sleeping, when the buffer is not the
+interval.  The timer is sleeping, unless the buffer is the
 current one."
   (interactive)
   (let ((ho (overlay-start ansys-help-overlay))
@@ -2117,12 +2121,14 @@ current one."
     (if ansys-timer
 	(cancel-timer ansys-timer))
     (delete-overlay ansys-help-overlay)
-    (unless (eq lb ho)
+    (unless (string= str ansys-help-overlay-str)
+      (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
       (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
       (overlay-put ansys-help-overlay 'before-string s)
       (setq ansys-timer (run-at-time "1 min" nil
-      '(lambda () (delete-overlay ansys-help-overlay)))))))
+      '(lambda () (delete-overlay ansys-help-overlay)))))
+    ))
 
 (defun ansys-show-command-parameters (&optional ask)
   "Displays the ANSYS command parameters help for the command near the cursor.
@@ -2133,12 +2139,11 @@ indentation.  See also the function `ansys-command-start' how the
 previous command is found.  The function shows also the
 parameters for commands in a comment line.  With a prefix
 argument ASK inquire a command name from the mini buffer, the
-names can be completed."
+names can be completed with <TAB>."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
     ;; search for a valid command name
-    (save-excursion
       (cond
        (ask
 	(setq str (completing-read
@@ -2147,17 +2152,21 @@ names can be completed."
 ;	(message "keyword %s" str)
 	)
        ((ansys-in-comment-line-p)
-	(back-to-indentation)
-	(skip-chars-forward " !")
-	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	(save-excursion
+	  (back-to-indentation)
+	  (skip-chars-forward " !")
+	  (re-search-forward "[^[:space:]]\\w*\\>" nil t))
 	(setq str (match-string-no-properties 0)))
-       (t
-	(unless (ansys-in-indentation-p) ; we are before a possible command
-	  (ansys-command-start)	;go back to beginning of command or assignment
-	  )
-	(re-search-forward "[^[:space:]]\\w*\\>" nil t)
-	(setq str (match-string-no-properties 0)))
-	))
+       ((ansys-in-indentation-p) ; we are before a possible command
+	  (save-excursion
+	    (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	    (setq str (match-string-no-properties 0)))
+	)
+       ((unless (ansys-in-indentation-p)
+	  (ansys-command-start)
+	  (save-excursion
+	    (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	    (setq str (match-string-no-properties 0))))))
     ;; display help string
     (catch 'foo
       (dolist (s ansys-dynamic-prompt)

@@ -35,6 +35,9 @@
 
 *  14.5.2:
 ** TODO Freeze
+   - update instead of erasing the help overlay, when keyword is
+     changed/edited and -help-overlay is reapplied. And resetting the
+     overlay when the command is above the current line
    - implement -hide-region for rotated nodes (frictionless support)
    - read only mode for *.dat?
    - automatised pdf-export is not working any longer
@@ -82,6 +85,9 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - / and * is not working for variable highlighting?! try changing the
+     character syntax???
+   - psolve command (from legacy documentation!?) is not highlighted
    - file mode specification error: (search-failed "nblock\\|eblock\\|cmblock"
    - variables are not highlighted in -skeletons?
    - *create file tmp,mac: macro call: tmp, is not highlighted
@@ -171,6 +177,7 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    # klaus schönborn: cadfem
     afoleite@gmail.com,
     jens.2.missung@continental-corporation.com,
     joerg.menke@continental-corporation.com,
@@ -208,7 +215,7 @@
 
 * Ideas for further versions
 ** Parameter help and documentation
-   - makeinfo documentation with ox exporter
+   - makeinfo documentation with org-mode ox exporter
    - make completion of templates with <mouse 1> button additionally
      to <mouse 2> as in -complete-symbol.
    - create a function showing deprecated elements and their
@@ -246,8 +253,11 @@
      their help strings of parameter help.
 ** ANSYS process and interpreter buffer
    example: gnuplot-mode
-   - call to start the ANSYS solution results tracker for .nlh und convergence .gst
-   - implement something like [[file:nlhist.sh]] for .cnd files
+   - call to start the ANSYS solution results tracker for .nlh (xml
+     see file:file.nlh, contact forces) and convergence .gst (binary?,
+     coded? file:file.gst)
+   - implement something like [[file:nlhist.sh]] for .cnd files (xml see
+     file:file.cnd) or use the new libxml parser ;-)
    - make display-buffer "*ANSYS*" optional when sending commands to
      the ANSYS process
    - use ANSYS *env variables* like AWP_ROOT140 for checking

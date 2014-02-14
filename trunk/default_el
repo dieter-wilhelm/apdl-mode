@@ -3,7 +3,7 @@
 ;; adjusting and renaming it to `default.el'.  And moving it e. g. to
 ;; `/usr/share/emacs/site-lisp' or `c:\\EMACS_INSTALLDIR\\site-lisp'
 
-;; Copyright (C) 2006 - 2013 H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2014 H. Dieter Wilhelm GPL V3
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; CONVENTION: Text comments are indicated with double semi-colons,
@@ -94,9 +94,10 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; which version of ANSYS we are using, the current version is "145"
+;; which version of ANSYS we are using, the current version is "150"
 
-(setq ansys-current-ansys-version "145")
+(setq ansys-current-ansys-version "150")
+;(setq ansys-current-ansys-version "145")
 ;(setq ansys-current-ansys-version "140")
 ;(setq ansys-current-ansys-version "130")
 

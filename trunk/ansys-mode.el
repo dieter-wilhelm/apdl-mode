@@ -1,11 +1,11 @@
 ;;; ansys-mode.el -- Editor support for working with ANSYS FEA.
 
-;; Copyright (C) 2006 - 2013  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2014  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 14.5.2
+;; Version: 15.0.1
 ;; Keywords: Languages, Convenience
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -507,7 +507,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
 ;    (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-i" 'ansys-iso-view)
-    (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
+    (define-key map "\C-c\C-j" 'ansys-send-to-ansys)
+;    (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)
     (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET

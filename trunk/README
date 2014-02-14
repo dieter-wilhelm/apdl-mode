@@ -1,7 +1,7 @@
 This is the text of the ANSYS-Mode README file (the formatting is
 targeted for the [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki])
 
-Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
 == Introduction ==
 
@@ -28,10 +28,10 @@ for in-built help no ANSYS installation necessary.
 up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.
 
-The current stable version 14.5.2 of ANSYS-Mode is available at the
+The current stable version 15.0.1 of ANSYS-Mode is available at the
 [http://code.google.com/p/ansys-mode Google Code site] or in the
 command line way, e. g.: "wget
-http://ansys-mode.googlecode.com/files/ansys-mode-14.5.2.tgz").  The
+http://ansys-mode.googlecode.com/files/ansys-mode-15.0.1.tgz").  The
 some code (completions, help strings etc.) is based on ANSYS version
 14.5.  Besides the mode and Emacs you will find also in the download
 section two tutorials.  For an immediate access have a look at the
@@ -157,7 +157,7 @@ Please have a look in the NEWS file for the complete history
 
 The version scheme is a mixture of the ANSYS release (currently 14.5)
 on which the highlighting and completing code is based and the version
-increments (currently .2) of ANSYS-Mode (thus 14.5.2) for this
+increments (currently .2) of ANSYS-Mode (thus 15.0.1) for this
 particular ANSYS release.
 
 === Files ===
@@ -179,10 +179,10 @@ Auxiliaries:
 * LICENSE -- The GPL (Gnu Public License) Version 3
 * default_el -- Configuration example file of an Emacs 'default.el'
 * fontification.mac -- APDL example file
-* A-M_introductory_tutorial-14.5.2.pdf -- Your first look at ANSYS-Mode?
-* A-M_in-depth_tutorial-14.5.2.pdf -- A hands-on ANSYS-Mode tutorial
-* A-M_in-depth_tutorial-14.5.2.ansys -- Hands-on tutorial's supplementary APDL code
-* A-M_APDL_reference-14.5.2.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+* A-M_introductory_tutorial-15.0.1.pdf -- Your first look at ANSYS-Mode?
+* A-M_in-depth_tutorial-15.0.1.pdf -- A hands-on ANSYS-Mode tutorial
+* A-M_in-depth_tutorial-15.0.1.ansys -- Hands-on tutorial's supplementary APDL code
+* A-M_APDL_reference-15.0.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 === Short instructions ===
 

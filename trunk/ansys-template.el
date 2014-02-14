@@ -189,6 +189,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ ------------------------------" \n
   "!@@ -- informations --" \n
   "!! ------------------------------" \n
+  "!@ ------------------------------" \n
+  "!@@@ --- measurements ---" \n
+  "!! ------------------------------" \n
+  \n
+  "nx,y,z(NodeNo) ! x,y,z-coordinate of node NodeNo " \n
+  "kx,y,z(KeyPoint) ! x,y,z-coordinate of KP KeyPoint " \n
+  "distnd(N1,N2) ! distance between nodes" \n
+  "distkp(k1,k2) ! distance between keypoints" \n
+  "disten(e,n) ! distance between element centroid and node" \n
   \n
   "!@ ------------------------------" \n
   "!@@@ - Center of mass, mass, and mass moments of inertia -" \n
@@ -196,12 +205,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "psolve,elform !partial solution: forms element matrices" \n
   \n
-  "!@ ------------------------------" \n
-  "!@@@ - geometry items -" \n
-  "!! ------------------------------" \n
+  "gsum !for selected entities: combination of ksum, lsum, asum and vsum"\n
+  "!mass, centroids, moments of inertia, length, area, volumen, ..." \n
+  "*get,bla,area,0,imc,y !moment of inertia about y w.r.t. mass centroid" \n
   \n
-  "gsum !combination of ksum, lsum, asum and vsum"\n
-  "!centroids, moments of inertia, length, area, volumen, ..." \n
+  "!@ ------------------------------" \n
+  "!@@@ - job items -" \n
+  "!! ------------------------------" \n
   \n
   "/inquire,Job_name,jobname!get string array jobname|directory|user|psearch" \n
   "*stat,Job_name(1)" \n
@@ -239,6 +249,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - geom info" \n
   "!! .............................." \n
   \n
+  "lsum" \n
+  "*get,LLen,line,,leng !combined length of all selected lines" \n
   "asum" \n
   "vsum" \n
   \n
@@ -318,7 +330,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "SPEC $ stat ! - Miscellaneous specifications" \n
   \n
   "!! post26" \n
-  "EXTREM,2 !post26 variable extrema listing" \n
+  "extrem,2 !post26 variable extrema listing" \n
+  "*get,Extr,vari,2,extrem,vmax! get max extreme value" \n
+  "*get,Extr,vari,2,extrem,vmin! get min extreme value" \n
   "!! post26 stat topics" \n
   "DEFINE $ stat ! - Data definition settings" \n
   "OPERATE $ stat ! - Operation data" \n
@@ -387,8 +401,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- configurations --" \n
   "!! ------------------------------" \n
   \n
-  "! *afun,rad ! trig. functions accept angle arguments" \n
-  "*afun,deg !rad: default" \n
+  "*afun,rad ![rad],deg" \n
+  "Pi = acos(-1)" \n
+  "*afun,deg !deg: trig. functions accept and return angle arguments" \n
   "True = 1"  \n
   "False = 0" \n
   \n
@@ -412,7 +427,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- view settings --" \n
   "!! ------------------------------" \n
   \n
+  "/color,wbak,whit !white background on plot window" \n
+  "/RGB,index,100,100,100,0" \n
+  "/RGB,index,0,0,0,15" \n
   "immed,1 !immediate display of generated geom. in /prep7" \n
+  "/graphics,power" \n
   "/uis,replot,0 !suppress automatic replot" \n
   "/view,,1,1,1 !viewing direction vector [0,0,1]"_ \n
   "/view,,wp !view normal to working plane" \n
@@ -422,6 +441,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/device,text,1,140 ! enlarge 140 % the text size" \n
   "/focus,1 $ /repl !focus wn 1 to csys,0" \n
   "/plopts,minm ! switch off min max" \n
+  "/plopts,info,off !switch off all descriptive text" \n
+  "/triad,off" \n
+  "/plopts,wp,1 !display working plane" \n
+  "/plopts,wp,off !switch off wp" \n
+  "/plopts,frame,off !switch off graphics frame" \n
+  "/title,!switch off title" \n
   "/udoc,,,bottom !show legend on bottom" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "/auto ! automatic fit mode" \n
@@ -441,6 +466,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/number,1 !0:colours & numbers,1:colours,2:numbers" \n
   "/pnum,mat,1 !1: turn on numbering" \n
+  "!NODE ELEM MAT TYPE REAL LOC SVAL ESYS KP LINE AREA VOLU STAT TABN  SEC DOMA DEFA" \n
   \n
   "!! .............................." \n
   "!@@@ - element shape display -" \n
@@ -923,6 +949,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "et,ID,beam189 !3d 3-node beam, shows 3d results with power graphics" \n
   "sectype,1,beam,rect" \n
   "secdata,1,1" \n
+  "secplot,1" \n
   "slist, 1, 1 !list section properties" \n
   "!! - mass -" \n
   "et,ID,mass21,,,2 !(3)2 no rotary inertia" \n
@@ -1233,6 +1260,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "!! area" \n
+  "asbl,all,all ! substract area by line" \n
   "aovlap,all ! overlap areas" \n
   "asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
   "asbw, !substract by wp" \n
@@ -1346,6 +1374,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Magnet = 5" \n
   "Hc = 2.8e5 ! ferrit magnet coercive force in A/m" \n
   "mp,mgxx,Magnet,Hc " \n
+  "*afun,rad"\n
   "Pi = acos(-1)" \n
   "Mu0 = .4*Pi*1e-6 ! field constant in Vs/(Am)" \n
   "Br = .4 ! residual induction in Tesla" \n
@@ -1457,6 +1486,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "dl,all,,asym ! flux parallel to lines" \n
   "nsel,s,ext ! select exterior nodes" \n
   "dsym,asym ! flux parallel to lines" \n
+  \n
+  "!@ ------------------------------" \n
+  "!@@ -- plot BCs --" \n
+  "!! ------------------------------" \n
+  \n
+  "/pbf ! plot body forces" \n
+  "/psf ! plot surface loads" \n
+  "/pbc,f,,1 !1:show applied force symbols" \n
+  "/pbc,nfor,,1 ! show nodal forces"  \n
+  "/pbc,rfor,,1 ![0],1:show reaction forces" \n
+  "/pbc,defa !reset /pbc" \n
   \n
   )
 
@@ -1651,6 +1691,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/image,save,test !save XWindow Dump xwd (or bmp on Windows)" \n
   "/sys,convert test test.png" \n
   "!! -- graphics output & invert background colour --" \n
+  "/color,wbak,whit !white background" \n
+  "!or" \n
+  "/color,wbak,whit !white background or:" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
   "/gfile,1000 !resolution height of /show 1000 [256,[800],2400], width is 1.33*height"\n
@@ -1666,8 +1709,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- plot BCs --" \n
   "!! ------------------------------" \n
   \n
-  "/pbc,rfor,,1 !1:show reaction f. symbols" \n
-  "/pbc,rfor,,0" \n
+  "/pbc,f,,1 !1:show applied force symbols" \n
+  "/pbc,nfor,,1 ! show nodal forces"  \n
+  "/pbc,rfor,,1 ![0],1:show reaction forces" \n
+  "/pbc,defa !reset /pbc" \n
   \n
   "!@ ------------------------------" \n
   "!@@ -- acoustics --" \n
@@ -1699,6 +1744,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- modal --" \n
   "!! ------------------------------" \n
   \n
+  "*get,Freq1,mode,1,freq! first eigenfrequency" \n
   "pldisp,2 !show deformed shape and undefomed (2) contours" \n
   \n
   "!@ ------------------------------" \n
@@ -1792,16 +1838,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "! --- 1.) write macro file without parameter substitution" \n
   "! *vwrite works only in batch mode" \n
-  "*create,test.txt ! macro file, no parameter substitution!" \n
+  "*create,tmp,mac ! macro file, no parameter substitution!" \n
+  "/output,tmp,out !redirect output to tmp.out" \n
   "bla=otto" \n
   "*vwrite,bla,otto" \n
   "%G %G" \n
+  "/output" \n
   "*end !writes into file up to this command" > \n
   "!! can be used with the *use command to pass params into it" \n
   "!! /input does not allow parameters" \n
   \n
-  "*list,test,txt ! display external file" \n
-  "/input,test,txt,,:LABEL ! read from label LABEL onwards"\n
+  "*list,tmp,mac ! display external file" \n
+  "/input,tmp,mac,,:LABEL ! read from label LABEL onwards"\n
   \n
   "! --- 2.) redirect ansys text output to file" \n
   "/output,tmp,mac,,append !append solver output to file" \n
@@ -1836,7 +1884,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/input,bla,mac"\n
   \n
   "!! -- 5.) output from /post26" \n
-  "*get,Size,VARI,,NSETS !No of sets" \n
+  "*get,Size,VARI,,NSETS !No of result sets" \n
   "*dim,Accx,array,Size" \n
   "*dim,Tim,array,Size" \n
   "*dim,Accy,array,Size" \n
@@ -1845,24 +1893,53 @@ time stamp with the Emacs command M-x `time-stamp'."
   "vget,Tim(1),1 ! time or frequency" \n
   "!! - export arrays -" \n
   "*create,tmp,mac" \n
-  "*cfopen,sim,txt" > \n
+  "*cfopen,sim,csv ! don't indent the output format strings" \n
   "Strg='T AX AY'" \n
   "*vwrite,Strg" \n
   "%S" \n
   "*vwrite,Tim(1), Accx(1), Accy(1)" \n
   "%G %G %G" \n
   "*cfclos" \n
-  "*end" > \n
+  "*end" \n
   "*list,tmp,mac" \n
+  \n
   "/input,tmp,mac" \n
-  "*list,sim,txt" \n
+  "*list,sim,csv" \n
+  \n
+  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
+  "!! --- input from file ---" \n
+  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
+  "! read in table" \n
+  \n
+  "*dim,Rolf,,5,5" \n
+  "*do,I,1,5,1" \n
+  "  *do,J,1,5,1" \n
+  "     Rolf(I,J)=(I+1)*J" \n
+  "  *enddo" \n
+  "*enddo" \n
+  \n
+  "*create,tmp,mac" \n
+  "/output,tmp,out" \n
+  "*vwrite,Rolf(1,1),Rolf(1,2),Rolf(1,3),Rolf(1,4),Rolf(1,5)" \n
+  "% G % G % G %G %G" \n
+  "/output" \n
+  "*end" \n
+  "*list,tmp,mac" \n
+  \n
+  "/input,tmp,mac" \n
+  "*list,tmp,out" \n
+  \n
+  "*dim,Hans,table,4,4 !column and row 0 is not dimensioned" \n
+  "*tread,Hans,tmp,out !the value Hans(0,0) must be smaller then Hans(0,1) and Hans(1,0)!" \n
+  "*vplot,Hans(1,0),Hans(1,1),2,3" \n
   \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- 1.) graphical output ---" \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   \n
-  "/RGB,index,100,100,100,0 !white background" \n
-  "/RGB,index,0,0,0,15" \n
+  "/color,wbak,whit !white background or:" \n
+  "!/RGB,index,100,100,100,0 !white background" \n
+  "!/RGB,index,0,0,0,15" \n
   "/gfile,700 !set height resolution [800] to 700, width=1.33*height"\n
   "/show,png !creates jobname###.png files" \n
   "pngr !additional options" \n
@@ -1896,8 +1973,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!! --- 2.) graphical output" \n
   "! /image does not work in batch mode" \n
-  "/image,save,bla,xwd !write in xwd bitmap format" \n
-  "/sys,mogrify -format png *.xwd" \n
+  "File = 'blabla'" \n
+  "/image,save,%File%,xwd !write in xwd bitmap format" \n
+  "/syp,mogrify -format png, '%File%.xwd'" \n
   \n
   )
 
@@ -1966,13 +2044,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
   "deriv,3,2,1,,vz !time derivative of uz" \n
-  "extrem,2 !list extrema" \n
+  "extrem,2 !list (only real parts!) extrema" \n
+  "*get,Max,vari,2,extrem,vmax! get max extreme value" \n
+  "*get,Min,vari,2,extrem,vmin! get min extreme value" \n
+  "*get,Maxr,vari,4,rtime,2230 !real part at freq or time 2230" \n
+  "*get,Maxi,vari,4,itime,2230 !imag part at freq 2230" \n
   "rforce,3,1,f,z ! reaction force" \n
   "filldata,7,1,10,,20 !fill a variable by a ramp or constant"\n
   "add,4,2,,,displ,,,-1 !sum variables" \n
   "prod,3,2,,,,,,-N*2 !product of variables" \n
   "/grid,1" \n
   "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
+  "xvar,2 !specify the variable for the x-axis" \n
   "/xrange,0,1" \n
   "/xrange,default" \n
   "/yrange,0,1" \n
@@ -1983,16 +2066,20 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/title,bla" \n
   "/stitle,,blabla !subtitle line 1 (not shown in plot)" \n
   "/stitle,2,blabla !subtitle line 2" \n
-  "/tlable,x,y,bla !annotation at (x,y)" \n
-  "xvar,2" \n
+  "/tlabel,x,y,bla !annotation at (x,y)" \n
   "!! --- graphical output --- " \n
+  "/color,wbak,whit !white background" \n
   "!! invert background colour" \n
+  "/color,wbak,whit !white background" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
   "/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
   "/show,close" \n
-  "!!prvar,3" \n
+  "!! -- listing of vars ---" \n
+  "nprint,5 !whicht time points are to be listed" \n
+  "prtime,min,max !time range to be listed"  \n
+  "prvar,3" \n
   "!! --- data output --- " \n
   "*get,Size,VARI,,NSETS !No of sets" \n
   "*dim,Accx,array,Size" \n
@@ -2049,6 +2136,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mytab(1,0)=   50,  199, 200, 999,1000" \n
   "mytab(1,1)=100e3,100e3,30e3,30e3,10e3" \n
   "acel,,,%mytab% !acceleration in global coordinates" \n
+  "!! apply factor to table/array" \n
+  "Fact = 1e-3" \n
+  "*vfact = Fact" \n
+  "*vstat ! list current values" \n
+  "*vfun,mytab,copy,mytab" \n
   \n
   "!@ ------------------------------" \n
   "!@@ -- arrays --" \n

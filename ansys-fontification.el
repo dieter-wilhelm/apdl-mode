@@ -1,6 +1,6 @@
 ;;; ansys-fontification.el-- building keywords and completions
 
-;; Copyright (C) 2006 - 2013 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2014 H. Dieter Wilhelm
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,53 +25,55 @@
 
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
-
 ; (call-process "cp /appl/ansys_inc/v150/ansys/docu/dynprompt150.ans ./ansys_dynprompt.txt")
+;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
+;;     done for v12,v13,v14,v145,v150
 
-;;     done for v12,v13,v14,v145
-;; 2.) elements: copy&pasted from the help documentation:
-;;     Element refrence, table of contents -> `ansys_elements.txt'
-;;     (ansys_inc/vXXX/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13,v14,v145
-;; 3.) ansys-help:
-;;     command reference: keywords:
+;; 2.) elements: copy within the ansys help browser from the
+;;     Element refrence in the table of contents -> `ansys_elements.txt'
+;;     (/appl/ansys_inc/v150/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
+;;     done: v12,v13,v14,v145,v150
+
+;; 3.) command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
-;;     copied from the ansys help ->`ansys_keywords.txt'
-;;     kill /eof from the keywords (see: -font-lock-keywords) <- don't know why, seems to work now
-;;     done: v12
 
 ;;     use: extract_tags.py
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/v150/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
 ;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
-;;     done: v13,14,145
+;;     done: v13,14,145,150
+
+;;     formerly copy&pasted from the ansys help ->`ansys_keywords.txt'
+;;     kill /eof from the keywords (see: -font-lock-keywords) <- don't know why, seems to work now
+;;     done: v12
 
 ;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)
 ;;     ansys APDL guide chapter 3.8, trigonometric functions and their inverse functions must
 ;;     be separated by hand!!! The same applies to hyperbolic functions
 ;;     there was a new one introduced in V14
 ;;     ->`ansys_parametric_functions.txt'
+
 ;; 5.) get functions: ansys 11.0 APDL Programmer's guide Appendix B.
 ;;     i) one has to comment (#) out some headlines!!!
 ;;     ii) Prepend some string function descriptions with their name e.g.
 ;;         StrOut = STRCAT(... with STRCAT(...)
 ;;     get function summary ->`ansys_get_functions.txt'
+
 ;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
-;; cp ansys_Index.hlp and check variable ansys-help-index
-;; done v145
+;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/v150/commonfiles/help/ansys_Index.hlp" ".")
+;;     the rest does code below
+;;     done v145, v150
+;;     cp ansys_Index.hlp and check variable ansys-help-index
 
 ;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
 ;;; necessary variables, to be maintained:
 ;; 1.) `Ansys_undocumented_commands' from the release notes,
-;;   done 145
-;; 2.) `Ansys_written_out_commands'
-;; 3.) `Ansys_deprecated_elements_alist' release notes
-;;    done 145
+;;     done 145,150
+;; 2.) `Ansys_deprecated_elements_alist' release notes, feature archive: legacy elements
+;;    done 145,150
+;; 3.) `Ansys_written_out_commands'
 ;; 4.) `Ansys_commands_without_arguments'
-
-;(setq Ansys-version "13")
-;; what is this needed for?
 
 ;; 
 (defconst Ansys_undocumented_commands	;or macros?
@@ -209,6 +211,57 @@
    "VTFREQ"
    "VTPOST"
    "VTSL"					;end of 14.5
+   "FLDATA1-40" ;beginning of 15.0 
+   "HFPCSWP"				
+   "MSDATA"
+   "MSVARY"
+   "QFACT"
+   "FLOCHECK"
+   "HFPOWER"
+   "MSMASS"
+   "PERI"
+   "SPADP"
+   "FLREAD"
+   "HFPORT"
+   "MSMETH"
+   "PLFSS"
+   "SPARM"
+   "FLOTRAN"
+   "HFSCAT"
+   "MSMIR"
+   "PLSCH"
+   "SPFSS"
+   "HFADP"
+   "ICE"
+   "MSNOMF"
+   "PLSYZ"
+   "SPICE"
+   "HFARRAY"
+   "ICEDELE"
+   "MSPROP"
+   "PLTD"
+   "SPSCAN"
+   "HFDEEM"
+   "ICELIST"
+   "MSQUAD"
+   "PLTLINE"
+   "SPSWP"
+   "HFEIGOPT"
+   "ICVFRC"
+   "MSRELAX"
+   "PLVFRC"
+   "HFEREFINE"
+   "LPRT"
+   "MSSOLU"
+   "/PICE"
+   "HFMODPRT"
+   "MSADV"
+   "MSSPEC"
+   "PLWAVE"
+   "HFPA"
+   "MSCAP"
+   "MSTERM"
+   "PRSYZ" 				;endo of v150
 )			       
   "Ansys commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output
@@ -243,7 +296,11 @@ files, old macros or old Ansys verification models.")
   ("BEAM24"   . "BEAM188")
   ("BEAM44"   . "BEAM188")
   ("BEAM54"   . "BEAM188")
+  ("CONTACT12". "Contac178")		;v150
   ("COMBIN7"  . "MPC184")
+  ("FLUID79" . "Fluid29")		;v150
+  ("FLUID80" . "Fluid29")		;v150
+  ("FLUID81" . "Fluid29")		;v150
   ("FLUID141" . "CFX")			;v145
   ("FLUID142" . "CFX")			;v145
   ("INFIN9"   . "INFIN110")		;v14
@@ -784,8 +841,8 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"ansys-fontification.el\" release 14.5.2.\n\n"
-  ";; Copyright (C) 2006 - 2013 H. Dieter Wilhelm.\n\n")
+  "\"ansys-fontification.el\" release 15.0.1.\n\n"
+  ";; Copyright (C) 2006 - 2014 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")
   ;; --- end of let

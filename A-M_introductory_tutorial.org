@@ -11,7 +11,7 @@
 # #+LATEX_HEADER:
 # #+LATEX_HEADER_EXTRA:
 
-#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 14.5.2
+#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 15.0.1
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
@@ -38,7 +38,7 @@
 #+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+XSLT:
-# #+TEXT: Copyright (C) 2006 - 2013  H. Dieter Wilhelm, GPL V3
+# #+TEXT: Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
 
 #+HTML: <img src="ansys+emacs.png" height=150 alt="image">

@@ -8,11 +8,11 @@ import os
 import glob
 import re
 
-version = "145"
+version = "150"                 # ansys version
 f_list = glob.glob("Hlp_C_CmdTOC.html")
 out = "ansys_keywords.txt"
 o = open(out,'w+')              # w+: write anew
-o.write("# Command list for ANSYS" + version + "\n")
+o.write("# Command list for ANSYS V" + version + "\n")
 
 # ref is the entry class for commands in a definition list
 ref = '<dt><span class="refentrytitle">'
@@ -51,5 +51,6 @@ for f in f_list:
         n = n + 1
     inf.close()
 o.close()
-print "We have ", n, "entries in the HlP_C_CmdTOC.html."
+print "We got 1491 entries in the HlP_C_CmdTOC.html in V150."
+print "We have ( for V",version,")", n, "entries in the HlP_C_CmdTOC.html."
 print  "wrote " + out + ", that's it!"

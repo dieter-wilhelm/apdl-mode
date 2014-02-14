@@ -33,7 +33,7 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
 
-*  14.5.2:
+*  15.0.1:
 ** TODO Freeze
    - update instead of erasing the help overlay, when keyword is
      changed/edited and -help-overlay is reapplied. And resetting the
@@ -126,7 +126,7 @@
         *cfclos
 	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -introductory_tutorial.org
-     - update download page to 14.5.2 in the download slide
+     - update download page to 15.0.1 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.pgn first not aligned, second aligned
@@ -157,10 +157,10 @@
     (tags-query-replace "145" "150")
     (tags-query-replace "24.2" "24.3")
     (tags-query-replace "14.5" "15.0")
-    (tags-query-replace "14.5.2" "15.0.1")
+    (tags-query-replace "15.0.1" "15.0.1")
     # for _mode_version
     (tags-query-replace "\"2\"" "\"1\"")
-    (tags-query-replace "- 2013" "- 2014")
+    (tags-query-replace "- 2014" "- 2015")
 
     checkdoc then dry run: Emacs
     24.2 -Q testing: fontification.mac /*commands and default command

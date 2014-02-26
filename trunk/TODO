@@ -38,7 +38,8 @@
    - update instead of erasing the help overlay, when keyword is
      changed/edited and -help-overlay is reapplied. And resetting the
      overlay when the command is above the current line
-   - implement -hide-region for rotated nodes (frictionless support)
+   - implement -hide-region also for rotated nodes in WB .dat files
+     (frictionless support)
    - read only mode for *.dat?
    - automatised pdf-export is not working any longer
      makefile errors: Check tutorials
@@ -85,6 +86,8 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - C-c C-c is not working on last line if there is no carriage return
+   - M-? is not working properly
    - / and * is not working for variable highlighting?! try changing the
      character syntax???
    - psolve command (from legacy documentation!?) is not highlighted
@@ -106,18 +109,23 @@
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
 ** Release
+   - place all stuff on google drive
    - makefile fontification of _tutorial PDFs is not working,
      necessary to load them by hand before exporting
    - document A-M_in-depth_tutorial.org
        - fontification.mac, leave it in the mode archive for a while
        - upload to Google code: file:googlecode_upload.py
    - fontification.el
+     - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
+       .anf files from DM anf export
+         kpt -- Write keypoints or vertices into the database
+         lcurv -- Write lines or edges into the database
+         asurf -- Write the area or face information into the database
+         vbody -- Define a B-rep solid.
      - add Hlp_G_OPE6_NeutralFile.html (aux15 utility functions)
        commands to the fontification and help stuff: KPT, LCURV,
        ASURF, VBODY. (functions in ANF files) from the operations
        guide `ans_ope.pdf'
-     - update ansys_parametric_functions.txt there is a new function
-       since V14
      - some functions in -skeleton-function are not highlighted and
        completable, whitespace problem befor paren...
        and: "nele" undocumented command and function nelem()

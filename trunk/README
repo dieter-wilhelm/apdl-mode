@@ -29,15 +29,18 @@ up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.
 
 The current stable version 15.0.1 of ANSYS-Mode is available at the
-[http://code.google.com/p/ansys-mode Google Code site] or in the
+[https://googledrive.com/host/0Bxnk08BGWfexUThqbWxLX1NyeTg Google Drive site] or in the
 command line way, e. g.: "wget
 http://ansys-mode.googlecode.com/files/ansys-mode-15.0.1.tgz").  The
-some code (completions, help strings etc.) is based on ANSYS version
-14.5.  Besides the mode and Emacs you will find also in the download
-section two tutorials.  For an immediate access have a look at the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html introductory on-line version], here you are able to see the images in
+some code (completions, help strings etc.) is based on the latest
+ANSYS version.  Besides the mode and Emacs you will find also in the
+download section two tutorials.  For an immediate access have a look
+at the
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
+introductory on-line version], here you are able to see the images in
 a higher resolution as in the PDF version.  And in the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html in-depth on-line tutorial] there is the source code highlighting
+[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
+in-depth on-line tutorial] there is the source code highlighting
 better preserved as in its PDF version.
 
 Please report bugs and inconsistencies also in the documentation! Write

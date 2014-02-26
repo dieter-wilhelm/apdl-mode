@@ -1,6 +1,8 @@
-# Ansys 13: 24 functions, the same as in V12
+# Ansys V13: 24 functions, the same as in V12
+# Ansys V15: 25 functions, the same as in V14
 ABS(x) Absolute value of x.  
 SIGN(x,y) Absolute value of x with sign of y. y=0 results in positive sign.  
+CXABS(x,y) Absolute value of the complex number x + y
 EXP(x)  Exponential of x (ex).  
 LOG(x)  Natural log of x (ln (x)).  
 LOG10(x)  Common log of x (log10(x)).  

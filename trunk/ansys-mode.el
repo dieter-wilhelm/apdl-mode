@@ -59,10 +59,10 @@
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys_version "145"		;NEW_C
+(defconst ansys_version "150"		;NEW_C
   "ANSYS version on which ANSYS-Mode is based.")
 
-(defconst ansys_mode_version "2"	;NEW_C
+(defconst ansys_mode_version "1"	;NEW_C
   "ANSYS-Mode version number.")
 
 (defconst ansys-parameter-substitution-commands-regexp	;NEW

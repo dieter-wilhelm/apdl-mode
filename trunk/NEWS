@@ -4,9 +4,15 @@
 
 Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
-=== Version 15.0.1 Feb 2014 ===
+=== Version 15.0.1 Mar 2014 ===
 
-* improved the `ansys-show-...
+* Updated the help, completion and highlighting functionality to V15
+
+* Improved the `ansys-show-...
+
+* Highlighted the new parametric function CXABS() introduced in V14.
+
+* As usual: Corrected some bugs, typos and extended the templates.
 
 ===  Version 14.5.2  Mar 2013 ===
 
@@ -45,8 +51,9 @@ Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
   cursor (or if that fails at the line beginning).
 
   Are you also tired of the ANSYS help browser?  For example try
-  searching for the `F' APDL command, it is impossible!  You have to
-  pick it up from the alphabetical command list. Likewise when you are
+  searching for the `F' APDL command, it is impossible! (update 2014:
+  This has improved with the new help viewer in V15.) You have to pick
+  it up from the alphabetical command list. Likewise when you are
   searching for an incomplete keyword, no hint, no completion,
   nothing!  Finding and browsing relevant APDL documentation is still
   cumbersome and too slow.

@@ -61,7 +61,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
 (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
 (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
-
+(autoload 'ansys-mode-version "ansys-mode" "Show ANSYS-Mode's version number." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file suffixes for autoloading of ansys-mode, appropriate file
 ;; suffixes for which ANSYS mode is automatically called for

@@ -42,9 +42,10 @@
 ;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
 ;;     done: v13,14,145,150
 
-;;     formerly copy&pasted from the ansys help ->`ansys_keywords.txt'
-;;     kill /eof from the keywords (see: -font-lock-keywords) <- don't know why, seems to work now
-;;     done: v12
+;;     dated: previously did copy&pasted from the ansys help
+;;       ->`ansys_keywords.txt' kill /eof from the keywords (see:
+;;       -font-lock-keywords) <- don't know why, seems to work now
+;;       done: v12
 
 ;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)
 ;;     ansys APDL guide chapter 3.8, trigonometric functions and their inverse functions must
@@ -74,7 +75,6 @@
 ;;    done 145,150
 ;; 3.) `Ansys_written_out_commands'
 ;; 4.) `Ansys_commands_without_arguments'
-
 ;; 
 (defconst Ansys_undocumented_commands	;or macros?
   '(

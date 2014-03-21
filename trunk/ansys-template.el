@@ -1,6 +1,6 @@
 ;;; ansys-template.el -- APDL code templates for the ANSYS-Mode
 
-;; Copyright (C) 2006 - 20011  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 20014  H. Dieter Wilhelm GPL V3
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -203,7 +203,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - Center of mass, mass, and mass moments of inertia -" \n
   "!! ------------------------------" \n
   \n
-  "psolve,elform !partial solution: forms element matrices" \n
+  "!! --- partial solution for mass calculation ---" \n
+  "outpr,basic,all" \n
+  "irlf,-1 " \n
+  "/output,mass_output,txt" \n
+  "psolve,elform !only partial solution" \n
+  "psolve,elprep" \n
+  "/output" \n
+  "*list,mass_output,txt"
+  "irlist ! print masses and load summaries" \n
   \n
   "gsum !for selected entities: combination of ksum, lsum, asum and vsum" \n
   "!mass, centroids, moments of inertia, length, area, volumen, ..." \n
@@ -249,10 +257,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - geom info" \n
   "!! .............................." \n
   \n
-  "lsum" \n
+  "lsum !or gsum" \n
   "*get,LLen,line,,leng !combined length of all selected lines" \n
-  "asum" \n
-  "vsum" \n
+  "asum !or gsum" \n
+  "*get,Area,area,,area !combined area of all selected areas" \n
+  "vsum !or gsum" \n
+  "*get,Volume,volu,,volu !combined volume of all selected volumes" \n
   \n
   "!! .............................." \n
   "!@@@ - solution info -" \n
@@ -1509,12 +1519,22 @@ time stamp with the Emacs command M-x `time-stamp'."
   "acel,%mytab%,, !acceleration in global coordinates" \n
   \n
   "!! .............................." \n
-  "!@@@ - inertia relief -" \n
+  "!@@@ - inertia relief and mass summary -" \n
   "!! .............................." \n
   \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
+  "/solu" \n
   "irlf,1 !0: none,1:ir on,-1:printout masses" \n
   "nsel,s,loc,x,1" \n
+  "!! --- partial solution for mass calculation ---" \n
+  "outpr,basic,all" \n
+  "irlf,-1 " \n
+  "/output,mass_output,txt" \n
+  "psolve,elform !partial solution" \n
+  "psolve,elprep" \n
+  "/output" \n
+  "*list,mass_output,txt"
+  "irlist ! print masses and load summaries" \n
   \n
   "!! .............................." \n
   "!@@@ - corriolis effects -" \n
@@ -1979,8 +1999,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*end ! end macro file" > \n
   "/input,test,mac,,:LABEL ! read macro file from label LABEL onwards" \n
   \n
-  "!! --- 4.) similar to 3.) without *cfopen/*cfclos" \n
-  "/output,bla,mac !write macro file" \n
+  "!! --- 4.) output incluedes responses from commands, notes, errors and warnings" \n
+  "/output,bla,mac !write macro file, overwrite content" \n
+  "!/output,bla,mac,,append !append to macro file" \n
   "/com,*mwrite,B(1),'bla','txt'" \n
   "/com,%G" \n
   "/output !redirect to standard ouput " \n
@@ -2002,8 +2023,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "%S" \n
   "*vwrite,Tim(1), Accx(1), Accy(1)" \n
   "%G %G %G" \n
-  "*cfclos" \n
-  "*end" \n
+  "*cfclos"> \n
+  "*end"> \n
   "*list,tmp,mac" \n
   \n
   "/input,tmp,mac" \n
@@ -2016,17 +2037,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "*dim,Rolf,,5,5" \n
   "*do,I,1,5,1" \n
-  "  *do,J,1,5,1" \n
-  "     Rolf(I,J)=(I+1)*J" \n
-  "  *enddo" \n
-  "*enddo" \n
+  "*do,J,1,5,1"> \n
+  "Rolf(I,J)=(I+1)*J"> \n
+  "*enddo"> \n
+  "*enddo"> \n
   \n
   "*create,tmp,mac" \n
   "/output,tmp,out" \n
   "*vwrite,Rolf(1,1),Rolf(1,2),Rolf(1,3),Rolf(1,4),Rolf(1,5)" \n
   "% G % G % G %G %G" \n
   "/output" \n
-  "*end" \n
+  "*end"> \n
   "*list,tmp,mac" \n
   \n
   "/input,tmp,mac" \n
@@ -2037,8 +2058,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*vplot,Hans(1,0),Hans(1,1),2,3" \n
   \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
-  "!! --- 1.) graphical output ---" \n
+  "!! --- graphical output ---" \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
+  "!! --- 1.) device ouput ---" \n
   \n
   "/color,wbak,whit !white background or:" \n
   "!/RGB,index,100,100,100,0 !white background" \n
@@ -2072,13 +2094,30 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,close" \n
   "/sys,epstopdf file000.eps" \n
   "/sys,display file000.pdf" \n
-
+  "*dim,Dir,string,248 ! maximum of 248 characters!" \n
+  "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
+  "*stat,Dir" \n
+  "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
+  "/syp,ls, Dir(1)" \n
+  "File = 'eptoeqv_at_shaft_press-fit'" \n
+  "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
   \n
-  "!! --- 2.) graphical output" \n
+  "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
+  "!! --- 2.) screen capture" \n
   "! /image does not work in batch mode" \n
   "File = 'blabla'" \n
   "/image,save,%File%,xwd !write in xwd bitmap format" \n
   "/syp,mogrify -format png, '%File%.xwd'" \n
+  \n
+  "/sys,rm *.jpg *.eps *.tiff" \n
+  "/ui,copy,save,jpeg,graph,color,norm,portrait,yes,100 !100 max qality " \n
+  "/sys,display *.jpg" \n
+  "!! eps not supported by org, emacs' docview" \n
+  "/ui,copy,save,pscr,graph,color,norm,portrait,yes,100 !100 max qality" \n
+  "/sys,convert file000.eps file000.png" \n
+  "/ui,copy,save,tiff,graph,color,norm,portrait,yes,100 !100 max qality" \n
+  "/sys,ls *.eps" \n
+  "/sys,display *.eps" \n
   \n
   )
 
@@ -2199,7 +2238,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "%S" \n
   "*vwrite,Tim(1), Accx(1), Accy(1)" \n
   "%G %G %G" \n
-  "*cfclos" \n
+  "*cfclos"> \n
   "*end" > \n
   "*list,tmp,mac" \n
   "/input,tmp,mac" \n
@@ -2247,6 +2286,23 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!@ ------------------------------" \n
   "!@@ -- arrays --" \n
+  "!! ------------------------------" \n
+   \n
+  \n
+  "!@ ------------------------------" \n
+  "!@@@ -- string arrays --" \n
+  "!! ------------------------------" \n
+   \n
+   "*dim,Dir,string,248 ! maximum of 248 characters!" \n
+   "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
+   "*stat,Dir" \n
+   "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
+   "/syp,ls, Dir(1)" \n
+   "File = 'eptoeqv_at_shaft_press-fit'" \n
+   "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
+  \n
+  "!@ ------------------------------" \n
+  "!@@@ -- Fortran arrays --" \n
   "!! ------------------------------" \n
    \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n

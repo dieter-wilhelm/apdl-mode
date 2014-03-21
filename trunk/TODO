@@ -109,6 +109,7 @@
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
 ** Release
+   - indentation of template -output-to-file is not correct
    - place all stuff on google drive
    - makefile fontification of _tutorial PDFs is not working,
      necessary to load them by hand before exporting
@@ -185,39 +186,38 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
-    # klaus schönborn: cadfem
+    info@auc-ev.de,
     afoleite@gmail.com,
+    iivvgg@gmail.com,
+    Michaelk@vipac.com.au,
+    sparr@mfkrs1.mw.tu-dresden.de,
+    eyk.heinemann@continental-corporation.com,
     jens.2.missung@continental-corporation.com,
     joerg.menke@continental-corporation.com,
     daniel.balint@continental-corporation.com,
     marius.tarnovetchi@continental-corporation.com,
-    Michaelk@vipac.com.au,
     razvan.ionel.curtean@continental-corporation.com,
     Steffen.Kernbach@continental-corporation.com,
     Johann.Massinger@continental-corporation.com,
     Marco.Mechi@continental-corporation.com,
     Antonio.Zangaro@continental-corporation.com,
-    iivvgg@gmail.com,
     oleksiy.kurenkov@continental-corporation.com,
     martin.bruehl@continental-corporation.com,
     klemens.kieninger@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
     saravana.kumar@continental-corporation.com,
     alwin.perras@continental-corporation.com,
-    sparr@mfkrs1.mw.tu-dresden.de,
-    gmueller1950@gmx.de,
-    info@auc-ev.de,
+    mhanke@cadfem.de,
     tnelson@cadfem.de,
     lkrueger@cadfem.de,
-    sgotthold@cadfem.de,
     sheldonimaoka@yahoo.com,
+    kschoenborn@cadfem.de
+    # sgotthold@cadfem.de, left CadFem
+    # mike.brusoe@continental-corporation.com, left conti
+    # gmueller1950@gmx.de, deceased
 
     better not the "competitor":
     info@padtinc.com,
-
-    unavailable:
-    mike.brusoe@continental-corporation.com,
-
 
     This is ideal for examine the WorkBench solver input files.
 

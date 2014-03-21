@@ -313,20 +313,22 @@ and you are getting a diffent element highlighting.
 
 * APDL Reference
 ** Idiosyncrasies
+  - You can only store strings of 32 characters, for only!! 128
+    characters you need to create a string array!
   - No function definitions <- write `command' files (suffix: .mac),
     or call a macro (arbitrary suffix) with `*use', something close is
     to fill a "table" arry, interpolating values and possible real
     indexing A(0.3).
   - you can get table array values with real index values but must use
     integers for assigning them the values, the same goes for *vplot:
-    it needs the arry indeces in integers.
+    it needs the arry indices in integers.
   - *vplot does only plot the columns of arrys, it is not possible to
     specify rows
   - No direct array values to file export in GUI mode <- write command
     file for *vwrite, or use a (lookup) table for this purpose
   - *vwread does not work with C format specifiers in contrast to *vwrite
-  - Still (v14.5) no round function in sight, someting like
-    nint(max*1e3)/1e3 can do
+  - Still (v15) no round function in sight, but someting like
+    nint(max*1e3)/1e3 might do
   - One cannot easily get the variable value, either one must assign
     the variable to another one, or use the `*stat' command
   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check

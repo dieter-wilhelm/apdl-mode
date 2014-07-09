@@ -204,15 +204,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "!! --- partial solution for mass calculation ---" \n
+  "\solu !for psolve" \n
   "outpr,basic,all" \n
-  "irlf,-1 " \n
+  "irlf,-1! inertia relief option" \n
   "/output,mass_output,txt" \n
   "psolve,elform !only partial solution" \n
   "psolve,elprep" \n
   "/output" \n
-  "*list,mass_output,txt"
-  "irlist ! print masses and load summaries" \n
+  "*list,mass_output,txt"\n
+  "irlist ! print inertia relief summary" \n
   \n
+  "/prep7 !for gsum" \n
   "gsum !for selected entities: combination of ksum, lsum, asum and vsum" \n
   "!mass, centroids, moments of inertia, length, area, volumen, ..." \n
   "*get,bla,area,0,imc,y !moment of inertia about y w.r.t. mass centroid" \n
@@ -257,6 +259,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - geom info" \n
   "!! .............................." \n
   \n
+  "/prep7" \n
   "lsum !or gsum" \n
   "*get,LLen,line,,leng !combined length of all selected lines" \n
   "asum !or gsum" \n
@@ -416,9 +419,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*afun,deg !deg: trig. functions accept and return angle arguments" \n
   "True = 1"  \n
   "False = 0" \n
-  "/units,mpa  !I'm using mostly Tmms (important only for material libs)" \n
-  "/mplib,write,/HOME/uidg1626/development/matlib !define material library path" \n
+  "/mplib,read,YourLibraryPath !define material library path" \n
   "/mplib,stat !stat defined material library paths" \n
+  "/units,MPA  !I'm using mostly MPA (Tmms) (important only for material libs)" \n
+  "mpread,steel_elastic,,,lib" \n
   \n
   "!! --- file names -- " \n
   "/cwd,/tmp !change the current working dir." \n
@@ -452,26 +456,41 @@ time stamp with the Emacs command M-x `time-stamp'."
   "immed,1 !immediate display of generated geom. in /prep7" \n
   "/graphics,power" \n
   "/uis,replot,0 !suppress automatic replot" \n
+  \n
+  "!! -- views --" \n
   "/view,,1,1,1 !viewing direction vector [0,0,1]"_ \n
   "/view,,wp !view normal to working plane" \n
-  "/triad,off !orig,lbot,rbot,ltop,rtop" \n
+  "/focus,1 $ /repl !focus wn 1 to csys,0" \n
+  "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
+  "/dscale,all,10 !set displacment multiplier" \n
+  "/auto ! automatic fit mode" \n
+  "/user ! keep last display scaling" \n
+  \n
+  "!! -- style options ---" \n
   "/device,text,1,140 ! enlarge 140 % the text size" \n
-  "/focus,1 $ /repl !focus wn 1 to csys,0" \n
-  "/plopts,minm ! switch off min max" \n
+  "/plopts,minm !  switch off[on] (both!) min & max" \n
   "/plopts,info,off !switch off all descriptive text" \n
-  "/triad,off" \n
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
-  "/title,!switch off title" \n
-  "/udoc,,,bottom !show legend on bottom" \n
-  "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
-  "/auto ! automatic fit mode" \n
-  "/user ! keep last display scaling" \n
+  "/plopts,logo,off !switch off ANSYS logo" \n
+  "/plopts,date,1 !show only date and not time" \n
+  "/plopts,title,off !switch of title display" \n
+  "!! --- WB like legend display --- " \n
+  "/plopt,info,3! " \n
+  "/udoc,,cntr,bottom !show legend on bottom" \n
   "/pstatus ! display window stats specifications" \n
-  "/dscale,all,10 !set displacment multiplier" \n
+  \n
+  "!! -- wp & coordinate systems display"
+  "/psymb,cs,1 ! display local coord." \n
+  "/psymb,ndir,1 ! display (only) rotated nodal coordinates" \n
+  "/plopts,wp,1 !display working plane" \n
+  "/plopts,wp,off !switch off wp" \n
+  "/triad,off !orig,lbot,rbot,ltop,rtop" \n
+  "/triad,rbot" \n
+  "/triad,off" \n
   \n
   "!! .............................." \n
   "!@@@ - translucency/transparency -" \n
@@ -491,6 +510,35 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - element shape display -" \n
   "!! .............................." \n
   \n
+  "/efacet,2! display 2 element facets (curvature) with power graphics" \n
+  "/eshape,1 !1:use real constant def. for element shapes" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - multi window plots -" \n
+  "!! .............................." \n
+  "/window,2,dele" \n
+  "/window,1,dele" \n
+  "/erase" \n
+  "/window,2,-1,-.5,.5,1 !from -1 to 1 is the full screen" \n
+  "aplot" \n
+  "/window,2,off" \n
+  "/noerase" \n
+  "!/window,1,rbot !from -1 to 1 is the full screen" \n
+  "/window,1,full !from -1 to 1 is the full screen" \n
+  "!/window,3,rbot !full,righ,top,bot,ltop,lbot,rtop,rbot" \n
+  "eplot" \n
+  "/window,2,on" \n
+  "/erase" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - countours in legend -" \n
+  "!! .............................." \n
+  "!X11 or WIN32 and to 128 for X11c or WIN32C " \n
+  "/contour,,!wn,ncont[9],vmin,vinc,vmax" \n
+  "! 3-D device" \n
+  "/dv3d,contr,off![on]" \n
+  "/contour,,!wn,ncont[128],vmin,vinc,vmax" \n
+  \n
   "!! .............................." \n
   "!@@@ - cutting planes and power graphics -" \n
   "!! .............................." \n
@@ -499,8 +547,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/shade,,0 !bug in 14.5, shouldn't be necessary" \n
   "/type,,zcap !capped z-buffered" \n
   "/type,,zqsl !sliced z-buffered" \n
-  "/efacet,2! display 2 element facets (curvature) with power graphics" \n
-  "/eshape,1 !1:use real constant def. for element shapes" \n
   "/gline,,1 !elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
   "!! .............................." \n
@@ -518,14 +564,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "clocal,11,0 !define local coord. sys. from active" \n
   "/psymb,cs,1 ! display local coord." \n
   "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
-  "/plopts,info,off !switch off all descriptive text" \n
-  "/plopts,wp,1 !display working plane" \n
-  "/plopts,minm,off !Min-max symbol [on]" \n
   "/plopts,wp,off !switch off wp" \n
-  "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off ANSYS logo" \n
   "/triad,rbot"_ \n
-  "/triad,off"
+  "/triad,off" \n
   \n
   )
 
@@ -601,28 +642,29 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! " \n
   "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY ANSYS version < 12.0!)" \n
   "rmodif,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
-  "rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for ANSYS!!!" \n
+  "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for ANSYS!!!" \n
   \n
-  "Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
-  "rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
+  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
+  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
   \n
-  "Pinb = -1 !search radius, neg: absolut value ( > CNOF!)" \n
-  "rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
+  "!Pinb = -0.1 !search radius, neg: absolut value ( > CNOF!!!!)" \n
+  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   \n
-  "ICONT = -0.05 !initial contact closure [0] relative band size (neg. absolut)" \n
-  "rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  "!ICONT = -0.05 !initial contact closure [0] relative band size (neg. absolut)" \n
+  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   \n
-  "CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
-  "rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
+  "!CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
+  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
   "!keyo,Contact,4,0 !keyo(4): location of contact detection" \n
   "    !! [0]:Gauss points, 3(V13):surface projection method" \n
-  "keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
+  "!keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
   "    !! 0: no adjustm." \n
   "    !! 1: close gap with auto CNOF" \n
   "    !! 2: reduce penetr. w. auto CNOF" \n
   "    !! 3: close gap/red. pene. w. auto CNOF" \n
   "    !! 4: auto ICONT" \n
+  "!keyo,Contact,9,1 ! corresponds to Adjust To Touch in WB" \n
   "keyo,Contact,9,4 !HANDLING of initial penetration/gap and CNOF" \n
   "    !! 0: include everything" \n
   "    !! 1: remove everything" \n
@@ -630,13 +672,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "    !! 3: include offset only" \n
   "    !! 4: incl. offset only, ramped" \n
   "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,1:each substep" \n
-  "keyo,Contact,11,1 !SHELL thickness effect" \n
+  "!keyo,Contact,11,1 !SHELL thickness effect" \n
   "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
   "real,Contact" \n
   \n
-  "rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, must be neg." \n
+  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, must be neg." \n
   \n
-  "mp,mu,Contact,Mu !friction factor" \n
+  "Mu = 0.1 !Mu is the friction factor" \n
+  "!Mu = 0 ! frictionless" \n
+  "mp,mu,Contact,Mu" \n
   "mat,Contact" \n
   \n
   "!@ ------------------------------" \n
@@ -744,8 +788,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
-  "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off ANSYS logo" \n
   "/triad,rbot"_ \n
   "/triad,off"
   \n
@@ -1284,15 +1326,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Th2 = +360./(2*N)" \n
   "Depth=30" \n
   "!! --- lines ---" \n
+  "larc,kp1,kp2,kpc,rad !if rad is blank, fit throught KPs" \n
   "circle,centre,radius," \n
   "!! --- areas ---" \n
+  "rpr4,3,10,0,1.2,! polygonal area or prism volume"
   "pcirc,R1,R2,Th1,Th2 ! circular area" \n
   "rcon$stat !status of real constands" \n
   "*get,RN,rcon,,num,max	 !maximum real set no "
   "Cylinder = RN + 1 !new real set" \n
   "ID = Cylinder" \n
   "r,ID,Length" \n
-  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth ! circular area or cylinder" \n
+  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth ! circular area or cylindrical volume" \n
   "!! --- volumes ---" \n
   "sphere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
@@ -1301,6 +1345,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - checks -" \n
   "!! .............................." \n
   \n
+  "/prep7" \n
   "gsum !geometry stats" \n
   "asum !area statistics, mass, inertia" \n
   "vsum !volume statistics" \n
@@ -1349,6 +1394,29 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- material definitions --" \n
   "!! ------------------------------" \n
   \n
+  "!! --- material library ---" \n
+  "!! convention: file suffix: .unitssystem_MPL" \n
+  "!! unitsystems:" \n
+  "!! USER — User-defined system (default)." \n
+  "/units,mpa !indicate MPA system for material defs." \n
+  "!! SI — International system (m, kg, s, K)." \n
+  "!! MKS — MKS system (m, kg, s, °C)." \n
+  "!! uMKS — μMKS system (μm, kg, s, °C)." \n
+  "!! CGS — CGS system (cm, g, s, °C)." \n
+  "!! MPA — MPA system (mm, Mg, s, °C)." \n
+  "!! BFT — U. S. Customary system using feet (ft, slug, s, °F)." \n
+  "!! BIN — U. S. Customary system using inches (in, lbf*s2/in, s, °F)." \n
+  \n
+  "!! mpdata" \n
+  "/mplib,write,/HOME/uidg1626/ansys-mode/trunk/matlib" \n
+  "!! --- It is advisable to make the material files which are commented read only!" \n
+  "/mplib,read,/HOME/uidg1626/ansys-mode/trunk/matlib" \n
+  "/mplib,stat !shows the read write directories" \n
+  "/units,mpa !default extension for mpread is now MPA_MPL" \n
+  "mpread,steel_elastic,,,lib" \n
+  "! mpwrite" \n
+  "mplist" \n
+  \n
   "*get,MN,mat,,count,max !get maximum material no" \n
   "Steel=NM+1" \n
   "ID = Steel" \n
@@ -1361,8 +1429,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!mp,ctex,ID,12e-6 ! instantaneous coofficient of therm. exp." \n
   "KSteel = 60.5 !conductivity in W/(mK)" \n
   "mp,kxx,ID,KSteel" \n
-  "mplist,ID" \n
+  "mplist,ID,,,all !show all properties of mat. ID" \n
   "mpplot,ex,ID,100,500 !plots mat. vs temp." \n
+  \n
+  "!! --- Nonlinear material ---" \n
   "tb,biso,ID,1 ! bilinear isotropic plasticity" \n
   "Yield_stress = 160" \n
   "Tensile_strain = 0.3" \n
@@ -1371,7 +1441,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "True_tensile_stress = Tensile_stress*(1+Tensile_strain)" \n
   "Tangent_modulus = (True_tensile_stress-Yield_stress) / True_tensile_strain" \n
   "tbdata,,Yield_stress,Tangent_modulus" \n
-  "tblist !list data tables" \n
+  "tblist,all,ID !list properties" \n
   "tbplot,biso,ID" \n
   "/com, === Material %ID% is steel. ===" \n
   "Alu=2" \n
@@ -1393,7 +1463,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbpt,,5.e-2,1640." \n
   "tbpt,,5.4e-2,1600." \n
   "mp,ex,Steel,1300/.6e-2	      ! Elastic modulus" \n
-  "mpwrite,c75s_20deg_hardened,mat,,lib,1 !write to library" \n
+  "!! -- mpwrite overwrites without warning existing files! " \n
+  "mpwrite,c75s_20deg_hardened,mat,,lib,Steel !write to library" \n
   \n
   "!! - conductivity -" \n
   "mptemp !erase temperature table"  \n
@@ -1654,6 +1725,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ",status" > \n
   "/config,nres,2000 !No of substeps in result file [1000]" \n
   "/solu" \n
+  "!! --- birth & death ---" \n
   "ekill,all !deactivate elements" \n
   "ealive,all !reactivate elements"
   \n
@@ -1850,6 +1922,23 @@ time stamp with the Emacs command M-x `time-stamp'."
   "pletab,spl" \n
   "!! SPL in nodal display" \n
   \n
+  "!! .............................." \n
+  "!@@@ - multi window plots -" \n
+  "!! .............................." \n
+  "/window,2,dele" \n
+  "/window,1,dele" \n
+  "/erase" \n
+  "/window,2,-1,-.5,.5,1 !from -1 to 1 is the full screen" \n
+  "aplot" \n
+  "/window,2,off" \n
+  "/noerase" \n
+  "!/window,1,rbot !from -1 to 1 is the full screen" \n
+  "/window,1,full !from -1 to 1 is the full screen" \n
+  "!/window,3,rbot !full,righ,top,bot,ltop,lbot,rtop,rbot" \n
+  "eplot" \n
+  "/window,2,on" \n
+  "/erase" \n
+  \n
   "!@ ------------------------------" \n
   "!@@ -- magnetics --" \n
   "!! ------------------------------" \n
@@ -1877,7 +1966,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! animation" \n
   "lcdef,1,,1		 !real" \n
   "lcdef,2,,1,1		 !complex" \n
-  "/show,pscr" \n
+  "/show,pscr,,,8! 8 colour planes" \n
   "*afun,deg" \n
   "N = 20" \n
   "I = 1" \n
@@ -2062,10 +2151,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- 1.) device ouput ---" \n
   \n
-  "/color,wbak,whit !white background or:" \n
-  "!/RGB,index,100,100,100,0 !white background" \n
-  "!/RGB,index,0,0,0,15" \n
+  "!! --- PNG ---" \n
+  "!/color,wbak,whit !white background or:" \n
+  "/RGB,index,100,100,100,0 !white background" \n
+  "/RGB,index,0,0,0,15" \n
   "/gfile,1200 !set height resolution [800] to 1200, width=1.33*height" \n
+  "/sys,rm file*.png" \n
   "/show,png !creates jobname###.png files" \n
   "pngr !additional options" \n
   "pngr,stat" \n
@@ -2074,10 +2165,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lplot" \n
   "/show,close" \n
   "/erase !erase screen" \n
+  "/sys,display file*.png" \n
   \n
+  "!! --- EPS ---" \n
   "!! -- eps output, default white background" \n
   "pscr,color,2 ! coloured output" \n
-  "pscr,paper,a4,portrait" \n
+  "pscr,paper,a4,landscape" \n
   "pscr,hires,1 !1:high resolution" \n
   "pscr,LWID,5 ! line width factor [3] 1-99" \n
   "pscr,stat" \n
@@ -2089,13 +2182,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,frame,off !switch off graphics frame" \n
   "/title" \n
   "/sys,rm file*.eps" \n
-  "/show,pscr" \n
+  "/show,pscr,,,8! 8 colour planes" \n
   "eplot" \n
   "/show,close" \n
   "/sys,epstopdf file000.eps" \n
   "/sys,display file000.pdf" \n
-  "*dim,Dir,string,248 ! maximum of 248 characters!" \n
-  "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
+  "*dim,Dir,string,248 ! string array with maximum of 248 characters!" \n
+  "Dir(1) = '/very/very/very/long/path/to/heaven/'" \n
   "*stat,Dir" \n
   "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
   "/syp,ls, Dir(1)" \n
@@ -2109,7 +2202,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/image,save,%File%,xwd !write in xwd bitmap format" \n
   "/syp,mogrify -format png, '%File%.xwd'" \n
   \n
-  "/sys,rm *.jpg *.eps *.tiff" \n
+  "/sys,rm file*.jpg file*.eps file*.tiff" \n
   "/ui,copy,save,jpeg,graph,color,norm,portrait,yes,100 !100 max qality " \n
   "/sys,display *.jpg" \n
   "!! eps not supported by org, emacs' docview" \n

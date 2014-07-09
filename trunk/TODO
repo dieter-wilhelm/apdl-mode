@@ -86,22 +86,24 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - Help viewer not working
    - C-c C-c is not working on last line if there is no carriage return
    - M-? is not working properly
+   - file mode specification error: (search-failed
+     "nblock\\|eblock\\|cmblock" when opening .dat
    - / and * is not working for variable highlighting?! try changing the
      character syntax???
    - psolve command (from legacy documentation!?) is not highlighted
-   - file mode specification error: (search-failed "nblock\\|eblock\\|cmblock"
-   - variables are not highlighted in -skeletons?
    - *create file tmp,mac: macro call: tmp, is not highlighted
+   - menu-bar job-name is not working
    - join not in function list
+   - variables are not highlighted in -skeletons?
    - *msg command's format string is not higlighted (-template-element-table)
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated!
-   - /sys,evince press-fit.pdf  triggers a "search failed"
-   - menu-bar job-name is not working
    - help overlay is only removed after 1 min if the buffer is active
       at that time!
+   - /sys,evince press-fit.pdf  triggers a "search failed"
    - mismatch in customisation buffer of -license-file and -ansysli-servers
 ** Compiler warnings
     - makefile errors when doing -fontification.el
@@ -223,6 +225,8 @@
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - dynamic completion and help of parameter options, depending on
+     the contex like the one in bash
    - makeinfo documentation with org-mode ox exporter
    - make completion of templates with <mouse 1> button additionally
      to <mouse 2> as in -complete-symbol.
@@ -309,7 +313,8 @@
       ansys lock file before starting a run
     - search in -job for /filn arguments as default job name like in
       -display-error-file
-** Skeletons and abbrevs
+** Skeletons, outline and abbrevs
+   - show a preview buffer with the outline headlines
    - -skeleton-select is a bit thin, not yet finished?
    - add a preview mode, with its own keymap for faster editing and
      copying, like dired
@@ -338,6 +343,7 @@
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
+   - show content of /mplib folder
    - /Zoom not longer supported?! V14
    - add to -display-variables a prefix argument for showing the value
      of the variable around point, or center the variables window...
@@ -441,6 +447,18 @@
 ** Additional APDL macro resources
    see www.apdl.de for further ideas and extensions
 
+*** processes
+    #+BEGIN_SRC sh :var PROC=21868
+    ls /proc/$PROC/fd
+    #+END_SRC
+
+    #+RESULTS:
+    |   0 |
+    |   1 |
+    |   2 |
+    | 255 |
+
+    
 
 # local variables:
 # show-trailing-whitespace: t

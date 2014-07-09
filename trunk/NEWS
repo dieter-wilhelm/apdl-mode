@@ -4,16 +4,22 @@
 
 Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
-=== Version 15.0.1 Mar 2014 ===
+=== Version 15.0.1 Aug 2014 ===
 
-* Updated the help, completion and highlighting functionality to V15
+* Added an example of an ANSYS material library
+
+* C-c C-c (ansys-send-to-ansys) doesn't skip to the next code line any
+  longer but remains in the code line. The former behaviour borrows
+  the new function C-c C-j (ansys-send-to-ansys-and-proceed),
+  executing and then skipping to the next code.
 
 * Improved the `ansys-show-blabla...
 
-* Highlighted the new parametric function CXABS(), which was
-  introduced already in V14.
+* Highlighted now the parametric function CXABS(), which was already
+  introduced in V14.
 
-* As usual: Corrected some bugs, typos and extended the templates,
+* Updated the help, completion and highlighting functionality to V15
+  And as usual: Corrected some bugs, typos and extended the templates,
   e. g. partial solutions with psolve for mass calculations.
 
 ===  Version 14.5.2  Mar 2013 ===

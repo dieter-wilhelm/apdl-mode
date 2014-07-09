@@ -507,7 +507,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
 ;    (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-i" 'ansys-iso-view)
-    (define-key map "\C-c\C-j" 'ansys-send-to-ansys)
+    (define-key map "\C-c\C-j" 'ansys-send-to-ansys-and-proceed)
 ;    (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)

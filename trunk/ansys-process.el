@@ -264,6 +264,52 @@ the customisation facility (by calling `ansys-customise-ansys')."
 (defun ansys-send-to-ansys ( &optional stay)	;NEW
   "Send region (or code line) to the ANSYS interpreter, otherwise copy it.
 Argument BEG may the beginning of the region.  If there is no
+region active send/copy the complete code line.  When there is no
+running ANSYS interpreter process just copy the respective
+code (region or line) to the system clipboard and skip to the
+subsequent code line.  With any prefix argument STAY copy or send
+code but remain at the current cursor position."
+  (interactive "P")
+  (let (code
+	beg
+	end
+	(process (get-process
+		  (if (boundp 'ansys-process-name) ansys-process-name)))
+	(region (and transient-mark-mode mark-active)))
+;    	(region (region-active-p))) ;this is for Emacs-23.1
+    ;; make a valid region if possible, when region is not active:
+    ;; "region" will be the whole code line (including \n)
+    (if region
+	(setq beg (region-beginning)
+	      end (region-end))
+      (unless (ansys-code-line-p)
+	(unless stay
+	  (ansys-next-code-line))
+	(error "There was no active region or code line"))
+      (save-excursion
+	(setq beg (line-beginning-position))
+	(forward-line 1)
+	(setq end (point))))
+
+    ;; invalidate region
+    (setq mark-active nil)
+
+    ;; send or copy region or line
+    (cond ((ansys-process-running-p)
+	   (setq code (buffer-substring-no-properties beg end))
+	   (comint-send-string process
+			       (concat code ""); "\n"); why did I do \n?
+			       )
+	   (display-buffer "*ANSYS*" 'other-window))
+	  (t
+	   (kill-ring-save beg end)
+	   (if region
+	       (message "Copied region.")
+	     (message "Copied code line."))))))
+
+(defun ansys-send-to-ansys-and-proceed ( &optional stay)	;NEW
+  "Send region (or code line) to the ANSYS interpreter, otherwise copy it.
+Argument BEG may the beginning of the region.  If there is no
 region active send/copy the complete code line, if the cursor is
 in no code line (like a comment) go to the next code line and
 indicate an error.  When there is no running ANSYS interpreter process

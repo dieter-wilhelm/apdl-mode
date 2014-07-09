@@ -391,12 +391,14 @@ Then in mainly reverse chronological order:
 * The ANSYS-Mode atom feed for its downloads is
   http://code.google.com/feeds/p/ansys-mode/downloads/basic
 * The [http://www.emacswiki.org Emacs Wiki]
-* A general [http://www.ansys.net  ANSYS macro repository] (ansys.net)
+* A general [http://www.ansys.net  ANSYS repository] (ansys.net)
 * The [http://www.ansys.com ANSYS homepage]
 * Xansys, an [http://www.xansys.org ANSYS online community] (registration necessary for the forum)
 * [http://www.auc-ev.de/ AUC], the ANSYS User Club in Germany
 * A competitor of ANSYS-Mode: The commercial [http://www.padtinc.com/pedal  Pedal] script editor
-* Another free [http://apdl.de APDL editor], but this site seems to be abandoned since 2010
+* Another free [http://apdl.de APDL editor], unfortunately this site seems to be abandoned since 2010
+* Simple APDL syntax highlighting is available for various editors, gvim, nedit, ... just to name a few,
+  please have a look at [http://ansys.net ANSYS.net].
 
 == Bugs and Problems ==
 

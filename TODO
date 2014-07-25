@@ -32,7 +32,6 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
-
 *  15.0.1:
 ** TODO Freeze
    - update instead of erasing the help overlay, when keyword is
@@ -86,6 +85,7 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - the intoductory-tutorial is not right
    - Help viewer not working
    - C-c C-c is not working on last line if there is no carriage return
    - M-? is not working properly
@@ -150,6 +150,9 @@
   - APDL templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
+   
+  - M-x compile :: ALL ;-)
+  
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]

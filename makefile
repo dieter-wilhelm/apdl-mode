@@ -4,8 +4,8 @@
 # MODE = mode package + tags
 # EMACS = Windoze version of emacs with pre-configured mode
 
-ANSYS_MAJOR := 14
-ANSYS_MINOR := 5
+ANSYS_MAJOR := 15
+ANSYS_MINOR := 0
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -40,7 +40,7 @@ EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 EXE : $(EMACS_EXE)
 
 # this is the current ansys-mode version
-MODE_VERSION := 2-beta.2
+MODE_VERSION := 1-beta.1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 

@@ -1,0 +1,17 @@
+/COM,M250-35 electrical steel
+/NOP
+/COM,Internal UNITS set at file creation time = MPA       
+TBDEL,ALL,_MATL
+MPDEL,ALL,_MATL
+MPTEMP,R5.0, 1, 1,  0.00000000    ,
+MPDATA,R5.0, 1,EX  ,_MATL   , 1,  192500.000    ,
+MPTEMP,R5.0, 1, 1,  0.00000000    ,
+MPDATA,R5.0, 1,NUXY,_MATL   , 1, 0.300000000    ,
+MPTEMP,R5.0, 1, 1,  0.00000000    ,
+MPDATA,R5.0, 1,DENS,_MATL   , 1, 7.850000000E-09,
+TB,BISO,_MATL   ,   1
+TBTEM,  0.00000000    ,   1
+TBDAT,   1,  430.000000    ,  1086.27599    ,
+/GO
+mplist
+tblist

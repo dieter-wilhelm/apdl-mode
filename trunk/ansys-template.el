@@ -479,7 +479,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,date,1 !show only date and not time" \n
   "/plopts,title,off !switch of title display" \n
   "!! --- WB like legend display --- " \n
-  "/plopt,info,3! " \n
+  "/plopt,leg3,on! contour section of legend" \n
+  "/plopt,leg1,on! legend header" \n
+  "/plopt,info,3! show legend info on the left side" \n
   "/udoc,,cntr,bottom !show legend on bottom" \n
   "/pstatus ! display window stats specifications" \n
   \n
@@ -1412,8 +1414,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- It is advisable to make the material files which are commented read only!" \n
   "/mplib,read,/HOME/uidg1626/ansys-mode/trunk/matlib" \n
   "/mplib,stat !shows the read write directories" \n
+  "/sys,ls /ansys-mode/trunk/matlib ! which materials are in /mplib" \n
   "/units,mpa !default extension for mpread is now MPA_MPL" \n
-  "mpread,steel_elastic,,,lib" \n
+  "mpread,St37,,,lib" \n
   "! mpwrite" \n
   "mplist" \n
   \n

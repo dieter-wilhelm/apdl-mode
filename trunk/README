@@ -3,7 +3,13 @@ targeted for the [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki])
 
 Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
+=== Important hint ===
+
+Due to a recent restriction of Google code, the download page of
+Ansys-Mode since version 15.0.1 is now hosted on [https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing Google Drive]!
+
 == Introduction ==
+
 
 http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png
 

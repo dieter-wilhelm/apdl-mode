@@ -76,25 +76,22 @@ You might customise this variable or use the function
       (concat ansys-install-directory "ansys_inc/v"
       ansys-current-ansys-version "/ansys/bin/anshelp"
       ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe"))		;NEW_C
+    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))		;NEW_C
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v145/ansys/bin/anshelp145\" on GNU/Linux
+locations are \"/ansys_inc/v150/ansys/bin/anshelp150\" on GNU/Linux
 and \"c:\\\\Program Files\\Ansys\
-Inc\\v145\\commonfiles\\jre\\intel\\bin\\Javaw.exe\" on
-Windows (XP).  Since V12.0 ANSYS uses a java interpreter."
+Inc\\v150\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
+Windows (XP/7)."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-help-program-parameters (concat " -Xmx500000000 -cp \"c:\\Program Files\\Ansys Inc\\v"
-ansys-current-ansys-version "\\commonfiles\\help\" HelpDocViewer")
-  "Stores parameters for the variable `ansys-help-program' under Windows.
-For example: ' -Xmx500000000 -cp \"c:\\Program Files\\Ansys
-Inc\\v145\\commonfiles\\help\" HelpDocViewer' (the whitespace
-before -X... is important)."
+(defcustom ansys-help-program-parameters ""
+  "Stores parameters for the program `ansys-help-program' under Windows.
+In ANSYS version 150 not longer necessary."
   :type 'string
   :group 'ANSYS-process)
 

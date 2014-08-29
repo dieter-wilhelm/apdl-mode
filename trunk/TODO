@@ -85,17 +85,16 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
-   - the intoductory-tutorial is not right
-   - Help viewer not working
+   - the overlays of M-? cannot be manually cleared
+   - the introductory-tutorial is not right
    - C-c C-c is not working on last line if there is no carriage return
-   - M-? is not working properly
+   - menu-bar job-name is not working
    - file mode specification error: (search-failed
      "nblock\\|eblock\\|cmblock" when opening .dat
    - / and * is not working for variable highlighting?! try changing the
      character syntax???
    - psolve command (from legacy documentation!?) is not highlighted
    - *create file tmp,mac: macro call: tmp, is not highlighted
-   - menu-bar job-name is not working
    - join not in function list
    - variables are not highlighted in -skeletons?
    - *msg command's format string is not higlighted (-template-element-table)
@@ -150,9 +149,9 @@
   - APDL templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
-   
+
   - M-x compile :: ALL ;-)
-  
+
 ** Freeze
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
@@ -191,6 +190,7 @@
     Google Code with download, documentation page
   - publication emails (with tutorial and news):
 
+    weizhuo.du@peraglobal.com,
     info@auc-ev.de,
     afoleite@gmail.com,
     iivvgg@gmail.com,
@@ -199,14 +199,12 @@
     eyk.heinemann@continental-corporation.com,
     jens.2.missung@continental-corporation.com,
     joerg.menke@continental-corporation.com,
-    daniel.balint@continental-corporation.com,
     marius.tarnovetchi@continental-corporation.com,
     razvan.ionel.curtean@continental-corporation.com,
     Steffen.Kernbach@continental-corporation.com,
     Johann.Massinger@continental-corporation.com,
     Marco.Mechi@continental-corporation.com,
     Antonio.Zangaro@continental-corporation.com,
-    oleksiy.kurenkov@continental-corporation.com,
     martin.bruehl@continental-corporation.com,
     klemens.kieninger@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
@@ -217,8 +215,10 @@
     lkrueger@cadfem.de,
     sheldonimaoka@yahoo.com,
     kschoenborn@cadfem.de
+
+    # oleksiy.kurenkov@continental-corporation.com, left Conti
     # sgotthold@cadfem.de, left CadFem
-    # mike.brusoe@continental-corporation.com, left conti
+    # mike.brusoe@continental-corporation.com, left Conti
     # gmueller1950@gmx.de, deceased
 
     better not the "competitor":

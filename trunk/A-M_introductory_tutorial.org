@@ -22,7 +22,7 @@
 #+OPTIONS:   H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 #+INFOJS_OPT: view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
-#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS: A-M
 #+LaTeX_CLASS_OPTIONS: [presentation,colorlinks,t]
 #+LATEX_HEADER: \usepackage{textcomp}
 # #+BEAMER_HEADER_EXTRA: \usepackage{hyperref}
@@ -45,7 +45,6 @@
 
 # the text and arrows (line width 4) in the drawings are done with inkscape
 # okular and acroread support PDF annotations, xpdf, Chrome and Evince not
-
 
 * Introduction
 ** Introducing ANSYS-Mode -- an APDL environment
@@ -172,7 +171,7 @@
   system.  Optionally you might install Emacs shortcut icons for the
   system tray with /addpm.exe/ in Emacs' /bin/ folder.
 
-#+ATTR_LaTeX: width=11cm
+#+ATTR_LaTeX: :width 11cm
   [[./emacs_bin_folder.png]]
 
  In this list /runemacs.exe/ is the actual editor executable.
@@ -184,7 +183,7 @@
   /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
   <RET>).
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
@@ -194,7 +193,7 @@
   configure this. All described features can be executed through the
   ANSYS-Mode menu or with keyboard shortcuts.
 
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
@@ -212,7 +211,7 @@
   line is commented out).  You can continue editing, this temporary
   overlay - here in yellow - remains visible for a while.
   
-#+ATTR_LaTeX: height=7.5cm
+#+ATTR_LaTeX: :height 7.5cm
   [[./parameter_help.png]]
 
 ** Select and insert templates from the menu into your code

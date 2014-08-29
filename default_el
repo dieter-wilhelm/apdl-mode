@@ -86,7 +86,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 		       ;; ANSYS processes stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; IMPORTANT things you probably have to configure:
+;; IMPORTANT things you have to configure if they vary from the defaults:
 
 ;; ansys-current-ansys-version (your installed ANSYS version)
 ;; ansys-license-file (your license server) and
@@ -96,10 +96,8 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 ;; which version of ANSYS we are using, the current version is "150"
 
-(setq ansys-current-ansys-version "150")
+;(setq ansys-current-ansys-version "150")
 ;(setq ansys-current-ansys-version "145")
-;(setq ansys-current-ansys-version "140")
-;(setq ansys-current-ansys-version "130")
 
 ;; Number of cores for the run, 2 does not require HPC licenses
 
@@ -175,43 +173,23 @@ calling a special ANSYS customisation buffer." 'interactive)
 		   ;; else Windows 64 bit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
 
-	;; the following is now executed in the mode function
-	;; ansys-mode itself, dropped 32 bit support
-
+	;; the following is now executed in the function
+	;; `ansys-mode' itself, dropped 32 bit support
 
 ;;        (setq ansys-lmutil-program
 ;; 	     (concat
 ;; 	      ansys-install-directory
 ;; 	      "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
-;; ;	      "Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
 ;;        ;;backslash '\"' on windows mandatory
 
 ;; 	     ansys-help-program
 ;; 	     (concat ansys-install-directory
 ;; 		     "Ansys Inc\\v"
 ;; 		     ansys-current-ansys-version
-;; 		     "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
-;; ;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
+;; 		     "\\commonfiles\\help\\HelpViewer\ANSYSHelpViewer.exe") ;winx64/win7
+;; 	     ansys-help-program-parameters "") ;since v150
 
-;; 	     ansys-help-program-parameters
-;; 	     (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
-;; 		     ansys-install-directory
-;; 		     "Ansys Inc\\v"
-;; 		     ansys-current-ansys-version
-;; 		     "\\commonfiles\\help\" "
-;; 		     "HelpDocViewer")
-
-      ))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; still necessary for ANSYS 12 ?:
-	     ;; ansys-help-program-parameters
-	     ;; (concat "-cp \""
-	     ;; 	     ansys-install-directory
-	     ;; 	     "\\Ansys Inc\\v"
-	     ;; 	     ansys-current-ansys-version
-	     ;; 	     "\\commonfiles\\help\" "
-	     ;; 	     "HelpDocViewer"))))
+      ))				;end of cond
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; options when starting the solver below example shows the ANSYS mode

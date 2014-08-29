@@ -325,7 +325,7 @@ A hook is a variable which holds a collection of functions."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(defvar ansys-help-overlay-str ""
+(defvar ansys-overlay-str ""
   "variable to store previous overlay string.")
 
 (defvar ansys-hide-region-overlays nil
@@ -2122,25 +2122,27 @@ current one."
     (if ansys-timer
 	(cancel-timer ansys-timer))
     (delete-overlay ansys-help-overlay)
-    (unless (string= str ansys-help-overlay-str)
+;    (unless (string= str ansys-help-overlay-str)
       (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
       (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
       (overlay-put ansys-help-overlay 'before-string s)
       (setq ansys-timer (run-at-time "1 min" nil
-      '(lambda () (delete-overlay ansys-help-overlay)))))
-    ))
+      '(lambda () (delete-overlay ansys-help-overlay))))
+;      )
+    )
+  )
 
 (defun ansys-show-command-parameters (&optional ask)
-  "Displays the ANSYS command parameters help for the command near the cursor.
-First it shows the parameters of the keyword and then a short
-explanation.  This is done for the previous ANSYS command
-beginning, except when point is at the command beginning at the
-indentation.  See also the function `ansys-command-start' how the
-previous command is found.  The function shows also the
-parameters for commands in a comment line.  With a prefix
-argument ASK inquire a command name from the mini buffer, the
-names can be completed with <TAB>."
+  "Display an ANSYS command parameters help for the command near the cursor.
+Show the command name and its parameters (if any) and in the
+other line a brief description of the commands purpose.  This is
+done for the previous ANSYS command beginning, except when point
+is at the command beginning at the indentation.  See also the
+function `ansys-command-start' how the previous command is found.
+The function shows also the parameters for commands in a comment
+line.  With a prefix argument ASK inquire a command name from the
+mini buffer, the names can be completed with <TAB>."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)

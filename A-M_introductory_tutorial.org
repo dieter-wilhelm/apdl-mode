@@ -156,14 +156,14 @@
 ***  Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
   conjunction with the latest Emacs distribution for Win32/64 from 
-  [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]].
+  the [[https://drive.google.com/folderview?id%3D0Bxnk08BGWfexUThqbWxLX1NyeTg&usp%3Dsharing#list][ANSYS-Mode download page]] on Google Drive.
 # #+ATTR_HTML: width="1200"
 #+BEGIN_LaTeX
-\href{http://code.google.com/p/ansys-mode/downloads/list}{%
-  \includegraphics[width=12cm]{./download.png}%
+\href{https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing}{%
+  \includegraphics[width=12cm]{./google_drive.png}%
 }
 #+END_LaTeX 
-#+HTML: <img src="./download.png" alt="download page from Google Code">
+#+HTML: <img src="./download.png" alt="download page from Google Drive">
   
 * Installation
 ** Install ANSYS-Mode together with Emacs

@@ -1,9 +1,7 @@
 #labels Featured
 ===Warning:====
 
-The latest versions starting from Ansys-Mode 15.0.1 due to a restriction of Google Code are now to be found under the following Google Drive address:
-
-
+The latest versions starting from Ansys-Mode 15.0.1 due to a restriction of Google Code are now to be found under [https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing Google Drive] and NOT any longer in this Download section!
 
 The realease numbering scheme is a mixture of the targeted Ansys version, e. g. 14.0 and the mode version, e. g. .1 => Ansys mode version 14.0.1
 

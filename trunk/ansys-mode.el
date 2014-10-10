@@ -3027,8 +3027,7 @@ the `ansys-hide-region-overlays' \"overlay ring\"."
                      (propertize ansys-hide-region-after-string
                                  'font-lock-face 'region)
                    ansys-hide-region-after-string))
-    )
-  )
+   (deactivate-mark)))
 
 (defun ansys-hide-number-blocks ()
   "Hide all number blocks (nblock, eblocks, cmblocks) in file.
@@ -3042,9 +3041,9 @@ These constructs appear in WorkBench created solver input files."
 	)
     (message "Hiding number blocks ...")
     (goto-char (point-min))
-    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil nil)
+    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil t)
       (setq p1 (point))
-      (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
+      (re-search-forward "^$\\|^-1\\|^cmsel\\|^d" nil nil)
       (setq p2 (point)
 	    lines (count-lines p1 p2)
 	    )
@@ -3058,7 +3057,8 @@ These constructs appear in WorkBench created solver input files."
 	(ansys-hide-region)
 	)
       )
-    (goto-char (p-orig))
+    (goto-char p-orig)
+    (message "... hid number blocks.")
     )
   )
 

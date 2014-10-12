@@ -3237,8 +3237,8 @@ Added pseudo arguments A B C."
 	;; for the display
 	(setq ansys-user-variables
 	      (sort ansys-user-variables
-		    #'(lambda (arg1 arg2)
-		       (< (cadr arg1) (cadr arg2)))))
+		    (lambda (arg1 arg2)
+		      (< (cadr arg1) (cadr arg2)))))
 	;; make the regexp for fontification
 	(setq res (mapcar 'car ansys-user-variables)
 	      res (regexp-opt res 'symbols) ;words inhibits variables ending in _!

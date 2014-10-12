@@ -375,12 +375,13 @@ locally:
 * Tim Read
 * Geoff Foster
 
-For their ansys-mod.el from 1997 which gave the ideas to start
-ANSYS-Mode (the implementation though is different and many
-capabilities are new or extended)
+For their ansys-mod.el from 1997 which triggered the idea in 2006 to
+start ANSYS-Mode as a GNU public license (GPL) implementation with an
+extended feature set.
 
-Then in mainly reverse chronological order:
+Further acknowledgements in mainly reverse chronological order:
 
+* Nish Joseph
 * Alwin Perras
 * Mathias Dahl, for hide-region.el (and yupeng for some additions)
 * Thien-Thi Nguyen
@@ -390,7 +391,7 @@ Then in mainly reverse chronological order:
 * Holger Sparr
 * Eli Zaretzki
 * Markus Triska
-* [http://stallman.org/ RMS]
+* [http://stallman.org/ RMS] for Emacs
 
 == Resources ==
 

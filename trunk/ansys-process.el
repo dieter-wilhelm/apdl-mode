@@ -1,4 +1,4 @@
-;;; ansys-process.el -- Managing runs and processes for the ANSYS-Mode
+;;; ansys-process.el -- Managing runs and processes for ANSYS-Mode
 
 ;; Copyright (C) 2006 - 2014  H. Dieter Wilhelm GPL V3
 
@@ -61,7 +61,7 @@ the respective error file."
 	      version "/ansys/bin/ansys" version)
     (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))		;NEW_C
   "This variable stores the ANSYS executable name.
-Under GNU/Linux this should be the solver, under Windows the
+Under GNU/Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
@@ -177,6 +177,40 @@ Variable is only used internally in the mode.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun ansys-start-classics ()
+  "Start the Ansys Classics user interface."
+  (interactive)
+;    (ansys-program "")		 ;take exec from -program var.
+;    (ansys-license-file "")	 ;
+;    (ansys-ansysli-servers "")	 ;
+    ;(ansys-license "")		 ;
+
+    (if (y-or-n-p
+	 (concat
+	  "Start run?  (version: "
+	  ansys-current-ansys-version
+	  ", license type: " ansys-license
+	  ;; "Start run?  (license type: " (if (boundp
+	  ;; 'ansys-license) ansys-license)
+	  (if (>= ansys-no-of-processors 3)
+	      (concat ", No of processors: " (number-to-string ansys-no-of-processors))
+	    "")
+	  ", job: " (if (boundp 'ansys-job) ansys-job)
+	  " in " default-directory ", server: " ansys-license-file ")"))
+	(message "Starting the ANSYS Classics GUI...")
+      (error "Starting ANSYS Classics canceled"))
+    ;; -d : device
+    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/v150/ansys/bin/ansys150" "-p ansys " "-d 3d " "-g")
+    (process-running-child-p "*ANSYS GUI*")
+    (process-status "*ANSYS GUI*")
+
+    (process-send-string "*ANSYS GUI*" "/prep7")
+    (process-send-string "*ANSYS GUI*" "y\n")
+    (process-send-string "*ANSYS GUI*" "\r")
+    (process-send-string "*ANSYS GUI*" "/exit")
+
+    )
 
 (defun ansys-write-abort-file (filename) ;NEW
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -400,6 +434,7 @@ initial input."
     ;; (force-mode-line-update)
     (display-buffer "*ANSYS*" 'other-window)))
 
+
 (require 'comint)
 
 ;;;###autoload
@@ -419,6 +454,10 @@ smaller than 3 (see `ansys-number-of-processors')."
     (ansys-license-file "")	 ;
     (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
+
+; env variable: ANSYS150_WORKING_DIRECTORY or -dir command line string
+; (setenv "ANSYS150_WORKING_DIRECTORY" "/tmp")
+; (getenv "ANSYS150_WORKING_DIRECTORY")
 
     (if (y-or-n-p
 	 (concat

@@ -251,6 +251,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - material info" \n
   "!! .............................." \n
   \n
+  "*get,Density,dens,ID,temperature !get the properties of material ID" \n
   "mplist,all" \n
   "tblist" \n
   "tbplot,biso,1" \n
@@ -514,6 +515,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/efacet,2! display 2 element facets (curvature) with power graphics" \n
   "/eshape,1 !1:use real constant def. for element shapes" \n
+  "/graphics,power !for post1 results" \n
   \n
   "!! .............................." \n
   "!@@@ - multi window plots -" \n
@@ -979,6 +981,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "prrsol,node !reaction solution" \n
   "" \n
   "/eshape,1" \n
+  "/graphics,power !for post1 results" \n
   "/view,,1,1,1" \n
   "pldisp" \n
   "plnsol,u,sum,2" \n
@@ -1007,6 +1010,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "real,ID" \n
   "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane strain, 3:plane stress with thickness real constant" \n
   "/eshape,1 !1:use real constant def. for element shapes" \n
+  "/graphics,power !for post1 results" \n
   "r,ID,13 ! thickness" \n
   "et,ID,plane182 !2d, 4 node" \n
   "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
@@ -1067,7 +1071,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "et,ID,plane35 !2d 6-node triangular thermal solid" \n
-  "et,ID,plane77 !2d 8-node thermal solid" \n
+  "et,ID,plane77,,,3 !2d 8-node thermal solid, keyopt(3)=3 thickness" \n
+  "r,ID,length !plane77 has only 1 real const.: thk" \n
   "et,ID,solid90 !3D 20 nodes thermal solid" \n
   \n
   "!! .............................." \n
@@ -1414,8 +1419,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- It is advisable to make the material files which are commented read only!" \n
   "/mplib,read,/HOME/uidg1626/ansys-mode/trunk/matlib" \n
   "/mplib,stat !shows the read write directories" \n
-  "/sys,ls /ansys-mode/trunk/matlib ! which materials are in /mplib" \n
+  "!! which materials are in the mplib?" \n
+  "/sys,ls ~/ansys-mode/trunk/matlib" \n
   "/units,mpa !default extension for mpread is now MPA_MPL" \n
+  "mat,Steel ! set the material number" \n
   "mpread,St37,,,lib" \n
   "! mpwrite" \n
   "mplist" \n
@@ -1469,6 +1476,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- mpwrite overwrites without warning existing files! " \n
   "mpwrite,c75s_20deg_hardened,mat,,lib,Steel !write to library" \n
   \n
+  "!! - specific heat -" \n
+  "mptemp !erase temperature table"  \n
+  "mpdata,c,Alu,, ! specific heat in W/(mK)" \n
   "!! - conductivity -" \n
   "mptemp !erase temperature table"  \n
   "mptemp,,-100,0,100,200 !4 temperatures" \n
@@ -1703,7 +1713,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "N2=N1*100 ! maximum No of substemps" \n
   "N3=N1/4 ! minimum No of substeps " \n
   "nsubst,N1,N2,N3" \n
-  "outres,all,all" \n
+  "outres,all,last !,item,freq,cname" \n
   "antype,static !,rest,LoadStep,SubStep ![new]rest: perform restart operation" \n
   "nlgeom,on" \n
   "autots,on" \n
@@ -1854,6 +1864,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plvect,epto" \n
   "plvect,s" \n
   \n
+  "!! .............................." \n
+  "!@@@ - temperature -" \n
+  "!! .............................." \n
+  \n
+  "plnsol,temp" \n
   "!! .............................." \n
   "!@@@ - reactions -" \n
   "!! .............................." \n
@@ -2350,8 +2365,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- \"table\" arrays --" \n
   "!! ------------------------------" \n
   \n
-  "!! table arrays are *set with integers" \n
+  "!! table arrays interpolate linearly between their values" \n
   "!! and might be accessed with real indices" \n
+  "!! the last value remains constant" \n
   "NSS=100" \n
   "*dim,F_y,table,NSS,3! three columns" \n
   "F_y(0,1) = 1,2,3 ! column 'index'" \n
@@ -2628,9 +2644,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Materials and element types -" \n
   "!! .............................." \n
   \n
-  "!! --- Solids ---" \n
+  "!@@@ --- Materials ---" \n
   \n
-  "!! --- Contacts ---" \n
+  "!@@@ --- Solid elements ---" \n
+  \n
+  "!@@@ --- Contact elements ---" \n
   \n
   "!! .............................." \n
   "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Geometry -" \n

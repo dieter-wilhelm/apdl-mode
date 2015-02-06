@@ -85,6 +85,7 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
+   - lsln line selected by nodes: is not highlighted
    - the overlays of M-? cannot be manually cleared
    - the introductory-tutorial is not right
    - C-c C-c is not working on last line if there is no carriage return

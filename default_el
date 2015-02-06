@@ -96,7 +96,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 ;; which version of ANSYS we are using, the current version is "150"
 
-;(setq ansys-current-ansys-version "150")
+(setq ansys-current-ansys-version "150")
 ;(setq ansys-current-ansys-version "145")
 
 ;; Number of cores for the run, 2 does not require HPC licenses
@@ -124,10 +124,10 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 (cond ((string= window-system "x")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
-			    ;; GNU/Linux 64 bit
+			 ;; GNU/Linux 64 bit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
        ;; for starting the solver & ansys-license-status & ANSYS help 
-       (setq
+       (setq		     ;
 	;; license servers (or license file name)
 	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU/Linux
 	;; GNU/Linux: License servers separated by colons (":"), 1055 is the default port
@@ -195,9 +195,8 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;; options when starting the solver below example shows the ANSYS mode
 ;; defaults
 
-(setq ansys-license "struct"		;which license type to use for
-					;the solver
-      ansys-job "file"			;ANSYS job name
+(setq ansys-license "struct" ;which license type to use for the solver
+      ansys-job "file"	     ;ANSYS job name
       )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

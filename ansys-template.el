@@ -1539,6 +1539,22 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
+(define-skeleton ansys-skeleton-component
+  ""
+  nil
+  "!@ ------------------------------" \n
+  "!@@ -- components --" \n
+  "!! ------------------------------" \n
+  \n
+  "cm,cmName,volu !,,area;line;kp;elem;node" \n
+  "cmsel,s,cmName !select components cmName" \n
+  "cmsel,s,,volu !select all volume components" \n
+  "cmsel,all !additional select all components" \n
+  "cmdele,cmName !delete component cmName" \n
+  "*GET, Parameter, COMP, 0, ncomp! Get the number of components" \n
+  \n
+)
+
 (define-skeleton ansys-skeleton-bc
   ""
   nil

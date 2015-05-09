@@ -190,7 +190,7 @@ dynamically i. e. during editing when the variable
   "String of the used ANSYS version.
 This variable is used by the `ansys-skeleton-header' template and
 for setting up variables defaults with ANSYS path specifications,
-like `ansys-program'."
+like in the variable `ansys-program'."
   :type 'string
   :group 'ANSYS)
 
@@ -1860,60 +1860,6 @@ improvements you have the following options:
 	  (message "Experimental (non-dynamic) fontification of variables activated."))
 	(ansys-find-user-variables)))
 
-  ;; initialise
-
-  ;; license server configuration and executables
-
-  (cond ((string= window-system "x")
-	 (setq
-	  ;; The ANSYS executable
-	  ansys-program
-	  (concat ansys-install-directory
-		  "ansys_inc/v"
-		  ansys-current-ansys-version
-		  "/ansys/bin/ansys"
-		  ansys-current-ansys-version)
-	  ;; Utility for the license status
-	  ansys-lmutil-program
-	  (concat
-	   ansys-install-directory
-	   "ansys_inc/shared_files/licensing/linx64/lmutil") ;; 64-bit
-	 ;; lin32 not longer supported since ANSYS 14!
-	 ;;"ansys_inc/shared_files/licensing/intel/lmutil") ;; 32-bit
-	 ;; "ansys_inc/shared_files/licensing/lin32/lmutil")
-
-	 ;; ANSYS help browser executable
-	  ansys-help-program
-	  (concat
-	   ansys-install-directory
-	   "ansys_inc/v"
-	   ansys-current-ansys-version
-	  "/ansys/bin/anshelp"
-	  ansys-current-ansys-version)))
-	(t
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		   ;; else windows (XP 32/64 Bit)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	 (setq ansys-lmutil-program
-	       (concat
-		ansys-install-directory
-		"Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
-;	      "Ansys Inc\\Shared Files\\licensing\\win32\\anslic_admin.exe")
-	       ;;backslash '\"' on windows mandatory
-	       ansys-help-program
-	       (concat ansys-install-directory
-		       "Ansys Inc\\v"
-		       ansys-current-ansys-version
-		       "\\commonfiles\\jre\\winx64\\bin\\Javaw.exe") ;winx64
-;		     "\\commonfiles\\jre\\intel\\bin\\Javaw.exe") ;intel32
-	       ansys-help-program-parameters
-	       (concat " -Xmx500000000 -cp \"" ;the whitespace before -Xmx is important
-		       ansys-install-directory
-		       "Ansys Inc\\v"
-		       ansys-current-ansys-version
-		       "\\commonfiles\\help\" "
-		       "HelpDocViewer"))))
-
   ;; .dat WorkBench solver input files
 
   (when (string= (file-name-extension (buffer-file-name)) "dat")
@@ -3027,7 +2973,8 @@ the `ansys-hide-region-overlays' \"overlay ring\"."
                      (propertize ansys-hide-region-after-string
                                  'font-lock-face 'region)
                    ansys-hide-region-after-string))
-   (deactivate-mark)))
+    )
+  )
 
 (defun ansys-hide-number-blocks ()
   "Hide all number blocks (nblock, eblocks, cmblocks) in file.
@@ -3041,9 +2988,9 @@ These constructs appear in WorkBench created solver input files."
 	)
     (message "Hiding number blocks ...")
     (goto-char (point-min))
-    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil t)
+    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil nil)
       (setq p1 (point))
-      (re-search-forward "^$\\|^-1\\|^cmsel\\|^d" nil nil)
+      (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
       (setq p2 (point)
 	    lines (count-lines p1 p2)
 	    )
@@ -3057,8 +3004,7 @@ These constructs appear in WorkBench created solver input files."
 	(ansys-hide-region)
 	)
       )
-    (goto-char p-orig)
-    (message "... hid number blocks.")
+    (goto-char (p-orig))
     )
   )
 
@@ -3237,8 +3183,8 @@ Added pseudo arguments A B C."
 	;; for the display
 	(setq ansys-user-variables
 	      (sort ansys-user-variables
-		    (lambda (arg1 arg2)
-		      (< (cadr arg1) (cadr arg2)))))
+		    '(lambda (arg1 arg2)
+		       (< (cadr arg1) (cadr arg2)))))
 	;; make the regexp for fontification
 	(setq res (mapcar 'car ansys-user-variables)
 	      res (regexp-opt res 'symbols) ;words inhibits variables ending in _!

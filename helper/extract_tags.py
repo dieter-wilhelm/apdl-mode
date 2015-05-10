@@ -8,7 +8,7 @@ import os
 import glob
 import re
 
-version = "150"                 # ansys version
+version = "161"                 # ansys version
 f_list = glob.glob("Hlp_C_CmdTOC.html")
 out = "ansys_keywords.txt"
 o = open(out,'w+')              # w+: write anew
@@ -51,6 +51,6 @@ for f in f_list:
         n = n + 1
     inf.close()
 o.close()
-print "We got 1491 entries in the HlP_C_CmdTOC.html in V150."
+print "We got 1491 entries in the HlP_C_CmdTOC.html in V161."
 print "We have ( for V",version,")", n, "entries in the HlP_C_CmdTOC.html."
 print  "wrote " + out + ", that's it!"

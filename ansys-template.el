@@ -2,6 +2,11 @@
 
 ;; Copyright (C) 2006 - 20014  H. Dieter Wilhelm GPL V3
 
+;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Maintainer: H. Dieter Wilhelm
+;; Version: 16.1.1
+;; Keywords: Languages, Convenience, ANSYS
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published
@@ -193,8 +198,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ --- measurements ---" \n
   "!! ------------------------------" \n
   \n
-  "nx,y,z(NodeNo) ! x,y,z-coordinate of node NodeNo " \n
-  "kx,y,z(KeyPoint) ! x,y,z-coordinate of KP KeyPoint " \n
+  "nx|y|z(NodeNo) ! x|y|z-coordinate of node NodeNo " \n
+  "kx|y|z(KPoint) ! x|y|z-coordinate of KP KeyPoint " \n
   "distnd(N1,N2) ! distance between nodes" \n
   "distkp(k1,k2) ! distance between keypoints" \n
   "disten(e,n) ! distance between element centroid and node" \n
@@ -275,6 +280,13 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,list ! list a summary of each load step" \n
   "wpstyl,stat !working plane status" \n
   "status,solu" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - postproc info -" \n
+  "!! .............................." \n
+  \n
+  "*get,NS,active,,set,nset !No of load steps" \n
+  "*get,T,active,,set,time !Time of current set" \n
   \n
   "!! .............................." \n
   "!@@@ - \"stat\" database settings - " \n
@@ -425,7 +437,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/units,MPA  !I'm using mostly MPA (Tmms) (important only for material libs)" \n
   "mpread,steel_elastic,,,lib" \n
   \n
-  "!! --- file names -- " \n
+  "!! --- Directory and file names -- " \n
+  "*dim,Dir,string,248 ! string array with maximum of 248 characters!" \n
+  "Dir(1) = '/very/very/very/long/path/to/heaven/'" \n
   "/cwd,/tmp !change the current working dir." \n
   "filnam,bla !change the jobname" \n
   "resume! resume the database" \n
@@ -508,6 +522,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/number,1 !0:colours & numbers,1:colours,2:numbers" \n
   "/pnum,mat,1 !1: turn on numbering" \n
   "!NODE ELEM MAT TYPE REAL LOC SVAL ESYS KP LINE AREA VOLU STAT TABN  SEC DOMA DEFA" \n
+  "/pnum,defa !1: turn off any numbering" \n
   \n
   "!! .............................." \n
   "!@@@ - element shape display -" \n
@@ -592,11 +607,23 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/facet,fine" \n
   "/title,new title" \n
   \n
-  "! read from file" \n
-  "*dim,bla" \n
-  "*vread,bla,file,dat,,ijk" \n
+  "!! read array from file: Variable of *vread must be dimensioned!" \n
+  "/inquire,Numlines,LINES,'%Dir(1)%ground_plate_temperature',csv" \n
+  "*dim,bla,Numlines,1" \n
+  "!! lines might be skipped with the SKIP parameter" \n
+  "*vread,Bla,file,ext,,ijk,Numlines,2,,skip" \n
   "(E10.3)"  \n
+  "*vplot,Bla(1,1),Bla(1,2) "
   "! works only with FORTRAN not C specifiers!" \n
+  \n
+  "!!read table from file: Variable of *tread must be dimensioned!" \n
+  "!!*tread: tab-delimited, blank-delimited, or comma-delimited file format" \n
+  "/inquire,Numlines,LINES,'%Dir(1)%ground_plate_temperature',csv" \n
+  "*dim,Hans,table,Numlines,4 !column and row 0 must not be dimensioned!" \n
+  "!! lines might be skipped with the SKIP parameter" \n
+  "*tread,Hans,tmp,out,,skip !the value Hans(0,0) must be smaller then Hans(0,1) and Hans(1,0)!" \n
+  "*vplot,Hans(1,0),Hans(1,1),2,3" \n
+  \n
   )
 
 (define-skeleton ansys-skeleton-expand	;NEW
@@ -623,7 +650,29 @@ time stamp with the Emacs command M-x `time-stamp'."
   ""
   nil
   "!@ -------------------------------" \n
-  "!@@ -- contact pair definitions --" \n
+  "!@@ -- General contact definitions (since Ansys 16) --" \n
+  "!! -------------------------------" \n
+  \n
+  "!! 2D and 3D elements are automatically selected!" \n
+  "gcgen ! contacts on all exterior element faces" \n
+  "gcgen,,,,,select! only contacts for selected elements!" \n
+  "gcgen,,,,part! sectionIDs only for parts!" \n
+  "gcdef, Option, SECT1, SECT2, MATID, REALID" \n
+  "tb,inter,MatID,,,bonded !contact interaction" \n
+  "mp,mu,MatID,.1 !friction " \n
+  "!! rigid targets without real constants are allowed with general contact definitons!" \n
+  "ET,100,170,,1" \n
+  "TYPE,100" \n
+  "SECNUM,101" \n
+  "REAL,0"  \n
+  "MAT,0" \n
+  "keyopt,gcn,2,3! keyopt for ALL general contacts" \n
+  "gcgen,select !select all general contacts and deselect others!" \n
+  "elist !get sectionID and typeID" \n
+  "/pnum,sect,on !display section type" \n
+  \n
+  "!@ -------------------------------" \n
+  "!@@ -- Contact pair definitions --" \n
   "!! -------------------------------" \n
   \n
   "Contact=10"_ \n
@@ -845,6 +894,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/pnum,kp,1 !line;area;volu;node;elem;mat;type;tabn;sval,on" \n
   "/number,2 ![0]: colour & number, 1:colour only, 2 number only" \n
+  "/pnum,defa !1: turn off any numbering" \n
   "/replot" \n
   \n
   )
@@ -857,11 +907,18 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - symbol display -" \n
   "!! .............................." \n
   \n
-  "/pbc,all,,1 !bc symbols" \n
   "/vscale,,10 !scale displayed vectors" \n
   "/psf,pres,,2 !2 arrows, surface loads" \n
   "/pbf !body loads" \n
+  "/psf,conv,hcoef ! plot surface loads" \n
+  "/pbf,hgen ! plot body force loads (temp,...) as contours" \n
+  "/pbc,all,,1 !bc symbols" \n
+  "/pbc,f,,1 !1:show applied force symbols" \n
+  "/pbc,nfor,,1 ! show nodal forces"  \n
+  "/pbc,rfor,,1 ![0],1:show reaction forces" \n
+  "/pbc,defa !reset /pbc" \n
   "/pice !element initial condition symbols" \n
+  "!! coordinates" \n
   "/psymb,esys,1 ![0],1: display of element co-ordinate sys." \n
   "/psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
   "/psymb,stat" \n
@@ -1103,6 +1160,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ ------------------------------" \n
   "!@@ -- meshing --" \n
   "!! ------------------------------" \n
+  "shpp,off !switch off shape checking" \n
   \n
   "!! mat,Steel" \n
   "mshkey,1 !1: mapped meshing,2: mapped if possible" \n
@@ -1284,11 +1342,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "! -- Character String Functions Strings must be dimensioned (see *DIM) as a character parameter or enclosed in single apostrophes ('char'). --" \n
   "! -- Functions which return a double precision value of a numeric character string. --" \n
   "VALCHR(a8) ! a8 is a decimal value expressed in a string." \n
-  "VALOCT (a8) ! a8 is an octal value expressed in a string." \n
+  "VALOCT(a8) ! a8 is an octal value expressed in a string." \n
   "VALHEX(a8) ! a8 is a hex value expressed in a string." \n
   "! -- Functions which return an 8 character string of a numeric value. --" \n
-  "CHRVAL (dp) ! dp is a double precision variable." \n
-  "CHROCT (dp) ! dp is an integer value." \n
+  "CHRVAL(dp) ! dp is a double precision variable." \n
+  "CHROCT(dp) ! dp is an integer value." \n
   "CHRHEX(dp) ! dp is an integer value." \n
   "! -- Functions which manipulate strings: StrOut is the output string (or character parameter) Str1 and Str2 are input strings. Strings are a maximum of 128 characters. (see *DIM) StrOut = STRSUB(Str1, nLoc,nChar)  Get the nChar substring starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2) Add Str2 at the end of Str1. --" \n
   "STRFILL(Str1,Str2,nLoc) ! StrOut = STRFILL(Str1,Str2,nLoc)  Add Str2 to Str1 starting at character nLoc." \n
@@ -1299,8 +1357,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "UPCASE(Str1) ! StrOut = UPCASE(Str1) Upper case of Str1" \n
   "LWCASE(Str1) ! StrOut = LWCASE(Str1) Lower case of Str1" \n
   "! -- The following functions manipulate file names. --" \n
-  "JOIN ('directory','filename','extension') ! Path String = JOIN ('directory','filename','extension')  Produces a contiguous pathstring. e.g. directory/filename.ext" \n
-  "JOIN ('directory','filename') ! Path String = JOIN ('directory','filename') Produces a contiguous pathstring. e.g. directory/filename" \n
+  "JOIN('directory','filename','extension') ! Path String = JOIN ('directory','filename','extension')  Produces a contiguous pathstring. e.g. directory/filename.ext" \n
+  "JOIN('directory','filename') ! Path String = JOIN ('directory','filename') Produces a contiguous pathstring. e.g. directory/filename" \n
   "SPLIT('PathString', 'DIR') !  Produces a separate output of the directory from the pathstring." \n
   "SPLIT('PathString', 'FILE') !  Produces a separate output of the complete filename (with extension) from the pathstring." \n
   "SPLIT('PathString', 'NAME') ! Produces a separate output of the filename from the pathstring." \n
@@ -1332,18 +1390,25 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Th1 = -360./(2*N)" \n
   "Th2 = +360./(2*N)" \n
   "Depth=30" \n
-  "!! --- lines ---" \n
-  "larc,kp1,kp2,kpc,rad !if rad is blank, fit throught KPs" \n
-  "circle,centre,radius," \n
-  "!! --- areas ---" \n
+  "!! --- KeyPoints ---"  \n
+  "source,X,Y,Z !default undefined kp and node location" \n
+  "kl,L1,Ratio,KPNo !keypoint on line" \n
+  "!! --- LINES ---" \n
+  "l,KP1,KP2, NDIV, SPACE, slope vector XV1, YV1, ZV1, XV2, YV2, ZV2 !line in the respective CS with opt. slope" \n
+  "lstr,KP1,KP2 !straight line irrespective of current CS" \n
+  "larc,Kp1,Kp2,Kpc,rad !if rad is blank, fit throught KPs" \n
+  "circle,centreKp,radiusKp," \n
+  "!! --- AREAS ---" \n
+  "wpcsys" \n
+  "pcirc,R1,R2,Th1,Th2 ! circular area on WP" \n
   "rpr4,3,10,0,1.2,! polygonal area or prism volume"
-  "pcirc,R1,R2,Th1,Th2 ! circular area" \n
   "rcon$stat !status of real constands" \n
   "*get,RN,rcon,,num,max	 !maximum real set no "
   "Cylinder = RN + 1 !new real set" \n
   "ID = Cylinder" \n
   "r,ID,Length" \n
-  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth ! circular area or cylindrical volume" \n
+  "!! --- VOLUMES  (or areas) -- "\n
+  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth=>0 !circular area or cylindrical volume" \n
   "!! --- volumes ---" \n
   "sphere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
@@ -1361,17 +1426,25 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   "!@@@ - operations -" \n
   "!! .............................." \n
+  "pcirc,Diam/2,Diam/2+Thic,90-22.5,90" \n
+  "Y=Diam/2+Thic"\n
+  "source,Thic,Y-Interf,0 !make location unambiguous for kmove!!"\n
+  "Interf = 0.01"\n
+  "kmove,10,0,U,Y-Interf,0,1,Y,U,0! move KP"\n
+  "move,10,0,U,Y-Interf,0,1,Y,U,0! move node"\n
   \n
   "nummrg,all! merge coincident items" \n
   "vglue !a-,l- glue items together" \n
   "boptn,stat !boolean operation options" \n
-  "!! line" \n
+  "!! --- line ---" \n
+  "lglue,all !glue lines, retaining area attributes" \n
   "ldiv,1,.5 !divide line 1 in ratio .5" \n
-  "!! area" \n
+  "!! --- areas ---" \n
+  "arsym,X|Y|Z, NA1, NA2, NINC, KINC, NOELEM, IMOVE !cartesian reflection normal to X,y,z"
   "agen,ITIME,NA1,NA2,NINC,DX,DY,DZ,KINC,NOELEM,IMOVE!Generate areas from a pattern of areas" \n
   "atran !Transfers a pattern of areas to another coord.-system." \n
   "arotat !areas from rotated lines" \n
-  "!! volume" \n
+  "!! --- volume ---" \n
   "vdele,all,,,1 ! delete everything below" \n
   "vrotat !volumes from areas !" \n
   \n
@@ -1676,8 +1749,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- plot BCs --" \n
   "!! ------------------------------" \n
   \n
-  "/pbf ! plot body forces" \n
-  "/psf ! plot surface loads" \n
+  "/psf,conv,hcoef ! plot surface loads" \n
+  "/pbf,hgen ! plot body force loads (temp,...) as contours" \n
   "/pbc,f,,1 !1:show applied force symbols" \n
   "/pbc,nfor,,1 ! show nodal forces"  \n
   "/pbc,rfor,,1 ![0],1:show reaction forces" \n
@@ -2098,11 +2171,24 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/input,tmp,mac,,:LABEL ! read from label LABEL onwards" \n
   \n
   "! --- 2.) redirect ansys text output to file" \n
-  "/output,tmp,mac,,append !append solver output to file" \n
-  "/com,! dist from center | axial mag. induction" \n
-  "/com,*vwrite,B(1,1),B(1,2)" > \n
-  "/com, %G %G" \n
-  "/output ! redirect to screen" \n
+  "/output,%Dir(1)%%FileName%,txt,," \n
+  "/com, #Time/s, WireTemp/°C InsulationTemp/°C YokeTemp/°C" \n
+  "/output" \n
+  "*do,I,1,NS" \n
+  "  set,,,,,,,I" \n
+  "  !! etable,Temptab,temp" \n
+  "  *get,Tim,active,,set,time" \n
+  "  *vget,TempArray(1),node,,temp" \n
+  "  *vmask,WireMask(1)" \n
+  "  *vscfun,WireT,mean,TempArray(1)" \n
+  "  *vmask,InsuMask(1)" \n
+  "  *vscfun,InsuT,mean,TempArray(1)" \n
+  "  *vmask,YokeMask(1)" \n
+  "  *vscfun,YokeT,mean,TempArray(1)" \n
+  "  /output,%Dir(1)%%FileName%,txt,,append" \n
+  "  /com, %Tim% %WireT% %InsuT% %YokeT%" \n
+  "  /output" \n
+  "*enddo" \n
   \n
   "tmp ! read tmp.mac into the interpreter" \n
   \n
@@ -2122,8 +2208,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*end ! end macro file" > \n
   "/input,test,mac,,:LABEL ! read macro file from label LABEL onwards" \n
   \n
-  "!! --- 4.) output incluedes responses from commands, notes, errors and warnings" \n
-  "/output,bla,mac !write macro file, overwrite content" \n
+  "!! --- 4.) output includes responses from commands, notes, errors and warnings" \n
+  "/output,bla,mac !write macro file, overwrite content,up to 75 characters only!" \n
   "!/output,bla,mac,,append !append to macro file" \n
   "/com,*mwrite,B(1),'bla','txt'" \n
   "/com,%G" \n
@@ -2175,10 +2261,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/input,tmp,mac" \n
   "*list,tmp,out" \n
-  \n
-  "*dim,Hans,table,4,4 !column and row 0 is not dimensioned" \n
-  "*tread,Hans,tmp,out !the value Hans(0,0) must be smaller then Hans(0,1) and Hans(1,0)!" \n
-  "*vplot,Hans(1,0),Hans(1,1),2,3" \n
   \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- graphical output ---" \n
@@ -2256,15 +2338,24 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - select stuff -" \n
   "!! .............................." \n
   \n
+  "asel,,item,comp,vmin,vmax,vinc,kswp ![s] select new set" \n
+  "asel,r, !reselect new set" \n
+  "asel,a, !additionally select new set" \n
+  "asel,u, !unselect new set" \n
+  "asel,all, !select all entities" \n
+  "asel,inve, !invert current set" \n
   "N1="
+  \n
+  "esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)|live|layer|sec|stra|sfe|bfe|path|etab"\n
+  "esel,a,ename,172 !select additionally conta172 elements" \n
   \n
   "!! lowest face No of element E from selected nodes" \n
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
   "!! node in POS of element E" \n
   "bla=nelem(E,POS) !pos. ijklmnop =^= [1:8]" \n
   "!unsel midnodes of 8-node 2d elem" \n
-  "*get,En,elem,,count" \n
-  "*get,E,elem,,num,min" \n
+  "*get,En,elem,,count !No of elements" \n
+  "*get,E,elem,,num,min !min node No" \n
   "*do,I,1,En,1" \n
   "Face = nmface(E)" > \n
   "Ntmp = ndface(E,Face,3)"> \n

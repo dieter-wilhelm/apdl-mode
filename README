@@ -1,21 +1,17 @@
-This is the text of the ANSYS-Mode README file (the formatting is
-targeted for the [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki])
+This is the text of ANSYS-Mode's README, the formatting is
+targeted for Oddmuse, Emacs Wiki's engine [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki].
 
 Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
-=== Important hint ===
-
-Due to a recent restriction of Google code, the download page of
-Ansys-Mode since version 15.0.1 is now hosted on [https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing Google Drive]!
+Ansys-Mode since version 15.0.1 is hosted on [https://github.com]. The latest sources you'll find on the [https://github.com/dieter-wilhelm/ansys-mode ANSYS-Mode project site].
 
 == Introduction ==
 
-
 http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png
 
-This [http://code.google.com/p/ansys-mode/ project] supports your
-workflows with the FEA (Finite Element Analysis) suite
-[http://www.ansys.com ANSYS] (ANalysis SYStem, registered TM).
+This project supports your workflows with the FEA (Finite Element
+Analysis) suite [http://www.ansys.com ANSYS] (ANalysis SYStem,
+registered TM).
 
 It provides `ANSYS-Mode', an add-on to the
 [http://www.gnu.org/software/emacs/ GNU Emacs editor] for
@@ -34,10 +30,10 @@ for in-built help no ANSYS installation necessary.
 up-to-date, powerful and extensible - yet free - editor. High quality
 software available for every operating system where ANSYS is running.
 
-The current stable version 15.0.1 of ANSYS-Mode is available at the
+The current stable version 16.1.1 of ANSYS-Mode is available at the
 [https://googledrive.com/host/0Bxnk08BGWfexUThqbWxLX1NyeTg Google Drive site] or in the
 command line way, e. g.: "wget
-http://ansys-mode.googlecode.com/files/ansys-mode-15.0.1.tgz").  The
+http://ansys-mode.googlecode.com/files/ansys-mode-16.1.1.tgz").  The
 some code (completions, help strings etc.) is based on the latest
 ANSYS version.  Besides the mode and Emacs you will find also in the
 download section two tutorials.  For an immediate access have a look
@@ -166,7 +162,7 @@ Please have a look in the NEWS file for the complete history
 
 The version scheme is a mixture of the ANSYS release (currently 14.5)
 on which the highlighting and completing code is based and the version
-increments (currently .2) of ANSYS-Mode (thus 15.0.1) for this
+increments (currently .2) of ANSYS-Mode (thus 16.1.1) for this
 particular ANSYS release.
 
 === Files ===
@@ -188,10 +184,10 @@ Auxiliaries:
 * LICENSE -- The GPL (Gnu Public License) Version 3
 * default_el -- Configuration example file of an Emacs 'default.el'
 * fontification.mac -- APDL example file
-* A-M_introductory_tutorial-15.0.1.pdf -- Your first look at ANSYS-Mode?
-* A-M_in-depth_tutorial-15.0.1.pdf -- A hands-on ANSYS-Mode tutorial
-* A-M_in-depth_tutorial-15.0.1.ansys -- Hands-on tutorial's supplementary APDL code
-* A-M_APDL_reference-15.0.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+* A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
+* A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
+* A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code
+* A-M_APDL_reference-16.1.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 === Short instructions ===
 

@@ -11,7 +11,7 @@
 # #+LATEX_HEADER:
 # #+LATEX_HEADER_EXTRA:
 
-#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 15.0.1
+#+TITLE: *ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* for version 16.1.1
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
@@ -34,7 +34,7 @@
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+LINK_UP: http://duenenhof-wilhelm.de/dieter.html
-#+LINK_HOME: http://code.google.com/p/ansys-mode
+#+LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
 #+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+XSLT:
@@ -48,7 +48,7 @@
 
 * Introduction
 ** Introducing ANSYS-Mode -- an APDL environment
-   [[http://code.google.com/p/ansys-mode/][This project]] supports your APDL
+   [[https://github.com/dieter-wilhelm/ansys-mode][This project]] supports your APDL
 #+BEGIN_LaTeX
 \pdfannot % generic annotation
 % width 4cm % the dimension of the annotation can be controlled
@@ -156,7 +156,7 @@
 ***  Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
   conjunction with the latest Emacs distribution for Win32/64 from 
-  the [[https://drive.google.com/folderview?id%3D0Bxnk08BGWfexUThqbWxLX1NyeTg&usp%3Dsharing#list][ANSYS-Mode download page]] on Google Drive.
+  the [[https://github.com/dieter-wilhelm/ansys-mode/releases][ANSYS-Mode releases page]] on [[https://github.com][Github]].
 # #+ATTR_HTML: width="1200"
 #+BEGIN_LaTeX
 \href{https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing}{%
@@ -187,7 +187,7 @@
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menu
-  If ANSYS 14.5 is installed in its default folder /C:Program Files/ under
+  If ANSYS is installed in its default folder /C:Program Files/ under
   Win64 also system dependent functions are working, like browsing the
   APDL help with *C-c C-b*, otherwise, you can easily
   configure this. All described features can be executed through the
@@ -387,7 +387,7 @@
 # *** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find this more
         in-depth documentation included in the mode's archives on
-        [[http://code.google.com/p/ansys-mode/downloads/list][Google Code's download page]] or [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
+        [[https://github.com/dieter-wilhelm/ansys-mode/releases][Github's releases page]] or read [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
     
 # *** News and project history:
    - News and project history: :: They are placed in the mode's
@@ -395,17 +395,17 @@
 
 * Help and Bugs
 ** Search for help, report bugs and issues
-  Besides the documentation, have a look in the section [[http://code.google.com/p/ansys-mode/issues/list][Issues]] for bug
-  reports at Google Code's site or send an [[mailto:dieter@duenenhof-wilhelm.de][email]] to the maintainer.
-  Please use the ANSYS-Mode bug report functionality, which might
-  provide helpful status information.
+  Besides the documentation, have a look in the [[https://github.com/dieter-wilhelm/ansys-mode/issues][Github's issues site]]
+  or send an [[mailto:dieter@duenenhof-wilhelm.de][email to the maintainer]].  Please use the ANSYS-Mode bug
+  report functionality, which might provide helpful status
+  information.
 
 #+ATTR_LaTeX: :height 7.5cm
   [[./bug_report.png]]
 
 * Summary
 ** Use ANSYS-Mode appropriate to your needs
-**** The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is still prerequisite.   Moreover, code APDL only for *repetitive* tasks and WB command snippets.
+**** The relevance of APDL remains tall: `WorkBench' operates *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is still prerequisite.   Furthermore, code APDL only for *repetitive* tasks and WB command snippets.
 *** Basic APDL *Viewer*
          :PROPERTIES:
          :BEAMER_env: block

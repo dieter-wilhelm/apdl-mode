@@ -4,8 +4,8 @@
 # MODE = mode package + tags
 # EMACS = Windoze version of emacs with pre-configured mode
 
-ANSYS_MAJOR := 15
-ANSYS_MINOR := 0
+ANSYS_MAJOR := 16
+ANSYS_MINOR := 1
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -20,7 +20,7 @@ else
 endif
 
 
-EMACS_VERSION := emacs-24.3
+EMACS_VERSION := emacs-24.5
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
 EMACS_PACKAGE_SIG := $(EMACS_VERSION)-bin-i386.zip.sig
@@ -46,6 +46,8 @@ PACKAGE := ansys-mode-$(VERSION).tgz
 
 EL_FILES := ansys-mode.el ansys-keyword.el \
   ansys-template.el ansys-process.el
+
+TESTFILES := ../ansys-mode.el ../ansys-template.el ../ansys-process.el ../README ../NEWS ../TODO ansys-fontification.el extract_tags.py ../doc/A-M_APDL_reference.org ../doc/A-M_in-depth_tutorial.org ../doc/A-M_introductory_tutorial.org
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
@@ -162,8 +164,11 @@ $(EMACS_SOURCE_PACKAGE) :
 	wget $(SOURCE_ADDRESS)
 
 # need the org files for the versioning string
-TAGS : makefile $(EL_FILES) default_el ansys-fontification.el README TODO NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
-	etags $(EL_FILES) default_el ansys-fontification.el README TODO NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+TAGS : makefile ../$(EL_FILES) ../default_el ansys-fontification.el ../README ../TODO ../NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+	etags ../$(EL_FILES) ../default_el ansys-fontification.el ../README ../TODO ../NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+
+TEST : 
+	etags $(TESTFILES)
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :

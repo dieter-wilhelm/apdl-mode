@@ -5,8 +5,8 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 15.0.1
-;; Keywords: Languages, Convenience
+;; Version: 16.1.1
+;; Keywords: Languages, Convenience, ANSYS
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
 ;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
@@ -59,7 +59,7 @@
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys_version "150"		;NEW_C
+(defconst ansys_version "161"		;NEW_C
   "ANSYS version on which ANSYS-Mode is based.")
 
 (defconst ansys_mode_version "1"	;NEW_C

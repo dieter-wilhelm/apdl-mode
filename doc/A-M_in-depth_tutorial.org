@@ -182,7 +182,7 @@ a#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 #+end_src
 *** Open this tutorial's APDL source file
 #+begin_src ansys :tangle no
-  !! Open `A-M_in-depth_tutorial-15.0.1.ansys' with "C-x C-f"!  You can take this
+  !! Open `A-M_in-depth_tutorial-16.1.1.ansys' with "C-x C-f"!  You can take this
   !! file from the latest mode's archives.
 #+end_src
 *** Inspect available code templates

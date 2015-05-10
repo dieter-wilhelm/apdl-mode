@@ -2,6 +2,11 @@
 
 ;; Copyright (C) 2006 - 2014  H. Dieter Wilhelm GPL V3
 
+;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Maintainer: H. Dieter Wilhelm
+;; Version: 16.1.1
+;; Keywords: Languages, Convenience, ANSYS
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published
@@ -55,7 +60,7 @@ the respective error file."
 (defcustom ansys-program
   (let ((version (if (boundp 'ansys-current-ansys-version)
 		     ansys-current-ansys-version
-		   "145")))
+		   "161")))
   (if (string= window-system "x")
       (concat ansys-install-directory "ansys_inc/v"
 	      version "/ansys/bin/ansys" version)
@@ -82,9 +87,27 @@ It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v150/ansys/bin/anshelp150\" on GNU/Linux
+locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU/Linux
 and \"c:\\\\Program Files\\Ansys\
-Inc\\v150\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
+Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
+Windows (XP/7)."
+  :type 'string
+  :group 'ANSYS-process)
+
+(defcustom ansys-help-path
+  (if (string= window-system "x")
+      (concat ansys-install-directory "ansys_inc/v"
+      ansys-current-ansys-version "/ansys/bin/anshelp"
+      ansys-current-ansys-version)
+    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))		;NEW_C
+  "The ANSYS help executable.
+It is called with
+\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
+executable is not in the search path, you have to complement the
+executable with its complete path.  For example the default
+locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU/Linux
+and \"c:\\\\Program Files\\Ansys\
+Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
 Windows (XP/7)."
   :type 'string
   :group 'ANSYS-process)
@@ -201,7 +224,7 @@ Variable is only used internally in the mode.")
 	(message "Starting the ANSYS Classics GUI...")
       (error "Starting ANSYS Classics canceled"))
     ;; -d : device
-    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/v150/ansys/bin/ansys150" "-p ansys " "-d 3d " "-g")
+    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/v161/ansys/bin/ansys161" "-p ansys " "-d 3d " "-g")
     (process-running-child-p "*ANSYS GUI*")
     (process-status "*ANSYS GUI*")
 
@@ -287,7 +310,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
     ;;     (error "Run canceled"))
     (cond ((ansys-process-running-p)
 	   (comint-send-region process (point-min) (point))
-	   (display-buffer (process-buffer process) 'other-window))
+	   (display-buffer-other-frame (process-buffer process)))
 	  (t
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
@@ -331,7 +354,7 @@ code but remain at the current cursor position."
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
 			       )
-	   (display-buffer "*ANSYS*" 'other-window))
+	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
 	   (if region
@@ -386,7 +409,7 @@ position."
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
 			       )
-	   (display-buffer "*ANSYS*" 'other-window))
+	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
 	   (if region
@@ -455,9 +478,9 @@ smaller than 3 (see `ansys-number-of-processors')."
     (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
 
-; env variable: ANSYS150_WORKING_DIRECTORY or -dir command line string
-; (setenv "ANSYS150_WORKING_DIRECTORY" "/tmp")
-; (getenv "ANSYS150_WORKING_DIRECTORY")
+; env variable: ANSYS161_WORKING_DIRECTORY or -dir command line string
+; (setenv "ANSYS161_WORKING_DIRECTORY" "/tmp")
+; (getenv "ANSYS161_WORKING_DIRECTORY")
 
     (if (y-or-n-p
 	 (concat
@@ -532,8 +555,8 @@ with the ANSYS /EXIT,all command which saves all model data."
 (defun ansys-start-ansys-help ()       ;NEW_C
   "Start the ANSYS help system.
 Alternatively under a GNU/Linux system, one can also use the ANSYS
-command line \"/SYS, anshelp145\" when running ANSYS
-interactively, provided that anshelp145 is found in the search
+command line \"/SYS, anshelp161\" when running ANSYS
+interactively, provided that anshelp161 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)
@@ -681,9 +704,10 @@ Element categories:
 	    ((string-match "ansys.theory" file)
 	     (setq file (concat "ans_thry/" file)))
 	    )
-      (setq path (concat "file://" ansys-install-directory
-			 "ansys_inc/v" ansys-current-ansys-version
-			 "/commonfiles/help/en-us/help/"))
+      (setq path ansys-help-path)
+		 ;; (concat "file://" ansys-install-directory
+		 ;; 	 "ansys_inc/v" ansys-current-ansys-version
+		 ;; 	 "/commonfiles/help/en-us/help/"))
 ;;       (start-process "browser"
 ;; ;		     nil "chromium-browser" (concat path file)))
 ;; 		     nil "firefox" (concat path file)))

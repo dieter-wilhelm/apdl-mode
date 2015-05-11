@@ -429,7 +429,7 @@ format line and all variables are not highlighted correctly.
 If you experience problems installing or running this mode you have
 the following options:
 
-- Write an email to the mode maintainer (you can trigger a bug report
+- Write an email to the mode [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] (you can trigger a bug report
   from the menu or directly calling the function
   `ansys-submit-bug-report'.  Even when you are not in the position of
   sending emails from Emacs this will give at least a useful mail
@@ -437,10 +437,10 @@ the following options:
 
 - When you have already a (cost free) Github account you are able to
   issue a bug report at the [[https://github.com/dieter-wilhelm/ansys-mode/issues][Github issues list]].  From this site you
-  can download the latest development version.
+  might download the latest development version.
 
-- It might be interesting for you to visit the [[http://www.emacswiki.org/cgi-bin/wiki/AnsysMode][Emacs Wiki]].  At the
-  Wiki you might add comments or wishes without registration.
+- Also at the [[http://www.emacswiki.org/cgi-bin/wiki/AnsysMode][Emacs Wiki]] you might add comments or wishes without
+  registration.
 
 # local variables:
 # word-wrap: t

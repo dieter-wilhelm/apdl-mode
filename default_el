@@ -86,7 +86,8 @@ calling a special ANSYS customisation buffer." 'interactive)
 		       ;; ANSYS processes stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; IMPORTANT things you have to configure if they vary from the defaults:
+;; IMPORTANT things you have to configure if they are straying from
+;; the defaults:
 
 ;; ansys-current-ansys-version (your installed ANSYS version)
 ;; ansys-license-file (your license server) and
@@ -94,15 +95,12 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; which version of ANSYS we are using, the current version is "150"
+;; which version of ANSYS we are using, important for constructing paths
 
-(setq ansys-current-ansys-version "150")
+(setq ansys-current-ansys-version "161")
+;(setq ansys-current-ansys-version "150")
 ;(setq ansys-current-ansys-version "145")
 
-;; Number of cores for the run, 2 does not require HPC licenses
-
-(setq ansys-no-of-processors 2)
-;(setq ansys-no-of-processors 8)
 
 ;; ANSYS installation directory
 
@@ -139,8 +137,8 @@ calling a special ANSYS customisation buffer." 'interactive)
 	ansys-ansysli-servers
 	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
 
-	;; the following is now executed in the mode function
-	;; ansys-mode itself, dropped 32 bit support
+	;; the following is now executed in customisation variables
+	;; in ansys-process.el, dropped 32 bit support
 
 	;; ;; The ANSYS executable
 	;; ansys-program
@@ -173,8 +171,6 @@ calling a special ANSYS customisation buffer." 'interactive)
 		   ;; else Windows 64 bit
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;       
 
-	;; the following is now executed in the function
-	;; `ansys-mode' itself, dropped 32 bit support
 
 ;;        (setq ansys-lmutil-program
 ;; 	     (concat
@@ -194,6 +190,10 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; options when starting the solver below example shows the ANSYS mode
 ;; defaults
+
+;; Number of cores for the run, 2 does not require HPC licenses
+(setq ansys-no-of-processors 2)
+;(setq ansys-no-of-processors 8)
 
 (setq ansys-license "struct" ;which license type to use for the solver
       ansys-job "file"	     ;ANSYS job name

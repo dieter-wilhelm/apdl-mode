@@ -182,13 +182,12 @@ remove the .elc files.)
 - NEWS -- News and history
 - TODO -- Todos and deficiencies
 - LICENSE -- The GPL (Gnu Public License) Version 3
-- default_el -- Configuration example file of an 'default.el' for
-  Emacs
-- fontification.mac -- APDL example file
-- A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
-- A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
-- A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code
-- A-M_APDL_reference-16.1.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+- default.el -- Configuration example file
+- helper/fontification.mac -- APDL example file
+- doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
+- doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
+- doc/A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code
+- doc/A-M_APDL_reference-16.1.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 *** Short instructions
 

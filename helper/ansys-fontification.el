@@ -1,6 +1,6 @@
 ;;; ansys-fontification.el-- building keywords and completions
 
-;; Copyright (C) 2006 - 2014 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -25,32 +25,33 @@
 
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-; (call-process "cp /appl/ansys_inc/16.1.0/v161/ansys/docu/dynprompt161.ans ./ansys_dynprompt.txt")
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/ansys/docu/dynprompt161.ans" "./ansys_dynprompt.txt")
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
 ;;     done for v12,v13,v14,v145,v150,v161
 
 ;; 2.) elements: copy within the ansys help browser from the
-;;     Element refrence in the table of contents -> `ansys_elements.txt'
+;;     Element reference from the table of contents the list -> `ansys_elements.txt'
 ;;     (/appl/ansys_inc/v161/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13,v14,v145,v150
+;;     done: v12,v13,v14,v145,v150, v161
 
 ;; 3.) command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
 
 ;;     use: extract_tags.py
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/v161/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
 ;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
-;;     done: v13,14,145,150
+;;     done: v13,14,145,150, v161
 
 ;;     dated: previously did copy&pasted from the ansys help
 ;;       ->`ansys_keywords.txt' kill /eof from the keywords (see:
 ;;       -font-lock-keywords) <- don't know why, seems to work now
-;;       done: v12
+;;       done: v12 ----
 
-;; 4.) parametric functions: seem to remain rather fixed (V13 same as in V12)
-;;     ansys APDL guide chapter 3.8, trigonometric functions and their inverse functions must
-;;     be separated by hand!!! The same applies to hyperbolic functions
-;;     there was a new one introduced in V14
+;; 4.) parametric functions: seem to remain rather fixed (V13 same as
+;;     in V12) ansys APDL guide chapter 3.8 using Parameters ->
+;;     parametric functions, trigonometric functions and their inverse
+;;     functions must be separated by hand!!! The same applies to
+;;     hyperbolic functions there was a new one introduced in V14
 ;;     ->`ansys_parametric_functions.txt'
 
 ;; 5.) get functions: ansys 11.0 APDL Programmer's guide Appendix B.
@@ -60,19 +61,20 @@
 ;;     get function summary ->`ansys_get_functions.txt'
 
 ;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
-;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/v161/commonfiles/help/ansys_Index.hlp" ".")
+;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/commonfiles/help/ansys_Index.hlp" ".")
 ;;     the rest does code below
-;;     done v145, v150
-;;     cp ansys_Index.hlp and check variable ansys-help-index
+;;     done v145, v150, v161
+;;     cp ansys_Index.hlp??? and check variable ansys-help-index
 
 ;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
 ;;; necessary variables, to be maintained:
 ;; 1.) `Ansys_undocumented_commands' from the release notes,
-;;     done 145,150
-;; 2.) `Ansys_deprecated_elements_alist' release notes, feature archive: legacy elements
-;;    done 145,150
+;;  v161/commonfiles/help/en-us/help/ai_rn/ansysincreleasenotes.html
+;;     done 145,150,v161
+;; 2.) `Ansys_deprecated_elements_alist' APDL documentation->feature archive: legacy elements
+;;    done 145,150, v161
 ;; 3.) `Ansys_written_out_commands'
 ;; 4.) `Ansys_commands_without_arguments'
 ;; 
@@ -99,6 +101,7 @@
    "ARFILL"
    "ARMERGE"
    "ARSPLIT"
+   "FIPLOT"
    "GAPFINISH"
    "GAPLIST"
    "GAPMERGE"
@@ -166,6 +169,14 @@
    "OPRFA"
    "OPRGR"
    "OPRSW"
+   "PILECALC"
+   "PILEDISPSET"
+   "PILEGEN"
+   "PILELOAD"
+   "PILEMASS"
+   "PILERUN"
+   "PILESEL"
+   "PILESTIF"
    "PLVAROPT"
    "PRVAROPT"
    "TOCOMP"
@@ -185,6 +196,7 @@
    "TZEGEN"
    "XVAROPT"				;v14 end
    "PGSAVE"
+   "SOLCONTROL"
    "TOTAL"
    "VTGEOM"
    "VTREAL"
@@ -291,12 +303,13 @@ files, old macros or old Ansys verification models.")
 (defconst Ansys_deprecated_elements_alist
 '(
   ("BEAM3"    . "BEAM188")
-  ("BEAM4"    . "BEAM188")
+  ("BEAM4"    . "BEAM188")		;legacy v161
   ("BEAM23"   . "BEAM188")
   ("BEAM24"   . "BEAM188")
   ("BEAM44"   . "BEAM188")
   ("BEAM54"   . "BEAM188")
-  ("CONTACT12". "Contac178")		;v150
+  ("CONTAC12". "Contac178")		;v150
+  ("CONTAC52". "Contac178")		;v161
   ("COMBIN7"  . "MPC184")
   ("FLUID79" . "Fluid29")		;v150
   ("FLUID80" . "Fluid29")		;v150
@@ -305,6 +318,8 @@ files, old macros or old Ansys verification models.")
   ("FLUID142" . "CFX")			;v145
   ("INFIN9"   . "INFIN110")		;v14
   ("INFIN47"  . "INFIN111")		;v14
+  ("PIPE16"   . "PIPE288")			;legacy v161
+  ("PIPE18"   . "ELBOW290")			;legacy v161
   ("PLANE13"  . "PLANE223")		;v14
   ("PLANE25"  . "PLANE272")		;v14
   ("PLANE42"  . "PLANE182")
@@ -842,7 +857,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
   "\"ansys-fontification.el\" release 16.1.1.\n\n"
-  ";; Copyright (C) 2006 - 2014 H. Dieter Wilhelm.\n\n")
+  ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")
   ;; --- end of let

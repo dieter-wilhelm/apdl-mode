@@ -1,4 +1,4 @@
-4207 17 42
+4231 17 42
 *ABBR  Hlp_C_ABBR.html
 *AFUN  Hlp_C_AFUN.html
 *ASK  Hlp_C_ASK.html
@@ -344,6 +344,7 @@
 25  Hlp_E_PLANE25.html
 251  Hlp_E_SURF251.html
 252  Hlp_E_SURF252.html
+257  Hlp_E_INFIN257.html
 263  Hlp_E_REINF263.html
 264  Hlp_E_REINF264.html
 265  Hlp_E_REINF265.html
@@ -479,6 +480,7 @@ ANISOS  Hlp_C_ANISOS.html
 ANMODE  Hlp_C_ANMODE.html
 ANMRES  Hlp_C_ANMRES.html
 ANORM  Hlp_C_ANORM.html
+ANPRES  Hlp_C_ANPRES.html
 ANSOL  Hlp_C_ANSOL.html
 ANSTOAQWA  Hlp_C_ANSTOAQWA.html
 ANSTOASAS  Hlp_C_ANSTOASAS.html
@@ -688,11 +690,13 @@ CSYS  Hlp_C_CSYS.html
 CURR2D  Hlp_C_CURR2D.html
 CUTCONTROL  Hlp_C_CUTCONTROL.html
 CVAR  Hlp_C_CVAR.html
+CYCCALC  Hlp_C_CYCCALC.html
 CYCFILES  Hlp_C_CYCFILES.html
 CYCFREQ  Hlp_C_CYCFREQ.html
 CYCLIC  Hlp_C_CYCLIC.html
 CYCOPT  Hlp_C_CYCOPT.html
 CYCPHASE  Hlp_C_CYCPHASE.html
+CYCSPEC  Hlp_C_CYCSPEC.html
 CYL4  Hlp_C_CYL4.html
 CYL5  Hlp_C_CYL5.html
 CYLIND  Hlp_C_CYLIND.html
@@ -709,6 +713,7 @@ DATADEF  Hlp_C_DATADEF.html
 DCGOMG  Hlp_C_DCGOMG.html
 DCUM  Hlp_C_DCUM.html
 DCVSWP  Hlp_C_DCVSWP.html
+DDASPEC  Hlp_C_DDASPEC.html
 DDELE  Hlp_C_DDELE.html
 DDOPTION  Hlp_C_DDOPTION.html
 DEACT  Hlp_C_DEACT.html
@@ -721,6 +726,7 @@ DESIZE  Hlp_C_DESIZE.html
 DESOL  Hlp_C_DESOL.html
 DETAB  Hlp_C_DETAB.html
 DFLX  Hlp_C_DFLX.html
+DFSWAVE  Hlp_C_DFSWAVE.html
 DIG  Hlp_C_DIG.html
 DIGIT  Hlp_C_DIGIT.html
 DISPLAY  Hlp_C_DISPLAY.html
@@ -818,6 +824,7 @@ EDWELD  Hlp_C_EDWELD.html
 EDWRITE  Hlp_C_EDWRITE.html
 EEXTRUDE  Hlp_C_EEXTRUDE.html
 EGEN  Hlp_C_EGEN.html
+EINFIN  Hlp_C_EINFIN.html
 EINTF  Hlp_C_EINTF.html
 EKILL  Hlp_C_EKILL.html
 ELBOW  Hlp_C_ELBOW.html
@@ -904,7 +911,6 @@ FILEDISP  Hlp_C_FILEDISP.html
 FILL  Hlp_C_FILL.html
 FILLDATA  Hlp_C_FILLDATA.html
 FINISH  Hlp_C_FINISH.html
-FIPLOT  Hlp_C_FIPLOT.html
 FITEM  Hlp_C_FITEM.html
 FJ  Hlp_C_FJ.html
 FJDELE  Hlp_C_FJDELE.html
@@ -932,6 +938,7 @@ FLUID38  Hlp_E_FLUID38.html
 FLUID79  Hlp_E_FLUID79.html
 FLUID80  Hlp_E_FLUID80.html
 FLUID81  Hlp_E_FLUID81.html
+FLUREAD  Hlp_C_FLUREAD.html
 FLUXV  Hlp_C_FLUXV.html
 FMAGBC  Hlp_C_FMAGBC.html
 FMAGSUM  Hlp_C_FMAGSUM.html
@@ -962,6 +969,8 @@ FVMESH  Hlp_C_FVMESH.html
 GAP  Hlp_C_GAP.html
 GAPF  Hlp_C_GAPF.html
 GAUGE  Hlp_C_GAUGE.html
+GCDEF  Hlp_C_GCDEF.html
+GCGEN  Hlp_C_GCGEN.html
 GENOPT  Hlp_C_GENOPT.html
 GEOM  Hlp_C_GEOM.html
 GEOMETRY  Hlp_C_GEOMETRY.html
@@ -1023,7 +1032,8 @@ Hlp_AM_CH2pzrs  mat_electricmagnet.html#pzrs
 Hlp_AM_CH2rate  rate.html
 Hlp_AM_CH2swel  swel.html
 Hlp_AM_CH2useh  aQw8sq22dldm.html#useh
-Hlp_AM_CH2user  user.html
+Hlp_AM_CH2user  matcustommatmods.html#user
+Hlp_AM_CH2usrthm  matcustommatmods.html#usrthm
 Hlp_BAS_COMPMAN  Hlp_G_BAS7_4.html
 Hlp_CATIA  Hlp_C_CATIAIN.html
 Hlp_CATIAIN  Hlp_C_CATIAIN.html
@@ -1305,6 +1315,7 @@ Hlp_C_ANISOS  Hlp_C_ANISOS.html
 Hlp_C_ANMODE  Hlp_C_ANMODE.html
 Hlp_C_ANMRES  Hlp_C_ANMRES.html
 Hlp_C_ANORM  Hlp_C_ANORM.html
+Hlp_C_ANPRES  Hlp_C_ANPRES.html
 Hlp_C_ANSOL  Hlp_C_ANSOL.html
 Hlp_C_ANSTOAQWA  Hlp_C_ANSTOAQWA.html
 Hlp_C_ANSTOASAS  Hlp_C_ANSTOASAS.html
@@ -1478,11 +1489,13 @@ Hlp_C_CURR2D  Hlp_C_CURR2D.html
 Hlp_C_CUTCONTROL  Hlp_C_CUTCONTROL.html
 Hlp_C_CVAR  Hlp_C_CVAR.html
 Hlp_C_CWD_sl  Hlp_C_CWD_sl.html
+Hlp_C_CYCCALC  Hlp_C_CYCCALC.html
 Hlp_C_CYCFILES  Hlp_C_CYCFILES.html
 Hlp_C_CYCFREQ  Hlp_C_CYCFREQ.html
 Hlp_C_CYCLIC  Hlp_C_CYCLIC.html
 Hlp_C_CYCOPT  Hlp_C_CYCOPT.html
 Hlp_C_CYCPHASE  Hlp_C_CYCPHASE.html
+Hlp_C_CYCSPEC  Hlp_C_CYCSPEC.html
 Hlp_C_CYL4  Hlp_C_CYL4.html
 Hlp_C_CYL5  Hlp_C_CYL5.html
 Hlp_C_CYLIND  Hlp_C_CYLIND.html
@@ -1499,6 +1512,7 @@ Hlp_C_DATADEF  Hlp_C_DATADEF.html
 Hlp_C_DCGOMG  Hlp_C_DCGOMG.html
 Hlp_C_DCUM  Hlp_C_DCUM.html
 Hlp_C_DCVSWP  Hlp_C_DCVSWP.html
+Hlp_C_DDASPEC  Hlp_C_DDASPEC.html
 Hlp_C_DDELE  Hlp_C_DDELE.html
 Hlp_C_DDOPTION  Hlp_C_DDOPTION.html
 Hlp_C_DEACT  Hlp_C_DEACT.html
@@ -1511,6 +1525,7 @@ Hlp_C_DESIZE  Hlp_C_DESIZE.html
 Hlp_C_DESOL  Hlp_C_DESOL.html
 Hlp_C_DETAB  Hlp_C_DETAB.html
 Hlp_C_DFLX  Hlp_C_DFLX.html
+Hlp_C_DFSWAVE  Hlp_C_DFSWAVE.html
 Hlp_C_DIG  Hlp_C_DIG.html
 Hlp_C_DIGIT  Hlp_C_DIGIT.html
 Hlp_C_DISPLAY  Hlp_C_DISPLAY.html
@@ -1608,6 +1623,7 @@ Hlp_C_EDWELD  Hlp_C_EDWELD.html
 Hlp_C_EDWRITE  Hlp_C_EDWRITE.html
 Hlp_C_EEXTRUDE  Hlp_C_EEXTRUDE.html
 Hlp_C_EGEN  Hlp_C_EGEN.html
+Hlp_C_EINFIN  Hlp_C_EINFIN.html
 Hlp_C_EINTF  Hlp_C_EINTF.html
 Hlp_C_EKILL  Hlp_C_EKILL.html
 Hlp_C_ELBOW  Hlp_C_ELBOW.html
@@ -1693,7 +1709,6 @@ Hlp_C_FILEDISP  Hlp_C_FILEDISP.html
 Hlp_C_FILL  Hlp_C_FILL.html
 Hlp_C_FILLDATA  Hlp_C_FILLDATA.html
 Hlp_C_FINISH  Hlp_C_FINISH.html
-Hlp_C_FIPLOT  Hlp_C_FIPLOT.html
 Hlp_C_FITEM  Hlp_C_FITEM.html
 Hlp_C_FJ  Hlp_C_FJ.html
 Hlp_C_FJDELE  Hlp_C_FJDELE.html
@@ -1706,6 +1721,7 @@ Hlp_C_FLANGE  Hlp_C_FLANGE.html
 Hlp_C_FLIST  Hlp_C_FLIST.html
 Hlp_C_FLLIST  Hlp_C_FLLIST.html
 Hlp_C_FLST  Hlp_C_FLST.html
+Hlp_C_FLUREAD  Hlp_C_FLUREAD.html
 Hlp_C_FLUXV  Hlp_C_FLUXV.html
 Hlp_C_FMAGBC  Hlp_C_FMAGBC.html
 Hlp_C_FMAGSUM  Hlp_C_FMAGSUM.html
@@ -1734,6 +1750,8 @@ Hlp_C_FVMESH  Hlp_C_FVMESH.html
 Hlp_C_GAP  Hlp_C_GAP.html
 Hlp_C_GAPF  Hlp_C_GAPF.html
 Hlp_C_GAUGE  Hlp_C_GAUGE.html
+Hlp_C_GCDEF  Hlp_C_GCDEF.html
+Hlp_C_GCGEN  Hlp_C_GCGEN.html
 Hlp_C_GENOPT  Hlp_C_GENOPT.html
 Hlp_C_GEOM  Hlp_C_GEOM.html
 Hlp_C_GEOMETRY  Hlp_C_GEOMETRY.html
@@ -1985,6 +2003,7 @@ Hlp_C_MSHCOPY  Hlp_C_MSHCOPY.html
 Hlp_C_MSHKEY  Hlp_C_MSHKEY.html
 Hlp_C_MSHMID  Hlp_C_MSHMID.html
 Hlp_C_MSHPATTERN  Hlp_C_MSHPATTERN.html
+Hlp_C_MSOLVE  Hlp_C_MSOLVE.html
 Hlp_C_MSTOLE  Hlp_C_MSTOLE.html
 Hlp_C_MWRITE_st  Hlp_C_MWRITE_st.html
 Hlp_C_MXPAND  Hlp_C_MXPAND.html
@@ -2005,6 +2024,7 @@ Hlp_C_NLDPOST  Hlp_C_NLDPOST.html
 Hlp_C_NLGEOM  Hlp_C_NLGEOM.html
 Hlp_C_NLHIST  Hlp_C_NLHIST.html
 Hlp_C_NLIST  Hlp_C_NLIST.html
+Hlp_C_NLMESH  Hlp_C_NLMESH.html
 Hlp_C_NLOG  Hlp_C_NLOG.html
 Hlp_C_NLOPT  Hlp_C_NLOPT.html
 Hlp_C_NMODIF  Hlp_C_NMODIF.html
@@ -2111,18 +2131,12 @@ Hlp_C_PFACT  Hlp_C_PFACT.html
 Hlp_C_PFLUID  Hlp_C_PFLUID.html
 Hlp_C_PGAP  Hlp_C_PGAP.html
 Hlp_C_PHYSICS  Hlp_C_PHYSICS.html
-Hlp_C_PILECALC  Hlp_C_PILECALC.html
-Hlp_C_PILEDISP  Hlp_C_PILEDISPS.html
-Hlp_C_PILEGEN  Hlp_C_PILEGEN.html
-Hlp_C_PILELOAD  Hlp_C_PILELOAD.html
-Hlp_C_PILEMASS  Hlp_C_PILEMASS.html
-Hlp_C_PILERUN  Hlp_C_PILERUN.html
-Hlp_C_PILESEL  Hlp_C_PILESEL.html
-Hlp_C_PILESTIF  Hlp_C_PILESTIF.html
 Hlp_C_PINSUL  Hlp_C_PINSUL.html
 Hlp_C_PIPE  Hlp_C_PIPE.html
 Hlp_C_PIVCHECK  Hlp_C_PIVCHECK.html
 Hlp_C_PLCAMP  Hlp_C_PLCAMP.html
+Hlp_C_PLCFREQ  Hlp_C_PLCFREQ.html
+Hlp_C_PLCHIST  Hlp_C_PLCHIST.html
 Hlp_C_PLCINT  Hlp_C_PLCINT.html
 Hlp_C_PLCPLX  Hlp_C_PLCPLX.html
 Hlp_C_PLCRACK  Hlp_C_PLCRACK.html
@@ -2134,6 +2148,7 @@ Hlp_C_PLFAR  Hlp_C_PLFAR.html
 Hlp_C_PLGEOM  Hlp_C_PLGEOM.html
 Hlp_C_PLLS  Hlp_C_PLLS.html
 Hlp_C_PLMAP  Hlp_C_PLMAP.html
+Hlp_C_PLMC  Hlp_C_PLMC.html
 Hlp_C_PLNEAR  Hlp_C_PLNEAR.html
 Hlp_C_PLNSOL  Hlp_C_PLNSOL.html
 Hlp_C_PLORB  Hlp_C_PLORB.html
@@ -2147,6 +2162,7 @@ Hlp_C_PLTIME  Hlp_C_PLTIME.html
 Hlp_C_PLTRAC  Hlp_C_PLTRAC.html
 Hlp_C_PLVAR  Hlp_C_PLVAR.html
 Hlp_C_PLVECT  Hlp_C_PLVECT.html
+Hlp_C_PLZZ  Hlp_C_PLZZ.html
 Hlp_C_PMAP  Hlp_C_PMAP.html
 Hlp_C_PMGTRAN  Hlp_C_PMGTRAN.html
 Hlp_C_PMLOPT  Hlp_C_PMLOPT.html
@@ -2159,6 +2175,7 @@ Hlp_C_POWERH  Hlp_C_POWERH.html
 Hlp_C_PPATH  Hlp_C_PPATH.html
 Hlp_C_PPRES  Hlp_C_PPRES.html
 Hlp_C_PRANGE  Hlp_C_PRANGE.html
+Hlp_C_PRAS  Hlp_C_PRAS.html
 Hlp_C_PRCAMP  Hlp_C_PRCAMP.html
 Hlp_C_PRCINT  Hlp_C_PRCINT.html
 Hlp_C_PRCPLX  Hlp_C_PRCPLX.html
@@ -2182,6 +2199,7 @@ Hlp_C_PRORB  Hlp_C_PRORB.html
 Hlp_C_PRPATH  Hlp_C_PRPATH.html
 Hlp_C_PRRFOR  Hlp_C_PRRFOR.html
 Hlp_C_PRRSOL  Hlp_C_PRRSOL.html
+Hlp_C_PRSCONTROL  Hlp_C_PRSCONTROL.html
 Hlp_C_PRSECT  Hlp_C_PRSECT.html
 Hlp_C_PRTIME  Hlp_C_PRTIME.html
 Hlp_C_PRVAR  Hlp_C_PRVAR.html
@@ -2362,7 +2380,6 @@ Hlp_C_SMRTSIZE  Hlp_C_SMRTSIZE.html
 Hlp_C_SMSURF  Hlp_C_SMSURF.html
 Hlp_C_SMULT  Hlp_C_SMULT.html
 Hlp_C_SNOPTION  Hlp_C_SNOPTION.html
-Hlp_C_SOLCONTROL  Hlp_C_SOLCONTROL.html
 Hlp_C_SOLU  Hlp_C_SOLU.html
 Hlp_C_SOLUOPT  Hlp_C_SOLUOPT.html
 Hlp_C_SOLVE  Hlp_C_SOLVE.html
@@ -2398,6 +2415,7 @@ Hlp_C_SSPB  Hlp_C_SSPB.html
 Hlp_C_SSPD  Hlp_C_SSPD.html
 Hlp_C_SSPE  Hlp_C_SSPE.html
 Hlp_C_SSPM  Hlp_C_SSPM.html
+Hlp_C_SSTATE  Hlp_C_SSTATE.html
 Hlp_C_SSTIF  Hlp_C_SSTIF.html
 Hlp_C_SSUM  Hlp_C_SSUM.html
 Hlp_C_STABILIZE  Hlp_C_STABILIZE.html
@@ -2547,6 +2565,9 @@ Hlp_C_WSORT  Hlp_C_WSORT.html
 Hlp_C_WSPRINGS  Hlp_C_WSPRINGS.html
 Hlp_C_WSTART  Hlp_C_WSTART.html
 Hlp_C_WTBCREATE  WTBCREATE.html
+Hlp_C_XFDATA  Hlp_C_XFDATA.html
+Hlp_C_XFENRICH  Hlp_C_XFENRICH.html
+Hlp_C_XFLIST  Hlp_C_XFLIST.html
 Hlp_C_XVAR  Hlp_C_XVAR.html
 Hlp_C_examples  Hlp_C_ASIFILE.html
 Hlp_C_~CAT5IN  Hlp_C_CAT5IN.html
@@ -2604,6 +2625,7 @@ Hlp_E_HSFLD241  Hlp_E_HSFLD241.html
 Hlp_E_HSFLD242  Hlp_E_HSFLD242.html
 Hlp_E_INFIN110  Hlp_E_INFIN110.html
 Hlp_E_INFIN111  Hlp_E_INFIN111.html
+Hlp_E_INFIN257  Hlp_E_INFIN257.html
 Hlp_E_INFIN47  Hlp_E_INFIN47.html
 Hlp_E_INFIN9  Hlp_E_INFIN9.html
 Hlp_E_INTER192  Hlp_E_INTER192.html
@@ -2787,6 +2809,7 @@ Hlp_E_S4.242  Hlp_E_HSFLD242.html
 Hlp_E_S4.25  Hlp_E_PLANE25.html
 Hlp_E_S4.251  Hlp_E_SURF251.html
 Hlp_E_S4.252  Hlp_E_SURF252.html
+Hlp_E_S4.257  Hlp_E_INFIN257.html
 Hlp_E_S4.263  Hlp_E_REINF263.html
 Hlp_E_S4.264  Hlp_E_REINF264.html
 Hlp_E_S4.265  Hlp_E_REINF265.html
@@ -2907,7 +2930,6 @@ Hlp_E_TRANS126  Hlp_E_TRANS126.html
 Hlp_E_USER300  Hlp_E_USER300.html
 Hlp_G_ADV2DTO3D  Hlp_G_ADV2DTO3D.html
 Hlp_G_ADVREZ  Hlp_G_ADVREZ.html
-Hlp_G_ADVexad  Hlp_G_ADVexad.html
 Hlp_G_BAS5_3  Hlp_G_BAS5_3.html#pgrsltvwr1
 Hlp_G_BAS6  Hlp_G_BAS6.html
 Hlp_G_BASrani  Hlp_G_BASrgenanim.html
@@ -3212,7 +3234,6 @@ Hlp_gask  gask.html
 Hlp_gent  aQw8sq22dldm.html#gent
 Hlp_hgec  Hlp_ctec_eleccon.html#hgec
 Hlp_hmcf  Hlp_G_STRmcf.html
-Hlp_impldsan  Hlp_G_ADVtrans.html#impldsan
 Hlp_lanel  Hlp_L_matl3.html#lanel
 Hlp_lbiso  Hlp_L_matl3.html#lbiso
 Hlp_lbist  Hlp_L_matl3.html#lbist
@@ -3277,6 +3298,7 @@ IMPD  Hlp_C_IMPD.html
 INFIN  Hlp_E_CH3_2.html#allinfin
 INFIN110  Hlp_E_INFIN110.html
 INFIN111  Hlp_E_INFIN111.html
+INFIN257  Hlp_E_INFIN257.html
 INFIN47  Hlp_E_INFIN47.html
 INFIN9  Hlp_E_INFIN9.html
 INISTATE  Hlp_C_INISTATE.html
@@ -3531,6 +3553,7 @@ MSHCOPY  Hlp_C_MSHCOPY.html
 MSHKEY  Hlp_C_MSHKEY.html
 MSHMID  Hlp_C_MSHMID.html
 MSHPATTERN  Hlp_C_MSHPATTERN.html
+MSOLVE  Hlp_C_MSOLVE.html
 MSTOLE  Hlp_C_MSTOLE.html
 MXPAND  Hlp_C_MXPAND.html
 N  Hlp_C_N.html
@@ -3550,6 +3573,7 @@ NLDPOST  Hlp_C_NLDPOST.html
 NLGEOM  Hlp_C_NLGEOM.html
 NLHIST  Hlp_C_NLHIST.html
 NLIST  Hlp_C_NLIST.html
+NLMESH  Hlp_C_NLMESH.html
 NLOG  Hlp_C_NLOG.html
 NLOPT  Hlp_C_NLOPT.html
 NMODIF  Hlp_C_NMODIF.html
@@ -3655,14 +3679,6 @@ PFACT  Hlp_C_PFACT.html
 PFLUID  Hlp_C_PFLUID.html
 PGAP  Hlp_C_PGAP.html
 PHYSICS  Hlp_C_PHYSICS.html
-PILECALC  Hlp_C_PILECALC.html
-PILEDISPSET  Hlp_C_PILEDISPS.html
-PILEGEN  Hlp_C_PILEGEN.html
-PILELOAD  Hlp_C_PILELOAD.html
-PILEMASS  Hlp_C_PILEMASS.html
-PILERUN  Hlp_C_PILERUN.html
-PILESEL  Hlp_C_PILESEL.html
-PILESTIF  Hlp_C_PILESTIF.html
 PINSUL  Hlp_C_PINSUL.html
 PIPE  Hlp_C_PIPE.html
 PIPE16  Hlp_E_PIPE16.html
@@ -3693,6 +3709,8 @@ PLANE78  Hlp_E_PLANE78.html
 PLANE82  Hlp_E_PLANE82.html
 PLANE83  Hlp_E_PLANE83.html
 PLCAMP  Hlp_C_PLCAMP.html
+PLCFREQ  Hlp_C_PLCFREQ.html
+PLCHIST  Hlp_C_PLCHIST.html
 PLCINT  Hlp_C_PLCINT.html
 PLCPLX  Hlp_C_PLCPLX.html
 PLCRACK  Hlp_C_PLCRACK.html
@@ -3704,6 +3722,7 @@ PLFAR  Hlp_C_PLFAR.html
 PLGEOM  Hlp_C_PLGEOM.html
 PLLS  Hlp_C_PLLS.html
 PLMAP  Hlp_C_PLMAP.html
+PLMC  Hlp_C_PLMC.html
 PLNEAR  Hlp_C_PLNEAR.html
 PLNSOL  Hlp_C_PLNSOL.html
 PLORB  Hlp_C_PLORB.html
@@ -3717,6 +3736,7 @@ PLTIME  Hlp_C_PLTIME.html
 PLTRAC  Hlp_C_PLTRAC.html
 PLVAR  Hlp_C_PLVAR.html
 PLVECT  Hlp_C_PLVECT.html
+PLZZ  Hlp_C_PLZZ.html
 PMAP  Hlp_C_PMAP.html
 PMGTRAN  Hlp_C_PMGTRAN.html
 PMLOPT  Hlp_C_PMLOPT.html
@@ -3729,6 +3749,7 @@ POWERH  Hlp_C_POWERH.html
 PPATH  Hlp_C_PPATH.html
 PPRES  Hlp_C_PPRES.html
 PRANGE  Hlp_C_PRANGE.html
+PRAS  Hlp_C_PRAS.html
 PRCAMP  Hlp_C_PRCAMP.html
 PRCINT  Hlp_C_PRCINT.html
 PRCPLX  Hlp_C_PRCPLX.html
@@ -3754,6 +3775,7 @@ PRORB  Hlp_C_PRORB.html
 PRPATH  Hlp_C_PRPATH.html
 PRRFOR  Hlp_C_PRRFOR.html
 PRRSOL  Hlp_C_PRRSOL.html
+PRSCONTROL  Hlp_C_PRSCONTROL.html
 PRSECT  Hlp_C_PRSECT.html
 PRTIME  Hlp_C_PRTIME.html
 PRVAR  Hlp_C_PRVAR.html
@@ -3949,7 +3971,6 @@ SMRTSIZE  Hlp_C_SMRTSIZE.html
 SMSURF  Hlp_C_SMSURF.html
 SMULT  Hlp_C_SMULT.html
 SNOPTION  Hlp_C_SNOPTION.html
-SOLCONTROL  Hlp_C_SOLCONTROL.html
 SOLID  Hlp_E_CH3_2.html#allsolids
 SOLID122  Hlp_E_SOLID122.html
 SOLID123  Hlp_E_SOLID123.html
@@ -4021,6 +4042,7 @@ SSPB  Hlp_C_SSPB.html
 SSPD  Hlp_C_SSPD.html
 SSPE  Hlp_C_SSPE.html
 SSPM  Hlp_C_SSPM.html
+SSTATE  Hlp_C_SSTATE.html
 SSTIF  Hlp_C_SSTIF.html
 SSUM  Hlp_C_SSUM.html
 STABILIZE  Hlp_C_STABILIZE.html
@@ -4183,10 +4205,10 @@ WSORT  Hlp_C_WSORT.html
 WSPRINGS  Hlp_C_WSPRINGS.html
 WSTART  Hlp_C_WSTART.html
 WTBCREATE  WTBCREATE.html
+XFDATA  Hlp_C_XFDATA.html
+XFENRICH  Hlp_C_XFENRICH.html
+XFLIST  Hlp_C_XFLIST.html
 XVAR  Hlp_C_XVAR.html
-advcmsem  Hlp_G_ADVCMSAN.html
-advcmsgp  Hlp_G_ADVCMSAN.html#advcmssuperelem
-advcmsun  Hlp_G_ADVCMSUND.html
 notfound  notfound.html
 p26calc  Hlp_G_BASP26calc.html
 p26export  Hlp_G_BASP26export.html
@@ -4199,6 +4221,8 @@ pdsser  Hlp_G_ADVPDS3.html#pdsser
 pdssra  Hlp_G_ADVPDS5.html#pdsrsa
 pdsstatpp  Hlp_G_ADVPDS7.html#pdsstatpp
 s-AUX3  Hlp_C_AUX3_sl.html
+ug_ins_pt_node  ugdt_wf_nodes.html#ug_ins_pt_node
+wb_rsm_slvmgrp  wb_rsm_slvmgrp.html
 ~CAT5  Hlp_C_CAT5IN.html
 ~CAT5IN  Hlp_C_CAT5IN.html
 ~CATIAIN  Hlp_C_CATIAIN.html

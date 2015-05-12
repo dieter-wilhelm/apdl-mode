@@ -1,4 +1,4 @@
-# Ansys 150
+# Ansys161
 SOLID5 - 3-D Coupled-Field Solid
 INFIN9 - 2-D Infinite Boundary
 LINK11 - Linear Actuator
@@ -42,9 +42,6 @@ SOLID98 - Tetrahedral Coupled-Field Solid
 INFIN110 - 2-D Infinite Solid
 INFIN111 - 3-D Infinite Solid
 FLUID116 - Coupled Thermal-Fluid Pipe
-HF118 - 2-D High-Frequency Quadrilateral Solid
-HF119 - 3-D High-Frequency Tetrahedral Solid
-HF120 - 3-D High-Frequency Brick Solid
 PLANE121 - 2-D 8-Node Electrostatic Solid
 SOLID122 - 3-D 20-Node Electrostatic Solid
 SOLID123 - 3-D 10-Node Tetrahedral Electrostatic Solid
@@ -58,8 +55,6 @@ SHELL132 - 8-Node Thermal Shell
 FLUID136 - 3-D Squeeze Film Fluid Element
 FLUID138 - 3-D Viscous Fluid Link Element
 FLUID139 - 3-D Slide Film Fluid Element
-FLUID141 - 2-D Fluid-Thermal
-FLUID142 - 3-D Fluid-Thermal
 ROM144 - Reduced Order Electrostatic-Structural
 SURF151 - 2-D Thermal Surface Effect
 SURF152 - 3-D Thermal Surface Effect
@@ -80,7 +75,7 @@ SOLID168 - Explicit 3-D 10-Node Tetrahedral Structural Solid
 TARGE169 - 2-D Target Segment
 TARGE170 - 3-D Target Segment
 CONTA171 - 2-D 2-Node Surface-to-Surface Contact
-CONTA172 - 2-D 3-Node Surface-to-Surface Contact 
+CONTA172 - 2-D 3-Node Surface-to-Surface Contact
 CONTA173 - 3-D 4-Node Surface-to-Surface Contact
 CONTA174 - 3-D 8-Node Surface-to-Surface Contact
 CONTA175 - 2-D/3-D Node-to-Surface Contact
@@ -129,7 +124,7 @@ CPT212 - 2-D 4-Node Coupled Pore-Pressure Mechanical Solid
 CPT213 - 2-D 8-Node Coupled Pore-Pressure Mechanical Solid
 COMBI214 - 2-D Spring-Damper Bearing
 CPT215 - 3-D 8-Node Coupled Pore-Pressure Mechanical Solid
-CPT216 - 3-D 20-Node Coupled Pore-Pressure Mechanical Solid 
+CPT216 - 3-D 20-Node Coupled Pore-Pressure Mechanical Solid
 CPT217 - 3-D 10-Node Coupled Pore-Pressure Mechanical Solid
 FLUID220 - 3-D Acoustic Fluid 20-Node Solid Element
 FLUID221 - 3-D Acoustic Fluid 10-Node Solid Element
@@ -139,7 +134,7 @@ SOLID227 - 3-D 10-Node Coupled-Field Solid
 PLANE230 - 2-D 8-Node Electric Solid
 SOLID231 - 3-D 20-Node Electric Solid
 SOLID232 - 3-D 10-Node Tetrahedral Electric Solid
-PLANE233 - 2-D 8-Node Electromagnetic Solid 
+PLANE233 - 2-D 8-Node Electromagnetic Solid
 SOLID236 - 3-D 20-Node Electromagnetic Solid
 SOLID237 - 3-D 10-Node Electromagnetic Solid
 PLANE238 - 2-D 8-Node Diffusion Solid
@@ -159,6 +154,6 @@ SOLID279 - 3-D 20-Node Thermal Solid
 SHELL281 - 8-Node Structural Shell
 SOLID285 - 3-D 4-Node Tetrahedral Structural Solid with Nodal Pressures
 PIPE288 - 3-D 2-Node Pipe
-PIPE289 - 3-D 3-Node Pipe 
+PIPE289 - 3-D 3-Node Pipe
 ELBOW290 - 3-D 3-Node Elbow
 USER300 - User-Defined Element

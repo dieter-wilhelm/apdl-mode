@@ -4,7 +4,7 @@ Org mode.
 Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
 
 ** Introduction
-   
+
 Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][Github]]. The latest
 sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode]] project site.
 
@@ -30,17 +30,17 @@ yet free - editor. High quality software available for every operating
 system where ANSYS is running.
 
 The current stable version 16.1.1 of ANSYS-Mode is available at the
-[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] 
-		     
+[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]].
+
 # or via command line way, e. g.: "wget
 # http://ansys-mode.googlecode.com/files/ansys-mode-16.1.1.tgz".
 
-The some code (completions, help strings etc.) is
-based on the latest ANSYS version.  Besides the sources and Emacs you
-will find also in the download section two tutorials.  For an
-immediate access have a look at the
+The some code (completions, help strings etc.) is based on the latest
+ANSYS version.  Besides the sources and Emacs you will find also in
+the download section two tutorials.  For an immediate access have a
+look at the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
-introductory on-line version], here you are able to see the images in 
+introductory on-line version], here you are able to see the images in
 a higher resolution as in the PDF version.  And in the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
 in-depth on-line tutorial] there is the source code highlighting

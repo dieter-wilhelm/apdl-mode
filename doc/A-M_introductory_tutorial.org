@@ -38,7 +38,7 @@
 #+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+XSLT:
-# #+TEXT: Copyright (C) 2006 - 2014  H. Dieter Wilhelm, GPL V3
+# #+TEXT: Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
 
 #+HTML: <img src="ansys+emacs.png" height=150 alt="image">

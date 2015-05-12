@@ -1,6 +1,6 @@
 ;;; ansys-mode.el -- Editor support for working with ANSYS FEA.
 
-;; Copyright (C) 2006 - 2014  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2015  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -3092,6 +3092,7 @@ These constructs appear in WorkBench created solver input files."
 	'ansys-job
 	'ansys-program
 	'ansys-help-program
+	'ansys-help-path
 	'ansys-help-program-parameters
 	'ansys-lmutil-program
 	'ansys-license-file

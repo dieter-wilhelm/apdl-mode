@@ -1,6 +1,6 @@
 ;;; ansys-process.el -- Managing runs and processes for ANSYS-Mode
 
-;; Copyright (C) 2006 - 2014  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2015  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm

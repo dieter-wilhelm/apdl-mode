@@ -171,7 +171,7 @@
     (tags-query-replace "14.5" "15.0")
     (tags-query-replace "15.0.1" "15.0.1")
     (tags-query-replace "15.0.1" "16.1.1")
-    (tags-querey-replace "16.1" "16.2") 
+    (tags-query-replace "16.1" "16.2")
     # version No
     (tags-query-replace "150" "161")
     # for _mode_version

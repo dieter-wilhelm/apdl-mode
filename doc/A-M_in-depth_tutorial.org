@@ -101,7 +101,7 @@ a#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 ** Using this tutorial
    
 *** Please read the *introductory* ANSYS-Mode tutorial first
-    This is the file `A-M_introductory_tutorial-15.0.1.pdf' in the
+    This is the file `A-M_introductory_tutorial-16.1.1.pdf' in the
     mode's archive or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html][online]] version.
 
     Ah yes, you are in a hurry (I thought so). *In summary:* You
@@ -158,7 +158,7 @@ a#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 #+begin_src ansys :exports none
   !! This is the auto-generated APDL source of the ANSYS-Mode
   !! hands-on APDL tutorial (from A-M_in-depth_tutorial.org)
-  !! Copyright (C) 2006 - 2014 H. Dieter Wilhelm GPL V3
+  !! Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
   !! ==============================
   !! --- APDL editing ---

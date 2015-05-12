@@ -1248,8 +1248,9 @@ simultaneously with the <c> key and then <?>, the question
 mark (for the command `ansys-show-command-parameters') displays
 above a code line a brief description of the ANSYS command and
 its syntax.  The command is looking for the next valid command
-near the cursor or when using a prefix argument it inquires an
-ANSYS command from you.
+near the cursor or when using a prefix argument (`C-u' or `4') it
+inquires an ANSYS command from you. The tooltip is switched off
+with an argument of zero (`0').
 
 ** Browse the detailed ANSYS command and element html help **
 
@@ -2081,52 +2082,52 @@ current one."
 
 (defun ansys-show-command-parameters (&optional ask-or-toggle)
   "Display an ANSYS command parameters help for the command near the cursor.
-Show the command name and its parameters (if any) and in the
-other line a brief description of the commands purpose.  This is
-done for the previous ANSYS command beginning, except when point
-is at the command beginning at the indentation.  See also the
-function `ansys-command-start' how the previous command is found.
-The function shows also the parameters for commands in a comment
-line.  With a prefix argument ASK-OR-TOGGLE of zero switch off
-the command parameters highlighting, with any other argument
-inquire a command name from the mini buffer, which might be
-completed with <TAB>."
-  (interactive "P" )
+Show the command name and its parameters (if any) and in a
+further line a brief description.  This is done for the previous
+ANSYS command beginning, except when point is at the command
+beginning at the indentation.  See also the function
+`ansys-command-start' how the previous command is found.  It
+displays also the parameters for commands in a comment line.
+With a prefix argument ASK-OR-TOGGLE of zero switch off the
+command parameters highlighting, with an prefix `C-u' or argument
+`4' (four) enquire a command name from the mini buffer, which
+might be completed with <TAB>."
+  (interactive "p" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
-    ;; search for a valid command name
-      (cond
-         (ask-or-toggle
-	(setq str (completing-read
-		   "Type function or command name for help: "
-		   ansys-help-index))
-;	(message "keyword %s" str)
-	)
-       ((ansys-in-comment-line-p)
-	(save-excursion
-	  (back-to-indentation)
-	  (skip-chars-forward " !")
-	  (re-search-forward "[^[:space:]]\\w*\\>" nil t))
-	(setq str (match-string-no-properties 0)))
-       ((ansys-in-indentation-p) ; we are before a possible command
-	  (save-excursion
-	    (re-search-forward "[^[:space:]]\\w*\\>" nil t)
-	    (setq str (match-string-no-properties 0)))
-	)
-       ((unless (ansys-in-indentation-p)
-	  (ansys-command-start)
-	  (save-excursion
-	    (re-search-forward "[^[:space:]]\\w*\\>" nil t)
-	    (setq str (match-string-no-properties 0))))))
+    ;; enquire or search for a valid command name
+    (cond ((= ask-or-toggle 0))		;do nothing
+	  ((= ask-or-toggle 4)
+	   (setq str (completing-read
+		      "Type function or command name for help: "
+		      ansys-help-index))
+	   ;;	(message "keyword %s" str)
+	   )
+	  ((ansys-in-comment-line-p)
+	   (save-excursion
+	     (back-to-indentation)
+	     (skip-chars-forward " !")
+	     (re-search-forward "[^[:space:]]\\w*\\>" nil t))
+	   (setq str (match-string-no-properties 0)))
+	  ((ansys-in-indentation-p) ; we are before a possible command
+	   (save-excursion
+	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	     (setq str (match-string-no-properties 0)))
+	   )
+	  ((unless (ansys-in-indentation-p)
+	     (ansys-command-start)
+	     (save-excursion
+	       (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	       (setq str (match-string-no-properties 0))))))
     ;; display help string
-  (if (= ask-or-toggle 0)
-      (delete-overlay ansys-help-overlay)
-    (catch 'foo
-      (dolist (s ansys-dynamic-prompt)
-	(when (string-match (concat "^" str) s)
-	  (ansys-manage-overlay s)
-	  (throw 'foo nil)))
-      (error "\"%s\" not found in keyword list" str)))))
+    (if (= ask-or-toggle 0)
+	(delete-overlay ansys-help-overlay)
+      (catch 'foo
+	(dolist (s ansys-dynamic-prompt)
+	  (when (string-match (concat "^" str) s)
+	    (ansys-manage-overlay s)
+	    (throw 'foo nil)))
+	(error "\"%s\" not found in keyword list" str)))))
 
 (defun ansys-check-capitalisation ( string)
 "Check case of ANSYS keyword STRING.

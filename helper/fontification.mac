@@ -1,7 +1,7 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2012-06-22 16:42:24 uidg1626>
+!! Time-stamp: <2015-05-12 14:19:52 uidg1626>
 !! ANSYS VERSION: 140
 !! UNITS: mm-t-s
 !! NOTE: Pseudo code, checking the influence of
@@ -9,7 +9,7 @@
 !!  the cursor below the next paragraph and type
 !!  C-x C-e to activate the settings
 
-!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "ansys-mode.el")(ansys-mode))
+!(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "../ansys-mode.el")(ansys-mode))
 
 /units,mpa !indicate mm-t-s unit system
 !@ --- Preprocessing ---

@@ -13,7 +13,8 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
   i. e. after invoking this command with its key-sequence (C-c C-j) it
   can be repeated by typing just the final character (j) ....
 
-- The  tooltip highlighting (M-?) can now switched off with C-u M-?
+- The ansys-show-command-parameters (M-?) tooltip highlighting can now
+  be switched off with a prefix argument of 0.
 
 - Extended the APDL material library which includes now creep data
   example as well

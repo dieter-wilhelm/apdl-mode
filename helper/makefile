@@ -19,19 +19,20 @@ else
  EMACS_DIR := /appl/
 endif
 
-
 EMACS_VERSION := emacs-24.5
-EMACS_PACKAGE := $(EMACS_VERSION)-bin-i386.zip
+EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
-EMACS_PACKAGE_SIG := $(EMACS_VERSION)-bin-i386.zip.sig
+KEYRING := http://ftp.gnu.org/gnu/gnu-keyring.gpg
+EMACS_PACKAGE_SIG := $(EMACS_PACKAGE).sig
 EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.gz
-EMACS_SOURCE_PACKAGE_SIG := $(EMACS_VERSION).tar.gz.sig
-ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/windows/$(EMACS_PACKAGE)
-SIG_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
-SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE)
-SIG_SOURCE_ADDRESS := http://ftp.gnu.org/pub/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
+EMACS_SOURCE_PACKAGE_SIG := $(EMACS_SOURCE_PACKAGE).sig
+ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE)
+SIG_ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
+SOURCE_ADDRESS := http://ftp.gnu.org/gnu/emacs/$(EMACS_SOURCE_PACKAGE)
+SIG_SOURCE_ADDRESS := http://ftp.gnu.org/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
 # ftp://ftp.informatik.rwth-aachen.de/pub/gnu/
 EMACS_EXE := $(EMACS_DIR)$(EMACS_VERSION)/src/emacs
+
 
 .PHONEY : EMACS_SOURCE
 EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
@@ -78,7 +79,7 @@ ALL : MODE EMACS
 CLEAN :
 	rm $(ELC_FILES)
 
-$(EMACS_SOURCE_PACKAGE_SIG) :
+$(EMACS_SOURCE_PACKAGE_SIG) : gnu-keyring.gpg
 	wget $(SIG_SOURCE_ADDRESS)
 	gpg $(EMACS_SOURCE_PACKAGE_SIG)
 
@@ -141,19 +142,22 @@ ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt
 # This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
 EMACS : $(EMACS_PACKAGE) $(PACKAGE)  $(ELC_FILES) default_el
-	test -d $(EMACS_VERSION)/site-lisp || mkdir -p $(EMACS_VERSION)/site-lisp
-	cp -uv $(FILES) $(EL_FILES) $(EMACS_VERSION)/site-lisp
-	cp -uv $(ELC_FILES) $(EMACS_VERSION)/site-lisp
-	cp -uv default_el $(EMACS_VERSION)/site-lisp/default.el
-	cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
-	zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) $(EMACS_VERSION)/site-lisp/*
+	# test -d $(EMACS_VERSION)/site-lisp || mkdir -p $(EMACS_VERSION)/site-lisp
+	# cp -uv $(FILES) $(EL_FILES) $(EMACS_VERSION)/site-lisp
+	# cp -uv $(ELC_FILES) $(EMACS_VERSION)/site-lisp
+	# cp -uv default_el $(EMACS_VERSION)/site-lisp/default.el
+	# cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
+	# zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) $(EMACS_VERSION)/site-lisp/*
 
 #	rm -r $(EMACS_VERSION)
 
 # get Emacs stuff
 # emacs_package is the windows zip file
 
-$(EMACS_PACKAGE) :
+gnu-keyring.gpg : 
+	wget $(KEYRING)
+
+$(EMACS_PACKAGE) :  gnu-keyring.gpg $(EMACS_PACKAGE) $(EMACS_PACKAGE_SIG)
 	wget $(ADDRESS) $(SIG_ADDRESS)
 	gpg $(EMACS_PACKAGE_SIG)
 

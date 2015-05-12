@@ -336,7 +336,7 @@ A hook is a variable which holds a collection of functions."
 
 (defvar ansys-timer nil
   "Timer variable to set up a timer for overlay clearing.
-  Please have a look at `ansys-help-overlay'.")
+  Please have a look at the function `ansys-manage-overlay'.")
 
 (defvar ansys-indent-comment-string	;_C
   (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
@@ -2079,7 +2079,7 @@ current one."
     )
   )
 
-(defun ansys-show-command-parameters (&optional ask)
+(defun ansys-show-command-parameters (&optional ask-or-toggle)
   "Display an ANSYS command parameters help for the command near the cursor.
 Show the command name and its parameters (if any) and in the
 other line a brief description of the commands purpose.  This is
@@ -2087,14 +2087,16 @@ done for the previous ANSYS command beginning, except when point
 is at the command beginning at the indentation.  See also the
 function `ansys-command-start' how the previous command is found.
 The function shows also the parameters for commands in a comment
-line.  With a prefix argument ASK inquire a command name from the
-mini buffer, the names can be completed with <TAB>."
+line.  With a prefix argument ASK-OR-TOGGLE of zero switch off
+the command parameters highlighting, with any other argument
+inquire a command name from the mini buffer, which might be
+completed with <TAB>."
   (interactive "P" )
   (let ((case-fold-search t)		;in case customised to nil
 	str)
     ;; search for a valid command name
       (cond
-       (ask
+         (ask-or-toggle
 	(setq str (completing-read
 		   "Type function or command name for help: "
 		   ansys-help-index))
@@ -2117,12 +2119,14 @@ mini buffer, the names can be completed with <TAB>."
 	    (re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	    (setq str (match-string-no-properties 0))))))
     ;; display help string
+  (if (= ask-or-toggle 0)
+      (delete-overlay ansys-help-overlay)
     (catch 'foo
       (dolist (s ansys-dynamic-prompt)
 	(when (string-match (concat "^" str) s)
 	  (ansys-manage-overlay s)
 	  (throw 'foo nil)))
-      (error "\"%s\" not found in keyword list" str))))
+      (error "\"%s\" not found in keyword list" str)))))
 
 (defun ansys-check-capitalisation ( string)
 "Check case of ANSYS keyword STRING.

@@ -1488,12 +1488,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! BIN — U. S. Customary system using inches (in, lbf*s2/in, s, °F)." \n
   \n
   "!! mpdata" \n
-  "/mplib,write,/HOME/uidg1626/ansys-mode/trunk/matlib" \n
+  "/mplib,write,/HOME/uidg1626/a-m/matlib" \n
   "!! --- It is advisable to make the material files which are commented read only!" \n
-  "/mplib,read,/HOME/uidg1626/ansys-mode/trunk/matlib" \n
+  "/mplib,read,/HOME/uidg1626/a-m/matlib" \n
   "/mplib,stat !shows the read write directories" \n
   "!! which materials are in the mplib?" \n
-  "/sys,ls ~/ansys-mode/trunk/matlib" \n
+  "/sys,ls ~/a-m/matlib" \n
   "/units,mpa !default extension for mpread is now MPA_MPL" \n
   "mat,Steel ! set the material number" \n
   "mpread,St37,,,lib" \n
@@ -1533,9 +1533,19 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tb,biso,Alu,1" \n
   "tbdata,,Yield_stress,Tangent_modulus" \n
   \n
-  "!! - multilinear kinematic hardening of 0.5 mm hardened C75s spring sheet steel - " \n
+  "!! - KINH: Multilinear kinematic hardening of 0.5 mm hardened C75S spring sheet steel - " \n
+  "Steel = 1" \n
+  "ID = Steel" \n
+  "mp,nuxy,ID,0.3 ! Poisson No" \n
+  "mp,ex,ID,200000 ! Elastic modulus" \n
+  "mp,dens,ID,7850e-12 !density in t/mm³" \n
+  "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
+  "mp,alpx,ID,AlphaSteel !secant modulus of therm. exp.!" \n
+  "!mp,ctex,ID,12e-6 ! instantaneous coofficient of therm. exp." \n
+  "KSteel = 60.5 !conductivity in W/(mK)" \n
+  "mp,kxx,ID,KSteel" \n
   "tbdele,kinh,Steel !redefine material" \n
-  "tb,kinh,Steel,1,8 !1 temperature, 8 data points" \n
+  "tb,kinh,Steel,1,8,0 !1 temperature, 8 data points,0:total strain" \n
   "tbtemp,20 !measurements @RT" \n
   "tbpt,,.6e-2,1300." \n
   "tbpt,,.75e-2,1430." \n

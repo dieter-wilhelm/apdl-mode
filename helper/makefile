@@ -176,6 +176,5 @@ TEST :
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :
-	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.2-beta.2 -m "tagging 14.5.2-beta.2"
-
-#	svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.2-beta.1 -m "tagging 14.5.2-beta.1"
+	cat "-a release-$(VERSION)"
+# svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.2-beta.2 -m "tagging 14.5.2-beta.2"

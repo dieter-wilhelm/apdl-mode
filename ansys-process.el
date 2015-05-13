@@ -315,35 +315,28 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
-(defun ansys-send-to-ansys ( &optional line)	;NEW
+(defun ansys-send-to-ansys ( &optional stay)	;NEW
   "Send a region to the ANSYS interpreter,
-if the interpreter is not active, copy it and skip to the
-following code line after the region.  If there is no region
-active send or copy the current paragraph and skip to the next
-code line after the paragraph.  With a prefix argument LINE equal
-to \"4\" or \"C-u\" send (or copy) just the current code line and
-remain at the current cursor position."
-  (interactive "P")
+if the interpreter is not active, copy it and skip to the next
+code line after the region.  If there is no region marked, send
+or copy the current paragraph and skip to the next code line
+after the paragraph.  With a prefix argument STAY equal to \"4\"
+or \"C-u\" remain at the current cursor position."
+  (interactive "p")
   (let (code
 	beg
 	end
+        (point (point))
 	(process (get-process
 		  (if (boundp 'ansys-process-name) ansys-process-name)))
 	(region (and transient-mark-mode mark-active)))
 ;    	(region (region-active-p))) ;this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
     ;; "region" will be the whole code line (including \n)
-    (if region
-	(setq beg (region-beginning)
-	      end (region-end))
-      (unless (ansys-code-line-p)
-	(unless line
-	  (ansys-next-code-line))
-	(error "There was no active region or code line"))
-      (save-excursion
-	(setq beg (line-beginning-position))
-	(forward-line 1)
-	(setq end (point))))
+    (unless region
+      (mark-paragraph))
+    (setq beg (region-beginning)
+	  end (region-end))
 
     ;; invalidate region
     (setq mark-active nil)
@@ -357,9 +350,12 @@ remain at the current cursor position."
 	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
-	   (if region
-	       (message "Copied region.")
-	     (message "Copied code line."))))))
+	   (message "Copied region.")))
+    (if (= stay 4)
+	(goto-char point)
+      (progn
+	(goto-char end)
+	(ansys-next-code-line)))))
 
 (defun ansys-send-to-ansys-and-proceed ( &optional stay)	;NEW
   "Send a region or code line to the ANSYS interpreter.

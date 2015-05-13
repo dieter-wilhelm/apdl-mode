@@ -1052,14 +1052,16 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@ -- element definitions --" \n
   "!! ------------------------------" \n
   \n
-  "!! --- Solid elements ---"
+  "!! --- Solid elements ---" \n
   "*get,ET,etyp,,num,max !get maximum element type" \n
   "Solid = ET+1" \n
   "ID = Solid" \n
   "real,ID" \n
   "et,ID,solid186 !3d, 20 node" \n
   "etlist !list defined elements" \n
+  \n
   "et,ID,solid185 !3d, 8 node" \n
+  \n
   "!! --- A plane element type --- " \n
   "*get,ET,etyp,,num,max !get maximum element type" \n
   "Plane = ET+1" \n
@@ -1069,6 +1071,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/eshape,1 !1:use real constant def. for element shapes" \n
   "/graphics,power !for post1 results" \n
   "r,ID,13 ! thickness" \n
+  \n
   "et,ID,plane182 !2d, 4 node" \n
   "keyopt,ID,3,1 !(3)=0:plane stress,1:axissym,2:plain strain." \n
   "keyopt,ID,1,0 !(1)=0:reduced integr.2:enhanced strain for bending" \n
@@ -1084,6 +1087,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Target=Contact+1" \n
   "r,Contact !define a real set" \n
   "et,Contact,conta174    !3d, 8 node" \n
+  \n
   "et,Contact,conta173 !3d, 4 node" \n
   "et,Contact,conta172 !2d, 3 node" \n
   "et,Contact,conta171 !2d, 2 node" \n
@@ -1092,6 +1096,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "et,Contact,conta177 !3d line to surf, 3 node" \n
   \n
   "et,Target,targe170 !3d area,line,(pilot-)node" \n
+  \n
   "et,Target,targe169  !2d" \n
   \n
 
@@ -1105,6 +1110,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "sectype,ID,shell" \n
   "Secdata,ShellThickness" \n
   "et,ID,shell281 !3d 8/6-node structural shell" \n
+  \n
   "!! - beams -" \n
   "et,ID,beam188 !3d 2-node beam, shows only line results" \n
   "et,ID,beam189 !3d 3-node beam, shows 3d results with power graphics" \n

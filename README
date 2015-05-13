@@ -212,11 +212,13 @@ in its default installation directory on drive `C:Program Files' on
 Win64 and you want to start for example 'anslic_admin' or the ANSYS
 help browser directly from Emacs please adjust the configuration file
 `default.el' file in Emacs' `site-lisp' directory according to the
-commented code examples.
+commented code examples.  But your init file, if any is loaded
+*first*; if it sets 'inhibit-default-ini' to non-nil, then default.el
+is not loaded any longer.
 
 In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
 version]] of GNU Emacs, you can also download and configure the
-ANSYS-Mode package separately. Please see below.
+ANSYS-Mode package separately. Please refer to below instructions.
 
 *For existing Emacs installations on Windows and GNU/Linux*:
 
@@ -243,14 +245,15 @@ ansys-mode RET' for every new or existing APDL file.
 *** More convenient way; file configuration necessary
 
 Extract the files somewhere on disc and put the following paragraph
-into your `.emacs' configuration file (in your home directory), adjust
-the stuff in capital letters, restart Emacs and ansys-mode will be
-automatically applied for all files with suffixes `.mac', `.dat' and
-`.inp'.
+into your `~/.emacs' or `~/.emacs.d/inti.el' configuration file in
+your home directory `~', which is determined by the environment
+variable HOME (on both Windows and Unix), adjust the stuff below in
+capital letters, restart Emacs and ansys-mode will be automatically
+applied for all files with suffixes `.mac', `.dat' and `.inp'.
 
     (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
       ;assuming you extracted the files on drive "c:"
-      ;for example: "c:\\emacs\\emacs-23.1"
+      ;for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
     (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
     (add-to-list 'auto-mode-alist '("\\.dat\\'" . ansys-mode))
     (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
@@ -274,7 +277,7 @@ When it becomes tiring of loading 'ansys-mode.el' (or
 'ansys-mode.elc') every time you are starting a new Emacs session, you
 should specify the installation path for the mode files in your
 '~/.emacs' file (the configuration file '.emacs' of GNU Emacs in your
-home directory '~\').
+home directory '~\' or `~/.emacs.d/init.el').
 
      (add-to-list 'load-path
 		  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
@@ -330,10 +333,12 @@ As a summary and example to these and further customisation options
 please have a look at the accompanying `default_el' example. This is
 helpful especially if you intend to use the mode's solver
 communication capabilities.  This file can be used, after renaming it
-to `default.el' and adjusting as as system wide start-up file for Emacs
-in the `EMACS_INSTALLDIR/site-lisp' directory and is therefore an
-alternative to customisations in `.emacs', your personal configuration
-file.
+to `default.el' and adjusting as as system wide start-up file for
+Emacs in the `EMACS_INSTALLDIR/site-lisp' directory and is therefore
+an alternative or supplement to customisations in `~/.emacs' (or
+`~/.emacs.d/init.el'), your personal configuration file.  But your
+init file, if any is loaded *first*; if it sets 'inhibit-default-ini'
+to non-nil, then default.el is not loaded any longer.
 
 * Usage and customisation
 

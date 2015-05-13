@@ -4,20 +4,24 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
 ** Version 16.1.1 Mai 2015
 
-- Is packaged with the latest version 24.5 of Emacs
+- The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
+  paragraph, when there is no region marked.
 
-- The command C-c C-c grabs now the current region by default and
-  skips to the next paragraph
-
-- The command (ansys-send-to-ansy-and-proceed) is now interactive,
+- The command `ansys-send-to-ansy-and-proceed' is now interactive,
   i. e. after invoking this command with its key-sequence (C-c C-j) it
   can be repeated by typing just the final character (j) ....
 
-- The ansys-show-command-parameters (M-?) tooltip highlighting can now
-  be switched off with a prefix argument of 0.
+- The `ansys-show-command-parameters' (M-?) tooltip can now be
+  switched immediately off with a prefix argument of zero.
 
-- Extended the APDL material library which includes now creep data
-  example as well
+- The output buffer *ANSYS* of the interpreter commands might now
+  reside on a another Emacs frame.
+
+- Extended the APDL material library which includes now creep and
+  multi-linear plasticity data as well
+
+- Is packaged with the current version (24.5) of Emacs and updated to
+  ANSYS 16.1.
 
 ** Version 15.0.1 Aug 2014
 
@@ -312,4 +316,5 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# mode: org
 # end:

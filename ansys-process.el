@@ -315,14 +315,14 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
-(defun ansys-send-to-ansys ( &optional stay)	;NEW
-  "Send region (or code line) to the ANSYS interpreter, otherwise copy it.
-Argument BEG may the beginning of the region.  If there is no
-region active send/copy the complete code line.  When there is no
-running ANSYS interpreter process just copy the respective
-code (region or line) to the system clipboard and skip to the
-subsequent code line.  With any prefix argument STAY copy or send
-code but remain at the current cursor position."
+(defun ansys-send-to-ansys ( &optional line)	;NEW
+  "Send a region to the ANSYS interpreter,
+if the interpreter is not active, copy it and skip to the
+following code line after the region.  If there is no region
+active send or copy the current paragraph and skip to the next
+code line after the paragraph.  With a prefix argument LINE equal
+to \"4\" or \"C-u\" send (or copy) just the current code line and
+remain at the current cursor position."
   (interactive "P")
   (let (code
 	beg
@@ -337,7 +337,7 @@ code but remain at the current cursor position."
 	(setq beg (region-beginning)
 	      end (region-end))
       (unless (ansys-code-line-p)
-	(unless stay
+	(unless line
 	  (ansys-next-code-line))
 	(error "There was no active region or code line"))
       (save-excursion
@@ -362,15 +362,12 @@ code but remain at the current cursor position."
 	     (message "Copied code line."))))))
 
 (defun ansys-send-to-ansys-and-proceed ( &optional stay)	;NEW
-  "Send region (or code line) to the ANSYS interpreter, otherwise copy it.
-Argument BEG may the beginning of the region.  If there is no
-region active send/copy the complete code line, if the cursor is
-in no code line (like a comment) go to the next code line and
-indicate an error.  When there is no running ANSYS interpreter process
-just copy the respective code (region or line) to the system
-clipboard and skip to the subsequent code line.  With any prefix
-argument STAY copy or send code but remain at the current cursor
-position."
+  "Send a region or code line to the ANSYS interpreter.
+When there is no running ANSYS interpreter process just copy the
+respective region or code line to the system clipboard and skip
+to the subsequent code line.  With a prefix argument STAY of
+\"4\" or \"C-u\" copy or send code but remain at the current
+cursor position."
   (interactive "P")
   (let (code
 	beg
@@ -394,7 +391,7 @@ position."
 	(setq end (point))))
 
     ;; move cursor to subsequent code line unless stay
-    (unless stay
+    (unless (= stay 4)
       (if (and region
 	       (< (point) end))
 	(exchange-point-and-mark))

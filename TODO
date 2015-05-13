@@ -41,10 +41,9 @@
      (frictionless support)
    - read only mode for *.dat?
    - automatised pdf-export is not working any longer
-     makefile errors: Check tutorials
+   - makefile errors: Check tutorials
    - add new functionalities to tutorial and manual
    - not yet warning message, if html help files are not found
-   - makefile errors: Check tutorials
    - check *vwrite with gui mode and interactive mode (graphics window?)
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
@@ -52,17 +51,18 @@
      in the file!
    - C-c { before a number-block does not work
    - add user variable for C-c C-c toggle move to next line or remain
-     on current one
-   - with multiple Emacs frames the ANSYS menu is shown only in ONE frame!
+     on current one. redundant since C-c C-j?
+   - with multiple Emacs frames the ANSYS menu is shown only in ONE
+     frame!  Mitigated it, check
    - -if-then does not indent correctly
-   - add element numbers to the general completion list, or not?
+   - add element numbers to the general completion list, yes or not?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade
    - HTML APDL documentation
      here is the tanslation of names to html files:
      - link to ANSYS-Mode APDL reference:
      - Chapters of structural APDL documentation:
    - -dynamic-highlighting is sluggish, highlighting somehow
-     retarded!!!
+     retarded!!! Still??
    - TODOS: in fontification.org
      - deletion of vectors *del,Vector without request? ,,nopr?
      - check character variables 32 Chars. and highlight accordingly
@@ -86,8 +86,7 @@
    - constraint equations in -template.el and get functions
 ** Bugs
    - lsln line selected by nodes: is not highlighted
-   - the overlays of M-? cannot be manually cleared
-   - the introductory-tutorial is not right
+   - the introductory-tutorial is not ready
    - C-c C-c is not working on last line if there is no carriage return
    - menu-bar job-name is not working
    - file mode specification error: (search-failed
@@ -111,12 +110,10 @@
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
 ** Release
-   - indentation of template -output-to-file is not correct
    - makefile fontification of _tutorial PDFs is not working,
      necessary to load them by hand before exporting
    - document A-M_in-depth_tutorial.org
-       - fontification.mac, leave it in the mode archive for a while
-       - upload to github.com
+   - fontification.mac, leave it as an example
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
        .anf files from DM anf export
@@ -139,7 +136,7 @@
      - update download page to 16.0.1 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
-     - change sequence of alignment.pgn first not aligned, second aligned
+     - change sequence of alignment.png first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
 * Procedures
@@ -149,7 +146,6 @@
   - APDL templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
-
   - M-x compile :: ALL ;-)
 
 ** Freeze
@@ -194,6 +190,7 @@
   - publication emails (with tutorial and news):
 
     makgul@gmail.com,
+    yangdawei.hit@qq.com
     weizhuo.du@peraglobal.com,
     info@auc-ev.de,
     afoleite@gmail.com,
@@ -210,7 +207,6 @@
     Marco.Mechi@continental-corporation.com,
     Antonio.Zangaro@continental-corporation.com,
     martin.bruehl@continental-corporation.com,
-    klemens.kieninger@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
     saravana.kumar@continental-corporation.com,
     alwin.perras@continental-corporation.com,

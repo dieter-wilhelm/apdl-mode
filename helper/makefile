@@ -19,6 +19,7 @@ else
  EMACS_DIR := /appl/
 endif
 
+EMACS_VER := 24.5
 EMACS_VERSION := emacs-24.5
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
@@ -45,15 +46,15 @@ MODE_VERSION := 1-beta.1
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
-EL_FILES := ansys-mode.el ansys-keyword.el \
-  ansys-template.el ansys-process.el
+EL_FILES := ../ansys-mode.el ../ansys-keyword.el \
+  ../ansys-template.el ../ansys-process.el
 
 TESTFILES := ../ansys-mode.el ../ansys-template.el ../ansys-process.el ../README ../NEWS ../TODO ansys-fontification.el extract_tags.py ../doc/A-M_APDL_reference.org ../doc/A-M_in-depth_tutorial.org ../doc/A-M_introductory_tutorial.org
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := LICENSE README TODO NEWS fontification.mac default_el	\
- A-M_introductory_tutorial-$(VERSION).pdf			\
+FILES := ../LICENSE ../README ../TODO ../NEWS  fontification.mac
+# A-M_introductory_tutorial-$(VERSION).pdf			\
  A-M_in-depth_tutorial-$(VERSION).ansys				\
  A-M_in-depth_tutorial-$(VERSION).pdf				\
  A-M_APDL_reference-$(VERSION).pdf
@@ -141,24 +142,26 @@ ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt
 
 # This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
-EMACS : $(EMACS_PACKAGE) $(PACKAGE)  $(ELC_FILES) default_el
-	# test -d $(EMACS_VERSION)/site-lisp || mkdir -p $(EMACS_VERSION)/site-lisp
-	# cp -uv $(FILES) $(EL_FILES) $(EMACS_VERSION)/site-lisp
-	# cp -uv $(ELC_FILES) $(EMACS_VERSION)/site-lisp
-	# cp -uv default_el $(EMACS_VERSION)/site-lisp/default.el
-	# cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
-	# zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) $(EMACS_VERSION)/site-lisp/*
-
+EMACS : $(EMACS_PACKAGE) $(PACKAGE) ../default_el
+	 test -d share/emacs/$(EMACS_VER)/site-lisp || mkdir -p share/emacs/$(EMACS_VER)/site-lisp
+	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp
+	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp
+	 cp -uv ../default_el share/emacs/$(EMACS_VER)/site-lisp/default.el
+	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
+	 zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) share/emacs/$(EMACS_VER)/site-lisp/*
+# cp -uv $(ELC_FILES) share/emacs/$(EMACS_VER)/site-lisp
 #	rm -r $(EMACS_VERSION)
 
 # get Emacs stuff
 # emacs_package is the windows zip file
 
-gnu-keyring.gpg : 
-	wget $(KEYRING)
+## !!! gnu-keyring is not current: use key-servers!!!!
+# gnu-keyring.gpg : 
+# 	wget $(KEYRING)
 
-$(EMACS_PACKAGE) :  gnu-keyring.gpg $(EMACS_PACKAGE) $(EMACS_PACKAGE_SIG)
-	wget $(ADDRESS) $(SIG_ADDRESS)
+$(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
+	wget $(SIG_ADDRESS)
+	wget $(ADDRESS)
 	gpg $(EMACS_PACKAGE_SIG)
 
 ##################################################

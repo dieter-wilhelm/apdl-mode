@@ -1,4 +1,4 @@
-/COM,C75s hardened sheet metal
+/COM,C75s hardened 0.5 mm sheet metal
 /NOP
 /COM,Internal UNITS set at file creation time = MPA       
 TBDEL,ALL,_MATL

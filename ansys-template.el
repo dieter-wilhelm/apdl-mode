@@ -1383,19 +1383,33 @@ time stamp with the Emacs command M-x `time-stamp'."
   "X2 = 1" \n
   "Y1 = X1" \n
   "Y2 = X2" \n
-  "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
   "Z1 = 0" \n
   "Z2 = 1" \n
+  "!! --- volumes ---" \n
   "block,X1,X2,Y1,Y2,Z1,Z2 !3d hexahedron (wp)" \n
+  "sphere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
+  "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
   "!!arsym,y,all ! reflection of areas "
   "Xc  = 0 !centre x-coord." \n
   "Yc  = 0 !centre y-coord." \n
+  "!! --- AREAS ---" \n
+  "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
+  "wpcsys" \n
   "R1  = 4" \n
   "R2  = 20" \n
   "N   = 14." \n
   "Th1 = -360./(2*N)" \n
   "Th2 = +360./(2*N)" \n
   "Depth=30" \n
+  "pcirc,R1,R2,Th1,Th2 ! circular area on WP" \n
+  "rpr4,3,10,0,1.2,! polygonal area or prism volume"
+  "rcon$stat !status of real constands" \n
+  "*get,RN,rcon,,num,max	 !maximum real set no "
+  "Cylinder = RN + 1 !new real set" \n
+  "ID = Cylinder" \n
+  "r,ID,Length" \n
+  "!! --- VOLUMES  (or AREAS) -- "\n
+  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth=>0 !circular area or cylindrical volume" \n
   "!! --- KeyPoints ---"  \n
   "source,X,Y,Z !default undefined kp and node location" \n
   "kl,L1,Ratio,KPNo !keypoint on line" \n
@@ -1404,20 +1418,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lstr,KP1,KP2 !straight line irrespective of current CS" \n
   "larc,Kp1,Kp2,Kpc,rad !if rad is blank, fit throught KPs" \n
   "circle,centreKp,radiusKp," \n
-  "!! --- AREAS ---" \n
-  "wpcsys" \n
-  "pcirc,R1,R2,Th1,Th2 ! circular area on WP" \n
-  "rpr4,3,10,0,1.2,! polygonal area or prism volume"
-  "rcon$stat !status of real constands" \n
-  "*get,RN,rcon,,num,max	 !maximum real set no "
-  "Cylinder = RN + 1 !new real set" \n
-  "ID = Cylinder" \n
-  "r,ID,Length" \n
-  "!! --- VOLUMES  (or areas) -- "\n
-  "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth=>0 !circular area or cylindrical volume" \n
-  "!! --- volumes ---" \n
-  "sphere,Rad1,Rad2,Th1,Th2 !spherical volume" \n
-  "cylind,R1,R2,Z1,Z2,Th1,Th2 !cylinder V>0! " \n
   \n
   "!! .............................." \n
   "!@@@ - checks -" \n
@@ -1493,7 +1493,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! BFT — U. S. Customary system using feet (ft, slug, s, °F)." \n
   "!! BIN — U. S. Customary system using inches (in, lbf*s2/in, s, °F)." \n
   \n
-  "!! mpdata" \n
+  "!! --- material library --- " \n
   "/mplib,write,/HOME/uidg1626/a-m/matlib" \n
   "!! --- It is advisable to make the material files which are commented read only!" \n
   "/mplib,read,/HOME/uidg1626/a-m/matlib" \n
@@ -1521,7 +1521,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mplist,ID,,,all !show all properties of mat. ID" \n
   "mpplot,ex,ID,100,500 !plots mat. vs temp." \n
   \n
-  "!! --- Nonlinear material ---" \n
+  "!! --- Nonlinear materials ---" \n
   "tb,biso,ID,1 ! bilinear isotropic plasticity" \n
   "Yield_stress = 160" \n
   "Tensile_strain = 0.3" \n
@@ -1563,7 +1563,30 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbpt,,5.4e-2,1600." \n
   "mp,ex,Steel,1300/.6e-2	      ! Elastic modulus" \n
   "!! -- mpwrite overwrites without warning existing files! " \n
-  "mpwrite,c75s_20deg_hardened,mat,,lib,Steel !write to library" \n
+  "mpwrite,C75S_hardened,MPA_MPL,,lib,Steel !write to library" \n
+  \n
+  "!! --- kinh (max 20 data points) defined with plastic strain -- " \n
+  "PPS = 1" \n
+  "tbpt,,ID = PPS" \n
+  "mptemp ! erase temp table" \n
+  "mptemp,1,23" \n
+  "mptemp,2,70" \n
+  "mpdata,nuxy,ID,,0.4,0.4" \n
+  "mpdata,ex,ID,,13000,11568" \n
+  "mplist" \n
+  "tbdele,kinh,ID !redefine material" \n
+  "tb,kinh,ID,1,10,4 !1 temperature, 9 data sets,4: plastic strain!" \n
+  "tbtemp,70 ! 70 °C" \n
+  "tbpt,, 0.000000e+00, 20.824" \n
+  "tbpt,, 6.845947e-05, 40.856" \n
+  "tbpt,, 3.125624e-04, 58.856" \n
+  "tbpt,, 8.648098e-04, 74.448" \n
+  "tbpt,, 1.530734e-03, 87.568" \n
+  "tbpt,, 2.393046e-03, 98.416" \n
+  "tbpt,, 3.430311e-03, 107.240" \n
+  "tbpt,, 4.619708e-03, 114.304" \n
+  "tbpt,, 5.946024e-03, 119.784" \n
+  "tbpt,, 7.496811e-03, 123.824" \n
   \n
   "!! - specific heat -" \n
   "mptemp !erase temperature table"  \n
@@ -1818,12 +1841,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "N2=N1*100 ! maximum No of substemps" \n
   "N3=N1/4 ! minimum No of substeps " \n
   "nsubst,N1,N2,N3" \n
-  "outres,all,last !,item,freq,cname" \n
+  "outres,all,all !,item,freq,cname" \n
   "antype,static !,rest,LoadStep,SubStep ![new]rest: perform restart operation" \n
   "nlgeom,on" \n
   "autots,on" \n
   \n
-  "/gst,on !acitvate graphical solution tracking (convergence norms only?)" \n
+  "/gst,on !activate graphical solution tracking (convergence norms only?)" \n
   "solve" \n
   \n
   "!! --- advanced controls ---" \n
@@ -2755,7 +2778,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!ioptn, Lab, VAL1 !Control options relating to importing" \n
   "!igesin, Fname, Ext," \n
   "!/facet,fine" \n
-  "/title,new title !otherwise from iges" \n
+  "/title,new title" \n
+  "!!otherwise the title is defined with the iges import" \n
   \n
   "!@ ------------------------------" \n
   "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n

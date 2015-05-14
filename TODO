@@ -184,9 +184,8 @@
 
 ** Release
   - Add the latest news from NEWS to the README
-  - update Emacs wiki (README), Google Code with download packages,
-    home page update all version numbers:
-    Google Code with download, documentation page
+  - update Emacs wiki (README), home page, GitHub, Google drive with
+    download, documentation page
   - publication emails (with tutorial and news):
 
     makgul@gmail.com,

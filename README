@@ -30,7 +30,7 @@ yet free - editor. High quality software available for every operating
 system where ANSYS is running.
 
 The current stable version 16.1.1 of ANSYS-Mode is available at the
-[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]].
+[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg][Google's ANSYS-Mode drive]].
 
 # or via command line way, e. g.: "wget
 # http://ansys-mode.googlecode.com/files/ansys-mode-16.1.1.tgz".
@@ -395,7 +395,7 @@ Further acknowledgements in mainly reverse chronological order:
 - Markus Triska
 - [[http://stallman.org][RMS]] (Richard Stallman) for GNU Emacs
 
-* Resources
+* ANSYS and editor Resources
 
 - The [[http://www.emacswiki.org][Emacs Wiki]]
 - A general  ANSYS repository [[http://www.ansys.net][ansys.net]]

@@ -83,7 +83,6 @@
 \quad%
 #+END_LaTeX   
  suite [[http://www.ansys.com][ANSYS]].
-
 #+BEGIN_LaTeX
 \pdfannot % generic annotation
 % width 4cm % the dimension of the annotation can be controlled
@@ -101,8 +100,8 @@
 #+END_LaTeX   
 #+LaTeX: \\[.2cm]
 #+HTML: <br>   
-   It provides an extra mode to the [[http://www.gnu.org/software/emacs/][GNU Emacs editor]] for investigating
-   and coding APDL.  The mode offers also managing and communication
+   It provides an editor mode to [[http://www.gnu.org/software/emacs/][GNU Emacs]] for investigating and
+   coding APDL.  The mode offers also managing and communication
    capabilities for various ANSYS processes, like interactive code
    debugging with the solver or inquiring the license manager status,
    etc.  Some features are quite sophisticated but its documentation
@@ -156,14 +155,14 @@
 ***  Remarkably there are *no* costs and license restrictions also for commercial use
   Most convenient is taking the pre-configured ANSYS-Mode in
   conjunction with the latest Emacs distribution for Win32/64 from 
-  the [[https://github.com/dieter-wilhelm/ansys-mode/releases][ANSYS-Mode releases page]] on [[https://github.com][Github]].
+  the [[https://github.com/dieter-wilhelm/ansys-mode/releases][ANSYS-Mode releases page]] on [[https://github.com][GitHub]].
 # #+ATTR_HTML: width="1200"
 #+BEGIN_LaTeX
 \href{https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing}{%
-  \includegraphics[width=12cm]{./google_drive.png}%
+  \includegraphics[width=12cm]{./github.png}%
 }
 #+END_LaTeX 
-#+HTML: <img src="./download.png" alt="download page from Google Drive">
+#+HTML: <img src="./github.png" alt="Download page from GitHub">
   
 * Installation
 ** Install ANSYS-Mode together with Emacs
@@ -249,7 +248,7 @@
   [[./outline.png]]
   
 ** Utilise completions of all -- around 2000 -- APDL symbols
-  Move the cursor behind a character - here 'c' - or word fragment and
+  Move the cursor behind a character - here `c' - or word fragment and
   type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
   element- and function names.
 
@@ -321,9 +320,9 @@
 
 ** Configure system dependent aspects and user options
 #   \\Mainly the ANSYS version and its installation directory
-    The mode comes pre-configured for a default installation of ANSYS
-    14.5 for Win64.  If on other systems something is missing adjust
-*** The well commented configuration file /default.el/
+    The mode comes pre-configured for the default installation of
+    ANSYS for Win64.  If something is amiss: Adjust
+*** the well commented configuration file /default.el/
           :PROPERTIES:
           :BEAMER_env: block
           :BEAMER_envargs: C[T]
@@ -333,7 +332,7 @@
   [[./default_el.png]]
 
   ... and restart Emacs. 
-*** Or change the settings with Emacs' customisation system
+*** or change the settings with Emacs' customisation system
           :PROPERTIES:
           :BEAMER_env: block
           :BEAMER_envargs: <2->
@@ -381,13 +380,13 @@
    - Installation: :: More detailed instructions are necessary if you
                       are not using the mode bundled with Emacs for
                       Windows.  Please have a look in the /README/
-                      file.  An online version of it represents
-                      [[http://www.emacswiki.org/emacs/AnsysMode][EmacsWiki's ANSYS-Mode page]].
+                      file.  An online version is on
+                      [[http://dieter-wilhelm.github.io/ansys-mode/][ANSYS-Modes's GitHub Page]].
 
 # *** Hands-on tutorial and reference:
-   - Hands-on tutorial and reference: :: You will find this more
+   - Hands-on tutorial and reference: :: You will find these
         in-depth documentation included in the mode's archives on
-        [[https://github.com/dieter-wilhelm/ansys-mode/releases][Github's releases page]] or read [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
+        [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub's releases page]] or read [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
     
 # *** News and project history:
    - News and project history: :: They are placed in the mode's
@@ -395,7 +394,7 @@
 
 * Help and Bugs
 ** Search for help, report bugs and issues
-  Besides the documentation, have a look in the [[https://github.com/dieter-wilhelm/ansys-mode/issues][Github's issues site]]
+  Besides the documentation, have a look in the [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub's issues site]]
   or send an [[mailto:dieter@duenenhof-wilhelm.de][email to the maintainer]].  Please use the ANSYS-Mode bug
   report functionality, which might provide helpful status
   information.

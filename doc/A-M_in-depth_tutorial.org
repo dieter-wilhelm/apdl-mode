@@ -1,4 +1,4 @@
-a#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
+#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 ######################################################################
 # TODO
 # Extensibility, Emacs self-documenting function help
@@ -81,7 +81,6 @@ a#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 
    Being an editor mode, we are mainly dealing with text, i. e. APDL
    code.  But *also* many things in this language's context.
-
 
    Since the relevance of APDL remains tall: `WorkBench' operates
    *exclusively* the ANSYS solver with it!  While for many

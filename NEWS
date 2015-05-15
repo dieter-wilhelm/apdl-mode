@@ -18,10 +18,10 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
   reside on a another Emacs frame.
 
 - Extended the APDL material library which includes now creep and
-  multi-linear plasticity data as well
+  multi-linear plasticity data as well.
 
-- Is packaged with the current version (24.5) of Emacs and updated to
-  ANSYS 16.1.
+- Is packaged with the current stable version (24.5) of Emacs and
+  updated for ANSYS 16.
 
 ** Version 15.0.1 Aug 2014
 

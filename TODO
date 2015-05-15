@@ -161,18 +161,18 @@
     numbers, default specifiers
   - update defcustom list in ./bug-report.sh -> ansys-submit-bug-report
 
-# ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
-    (tags-query-replace "145" "150")
-    (tags-query-replace "24.2" "24.3")
-    (tags-query-replace "14.5" "15.0")
-    (tags-query-replace "15.0.1" "15.0.1")
-    (tags-query-replace "15.0.1" "16.1.1")
+  # ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
+    # ansys
     (tags-query-replace "16.1" "16.2")
+    (tags-query-replace "ANSYS 16" "ANSYS 17")
+    # emacs
+    (tags-query-replace "24.5" "24.6")
     # version No
     (tags-query-replace "150" "161")
     # for _mode_version
-    (tags-query-replace "\".11\"" "\".2\"")
-    (tags-query-replace "- 2014" "- 2015")
+    (tags-query-replace "\".1\"" "\".2\"")
+    # copyright
+    (tags-query-replace "- 2015" "- 2016")
 
     checkdoc then dry run: Emacs
     24.5 -Q testing: fontification.mac /*commands and default command
@@ -227,6 +227,8 @@
 
 * Ideas for further versions
 ** Parameter help and documentation
+   - -show-command-parameters indicating at which parameter position
+     the cursor is active
    - dynamic completion and help of parameter options, depending on
      the contex like the one in bash
    - makeinfo documentation with org-mode ox exporter

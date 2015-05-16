@@ -33,28 +33,20 @@
                 (because of stipulated user text input from this skeleton)
 *  16.1.1:
 ** TODO Freeze
-   - update ansys+Emacs.png to github
-   - update instead of erasing the help overlay, when keyword is
-     changed/edited and -help-overlay is reapplied. And resetting the
-     overlay when the command is above the current line
+   - add a small *.dat example file with number blocks, rotated nodes,
+     named selections, ...
+   - update -keywords.el
+   - -if-then does not indent correctly
+   - check undocumented - deprecated commands if they are already
+     dropped
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
-   - read only mode for *.dat?
    - automatised pdf-export is not working any longer
    - makefile errors: Check tutorials
-   - add new functionalities to tutorial and manual
-   - not yet warning message, if html help files are not found
    - check *vwrite with gui mode and interactive mode (graphics window?)
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - C-c C-c needs a carriage return in the last line if there is none
-     in the file!
    - C-c { before a number-block does not work
-   - add user variable for C-c C-c toggle move to next line or remain
-     on current one. redundant since C-c C-j?
-   - with multiple Emacs frames the ANSYS menu is shown only in ONE
-     frame!  Mitigated it, check
-   - -if-then does not indent correctly
    - add element numbers to the general completion list, yes or not?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade
    - HTML APDL documentation
@@ -72,6 +64,7 @@
      conditional of the ANSYS version >= 120
    - explain fill/*vfill under the "looping" commands: Generates a line
        of nodes between two existing nodes.
+   - switch automatically to read only mode for *.dat files?
    - force harmonic table (*vfill) example in -skeleton-bc, make a
        ansys...-template out of two-mass-harmonics.mac
    - -program, -license-file and -ansysli-servers should show the
@@ -85,15 +78,11 @@
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
 ** Bugs
-   - lsln line selected by nodes: is not highlighted
-   - the introductory-tutorial is not ready
-   - C-c C-c is not working on last line if there is no carriage return
    - menu-bar job-name is not working
    - file mode specification error: (search-failed
      "nblock\\|eblock\\|cmblock" when opening .dat
    - / and * is not working for variable highlighting?! try changing the
      character syntax???
-   - psolve command (from legacy documentation!?) is not highlighted
    - *create file tmp,mac: macro call: tmp, is not highlighted
    - join not in function list
    - variables are not highlighted in -skeletons?
@@ -110,10 +99,10 @@
       `ansys-skeleton-overlay'
     - mouse-choose-completion is obsolete since E23.2
 ** Release
+   - Correct the creep data to creep strain!
    - makefile fontification of _tutorial PDFs is not working,
      necessary to load them by hand before exporting
    - document A-M_in-depth_tutorial.org
-   - fontification.mac, leave it as an example
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
        .anf files from DM anf export
@@ -133,7 +122,6 @@
         *cfclos
 	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -introductory_tutorial.org
-     - update download page to 16.0.1 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.png first not aligned, second aligned
@@ -229,6 +217,11 @@
 ** Parameter help and documentation
    - -show-command-parameters indicating at which parameter position
      the cursor is active
+   - Indicate visually the region which was copied or send for
+     func. -send-to-ansys
+   - Enable a mouse button to unhide hidden regions, enable an
+     interactive way to unhide regions, when in the region: Return
+     opens hidden region, ...
    - dynamic completion and help of parameter options, depending on
      the contex like the one in bash
    - makeinfo documentation with org-mode ox exporter
@@ -355,7 +348,6 @@
    - ideas for preview also of a/the macro directory?
    - put graphics dlls in windows package
    - LSDYN support, see lsdyna.el
-   - material properties :: add apdl libary of material data with mpwrite?
    - embedded calc :: include in hacking.mac
    - Alignment :: alignment "section" is not clearly defined in function
 		  -align

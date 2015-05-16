@@ -89,6 +89,9 @@
     "EALL"   ;esel,all? (WorkBench 10.0)
     "NALL"   ;nsel,all? (WB 10.0)
     "FLITEM" ;log command
+    "LSLN"
+    "PSOLVE"
+    "ASLN"
     "/VERIFY"				;verification run?
     "/SSS"				;scale plot values /sss,3
     "~CFIN"				;Ansys 11.0
@@ -274,7 +277,7 @@
    "MSCAP"
    "MSTERM"
    "PRSYZ" 				;endo of v150
-)			       
+   )			       
   "Ansys commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output
 files, old macros or old Ansys verification models.")

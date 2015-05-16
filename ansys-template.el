@@ -960,7 +960,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-beam-template
+(define-skeleton ansys-skeleton-beam-template
   "example of a modal analysis with beams"
   nil
   '(ansys-skeleton-header)

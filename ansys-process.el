@@ -315,13 +315,12 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
-(defun ansys-send-to-ansys ( &optional stay)	;NEW
+(defun ansys-send-to-ansys ( &optional move)	;NEW
   "Send a region to the ANSYS interpreter,
-if the interpreter is not active, copy it and skip to the next
-code line after the region.  If there is no region marked, send
-or copy the current paragraph and skip to the next code line
-after the paragraph.  With a prefix argument STAY equal to \"4\"
-or \"C-u\" remain at the current cursor position."
+if the interpreter is not active, just copy it.  If there is no
+region marked, send (or copy) the current paragraph.  With a
+prefix argument MOVE equal to \"4\" or \"C-u\" skip to the next
+code line after this region (or paragraph)."
   (interactive "p")
   (let (code
 	beg
@@ -339,7 +338,7 @@ or \"C-u\" remain at the current cursor position."
 	  end (region-end))
 
     ;; invalidate region
-    (setq mark-active nil)
+    (deactivate-mark nil)
 
     ;; send or copy region or line
     (cond ((ansys-process-running-p)
@@ -350,12 +349,14 @@ or \"C-u\" remain at the current cursor position."
 	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
-	   (message "Copied region.")))
-    (if (= stay 4)
-	(goto-char point)
-      (progn
-	(goto-char end)
-	(ansys-next-code-line)))))
+	   (message "Copied region.")
+	   ;; (indicate-copied-region)
+	   ))
+    (if (= move 4)
+	(progn
+	  (goto-char end)
+	  (ansys-next-code-line))
+      (goto-char point))))
 
 (defun ansys-send-to-ansys-and-proceed ( &optional stay)	;NEW
   "Send a region or code line to the ANSYS interpreter.

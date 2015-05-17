@@ -211,7 +211,7 @@ Variable is only used internally in the mode.")
 
     (if (y-or-n-p
 	 (concat
-	  "Start run?  (version: "
+	  "Start run?  version: "
 	  ansys-current-ansys-version
 	  ", license type: " ansys-license
 	  ;; "Start run?  (license type: " (if (boundp
@@ -349,8 +349,8 @@ code line after this region (or paragraph)."
 	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
-	   (message "Copied region.")
 	   ;; (indicate-copied-region)
+
 	   ))
     (if (= move 4)
 	(progn
@@ -363,9 +363,10 @@ code line after this region (or paragraph)."
 When there is no running ANSYS interpreter process just copy the
 respective region or code line to the system clipboard and skip
 to the subsequent code line.  With a prefix argument STAY of
-\"4\" or \"C-u\" copy or send code but remain at the current
-cursor position."
-  (interactive "P")
+\"4\" or \"C-u\" copy or send the code and remain at the current
+cursor position. The command can be repeated by typing just the
+final character \"j\" (or \"C-j\")."
+  (interactive "p")
   (let (code
 	beg
 	end
@@ -408,7 +409,17 @@ cursor position."
 	   (kill-ring-save beg end)
 	   (if region
 	       (message "Copied region.")
-	     (message "Copied code line."))))))
+	     (message "Copied code line."))))
+	   ;; Issue a hint to the user, if the echo area isn't in use.
+	   ;; (unless (current-message)
+	   ;;   (message "(Type \"j\" or \"C-j\" to repeat function.)"))
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (define-key map "j"
+	 'ansys-send-to-ansys-and-proceed)
+       (define-key map "\C-j"
+	 'ansys-send-to-ansys-and-proceed)
+     map))))
 
 (defun ansys-process-running-p ()
   "Return nil if no ANSYS interpreter process is running."

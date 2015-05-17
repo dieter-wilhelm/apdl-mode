@@ -33,23 +33,21 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
-
 * 16.1.2:
 ** Wish-list
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
    - -show-command-parameters indicating at which parameter position
      the cursor is active
+   - Display shortened key(s) for C-c C-j
    - Indicate visually the region which was copied or send for
      func. -send-to-ansys
    - GH-pages with tutorials
    - GH-wiki pages
 * 16.1.1:
 ** TODO Freeze Mai
-   - C-c C-j
    - add a small *.dat example file with number blocks, rotated nodes,
      named selections, ...
-   - rework default_el in README
    - update -keywords.el
    - create v16 branch
 ** Bugs
@@ -57,19 +55,20 @@
      "nblock\\|eblock\\|cmblock" when opening .dat
    - C-c { before a number-block does not work
    - menu-bar job-name is not working
+   - join not in function list
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
    - / and * is not working for variable highlighting?! try changing the
      character syntax???
-   - join not in function list
    - *create file tmp,mac: macro call: tmp, is not highlighted
    - variables are not highlighted in -skeletons?
    - *msg command's format string is not higlighted (-template-element-table)
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated!
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
    - -if-then does not indent correctly
    - automatised pdf-export is not working any longer
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
+   - /Zoom not longer supported?! V14
    - makefile fontification of _tutorial PDFs is not working,
      necessary to load them by hand before exporting
    - es not :
@@ -85,11 +84,10 @@
 ** Release June
    - Correct the creep data with total strain to creep strain!
 ** Wish-list
-   - check undocumented - deprecated commands if they are already
-     dropped
    - check *vwrite with gui mode and interactive mode (graphics window?)
    - add element numbers to the general completion list, yes or not?
-   - WikEmacs, Melpa, GNU ELPA and/or marmalade
+   - WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
+     .deb package
    - HTML APDL documentation
      here is the tanslation of names to html files:
      - link to ANSYS-Mode APDL reference:
@@ -148,7 +146,7 @@
   - Menu :: -> indicates the following sub menu entry
   - M-x compile :: ALL ;-)
 
-** Freeze
+** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
     are still working in V 14.5
@@ -221,9 +219,7 @@
     # gmueller1950@gmx.de, deceased
 
     better not the "competitor":
-    info@padtinc.com,
-
-    This is ideal for examine the WorkBench solver input files.
+    info@padtinc.com ;-),
 
 * Ideas for further versions
 ** Parameter help and documentation
@@ -348,8 +344,7 @@
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
-   - show content of /mplib folder
-   - /Zoom not longer supported?! V14
+   - show content of matlib/ folder
    - add to -display-variables a prefix argument for showing the value
      of the variable around point, or center the variables window...
    - customisation option for a the web browser of -browse-ansys-help
@@ -364,20 +359,18 @@
 		  t(1,1) =  3,  4,   9,
    - Utility for clearing files like .rst, ... or using dired, clear_files.sh?
      with listing listing of file types
-   - E23.2 mouse-choose-completion obsolete
    - Configure the highlighting colours with black on white background
    - C-j, M-j are not skipping to `,' whith default command (from second
      line onwards)!
    - supply command for clearing recursively not important process files:
      .rst, .log, ..., supply a customisaton variable
-   - ANSYS mode debian .deb package
    - narrow, outline, transparent-font: eblocks, nblocks by default?
    - add notes for parameter help of undocumented commands (alist)
    - create filter variable for hiding not installed license types
      ("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"
    - commands shorter than 4 chars are not allowed with additional chars
      adjust this to -highlighting-level 0
-   - Make ANSYS mode also working solely with ansys-mode.el
+   - Make ANSYS-Mode also working solely with ansys-mode.el??
    - make M-C-h more intelligent like M-h (if mark...)
    - speed concern: replace -find-duplicate-p with function argument to
      add-to-list
@@ -433,6 +426,8 @@
      supressing the startup screen 'ansys-mode-startup-message maybe
      as advice when sluggish -> compiliation
    - Enable choice for /show,3d or x11 (-start-graphics)
+   - Provide a way to send commands to the tcl-tk ANSYS gui (x11
+     programming).
 ** ANSYS syntax restrictions not (yet) accounted for
    - Parentheses can only be nested 4 levels deep and only up to 9
      operations (+,-,*,...) within these set of parentheses
@@ -449,18 +444,10 @@
    - what the heck is the *UILIST command?
    - Is hyper56 a valid element?
 ** Additional APDL macro resources
-   see www.apdl.de for further ideas and extensions
+   see http://www.apdl.de for further ideas and extensions or
+     http://www.padtinc.com/.
 
-*** processes
-    #+BEGIN_SRC sh :var PROC=21868
-    ls /proc/$PROC/fd
-    #+END_SRC
 
-    #+RESULTS:
-    |   0 |
-    |   1 |
-    |   2 |
-    | 255 |
 
 # local variables:
 # show-trailing-whitespace: t

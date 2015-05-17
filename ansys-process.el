@@ -1026,7 +1026,7 @@ And write it into the variable `ansys-job'."
       (setq job-name (read-string "job name: ")))
     (if (string= job-name "")
 	(error "job-name must not be the empty string")
-      (message (concat "Job name is set to \"" ansys-job "\".")))
+      (message (concat "Job name is set to \"" job-name "\".")))
     (setq ansys-job job-name)))
 
 (defun ansys-no-of-processors ()

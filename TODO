@@ -16,6 +16,8 @@
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
+  - Highlighting :: help overlay is only removed after 1 min if the
+                    buffer is active at that time!
   - Keybinding :: M-j: When there is already a `&' in a format command
                   (like *msg, *vwrite, *mwrite)
                   ansys-indent-format-line inserts a redundant one
@@ -31,22 +33,61 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
-*  16.1.1:
-** TODO Freeze
-   - add a small *.dat example file with number blocks, rotated nodes,
-     named selections, ...
-   - update -keywords.el
-   - -if-then does not indent correctly
-   - check undocumented - deprecated commands if they are already
-     dropped
+
+* 16.1.2:
+** Wish-list
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
+   - -show-command-parameters indicating at which parameter position
+     the cursor is active
+   - Indicate visually the region which was copied or send for
+     func. -send-to-ansys
+   - GH-pages with tutorials
+   - GH-wiki pages
+* 16.1.1:
+** TODO Freeze Mai
+   - C-c C-j
+   - add a small *.dat example file with number blocks, rotated nodes,
+     named selections, ...
+   - rework default_el in README
+   - update -keywords.el
+   - create v16 branch
+** Bugs
+   - file mode specification error: (search-failed
+     "nblock\\|eblock\\|cmblock" when opening .dat
+   - C-c { before a number-block does not work
+   - menu-bar job-name is not working
+   - / and * is not working for variable highlighting?! try changing the
+     character syntax???
+   - join not in function list
+   - *create file tmp,mac: macro call: tmp, is not highlighted
+   - variables are not highlighted in -skeletons?
+   - *msg command's format string is not higlighted (-template-element-table)
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated!
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
+   - -if-then does not indent correctly
    - automatised pdf-export is not working any longer
-   - makefile errors: Check tutorials
-   - check *vwrite with gui mode and interactive mode (graphics window?)
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - C-c { before a number-block does not work
+   - makefile fontification of _tutorial PDFs is not working,
+     necessary to load them by hand before exporting
+   - es not :
+        *mwrite
+        *cfclos
+	 M-? shows help for *mwrite, when cursor behind *cfclos
+   - /sys,evince press-fit.pdf  triggers a "search failed"
+   - makefile errors: Check tutorials
+   - makefile errors when doing -fontification.el
+   - ansys-template.el:85:13:Warning: reference to free variable
+     `ansys-skeleton-overlay'
+   - mouse-choose-completion is obsolete since E23.2
+** Release June
+   - Correct the creep data with total strain to creep strain!
+** Wish-list
+   - check undocumented - deprecated commands if they are already
+     dropped
+   - check *vwrite with gui mode and interactive mode (graphics window?)
    - add element numbers to the general completion list, yes or not?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade
    - HTML APDL documentation
@@ -77,31 +118,6 @@
      skeleton, critical to element differences!
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
-** Bugs
-   - menu-bar job-name is not working
-   - file mode specification error: (search-failed
-     "nblock\\|eblock\\|cmblock" when opening .dat
-   - / and * is not working for variable highlighting?! try changing the
-     character syntax???
-   - *create file tmp,mac: macro call: tmp, is not highlighted
-   - join not in function list
-   - variables are not highlighted in -skeletons?
-   - *msg command's format string is not higlighted (-template-element-table)
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated!
-   - help overlay is only removed after 1 min if the buffer is active
-      at that time!
-   - /sys,evince press-fit.pdf  triggers a "search failed"
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
-** Compiler warnings
-    - makefile errors when doing -fontification.el
-    - ansys-template.el:85:13:Warning: reference to free variable
-      `ansys-skeleton-overlay'
-    - mouse-choose-completion is obsolete since E23.2
-** Release
-   - Correct the creep data to creep strain!
-   - makefile fontification of _tutorial PDFs is not working,
-     necessary to load them by hand before exporting
    - document A-M_in-depth_tutorial.org
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
@@ -117,10 +133,6 @@
      - some functions in -skeleton-function are not highlighted and
        completable, whitespace problem befor paren...
        and: "nele" undocumented command and function nelem()
-     - es not :
-        *mwrite
-        *cfclos
-	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -introductory_tutorial.org
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
@@ -215,10 +227,6 @@
 
 * Ideas for further versions
 ** Parameter help and documentation
-   - -show-command-parameters indicating at which parameter position
-     the cursor is active
-   - Indicate visually the region which was copied or send for
-     func. -send-to-ansys
    - Enable a mouse button to unhide hidden regions, enable an
      interactive way to unhide regions, when in the region: Return
      opens hidden region, ...

@@ -183,7 +183,7 @@ remove the .elc files.)
 - NEWS -- News and history
 - TODO -- Todos and deficiencies
 - LICENSE -- The GPL (Gnu Public License) Version 3
-- default.el -- Configuration example file
+- default.el -- Configuration (example) file
 - helper/fontification.mac -- APDL macro and highlighting example
 - doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
@@ -207,14 +207,18 @@ ANSYS-Mode is now immediately available, by opening (check out the
 `fontification.mac' example) or by creating a new APDL file with a
 .mac suffix.  Have fun!
 
-Most functionalities should work but if you have not installed ANSYS
-in its default installation directory on drive `C:Program Files' on
-Win64 and you want to start for example 'anslic_admin' or the ANSYS
-help browser directly from Emacs please adjust the configuration file
-`default.el' file in Emacs' `site-lisp' directory according to the
-commented code examples.  But your init file, if any is loaded
-*first*; if it sets 'inhibit-default-ini' to non-nil, then default.el
-is not loaded any longer.
+Most functionalities should work out of the box, but if you have NOT
+installed ANSYS in its default installation directory on drive
+`C:Program Files' on Win64 and you want to start--for
+example--'anslic_admin' or the ANSYS help browser directly from Emacs
+please adjust the configuration file `default.el' file in Emacs'
+`site-lisp' directory according to the commented code examples.  If
+you are using your own configuration file, please remember that it is
+loaded *before* `default.el'; this means that ANSYS-Mode settings done
+by Emacs' customisation system or written in your configuration file
+might be overwritten by `default.el'.  If you remove `default.el' or
+set 'inhibit-default-ini' to non-nil in your own init file, then
+default.el is not loaded any longer.
 
 In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
 version]] of GNU Emacs, you can also download and configure the
@@ -273,14 +277,28 @@ in the future.
 
 - Permanent configuration
 
-When it becomes tiring of loading 'ansys-mode.el' (or
-'ansys-mode.elc') every time you are starting a new Emacs session, you
-should specify the installation path for the mode files in your
-'~/.emacs' file (the configuration file '.emacs' of GNU Emacs in your
-home directory '~\' or `~/.emacs.d/init.el').
+Please have a look at the accompanying `default.el' customisation
+example. It can be used as a configuration file (after moving it
+e. g. to `/usr/share/emacs/site-lisp' or
+`c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
+the Emacs installation tree is in its default load-path).  Yet
+`default.el' is loaded AFTER your personal Emacs configuration file
+(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
+to change the following settings with Emacs' customisation system or
+changing them directly in your personal configuration file, you must
+either set the variable `inhibit-default-ini' to `t' "(setq
+inhibit-default-ini t)" in your personal configuration file or remove
+`default.el' otherwise your settings might be overwritten!
+
+If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
+load-path it is necessary to adjust the following variable.
 
      (add-to-list 'load-path
 		  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
+
+For example: "c:\\emacs\\ansys-mode" on a Windows system or
+ "/usr/local/src/emacs/ansys-mode" on a GNU/Linux system.
+
      (autoload 'ansys-mode "ansys-mode" "Activate ANSYS-Mode." 'interactive)
 
 From here you are able to type "M-x ansys-mode RET" to activate the
@@ -327,18 +345,6 @@ explicitly called ansys-mode.
      (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 
-- A further configuration method
-
-As a summary and example to these and further customisation options
-please have a look at the accompanying `default_el' example. This is
-helpful especially if you intend to use the mode's solver
-communication capabilities.  This file can be used, after renaming it
-to `default.el' and adjusting as as system wide start-up file for
-Emacs in the `EMACS_INSTALLDIR/site-lisp' directory and is therefore
-an alternative or supplement to customisations in `~/.emacs' (or
-`~/.emacs.d/init.el'), your personal configuration file.  But your
-init file, if any is loaded *first*; if it sets 'inhibit-default-ini'
-to non-nil, then default.el is not loaded any longer.
 
 * Usage and customisation
 

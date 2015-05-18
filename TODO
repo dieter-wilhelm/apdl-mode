@@ -35,10 +35,11 @@
                 (because of stipulated user text input from this skeleton)
 * 16.1.2:
 ** Wish-list
+   - Rename fontification.mac -> example.mac & make it functional
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
    - -show-command-parameters indicating at which parameter position
-     the cursor is active
+     the cursor is active (update tutorials)
    - Display shortened key(s) for C-c C-j
    - Indicate visually the region which was copied or send for
      func. -send-to-ansys
@@ -46,7 +47,7 @@
    - GH-wiki pages
 * 16.1.1:
 ** TODO Freeze Mai
-   - add a small *.dat example file with number blocks, rotated nodes,
+   - add a small example.dat file with number blocks, rotated nodes,
      named selections, ...
    - update -keywords.el
    - create v16 branch
@@ -54,23 +55,17 @@
    - file mode specification error: (search-failed
      "nblock\\|eblock\\|cmblock" when opening .dat
    - C-c { before a number-block does not work
-   - menu-bar job-name is not working
-   - join not in function list
    - mismatch in customisation buffer of -license-file and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - / and * is not working for variable highlighting?! try changing the
+   - variables behind / and * are not highlighted! try changing the
      character syntax???
    - *create file tmp,mac: macro call: tmp, is not highlighted
    - variables are not highlighted in -skeletons?
    - *msg command's format string is not higlighted (-template-element-table)
    - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated!
-   - -if-then does not indent correctly
-   - automatised pdf-export is not working any longer
+     ansys-mode is not activated! <- autoloaded functions
    - /Zoom not longer supported?! V14
-   - makefile fontification of _tutorial PDFs is not working,
-     necessary to load them by hand before exporting
    - es not :
         *mwrite
         *cfclos
@@ -83,7 +78,11 @@
    - mouse-choose-completion is obsolete since E23.2
 ** Release June
    - Correct the creep data with total strain to creep strain!
+   - automatised PDFs
+   - makefile fontification of _tutorial PDFs is not working,
+     necessary to load them by hand before exporting
 ** Wish-list
+   - example.anf?
    - check *vwrite with gui mode and interactive mode (graphics window?)
    - add element numbers to the general completion list, yes or not?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
@@ -185,6 +184,28 @@
   - update Emacs wiki (README), home page, GitHub, Google drive with
     download, documentation page
   - publication emails (with tutorial and news):
+
+
+    The project is hosted on
+
+    https://github.com/dieter-wilhelm/ansys-mode
+
+    Where you can find also the latest development version.
+
+    Stable versions and prebuild packages are to be found in the
+    releases page:
+
+     https://github.com/dieter-wilhelm/ansys-mode/releases
+
+    An alternative archive is at Google Drive:
+
+    
+
+
+    If you don't have access to above archives please email me.
+
+      Dieter
+
 
     makgul@gmail.com,
     yangdawei.hit@qq.com

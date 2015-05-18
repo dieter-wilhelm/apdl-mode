@@ -2961,8 +2961,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 		   t
 		   nil
 		   nil
-		   "then") > \n
-  - \n
+		   "then") > _ \n
   ;; * elsif subskeleton
   ("*elseif construct(s)? Value/Paramter 1: (%s) "
     > "*elseif," str ","
@@ -2977,12 +2976,13 @@ time stamp with the Emacs command M-x `time-stamp'."
      )
     ","
     (read-string "Next Value/Parameter 2: ")
-   ",then" _ \n >
+   ",then" _ >
      \n) 			;-- e o subskeleton
   ;; else subskeleton
   '(if (y-or-n-p "*else construct? ")
-      (insert "*else\n\n"))_ >
-  "*endif" > \n)
+      (insert "*else")) >
+  "\n*endif" >
+  "\n")
 
 ;; (define-ansys-skeleton ansys-do
 ;;   "Insert an if statement in the current format's syntax."

@@ -107,8 +107,8 @@ STRLENG(Str1) nLoc = STRLENG(Str1) Location of last nonblank character
 UPCASE(Str1) StrOut = UPCASE(Str1) Upper case of Str1 
 LWCASE(Str1) StrOut = LWCASE(Str1) Lower case of Str1 
 # The following functions manipulate file names. 
-JOIN ('directory','filename','extension') Path String = JOIN ('directory','filename','extension')  Produces a contiguous pathstring. e.g. directory/filename.ext 
-JOIN ('directory','filename') Path String = JOIN ('directory','filename') Produces a contiguous pathstring. e.g. directory/filename 
+JOIN('directory','filename','extension') Path String = JOIN ('directory','filename','extension')  Produces a contiguous pathstring. e.g. directory/filename.ext 
+JOIN('directory','filename') Path String = JOIN ('directory','filename') Produces a contiguous pathstring. e.g. directory/filename 
 SPLIT('PathString', 'DIR')  Produces a separate output of the directory from the pathstring.  
 SPLIT('PathString', 'FILE')  Produces a separate output of the complete filename (with extension) from the pathstring.  
 SPLIT('PathString', 'NAME') Produces a separate output of the filename from the pathstring.  

@@ -25,7 +25,7 @@ EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
 KEYRING := http://ftp.gnu.org/gnu/gnu-keyring.gpg
 EMACS_PACKAGE_SIG := $(EMACS_PACKAGE).sig
-EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.gz
+EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.xz
 EMACS_SOURCE_PACKAGE_SIG := $(EMACS_SOURCE_PACKAGE).sig
 ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE)
 SIG_ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
@@ -80,7 +80,7 @@ ALL : MODE EMACS
 CLEAN :
 	rm $(ELC_FILES)
 
-$(EMACS_SOURCE_PACKAGE_SIG) : gnu-keyring.gpg
+$(EMACS_SOURCE_PACKAGE_SIG) :
 	wget $(SIG_SOURCE_ADDRESS)
 	gpg $(EMACS_SOURCE_PACKAGE_SIG)
 

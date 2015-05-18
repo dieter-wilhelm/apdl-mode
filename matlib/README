@@ -1,0 +1,21 @@
+This is the text of ANSYS-Mode's README for the matlib/ directory, it
+is best read in Emacs's Org mode.
+
+Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+
+If not indicated in the file name, the material properties are for
+room temperature.
+
+- creep_curves_PPS_Fortron1140l4_120degC.csv :: A 40 % short glas
+     fibre filled PPS.  The stress - creep strain curves are scaled
+     with a factor of 0.8 from test specimen to account for a random
+     fibre orientation in thick walled parts.  They might be used as
+     an example for data fitting with the TBFT command.
+
+
+# local variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# mode: org
+# end:

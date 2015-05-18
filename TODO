@@ -16,6 +16,8 @@
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
+  - Highlighting :: help overlay is only removed after 1 min if the
+                    buffer is active at that time!
   - Keybinding :: M-j: When there is already a `&' in a format command
                   (like *msg, *vwrite, *mwrite)
                   ansys-indent-format-line inserts a redundant one
@@ -31,32 +33,60 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
-*  16.1.1:
-** TODO Freeze
-   - update ansys+Emacs.png to github
-   - update instead of erasing the help overlay, when keyword is
-     changed/edited and -help-overlay is reapplied. And resetting the
-     overlay when the command is above the current line
+* 16.1.2:
+** Wish-list
+   - Rename fontification.mac -> example.mac & make it functional
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
-   - read only mode for *.dat?
-   - automatised pdf-export is not working any longer
-   - makefile errors: Check tutorials
-   - add new functionalities to tutorial and manual
-   - not yet warning message, if html help files are not found
-   - check *vwrite with gui mode and interactive mode (graphics window?)
+   - -show-command-parameters indicating at which parameter position
+     the cursor is active (update tutorials)
+   - Display shortened key(s) for C-c C-j
+   - Indicate visually the region which was copied or send for
+     func. -send-to-ansys
+   - GH-pages with tutorials
+   - GH-wiki pages
+* 16.1.1:
+** TODO Freeze Mai
+   - add a small example.dat file with number blocks, rotated nodes,
+     named selections, ...
+   - update -keywords.el
+   - create v16 branch
+** Bugs
+   - file mode specification error: (search-failed
+     "nblock\\|eblock\\|cmblock" when opening .dat
+   - C-c { before a number-block does not work
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - C-c C-c needs a carriage return in the last line if there is none
-     in the file!
-   - C-c { before a number-block does not work
-   - add user variable for C-c C-c toggle move to next line or remain
-     on current one. redundant since C-c C-j?
-   - with multiple Emacs frames the ANSYS menu is shown only in ONE
-     frame!  Mitigated it, check
-   - -if-then does not indent correctly
+   - variables behind / and * are not highlighted! try changing the
+     character syntax???
+   - *create file tmp,mac: macro call: tmp, is not highlighted
+   - variables are not highlighted in -skeletons?
+   - *msg command's format string is not higlighted (-template-element-table)
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated! <- autoloaded functions
+   - /Zoom not longer supported?! V14
+   - es not :
+        *mwrite
+        *cfclos
+	 M-? shows help for *mwrite, when cursor behind *cfclos
+   - /sys,evince press-fit.pdf  triggers a "search failed"
+   - makefile errors: Check tutorials
+   - makefile errors when doing -fontification.el
+   - ansys-template.el:85:13:Warning: reference to free variable
+     `ansys-skeleton-overlay'
+   - mouse-choose-completion is obsolete since E23.2
+** Release June
+   - Correct the creep data with total strain to creep strain!
+   - automatised PDFs
+   - makefile fontification of _tutorial PDFs is not working,
+     necessary to load them by hand before exporting
+** Wish-list
+   - example.anf?
+   - check *vwrite with gui mode and interactive mode (graphics window?)
    - add element numbers to the general completion list, yes or not?
-   - WikEmacs, Melpa, GNU ELPA and/or marmalade
+   - WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
+     .deb package
    - HTML APDL documentation
      here is the tanslation of names to html files:
      - link to ANSYS-Mode APDL reference:
@@ -72,6 +102,7 @@
      conditional of the ANSYS version >= 120
    - explain fill/*vfill under the "looping" commands: Generates a line
        of nodes between two existing nodes.
+   - switch automatically to read only mode for *.dat files?
    - force harmonic table (*vfill) example in -skeleton-bc, make a
        ansys...-template out of two-mass-harmonics.mac
    - -program, -license-file and -ansysli-servers should show the
@@ -84,36 +115,7 @@
      skeleton, critical to element differences!
    - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
-** Bugs
-   - lsln line selected by nodes: is not highlighted
-   - the introductory-tutorial is not ready
-   - C-c C-c is not working on last line if there is no carriage return
-   - menu-bar job-name is not working
-   - file mode specification error: (search-failed
-     "nblock\\|eblock\\|cmblock" when opening .dat
-   - / and * is not working for variable highlighting?! try changing the
-     character syntax???
-   - psolve command (from legacy documentation!?) is not highlighted
-   - *create file tmp,mac: macro call: tmp, is not highlighted
-   - join not in function list
-   - variables are not highlighted in -skeletons?
-   - *msg command's format string is not higlighted (-template-element-table)
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated!
-   - help overlay is only removed after 1 min if the buffer is active
-      at that time!
-   - /sys,evince press-fit.pdf  triggers a "search failed"
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
-** Compiler warnings
-    - makefile errors when doing -fontification.el
-    - ansys-template.el:85:13:Warning: reference to free variable
-      `ansys-skeleton-overlay'
-    - mouse-choose-completion is obsolete since E23.2
-** Release
-   - makefile fontification of _tutorial PDFs is not working,
-     necessary to load them by hand before exporting
    - document A-M_in-depth_tutorial.org
-   - fontification.mac, leave it as an example
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
        .anf files from DM anf export
@@ -128,12 +130,7 @@
      - some functions in -skeleton-function are not highlighted and
        completable, whitespace problem befor paren...
        and: "nele" undocumented command and function nelem()
-     - es not :
-        *mwrite
-        *cfclos
-	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -introductory_tutorial.org
-     - update download page to 16.0.1 in the download slide
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.png first not aligned, second aligned
@@ -148,7 +145,7 @@
   - Menu :: -> indicates the following sub menu entry
   - M-x compile :: ALL ;-)
 
-** Freeze
+** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
     are still working in V 14.5
@@ -188,6 +185,28 @@
     download, documentation page
   - publication emails (with tutorial and news):
 
+
+    The project is hosted on
+
+    https://github.com/dieter-wilhelm/ansys-mode
+
+    Where you can find also the latest development version.
+
+    Stable versions and prebuild packages are to be found in the
+    releases page:
+
+     https://github.com/dieter-wilhelm/ansys-mode/releases
+
+    An alternative archive is at Google Drive:
+
+    
+
+
+    If you don't have access to above archives please email me.
+
+      Dieter
+
+
     makgul@gmail.com,
     yangdawei.hit@qq.com
     weizhuo.du@peraglobal.com,
@@ -221,14 +240,13 @@
     # gmueller1950@gmx.de, deceased
 
     better not the "competitor":
-    info@padtinc.com,
-
-    This is ideal for examine the WorkBench solver input files.
+    info@padtinc.com ;-),
 
 * Ideas for further versions
 ** Parameter help and documentation
-   - -show-command-parameters indicating at which parameter position
-     the cursor is active
+   - Enable a mouse button to unhide hidden regions, enable an
+     interactive way to unhide regions, when in the region: Return
+     opens hidden region, ...
    - dynamic completion and help of parameter options, depending on
      the contex like the one in bash
    - makeinfo documentation with org-mode ox exporter
@@ -347,15 +365,13 @@
      command line (restriction of 7 characters with out the colon.)
      must *go:label be unambiguous?
 ** Miscellaneous
-   - show content of /mplib folder
-   - /Zoom not longer supported?! V14
+   - show content of matlib/ folder
    - add to -display-variables a prefix argument for showing the value
      of the variable around point, or center the variables window...
    - customisation option for a the web browser of -browse-ansys-help
    - ideas for preview also of a/the macro directory?
    - put graphics dlls in windows package
    - LSDYN support, see lsdyna.el
-   - material properties :: add apdl libary of material data with mpwrite?
    - embedded calc :: include in hacking.mac
    - Alignment :: alignment "section" is not clearly defined in function
 		  -align
@@ -364,20 +380,18 @@
 		  t(1,1) =  3,  4,   9,
    - Utility for clearing files like .rst, ... or using dired, clear_files.sh?
      with listing listing of file types
-   - E23.2 mouse-choose-completion obsolete
    - Configure the highlighting colours with black on white background
    - C-j, M-j are not skipping to `,' whith default command (from second
      line onwards)!
    - supply command for clearing recursively not important process files:
      .rst, .log, ..., supply a customisaton variable
-   - ANSYS mode debian .deb package
    - narrow, outline, transparent-font: eblocks, nblocks by default?
    - add notes for parameter help of undocumented commands (alist)
    - create filter variable for hiding not installed license types
      ("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"
    - commands shorter than 4 chars are not allowed with additional chars
      adjust this to -highlighting-level 0
-   - Make ANSYS mode also working solely with ansys-mode.el
+   - Make ANSYS-Mode also working solely with ansys-mode.el??
    - make M-C-h more intelligent like M-h (if mark...)
    - speed concern: replace -find-duplicate-p with function argument to
      add-to-list
@@ -433,6 +447,8 @@
      supressing the startup screen 'ansys-mode-startup-message maybe
      as advice when sluggish -> compiliation
    - Enable choice for /show,3d or x11 (-start-graphics)
+   - Provide a way to send commands to the tcl-tk ANSYS gui (x11
+     programming).
 ** ANSYS syntax restrictions not (yet) accounted for
    - Parentheses can only be nested 4 levels deep and only up to 9
      operations (+,-,*,...) within these set of parentheses
@@ -449,18 +465,10 @@
    - what the heck is the *UILIST command?
    - Is hyper56 a valid element?
 ** Additional APDL macro resources
-   see www.apdl.de for further ideas and extensions
+   see http://www.apdl.de for further ideas and extensions or
+     http://www.padtinc.com/.
 
-*** processes
-    #+BEGIN_SRC sh :var PROC=21868
-    ls /proc/$PROC/fd
-    #+END_SRC
 
-    #+RESULTS:
-    |   0 |
-    |   1 |
-    |   2 |
-    | 255 |
 
 # local variables:
 # show-trailing-whitespace: t

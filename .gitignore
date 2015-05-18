@@ -1,4 +1,9 @@
+# Emacs backups
 *~
+#Emacs -auto save files
+\#*\# 
+#Emacs lock files
+.\#* 
 TAGS
 *.zip
 *.sig

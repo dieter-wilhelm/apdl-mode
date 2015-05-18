@@ -513,3 +513,14 @@ allsel
 !! ------------------------------
 
 /post26
+lsln,
+asln
+nsll
+psolve
+*msg,
+*if,I,eq,J,then
+*endif
+*mwrite
+*cfclos
+/zoom
+

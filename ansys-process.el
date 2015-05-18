@@ -211,7 +211,7 @@ Variable is only used internally in the mode.")
 
     (if (y-or-n-p
 	 (concat
-	  "Start run?  (version: "
+	  "Start run?  version: "
 	  ansys-current-ansys-version
 	  ", license type: " ansys-license
 	  ;; "Start run?  (license type: " (if (boundp
@@ -315,13 +315,12 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
-(defun ansys-send-to-ansys ( &optional stay)	;NEW
+(defun ansys-send-to-ansys ( &optional move)	;NEW
   "Send a region to the ANSYS interpreter,
-if the interpreter is not active, copy it and skip to the next
-code line after the region.  If there is no region marked, send
-or copy the current paragraph and skip to the next code line
-after the paragraph.  With a prefix argument STAY equal to \"4\"
-or \"C-u\" remain at the current cursor position."
+if the interpreter is not active, just copy it.  If there is no
+region marked, send (or copy) the current paragraph.  With a
+prefix argument MOVE equal to \"4\" or \"C-u\" skip to the next
+code line after this region (or paragraph)."
   (interactive "p")
   (let (code
 	beg
@@ -339,7 +338,7 @@ or \"C-u\" remain at the current cursor position."
 	  end (region-end))
 
     ;; invalidate region
-    (setq mark-active nil)
+    (deactivate-mark nil)
 
     ;; send or copy region or line
     (cond ((ansys-process-running-p)
@@ -350,21 +349,24 @@ or \"C-u\" remain at the current cursor position."
 	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
-	   (message "Copied region.")))
-    (if (= stay 4)
-	(goto-char point)
-      (progn
-	(goto-char end)
-	(ansys-next-code-line)))))
+	   ;; (indicate-copied-region)
+
+	   ))
+    (if (= move 4)
+	(progn
+	  (goto-char end)
+	  (ansys-next-code-line))
+      (goto-char point))))
 
 (defun ansys-send-to-ansys-and-proceed ( &optional stay)	;NEW
   "Send a region or code line to the ANSYS interpreter.
 When there is no running ANSYS interpreter process just copy the
 respective region or code line to the system clipboard and skip
 to the subsequent code line.  With a prefix argument STAY of
-\"4\" or \"C-u\" copy or send code but remain at the current
-cursor position."
-  (interactive "P")
+\"4\" or \"C-u\" copy or send the code and remain at the current
+cursor position. The command can be repeated by typing just the
+final character \"j\" (or \"C-j\")."
+  (interactive "p")
   (let (code
 	beg
 	end
@@ -407,7 +409,17 @@ cursor position."
 	   (kill-ring-save beg end)
 	   (if region
 	       (message "Copied region.")
-	     (message "Copied code line."))))))
+	     (message "Copied code line."))))
+	   ;; Issue a hint to the user, if the echo area isn't in use.
+	   ;; (unless (current-message)
+	   ;;   (message "(Type \"j\" or \"C-j\" to repeat function.)"))
+    (set-transient-map
+     (let ((map (make-sparse-keymap)))
+       (define-key map "j"
+	 'ansys-send-to-ansys-and-proceed)
+       (define-key map "\C-j"
+	 'ansys-send-to-ansys-and-proceed)
+     map))))
 
 (defun ansys-process-running-p ()
   "Return nil if no ANSYS interpreter process is running."
@@ -1014,7 +1026,7 @@ And write it into the variable `ansys-job'."
       (setq job-name (read-string "job name: ")))
     (if (string= job-name "")
 	(error "job-name must not be the empty string")
-      (message (concat "Job name is set to \"" ansys-job "\".")))
+      (message (concat "Job name is set to \"" job-name "\".")))
     (setq ansys-job job-name)))
 
 (defun ansys-no-of-processors ()

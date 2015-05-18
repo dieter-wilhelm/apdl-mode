@@ -185,7 +185,7 @@ remove the .elc files.)
 - LICENSE -- The GPL (Gnu Public License) Version 3
 - default.el -- Configuration (example) file
 - helper/example.dat -- WorkBench example APDL solver input file
-- helper/example.anf -- ANSYS neutral file example
+- helper/example.anf -- ANSYS geometry neutral file example
 - helper/fontification.mac -- APDL user macro and highlighting example
 - doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
@@ -197,13 +197,12 @@ remove the .elc files.)
 *For Windows systems*:
 
 If applicable please grab the package of a pre-compiled Emacs-24.5
-(Win32/64) bundled with a preconfigured ANSYS-Mode (for Windows 64
-bit) at above Github site and unpack this archive anywhere on
-your system (you do not need administrator rights).  You might
-subsequently run the program addpm.exe (located in the bin directory)
-to add an Emacs entry to the Windows start menu (please refer to the
-README.W32 file) otherwise start the Emacs executable runemacs.exe
-from there.
+(Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
+site and unpack this archive anywhere on your system (you do not need
+administrator rights).  You might subsequently run the program
+addpm.exe (located in the bin directory) to add an Emacs entry to the
+Windows start menu (please refer to the README.W32 file) otherwise
+start the Emacs executable runemacs.exe from there.
 
 ANSYS-Mode is now immediately available, by opening (check out the
 `fontification.mac' example) or by creating a new APDL file with a

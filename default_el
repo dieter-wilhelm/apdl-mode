@@ -107,16 +107,15 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;(setq ansys-highlighting-level 2) ; default
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; ANSYS processes stuff
+		       ;; ANSYS version and  paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; which version of ANSYS we are using, important for constructing paths
+;; Normally it should be sufficient to set at most the ANSYS version
+;; and the installation directory of ANSYS (and restart Emacs)
 
-;(setq ansys-current-ansys-version "161")
+;(setq ansys-current-ansys-version "161") ; default in ANSYS-Mode 16.1.1
 ;(setq ansys-current-ansys-version "150")
-
-;; ANSYS installation directory
 
 ;(cond ((string= window-system "x")
 ;        ;; This is an example of an installation directory on GNU/Linux
@@ -125,13 +124,24 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;        ;;This an example of an installation dir. on Windows
 ;        (setq ansys-install-directory "D:\\Programs\\")))
 
+;; Things you might have to configure if your ANSYS installation is
+;; differing from default ANSYS installation paths, as in the example
+;; below:
+
+      ;;  (setq ansys-help-program
+      ;; 	     "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+      ;; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
+      ;; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		       ;; ANSYS processes stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; license server configuration and executable paths
 
-;(cond ((string= window-system "x")
-;       ;; GNU/Linux 64 bit
-;
-;       ;; for starting the solver & ansys-license-status & ANSYS help 
-;       (setq		     ;
+      ;; GNU/Linux 64 bit
+
+      ;; for starting the solver & ansys-license-status & ANSYS help 
+;      (setq		     ;
 ;	;; license servers (or license file name)
 ;	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU/Linux
 ;	;; GNU/Linux: License servers separated by colons (":"), 1055 is the default port
@@ -142,32 +152,9 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;	;; the communication between flexlm and ANSYS, 2325 is the default port
 ;	ansys-ansysli-servers
 ;	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
-;	))
-;      (t     
-;       ;; else Windows 64 bit
-;
-;        (setq ansys-lmutil-program
-; 	     (concat
-; 	      ansys-install-directory
-; 	      "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe")
-;        ;;backslash '\"' on windows mandatory
+;	)
 
-; 	     ansys-help-program
-; 	     (concat ansys-install-directory
-; 		     "Ansys Inc\\v"
-; 		     ansys-current-ansys-version
-; 		     "\\commonfiles\\help\\HelpViewer\ANSYSHelpViewer.exe") ;winx64/win7
-; 	     ansys-help-program-parameters "") ;since v150
-;
-;       ))				;end of cond
-
-;; IMPORTANT things you have to configure if they are straying from
-;; the defaults:
-
-;; ansys-current-ansys-version (your installed ANSYS version)
-;; ansys-license-file (your license server) and
-;; ansys-install-directory (your installation directory for ANSYS)
-
+ 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 		 ;; options when starting the solver
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

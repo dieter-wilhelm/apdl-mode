@@ -33,6 +33,8 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
+  - Navigation ::  C-c { does not skip an overlay in a number-block
+
 * 16.1.2:
 ** Wish-list
    - Rename fontification.mac -> example.mac & make it functional
@@ -47,14 +49,11 @@
    - GH-wiki pages
 * 16.1.1:
 ** TODO Freeze Mai
-   - add a small example.dat file with number blocks, rotated nodes,
-     named selections, ...
    - update -keywords.el
    - create v16 branch
 ** Bugs
    - file mode specification error: (search-failed
      "nblock\\|eblock\\|cmblock" when opening .dat
-   - C-c { before a number-block does not work
    - mismatch in customisation buffer of -license-file and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
@@ -199,8 +198,7 @@
 
     An alternative archive is at Google Drive:
 
-    
-
+    https://drive.google.com/?tab=mo&authuser=0#folders/0Bxnk08BGWfexUThqbWxLX1NyeTg
 
     If you don't have access to above archives please email me.
 

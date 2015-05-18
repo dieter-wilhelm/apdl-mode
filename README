@@ -256,11 +256,20 @@ capital letters, restart Emacs and ansys-mode will be automatically
 applied for all files with suffixes `.mac', `.dat' and `.inp'.
 
     (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
-      ;assuming you extracted the files on drive "c:"
-      ;for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
+    ;; assuming you extracted the files on drive "c:"
+    ;; for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
+
+    ;; .mac is the macro suffix of ANSYS i. e. these macros can be called
+    ;; in the ANSYS command prompt like a regular ANSYS function (without
+    ;; the suffix .mac)
     (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
+    ;; .dat and .inp are WorkBench's solver input file suffixes
     (add-to-list 'auto-mode-alist '("\\.dat\\'" . ansys-mode))
     (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
+    ;; .anf is the suffix for "ANSYS Neutral" files which include mostly
+    ;;  gometric data but also some APDL snippets.
+    (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
+
     (autoload 'ansys-mode "ansys-mode" nil t)
 
 ** Verbose instructions

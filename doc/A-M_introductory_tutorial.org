@@ -287,10 +287,10 @@
   [[./calculator.png]]
 
 ** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU/Linux]])
-   You can run the ANSYS solver/interpreter under Emacs and send code
-   lines from above APDL window with *C-c C-c* directly to this
-   process. Below you see the *interactive* solver output window and
-   on the left hand side the corresponding ANSYS images.
+   You can run the ANSYS solver under Emacs and send code lines from
+   above APDL window with *C-c C-j* (*C-c C-c* for whole regions)
+   directly to this process. Below you see the *interactive* solver
+   output and on the left hand side the corresponding ANSYS images.
 
 #+ATTR_HTML: :width "1200"
 #+ATTR_LaTeX: :height 6.5cm

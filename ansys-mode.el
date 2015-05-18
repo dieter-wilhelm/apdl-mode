@@ -933,7 +933,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Specify License Utility" ansys-lmutil-program :help "Specify the ANSYS license utility executable"]
 	      "-"
 	      ["Specify ANSYS License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" (if (boundp 'ansys-job) ansys-job) :help "Specify the job name for an interpreter run"]
+	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for an interpreter run"]
 	      ["Specify ANSYS Executable or launcher" ansys-program :help "Specify the ANSYS interpreter under GNU/Linux or the launcher (with complete path if not in $PATH)"]
 	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
 	      [(concat (if ansys-is-unix-system-flag

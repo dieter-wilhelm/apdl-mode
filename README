@@ -184,7 +184,9 @@ remove the .elc files.)
 - TODO -- Todos and deficiencies
 - LICENSE -- The GPL (Gnu Public License) Version 3
 - default.el -- Configuration (example) file
-- helper/fontification.mac -- APDL macro and highlighting example
+- helper/example.dat -- WorkBench example APDL solver input file
+- helper/example.anf -- ANSYS neutral file example
+- helper/fontification.mac -- APDL user macro and highlighting example
 - doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
 - doc/A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code

@@ -480,6 +480,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
   "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
   "/dscale,all,10 !set displacment multiplier" \n
+  "/zoom,1,off ! refit image to window" \n
+  "/zoom,1,rect,0,0,1,1 ! fit image to rectangel X1,Y1 & X2,Y2" \n
   "/auto ! automatic fit mode" \n
   "/user ! keep last display scaling" \n
   \n

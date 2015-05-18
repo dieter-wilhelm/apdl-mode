@@ -54,6 +54,8 @@
 ** Bugs
    - file mode specification error: (search-failed
      "nblock\\|eblock\\|cmblock" when opening .dat
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated! <- autoloaded functions
    - mismatch in customisation buffer of -license-file and -ansysli-servers
    - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
    - C-c C-a does not align a pragraph if the mark was not set (first
@@ -61,11 +63,8 @@
    - variables behind / and * are not highlighted! try changing the
      character syntax???
    - *create file tmp,mac: macro call: tmp, is not highlighted
-   - variables are not highlighted in -skeletons?
    - *msg command's format string is not higlighted (-template-element-table)
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated! <- autoloaded functions
-   - /Zoom not longer supported?! V14
+   - variables are not highlighted in -skeletons?
    - es not :
         *mwrite
         *cfclos

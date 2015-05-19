@@ -29,7 +29,7 @@
 # #+BEAMER_HEADER_EXTRA: \usepackage{pdfcomment}
 #+BEAMER_HEADER: \beamertemplatenavigationsymbolsempty
 #+BEAMER_HEADER: \setbeamertemplate{footline}[frame number]
-#+BEAMER_HEADER: \titlegraphic{\includegraphics[width=7cm]{./ansys+emacs.png}}
+#+BEAMER_HEADER: \titlegraphic{\includegraphics[width=6cm]{ansys+emacs.png}}
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport

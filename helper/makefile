@@ -42,7 +42,7 @@ EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 EXE : $(EMACS_EXE)
 
 # this is the current ansys-mode version
-MODE_VERSION := 1-beta.1
+MODE_VERSION := 1-beta.2
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
@@ -53,9 +53,9 @@ TESTFILES := ../ansys-mode.el ../ansys-template.el ../ansys-process.el ../README
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := ../LICENSE ../README ../TODO ../NEWS  fontification.mac
-# A-M_introductory_tutorial-$(VERSION).pdf			\
- A-M_in-depth_tutorial-$(VERSION).ansys				\
+FILES := ../LICENSE ../README ../TODO ../NEWS  fontification.mac \
+	 A-M_introductory_tutorial-$(VERSION).pdf			\
+# A-M_in-depth_tutorial-$(VERSION).ansys				\
  A-M_in-depth_tutorial-$(VERSION).pdf				\
  A-M_APDL_reference-$(VERSION).pdf
 
@@ -64,14 +64,15 @@ PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
 	@echo
-	@tar -czvf $@ $(PACKAGE_FILES)
+	@tar -cJvf $@ $(PACKAGE_FILES)
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
 
 # this is the Ansys mode package
 .PHONEY : MODE
-MODE : $(PACKAGE) TAGS
+MODE : $(PACKAGE)
+# MODE : $(PACKAGE) TAGS
 
 .PHONEY : ALL
 ALL : MODE EMACS
@@ -91,18 +92,19 @@ $(EMACS_SOURCE_PACKAGE_SIG) :
 
 $(EMACS_EXE) : $(EMACS_SOURCE)
 	cp $(EMACS_SOURCE_PACKAGE) $(EMACS_DIR)
-	cd $(EMACS_DIR); tar -xzvf $(EMACS_SOURCE_PACKAGE)
-	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
+	cd $(EMACS_DIR); tar -xJvf $(EMACS_SOURCE_PACKAGE)
+	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure && make
+#	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
 
-A-M_APDL_reference-$(VERSION).pdf : A-M_APDL_reference.org
+A-M_APDL_reference-$(VERSION).pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
-          --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
-	  --load "ansys-mode.el"  --execute "(org-export-as-pdf 3)"
+          --execute "(add-to-list 'load-path \"~/a-m\")" \
+	  --load "../ansys-mode.el"  --execute "(org-export-as-pdf 3)"
 	  cp A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
 
-A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
+A-M_in-depth_tutorial-$(VERSION).ansys : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
-	  --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
+	  --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
 	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
 
@@ -110,9 +112,9 @@ A-M_in-depth_tutorial-$(VERSION).ansys : A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --file $<  --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"ansys-mode.el\")" --execute "(org-babel-tangle)"
 # 	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
 
-A-M_in-depth_tutorial-$(VERSION).pdf : A-M_in-depth_tutorial.org
+A-M_in-depth_tutorial-$(VERSION).pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
-	  --execute "(add-to-list 'load-path \"~/ansys-mode/trunk\")" \
+	  --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
 	  cp A-M_in-depth_tutorial.pdf A-M_in-depth_tutorial-$(VERSION).pdf
 
@@ -126,10 +128,10 @@ A-M_in-depth_tutorial-$(VERSION).pdf : A-M_in-depth_tutorial.org
 # # htmlize does not yet work in batch mode
 # 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
-A-M_introductory_tutorial-$(VERSION).pdf : A-M_introductory_tutorial.org
+A-M_introductory_tutorial-$(VERSION).pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< --execute  "(org-export-as-pdf 3)"
 	cp  A-M_introductory_tutorial.pdf A-M_introductory_tutorial-$(VERSION).pdf
-	$(EMACS_EXE) --batch  --file $< --execute "(org-export-as-html 1)"
+#	$(EMACS_EXE) --batch  --file $< --execute "(org-export-as-html 1)"
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<

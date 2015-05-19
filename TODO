@@ -33,7 +33,7 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
-  - Navigation ::  C-c { does not skip an overlay in a number-block
+r  - Navigation ::  C-c { does not skip an overlay in a number-block
 
 * 16.1.2:
 ** Wish-list
@@ -66,6 +66,7 @@
 	 M-? shows help for *mwrite, when cursor behind *cfclos
    - -skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
 ** Release June
+   - complete the template choise section in the menu
    - Correct the creep data with total strain to creep strain!
    - automatised PDFs
    - makefile fontification of _tutorial PDFs is not working,

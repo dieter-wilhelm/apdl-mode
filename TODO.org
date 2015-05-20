@@ -462,10 +462,9 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
    see http://www.apdl.de for further ideas and extensions or
      http://www.padtinc.com/.
 
-
-
+# The following is for Emacs
 # local variables:
+# word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
-# mode: org
 # end:

@@ -1,5 +1,5 @@
-This is the text of ANSYS-Mode's README, it is best read in Emacs's
-Org mode.
+This is the text of ANSYS-Mode's README.org, it is best read in
+Emacs's Org mode.
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
@@ -155,7 +155,7 @@ a certain code template, respectively.
 
 * News
 
-Please have a look in the [[file:NEWS][NEWS]] file for the complete history
+Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 
 * Installation
 
@@ -179,9 +179,9 @@ you are using the mode with an older version of Emacs than 24.1 please
 remove the .elc files.)
 
 *Auxiliaries*:
-- README -- This file
-- NEWS -- News and history
-- TODO -- Todos and deficiencies
+- README.org -- This file
+- NEWS.org -- News and history
+- TODO.org -- Todos and deficiencies
 - LICENSE -- The GPL (Gnu Public License) Version 3
 - default.el -- Configuration (example) file
 - helper/example.dat -- WorkBench example APDL solver input file
@@ -463,9 +463,9 @@ the following options:
 - Also at the [[http://www.emacswiki.org/cgi-bin/wiki/AnsysMode][Emacs Wiki]] you might add comments or wishes without
   registration.
 
+# The following is for Emacs
 # local variables:
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
-# mode: org
 # end:

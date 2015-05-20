@@ -257,7 +257,6 @@ capital letters, restart Emacs and ansys-mode will be automatically
 applied for all files with suffixes `.mac', `.dat' and `.inp'.
 
 #+BEGIN_SRC emacs-lisp
-
     (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
     ;; assuming you extracted the files on drive "c:"
     ;; for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
@@ -306,13 +305,17 @@ inhibit-default-ini t)" in your personal configuration file or remove
 If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
 load-path it is necessary to adjust the following variable.
 
+#+BEGIN_SRC emacs-lisp
      (add-to-list 'load-path
 		  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
+#+END_SRC
 
 For example: "c:\\emacs\\ansys-mode" on a Windows system or
  "/usr/local/src/emacs/ansys-mode" on a GNU/Linux system.
 
+#+BEGIN_SRC emacs-lisp
      (autoload 'ansys-mode "ansys-mode" "Activate ANSYS-Mode." 'interactive)
+#+END_SRC
 
 From here you are able to type "M-x ansys-mode RET" to activate the
 mode for every interesting file.
@@ -324,16 +327,20 @@ the extensions `.mac', `.dat', `.inp' and `.anf' ( .dat and .inp are
 WorkBench's solver input file suffixes) you are opening, add the
 following to your `.emacs' file:
 
+#+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
      (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
      (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
      ;; this is the suffix for "ANSYS Neutral Files" which include some APDL.
      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
+#+END_SRC
 
 The suffix below belongs to the `anys neutral file' export format
 which contains also an APDL header and footer.
 
+#+BEGIN_SRC emacs-lisp
      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
+#+END_SRC
 
 - Auto-insertion of code
 
@@ -341,9 +348,11 @@ In case you also want to enjoy the auto insertion feature, which puts
 (optionally) some predefined body of ANSYS commands to every new APDL
 file insert the following into '.emacs':
 
+#+BEGIN_SRC emacs-lisp
      (setq auto-insert-mode 1)
      (setq auto-insert-query t) ;insert only after request
      (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+#+END_SRC
 
 - Auto-loading of helper functions
 
@@ -351,12 +360,14 @@ With below section you are also able to use certain ANSYS related
 commands in a new Emacs session without the need of previously having
 explicitly called ansys-mode.
 
+#+BEGIN_SRC emacs-lisp
      (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for calling a special ANSYS customisation buffer." 'interactive)
      (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
      (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
      (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
      (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
+#+END_SRC
 
 
 * Usage and customisation
@@ -380,8 +391,8 @@ globally:
 
 - Switches on font-lock-mode if toggled off, e.g when calling Emacs with
   the -D (basic display) option
-- Activated Delete Selection Mode (delete-selection-mode t)
-- Activated Show Paren Mode (show-paren-mode t)
+- Activated Delete Selection Mode ~(delete-selection-mode t)~
+- Activated Show Paren Mode ~(show-paren-mode t)~
 - Advised M-w (kill-ring-save) without active region to copy the whole line
 
 (Delete Selection Mode can be switched off in the ANSYS-Mode menu.)

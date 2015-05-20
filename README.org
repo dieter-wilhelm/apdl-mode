@@ -3,12 +3,12 @@ Emacs's Org mode.
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
+[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys%2Bemacs.png]]
+
 * Introduction
 
 Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][Github]]. The latest
-sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode]] project site.
-
-[[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png]]
+sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
 
 This project supports your workflows with the FEA (Finite Element
 Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
@@ -74,7 +74,10 @@ only implemented for GNU/Linux systems.
 
 - Solver communication facilities, i. e. sending code fragments from
   the macro file or commands interactively to an ANSYS solver process
-  (GNU/Linux only).
+  (GNU/Linux only).  With abreviated input method: For the often used
+  command C-c C-j (~ansys-send-to-ansys-and-proceed~, sending a code
+  line to the solver and skipping to the next) it is sufficient to
+  repeat this command just with the last input key(s) ("j" or "C-j").
 
 - Keyword completion of ANSYS commands, elements, get- and
   parametric-functions (case-sensitive) of around 2000 ANSYS symbols.

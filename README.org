@@ -8,7 +8,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][Github]]. The latest
 sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode]] project site.
 
-# http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png
+[[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/ansys+emacs.png]]
 
 This project supports your workflows with the FEA (Finite Element
 Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
@@ -221,8 +221,8 @@ might be overwritten by `default.el'.  If you remove `default.el' or
 set 'inhibit-default-ini' to non-nil in your own init file, then
 default.el is not loaded any longer.
 
-In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
-version]] of GNU Emacs, you can also download and configure the
+In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original version]]
+of GNU Emacs, you can also download and configure the
 ANSYS-Mode package separately. Please refer to below instructions.
 
 *For existing Emacs installations on Windows and GNU/Linux*:
@@ -256,6 +256,8 @@ variable HOME (on both Windows and Unix), adjust the stuff below in
 capital letters, restart Emacs and ansys-mode will be automatically
 applied for all files with suffixes `.mac', `.dat' and `.inp'.
 
+#+BEGIN_SRC emacs-lisp
+
     (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
     ;; assuming you extracted the files on drive "c:"
     ;; for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
@@ -272,6 +274,7 @@ applied for all files with suffixes `.mac', `.dat' and `.inp'.
     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
     (autoload 'ansys-mode "ansys-mode" nil t)
+#+END_SRC
 
 ** Verbose instructions
 

@@ -32,13 +32,21 @@ system where ANSYS is running.
 The current stable version 16.1.1 of ANSYS-Mode is available at the
 [[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg][Google's ANSYS-Mode drive]].
 
-# or via command line way, e. g.: "wget
-# http://ansys-mode.googlecode.com/files/ansys-mode-16.1.1.tgz".
+Or via command line way, e. g. for the windows version bundled with
+Emacs:
+#+BEGIN_SRC sh
+wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
+#+END_SRC
 
-The some code (completions, help strings etc.) is based on the latest
-ANSYS version.  Besides the sources and Emacs you will find also in
-the download section two tutorials.  For an immediate access have a
-look at the
+And for the sources
+#+BEGIN_SRC sh
+wget https://github.com/dieter-wilhelm/ansys-mode/archive/release-16.1.1.tar.gz
+#+END_SRC
+
+Some code (completions, help strings etc.) is based on the
+documentation of the latest ANSYS version.  Besides source files and
+Emacs you will find in the download section tutorials.  For an
+immediate access have a look at the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
 introductory on-line version], here you are able to see the images in
 a higher resolution as in the PDF version.  And in the

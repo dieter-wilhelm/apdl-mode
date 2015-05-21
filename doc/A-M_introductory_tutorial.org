@@ -40,7 +40,6 @@
 #+XSLT:
 # #+TEXT: Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
-
 #+HTML: <img src="ansys+emacs.png" height=150 alt="image">
 
 # the text and arrows (line width 4) in the drawings are done with inkscape
@@ -122,7 +121,6 @@
 }\quad%
 #+END_LaTeX   
    experience.
-
 #+LaTeX: \\[.2cm]
 #+HTML: <br>   
    [[http://www.gnu.org/home.en.html][GNU]]
@@ -157,8 +155,9 @@
   conjunction with the latest Emacs distribution for Win32/64 from 
   the [[https://github.com/dieter-wilhelm/ansys-mode/releases][ANSYS-Mode releases page]] on [[https://github.com][GitHub]].
 # #+ATTR_HTML: width="1200"
+
 #+BEGIN_LaTeX
-\href{https://drive.google.com/folderview?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&usp=sharing}{%
+\href{https://github.com}{%
   \includegraphics[width=12cm]{./github.png}%
 }
 #+END_LaTeX 

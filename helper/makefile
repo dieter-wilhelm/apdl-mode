@@ -1,11 +1,24 @@
 # Targets:
 ##############################
-# ALL = MODE + EMACS
-# MODE = mode package + tags
+# ALL = MODE + EMACS + EMACS_SRC
+# MODE = A-M sources
+# EMACS_SRC = A-M + Emacs sources
 # EMACS = Windoze version of emacs with pre-configured mode
+
+# EMACS_VER needed for windows tree
+EMACS_VER := 24.5
+EMACS_VERSION := emacs-$(EMACS_VER)
 
 ANSYS_MAJOR := 16
 ANSYS_MINOR := 1
+
+# this is the current ANSYS-Mode version suffix
+MODE_VERSION := rc1
+
+# complete package names are comprised of
+# ansys-mode-$(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
+# tutorials A-M_xxx
+##################################################
 
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
@@ -19,10 +32,9 @@ else
  EMACS_DIR := /appl/
 endif
 
-EMACS_VER := 24.5
-EMACS_VERSION := emacs-24.5
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
+# but it is not up-to-date, use keyserver!
 KEYRING := http://ftp.gnu.org/gnu/gnu-keyring.gpg
 EMACS_PACKAGE_SIG := $(EMACS_PACKAGE).sig
 EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.xz
@@ -40,10 +52,8 @@ EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 .PHONEY : EXE
 EXE : $(EMACS_EXE)
 
-# this is the current ansys-mode version
-MODE_VERSION := 1-beta.2
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
-PACKAGE := ansys-mode-$(VERSION).tgz
+PACKAGE := ansys-mode-$(VERSION).tar.xz
 
 EL_FILES := ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el ../default.el
@@ -64,7 +74,7 @@ TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf
 
 PACKAGE_FILES :=  $(FILES) $(EL_FILES)
 
-$(PACKAGE) : $(PACKAGE_FILES) makefile
+$(PACKAGE) : $(PACKAGE_FILES) $(TUTORIALS) makefile
 	@echo "Packaging $@ ..."
 	@echo
 	@tar -cJvf $@ $(PACKAGE_FILES)
@@ -78,7 +88,7 @@ MODE : $(PACKAGE)
 # MODE : $(PACKAGE) TAGS
 
 .PHONEY : ALL
-ALL : MODE EMACS
+ALL : MODE EMACS EMACS_SRC
 
 .PHONEY : CLEAN
 CLEAN :
@@ -132,7 +142,15 @@ A-M_in-depth_tutorial-$(VERSION).pdf : ../doc/A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --execute "(add-to-list 'load-path \"/home/dieter/ansys-mode/trunk\")(load-file \"htmlize.el\")(load-file \"ansys-mode.el\")" --file $< --execute "(org-export-as-html 1)"
 
 A-M_introductory_tutorial-$(VERSION).pdf : ../doc/A-M_introductory_tutorial.org
-	$(EMACS_EXE) --batch --file $< --execute  "(org-export-as-pdf 3)"
+	$(EMACS_EXE) --batch --file $< --eval "(require 'ox-beamer)" \
+	 --eval "(add-to-list 'org-latex-classes '(\"A-M\" \"\\documentclass{beamer}\" \
+	     (\"\\section{%s}\" . \"\\section*{%s}\") \
+	     (\"\\subsection{%s}\" . \"\\subsection*{%s}\") \
+	     (\"\\subsubsection{%s}\" . \"\\subsubsection*{%s}\") \
+	     (\"\\paragraph{%s}\" . \"\\paragraph*{%s}\") \
+	     (\"\\subparagraph{%s}\" . \"\\subparagraph*{%s}\")) \
+         )" \
+				       --execute  "(org-beamer-export-to-pdf)"
 	cp  A-M_introductory_tutorial.pdf A-M_introductory_tutorial-$(VERSION).pdf
 #	$(EMACS_EXE) --batch  --file $< --execute "(org-export-as-html 1)"
 
@@ -152,8 +170,8 @@ EMACS : $(EMACS_PACKAGE) $(PACKAGE)
 	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp
 #	 cp -uv ../default_el share/emacs/$(EMACS_VER)/site-lisp/default.el
-	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
-	 zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) share/emacs/$(EMACS_VER)/site-lisp/*
+	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION).$(EMACS_PACKAGE)
+	 zip -u ansys-mode-$(VERSION).$(EMACS_PACKAGE) share/emacs/$(EMACS_VER)/site-lisp/*
 # cp -uv $(ELC_FILES) share/emacs/$(EMACS_VER)/site-lisp
 #	rm -r $(EMACS_VERSION)
 
@@ -179,8 +197,7 @@ $(EMACS_SOURCE_PACKAGE) :
 TAGS : makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el 
 	etags $?
 
-
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :
-	cat "-a release-$(VERSION)"
-# svn copy https://ansys-mode.googlecode.com/svn/trunk https://ansys-mode.googlecode.com/svn/tags/release-14.5.2-beta.2 -m "tagging 14.5.2-beta.2"
+	echo "git tag -a release-$(VERSION)"
+# 	git tag -a release-$(VERSION)

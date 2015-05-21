@@ -30,21 +30,19 @@ yet free - editor. High quality software available for every operating
 system where ANSYS is running.
 
 The current stable version 16.1.1 of ANSYS-Mode is available at the
-[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg][Google's ANSYS-Mode drive]].  Or via command
-line way, e. g. for the windows version bundled with Emacs:
+[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg][Google's ANSYS-Mode drive]].  There are
+residing 3 archive packages: 1) A package of ANSYS-Mode together with
+binaries of Emacs for Windows, 2) a source file package for compiling
+Emacs together with ANSYS-Mode and 3) the sources of ANSYS-Mode alone.
+You might fetch these archives via command line way, e. g. for the
+version of ANSYS-Mode bundled with Emacs binaries for Windows:
 #+BEGIN_SRC sh
 wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
 #+END_SRC
-
-And for the sources tar package:
-#+BEGIN_SRC sh
-wget https://github.com/dieter-wilhelm/ansys-mode/archive/release-16.1.1.tar.gz
-#+END_SRC
-
-Some code (completions, help strings etc.) is based on the
-documentation of the latest ANSYS version.  Besides source files and
-the Emacs editor you will find tutorials in the download section.  For
-an immediate impression have a look at the
+Important parts of the code (completions, help strings, etc.) are
+based on the ANSYS documentation.  Besides source files and the Emacs
+editor you will find tutorials in the download section.  For an
+immediate impression have a look at the
 [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
 introductory on-line version], here you are able to see the images in
 a higher resolution as in the PDF version.  And in the
@@ -58,8 +56,8 @@ issues list]].
 
 * Requirements
 
-The mode was tested with Emacs-24.5 under XP64, Win7 and GNU/Linux64.
-It should also run with Emacs-23 under respective 32 bit systems.
+The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
+should also run with older versions of Emacs down to Emacs-23.
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for GNU/Linux systems.

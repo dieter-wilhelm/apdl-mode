@@ -177,7 +177,7 @@
 
 * Usage
 ** Open an APDL macro file with Emacs
-  Start the editor and open /fontification.mac/ in Emacs' /site-lisp/
+  Start the editor and open /example.mac/ in Emacs' /site-lisp/
   folder or any other APDL file (with the extensions /mac/, /inp/,
   /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
   <RET>).

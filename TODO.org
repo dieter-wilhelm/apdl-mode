@@ -166,9 +166,10 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
     (tags-query-replace "\".1\"" "\".2\"")
     # copyright
     (tags-query-replace "- 2015" "- 2016")
+    (tags-query-replace "fontification.mac" "example.mac")
 
     checkdoc then dry run: Emacs
-    24.5 -Q testing: fontification.mac /*commands and default command
+    24.5 -Q testing: example.mac /*commands and default command
     lines, every menu entry.  byte-compile-file then dry run
     profiling, major mode conventions: multiple loading of this mode?.
   - check Emacs versions on longterm OS systems compile with 24.X,

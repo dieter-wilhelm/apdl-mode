@@ -1,16 +1,14 @@
 !! ------------------------------
 !@ --- header ---
 !! ------------------------------
-!! Time-stamp: <2015-05-12 14:19:52 uidg1626>
-!! ANSYS VERSION: 140
-!! UNITS: mm-t-s
-!! NOTE: Pseudo code, checking the influence of
-!!  ansys-highlighting-level.  Please put the
-!!  the cursor below the next paragraph and type
-!!  C-x C-e to activate the settings
+!! example APDL code, checking the influence of
+!! ansys-highlighting-level.  Please put the
+!! the cursor below the next paragraph and type
+!! C-x C-e to check settings
 
 !(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "../ansys-mode.el")(ansys-mode))
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 /units,mpa !indicate mm-t-s unit system
 !@ --- Preprocessing ---
 /prep7
@@ -440,10 +438,6 @@ plnsol,u,sum,2
 !@ --- Header ---
 !@ ==============================
 
-!! FILENAME: /home/dieter/ansys-mode/trunk/fontification.mac
-!! CREATION DATE: Sun Jun 24 02:09:08 2012
-!! ANSYS VERSION: 140
-!! DESCRIPTION: lskdjf
 
 !@ ==============================
 !@ --- Setup ---

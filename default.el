@@ -10,18 +10,17 @@
 ;; settings with Emacs' customisation system or changing them directly
 ;; in your configuration file, you must either set the variable
 ;; `inhibit-default-ini' to `t' "(setq inhibit-default-ini t)" in your
-;; configuration file or remove `default.el' (or at least its
-;; corresponding sections) otherwise your settings might be
+;; configuration file or remove or rename `default.el' (or at least
+;; its corresponding sections) otherwise your settings will be
 ;; overwritten!!!
 
-;; Comments are `;' (semi-colons); CONVENTIONS used: Textual comments
-;; are indicated with double semi-colons `;;', optionally uncomment
-;; code lines with a SINGLE comment sign.
+;; Comments are behind `;' (semi-colons); CONVENTIONS used: Textual
+;; hints are indicated with DOUBLE semi-colons `;;', optionally
+;; uncomment the code lines with a SINGLE comment sign.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		       ;; IMPORTANT PREREQUISIT
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 ;; !!! If the ANSYS-Mode files (*.el) are NOT placed in a default
 ;; Emacs load-path it is necessary to adjust the following
 ;; variable:!!!  Hint: The directory site-lisp/ in the Emacs
@@ -41,15 +40,17 @@
 
 ;; .mac is the macro suffix of ANSYS i. e. these macros can be called
 ;; in the ANSYS command prompt like a regular ANSYS function (without
-;; the suffix .mac)
+;; the suffix .mac). See the file helper/example.mac
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
 
 ;; .dat and .inp are WorkBench's solver input file suffixes
+;; See the file helper/example.dat
 (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
 (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
 
 ;; .anf is the suffix for "ANSYS Neutral" files which include mostly
-;;  gometric data but also some APDL snippets.
+;;  gometric data but also some APDL snippets. See the file
+;;  helper/example.anf.
 (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -109,8 +110,6 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		       ;; ANSYS version and  paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Normally it should be sufficient to set at most the ANSYS version
 ;; and the installation directory of ANSYS (and restart Emacs)
 
@@ -153,7 +152,6 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;	ansys-ansysli-servers
 ;	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
 ;	)
-
  
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 		 ;; options when starting the solver
@@ -172,6 +170,3 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			      ;; The End
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; local variables:
-;; mode: emacs-lisp
-;; end:

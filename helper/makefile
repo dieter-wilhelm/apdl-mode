@@ -34,7 +34,6 @@ SIG_SOURCE_ADDRESS := http://ftp.gnu.org/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
 # ftp://ftp.informatik.rwth-aachen.de/pub/gnu/
 EMACS_EXE := $(EMACS_DIR)$(EMACS_VERSION)/src/emacs
 
-
 .PHONEY : EMACS_SOURCE
 EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 
@@ -47,16 +46,20 @@ VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 PACKAGE := ansys-mode-$(VERSION).tgz
 
 EL_FILES := ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el
-
-TESTFILES := ../ansys-mode.el ../ansys-template.el ../ansys-process.el ../README ../NEWS ../TODO ansys-fontification.el extract_tags.py ../doc/A-M_APDL_reference.org ../doc/A-M_in-depth_tutorial.org ../doc/A-M_introductory_tutorial.org
+  ../ansys-template.el ../ansys-process.el ../default.el
+# ansys-fontification.el is missing since it is not necessary for running A-M
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
-FILES := ../LICENSE ../README ../TODO ../NEWS  fontification.mac \
-	 A-M_introductory_tutorial-$(VERSION).pdf			\
-# A-M_in-depth_tutorial-$(VERSION).ansys				\
- A-M_in-depth_tutorial-$(VERSION).pdf				\
+FILES := ../LICENSE ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
+
+TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
+	 ../doc/A-M_in-depth_tutorial.org    \
+	 ../doc/A-M_APDL_reference.org
+
+TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf			
+# A-M_in-depth_tutorial-$(VERSION).ansys \
+ A-M_in-depth_tutorial-$(VERSION).pdf    \
  A-M_APDL_reference-$(VERSION).pdf
 
 PACKAGE_FILES :=  $(FILES) $(EL_FILES)
@@ -144,11 +147,11 @@ ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt
 
 # This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
-EMACS : $(EMACS_PACKAGE) $(PACKAGE) ../default_el
+EMACS : $(EMACS_PACKAGE) $(PACKAGE)
 	 test -d share/emacs/$(EMACS_VER)/site-lisp || mkdir -p share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp
-	 cp -uv ../default_el share/emacs/$(EMACS_VER)/site-lisp/default.el
+#	 cp -uv ../default_el share/emacs/$(EMACS_VER)/site-lisp/default.el
 	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION)+$(EMACS_PACKAGE)
 	 zip -u ansys-mode-$(VERSION)+$(EMACS_PACKAGE) share/emacs/$(EMACS_VER)/site-lisp/*
 # cp -uv $(ELC_FILES) share/emacs/$(EMACS_VER)/site-lisp
@@ -173,11 +176,9 @@ $(EMACS_SOURCE_PACKAGE) :
 	wget $(SOURCE_ADDRESS)
 
 # need the org files for the versioning string
-TAGS : makefile ../$(EL_FILES) ../default_el ansys-fontification.el ../README ../TODO ../NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
-	etags ../$(EL_FILES) ../default_el ansys-fontification.el ../README ../TODO ../NEWS A-M_APDL_reference.org A-M_in-depth_tutorial.org A-M_introductory_tutorial.org
+TAGS : makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el 
+	etags $?
 
-TEST : 
-	etags $(TESTFILES)
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :

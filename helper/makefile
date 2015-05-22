@@ -72,7 +72,7 @@ TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf
  A-M_in-depth_tutorial-$(VERSION).pdf    \
  A-M_APDL_reference-$(VERSION).pdf
 
-PACKAGE_FILES :=  $(FILES) $(EL_FILES)
+PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(TUTORIALS)
 
 $(PACKAGE) : $(PACKAGE_FILES) $(TUTORIALS) makefile
 	@echo "Packaging $@ ..."

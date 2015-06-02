@@ -183,5 +183,5 @@ TAGS : makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :
-	echo "git tag -a release-$(VERSION)"
-# 	git tag -a release-$(VERSION)
+	git tag release-$(VERSION)
+# echo "git tag release-$(VERSION)"

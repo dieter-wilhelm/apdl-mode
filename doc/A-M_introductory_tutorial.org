@@ -195,7 +195,7 @@
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features  
-** Inspect easily WorkBench solver input files (suffix /.dat/)
+** Inspect easily WorkBench solver input files (/example.dat/)
    ANSYS-Mode hides the normally uninteresting but usually very
    large number blocks.  On the right hand side is the unhidden content.
 #+ATTR_LaTeX: :height 7.5cm
@@ -378,7 +378,7 @@
 # *** Installation:
    - Installation: :: More detailed instructions are necessary if you
                       are not using the mode bundled with Emacs for
-                      Windows.  Please have a look in the /README/
+                      Windows.  Please have a look in the /README.org/
                       file.  An online version is on
                       [[http://dieter-wilhelm.github.io/ansys-mode/][ANSYS-Modes's GitHub Page]].
 
@@ -389,7 +389,7 @@
     
 # *** News and project history:
    - News and project history: :: They are placed in the mode's
-        accompanying /NEWS/ file
+        accompanying /NEWS.org/ file
 
 * Help and Bugs
 ** Search for help, report bugs and issues

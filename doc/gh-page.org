@@ -1,8 +1,8 @@
 #+OPTIONS: ':nil *:t -:t ::t <:t H:2 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
-#+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil prop:nil
+#+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
-#+TITLE: ANSYS-Mode GitHub Pages
+#+TITLE: ANSYS-Mode Documentation and 
 # #+DATE: <2015-06-04 Thu>
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
@@ -25,14 +25,15 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 * Readme first
-#+include: "../README.org"
-#+include: "../NEWS.org"  :minlevel 1
-* COMMENT Tutorials
-#+include: "../doc/A-M_introductory_tutorial.org"
-#+include: "../doc/A-M_in-depth_tutorial.org"
+  #+include: "../README.org"
+* NEWS
+  #+include: "../NEWS.org"
+* Tutorials
+  #+include: "../doc/A-M_introductory_tutorial.org"
+#  #+include: "../doc/A-M_in-depth_tutorial.org"
 * COMMENT References
-#+include: "../doc/A-M_APDL_reference.org"
+  #+include: "../doc/A-M_APDL_reference.org"
 * Todo
-#+include: "../TODO.org"
+  #+include: "../TODO.org"
 * License
-#+include: "../LICENSE"
+  #+include: "../LICENSE"

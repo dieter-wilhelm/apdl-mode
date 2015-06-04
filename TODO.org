@@ -33,7 +33,7 @@
                   fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
-r  - Navigation ::  C-c { does not skip an overlay in a number-block
+  - Navigation ::  C-c { does not skip an overlay in a number-block
 
 * 16.1.2:
 ** Wish-list
@@ -48,7 +48,6 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
      func. -send-to-ansys
    - example.mac: make it solver compatible
    - GH-pages with tutorials
-   - GH-wiki pages
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
    - check *vwrite with gui mode and interactive mode (graphics window?)
@@ -138,6 +137,10 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
   - M-x compile :: ALL ;-)
+
+   GH-wiki is repo with write access for world, separate from the A-M repo!
+
+
 ** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]

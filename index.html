@@ -1,0 +1,3811 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>ANSYS-Mode GitHub Pages <b>ANSYS-Mode</b> for GNU Emacs, an introductory <b>Tutorial</b> for version 16.1.1 ANSYS-Mode Highlighting and APDL Reference</title>
+<!-- 2015-06-04 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="H. Dieter Wilhelm" />
+<meta  name="description" content="*ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA."
+ />
+<meta  name="keywords" content=" Emacs ANSYS FEA APDL " />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">ANSYS-Mode GitHub Pages <b>ANSYS-Mode</b> for GNU Emacs, an introductory <b>Tutorial</b> for version 16.1.1 ANSYS-Mode Highlighting and APDL Reference</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Readme first</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Introduction</a></li>
+<li><a href="#sec-1-2">1.2. Requirements</a></li>
+<li><a href="#sec-1-3">1.3. Features</a></li>
+<li><a href="#sec-1-4">1.4. Example applications</a></li>
+<li><a href="#sec-1-5">1.5. News</a></li>
+<li><a href="#sec-1-6">1.6. Installation</a></li>
+<li><a href="#sec-1-7">1.7. Usage and customisation</a></li>
+<li><a href="#sec-1-8">1.8. Experienced Emacs users</a></li>
+<li><a href="#sec-1-9">1.9. Acknowledgements</a></li>
+<li><a href="#sec-1-10">1.10. Further Resources</a></li>
+<li><a href="#sec-1-11">1.11. Bugs and Problems</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. NEWS</a>
+<ul>
+<li><a href="#sec-2-1">2.1. News and History</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. Tutorials</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Introduction</a></li>
+<li><a href="#sec-3-2">3.2. Download</a></li>
+<li><a href="#sec-3-3">3.3. Installation</a></li>
+<li><a href="#sec-3-4">3.4. Usage</a></li>
+<li><a href="#sec-3-5">3.5. Selected ANSYS-Mode Features</a></li>
+<li><a href="#sec-3-6">3.6. Configuration</a></li>
+<li><a href="#sec-3-7">3.7. Documentation and Licensing</a></li>
+<li><a href="#sec-3-8">3.8. Help and Bugs</a></li>
+<li><a href="#sec-3-9">3.9. Summary</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. Todo</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Deficiencies:</a></li>
+<li><a href="#sec-4-2">4.2. 16.1.2:</a></li>
+<li><a href="#sec-4-3">4.3. Procedures</a></li>
+<li><a href="#sec-4-4">4.4. Ideas for further versions</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. License</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Readme first</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This is the text of ANSYS-Mode's README.org, it is best read in
+Emacs's Org mode.
+</p>
+
+<p>
+Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+</p>
+
+
+<div class="figure">
+<p><img src="https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys+emacs.png" alt="ansys+emacs.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+This project supports your workflows with the FEA (Finite Element
+Analysis) suite <a href="http://www.ansys.com/">ANSYS</a> (ANalysis SYStem, registered TM).
+</p>
+
+<p>
+It provides `ANSYS-Mode', an add-on to the <a href="http://www.gnu.org/software/emacs">GNU Emacs editor</a> for
+investigating and coding APDL (Ansys Parametric Design Language).  The
+mode offers also managing and communication capabilities for various
+ANSYS processes, like interactive code debugging with the solver or
+inquiring the license manager status, etc.  Some features are quite
+sophisticated but its documentation is targeted for ANSYS users with
+little Emacs experience.
+</p>
+
+<p>
+Advantages compared to other APDL editors: Largest feature set, user
+extensible, cost-free, GNU Emacs integrated tools, available for all
+OS, for the mode's in-built APDL help no ANSYS installation necessary.
+</p>
+
+<p>
+<a href="http://www.gnu.org/home.en.html">GNU</a> (Gnu's Not Unix) Emacs is an up-to-date, powerful and extensible -
+yet free - editor. High quality software available for every operating
+system where ANSYS is running.
+</p>
+
+<p>
+Ansys-Mode since version 15.0.1 is hosted on <a href="https://github.com/">Github</a>. The latest
+sources you'll find on its <a href="https://github.com/dieter-wilhelm/ansys-mode">ANSYS-Mode project site</a>.
+</p>
+
+<p>
+The current stable version 16.1.1 of ANSYS-Mode is available at the
+<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">Github releases site</a> or at <a href="https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg">Google's ANSYS-Mode drive</a>.  There are
+residing 3 archive packages: 1) A package of ANSYS-Mode together with
+binaries of Emacs for Windows, 2) a source file package for compiling
+the latest stable Emacs version together with ANSYS-Mode and 3) the
+sources of ANSYS-Mode alone, intended for an existing Emacs
+installation.  You might fetch these archives via the command line
+way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
+for Windows:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
+</pre>
+</div>
+<p>
+Important parts of the code (completions, help strings, etc.) are
+based on the ANSYS documentation.  Besides source files and the Emacs
+editor you will find tutorials in the download section.  For an
+immediate impression have a look at the
+[<a href="http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html">http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html</a>
+introductory on-line version], here you are able to see the images in
+a higher resolution as in the PDF version.  And in the
+[<a href="http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html">http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html</a>
+in-depth on-line tutorial] there is the source code highlighting
+better preserved as in its PDF version.
+</p>
+
+<p>
+Please report bugs and inconsistencies also in the documentation!
+Write an email to the <a href="mailto:dieter@duenenhof-wilhelm.de">maintainer</a> or open a bug report in <i>Github's
+issues list</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Requirements</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
+should also run with older versions of Emacs down to Emacs-23.
+</p>
+
+<p>
+Some of ANSYS-Mode's solver control and communication features are
+only implemented for GNU/Linux systems.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Features</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>Command syntax help inbuilt in the mode (similar to but more verbose
+then the ANSYS dynamic prompt), undocumented commands are hinted as
+such. (There is no need to have ANSYS installed for it to work.)
+</li>
+
+<li>Opening the detailed ANSYS help in your web browser for an APDL
+command or element name (the element number is sufficient) at or
+before the cursor.  Optionally you can input the desired string
+interactively with a completion of all valid keywords.
+</li>
+
+<li>ANSYS process management (viewing error files, license status,
+starting the ANSYS help browser, etc.).
+</li>
+
+<li>Solver communication facilities, i. e. sending code fragments from
+the macro file or commands interactively to an ANSYS solver process
+(GNU/Linux only).  With abreviated input method: For the often used
+command C-c C-j (<code>ansys-send-to-ansys-and-proceed</code>, sending a code
+line to the solver and skipping to the next) it is sufficient to
+repeat this command just with the last input key(s) ("j" or "C-j").
+</li>
+
+<li>Keyword completion of ANSYS commands, elements, get- and
+parametric-functions (case-sensitive) of around 2000 ANSYS symbols.
+</li>
+
+<li>Comprehensive keyboard shortcuts for code navigation: Skipping
+comments, navigating number blocks, searching and creating *DO-,
+*IF-, *DOWHILE-, *CREATE-blocks, etc.
+</li>
+
+<li>Warning of deprecated element types with a different highlighting of
+element names in current and deprecated technology.
+</li>
+
+<li>Syntax highlighting in various decoration levels (complete ANSYS
+keywords, undocumented commands, deprecated elements, &#x2026;)  and
+optionally also user defined variables (experimental feature).
+</li>
+
+<li>Overview of <b>every</b> variable definition (*GET, *DIM, *SET, =, *DO,
+CM, *VGET, &#x2026;), as well as component names, in the current file.
+These are shown in another window.  In the highest decoration level
+(2) these `user variables' are dynamically highlighted as well.
+With a running ANSYS interpreter process (GNU/Linux only) it is also
+possible with a keyboard shortcut to query the current status of
+variables near the cursor.
+</li>
+
+<li>Preview and/or insertion of extensible APDL code templates.  For
+example the function template shows <b>all</b> available ANSYS
+parametric- and get functions. The respective code snippets show
+examples of APDL work flows and considerable ANSYS know-how, these
+are easily extensible to boot.  The templates are partly interactive
+i. e. they are asking for or completing user input.
+</li>
+
+<li>Alignment (beautification) of whole paragraphs or marked sections
+with variable definitions.
+</li>
+
+<li>Narrowing, i. e. hiding, of uninteresting content. This is done by
+default for number blocks (nblock, eblocks and cmblocks) in
+WorkBench created solver input file (with the suffix .dat).  You
+can, in case the need arises, unhide and inspect these as well.
+</li>
+
+<li>Outlining (hiding and navigating) of code sections with Emacs'
+outline-minor-mode. With outline strings '!@' you have a heading
+structure which you can collapse or show.  This is the textual
+analog to the WorkBench tree view.
+</li>
+
+<li>Auto-insertion (optionally) of a header and outline code for every
+new APDL file.
+</li>
+
+<li>Convenient comment handling, commenting out whole paragraphs or
+whole control blocks and vice versa.
+</li>
+
+<li>Auto-indentation of looping blocks and conditional control blocks
+together with closing of open blocks with auto-insertion of the
+appropriate end keyword (case-sensitive).
+</li>
+
+<li>ANSYS-Mode defines abbreviations for APDL templates i. e. with
+writing a `nickname' after a special key triggers an exchange of the
+characters with a complete code template.
+</li>
+
+<li>You are able to use all Emacs' facilities, like the built-in
+calculator, file manager, image viewer and many others.  ANSYS-Mode
+changes some Emacs default behaviour to alleviate the transition
+from other editors and user interface standards.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-4" class="outline-3">
+<h3 id="sec-1-4"><span class="section-number-3">1.4</span> Example applications</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+Visual examples you will find in the
+[<a href="http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html">http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html</a> online tutorial]
+and the following screen-shot on [<a href="http://www.emacswiki.org/emacs/AnsysMode">http://www.emacswiki.org/emacs/AnsysMode</a> EmacsWiki]
+</p>
+
+
+<div class="figure">
+<p><img src="http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg" alt="ansys-mode.jpg" />
+</p>
+</div>
+
+<p>
+Above image shows an Emacs frame (in reversed colour mode and compiled
+with the GTK+ toolkit under GNU/Linux) with a ripped off menu field.  The
+APDL file is in the right window with the (experimental) user variable
+highlighting switched on and a help overlay (in yellow background)
+activated. The smaller windows on the left hand side are showing the
+`Variable definitions buffer' of the same file and a preview buffer of
+a certain code template, respectively.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-5" class="outline-3">
+<h3 id="sec-1-5"><span class="section-number-3">1.5</span> News</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+Please have a look in the <a href="NEWS.html">NEWS</a> file for the complete history
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6" class="outline-3">
+<h3 id="sec-1-6"><span class="section-number-3">1.6</span> Installation</h3>
+<div class="outline-text-3" id="text-1-6">
+<p>
+The version scheme is a mixture of the ANSYS release (currently
+"16.1") on which the highlighting and completing code is based and the
+version increments (currently ".1") of ANSYS-Mode (thus "16.1.1") for
+this particular ANSYS release.
+</p>
+</div>
+
+<div id="outline-container-sec-1-6-1" class="outline-4">
+<h4 id="sec-1-6-1"><span class="section-number-4">1.6.1</span> Files</h4>
+<div class="outline-text-4" id="text-1-6-1">
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li>ansys-mode.el: Main file
+</li>
+<li>ansys-keyword.el: Fontification variables build from
+helper/ansys-fontification.el
+</li>
+<li>ansys-template.el: Template definitions
+</li>
+<li>ansys-process.el: Variables and functions related to solver
+processes
+</li>
+</ul>
+
+<p>
+(and possibly their compiled versions with the suffix '.elc'.  In case
+you are using the mode with an older version of Emacs than 24.1 please
+remove the .elc files.)
+</p>
+
+<p>
+<b>Auxiliaries</b>:
+</p>
+<ul class="org-ul">
+<li>README.org &#x2013; This file
+</li>
+<li>NEWS.org &#x2013; News and history
+</li>
+<li>TODO.org &#x2013; Todos and deficiencies
+</li>
+<li>LICENSE &#x2013; The GPL (Gnu Public License) Version 3
+</li>
+<li>default.el &#x2013; Configuration (example) file
+</li>
+<li>helper/example.dat &#x2013; WorkBench example APDL solver input file
+</li>
+<li>helper/example.anf &#x2013; ANSYS geometry neutral file example
+</li>
+<li>helper/example.mac &#x2013; APDL user macro and highlighting example
+</li>
+<li>doc/A-M_introductory_tutorial-16.1.1.pdf &#x2013; Your first look at ANSYS-Mode?
+</li>
+<li>doc/A-M_in-depth_tutorial-16.1.1.pdf &#x2013; A hands-on ANSYS-Mode tutorial
+</li>
+<li>doc/A-M_in-depth_tutorial-16.1.1.ansys &#x2013; Hands-on tutorial's supplementary APDL code
+</li>
+<li>doc/A-M_APDL_reference-16.1.1.pdf &#x2013; APDL and ANSYS-Mode syntax highlighting reference guide
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-2" class="outline-4">
+<h4 id="sec-1-6-2"><span class="section-number-4">1.6.2</span> Short instructions</h4>
+<div class="outline-text-4" id="text-1-6-2">
+<p>
+<b>For Windows systems</b>:
+</p>
+
+<p>
+If applicable please grab the package of a pre-compiled Emacs-24.5
+(Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
+site and unpack this archive anywhere on your system (you do not need
+administrator rights).  You might subsequently run the program
+addpm.exe (located in the bin directory) to add an Emacs entry to the
+Windows start menu (please refer to the README.W32 file) otherwise
+start the Emacs executable runemacs.exe from there.
+</p>
+
+<p>
+ANSYS-Mode is now immediately available, by opening (check out the
+`example.mac' example) or by creating a new APDL file with a
+.mac suffix.  Have fun!
+</p>
+
+<p>
+Most functionalities should work out of the box, but if you have NOT
+installed ANSYS in its default installation directory on drive
+`C:Program Files' on Win64 and you want to start&#x2013;for
+example&#x2013;'anslic_admin' or the ANSYS help browser directly from Emacs
+please adjust the configuration file `default.el' file in Emacs'
+`site-lisp' directory according to the commented code examples.  If
+you are using your own configuration file, please remember that it is
+loaded <b>before</b> `default.el'; this means that ANSYS-Mode settings done
+by Emacs' customisation system or written in your configuration file
+might be overwritten by `default.el'.  If you remove `default.el' or
+set 'inhibit-default-ini' to non-nil in your own init file, then
+default.el is not loaded any longer.
+</p>
+
+<p>
+In case you want to download or have already installed the <a href="http://ftp.gnu.org/pub/gnu/emacs/">original version</a>
+of GNU Emacs, you can also download and configure the
+ANSYS-Mode package separately. Please refer to below instructions.
+</p>
+
+<p>
+<b>For existing Emacs installations on Windows and GNU/Linux</b>:
+</p>
+</div>
+
+<div id="outline-container-sec-1-6-2-1" class="outline-5">
+<h5 id="sec-1-6-2-1"><span class="section-number-5">1.6.2.1</span> Direct way; no file configuration necessary</h5>
+<div class="outline-text-5" id="text-1-6-2-1">
+<p>
+Important prerequisite: Emacs must know where all the code (.el or its
+compiled versions .elc) files reside!  Extract the mode archive into
+an Emacs directory which is in its default load-path (a good place is
+the `site-lisp' folder in your Emacs installation tree) or indicate
+the directory with the environment variable EMACSLOADPATH).
+</p>
+
+<p>
+From there on you must load first the mode definitions with `M-x
+load-file ansys-mode RET', i. e. typing "M-x" (first) the &lt;Alt&gt; key
+and then the &lt;x&gt; key simultaneously, you'll end up in the so called
+Emacs minibuffer prompt, now type "load-file" (you might apply the
+&lt;TAB&gt; key for the Emacs auto-completion feature at every intermediate
+stage) and conclude this input with the &lt;RET&gt; key. Emacs will then
+prompt you for a file, type in the directory where you have extracted
+the code and "ansys-mode.el" (or "ansys-mode.elc" - for loading speed
+reasons - if the compiled version is available) and press RET to
+execute the loading.  Thereafter call the mode itself with `M-x
+ansys-mode RET' for every new or existing APDL file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-2-2" class="outline-5">
+<h5 id="sec-1-6-2-2"><span class="section-number-5">1.6.2.2</span> More convenient way; file configuration necessary</h5>
+<div class="outline-text-5" id="text-1-6-2-2">
+<p>
+Extract the files somewhere on disc and put the following paragraph
+into your `~/.emacs' or `~/.emacs.d/inti.el' configuration file in
+your home directory `~', which is determined by the environment
+variable HOME (on both Windows and Unix), adjust the stuff below in
+capital letters, restart Emacs and ansys-mode will be automatically
+applied for all files with suffixes `.mac', `.dat' and `.inp'.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE"</span>)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">assuming you extracted the files on drive "c:"</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">.mac is the macro suffix of ANSYS i. e. these macros can be called</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">in the ANSYS command prompt like a regular ANSYS function (without</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">the suffix .mac)</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.mac\\'"</span> . ansys-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">.dat and .inp are WorkBench's solver input file suffixes</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.dat\\'"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.inp\\'"</span> . ansys-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">.anf is the suffix for "ANSYS Neutral" files which include mostly</span>
+<span style="color: #b22222;">;;  </span><span style="color: #b22222;">gometric data but also some APDL snippets.</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+
+(autoload 'ansys-mode <span style="color: #8b2252;">"ansys-mode"</span> nil t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-6-3" class="outline-4">
+<h4 id="sec-1-6-3"><span class="section-number-4">1.6.3</span> Verbose instructions</h4>
+<div class="outline-text-4" id="text-1-6-3">
+<ul class="org-ul">
+<li>Direct way, no configuration necessary (loading `by hand')
+</li>
+</ul>
+
+<p>
+Please consult the `direct way' description above.
+</p>
+
+<p>
+If you are unfamiliar by these concepts I suggest working through the
+build-in tutorial of GNU Emacs (you'll find it in the help entry in
+the menu bar), it doesn't take too much time and the investment will
+be worth it since it will accelerate your general editing capabilities
+in the future.
+</p>
+
+<ul class="org-ul">
+<li>Permanent configuration
+</li>
+</ul>
+
+<p>
+Please have a look at the accompanying `default.el' customisation
+example. It can be used as a configuration file (after moving it
+e. g. to <code>/usr/share/emacs/site-lisp</code> or
+<code>c:\\EMACS_INSTALLDIR\\site-lisp</code>, hint: The directory <code>site-lisp/</code> in
+the Emacs installation tree is in its default load-path).  Yet
+`default.el' is loaded AFTER your personal Emacs configuration file
+(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
+to change the following settings with Emacs' customisation system or
+changing them directly in your personal configuration file, you must
+either set the variable `inhibit-default-ini' to `t' <code>(setq
+inhibit-default-ini t)</code> in your personal configuration file or remove
+`default.el' otherwise your settings might be overwritten!
+</p>
+
+<p>
+If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
+load-path it is necessary to adjust the following variable.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path
+             <span style="color: #8b2252;">"C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE"</span>)
+</pre>
+</div>
+
+<p>
+For example: "c:\\emacs\\ansys-mode" on a Windows system or
+ "/usr/local/src/emacs/ansys-mode" on a GNU/Linux system.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(autoload 'ansys-mode <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate ANSYS-Mode."</span> 'interactive)
+</pre>
+</div>
+
+<p>
+From here you are able to type "M-x ansys-mode RET" to activate the
+mode for every interesting file.
+</p>
+
+<ul class="org-ul">
+<li>Automatic mode assignment
+</li>
+</ul>
+
+<p>
+When you intend to apply the mode automatically, for all files with
+the extensions `.mac', `.dat', `.inp' and `.anf' ( .dat and .inp are
+WorkBench's solver input file suffixes) you are opening, add the
+following to your `.emacs' file:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.mac$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.dat$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.inp$"</span> . ansys-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">this is the suffix for "ANSYS Neutral Files" which include some APDL.</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+</pre>
+</div>
+
+<p>
+The suffix below belongs to the `anys neutral file' export format
+which contains also an APDL header and footer.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Auto-insertion of code
+</li>
+</ul>
+
+<p>
+In case you also want to enjoy the auto insertion feature, which puts
+(optionally) some predefined body of ANSYS commands to every new APDL
+file insert the following into '.emacs':
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq auto-insert-mode 1)
+(setq auto-insert-query t) <span style="color: #b22222;">;</span><span style="color: #b22222;">insert only after request</span>
+(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Auto-loading of helper functions
+</li>
+</ul>
+
+<p>
+With below section you are also able to use certain ANSYS related
+commands in a new Emacs session without the need of previously having
+explicitly called ansys-mode.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(autoload 'ansys-customise-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for calling a special ANSYS customisation buffer."</span> 'interactive)
+(autoload 'ansys-abort-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for  aborting ANSYS runs."</span> 'interactive)
+(autoload 'ansys-display-error-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for inspecting the ANSYS error file."</span> 'interactive)
+(autoload 'ansys-start-ansys-help <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the ANSYS help browser."</span> 'interactive)
+(autoload 'ansys-start-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows."</span> 'interactive)
+(autoload 'ansys-license-status <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for displaying ANSYS license status or starting a license utility."</span> 'interactive)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-1-7" class="outline-3">
+<h3 id="sec-1-7"><span class="section-number-3">1.7</span> Usage and customisation</h3>
+<div class="outline-text-3" id="text-1-7">
+<p>
+When you have a file under `ansys-mode' check out the menu bar's
+`ANSYS' entry for its possibilities and select the entry `Describe
+ANSYS Mode' or type "C-h m" (i. e. the &lt;CTRL&gt; key together with the
+&lt;h&gt; key and subsequently the &lt;m&gt; key), which will display the
+ANSYS-Mode help which is your `online' guide for its usage,
+key-bindings and customisation options.
+</p>
+
+<p>
+Templates, i.e. code snippets or so called skeletons might be extended
+in `ansys-template.el' and can be used similarly or complementarily to
+a classical ANSYS macro library.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-1-8" class="outline-3">
+<h3 id="sec-1-8"><span class="section-number-3">1.8</span> Experienced Emacs users</h3>
+<div class="outline-text-3" id="text-1-8">
+<p>
+ANSYS-Mode changes the default behaviour of Emacs
+</p>
+
+<p>
+globally:
+</p>
+
+<ul class="org-ul">
+<li>Switches on font-lock-mode if toggled off, e.g when calling Emacs with
+the -D (basic display) option
+</li>
+<li>Activated Delete Selection Mode <code>(delete-selection-mode t)</code>
+</li>
+<li>Activated Show Paren Mode <code>(show-paren-mode t)</code>
+</li>
+<li>Advised M-w (kill-ring-save) without active region to copy the whole line
+</li>
+</ul>
+
+<p>
+(Delete Selection Mode can be switched off in the ANSYS-Mode menu.)
+</p>
+
+<p>
+locally:
+</p>
+<ul class="org-ul">
+<li>(setq scroll-preserve-screen-position t)
+</li>
+<li>Changed M-h (mark-paragraph) to move the cursor to the end of the region
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-9" class="outline-3">
+<h3 id="sec-1-9"><span class="section-number-3">1.9</span> Acknowledgements</h3>
+<div class="outline-text-3" id="text-1-9">
+<ul class="org-ul">
+<li>Tim Read
+</li>
+<li>Geoff Foster
+</li>
+</ul>
+
+<p>
+For their ansys-mod.el from 1997 which triggered the idea in 2006 to
+start ANSYS-Mode as a GNU public license (GPL) implementation with an
+extended feature set.
+</p>
+
+<p>
+Further acknowledgements in mainly reverse chronological order:
+</p>
+
+<ul class="org-ul">
+<li>Mehmet Akgul
+</li>
+<li>Nish Joseph
+</li>
+<li>Alwin Perras
+</li>
+<li>Mathias Dahl, for hide-region.el (and yupeng for some additions)
+</li>
+<li>Thien-Thi Nguyen
+</li>
+<li>Michael Kidner
+</li>
+<li>Ilya Gurin
+</li>
+<li>Alex Schroeder
+</li>
+<li>Holger Sparr
+</li>
+<li>Eli Zaretzki
+</li>
+<li>Markus Triska
+</li>
+<li><a href="http://stallman.org/">RMS</a> (Richard Stallman) for GNU Emacs
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1-10" class="outline-3">
+<h3 id="sec-1-10"><span class="section-number-3">1.10</span> Further Resources</h3>
+<div class="outline-text-3" id="text-1-10">
+</div><div id="outline-container-sec-1-10-1" class="outline-4">
+<h4 id="sec-1-10-1"><span class="section-number-4">1.10.1</span> Editor Resources</h4>
+<div class="outline-text-4" id="text-1-10-1">
+<ul class="org-ul">
+<li>The <a href="http://www.emacswiki.org/">Emacs Wiki</a>
+</li>
+<li>A competitor of ANSYS-Mode: The commercial <a href="http://www.padtinc.com/pedal">Pedal</a> script editor
+</li>
+<li>Another free <a href="http://apdl.de/">APDL editor</a>, unfortunately this site seems to be
+abandoned since 2010
+</li>
+<li>Simple APDL syntax highlighting is available for various editors,
+gvim, nedit, &#x2026; just to name a few, please have a look at
+<a href="http://ansys.net/">ANSYS.net</a>.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-10-2" class="outline-4">
+<h4 id="sec-1-10-2"><span class="section-number-4">1.10.2</span> ANSYS and APDL resources</h4>
+<div class="outline-text-4" id="text-1-10-2">
+<ul class="org-ul">
+<li>Xansys, an <a href="http://www.xansys.org/">ANSYS online community</a> (registration necessary for the
+forum)
+</li>
+<li>A general  ANSYS repository <a href="http://www.ansys.net/">ansys.net</a>
+</li>
+<li>The <a href="http://www.ansys.com/">ANSYS homepage</a>
+</li>
+<li><a href="http://www.auc-ev.de/">AUC</a>, the ANSYS User Club in Germany
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-11" class="outline-3">
+<h3 id="sec-1-11"><span class="section-number-3">1.11</span> Bugs and Problems</h3>
+<div class="outline-text-3" id="text-1-11">
+<p>
+For an overview of deficiencies and outstanding issues please check
+the beginning of the <a href="TODO">TODO</a> file.
+</p>
+
+<p>
+The `user variable' highlighting is still experimental, newly edited
+variable definitions are taken into account only when the variable
+ansys-dynamic-highlighting-flag is set (for very large files this
+slows Emacs and this flag is only implemented for `.mac' files) or any
+times when you activate the variable display (with C-c C-v) and the
+maximum highlighting level.  If not already the case try to use the
+code in compiled form, please have a look at the documentation of the
+Emacs function `byte-recompile-directory'.
+</p>
+
+<p>
+ANSYS `format line' (multi-line highlighting) and `user variable'
+highlighting (when the mentioned flag above is not set) are somewhat
+brittle, please use "M-o M-o" to update the fontification in case the
+format line and all variables are not highlighted correctly.
+</p>
+</div>
+
+<div id="outline-container-sec-1-11-1" class="outline-4">
+<h4 id="sec-1-11-1"><span class="section-number-4">1.11.1</span> Getting help</h4>
+<div class="outline-text-4" id="text-1-11-1">
+<p>
+If you experience problems installing or running this mode you have
+the following options:
+</p>
+
+<ul class="org-ul">
+<li>Write an email to the mode <a href="mailto:dieter@duenenhof-wilhelm.de">maintainer</a> (you can trigger a bug report
+from the menu or directly calling the function
+`ansys-submit-bug-report'.  Even when you are not in the position of
+sending emails from Emacs this will give at least a useful mail
+template with valuable information about internal mode settings).
+</li>
+
+<li>When you have already a (cost free) Github account you are able to
+issue a bug report at the <a href="https://github.com/dieter-wilhelm/ansys-mode/issues">Github issues list</a>.  From this site you
+might download the latest development version.
+</li>
+
+<li>Also at the <a href="http://www.emacswiki.org/cgi-bin/wiki/AnsysMode">Emacs Wiki</a> you might add comments or wishes without
+registration.
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> NEWS</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> News and History</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+</p>
+</div>
+
+<div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1"><span class="section-number-4">2.1.1</span> Version 16.1.1 Mai 2015</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>The command `ansys-send-to-ansy-and-proceed' (C-c C-j) is now
+interactive, i. e. after invoking this command with its key-sequence
+"C-c C-j" it can be repeated by typing just the final character "j"
+(or "C-j").
+</li>
+
+<li>The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
+paragraph, when there is no region marked.  And the cursor doesn't
+skip to the next code line without a prefix argument "C-u".
+</li>
+
+<li>The `ansys-show-command-parameters' (M-?) tooltip can now be
+switched immediately off with a prefix argument of zero.
+</li>
+
+<li>The output buffer <b>ANSYS</b> of the interpreter commands might now
+reside on a another Emacs frame.
+</li>
+
+<li>Extended the APDL material library which includes now creep and
+multi-linear plasticity data in matlib/ as well.
+</li>
+
+<li>Is packaged with the current stable version Emacs-24.5 and updated
+for ANSYS 16.  Besides the Windows version there is also now a
+source package available for compiling Emacs-24.5 together with
+ANSYS-Mode.
+</li>
+
+<li>Renamed README, NEWS and TODO to *.org, fontification.mac to
+example.mac.  Included an example.dat and example.anf
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-2" class="outline-4">
+<h4 id="sec-2-1-2"><span class="section-number-4">2.1.2</span> Version 15.0.1 Aug 2014</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>Added an example of an ANSYS material library
+</li>
+
+<li>C-c C-c (ansys-send-to-ansys) doesn't skip to the next code line any
+longer but remains in the code line. The former behaviour borrows
+the new function C-c C-j (ansys-send-to-ansys-and-proceed),
+executing and then skipping to the next code.
+</li>
+
+<li>Improved the `ansys-show-blabla&#x2026;
+</li>
+
+<li>Highlighted now the parametric function CXABS(), which was already
+introduced in V14.
+</li>
+
+<li>Updated the help, completion and highlighting functionality to V15
+And as usual: Corrected some bugs, typos and extended the templates,
+e. g. partial solutions with psolve for mass calculations.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-3" class="outline-4">
+<h4 id="sec-2-1-3"><span class="section-number-4">2.1.3</span> Version 14.5.2  Mar 2013</h4>
+<div class="outline-text-4" id="text-2-1-3">
+<ul class="org-ul">
+<li><p>
+The unwieldy and usually uninteresting pure number blocks (the
+nblock, eblocks and cmblocks) in files with the suffix .dat are now
+hidden by default.  WorkBench creates these blocks in input files
+for the solver.  You can, off course, unhide these blocks and
+inspect them as well.
+</p>
+
+<p>
+Functions: `ansys-hide-number-blocks', `ansys-show-number-blocks',
+`ansys-hide-region'
+</p>
+
+<p>
+Customisable variables: `ansys-hide-region-before-string',
+`ansys-hide-region-after-string' and
+`ansys-hide-region-propertize-markers'
+</p>
+</li>
+
+<li>Added a way for showing the current value and status of a user
+variable at point, overcoming the drawback of C-c C-v
+`ansys-display-variables' that it is showing only the variable
+definitions and definitions coming from external files are not
+shown. You can activate this functionality (Linux only) with a
+prefix argument: C-u C-c C-v.
+</li>
+
+<li>Fixed the completion and highlighting of command keywords and their
+help entries, in the previous release were unfortunately many
+keywords missing or entries incomplete.
+</li>
+
+<li>As always: Enhancements and corrections for the APDL templates,
+added a beam simulation template
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-4" class="outline-4">
+<h4 id="sec-2-1-4"><span class="section-number-4">2.1.4</span> Version 14.5.1 Sep 2012</h4>
+<div class="outline-text-4" id="text-2-1-4">
+<ul class="org-ul">
+<li><p>
+Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
+the detailed ANSYS help in your web-browser for an APDL command or
+element name (also the element number is sufficient) around the
+cursor (or if that fails at the line beginning).
+</p>
+
+<p>
+Are you also tired of the ANSYS help browser?  For example try
+searching for the `F' APDL command, it is impossible! (update 2014:
+This has improved with the new help viewer in V15.) You have to pick
+it up from the alphabetical command list. Likewise when you are
+searching for an incomplete keyword, no hint, no completion,
+nothing!  Finding and browsing relevant APDL documentation is still
+cumbersome and too slow.
+</p>
+
+<p>
+As a highlight of this release you can now read immeadiately the
+detailed ANSYS help in your web browser for <b>all</b> APDL command AND
+element names around the cursor (or for the first command in the
+current line if that fails to be valid keyword).  You may input your
+search string also interactively, including its completion to ANSYS
+help keywords and of certain help categories, like `Release Notes'
+and such. This is an ideal complement to ANSYS-Mode's in-built
+`command syntax help'.
+</p>
+</li>
+
+<li>The function `ansys-start-ansys' is now available under Windows as well
+and starts the APDL product launcher under this platform.
+</li>
+
+<li>When calling `ansys-browse-ansys-help' and
+`ansys-show-command-parameters' (M-? - the in-built `command syntax
+help') with a prefix argument for interactively entering a command
+name, the name is now completable.  And in the non-interactive mode
+both functions working also for APDL commands which are commented
+out as well (only for the first command in case of
+`ansys-show-command-parameters').
+</li>
+
+<li>Also the input of `ansys-query-ansys-command' (C-c C-q) is now
+completable to all current ANSYS commands and with an optional
+prefix argument the current code line is copied as the initial
+input.
+</li>
+
+<li>Improved the introductory and the in-depth tutorial and extended the
+documentation with an APDL and syntax highlighting reference in HTML
+and PDF. (To some degree syntax highlighted in the PDF version as
+well)
+</li>
+
+<li>Values of the `_RETURN' variable are now documented in the function
+`ansys-skeleton-information'
+</li>
+
+<li>`ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
+now skipping over node and elements blocks, which are only pure
+number blocks.  They are now alternatives to
+`ansys-number-block-start' C-c { and C-c } respectively
+</li>
+
+<li>Removed bug in customisation system and dropped 32 bit ANSYS support
+in line with the ANSYS OS
+[<a href="http://www.ansys.com/Support/Platform+Support">http://www.ansys.com/Support/Platform+Support</a> strategy] for 2013.
+</li>
+
+<li>Described a poor man's round() workaround in ansys-template-function
+under the nint() entry
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-5" class="outline-4">
+<h4 id="sec-2-1-5"><span class="section-number-4">2.1.5</span> Version 14.0.1 June 2012</h4>
+<div class="outline-text-4" id="text-2-1-5">
+<ul class="org-ul">
+<li>Enhanced the documentation, included is now an introductory tutorial
+`ansys-mode_tutorial.pdf' and a hands-on tutorial
+`APDL_tutorial.pdf'
+</li>
+
+<li>Added a timer for getting rid of the parameter help overlays after
+some time interval (1 min) without reusing the parameter help
+</li>
+
+<li>Added a (customisable) variable `ansys-no-of-processors' and
+function with the same name for specifying the number of processors
+for an Ansys multiprocessor run
+</li>
+
+<li>Activated outline-minor-mode and auto-insertion (in default_el)
+</li>
+
+<li>Extended mode commands, templates and removed typos mainly in
+ansys-template.el. For example added all *get functions in the
+ansys-skeleton-function template
+</li>
+
+<li>Added a custom variable the corresponding function
+ansys-ansysli-servers for specifying the ansys interconnect license
+servers
+</li>
+
+<li>Added a new shortcut and menu entry isometric view
+</li>
+
+<li>Applied sensible defaults to ansys-lmutil-program, ansys-program and
+ansys-help-program, for most needs it should now be enough just to
+set the used ansys version (ansys-current-ansys-version, if it is
+not 140, see the example config file default_el) and maybe
+additionally the installation directory (ansys-install-directory).
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-6" class="outline-4">
+<h4 id="sec-2-1-6"><span class="section-number-4">2.1.6</span> Version 13.0.1 March 2011</h4>
+<div class="outline-text-4" id="text-2-1-6">
+<ul class="org-ul">
+<li>Added support for aligning whole sections of Ansys variable
+definitions, both in the Ansys menu and as a keyboard shortcut 'C-c
+C-a'
+</li>
+
+<li>Enhanced ansys-display-skeleton with an optional argument for
+inserting the respective skeleton in the APDL buffer.
+</li>
+
+<li>Enhanced some "interactive" code templates with lists for completing
+the input and sensible defaults
+</li>
+
+<li>Refined some abbreviation definitions and focused the display of
+abbreviations to the mode specific ones
+</li>
+
+<li>Fixed insert pair functions, like 'C-c %'
+</li>
+
+<li>Changed keyboard shortcut for calling the Ansys help to 'C-c C-h'
+</li>
+
+<li>Updated keyword list, deprecated elements, undocumented commands,
+etc. to release 13.0 of Ansys, as usual.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-7" class="outline-4">
+<h4 id="sec-2-1-7"><span class="section-number-4">2.1.7</span> Version 12.0.1 Dec 2010</h4>
+<div class="outline-text-4" id="text-2-1-7">
+<ul class="org-ul">
+<li>Some new graphics commands like ansys-zoom-in, -zoom-out,
+-move-left, -right, -up, -down, etc.
+</li>
+
+<li>The lisp code had to be split up for better maintance, the code
+files for are now provided in an archive together with their
+compiled state for speed reasons.
+</li>
+
+<li>Reworked the fontification mainly for the sake of speed.  There are
+now highlighting levels to choose from, offering e. g. higlighting
+of deprecated element types in a warning-face, deprecated Ansys *
+comments and so on
+</li>
+
+<li>Updated and improved the readability of the mode's help and the
+README file
+</li>
+
+<li>The output from the LMUtil license status tool (C-c C-l) is now
+filtered on UNIX to be more concise.
+</li>
+
+<li>The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
+(C-c C-u) commands are now generalised so that they are also doing
+some useful stuff without a running Ansys interpreter process (they
+copy in that case the cursor line/the chosen region and copy from
+the file beginning to the cursor line, respectively, to the
+clipboard).  Given a prefix argument to these commands, the cursor
+won't move to the next code line.
+</li>
+
+<li>The completion of Ansy keywords is reworked and has improved.  Ansys
+symbols are now completed in 3 ways: Upcase, downcase and
+capitalise.
+</li>
+
+<li>New: Added tooltips to all Ansys menu entries.  Activated or
+deactivated menue entries according to the context
+</li>
+
+<li>Ansys mode tries to gather information from the OS environment when
+the variable `ansys-license-file' is not set by the user and uses
+now Ansys standard names as default values for some more variables.
+</li>
+
+<li>The variables in the variable summary are now sorted according to
+their first occurance and not any longer in "definition types".  Now
+component names are included with the variable highlighting.
+</li>
+
+<li>Added menu entry for reloading Ansys Mode for the case when certain
+customisation options in the code files itself are changed and
+require a code reloading to take effect.
+</li>
+
+<li>Ansys mode changes some Emacs default behaviour to smooth the
+transition from other editors
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-8" class="outline-4">
+<h4 id="sec-2-1-8"><span class="section-number-4">2.1.8</span> Version 11.0.2 Nov 2009</h4>
+<div class="outline-text-4" id="text-2-1-8">
+<ul class="org-ul">
+<li>Enabled the preview of code templates or fragments (called
+skeletons in this mode, please inspect `ansys-display-skeleton').
+</li>
+
+<li>Removed "buffer has no process" bug when killing an ansys-mode
+buffer.
+</li>
+
+<li>Submitting interactively Ansys commands (via minibuffer query, not
+only as written in a macro file) to the solver process,
+ansys-query-ansys-command (C-c C-q).
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-1-9" class="outline-4">
+<h4 id="sec-2-1-9"><span class="section-number-4">2.1.9</span> ansys-mode.el 11.0.1 in comparison to ansys-mod.el:</h4>
+<div class="outline-text-4" id="text-2-1-9">
+<ul class="org-ul">
+<li>New: Provides Ansys command parameter- and syntax help.
+</li>
+
+<li>New: Offers Ansys process management: Acquiring license server
+information in a buffer Starting and stopping asynchronously
+Ansys runs.  Sending code lines to running Ansys process (sort of
+code debugging facility) and getting the output into a buffer.
+</li>
+
+<li>New: Experimental highlighting of user defined variables.
+Redefinition and clearing of variables is not yet taken into
+account.
+</li>
+
+<li>New: Emacs customisation facility is available for the new Ansys
+mode group.
+</li>
+
+<li>New: Emacs outline-minor-mode is readily available in conjunction
+with this mode.
+</li>
+
+<li>Completions of Ansys commands are now case-sensitive, with
+additional completion of function and element names.
+</li>
+
+<li>Previously defined skeletons are fully functional now, new ones
+are added and enabled with the abbreviation and auto-load
+facilities of Emacs 22.
+</li>
+
+<li>Ansys' interpreter's disregard of any capitalisation is now fully
+taken into account in the highlighting.
+</li>
+
+<li>The apostrophe "'" is now assigned as the Ansys string and the
+value of character parameters delimiter and not wrongly """;
+the strings are fontified accordingly.
+</li>
+
+<li>The dollar sign "$" is now emphasised as the Ansys condensed
+input character (multiple Ansys commands in one line).
+</li>
+
+<li>The colon ":" is now emphasised as the Ansys colon do loop
+character ("(x:y:z)" means from x to y, in z steps, z is equal to
+one as default).  For example: "n,(1:6),(2:18:2)" runs 6 loops.
+Colon loops are working also with real values: k,,(2.5:3:0.1) and
+with array parameters: k,,A(1:100), but the latter is an
+undocumented feature. Since ansys 11.0 the colon looping is also
+working with *GET functions (example: A(1:5)=NX(1:5))). A ":"
+indicates also a beginning of a label for the *GO and *IF
+command.
+</li>
+
+<li>"%" is now distinguished as the Ansys parameter substitution
+and format specifier character.
+</li>
+
+<li>The ampersand "&amp;" is now correctly highlighted as the only
+available Ansys continuation character applicable to the format
+commands (*MSG, *MWRITE, *VREAD and *VWRITE) command and the
+subsequent format strings of the command are fontified.
+</li>
+
+<li>New: " *" (SPC before *) is indicated as an (Ansys deprecated)
+comment sign e. g.: %% a = 3 **4 %% results in "a" having the value
+3, whereas %% a = 3**4 %% sets "a" to 81!
+</li>
+
+<li>New: A line beginning with a comma is indented to the length of the
+last non slash or asterisk command as a reminder that the Ansys
+solver interprets this as a space holder for the last command
+keyword (the Ansys default command concept).
+</li>
+
+<li>Extended documentation, code cleaning and simplification of commands
+(e.g. comment handling) with the application of standard Emacs 22
+facilities among other things.
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Tutorials</h2>
+<div class="outline-text-2" id="text-3">
+<img src="ansys+emacs.png" height=150 alt="image">
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Introduction</h3>
+<div class="outline-text-3" id="text-3-1">
+</div><div id="outline-container-sec-3-1-1" class="outline-4">
+<h4 id="sec-3-1-1"><span class="section-number-4">3.1.1</span> Introducing ANSYS-Mode &#x2013; an APDL environment</h4>
+<div class="outline-text-4" id="text-3-1-1">
+<p>
+<a href="https://github.com/dieter-wilhelm/ansys-mode">This project</a> supports your APDL
+</p>
+<p>
+workflows with the FEA
+</p>
+<p>
+suite <a href="http://www.ansys.com/">ANSYS</a>.
+</p>
+<br>
+<p>
+It provides an editor mode to <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a> for investigating and
+coding APDL.  The mode offers also managing and communication
+capabilities for various ANSYS processes, like interactive code
+debugging with the solver or inquiring the license manager status,
+etc.  Some features are quite sophisticated but its documentation
+is accessible for ANSYS users with little APDL and <a href="http://en.wikipedia.org/wiki/Emacs">Emacs</a>
+</p>
+<p>
+experience.
+</p>
+<br>
+<p>
+<a href="http://www.gnu.org/home.en.html">GNU</a>
+</p>
+<p>
+Emacs is an up-to-date, powerful and
+extensible - yet free - editor. High quality software available for
+every operating system where ANSYS is running.
+</p>
+<br>
+<p>
+In the following <b>C-c</b> or e. g. <b>M-c</b> means typing the &lt;CTRL&gt; or &lt;ALT&gt;
+key together with the &lt;c&gt; key.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Download</h3>
+<div class="outline-text-3" id="text-3-2">
+</div><div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Download ANSYS-Mode together with the Emacs editor</h4>
+<div class="outline-text-4" id="text-3-2-1">
+</div><div id="outline-container-sec-3-2-1-1" class="outline-5">
+<h5 id="sec-3-2-1-1"><span class="section-number-5">3.2.1.1</span> Remarkably there are <b>no</b> costs and license restrictions also for commercial use</h5>
+<div class="outline-text-5" id="text-3-2-1-1">
+<p>
+Most convenient is taking the pre-configured ANSYS-Mode in
+conjunction with the latest Emacs distribution for Win32/64 from 
+the <a href="https://github.com/dieter-wilhelm/ansys-mode/releases">ANSYS-Mode releases page</a> on <a href="https://github.com/">GitHub</a>.
+</p>
+<img src="./github.png" alt="Download page from GitHub">
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Installation</h3>
+<div class="outline-text-3" id="text-3-3">
+</div><div id="outline-container-sec-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> Install ANSYS-Mode together with Emacs</h4>
+<div class="outline-text-4" id="text-3-3-1">
+<p>
+Extract the former zip archive to an arbitrary location on your file
+system.  Optionally you might install Emacs shortcut icons for the
+system tray with <i>addpm.exe</i> in Emacs' <i>bin</i> folder.
+</p>
+
+
+<div class="figure">
+<p><img src="./emacs_bin_folder.png" alt="emacs_bin_folder.png" />
+</p>
+</div>
+
+<p>
+In this list <i>runemacs.exe</i> is the actual editor executable.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> Usage</h3>
+<div class="outline-text-3" id="text-3-4">
+</div><div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1"><span class="section-number-4">3.4.1</span> Open an APDL macro file with Emacs</h4>
+<div class="outline-text-4" id="text-3-4-1">
+<p>
+Start the editor and open <i>example.mac</i> in Emacs' <i>site-lisp</i>
+folder or any other APDL file (with the extensions <i>mac</i>, <i>inp</i>,
+<i>dat</i> or <i>anf</i>, otherwise additionally type <b>M-x ansys-mode</b> and
+&lt;RET&gt;).
+</p>
+
+
+<div class="figure">
+<p><img src="./find_file_dialog.png" alt="find_file_dialog.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2"><span class="section-number-4">3.4.2</span> Explore the ANSYS-Mode menu</h4>
+<div class="outline-text-4" id="text-3-4-2">
+<p>
+If ANSYS is installed in its default folder <i>C:Program Files</i> under
+Win64 also system dependent functions are working, like browsing the
+APDL help with <b>C-c C-b</b>, otherwise, you can easily
+configure this. All described features can be executed through the
+ANSYS-Mode menu or with keyboard shortcuts.
+</p>
+
+
+<div class="figure">
+<p><img src="./ansys_menu.png" alt="ansys_menu.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> Selected ANSYS-Mode Features</h3>
+<div class="outline-text-3" id="text-3-5">
+</div><div id="outline-container-sec-3-5-1" class="outline-4">
+<h4 id="sec-3-5-1"><span class="section-number-4">3.5.1</span> Inspect easily WorkBench solver input files (<i>example.dat</i>)</h4>
+<div class="outline-text-4" id="text-3-5-1">
+<p>
+ANSYS-Mode hides the normally uninteresting but usually very
+large number blocks.  On the right hand side is the unhidden content.
+</p>
+
+<div class="figure">
+<p><img src="./hidden_blocks.png" alt="hidden_blocks.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./unhidden_blocks.png" alt="unhidden_blocks.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-2" class="outline-4">
+<h4 id="sec-3-5-2"><span class="section-number-4">3.5.2</span> Use the ANSYS-Mode APDL command help</h4>
+<div class="outline-text-4" id="text-3-5-2">
+<p>
+Please type <b>M-?</b>, alternatively: <b>C-c ?</b>, on a code line and you
+will see the APDL command's description and syntax (even when the
+line is commented out).  You can continue editing, this temporary
+overlay - here in yellow - remains visible for a while.
+</p>
+
+
+<div class="figure">
+<p><img src="./parameter_help.png" alt="parameter_help.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-3" class="outline-4">
+<h4 id="sec-3-5-3"><span class="section-number-4">3.5.3</span> Select and insert templates from the menu into your code</h4>
+<div class="outline-text-4" id="text-3-5-3">
+<p>
+Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
+</p>
+
+
+<div class="figure">
+<p><img src="./template_menu.png" alt="template_menu.png" width="&quot;1200&quot;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-4" class="outline-4">
+<h4 id="sec-3-5-4"><span class="section-number-4">3.5.4</span> Preview the extensible APDL code templates</h4>
+<div class="outline-text-4" id="text-3-5-4">
+<p>
+Before inserting an entire template you are able to inspect its
+content in a preview window (<b>C-c C-s</b>) and might just copy the
+most relevant snippets, please see below and next slide.
+</p>
+
+
+<div class="figure">
+<p><img src="./template.png" alt="template.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-5" class="outline-4">
+<h4 id="sec-3-5-5"><span class="section-number-4">3.5.5</span> Select an interesting template from a completion window</h4>
+<div class="outline-text-4" id="text-3-5-5">
+<p>
+Type <b>C-c C-s</b> to choose a template name, use the &lt;TAB&gt; key to
+complete or to open the completion window of available items.
+</p>
+
+
+<div class="figure">
+<p><img src="./template_selection.png" alt="template_selection.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-6" class="outline-4">
+<h4 id="sec-3-5-6"><span class="section-number-4">3.5.6</span> Check auto-insertion and outline your code (tree view)</h4>
+<div class="outline-text-4" id="text-3-5-6">
+<p>
+Create a new APDL file with the suffix 
+</p>
+<p>
+and let Emacs auto-insert
+a skeleton with `outline' headings.  Collapse the content to a tree
+view with <b>C-c @ C-t</b> and open all (<b>C-c @ C-a</b>) again.
+</p>
+
+
+<div class="figure">
+<p><img src="./outline.png" alt="outline.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-7" class="outline-4">
+<h4 id="sec-3-5-7"><span class="section-number-4">3.5.7</span> Utilise completions of all &#x2013; around 2000 &#x2013; APDL symbols</h4>
+<div class="outline-text-4" id="text-3-5-7">
+<p>
+Move the cursor behind a character - here `c' - or word fragment and
+type &lt;ESC&gt; &lt;TAB&gt; or <b>C-M-i</b> for completing up to date APDL command-,
+element- and function names.
+</p>
+
+
+<div class="figure">
+<p><img src="./completion.png" alt="completion.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-8" class="outline-4">
+<h4 id="sec-3-5-8"><span class="section-number-4">3.5.8</span> Open a summary window of your APDL variables</h4>
+<div class="outline-text-4" id="text-3-5-8">
+<p>
+Type <b>C-c C-v</b> to receive a summary window of all your variable
+definitions. With an argument (<b>C-u C-c C-v</b>) you will get the
+current value of your variable at the cursor (Linux only, right).
+</p>
+
+
+<div class="figure">
+<p><img src="./variable_buffer.png" alt="variable_buffer.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="variable_status.png" alt="variable_status.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-5-9" class="outline-4">
+<h4 id="sec-3-5-9"><span class="section-number-4">3.5.9</span> Structure your variable assignments</h4>
+<div class="outline-text-4" id="text-3-5-9">
+<p>
+Move the cursor to a variable definition paragraph or mark, here in
+yellow, some definitions and type <b>C-c C-a</b> to align them.
+</p>
+
+
+<div class="figure">
+<p><img src="./alignment.png" alt="alignment.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-10" class="outline-4">
+<h4 id="sec-3-5-10"><span class="section-number-4">3.5.10</span> Use the Emacs integrated, programmable RPN calculator</h4>
+<div class="outline-text-4" id="text-3-5-10">
+<p>
+Type <b>C-x</b> * * to open the calculator, type <b>y</b> for pasting results
+directly into the APDL file. <b>q</b> to quit the 'Emacs Calc' windows.
+</p>
+
+
+<div class="figure">
+<p><img src="./calculator.png" alt="calculator.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-11" class="outline-4">
+<h4 id="sec-3-5-11"><span class="section-number-4">3.5.11</span> Debug your code interactively with the solver (<a href="http://www.gnu.org/gnu/why-gnu-linux.html">GNU/Linux</a>)</h4>
+<div class="outline-text-4" id="text-3-5-11">
+<p>
+You can run the ANSYS solver under Emacs and send code lines from
+above APDL window with <b>C-c C-j</b> (<b>C-c C-c</b> for whole regions)
+directly to this process. Below you see the <b>interactive</b> solver
+output and on the left hand side the corresponding ANSYS images.
+</p>
+
+
+<div class="figure">
+<p><img src="./process.png" alt="process.png" width="&quot;1200&quot;" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-5-12" class="outline-4">
+<h4 id="sec-3-5-12"><span class="section-number-4">3.5.12</span> Display the license status and preview images on GNU/Linux</h4>
+<div class="outline-text-4" id="text-3-5-12">
+<p>
+In Emacs' mid-section you see the license state (<b>C-c C-l</b>)
+and left Emacs window (below) a thumbnail view of images from a
+folder.
+</p>
+
+
+<div class="figure">
+<p><img src="./license.png" alt="license.png" width="&quot;1200&quot;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5-13" class="outline-4">
+<h4 id="sec-3-5-13"><span class="section-number-4">3.5.13</span> Arrange the ANSYS-Mode windows to your needs</h4>
+<div class="outline-text-4" id="text-3-5-13">
+<p>
+The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS-Mode menu field
+</p>
+
+
+<div class="figure">
+<p><img src="ansys-mode.jpg" alt="ansys-mode.jpg" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6"><span class="section-number-3">3.6</span> Configuration</h3>
+<div class="outline-text-3" id="text-3-6">
+</div><div id="outline-container-sec-3-6-1" class="outline-4">
+<h4 id="sec-3-6-1"><span class="section-number-4">3.6.1</span> Configure system dependent aspects and user options</h4>
+<div class="outline-text-4" id="text-3-6-1">
+<p>
+The mode comes pre-configured for the default installation of
+ANSYS for Win64.  If something is amiss: Adjust
+</p>
+</div>
+<div id="outline-container-sec-3-6-1-1" class="outline-5">
+<h5 id="sec-3-6-1-1"><span class="section-number-5">3.6.1.1</span> the well commented configuration file <i>default.el</i></h5>
+<div class="outline-text-5" id="text-3-6-1-1">
+
+<div class="figure">
+<p><img src="./default_el.png" alt="default_el.png" />
+</p>
+</div>
+
+<p>
+&#x2026; and restart Emacs. 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-6-1-2" class="outline-5">
+<h5 id="sec-3-6-1-2"><span class="section-number-5">3.6.1.2</span> or change the settings with Emacs' customisation system</h5>
+<div class="outline-text-5" id="text-3-6-1-2">
+
+<div class="figure">
+<p><img src="./customisation_system.png" alt="customisation_system.png" />
+</p>
+</div>
+
+<p>
+&#x2026; and reload ANSYS-Mode. 
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7"><span class="section-number-3">3.7</span> Documentation and Licensing</h3>
+<div class="outline-text-3" id="text-3-7">
+</div><div id="outline-container-sec-3-7-1" class="outline-4">
+<h4 id="sec-3-7-1"><span class="section-number-4">3.7.1</span> Get to know Emacs and its excellent documentation</h4>
+<div class="outline-text-4" id="text-3-7-1">
+<p>
+Newcomers to Emacs should take the <a href="http://www.gnu.org/software/emacs/tour/">guided online tour</a> to
+get a background of its capabilities and fire up the interactive
+tutorial (<b>C-h t</b>) which is translated to various languages.
+</p>
+
+
+<div class="figure">
+<p><img src="./emacs_tutorial.png" alt="emacs_tutorial.png" />
+</p>
+</div>
+<img src="./tour_of_Emacs.png" alt="download page from Google Code">
+</div>
+</div>
+
+<div id="outline-container-sec-3-7-2" class="outline-4">
+<h4 id="sec-3-7-2"><span class="section-number-4">3.7.2</span> Use the ANSYS-Mode built-in help</h4>
+<div class="outline-text-4" id="text-3-7-2">
+<p>
+Please type <b>C-h m</b> to open the mode help, especially for
+ANSYS-Mode's usage and keybindings.  At the beginning is also a
+brief introduction of basic Emacs concepts.
+</p>
+
+
+<div class="figure">
+<p><img src="./mode_help.png" alt="mode_help.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-7-3" class="outline-4">
+<h4 id="sec-3-7-3"><span class="section-number-4">3.7.3</span> You might read further ANSYS-Mode documentation</h4>
+<div class="outline-text-4" id="text-3-7-3">
+<dl class="org-dl">
+<dt>Licensing and costs:</dt><dd>This is free and open software, there are
+<b>no costs</b> and effectively <b>no restrictions</b> for you using
+Emacs and ANSYS-Mode also commerically.  Both are under the
+<a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL, the Gnu Puplic License</a> described in the <i>LICENSE</i> file.
+</dd>
+</dl>
+<dl class="org-dl">
+<dt>Installation:</dt><dd>More detailed instructions are necessary if you
+are not using the mode bundled with Emacs for
+Windows.  Please have a look in the <i>README.org</i>
+file.  An online version is on
+<a href="http://dieter-wilhelm.github.io/ansys-mode/">ANSYS-Modes's GitHub Page</a>.
+</dd>
+</dl>
+
+<dl class="org-dl">
+<dt>Hands-on tutorial and reference:</dt><dd>You will find these
+in-depth documentation included in the mode's archives on
+<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">GitHub's releases page</a> or read <a href="http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html">online</a>.
+</dd>
+</dl>
+
+<dl class="org-dl">
+<dt>News and project history:</dt><dd>They are placed in the mode's
+accompanying <i>NEWS.org</i> file
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8"><span class="section-number-3">3.8</span> Help and Bugs</h3>
+<div class="outline-text-3" id="text-3-8">
+</div><div id="outline-container-sec-3-8-1" class="outline-4">
+<h4 id="sec-3-8-1"><span class="section-number-4">3.8.1</span> Search for help, report bugs and issues</h4>
+<div class="outline-text-4" id="text-3-8-1">
+<p>
+Besides the documentation, have a look in the <a href="https://github.com/dieter-wilhelm/ansys-mode/issues">GitHub's issues site</a>
+or send an <a href="mailto:dieter@duenenhof-wilhelm.de">email to the maintainer</a>.  Please use the ANSYS-Mode bug
+report functionality, which might provide helpful status
+information.
+</p>
+
+
+<div class="figure">
+<p><img src="./bug_report.png" alt="bug_report.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-9" class="outline-3">
+<h3 id="sec-3-9"><span class="section-number-3">3.9</span> Summary</h3>
+<div class="outline-text-3" id="text-3-9">
+</div><div id="outline-container-sec-3-9-1" class="outline-4">
+<h4 id="sec-3-9-1"><span class="section-number-4">3.9.1</span> Use ANSYS-Mode appropriate to your needs</h4>
+<div class="outline-text-4" id="text-3-9-1">
+</div><div id="outline-container-sec-3-9-1-0-1" class="outline-6">
+<h6 id="sec-3-9-1-0-1"><span class="section-number-6">3.9.1.0.1</span> The relevance of APDL remains tall: `WorkBench' operates <b>exclusively</b> the ANSYS solver with it!  For a <b>true understanding</b> the study of APDL is still prerequisite.   Furthermore, code APDL only for <b>repetitive</b> tasks and WB command snippets.</h6>
+</div>
+<div id="outline-container-sec-3-9-1-1" class="outline-5">
+<h5 id="sec-3-9-1-1"><span class="section-number-5">3.9.1.1</span> Basic APDL <b>Viewer</b></h5>
+<div class="outline-text-5" id="text-3-9-1-1">
+<p>
+Navigating in WB solver input files, discerning relevant
+information through highlighting, quickly analysing APDL commands
+with the built-in help or studying their detailed help in your
+browser.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-9-1-2" class="outline-5">
+<h5 id="sec-3-9-1-2"><span class="section-number-5">3.9.1.2</span> Earnest APDL <b>Editor</b></h5>
+<div class="outline-text-5" id="text-3-9-1-2">
+<p>
+Specific shortcut keybindings, outlining, code templates,
+completions, auto-indentation, abbreviations, auto-insertion.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-9-1-3" class="outline-5">
+<h5 id="sec-3-9-1-3"><span class="section-number-5">3.9.1.3</span> Advanced APDL <b>Environment</b></h5>
+<div class="outline-text-5" id="text-3-9-1-3">
+<p>
+Solver communication/feedback - hybrid between coding and
+debugging (GNU/Linux only), retrieving license states, error file
+viewing, abort file handling, extending APDL templates, &#x2026;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-9-2" class="outline-4">
+<h4 id="sec-3-9-2"><span class="section-number-4">3.9.2</span> Last slide of the ANSYS-Mode tutorial</h4>
+<div class="outline-text-4" id="text-3-9-2">
+</div><div id="outline-container-sec-3-9-2-1" class="outline-5">
+<h5 id="sec-3-9-2-1"><span class="section-number-5">3.9.2.1</span> Hint for the curious:</h5>
+<div class="outline-text-5" id="text-3-9-2-1">
+<img src="./gnu_emacs.png" alt="download page from Google Code">
+</div>
+</div>
+
+<div id="outline-container-sec-3-9-2-2" class="outline-5">
+<h5 id="sec-3-9-2-2"><span class="section-number-5">3.9.2.2</span> Thank you for your time getting acquainted with ANSYS-Mode!</h5>
+<div class="outline-text-5" id="text-3-9-2-2">
+<p>
+<a href="http://www.gnu.org/fun/jokes/gnuemacs.acro.exp.html">Have fun&#x2026;</a>
+</p>
+
+<div class="figure">
+<p><img src="./editor_learning_curves.jpg" alt="editor_learning_curves.jpg" />
+</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> Todo</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Deficiencies:</h3>
+<div class="outline-text-3" id="text-4-1">
+<dl class="org-dl">
+<dt>Highlighting</dt><dd>Experimental user variable highlighting
+does not take into account:
+<ul class="org-ul">
+<li>clearing of variables and
+</li>
+<li>usage of variables before their definitions (uninitialised
+variables)
+</li>
+<li>the variable fontification might clash with ANSYS specifiers
+</li>
+<li>string substitution of %variables% in strings does not highlight
+them in the proper variable face
+</li>
+</ul>
+</dd>
+<dt>Highlighting</dt><dd>A label :LABEL may appear behind the /input
+command and is not highlighted as label
+</dd>
+<dt>Highlighting</dt><dd>An apostrophy clashes with the ANSYS "char"
+specifier Keybinding: M-Tab is captured under
+Windows and some GNU/Linux desktops Workaround: Press
+instead of M-Tab (ALT + TAB) the ESC key and then
+the Tab key (ESC, TAB) or apply the command from
+the menu bar
+</dd>
+<dt>Highlighting</dt><dd>help overlay is only removed after 1 min if the
+buffer is active at that time!
+</dd>
+<dt>Keybinding</dt><dd>M-j: When there is already a `&amp;' in a format command
+(like *msg, *vwrite, *mwrite)
+ansys-indent-format-line inserts a redundant one
+</dd>
+<dt>Completion</dt><dd>Of parametric function parentheses
+completes redundant closing parentheses
+</dd>
+<dt>Completion</dt><dd>A mouse selection from the <b>ANSYS-completion</b> buffer
+is only inserted upcased.
+</dd>
+<dt>Completion</dt><dd>ANSYS command 'C***' will not be completed
+</dd>
+<dt>Completion</dt><dd>Emacs shows M-TAB (which is not working on most
+Desktops) in the menu but not ESC TAB or M-C-i for
+-complete-symbol (sent a bug report 2012-06-21
+bug#11758 bug-gnu-emacs@gnu.org, acknowledged and
+fixed 2012-09-02 =&gt; Emacs 24.3?)
+</dd>
+<dt>Skeleton</dt><dd>Mouse selection of -structural-template does not work
+(because of stipulated user text input from this skeleton)
+</dd>
+<dt>Navigation</dt><dd>C-c { does not skip an overlay in a number-block
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 16.1.2:</h3>
+<div class="outline-text-3" id="text-4-2">
+</div><div id="outline-container-sec-4-2-1" class="outline-4">
+<h4 id="sec-4-2-1"><span class="section-number-4">4.2.1</span> Wish-list</h4>
+<div class="outline-text-4" id="text-4-2-1">
+<ul class="org-ul">
+<li>add bbdb files to emacs packages?
+</li>
+<li>-show-command-parameters indicating at which parameter position
+the cursor is active (update tutorials)
+<ul class="org-ul">
+<li>no line wrapping for overlays!
+</li>
+<li>numbering of commas
+</li>
+<li>add timer customisation variable 1 min, 2 min, etc.
+</li>
+</ul>
+</li>
+<li>Display hints for the shortened key(s) for C-c C-j
+</li>
+<li>Indicate visually the region which was copied or send for
+func. -send-to-ansys
+</li>
+<li>example.mac: make it solver compatible
+</li>
+<li>GH-pages with tutorials
+</li>
+<li>implement -hide-region also for rotated nodes in WB .dat files
+(frictionless support)
+</li>
+<li>check *vwrite with gui mode and interactive mode (graphics window?)
+</li>
+<li>add element numbers to the general completion list, yes or no?
+</li>
+<li>WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
+.deb package
+</li>
+<li>HTML APDL documentation
+here is the tanslation of names to html files:
+<ul class="org-ul">
+<li>link to ANSYS-Mode APDL reference:
+</li>
+<li>Chapters of structural APDL documentation:
+</li>
+</ul>
+</li>
+<li>-dynamic-highlighting is sluggish, highlighting somehow
+retarded!!! Still??
+</li>
+<li>TODOS: in fontification.org
+<ul class="org-ul">
+<li>deletion of vectors *del,Vector without request? ,,nopr?
+</li>
+<li>check character variables 32 Chars. and highlight accordingly
+string 128, char 8
+</li>
+<li>*vscfun: mean, stdev, &#x2026;
+</li>
+</ul>
+</li>
+<li>test server specifications (menu!) make interconnect
+conditional of the ANSYS version &gt;= 120
+</li>
+<li>explain fill/*vfill under the "looping" commands: Generates a line
+of nodes between two existing nodes.
+</li>
+<li>switch automatically to read only mode for *.dat files?
+</li>
+<li>force harmonic table (*vfill) example in -skeleton-bc, make a
+ansys&#x2026;-template out of two-mass-harmonics.mac
+</li>
+<li>-program, -license-file and -ansysli-servers should show the
+current selections
+</li>
+<li>check -license-file var with -license-file-check
+<ul class="org-ul">
+<li>Emacs var  :DONE:
+</li>
+<li>env vars  :DONE:
+</li>
+<li>activate -license-file function :TODO:
+</li>
+</ul>
+</li>
+<li>document Lagrange contact behaviour for contact/press-fit
+skeleton, critical to element differences!
+</li>
+<li>_RETURN somewhat milder red, clashes with reseved vars!
+</li>
+<li>constraint equations in -template.el and get functions
+</li>
+<li>document A-M_in-depth_tutorial.org
+</li>
+<li>fontification.el
+<ul class="org-ul">
+<li>add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
+.anf files from DM anf export
+  kpt &#x2013; Write keypoints or vertices into the database
+  lcurv &#x2013; Write lines or edges into the database
+  asurf &#x2013; Write the area or face information into the database
+  vbody &#x2013; Define a B-rep solid.
+</li>
+<li>add Hlp_G_OPE6_NeutralFile.html (aux15 utility functions)
+commands to the fontification and help stuff: KPT, LCURV,
+ASURF, VBODY. (functions in ANF files) from the operations
+guide `ans_ope.pdf'
+</li>
+<li>some functions in -skeleton-function are not highlighted and
+completable, whitespace problem befor paren&#x2026;
+and: "nele" undocumented command and function nelem()
+</li>
+</ul>
+</li>
+<li>-introductory_tutorial.org
+<ul class="org-ul">
+<li>in variable.png symbols Ns and Ls are not highlighted as
+variables
+</li>
+<li>change sequence of alignment.png first not aligned, second aligned
+</li>
+<li>Too difficult: slide of extensibility, showing Emacs
+self-documenting help system for a template function
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-2-2" class="outline-4">
+<h4 id="sec-4-2-2"><span class="section-number-4">4.2.2</span> Bugs</h4>
+<div class="outline-text-4" id="text-4-2-2">
+<ul class="org-ul">
+<li>complete the template choice section in the menu
+</li>
+<li>Correct the creep data with total strain to creep strain!
+</li>
+<li>makefile errors: Check tutorials
+</li>
+<li>makefile errors when doing -fontification.el
+</li>
+<li>ansys-template.el:85:13:Warning: reference to free variable
+`ansys-skeleton-overlay'
+</li>
+<li>mouse-choose-completion is obsolete since E23.2
+</li>
+<li>file mode specification error: (search-failed
+"nblock\\|eblock\\|cmblock" when opening .dat
+</li>
+<li>path construction in -mode.el for help program is not working, if
+ansys-mode is not activated! &lt;- autoloaded functions
+</li>
+<li>mismatch in customisation buffer of -license-file and -ansysli-servers
+</li>
+<li>C-c C-a does not align a pragraph if the mark was not set (first
+time file visit)!!!!!
+</li>
+<li>C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
+</li>
+<li>variables behind / and * without whitespace in between are not
+highlighted! try changing the character syntax???
+</li>
+<li>*create file tmp,mac: macro call: tmp, is not highlighted
+</li>
+<li>*msg command's format string is not higlighted (-template-element-table)
+</li>
+<li>variables are not highlighted in -skeletons?
+</li>
+<li>es not :
+*mwrite
+*cfclos
+ M-? shows help for *mwrite, when cursor behind *cfclos
+</li>
+<li>-skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Procedures</h3>
+<div class="outline-text-3" id="text-4-3">
+<dl class="org-dl">
+<dt>Mode Help</dt><dd>keyboard input is quoted in "", emphasizing in `' and
+keys in &lt;&gt;
+</dd>
+<dt>README</dt><dd>same as Mode help
+</dd>
+<dt>APDL templates</dt><dd>minimal working examples ending with -template
+</dd>
+<dt>Old Emacs versions</dt><dd>flagged with RESTRICTED:
+</dd>
+<dt>Menu</dt><dd>-&gt; indicates the following sub menu entry
+</dd>
+<dt>M-x compile</dt><dd><p>
+ALL ;-)
+</p>
+
+<p>
+GH-wiki is repo with write access for world, separate from the A-M repo!
+</p>
+</dd>
+</dl>
+</div>
+
+
+<div id="outline-container-sec-4-3-1" class="outline-4">
+<h4 id="sec-4-3-1"><span class="section-number-4">4.3.1</span> Freeze proceedures</h4>
+<div class="outline-text-4" id="text-4-3-1">
+<ul class="org-ul">
+<li>check whether all undocumented commands
+<a href="(find-tag "Ansys_undocumented_commands")">(find-tag "Ansys_undocumented_commands")</a>
+are still working in V 16.1
+</li>
+<li>TODOs, FIXMEs in the code
+</li>
+<li>checkdoc, -template.el, -process.el, -mode.el done except
+\\&lt;keymap&gt; &amp; \\[function]
+</li>
+<li>README &#x2013; installation (Emacs Wiki format) and accompanying files,
+features, news, history
+</li>
+<li>update the mode help, complete skeleton menus, update version
+numbers, default specifiers
+</li>
+<li>update defcustom list in ./bug-report.sh -&gt; ansys-submit-bug-report
+</li>
+</ul>
+
+<p>
+(tags-query-replace "16.1" "16.2")
+(tags-query-replace "ANSYS 16" "ANSYS 17")
+</p>
+<p>
+(tags-query-replace "24.5" "24.6")
+</p>
+<p>
+(tags-query-replace "150" "161")
+</p>
+<p>
+(tags-query-replace "\".1\"" "\".2\"")
+</p>
+<p>
+(tags-query-replace "- 2015" "- 2016")
+(tags-query-replace "fontification.mac" "example.mac")
+</p>
+
+<p>
+checkdoc then dry run: Emacs
+24.5 -Q testing: example.mac /*commands and default command
+lines, every menu entry.  byte-compile-file then dry run
+profiling, major mode conventions: multiple loading of this mode?.
+</p>
+<ul class="org-ul">
+<li>check Emacs versions on longterm OS systems compile with 24.X,
+then pretests, emacs-snapshots, clash with Emacs releases (yearly
+Emacs cycle)?
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3-2" class="outline-4">
+<h4 id="sec-4-3-2"><span class="section-number-4">4.3.2</span> Release</h4>
+<div class="outline-text-4" id="text-4-3-2">
+<ul class="org-ul">
+<li>Add the latest news from NEWS.org to the README.org
+</li>
+<li>update Emacs wiki (README), home page, GitHub, Google drive with
+download, documentation page
+</li>
+<li><p>
+publication emails (with tutorial and news):
+</p>
+
+<p>
+The project is hosted on
+</p>
+
+<p>
+<a href="https://github.com/dieter-wilhelm/ansys-mode">https://github.com/dieter-wilhelm/ansys-mode</a>
+</p>
+
+<p>
+Where you can find also the latest development version.
+</p>
+
+<p>
+Stable versions and prebuild packages are to be found on the
+releases page:
+</p>
+
+<p>
+<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">https://github.com/dieter-wilhelm/ansys-mode/releases</a>
+</p>
+
+<p>
+An alternative releases archive is hosted at Google Drive:
+</p>
+
+<p>
+<a href="https://drive.google.com/?tab=mo&authuser=0#folders/0Bxnk08BGWfexUThqbWxLX1NyeTg">https://drive.google.com/?tab=mo&authuser=0#folders/0Bxnk08BGWfexUThqbWxLX1NyeTg</a>
+</p>
+
+<p>
+If you don't have access to above archives please email me.
+</p>
+
+<p>
+Dieter
+</p>
+</li>
+</ul>
+
+
+<p>
+makgul@gmail.com,
+yangdawei.hit@qq.com
+weizhuo.du@peraglobal.com,
+info@auc-ev.de,
+afoleite@gmail.com,
+iivvgg@gmail.com,
+Michaelk@vipac.com.au,
+sparr@mfkrs1.mw.tu-dresden.de,
+eyk.heinemann@continental-corporation.com,
+jens.2.missun@continental-corporation.com,
+joerg.menke@continental-corporation.com,
+marius.tarnovetchi@continental-corporation.com,
+razvan.ionel.curtean@continental-corporation.com,
+Steffen.Kernbach@continental-corporation.com,
+Johann.Massinger@continental-corporation.com,
+Marco.Mechi@continental-corporation.com,
+Antonio.Zangaro@continental-corporation.com,
+martin.bruehl@continental-corporation.com,
+zlatko.penzar@continental-corporation.com,
+saravana.kumar@continental-corporation.com,
+alwin.perras@continental-corporation.com,
+mhanke@cadfem.de,
+tnelson@cadfem.de,
+lkrueger@cadfem.de,
+sheldonimaoka@yahoo.com,
+kschoenborn@cadfem.de
+</p>
+
+<p>
+better not the "competitor":
+info@padtinc.com ;-),
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Ideas for further versions</h3>
+<div class="outline-text-3" id="text-4-4">
+</div><div id="outline-container-sec-4-4-1" class="outline-4">
+<h4 id="sec-4-4-1"><span class="section-number-4">4.4.1</span> Parameter help and documentation</h4>
+<div class="outline-text-4" id="text-4-4-1">
+<ul class="org-ul">
+<li>Enable a mouse button to unhide hidden regions, enable an
+interactive way to unhide regions, when in the region: Return
+opens hidden region, &#x2026;
+</li>
+<li>dynamic completion and help of parameter options, depending on
+the contex like the one in bash
+</li>
+<li>makeinfo documentation with org-mode ox exporter
+</li>
+<li>make completion of templates with &lt;mouse 1&gt; button additionally
+to &lt;mouse 2&gt; as in -complete-symbol.
+</li>
+<li>create a function showing deprecated elements and their
+replacement.  Inspirations from eldoc-mode, show replacements of
+deprecated elements?
+</li>
+<li>create a reference card
+</li>
+<li>make the timer time interval customisable
+</li>
+<li>show list of license products and their license feature names or
+translate it in the license status from the licensing guide
+(product variable table)
+</li>
+<li>C-c C-v show (optionally) only variables defined up to current
+cursor line.  Make the line number display in
+`ansys-display-variables' (hyper-)links to the corresponding code
+line in the respective APDL file.  (See `occur' function.)  Or
+use the imenu mechanism for this and display the variables in the
+speedbar. Count the number of user variables when displaying them
+</li>
+<li>refcard, etc; Emacs help guidelines
+GNU programming guideline: More requires?,
+</li>
+<li>display alternatives to/swap deprecated element types
+</li>
+<li>M-? Help: parametric functions are not explained with the help
+command
+</li>
+<li>M-? Help: if there are ignored characters behind the keyword, the
+keyword is not found
+</li>
+<li>M-? the command help does not work when there are solver ignored
+characters behind the unique command name, example: *VWROOOOM.
+</li>
+<li>M-? Provide also help for commented out commands
+</li>
+<li>M-?: following a variable allocation with `='
+</li>
+<li>M-?: remove also old overlay when new keyword is not found
+</li>
+<li>M-?: In the last empty line displays overlay below command
+instead above
+</li>
+<li>Provide ANSYS command completion and command-help in comint
+buffer
+</li>
+<li>Include all inquiry functions (see UPF documentation)
+</li>
+<li>Include the _RETURN value of the solid modelling commands into
+their help strings of parameter help.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-4-2" class="outline-4">
+<h4 id="sec-4-4-2"><span class="section-number-4">4.4.2</span> ANSYS process and interpreter buffer</h4>
+<div class="outline-text-4" id="text-4-4-2">
+<p>
+example: gnuplot-mode
+</p>
+<ul class="org-ul">
+<li>call to start the ANSYS solution results tracker for .nlh (xml
+see <a href="file.nlh">file.nlh</a>, contact forces) and convergence .gst (binary?,
+coded? <a href="file.gst">file.gst</a>)
+</li>
+<li>implement something like <a href="nlhist.sh">nlhist.sh</a> for .cnd files (xml see
+<a href="file.cnd">file.cnd</a>) or use the new libxml parser ;-)
+</li>
+<li>make display-buffer "<b>ANSYS</b>" optional when sending commands to
+the ANSYS process
+</li>
+<li>use ANSYS <b>env variables</b> like AWP_ROOT140 for checking
+installation directories
+</li>
+<li>check also the license status for hpc licenses if
+-no-of-processors is greater then 3
+</li>
+<li>implement ANSWAIT variable
+</li>
+<li>autoloading of: -license-file, -license-program functions
+</li>
+<li>dbus support of workbench or integrating emacs in workbench?
+</li>
+<li>insert skeleton with C-c C-s i, send line C-c C-c ccc
+</li>
+<li>warn when C-c C-c tries to send a block command (complete to full
+block?)
+</li>
+<li>take care when region isn't complete in -send-to-ansys (send whole line)
+</li>
+<li>C-c C-c skips empty lines and comments this is not always desirable
+-&gt; make this optional -&gt; filter process input?
+</li>
+<li>C-c C-q, C-c C-u and C-c C-c sequences are not shown (and stored)
+in the comint buffer
+</li>
+<li>make filter of -license-status optional
+</li>
+<li>optimise -start-run with query of y (start immediately),n
+(exit),e (change params),C-h (help)
+</li>
+<li>Splice any input line behind the BEGIN: symbol in the <b>ANSYS</b>
+     buffer
+</li>
+<li>Enable one solver run for every ANSYS macro buffer
+</li>
+<li>indicate with activation/inactivation of menu items that an
+asynchronous job is already running or not.
+</li>
+<li>show/mark sent lines in apdl file C-c C-u, C-c C-c,
+<ul class="org-ul">
+<li>with fringes
+</li>
+<li>with background
+</li>
+<li>maximum line
+</li>
+<li>reset highlighting, when?
+</li>
+</ul>
+</li>
+<li>provide ANSYS `y' request and carriage return? superflouous?  a
+single `y' does the trick
+</li>
+<li>Killing a buffer with a running process now asks a confirmation.
+You can remove this query in two ways: either removing
+`process-kill-buffer-query-function' from
+`kill-buffer-query-functions' or setting the appropriate process
+flag with `set-process-query-on-exit-flag'.
+<ul class="org-ul">
+<li>finding an ANSYS /filnam command in current macro file and
+suggesting this as current job-name optionally kill old job when
+called again with working run warn and optionally remove the
+ansys lock file before starting a run
+</li>
+<li>search in -job for /filn arguments as default job name like in
+-display-error-file
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-4-3" class="outline-4">
+<h4 id="sec-4-4-3"><span class="section-number-4">4.4.3</span> Skeletons, outline and abbrevs</h4>
+<div class="outline-text-4" id="text-4-4-3">
+<ul class="org-ul">
+<li>show a preview buffer with the outline headlines
+</li>
+<li>-skeleton-select is a bit thin, not yet finished?
+</li>
+<li>add a preview mode, with its own keymap for faster editing and
+copying, like dired
+</li>
+<li>enhance abbrev definitions for *create, *dowhile logics:
+</li>
+<li>use the ANSYS sample input listing for template-examples
+</li>
+<li>additional dialog boxes with:
+/ui,anno,ksel&#x2026;,wpse,help,query,copy
+</li>
+<li>make outline string in skeletons configurable
+</li>
+<li>spider beams, _bolt.mac, screw.mac, Mohr-Coulomb criterion
+</li>
+<li>rework concept with respect to the ANSYS menu structure sort
+skeletons in menu. Concept: 1.) ANSYS Workflow 2.) specialised
+macro library
+</li>
+<li>Make skeleton-header properly working (info "(autotype)")
+</li>
+<li>Optimise templates: completing-read, read-from-minibuffer
+</li>
+<li>abbrev `d does not indent properly in another block level
+</li>
+<li>Implement choice when completing *IF commands (*ELSEIF or *ENDIF
+?THEN?).
+</li>
+<li>Warn when including skeleton in read only file.
+</li>
+<li>skeleton for numbering ansys-skeleton-numbering-controls
+(skeleton-insert docu)
+</li>
+<li>suggestions with auto-completion of
+kp,line,area,volu,node,elem,tabn,sval
+</li>
+<li>negation, what negation? TODO:
+</li>
+<li>skeleton for skipping code *if,then *else*endif if selection:
+wrap around and indenting *go/*if label is not fontified at the
+command line (restriction of 7 characters with out the colon.)
+must *go:label be unambiguous?
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-4-4" class="outline-4">
+<h4 id="sec-4-4-4"><span class="section-number-4">4.4.4</span> Miscellaneous</h4>
+<div class="outline-text-4" id="text-4-4-4">
+<ul class="org-ul">
+<li>hash or signature file for packages
+</li>
+<li>show content of matlib/ folder
+</li>
+<li>add to -display-variables a prefix argument for showing the value
+of the variable around point, or center the variables window&#x2026;
+</li>
+<li>customisation option for a the web browser of -browse-ansys-help
+</li>
+<li>ideas for preview also of a/the macro directory?
+</li>
+<li>put graphics dlls in windows package
+</li>
+<li>LSDYN support, see lsdyna.el
+</li>
+<li id="embedded calc">include in hacking.mac
+</li>
+<li id="Alignment">alignment "section" is not clearly defined in function
+-align
+</li>
+<li id="alignment">extend to vector definitions
+t(1,0) = 20,300,3094,
+t(1,1) =  3,  4,   9,
+</li>
+<li>Utility for clearing files like .rst, &#x2026; or using dired, clear_files.sh?
+with listing listing of file types
+</li>
+<li>Configure the highlighting colours with black on white background
+</li>
+<li>C-j, M-j are not skipping to `,' whith default command (from second
+line onwards)!
+</li>
+<li>supply command for clearing recursively not important process files:
+.rst, .log, &#x2026;, supply a customisaton variable
+</li>
+<li>narrow, outline, transparent-font: eblocks, nblocks by default?
+</li>
+<li>add notes for parameter help of undocumented commands (alist)
+</li>
+<li>create filter variable for hiding not installed license types
+("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"
+</li>
+<li>commands shorter than 4 chars are not allowed with additional chars
+adjust this to -highlighting-level 0
+</li>
+<li>Make ANSYS-Mode also working solely with ansys-mode.el??
+</li>
+<li>make M-C-h more intelligent like M-h (if mark&#x2026;)
+</li>
+<li>speed concern: replace -find-duplicate-p with function argument to
+add-to-list
+</li>
+<li>For non-comint-mode usage: display .log file with tail mode
+</li>
+<li>is outline-mode enabled? no! make default?, outline
+</li>
+<li>take care of setup procedure: v110/ansys/apdl/start110.ans
+/MPLIB,READ,/ansys_inc/v110/ansys/matlib
+</li>
+<li>removing/renaming/checking abort file?
+</li>
+<li>Are characters behind unique commands shorter than 4 characters
+possible? No /sol(u) sufficient? Yes condensed input line ($)
+behind commands without arguments possible? Yes have a look in
+-variable-defining-commands!  Warn when - unintentionally -
+arguments are used for ANSYS commands which do not allow
+arguments.  Or implement some auto-newline feature?  But
+problematic in condensed command lines or when applying code
+comments!
+</li>
+<li>undocumented ask parameter
+</li>
+<li>mode-line-format nil);no mode line for this buffer Unambiguous
+</li>
+<li>Emacs: old-style backquotes?  used in the old template macro system
+</li>
+<li>completion of function names: cursor should end within parentheses
+</li>
+<li>better hints for auto-insertion features
+</li>
+<li>up/down-block when we are over a begin-keyword and in a block-end
+line
+</li>
+<li>component names are fontified as variables! separate them cmlist?
+</li>
+<li>format string for *VWRITE: line(s) below, in parens, when FORTRAN
+format specifiers are used, keyword SEQU povides row numbers, up
+to 19 parameters are allowed
+</li>
+<li>remove vestiges of ansys-mod.el for making ansys-mode.el GPL
+proof.  Check whether octave-mod.el really is GPL compliant, use
+-ctave-mod.el from 1997, kill octave-mod.el afterwards in
+makefile read every symbol docu string -&gt;NEW_C or _C or OCTAVE_C
+</li>
+<li>replace/extend column-ruler with ruler-mode or ruler implemented as
+overlay in buffer
+</li>
+<li>make everything completely customisable, eg auto-insert stuff
+customisable enable, Emacs customisation of auto-insert-query
+</li>
+<li>Fontify <b>completion list</b> distinguishing elements: commands,
+functions and keywords.
+</li>
+<li>provide a list of options for the -license function, set this
+function in the defcustom lmstat -a etc.
+</li>
+<li>auto-indent-switch as defcustom?
+</li>
+<li>inhibit the unnecessary blink-matching-block display when closing a
+block behind a block-end keyword
+</li>
+<li>highlight matching block keywords (similar to show-paren-mode) when
+point is at keyword
+</li>
+<li>Implement highlighting of bracket pairs with the correct level in
+ANSYS GET- and parametric- functions.
+</li>
+<li>highlighting of plot commands inside the /GCMD command
+</li>
+<li>DEFSUBSTs with DEFUNs inside aren't particularly helpful?
+</li>
+<li>Emphasise better implied (colon) loops n,(1:6),(2:12:2) =&gt; n,1,2
+$ n,2,4 $&#x2026; (little used, I know, but any ideas going beyond the
+colon?).
+</li>
+<li>startup screen for ANSYS mode: Mode help, ANSYS version,
+supressing the startup screen 'ansys-mode-startup-message maybe
+as advice when sluggish -&gt; compiliation
+</li>
+<li>Enable choice for /show,3d or x11 (-start-graphics)
+</li>
+<li>Provide a way to send commands to the tcl-tk ANSYS gui (x11
+programming).
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-4-5" class="outline-4">
+<h4 id="sec-4-4-5"><span class="section-number-4">4.4.5</span> ANSYS syntax restrictions not (yet) accounted for</h4>
+<div class="outline-text-4" id="text-4-4-5">
+<ul class="org-ul">
+<li>Parentheses can only be nested 4 levels deep and only up to 9
+operations (+,-,*,&#x2026;) within these set of parentheses
+</li>
+<li>PATH name is restricted to 8 chars
+</li>
+<li>*SET parameter strings may only be 32 character long!
+</li>
+<li>Character parameters are restricted to only 8 characters.
+</li>
+<li>*MSG command can only have 9 additional continuation lines
+</li>
+<li>Code line restriction of 640 characters
+</li>
+<li>Block level restriction of 20 levels of nested *DO loops (except
+with /INPUT and *USE)
+</li>
+<li>Block level restriction of 10 levels of nested *IF blocks
+</li>
+<li>Macro level restriction: 20 macros
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-4-6" class="outline-4">
+<h4 id="sec-4-4-6"><span class="section-number-4">4.4.6</span> Unknown ANSYS stuff</h4>
+<div class="outline-text-4" id="text-4-4-6">
+<ul class="org-ul">
+<li>what the heck is the *UILIST command?
+</li>
+<li>Is hyper56 a valid element?
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-4-4-7" class="outline-4">
+<h4 id="sec-4-4-7"><span class="section-number-4">4.4.7</span> Additional APDL macro resources</h4>
+<div class="outline-text-4" id="text-4-4-7">
+<p>
+see <a href="http://www.apdl.de/">http://www.apdl.de/</a> for further ideas and extensions or
+  <a href="http://www.padtinc.com/">http://www.padtinc.com/</a>.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> License</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
+</p>
+
+<p>
+Copyright (C) 2007 Free Software Foundation, Inc. <a href="http://fsf.org/">http://fsf.org/</a>
+Everyone is permitted to copy and distribute verbatim copies
+of this license document, but changing it is not allowed.
+</p>
+
+<p>
+Preamble
+</p>
+
+<p>
+  The GNU General Public License is a free, copyleft license for
+software and other kinds of works.
+</p>
+
+<p>
+  The licenses for most software and other practical works are designed
+to take away your freedom to share and change the works.  By contrast,
+the GNU General Public License is intended to guarantee your freedom to
+share and change all versions of a program&#x2013;to make sure it remains free
+software for all its users.  We, the Free Software Foundation, use the
+GNU General Public License for most of our software; it applies also to
+any other work released this way by its authors.  You can apply it to
+your programs, too.
+</p>
+
+<p>
+  When we speak of free software, we are referring to freedom, not
+price.  Our General Public Licenses are designed to make sure that you
+have the freedom to distribute copies of free software (and charge for
+them if you wish), that you receive source code or can get it if you
+want it, that you can change the software or use pieces of it in new
+free programs, and that you know you can do these things.
+</p>
+
+<p>
+  To protect your rights, we need to prevent others from denying you
+these rights or asking you to surrender the rights.  Therefore, you have
+certain responsibilities if you distribute copies of the software, or if
+you modify it: responsibilities to respect the freedom of others.
+</p>
+
+<p>
+  For example, if you distribute copies of such a program, whether
+gratis or for a fee, you must pass on to the recipients the same
+freedoms that you received.  You must make sure that they, too, receive
+or can get the source code.  And you must show them these terms so they
+know their rights.
+</p>
+
+<p>
+  Developers that use the GNU GPL protect your rights with two steps:
+(1) assert copyright on the software, and (2) offer you this License
+giving you legal permission to copy, distribute and/or modify it.
+</p>
+
+<p>
+  For the developers' and authors' protection, the GPL clearly explains
+that there is no warranty for this free software.  For both users' and
+authors' sake, the GPL requires that modified versions be marked as
+changed, so that their problems will not be attributed erroneously to
+authors of previous versions.
+</p>
+
+<p>
+  Some devices are designed to deny users access to install or run
+modified versions of the software inside them, although the manufacturer
+can do so.  This is fundamentally incompatible with the aim of
+protecting users' freedom to change the software.  The systematic
+pattern of such abuse occurs in the area of products for individuals to
+use, which is precisely where it is most unacceptable.  Therefore, we
+have designed this version of the GPL to prohibit the practice for those
+products.  If such problems arise substantially in other domains, we
+stand ready to extend this provision to those domains in future versions
+of the GPL, as needed to protect the freedom of users.
+</p>
+
+<p>
+  Finally, every program is threatened constantly by software patents.
+States should not allow patents to restrict development and use of
+software on general-purpose computers, but in those that do, we wish to
+avoid the special danger that patents applied to a free program could
+make it effectively proprietary.  To prevent this, the GPL assures that
+patents cannot be used to render the program non-free.
+</p>
+
+<p>
+  The precise terms and conditions for copying, distribution and
+modification follow.
+</p>
+
+<p>
+TERMS AND CONDITIONS
+</p>
+
+<ol class="org-ol">
+<li>Definitions.
+</li>
+</ol>
+
+<p>
+"This License" refers to version 3 of the GNU General Public License.
+</p>
+
+<p>
+  "Copyright" also means copyright-like laws that apply to other kinds of
+works, such as semiconductor masks.
+</p>
+
+<p>
+  "The Program" refers to any copyrightable work licensed under this
+License.  Each licensee is addressed as "you".  "Licensees" and
+"recipients" may be individuals or organizations.
+</p>
+
+<p>
+  To "modify" a work means to copy from or adapt all or part of the work
+in a fashion requiring copyright permission, other than the making of an
+exact copy.  The resulting work is called a "modified version" of the
+earlier work or a work "based on" the earlier work.
+</p>
+
+<p>
+  A "covered work" means either the unmodified Program or a work based
+on the Program.
+</p>
+
+<p>
+  To "propagate" a work means to do anything with it that, without
+permission, would make you directly or secondarily liable for
+infringement under applicable copyright law, except executing it on a
+computer or modifying a private copy.  Propagation includes copying,
+distribution (with or without modification), making available to the
+public, and in some countries other activities as well.
+</p>
+
+<p>
+  To "convey" a work means any kind of propagation that enables other
+parties to make or receive copies.  Mere interaction with a user through
+a computer network, with no transfer of a copy, is not conveying.
+</p>
+
+<p>
+  An interactive user interface displays "Appropriate Legal Notices"
+to the extent that it includes a convenient and prominently visible
+feature that (1) displays an appropriate copyright notice, and (2)
+tells the user that there is no warranty for the work (except to the
+extent that warranties are provided), that licensees may convey the
+work under this License, and how to view a copy of this License.  If
+the interface presents a list of user commands or options, such as a
+menu, a prominent item in the list meets this criterion.
+</p>
+
+<ol class="org-ol">
+<li>Source Code.
+</li>
+</ol>
+
+<p>
+  The "source code" for a work means the preferred form of the work
+for making modifications to it.  "Object code" means any non-source
+form of a work.
+</p>
+
+<p>
+  A "Standard Interface" means an interface that either is an official
+standard defined by a recognized standards body, or, in the case of
+interfaces specified for a particular programming language, one that
+is widely used among developers working in that language.
+</p>
+
+<p>
+  The "System Libraries" of an executable work include anything, other
+than the work as a whole, that (a) is included in the normal form of
+packaging a Major Component, but which is not part of that Major
+Component, and (b) serves only to enable use of the work with that
+Major Component, or to implement a Standard Interface for which an
+implementation is available to the public in source code form.  A
+"Major Component", in this context, means a major essential component
+(kernel, window system, and so on) of the specific operating system
+(if any) on which the executable work runs, or a compiler used to
+produce the work, or an object code interpreter used to run it.
+</p>
+
+<p>
+  The "Corresponding Source" for a work in object code form means all
+the source code needed to generate, install, and (for an executable
+work) run the object code and to modify the work, including scripts to
+control those activities.  However, it does not include the work's
+System Libraries, or general-purpose tools or generally available free
+programs which are used unmodified in performing those activities but
+which are not part of the work.  For example, Corresponding Source
+includes interface definition files associated with source files for
+the work, and the source code for shared libraries and dynamically
+linked subprograms that the work is specifically designed to require,
+such as by intimate data communication or control flow between those
+subprograms and other parts of the work.
+</p>
+
+<p>
+  The Corresponding Source need not include anything that users
+can regenerate automatically from other parts of the Corresponding
+Source.
+</p>
+
+<p>
+  The Corresponding Source for a work in source code form is that
+same work.
+</p>
+
+<ol class="org-ol">
+<li>Basic Permissions.
+</li>
+</ol>
+
+<p>
+  All rights granted under this License are granted for the term of
+copyright on the Program, and are irrevocable provided the stated
+conditions are met.  This License explicitly affirms your unlimited
+permission to run the unmodified Program.  The output from running a
+covered work is covered by this License only if the output, given its
+content, constitutes a covered work.  This License acknowledges your
+rights of fair use or other equivalent, as provided by copyright law.
+</p>
+
+<p>
+  You may make, run and propagate covered works that you do not
+convey, without conditions so long as your license otherwise remains
+in force.  You may convey covered works to others for the sole purpose
+of having them make modifications exclusively for you, or provide you
+with facilities for running those works, provided that you comply with
+the terms of this License in conveying all material for which you do
+not control copyright.  Those thus making or running the covered works
+for you must do so exclusively on your behalf, under your direction
+and control, on terms that prohibit them from making any copies of
+your copyrighted material outside their relationship with you.
+</p>
+
+<p>
+  Conveying under any other circumstances is permitted solely under
+the conditions stated below.  Sublicensing is not allowed; section 10
+makes it unnecessary.
+</p>
+
+<ol class="org-ol">
+<li>Protecting Users' Legal Rights From Anti-Circumvention Law.
+</li>
+</ol>
+
+<p>
+  No covered work shall be deemed part of an effective technological
+measure under any applicable law fulfilling obligations under article
+11 of the WIPO copyright treaty adopted on 20 December 1996, or
+similar laws prohibiting or restricting circumvention of such
+measures.
+</p>
+
+<p>
+  When you convey a covered work, you waive any legal power to forbid
+circumvention of technological measures to the extent such circumvention
+is effected by exercising rights under this License with respect to
+the covered work, and you disclaim any intention to limit operation or
+modification of the work as a means of enforcing, against the work's
+users, your or third parties' legal rights to forbid circumvention of
+technological measures.
+</p>
+
+<ol class="org-ol">
+<li>Conveying Verbatim Copies.
+</li>
+</ol>
+
+<p>
+  You may convey verbatim copies of the Program's source code as you
+receive it, in any medium, provided that you conspicuously and
+appropriately publish on each copy an appropriate copyright notice;
+keep intact all notices stating that this License and any
+non-permissive terms added in accord with section 7 apply to the code;
+keep intact all notices of the absence of any warranty; and give all
+recipients a copy of this License along with the Program.
+</p>
+
+<p>
+  You may charge any price or no price for each copy that you convey,
+and you may offer support or warranty protection for a fee.
+</p>
+
+<ol class="org-ol">
+<li>Conveying Modified Source Versions.
+</li>
+</ol>
+
+<p>
+  You may convey a work based on the Program, or the modifications to
+produce it from the Program, in the form of source code under the
+terms of section 4, provided that you also meet all of these conditions:
+</p>
+
+<p>
+a) The work must carry prominent notices stating that you modified
+it, and giving a relevant date.
+</p>
+
+<p>
+b) The work must carry prominent notices stating that it is
+released under this License and any conditions added under section
+</p>
+<ol class="org-ol">
+<li>This requirement modifies the requirement in section 4 to
+</li>
+</ol>
+<p>
+"keep intact all notices".
+</p>
+
+<p>
+c) You must license the entire work, as a whole, under this
+License to anyone who comes into possession of a copy.  This
+License will therefore apply, along with any applicable section 7
+additional terms, to the whole of the work, and all its parts,
+regardless of how they are packaged.  This License gives no
+permission to license the work in any other way, but it does not
+invalidate such permission if you have separately received it.
+</p>
+
+<p>
+d) If the work has interactive user interfaces, each must display
+Appropriate Legal Notices; however, if the Program has interactive
+interfaces that do not display Appropriate Legal Notices, your
+work need not make them do so.
+</p>
+
+<p>
+  A compilation of a covered work with other separate and independent
+works, which are not by their nature extensions of the covered work,
+and which are not combined with it such as to form a larger program,
+in or on a volume of a storage or distribution medium, is called an
+"aggregate" if the compilation and its resulting copyright are not
+used to limit the access or legal rights of the compilation's users
+beyond what the individual works permit.  Inclusion of a covered work
+in an aggregate does not cause this License to apply to the other
+parts of the aggregate.
+</p>
+
+<ol class="org-ol">
+<li>Conveying Non-Source Forms.
+</li>
+</ol>
+
+<p>
+  You may convey a covered work in object code form under the terms
+of sections 4 and 5, provided that you also convey the
+machine-readable Corresponding Source under the terms of this License,
+in one of these ways:
+</p>
+
+<p>
+a) Convey the object code in, or embodied in, a physical product
+(including a physical distribution medium), accompanied by the
+Corresponding Source fixed on a durable physical medium
+customarily used for software interchange.
+</p>
+
+<p>
+b) Convey the object code in, or embodied in, a physical product
+(including a physical distribution medium), accompanied by a
+written offer, valid for at least three years and valid for as
+long as you offer spare parts or customer support for that product
+model, to give anyone who possesses the object code either (1) a
+copy of the Corresponding Source for all the software in the
+product that is covered by this License, on a durable physical
+medium customarily used for software interchange, for a price no
+more than your reasonable cost of physically performing this
+conveying of source, or (2) access to copy the
+Corresponding Source from a network server at no charge.
+</p>
+
+<p>
+c) Convey individual copies of the object code with a copy of the
+written offer to provide the Corresponding Source.  This
+alternative is allowed only occasionally and noncommercially, and
+only if you received the object code with such an offer, in accord
+with subsection 6b.
+</p>
+
+<p>
+d) Convey the object code by offering access from a designated
+place (gratis or for a charge), and offer equivalent access to the
+Corresponding Source in the same way through the same place at no
+further charge.  You need not require recipients to copy the
+Corresponding Source along with the object code.  If the place to
+copy the object code is a network server, the Corresponding Source
+may be on a different server (operated by you or a third party)
+that supports equivalent copying facilities, provided you maintain
+clear directions next to the object code saying where to find the
+Corresponding Source.  Regardless of what server hosts the
+Corresponding Source, you remain obligated to ensure that it is
+available for as long as needed to satisfy these requirements.
+</p>
+
+<p>
+e) Convey the object code using peer-to-peer transmission, provided
+you inform other peers where the object code and Corresponding
+Source of the work are being offered to the general public at no
+charge under subsection 6d.
+</p>
+
+<p>
+  A separable portion of the object code, whose source code is excluded
+from the Corresponding Source as a System Library, need not be
+included in conveying the object code work.
+</p>
+
+<p>
+  A "User Product" is either (1) a "consumer product", which means any
+tangible personal property which is normally used for personal, family,
+or household purposes, or (2) anything designed or sold for incorporation
+into a dwelling.  In determining whether a product is a consumer product,
+doubtful cases shall be resolved in favor of coverage.  For a particular
+product received by a particular user, "normally used" refers to a
+typical or common use of that class of product, regardless of the status
+of the particular user or of the way in which the particular user
+actually uses, or expects or is expected to use, the product.  A product
+is a consumer product regardless of whether the product has substantial
+commercial, industrial or non-consumer uses, unless such uses represent
+the only significant mode of use of the product.
+</p>
+
+<p>
+  "Installation Information" for a User Product means any methods,
+procedures, authorization keys, or other information required to install
+and execute modified versions of a covered work in that User Product from
+a modified version of its Corresponding Source.  The information must
+suffice to ensure that the continued functioning of the modified object
+code is in no case prevented or interfered with solely because
+modification has been made.
+</p>
+
+<p>
+  If you convey an object code work under this section in, or with, or
+specifically for use in, a User Product, and the conveying occurs as
+part of a transaction in which the right of possession and use of the
+User Product is transferred to the recipient in perpetuity or for a
+fixed term (regardless of how the transaction is characterized), the
+Corresponding Source conveyed under this section must be accompanied
+by the Installation Information.  But this requirement does not apply
+if neither you nor any third party retains the ability to install
+modified object code on the User Product (for example, the work has
+been installed in ROM).
+</p>
+
+<p>
+  The requirement to provide Installation Information does not include a
+requirement to continue to provide support service, warranty, or updates
+for a work that has been modified or installed by the recipient, or for
+the User Product in which it has been modified or installed.  Access to a
+network may be denied when the modification itself materially and
+adversely affects the operation of the network or violates the rules and
+protocols for communication across the network.
+</p>
+
+<p>
+  Corresponding Source conveyed, and Installation Information provided,
+in accord with this section must be in a format that is publicly
+documented (and with an implementation available to the public in
+source code form), and must require no special password or key for
+unpacking, reading or copying.
+</p>
+
+<ol class="org-ol">
+<li>Additional Terms.
+</li>
+</ol>
+
+<p>
+  "Additional permissions" are terms that supplement the terms of this
+License by making exceptions from one or more of its conditions.
+Additional permissions that are applicable to the entire Program shall
+be treated as though they were included in this License, to the extent
+that they are valid under applicable law.  If additional permissions
+apply only to part of the Program, that part may be used separately
+under those permissions, but the entire Program remains governed by
+this License without regard to the additional permissions.
+</p>
+
+<p>
+  When you convey a copy of a covered work, you may at your option
+remove any additional permissions from that copy, or from any part of
+it.  (Additional permissions may be written to require their own
+removal in certain cases when you modify the work.)  You may place
+additional permissions on material, added by you to a covered work,
+for which you have or can give appropriate copyright permission.
+</p>
+
+<p>
+  Notwithstanding any other provision of this License, for material you
+add to a covered work, you may (if authorized by the copyright holders of
+that material) supplement the terms of this License with terms:
+</p>
+
+<p>
+a) Disclaiming warranty or limiting liability differently from the
+terms of sections 15 and 16 of this License; or
+</p>
+
+<p>
+b) Requiring preservation of specified reasonable legal notices or
+author attributions in that material or in the Appropriate Legal
+Notices displayed by works containing it; or
+</p>
+
+<p>
+c) Prohibiting misrepresentation of the origin of that material, or
+requiring that modified versions of such material be marked in
+reasonable ways as different from the original version; or
+</p>
+
+<p>
+d) Limiting the use for publicity purposes of names of licensors or
+authors of the material; or
+</p>
+
+<p>
+e) Declining to grant rights under trademark law for use of some
+trade names, trademarks, or service marks; or
+</p>
+
+<p>
+f) Requiring indemnification of licensors and authors of that
+material by anyone who conveys the material (or modified versions of
+it) with contractual assumptions of liability to the recipient, for
+any liability that these contractual assumptions directly impose on
+those licensors and authors.
+</p>
+
+<p>
+  All other non-permissive additional terms are considered "further
+restrictions" within the meaning of section 10.  If the Program as you
+received it, or any part of it, contains a notice stating that it is
+governed by this License along with a term that is a further
+restriction, you may remove that term.  If a license document contains
+a further restriction but permits relicensing or conveying under this
+License, you may add to a covered work material governed by the terms
+of that license document, provided that the further restriction does
+not survive such relicensing or conveying.
+</p>
+
+<p>
+  If you add terms to a covered work in accord with this section, you
+must place, in the relevant source files, a statement of the
+additional terms that apply to those files, or a notice indicating
+where to find the applicable terms.
+</p>
+
+<p>
+  Additional terms, permissive or non-permissive, may be stated in the
+form of a separately written license, or stated as exceptions;
+the above requirements apply either way.
+</p>
+
+<ol class="org-ol">
+<li>Termination.
+</li>
+</ol>
+
+<p>
+  You may not propagate or modify a covered work except as expressly
+provided under this License.  Any attempt otherwise to propagate or
+modify it is void, and will automatically terminate your rights under
+this License (including any patent licenses granted under the third
+paragraph of section 11).
+</p>
+
+<p>
+  However, if you cease all violation of this License, then your
+license from a particular copyright holder is reinstated (a)
+provisionally, unless and until the copyright holder explicitly and
+finally terminates your license, and (b) permanently, if the copyright
+holder fails to notify you of the violation by some reasonable means
+prior to 60 days after the cessation.
+</p>
+
+<p>
+  Moreover, your license from a particular copyright holder is
+reinstated permanently if the copyright holder notifies you of the
+violation by some reasonable means, this is the first time you have
+received notice of violation of this License (for any work) from that
+copyright holder, and you cure the violation prior to 30 days after
+your receipt of the notice.
+</p>
+
+<p>
+  Termination of your rights under this section does not terminate the
+licenses of parties who have received copies or rights from you under
+this License.  If your rights have been terminated and not permanently
+reinstated, you do not qualify to receive new licenses for the same
+material under section 10.
+</p>
+
+<ol class="org-ol">
+<li>Acceptance Not Required for Having Copies.
+</li>
+</ol>
+
+<p>
+  You are not required to accept this License in order to receive or
+run a copy of the Program.  Ancillary propagation of a covered work
+occurring solely as a consequence of using peer-to-peer transmission
+to receive a copy likewise does not require acceptance.  However,
+nothing other than this License grants you permission to propagate or
+modify any covered work.  These actions infringe copyright if you do
+not accept this License.  Therefore, by modifying or propagating a
+covered work, you indicate your acceptance of this License to do so.
+</p>
+
+<ol class="org-ol">
+<li>Automatic Licensing of Downstream Recipients.
+</li>
+</ol>
+
+<p>
+  Each time you convey a covered work, the recipient automatically
+receives a license from the original licensors, to run, modify and
+propagate that work, subject to this License.  You are not responsible
+for enforcing compliance by third parties with this License.
+</p>
+
+<p>
+  An "entity transaction" is a transaction transferring control of an
+organization, or substantially all assets of one, or subdividing an
+organization, or merging organizations.  If propagation of a covered
+work results from an entity transaction, each party to that
+transaction who receives a copy of the work also receives whatever
+licenses to the work the party's predecessor in interest had or could
+give under the previous paragraph, plus a right to possession of the
+Corresponding Source of the work from the predecessor in interest, if
+the predecessor has it or can get it with reasonable efforts.
+</p>
+
+<p>
+  You may not impose any further restrictions on the exercise of the
+rights granted or affirmed under this License.  For example, you may
+not impose a license fee, royalty, or other charge for exercise of
+rights granted under this License, and you may not initiate litigation
+(including a cross-claim or counterclaim in a lawsuit) alleging that
+any patent claim is infringed by making, using, selling, offering for
+sale, or importing the Program or any portion of it.
+</p>
+
+<ol class="org-ol">
+<li>Patents.
+</li>
+</ol>
+
+<p>
+  A "contributor" is a copyright holder who authorizes use under this
+License of the Program or a work on which the Program is based.  The
+work thus licensed is called the contributor's "contributor version".
+</p>
+
+<p>
+  A contributor's "essential patent claims" are all patent claims
+owned or controlled by the contributor, whether already acquired or
+hereafter acquired, that would be infringed by some manner, permitted
+by this License, of making, using, or selling its contributor version,
+but do not include claims that would be infringed only as a
+consequence of further modification of the contributor version.  For
+purposes of this definition, "control" includes the right to grant
+patent sublicenses in a manner consistent with the requirements of
+this License.
+</p>
+
+<p>
+  Each contributor grants you a non-exclusive, worldwide, royalty-free
+patent license under the contributor's essential patent claims, to
+make, use, sell, offer for sale, import and otherwise run, modify and
+propagate the contents of its contributor version.
+</p>
+
+<p>
+  In the following three paragraphs, a "patent license" is any express
+agreement or commitment, however denominated, not to enforce a patent
+(such as an express permission to practice a patent or covenant not to
+sue for patent infringement).  To "grant" such a patent license to a
+party means to make such an agreement or commitment not to enforce a
+patent against the party.
+</p>
+
+<p>
+  If you convey a covered work, knowingly relying on a patent license,
+and the Corresponding Source of the work is not available for anyone
+to copy, free of charge and under the terms of this License, through a
+publicly available network server or other readily accessible means,
+then you must either (1) cause the Corresponding Source to be so
+available, or (2) arrange to deprive yourself of the benefit of the
+patent license for this particular work, or (3) arrange, in a manner
+consistent with the requirements of this License, to extend the patent
+license to downstream recipients.  "Knowingly relying" means you have
+actual knowledge that, but for the patent license, your conveying the
+covered work in a country, or your recipient's use of the covered work
+in a country, would infringe one or more identifiable patents in that
+country that you have reason to believe are valid.
+</p>
+
+<p>
+  If, pursuant to or in connection with a single transaction or
+arrangement, you convey, or propagate by procuring conveyance of, a
+covered work, and grant a patent license to some of the parties
+receiving the covered work authorizing them to use, propagate, modify
+or convey a specific copy of the covered work, then the patent license
+you grant is automatically extended to all recipients of the covered
+work and works based on it.
+</p>
+
+<p>
+  A patent license is "discriminatory" if it does not include within
+the scope of its coverage, prohibits the exercise of, or is
+conditioned on the non-exercise of one or more of the rights that are
+specifically granted under this License.  You may not convey a covered
+work if you are a party to an arrangement with a third party that is
+in the business of distributing software, under which you make payment
+to the third party based on the extent of your activity of conveying
+the work, and under which the third party grants, to any of the
+parties who would receive the covered work from you, a discriminatory
+patent license (a) in connection with copies of the covered work
+conveyed by you (or copies made from those copies), or (b) primarily
+for and in connection with specific products or compilations that
+contain the covered work, unless you entered into that arrangement,
+or that patent license was granted, prior to 28 March 2007.
+</p>
+
+<p>
+  Nothing in this License shall be construed as excluding or limiting
+any implied license or other defenses to infringement that may
+otherwise be available to you under applicable patent law.
+</p>
+
+<ol class="org-ol">
+<li>No Surrender of Others' Freedom.
+</li>
+</ol>
+
+<p>
+  If conditions are imposed on you (whether by court order, agreement or
+otherwise) that contradict the conditions of this License, they do not
+excuse you from the conditions of this License.  If you cannot convey a
+covered work so as to satisfy simultaneously your obligations under this
+License and any other pertinent obligations, then as a consequence you may
+not convey it at all.  For example, if you agree to terms that obligate you
+to collect a royalty for further conveying from those to whom you convey
+the Program, the only way you could satisfy both those terms and this
+License would be to refrain entirely from conveying the Program.
+</p>
+
+<ol class="org-ol">
+<li>Use with the GNU Affero General Public License.
+</li>
+</ol>
+
+<p>
+  Notwithstanding any other provision of this License, you have
+permission to link or combine any covered work with a work licensed
+under version 3 of the GNU Affero General Public License into a single
+combined work, and to convey the resulting work.  The terms of this
+License will continue to apply to the part which is the covered work,
+but the special requirements of the GNU Affero General Public License,
+section 13, concerning interaction through a network will apply to the
+combination as such.
+</p>
+
+<ol class="org-ol">
+<li>Revised Versions of this License.
+</li>
+</ol>
+
+<p>
+  The Free Software Foundation may publish revised and/or new versions of
+the GNU General Public License from time to time.  Such new versions will
+be similar in spirit to the present version, but may differ in detail to
+address new problems or concerns.
+</p>
+
+<p>
+  Each version is given a distinguishing version number.  If the
+Program specifies that a certain numbered version of the GNU General
+Public License "or any later version" applies to it, you have the
+option of following the terms and conditions either of that numbered
+version or of any later version published by the Free Software
+Foundation.  If the Program does not specify a version number of the
+GNU General Public License, you may choose any version ever published
+by the Free Software Foundation.
+</p>
+
+<p>
+  If the Program specifies that a proxy can decide which future
+versions of the GNU General Public License can be used, that proxy's
+public statement of acceptance of a version permanently authorizes you
+to choose that version for the Program.
+</p>
+
+<p>
+  Later license versions may give you additional or different
+permissions.  However, no additional obligations are imposed on any
+author or copyright holder as a result of your choosing to follow a
+later version.
+</p>
+
+<ol class="org-ol">
+<li>Disclaimer of Warranty.
+</li>
+</ol>
+
+<p>
+  THERE IS NO WARRANTY FOR THE PROGRAM, TO THE EXTENT PERMITTED BY
+APPLICABLE LAW.  EXCEPT WHEN OTHERWISE STATED IN WRITING THE COPYRIGHT
+HOLDERS AND/OR OTHER PARTIES PROVIDE THE PROGRAM "AS IS" WITHOUT WARRANTY
+OF ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING, BUT NOT LIMITED TO,
+THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+PURPOSE.  THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM
+IS WITH YOU.  SHOULD THE PROGRAM PROVE DEFECTIVE, YOU ASSUME THE COST OF
+ALL NECESSARY SERVICING, REPAIR OR CORRECTION.
+</p>
+
+<ol class="org-ol">
+<li>Limitation of Liability.
+</li>
+</ol>
+
+<p>
+  IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING
+WILL ANY COPYRIGHT HOLDER, OR ANY OTHER PARTY WHO MODIFIES AND/OR CONVEYS
+THE PROGRAM AS PERMITTED ABOVE, BE LIABLE TO YOU FOR DAMAGES, INCLUDING ANY
+GENERAL, SPECIAL, INCIDENTAL OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE
+USE OR INABILITY TO USE THE PROGRAM (INCLUDING BUT NOT LIMITED TO LOSS OF
+DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR THIRD
+PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS),
+EVEN IF SUCH HOLDER OR OTHER PARTY HAS BEEN ADVISED OF THE POSSIBILITY OF
+SUCH DAMAGES.
+</p>
+
+<ol class="org-ol">
+<li>Interpretation of Sections 15 and 16.
+</li>
+</ol>
+
+<p>
+  If the disclaimer of warranty and limitation of liability provided
+above cannot be given local legal effect according to their terms,
+reviewing courts shall apply local law that most closely approximates
+an absolute waiver of all civil liability in connection with the
+Program, unless a warranty or assumption of liability accompanies a
+copy of the Program in return for a fee.
+</p>
+
+<p>
+END OF TERMS AND CONDITIONS
+</p>
+
+<p>
+How to Apply These Terms to Your New Programs
+</p>
+
+<p>
+  If you develop a new program, and you want it to be of the greatest
+possible use to the public, the best way to achieve this is to make it
+free software which everyone can redistribute and change under these terms.
+</p>
+
+<p>
+  To do so, attach the following notices to the program.  It is safest
+to attach them to the start of each source file to most effectively
+state the exclusion of warranty; and each file should have at least
+the "copyright" line and a pointer to where the full notice is found.
+</p>
+
+<p>
+&lt;one line to give the program's name and a brief idea of what it does.&gt;
+Copyright (C) &lt;year&gt;  &lt;name of author&gt;
+</p>
+
+<p>
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+</p>
+
+<p>
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+</p>
+
+<p>
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+</p>
+
+<p>
+Also add information on how to contact you by electronic and paper mail.
+</p>
+
+<p>
+  If the program does terminal interaction, make it output a short
+notice like this when it starts in an interactive mode:
+</p>
+
+<p>
+&lt;program&gt;  Copyright (C) &lt;year&gt;  &lt;name of author&gt;
+This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'.
+This is free software, and you are welcome to redistribute it
+under certain conditions; type `show c' for details.
+</p>
+
+<p>
+The hypothetical commands `show w' and `show c' should show the appropriate
+parts of the General Public License.  Of course, your program's commands
+might be different; for a GUI interface, you would use an "about box".
+</p>
+
+<p>
+  You should also get your employer (if you work as a programmer) or school,
+if any, to sign a "copyright disclaimer" for the program, if necessary.
+For more information on this, and how to apply and follow the GNU GPL, see
+<a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+</p>
+
+<p>
+  The GNU General Public License does not permit incorporating your program
+into proprietary programs.  If your program is a subroutine library, you
+may consider it more useful to permit linking proprietary applications with
+the library.  If this is what you want to do, use the GNU Lesser General
+Public License instead of this License.  But first, please read
+<a href="http://www.gnu.org/philosophy/why-not-lgpl.html">http://www.gnu.org/philosophy/why-not-lgpl.html</a>.
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
+<p class="date">Modification date: 2015-06-04 </p>
+<p class="creator">Generated by Emacs 24.5.1 (Org mode 8.2.10) </p>
+</div>
+</body>
+</html>

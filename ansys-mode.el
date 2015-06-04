@@ -2074,7 +2074,7 @@ current one."
       (move-overlay ansys-help-overlay lb lb)
       (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
       (overlay-put ansys-help-overlay 'before-string s)
-      (setq ansys-timer (run-at-time "1 min" nil
+      (setq ansys-timer (run-at-time "2 min" nil
       '(lambda () (delete-overlay ansys-help-overlay))))
 ;      )
     )

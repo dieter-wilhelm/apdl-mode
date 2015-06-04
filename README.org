@@ -7,9 +7,6 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
 * Introduction
 
-Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][Github]]. The latest
-sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
-
 This project supports your workflows with the FEA (Finite Element
 Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
 
@@ -22,20 +19,25 @@ sophisticated but its documentation is targeted for ANSYS users with
 little Emacs experience.
 
 Advantages compared to other APDL editors: Largest feature set, user
-extensible, cost-free, Emacs integrated tools, available for all OS,
-for in-built help no ANSYS installation necessary.
+extensible, cost-free, GNU Emacs integrated tools, available for all
+OS, for the mode's in-built APDL help no ANSYS installation necessary.
 
 [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and extensible -
 yet free - editor. High quality software available for every operating
 system where ANSYS is running.
 
+Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][Github]]. The latest
+sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
+
 The current stable version 16.1.1 of ANSYS-Mode is available at the
 [[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg][Google's ANSYS-Mode drive]].  There are
 residing 3 archive packages: 1) A package of ANSYS-Mode together with
 binaries of Emacs for Windows, 2) a source file package for compiling
-Emacs together with ANSYS-Mode and 3) the sources of ANSYS-Mode alone.
-You might fetch these archives via command line way, e. g. for the
-version of ANSYS-Mode bundled with Emacs binaries for Windows:
+the latest stable Emacs version together with ANSYS-Mode and 3) the
+sources of ANSYS-Mode alone, intended for an existing Emacs
+installation.  You might fetch these archives via the command line
+way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
+for Windows:
 #+BEGIN_SRC sh
 wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
 #+END_SRC

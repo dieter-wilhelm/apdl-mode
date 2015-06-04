@@ -37,43 +37,18 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
 
 * 16.1.2:
 ** Wish-list
+   - add bbdb files to emacs packages?
    - -show-command-parameters indicating at which parameter position
      the cursor is active (update tutorials)
+     - no line wrapping for overlays!
+     - numbering of commas
+     - add timer customisation variable 1 min, 2 min, etc.
    - Display hints for the shortened key(s) for C-c C-j
    - Indicate visually the region which was copied or send for
      func. -send-to-ansys
    - example.mac: make it solver compatible
    - GH-pages with tutorials
    - GH-wiki pages
-* 16.1.1:
-** Bugs
-   - file mode specification error: (search-failed
-     "nblock\\|eblock\\|cmblock" when opening .dat
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated! <- autoloaded functions
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
-   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
-   - variables behind / and * without whitespace in between are not
-     highlighted! try changing the character syntax???
-   - *create file tmp,mac: macro call: tmp, is not highlighted
-   - *msg command's format string is not higlighted (-template-element-table)
-   - variables are not highlighted in -skeletons?
-   - es not :
-        *mwrite
-        *cfclos
-	 M-? shows help for *mwrite, when cursor behind *cfclos
-   - -skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
-** Release June
-   - complete the template choice section in the menu
-   - Correct the creep data with total strain to creep strain!
-   - makefile errors: Check tutorials
-   - makefile errors when doing -fontification.el
-   - ansys-template.el:85:13:Warning: reference to free variable
-     `ansys-skeleton-overlay'
-   - mouse-choose-completion is obsolete since E23.2
-** Wish-list
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
    - check *vwrite with gui mode and interactive mode (graphics window?)
@@ -129,6 +104,32 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
      - change sequence of alignment.png first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
+** Bugs
+   - complete the template choice section in the menu
+   - Correct the creep data with total strain to creep strain!
+   - makefile errors: Check tutorials
+   - makefile errors when doing -fontification.el
+   - ansys-template.el:85:13:Warning: reference to free variable
+     `ansys-skeleton-overlay'
+   - mouse-choose-completion is obsolete since E23.2
+   - file mode specification error: (search-failed
+     "nblock\\|eblock\\|cmblock" when opening .dat
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated! <- autoloaded functions
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
+   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
+   - variables behind / and * without whitespace in between are not
+     highlighted! try changing the character syntax???
+   - *create file tmp,mac: macro call: tmp, is not highlighted
+   - *msg command's format string is not higlighted (-template-element-table)
+   - variables are not highlighted in -skeletons?
+   - es not :
+        *mwrite
+        *cfclos
+	 M-? shows help for *mwrite, when cursor behind *cfclos
+   - -skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
 * Procedures
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
@@ -137,11 +138,10 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry
   - M-x compile :: ALL ;-)
-
 ** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in V 14.5
+    are still working in V 16.1
   - TODOs, FIXMEs in the code
   - checkdoc, -template.el, -process.el, -mode.el done except
     \\<keymap> & \\[function]
@@ -174,7 +174,7 @@ r  - Navigation ::  C-c { does not skip an overlay in a number-block
     Emacs cycle)?
 
 ** Release
-  - Add the latest news from NEWS to the README
+  - Add the latest news from NEWS.org to the README.org
   - update Emacs wiki (README), home page, GitHub, Google drive with
     download, documentation page
   - publication emails (with tutorial and news):

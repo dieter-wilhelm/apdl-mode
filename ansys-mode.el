@@ -2073,7 +2073,7 @@ current one."
 ;    (unless (string= str ansys-help-overlay-str)
       (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
-      (setq s (propertize (concat str "\n") 'bold 'tooltip))
+      (setq s (propertize (concat str "\n") 'face 'lazy-highlight))
       (overlay-put ansys-help-overlay 'before-string s)
       (setq ansys-timer (run-at-time "2 min" nil
       '(lambda () (delete-overlay ansys-help-overlay))))

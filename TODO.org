@@ -40,9 +40,8 @@
    - add bbdb files to emacs packages?
    - -show-command-parameters indicating at which parameter position
      the cursor is active (update tutorials)
-     - no line wrapping for overlays!
-     - numbering of commas
      - add timer customisation variable 1 min, 2 min, etc.
+     - check this for commented-out commands
    - Display hints for the shortened key(s) for C-c C-j
    - Indicate visually the region which was copied or send for
      func. -send-to-ansys

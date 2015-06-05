@@ -1817,7 +1817,8 @@ improvements you have the following options:
 
   ;; discrepancies from Emacs defaults
   (ansys-font-lock-mode)	;switch on font-lock when it's toggled
-  (delete-selection-mode t)
+;  (delete-selection-mode t)
+  (toggle-truncate-lines 1)
   (show-paren-mode t)
   (set (make-local-variable 'scroll-preserve-screen-position) nil)
   (defadvice kill-ring-save (before slick-copy activate compile) "When called
@@ -2072,7 +2073,7 @@ current one."
 ;    (unless (string= str ansys-help-overlay-str)
       (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
-      (setq s (propertize (concat str "\n") 'font-lock-face 'tooltip))
+      (setq s (propertize (concat str "\n") 'bold 'tooltip))
       (overlay-put ansys-help-overlay 'before-string s)
       (setq ansys-timer (run-at-time "2 min" nil
       '(lambda () (delete-overlay ansys-help-overlay))))
@@ -2094,6 +2095,10 @@ command parameters highlighting, with an prefix `C-u' or argument
 might be completed with <TAB>."
   (interactive "p" )
   (let ((case-fold-search t)		;in case customised to nil
+	(count 0)
+	substr
+	tmpstr
+	start
 	str)
     ;; enquire or search for a valid command name
     (cond ((= ask-or-toggle 0))		;do nothing
@@ -2125,6 +2130,19 @@ might be completed with <TAB>."
       (catch 'foo
 	(dolist (s ansys-dynamic-prompt)
 	  (when (string-match (concat "^" str) s)
+	    (setq start (string-match "\n" s)) ;looking for the first line break
+	    (setq substr (substring s (1+ start)))
+	    (setq tmpstr (mapconcat
+			  (lambda (str)
+			    (cond ((string-match "," (string str))
+				   (setq count (1+ count))
+				   (if (> count 9)
+				       (setq count 0))
+				   (format "%d" count))
+				  (t "-")))
+			  substr ""))
+	    (when (> count 0)
+		(setq s (concat s "\n" tmpstr)))
 	    (ansys-manage-overlay s)
 	    (throw 'foo nil)))
 	(error "\"%s\" not found in keyword list" str)))))

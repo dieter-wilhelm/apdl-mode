@@ -205,12 +205,12 @@
 
 ** Use the ANSYS-Mode APDL command help
   Please type *M-?*, alternatively: *C-c ?*, on a code line and you
-  will see the APDL command's description and syntax (even when the
-  line is commented out).  You can continue editing, this temporary
-  overlay - here in yellow - remains visible for a while.
+  will see the APDL command's description and number of parameters
+  (even when the line is commented out).  You can continue editing,
+  this temporary overlay - here in blue - remains visible for a while.
   
 #+ATTR_LaTeX: :height 7.5cm
-  [[./parameter_help.png]]
+[[./parameter_help.png]]
 
 ** Select and insert templates from the menu into your code
    Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 

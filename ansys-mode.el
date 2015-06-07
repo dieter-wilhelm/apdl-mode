@@ -2057,6 +2057,10 @@ THEN action label."
       (error (message "Cannot find a proper block command to close")))))
 
 ;;; --- Command parameters and command completions ----
+(defsubst ansys-count-commas ()
+  "Return the number of commas in the line before point."
+  (how-many "," (line-beginning-position) (point)))
+
 (defun ansys-manage-overlay ( str)
   "Display or remove the command help overlay string STR.
 Appying this function in the same line erases the help overlay.

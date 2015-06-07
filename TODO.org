@@ -36,6 +36,32 @@
   - Navigation ::  C-c { does not skip an overlay in a number-block
 
 * 16.1.2:
+** Bugs
+   - complete the template choice section in the menu
+   - Correct the creep data with total strain to creep strain!
+   - file mode specification error: (search-failed
+     "nblock\\|eblock\\|cmblock" when opening .dat
+   - makefile errors: Check tutorials
+   - makefile errors when doing -fontification.el
+   - ansys-template.el:85:13:Warning: reference to free variable
+     `ansys-skeleton-overlay'
+   - mouse-choose-completion is obsolete since E23.2
+   - path construction in -mode.el for help program is not working, if
+     ansys-mode is not activated! <- autoloaded functions
+   - mismatch in customisation buffer of -license-file and -ansysli-servers
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
+   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
+   - variables behind / and * without whitespace in between are not
+     highlighted! try changing the character syntax???
+   - *create file tmp,mac: macro call: tmp, is not highlighted
+   - *msg command's format string is not higlighted (-template-element-table)
+   - variables are not highlighted in -skeletons?
+   - es not :
+        *mwrite
+        *cfclos
+	 M-? shows help for *mwrite, when cursor behind *cfclos
+   - -skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
 ** Wish-list
    - add bbdb files to emacs packages?
    - -show-command-parameters indicating at which parameter position
@@ -102,32 +128,6 @@
      - change sequence of alignment.png first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
-** Bugs
-   - complete the template choice section in the menu
-   - Correct the creep data with total strain to creep strain!
-   - makefile errors: Check tutorials
-   - makefile errors when doing -fontification.el
-   - ansys-template.el:85:13:Warning: reference to free variable
-     `ansys-skeleton-overlay'
-   - mouse-choose-completion is obsolete since E23.2
-   - file mode specification error: (search-failed
-     "nblock\\|eblock\\|cmblock" when opening .dat
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated! <- autoloaded functions
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
-   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
-   - variables behind / and * without whitespace in between are not
-     highlighted! try changing the character syntax???
-   - *create file tmp,mac: macro call: tmp, is not highlighted
-   - *msg command's format string is not higlighted (-template-element-table)
-   - variables are not highlighted in -skeletons?
-   - es not :
-        *mwrite
-        *cfclos
-	 M-? shows help for *mwrite, when cursor behind *cfclos
-   - -skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
 * Procedures
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>

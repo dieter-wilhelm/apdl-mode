@@ -2070,14 +2070,12 @@ current one."
     (if ansys-timer
 	(cancel-timer ansys-timer))
     (delete-overlay ansys-help-overlay)
-;    (unless (string= str ansys-help-overlay-str)
       (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
       (setq s (propertize (concat str "\n") 'face 'lazy-highlight))
       (overlay-put ansys-help-overlay 'before-string s)
       (setq ansys-timer (run-at-time "2 min" nil
       '(lambda () (delete-overlay ansys-help-overlay))))
-;      )
     )
   )
 
@@ -2120,11 +2118,11 @@ might be completed with <TAB>."
 	     (setq str (match-string-no-properties 0)))
 	   )
 	  ((unless (ansys-in-indentation-p)
-	     (ansys-command-start)
 	     (save-excursion
+	       (ansys-command-start)
 	       (re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	       (setq str (match-string-no-properties 0))))))
-    ;; display help string
+    ;; search and display help string in overlay
     (if (= ask-or-toggle 0)
 	(delete-overlay ansys-help-overlay)
       (catch 'foo

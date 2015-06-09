@@ -2162,10 +2162,10 @@ might be completed with <TAB>."
 	    ;; show different face for current argument
 	    (setq count (ansys-count-commas))
 	    (setq start (ansys-search-comma s count))
-	    (cond ((= 0 start)
-		   (setq start  (1+ (string-match "\n" s))))
-		  ((null start)
-		   (error "Too many commas, command has fewer arguments")))
+	    (cond ((null start)
+		   (error "Too many commas, command has fewer arguments"))
+		  ((= 0 start)
+		   (setq start  (1+ (string-match "\n" s)))))
 	    (setq end (ansys-search-comma s (1+ count)))
 	    (unless end
 		 (setq end length))

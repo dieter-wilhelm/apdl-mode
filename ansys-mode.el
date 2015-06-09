@@ -2163,7 +2163,7 @@ might be completed with <TAB>."
 	    (setq count (ansys-count-commas))
 	    (setq start (ansys-search-comma s count))
 	    (cond ((= 0 start)
-		   (setq start  (string-match "\n" s)))
+		   (setq start  (1+ (string-match "\n" s))))
 		  ((null start)
 		   (error "Too many commas, command has fewer arguments")))
 	    (setq end (ansys-search-comma s (1+ count)))

@@ -2,6 +2,9 @@
 *~
 #Emacs -auto save files
 \#*\# 
+helper/\#*\#
+helper/.\#*
+nohup.out
 #Emacs lock files
 .\#* 
 TAGS
@@ -18,5 +21,6 @@ helper/emacs-24.5
 helper/hide-region+.el
 helper/hide-region.el
 helper/htmlize.el
+helper/ansys-keyword.el
 helper/share
 gh-page

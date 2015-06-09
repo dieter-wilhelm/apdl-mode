@@ -2076,12 +2076,21 @@ current one."
     (delete-overlay ansys-help-overlay)
       (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
-      (setq s (propertize (concat str "\n") 'face 'lazy-highlight))
-      (overlay-put ansys-help-overlay 'before-string s)
+      (overlay-put ansys-help-overlay 'before-string str)
       (setq ansys-timer (run-at-time "2 min" nil
       '(lambda () (delete-overlay ansys-help-overlay))))
     )
   )
+
+(defun ansys-search-comma (str count)
+  "Return the index of the COUNT's occurance of a comma in STR.
+Return nil otherwise."
+  (let ((index 0)
+	(c 0))
+    (while (and (> count c) (not (null index)))
+      (setq index (string-match "," str (1+ index))
+	    c (1+ c)))
+    index))
 
 (defun ansys-show-command-parameters (&optional ask-or-toggle)
   "Display an ANSYS command parameters help for the command near the cursor.
@@ -2101,6 +2110,8 @@ might be completed with <TAB>."
 	substr
 	tmpstr
 	start
+	end
+	length
 	str)
     ;; enquire or search for a valid command name
     (cond ((= ask-or-toggle 0))		;do nothing
@@ -2126,12 +2137,14 @@ might be completed with <TAB>."
 	       (ansys-command-start)
 	       (re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	       (setq str (match-string-no-properties 0))))))
-    ;; search and display help string in overlay
+    ;; search, amend and display help string in overlay
     (if (= ask-or-toggle 0)
 	(delete-overlay ansys-help-overlay)
       (catch 'foo
 	(dolist (s ansys-dynamic-prompt)
 	  (when (string-match (concat "^" str) s)
+	    (setq length (length s))
+	    ;; creating additional row with comma counts
 	    (setq start (string-match "\n" s)) ;looking for the first line break
 	    (setq substr (substring s (1+ start)))
 	    (setq tmpstr (mapconcat
@@ -2145,6 +2158,18 @@ might be completed with <TAB>."
 			  substr ""))
 	    (when (> count 0)
 		(setq s (concat s "\n" tmpstr)))
+	    (setq s (propertize (concat s "\n") 'face 'lazy-highlight))
+	    ;; show different face for current argument
+	    (setq count (ansys-count-commas))
+	    (setq start (ansys-search-comma s count))
+	    (cond ((= 0 start)
+		   (setq start  (string-match "\n" s)))
+		  ((null start)
+		   (error "Too many commas, command has fewer arguments")))
+	    (setq end (ansys-search-comma s (1+ count)))
+	    (unless end
+		 (setq end length))
+	    (add-text-properties start end '(face  isearch-fail) s)
 	    (ansys-manage-overlay s)
 	    (throw 'foo nil)))
 	(error "\"%s\" not found in keyword list" str)))))

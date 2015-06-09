@@ -212,6 +212,14 @@
 #+ATTR_LaTeX: :height 7.5cm
 [[./parameter_help.png]]
 
+** NEW: Check your cursor position in the parameter list
+  For commands with a large number of arguments it is cumbersome to
+  count the arguments, *C-?* facilitates this for you and visualises
+  at which parameter position the cursor currently is.
+  
+#+ATTR_LaTeX: :height 7.5cm
+[[./parameter_help.png]]
+
 ** Select and insert templates from the menu into your code
    Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
 

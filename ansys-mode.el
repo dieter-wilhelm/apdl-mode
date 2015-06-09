@@ -164,7 +164,7 @@ not really placed in the text, it is just shown in an overlay"
   :type 'boolean
   :group 'hide-region)
 
-(defcustom ansys-highlighting-level 1
+(defcustom ansys-highlighting-level 2
   "This variable sets the level of highlighting.
 There are three levels available, 0 a minimalistic level
 optimised for speed and working with very large files (like

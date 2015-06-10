@@ -56,6 +56,7 @@
    - *create file tmp,mac: macro call: tmp, is not highlighted
    - *msg command's format string is not higlighted (-template-element-table)
    - variables are not highlighted in -skeletons?
+   - Error running timer: (wrong-type-argument overlayp nil): when not in ANSYS buffer!
    - es not :
         *mwrite
         *cfclos
@@ -248,7 +249,6 @@
      replacement.  Inspirations from eldoc-mode, show replacements of
      deprecated elements?
    - create a reference card
-   - make the timer time interval customisable
    - show list of license products and their license feature names or
      translate it in the license status from the licensing guide
      (product variable table)

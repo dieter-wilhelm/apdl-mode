@@ -81,7 +81,7 @@ key and choose with the mouse 2 button."
     (cond ((= arg 1)
 	   (switch-to-buffer-other-window skeleton-buffer)
 	   (setq buffer-read-only nil)
-	   (remove-overlays)
+	   (remove-overlays)		;from beginnin and end of buffer
 	   ;;(make-local-variable 'ansys-skeleton-overlay)
 	   (setq ansys-skeleton-overlay (make-overlay 1 1))
 	   (kill-region (point-min) (point-max))
@@ -96,10 +96,8 @@ key and choose with the mouse 2 button."
 			    skel " -*-\n") 'face 'match))
 	   (overlay-put ansys-skeleton-overlay 'before-string s)
 	   (set-buffer-modified-p nil)
-;	   (toggle-read-only t)
 	   (setq buffer-read-only t)
 	   (switch-to-buffer-other-window old-buffer)
-	   ;; (display-buffer new-buffer-name 'other-window)
 	   )
 	  (t
 	   (funcall (intern-soft skel)))

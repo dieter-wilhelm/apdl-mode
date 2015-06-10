@@ -1440,8 +1440,9 @@ idea is to give a visual hint whether variable names are spelled
 and used correctly everywhere in the file not only at the place
 of its definition.
 
-For this you must set `ansys-highlighting-level' to 2, please
-have a look at the == customisation == section on how to do this.
+For this `ansys-highlighting-level' must be set to 2 (which is
+the default), please have a look at the == customisation ==
+section on how to change settings.
 
 The user variable highlighting is still experimental, newly
 edited variable definitions are taken into account only when the
@@ -1859,8 +1860,8 @@ improvements you have the following options:
 	     (y-or-n-p
 	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and buffer-file-name ;we have a file in the buffer
-	     ansys-dynamic-highlighting-flag
-	     (string= (file-name-extension (buffer-file-name)) "mac"))
+		 ansys-dynamic-highlighting-flag
+		 (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (message "Experimental (dynamic) fontification of user variables activated."))
@@ -1869,7 +1870,8 @@ improvements you have the following options:
 
   ;; .dat WorkBench solver input files
 
-  (when (string= (file-name-extension (buffer-file-name)) "dat")
+  (when (and buffer-file-name ; a buffer with a file name
+	 (string= (file-name-extension (buffer-file-name) t) ".dat"))
     (ansys-hide-number-blocks))
     ;; (when (y-or-n-p "Would you like to hide all blocks? This may take some time...")
     ;; 	    (hs-hide-all)))

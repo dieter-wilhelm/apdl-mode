@@ -421,7 +421,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 )
 
 (define-skeleton ansys-skeleton-configuration
-  ""
+  "Configuration skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- configurations --" \n
@@ -459,7 +459,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-view-settings
-  ""
+  "View settings skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- view settings --" \n
@@ -649,7 +649,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-contact-definition
-  ""
+  "Contact definitons skeleton."
   nil
   "!@ -------------------------------" \n
   "!@@ -- General contact definitions (since Ansys 16) --" \n
@@ -790,7 +790,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-contact-rigid
-  ""
+  "Rigid contacts skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- rigid target creation -- " \n
@@ -824,7 +824,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-coordinates
-  ""
+  "Co-ordinate systems skeleton."
   nil
   "!! .............................." \n
   "!@@@ - coordinate system creations and modifications -" \n
@@ -873,7 +873,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 ;; PlotCtrls ->Multi-plot-Ctrls???
 (define-skeleton ansys-skeleton-multi-plot
-  ""
+  "Multi-plot skeleton"
   nil
   "!! .............................." \n
   "!@@@ - multiplot controls -" \n
@@ -888,7 +888,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 ;; PlotCtrls ->Numbering Controls
 (define-skeleton ansys-skeleton-numbering-controls
-  ""
+  "Numbering controls skeleton."
   nil
   "!! .............................." \n
   "!@@@ - numbering controls -" \n
@@ -903,7 +903,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 ;; PlotCtrls -> Symbols
 (define-skeleton ansys-skeleton-symbols
-  ""
+  "Symbols skeleton."
   nil
   "!! .............................." \n
   "!@@@ - symbol display -" \n
@@ -929,41 +929,41 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-element-table
-  ""
-  nil
+  "Element tables."
+  nil ;interactor not needed
   "!@ ------------------------------" \n
-  "!@@ -- etables --" \n
+  "!@@ -- Etables, element tables --" \n
   "!! ------------------------------" \n
-  \n
-  "!! etables don't take into account higher element order!" \n
-  "!! they are averaged over the element" \n
-  "!! ---- Mohr-Coulomb failure criterion" \n
-  "Z1 = 60 !tensile strength" \n
-  "Z3 = 160 !compressive strength" \n
-  "etable,S1,s,1" \n
-  "etable,S3,s,3" \n
-  "sadd,R,S1,S3,1/Z1,-1/Z3" \n
-  "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
-  "!! constant element values are transfered to the nodes and optionally averaged" \n
-  "pletab,R,avg !avg: average over nodes of neigbouring elements" \n
-  "esel,s,type,,2" \n
-  "etable,Pene,cont,pene" \n
-  "!etable,chat,cont,cnos !chattering levels" \n
-  "!etable,cpre,cont,pres" \n
-  "!plls,Pene,Pene !line elem. results" \n
-  "esort,etab,R" \n
-  "etable,refl !refill all element tables for latest load set" \n
-  "*get,Mc,etab,sort,,max" \n
-  "*msg,,Mc" \n
-  "Mohr-Coulomb criterion (< 1): %G" \n
-  "ssum !Calculate and print the sum of element table items." \n
-  "sabs,1 ! 1: absolut values, [0] algebraic values for table operations" \n
-  "*get,My_magnet_force1,ssum,,item,S1 " \n
+  ;; \n
+  ;; "!! etables don't take into account higher element order!" \n
+  ;; "!! they are averaged over the element" \n
+  ;; "!! ---- Mohr-Coulomb failure criterion" \n
+  ;; "Z1 = 60 !tensile strength" \n
+  ;; "Z3 = 160 !compressive strength" \n
+  ;; "etable,S1,s,1" \n
+  ;; "etable,S3,s,3" \n
+  ;; "sadd,R,S1,S3,1/Z1,-1/Z3" \n
+  ;; "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
+  ;; "!! constant element values are transfered to the nodes and optionally averaged" \n
+  ;; "pletab,R,avg !avg: average over nodes of neigbouring elements" \n
+  ;; "esel,s,type,,2" \n
+  ;; "etable,Pene,cont,pene" \n
+  ;; "!etable,chat,cont,cnos !chattering levels" \n
+  ;; "!etable,cpre,cont,pres" \n
+  ;; "!plls,Pene,Pene !line elem. results" \n
+  ;; "esort,etab,R" \n
+  ;; "etable,refl !refill all element tables for latest load set" \n
+  ;; "*get,Mc,etab,sort,,max" \n
+  ;; "*msg,,Mc" \n
+  ;; "Mohr-Coulomb criterion (< 1): %G" \n
+  ;; "ssum !Calculate and print the sum of element table items." \n
+  ;; "sabs,1 ! 1: absolut values, [0] algebraic values for table operations" \n
+  ;; "*get,My_magnet_force1,ssum,,item,S1 " \n
   \n
   )
 
 (define-skeleton ansys-skeleton-beam-template
-  "example of a modal analysis with beams"
+  "Minimal example of a modal analysis with beams"
   nil
   '(ansys-skeleton-header)
   "!fini" \n
@@ -1048,7 +1048,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-element-definition
-  ""
+  "Element definitions skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- element definitions --" \n
@@ -1163,7 +1163,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-meshing
-  ""
+  "Meshing skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- meshing --" \n
@@ -1221,7 +1221,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-function
-  "Standard FORTRAN and get functions"
+  "Standard FORTRAN and get functions."
   nil
   "!! ==============================" \n
   "!! --- Parameteric functions ---" \n
@@ -1374,7 +1374,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-geometry
-  ""
+  "Geometry definitons skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- geometry --" \n
@@ -1476,7 +1476,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-material-definition
-  ""
+  "Material definitons skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- material definitions --" \n
@@ -1654,7 +1654,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-component
-  ""
+  "Component (Named Selections in WorkBench) skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- components --" \n
@@ -1670,7 +1670,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 )
 
 (define-skeleton ansys-skeleton-bc
-  ""
+  "Boundary conditions skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- boundary conditions --" \n
@@ -1800,7 +1800,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-buckling
-  ""
+  "Buckling skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ - buckling -" \n
@@ -1827,7 +1827,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-solve
-  ""
+  "Solving /solu skeleton."
   nil
   "!@ ==============================" \n
   "!@ --- solution --- " \n
@@ -1959,7 +1959,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-post1
-  ""
+  "Postprocessing /postXX skeleton."
   nil
   "!@ ==============================" \n
   "!@ --- post 1 ---" \n
@@ -2190,7 +2190,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-output-to-file
-  ""
+  "I/Output to file skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- output to file --" \n
@@ -2373,7 +2373,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 ;TODO: explain what's it for
 (define-skeleton ansys-skeleton-select
-  ""
+  "Selections skeleton."
   nil
   "!! .............................." \n
   "!@@@ - select stuff -" \n
@@ -2407,7 +2407,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-path-plot
-  ""
+  "Path plot skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- path plot --" \n
@@ -2434,7 +2434,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-post26
-  ""
+  "Time postprocessing /post26 skeleton."
   nil
   "!@ ------------------------------" \n
   "!@ --- time-history postprocessing ---" \n
@@ -2507,7 +2507,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 ;; TODO: complete
 (define-skeleton ansys-skeleton-array
-  "arrays"
+  "Fields and arrays skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- \"table\" arrays --" \n

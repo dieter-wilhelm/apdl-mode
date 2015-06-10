@@ -3042,7 +3042,7 @@ These constructs appear in WorkBench created solver input files."
 	)
     (message "Hiding number blocks ...")
     (goto-char (point-min))
-    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil nil)
+    (while (re-search-forward "nblock\\|eblock\\|cmblock" nil t)
       (setq p1 (point))
       (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
       (setq p2 (point)
@@ -3058,7 +3058,7 @@ These constructs appear in WorkBench created solver input files."
 	(ansys-hide-region)
 	)
       )
-    (goto-char (p-orig))
+    (goto-char p-orig)
     )
   )
 

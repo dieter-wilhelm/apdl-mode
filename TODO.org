@@ -37,7 +37,8 @@
 
 * 16.1.2:
 ** Bugs
-   - complete the template choice section in the menu
+   - -reload-ansys-mode is only working in the directory where
+     -mode.el is sitting
    - Correct the creep data with total strain to creep strain!
    - makefile errors: Check tutorials
    - makefile errors when doing -fontification.el

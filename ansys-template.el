@@ -105,7 +105,7 @@ key and choose with the mouse 2 button."
 	   (funcall (intern-soft skel)))
 	  )))
 
-(define-skeleton ansys_do		;NEW
+(define-skeleton ansys_do
   "Insert a *do .. *enddo loop."
   nil
   "*do,I,1,10,1" > \n
@@ -114,7 +114,7 @@ key and choose with the mouse 2 button."
   "*enddo" > \n
   )
 
-(define-skeleton ansys_if		;NEW
+(define-skeleton ansys_if
   "Insert an *if .. *endif construct."
   nil
   "*if,I,eq,J,then" > \n
@@ -164,7 +164,7 @@ key and choose with the mouse 2 button."
   ":BRANCH" \n
   )
 
-(define-skeleton ansys-skeleton-header	 ;NEW
+(define-skeleton ansys-skeleton-header
   "Insert a file header for an APDL script.
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
@@ -591,7 +591,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-import	;NEW
+(define-skeleton ansys-skeleton-import
   "Import commands."
   nil
   "!! ------------------------------" \n
@@ -628,7 +628,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-expand	;NEW
+(define-skeleton ansys-skeleton-expand
   "Symmetry expansion."
   nil
   "!! ------------------------------" \n
@@ -789,7 +789,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-contact-rigid ;NEW
+(define-skeleton ansys-skeleton-contact-rigid
   ""
   nil
   "!@ ------------------------------" \n
@@ -2744,7 +2744,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   (ansys-skeleton-post1))
 
 ;; TODO:
-(define-skeleton ansys-skeleton-outline-template		;NEW
+(define-skeleton ansys-skeleton-outline-template
   "Insert outline framework into an ANSYS APDL file."
   "Insert brief purpose of file: "
   "!@ ==============================" \n

@@ -894,8 +894,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Output to file"         ansys-skeleton-output-to-file :help "Commands for writing data to a file"]
 	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
 	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
+	      ["Components"  ansys-skeleton-component :help "Components (Named selections in WorkBench) template"]
+	      ["Selections"  ansys-skeleton-select :help "How to select stuff template"]
 	      "-"
 	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlineing headers and sections"]
+	      ["Beam template"          ansys-skeleton-beam-template :help "Insert a minimal template for a beam simulation"]
  	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
 	      ["Contact template"    ansys-skeleton-contact :help "Insert a minimal template for a structural contact simulation"]
 	      ["Compilation of templates"   ansys-skeleton :help "Insert a compilation of selected templates"]

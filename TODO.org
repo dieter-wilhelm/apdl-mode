@@ -37,10 +37,9 @@
 
 * 16.1.2:
 ** Bugs
-   - complete the template choice section in the menu
+   - -reload-ansys-mode is only working in the directory where
+     -mode.el is sitting
    - Correct the creep data with total strain to creep strain!
-   - file mode specification error: (search-failed
-     "nblock\\|eblock\\|cmblock" when opening .dat
    - makefile errors: Check tutorials
    - makefile errors when doing -fontification.el
    - ansys-template.el:85:13:Warning: reference to free variable
@@ -61,7 +60,6 @@
         *mwrite
         *cfclos
 	 M-? shows help for *mwrite, when cursor behind *cfclos
-   - -skeleton-information returns: file-name-extension: Wrong type argument: stringp, nil
 ** Wish-list
    - add bbdb files to emacs packages?
    - -show-command-parameters indicating at which parameter position

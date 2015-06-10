@@ -189,27 +189,27 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-information
-  ""
+  "Information gathering with APDL commands."
   nil
-  "!@ ------------------------------" \n
-  "!@@ -- informations --" \n
+  ;; "!@ ------------------------------" \n
+  ;; "!@@ -- informations --" \n
+  ;; "!! ------------------------------" \n
   "!! ------------------------------" \n
-  "!@ ------------------------------" \n
   "!@@@ --- measurements ---" \n
   "!! ------------------------------" \n
   \n
-  "nx|y|z(NodeNo) ! x|y|z-coordinate of node NodeNo " \n
-  "kx|y|z(KPoint) ! x|y|z-coordinate of KP KeyPoint " \n
+  "nx(NodeNo)|y|z ! x|y|z-coordinate of node NodeNo " \n
+  "kx(KPoint)|y|z ! x|y|z-coordinate of KP KeyPoint " \n
   "distnd(N1,N2) ! distance between nodes" \n
   "distkp(k1,k2) ! distance between keypoints" \n
   "disten(e,n) ! distance between element centroid and node" \n
   \n
-  "!@ ------------------------------" \n
+  "! -------------------------------" \n
   "!@@@ - Center of mass, mass, and mass moments of inertia -" \n
   "!! ------------------------------" \n
   \n
   "!! --- partial solution for mass calculation ---" \n
-  "\solu !for psolve" \n
+  "/solu !for psolve" \n
   "outpr,basic,all" \n
   "irlf,-1! inertia relief option" \n
   "/output,mass_output,txt" \n

@@ -2181,6 +2181,7 @@ buffer, which might be completed with <TAB>."
 	    (add-text-properties start end '(face  isearch-fail) s)
 	    (ansys-manage-overlay s)
 	    (throw 'foo nil)))
+	(delete-overlay ansys-help-overlay)
 	(error "\"%s\" not found in keyword list" str)))))
 
 (defun ansys-check-capitalisation ( string)

@@ -16,7 +16,7 @@
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
-  - Highlighting :: help overlay is only removed after 1 min if the
+  - Highlighting :: help overlay is only removed after 2 min if the
                     buffer is active at that time!
   - Keybinding :: M-j: When there is already a `&' in a format command
                   (like *msg, *vwrite, *mwrite)
@@ -39,29 +39,29 @@
 ** Bugs
    - -reload-ansys-mode is only working in the directory where
      -mode.el is sitting
-   - Correct the creep data with total strain to creep strain!
-   - makefile errors: Check tutorials
-   - makefile errors when doing -fontification.el
-   - ansys-template.el:85:13:Warning: reference to free variable
-     `ansys-skeleton-overlay'
-   - mouse-choose-completion is obsolete since E23.2
+   - Correct the creep data with correct young's modulus and total
+     strain to creep strain!
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated! <- autoloaded functions
-   - mismatch in customisation buffer of -license-file and -ansysli-servers
+   - Error running timer: (wrong-type-argument overlayp nil): when not in ANSYS buffer!
+   - *mwrite *cfclos M-? shows help for *mwrite, when cursor behind
+     *cfclos and in the last line without \n
+** Wish-list
+   - show defaults for -license-file, license-utility and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
    - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???
-   - *create file tmp,mac: macro call: tmp, is not highlighted
    - *msg command's format string is not higlighted (-template-element-table)
-   - variables are not highlighted in -skeletons?
-   - Error running timer: (wrong-type-argument overlayp nil): when not in ANSYS buffer!
-   - es not :
-        *mwrite
-        *cfclos
-	 M-? shows help for *mwrite, when cursor behind *cfclos
-** Wish-list
+   - Variables are not highlighted in -skeletons?, *create file
+     tmp,mac: macro call: tmp, is not highlighted
+   - makefile errors: Check tutorials
+   - makefile errors when doing -fontification.el
+   - ansys-template.el:85:13:Warning: reference to free variable
+     `ansys-skeleton-overlay'
+   - mouse-choose-completion is obsolete since E23.2
+   - example of an ansyslmd.ini?
    - add bbdb files to emacs packages?
    - -show-command-parameters indicating at which parameter position
      the cursor is active (update tutorials)
@@ -138,7 +138,6 @@
 
    GH-wiki is repo with write access for world, separate from the A-M repo!
 
-
 ** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
@@ -148,9 +147,9 @@
     \\<keymap> & \\[function]
   - README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history
-  - update the mode help, complete skeleton menus, update version
-    numbers, default specifiers
+  - update the mode help, update version numbers, default specifiers
   - update defcustom list in ./bug-report.sh -> ansys-submit-bug-report
+  - update/complete skeletons menu
 
   # ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
     # ansys
@@ -267,9 +266,7 @@
      keyword is not found
    - M-? the command help does not work when there are solver ignored
      characters behind the unique command name, example: *VWROOOOM.
-   - M-? Provide also help for commented out commands
    - M-?: following a variable allocation with `='
-   - M-?: remove also old overlay when new keyword is not found
    - M-?: In the last empty line displays overlay below command
      instead above
    - Provide ANSYS command completion and command-help in comint

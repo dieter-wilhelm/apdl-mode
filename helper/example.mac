@@ -520,3 +520,6 @@ psolve
 /zoom
 
 set,,,,,
+*mwrite
+blall
+*cfclos

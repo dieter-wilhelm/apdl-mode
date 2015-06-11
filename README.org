@@ -66,9 +66,10 @@ only implemented for GNU/Linux systems.
 
 * Features
 
-- Command syntax help inbuilt in the mode (similar to but more verbose
-  then the ANSYS dynamic prompt), undocumented commands are hinted as
-  such. (There is no need to have ANSYS installed for it to work.)
+- Inbuilt syntax help (similar to the ANSYS dynamic prompt),
+  undocumented and deprecated commands are hinted as such.  This
+  syntax help counts the number of arguments and visualises your
+  cursor position in the argument list as well.
 
 - Opening the detailed ANSYS help in your web browser for an APDL
   command or element name (the element number is sufficient) at or

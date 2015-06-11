@@ -30,7 +30,7 @@ Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][Github]]. The
 sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
 
 The current stable version 16.1.1 of ANSYS-Mode is available at the
-[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/drive/folders/0Bxnk08BGWfexUThqbWxLX1NyeTg][Google's ANSYS-Mode drive]].  There are
+[[https://github.com/dieter-wilhelm/ansys-mode/releases][Github releases site]] or at [[https://drive.google.com/open?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&authuser=0][Google's ANSYS-Mode drive]].  There are
 residing 3 archive packages: 1) A package of ANSYS-Mode together with
 binaries of Emacs for Windows, 2) a source file package for compiling
 the latest stable Emacs version together with ANSYS-Mode and 3) the

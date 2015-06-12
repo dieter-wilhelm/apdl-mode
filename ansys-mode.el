@@ -1835,18 +1835,7 @@ improvements you have the following options:
 		     (list (line-beginning-position)
 			   (line-beginning-position 2)))))
 
-  ;; on what system are we
   (setq ansys-is-unix-system-flag (ansys-is-unix-system-p))
-
-  ;;   (make-local-variable 'ansys-column-ruler-wide) ;FIXME
-  ;;   (make-local-variable 'ansys-column-ruler-narrow)
-  ;;   (make-local-variable 'ansys-ruler-wide-flag)
-  ;;   (setq wide-ansys-ruler-mode nil)
-  ;;	"set to  nil for narrow, t for wide."
-
-  ;; (make-local-variable 'ansys-format)
-  ;; (setq ansys-format (intern "mac"))	;FIXME: this is for the ansys-macro
-  ;; 					;? why intern?
 
   ;; menu
   (ansys-add-ansys-menu)
@@ -2306,90 +2295,6 @@ buffer with the SPACE key."
 		  (kill-buffer completion-buffer)
 		(setq unread-command-events
 		      (listify-key-sequence key))))))))))
-
-;; (defun ansys-complete-symbol ()
-;;   "Perform a completion on ANSYS keywords preceding the cursor.
-;; Complete the character(s) to ANSYS's reserved words, functions
-;; and element names, otherwise throw an error.  When the keyword or
-;; the completed character(s) represent a unique ANSYS keyword
-;; indicate this fact with a message. When the completion is not
-;; unique or only partial show the other possible completions in a
-;; temporary completion buffer, in which the completions might be
-;; chosen with the mouse.  You can remove the completion buffer with
-;; the SPACE key."
-;;   ;; This code taken from lisp-complete-symbol
-;;   (interactive "*")
-;;   (let* ((buffer-name "*ANSYS-completions*")
-;; 	(completion-buffer (get-buffer-create buffer-name))
-;; 	(completion-window (get-buffer-window completion-buffer))
-;; 	)
-;;     (if (and (eq last-command this-command)
-;; 	     completion-window		;already window there?
-;; 	     (window-live-p completion-window)	;window is visible
-;; ;	     (window-buffer window)
-;; 	     ;; (buffer-name (window-buffer window))
-;; 	     )
-;; 	;; If this command was repeated, and
-;; 	;; there's a fresh completion window with a live buffer,
-;; 	;; and this command is repeated, scroll that window.
-;; 	(with-current-buffer (window-buffer completion-window)
-;; 	  (if (pos-visible-in-window-p (point-max) completion-window)
-;; 	      (set-window-start completion-window (point-min))
-;; 	    (save-selected-window
-;; 	      (select-window completion-window)
-;; 	      (scroll-up))))
-;;       ;; Do completion.
-;;       (let* ((end (point))
-;; 	     (beg (save-excursion (backward-sexp 1) (point)))
-;; 	     (completion-string (buffer-substring-no-properties beg end))
-;; 	     (completion (try-completion
-;; 			  completion-string ansys-completions))
-;; 	     (completion-list (all-completions
-;; 			       completion-string ansys-completions))
-;; 	     )
-;; 	(cond ((eq completion t)	;perfect match
-;; 	       (message "Nothing to complet.")
-;; 	       (when (> (length completion-list) 1)
-;; 		 (message "bla")))
-;; 	      ((null completion)	;completion did not succeed
-;; 	       (message "Can't find completion for \"%s\"" completion-string)
-;; 	       (ding))
-;; 	      ((not (string= completion-string completion))
-;; 	       (message completion)
-;; 	       (delete-region beg end)
-;; 	       ;; Completion w/o capitalisation (Suggestion: Holger Sparr)
-;; 	       (let* ((case-fold-search nil)
-;; 		      (downcase (string-match
-;; 			   "[*/~]?[a-z]"
-;; 			   completion-string)))
-;; 		 (if (or (null downcase) (> downcase 0))
-;; 		     (insert completion)
-;; 		   (insert (downcase completion)))))
-;; 	      (t
-;; 	       (let ((conf (current-window-configuration)))
-;; 		 ;; Taken from comint.el
-;; 		 ;(message "Making completion list...")
-;; 		 (with-output-to-temp-buffer "*ANSYS-completions*"
-;; 		   (display-completion-list
-;; 		    completion-list completion-string))
-;; 		 (message "Hit space to flush the completion buffer")
-;; 		 (let (key first)
-;; 		   (if (save-excursion
-;; 			 (set-buffer (get-buffer completion-buffer))
-;; 			 (setq key (read-key-sequence nil)
-;; 			       first (aref key 0))
-;; 			 (and (consp first) (consp (event-start first))
-;; 			      (eq (window-buffer (posn-window (event-start
-;; 							       first)))
-;; 				  (get-buffer completion-buffer))
-;; 			      (eq (key-binding key) 'mouse-choose-completion)))
-;; 		       (progn
-;; 			 (mouse-choose-completion first)
-;; 			 (set-window-configuration conf))
-;; 		     (if (eq first ?\ )
-;; 			 (set-window-configuration conf)
-;; 		       (setq unread-command-events
-;; 			     (listify-key-sequence key))))))))))))
 
 ;;;; Electric characters & friends
 
@@ -3076,7 +2981,6 @@ These constructs appear in WorkBench created solver input files."
         (progn
           (delete-overlay (car ansys-hide-region-overlays))
           (setq ansys-hide-region-overlays (cdr ansys-hide-region-overlays))))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- Abbreviations ---

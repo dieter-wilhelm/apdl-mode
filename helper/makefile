@@ -19,7 +19,7 @@ ANSYS_MAJOR := 16
 ANSYS_MINOR := 1
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := rc1
+MODE_VERSION := 1
 # for consistency:
 #MODE_VERSION := 1
 #MODE_VERSION := rc1
@@ -81,7 +81,9 @@ TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf
  A-M_in-depth_tutorial-$(VERSION).pdf    \
  A-M_APDL_reference-$(VERSION).pdf
 
-PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(TUTORIALS)
+MATLIB := ../matlib/
+
+PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(TUTORIALS) $(MATLIB)
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."

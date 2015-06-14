@@ -29,7 +29,7 @@
 #+LATEX_HEADER:\ofoot{\includegraphics[width=3cm]{ansys+emacs.png}}
 
 ##+TEXT: This is still a work in progress, good documentation is hard work!
-##+TEXT: Please report remaining faults.
+##+TEXT: Please report the faults.
 
 * ANSYS-Mode Syntax Highlighting Reference
 #+BEGIN_LaTeX
@@ -344,7 +344,6 @@ and you are getting a diffent element highlighting.
   - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
     contrast to the more ralistic ones in /solu
     
-
 ** File types (the whole zoo is in the operations guide) under Gnu/Linux?
    |  No | Type                                                             | Name     | temp. | Remark                             | Format  |
    |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|

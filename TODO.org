@@ -47,6 +47,9 @@
    - *mwrite *cfclos M-? shows help for *mwrite, when cursor behind
      *cfclos and in the last line without \n
 ** Wish-list
+   - Targeting AnsysClassics
+   - Targeting ANSYS Aim
+   - Add WorkBench (Aim) concepts to APDL translation
    - show defaults for -license-file, license-utility and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!

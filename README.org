@@ -43,14 +43,17 @@ wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1
 #+END_SRC
 Important parts of the code (completions, help strings, etc.) are
 based on the ANSYS documentation.  Besides source files and the Emacs
-editor you will find tutorials in the download section.  For an
-immediate impression have a look at the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
-introductory on-line version], here you are able to see the images in
-a higher resolution as in the PDF version.  And in the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
-in-depth on-line tutorial] there is the source code highlighting
-better preserved as in its PDF version.
+editor you will find tutorials in the download section.
+
+# For an
+# immediate impression have a look at the
+# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
+# introductory on-line version], here you are able to see the images in
+# a higher resolution as in the PDF version.  And in the
+# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
+# in-depth on-line tutorial] there is the source code highlighting
+# better preserved as in its PDF version.
+
 
 Please report bugs and inconsistencies also in the documentation!
 Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[ ihttps://github.com/dieter-wilhelm/ansys-mode/issues][Github's
@@ -149,9 +152,9 @@ only implemented for GNU/Linux systems.
 
 * Example applications
 
-Visual examples you will find in the
-[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
-and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
+# Visual examples you will find in the
+# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
+# and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
 http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
 
@@ -186,7 +189,7 @@ Sources:
 
 (and possibly their compiled versions with the suffix '.elc'.  In case
 you are using the mode with an older version of Emacs than 24.1 please
-remove the .elc files.)
+remove the compiled .elc files, if any.)
 
 *Auxiliaries*:
 - README.org -- This file

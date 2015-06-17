@@ -156,7 +156,7 @@ only implemented for GNU/Linux systems.
 # [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
 # and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
-http://www.duenenhof-wilhelm.de/dieter/ansys-mode.jpg
+[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys-mode.jpg]]
 
 Above image shows an Emacs frame (in reversed colour mode and compiled
 with the GTK+ toolkit under GNU/Linux) with a ripped off menu field.  The

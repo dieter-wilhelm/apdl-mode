@@ -59,13 +59,26 @@ Please report bugs and inconsistencies also in the documentation!
 Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[ ihttps://github.com/dieter-wilhelm/ansys-mode/issues][Github's
 issues list]].
 
-* Requirements
+* Example applications
 
-The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
-should also run with older versions of Emacs down to Emacs-23.
+# Visual examples you will find in the
+# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
+# and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
-Some of ANSYS-Mode's solver control and communication features are
-only implemented for GNU/Linux systems.
+[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys-mode.jpg]]
+
+Above image shows an Emacs frame (in reversed colour mode and compiled
+with the GTK+ toolkit under GNU/Linux) with a ripped off menu field.  The
+APDL file is in the right window with the (experimental) user variable
+highlighting switched on and a help overlay (in yellow background)
+activated. The smaller windows on the left hand side are showing the
+`Variable definitions buffer' of the same file and a preview buffer of
+a certain code template, respectively.
+
+Blelow is a Screenshot on Win64 with the ANSYS Classics GUI on the
+left and Emacs in ANSYS-Mode on the right hand side.
+
+[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/template_menu.png]]
 
 * Features
 
@@ -150,25 +163,17 @@ only implemented for GNU/Linux systems.
   changes some Emacs default behaviour to alleviate the transition
   from other editors and user interface standards.
 
-* Example applications
-
-# Visual examples you will find in the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
-# and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
-
-[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys-mode.jpg]]
-
-Above image shows an Emacs frame (in reversed colour mode and compiled
-with the GTK+ toolkit under GNU/Linux) with a ripped off menu field.  The
-APDL file is in the right window with the (experimental) user variable
-highlighting switched on and a help overlay (in yellow background)
-activated. The smaller windows on the left hand side are showing the
-`Variable definitions buffer' of the same file and a preview buffer of
-a certain code template, respectively.
-
 * News
 
 Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
+
+* Requirements
+
+The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
+should also run with older versions of Emacs down to Emacs-23.
+
+Some of ANSYS-Mode's solver control and communication features are
+only implemented for GNU/Linux systems.
 
 * Installation
 

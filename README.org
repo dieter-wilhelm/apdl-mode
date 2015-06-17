@@ -56,7 +56,7 @@ editor you will find tutorials in the download section.
 
 
 Please report bugs and inconsistencies also in the documentation!
-Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[ ihttps://github.com/dieter-wilhelm/ansys-mode/issues][Github's
+Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[https://github.com/dieter-wilhelm/ansys-mode/issues][Github's
 issues list]].
 
 * Example applications
@@ -205,6 +205,7 @@ remove the compiled .elc files, if any.)
 - helper/example.dat -- WorkBench example APDL solver input file
 - helper/example.anf -- ANSYS geometry neutral file example
 - helper/example.mac -- APDL user macro and highlighting example
+- matlib/ -- a directory with examples of APDL material definitions
 - doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
 - doc/A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code

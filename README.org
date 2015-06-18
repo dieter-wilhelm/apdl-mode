@@ -494,10 +494,10 @@ the following options:
 
 - When you have already a (cost free) Github account you are able to
   issue a bug report at the [[https://github.com/dieter-wilhelm/ansys-mode/issues][Github issues list]].  From this site you
-  might download the latest development version.
+  might also download the latest development version.
 
-- Also at the [[http://www.emacswiki.org/cgi-bin/wiki/AnsysMode][Emacs Wiki]] you might add comments or wishes without
-  registration.
+- At the [[http://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
+  without registration.
 
 # The following is for Emacs
 # local variables:

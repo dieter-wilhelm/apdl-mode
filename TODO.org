@@ -70,9 +70,6 @@
      the cursor is active (update tutorials)
      - add timer customisation variable 1 min, 2 min, etc.
      - check this for commented-out commands
-   - Display hints for the shortened key(s) for C-c C-j
-   - Indicate visually the region which was copied or send for
-     func. -send-to-ansys
    - example.mac: make it solver compatible
    - GH-pages with tutorials
    - implement -hide-region also for rotated nodes in WB .dat files

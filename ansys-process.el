@@ -189,6 +189,11 @@ licenses. 2 is the ANSYS default."
   :type 'integer
   :group 'ANSYS-process)
 
+(defcustom ansys-blink-delay .3
+  "Number of seconds to highlight the evaluated region."
+  :group 'ANSYS-process
+  :type 'number)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -315,6 +320,21 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
+
+(defvar  ansys-current-region-overlay
+  (let ((overlay (make-overlay (point) (point))))
+    (overlay-put overlay 'face  'highlight)
+    overlay)
+  "The overlay for highlighting currently evaluated region or line.")
+
+(defun ansys-blink-region (start end)
+  (when ess-blink-region
+    (move-overlay ansys-current-region-overlay start end)
+    (run-with-timer ansys-blink-delay nil
+                    (lambda ()
+                      (delete-overlay ansys-current-region-overlay)))))
+
+
 (defun ansys-send-to-ansys ( &optional move)	;NEW
   "Send a region to the ANSYS interpreter,
 if the interpreter is not active, just copy it.  If there is no
@@ -338,6 +358,7 @@ code line after this region (or paragraph)."
 	  end (region-end))
     ;; invalidate region
     (deactivate-mark nil)
+    (ansys-blink-region beg end)
     ;; send or copy region or line
     (cond ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))

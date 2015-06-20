@@ -336,10 +336,8 @@ code line after this region (or paragraph)."
       (mark-paragraph))
     (setq beg (region-beginning)
 	  end (region-end))
-
     ;; invalidate region
     (deactivate-mark nil)
-
     ;; send or copy region or line
     (cond ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
@@ -350,7 +348,6 @@ code line after this region (or paragraph)."
 	  (t
 	   (kill-ring-save beg end)
 	   ;; (indicate-copied-region)
-
 	   ))
     (if (= move 4)
 	(progn
@@ -387,32 +384,29 @@ final character \"j\" (or \"C-j\")."
 	(setq beg (line-beginning-position))
 	(forward-line 1)
 	(setq end (point))))
-
     ;; move cursor to subsequent code line unless stay
     (unless (= stay 4)
       (if (and region
 	       (< (point) end))
 	(exchange-point-and-mark))
       (ansys-next-code-line))
-
     ;; invalidate region
     (setq mark-active nil)
-
     ;; send or copy region or line
     (cond ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
 			       )
+	   ;; Issue a hint to the user, if the echo area isn't in use.
+	   (unless (current-message)
+	     (message "(Type \"j\" or \"C-j\" to repeat function.)"))
 	   (display-buffer-other-frame "*ANSYS*"))
 	  (t
 	   (kill-ring-save beg end)
 	   (if region
 	       (message "Copied region.")
 	     (message "Copied code line."))))
-	   ;; Issue a hint to the user, if the echo area isn't in use.
-	   ;; (unless (current-message)
-	   ;;   (message "(Type \"j\" or \"C-j\" to repeat function.)"))
     (set-transient-map
      (let ((map (make-sparse-keymap)))
        (define-key map "j"

@@ -215,7 +215,7 @@
 ** *NEW:* Check your cursor position in the parameter list
   For commands with a large number of arguments it is cumbersome to
   count the arguments, *C-?* facilitates this for you and visualises
-  at which parameter position the cursor currently is.
+  dynamically at which parameter position the cursor currently is.
   
 #+ATTR_LaTeX: :height 7.5cm
 [[./parameter_help2.png]]

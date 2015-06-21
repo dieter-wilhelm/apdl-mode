@@ -66,10 +66,8 @@
    - mouse-choose-completion is obsolete since E23.2
    - example of an ansyslmd.ini?
    - add bbdb files to emacs packages?
-   - -show-command-parameters indicating at which parameter position
-     the cursor is active (update tutorials)
-     - add timer customisation variable 1 min, 2 min, etc.
-     - check this for commented-out commands
+   - add timer customisation for -command-parameter-help variable 1
+     min, 2 min, etc.
    - example.mac: make it solver compatible
    - GH-pages with tutorials
    - implement -hide-region also for rotated nodes in WB .dat files

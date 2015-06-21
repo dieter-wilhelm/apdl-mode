@@ -519,7 +519,7 @@ psolve
 *cfclos
 /zoom
 
-set,,,,,
-*mwrite
-blall
-*cfclos
+!! set,,,,,
+!! *mwrite,,,,
+!! blall
+!! *cfclos

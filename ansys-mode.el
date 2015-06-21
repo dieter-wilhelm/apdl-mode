@@ -194,7 +194,7 @@ like in the variable `ansys-program'."
   :type 'string
   :group 'ANSYS)
 
-(defcustom ansys-dynamic-highlighting-flag nil ;NEW_C
+(defcustom ansys-dynamic-highlighting-flag t ;NEW_C
   "Non-nil means that ANSYS-Mode highlights user defined variables.
 Warning: This option is computational expensive and --depending
 on the file size and your hardware --it might make your editing
@@ -362,6 +362,9 @@ fontification (`ansys-highlight-variable') of these variables.")
   "Abbreviation definition table for the ANSYS-Mode.
 All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
+
+(defvar-local ansys-parameter-help-position 1
+  "Cursor position in -show-command-parameters.")
 
 ;;; --- constants ---
 
@@ -1750,6 +1753,10 @@ improvements you have the following options:
     (set (make-local-variable 'ansys-previous-major-mode) major-mode))
   (put 'ansys-previous-major-mode 'permanent-local t)
 
+  (when (and (overlayp ansys-help-overlay)
+	     (overlay-buffer ansys-help-overlay))
+		    (delete-overlay ansys-help-overlay))
+
   (kill-all-local-variables)		; convention
   (setq major-mode 'ansys-mode)
   (setq mode-name "ANSYS")		; mode line string
@@ -1799,6 +1806,7 @@ improvements you have the following options:
   ;;  comment-indent -> fill-column?? only when line-wrap mode t?
 
   ;; overlay for command-parameter-help
+
   (make-local-variable 'ansys-timer)
   (make-local-variable 'ansys-help-overlay)
   (setq ansys-help-overlay (make-overlay 1 1))
@@ -1853,8 +1861,10 @@ improvements you have the following options:
 		 (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
-		   (message "Experimental (dynamic) fontification of user variables activated."))
-	  (message "Experimental (non-dynamic) fontification of variables activated."))
+		   (add-hook 'post-command-hook
+			     'ansys-update-parameter-help nil t)
+		   (message "Dynamic highlighting of user variables activated."))
+	  (message "Non-dynamic highlighting of variables activated."))
 	(ansys-find-user-variables)))
 
   ;; .dat WorkBench solver input files
@@ -2074,9 +2084,9 @@ current one."
       (move-overlay ansys-help-overlay lb lb)
       (overlay-put ansys-help-overlay 'before-string str)
       (setq ansys-timer (run-at-time "2 min" nil
-      '(lambda () (delete-overlay ansys-help-overlay))))
-    )
-  )
+        '(lambda () (when (and (overlayp ansys-help-overlay)
+			       (overlay-buffer ansys-help-overlay))
+		    (delete-overlay ansys-help-overlay)))))))
 
 (defun ansys-search-comma (str count)
   "Return the index of the COUNT's occurance of a comma in STR.
@@ -2087,6 +2097,13 @@ Return nil otherwise."
       (setq index (string-match "," str (1+ index))
 	    c (1+ c)))
     index))
+
+(defun ansys-update-parameter-help (&optional a b c)
+  (when (and (not (equal (point) ansys-parameter-help-position))
+	     (not (equal 1 (point)))
+	     (overlays-in (line-beginning-position) (1- (line-beginning-position))))
+    (setq ansys-parameter-help-position (point))
+    (ansys-show-command-parameters 1)))
 
 (defun ansys-show-command-parameters (&optional ask-or-toggle)
   "Display an ANSYS command parameters help for the command near the cursor.

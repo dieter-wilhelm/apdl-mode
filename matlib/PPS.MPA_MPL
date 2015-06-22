@@ -1,10 +1,11 @@
-/com,PPS 40% glass fibre e.q. Celanese Fortron 1140L4
+/com, PPS 40% glass fibre here: Celanese Fortron 1140L4
+/com, Young's modulus 80 % reduced to tensile test specimen
 /NOP
 /COM,Internal UNITS set at file creation time = MPA       
 TBDEL,ALL,_MATL
 MPDEL,ALL,_MATL
 MPTEMP,R5.0, 1, 1,  0.00000000    ,
-MPDATA,R5.0, 1,EX  ,_MATL   , 1, 1.75E4,
+MPDATA,R5.0, 1,EX  ,_MATL   , 1, 1.2E4,
 MPTEMP,R5.0, 1, 1,  0.00000000    ,
 MPDATA,R5.0, 1,NUXY,_MATL   , 1, 0.4,
 MPTEMP,R5.0, 1, 1,  0.00000000    ,

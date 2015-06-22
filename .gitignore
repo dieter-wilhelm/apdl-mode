@@ -23,5 +23,7 @@ helper/hide-region.el
 helper/htmlize.el
 helper/ansys-keyword.el
 helper/share
+matlib/#*#
+matlib/.#*
 gh-page
 alwin/

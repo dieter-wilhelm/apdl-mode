@@ -1929,7 +1929,7 @@ call `ansys-mode'."
   (progn
     (when (featurep 'ansys-mode)
       (unload-feature 'ansys-mode))
-    (load-file "ansys-mode.el")
+    (load "ansys-mode")
     (ansys-mode)
     (message "ANSYS-Mode reloaded.")))
 

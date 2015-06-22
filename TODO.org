@@ -16,8 +16,9 @@
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
-  - Highlighting :: help overlay is only removed after 2 min if the
-                    buffer is active at that time!
+  - Highlighting :: The parameter help overlay is only removed after 2
+                    min if the buffer is the current buffer at that
+                    time!
   - Keybinding :: M-j: When there is already a `&' in a format command
                   (like *msg, *vwrite, *mwrite)
                   ansys-indent-format-line inserts a redundant one
@@ -26,30 +27,23 @@
   - Completion :: A mouse selection from the *ANSYS-completion* buffer
                   is only inserted upcased.
   - Completion :: ANSYS command 'C***' will not be completed
-  - Completion :: Emacs shows M-TAB (which is not working on most
-                  Desktops) in the menu but not ESC TAB or M-C-i for
-                  -complete-symbol (sent a bug report 2012-06-21
-                  bug#11758 bug-gnu-emacs@gnu.org, acknowledged and
-                  fixed 2012-09-02 => Emacs 24.3?)
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
   - Navigation ::  C-c { does not skip an overlay in a number-block
-
+                   (M-{ does it though))
 * 16.1.2:
 ** Bugs
-   - -reload-ansys-mode is only working in the directory where
-     -mode.el is sitting
    - Correct the creep data with correct young's modulus and total
      strain to creep strain!
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated! <- autoloaded functions
-   - Error running timer: (wrong-type-argument overlayp nil): when not in ANSYS buffer!
-   - *mwrite *cfclos M-? shows help for *mwrite, when cursor behind
-     *cfclos and in the last line without \n
+   - *mwrite
+     *cfclos
+     M-? shows help for *mwrite, when cursor behind *cfclos and in the
+     last line without \n
 ** Wish-list
-   - Targeting AnsysClassics
-   - Targeting ANSYS Aim
-   - Add WorkBench (Aim) concepts to APDL translation
+   - Targeting AnsysClassics AND ANSYS Aim
+   - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
    - show defaults for -license-file, license-utility and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!

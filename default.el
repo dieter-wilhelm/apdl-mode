@@ -4,19 +4,21 @@
 
 ;; !!! `default.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
-;; `c:\\EMACS_INSTALLDIR\\site-lisp') Yet this file is loaded AFTER
-;; Emacs' user configuration file `~/.emacs' (or
+;; `c:\\EMACS_INSTALLDIR\\site-lisp').  Yet this file is then loaded
+;; AFTER Emacs' user configuration file `~/.emacs' (or
 ;; `~/.emacs.d/init.el')!  If you intend to change the following
 ;; settings with Emacs' customisation system or changing them directly
 ;; in your configuration file, you must either set the variable
 ;; `inhibit-default-ini' to `t' "(setq inhibit-default-ini t)" in your
 ;; configuration file or remove or rename `default.el' (or at least
-;; its corresponding sections) otherwise your settings will be
-;; overwritten!!!
+;; its corresponding sections) otherwise clashing settings in `.emacs'
+;; or `init.el' of will be overwritten!!!
 
-;; Comments are behind `;' (semi-colons); CONVENTIONS used: Textual
-;; hints are indicated with DOUBLE semi-colons `;;', optionally
-;; uncomment the code lines with a SINGLE comment sign.
+;;; CONVENTIONS
+
+;; The comment sign is `;' (one semi-colon ;) Textual hints are
+;; indicated with DOUBLE semi-colons `;;', optionally uncomment the
+;; code lines with a SINGLE comment sign.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		       ;; IMPORTANT PREREQUISIT
@@ -30,6 +32,29 @@
 
 ;; for example: "c:\\emacs\\ansys-mode" for a Windows system or
 ;; "/usr/local/src/emacs/ansys-mode" for a GNU/Linux system.
+
+
+;; For reading the ANSYS help in your browser it should be sufficient
+;; to set at most the ANSYS version and the installation directory of
+;; ANSYS (if they are differing from the defaults and restart Emacs
+;; ;-), the complete paths will be constructed with below information
+
+;(setq ansys-current-ansys-version "150")
+;(setq ansys-current-ansys-version "161") ; default in ANSYS-Mode 16.1.1
+
+;; conditional: Linux or Windows
+
+;(cond ((string= window-system "x")
+;        ;; This is an example of an installation directory on GNU/Linux
+;        (setq ansys-install-directory "/appl/")) ; default: "/"
+;       (t
+;        ;;This an example of an installation dir. on WINDOWS
+;        (setq ansys-install-directory "D:\\Ansys\\")) ; default: "C:\\Program Files\\"
+;							 )
+
+;; If the paths of your ANSYS installation is completely differing
+;; from the normal ANSYS structures, please see below.
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			   ;; IMPORTANT END
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -90,47 +115,43 @@ calling a special ANSYS customisation buffer." 'interactive)
 (add-hook 'ansys-mode-hook 'ansys-outline-minor-mode) ;enable outlining
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			   ;; Fontification
+		     ;; Highlighting/Colorisation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; fontification (highlighting) of user variables and decoration
-;; levels (0,1,2 are available), uncommenting the following might slow
-;; the editing of large .mac files (but only when
-;; ansys-highlighting-level is set to 2).
+
+;; The following toggles a dynamics change of the highlighting: While
+;; you are editing your new variable definitions highlighted and the
+;; cursor position is shown in the parameter help overlay
+
+;; Uncommenting the following might slow the editing of large .mac
+;; files (but only when ansys-highlighting-level is set to 2, see
+;; below).
 
 ;(setq ansys-dynamic-highlighting-flag nil)
 ;(setq ansys-dynamic-highlighting-flag t) ;default
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; experimental user variables highlighting is in level 2 available
-;; (statical if above flag is not set), the default is 2
+;; fontification (highlighting) of user variables and decoration
+;; levels (0,1,2 are available), user variables highlighting is only
+;; in level 2 available (statical, if above flag is not set), the
+;; default is 2
 
-;(setq ansys-highlighting-level 1)
-;(setq ansys-highlighting-level 2) ; default
+;(setq ansys-highlighting-level 1) ; default: 2
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; ANSYS version and  paths
+		       ;; ANSYS version and paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Normally it should be sufficient to set at most the ANSYS version
-;; and the installation directory of ANSYS (and restart Emacs)
-
-;(setq ansys-current-ansys-version "161") ; default in ANSYS-Mode 16.1.1
-;(setq ansys-current-ansys-version "150")
-
-;(cond ((string= window-system "x")
-;        ;; This is an example of an installation directory on GNU/Linux
-;        (setq ansys-install-directory "/appl/"))
-;       (t
-;        ;;This an example of an installation dir. on Windows
-;        (setq ansys-install-directory "D:\\Programs\\")))
 
 ;; Things you might have to configure if your ANSYS installation is
-;; differing from default ANSYS installation paths, as in the example
-;; below:
+;; completely differing from default ANSYS installation paths, as in
+;; the example below:
 
-      ;;  (setq ansys-help-program
-      ;; 	     "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-      ;; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-      ;; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+      ;  (setq ansys-help-program
+      ; 	     "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+      ;; normally it looks like this:
+      ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+
+      ; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
+      ; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		       ;; ANSYS processes stuff
@@ -158,14 +179,13 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Number of cores for the run, 2 does not require HPC licenses
-;(setq ansys-no-of-processors 8)
-;(setq ansys-no-of-processors 2) ;default 2
+;(setq ansys-no-of-processors 8) ;default: 2
 
 ;;  which license type to use for the solver
-;(setq ansys-license "struct") ; default "struct"
+;(setq ansys-license "ansys") ;default: "struct"
 
 ;; ANSYS job name
-;(setq ansys-job "file"); default "file"
+;(setq ansys-job "otto"); default: "file"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			      ;; The End

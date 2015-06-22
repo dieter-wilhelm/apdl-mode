@@ -17,8 +17,8 @@
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
   - Highlighting :: The parameter help overlay is only removed after 2
-                    min if the buffer is the current buffer at that
-                    time!
+                    min if the respective ANSYS-Mode buffer is the
+                    current buffer at that time span!
   - Keybinding :: M-j: When there is already a `&' in a format command
                   (like *msg, *vwrite, *mwrite)
                   ansys-indent-format-line inserts a redundant one
@@ -33,27 +33,30 @@
                    (M-{ does it though))
 * 16.1.2:
 ** Bugs
-   - Correct the creep data with correct young's modulus and total
-     strain to creep strain!
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated! <- autoloaded functions
    - *mwrite
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
-** Wish-list
-   - Targeting AnsysClassics AND ANSYS Aim
-   - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
-   - show defaults for -license-file, license-utility and -ansysli-servers
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
+** Wish-list
+   - Correct the creep data together with young's modulus and total
+     strain to creep strain!
+   - GH-pages with tutorials
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???
+   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
+   - implement -hide-region also for rotated nodes in WB .dat files
+     (frictionless support)
+   - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
+   - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
+   - show defaults for -license-file, license-utility and -ansysli-servers
    - *msg command's format string is not higlighted (-template-element-table)
-   - Variables are not highlighted in -skeletons?, *create file
-     tmp,mac: macro call: tmp, is not highlighted
-   - makefile errors: Check tutorials
+   - Variables are not highlighted in -skeletons, it is specified in
+     -mode only for files with .mac suffix; *create file tmp,mac:
+     macro call: tmp, is not highlighted
    - makefile errors when doing -fontification.el
    - ansys-template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
@@ -63,9 +66,6 @@
    - add timer customisation for -command-parameter-help variable 1
      min, 2 min, etc.
    - example.mac: make it solver compatible
-   - GH-pages with tutorials
-   - implement -hide-region also for rotated nodes in WB .dat files
-     (frictionless support)
    - check *vwrite with gui mode and interactive mode (graphics window?)
    - add element numbers to the general completion list, yes or no?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
@@ -81,6 +81,7 @@
      - check character variables 32 Chars. and highlight accordingly
        string 128, char 8
      - *vscfun: mean, stdev, ...
+   - _RETURN (-mode) somewhat milder red, clashes with reseved vars!
    - test server specifications (menu!) make interconnect
      conditional of the ANSYS version >= 120
    - explain fill/*vfill under the "looping" commands: Generates a line
@@ -96,9 +97,7 @@
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
      skeleton, critical to element differences!
-   - _RETURN somewhat milder red, clashes with reseved vars!
    - constraint equations in -template.el and get functions
-   - document A-M_in-depth_tutorial.org
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
        .anf files from DM anf export
@@ -113,7 +112,7 @@
      - some functions in -skeleton-function are not highlighted and
        completable, whitespace problem befor paren...
        and: "nele" undocumented command and function nelem()
-   - -introductory_tutorial.org
+   - inconsistencies in A-M_introductory_tutorial.org
      - in variable.png symbols Ns and Ls are not highlighted as
        variables
      - change sequence of alignment.png first not aligned, second aligned
@@ -133,7 +132,7 @@
 ** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in V 16.1
+    are still working in V 16.2
   - TODOs, FIXMEs in the code
   - checkdoc, -template.el, -process.el, -mode.el done except
     \\<keymap> & \\[function]
@@ -175,10 +174,9 @@
 
     https://github.com/dieter-wilhelm/ansys-mode
 
-    Where you can find also the latest development version.
+    Where you will find the latest development version.
 
-    Stable versions and prebuild packages are to be found on the
-    releases page:
+    Stable versions and prebuild packages are on the releases page:
 
     https://github.com/dieter-wilhelm/ansys-mode/releases
 

@@ -2099,11 +2099,13 @@ Return nil otherwise."
     index))
 
 (defun ansys-update-parameter-help (&optional a b c)
-  (when (and (not (equal (point) ansys-parameter-help-position))
-	     (not (equal 1 (point)))
-	     (overlays-in (line-beginning-position) (1- (line-beginning-position))))
+  (let ((p (point))
+	(lo (overlays-in (line-beginning-position) (1- (line-beginning-position)))))
+    (when (and (not (equal p ansys-parameter-help-position))
+	     (not (equal 1 p))		;TODO not working in the first line
+	     (memq ansys-help-overlay lo))
     (setq ansys-parameter-help-position (point))
-    (ansys-show-command-parameters 1)))
+    (ansys-show-command-parameters 1))))
 
 (defun ansys-show-command-parameters (&optional ask-or-toggle)
   "Display an ANSYS command parameters help for the command near the cursor.

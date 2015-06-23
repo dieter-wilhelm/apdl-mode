@@ -42,6 +42,7 @@
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
 ** Wish-list
+   - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
    - GH-pages with tutorials

@@ -363,8 +363,11 @@ fontification (`ansys-highlight-variable') of these variables.")
 All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
 
-(defvar-local ansys-parameter-help-position 1
-  "Cursor position in -show-command-parameters.")
+(if (version< "24" emacs-version)
+    (defvar-local ansys-parameter-help-position 1
+      "Cursor position in -show-command-parameters.")
+  (make-local-variable 'ansys-parameter-help-position)
+  (setq ansys-parameter-help-position 1))
 
 ;;; --- constants ---
 
@@ -3048,6 +3051,7 @@ These constructs appear in WorkBench created solver input files."
 	'ansys-current-ansys-version
 	'ansys-dynamic-highlighting-flag
 	'ansys-indicate-empty-lines-flag
+	'ansys-blink-region-flag
 	'ansys-comment-padding
 	'ansys-comment-add
 	'ansys-code-comment-column

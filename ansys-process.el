@@ -194,6 +194,11 @@ licenses. 2 is the ANSYS default."
   :group 'ANSYS-process
   :type 'number)
 
+(defcustom ansys-blink-region-flag t
+  "Non-nil means highlight the evaluated region."
+  :group 'ANSYS-process
+  :type 'boolean)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -320,7 +325,6 @@ the customisation facility (by calling `ansys-customise-ansys')."
 	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
-
 (defvar  ansys-current-region-overlay
   (let ((overlay (make-overlay (point) (point))))
     (overlay-put overlay 'face  'highlight)
@@ -328,12 +332,12 @@ the customisation facility (by calling `ansys-customise-ansys')."
   "The overlay for highlighting currently evaluated region or line.")
 
 (defun ansys-blink-region (start end)
-  (when ess-blink-region
+  "Let the region blink between START and END."
+  (when ansys-blink-region-flag
     (move-overlay ansys-current-region-overlay start end)
     (run-with-timer ansys-blink-delay nil
                     (lambda ()
                       (delete-overlay ansys-current-region-overlay)))))
-
 
 (defun ansys-send-to-ansys ( &optional move)	;NEW
   "Send a region to the ANSYS interpreter,
@@ -357,7 +361,8 @@ code line after this region (or paragraph)."
     (setq beg (region-beginning)
 	  end (region-end))
     ;; invalidate region
-    (deactivate-mark nil)
+    (deactivate-mark)			;for Emacs 23.1 no arguments
+    ;; (deactivate-mark nil)
     (ansys-blink-region beg end)
     ;; send or copy region or line
     (cond ((ansys-process-running-p)

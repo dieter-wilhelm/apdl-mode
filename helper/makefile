@@ -1,10 +1,12 @@
 help : 
-	@echo "This is ANSYS-Mode $(VERSION), $(EMACS_VERSION)"
+	@echo "This is the makefile of ANSYS-Mode $(VERSION) using $(EMACS_VERSION)"
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
-	@echo "make TAGS = "
+	@echo "make TAGS = make the goddam tags!"
+	@echo "make ELC = compile the el files"
 	@echo "make ALL = MODE + EMACS + EMACS_SRC + TAGS"
+	@echo "make CLEAN = clean the elc files"
 	@echo "make TAG_RELEASE = "
 	@echo ""
 
@@ -69,6 +71,9 @@ EL_FILES := ../ansys-mode.el ../ansys-keyword.el \
 # ansys-fontification.el is missing since it is not necessary for running A-M
 
 ELC_FILES := $(EL_FILES:.el=.elc)
+
+.PHONEY : ELC
+ELC : $(ELC_FILES)
 
 FILES := ../LICENSE ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
 

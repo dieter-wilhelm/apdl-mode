@@ -2369,10 +2369,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-;TODO: explain what's it for
 (define-skeleton ansys-skeleton-select
-  "Selections skeleton."
-  nil
+  "The selections skeleton.
+Select or deselect various elements: Geometry, elements, nodes,
+  ..."  nil
   "!! .............................." \n
   "!@@@ - select stuff -" \n
   "!! .............................." \n
@@ -2503,7 +2503,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-;; TODO: complete
 (define-skeleton ansys-skeleton-array
   "Fields and arrays skeleton."
   nil
@@ -2741,7 +2740,6 @@ time stamp with the Emacs command M-x `time-stamp'."
   (goto-char (point-max))
   (ansys-skeleton-post1))
 
-;; TODO:
 (define-skeleton ansys-skeleton-outline-template
   "Insert outline framework into an ANSYS APDL file."
   "Insert brief purpose of file: "

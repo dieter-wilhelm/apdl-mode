@@ -8,6 +8,8 @@
 
 !(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "../ansys-mode.el")(ansys-mode))
 
+
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 /units,mpa !indicate mm-t-s unit system
 !! /units
@@ -52,7 +54,7 @@ otto = 9
 c***, this is %right%! %otto% no % parameter expansion
 /title, this is a %otto% string command similar to /com and c***
 !@@ -- variable definitions and functions
-k
+k,,,,
 
 N = _RETURN		 !_RETURN value of k command
 _aaa = 9		 !reserved underscore "_" variables

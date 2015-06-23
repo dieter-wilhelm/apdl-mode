@@ -170,7 +170,8 @@ Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 * Requirements
 
 The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
-should also run with older versions of Emacs down to Emacs-23.
+should also run with older versions of Emacs down to Emacs-24.3 (March
+2013).
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for GNU/Linux systems.

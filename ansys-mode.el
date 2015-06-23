@@ -1159,11 +1159,10 @@ The cursor is either in a code comment or comment line."
 ;; ======================================================================
 ;; --- functions ---
 
-(defun ansys-align (p-min p-max)	;TODO clarify `section'
-  "Align current section or selection of ANSYS variable definitions.
-If a selection is active align the current selection (with the
-region borders P-MIN and P-MAX) otherwise align the current code
-section."
+(defun ansys-align (p-min p-max)
+  "Align current paragraph or selection of ANSYS variable definitions.
+If a region is selected align it (with the region borders P-MIN
+and P-MAX) otherwise align the current code paragraph."
   (interactive "r")
   (if mark-active
       (align p-min p-max)
@@ -1797,10 +1796,6 @@ improvements you have the following options:
   (make-local-variable 'comment-column)
   (setq comment-column ansys-code-comment-column)
 
-;  (make-local-variable 'kill-buffer-query-functions)
-  ;; the following might become obselete with Emacs 23.2 (see TODO)
-;;  (add-to-list 'kill-buffer-query-functions 'ansys-kill-buffer-query-function)
-
   ;; FIXME:
   ;;  (setq comment-fill-column 50)???
   ;;  comment-indent -> fill-column?? only when line-wrap mode t?
@@ -2281,8 +2276,7 @@ buffer with the SPACE key."
 	    (delete-region beg end)
 	    (insert completion))
 	  (with-output-to-temp-buffer buffer-name
-	    (display-completion-list completion-list
-				       completion))
+	    (display-completion-list completion-list))
 	  (if (= (apply 'min (mapcar 'length completion-list))
 		 (length completion))
 	      ;; already a complete, valid symbol but fragment is further
@@ -3250,7 +3244,7 @@ argumen ARG, the function evaluates the variable at point."
 	    str old-num com
 	    (num 0))
        (set-buffer variable-buffer)
-       (toggle-read-only -1)
+       (read-only-mode -1)
        (kill-region (point-min) (point-max))
        ;; insert header
        (insert
@@ -3271,7 +3265,7 @@ argumen ARG, the function evaluates the variable at point."
 	 (unless (= num old-num)
 	   (insert str)))
        (goto-char (point-min))
-       (toggle-read-only 1)
+       (read-only-mode 1)
        (set-buffer current-buffer)
        (display-buffer buffer-name 'other-window)))))
 

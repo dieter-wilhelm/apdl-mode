@@ -3057,6 +3057,7 @@ These constructs appear in WorkBench created solver input files."
 	'ansys-current-ansys-version
 	'ansys-dynamic-highlighting-flag
 	'ansys-indicate-empty-lines-flag
+	'ansys-blink-region-flag
 	'ansys-comment-padding
 	'ansys-comment-add
 	'ansys-code-comment-column

@@ -363,8 +363,11 @@ fontification (`ansys-highlight-variable') of these variables.")
 All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
 
-(defvar-local ansys-parameter-help-position 1
-  "Cursor position in -show-command-parameters.")
+(if (version< "24" emacs-version)
+    (defvar-local ansys-parameter-help-position 1
+      "Cursor position in -show-command-parameters.")
+  (make-local-variable 'ansys-parameter-help-position)
+  (setq ansys-parameter-help-position 1))
 
 ;;; --- constants ---
 

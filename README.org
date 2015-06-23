@@ -170,7 +170,9 @@ Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 * Requirements
 
 The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
-should also run with older versions of Emacs down to Emacs-23.
+should also run with all older versions of Emacs down to Emacs-23.1
+(which was realeased July 2009 and is able to compile ANSYS-Mode
+16.1).
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for GNU/Linux systems.
@@ -387,7 +389,6 @@ explicitly called ansys-mode.
      (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 #+END_SRC
-
 
 * Usage and customisation
 

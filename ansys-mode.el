@@ -3008,11 +3008,13 @@ These constructs appear in WorkBench created solver input files."
 (unless ansys-mode-abbrev-table
   (let ((ac abbrevs-changed)) ;inhibit offer to save .abbrev_defs
     (define-abbrev-table 'ansys-mode-abbrev-table ())
-    (define-abbrev ansys-mode-abbrev-table "`i" ""      'ansys_if)
-    (define-abbrev ansys-mode-abbrev-table "`d" ""      'ansys_do)
-    (define-abbrev ansys-mode-abbrev-table "`p" "" 'ansys-insert-pi)
+    (define-abbrev ansys-mode-abbrev-table "`1" "finish\n/clear\n!y\n"  ) ;the first 1 one
+    (define-abbrev ansys-mode-abbrev-table "`i" ""      'ansys_if)        ;for if
+    (define-abbrev ansys-mode-abbrev-table "`d" ""      'ansys_do)        ;for do
+    (define-abbrev ansys-mode-abbrev-table "`p" "*dim,Dir,string,248 ! maximum of 248 characters!\nDir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'\n/syp,ls,Dir(1)\n") ; for path
+;    (define-abbrev ansys-mode-abbrev-table "`p" "" 'ansys-insert-pi)
     (define-abbrev ansys-mode-abbrev-table "`if" "" 'ansys-if)
-    (define-abbrev ansys-mode-abbrev-table "`ie" "" 'ansys-if-then)
+    (define-abbrev ansys-mode-abbrev-table "`ie" "" 'ansys-if-then)       ;for IfThen
     (define-abbrev ansys-mode-abbrev-table "`do" "" 'ansys-do)
     (define-abbrev ansys-mode-abbrev-table "`e" "/eof ----------------------------------------\n"
       '(lambda () (indent-according-to-mode)))

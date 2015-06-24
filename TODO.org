@@ -25,9 +25,7 @@
   - Completion :: Of parametric function parentheses
 		  completes redundant closing parentheses
   - Completion :: A mouse selection from the *ANSYS-completion* buffer
-                  is only inserted upcased.  Mouse completion is
-                  working with middle mouse button but only on the
-                  second LMB.
+                  is only inserted upcased.
   - Completion :: ANSYS command 'C***' will not be completed
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
@@ -35,6 +33,8 @@
                    (M-{ does it though))
 * 16.1.2:
 ** Bugs
+   -   Mouse completion is working with middle mouse button but only
+       on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the

@@ -858,9 +858,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   (list "ANSYS"
 	["Comment/Un- Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Complete Symbol"              ansys-complete-symbol :help "Complete an ANSYS command, element or function name"]
-	["Send/Copy Code Line/Region"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send Code Line/Region to ANSYS" "Copy Code Line/Region to system clipboard") :help "Send the current code line or active region to the running interpreter or else copy line or region to system clipboard"]
-	["Copy/Send above Code (to ANSYS)"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to ANSYS" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active to the interpreter"]
-	["Close Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
+	["Send/Copy Region or Paragraph"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send region or paragraph to ANSYS" "Copy code region or paragraph to the system clipboard") :help "In case of a running interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard"]
+	["Copy/Send above Code to ANSYS"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to ANSYS" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active, send it to the interpreter"]
+	["Close Logical Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
 	["Preview Macro Template"       ansys-display-skeleton :help "Preview macro templates in another window"]
 	["Align region/section"       ansys-align :help "Align current region or section of ANSYS variable definitions"]
@@ -944,10 +944,10 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Specify ANSYS License Type" ansys-license :help "Specify the license type for an interpreter run" :active ansys-is-unix-system-flag]
 	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for an interpreter run"]
 	      ["Specify ANSYS Executable or launcher" ansys-program :help "Specify the ANSYS interpreter under GNU/Linux or the launcher (with complete path if not in $PATH)"]
-	      ["Specify the No of Processors" ansys-no-of-processors :help "Specify the No of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
+	      ["Specify the Number of Processors" ansys-no-of-processors :help "Specify the number of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
 	      [(concat (if ansys-is-unix-system-flag
-		   "Start the APDL interpreter"
-		   "Start the APDL product launcher"))   ansys-start-ansys :help "Start an APDL interpreter (solver) run under GNU/Linux or the launcher under Windows" :active (not (ansys-process-running-p))]
+		   "Start the APDL Interpreter (Solver)"
+		   "Start the Mechanical APDL Product Launcher"))   ansys-start-ansys :help "Start an APDL interpreter (solver) run under GNU/Linux or the launcher under Windows" :active (not (ansys-process-running-p))]
 	      ["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
                "Display License Status"
 	        "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
@@ -981,13 +981,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
 	     "Display License Status"
 	   "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
-	["Insert Temporary Ruler"      ansys-column-ruler :help "Show a temporary ruler above the current line"]
+;	["Insert Temporary Ruler"      ansys-column-ruler :help "Show a temporary ruler above the current line"]
 	["Outline Minor Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
 	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
 	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
 	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys_version "."ansys_mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
-	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for ANSYS-Mode"]
+	["List Expandable Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
 	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS-Mode"]
 	["Customise ANSYS Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
@@ -2294,7 +2294,8 @@ buffer with the SPACE key."
 		     buffer-name " buffer.")))
 
 	  ;; mouse selections in the completion buffer?
-	  (let (key first)
+	  (let (key
+		first)
 	    (if (progn
 		  (set-buffer (get-buffer completion-buffer))
 		  ;; we are temporarily in the completion buffer
@@ -2305,7 +2306,9 @@ buffer with the SPACE key."
 		       (eq
 			(window-buffer (posn-window (event-start first)))
 			(get-buffer completion-buffer))
-		       (eq (key-binding key) 'mouse-choose-completion)))
+		;;        (eq (key-binding key) 'choose-completion)))
+		;; (choose-completion first)
+		       (eq (key-binding key) 'mouse-choose-completion))); <E23.2
 		(mouse-choose-completion first)
 	      (if (eq first ?\ )
 		  (kill-buffer completion-buffer)

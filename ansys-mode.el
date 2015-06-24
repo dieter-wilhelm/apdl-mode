@@ -1489,10 +1489,11 @@ which inserts a *DO loop (`ansys-do').  \"`d\" (then <SPC>) is a
 more immediate version of it without requesting user
 input (`ansys_do').  You can see all the predefined abbreviations
 with \"`?\", i. e. a question mark '?'  after the backquote '`'.
-Alternatively you might use the Emacs command \"M-x list-abbrevs
-<RET>\" to inspect all definitions which Emacs knows.
+Alternatively you might use the menu entry or the command \"M-x
+list-abbrevs <RET>\" to inspect all definitions which Emacs
+knows.
 
-** Outlining (hiding) of code sections **
+** Outlining (hiding and expanding) code sections **
 
 If you are using the pre-configured ANSYS-Mode then
 `outline-minor-mode' is now switched on by default.

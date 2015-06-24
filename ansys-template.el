@@ -2188,7 +2188,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 (define-skeleton ansys-skeleton-output-to-file
-  "I/Output to file skeleton."
+  "In/Output to file skeleton."
   nil
   "!@ ------------------------------" \n
   "!@@ -- output to file --" \n
@@ -2214,20 +2214,20 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/com, #Time/s, WireTemp/°C InsulationTemp/°C YokeTemp/°C" \n
   "/output" \n
   "*do,I,1,NS" \n
-  "  set,,,,,,,I" \n
-  "  !! etable,Temptab,temp" \n
-  "  *get,Tim,active,,set,time" \n
-  "  *vget,TempArray(1),node,,temp" \n
-  "  *vmask,WireMask(1)" \n
-  "  *vscfun,WireT,mean,TempArray(1)" \n
-  "  *vmask,InsuMask(1)" \n
-  "  *vscfun,InsuT,mean,TempArray(1)" \n
-  "  *vmask,YokeMask(1)" \n
-  "  *vscfun,YokeT,mean,TempArray(1)" \n
-  "  /output,%Dir(1)%%FileName%,txt,,append" \n
-  "  /com, %Tim% %WireT% %InsuT% %YokeT%" \n
-  "  /output" \n
-  "*enddo" \n
+  "set,,,,,,,I" > \n
+  "!! etable,Temptab,temp" > \n
+  "*get,Tim,active,,set,time" > \n
+  "*vget,TempArray(1),node,,temp" > \n
+  "*vmask,WireMask(1)" > \n
+  "*vscfun,WireT,mean,TempArray(1)" > \n
+  "*vmask,InsuMask(1)" > \n
+  "*vscfun,InsuT,mean,TempArray(1)" > \n
+  "*vmask,YokeMask(1)" > \n
+  "*vscfun,YokeT,mean,TempArray(1)" > \n
+  "/output,%Dir(1)%%FileName%,txt,,append" > \n
+  "/com, %Tim% %WireT% %InsuT% %YokeT%" > \n
+  "/output" > \n
+  "*enddo" > \n
   \n
   "tmp ! read tmp.mac into the interpreter" \n
   \n

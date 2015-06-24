@@ -1291,15 +1291,15 @@ highlighting and in their 'command syntax help'.  Please see also
 the variable `ansys-deprecated-element-alist' it's a list with
 the deprecated elements and their respective replacements (for
 inspecting its content please click on above hyperlink or type
-\"C-h v\" and then type the above variable name).
+\"C-h v\" and then type above variable name).
 
-Using the <TAB> key you might save some typing in completing the
-name.  When the characters before the cursor are not unambiguous
-a completion list is shown, select the suitable word from the
-list, either by navigation the cursor over the symbol and typing
-<RET> or clicking with the left (or middle) mouse button is
-completing the symbol.  Hitting the <SPACE> key removes the
-listing window.
+Doing this using the <TAB> key might save you some typing in
+auto-completing the name.  When the characters before the cursor
+are not unambiguous a completion list is shown, select the
+suitable word from the list, either by navigation the cursor over
+the symbol and typing <RET> or clicking with the left (or middle)
+mouse button is completing the symbol.  Hitting the <SPACE> key
+removes the listing window.
 
 ** Alignment (formatting) of variable definitions **
 
@@ -1448,8 +1448,7 @@ example code:
 
 Regarding the highlighting of user variables: The idea is to give
 a visual hint whether variable names are spelled and used
-correctly everywhere in the file not only at the place of its
-definition.
+correctly everywhere not only at the place of its definition.
 
 For this to occur `ansys-highlighting-level' must be set to
 2 (the maximum, which is also the default), please have a look at

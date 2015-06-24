@@ -39,7 +39,7 @@
 
 (defcustom ansys-install-directory
   (cond ((string= window-system "x")
-	 ;; "/" the root dir is the default installation directory on GNU/Linux
+	 ;; "/" the root dir is the default installation directory on GNU-Linux
 	 "/")
 	(t ;; the default is "C:\\Program Files\\" on Windows
 	 "C:\\Program Files\\"))
@@ -48,7 +48,7 @@
   :group 'ANSYS-process
   )
 
-(defcustom ansys-job "file"			;NEW_C
+(defcustom ansys-job "file"
   "Variable storing the ANSYS job name.
 It is initialised to 'file' (which is also the ANSYS default job
 name).  See `ansys-abort-file' for a way of stopping a solver run
@@ -64,9 +64,9 @@ the respective error file."
   (if (string= window-system "x")
       (concat ansys-install-directory "ansys_inc/v"
 	      version "/ansys/bin/ansys" version)
-    (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))		;NEW_C
+    (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))
   "This variable stores the ANSYS executable name.
-Under GNU/Linux this should be the solver, under Windows just the
+Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
@@ -81,13 +81,13 @@ You might customise this variable or use the function
       (concat ansys-install-directory "ansys_inc/v"
       ansys-current-ansys-version "/ansys/bin/anshelp"
       ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))		;NEW_C
+    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU/Linux
+locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU-Linux
 and \"c:\\\\Program Files\\Ansys\
 Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
 Windows (XP/7)."
@@ -99,13 +99,13 @@ Windows (XP/7)."
       (concat ansys-install-directory "ansys_inc/v"
       ansys-current-ansys-version "/ansys/bin/anshelp"
       ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))		;NEW_C
+    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU/Linux
+locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU-Linux
 and \"c:\\\\Program Files\\Ansys\
 Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
 Windows (XP/7)."
@@ -118,7 +118,7 @@ In ANSYS version 150 not longer necessary."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-lmutil-program ;NEW_C
+(defcustom ansys-lmutil-program
   (if (string= window-system "x")
       (concat ansys-install-directory "ansys_inc/shared_files/licensing/linx64/lmutil")
     (concat ansys-install-directory "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe"))
@@ -132,7 +132,7 @@ the ansli_admin tool under Windows with the function
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-license-file nil ;NEW_C
+(defcustom ansys-license-file nil
   "The FlexLM license file name or license server specification(s).
 The license server specification(s) should include the port
 number even if it's the default port 1055 because the lmutil tool
@@ -143,7 +143,7 @@ colon for multiple servers, for example
 Setting this variable skips the effect of previously set
 environment variables, which have the following order of
 precedence: 1. ANSYSLMD_LICENSE_FILE environment variable, 2.)
-The FLEXlm resource file: ~/.flexlmrc on GNU/Linux or somewhere in the
+The FLEXlm resource file: ~/.flexlmrc on GNU-Linux or somewhere in the
 Windows registry. 3.) The LM_LICENSE_FILE variable. 4.) The
 ansyslmd.ini file in the licensing directory (This is what
 anslic_admin is doing in an ANSYS recommended installation).  5.)
@@ -151,13 +151,13 @@ The license file itself."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-ansysli-servers nil ;NEW_C
+(defcustom ansys-ansysli-servers nil
   "Used to identify the server machine for the Licensing Interconnect.
 Set it to port@host.  The default port is 2325."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-license-types		;NEW_C
+(defcustom ansys-license-types
   '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
   "List of available license types to choose for an ANSYS run.
 This list should contain the license types you can choose from.
@@ -173,7 +173,7 @@ WorkBench terminology.
 \"preppost\" - PrepPost (no solving capabilities)"
   :group 'ANSYS-process)
 
-(defcustom ansys-license "struct"		;NEW_C
+(defcustom ansys-license "struct"
   "The License type with which the ANSYS interpreter will be started.
 See `ansys-license-types' for often used ANSYS license types."
 ;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
@@ -203,7 +203,7 @@ licenses. 2 is the ANSYS default."
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys-process-name "ANSYS"		;NEW_C
+(defconst ansys-process-name "ANSYS"
   "Variable containing Emacs' name for an ANSYS process.
 Variable is only used internally in the mode.")
 
@@ -245,7 +245,7 @@ Variable is only used internally in the mode.")
 
     )
 
-(defun ansys-write-abort-file (filename) ;NEW
+(defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
   (find-file filename)
   (delete-region (point-min) (point-max))
@@ -254,7 +254,7 @@ Variable is only used internally in the mode.")
   (message "Wrote \"%s\" into \"%s\"." filename default-directory))
 
 ;;;###autoload
-(defun ansys-abort-file (&optional arg) ;NEW
+(defun ansys-abort-file (&optional arg)
   "Writes an ANSYS abort file for stopping the current run.
 The abort file does not terminate the current session but
 triggers the solver to stop solving in an orderly manner.  This
@@ -291,7 +291,7 @@ change it with \"\\[cd]\"."
       (message "ansys-abort-file canceled!"))))
 
 ;;;###autoload
-(defun ansys-display-error-file ()	;NEW
+(defun ansys-display-error-file ()
   "Open the current interpreter error file in the current directory.
 You might change the directory with \"M-x `cd'\".  The error file
 name consists of the current job name and the suffix '.err'.  For
@@ -305,7 +305,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
     (goto-char (point-max))
     (auto-revert-tail-mode 1)))
 
-(defun ansys-copy-or-send-above	()	;NEW
+(defun ansys-copy-or-send-above	()
   "Copy or send all of above code - up from the cursor position."
   (interactive)
   (let ((process (get-process
@@ -339,7 +339,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
                     (lambda ()
                       (delete-overlay ansys-current-region-overlay)))))
 
-(defun ansys-send-to-ansys ( &optional move)	;NEW
+(defun ansys-send-to-ansys ( &optional move)
   "Send a region to the ANSYS interpreter,
 if the interpreter is not active, just copy it.  If there is no
 region marked, send (or copy) the current paragraph.  With a
@@ -381,7 +381,7 @@ code line after this region (or paragraph)."
 	  (ansys-next-code-line))
       (goto-char point))))
 
-(defun ansys-send-to-ansys-and-proceed ( &optional stay)	;NEW
+(defun ansys-send-to-ansys-and-proceed ( &optional stay)
   "Send a region or code line to the ANSYS interpreter.
 When there is no running ANSYS interpreter process just copy the
 respective region or code line to the system clipboard and skip
@@ -453,7 +453,7 @@ final character \"j\" (or \"C-j\")."
 ;;   (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;;   (force-mode-line-update))
 
-(defun ansys-query-ansys-command ( &optional arg)	;NEW
+(defun ansys-query-ansys-command ( &optional arg)
   "Ask for a string which will be sent to the interpreter.
 The string is completable to all current ANSYS commands and with
 an optional prefix argument ARG the current command line is the
@@ -486,8 +486,8 @@ initial input."
 (require 'comint)
 
 ;;;###autoload
-(defun ansys-start-ansys ()		;NEW
-  "Start an ANSYS interpreter process under GNU/Linux or the launcher under Windows.
+(defun ansys-start-ansys ()
+  "Start an ANSYS interpreter process under GNU-Linux or the launcher under Windows.
 For the interpreter process summarise the run's configuration
 first. The specified No of cores is not shown if they are chosen
 smaller than 3 (see `ansys-number-of-processors')."
@@ -539,7 +539,7 @@ smaller than 3 (see `ansys-number-of-processors')."
    (w32-shell-execute "Open" ansys-program)
    ))
 
-(defun ansys-kill-ansys ()		;NEW
+(defun ansys-kill-ansys ()
   "Kill the current ANSYS run under Emacs.
 The function asks for confirmation before actually killing the
 process.  Warning: ANSYS writes a lock file (jobname.lock) if the
@@ -560,7 +560,7 @@ the function `ansys-exit-ansys'."
 	)
     (message "Killing of ANSYS run canceled.")))
 
-(defun ansys-exit-ansys ()		;NEW
+(defun ansys-exit-ansys ()
   "Exit normally the current ANSYS run under Emacs.
 The function asks for confirmation before exiting the process
 with the ANSYS /EXIT,all command which saves all model data."
@@ -577,9 +577,9 @@ with the ANSYS /EXIT,all command which saves all model data."
     (error "Exiting of ANSYS run canceled")))
 
 ;;;###autoload
-(defun ansys-start-ansys-help ()       ;NEW_C
+(defun ansys-start-ansys-help ()
   "Start the ANSYS help system.
-Alternatively under a GNU/Linux system, one can also use the ANSYS
+Alternatively under a GNU-Linux system, one can also use the ANSYS
 command line \"/SYS, anshelp161\" when running ANSYS
 interactively, provided that anshelp161 is found in the search
 paths for executables (these are stored in the PATH environment
@@ -598,7 +598,7 @@ variable)."
 	(error "w32-shell-execute not bound"))
       (message "Started the ANSYS help browser..."))
      (t
-      (error "Can only start the ANSYS help on Windows and GNU/Linux systems")))))
+      (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))))
 
 (defun ansys-search-keyword()
   "Search the code line for a valid the keyword from `ansys-help-index'.
@@ -637,7 +637,8 @@ variable)."
 	   str))))
 
 (require 'browse-url)
-(defun ansys-browse-ansys-help ( &optional arg)       ;NEW_C
+
+(defun ansys-browse-ansys-help ( &optional arg)
   "Open the ANSYS help for APDL commands and element names in the default web browser.
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
@@ -771,7 +772,7 @@ Element categories:
 ;      (w32-shell-execute "Open" (concat path file)))
       (browse-url-default-windows-browser (concat path file)))
      (t
-      (error "Can only start the ANSYS help on Windows and GNU/Linux systems")))
+      (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))
     (message "Called html browser for keyword \"%s\"..." command)))
 
 
@@ -782,7 +783,7 @@ Element categories:
 ;;       (yes-or-no-p "ANSYS process is active, quit buffer anyway? ")
 ;;     t))
 
-(defun ansys-process-status ()		;NEW
+(defun ansys-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
 
     'run'
@@ -816,9 +817,9 @@ Element categories:
 	   ;; (process-id (get-process ansys-process-name))
     ))
 
-(defun ansys-license-status ()		;NEW
+(defun ansys-license-status ()
   "Display the ANSYS license status or start the license tool.
-For GNU/Linux systems show the status in a separate buffer, under
+For GNU-Linux systems show the status in a separate buffer, under
 Windows start the anslic_admin.exe utility, which has a button
 for displaying the license status."
   (interactive)
@@ -903,7 +904,7 @@ for displaying the license status."
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph
 ;; env variable ANS_CONSEC=YES disables dialog boxes
-(defun ansys-start-graphics ()		;NEW
+(defun ansys-start-graphics ()
   "Start the ANSYS display in interactive mode."
   (interactive)
   (unless (ansys-process-running-p)
@@ -914,7 +915,7 @@ for displaying the license status."
 		      )
 	 (display-buffer "*ANSYS*" 'other-window)))
 
-(defun ansys-start-pzr-box ()		;NEW PanZoomRotate box
+(defun ansys-start-pzr-box ()
   "Start the ANSYS Pan/Zoom/Rotate dialog box in interactive mode."
   (interactive)
   (unless (ansys-process-running-p)
@@ -978,7 +979,7 @@ A Negative ARG moves ARG steps right."
   (comint-send-string (get-process ansys-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
   (display-buffer "*ANSYS*" 'other-window)  )
 
-(defun ansys-replot ()			;NEW_C
+(defun ansys-replot ()
   "Replot the ANSYS interactive graphics screen."
   (interactive)
   (unless (ansys-process-running-p)
@@ -986,7 +987,7 @@ A Negative ARG moves ARG steps right."
   (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
   (display-buffer "*ANSYS*" 'other-window))
 
-(defun ansys-fit ()			;NEW_C
+(defun ansys-fit ()
   "Fit FEA entities to the ANSYS interactive graphics screen."
   (interactive)
   (unless (ansys-process-running-p)
@@ -994,7 +995,7 @@ A Negative ARG moves ARG steps right."
   (comint-send-string (get-process ansys-process-name) "/dist\n/replot\n") ;valid in any processor
   (display-buffer "*ANSYS*" 'other-window))
 
-(defun ansys-program ( exec)			;NEW
+(defun ansys-program ( exec)
   "Change the ANSYS executable name to EXEC.
 And set the variable `ansys-program' accordingly if the for
 executable EXEC can be found on the system's search path."
@@ -1006,7 +1007,7 @@ executable EXEC can be found on the system's search path."
       (message "ansys-program is set to \"%s\"." ansys-program)
     (error "Cannot find ANSYS interpreter executable \"%s\" on the system" exec)))
 
-(defun ansys-help-program ( exec)			;NEW
+(defun ansys-help-program ( exec)
   "Change the ANSYS help executable to EXEC and check for its existence.
 And store the value EXEC in the variable `ansys-help-program'."
   (interactive "FANSYS help executable: ")
@@ -1017,7 +1018,7 @@ And store the value EXEC in the variable `ansys-help-program'."
       (message "ansys-program is set to \"%s\"." exec)
     (error "Cannot find the ANSYS help executable \"%s\" on the system" exec)))
 
-(defun ansys-lmutil-program ( exec)		;NEW
+(defun ansys-lmutil-program ( exec)
   "Change the ANSYS license management utility executable to EXEC.
 And specify it in the variable `ansys-lmutil-program'.  The
 function inserts the string `default-directory' in the prompt
@@ -1032,11 +1033,10 @@ Files\\licensing\\win64\\anslic_admin.exe'"
   (setq ansys-lmutil-program exec)
   (if (executable-find exec)
       (message "ansys-lmutil-program is set to \"%s\"." ansys-lmutil-program)
-  (error "Cannot find ANSYS LM Utility executable \"%s\" on the
-    system" exec)))
+  (error "Cannot find ANSYS LM Utility executable \"%s\" on this system" exec)))
 
 ;;;###autoload
-(defun ansys-job ()			;NEW
+(defun ansys-job ()
   "Change the ANSYS job name.
 And write it into the variable `ansys-job'."
   (interactive)
@@ -1108,7 +1108,7 @@ is set return nil"
     variable ANSYSLI_SERVERS") t)
    (t nil)))
 
-(defun ansys-license-file ( file)		;NEW
+(defun ansys-license-file ( file)
   "Change the ANSYS license file name or license server(s).
 And specify the string FILE in the variable `ansys-license-file'
 which can either be the license file name or license server(s)
@@ -1130,7 +1130,7 @@ separated by a colon, for example
 ;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
 ;;     variable")
 
-(defun ansys-ansysli-servers ( servers)		;NEW
+(defun ansys-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.
 And specify it in the variable `ansys-ansysli-servers'.  The
 server specification must include the port number even when it is
@@ -1150,7 +1150,7 @@ server names are separated by a colon, for example
 ;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
 ;;     variable")
 
-(defun ansys-license ()			;NEW
+(defun ansys-license ()
   "Change the ANSYS license type to LIC.
 And store it in the variable `ansys-license'."
   (interactive)

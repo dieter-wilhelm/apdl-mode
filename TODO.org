@@ -45,6 +45,7 @@
      ansys-mode is not activated!? <- autoloaded functions, should
      work they are calling -mode.el!
 ** Wish-list
+   - defaults for template MP
    - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total

@@ -931,8 +931,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      "-"
 	      ["Close Block"            ansys-close-block :help "Close the current ANSYS control block with the respective closing command"]
 	      ["Mark Block"             ansys-mark-block :help "Mark the current control block"]
-	      ["Hide Region"  ansys-hide-region :help "Hide a region"]
-	      ["Unhide Regions"  ansys-unhide-number-blocks :help "Unhide all regions"]
+	      ["Hide Region"  ansys-hide-region :help "Hide a marked region and display a hidden region message"]
+	      ["Unhide Regions"  ansys-unhide-number-blocks :help "Unhide all hidden regions"]
 	      )
 	(list "Manage ANSYS Tasks"
 	      ["Specify License Server or - File" ansys-license-file
@@ -1187,10 +1187,10 @@ and P-MAX) otherwise align the current code paragraph."
 
 ;;;###autoload
 (defun ansys-mode ()
-  "Support for working with ANSYS FEA.
+  "Support for working with the ANSYS FEA suite.
 The documentation is targeted at users with little Emacs
-experience. Sections dealing with features are indicated with two
-asterisks (**) at the beginning.  Your input as a keyboard
+experience.  Sections dealing with features are indicated with
+two asterisks (**) at the beginning.  Your input as a keyboard
 sequence is indicated in quotation marks (\"), the actual keys
 are quoted with <>.
 
@@ -1269,9 +1269,9 @@ original ANSYS help in your web browser for an APDL command or
 element name (stating the element number is sufficient) near the
 cursor or the code line's first APDL command.  When using a
 prefix argument it inquires an keyword from you.  Keywords
-beginning with `\"' describe general manual sections, for example
-typing `\"SHELLS\"' will call the collection of all shell
-elements in the ANSYS manual.
+beginning with a backslash `\"' describing general manual
+sections, for example typing `\"SHELLS\"' will call the
+collection of all shell elements in the ANSYS manual.
 
 ** ANSYS keyword completion (commands, elements, get- and
    parametric-functions) **
@@ -1302,12 +1302,16 @@ Hitting the <SPACE> key removes the listing window.
 
 ** Alignment (formatting) of variable definitions **
 
-Typing \"\\[ansys-align]\" for the function `ansys-align' will
-align complete sections of variable definitions in the form of
-the following example
+Typing \"\\[ansys-align]\" to call the function `ansys-align'
+will align complete sections of variable definitions like this
 
- 'xyz = 30.381 !this is a variable'
- 'x   =  0.4   !this is another variable'
+ xyz=30.381      !this is a variable
+ x = 0.4!this is another variable
+
+to the following
+
+ xyz = 30.381 !this is a variable
+ x   =  0.4   !this is another variable
 
 ** Auto-indentation of looping and conditional blocks **
 

@@ -148,15 +148,15 @@ left and Emacs in ANSYS-Mode on the right hand side.
   new APDL file.
 
 - Convenient comment handling, commenting out whole paragraphs or
-  whole control blocks and vice versa.
+  control blocks and rapidly removing all comments.
 
 - Auto-indentation of looping blocks and conditional control blocks
   together with closing of open blocks with auto-insertion of the
   appropriate end keyword (case-sensitive).
 
-- ANSYS-Mode defines abbreviations for APDL templates i. e. with
-  writing a `nickname' after a special key triggers an exchange of the
-  characters with a complete code template.
+- ANSYS-Mode defines abbreviations for APDL templates or other code
+  constructs i. e. with writing a character after a special key (here:
+  `) triggers an expansion of complete code sequences.
 
 - You are able to use all Emacs' facilities, like the built-in
   calculator, file manager, image viewer and many others.  ANSYS-Mode

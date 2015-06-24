@@ -45,6 +45,7 @@
      ansys-mode is not activated!? <- autoloaded functions, should
      work they are calling -mode.el!
 ** Wish-list
+   - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP
    - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
    - -show-command-parameters is not dynamically updated in the first line
@@ -130,7 +131,7 @@
   - README :: same as Mode help
   - APDL templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
-  - Menu :: -> indicates the following sub menu entry
+  - Menu :: -> indicates the following sub menu entry ->
   - M-x compile :: ALL ;-)
 
    GH-wiki is repo with write access for world, separate from the A-M repo!

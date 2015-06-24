@@ -27,3 +27,4 @@ matlib/#*#
 matlib/.#*
 gh-page
 alwin/
+*.elc

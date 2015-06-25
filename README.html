@@ -1,0 +1,1003 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title></title>
+<!-- 2015-06-26 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="H. Dieter Wilhelm" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title"></h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Introduction</a></li>
+<li><a href="#sec-2">2. Example applications</a></li>
+<li><a href="#sec-3">3. Features</a></li>
+<li><a href="#sec-4">4. News</a></li>
+<li><a href="#sec-5">5. Requirements</a></li>
+<li><a href="#sec-6">6. Installation</a>
+<ul>
+<li><a href="#sec-6-1">6.1. Files</a></li>
+<li><a href="#sec-6-2">6.2. Short instructions</a>
+<ul>
+<li><a href="#sec-6-2-1">6.2.1. Direct way; no file configuration necessary</a></li>
+<li><a href="#sec-6-2-2">6.2.2. More convenient way; file configuration necessary</a></li>
+</ul>
+</li>
+<li><a href="#sec-6-3">6.3. Verbose instructions</a></li>
+</ul>
+</li>
+<li><a href="#sec-7">7. Usage and customisation</a></li>
+<li><a href="#sec-8">8. Experienced Emacs users</a></li>
+<li><a href="#sec-9">9. Acknowledgements</a></li>
+<li><a href="#sec-10">10. Further Resources</a>
+<ul>
+<li><a href="#sec-10-1">10.1. Editor Resources</a></li>
+<li><a href="#sec-10-2">10.2. ANSYS and APDL resources</a></li>
+</ul>
+</li>
+<li><a href="#sec-11">11. Bugs and Problems</a>
+<ul>
+<li><a href="#sec-11-1">11.1. Getting help</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<p>
+This is the text of ANSYS-Mode's README.org, it is best read in
+Emacs's Org mode.
+</p>
+
+<p>
+Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+</p>
+
+
+<div class="figure">
+<p><img src="https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys+emacs.png" alt="ansys+emacs.png" />
+</p>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This project supports your workflows with the FEA (Finite Element
+Analysis) suite <a href="http://www.ansys.com/">ANSYS</a> (ANalysis SYStem, registered TM).
+</p>
+
+<p>
+It provides `ANSYS-Mode', an add-on to the <a href="http://www.gnu.org/software/emacs">GNU Emacs editor</a> for
+investigating and coding APDL (Ansys Parametric Design Language).  The
+mode offers also managing and communication capabilities for various
+ANSYS processes, like interactive code debugging with the solver or
+inquiring the license manager status, etc.  Some features are quite
+sophisticated but its documentation is targeted for ANSYS users with
+little Emacs experience.
+</p>
+
+<p>
+Advantages compared to other APDL editors: Largest feature set, user
+extensible, cost-free, GNU Emacs integrated tools, available for all
+OS, for the mode's in-built APDL help no ANSYS installation necessary.
+</p>
+
+<p>
+<a href="http://www.gnu.org/home.en.html">GNU</a> (Gnu's Not Unix) Emacs is an up-to-date, powerful and extensible -
+yet free - editor. High quality software available for every operating
+system where ANSYS is running.
+</p>
+
+<p>
+Ansys-Mode since version 15.0.1 is hosted on <a href="https://github.com/">Github</a>. The latest
+sources you'll find on its <a href="https://github.com/dieter-wilhelm/ansys-mode">ANSYS-Mode project site</a>.
+</p>
+
+<p>
+The current stable version 16.1.1 of ANSYS-Mode is available at the
+<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">Github releases site</a> or at <a href="https://drive.google.com/open?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&authuser=0">Google's ANSYS-Mode drive</a>.  There are
+residing 3 archive packages: 1) A package of ANSYS-Mode together with
+binaries of Emacs for Windows, 2) a source file package for compiling
+the latest stable Emacs version together with ANSYS-Mode and 3) the
+sources of ANSYS-Mode alone, intended for an existing Emacs
+installation.  You might fetch these archives via the command line
+way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
+for Windows:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
+</pre>
+</div>
+<p>
+Important parts of the code (completions, help strings, etc.) are
+based on the ANSYS documentation.  Besides source files and the Emacs
+editor you will find tutorials in the download section.
+</p>
+
+<p>
+Please report bugs and inconsistencies also in the documentation!
+Write an email to the <a href="mailto:dieter@duenenhof-wilhelm.de">maintainer</a> or open a bug report in <a href="https://github.com/dieter-wilhelm/ansys-mode/issues">Github's
+issues list</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Example applications</h2>
+<div class="outline-text-2" id="text-2">
+
+<div class="figure">
+<p><img src="https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys-mode.jpg" alt="ansys-mode.jpg" />
+</p>
+</div>
+
+<p>
+Above image shows an Emacs frame (in reversed colour mode and compiled
+with the GTK+ toolkit under GNU-Linux) with a ripped off menu field.  The
+APDL file is in the right window with the (experimental) user variable
+highlighting switched on and a help overlay (in yellow background)
+activated. The smaller windows on the left hand side are showing the
+`Variable definitions buffer' of the same file and a preview buffer of
+a certain code template, respectively.
+</p>
+
+<p>
+Blelow is a Screenshot on Win64 with the ANSYS Classics GUI on the
+left and Emacs in ANSYS-Mode on the right hand side.
+</p>
+
+
+<div class="figure">
+<p><img src="https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/template_menu.png" alt="template_menu.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Features</h2>
+<div class="outline-text-2" id="text-3">
+<ul class="org-ul">
+<li>Inbuilt syntax help (similar to the ANSYS dynamic prompt),
+undocumented and deprecated commands are hinted as such.  This
+syntax help counts the number of arguments and visualises your
+cursor position in the argument list as well.
+</li>
+
+<li>Opening the detailed ANSYS help in your web browser for an APDL
+command or element name (the element number is sufficient) at or
+before the cursor.  Optionally you can input the desired string
+interactively with a completion of all valid keywords.
+</li>
+
+<li>ANSYS process management (viewing error files, license status,
+starting the ANSYS help browser, etc.).
+</li>
+
+<li>Solver communication facilities, i. e. sending code fragments from
+the macro file or commands interactively to an ANSYS solver process
+(GNU-Linux only).  With abreviated input method: For the often used
+command C-c C-j (<code>ansys-send-to-ansys-and-proceed</code>, sending a code
+line to the solver and skipping to the next) it is sufficient to
+repeat this command just with the last input key(s) ("j" or "C-j").
+</li>
+
+<li>Keyword completion of ANSYS commands, elements, get- and
+parametric-functions (case-sensitive) of around 2000 ANSYS symbols.
+</li>
+
+<li>Comprehensive keyboard shortcuts for code navigation: Skipping
+comments, navigating number blocks, searching and creating *DO-,
+*IF-, *DOWHILE-, *CREATE-blocks, etc.
+</li>
+
+<li>Warning of deprecated element types with a different highlighting of
+element names in current and deprecated technology.
+</li>
+
+<li>Syntax highlighting in various decoration levels (complete ANSYS
+keywords, undocumented commands, deprecated elements, &#x2026;)  and
+optionally also user defined variables (experimental feature).
+</li>
+
+<li>Overview of <b>every</b> variable definition (*GET, *DIM, *SET, =, *DO,
+CM, *VGET, &#x2026;), as well as component names, in the current file.
+These are shown in another window.  In the highest decoration level
+(2) these `user variables' are dynamically highlighted as well.
+With a running ANSYS interpreter process (GNU-Linux only) it is also
+possible with a keyboard shortcut to query the current status of
+variables near the cursor.
+</li>
+
+<li>Preview and/or insertion of extensible APDL code templates.  For
+example the function template shows <b>all</b> available ANSYS
+parametric- and get functions. The respective code snippets show
+examples of APDL work flows and considerable ANSYS know-how, these
+are easily extensible to boot.  The templates are partly interactive
+i. e. they are asking for or completing user input.
+</li>
+
+<li>Alignment (beautification) of whole paragraphs or marked sections
+with variable definitions.
+</li>
+
+<li>Narrowing, i. e. hiding, of uninteresting content. This is done by
+default for number blocks (nblock, eblocks and cmblocks) in
+WorkBench created solver input file (with the suffix .dat).  You
+can, in case the need arises, unhide and inspect these as well.
+</li>
+
+<li>Outlining (hiding and navigating) of code sections with Emacs'
+outline-minor-mode. With outline strings '!@' you have a heading
+structure which you can collapse or show.  This is the textual
+analog to the WorkBench tree view.
+</li>
+
+<li>Auto-insertion (optionally) of a header and outline code for every
+new APDL file.
+</li>
+
+<li>Convenient comment handling, commenting out whole paragraphs or
+control blocks and rapidly removing all comments.
+</li>
+
+<li>Auto-indentation of looping blocks and conditional control blocks
+together with closing of open blocks with auto-insertion of the
+appropriate end keyword (case-sensitive).
+</li>
+
+<li>ANSYS-Mode defines abbreviations for APDL templates or other code
+constructs i. e. with writing a character after a special key (here:
+`) triggers an expansion of complete code sequences.
+</li>
+
+<li>You are able to use all Emacs' facilities, like the built-in
+calculator, file manager, image viewer and many others.  ANSYS-Mode
+changes some Emacs default behaviour to alleviate the transition
+from other editors and user interface standards.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> News</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Please have a look in the <a href="NEWS.html">NEWS</a> file for the complete history
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Requirements</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+The mode was tested with Emacs-24.5 under Win7, <a href="http://www.cygwin.com/">Cygwin</a> and
+GNU-Linux64.  It should also run with all older versions of Emacs down
+to Emacs-23.1 (realeased July 2009 and which is able to compile
+ANSYS-Mode 16.1).
+</p>
+
+<p>
+Some of ANSYS-Mode's solver control and communication features are
+only implemented for GNU-Linux systems.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Installation</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+The version scheme is a mixture of the ANSYS release (currently
+"16.1") on which the highlighting and completing code is based and the
+version increments (currently ".1") of ANSYS-Mode (thus "16.1.1") for
+this particular ANSYS release.
+</p>
+</div>
+
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1"><span class="section-number-3">6.1</span> Files</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+Sources:
+</p>
+<ul class="org-ul">
+<li>ansys-mode.el: Main file
+</li>
+<li>ansys-keyword.el: Fontification variables build from
+helper/ansys-fontification.el
+</li>
+<li>ansys-template.el: Template definitions
+</li>
+<li>ansys-process.el: Variables and functions related to solver
+processes
+</li>
+</ul>
+
+<p>
+(and possibly their compiled versions with the suffix '.elc'.  In case
+you are using the mode with an older version of Emacs than 24.1 please
+remove the compiled .elc files, if any.)
+</p>
+
+<p>
+<b>Auxiliaries</b>:
+</p>
+<ul class="org-ul">
+<li>README.org &#x2013; This file
+</li>
+<li>NEWS.org &#x2013; News and history
+</li>
+<li>TODO.org &#x2013; Todos and deficiencies
+</li>
+<li>LICENSE &#x2013; The GPL (Gnu Public License) Version 3
+</li>
+<li>default.el &#x2013; Configuration (example) file
+</li>
+<li>helper/example.dat &#x2013; WorkBench example APDL solver input file
+</li>
+<li>helper/example.anf &#x2013; ANSYS geometry neutral file example
+</li>
+<li>helper/example.mac &#x2013; APDL user macro and highlighting example
+</li>
+<li>matlib/ &#x2013; a directory with examples of APDL material definitions
+</li>
+<li>doc/A-M<sub>introductory</sub><sub>tutorial</sub>-16.1.1.pdf &#x2013; Your first look at ANSYS-Mode?
+</li>
+<li>doc/A-M<sub>in</sub>-depth<sub>tutorial</sub>-16.1.1.pdf &#x2013; A hands-on ANSYS-Mode tutorial
+</li>
+<li>doc/A-M<sub>in</sub>-depth<sub>tutorial</sub>-16.1.1.ansys &#x2013; Hands-on tutorial's supplementary APDL code
+</li>
+<li>doc/A-M<sub>APDL</sub><sub>reference</sub>-16.1.1.pdf &#x2013; APDL and ANSYS-Mode syntax highlighting reference guide
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2"><span class="section-number-3">6.2</span> Short instructions</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+<b>For Windows systems</b>:
+</p>
+
+<p>
+If applicable please grab the package of a pre-compiled Emacs-24.5
+(Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
+site and unpack this archive anywhere on your system (you do not need
+administrator rights).  You might subsequently run the program
+addpm.exe (located in the bin directory) to add an Emacs entry to the
+Windows start menu (please refer to the README.W32 file) otherwise
+start the Emacs executable runemacs.exe from there.
+</p>
+
+<p>
+ANSYS-Mode is now immediately available, by opening (check out the
+`example.mac' example) or by creating a new APDL file with a
+.mac suffix.  Have fun!
+</p>
+
+<p>
+Most functionalities should work out of the box, but if you have NOT
+installed ANSYS in its default installation directory on drive
+`C:Program Files' on Win64 and you want to start&#x2013;for
+example&#x2013;'anslic<sub>admin</sub>' or the ANSYS help browser directly from Emacs
+please adjust the configuration file `default.el' file in Emacs'
+`site-lisp' directory according to the commented code examples.  If
+you are using your own configuration file, please remember that it is
+loaded <b>before</b> `default.el'; this means that ANSYS-Mode settings done
+by Emacs' customisation system or written in your configuration file
+might be overwritten by `default.el'.  If you remove `default.el' or
+set 'inhibit-default-ini' to non-nil in your own init file, then
+default.el is not loaded any longer.
+</p>
+
+<p>
+In case you want to download or have already installed the <a href="http://ftp.gnu.org/pub/gnu/emacs/">original version</a>
+of GNU Emacs, you can also download and configure the
+ANSYS-Mode package separately. Please refer to below instructions.
+</p>
+
+<p>
+<b>For existing Emacs installations on Windows and GNU-Linux</b>:
+</p>
+</div>
+
+<div id="outline-container-sec-6-2-1" class="outline-4">
+<h4 id="sec-6-2-1"><span class="section-number-4">6.2.1</span> Direct way; no file configuration necessary</h4>
+<div class="outline-text-4" id="text-6-2-1">
+<p>
+Important prerequisite: Emacs must know where all the code (.el or its
+compiled versions .elc) files reside!  Extract the mode archive into
+an Emacs directory which is in its default load-path (a good place is
+the `site-lisp' folder in your Emacs installation tree) or indicate
+the directory with the environment variable EMACSLOADPATH).
+</p>
+
+<p>
+From there on you must load first the mode definitions with `M-x
+load-file ansys-mode RET', i. e. typing "M-x" (first) the &lt;Alt&gt; key
+and then the &lt;x&gt; key simultaneously, you'll end up in the so called
+Emacs minibuffer prompt, now type "load-file" (you might apply the
+&lt;TAB&gt; key for the Emacs auto-completion feature at every intermediate
+stage) and conclude this input with the &lt;RET&gt; key. Emacs will then
+prompt you for a file, type in the directory where you have extracted
+the code and "ansys-mode.el" (or "ansys-mode.elc" - for loading speed
+reasons - if the compiled version is available) and press RET to
+execute the loading.  Thereafter call the mode itself with `M-x
+ansys-mode RET' for every new or existing APDL file.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2-2" class="outline-4">
+<h4 id="sec-6-2-2"><span class="section-number-4">6.2.2</span> More convenient way; file configuration necessary</h4>
+<div class="outline-text-4" id="text-6-2-2">
+<p>
+Extract the files somewhere on disc and put the following paragraph
+into your `~/.emacs' or `~/.emacs.d/inti.el' configuration file in
+your home directory `~', which is determined by the environment
+variable HOME (on both Windows and Unix), adjust the stuff below in
+capital letters, restart Emacs and ansys-mode will be automatically
+applied for all files with suffixes `.mac', `.dat' and `.inp'.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE"</span>)
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">assuming you extracted the files on drive "c:"</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"</span>
+
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">.mac is the macro suffix of ANSYS i. e. these macros can be called</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">in the ANSYS command prompt like a regular ANSYS function (without</span>
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">the suffix .mac)</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.mac\\'"</span> . ansys-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">.dat and .inp are WorkBench's solver input file suffixes</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.dat\\'"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.inp\\'"</span> . ansys-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">.anf is the suffix for "ANSYS Neutral" files which include mostly</span>
+<span style="color: #b22222;">;;  </span><span style="color: #b22222;">gometric data but also some APDL snippets.</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+
+(autoload 'ansys-mode <span style="color: #8b2252;">"ansys-mode"</span> nil t)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3"><span class="section-number-3">6.3</span> Verbose instructions</h3>
+<div class="outline-text-3" id="text-6-3">
+<ul class="org-ul">
+<li>Direct way, no configuration necessary (loading `by hand')
+</li>
+</ul>
+
+<p>
+Please consult the `direct way' description above.
+</p>
+
+<p>
+If you are unfamiliar by these concepts I suggest working through the
+build-in tutorial of GNU Emacs (you'll find it in the help entry in
+the menu bar), it doesn't take too much time and the investment will
+be worth it since it will accelerate your general editing capabilities
+in the future.
+</p>
+
+<ul class="org-ul">
+<li>Permanent configuration
+</li>
+</ul>
+
+<p>
+Please have a look at the accompanying `default.el' customisation
+example. It can be used as a configuration file (after moving it
+e. g. to `/usr/share/emacs/site-lisp' or
+`c:\\EMACS<sub>INSTALLDIR\\site</sub>-lisp', hint: The directory site-lisp/ in
+the Emacs installation tree is in its default load-path).  Yet
+`default.el' is loaded AFTER your personal Emacs configuration file
+(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
+to change the following settings with Emacs' customisation system or
+changing them directly in your personal configuration file, you must
+either set the variable `inhibit-default-ini' to `t' "(setq
+inhibit-default-ini t)" in your personal configuration file or remove
+`default.el' otherwise your settings might be overwritten!
+</p>
+
+<p>
+If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
+load-path it is necessary to adjust the following variable.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path
+             <span style="color: #8b2252;">"C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE"</span>)
+</pre>
+</div>
+
+<p>
+For example: "c:\\emacs\\ansys-mode" on a Windows system or
+ "/usr/local/src/emacs/ansys-mode" on a GNU-Linux system.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(autoload 'ansys-mode <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate ANSYS-Mode."</span> 'interactive)
+</pre>
+</div>
+
+<p>
+From here you are able to type "M-x ansys-mode RET" to activate the
+mode for every interesting file.
+</p>
+
+<ul class="org-ul">
+<li>Automatic mode assignment
+</li>
+</ul>
+
+<p>
+When you intend to apply the mode automatically, for all files with
+the extensions `.mac', `.dat', `.inp' and `.anf' ( .dat and .inp are
+WorkBench's solver input file suffixes) you are opening, add the
+following to your `.emacs' file:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.mac$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.dat$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.inp$"</span> . ansys-mode))
+<span style="color: #b22222;">;; </span><span style="color: #b22222;">this is the suffix for "ANSYS Neutral Files" which include some APDL.</span>
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+</pre>
+</div>
+
+<p>
+The suffix below belongs to the `anys neutral file' export format
+which contains also an APDL header and footer.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Auto-insertion of code
+</li>
+</ul>
+
+<p>
+In case you also want to enjoy the auto insertion feature, which puts
+(optionally) some predefined body of ANSYS commands to every new APDL
+file insert the following into '.emacs':
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq auto-insert-mode 1)
+(setq auto-insert-query t) <span style="color: #b22222;">;</span><span style="color: #b22222;">insert only after request</span>
+(add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
+</pre>
+</div>
+
+<ul class="org-ul">
+<li>Auto-loading of helper functions
+</li>
+</ul>
+
+<p>
+With below section you are also able to use certain ANSYS related
+commands in a new Emacs session without the need of previously having
+explicitly called ansys-mode.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(autoload 'ansys-customise-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for calling a special ANSYS customisation buffer."</span> 'interactive)
+(autoload 'ansys-abort-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for  aborting ANSYS runs."</span> 'interactive)
+(autoload 'ansys-display-error-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for inspecting the ANSYS error file."</span> 'interactive)
+(autoload 'ansys-start-ansys-help <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the ANSYS help browser."</span> 'interactive)
+(autoload 'ansys-start-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows."</span> 'interactive)
+(autoload 'ansys-license-status <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for displaying ANSYS license status or starting a license utility."</span> 'interactive)
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Usage and customisation</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+When you have a file under `ansys-mode' check out the menu bar's
+`ANSYS' entry for its possibilities and select the entry `Describe
+ANSYS Mode' or type "C-h m" (i. e. the &lt;CTRL&gt; key together with the
+&lt;h&gt; key and subsequently the &lt;m&gt; key), which will display the
+ANSYS-Mode help which is your `online' guide for its usage,
+key-bindings and customisation options.
+</p>
+
+<p>
+Templates, i.e. code snippets or so called skeletons might be extended
+in `ansys-template.el' and can be used similarly or complementarily to
+a classical ANSYS macro library.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Experienced Emacs users</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+ANSYS-Mode changes the default behaviour of Emacs
+</p>
+
+<p>
+globally:
+</p>
+
+<ul class="org-ul">
+<li>Switches on font-lock-mode if toggled off, e.g when calling Emacs
+with the -D (basic display) option
+</li>
+<li>Show Parentheses Mode is activated <code>(show-paren-mode t)</code>
+</li>
+<li>Advised M-w (kill-ring-save) without active region to copy the whole
+line
+</li>
+</ul>
+
+<p>
+(Delete Selection Mode can be switched off in the ANSYS-Mode menu.)
+</p>
+
+<p>
+locally:
+</p>
+<ul class="org-ul">
+<li><code>(setq scroll-preserve-screen-position t)</code>
+</li>
+<li><code>(toggle-truncate-lines 1)</code> truncate long lines, don't wrap them
+</li>
+<li>Changed `mark-paragraph' (M-h) to move the cursor to the end of the
+region
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Acknowledgements</h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li>Tim Read
+</li>
+<li>Geoff Foster
+</li>
+</ul>
+
+<p>
+For their ansys-mod.el from 1997 which triggered the idea in 2006 to
+start ANSYS-Mode as a GNU public license (GPL) implementation with an
+extended feature set.
+</p>
+
+<p>
+Further acknowledgements (in mainly reverse chronological order):
+</p>
+
+<ul class="org-ul">
+<li>Mehmet Akgul
+</li>
+<li>Nish Joseph
+</li>
+<li>Alwin Perras
+</li>
+<li>Mathias Dahl, for hide-region.el (and yupeng for some additions)
+</li>
+<li>Thien-Thi Nguyen
+</li>
+<li>Michael Kidner
+</li>
+<li>Ilya Gurin
+</li>
+<li>Alex Schroeder
+</li>
+<li>Holger Sparr
+</li>
+<li>Eli Zaretzki
+</li>
+<li>Markus Triska
+</li>
+<li><a href="http://stallman.org/">RMS</a> (Richard Stallman) for GNU Emacs
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Further Resources</h2>
+<div class="outline-text-2" id="text-10">
+</div><div id="outline-container-sec-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> Editor Resources</h3>
+<div class="outline-text-3" id="text-10-1">
+<ul class="org-ul">
+<li>The <a href="http://www.emacswiki.org/">Emacs Wiki</a>
+</li>
+<li>A competitor of ANSYS-Mode: The commercial <a href="http://www.padtinc.com/pedal">Pedal</a> script editor
+</li>
+<li>Another free <a href="http://apdl.de/">APDL editor</a>, unfortunately this site seems to be
+abandoned since 2010
+</li>
+<li>Simple APDL syntax highlighting is available for various editors,
+gvim, nedit, &#x2026; just to name a few, please have a look at
+<a href="http://ansys.net/">ANSYS.net</a>.
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-10-2" class="outline-3">
+<h3 id="sec-10-2"><span class="section-number-3">10.2</span> ANSYS and APDL resources</h3>
+<div class="outline-text-3" id="text-10-2">
+<ul class="org-ul">
+<li>Xansys, an <a href="http://www.xansys.org/">ANSYS online community</a> (registration necessary for the
+forum)
+</li>
+<li>A general  ANSYS repository <a href="http://www.ansys.net/">ansys.net</a>
+</li>
+<li>The <a href="http://www.ansys.com/">ANSYS homepage</a>
+</li>
+<li><a href="http://www.auc-ev.de/">AUC</a>, the ANSYS User Club in Germany
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-11" class="outline-2">
+<h2 id="sec-11"><span class="section-number-2">11</span> Bugs and Problems</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+For an overview of deficiencies and outstanding issues please check
+the beginning of the <a href="TODO">TODO</a> file.
+</p>
+
+<p>
+The `user variable' highlighting is still experimental, newly edited
+variable definitions are taken into account only when the variable
+ansys-dynamic-highlighting-flag is set (for very large files this
+slows Emacs and this flag is only implemented for `.mac' files) or any
+times when you activate the variable display (with C-c C-v) and the
+maximum highlighting level.  If not already the case try to use the
+code in compiled form, please have a look at the documentation of the
+Emacs function `byte-recompile-directory'.
+</p>
+
+<p>
+ANSYS `format line' (multi-line highlighting) and `user variable'
+highlighting (when the mentioned flag above is not set) are somewhat
+brittle, please use "M-o M-o" to update the fontification in case the
+format line and all variables are not highlighted correctly.
+</p>
+</div>
+
+<div id="outline-container-sec-11-1" class="outline-3">
+<h3 id="sec-11-1"><span class="section-number-3">11.1</span> Getting help</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+If you experience problems installing or running this mode you have
+the following options:
+</p>
+
+<ul class="org-ul">
+<li>Write an email to the mode <a href="mailto:dieter@duenenhof-wilhelm.de">maintainer</a> (you can trigger a bug report
+from the menu or directly calling the function
+`ansys-submit-bug-report'.  Even when you are not in the position of
+sending emails from Emacs this will give at least a useful mail
+template with valuable information about internal mode settings).
+</li>
+
+<li>When you have already a (cost free) Github account you are able to
+issue a bug report at the <a href="https://github.com/dieter-wilhelm/ansys-mode/issues">Github issues list</a>.  From this site you
+might also download the latest development version.
+</li>
+
+<li>At the <a href="http://www.emacswiki.org/emacs/AnsysMode">Emacs Wiki</a> you might add comments or wishes for this mode
+without registration.
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
+<p class="date">Modification date: 2015-06-26 </p>
+<p class="creator">Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+</div>
+</body>
+</html>

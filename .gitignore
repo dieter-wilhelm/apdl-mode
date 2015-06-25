@@ -15,8 +15,6 @@ TAGS
 *.tex
 *.gz
 *.xz
-README.html
-doc/gh-page.html
 helper/emacs-24.5
 helper/hide-region+.el
 helper/hide-region.el

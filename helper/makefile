@@ -186,8 +186,9 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS : makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el 
-	etags $?
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el 
+TAGS : $(TAGS_FILES)
+	etags $(TAGS_FILES)
 
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :

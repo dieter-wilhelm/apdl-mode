@@ -129,9 +129,7 @@
   - GNU-Linux :: ;-)
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
-  - README :: same as Mode help!
   - APDL templates :: minimal working examples ending with -template
-  - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry ->
   - M-x compile :: ALL ;-)
 
@@ -157,7 +155,7 @@
     # emacs
     (tags-query-replace "24.5" "24.6")
     # version No
-    (tags-query-replace "150" "161")
+    (tags-query-replace "161" "170")
     # for _mode_version
     (tags-query-replace "\".1\"" "\".2\"")
     # copyright

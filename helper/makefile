@@ -21,11 +21,12 @@ ANSYS_MAJOR := 16
 ANSYS_MINOR := 1
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := 1
+MODE_VERSION := freeze1
 # for consistency:
-#MODE_VERSION := 1
-#MODE_VERSION := rc1
+#MODE_VERSION := freeze1
 #MODE_VERSION := beta1
+#MODE_VERSION := rc1
+#MODE_VERSION := 1
 
 ##################################################
 

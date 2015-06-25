@@ -68,7 +68,7 @@ issues list]].
 [[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys-mode.jpg]]
 
 Above image shows an Emacs frame (in reversed colour mode and compiled
-with the GTK+ toolkit under GNU/Linux) with a ripped off menu field.  The
+with the GTK+ toolkit under GNU-Linux) with a ripped off menu field.  The
 APDL file is in the right window with the (experimental) user variable
 highlighting switched on and a help overlay (in yellow background)
 activated. The smaller windows on the left hand side are showing the
@@ -97,7 +97,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 - Solver communication facilities, i. e. sending code fragments from
   the macro file or commands interactively to an ANSYS solver process
-  (GNU/Linux only).  With abreviated input method: For the often used
+  (GNU-Linux only).  With abreviated input method: For the often used
   command C-c C-j (~ansys-send-to-ansys-and-proceed~, sending a code
   line to the solver and skipping to the next) it is sufficient to
   repeat this command just with the last input key(s) ("j" or "C-j").
@@ -120,7 +120,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
   (2) these `user variables' are dynamically highlighted as well.
-  With a running ANSYS interpreter process (GNU/Linux only) it is also
+  With a running ANSYS interpreter process (GNU-Linux only) it is also
   possible with a keyboard shortcut to query the current status of
   variables near the cursor.
 
@@ -169,13 +169,13 @@ Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 
 * Requirements
 
-The mode was tested with Emacs-24.5 under Win7 and GNU/Linux64.  It
-should also run with all older versions of Emacs down to Emacs-23.1
-(which was realeased July 2009 and is able to compile ANSYS-Mode
-16.1).
+The mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
+GNU-Linux64.  It should also run with all older versions of Emacs down
+to Emacs-23.1 (realeased July 2009 and which is able to compile
+ANSYS-Mode 16.1).
 
 Some of ANSYS-Mode's solver control and communication features are
-only implemented for GNU/Linux systems.
+only implemented for GNU-Linux systems.
 
 * Installation
 
@@ -246,7 +246,7 @@ In case you want to download or have already installed the [[http://ftp.gnu.org/
 of GNU Emacs, you can also download and configure the
 ANSYS-Mode package separately. Please refer to below instructions.
 
-*For existing Emacs installations on Windows and GNU/Linux*:
+*For existing Emacs installations on Windows and GNU-Linux*:
 
 *** Direct way; no file configuration necessary
 
@@ -332,7 +332,7 @@ load-path it is necessary to adjust the following variable.
 #+END_SRC
 
 For example: "c:\\emacs\\ansys-mode" on a Windows system or
- "/usr/local/src/emacs/ansys-mode" on a GNU/Linux system.
+ "/usr/local/src/emacs/ansys-mode" on a GNU-Linux system.
 
 #+BEGIN_SRC emacs-lisp
      (autoload 'ansys-mode "ansys-mode" "Activate ANSYS-Mode." 'interactive)
@@ -386,7 +386,7 @@ explicitly called ansys-mode.
      (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
      (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
      (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-     (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
+     (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 #+END_SRC
 

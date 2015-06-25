@@ -12,7 +12,7 @@
                     command and is not highlighted as label
   - Highlighting :: An apostrophy clashes with the ANSYS "char"
                     specifier Keybinding: M-Tab is captured under
-                    Windows and some GNU/Linux desktops Workaround: Press
+                    Windows and some GNU-Linux desktops Workaround: Press
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
@@ -30,7 +30,7 @@
   - Skeleton :: Mouse selection of -structural-template does not work
                 (because of stipulated user text input from this skeleton)
   - Navigation ::  C-c { does not skip an overlay in a number-block
-                   (M-{ does it though))
+                  (M-{ does it though))
 * 16.1.2:
 ** Bugs
    -   Mouse completion is working with middle mouse button but only
@@ -126,9 +126,10 @@
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
 * Procedures
+  - GNU-Linux :: ;-)
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
-  - README :: same as Mode help
+  - README :: same as Mode help!
   - APDL templates :: minimal working examples ending with -template
   - Old Emacs versions :: flagged with RESTRICTED:
   - Menu :: -> indicates the following sub menu entry ->
@@ -150,7 +151,6 @@
   - update defcustom list in ./bug-report.sh -> ansys-submit-bug-report
   - update/complete skeletons menu
 
-  # ;  (tags-query-replace "GNU/Linux" "GNU-Linux") ;-)
     # ansys
     (tags-query-replace "16.1" "16.2")
     (tags-query-replace "ANSYS 16" "ANSYS 17")

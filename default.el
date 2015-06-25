@@ -1,4 +1,4 @@
-;; Customisation file for ANSYS-Mode (GNU/Linux and Windows)
+;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
@@ -31,7 +31,7 @@
 ;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
 
 ;; for example: "c:\\emacs\\ansys-mode" for a Windows system or
-;; "/usr/local/src/emacs/ansys-mode" for a GNU/Linux system.
+;; "/usr/local/src/emacs/ansys-mode" for a GNU-Linux system.
 
 
 ;; For reading the ANSYS help in your browser it should be sufficient
@@ -45,7 +45,7 @@
 ;; conditional: Linux or Windows
 
 ;(cond ((string= window-system "x")
-;        ;; This is an example of an installation directory on GNU/Linux
+;        ;; This is an example of an installation directory on GNU-Linux
 ;        (setq ansys-install-directory "/appl/")) ; default: "/"
 ;       (t
 ;        ;;This an example of an installation dir. on WINDOWS
@@ -102,7 +102,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
 (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-(autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU/Linux or product launcher under Windows." 'interactive)
+(autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
 (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 (autoload 'ansys-mode-version "ansys-mode" "Show ANSYS-Mode's version number." 'interactive)
 
@@ -158,13 +158,13 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; license server configuration and executable paths
 
-      ;; GNU/Linux 64 bit
+      ;; GNU-Linux 64 bit
 
       ;; for starting the solver & ansys-license-status & ANSYS help 
 ;      (setq		     ;
 ;	;; license servers (or license file name)
-;	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU/Linux
-;	;; GNU/Linux: License servers separated by colons (":"), 1055 is the default port
+;	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
+;	;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
 ;	ansys-license-file
 ;	"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 ;

@@ -998,7 +998,7 @@ The APDL processing and debugging environment
    !@ ==============================
    !! Prerequisites:
    !! 1) A fully configured ANSYS-Mode and
-   !! 2) a GNU/Linux or GNU/Linux system
+   !! 2) a GNU-Linux or GNU-Linux system
 #+end_src
   Finally switch off unnecessay stuff: Emacs' menu-, tool- and
   scroll-bar to get more screen estate.  :-) And tidying the window
@@ -1256,7 +1256,7 @@ Thank you for your time, have fun with Emacs...
 
 # # !!    mouse selection ->copy to clipboard
 # # !! 0.) mouse selection does not work under Windows mouse-drag-copy-region!
-# # !! mouse copy on Windows the same on GNU/Linux only if (setq mouse-drag-copy-region t)
+# # !! mouse copy on Windows the same on GNU-Linux only if (setq mouse-drag-copy-region t)
 
 # #+begin_src ansys : tangle yes
 # ! continuation line with $

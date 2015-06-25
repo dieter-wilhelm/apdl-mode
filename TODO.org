@@ -64,6 +64,7 @@
    - Variables are not highlighted in -skeletons, it is specified in
      -mode only for files with .mac suffix; *create file tmp,mac:
      macro call: tmp, is not highlighted
+   - started and commented out highlighting of solver output
    - makefile errors when doing -fontification.el?
    - ansys-template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'

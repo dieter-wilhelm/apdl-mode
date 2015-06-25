@@ -363,11 +363,17 @@ fontification (`ansys-highlight-variable') of these variables.")
 All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
 
-(if (version< "24" emacs-version)
-    (defvar-local ansys-parameter-help-position 1
-      "Cursor position in -show-command-parameters.")
-  (make-local-variable 'ansys-parameter-help-position)
-  (setq ansys-parameter-help-position 1))
+(defvar ansys-parameter-help-position) ;for the compiler
+
+(cond
+ ((version< "24" emacs-version)
+  (defvar ansys-parameter-help-position 1
+    "Cursor position in -show-command-parameters.")
+  (make-local-variable 'ansys-parameter-help-position))
+ (t
+  (if (fboundp 'defvar-local)
+      (defvar-local ansys-parameter-help-position 1
+	"Cursor position in -show-command-parameters."))))
 
 ;;; --- constants ---
 
@@ -1171,19 +1177,20 @@ and P-MAX) otherwise align the current code paragraph."
       (align p-min p-max)
     (align-current)))
 
-(defun ansys-solver-mode ()
-  "Helper mode for the fontification of the solver output"
-  (interactive)
-  (kill-all-local-variables)
-  (setq major-mode 'ansys-solver-mode)
-  (setq mode-name "ANSYS-Solver")		; mode line string
-  (setq
-			      solver-font-lock ;'("BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:"
-; 1 font-lock-warning-face) )
-						 '("BEGIN:" "PREP7:" "SOLU_LS[0-9]+:" "POST1:" "POST26:" "RUNSTAT:" "AUX2:" "AUX3:" "AUX12:" "AUX15:")
-			      )
-  (setq font-lock-defaults `(,solver-font-lock))
-  )
+;; (defvar solver-font-lock nil)
+
+;; (defun ansys-solver-mode ()
+;;   "Helper mode for the fontification of the solver output"
+;;   (interactive)
+;;   (kill-all-local-variables)
+;;   (setq major-mode 'ansys-solver-mode)
+;;   (setq mode-name "ANSYS-Solver")		; mode line string
+;;   (setq solver-font-lock ;'("BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:"
+;; ; 1 font-lock-warning-face) )
+;;  '("BEGIN:" "PREP7:" "SOLU_LS[0-9]+:" "POST1:" "POST26:" "RUNSTAT:" "AUX2:" "AUX3:" "AUX12:" "AUX15:")
+;; 			      )
+;;   (setq font-lock-defaults `(,solver-font-lock))
+;;   )
 
 ;;;###autoload
 (defun ansys-mode ()
@@ -3261,7 +3268,10 @@ argument ARG, the function evaluates the variable at point."
 	    str old-num com
 	    (num 0))
        (set-buffer variable-buffer)
-       (read-only-mode -1)
+       (if (version< "24" emacs-version)
+	   (when (fboundp 'read-only-mode)
+	     (read-only-mode 1))
+	 (toggle-read-only 1))
        (kill-region (point-min) (point-max))
        ;; insert header
        (insert
@@ -3282,7 +3292,10 @@ argument ARG, the function evaluates the variable at point."
 	 (unless (= num old-num)
 	   (insert str)))
        (goto-char (point-min))
-       (read-only-mode 1)
+       (if (version< "24" emacs-version)
+	   (when (fboundp 'read-only-mode)
+	       (read-only-mode 1))
+	 (toggle-read-only 1))
        (set-buffer current-buffer)
        (display-buffer buffer-name 'other-window)))))
 

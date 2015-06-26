@@ -32,6 +32,7 @@
   file:doc/A-M_introductory_tutorial.org
   file:doc/A-M_in-depth_tutorial.org
 * References
+  The ANSYS-Mode highlighting and APDL reference
   file:doc/A-M_APDL_reference.org
 * Todo
   file:TODO.org

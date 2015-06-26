@@ -78,7 +78,7 @@ a certain code template, respectively.
 Blelow is a Screenshot on Win64 with the ANSYS Classics GUI on the
 left and Emacs in ANSYS-Mode on the right hand side.
 
-[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/template_menu.png]]
+[[file:doc/template_menu.png]]
 
 * Features
 

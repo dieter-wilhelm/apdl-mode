@@ -25,15 +25,15 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 * Readme first
-  The [[README.org][README]] file
+  The [[file:README.org][README]] file
 * NEWS
-  The [[NEWS.org][NEWS]]
+  The [[file:NEWS.org][NEWS]]
 * Tutorials
-  [[doc/A-M_introductory_tutorial.org][Introductory tutorial]]
-  [[doc/A-M_in-depth_tutorial.org][In-depth tutorial]]
+  [[file:doc/A-M_introductory_tutorial.org][Introductory tutorial]]
+  [[file:doc/A-M_in-depth_tutorial.org][In-depth tutorial]]
 * References
-  Ansys-Mode [[doc/A-M_APDL_reference.org][Highlighting and APDL reference]]
+  Ansys-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]]
 * Todo
-  [[TODO.org][What remains to do]]
+  [[file:TODO.org][What remains to do]]
 * License
-  The GNU puplic license [[LICENSE][GPL]]
+  The GNU puplic license [[file:LICENSE][GPL]]

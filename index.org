@@ -25,7 +25,7 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 * Readme first
-  file:../master/README.org
+  file:README.org
 * NEWS
   file:NEWS.org
 * Tutorials

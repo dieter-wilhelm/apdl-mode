@@ -1,0 +1,2351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>ANSYS-Mode Highlighting and APDL Reference</title>
+<!-- 2015-06-26 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="H. Dieter Wilhelm" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">ANSYS-Mode Highlighting and APDL Reference</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. ANSYS-Mode Syntax Highlighting Reference</a>
+<ul>
+<li><a href="#sec-1-1">1.1. Header</a></li>
+<li><a href="#sec-1-2">1.2. Highlighting APDL specials</a></li>
+<li><a href="#sec-1-3">1.3. Implied (or colon) looping</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. APDL Reference</a>
+<ul>
+<li><a href="#sec-2-1">2.1. Idiosyncrasies</a></li>
+<li><a href="#sec-2-2">2.2. File types (the whole zoo is in the operations guide) under Gnu/Linux?</a></li>
+<li><a href="#sec-2-3">2.3. Defining parameters</a></li>
+<li><a href="#sec-2-4">2.4. Erasing variables from memory</a></li>
+<li><a href="#sec-2-5">2.5. Variable substitution with `%'</a></li>
+<li><a href="#sec-2-6">2.6. Expressions</a></li>
+<li><a href="#sec-2-7">2.7. Arrays</a></li>
+<li><a href="#sec-2-8">2.8. debugging</a></li>
+<li><a href="#sec-2-9">2.9. Multiple runs, probabilistic design</a></li>
+<li><a href="#sec-2-10">2.10. Undocumented commands</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3. And the rest</a></li>
+</ul>
+</div>
+</div>
+<p>
+######################################################################
+</p>
+<p>
+##+DATE:      2012-06-17 Sa
+</p>
+<p>
+##+LaTeX_CLASS: koma-report
+##+LaTeX_CLASS: koma-article
+##+LATEX: \tableofcontents
+</p>
+<p>
+##+TEXT: This is still a work in progress, good documentation is hard work!
+##+TEXT: Please report the faults.
+</p>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> ANSYS-Mode Syntax Highlighting Reference</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Header</h3>
+<div class="outline-text-3" id="text-1-1">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! ------------------------------</span>
+<span style="color: #b22222;">!@ --- header ---</span>
+<span style="color: #b22222;">!! ------------------------------</span>
+<span style="color: #b22222;">!! Time-stamp: &lt;2012-06-22 16:42:24 uidg1626&gt;</span>
+<span style="color: #b22222;">!! NOTE: This is APDL pseudo code, checking</span>
+<span style="color: #b22222;">!!  ANSYS-Mode's highlighting capabilities and</span>
+<span style="color: #b22222;">!!  certain aspects of the language</span>
+<span style="color: #b22222;">!!  Please see further below.</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">/units</span>,mpa <span style="color: #b22222;">!indicate mm-t-s unit system</span>
+<span style="color: #b22222;">!@ --- Preprocessing ---</span>
+<span style="color: #a020f0;">/prep7</span>
+<span style="color: #b22222;">!@@ -- Elements --</span>
+<span style="color: #a0522d;">Steel</span> = 1
+<span style="color: #a0522d;">ID</span> = Steel
+<span style="color: #a0522d;">real</span> = Steel
+<span style="color: #a020f0;">et</span>,ID,<span style="color: #483d8b;">solid186</span> <span style="color: #b22222;">!3d, 20 node</span>
+<span style="color: #b22222;">!@@ -- Material --</span>
+<span style="color: #a020f0;">mp</span>,nuxy,Steel,0.3 <span style="color: #b22222;">! Poisson No</span>
+<span style="color: #a020f0;">mp</span>,ex,Steel,200000 <span style="color: #b22222;">! Elastic modulus</span>
+<span style="color: #b22222;">!@@ -- Modeling --</span>
+<span style="color: #a020f0;">block</span>,0,1,0,1,0,1
+<span style="color: #b22222;">!@@ -- Meshing --</span>
+<span style="color: #a020f0;">vmesh</span>,all
+<span style="color: #b22222;">!@@ -- BCs, Loads --</span>
+<span style="color: #a020f0;">nsel</span>,s,loc,x,0
+<span style="color: #a020f0;">d</span>,all,all
+<span style="color: #a020f0;">nsel</span>,s,loc,x,1
+<span style="color: #a020f0;">d</span>,all,uy,-.1
+<span style="color: #a020f0;">allsel</span>
+<span style="color: #a020f0;">save</span>
+<span style="color: #b22222;">!@ --- Solving ---</span>
+<span style="color: #a020f0;">/solu</span>
+<span style="color: #a020f0;">solve</span>
+<span style="color: #b22222;">!@ --- Postprocessing --</span>
+<span style="color: #a020f0;">/post1</span>
+<span style="color: #a020f0;">/view</span>,,1,1,1
+<span style="color: #a020f0;">plnsol</span>,u,sum,2
+<span style="color: #a020f0;">/image</span>,save,test <span style="color: #b22222;">!save XWindow Dump xwd (or bmp on Windows)</span>
+<span style="color: #a020f0;">/image</span>,capture                <span style="color: #b22222;">!TODO: what is this: file0001.xwd?</span>
+<span style="color: #a020f0;">/sys</span>,<span style="color: #8b2252;">convert test test.png</span>
+/upwind                  <span style="color: #b22222;">!TODO: 2d-graphics library? dated?</span>
+<span style="color: #a020f0;">*fft</span>                     <span style="color: #b22222;">!TODO: :-)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+<span style="color: #b22222;">!!  Please put the the cursor below the next paragraph of emacs lisp</span>
+<span style="color: #b22222;">!!  code and type "C-x C-e" to change the setting of</span>
+<span style="color: #b22222;">!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'</span>
+<span style="color: #b22222;">!!  change the level from 0 to 2 and toggle the flag from `t' to</span>
+<span style="color: #b22222;">!!  `nil'.  Browse the file to check the differences.</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-lisp">(<span style="color: #a020f0;">progn</span>
+  (<span style="color: #a020f0;">when</span>
+      (featurep 'ansys-mode)
+    (unload-feature 'ansys-mode))
+  (setq
+   ansys-highlighting-level 2
+   ansys-dynamic-highlighting-flag t)
+  (load-file <span style="color: #8b2252;">"ansys-mode.el"</span>)
+  (ansys-mode))
+</pre>
+</div>
+
+<p>
+:TODO
+!! &#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;
+/units,mpa !indicate mm-t-s unit system
+c
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- Ignored characters and condensed input line ($ operator)</span>
+<span style="color: #a020f0;">finish</span><span style="color: #008b8b;">ThisNightmare</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">/cle</span> <span style="color: #b22222;">!/clear</span>
+<span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Highlighting APDL specials</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Reserved words and _RETURN statements</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!!</span>
+<span style="color: #a0522d;">N</span>      =  <span style="color: #ff0000; font-weight: bold;">_RETURN</span>       <span style="color: #b22222;">!return value of certain commands</span>
+<span style="color: #a0522d;">Alpha2</span> =  +360./(2*N)
+<span style="color: #a0522d;">Xc</span>     =  <span style="color: #b22222;">!empty rhs clears variables</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> _RETURN values of macros</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">*return</span>                  <span style="color: #b22222;">!TODO: what is this?</span>
+<span style="color: #a020f0;">*status</span>,<span style="color: #ff0000; font-weight: bold;">_RETURN</span>          <span style="color: #b22222;">!0 normal</span>
+                         <span style="color: #b22222;">!1 note</span>
+                         <span style="color: #b22222;">!2 warning</span>
+                         <span style="color: #b22222;">!3 error</span>
+                         <span style="color: #b22222;">!4 fatal</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-3" class="outline-4">
+<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> Old style APDL comments</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">var1</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3 <span style="color: #b22222;">*5)) </span><span style="color: #b22222;">! old style Ansys comment!!!!!</span>
+<span style="color: #a0522d;">var2</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3*5))  <span style="color: #b22222;">! this is valid code</span>
+<span style="color: #a020f0;">fini</span> <span style="color: #b22222;">* comment</span>
+<span style="color: #a0522d;">otto</span> = 3 <span style="color: #b22222;">* 4 comment, the value of otto = 3</span><span style="color: #b22222;">!</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-4" class="outline-4">
+<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Ignored characters behind commands</h4>
+<div class="outline-text-4" id="text-1-2-4">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-5" class="outline-4">
+<h4 id="sec-1-2-5"><span class="section-number-4">1.2.5</span> The End Of File command</h4>
+<div class="outline-text-4" id="text-1-2-5">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="background-color: #ff0000;">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- function names --</span>
+<span style="color: #a0522d;">Pi</span>=<span style="color: #0000ff;">acos</span>(-1) <span style="color: #228b22;">$</span> True=1 <span style="color: #228b22;">$</span> False=0 <span style="color: #228b22;">$</span> Nn=3.1
+<span style="color: #a0522d;">Alpha1</span> = <span style="color: #0000ff;">rotx</span>( 14.5) - 360./ (2*Nn)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-6" class="outline-4">
+<h4 id="sec-1-2-6"><span class="section-number-4">1.2.6</span> Ignored characters behind commands</h4>
+<div class="outline-text-4" id="text-1-2-6">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
+<span style="color: #a020f0;">a</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">al</span> <span style="color: #228b22;">$</span> all <span style="color: #228b22;">$</span> <span style="color: #a020f0;">alls</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">allse</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">allsel</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">allsel</span><span style="color: #008b8b;">llllll</span>
+<span style="color: #a020f0;">rectng</span><span style="color: #008b8b;">aaaaa</span>,var1,<span style="color: #ff0000; font-weight: bold;">_X2</span>,var2,X2 <span style="color: #b22222;">! 2d rectangle</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-7" class="outline-4">
+<h4 id="sec-1-2-7"><span class="section-number-4">1.2.7</span> The End Of File command</h4>
+<div class="outline-text-4" id="text-1-2-7">
+<div class="org-src-container">
+
+<pre class="src src-ansys">  <span style="background-color: #ff0000;">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---</span>
+  <span style="color: #a020f0;">/exit</span>,nosave           <span style="color: #b22222;">!default is save the model data</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-8" class="outline-4">
+<h4 id="sec-1-2-8"><span class="section-number-4">1.2.8</span> Current element types and deprecated elements</h4>
+<div class="outline-text-4" id="text-1-2-8">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! A current element type:</span>
+<span style="color: #a020f0;">et</span>,10,<span style="color: #483d8b;">solid186</span>
+<span style="color: #b22222;">!! deprecated element types:</span>
+<span style="color: #a020f0;">et</span>,Steel,<span style="color: #ff0000; font-weight: bold;">beam3</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,<span style="color: #ff0000; font-weight: bold;">shell91</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+<p>
+Let's change the element types to current ones!
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! Complete the following element fragments to current ones!</span>
+<span style="color: #b22222;">!!</span>
+<span style="color: #a020f0;">et</span>,Steel,beam <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,shell
+</pre>
+</div>
+<p>
+For example select the following elements
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">et</span>,Steel,<span style="color: #483d8b;">beam188</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,<span style="color: #483d8b;">shell28</span>
+</pre>
+</div>
+<p>
+and you are getting a diffent element highlighting.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- default commands</span>
+<span style="color: #a020f0;">nsel</span>,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+<span style="color: #a020f0;">d</span>,all,all
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-1-3" class="outline-3">
+<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Implied (or colon) looping</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ ::: implicit : (colon) looping :::::</span>
+<span style="color: #b22222;">!! (n1:n2:dn)</span>
+<span style="color: #a020f0;">lfillt</span>,(1<span style="color: #228b22;">:</span>2),(3<span style="color: #228b22;">:</span>4),5
+<span style="color: #b22222;">!! one subscript per array</span>
+<span style="color: #a020f0;">bf</span>,(1<span style="color: #228b22;">:</span>10),temp,Tarray(1<span style="color: #228b22;">:</span>10)
+b(1<span style="color: #228b22;">:</span>5) = 10,20,30,40,50 <span style="color: #b22222;">!TODO: creates this an array?</span>
+<span style="color: #b22222;">!! The </span><span style="color: #b22222;">*get command and get functions are allowed</span>
+<span style="color: #a020f0;">*get</span>,Fx(1<span style="color: #228b22;">:</span>10),node,(1<span style="color: #228b22;">:</span>10),f,fz <span style="color: #b22222;">!TODO:</span>
+<span style="color: #a020f0;">a</span>(1<span style="color: #228b22;">:</span>5) = <span style="color: #0000ff;">nx</span>(1<span style="color: #228b22;">:</span>5)
+<span style="color: #b22222;">!! TODO:</span>
+Fx(1<span style="color: #228b22;">:</span>10) = (1<span style="color: #228b22;">:</span>100<span style="color: #228b22;">:</span>10)    <span style="color: #b22222;">!is this working? :-)</span>
+<span style="color: #b22222;">!! alternative to </span><span style="color: #b22222;">*vfill</span>
+<span style="color: #a020f0;">*vfill</span>,Fx,ramp,1,10
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! looping</span>
+<span style="color: #a020f0;">*get</span>,Dim
+<span style="color: #a020f0;">*if</span>,Dim,le,1,then
+  <span style="color: #a020f0;">*dim</span>,Reaction,array,Ns,1
+<span style="color: #a020f0;">*endif</span>
+<span style="color: #a020f0;">*do</span>,I,1,Ns
+  <span style="color: #a020f0;">set</span>,Ls,I
+  <span style="color: #a020f0;">fsum</span>
+  <span style="color: #a020f0;">*get</span>,Fx,fsum,,item,fx
+  Reaction(I)=Fx
+<span style="color: #a020f0;">*enddo</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- multiline </span><span style="color: #b22222;">*msg formatting with the &amp; operator</span>
+<span style="color: #a020f0;">*MSG</span>,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+<span style="color: #8b2252;">Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">Steel = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G A (electrical angle = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G DEG) </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">_Power factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">Inductance = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> APDL Reference</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Idiosyncrasies</h3>
+<div class="outline-text-3" id="text-2-1">
+<ul class="org-ul">
+<li>You can only store strings of 32 characters, for only!! 128
+characters you need to create a string array!
+</li>
+<li>No function definitions &lt;- write `command' files (suffix: .mac),
+or call a macro (arbitrary suffix) with `*use', something close is
+to fill a "table" arry, interpolating values and possible real
+indexing A(0.3).
+</li>
+<li>you can get table array values with real index values but must use
+integers for assigning them the values, the same goes for *vplot:
+it needs the arry indices in integers and is, moreover, only
+capable to plot the columns and not their line values!
+</li>
+<li>*vplot does only plot the columns of arrys, it is not possible to
+specify rows
+</li>
+<li>No direct array values to file export in GUI mode &lt;- write command
+file for *vwrite, or use a (lookup) table for this purpose
+</li>
+<li>*vwread does not work with C format specifiers in contrast to *vwrite
+</li>
+<li>Still (v15) no <b>round</b> function in sight, but someting like
+nint(max*1e3)/1e3 might do
+</li>
+<li>One cannot easily get the variable value, either one must assign
+the variable to another one, or use the `*stat' command
+</li>
+<li>Operators &gt; and &lt;: 1 &lt; 2 = 1; 2 &lt; 1 = 1; 2 &gt; 1 = 2 :TODO check
+</li>
+<li>Inconsistent naming: /{x,y}range but /axlab,{x,y},
+</li>
+<li>The /contour command does not work on device /show,PNG
+</li>
+<li>DELETION OF ARRY parameters without warning only possible with an
+undocumented option: *del,Array,,nopr
+</li>
+<li>*cfwrite does parameter substituion without %%: *cfwrite, X_points
+    = NoN,*cfwrite, the same as X_points = %NoN%????
+</li>
+<li>No direct operation on arrays like A=A*3, take a detour with
+*voper or *toper
+</li>
+<li>Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
+contrast to the more ralistic ones in /solu
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> File types (the whole zoo is in the operations guide) under Gnu/Linux?</h3>
+<div class="outline-text-3" id="text-2-2">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="right" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+
+<col  class="left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="right">No</th>
+<th scope="col" class="left">Type</th>
+<th scope="col" class="left">Name</th>
+<th scope="col" class="left">temp.</th>
+<th scope="col" class="left">Remark</th>
+<th scope="col" class="left">Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="right">1</td>
+<td class="left">abort</td>
+<td class="left">.abt</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">2</td>
+<td class="left">graphics annotation commands</td>
+<td class="left">.ano</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">3</td>
+<td class="left">neutral file format</td>
+<td class="left">.anf</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">4</td>
+<td class="left">animation</td>
+<td class="left">.anim</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">5</td>
+<td class="left">&#xa0;</td>
+<td class="left">.ans_log</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">6</td>
+<td class="left">input data copied from batch input file /batch</td>
+<td class="left">.bat</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">7</td>
+<td class="left">sparce solver</td>
+<td class="left">.bcs</td>
+<td class="left">no</td>
+<td class="left">run time statistics</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">8</td>
+<td class="left">interpolated body forces (bfint)</td>
+<td class="left">.bfin</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">9</td>
+<td class="left">&#xa0;</td>
+<td class="left">.cdb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">10</td>
+<td class="left">sparce solver</td>
+<td class="left">.dsp</td>
+<td class="left">&#xa0;</td>
+<td class="left">run time statistics</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">11</td>
+<td class="left">interpolated DOF data (cbdof)</td>
+<td class="left">.cbdo</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">12</td>
+<td class="left">color map</td>
+<td class="left">.cmap</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">13</td>
+<td class="left">default command file suffix (*cfopen, *cfwrite)</td>
+<td class="left">.cmd</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">14</td>
+<td class="left">component mode synthesis</td>
+<td class="left">.cms</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">15</td>
+<td class="left">nonlinear diagnostics file (nldiag)</td>
+<td class="left">.cnd</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">16</td>
+<td class="left">pcg solver</td>
+<td class="left">.pcs</td>
+<td class="left">&#xa0;</td>
+<td class="left">run time statistics</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">17</td>
+<td class="left">workbench solver input</td>
+<td class="left">.dat</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">18</td>
+<td class="left">database</td>
+<td class="left">.db</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">19</td>
+<td class="left">db backup</td>
+<td class="left">.dbb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">20</td>
+<td class="left">databas from vmseh failure in batch mode</td>
+<td class="left">.dbe</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">21</td>
+<td class="left">fortran solution information</td>
+<td class="left">.dbg</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">22</td>
+<td class="left">Do-loop nesting</td>
+<td class="left">.do#</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">23</td>
+<td class="left">scratch file modal analysis</td>
+<td class="left">.dscr</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">24</td>
+<td class="left">&#xa0;</td>
+<td class="left">.D#</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">25</td>
+<td class="left">perfomance information sparse solver distributed</td>
+<td class="left">.dsp</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">26</td>
+<td class="left">scratch file distributed sparse solver</td>
+<td class="left">.dsp#</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">27</td>
+<td class="left">Superelement DOF solution from use pass</td>
+<td class="left">.dsub</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">28</td>
+<td class="left">Element definitions (EWRITE)</td>
+<td class="left">.elem</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">29</td>
+<td class="left">element matrices</td>
+<td class="left">.emat</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">30</td>
+<td class="left">element saved data</td>
+<td class="left">.esav</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">31</td>
+<td class="left">errors and warnings</td>
+<td class="left">.err</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">32</td>
+<td class="left">distributed memory</td>
+<td class="left">#.err</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">33</td>
+<td class="left">rotated element matrices</td>
+<td class="left">.erot</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">34</td>
+<td class="left">Element saved data ESAV files created by nonlinear analyses</td>
+<td class="left">.esav</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">35</td>
+<td class="left">scratch file PCG Lanczos eigensolver</td>
+<td class="left">.evc</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">36</td>
+<td class="left">scratch file PCG Lanczos eigensolver</td>
+<td class="left">.evl</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">37</td>
+<td class="left">&#xa0;</td>
+<td class="left">.ext</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">38</td>
+<td class="left">&#xa0;</td>
+<td class="left">.exti</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">39</td>
+<td class="left">local results file distributed memory</td>
+<td class="left">#.ext</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">40</td>
+<td class="left">stiffness-mass matrices</td>
+<td class="left">.full</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">41</td>
+<td class="left">Fatigue data [FTWRITE]</td>
+<td class="left">.fatg</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">42</td>
+<td class="left">neutral graphics file</td>
+<td class="left">.grph</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">43</td>
+<td class="left">Graphical solution tracking file</td>
+<td class="left">.gst</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">44</td>
+<td class="left">IGES file from ANSYS solid model data [IGESOUT]</td>
+<td class="left">.iges</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">45</td>
+<td class="left">initial state</td>
+<td class="left">.ist</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">46</td>
+<td class="left">Loading and bc of load steps (used for multiframe restart)</td>
+<td class="left">.ldhi</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">47</td>
+<td class="left">Database command log file [LGWRITE]</td>
+<td class="left">.lgw</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">48</td>
+<td class="left">scratch file for sparse solver</td>
+<td class="left">???.ln#</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">49</td>
+<td class="left">Load case file (where nn = load case number) [LCWRITE]</td>
+<td class="left">.l#</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">50</td>
+<td class="left">Factorized stiffness matrix</td>
+<td class="left">.ln22</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">51</td>
+<td class="left">Command input history</td>
+<td class="left">.log</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">52</td>
+<td class="left">lock file</td>
+<td class="left">.lock</td>
+<td class="left">yes</td>
+<td class="left">prevent runs in the same directory</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">53</td>
+<td class="left">scratch file mode superposition</td>
+<td class="left">.lscr</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">54</td>
+<td class="left">scratch file substructure pass w/ more than 1 load vector</td>
+<td class="left">.lv</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">55</td>
+<td class="left">macro</td>
+<td class="left">.mac</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">56</td>
+<td class="left">Mapping data [HBMAT]</td>
+<td class="left">.mapping</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">57</td>
+<td class="left">Mapping data in Harwell-Boeing format [HBMAT]</td>
+<td class="left">.matrix</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">asc/bin</td>
+</tr>
+
+<tr>
+<td class="right">58</td>
+<td class="left">Modal coordinates from harmonic or transient analysis</td>
+<td class="left">.mcf</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">59</td>
+<td class="left">modal element load vector</td>
+<td class="left">.mlv</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">60</td>
+<td class="left">Nonlinear analysis convergence monitoring</td>
+<td class="left">.mntr</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">61</td>
+<td class="left">modal analyses</td>
+<td class="left">.mode</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">62</td>
+<td class="left">Material property definitions [MPWRITE]</td>
+<td class="left">.mp</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">63</td>
+<td class="left">Modal analysis frequencies and mode shapes</td>
+<td class="left">.modesym</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">64</td>
+<td class="left">mode-superposition transient  (multiframe restart)</td>
+<td class="left">.m#</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">65</td>
+<td class="left">Nonlinear diagnostics file tracking contact quantities [NLHIST]</td>
+<td class="left">.nlh</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">66</td>
+<td class="left">Node definitions [NWRITE]</td>
+<td class="left">.node</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">67</td>
+<td class="left">Stores Newton-Raphson iteration information [NLDIAG,NRRE,ON]</td>
+<td class="left">.nr</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">68</td>
+<td class="left">old element .esav data from converged solution</td>
+<td class="left">.osav</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">69</td>
+<td class="left">Solver messages</td>
+<td class="left">.out</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">70</td>
+<td class="left">slave output file distributed memory</td>
+<td class="left">#.out</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">71</td>
+<td class="left">database virtual memory</td>
+<td class="left">.page</td>
+<td class="left">yes</td>
+<td class="left">if database space unavailable</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">72</td>
+<td class="left">Parameter definitions [PARSAV]</td>
+<td class="left">.parm</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">73</td>
+<td class="left">Stores performance information when running the PCG solver</td>
+<td class="left">.pcs</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">74</td>
+<td class="left">FLOTRAN printout file</td>
+<td class="left">.pfl</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">75</td>
+<td class="left">plot file extension for electromagnetic trainsient</td>
+<td class="left">.plt</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">76</td>
+<td class="left">Stores pivot information when running the sparse solver</td>
+<td class="left">.pvts</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">77</td>
+<td class="left">scratch file for PCG solver</td>
+<td class="left">.pc#</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">78</td>
+<td class="left">scratch file for PCG solver</td>
+<td class="left">.pda</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">79</td>
+<td class="left">scratch file for PCG solver</td>
+<td class="left">.pma</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">80</td>
+<td class="left">Results file for initial contact state</td>
+<td class="left">.rcn</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">81</td>
+<td class="left">restart database</td>
+<td class="left">.rdb</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">82</td>
+<td class="left">FLOTRAN residual file [FLDATA,OUTP]</td>
+<td class="left">.rdf</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">83</td>
+<td class="left">Database from structural analyses after # times of rezoning</td>
+<td class="left">.rd#</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">84</td>
+<td class="left">mode-superposition transient reduced displacements</td>
+<td class="left">.rdsp</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">85</td>
+<td class="left">mode-superposition harmonic  reduced complex displacements</td>
+<td class="left">.rfrq</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">86</td>
+<td class="left">flotran res.</td>
+<td class="left">.rfl</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">87</td>
+<td class="left">magnetic res.</td>
+<td class="left">.rmg</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">88</td>
+<td class="left">structural results</td>
+<td class="left">.rst</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">89</td>
+<td class="left">combination of local results file in distributed memory</td>
+<td class="left">#.rst</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">90</td>
+<td class="left">linear perturbation results</td>
+<td class="left">.rstp</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">91</td>
+<td class="left">FLOTRAN "wall" results file</td>
+<td class="left">.rsw</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">92</td>
+<td class="left">FLOTRAN run data</td>
+<td class="left">.run</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">93</td>
+<td class="left">thermal results</td>
+<td class="left">.rth</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">94</td>
+<td class="left">Results file from structural analyses after nn times of rezoning</td>
+<td class="left">.rs#</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">95</td>
+<td class="left">nonlinear static or full transient</td>
+<td class="left">.r#</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">96</td>
+<td class="left">load step No #    [LSWRITE]</td>
+<td class="left">.s#</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">97</td>
+<td class="left">scratch file for Jacobi Conjugate Gradient solver</td>
+<td class="left">.scr</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">98</td>
+<td class="left">Superelement load vector data from generation pass</td>
+<td class="left">.seld</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">99</td>
+<td class="left">scratch file for supernode solver</td>
+<td class="left">.snode#</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">100</td>
+<td class="left">Superelement name and number from use pass</td>
+<td class="left">.sort</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">101</td>
+<td class="left">Status of an ANSYS batch run</td>
+<td class="left">.stat</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">102</td>
+<td class="left">scratch file for substructure generation pass</td>
+<td class="left">.sscr</td>
+<td class="left">yes</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">103</td>
+<td class="left">substructure matrices</td>
+<td class="left">.sub</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">104</td>
+<td class="left">Hyperelastic material constants</td>
+<td class="left">.tb</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">105</td>
+<td class="left">Renamed DSUB File for input to substructure expansion pass</td>
+<td class="left">.usub</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">106</td>
+<td class="left">FLOTRAN boundary condition data (ANSYS to FLOTRAN)</td>
+<td class="left">.xbc</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">107</td>
+<td class="left">FLOTRAN geometry data (ANSYS to FLOTRAN)</td>
+<td class="left">.xgm</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">108</td>
+<td class="left">FLOTRAN initial condition data (ANSYS to FLOTRAN)</td>
+<td class="left">.xic</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">ascii</td>
+</tr>
+
+<tr>
+<td class="right">109</td>
+<td class="left">restart</td>
+<td class="left">.x#</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="right">110</td>
+<td class="left">Old (10/11) WorkBench database</td>
+<td class="left">.wbdb</td>
+<td class="left">no</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">111</td>
+<td class="left">&#xa0;</td>
+<td class="left">.dsdb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">112</td>
+<td class="left">WB archive</td>
+<td class="left">.wbpz</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">binary</td>
+</tr>
+
+<tr>
+<td class="right">113</td>
+<td class="left">FE Modeler</td>
+<td class="left">.fedb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">114</td>
+<td class="left">Engineering Data</td>
+<td class="left">.eddb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">115</td>
+<td class="left">Engineering Data</td>
+<td class="left">.xml</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">116</td>
+<td class="left">DesignXplorer</td>
+<td class="left">.dxdb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">117</td>
+<td class="left">&#xa0;</td>
+<td class="left">.mechdat</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">118</td>
+<td class="left">Mesh input file</td>
+<td class="left">.cmdb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">119</td>
+<td class="left">&#xa0;</td>
+<td class="left">.meshdat</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">120</td>
+<td class="left">WorkBench project database</td>
+<td class="left">.wbpj</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">121</td>
+<td class="left">design point</td>
+<td class="left">.wbdp</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">122</td>
+<td class="left">WB material - AKA "engineering" data</td>
+<td class="left">.engd</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="right">123</td>
+<td class="left">DesignModeler database</td>
+<td class="left">.agdb</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+<td class="left">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<ul class="org-ul">
+<li>.mac
+</li>
+<li>.db
+</li>
+<li>.dbb
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> Defining parameters</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+up to 5000
+</p>
+</div>
+<div id="outline-container-sec-2-3-1" class="outline-4">
+<h4 id="sec-2-3-1"><span class="section-number-4">2.3.1</span> Double, char38, char8?, logical? TODO:</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<p>
+in table only 8 chars?
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-2" class="outline-4">
+<h4 id="sec-2-3-2"><span class="section-number-4">2.3.2</span> Variable names (called `parameter' in the ANSYS manual)</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<p>
+All numeric values are stored as double precision values.  Not defined
+variables are assigned a tiny value near zero.  The interpreter is not case sensitve
+:TODO except in strings?
+</p>
+</div>
+<div id="outline-container-sec-2-3-2-1" class="outline-5">
+<h5 id="sec-2-3-2-1"><span class="section-number-5">2.3.2.1</span> Must begin with a letter or an underscore</h5>
+<div class="outline-text-5" id="text-2-3-2-1">
+<div class="org-src-container">
+
+<pre class="src src-ansys">1ansys = 3                    <span style="color: #b22222;">!is not a valid variable name</span>
+<span style="color: #a0522d;">a1nsys</span> = 3                    <span style="color: #b22222;">!a1nsys is a valid variable name</span>
+<span style="color: #a0522d;">A1NSys</span> = 4                    <span style="color: #b22222;">!this is the same variable</span>
+<span style="color: #a0522d;">A1NSys</span> = Temp                 <span style="color: #b22222;">!`Temp' is not defined</span>
+</pre>
+</div>
+<p>
+The following text is the respective ANSYS solver/interpreter output.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys-solver"><span style="color: #a020f0;">BEGIN:</span>
+ 1ansys = 3                    !is not a valid variable name
+PARAMETER 1ANSYS =     3.000000000    
+*** ERROR ***                           CP =       0.259   TIME= 18:06:41
+Invalid character in parameter name.                                    
+ The setting of parameter= 1ANSYS is ignored.                           
+<span style="color: #a020f0;">BEGIN:</span>
+ a1nsys = 3                    !a1nsys is a valid variable name
+PARAMETER A1NSYS =     3.000000000    
+<span style="color: #a020f0;">BEGIN:</span>
+ A1NSys = 4                    !this is the same variable
+PARAMETER A1NSYS =     4.000000000    
+<span style="color: #a020f0;">BEGIN:</span>
+ A1NSys = Temp                 !`Temp' is not defined
+*** WARNING ***                         CP =       0.260   TIME= 18:06:56
+Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
+PARAMETER A1NSYS =    0.7888609052E-30
+<span style="color: #a020f0;">BEGIN:</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3-2-2" class="outline-5">
+<h5 id="sec-2-3-2-2"><span class="section-number-5">2.3.2.2</span> Should not begin with an underscore</h5>
+<div class="outline-text-5" id="text-2-3-2-2">
+<p>
+This convention is used in nameing variables in ANSYS supplied
+macros and the GUI.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #ff0000; font-weight: bold;">_ansys</span> = 3   <span style="color: #b22222;">!`_ansys' represents a reserved variable in ANSYS supplied macros</span>
+<span style="color: #a0522d;">_</span> = 3        <span style="color: #b22222;">! a single underscore definition is valid</span>
+<span style="color: #a0522d;">X</span> = _
+<span style="color: #a0522d;">_</span> = 3 <span style="color: #b22222;">!the single underscore represents  also a `variable' in APDL</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3-2-3" class="outline-5">
+<h5 id="sec-2-3-2-3"><span class="section-number-5">2.3.2.3</span> Variable names with a trailing underscore</h5>
+<div class="outline-text-5" id="text-2-3-2-3">
+<p>
+These are hidden from the `*status' command output and can be
+deleted as a group with `*del'.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">ansys_</span> = 3              <span style="color: #b22222;">!this is a `hidden' variable from </span><span style="color: #b22222;">*status</span>
+<span style="color: #a020f0;">*status</span>                 <span style="color: #b22222;">!does not show `ansys_'</span>
+       ,PRM_            <span style="color: #b22222;">!show variables with trailing underscore</span>
+<span style="color: #a020f0;">*del</span>,,PRM_              <span style="color: #b22222;">!delete all variables with trailing underscore</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys-solver"> <span style="color: #a020f0;">BEGIN:</span>
+ansys_ = 3
+ PARAMETER ANSYS_ =     3.000000000    
+ <span style="color: #a020f0;">BEGIN:</span>
+ *status
+ ABBREVIATION STATUS-
+  ABBREV    STRING
+  SAVE_DB   SAVE
+  RESUM_DB  RESUME
+  QUIT      Fnc_/EXIT
+  POWRGRPH  Fnc_/GRAPHICS
+
+ PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
+                  (INCLUDING        4 INTERNAL PARAMETERS)
+
+ NAME                              VALUE                        TYPE  DIMENSIONS
+ X                                 3.00000000                    SCALAR
+ <span style="color: #a020f0;">BEGIN:</span>
+,PRM_
+ PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
+                  (INCLUDING        4 INTERNAL PARAMETERS)
+
+ NAME                              VALUE                        TYPE  DIMENSIONS
+ ANSYS_                            3.00000000                    SCALAR
+ <span style="color: #a020f0;">BEGIN:</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3-2-4" class="outline-5">
+<h5 id="sec-2-3-2-4"><span class="section-number-5">2.3.2.4</span> Must contain only letters, numbers and underscores</h5>
+<div class="outline-text-5" id="text-2-3-2-4">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! only letters, numbers and underscores are allowed</span>
+a1n&#167;sys = 3              <span style="color: #b22222;">!this is not a valid variable name</span>
+<span style="color: #a0522d;">a1n_sys</span> = 3              <span style="color: #b22222;">!this is a valid variable name</span>
+</pre>
+</div>
+<p>
+the ANSYS interpreter output looks like this:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys-solver"><span style="color: #a020f0;">BEGIN:</span>
+ a1n&#167;sys = 3              !this is not a valid variable name
+*** ERROR ***                           CP =       0.256   TIME= 17:35:07
+Invalid character in parameter name.                                    
+ The setting of parameter= A1N&#167;SYS is ignored.                         
+<span style="color: #a020f0;">BEGIN:</span>
+ a1n_sys = 3              !this is a valid variable name
+PARAMETER A1N_SYS =     3.000000000    
+<span style="color: #a020f0;">BEGIN:</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3-2-5" class="outline-5">
+<h5 id="sec-2-3-2-5"><span class="section-number-5">2.3.2.5</span> Must contain no more than 32 characters</h5>
+<div class="outline-text-5" id="text-2-3-2-5">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! The following is not a valid variable name</span>
+v23456789_123456789_123456789_123 = 3
+<span style="color: #b22222;">!! The following is a valid variable name</span>
+<span style="color: #a0522d;">v23456789_123456789_123456789_12</span>  = 3
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-3-2-6" class="outline-5">
+<h5 id="sec-2-3-2-6"><span class="section-number-5">2.3.2.6</span> Local Variables</h5>
+<div class="outline-text-5" id="text-2-3-2-6">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">Depth</span>  =  <span style="color: #ff0000;">ARG1</span> <span style="color: #b22222;">!ARG{1-9}, AR{10-19} = "*use" variables</span>
+<span style="color: #ff0000;">AR18</span> = <span style="color: #ff0000;">AR19</span>
+<span style="color: #a020f0;">*stat</span>,argx
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-3-3" class="outline-4">
+<h4 id="sec-2-3-3"><span class="section-number-4">2.3.3</span> Character strings</h4>
+<div class="outline-text-4" id="text-2-3-3">
+<p>
+Must not contain more than 32 characters
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">! character string variables are enclosed with `''</span>
+<span style="color: #a0522d;">Yc</span> = <span style="color: #8b2252;">'012345678901234567901234567890123'</span> <span style="color: #b22222;">!not a character variable any more</span>
+<span style="color: #a0522d;">Symetry</span> = <span style="color: #8b2252;">'yes'</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> Erasing variables from memory</h3>
+<div class="outline-text-3" id="text-2-4">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! defining</span>
+<span style="color: #a0522d;">Scalar</span> = 3               <span style="color: #b22222;">!the `=' assignment is a shorthand for `*set'</span>
+<span style="color: #a020f0;">*set</span>,Scalar,4            <span style="color: #b22222;">!reassignment</span>
+<span style="color: #a020f0;">*set</span>,Vector,1,2,3,4,5,6,7,8,9,10
+<span style="color: #a0522d;">Vector</span> = 0,1,2,3,4,5,6,7,8,9,10,11,12 <span style="color: #b22222;">!TODO:</span>
+<span style="color: #a0522d;">Vector</span> = 4               <span style="color: #b22222;">!TODO:</span>
+<span style="color: #b22222;">!! deleting</span>
+<span style="color: #a0522d;">Scalar</span> =     <span style="color: #b22222;">!this is not a variable any more</span>
+<span style="color: #a020f0;">*set</span>,Scalar               <span style="color: #b22222;">!alternative to `Scalar ='</span>
+<span style="color: #a020f0;">*del</span>,all                 <span style="color: #b22222;">!delete all variables!</span>
+<span style="color: #a020f0;">*del</span>,Vector   <span style="color: #b22222;">!TODO:</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> Variable substitution with `%'</h3>
+<div class="outline-text-3" id="text-2-5">
+</div><div id="outline-container-sec-2-5-1" class="outline-4">
+<h4 id="sec-2-5-1"><span class="section-number-4">2.5.1</span> Substitution of Numeric Variables</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<p>
+In "string commands" like `/com', where a string follows the command
+name one can force the substitution of a parameter name to its value.
+Other examples are
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">Steel</span> = 1
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">Material </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> is steel</span>
+<span style="color: #b22222;">!! ATTENTION: in the following situation!</span>
+<span style="color: #a020f0;">/com</span>,<span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> does NOT substitute variable Steel</span>
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> does substitute variable Steel</span>
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">Stuff like </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel+1</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> returns 2</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-5-2" class="outline-4">
+<h4 id="sec-2-5-2"><span class="section-number-4">2.5.2</span> Substitution of Character Variables</h4>
+<div class="outline-text-4" id="text-2-5-2">
+<p>
+It is possible to substitute a command name
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">R</span>=<span style="color: #8b2252;">'RESUME'</span>
+<span style="color: #228b22;">%</span>R<span style="color: #228b22;">%</span>,MODEL,DB
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! string, message commands and comment behaviour &amp;&amp; %$$% %% :bla: &amp;&amp;&amp;</span>
+
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> bla = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">bla</span><span style="color: #228b22;">%</span>
+<span style="color: #a020f0;">igesin</span>,<span style="color: #8b2252;">'test'</span>,<span style="color: #8b2252;">'</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">iges</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">'</span>
+<span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;">Nothing in </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">particular</span><span style="color: #228b22;">%</span>
+<span style="color: #b22222;">!! in "string commands" are no code comments possible</span>
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">beam3 </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">YES</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> ! this is *really not commented out!!!! &amp;</span>
+<span style="color: #a020f0;">c***</span> <span style="color: #8b2252;">*beam3 !otto *otto %neither% here !!!!!!! &amp;</span>
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> bearm laskf </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">otto</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> !%otto% we are here</span>
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-2-5-2-1" class="outline-5">
+<h5 id="sec-2-5-2-1"><span class="section-number-5">2.5.2.1</span> In certain `string commands'</h5>
+<div class="outline-text-5" id="text-2-5-2-1">
+<p>
+<code>/title</code> and <code>/com</code> are string commands similar to <code>c***</code> 
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">right</span> = <span style="color: #8b2252;">'wrong'</span>
+<span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;"> the value of right is  </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">right</span><span style="color: #228b22;">%</span>
+<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> this is </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">right</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">: /com does expand parameters as well</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-5-2-2" class="outline-5">
+<h5 id="sec-2-5-2-2"><span class="section-number-5">2.5.2.2</span> Unfortunately here is no expansion possible</h5>
+<div class="outline-text-5" id="text-2-5-2-2">
+<p>
+neither with <code>c***</code> nor with <code>/sys</code>
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">right</span> = 9
+<span style="color: #a020f0;">c***</span>,<span style="color: #8b2252;">this is %right%: c*** allows no parameter expansion</span>
+<span style="color: #a020f0;">/sys</span>,<span style="color: #8b2252;">ls "*.mac" %otto% &amp;</span>
+<span style="color: #a020f0;">/syp</span>,ls, <span style="color: #228b22;">%</span>otto<span style="color: #228b22;">%</span> <span style="color: #b22222;">!this is not working, no substitution!</span>
+<span style="color: #a0522d;">I</span> = 1
+<span style="color: #a0522d;">otto</span> = <span style="color: #8b2252;">'file00</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">I</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">.eps'</span>
+<span style="color: #a020f0;">/syp</span>,ls, otto <span style="color: #b22222;">!this is working as intended</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-5-3" class="outline-4">
+<h4 id="sec-2-5-3"><span class="section-number-4">2.5.3</span> Dynamic Substitution of Numeric or Character Variables</h4>
+<div class="outline-text-4" id="text-2-5-3">
+<p>
+or forced substitution (deferred)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">Case</span> = <span style="color: #8b2252;">'case 1'</span>
+<span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;">This is  </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Case</span><span style="color: #228b22;">%</span>
+                         <span style="color: #b22222;">!/stitle</span>
+                         <span style="color: #b22222;">!*ask</span>
+                         <span style="color: #b22222;">!/tlabel</span>
+                         <span style="color: #b22222;">!/an3d</span>
+                         <span style="color: #b22222;">!in tables TODO:</span>
+<span style="color: #a020f0;">aplot</span>
+<span style="color: #a0522d;">Case</span> = <span style="color: #8b2252;">'case 2'</span>
+<span style="color: #b22222;">!! not necessary to reissue /title, "This is case 2"</span>
+<span style="color: #b22222;">!! will appear on subsequent plots</span>
+<span style="color: #a020f0;">aplot</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> Expressions</h3>
+<div class="outline-text-3" id="text-2-6">
+</div><div id="outline-container-sec-2-6-1" class="outline-4">
+<h4 id="sec-2-6-1"><span class="section-number-4">2.6.1</span> Exponentiation Operator is `**'</h4>
+</div>
+<div id="outline-container-sec-2-6-2" class="outline-4">
+<h4 id="sec-2-6-2"><span class="section-number-4">2.6.2</span> Multiplication Expression</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<p>
+Beware of the oldstyle ANSYS comment!
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">var1</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3 <span style="color: #b22222;">*5)) </span><span style="color: #b22222;">! old style Ansys comment!!!!!</span>
+<span style="color: #a0522d;">var2</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3*5))  <span style="color: #b22222;">! this is valid code</span>
+<span style="color: #a020f0;">fini</span> <span style="color: #b22222;">* comment</span>
+<span style="color: #a0522d;">otto</span> = 3 <span style="color: #b22222;">* 4 comment, the value of otto = 3</span><span style="color: #b22222;">!</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-6-3" class="outline-4">
+<h4 id="sec-2-6-3"><span class="section-number-4">2.6.3</span> Operators: `&lt;' and  `&gt;' :TODO</h4>
+<div class="outline-text-4" id="text-2-6-3">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">otto</span> = 1.82
+<span style="color: #a0522d;">karl</span> = 1.97
+<span style="color: #a0522d;">margret</span> =  otto &lt; karl <span style="color: #b22222;">!margret = otto</span>
+<span style="color: #a0522d;">maria</span> = karl &lt; otto    <span style="color: #b22222;">!maria = otto</span>
+<span style="color: #a020f0;">*status</span>,karl &gt; otto
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> Arrays</h3>
+<div class="outline-text-3" id="text-2-7">
+<p>
+4 types: array, char of 8 characters, table and string 128 chars
+</p>
+</div>
+<div id="outline-container-sec-2-7-1" class="outline-4">
+<h4 id="sec-2-7-1"><span class="section-number-4">2.7.1</span> Specifiying array element values</h4>
+</div>
+<div id="outline-container-sec-2-7-2" class="outline-4">
+<h4 id="sec-2-7-2"><span class="section-number-4">2.7.2</span> APDL Math</h4>
+<div class="outline-text-4" id="text-2-7-2">
+<p>
+APDL Math works in its own workspace independent of the APDL
+environment!
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">No</span> = 100
+<span style="color: #a0522d;">Pi</span> = <span style="color: #0000ff;">acos</span>(-1)
+<span style="color: #a0522d;">Dat</span> = <span style="color: #0000ff;">cos</span>(0<span style="color: #228b22;">:</span>2*Pi<span style="color: #228b22;">:</span>(2*Pi/No))+ <span style="color: #0000ff;">cos</span>(0<span style="color: #228b22;">:</span>2*Pi*10<span style="color: #228b22;">:</span>(2*Pi/No))
+<span style="color: #a0522d;">Dat</span> = 0<span style="color: #228b22;">:</span>2*Pi<span style="color: #228b22;">:</span>2*Pi/No
+<span style="color: #a020f0;">*vfun</span>
+<span style="color: #a020f0;">*vec</span>,import,apdl,Dat
+<span style="color: #a020f0;">*fft</span>,Forw,Dat,OutDat,,,Full <span style="color: #b22222;">!what's the difference?</span>
+<span style="color: #a020f0;">*fft</span>,    ,Dat,OutDat,,,Part <span style="color: #b22222;">!what's the difference?</span>
+<span style="color: #a020f0;">*export</span>,OutDat,apdl,APDLOutDat
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> debugging</h3>
+<div class="outline-text-3" id="text-2-8">
+<div class="org-src-container">
+
+<pre class="src src-ansys">debug                    <span style="color: #b22222;">!TODO: undocumented?</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> Multiple runs, probabilistic design</h3>
+<div class="outline-text-3" id="text-2-9">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">PDEXE</span>, Slab, MRUN, NFAIL, FOPT, Fname
+in V11<span style="color: #228b22;">:</span> *mrun                    <span style="color: #b22222;">!TODO:</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> Undocumented commands</h3>
+<div class="outline-text-3" id="text-2-10">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!undocumented commands are highlighted differently</span>
+<span style="color: #008b8b;">/xml</span>                     <span style="color: #b22222;">!undocumented command /xml</span>
+<span style="color: #a020f0;">/xfrm</span>                    <span style="color: #b22222;">!documented command   /xfrm</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> And the rest</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+*taxis only for 3 dimension? table(0,1) = 3 is working as well
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ --! multiline message format command this is tricky: use M-o M-o</span>
+<span style="color: #a020f0;">*MSG</span>,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+<span style="color: #8b2252;">Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">Steel = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G A (electrical angle = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G DEG) </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">_Power factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">Inductance = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #8b2252;">VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)</span>
+aldk this is not any longer in the <span style="color: #b22222;">*msg format construct</span>
+<span style="color: #a020f0;">/com</span> <span style="color: #8b2252;">this is not any longer in the *msg format construct</span>
+
+<span style="color: #a020f0;">*vwrite</span>,B(1,1),B(2,1),<span style="color: #228b22;">%</span>yes<span style="color: #228b22;">%</span>
+<span style="color: #8b2252;">alkd </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">D </span><span style="color: #228b22;">&amp;</span>
+<span style="color: #228b22;">%</span><span style="color: #8b2252;">E</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">E</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! commands which do not allow arguments</span>
+<span style="color: #a020f0;">/prep7</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">FINISH</span> <span style="color: #b22222;">!$ means nothing behind</span>
+<span style="color: #a020f0;">/prep7</span> <span style="color: #b22222;">!still nothing behind</span>
+<span style="color: #a020f0;">/prep7</span> <span style="color: #b22222;">* old style comment, this is allowed</span>
+<span style="color: #a020f0;">/prep7</span> this is an error
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a020f0;">nsel</span>,s,loc,x,1
+<span style="color: #a0522d;">nsel</span> = 3  <span style="color: #b22222;">!you CAN have variable names clashing with commands</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- Goto branching --</span>
+<span style="color: #a020f0;">*go</span>,<span style="color: #228b22;">:</span>branch
+<span style="color: #a020f0;">asel</span><span style="color: #008b8b;">salsdkfja&#246;lsdkfja&#246;lskdjf</span>,all
+<span style="color: #228b22;">:branch</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!-----------------------------------------------------------------------</span>
+<span style="color: #b22222;">! mdlbl.mac</span>
+<span style="color: #b22222;">! Puts Modal Info on Plot</span>
+<span style="color: #b22222;">!-----------------------------------------------------------------------</span>
+<span style="color: #a020f0;">/post1</span>
+<span style="color: #a020f0;">set</span>,last
+<span style="color: #a020f0;">*get</span>,nmd,active,,set,sbst
+<span style="color: #a0522d;">pfct</span>= <span style="color: #228b22;">$</span> ffrq= <span style="color: #228b22;">$</span> adir=
+<span style="color: #a020f0;">nsel</span>,s,l
+
+<span style="color: #a020f0;">*dim</span>,pfct,,nmd,6
+    ,
+    ,ffrq,,nmd
+    ,adir,char,nmd
+
+
+adir(1) = <span style="color: #8b2252;">'X'</span>,<span style="color: #8b2252;">'Y'</span>,<span style="color: #8b2252;">'Z'</span>,<span style="color: #8b2252;">'ROTX'</span>,<span style="color: #8b2252;">'ROTY'</span>,<span style="color: #8b2252;">'ROTZ'</span>
+<span style="color: #a020f0;">*stat</span>,adir
+<span style="color: #a020f0;">*do</span>,i,1,nmd
+  <span style="color: #a020f0;">*get</span>,ffrq(i),mode,i,freq
+  <span style="color: #a020f0;">*do</span>,j,1,6
+    <span style="color: #a020f0;">*get</span>,pfct(i,j),mode,i,pfact,,direc,adir(j)
+  <span style="color: #a020f0;">*enddo</span>
+<span style="color: #a020f0;">*enddo</span>
+<span style="color: #a020f0;">/annot</span>,delete
+<span style="color: #a020f0;">/plopt</span>,info,0
+<span style="color: #a020f0;">/plopt</span>,minm,off
+<span style="color: #a020f0;">/triad</span>,off
+<span style="color: #a020f0;">/erase</span>
+<span style="color: #a0522d;">iadd</span> = <span style="color: #ff0000;">arg1</span>
+<span style="color: #a020f0;">*if</span>,iadd,eq,0,then
+  <span style="color: #a0522d;">iadd</span> = 1
+<span style="color: #a020f0;">*endif</span>
+<span style="color: #a020f0;">/tspe</span>,15,1,1,0,0
+<span style="color: #a020f0;">/TSPE</span>, 15, 1.000,   1,   0,   0
+<span style="color: #a0522d;">xx</span> = 1.05
+<span style="color: #a0522d;">yy</span> = .9
+<span style="color: #b22222;">!  Change the window settings if you need different </span>
+<span style="color: #b22222;">!  aspect ratios for your geometry</span>
+<span style="color: #a020f0;">/win</span>,1,-1,1,.5,1
+    ,2,-1,1,0,.5
+    ,3,-1,1,-.5,0
+    ,4,-1,1,-1,-.5
+<span style="color: #b22222;">!</span>
+<span style="color: #a020f0;">/win</span>,2,off
+<span style="color: #a020f0;">/win</span>,3,off
+<span style="color: #a020f0;">/win</span>,4,off
+
+<span style="color: #a020f0;">*get</span>,vx,graph,1,view,x
+<span style="color: #a020f0;">*get</span>,vy,graph,1,view,y
+<span style="color: #a020f0;">*get</span>,vz,graph,1,view,z
+<span style="color: #a020f0;">*get</span>,va,graph,1,angle
+<span style="color: #a020f0;">*get</span>,vd,graph,1,dist
+<span style="color: #a020f0;">*do</span>,i,2,4
+  <span style="color: #a020f0;">/view</span>,i,vx,vy,vz
+  <span style="color: #a020f0;">/dist</span>,i,vd
+  <span style="color: #a020f0;">/angle</span>,i,va
+<span style="color: #a020f0;">*enddo</span>
+
+<span style="color: #a020f0;">*do</span>,i,1,4
+  <span style="color: #a0522d;">ii</span> = i - 1 + iadd 
+  <span style="color: #a020f0;">set</span>,1,ii
+  <span style="color: #a020f0;">plnsol</span>,u,sum
+  <span style="color: #a020f0;">*if</span>,i,eq,1,then
+    <span style="color: #a020f0;">/noerase</span>
+  <span style="color: #a020f0;">*endif</span>
+  <span style="color: #a020f0;">/win</span>,i,off
+  <span style="color: #a020f0;">*if</span>,i,ne,4,then
+    <span style="color: #a020f0;">/win</span>,i+1,on
+  <span style="color: #a020f0;">*endif</span>
+<span style="color: #a020f0;">*enddo</span>
+<span style="color: #a020f0;">*do</span>,i,1,4
+  <span style="color: #a0522d;">ii</span> = i - 1 + iadd
+  <span style="color: #a020f0;">/TLAB</span>, xx, yy  ,Mode<span style="color: #228b22;">:</span> <span style="color: #228b22;">%</span>ii<span style="color: #228b22;">%</span>
+  <span style="color: #a0522d;">yy</span> = yy - .05
+  <span style="color: #a020f0;">/TLAB</span>, xx, yy,Freq<span style="color: #228b22;">:</span> <span style="color: #228b22;">%</span>ffrq(ii)<span style="color: #228b22;">%</span>
+  <span style="color: #a0522d;">yy</span> = yy - .05
+  <span style="color: #a020f0;">*do</span>,j,1,6
+    <span style="color: #a020f0;">/TLAB</span>, xx, yy  ,PF <span style="color: #228b22;">%</span>adir(j)<span style="color: #228b22;">%:</span> <span style="color: #228b22;">%</span>pfct(ii,j)<span style="color: #228b22;">%</span>
+    <span style="color: #a0522d;">yy</span> = yy - .05
+  <span style="color: #a020f0;">*enddo</span>
+   <span style="color: #a0522d;">yy</span> = yy -.11
+<span style="color: #a020f0;">*enddo</span>
+<span style="color: #a020f0;">/erase</span>
+<span style="color: #a020f0;">/annot</span>,delete
+<span style="color: #a0522d;">sz</span> = .8
+<span style="color: #a0522d;">xloc</span> = 0
+<span style="color: #a0522d;">yloc</span> = 0
+
+<span style="color: #a020f0;">*dim</span>,data,,5
+<span style="color: #a020f0;">data</span>(1) = 12,15,28,10,32
+<span style="color: #a0522d;">hsz</span> = sz/2
+
+<span style="color: #a020f0;">/pspec</span>,0,1,1
+<span style="color: #a020f0;">/poly</span>,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+         1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+
+<span style="color: #a0522d;">x0</span> = xloc + hsz
+<span style="color: #a0522d;">y0</span> = yloc + .7*hsz
+<span style="color: #a0522d;">lof</span> = .05
+
+<span style="color: #a020f0;">*vscfun</span>,dsum,sum,data(1)
+<span style="color: #a020f0;">/LSPE</span>, 15, 0, 1.000
+<span style="color: #a020f0;">/TSPEC</span>, 15, 0.700, 1, 0, 0
+<span style="color: #a0522d;">ang1</span> = 0
+<span style="color: #a020f0;">*do</span>,i,1,5
+  <span style="color: #a0522d;">ang2</span> = ang1 + (360*data(i)/dsum) 
+  <span style="color: #a020f0;">/PSPE</span>, 2*i, 1, 1 
+  <span style="color: #a020f0;">/PWED</span>, xloc,yloc,sz*.4, ang1,ang2 
+  <span style="color: #a020f0;">/poly</span>,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
+  <span style="color: #a0522d;">pvl</span> = 100*data(i)/dsum 
+  <span style="color: #a020f0;">/tlab</span>, x0+1.5*lof,y0, <span style="color: #228b22;">%</span>pvl<span style="color: #228b22;">%</span> <span style="color: #228b22;">%</span> 
+
+  <span style="color: #a0522d;">y0</span> = y0 - 1.5*lof 
+  <span style="color: #a0522d;">ang1</span> = ang2
+<span style="color: #a020f0;">*enddo</span>
+<span style="background-color: #ff0000;">/eof</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
+<p class="date">Modification date: 2015-06-26 </p>
+<p class="creator">Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+</div>
+</body>
+</html>

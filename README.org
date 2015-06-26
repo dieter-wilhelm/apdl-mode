@@ -3,7 +3,7 @@ Emacs's Org mode.
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
-[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys%2Bemacs.png]]
+[[file:doc/ansys+emacs.png]]
 
 * Introduction
 
@@ -65,7 +65,7 @@ issues list]].
 # [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
 # and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
-[[https://github.com/dieter-wilhelm/ansys-mode/blob/master/doc/ansys-mode.jpg]]
+[[file:doc/ansys-mode.jpg]]
 
 Above image shows an Emacs frame (in reversed colour mode and compiled
 with the GTK+ toolkit under GNU-Linux) with a ripped off menu field.  The

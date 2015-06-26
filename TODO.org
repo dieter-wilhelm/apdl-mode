@@ -45,13 +45,15 @@
      ansys-mode is not activated!? <- autoloaded functions, should
      work they are calling -mode.el!
 ** Wish-list
+   - add adwords to gh-pages
+   - rework default.el to a default.org and add to gh-pages
    - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP
    - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
-   - GH-pages with tutorials
+   - GH-pages: images in README.org not working
    - add bbdb files to emacs packages?
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???

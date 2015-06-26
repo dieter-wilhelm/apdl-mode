@@ -1,0 +1,715 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title><b>ANSYS-Mode</b> for GNU Emacs, an introductory <b>Tutorial</b> for version 16.1.1</title>
+<!-- 2015-06-23 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="H. Dieter Wilhelm" />
+<meta  name="description" content="*ANSYS-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA."
+ />
+<meta  name="keywords" content="Emacs ANSYS FEA APDL" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title"><b>ANSYS-Mode</b> for GNU Emacs, an introductory <b>Tutorial</b> for version 16.1.1</h1>
+<img src="ansys+emacs.png" height=150 alt="image">
+
+<div id="outline-container-unnumbered-1" class="outline-2">
+<h2 id="unnumbered-1">Introduction</h2>
+<div class="outline-text-2" id="text-unnumbered-1">
+</div><div id="outline-container-unnumbered-2" class="outline-3">
+<h3 id="unnumbered-2">Introducing ANSYS-Mode &#x2013; an APDL environment</h3>
+<div class="outline-text-3" id="text-unnumbered-2">
+<p>
+<a href="https://github.com/dieter-wilhelm/ansys-mode">This project</a> supports your APDL
+</p>
+<p>
+workflows with the FEA
+</p>
+<p>
+suite <a href="http://www.ansys.com/">ANSYS</a>.
+</p>
+<br>
+<p>
+It provides an editor mode to <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a> for investigating and
+coding APDL.  The mode offers also managing and communication
+capabilities for various ANSYS processes, like interactive code
+debugging with the solver or inquiring the license manager status,
+etc.  Some features are quite sophisticated but its documentation
+is accessible for ANSYS users with little APDL and <a href="http://en.wikipedia.org/wiki/Emacs">Emacs</a>
+</p>
+<p>
+experience.
+</p>
+<br>
+<p>
+<a href="http://www.gnu.org/home.en.html">GNU</a>
+</p>
+<p>
+Emacs is an up-to-date, powerful and
+extensible - yet free - editor. High quality software available for
+every operating system where ANSYS is running.
+</p>
+<br>
+<p>
+In the following <b>C-c</b> or e. g. <b>M-c</b> means typing the &lt;CTRL&gt; or &lt;ALT&gt;
+key together with the &lt;c&gt; key.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-3" class="outline-2">
+<h2 id="unnumbered-3">Download</h2>
+<div class="outline-text-2" id="text-unnumbered-3">
+</div><div id="outline-container-unnumbered-4" class="outline-3">
+<h3 id="unnumbered-4">Download ANSYS-Mode together with the Emacs editor</h3>
+<div class="outline-text-3" id="text-unnumbered-4">
+</div><ul class="org-ul"><li><a id="unnumbered-5"></a>Remarkably there are <b>no</b> costs and license restrictions also for commercial use<br  /><div class="outline-text-4" id="text-unnumbered-5">
+<p>
+Most convenient is taking the pre-configured ANSYS-Mode in
+conjunction with the latest Emacs distribution for Win32/64 from 
+the <a href="https://github.com/dieter-wilhelm/ansys-mode/releases">ANSYS-Mode releases page</a> on <a href="https://github.com/">GitHub</a>.
+</p>
+<img src="./github.png" alt="Download page from GitHub">
+</div>
+</li></ul>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-6" class="outline-2">
+<h2 id="unnumbered-6">Installation</h2>
+<div class="outline-text-2" id="text-unnumbered-6">
+</div><div id="outline-container-unnumbered-7" class="outline-3">
+<h3 id="unnumbered-7">Install ANSYS-Mode together with Emacs</h3>
+<div class="outline-text-3" id="text-unnumbered-7">
+<p>
+Extract the former zip archive to an arbitrary location on your file
+system.  Optionally you might install Emacs shortcut icons for the
+system tray with <i>addpm.exe</i> in Emacs' <i>bin</i> folder.
+</p>
+
+
+<div class="figure">
+<p><img src="./emacs_bin_folder.png" alt="emacs_bin_folder.png" />
+</p>
+</div>
+
+<p>
+In this list <i>runemacs.exe</i> is the actual editor executable.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-8" class="outline-2">
+<h2 id="unnumbered-8">Usage</h2>
+<div class="outline-text-2" id="text-unnumbered-8">
+</div><div id="outline-container-unnumbered-9" class="outline-3">
+<h3 id="unnumbered-9">Open an APDL macro file with Emacs</h3>
+<div class="outline-text-3" id="text-unnumbered-9">
+<p>
+Start the editor and open <i>example.mac</i> in Emacs' <i>site-lisp</i>
+folder or any other APDL file (with the extensions <i>mac</i>, <i>inp</i>,
+<i>dat</i> or <i>anf</i>, otherwise additionally type <b>M-x ansys-mode</b> and
+&lt;RET&gt;).
+</p>
+
+
+<div class="figure">
+<p><img src="./find_file_dialog.png" alt="find_file_dialog.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-10" class="outline-3">
+<h3 id="unnumbered-10">Explore the ANSYS-Mode menu</h3>
+<div class="outline-text-3" id="text-unnumbered-10">
+<p>
+If ANSYS is installed in its default folder <i>C:Program Files</i> under
+Win64 also system dependent functions are working, like browsing the
+APDL help with <b>C-c C-b</b>, otherwise, you can easily
+configure this. All described features can be executed through the
+ANSYS-Mode menu or with keyboard shortcuts.
+</p>
+
+
+<div class="figure">
+<p><img src="./ansys_menu.png" alt="ansys_menu.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-11" class="outline-2">
+<h2 id="unnumbered-11">Selected ANSYS-Mode Features</h2>
+<div class="outline-text-2" id="text-unnumbered-11">
+</div><div id="outline-container-unnumbered-12" class="outline-3">
+<h3 id="unnumbered-12">Inspect easily WorkBench solver input files (<i>example.dat</i>)</h3>
+<div class="outline-text-3" id="text-unnumbered-12">
+<p>
+ANSYS-Mode hides the normally uninteresting but usually very
+large number blocks.  On the right hand side is the unhidden content.
+</p>
+
+<div class="figure">
+<p><img src="./hidden_blocks.png" alt="hidden_blocks.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./unhidden_blocks.png" alt="unhidden_blocks.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-13" class="outline-3">
+<h3 id="unnumbered-13">Use the ANSYS-Mode APDL command help</h3>
+<div class="outline-text-3" id="text-unnumbered-13">
+<p>
+Please type <b>M-?</b>, alternatively: <b>C-c ?</b>, on a code line and you
+will see the APDL command's description and number of parameters
+(even when the line is commented out).  You can continue editing,
+this temporary overlay - here in blue - remains visible for a while.
+</p>
+
+
+<div class="figure">
+<p><img src="./parameter_help.png" alt="parameter_help.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-14" class="outline-3">
+<h3 id="unnumbered-14"><b>NEW:</b> Check your cursor position in the parameter list</h3>
+<div class="outline-text-3" id="text-unnumbered-14">
+<p>
+For commands with a large number of arguments it is cumbersome to
+count the arguments, <b>C-?</b> facilitates this for you and visualises
+dynamically at which parameter position the cursor currently is.
+</p>
+
+
+<div class="figure">
+<p><img src="./parameter_help2.png" alt="parameter_help2.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-15" class="outline-3">
+<h3 id="unnumbered-15">Select and insert templates from the menu into your code</h3>
+<div class="outline-text-3" id="text-unnumbered-15">
+<p>
+Screenshot with the ANSYS Classics GUI on the left and Emacs on the right on Win64 
+</p>
+
+
+<div class="figure">
+<p><img src="./template_menu.png" alt="template_menu.png" width="&quot;1200&quot;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-16" class="outline-3">
+<h3 id="unnumbered-16">Preview the extensible APDL code templates</h3>
+<div class="outline-text-3" id="text-unnumbered-16">
+<p>
+Before inserting an entire template you are able to inspect its
+content in a preview window (<b>C-c C-s</b>) and might just copy the
+most relevant snippets, please see below and next slide.
+</p>
+
+
+<div class="figure">
+<p><img src="./template.png" alt="template.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-17" class="outline-3">
+<h3 id="unnumbered-17">Select an interesting template from a completion window</h3>
+<div class="outline-text-3" id="text-unnumbered-17">
+<p>
+Type <b>C-c C-s</b> to choose a template name, use the &lt;TAB&gt; key to
+complete or to open the completion window of available items.
+</p>
+
+
+<div class="figure">
+<p><img src="./template_selection.png" alt="template_selection.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-18" class="outline-3">
+<h3 id="unnumbered-18">Check auto-insertion and outline your code (tree view)</h3>
+<div class="outline-text-3" id="text-unnumbered-18">
+<p>
+Create a new APDL file with the suffix 
+</p>
+<p>
+and let Emacs auto-insert
+a skeleton with `outline' headings.  Collapse the content to a tree
+view with <b>C-c @ C-t</b> and open all (<b>C-c @ C-a</b>) again.
+</p>
+
+
+<div class="figure">
+<p><img src="./outline.png" alt="outline.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-19" class="outline-3">
+<h3 id="unnumbered-19">Utilise completions of all &#x2013; around 2000 &#x2013; APDL symbols</h3>
+<div class="outline-text-3" id="text-unnumbered-19">
+<p>
+Move the cursor behind a character - here `c' - or word fragment and
+type &lt;ESC&gt; &lt;TAB&gt; or <b>C-M-i</b> for completing up to date APDL command-,
+element- and function names.
+</p>
+
+
+<div class="figure">
+<p><img src="./completion.png" alt="completion.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-20" class="outline-3">
+<h3 id="unnumbered-20">Open a summary window of your APDL variables</h3>
+<div class="outline-text-3" id="text-unnumbered-20">
+<p>
+Type <b>C-c C-v</b> to receive a summary window of all your variable
+definitions. With an argument (<b>C-u C-c C-v</b>) you will get the
+current value of your variable at the cursor (Linux only, right).
+</p>
+
+
+<div class="figure">
+<p><img src="./variable_buffer.png" alt="variable_buffer.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="variable_status.png" alt="variable_status.png" />
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-unnumbered-21" class="outline-3">
+<h3 id="unnumbered-21">Structure your variable assignments</h3>
+<div class="outline-text-3" id="text-unnumbered-21">
+<p>
+Move the cursor to a variable definition paragraph or mark, here in
+yellow, some definitions and type <b>C-c C-a</b> to align them.
+</p>
+
+
+<div class="figure">
+<p><img src="./alignment.png" alt="alignment.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-22" class="outline-3">
+<h3 id="unnumbered-22">Use the Emacs integrated, programmable RPN calculator</h3>
+<div class="outline-text-3" id="text-unnumbered-22">
+<p>
+Type <b>C-x</b> * * to open the calculator, type <b>y</b> for pasting results
+directly into the APDL file. <b>q</b> to quit the 'Emacs Calc' windows.
+</p>
+
+
+<div class="figure">
+<p><img src="./calculator.png" alt="calculator.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-23" class="outline-3">
+<h3 id="unnumbered-23">Debug your code interactively with the solver (<a href="http://www.gnu.org/gnu/why-gnu-linux.html">GNU/Linux</a>)</h3>
+<div class="outline-text-3" id="text-unnumbered-23">
+<p>
+You can run the ANSYS solver under Emacs and send code lines from
+above APDL window with <b>C-c C-j</b> (<b>C-c C-c</b> for whole regions)
+directly to this process. Below you see the <b>interactive</b> solver
+output and on the left hand side the corresponding ANSYS images.
+</p>
+
+
+<div class="figure">
+<p><img src="./process.png" alt="process.png" width="&quot;1200&quot;" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-unnumbered-24" class="outline-3">
+<h3 id="unnumbered-24">Display the license status and preview images on GNU/Linux</h3>
+<div class="outline-text-3" id="text-unnumbered-24">
+<p>
+In Emacs' mid-section you see the license state (<b>C-c C-l</b>)
+and left Emacs window (below) a thumbnail view of images from a
+folder.
+</p>
+
+
+<div class="figure">
+<p><img src="./license.png" alt="license.png" width="&quot;1200&quot;" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-25" class="outline-3">
+<h3 id="unnumbered-25">Arrange the ANSYS-Mode windows to your needs</h3>
+<div class="outline-text-3" id="text-unnumbered-25">
+<p>
+The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU/Linux) with a ripped off ANSYS-Mode menu field
+</p>
+
+
+<div class="figure">
+<p><img src="ansys-mode.jpg" alt="ansys-mode.jpg" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-26" class="outline-2">
+<h2 id="unnumbered-26">Configuration</h2>
+<div class="outline-text-2" id="text-unnumbered-26">
+</div><div id="outline-container-unnumbered-27" class="outline-3">
+<h3 id="unnumbered-27">Configure system dependent aspects and user options</h3>
+<div class="outline-text-3" id="text-unnumbered-27">
+<p>
+The mode comes pre-configured for the default installation of
+ANSYS for Win64.  If something is amiss: Adjust
+</p>
+</div>
+<ul class="org-ul"><li><a id="unnumbered-28"></a>the well commented configuration file <i>default.el</i><br  /><div class="outline-text-4" id="text-unnumbered-28">
+
+<div class="figure">
+<p><img src="./default_el.png" alt="default_el.png" />
+</p>
+</div>
+
+<p>
+&#x2026; and restart Emacs. 
+</p>
+</div>
+</li>
+<li><a id="unnumbered-29"></a>or change the settings with Emacs' customisation system<br  /><div class="outline-text-4" id="text-unnumbered-29">
+
+<div class="figure">
+<p><img src="./customisation_system.png" alt="customisation_system.png" />
+</p>
+</div>
+
+<p>
+&#x2026; and reload ANSYS-Mode. 
+</p>
+</div>
+</li></ul>
+</div>
+</div>
+<div id="outline-container-unnumbered-30" class="outline-2">
+<h2 id="unnumbered-30">Documentation and Licensing</h2>
+<div class="outline-text-2" id="text-unnumbered-30">
+</div><div id="outline-container-unnumbered-31" class="outline-3">
+<h3 id="unnumbered-31">Get to know Emacs and its excellent documentation</h3>
+<div class="outline-text-3" id="text-unnumbered-31">
+<p>
+Newcomers to Emacs should take the <a href="http://www.gnu.org/software/emacs/tour/">guided online tour</a> to
+get a background of its capabilities and fire up the interactive
+tutorial (<b>C-h t</b>) which is translated to various languages.
+</p>
+
+
+<div class="figure">
+<p><img src="./emacs_tutorial.png" alt="emacs_tutorial.png" />
+</p>
+</div>
+<img src="./tour_of_Emacs.png" alt="download page from Google Code">
+</div>
+</div>
+
+<div id="outline-container-unnumbered-32" class="outline-3">
+<h3 id="unnumbered-32">Use the ANSYS-Mode built-in help</h3>
+<div class="outline-text-3" id="text-unnumbered-32">
+<p>
+Please type <b>C-h m</b> to open the mode help, especially for
+ANSYS-Mode's usage and keybindings.  At the beginning is also a
+brief introduction of basic Emacs concepts.
+</p>
+
+
+<div class="figure">
+<p><img src="./mode_help.png" alt="mode_help.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-33" class="outline-3">
+<h3 id="unnumbered-33">You might read further ANSYS-Mode documentation</h3>
+<div class="outline-text-3" id="text-unnumbered-33">
+<dl class="org-dl">
+<dt>Licensing and costs:</dt><dd>This is free and open software, there are
+<b>no costs</b> and effectively <b>no restrictions</b> for you using
+Emacs and ANSYS-Mode also commerically.  Both are under the
+<a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL, the Gnu Puplic License</a> described in the <i>LICENSE</i> file.
+</dd>
+</dl>
+<dl class="org-dl">
+<dt>Installation:</dt><dd>More detailed instructions are necessary if you
+are not using the mode bundled with Emacs for
+Windows.  Please have a look in the <i>README.org</i>
+file.  An online version is on
+<a href="http://dieter-wilhelm.github.io/ansys-mode/">ANSYS-Modes's GitHub Page</a>.
+</dd>
+</dl>
+
+<dl class="org-dl">
+<dt>Hands-on tutorial and reference:</dt><dd>You will find these
+in-depth documentation included in the mode's archives on
+<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">GitHub's releases page</a> or read <a href="http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html">online</a>.
+</dd>
+</dl>
+
+<dl class="org-dl">
+<dt>News and project history:</dt><dd>They are placed in the mode's
+accompanying <i>NEWS.org</i> file
+</dd>
+</dl>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-34" class="outline-2">
+<h2 id="unnumbered-34">Help and Bugs</h2>
+<div class="outline-text-2" id="text-unnumbered-34">
+</div><div id="outline-container-unnumbered-35" class="outline-3">
+<h3 id="unnumbered-35">Search for help, report bugs and issues</h3>
+<div class="outline-text-3" id="text-unnumbered-35">
+<p>
+Besides the documentation, have a look in the <a href="https://github.com/dieter-wilhelm/ansys-mode/issues">GitHub's issues site</a>
+or send an <a href="mailto:dieter@duenenhof-wilhelm.de">email to the maintainer</a>.  Please use the ANSYS-Mode bug
+report functionality, which might provide helpful status
+information.
+</p>
+
+
+<div class="figure">
+<p><img src="./bug_report.png" alt="bug_report.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-unnumbered-36" class="outline-2">
+<h2 id="unnumbered-36">Summary</h2>
+<div class="outline-text-2" id="text-unnumbered-36">
+</div><div id="outline-container-unnumbered-37" class="outline-3">
+<h3 id="unnumbered-37">Use ANSYS-Mode appropriate to your needs</h3>
+<div class="outline-text-3" id="text-unnumbered-37">
+</div><ul class="org-ul"><li><a id="unnumbered-38"></a>The relevance of APDL remains tall: `WorkBench' and `AIM' operate <b>exclusively</b> the ANSYS solver with it!  For a <b>true understanding</b> the study of APDL is still prerequisite.   Furthermore, code APDL only for <b>repetitive</b> tasks and WB/AIM snippets.<br  /></li>
+<li><a id="unnumbered-39"></a>Basic APDL <b>Viewer</b><br  /><div class="outline-text-4" id="text-unnumbered-39">
+<p>
+Navigating in WB solver input files, discerning relevant
+information through highlighting, quickly analysing APDL commands
+with the built-in help or studying their detailed help in your
+browser.
+</p>
+</div>
+</li>
+<li><a id="unnumbered-40"></a>Earnest APDL <b>Editor</b><br  /><div class="outline-text-4" id="text-unnumbered-40">
+<p>
+Specific shortcut keybindings, outlining, code templates,
+completions, auto-indentation, abbreviations, auto-insertion.
+</p>
+</div>
+</li>
+<li><a id="unnumbered-41"></a>Advanced APDL <b>Environment</b><br  /><div class="outline-text-4" id="text-unnumbered-41">
+<p>
+Solver communication/feedback - hybrid between coding and
+debugging (GNU/Linux only), retrieving license states, error file
+viewing, abort file handling, extending APDL templates, &#x2026;
+</p>
+</div>
+</li></ul>
+</div>
+<div id="outline-container-unnumbered-42" class="outline-3">
+<h3 id="unnumbered-42">Last slide of the ANSYS-Mode tutorial</h3>
+<div class="outline-text-3" id="text-unnumbered-42">
+</div><ul class="org-ul"><li><a id="unnumbered-43"></a>Hint for the curious:<br  /><div class="outline-text-4" id="text-unnumbered-43">
+<img src="./gnu_emacs.png" alt="download page from Google Code">
+</div>
+</li>
+
+<li><a id="unnumbered-44"></a>Thank you for your time getting acquainted with ANSYS-Mode!<br  /><div class="outline-text-4" id="text-unnumbered-44">
+<p>
+<a href="http://www.gnu.org/fun/jokes/gnuemacs.acro.exp.html">Have fun&#x2026;</a>
+</p>
+
+<div class="figure">
+<p><img src="./editor_learning_curves.jpg" alt="editor_learning_curves.jpg" />
+</p>
+</div>
+</div>
+</li></ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
+<p class="date">Modification date: 2015-06-23 </p>
+<p class="creator">Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+</div>
+</body>
+</html>

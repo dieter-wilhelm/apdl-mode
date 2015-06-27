@@ -5,14 +5,17 @@
 ;; !!! `default.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
 ;; `c:\\EMACS_INSTALLDIR\\site-lisp').  Yet this file is then loaded
-;; AFTER Emacs' user configuration file `~/.emacs' (or
-;; `~/.emacs.d/init.el')!  If you intend to change the following
+;; AFTER Emacs' user configuration file `~/.emacs' (or `~/.emacs.el'
+;; or `~/.emacs.d/init.el')!  If you intend to change the following
 ;; settings with Emacs' customisation system or changing them directly
 ;; in your configuration file, you must either set the variable
-;; `inhibit-default-ini' to `t' "(setq inhibit-default-ini t)" in your
-;; configuration file or remove or rename `default.el' (or at least
-;; its corresponding sections) otherwise clashing settings in `.emacs'
-;; or `init.el' of will be overwritten!!!
+;; `inhibit-default-ini' to `t' like in the following line
+
+;; (setq inhibit-default-init t)
+
+;; in your configuration file or remove or rename `default.el' (or at
+;; least its corresponding sections) otherwise clashing settings in
+;; `.emacs' or `init.el' of will be overwritten!!!
 
 ;;; CONVENTIONS
 

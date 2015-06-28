@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Customisation of ANSYS-Mode</title>
+<!-- 2015-06-28 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="H. Dieter Wilhelm" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
+<script type="text/javascript">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
+            jax: ["input/TeX", "output/HTML-CSS"],
+        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
+                     "TeX/noUndefined.js"],
+        tex2jax: {
+            inlineMath: [ ["\\(","\\)"] ],
+            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
+            skipTags: ["script","noscript","style","textarea","pre","code"],
+            ignoreClass: "tex2jax_ignore",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: "TeX"
+        },
+        showProcessingMessages: true,
+        displayAlign: "center",
+        displayIndent: "2em",
+
+        "HTML-CSS": {
+             scale: 100,
+             availableFonts: ["STIX","TeX"],
+             preferredFont: "TeX",
+             webFont: "TeX",
+             imageFont: "TeX",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    "MML",
+                 Firefox: "MML",
+                 Opera:   "HTML",
+                 other:   "HTML"
+             }
+        }
+    });
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Customisation of ANSYS-Mode</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. Introduction</a></li>
+<li><a href="#sec-2">2. Conventions used in <i>default.el</i></a></li>
+<li><a href="#sec-3">3. Important Prerequisites</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Finding ANSYS-Mode</a></li>
+<li><a href="#sec-3-2">3.2. Installed ANSYS version and installation path</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. File suffixes for loading ANSYS-Mode</a>
+<ul>
+<li><a href="#sec-4-1">4.1. Macro files</a></li>
+<li><a href="#sec-4-2">4.2. WorkBench generated input files</a></li>
+<li><a href="#sec-4-3">4.3. The ANSYS Neutral file format</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. Auto insertion of code</a></li>
+<li><a href="#sec-6">6. Autoloading</a></li>
+<li><a href="#sec-7">7. Outlining</a></li>
+<li><a href="#sec-8">8. Highlighting (Colourisation)</a>
+<ul>
+<li><a href="#sec-8-1">8.1. Dynamic highlighting of variables</a></li>
+<li><a href="#sec-8-2">8.2. Decoration levels</a></li>
+</ul>
+</li>
+<li><a href="#sec-9">9. Ansys version and paths</a></li>
+<li><a href="#sec-10">10. Ansys processes</a>
+<ul>
+<li><a href="#sec-10-1">10.1. License server</a></li>
+<li><a href="#sec-10-2">10.2. Solver options</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Customisations for GNU-Linux and Windows systems.
+</p>
+
+<p>
+All the following code examples you will find in the file
+<i>default.el</i>, which can be used as the configuration file for
+ANSYS-Mode (after moving it e. g. to
+<i>\/usr\/share\/emacs\/site-lisp\/</i> or
+<i>c:\\EMACSINSTALLDIR\\site-lisp<br  />
+</i>).  Yet this file is loaded <b>after</b>
+Emacs' user configuration file <i>~\</i>.emacs/ (or <i>~\</i>.emacs.el/ or
+<i>~\</i>.emacs.d\/init.el/, if any)!  When you intend to change any of the
+following settings either with
+</p>
+
+<ol class="org-ol">
+<li>Emacs' customisation system or
+</li>
+<li>changing them directly in your user configuration file,
+</li>
+</ol>
+
+<p>
+then you <b>must</b> either set the variable <code>inhibit-default-init</code> to <code>t</code>
+like in the following line
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq inhibit-default-init t)
+</pre>
+</div>
+<p>
+in your configuration file or remove or rename <i>default.el</i> (or at
+least its corresponding sections) otherwise clashing settings in
+<i>.emacs</i> will be overwritten!
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Conventions used in <i>default.el</i></h2>
+<div class="outline-text-2" id="text-2">
+<p>
+The comment sign in Emacs lisp is <code>;</code> (one semi-colon `;').  Textual
+hints in <i>default.el</i> are indicated with DOUBLE semi-colons <code>;;</code>,
+please uncomment there code lines with a SINGLE comment sign, when
+appropriate.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Important Prerequisites</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Finding ANSYS-Mode</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+If the ANSYS-Mode files (the files with the suffix <i>.el</i>) are <b>not</b>
+placed in a default Emacs load path.  Please see the variable
+load-path .
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(describe-variable 'load-path)
+</pre>
+</div>
+
+<p>
+Or you can read about the load-path in the Emacs manual:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(info <span style="color: #8b2252;">"(emacs)Lisp Libraries"</span>)
+</pre>
+</div>
+
+<p>
+Then it is necessary to adjust the following way: Hint: The
+directory site-lisp/ in the Emacs installation tree, for example, is
+in its default load path.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE"</span>)
+</pre>
+</div>
+<p>
+for example:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"c:\\emacs\\ansys-mode"</span>)
+</pre>
+</div>
+<p>
+for a Windows system or
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"/usr/local/src/emacs/ansys-mode"</span>)
+</pre>
+</div>
+<p>
+for a GNU-Linux system.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Installed ANSYS version and installation path</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+For reading the ANSYS help in your browser it should be sufficient
+to set at most the ANSYS version and the installation directory of
+ANSYS (if they are differing from the defaults and restart Emacs
+;-), the complete paths will be constructed with below information
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-current-ansys-version <span style="color: #8b2252;">"150"</span>)
+<span style="color: #b22222;">;</span><span style="color: #b22222;">(setq ansys-current-ansys-version "161") ; "161" is the default</span>
+                                          <span style="color: #b22222;">; </span><span style="color: #b22222;">in ANSYS-Mode 16.1.1</span>
+</pre>
+</div>
+<p>
+The installation path (what comes before the directory <i>ansys_inc</i> on
+Linux or <i>ANSYS Inc</i> on Windows.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">cond</span> ((string= window-system <span style="color: #8b2252;">"x"</span>)
+        <span style="color: #b22222;">;; </span><span style="color: #b22222;">This is an example of an installation directory on GNU-Linux</span>
+        (setq ansys-install-directory <span style="color: #8b2252;">"/appl/"</span>)) <span style="color: #b22222;">; </span><span style="color: #b22222;">default: "/"</span>
+       (t
+        <span style="color: #b22222;">;;</span><span style="color: #b22222;">This an example of an installation dir. on WINDOWS</span>
+        (setq ansys-install-directory <span style="color: #8b2252;">"D:\\Ansys\\"</span>)) <span style="color: #b22222;">; </span><span style="color: #b22222;">default: "C:\\Program Files\\"</span>
+</pre>
+</div>
+
+<p>
+If the paths of your ANSYS installation is completely differing from
+the standard ANSYS directory structure, please see further below.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> File suffixes for loading ANSYS-Mode</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Configure your file suffixes for which ANSYS mode is automatically
+called for.
+</p>
+</div>
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Macro files</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+<i>.mac</i> is the macro suffix of ANSYS i. e. these macro files can be
+called in the ANSYS command prompt or APDL like a regular ANSYS
+function (without the suffix <i>.mac</i>).
+</p>
+
+<p>
+With the setting
+</p>
+
+<pre class="example">
+(add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+</pre>
+
+<p>
+files with the suffix <i>.mac</i> will be opended in Emacs under
+ANSYS-Mode.  Check the <i>example.mac</i> file.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> WorkBench generated input files</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+<i>.dat</i> and <i>.inp</i> are WorkBench's solver input file suffixes.  See the
+file <i>example.dat</i>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.dat$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.inp\\'"</span> . ansys-mode))
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3"><span class="section-number-3">4.3</span> The ANSYS Neutral file format</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+<i>.anf</i> is the suffix for "ANSYS Neutral" files which include mostly
+gometric data but also some APDL snippets. These files are used for
+imports, see the file <i>example.anf</i>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> Auto insertion of code</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+With the following code block Emacs inserts automatically an outline
+of a code structure when creating a macro file (a file with the
+suffix <i>.mac</i>).
+</p>
+<pre class="example">
+(auto-insert-mode 1)	        ; insert automatically templates
+(add-hook 'find-file-hook 'auto-insert) ; when opening new files
+(setq auto-insert-query t)   ; aks for auto insertion of APDL template
+(add-to-list 'auto-insert-alist
+   '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
+</pre>
+
+<p>
+#+BEGIN_SRC emacs-lisp :exports none :tangle yes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                          ;; Auto insertion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; auto insertion stuff (when creating a new APDL file)
+</p>
+
+<p>
+(auto-insert-mode 1)                        ; insert automatically templates
+(add-hook 'find-file-hook 'auto-insert) ; when opening new files
+(setq auto-insert-query t)   ; aks for auto insertion of APDL template
+(add-to-list 'auto-insert-alist
+  '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
+#+END_SRC             ;template
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="section-number-2">6</span> Autoloading</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Below set of useful commands can be interactively called (with M-x
+&#x2026;)  even when ANSYS Mode was not activated i.e. its lisp files not
+yet loaded, with the following code.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(autoload 'ansys-mode <span style="color: #8b2252;">"ansys-mode"</span> nil t)
+(autoload 'ansys-customise-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for </span>
+<span style="color: #8b2252;"> calling a special ANSYS customisation buffer."</span> 'interactive)
+(autoload 'ansys-abort-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for  aborting ANSYS runs."</span> 'interactive)
+(autoload 'ansys-display-error-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for inspecting the ANSYS error file."</span> 'interactive)
+(autoload 'ansys-start-ansys-help <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the ANSYS help browser."</span> 'interactive)
+(autoload 'ansys-start-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows."</span> 'interactive)
+(autoload 'ansys-license-status <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for displaying ANSYS license status or starting a license utility."</span> 'interactive)
+(autoload 'ansys-mode-version <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Show ANSYS-Mode's version number."</span> 'interactive)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="section-number-2">7</span> Outlining</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Activating outline minor mode for selectively hiding and unhiding
+code sections:
+</p>
+
+<pre class="example">
+(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode) ;enable outlining
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-8" class="outline-2">
+<h2 id="sec-8"><span class="section-number-2">8</span> Highlighting (Colourisation)</h2>
+<div class="outline-text-2" id="text-8">
+</div><div id="outline-container-sec-8-1" class="outline-3">
+<h3 id="sec-8-1"><span class="section-number-3">8.1</span> Dynamic highlighting of variables</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+The following toggles a dynamics change of the highlighting: While
+you are editing your new variable definitions highlighted and the
+cursor position is shown in the parameter help overlay
+</p>
+
+<p>
+Uncommenting the following might slow the editing of large .mac
+files (but only when ansys-highlighting-level is set to 2, see
+below).
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-dynamic-highlighting-flag nil)
+(setq ansys-dynamic-highlighting-flag t) <span style="color: #b22222;">;</span><span style="color: #b22222;">default</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-8-2" class="outline-3">
+<h3 id="sec-8-2"><span class="section-number-3">8.2</span> Decoration levels</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+Decoration levels 0,1,2 are available.  User variable highlighting is
+only in level 2 available (statical, if above flag is not set), the
+current default is 2
+</p>
+
+<pre class="example">
+(setq ansys-highlighting-level 1) ; default: 2
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-9" class="outline-2">
+<h2 id="sec-9"><span class="section-number-2">9</span> Ansys version and paths</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+Things you might have to configure if your ANSYS installation is
+completely differing from default ANSYS installation path, as in the
+example below:
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-help-program
+    <span style="color: #8b2252;">"/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"</span>)
+      <span style="color: #b22222;">;; </span><span style="color: #b22222;">normally it looks like this:</span>
+      <span style="color: #b22222;">;; </span><span style="color: #b22222;">"/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"</span>
+(setq ansys-help-path <span style="color: #8b2252;">"/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/"</span>)
+setq ansys-program <span style="color: #8b2252;">"/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161"</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-10" class="outline-2">
+<h2 id="sec-10"><span class="section-number-2">10</span> Ansys processes</h2>
+<div class="outline-text-2" id="text-10">
+</div><div id="outline-container-sec-10-1" class="outline-3">
+<h3 id="sec-10-1"><span class="section-number-3">10.1</span> License server</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+License server configuration: License servers (or license file
+name) specify even the default port for lmutil (since ANSYS V 12.0)
+on GNU-Linux GNU-Linux: License servers separated by colons (":"),
+1055 is the default port
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-license-file
+  <span style="color: #8b2252;">"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"</span>)
+</pre>
+</div>
+<p>
+since ANSYS 12.0 there is an intermediate server for the communication
+between flexlm and ANSYS WorkBench, 2325 is the default port.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-ansysli-servers
+   <span style="color: #8b2252;">"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"</span>)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-10-2" class="outline-3">
+<h3 id="sec-10-2"><span class="section-number-3">10.2</span> Solver options</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+Number of cores for the run, 2 does not require HPC licenses
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-no-of-processors 8) <span style="color: #b22222;">;</span><span style="color: #b22222;">default: 2</span>
+</pre>
+</div>
+
+<p>
+Which license type to use for the solver
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-license <span style="color: #8b2252;">"ansys"</span>) <span style="color: #b22222;">;</span><span style="color: #b22222;">default: "struct"</span>
+</pre>
+</div>
+
+<p>
+ANSYS job name
+</p>
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-job <span style="color: #8b2252;">"otto"</span>)<span style="color: #b22222;">; </span><span style="color: #b22222;">default: "file"</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
+<p class="date">Modification date: 2015-06-28 </p>
+<p class="creator">Generated by Emacs 24.5.1 (Org mode 8.2.10) </p>
+</div>
+</body>
+</html>

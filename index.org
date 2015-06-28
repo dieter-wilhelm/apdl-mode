@@ -1,7 +1,7 @@
 #+OPTIONS: ':nil *:t -:t ::t <:t H:2 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
-#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
 #+TITLE: ANSYS-Mode Documentation
 # #+DATE: <2015-06-04 Thu>
 #+AUTHOR: H. Dieter Wilhelm
@@ -36,7 +36,9 @@
 
   [[file:doc/A-M_in-depth_tutorial.org][In-depth tutorial]]
 * References
-  Ansys-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]]
+  The Ansys-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
+
+  The [[file:matlib/README.org][ANSYS-Mode material library]].
 * Todo
   [[file:TODO.org][What remains to do]]
 * License

@@ -42,8 +42,9 @@ for Windows:
 wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
 #+END_SRC
 Important parts of the code (completions, help strings, etc.) are
-based on the ANSYS documentation.  Besides source files and the Emacs
-editor you will find tutorials in the download section.
+based on the original ANSYS documentation.  Besides source files and
+the Emacs editor you will find tutorials in the download section. The
+complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of ANSYS-Mode]] is also online available.
 
 # For an
 # immediate impression have a look at the
@@ -53,7 +54,6 @@ editor you will find tutorials in the download section.
 # [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
 # in-depth on-line tutorial] there is the source code highlighting
 # better preserved as in its PDF version.
-
 
 Please report bugs and inconsistencies also in the documentation!
 Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[https://github.com/dieter-wilhelm/ansys-mode/issues][Github's
@@ -165,7 +165,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 * News
 
-Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
+  Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 
 * Requirements
 
@@ -221,13 +221,13 @@ If applicable please grab the package of a pre-compiled Emacs-24.5
 (Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
 site and unpack this archive anywhere on your system (you do not need
 administrator rights).  You might subsequently run the program
-addpm.exe (located in the bin directory) to add an Emacs entry to the
+addpm.exe (located in the bin\ directory) to add an Emacs entry to the
 Windows start menu (please refer to the README.W32 file) otherwise
 start the Emacs executable runemacs.exe from there.
 
-ANSYS-Mode is now immediately available, by opening (check out the
-`example.mac' example) or by creating a new APDL file with a
-.mac suffix.  Have fun!
+ANSYS-Mode is now immediately available, by opening (check out
+`example.mac') or by creating a new APDL file with a `.mac' suffix.
+Have fun!
 
 Most functionalities should work out of the box, but if you have NOT
 installed ANSYS in its default installation directory on drive
@@ -242,8 +242,8 @@ might be overwritten by `default.el'.  If you remove `default.el' or
 set 'inhibit-default-ini' to non-nil in your own init file, then
 default.el is not loaded any longer.
 
-In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original version]]
-of GNU Emacs, you can also download and configure the
+In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
+version]] of GNU Emacs, you can also download and configure the
 ANSYS-Mode package separately. Please refer to below instructions.
 
 *For existing Emacs installations on Windows and GNU-Linux*:
@@ -271,11 +271,12 @@ ansys-mode RET' for every new or existing APDL file.
 *** More convenient way; file configuration necessary
 
 Extract the files somewhere on disc and put the following paragraph
-into your `~/.emacs' or `~/.emacs.d/inti.el' configuration file in
-your home directory `~', which is determined by the environment
-variable HOME (on both Windows and Unix), adjust the stuff below in
-capital letters, restart Emacs and ansys-mode will be automatically
-applied for all files with suffixes `.mac', `.dat' and `.inp'.
+into your `~/.emacs' or `~/.emacs.el' or `~/.emacs.d/init.el'
+configuration file in your home directory (`~'), which is determined
+by the environment variable HOME (on both Windows and Unix), adjust
+the stuff below in capital letters, restart Emacs and ansys-mode will
+be automatically applied for all files with suffixes `.mac', `.dat'
+and `.inp'.
 
 #+BEGIN_SRC emacs-lisp
     (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
@@ -448,8 +449,12 @@ Further acknowledgements (in mainly reverse chronological order):
 - [[http://stallman.org][RMS]] (Richard Stallman) for GNU Emacs
 
 * Further Resources
+** ANSYS-Mode
+   - The complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of ANSYS-Mode]] is available online
+   - The [[http://www.emacswiki.org/emacs/AnsysMode][Wiki page of ANSYS-Mode]]
+   - The [[https://github.com/dieter-wilhelm/ansys-mode][GitHub page of ANSYS-Mode]]
 ** Editor Resources
-  - The [[http://www.emacswiki.org][Emacs Wiki]]
+  - The [[http://www.emacswiki.org][EmacsWiki]]
   - A competitor of ANSYS-Mode: The commercial [[http://www.padtinc.com/pedal][Pedal]] script editor
   - Another free [[http://apdl.de][APDL editor]], unfortunately this site seems to be
     abandoned since 2010

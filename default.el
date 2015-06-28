@@ -24,7 +24,7 @@
 ;; code lines with a SINGLE comment sign.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; IMPORTANT PREREQUISIT
+		      ;; IMPORTANT PREREQUISITES
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; !!! If the ANSYS-Mode files (*.el) are NOT placed in a default
 ;; Emacs load-path it is necessary to adjust the following
@@ -63,6 +63,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		   ;; File suffixes for ANSYS-Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file suffixes for autoloading of ansys-mode, appropriate file
 ;; suffixes for which ANSYS mode is automatically called for
 
@@ -71,7 +73,7 @@
 ;; the suffix .mac). See the file helper/example.mac
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
 
-;; .dat and .inp are WorkBench's solver input file suffixes
+;; .dat and .inp are WorkBench's solver input file suffixes.
 ;; See the file helper/example.dat
 (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
 (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
@@ -93,7 +95,7 @@
 										   ;template
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			    ;; Autoloading
+		     ;; Autoloading of functions
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Set of useful commands which are now interactively available (M-x
 ;; ...)  even when ANSYS Mode was not (yet) activated i.e. the lisp
@@ -159,7 +161,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		       ;; ANSYS processes stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; license server configuration and executable paths
+;; license server configuration
 
       ;; GNU-Linux 64 bit
 

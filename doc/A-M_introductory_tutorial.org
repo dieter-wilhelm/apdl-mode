@@ -33,8 +33,8 @@
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP: http://duenenhof-wilhelm.de/dieter.html
-#+LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_UP: ../index.html
 #+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/> 
 #+XSLT:

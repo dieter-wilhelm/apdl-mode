@@ -126,6 +126,7 @@ HTML : html.tar.xz
 # only archive members which are newer than the existingp archive
 html.tar.xz : $(HTMLs) makefile
 	tar cJvf $@ $(HTMLs)
+	rm $(HTMLs)
 
 .PHONEY : ALL
 ALL : MODE EMACS EMACS_SRC HTML pTAGS

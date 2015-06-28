@@ -3,8 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title></title>
-<!-- 2015-06-23 -->
+<title>TODO</title>
+<!-- 2015-06-28 Sun 20:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -179,7 +179,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title"></h1>
+<h1 class="title">TODO</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
@@ -215,7 +215,7 @@ for the JavaScript code in this tag.
 <h2 id="sec-1"><span class="section-number-2">1</span> Deficiencies:</h2>
 <div class="outline-text-2" id="text-1">
 <dl class="org-dl">
-<dt>Highlighting</dt><dd>Experimental user variable highlighting
+<dt> Highlighting </dt><dd>Experimental user variable highlighting
 does not take into account:
 <ul class="org-ul">
 <li>clearing of variables and
@@ -230,38 +230,36 @@ them in the proper variable face
 </li>
 </ul>
 </dd>
-<dt>Highlighting</dt><dd>A label :LABEL may appear behind the /input
+<dt> Highlighting </dt><dd>A label :LABEL may appear behind the /input
 command and is not highlighted as label
 </dd>
-<dt>Highlighting</dt><dd>An apostrophy clashes with the ANSYS "char"
+<dt> Highlighting </dt><dd>An apostrophy clashes with the ANSYS "char"
 specifier Keybinding: M-Tab is captured under
-Windows and some GNU/Linux desktops Workaround: Press
+Windows and some GNU-Linux desktops Workaround: Press
 instead of M-Tab (ALT + TAB) the ESC key and then
 the Tab key (ESC, TAB) or apply the command from
 the menu bar
 </dd>
-<dt>Highlighting</dt><dd>The parameter help overlay is only removed after 2
+<dt> Highlighting </dt><dd>The parameter help overlay is only removed after 2
 min if the respective ANSYS-Mode buffer is the
 current buffer at that time span!
 </dd>
-<dt>Keybinding</dt><dd>M-j: When there is already a `&amp;' in a format command
+<dt> Keybinding </dt><dd>M-j: When there is already a `&amp;' in a format command
 (like *msg, *vwrite, *mwrite)
 ansys-indent-format-line inserts a redundant one
 </dd>
-<dt>Completion</dt><dd>Of parametric function parentheses
+<dt> Completion </dt><dd>Of parametric function parentheses
 completes redundant closing parentheses
 </dd>
-<dt>Completion</dt><dd>A mouse selection from the <b>ANSYS-completion</b> buffer
-is only inserted upcased.  Mouse completion is
-working with middle mouse button but only on the
-second LMB.
+<dt> Completion </dt><dd>A mouse selection from the <b>ANSYS-completion</b> buffer
+is only inserted upcased.
 </dd>
-<dt>Completion</dt><dd>ANSYS command 'C***' will not be completed
+<dt> Completion </dt><dd>ANSYS command 'C***' will not be completed
 </dd>
-<dt>Skeleton</dt><dd>Mouse selection of -structural-template does not work
+<dt> Skeleton </dt><dd>Mouse selection of -structural-template does not work
 (because of stipulated user text input from this skeleton)
 </dd>
-<dt>Navigation</dt><dd>C-c { does not skip an overlay in a number-block
+<dt> Navigation </dt><dd>C-c { does not skip an overlay in a number-block
 (M-{ does it though))
 </dd>
 </dl>
@@ -274,6 +272,9 @@ second LMB.
 <h3 id="sec-2-1"><span class="section-number-3">2.1</span> Bugs</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
+<li>Mouse completion is working with middle mouse button but only
+on the second LMB or, in the case of C-c C-s, not at all.
+</li>
 <li>*mwrite
 *cfclos
 M-? shows help for *mwrite, when cursor behind *cfclos and in the
@@ -293,14 +294,18 @@ work they are calling -mode.el!
 <h3 id="sec-2-2"><span class="section-number-3">2.2</span> Wish-list</h3>
 <div class="outline-text-3" id="text-2-2">
 <ul class="org-ul">
+<li>add adwords to gh-pages
+</li>
+<li>abreviated input method for all graphics functions zoom, etc.
+</li>
+<li>defaults for template MP
+</li>
 <li>Add WorkBench (Aim) concepts to APDL translation in A-M<sub>APDL</sub><sub>reference</sub>
 </li>
 <li>-show-command-parameters is not dynamically updated in the first line
 </li>
 <li>Correct the creep data together with young's modulus and total
 strain to creep strain!
-</li>
-<li>GH-pages with tutorials
 </li>
 <li>add bbdb files to emacs packages?
 </li>
@@ -321,6 +326,8 @@ highlighted! try changing the character syntax???
 <li>Variables are not highlighted in -skeletons, it is specified in
 -mode only for files with .mac suffix; *create file tmp,mac:
 macro call: tmp, is not highlighted
+</li>
+<li>started and commented out highlighting of solver output
 </li>
 <li>makefile errors when doing -fontification.el?
 </li>
@@ -406,10 +413,10 @@ skeleton, critical to element differences!
   asurf &#x2013; Write the area or face information into the database
   vbody &#x2013; Define a B-rep solid.
 </li>
-<li>add Hlp<sub>G</sub><sub>OPE6</sub><sub>NeutralFile.html</sub> (aux15 utility functions)
+<li>add Hlp<sub>G</sub><sub>OPE6</sub><sub>NeutralFile</sub>.html (aux15 utility functions)
 commands to the fontification and help stuff: KPT, LCURV,
 ASURF, VBODY. (functions in ANF files) from the operations
-guide `ans<sub>ope.pdf</sub>'
+guide `ans<sub>ope</sub>.pdf'
 </li>
 <li>some functions in -skeleton-function are not highlighted and
 completable, whitespace problem befor paren&#x2026;
@@ -417,7 +424,7 @@ and: "nele" undocumented command and function nelem()
 </li>
 </ul>
 </li>
-<li>inconsistencies in A-M<sub>introductory</sub><sub>tutorial.org</sub>
+<li>inconsistencies in A-M<sub>introductory</sub><sub>tutorial</sub>.org
 <ul class="org-ul">
 <li>the parameter help overlay is dated
 </li>
@@ -439,20 +446,16 @@ self-documenting help system for a template function
 <h2 id="sec-3"><span class="section-number-2">3</span> Procedures</h2>
 <div class="outline-text-2" id="text-3">
 <dl class="org-dl">
-<dt>Mode Help</dt><dd>keyboard input is quoted in "", emphasizing in `' and
+<dt> GNU-Linux </dt><dd>;-)
+</dd>
+<dt> Mode Help </dt><dd>keyboard input is quoted in "", emphasizing in `' and
 keys in &lt;&gt;
 </dd>
-<dt>README</dt><dd>same as Mode help
+<dt> APDL templates </dt><dd>minimal working examples ending with -template
 </dd>
-<dt>APDL templates</dt><dd>minimal working examples ending with -template
+<dt> Menu </dt><dd>-&gt; indicates the following sub menu entry -&gt;
 </dd>
-<dt>Old Emacs versions</dt><dd>flagged with RESTRICTED:
-</dd>
-<dt>Menu</dt><dd>-&gt; indicates the following sub menu entry
-</dd>
-<dt>M-x compile</dt><dd><p>
-ALL ;-)
-</p>
+<dt> M-x compile </dt><dd>ALL ;-)
 
 <p>
 GH-wiki is repo with write access for world, separate from the A-M repo!
@@ -484,8 +487,6 @@ features, news, history
 <li>update defcustom list in ./bug-report.sh -&gt; ansys-submit-bug-report
 </li>
 <li>update/complete skeletons menu
-</li>
-</ul>
 
 <p>
 (tags-query-replace "16.1" "16.2")
@@ -495,7 +496,7 @@ features, news, history
 (tags-query-replace "24.5" "24.6")
 </p>
 <p>
-(tags-query-replace "150" "161")
+(tags-query-replace "161" "170")
 </p>
 <p>
 (tags-query-replace "\".1\"" "\".2\"")
@@ -511,7 +512,7 @@ checkdoc then dry run: Emacs
 lines, every menu entry.  byte-compile-file then dry run
 profiling, major mode conventions: multiple loading of this mode?.
 </p>
-<ul class="org-ul">
+</li>
 <li>check Emacs versions on longterm OS systems compile with 24.X,
 then pretests, emacs-snapshots, clash with Emacs releases (yearly
 Emacs cycle)?
@@ -529,9 +530,7 @@ Emacs cycle)?
 <li>update Emacs wiki (README), home page, GitHub, Google drive with
 download, documentation page
 </li>
-<li><p>
-publication emails (with tutorial and news):
-</p>
+<li>publication emails (with tutorial and news):
 
 <p>
 The project is hosted on
@@ -599,11 +598,6 @@ tnelson@cadfem.de,
 lkrueger@cadfem.de,
 sheldonimaoka@yahoo.com,
 kschoenborn@cadfem.de
-</p>
-
-<p>
-better not the "competitor":
-info@padtinc.com ;-),
 </p>
 </div>
 </div>
@@ -845,7 +839,7 @@ of the variable around point, or center the variables window&#x2026;
 t(1,0) = 20,300,3094,
 t(1,1) =  3,  4,   9,
 </li>
-<li>Utility for clearing files like .rst, &#x2026; or using dired, clear<sub>files.sh</sub>?
+<li>Utility for clearing files like .rst, &#x2026; or using dired, clear<sub>files</sub>.sh?
 with listing listing of file types
 </li>
 <li>Configure the highlighting colours with black on white background
@@ -1000,7 +994,7 @@ with /INPUT and *USE)
 <h3 id="sec-4-7"><span class="section-number-3">4.7</span> Additional APDL macro resources</h3>
 <div class="outline-text-3" id="text-4-7">
 <p>
-see <a href="http://www.apdl.de/">http://www.apdl.de/</a> for further ideas and extensions or
+see <a href="http://www.apdl.de">http://www.apdl.de</a> for further ideas and extensions or
   <a href="http://www.padtinc.com/">http://www.padtinc.com/</a>.
 </p>
 </div>
@@ -1008,9 +1002,10 @@ see <a href="http://www.apdl.de/">http://www.apdl.de/</a> for further ideas and 
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
-<p class="date">Modification date: 2015-06-23 </p>
-<p class="creator">Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+<p class="author">Author: H. Dieter Wilhelm</p>
+<p class="date">Created: 2015-06-28 Sun 20:02</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

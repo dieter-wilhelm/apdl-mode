@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>ANSYS-Mode Highlighting and APDL Reference</title>
-<!-- 2015-06-26 -->
+<!-- 2015-06-28 Sun 20:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -235,77 +235,77 @@ for the JavaScript code in this tag.
 <div class="outline-text-3" id="text-1-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! ------------------------------</span>
-<span style="color: #b22222;">!@ --- header ---</span>
-<span style="color: #b22222;">!! ------------------------------</span>
-<span style="color: #b22222;">!! Time-stamp: &lt;2012-06-22 16:42:24 uidg1626&gt;</span>
-<span style="color: #b22222;">!! NOTE: This is APDL pseudo code, checking</span>
-<span style="color: #b22222;">!!  ANSYS-Mode's highlighting capabilities and</span>
-<span style="color: #b22222;">!!  certain aspects of the language</span>
-<span style="color: #b22222;">!!  Please see further below.</span>
+<pre class="src src-ansys">!! ------------------------------
+!@ --- header ---
+!! ------------------------------
+!! Time-stamp: &lt;2012-06-22 16:42:24 uidg1626&gt;
+!! NOTE: This is APDL pseudo code, checking
+!!  ANSYS-Mode's highlighting capabilities and
+!!  certain aspects of the language
+!!  Please see further below.
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">/units</span>,mpa <span style="color: #b22222;">!indicate mm-t-s unit system</span>
-<span style="color: #b22222;">!@ --- Preprocessing ---</span>
-<span style="color: #a020f0;">/prep7</span>
-<span style="color: #b22222;">!@@ -- Elements --</span>
-<span style="color: #a0522d;">Steel</span> = 1
-<span style="color: #a0522d;">ID</span> = Steel
-<span style="color: #a0522d;">real</span> = Steel
-<span style="color: #a020f0;">et</span>,ID,<span style="color: #483d8b;">solid186</span> <span style="color: #b22222;">!3d, 20 node</span>
-<span style="color: #b22222;">!@@ -- Material --</span>
-<span style="color: #a020f0;">mp</span>,nuxy,Steel,0.3 <span style="color: #b22222;">! Poisson No</span>
-<span style="color: #a020f0;">mp</span>,ex,Steel,200000 <span style="color: #b22222;">! Elastic modulus</span>
-<span style="color: #b22222;">!@@ -- Modeling --</span>
-<span style="color: #a020f0;">block</span>,0,1,0,1,0,1
-<span style="color: #b22222;">!@@ -- Meshing --</span>
-<span style="color: #a020f0;">vmesh</span>,all
-<span style="color: #b22222;">!@@ -- BCs, Loads --</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0
-<span style="color: #a020f0;">d</span>,all,all
-<span style="color: #a020f0;">nsel</span>,s,loc,x,1
-<span style="color: #a020f0;">d</span>,all,uy,-.1
-<span style="color: #a020f0;">allsel</span>
-<span style="color: #a020f0;">save</span>
-<span style="color: #b22222;">!@ --- Solving ---</span>
-<span style="color: #a020f0;">/solu</span>
-<span style="color: #a020f0;">solve</span>
-<span style="color: #b22222;">!@ --- Postprocessing --</span>
-<span style="color: #a020f0;">/post1</span>
-<span style="color: #a020f0;">/view</span>,,1,1,1
-<span style="color: #a020f0;">plnsol</span>,u,sum,2
-<span style="color: #a020f0;">/image</span>,save,test <span style="color: #b22222;">!save XWindow Dump xwd (or bmp on Windows)</span>
-<span style="color: #a020f0;">/image</span>,capture                <span style="color: #b22222;">!TODO: what is this: file0001.xwd?</span>
-<span style="color: #a020f0;">/sys</span>,<span style="color: #8b2252;">convert test test.png</span>
-/upwind                  <span style="color: #b22222;">!TODO: 2d-graphics library? dated?</span>
-<span style="color: #a020f0;">*fft</span>                     <span style="color: #b22222;">!TODO: :-)</span>
+<pre class="src src-ansys">/units,mpa !indicate mm-t-s unit system
+!@ --- Preprocessing ---
+/prep7
+!@@ -- Elements --
+Steel = 1
+ID = Steel
+real = Steel
+et,ID,solid186 !3d, 20 node
+!@@ -- Material --
+mp,nuxy,Steel,0.3 ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+!@@ -- Modeling --
+block,0,1,0,1,0,1
+!@@ -- Meshing --
+vmesh,all
+!@@ -- BCs, Loads --
+nsel,s,loc,x,0
+d,all,all
+nsel,s,loc,x,1
+d,all,uy,-.1
+allsel
+save
+!@ --- Solving ---
+/solu
+solve
+!@ --- Postprocessing --
+/post1
+/view,,1,1,1
+plnsol,u,sum,2
+/image,save,test !save XWindow Dump xwd (or bmp on Windows)
+/image,capture                !TODO: what is this: file0001.xwd?
+/sys,convert test test.png
+/upwind                  !TODO: 2d-graphics library? dated?
+*fft                     !TODO: :-)
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
-<span style="color: #b22222;">!!  Please put the the cursor below the next paragraph of emacs lisp</span>
-<span style="color: #b22222;">!!  code and type "C-x C-e" to change the setting of</span>
-<span style="color: #b22222;">!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'</span>
-<span style="color: #b22222;">!!  change the level from 0 to 2 and toggle the flag from `t' to</span>
-<span style="color: #b22222;">!!  `nil'.  Browse the file to check the differences.</span>
+<pre class="src src-ansys">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!  Please put the the cursor below the next paragraph of emacs lisp
+!!  code and type "C-x C-e" to change the setting of
+!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
+!!  change the level from 0 to 2 and toggle the flag from `t' to
+!!  `nil'.  Browse the file to check the differences.
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-lisp">(<span style="color: #a020f0;">progn</span>
-  (<span style="color: #a020f0;">when</span>
+<pre class="src src-lisp">(<span style="font-weight: bold;">progn</span>
+  (<span style="font-weight: bold;">when</span>
       (featurep 'ansys-mode)
     (unload-feature 'ansys-mode))
   (setq
    ansys-highlighting-level 2
    ansys-dynamic-highlighting-flag t)
-  (load-file <span style="color: #8b2252;">"ansys-mode.el"</span>)
+  (load-file <span style="font-style: italic;">"ansys-mode.el"</span>)
   (ansys-mode))
 </pre>
 </div>
@@ -318,9 +318,9 @@ c
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- Ignored characters and condensed input line ($ operator)</span>
-<span style="color: #a020f0;">finish</span><span style="color: #008b8b;">ThisNightmare</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">/cle</span> <span style="color: #b22222;">!/clear</span>
-<span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
+<pre class="src src-ansys">!@@ -- Ignored characters and condensed input line ($ operator)
+finishThisNightmare $ /cle !/clear
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
 </pre>
 </div>
 </div>
@@ -334,10 +334,10 @@ c
 <div class="outline-text-4" id="text-1-2-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">N</span>      =  <span style="color: #ff0000; font-weight: bold;">_RETURN</span>       <span style="color: #b22222;">!return value of certain commands</span>
-<span style="color: #a0522d;">Alpha2</span> =  +360./(2*N)
-<span style="color: #a0522d;">Xc</span>     =  <span style="color: #b22222;">!empty rhs clears variables</span>
+<pre class="src src-ansys">!!
+N      =  _RETURN       !return value of certain commands
+Alpha2 =  +360./(2*N)
+Xc     =  !empty rhs clears variables
 </pre>
 </div>
 </div>
@@ -347,12 +347,12 @@ c
 <div class="outline-text-4" id="text-1-2-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">*return</span>                  <span style="color: #b22222;">!TODO: what is this?</span>
-<span style="color: #a020f0;">*status</span>,<span style="color: #ff0000; font-weight: bold;">_RETURN</span>          <span style="color: #b22222;">!0 normal</span>
-                         <span style="color: #b22222;">!1 note</span>
-                         <span style="color: #b22222;">!2 warning</span>
-                         <span style="color: #b22222;">!3 error</span>
-                         <span style="color: #b22222;">!4 fatal</span>
+<pre class="src src-ansys">*return                  !TODO: what is this?
+*status,_RETURN          !0 normal
+			 !1 note
+			 !2 warning
+			 !3 error
+			 !4 fatal
 </pre>
 </div>
 </div>
@@ -362,11 +362,11 @@ c
 <div class="outline-text-4" id="text-1-2-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">var1</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3 <span style="color: #b22222;">*5)) </span><span style="color: #b22222;">! old style Ansys comment!!!!!</span>
-<span style="color: #a0522d;">var2</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3*5))  <span style="color: #b22222;">! this is valid code</span>
-<span style="color: #a020f0;">fini</span> <span style="color: #b22222;">* comment</span>
-<span style="color: #a0522d;">otto</span> = 3 <span style="color: #b22222;">* 4 comment, the value of otto = 3</span><span style="color: #b22222;">!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
 </pre>
 </div>
 </div>
@@ -376,8 +376,8 @@ c
 <div class="outline-text-4" id="text-1-2-4">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
 </pre>
 </div>
 </div>
@@ -387,16 +387,16 @@ c
 <div class="outline-text-4" id="text-1-2-5">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="background-color: #ff0000;">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- function names --</span>
-<span style="color: #a0522d;">Pi</span>=<span style="color: #0000ff;">acos</span>(-1) <span style="color: #228b22;">$</span> True=1 <span style="color: #228b22;">$</span> False=0 <span style="color: #228b22;">$</span> Nn=3.1
-<span style="color: #a0522d;">Alpha1</span> = <span style="color: #0000ff;">rotx</span>( 14.5) - 360./ (2*Nn)
+<pre class="src src-ansys">!@@ -- function names --
+Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
+Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 </pre>
 </div>
 </div>
@@ -407,10 +407,10 @@ c
 <div class="outline-text-4" id="text-1-2-6">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
-<span style="color: #a020f0;">a</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">al</span> <span style="color: #228b22;">$</span> all <span style="color: #228b22;">$</span> <span style="color: #a020f0;">alls</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">allse</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">allsel</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">allsel</span><span style="color: #008b8b;">llllll</span>
-<span style="color: #a020f0;">rectng</span><span style="color: #008b8b;">aaaaa</span>,var1,<span style="color: #ff0000; font-weight: bold;">_X2</span>,var2,X2 <span style="color: #b22222;">! 2d rectangle</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">f $ fi $ fin $ fini $ finis  $ finish $ finisher
+a $ al $ all $ alls $ allse $ allsel $ allselllllll
+rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+!!
 </pre>
 </div>
 </div>
@@ -420,9 +420,9 @@ c
 <div class="outline-text-4" id="text-1-2-7">
 <div class="org-src-container">
 
-<pre class="src src-ansys">  <span style="background-color: #ff0000;">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---</span>
-  <span style="color: #a020f0;">/exit</span>,nosave           <span style="color: #b22222;">!default is save the model data</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+  /exit,nosave           !default is save the model data
+!!
 </pre>
 </div>
 </div>
@@ -432,11 +432,11 @@ c
 <div class="outline-text-4" id="text-1-2-8">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! A current element type:</span>
-<span style="color: #a020f0;">et</span>,10,<span style="color: #483d8b;">solid186</span>
-<span style="color: #b22222;">!! deprecated element types:</span>
-<span style="color: #a020f0;">et</span>,Steel,<span style="color: #ff0000; font-weight: bold;">beam3</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,<span style="color: #ff0000; font-weight: bold;">shell91</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! A current element type:
+et,10,solid186
+!! deprecated element types:
+et,Steel,beam3 $ et,Alu,shell91
+!!
 </pre>
 </div>
 <p>
@@ -444,9 +444,9 @@ Let's change the element types to current ones!
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Complete the following element fragments to current ones!</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">et</span>,Steel,beam <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,shell
+<pre class="src src-ansys">!! Complete the following element fragments to current ones!
+!!
+et,Steel,beam $ et,Alu,shell
 </pre>
 </div>
 <p>
@@ -454,7 +454,7 @@ For example select the following elements
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">et</span>,Steel,<span style="color: #483d8b;">beam188</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,<span style="color: #483d8b;">shell28</span>
+<pre class="src src-ansys">et,Steel,beam188 $ et,Alu,shell28
 </pre>
 </div>
 <p>
@@ -463,11 +463,11 @@ and you are getting a diffent element highlighting.
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- default commands</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,y,0
+<pre class="src src-ansys">!@@ -- default commands
+nsel,s,loc,y,0
     ,a,loc,y,1
     ,r,loc,x,0
-<span style="color: #a020f0;">d</span>,all,all
+d,all,all
 </pre>
 </div>
 </div>
@@ -478,46 +478,46 @@ and you are getting a diffent element highlighting.
 <div class="outline-text-3" id="text-1-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ ::: implicit : (colon) looping :::::</span>
-<span style="color: #b22222;">!! (n1:n2:dn)</span>
-<span style="color: #a020f0;">lfillt</span>,(1<span style="color: #228b22;">:</span>2),(3<span style="color: #228b22;">:</span>4),5
-<span style="color: #b22222;">!! one subscript per array</span>
-<span style="color: #a020f0;">bf</span>,(1<span style="color: #228b22;">:</span>10),temp,Tarray(1<span style="color: #228b22;">:</span>10)
-b(1<span style="color: #228b22;">:</span>5) = 10,20,30,40,50 <span style="color: #b22222;">!TODO: creates this an array?</span>
-<span style="color: #b22222;">!! The </span><span style="color: #b22222;">*get command and get functions are allowed</span>
-<span style="color: #a020f0;">*get</span>,Fx(1<span style="color: #228b22;">:</span>10),node,(1<span style="color: #228b22;">:</span>10),f,fz <span style="color: #b22222;">!TODO:</span>
-<span style="color: #a020f0;">a</span>(1<span style="color: #228b22;">:</span>5) = <span style="color: #0000ff;">nx</span>(1<span style="color: #228b22;">:</span>5)
-<span style="color: #b22222;">!! TODO:</span>
-Fx(1<span style="color: #228b22;">:</span>10) = (1<span style="color: #228b22;">:</span>100<span style="color: #228b22;">:</span>10)    <span style="color: #b22222;">!is this working? :-)</span>
-<span style="color: #b22222;">!! alternative to </span><span style="color: #b22222;">*vfill</span>
-<span style="color: #a020f0;">*vfill</span>,Fx,ramp,1,10
+<pre class="src src-ansys">!@@ ::: implicit : (colon) looping :::::
+!! (n1:n2:dn)
+lfillt,(1:2),(3:4),5
+!! one subscript per array
+bf,(1:10),temp,Tarray(1:10)
+b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
+!! The *get command and get functions are allowed
+*get,Fx(1:10),node,(1:10),f,fz !TODO:
+a(1:5) = nx(1:5)
+!! TODO:
+Fx(1:10) = (1:100:10)    !is this working? :-)
+!! alternative to *vfill
+*vfill,Fx,ramp,1,10
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! looping</span>
-<span style="color: #a020f0;">*get</span>,Dim
-<span style="color: #a020f0;">*if</span>,Dim,le,1,then
-  <span style="color: #a020f0;">*dim</span>,Reaction,array,Ns,1
-<span style="color: #a020f0;">*endif</span>
-<span style="color: #a020f0;">*do</span>,I,1,Ns
-  <span style="color: #a020f0;">set</span>,Ls,I
-  <span style="color: #a020f0;">fsum</span>
-  <span style="color: #a020f0;">*get</span>,Fx,fsum,,item,fx
+<pre class="src src-ansys">!! looping
+*get,Dim
+*if,Dim,le,1,then
+  *dim,Reaction,array,Ns,1
+*endif
+*do,I,1,Ns
+  set,Ls,I
+  fsum
+  *get,Fx,fsum,,item,fx
   Reaction(I)=Fx
-<span style="color: #a020f0;">*enddo</span>
+*enddo
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- multiline </span><span style="color: #b22222;">*msg formatting with the &amp; operator</span>
-<span style="color: #a020f0;">*MSG</span>,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
-<span style="color: #8b2252;">Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">Steel = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G A (electrical angle = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G DEG) </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">_Power factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">Inductance = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)</span>
+<pre class="src src-ansys">!@@ -- multiline *msg formatting with the &amp; operator
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &amp;
+Steel = %G A (electrical angle = %G DEG) %/ &amp;
+_Power factor: %G %/ &amp;
+Inductance = %G %/ &amp;
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 </pre>
 </div>
 </div>
@@ -1762,10 +1762,10 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 <div class="outline-text-5" id="text-2-3-2-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys">1ansys = 3                    <span style="color: #b22222;">!is not a valid variable name</span>
-<span style="color: #a0522d;">a1nsys</span> = 3                    <span style="color: #b22222;">!a1nsys is a valid variable name</span>
-<span style="color: #a0522d;">A1NSys</span> = 4                    <span style="color: #b22222;">!this is the same variable</span>
-<span style="color: #a0522d;">A1NSys</span> = Temp                 <span style="color: #b22222;">!`Temp' is not defined</span>
+<pre class="src src-ansys">1ansys = 3                    !is not a valid variable name
+a1nsys = 3                    !a1nsys is a valid variable name
+A1NSys = 4                    !this is the same variable
+A1NSys = Temp                 !`Temp' is not defined
 </pre>
 </div>
 <p>
@@ -1773,24 +1773,24 @@ The following text is the respective ANSYS solver/interpreter output.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys-solver"><span style="color: #a020f0;">BEGIN:</span>
+<pre class="src src-ansys-solver">BEGIN:
  1ansys = 3                    !is not a valid variable name
 PARAMETER 1ANSYS =     3.000000000    
 *** ERROR ***                           CP =       0.259   TIME= 18:06:41
 Invalid character in parameter name.                                    
  The setting of parameter= 1ANSYS is ignored.                           
-<span style="color: #a020f0;">BEGIN:</span>
+BEGIN:
  a1nsys = 3                    !a1nsys is a valid variable name
 PARAMETER A1NSYS =     3.000000000    
-<span style="color: #a020f0;">BEGIN:</span>
+BEGIN:
  A1NSys = 4                    !this is the same variable
 PARAMETER A1NSYS =     4.000000000    
-<span style="color: #a020f0;">BEGIN:</span>
+BEGIN:
  A1NSys = Temp                 !`Temp' is not defined
 *** WARNING ***                         CP =       0.260   TIME= 18:06:56
 Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
 PARAMETER A1NSYS =    0.7888609052E-30
-<span style="color: #a020f0;">BEGIN:</span>
+BEGIN:
 </pre>
 </div>
 </div>
@@ -1805,10 +1805,10 @@ macros and the GUI.
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #ff0000; font-weight: bold;">_ansys</span> = 3   <span style="color: #b22222;">!`_ansys' represents a reserved variable in ANSYS supplied macros</span>
-<span style="color: #a0522d;">_</span> = 3        <span style="color: #b22222;">! a single underscore definition is valid</span>
-<span style="color: #a0522d;">X</span> = _
-<span style="color: #a0522d;">_</span> = 3 <span style="color: #b22222;">!the single underscore represents  also a `variable' in APDL</span>
+<pre class="src src-ansys">_ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
+_ = 3        ! a single underscore definition is valid
+X = _
+_ = 3 !the single underscore represents  also a `variable' in APDL
 </pre>
 </div>
 </div>
@@ -1822,18 +1822,18 @@ deleted as a group with `*del'.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">ansys_</span> = 3              <span style="color: #b22222;">!this is a `hidden' variable from </span><span style="color: #b22222;">*status</span>
-<span style="color: #a020f0;">*status</span>                 <span style="color: #b22222;">!does not show `ansys_'</span>
-       ,PRM_            <span style="color: #b22222;">!show variables with trailing underscore</span>
-<span style="color: #a020f0;">*del</span>,,PRM_              <span style="color: #b22222;">!delete all variables with trailing underscore</span>
+<pre class="src src-ansys">ansys_ = 3              !this is a `hidden' variable from *status
+*status                 !does not show `ansys_'
+       ,PRM_            !show variables with trailing underscore
+*del,,PRM_              !delete all variables with trailing underscore
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys-solver"> <span style="color: #a020f0;">BEGIN:</span>
+<pre class="src src-ansys-solver"> BEGIN:
 ansys_ = 3
  PARAMETER ANSYS_ =     3.000000000    
- <span style="color: #a020f0;">BEGIN:</span>
+ BEGIN:
  *status
  ABBREVIATION STATUS-
   ABBREV    STRING
@@ -1843,18 +1843,18 @@ ansys_ = 3
   POWRGRPH  Fnc_/GRAPHICS
 
  PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
-                  (INCLUDING        4 INTERNAL PARAMETERS)
+		  (INCLUDING        4 INTERNAL PARAMETERS)
 
  NAME                              VALUE                        TYPE  DIMENSIONS
  X                                 3.00000000                    SCALAR
- <span style="color: #a020f0;">BEGIN:</span>
+ BEGIN:
 ,PRM_
  PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
-                  (INCLUDING        4 INTERNAL PARAMETERS)
+		  (INCLUDING        4 INTERNAL PARAMETERS)
 
  NAME                              VALUE                        TYPE  DIMENSIONS
  ANSYS_                            3.00000000                    SCALAR
- <span style="color: #a020f0;">BEGIN:</span>
+ BEGIN:
 </pre>
 </div>
 </div>
@@ -1864,9 +1864,9 @@ ansys_ = 3
 <div class="outline-text-5" id="text-2-3-2-4">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! only letters, numbers and underscores are allowed</span>
-a1n&#167;sys = 3              <span style="color: #b22222;">!this is not a valid variable name</span>
-<span style="color: #a0522d;">a1n_sys</span> = 3              <span style="color: #b22222;">!this is a valid variable name</span>
+<pre class="src src-ansys">!! only letters, numbers and underscores are allowed
+a1n§sys = 3              !this is not a valid variable name
+a1n_sys = 3              !this is a valid variable name
 </pre>
 </div>
 <p>
@@ -1874,15 +1874,15 @@ the ANSYS interpreter output looks like this:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys-solver"><span style="color: #a020f0;">BEGIN:</span>
- a1n&#167;sys = 3              !this is not a valid variable name
+<pre class="src src-ansys-solver">BEGIN:
+ a1n§sys = 3              !this is not a valid variable name
 *** ERROR ***                           CP =       0.256   TIME= 17:35:07
 Invalid character in parameter name.                                    
- The setting of parameter= A1N&#167;SYS is ignored.                         
-<span style="color: #a020f0;">BEGIN:</span>
+ The setting of parameter= A1N§SYS is ignored.                         
+BEGIN:
  a1n_sys = 3              !this is a valid variable name
 PARAMETER A1N_SYS =     3.000000000    
-<span style="color: #a020f0;">BEGIN:</span>
+BEGIN:
 </pre>
 </div>
 </div>
@@ -1892,10 +1892,10 @@ PARAMETER A1N_SYS =     3.000000000
 <div class="outline-text-5" id="text-2-3-2-5">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! The following is not a valid variable name</span>
+<pre class="src src-ansys">!! The following is not a valid variable name
 v23456789_123456789_123456789_123 = 3
-<span style="color: #b22222;">!! The following is a valid variable name</span>
-<span style="color: #a0522d;">v23456789_123456789_123456789_12</span>  = 3
+!! The following is a valid variable name
+v23456789_123456789_123456789_12  = 3
 </pre>
 </div>
 </div>
@@ -1905,9 +1905,9 @@ v23456789_123456789_123456789_123 = 3
 <div class="outline-text-5" id="text-2-3-2-6">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">Depth</span>  =  <span style="color: #ff0000;">ARG1</span> <span style="color: #b22222;">!ARG{1-9}, AR{10-19} = "*use" variables</span>
-<span style="color: #ff0000;">AR18</span> = <span style="color: #ff0000;">AR19</span>
-<span style="color: #a020f0;">*stat</span>,argx
+<pre class="src src-ansys">Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
+AR18 = AR19
+*stat,argx
 </pre>
 </div>
 </div>
@@ -1922,9 +1922,9 @@ Must not contain more than 32 characters
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">! character string variables are enclosed with `''</span>
-<span style="color: #a0522d;">Yc</span> = <span style="color: #8b2252;">'012345678901234567901234567890123'</span> <span style="color: #b22222;">!not a character variable any more</span>
-<span style="color: #a0522d;">Symetry</span> = <span style="color: #8b2252;">'yes'</span>
+<pre class="src src-ansys">! character string variables are enclosed with `''
+Yc = '012345678901234567901234567890123' !not a character variable any more
+Symetry = 'yes'
 </pre>
 </div>
 </div>
@@ -1935,17 +1935,17 @@ Must not contain more than 32 characters
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! defining</span>
-<span style="color: #a0522d;">Scalar</span> = 3               <span style="color: #b22222;">!the `=' assignment is a shorthand for `*set'</span>
-<span style="color: #a020f0;">*set</span>,Scalar,4            <span style="color: #b22222;">!reassignment</span>
-<span style="color: #a020f0;">*set</span>,Vector,1,2,3,4,5,6,7,8,9,10
-<span style="color: #a0522d;">Vector</span> = 0,1,2,3,4,5,6,7,8,9,10,11,12 <span style="color: #b22222;">!TODO:</span>
-<span style="color: #a0522d;">Vector</span> = 4               <span style="color: #b22222;">!TODO:</span>
-<span style="color: #b22222;">!! deleting</span>
-<span style="color: #a0522d;">Scalar</span> =     <span style="color: #b22222;">!this is not a variable any more</span>
-<span style="color: #a020f0;">*set</span>,Scalar               <span style="color: #b22222;">!alternative to `Scalar ='</span>
-<span style="color: #a020f0;">*del</span>,all                 <span style="color: #b22222;">!delete all variables!</span>
-<span style="color: #a020f0;">*del</span>,Vector   <span style="color: #b22222;">!TODO:</span>
+<pre class="src src-ansys">!! defining
+Scalar = 3               !the `=' assignment is a shorthand for `*set'
+*set,Scalar,4            !reassignment
+*set,Vector,1,2,3,4,5,6,7,8,9,10
+Vector = 0,1,2,3,4,5,6,7,8,9,10,11,12 !TODO:
+Vector = 4               !TODO:
+!! deleting
+Scalar =     !this is not a variable any more
+*set,Scalar               !alternative to `Scalar ='
+*del,all                 !delete all variables!
+*del,Vector   !TODO:
 </pre>
 </div>
 </div>
@@ -1964,12 +1964,12 @@ Other examples are
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">Steel</span> = 1
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">Material </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> is steel</span>
-<span style="color: #b22222;">!! ATTENTION: in the following situation!</span>
-<span style="color: #a020f0;">/com</span>,<span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> does NOT substitute variable Steel</span>
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> does substitute variable Steel</span>
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">Stuff like </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Steel+1</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> returns 2</span>
+<pre class="src src-ansys">Steel = 1
+/com,Material %Steel% is steel
+!! ATTENTION: in the following situation!
+/com,%Steel% does NOT substitute variable Steel
+/com, %Steel% does substitute variable Steel
+/com,Stuff like %Steel+1% returns 2
 </pre>
 </div>
 </div>
@@ -1982,21 +1982,21 @@ It is possible to substitute a command name
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">R</span>=<span style="color: #8b2252;">'RESUME'</span>
-<span style="color: #228b22;">%</span>R<span style="color: #228b22;">%</span>,MODEL,DB
+<pre class="src src-ansys">R='RESUME'
+%R%,MODEL,DB
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! string, message commands and comment behaviour &amp;&amp; %$$% %% :bla: &amp;&amp;&amp;</span>
+<pre class="src src-ansys">!! string, message commands and comment behaviour &amp;&amp; %$$% %% :bla: &amp;&amp;&amp;
 
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> bla = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">bla</span><span style="color: #228b22;">%</span>
-<span style="color: #a020f0;">igesin</span>,<span style="color: #8b2252;">'test'</span>,<span style="color: #8b2252;">'</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">iges</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">'</span>
-<span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;">Nothing in </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">particular</span><span style="color: #228b22;">%</span>
-<span style="color: #b22222;">!! in "string commands" are no code comments possible</span>
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">beam3 </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">YES</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> ! this is *really not commented out!!!! &amp;</span>
-<span style="color: #a020f0;">c***</span> <span style="color: #8b2252;">*beam3 !otto *otto %neither% here !!!!!!! &amp;</span>
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> bearm laskf </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">otto</span><span style="color: #228b22;">%</span><span style="color: #8b2252;"> !%otto% we are here</span>
+/com, bla = %bla%
+igesin,'test','%iges%'
+/title,Nothing in %particular%
+!! in "string commands" are no code comments possible
+/com,beam3 %YES% ! this is *really not commented out!!!! &amp;
+c*** *beam3 !otto *otto %neither% here !!!!!!! &amp;
+/com, bearm laskf %otto% !%otto% we are here
 </pre>
 </div>
 </div>
@@ -2008,9 +2008,9 @@ It is possible to substitute a command name
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">right</span> = <span style="color: #8b2252;">'wrong'</span>
-<span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;"> the value of right is  </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">right</span><span style="color: #228b22;">%</span>
-<span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;"> this is </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">right</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">: /com does expand parameters as well</span>
+<pre class="src src-ansys">right = 'wrong'
+/title, the value of right is  %right%
+/com, this is %right%: /com does expand parameters as well
 </pre>
 </div>
 </div>
@@ -2023,13 +2023,13 @@ neither with <code>c***</code> nor with <code>/sys</code>
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">right</span> = 9
-<span style="color: #a020f0;">c***</span>,<span style="color: #8b2252;">this is %right%: c*** allows no parameter expansion</span>
-<span style="color: #a020f0;">/sys</span>,<span style="color: #8b2252;">ls "*.mac" %otto% &amp;</span>
-<span style="color: #a020f0;">/syp</span>,ls, <span style="color: #228b22;">%</span>otto<span style="color: #228b22;">%</span> <span style="color: #b22222;">!this is not working, no substitution!</span>
-<span style="color: #a0522d;">I</span> = 1
-<span style="color: #a0522d;">otto</span> = <span style="color: #8b2252;">'file00</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">I</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">.eps'</span>
-<span style="color: #a020f0;">/syp</span>,ls, otto <span style="color: #b22222;">!this is working as intended</span>
+<pre class="src src-ansys">right = 9
+c***,this is %right%: c*** allows no parameter expansion
+/sys,ls "*.mac" %otto% &amp;
+/syp,ls, %otto% !this is not working, no substitution!
+I = 1
+otto = 'file00%I%.eps'
+/syp,ls, otto !this is working as intended
 </pre>
 </div>
 </div>
@@ -2044,18 +2044,18 @@ or forced substitution (deferred)
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">Case</span> = <span style="color: #8b2252;">'case 1'</span>
-<span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;">This is  </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">Case</span><span style="color: #228b22;">%</span>
-                         <span style="color: #b22222;">!/stitle</span>
-                         <span style="color: #b22222;">!*ask</span>
-                         <span style="color: #b22222;">!/tlabel</span>
-                         <span style="color: #b22222;">!/an3d</span>
-                         <span style="color: #b22222;">!in tables TODO:</span>
-<span style="color: #a020f0;">aplot</span>
-<span style="color: #a0522d;">Case</span> = <span style="color: #8b2252;">'case 2'</span>
-<span style="color: #b22222;">!! not necessary to reissue /title, "This is case 2"</span>
-<span style="color: #b22222;">!! will appear on subsequent plots</span>
-<span style="color: #a020f0;">aplot</span>
+<pre class="src src-ansys">Case = 'case 1'
+/title,This is  %Case%
+			 !/stitle
+			 !*ask
+			 !/tlabel
+			 !/an3d
+			 !in tables TODO:
+aplot
+Case = 'case 2'
+!! not necessary to reissue /title, "This is case 2"
+!! will appear on subsequent plots
+aplot
 </pre>
 </div>
 </div>
@@ -2076,11 +2076,11 @@ Beware of the oldstyle ANSYS comment!
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">var1</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3 <span style="color: #b22222;">*5)) </span><span style="color: #b22222;">! old style Ansys comment!!!!!</span>
-<span style="color: #a0522d;">var2</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3*5))  <span style="color: #b22222;">! this is valid code</span>
-<span style="color: #a020f0;">fini</span> <span style="color: #b22222;">* comment</span>
-<span style="color: #a0522d;">otto</span> = 3 <span style="color: #b22222;">* 4 comment, the value of otto = 3</span><span style="color: #b22222;">!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
 </pre>
 </div>
 </div>
@@ -2090,11 +2090,11 @@ Beware of the oldstyle ANSYS comment!
 <div class="outline-text-4" id="text-2-6-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">otto</span> = 1.82
-<span style="color: #a0522d;">karl</span> = 1.97
-<span style="color: #a0522d;">margret</span> =  otto &lt; karl <span style="color: #b22222;">!margret = otto</span>
-<span style="color: #a0522d;">maria</span> = karl &lt; otto    <span style="color: #b22222;">!maria = otto</span>
-<span style="color: #a020f0;">*status</span>,karl &gt; otto
+<pre class="src src-ansys">otto = 1.82
+karl = 1.97
+margret =  otto &lt; karl !margret = otto
+maria = karl &lt; otto    !maria = otto
+*status,karl &gt; otto
 </pre>
 </div>
 </div>
@@ -2119,15 +2119,15 @@ environment!
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">No</span> = 100
-<span style="color: #a0522d;">Pi</span> = <span style="color: #0000ff;">acos</span>(-1)
-<span style="color: #a0522d;">Dat</span> = <span style="color: #0000ff;">cos</span>(0<span style="color: #228b22;">:</span>2*Pi<span style="color: #228b22;">:</span>(2*Pi/No))+ <span style="color: #0000ff;">cos</span>(0<span style="color: #228b22;">:</span>2*Pi*10<span style="color: #228b22;">:</span>(2*Pi/No))
-<span style="color: #a0522d;">Dat</span> = 0<span style="color: #228b22;">:</span>2*Pi<span style="color: #228b22;">:</span>2*Pi/No
-<span style="color: #a020f0;">*vfun</span>
-<span style="color: #a020f0;">*vec</span>,import,apdl,Dat
-<span style="color: #a020f0;">*fft</span>,Forw,Dat,OutDat,,,Full <span style="color: #b22222;">!what's the difference?</span>
-<span style="color: #a020f0;">*fft</span>,    ,Dat,OutDat,,,Part <span style="color: #b22222;">!what's the difference?</span>
-<span style="color: #a020f0;">*export</span>,OutDat,apdl,APDLOutDat
+<pre class="src src-ansys">No = 100
+Pi = acos(-1)
+Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
+Dat = 0:2*Pi:2*Pi/No
+*vfun
+*vec,import,apdl,Dat
+*fft,Forw,Dat,OutDat,,,Full !what's the difference?
+*fft,    ,Dat,OutDat,,,Part !what's the difference?
+*export,OutDat,apdl,APDLOutDat
 </pre>
 </div>
 </div>
@@ -2139,7 +2139,7 @@ environment!
 <div class="outline-text-3" id="text-2-8">
 <div class="org-src-container">
 
-<pre class="src src-ansys">debug                    <span style="color: #b22222;">!TODO: undocumented?</span>
+<pre class="src src-ansys">debug                    !TODO: undocumented?
 </pre>
 </div>
 </div>
@@ -2149,8 +2149,8 @@ environment!
 <div class="outline-text-3" id="text-2-9">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">PDEXE</span>, Slab, MRUN, NFAIL, FOPT, Fname
-in V11<span style="color: #228b22;">:</span> *mrun                    <span style="color: #b22222;">!TODO:</span>
+<pre class="src src-ansys">PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
+in V11: *mrun                    !TODO:
 </pre>
 </div>
 </div>
@@ -2160,9 +2160,9 @@ in V11<span style="color: #228b22;">:</span> *mrun                    <span styl
 <div class="outline-text-3" id="text-2-10">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!undocumented commands are highlighted differently</span>
-<span style="color: #008b8b;">/xml</span>                     <span style="color: #b22222;">!undocumented command /xml</span>
-<span style="color: #a020f0;">/xfrm</span>                    <span style="color: #b22222;">!documented command   /xfrm</span>
+<pre class="src src-ansys">!undocumented commands are highlighted differently
+/xml                     !undocumented command /xml
+/xfrm                    !documented command   /xfrm
 </pre>
 </div>
 </div>
@@ -2178,174 +2178,176 @@ in V11<span style="color: #228b22;">:</span> *mrun                    <span styl
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ --! multiline message format command this is tricky: use M-o M-o</span>
-<span style="color: #a020f0;">*MSG</span>,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
-<span style="color: #8b2252;">Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">Steel = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G A (electrical angle = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G DEG) </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">_Power factor: </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">Inductance = </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">G </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/ </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #8b2252;">VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)</span>
-aldk this is not any longer in the <span style="color: #b22222;">*msg format construct</span>
-<span style="color: #a020f0;">/com</span> <span style="color: #8b2252;">this is not any longer in the *msg format construct</span>
+<pre class="src src-ansys">!@@ --! multiline message format command this is tricky: use M-o M-o
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &amp;
+Steel = %G A (electrical angle = %G DEG) %/ &amp;
+_Power factor: %G %/ &amp;
+Inductance = %G %/ &amp;
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+aldk this is not any longer in the *msg format construct
+/com this is not any longer in the *msg format construct
 
-<span style="color: #a020f0;">*vwrite</span>,B(1,1),B(2,1),<span style="color: #228b22;">%</span>yes<span style="color: #228b22;">%</span>
-<span style="color: #8b2252;">alkd </span><span style="color: #228b22;">%</span><span style="color: #8b2252;">D </span><span style="color: #228b22;">&amp;</span>
-<span style="color: #228b22;">%</span><span style="color: #8b2252;">E</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">/</span><span style="color: #228b22;">%</span><span style="color: #8b2252;">E</span>
+*vwrite,B(1,1),B(2,1),%yes%
+alkd %D &amp;
+%E%/%E
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! commands which do not allow arguments</span>
-<span style="color: #a020f0;">/prep7</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">FINISH</span> <span style="color: #b22222;">!$ means nothing behind</span>
-<span style="color: #a020f0;">/prep7</span> <span style="color: #b22222;">!still nothing behind</span>
-<span style="color: #a020f0;">/prep7</span> <span style="color: #b22222;">* old style comment, this is allowed</span>
-<span style="color: #a020f0;">/prep7</span> this is an error
+<pre class="src src-ansys">!! commands which do not allow arguments
+/prep7 $ FINISH !$ means nothing behind
+/prep7 !still nothing behind
+/prep7 * old style comment, this is allowed
+/prep7 this is an error
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">nsel</span>,s,loc,x,1
-<span style="color: #a0522d;">nsel</span> = 3  <span style="color: #b22222;">!you CAN have variable names clashing with commands</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="color: #b22222;">!@@ -- Goto branching --</span>
-<span style="color: #a020f0;">*go</span>,<span style="color: #228b22;">:</span>branch
-<span style="color: #a020f0;">asel</span><span style="color: #008b8b;">salsdkfja&#246;lsdkfja&#246;lskdjf</span>,all
-<span style="color: #228b22;">:branch</span>
+<pre class="src src-ansys">nsel,s,loc,x,1
+nsel = 3  !you CAN have variable names clashing with commands
 </pre>
 </div>
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!-----------------------------------------------------------------------</span>
-<span style="color: #b22222;">! mdlbl.mac</span>
-<span style="color: #b22222;">! Puts Modal Info on Plot</span>
-<span style="color: #b22222;">!-----------------------------------------------------------------------</span>
-<span style="color: #a020f0;">/post1</span>
-<span style="color: #a020f0;">set</span>,last
-<span style="color: #a020f0;">*get</span>,nmd,active,,set,sbst
-<span style="color: #a0522d;">pfct</span>= <span style="color: #228b22;">$</span> ffrq= <span style="color: #228b22;">$</span> adir=
-<span style="color: #a020f0;">nsel</span>,s,l
+<pre class="src src-ansys">!@@ -- Goto branching --
+*go,:branch
+aselsalsdkfjaölsdkfjaölskdjf,all
+:branch
+</pre>
+</div>
 
-<span style="color: #a020f0;">*dim</span>,pfct,,nmd,6
+<div class="org-src-container">
+
+<pre class="src src-ansys">!-----------------------------------------------------------------------
+! mdlbl.mac
+! Puts Modal Info on Plot
+!-----------------------------------------------------------------------
+/post1
+set,last
+*get,nmd,active,,set,sbst
+pfct= $ ffrq= $ adir=
+nsel,s,l
+
+*dim,pfct,,nmd,6
     ,
     ,ffrq,,nmd
     ,adir,char,nmd
 
 
-adir(1) = <span style="color: #8b2252;">'X'</span>,<span style="color: #8b2252;">'Y'</span>,<span style="color: #8b2252;">'Z'</span>,<span style="color: #8b2252;">'ROTX'</span>,<span style="color: #8b2252;">'ROTY'</span>,<span style="color: #8b2252;">'ROTZ'</span>
-<span style="color: #a020f0;">*stat</span>,adir
-<span style="color: #a020f0;">*do</span>,i,1,nmd
-  <span style="color: #a020f0;">*get</span>,ffrq(i),mode,i,freq
-  <span style="color: #a020f0;">*do</span>,j,1,6
-    <span style="color: #a020f0;">*get</span>,pfct(i,j),mode,i,pfact,,direc,adir(j)
-  <span style="color: #a020f0;">*enddo</span>
-<span style="color: #a020f0;">*enddo</span>
-<span style="color: #a020f0;">/annot</span>,delete
-<span style="color: #a020f0;">/plopt</span>,info,0
-<span style="color: #a020f0;">/plopt</span>,minm,off
-<span style="color: #a020f0;">/triad</span>,off
-<span style="color: #a020f0;">/erase</span>
-<span style="color: #a0522d;">iadd</span> = <span style="color: #ff0000;">arg1</span>
-<span style="color: #a020f0;">*if</span>,iadd,eq,0,then
-  <span style="color: #a0522d;">iadd</span> = 1
-<span style="color: #a020f0;">*endif</span>
-<span style="color: #a020f0;">/tspe</span>,15,1,1,0,0
-<span style="color: #a020f0;">/TSPE</span>, 15, 1.000,   1,   0,   0
-<span style="color: #a0522d;">xx</span> = 1.05
-<span style="color: #a0522d;">yy</span> = .9
-<span style="color: #b22222;">!  Change the window settings if you need different </span>
-<span style="color: #b22222;">!  aspect ratios for your geometry</span>
-<span style="color: #a020f0;">/win</span>,1,-1,1,.5,1
+adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
+*stat,adir
+*do,i,1,nmd
+  *get,ffrq(i),mode,i,freq
+  *do,j,1,6
+    *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
+  *enddo
+*enddo
+/annot,delete
+/plopt,info,0
+/plopt,minm,off
+/triad,off
+/erase
+iadd = arg1
+*if,iadd,eq,0,then
+  iadd = 1
+*endif
+/tspe,15,1,1,0,0
+/TSPE, 15, 1.000,   1,   0,   0
+xx = 1.05
+yy = .9
+!  Change the window settings if you need different 
+!  aspect ratios for your geometry
+/win,1,-1,1,.5,1
     ,2,-1,1,0,.5
     ,3,-1,1,-.5,0
     ,4,-1,1,-1,-.5
-<span style="color: #b22222;">!</span>
-<span style="color: #a020f0;">/win</span>,2,off
-<span style="color: #a020f0;">/win</span>,3,off
-<span style="color: #a020f0;">/win</span>,4,off
+!
+/win,2,off
+/win,3,off
+/win,4,off
 
-<span style="color: #a020f0;">*get</span>,vx,graph,1,view,x
-<span style="color: #a020f0;">*get</span>,vy,graph,1,view,y
-<span style="color: #a020f0;">*get</span>,vz,graph,1,view,z
-<span style="color: #a020f0;">*get</span>,va,graph,1,angle
-<span style="color: #a020f0;">*get</span>,vd,graph,1,dist
-<span style="color: #a020f0;">*do</span>,i,2,4
-  <span style="color: #a020f0;">/view</span>,i,vx,vy,vz
-  <span style="color: #a020f0;">/dist</span>,i,vd
-  <span style="color: #a020f0;">/angle</span>,i,va
-<span style="color: #a020f0;">*enddo</span>
+*get,vx,graph,1,view,x
+*get,vy,graph,1,view,y
+*get,vz,graph,1,view,z
+*get,va,graph,1,angle
+*get,vd,graph,1,dist
+*do,i,2,4
+  /view,i,vx,vy,vz
+  /dist,i,vd
+  /angle,i,va
+*enddo
 
-<span style="color: #a020f0;">*do</span>,i,1,4
-  <span style="color: #a0522d;">ii</span> = i - 1 + iadd 
-  <span style="color: #a020f0;">set</span>,1,ii
-  <span style="color: #a020f0;">plnsol</span>,u,sum
-  <span style="color: #a020f0;">*if</span>,i,eq,1,then
-    <span style="color: #a020f0;">/noerase</span>
-  <span style="color: #a020f0;">*endif</span>
-  <span style="color: #a020f0;">/win</span>,i,off
-  <span style="color: #a020f0;">*if</span>,i,ne,4,then
-    <span style="color: #a020f0;">/win</span>,i+1,on
-  <span style="color: #a020f0;">*endif</span>
-<span style="color: #a020f0;">*enddo</span>
-<span style="color: #a020f0;">*do</span>,i,1,4
-  <span style="color: #a0522d;">ii</span> = i - 1 + iadd
-  <span style="color: #a020f0;">/TLAB</span>, xx, yy  ,Mode<span style="color: #228b22;">:</span> <span style="color: #228b22;">%</span>ii<span style="color: #228b22;">%</span>
-  <span style="color: #a0522d;">yy</span> = yy - .05
-  <span style="color: #a020f0;">/TLAB</span>, xx, yy,Freq<span style="color: #228b22;">:</span> <span style="color: #228b22;">%</span>ffrq(ii)<span style="color: #228b22;">%</span>
-  <span style="color: #a0522d;">yy</span> = yy - .05
-  <span style="color: #a020f0;">*do</span>,j,1,6
-    <span style="color: #a020f0;">/TLAB</span>, xx, yy  ,PF <span style="color: #228b22;">%</span>adir(j)<span style="color: #228b22;">%:</span> <span style="color: #228b22;">%</span>pfct(ii,j)<span style="color: #228b22;">%</span>
-    <span style="color: #a0522d;">yy</span> = yy - .05
-  <span style="color: #a020f0;">*enddo</span>
-   <span style="color: #a0522d;">yy</span> = yy -.11
-<span style="color: #a020f0;">*enddo</span>
-<span style="color: #a020f0;">/erase</span>
-<span style="color: #a020f0;">/annot</span>,delete
-<span style="color: #a0522d;">sz</span> = .8
-<span style="color: #a0522d;">xloc</span> = 0
-<span style="color: #a0522d;">yloc</span> = 0
+*do,i,1,4
+  ii = i - 1 + iadd 
+  set,1,ii
+  plnsol,u,sum
+  *if,i,eq,1,then
+    /noerase
+  *endif
+  /win,i,off
+  *if,i,ne,4,then
+    /win,i+1,on
+  *endif
+*enddo
+*do,i,1,4
+  ii = i - 1 + iadd
+  /TLAB, xx, yy  ,Mode: %ii%
+  yy = yy - .05
+  /TLAB, xx, yy,Freq: %ffrq(ii)%
+  yy = yy - .05
+  *do,j,1,6
+    /TLAB, xx, yy  ,PF %adir(j)%: %pfct(ii,j)%
+    yy = yy - .05
+  *enddo
+   yy = yy -.11
+*enddo
+/erase
+/annot,delete
+sz = .8
+xloc = 0
+yloc = 0
 
-<span style="color: #a020f0;">*dim</span>,data,,5
-<span style="color: #a020f0;">data</span>(1) = 12,15,28,10,32
-<span style="color: #a0522d;">hsz</span> = sz/2
+*dim,data,,5
+data(1) = 12,15,28,10,32
+hsz = sz/2
 
-<span style="color: #a020f0;">/pspec</span>,0,1,1
-<span style="color: #a020f0;">/poly</span>,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
-         1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+/pspec,0,1,1
+/poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+	 1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
 
-<span style="color: #a0522d;">x0</span> = xloc + hsz
-<span style="color: #a0522d;">y0</span> = yloc + .7*hsz
-<span style="color: #a0522d;">lof</span> = .05
+x0 = xloc + hsz
+y0 = yloc + .7*hsz
+lof = .05
 
-<span style="color: #a020f0;">*vscfun</span>,dsum,sum,data(1)
-<span style="color: #a020f0;">/LSPE</span>, 15, 0, 1.000
-<span style="color: #a020f0;">/TSPEC</span>, 15, 0.700, 1, 0, 0
-<span style="color: #a0522d;">ang1</span> = 0
-<span style="color: #a020f0;">*do</span>,i,1,5
-  <span style="color: #a0522d;">ang2</span> = ang1 + (360*data(i)/dsum) 
-  <span style="color: #a020f0;">/PSPE</span>, 2*i, 1, 1 
-  <span style="color: #a020f0;">/PWED</span>, xloc,yloc,sz*.4, ang1,ang2 
-  <span style="color: #a020f0;">/poly</span>,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
-  <span style="color: #a0522d;">pvl</span> = 100*data(i)/dsum 
-  <span style="color: #a020f0;">/tlab</span>, x0+1.5*lof,y0, <span style="color: #228b22;">%</span>pvl<span style="color: #228b22;">%</span> <span style="color: #228b22;">%</span> 
+*vscfun,dsum,sum,data(1)
+/LSPE, 15, 0, 1.000
+/TSPEC, 15, 0.700, 1, 0, 0
+ang1 = 0
+*do,i,1,5
+  ang2 = ang1 + (360*data(i)/dsum) 
+  /PSPE, 2*i, 1, 1 
+  /PWED, xloc,yloc,sz*.4, ang1,ang2 
+  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
+  pvl = 100*data(i)/dsum 
+  /tlab, x0+1.5*lof,y0, %pvl% % 
 
-  <span style="color: #a0522d;">y0</span> = y0 - 1.5*lof 
-  <span style="color: #a0522d;">ang1</span> = ang2
-<span style="color: #a020f0;">*enddo</span>
-<span style="background-color: #ff0000;">/eof</span>
+  y0 = y0 - 1.5*lof 
+  ang1 = ang2
+*enddo
+/eof
 </pre>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
-<p class="date">Modification date: 2015-06-26 </p>
-<p class="creator">Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+<p class="author">Author: H. Dieter Wilhelm</p>
+<p class="email">Email: <a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a></p>
+<p class="date">Created: 2015-06-28 Sun 20:02</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Customisation of ANSYS-Mode</title>
-<!-- 2015-06-28 -->
+<!-- 2015-06-28 Sun 20:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -297,7 +297,7 @@ Or you can read about the load-path in the Emacs manual:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(info <span style="color: #8b2252;">"(emacs)Lisp Libraries"</span>)
+<pre class="src src-emacs-lisp">(info <span style="font-style: italic;">"(emacs)Lisp Libraries"</span>)
 </pre>
 </div>
 
@@ -309,7 +309,7 @@ in its default load path.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE"</span>)
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="font-style: italic;">"C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE"</span>)
 </pre>
 </div>
 <p>
@@ -317,7 +317,7 @@ for example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"c:\\emacs\\ansys-mode"</span>)
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="font-style: italic;">"c:\\emacs\\ansys-mode"</span>)
 </pre>
 </div>
 <p>
@@ -325,7 +325,7 @@ for a Windows system or
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="color: #8b2252;">"/usr/local/src/emacs/ansys-mode"</span>)
+<pre class="src src-emacs-lisp">(add-to-list 'load-path <span style="font-style: italic;">"/usr/local/src/emacs/ansys-mode"</span>)
 </pre>
 </div>
 <p>
@@ -345,9 +345,9 @@ ANSYS (if they are differing from the defaults and restart Emacs
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq ansys-current-ansys-version <span style="color: #8b2252;">"150"</span>)
-<span style="color: #b22222;">;</span><span style="color: #b22222;">(setq ansys-current-ansys-version "161") ; "161" is the default</span>
-                                          <span style="color: #b22222;">; </span><span style="color: #b22222;">in ANSYS-Mode 16.1.1</span>
+<pre class="src src-emacs-lisp">(setq ansys-current-ansys-version <span style="font-style: italic;">"150"</span>)
+<span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">(setq ansys-current-ansys-version "161") ; "161" is the default</span>
+                                          <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">in ANSYS-Mode 16.1.1</span>
 </pre>
 </div>
 <p>
@@ -356,12 +356,12 @@ Linux or <i>ANSYS Inc</i> on Windows.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(<span style="color: #a020f0;">cond</span> ((string= window-system <span style="color: #8b2252;">"x"</span>)
-        <span style="color: #b22222;">;; </span><span style="color: #b22222;">This is an example of an installation directory on GNU-Linux</span>
-        (setq ansys-install-directory <span style="color: #8b2252;">"/appl/"</span>)) <span style="color: #b22222;">; </span><span style="color: #b22222;">default: "/"</span>
+<pre class="src src-emacs-lisp">(<span style="font-weight: bold;">cond</span> ((string= window-system <span style="font-style: italic;">"x"</span>)
+        <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">This is an example of an installation directory on GNU-Linux</span>
+        (setq ansys-install-directory <span style="font-style: italic;">"/appl/"</span>)) <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">default: "/"</span>
        (t
-        <span style="color: #b22222;">;;</span><span style="color: #b22222;">This an example of an installation dir. on WINDOWS</span>
-        (setq ansys-install-directory <span style="color: #8b2252;">"D:\\Ansys\\"</span>)) <span style="color: #b22222;">; </span><span style="color: #b22222;">default: "C:\\Program Files\\"</span>
+        <span style="font-weight: bold; font-style: italic;">;;</span><span style="font-weight: bold; font-style: italic;">This an example of an installation dir. on WINDOWS</span>
+        (setq ansys-install-directory <span style="font-style: italic;">"D:\\Ansys\\"</span>)) <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">default: "C:\\Program Files\\"</span>
 </pre>
 </div>
 
@@ -414,8 +414,8 @@ file <i>example.dat</i>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.dat$"</span> . ansys-mode))
-(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.inp\\'"</span> . ansys-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="font-style: italic;">"\\.dat$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="font-style: italic;">"\\.inp\\'"</span> . ansys-mode))
 </pre>
 </div>
 </div>
@@ -431,7 +431,7 @@ imports, see the file <i>example.anf</i>.
 
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="color: #8b2252;">"\\.anf$"</span> . ansys-mode))
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="font-style: italic;">"\\.anf$"</span> . ansys-mode))
 </pre>
 </div>
 </div>
@@ -483,15 +483,15 @@ yet loaded, with the following code.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(autoload 'ansys-mode <span style="color: #8b2252;">"ansys-mode"</span> nil t)
-(autoload 'ansys-customise-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for </span>
-<span style="color: #8b2252;"> calling a special ANSYS customisation buffer."</span> 'interactive)
-(autoload 'ansys-abort-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for  aborting ANSYS runs."</span> 'interactive)
-(autoload 'ansys-display-error-file <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for inspecting the ANSYS error file."</span> 'interactive)
-(autoload 'ansys-start-ansys-help <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the ANSYS help browser."</span> 'interactive)
-(autoload 'ansys-start-ansys <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows."</span> 'interactive)
-(autoload 'ansys-license-status <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Activate the function for displaying ANSYS license status or starting a license utility."</span> 'interactive)
-(autoload 'ansys-mode-version <span style="color: #8b2252;">"ansys-mode"</span> <span style="color: #8b2252;">"Show ANSYS-Mode's version number."</span> 'interactive)
+<pre class="src src-emacs-lisp">(autoload 'ansys-mode <span style="font-style: italic;">"ansys-mode"</span> nil t)
+(autoload 'ansys-customise-ansys <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Activate the function for </span>
+<span style="font-style: italic;"> calling a special ANSYS customisation buffer."</span> 'interactive)
+(autoload 'ansys-abort-file <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Activate the function for  aborting ANSYS runs."</span> 'interactive)
+(autoload 'ansys-display-error-file <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Activate the function for inspecting the ANSYS error file."</span> 'interactive)
+(autoload 'ansys-start-ansys-help <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Activate the function for starting the ANSYS help browser."</span> 'interactive)
+(autoload 'ansys-start-ansys <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows."</span> 'interactive)
+(autoload 'ansys-license-status <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Activate the function for displaying ANSYS license status or starting a license utility."</span> 'interactive)
+(autoload 'ansys-mode-version <span style="font-style: italic;">"ansys-mode"</span> <span style="font-style: italic;">"Show ANSYS-Mode's version number."</span> 'interactive)
 </pre>
 </div>
 </div>
@@ -531,7 +531,7 @@ below).
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq ansys-dynamic-highlighting-flag nil)
-(setq ansys-dynamic-highlighting-flag t) <span style="color: #b22222;">;</span><span style="color: #b22222;">default</span>
+(setq ansys-dynamic-highlighting-flag t) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">default</span>
 </pre>
 </div>
 </div>
@@ -563,11 +563,11 @@ example below:
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq ansys-help-program
-    <span style="color: #8b2252;">"/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"</span>)
-      <span style="color: #b22222;">;; </span><span style="color: #b22222;">normally it looks like this:</span>
-      <span style="color: #b22222;">;; </span><span style="color: #b22222;">"/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"</span>
-(setq ansys-help-path <span style="color: #8b2252;">"/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/"</span>)
-setq ansys-program <span style="color: #8b2252;">"/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161"</span>)
+    <span style="font-style: italic;">"/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"</span>)
+      <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">normally it looks like this:</span>
+      <span style="font-weight: bold; font-style: italic;">;; </span><span style="font-weight: bold; font-style: italic;">"/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"</span>
+(setq ansys-help-path <span style="font-style: italic;">"/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/"</span>)
+setq ansys-program <span style="font-style: italic;">"/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161"</span>)
 </pre>
 </div>
 </div>
@@ -589,7 +589,7 @@ on GNU-Linux GNU-Linux: License servers separated by colons (":"),
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq ansys-license-file
-  <span style="color: #8b2252;">"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"</span>)
+  <span style="font-style: italic;">"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"</span>)
 </pre>
 </div>
 <p>
@@ -600,7 +600,7 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq ansys-ansysli-servers
-   <span style="color: #8b2252;">"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"</span>)
+   <span style="font-style: italic;">"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"</span>)
 </pre>
 </div>
 </div>
@@ -614,7 +614,7 @@ Number of cores for the run, 2 does not require HPC licenses
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq ansys-no-of-processors 8) <span style="color: #b22222;">;</span><span style="color: #b22222;">default: 2</span>
+<pre class="src src-emacs-lisp">(setq ansys-no-of-processors 8) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">default: 2</span>
 </pre>
 </div>
 
@@ -623,7 +623,7 @@ Which license type to use for the solver
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq ansys-license <span style="color: #8b2252;">"ansys"</span>) <span style="color: #b22222;">;</span><span style="color: #b22222;">default: "struct"</span>
+<pre class="src src-emacs-lisp">(setq ansys-license <span style="font-style: italic;">"ansys"</span>) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">default: "struct"</span>
 </pre>
 </div>
 
@@ -632,7 +632,7 @@ ANSYS job name
 </p>
 <div class="org-src-container">
 
-<pre class="src src-emacs-lisp">(setq ansys-job <span style="color: #8b2252;">"otto"</span>)<span style="color: #b22222;">; </span><span style="color: #b22222;">default: "file"</span>
+<pre class="src src-emacs-lisp">(setq ansys-job <span style="font-style: italic;">"otto"</span>)<span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">default: "file"</span>
 </pre>
 </div>
 </div>
@@ -641,8 +641,9 @@ ANSYS job name
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
-<p class="date">Modification date: 2015-06-28 </p>
-<p class="creator">Generated by Emacs 24.5.1 (Org mode 8.2.10) </p>
+<p class="date">Date: </p>
+<p class="creator">Emacs 24.5.1 (Org mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Guided ANSYS-Mode hands-on Tutorial</title>
-<!-- 2015-06-26 -->
+<!-- 2015-06-28 Sun 20:02 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -187,12 +187,12 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#unnumbered-1">Introduction</a></li>
-<li><a href="#unnumbered-6">APDL viewing</a></li>
-<li><a href="#unnumbered-11">APDL editing</a></li>
-<li><a href="#unnumbered-48">APDL environment</a></li>
-<li><a href="#unnumbered-66">Appendix</a></li>
-<li><a href="#unnumbered-68">Summary and Acknowledgements</a></li>
+<li><a href="#sec-1">Introduction</a></li>
+<li><a href="#sec-2">APDL viewing</a></li>
+<li><a href="#sec-3">APDL editing</a></li>
+<li><a href="#sec-4">APDL environment</a></li>
+<li><a href="#sec-5">Appendix</a></li>
+<li><a href="#sec-6">Summary and Acknowledgements</a></li>
 </ul>
 </div>
 </div>
@@ -211,9 +211,9 @@ for the JavaScript code in this tag.
 ##+LATEX: \tableofcontents
 </p>
 
-<div id="outline-container-unnumbered-1" class="outline-2">
-<h2 id="unnumbered-1">Introduction</h2>
-<div class="outline-text-2" id="text-unnumbered-1">
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
 <p>
 #<img src="./ansys+emacs.png" alt="ansys+emacs.png" />
 </p>
@@ -232,15 +232,15 @@ snippets, <b>extending</b> WB.
 </p>
 </div>
 
-<div id="outline-container-unnumbered-2" class="outline-3">
-<h3 id="unnumbered-2">Target audience</h3>
-<div class="outline-text-3" id="text-unnumbered-2">
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1">Target audience</h3>
+<div class="outline-text-3" id="text-1-1">
 <dl class="org-dl">
-<dt>APDL coders</dt><dd>You have repetitive tasks and write APDL
+<dt> APDL coders </dt><dd>You have repetitive tasks and write APDL
 </dd>
-<dt>Users of WorkBench using command snippets</dt><dd>extending WorkBench
+<dt> Users of WorkBench using command snippets </dt><dd>extending WorkBench
 </dd>
-<dt>WorkBench users interested in the true understanding</dt><dd>of their
+<dt> WorkBench users interested in the true understanding </dt><dd>of their
 tool, The WorkBench manual is informative but if you really
 must know how a `remote force' is implemented and what the
 options really mean.  You have no other choise as exporting
@@ -250,12 +250,12 @@ command reference.
 </dl>
 </div>
 </div>
-<div id="outline-container-unnumbered-3" class="outline-3">
-<h3 id="unnumbered-3">Using this tutorial</h3>
-<div class="outline-text-3" id="text-unnumbered-3">
-</div><div id="outline-container-unnumbered-4" class="outline-4">
-<h4 id="unnumbered-4">Please read the <b>introductory</b> ANSYS-Mode tutorial first</h4>
-<div class="outline-text-4" id="text-unnumbered-4">
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2">Using this tutorial</h3>
+<div class="outline-text-3" id="text-1-2">
+</div><div id="outline-container-sec-1-2-1" class="outline-4">
+<h4 id="sec-1-2-1">Please read the <b>introductory</b> ANSYS-Mode tutorial first</h4>
+<div class="outline-text-4" id="text-1-2-1">
 <p>
 This is the file `A-M_introductory_tutorial-16.1.1.pdf' in the
 mode's archive or use its <a href="http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html">online</a> version.
@@ -283,16 +283,16 @@ together with the &lt;c&gt; key.
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-5" class="outline-4">
-<h4 id="unnumbered-5">Please, please work through this tutorial side by side <b>with</b> Emacs</h4>
-<div class="outline-text-4" id="text-unnumbered-5">
+<div id="outline-container-sec-1-2-2" class="outline-4">
+<h4 id="sec-1-2-2">Please, please work through this tutorial side by side <b>with</b> Emacs</h4>
+<div class="outline-text-4" id="text-1-2-2">
 <p>
 Especially for the APDL examples, which look like the following
 code line.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">Hello world         !This font represents APDL code!</span>
+<pre class="src src-ansys">/com,Hello world         !This font represents APDL code!
 </pre>
 </div>
 
@@ -306,17 +306,17 @@ further down.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-6" class="outline-2">
-<h2 id="unnumbered-6">APDL viewing</h2>
-<div class="outline-text-2" id="text-unnumbered-6">
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">APDL viewing</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 You can achieve all actions in this section from the menu <b>or</b> with
 keyboard shortcuts.
 </p>
 </div>
-<div id="outline-container-unnumbered-7" class="outline-3">
-<h3 id="unnumbered-7">Open some WorkBench solver input file</h3>
-<div class="outline-text-3" id="text-unnumbered-7">
+<div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Open some WorkBench solver input file</h3>
+<div class="outline-text-3" id="text-2-1">
 <p>
 Drag and drop it on Emacs or use the `File' menu:
 </p>
@@ -332,9 +332,9 @@ Drag and drop it on Emacs or use the `File' menu:
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-8" class="outline-3">
-<h3 id="unnumbered-8">Use ANSYS-Mode's `command help'</h3>
-<div class="outline-text-3" id="text-unnumbered-8">
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Use ANSYS-Mode's `command help'</h3>
+<div class="outline-text-3" id="text-2-2">
 
 <div class="figure">
 <p><img src="./parameter_help.png" alt="parameter_help.png" />
@@ -346,17 +346,17 @@ Drag and drop it on Emacs or use the `File' menu:
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-9" class="outline-3">
-<h3 id="unnumbered-9">Open the `ANSYS help browser'</h3>
-<div class="outline-text-3" id="text-unnumbered-9">
+<div id="outline-container-sec-2-3" class="outline-3">
+<h3 id="sec-2-3">Open the `ANSYS help browser'</h3>
+<div class="outline-text-3" id="text-2-3">
 <p>
 for further assistence. (Keybinding <b>C-c C-h</b>)
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-10" class="outline-3">
-<h3 id="unnumbered-10">Navigate through the `number blocks' in .dat files</h3>
-<div class="outline-text-3" id="text-unnumbered-10">
+<div id="outline-container-sec-2-4" class="outline-3">
+<h3 id="sec-2-4">Navigate through the `number blocks' in .dat files</h3>
+<div class="outline-text-3" id="text-2-4">
 <p>
 Skip the node- and element blocks with the menu entry ANSYS:
 Work_with_locical_blocks: End_of_number_block etc. (Keybinding <b>C-c
@@ -365,15 +365,15 @@ Work_with_locical_blocks: End_of_number_block etc. (Keybinding <b>C-c
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-11" class="outline-2">
-<h2 id="unnumbered-11">APDL editing</h2>
-<div class="outline-text-2" id="text-unnumbered-11">
-</div><div id="outline-container-unnumbered-12" class="outline-3">
-<h3 id="unnumbered-12">Use the log file from ANSYS Classics to get APDL</h3>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">APDL editing</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Use the log file from ANSYS Classics to get APDL</h3>
 </div>
-<div id="outline-container-unnumbered-13" class="outline-3">
-<h3 id="unnumbered-13">Extensible APDL templates</h3>
-<div class="outline-text-3" id="text-unnumbered-13">
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Extensible APDL templates</h3>
+<div class="outline-text-3" id="text-3-2">
 <p>
 Some of the existing templates are collections of (all) available
 commands to certain subjects.  They are more intended to be
@@ -389,20 +389,20 @@ Emacs and ANSYS-Mode, not only the APDL templates!
 </p>
 </div>
 
-<div id="outline-container-unnumbered-14" class="outline-4">
-<h4 id="unnumbered-14">Open this tutorial's APDL source file</h4>
-<div class="outline-text-4" id="text-unnumbered-14">
+<div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1">Open this tutorial's APDL source file</h4>
+<div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Open `A-M_in-depth_tutorial-16.1.1.ansys' with "C-x C-f"!  You can take this</span>
-<span style="color: #b22222;">!! file from the latest mode's archives.</span>
+<pre class="src src-ansys">!! Open `A-M_in-depth_tutorial-16.1.1.ansys' with "C-x C-f"!  You can take this
+!! file from the latest mode's archives.
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-15" class="outline-4">
-<h4 id="unnumbered-15">Inspect available code templates</h4>
-<div class="outline-text-4" id="text-unnumbered-15">
+<div id="outline-container-sec-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2">Inspect available code templates</h4>
+<div class="outline-text-4" id="text-3-2-2">
 <p>
 Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 </p>
@@ -415,10 +415,10 @@ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Check out all available and extendable APDL templates!</span>
-<span style="color: #b22222;">!! Type "C-c C-s" to trigger the ANSYS-Mode template preview</span>
-<span style="color: #b22222;">!! and then the &lt;TAB&gt; key for a completion window.</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Check out all available and extendable APDL templates!
+!! Type "C-c C-s" to trigger the ANSYS-Mode template preview
+!! and then the &lt;TAB&gt; key for a completion window.
+!!
 </pre>
 </div>
 
@@ -429,28 +429,28 @@ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64
 </div>
 </div>
 
-<div id="outline-container-unnumbered-16" class="outline-5">
-<h5 id="unnumbered-16">Preview the APDL `function' template of parametric- and *get functions</h5>
-<div class="outline-text-5" id="text-unnumbered-16">
+<div id="outline-container-sec-3-2-2-1" class="outline-5">
+<h5 id="sec-3-2-2-1">Preview the APDL `function' template of parametric- and *get functions</h5>
+<div class="outline-text-5" id="text-3-2-2-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Write now "ansys-skeleton-function"!  Let Emacs complete</span>
-<span style="color: #b22222;">!! your input (use the &lt;TAB&gt; key).  Conclude it with &lt;RET&gt;.</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Write now "ansys-skeleton-function"!  Let Emacs complete
+!! your input (use the &lt;TAB&gt; key).  Conclude it with &lt;RET&gt;.
+!!
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-17" class="outline-4">
-<h4 id="unnumbered-17">Add a certain code template to your APDL code</h4>
-<div class="outline-text-4" id="text-unnumbered-17">
+<div id="outline-container-sec-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3">Add a certain code template to your APDL code</h4>
+<div class="outline-text-4" id="text-3-2-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Insert below the following line the structural template!  Type</span>
-<span style="color: #b22222;">!! "M-x ansys-skeleton-structural-template" for insertion instead of</span>
-<span style="color: #b22222;">!! previewing. (You can insert a template with "C-u C-c C-s" as well.)</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Insert below the following line the structural template!  Type
+!! "M-x ansys-skeleton-structural-template" for insertion instead of
+!! previewing. (You can insert a template with "C-u C-c C-s" as well.)
+!!
 </pre>
 </div>
 <p>
@@ -458,53 +458,53 @@ After giving a short description, it should look like this:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! "M-x ansys-skeleton-structural-template" for insertion instead of</span>
-<span style="color: #b22222;">!! previewing. (You can insert a template with "C-u C-c C-s" as well.)</span>
-<span style="color: #b22222;">!! ------------------------------</span>
-<span style="color: #b22222;">!@ --- file header ---</span>
-<span style="color: #b22222;">!! ------------------------------</span>
-<span style="color: #b22222;">!! Time-stamp: &lt;Sat Jun 23 02:47:11 2012&gt;</span>
-<span style="color: #b22222;">!! ANSYS VERSION: 140</span>
-<span style="color: #b22222;">!! UNITS: mm-t-s</span>
-<span style="color: #b22222;">!! NOTE: template example</span>
-<span style="color: #b22222;">!! ------------------------------</span>
-<span style="color: #b22222;">! fini</span>
-<span style="color: #b22222;">! /clear</span>
-<span style="color: #b22222;">! y</span>
-<span style="color: #a020f0;">/units</span>,mpa <span style="color: #b22222;">!indicate mm-t-s unit system</span>
-<span style="color: #b22222;">!@ --- Preprocessing ---</span>
-<span style="color: #a020f0;">/prep7</span>
-<span style="color: #b22222;">!@@ -- Elements --</span>
-<span style="color: #a0522d;">Steel</span> = 1
-<span style="color: #a0522d;">ID</span> = Steel
-<span style="color: #a0522d;">real</span> = Steel
-<span style="color: #a020f0;">et</span>,ID,<span style="color: #483d8b;">solid186</span> <span style="color: #b22222;">!3d, 20 node</span>
-<span style="color: #b22222;">!@@ -- Material --</span>
-<span style="color: #a020f0;">mp</span>,nuxy,Steel,0.3 <span style="color: #b22222;">! Poisson No</span>
-<span style="color: #a020f0;">mp</span>,ex,Steel,200000 <span style="color: #b22222;">! Elastic modulus</span>
-<span style="color: #b22222;">!@@ -- Modeling --</span>
-<span style="color: #a020f0;">block</span>,0,1,0,1,0,1
-<span style="color: #b22222;">!@@ -- Meshing --</span>
-<span style="color: #a020f0;">vmesh</span>,all
-<span style="color: #b22222;">!@@ -- BCs, Loads --</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0
-<span style="color: #a020f0;">d</span>,all,all
-<span style="color: #a020f0;">nsel</span>,s,loc,x,1
-<span style="color: #a020f0;">d</span>,all,uy,-.1
-<span style="color: #a020f0;">allsel</span>
-<span style="color: #a020f0;">save</span>
-<span style="color: #b22222;">!@ --- Solving ---</span>
-<span style="color: #a020f0;">/solu</span>
-<span style="color: #a020f0;">solve</span>
-<span style="color: #b22222;">!@ --- Postprocessing --</span>
-<span style="color: #a020f0;">/post1</span>
-<span style="color: #a020f0;">plnsol</span>,u,sum,2
+<pre class="src src-ansys">!! "M-x ansys-skeleton-structural-template" for insertion instead of
+!! previewing. (You can insert a template with "C-u C-c C-s" as well.)
+!! ------------------------------
+!@ --- file header ---
+!! ------------------------------
+!! Time-stamp: &lt;Sat Jun 23 02:47:11 2012&gt;
+!! ANSYS VERSION: 140
+!! UNITS: mm-t-s
+!! NOTE: template example
+!! ------------------------------
+! fini
+! /clear
+! y
+/units,mpa !indicate mm-t-s unit system
+!@ --- Preprocessing ---
+/prep7
+!@@ -- Elements --
+Steel = 1
+ID = Steel
+real = Steel
+et,ID,solid186 !3d, 20 node
+!@@ -- Material --
+mp,nuxy,Steel,0.3 ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+!@@ -- Modeling --
+block,0,1,0,1,0,1
+!@@ -- Meshing --
+vmesh,all
+!@@ -- BCs, Loads --
+nsel,s,loc,x,0
+d,all,all
+nsel,s,loc,x,1
+d,all,uy,-.1
+allsel
+save
+!@ --- Solving ---
+/solu
+solve
+!@ --- Postprocessing --
+/post1
+plnsol,u,sum,2
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Insert below the following line `ansys-skeleton-outline-template'!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Insert below the following line `ansys-skeleton-outline-template'!
+!!
 </pre>
 </div>
 <p>
@@ -512,102 +512,102 @@ The idea is to have a skeleton for starting a new APDL project.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Insert below the following line `ansys-skeleton-outline-template'!</span>
-<span style="color: #b22222;">!! </span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Header ---</span>
-<span style="color: #b22222;">!@ ==============================</span>
+<pre class="src src-ansys">!! Insert below the following line `ansys-skeleton-outline-template'!
+!! 
+!@ ==============================
+!@ --- Header ---
+!@ ==============================
 
-<span style="color: #b22222;">!! FILENAME: /home/dieter/ansys-mode/trunk/APDL_tutorial.ansys</span>
-<span style="color: #b22222;">!! CREATION DATE: Tue Jun 26 01:02:07 2012</span>
-<span style="color: #b22222;">!! ANSYS VERSION: 140</span>
-<span style="color: #b22222;">!! DESCRIPTION: outline example</span>
+!! FILENAME: /home/dieter/ansys-mode/trunk/APDL_tutorial.ansys
+!! CREATION DATE: Tue Jun 26 01:02:07 2012
+!! ANSYS VERSION: 140
+!! DESCRIPTION: outline example
 
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Setup ---</span>
-<span style="color: #b22222;">!@ ==============================</span>
+!@ ==============================
+!@ --- Setup ---
+!@ ==============================
 
-<span style="color: #a020f0;">finish</span> 
+finish 
 
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Preprocessing --- </span>
-<span style="color: #b22222;">!@ ==============================</span>
+!@ ==============================
+!@ --- Preprocessing --- 
+!@ ==============================
 
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- Cad Import -- </span>
-<span style="color: #b22222;">!! ------------------------------</span>
+!@ ------------------------------
+!@@ -- Cad Import -- 
+!! ------------------------------
 
-<span style="color: #b22222;">!! /aux15</span>
+!! /aux15
 
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- General Preprocessing -- </span>
-<span style="color: #b22222;">!! ------------------------------</span>
+!@ ------------------------------
+!@@ -- General Preprocessing -- 
+!! ------------------------------
 
-<span style="color: #a020f0;">/prep7</span>
+/prep7
 
-<span style="color: #b22222;">!! ..............................</span>
-<span style="color: #b22222;">!@@@ - Materials and element types -</span>
-<span style="color: #b22222;">!! ..............................</span>
+!! ..............................
+!@@@ - Materials and element types -
+!! ..............................
 
-<span style="color: #b22222;">!! --- Solids ---</span>
+!! --- Solids ---
 
-<span style="color: #b22222;">!! --- Contacts ---</span>
+!! --- Contacts ---
 
-<span style="color: #b22222;">!! ..............................</span>
-<span style="color: #b22222;">!@@@ - Geometry -</span>
-<span style="color: #b22222;">!! ..............................</span>
+!! ..............................
+!@@@ - Geometry -
+!! ..............................
 
-<span style="color: #b22222;">!! ..............................</span>
-<span style="color: #b22222;">!@@@ - Meshing -</span>
-<span style="color: #b22222;">!! ..............................</span>
+!! ..............................
+!@@@ - Meshing -
+!! ..............................
 
-<span style="color: #b22222;">!! ..............................</span>
-<span style="color: #b22222;">!@@@ - Boundary conditions -</span>
-<span style="color: #b22222;">!! ..............................</span>
+!! ..............................
+!@@@ - Boundary conditions -
+!! ..............................
 
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Solution --- </span>
-<span style="color: #b22222;">!@ ==============================</span>
+!@ ==============================
+!@ --- Solution --- 
+!@ ==============================
 
-<span style="color: #a020f0;">/solu</span>
-<span style="color: #a020f0;">allsel</span>
+/solu
+allsel
 
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ --  Solution controls -- </span>
-<span style="color: #b22222;">!! ------------------------------</span>
+!@ ------------------------------
+!@@ --  Solution controls -- 
+!! ------------------------------
 
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Postprocessing ---</span>
-<span style="color: #b22222;">!@ ==============================</span>
+!@ ==============================
+!@ --- Postprocessing ---
+!@ ==============================
 
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- General Postprocessing -- </span>
-<span style="color: #b22222;">!! ------------------------------</span>
+!@ ------------------------------
+!@@ -- General Postprocessing -- 
+!! ------------------------------
 
-<span style="color: #a020f0;">/post1</span>
+/post1
 
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- Time-History Postprocessing --</span>
-<span style="color: #b22222;">!! ------------------------------</span>
+!@ ------------------------------
+!@@ -- Time-History Postprocessing --
+!! ------------------------------
 
-<span style="color: #a020f0;">/post26</span>
+/post26
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-unnumbered-18" class="outline-4">
-<h4 id="unnumbered-18">Extend or create a template</h4>
-<div class="outline-text-4" id="text-unnumbered-18">
+<div id="outline-container-sec-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4">Extend or create a template</h4>
+<div class="outline-text-4" id="text-3-2-4">
 <p>
 Check out the code for a template, the Emacs self-documenting help
 principle will guide you to its definition file.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-h f" for Emacs' function help and write</span>
-<span style="color: #b22222;">!! "ansys-skeleton-structural-template" (let Emacs complete it)!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-h f" for Emacs' function help and write
+!! "ansys-skeleton-structural-template" (let Emacs complete it)!
+!!
 </pre>
 </div>
 <p>
@@ -615,8 +615,8 @@ May the source be with you!
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! In the </span><span style="color: #b22222;">*help* window follow the link to the source file</span>
-<span style="color: #b22222;">!! directly to the relevant skeleton function.</span>
+<pre class="src src-ansys">!! In the *help* window follow the link to the source file
+!! directly to the relevant skeleton function.
 </pre>
 </div>
 <p>
@@ -625,18 +625,18 @@ You can modify, extend or create new code to your hearts content.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-19" class="outline-3">
-<h3 id="unnumbered-19">Outline and folding your code</h3>
-<div class="outline-text-3" id="text-unnumbered-19">
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">Outline and folding your code</h3>
+<div class="outline-text-3" id="text-3-3">
 <p>
 !@, !@@, !@@@ are the heading indicators
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c @ C-t" to collapse the code to its headings</span>
-<span style="color: #b22222;">!! Type "C-c @ C-e" to show a certain entry of a heading</span>
-<span style="color: #b22222;">!! Type "C-c @ C-a" to show all again</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c @ C-t" to collapse the code to its headings
+!! Type "C-c @ C-e" to show a certain entry of a heading
+!! Type "C-c @ C-a" to show all again
+!!
 </pre>
 </div>
 <p>
@@ -644,35 +644,35 @@ Helpful to get an overview of large APDL file.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Header ---</span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Setup ---</span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Preprocessing --- </span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- Cad Import --...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- General Preprocessing -- ...</span>
-<span style="color: #b22222;">!@@@ - Materials and element types -...</span>
-<span style="color: #b22222;">!@@@ - Geometry -...</span>
-<span style="color: #b22222;">!@@@ - Meshing -...</span>
-<span style="color: #b22222;">!@@@ - Boundary conditions -...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Solution --- </span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ --  Solution controls -- ...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Postprocessing ---</span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- General Postprocessing -- ...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- Time-History Postprocessing --...</span>
+<pre class="src src-ansys">!@ ==============================
+!@ --- Header ---
+!@ ==============================...
+!@ ==============================
+!@ --- Setup ---
+!@ ==============================...
+!@ ==============================
+!@ --- Preprocessing --- 
+!@ ==============================...
+!@ ------------------------------
+!@@ -- Cad Import --...
+!@ ------------------------------
+!@@ -- General Preprocessing -- ...
+!@@@ - Materials and element types -...
+!@@@ - Geometry -...
+!@@@ - Meshing -...
+!@@@ - Boundary conditions -...
+!@ ==============================
+!@ --- Solution --- 
+!@ ==============================...
+!@ ------------------------------
+!@@ --  Solution controls -- ...
+!@ ==============================
+!@ --- Postprocessing ---
+!@ ==============================...
+!@ ------------------------------
+!@@ -- General Postprocessing -- ...
+!@ ------------------------------
+!@@ -- Time-History Postprocessing --...
 </pre>
 </div>
 <p>
@@ -680,39 +680,39 @@ Open now one entry with <b>C-c @ C-e</b> (in a line with 3 dots)
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Header ---</span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Setup ---</span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Preprocessing --- </span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- Cad Import --...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- General Preprocessing -- ...</span>
-<span style="color: #b22222;">!@@@ - Materials and element types -...</span>
-<span style="color: #b22222;">!@@@ - Geometry -...</span>
-<span style="color: #b22222;">!@@@ - Meshing -...</span>
-<span style="color: #b22222;">!@@@ - Boundary conditions -...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Solution --- </span>
-<span style="color: #b22222;">!@ ==============================</span>
+<pre class="src src-ansys">!@ ==============================
+!@ --- Header ---
+!@ ==============================...
+!@ ==============================
+!@ --- Setup ---
+!@ ==============================...
+!@ ==============================
+!@ --- Preprocessing --- 
+!@ ==============================...
+!@ ------------------------------
+!@@ -- Cad Import --...
+!@ ------------------------------
+!@@ -- General Preprocessing -- ...
+!@@@ - Materials and element types -...
+!@@@ - Geometry -...
+!@@@ - Meshing -...
+!@@@ - Boundary conditions -...
+!@ ==============================
+!@ --- Solution --- 
+!@ ==============================
 
-<span style="color: #a020f0;">/solu</span>
-<span style="color: #a020f0;">allsel</span>
+/solu
+allsel
 
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ --  Solution controls -- ...</span>
-<span style="color: #b22222;">!@ ==============================</span>
-<span style="color: #b22222;">!@ --- Postprocessing ---</span>
-<span style="color: #b22222;">!@ ==============================...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- General Postprocessing -- ...</span>
-<span style="color: #b22222;">!@ ------------------------------</span>
-<span style="color: #b22222;">!@@ -- Time-History Postprocessing --...</span>
+!@ ------------------------------
+!@@ --  Solution controls -- ...
+!@ ==============================
+!@ --- Postprocessing ---
+!@ ==============================...
+!@ ------------------------------
+!@@ -- General Postprocessing -- ...
+!@ ------------------------------
+!@@ -- Time-History Postprocessing --...
 </pre>
 </div>
 <p>
@@ -720,17 +720,17 @@ In above example it was the entry below the `Solution' heading.
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-20" class="outline-3">
-<h3 id="unnumbered-20">Comments</h3>
-<div class="outline-text-3" id="text-unnumbered-20">
-</div><div id="outline-container-unnumbered-21" class="outline-4">
-<h4 id="unnumbered-21">Place comments</h4>
-<div class="outline-text-4" id="text-unnumbered-21">
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4">Comments</h3>
+<div class="outline-text-3" id="text-3-4">
+</div><div id="outline-container-sec-3-4-1" class="outline-4">
+<h4 id="sec-3-4-1">Place comments</h4>
+<div class="outline-text-4" id="text-3-4-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-;" in the empty line below the code</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">*if</span>,I,eq,2,then
+<pre class="src src-ansys">!! Type "M-;" in the empty line below the code
+!!
+*if,I,eq,2,then
 </pre>
 </div>
 <p>
@@ -739,22 +739,22 @@ right indentation
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-;" in the empty line below the code</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">*if</span>,I,eq,2,then
-  <span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "M-;" in the empty line below the code
+!!
+*if,I,eq,2,then
+  !!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-22" class="outline-4">
-<h4 id="unnumbered-22">Commenting out</h4>
-<div class="outline-text-4" id="text-unnumbered-22">
+<div id="outline-container-sec-3-4-2" class="outline-4">
+<h4 id="sec-3-4-2">Commenting out</h4>
+<div class="outline-text-4" id="text-3-4-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Mark some text above (e. g. dragging the mouse with LMB or you</span>
-<span style="color: #b22222;">!! can mark the section with "M-h") and then type "M-;"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Mark some text above (e. g. dragging the mouse with LMB or you
+!! can mark the section with "M-h") and then type "M-;"
+!!
 </pre>
 </div>
 <p>
@@ -763,20 +763,20 @@ code should look like the following
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! !! Type "M-;" in the empty line below</span>
-<span style="color: #b22222;">!! *if,I,eq,2,then</span>
-<span style="color: #b22222;">!!   !!</span>
+<pre class="src src-ansys">!! !! Type "M-;" in the empty line below
+!! *if,I,eq,2,then
+!!   !!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-23" class="outline-4">
-<h4 id="unnumbered-23">Uncomment the code</h4>
-<div class="outline-text-4" id="text-unnumbered-23">
+<div id="outline-container-sec-3-4-3" class="outline-4">
+<h4 id="sec-3-4-3">Uncomment the code</h4>
+<div class="outline-text-4" id="text-3-4-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Mark above commented out code and retype "M-;"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Mark above commented out code and retype "M-;"
+!!
 </pre>
 </div>
 <p>
@@ -784,21 +784,21 @@ Here we are again
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-;" in the empty line below</span>
-<span style="color: #a020f0;">*if</span>,I,eq,2,then
-  <span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "M-;" in the empty line below
+*if,I,eq,2,then
+  !!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-24" class="outline-4">
-<h4 id="unnumbered-24">Place inline comments</h4>
-<div class="outline-text-4" id="text-unnumbered-24">
+<div id="outline-container-sec-3-4-4" class="outline-4">
+<h4 id="sec-3-4-4">Place inline comments</h4>
+<div class="outline-text-4" id="text-3-4-4">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-;" somewhere in the following code line</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0,1
+<pre class="src src-ansys">!! Type "M-;" somewhere in the following code line
+!!
+nsel,s,loc,x,0,1
 </pre>
 </div>
 <p>
@@ -807,16 +807,16 @@ Here we are again
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-;" somewhere in the following code line</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0,1         <span style="color: #b22222;">!this is an `inline comment'</span>
+<pre class="src src-ansys">!! Type "M-;" somewhere in the following code line
+!!
+nsel,s,loc,x,0,1         !this is an `inline comment'
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor in this line and type "M-;"</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0,1<span style="color: #b22222;">!another inline comment</span>
+<pre class="src src-ansys">!! Place the cursor in this line and type "M-;"
+!!
+nsel,s,loc,x,0,1!another inline comment
 </pre>
 </div>
 <p>
@@ -825,9 +825,9 @@ to the comment beginning.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor in this line and type "M-;"</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0,1         <span style="color: #b22222;">!another inline comment</span>
+<pre class="src src-ansys">!! Place the cursor in this line and type "M-;"
+!!
+nsel,s,loc,x,0,1         !another inline comment
 </pre>
 </div>
 <p>
@@ -835,38 +835,38 @@ Is this not nicely thought out from Emacs' developers, is it?
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-25" class="outline-4">
-<h4 id="unnumbered-25">Continue and indent your comments</h4>
-<div class="outline-text-4" id="text-unnumbered-25">
-</div><div id="outline-container-unnumbered-26" class="outline-5">
-<h5 id="unnumbered-26">In inline comments</h5>
-<div class="outline-text-5" id="text-unnumbered-26">
+<div id="outline-container-sec-3-4-5" class="outline-4">
+<h4 id="sec-3-4-5">Continue and indent your comments</h4>
+<div class="outline-text-4" id="text-3-4-5">
+</div><div id="outline-container-sec-3-4-5-1" class="outline-5">
+<h5 id="sec-3-4-5-1">In inline comments</h5>
+<div class="outline-text-5" id="text-3-4-5-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-j" behind the inline comment</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0,1         <span style="color: #b22222;">! this is an `inline comment'</span>
+<pre class="src src-ansys">!! Type "M-j" behind the inline comment
+!!
+nsel,s,loc,x,0,1         ! this is an `inline comment'
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "M-j" behind the inline comment</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">nsel</span>,s,loc,x,0,1         <span style="color: #b22222;">! this is an `inline comment'</span>
-                         <span style="color: #b22222;">! continued above comment</span>
+<pre class="src src-ansys">!! Type "M-j" behind the inline comment
+!!
+nsel,s,loc,x,0,1         ! this is an `inline comment'
+			 ! continued above comment
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-27" class="outline-5">
-<h5 id="unnumbered-27">In regular comments</h5>
-<div class="outline-text-5" id="text-unnumbered-27">
+<div id="outline-container-sec-3-4-5-2" class="outline-5">
+<h5 id="sec-3-4-5-2">In regular comments</h5>
+<div class="outline-text-5" id="text-3-4-5-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">*if</span>,I,eq,1,then
-  <span style="color: #b22222;">!! Type "M-j" behind this line</span>
-<span style="color: #a020f0;">*endif</span>
-<span style="color: #b22222;">!! Emacs will break the line, insert and indent properly comment characters</span>
+<pre class="src src-ansys">*if,I,eq,1,then
+  !! Type "M-j" behind this line
+*endif
+!! Emacs will break the line, insert and indent properly comment characters
 </pre>
 </div>
 <p>
@@ -875,34 +875,34 @@ within logical block structures.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">*if</span>,I,eq,1,then
-  <span style="color: #b22222;">!! Type "M-j" behind this line</span>
-  <span style="color: #b22222;">!! </span>
-<span style="color: #a020f0;">*endif</span>
+<pre class="src src-ansys">*if,I,eq,1,then
+  !! Type "M-j" behind this line
+  !! 
+*endif
 </pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-28" class="outline-3">
-<h3 id="unnumbered-28">Check out ANSYS-Mode's built-in documentation</h3>
-<div class="outline-text-3" id="text-unnumbered-28">
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5">Check out ANSYS-Mode's built-in documentation</h3>
+<div class="outline-text-3" id="text-3-5">
 <p>
 It is allways with you.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-h m" for reading the built-in mode help</span>
-<span style="color: #b22222;">!! search for the section with its keybindings!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-h m" for reading the built-in mode help
+!! search for the section with its keybindings!
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-29" class="outline-3">
-<h3 id="unnumbered-29">APDL variable listing</h3>
-<div class="outline-text-3" id="text-unnumbered-29">
+<div id="outline-container-sec-3-6" class="outline-3">
+<h3 id="sec-3-6">APDL variable listing</h3>
+<div class="outline-text-3" id="text-3-6">
 <p>
 The listing is an alternative to the `*status' command and includes
 also implicit definitions (*vget, etc.) and component names and the
@@ -910,9 +910,9 @@ respective line No.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-v" for a summary window of variable definitions</span>
-<span style="color: #b22222;">!! This includes also implicit definitions and component names</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c C-v" for a summary window of variable definitions
+!! This includes also implicit definitions and component names
+!!
 </pre>
 </div>
 
@@ -923,9 +923,9 @@ respective line No.
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-30" class="outline-3">
-<h3 id="unnumbered-30">Align your variable definitions</h3>
-<div class="outline-text-3" id="text-unnumbered-30">
+<div id="outline-container-sec-3-7" class="outline-3">
+<h3 id="sec-3-7">Align your variable definitions</h3>
+<div class="outline-text-3" id="text-3-7">
 
 <div class="figure">
 <p><img src="./alignment.png" alt="alignment.png" />
@@ -934,24 +934,24 @@ respective line No.
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor on the following section and type "C-c C-a"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Place the cursor on the following section and type "C-c C-a"
+!!
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">x</span>=0.4<span style="color: #b22222;">!laskd</span>
-<span style="color: #a0522d;">y</span>= 33.0     <span style="color: #b22222;">! alskdl</span>
-<span style="color: #a0522d;">xzv</span>= 9999990.3      <span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">llk</span> = 0.333333333 <span style="color: #b22222;">!bla</span>
-<span style="color: #a0522d;">al_</span>=  00.40
-<span style="color: #a0522d;">aslfoeas</span> = 304
-<span style="color: #a0522d;">ka</span>= .4      <span style="color: #b22222;">!salkd</span>
-<span style="color: #a0522d;">i</span> = 4.              <span style="color: #b22222;">!as</span>
-<span style="color: #a0522d;">kasd</span>=.3/0.4
-<span style="color: #a0522d;">kasd</span> =3./0.4
-<span style="color: #a0522d;">xxx</span> =<span style="color: #0000ff;">asin</span>(3.0)
-<span style="color: #a0522d;">y</span> = <span style="color: #0000ff;">cos</span>(i)
+<pre class="src src-ansys">x=0.4!laskd
+y= 33.0     ! alskdl
+xzv= 9999990.3      !!
+llk = 0.333333333 !bla
+al_=  00.40
+aslfoeas = 304
+ka= .4      !salkd
+i = 4.              !as
+kasd=.3/0.4
+kasd =3./0.4
+xxx =asin(3.0)
+y = cos(i)
 </pre>
 </div>
 <p>
@@ -965,40 +965,40 @@ nifty it will look with <b>your</b> code!
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">x</span>        =       0.4         <span style="color: #b22222;">!laskd</span>
-<span style="color: #a0522d;">y</span>        =      33.0         <span style="color: #b22222;">! alskdl</span>
-<span style="color: #a0522d;">xzv</span>      = 9999990.3         <span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">llk</span>      =       0.333333333 <span style="color: #b22222;">!bla</span>
-<span style="color: #a0522d;">al_</span>      =      00.40
-<span style="color: #a0522d;">aslfoeas</span> =     304
-<span style="color: #a0522d;">ka</span>       =        .4         <span style="color: #b22222;">!salkd</span>
-<span style="color: #a0522d;">i</span>        =       4.          <span style="color: #b22222;">!as</span>
-<span style="color: #a0522d;">kasd</span>     =        .3/0.4
-<span style="color: #a0522d;">kasd</span>     =       3./0.4
-<span style="color: #a0522d;">xxx</span>      =        <span style="color: #0000ff;">asin</span>(3.0)
-<span style="color: #a0522d;">y</span>        =        <span style="color: #0000ff;">cos</span>(i)
+<pre class="src src-ansys">x        =       0.4         !laskd
+y        =      33.0         ! alskdl
+xzv      = 9999990.3         !!
+llk      =       0.333333333 !bla
+al_      =      00.40
+aslfoeas =     304
+ka       =        .4         !salkd
+i        =       4.          !as
+kasd     =        .3/0.4
+kasd     =       3./0.4
+xxx      =        asin(3.0)
+y        =        cos(i)
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Mark only a PART of following section and type "C-c C-a"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Mark only a PART of following section and type "C-c C-a"
+!!
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">x</span>=0.4<span style="color: #b22222;">!laskd</span>
-<span style="color: #a0522d;">y</span>= 33.0     <span style="color: #b22222;">! alskdl</span>
-<span style="color: #a0522d;">xzv</span>= 9999990.3      <span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">llk</span> = 0.333333333 <span style="color: #b22222;">!bla</span>
-<span style="color: #a0522d;">al_</span>=  00.40
-<span style="color: #a0522d;">aslfoeas</span> = 304
-<span style="color: #a0522d;">ka</span>= .4      <span style="color: #b22222;">!salkd</span>
-<span style="color: #a0522d;">i</span> = 4.              <span style="color: #b22222;">!as</span>
-<span style="color: #a0522d;">kasd</span>=.3/0.4
-<span style="color: #a0522d;">kasd</span> =3./0.4
-<span style="color: #a0522d;">xxx</span> =<span style="color: #0000ff;">asin</span>(3.0)
-<span style="color: #a0522d;">y</span> = <span style="color: #0000ff;">cos</span>(i)
+<pre class="src src-ansys">x=0.4!laskd
+y= 33.0     ! alskdl
+xzv= 9999990.3      !!
+llk = 0.333333333 !bla
+al_=  00.40
+aslfoeas = 304
+ka= .4      !salkd
+i = 4.              !as
+kasd=.3/0.4
+kasd =3./0.4
+xxx =asin(3.0)
+y = cos(i)
 </pre>
 </div>
 <p>
@@ -1006,35 +1006,35 @@ The result might look like this:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">x</span>=0.4<span style="color: #b22222;">!laskd</span>
-<span style="color: #a0522d;">y</span>= 33.0     <span style="color: #b22222;">! alskdl</span>
-<span style="color: #a0522d;">xzv</span>= 9999990.3      <span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">llk</span> = 0.333333333 <span style="color: #b22222;">!bla</span>
-<span style="color: #a0522d;">al_</span>=  00.40
-<span style="color: #a0522d;">aslfoeas</span> = 304
-<span style="color: #a0522d;">ka</span>       =    .4 <span style="color: #b22222;">!salkd</span>
-<span style="color: #a0522d;">i</span>        =   4.  <span style="color: #b22222;">!as</span>
-<span style="color: #a0522d;">kasd</span>     =    .3/0.4
-<span style="color: #a0522d;">kasd</span>     =   3./0.4
-<span style="color: #a0522d;">xxx</span> =<span style="color: #0000ff;">asin</span>(3.0)
-<span style="color: #a0522d;">y</span> = <span style="color: #0000ff;">cos</span>(i)
+<pre class="src src-ansys">x=0.4!laskd
+y= 33.0     ! alskdl
+xzv= 9999990.3      !!
+llk = 0.333333333 !bla
+al_=  00.40
+aslfoeas = 304
+ka       =    .4 !salkd
+i        =   4.  !as
+kasd     =    .3/0.4
+kasd     =   3./0.4
+xxx =asin(3.0)
+y = cos(i)
 </pre>
 </div>
 </div>
 </div>
 
-<div id="outline-container-unnumbered-31" class="outline-3">
-<h3 id="unnumbered-31">Completions (around 2000 ANSYS symbols)</h3>
-<div class="outline-text-3" id="text-unnumbered-31">
+<div id="outline-container-sec-3-8" class="outline-3">
+<h3 id="sec-3-8">Completions (around 2000 ANSYS symbols)</h3>
+<div class="outline-text-3" id="text-3-8">
 <p>
 Case sensitive completions except for mouse completion
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Check out all APDL symbols, up to date with the latest ANSYS version</span>
-<span style="color: #b22222;">!! Place the cursor behind the 'c' character below and type "&lt;ESC&gt; &lt;TAB&gt;"</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">c</span>
+<pre class="src src-ansys">!! Check out all APDL symbols, up to date with the latest ANSYS version
+!! Place the cursor behind the 'c' character below and type "&lt;ESC&gt; &lt;TAB&gt;"
+!!
+c
 </pre>
 </div>
 <p>
@@ -1049,8 +1049,8 @@ The completion window should look like the following:
 
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Let Emacs complete `cml' and apply (again) "M-?"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Let Emacs complete `cml' and apply (again) "M-?"
+!!
 cml
 </pre>
 </div>
@@ -1059,15 +1059,15 @@ Gives you the `cmlist' command
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Let Emacs complete `cml' and apply (again) "M-?"</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">cmlist</span>
+<pre class="src src-ansys">!! Let Emacs complete `cml' and apply (again) "M-?"
+!!
+cmlist
 </pre>
 </div>
 </div>
-<div id="outline-container-unnumbered-32" class="outline-4">
-<h4 id="unnumbered-32">Completion of functions</h4>
-<div class="outline-text-4" id="text-unnumbered-32">
+<div id="outline-container-sec-3-8-1" class="outline-4">
+<h4 id="sec-3-8-1">Completion of functions</h4>
+<div class="outline-text-4" id="text-3-8-1">
 <p>
     Completed function names have parentheses appended
 #+begin_src ansys
@@ -1090,9 +1090,9 @@ Gives you the `cmlist' command
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-33" class="outline-4">
-<h4 id="unnumbered-33">Completion of elements</h4>
-<div class="outline-text-4" id="text-unnumbered-33">
+<div id="outline-container-sec-3-8-2" class="outline-4">
+<h4 id="sec-3-8-2">Completion of elements</h4>
+<div class="outline-text-4" id="text-3-8-2">
 <p>
 ANSYS-Mode also complets ANSYS deprecated element names but warns you
 with a distinct highlighting!
@@ -1104,9 +1104,9 @@ with a distinct highlighting!
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-34" class="outline-4">
-<h4 id="unnumbered-34">Completion of commands</h4>
-<div class="outline-text-4" id="text-unnumbered-34">
+<div id="outline-container-sec-3-8-3" class="outline-4">
+<h4 id="sec-3-8-3">Completion of commands</h4>
+<div class="outline-text-4" id="text-3-8-3">
 <p>
 #+begin_src ansys
   !! Completion of command names: type "&lt;ESC&gt; &lt;TAB&gt;" behind `a'
@@ -1120,21 +1120,21 @@ with a distinct highlighting!
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-35" class="outline-4">
-<h4 id="unnumbered-35">Dynamic completion</h4>
-<div class="outline-text-4" id="text-unnumbered-35">
+<div id="outline-container-sec-3-8-4" class="outline-4">
+<h4 id="sec-3-8-4">Dynamic completion</h4>
+<div class="outline-text-4" id="text-3-8-4">
 <p>
 Is a completion on the basis of the window's content, the
 following example will demonstrate what this means.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! some code...</span>
-<span style="color: #a0522d;">very_long_Variable</span> = 3
-<span style="color: #a0522d;">vlV</span> = 8
-<span style="color: #b22222;">!! type "M-/" repeatedly behind below character `v'</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">v</span>
+<pre class="src src-ansys">!! some code...
+very_long_Variable = 3
+vlV = 8
+!! type "M-/" repeatedly behind below character `v'
+!!
+v
 </pre>
 </div>
 <p>
@@ -1142,8 +1142,8 @@ After typing the first time <b>M-/</b>:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! type "M-/" repeatedly behind below character `v'</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! type "M-/" repeatedly behind below character `v'
+!!
 vlV
 </pre>
 </div>
@@ -1157,27 +1157,27 @@ After typing the second time <b>M-/</b>:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! type "M-/" repeatedly behind below character `v'</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! type "M-/" repeatedly behind below character `v'
+!!
 very_long_Variable
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-36" class="outline-3">
-<h3 id="unnumbered-36">Abbreviations facility</h3>
-<div class="outline-text-3" id="text-unnumbered-36">
-</div><div id="outline-container-unnumbered-37" class="outline-4">
-<h4 id="unnumbered-37">Use the ANSYS-Mode defined abbreviations</h4>
-<div class="outline-text-4" id="text-unnumbered-37">
+<div id="outline-container-sec-3-9" class="outline-3">
+<h3 id="sec-3-9">Abbreviations facility</h3>
+<div class="outline-text-3" id="text-3-9">
+</div><div id="outline-container-sec-3-9-1" class="outline-4">
+<h4 id="sec-3-9-1">Use the ANSYS-Mode defined abbreviations</h4>
+<div class="outline-text-4" id="text-3-9-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! type a &lt;SPACE&gt; behind the special character ``' and abbreviation characters</span>
-<span style="color: #b22222;">!!</span>
-`p                      <span style="color: #b22222;">! The Pi assignment abbreviation</span>
-`d                      <span style="color: #b22222;">! Abbreviation of a </span><span style="color: #b22222;">*do loop</span>
-`do                     <span style="color: #b22222;">! Interactive </span><span style="color: #b22222;">*do loop abbrev.</span>
+<pre class="src src-ansys">!! type a &lt;SPACE&gt; behind the special character ``' and abbreviation characters
+!!
+`p                      ! The Pi assignment abbreviation
+`d                      ! Abbreviation of a *do loop
+`do                     ! Interactive *do loop abbrev.
 </pre>
 </div>
 <p>
@@ -1185,21 +1185,21 @@ The abbreviations expand to:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! type a &lt;SPACE&gt; behind the special character ``' and abbreviation characters</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">Pi</span>=3.14159265359
-<span style="color: #b22222;">! This is the Pi assignment</span>
-<span style="color: #a020f0;">*do</span>,I,1,10,1
+<pre class="src src-ansys">!! type a &lt;SPACE&gt; behind the special character ``' and abbreviation characters
+!!
+Pi=3.14159265359
+! This is the Pi assignment
+*do,I,1,10,1
 
-<span style="color: #a020f0;">*cycle</span> <span style="color: #b22222;">!bypass below commands in </span><span style="color: #b22222;">*do loop</span>
-<span style="color: #a020f0;">*enddo</span>
+*cycle !bypass below commands in *do loop
+*enddo
 
-<span style="color: #b22222;">! Abbreviation of a </span><span style="color: #b22222;">*do loop</span>
-<span style="color: #a020f0;">*do</span>,I,1,,1
+! Abbreviation of a *do loop
+*do,I,1,,1
 
-<span style="color: #a020f0;">*enddo</span>
+*enddo
 
-<span style="color: #b22222;">! Interactive </span><span style="color: #b22222;">*do loop abbrev.</span>
+! Interactive *do loop abbrev.
 </pre>
 </div>
 <p>
@@ -1208,34 +1208,34 @@ all (locally) defined abbreviations with <b>C-u M-x list-abbrevs</b>
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type a "C-u M-x list-abbrevs" for a list of all mode defined abbreviations</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type a "C-u M-x list-abbrevs" for a list of all mode defined abbreviations
+!!
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-38" class="outline-3">
-<h3 id="unnumbered-38">Logical blocks</h3>
-<div class="outline-text-3" id="text-unnumbered-38">
+<div id="outline-container-sec-3-10" class="outline-3">
+<h3 id="sec-3-10">Logical blocks</h3>
+<div class="outline-text-3" id="text-3-10">
 <p>
 or control statements in "lesser" programming languages ;-)
 </p>
 </div>
-<div id="outline-container-unnumbered-39" class="outline-4">
-<h4 id="unnumbered-39">Closing of logical blocks</h4>
-<div class="outline-text-4" id="text-unnumbered-39">
+<div id="outline-container-sec-3-10-1" class="outline-4">
+<h4 id="sec-3-10-1">Closing of logical blocks</h4>
+<div class="outline-text-4" id="text-3-10-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor below or behind the block statements and type "C-c ]"!</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">*if</span>,1,eq,1,then
+<pre class="src src-ansys">!! Place the cursor below or behind the block statements and type "C-c ]"!
+!!
+*if,1,eq,1,then
 
-<span style="color: #a020f0;">*do</span>,1,10
+*do,1,10
 
-<span style="color: #a020f0;">*dowhile</span>,1
+*dowhile,1
 
-<span style="color: #a020f0;">*create</span>,test,mac
+*create,test,mac
 </pre>
 </div>
 <p>
@@ -1243,36 +1243,36 @@ Voila for every logical block type the proper closing statements:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor in the empty lines and type "C-c ]"!</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">*if</span>,1,eq,1,then
-<span style="color: #a020f0;">*endif</span>
-<span style="color: #a020f0;">*do</span>,1,10
-<span style="color: #a020f0;">*enddo</span>
-<span style="color: #a020f0;">*dowhile</span>,1
-<span style="color: #a020f0;">*enddo</span>
-<span style="color: #a020f0;">*create</span>,test,mac
-<span style="color: #a020f0;">*end</span>
+<pre class="src src-ansys">!! Place the cursor in the empty lines and type "C-c ]"!
+!!
+*if,1,eq,1,then
+*endif
+*do,1,10
+*enddo
+*dowhile,1
+*enddo
+*create,test,mac
+*end
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-40" class="outline-4">
-<h4 id="unnumbered-40">Auto-indentation</h4>
-<div class="outline-text-4" id="text-unnumbered-40">
+<div id="outline-container-sec-3-10-2" class="outline-4">
+<h4 id="sec-3-10-2">Auto-indentation</h4>
+<div class="outline-text-4" id="text-3-10-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Insert in between the following block e. g. a `*do' statement!</span>
-<span style="color: #b22222;">!! Conclude the line(s) with "C-j" to receive an automatic indentation.</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Insert in between the following block e. g. a `*do' statement!
+!! Conclude the line(s) with "C-j" to receive an automatic indentation.
+!!
 </pre>
 </div>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">*if</span>,I,eq,1,then
+<pre class="src src-ansys">*if,I,eq,1,then
 
-  <span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;">well well</span>
-<span style="color: #a020f0;">*endif</span>
+  /title,well well
+*endif
 </pre>
 </div>
 <p>
@@ -1281,20 +1281,20 @@ The line is indented too (don't forget to apply the shortcut <b>C-c
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">*if</span>,I,eq,1,then
-  <span style="color: #a020f0;">*if</span>,J,eq,2,then
-    <span style="color: #a020f0;">/com</span>,<span style="color: #8b2252;">the line is indented, close it with "C-c ]"</span>
-  <span style="color: #a020f0;">*endif</span>
-  <span style="color: #a020f0;">/title</span>,<span style="color: #8b2252;">well well</span>
-<span style="color: #a020f0;">*endif</span>
+<pre class="src src-ansys">*if,I,eq,1,then
+  *if,J,eq,2,then
+    /com,the line is indented, close it with "C-c ]"
+  *endif
+  /title,well well
+*endif
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-41" class="outline-3">
-<h3 id="unnumbered-41">Use the Emacs integrated RPN Calculator</h3>
-<div class="outline-text-3" id="text-unnumbered-41">
+<div id="outline-container-sec-3-11" class="outline-3">
+<h3 id="sec-3-11">Use the Emacs integrated RPN Calculator</h3>
+<div class="outline-text-3" id="text-3-11">
 <p>
 RPN means Reversed Polish Notation, HP calculators are using this
 arguably superior input convention.  Please read the `Calc'
@@ -1314,11 +1314,11 @@ directly into the APDL file. <b>q</b> to quit the 'Emacs Calc' windows.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor behind the equal sign and type "C-x </span><span style="color: #b22222;">* *"!</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">Pi</span> = 
-<span style="color: #b22222;">!! Type "P" (capital `p') in `Calc' and paste the value back into</span>
-<span style="color: #b22222;">!! your APDL code with the &lt;y&gt; key, quit Calc with &lt;q&gt;.</span>
+<pre class="src src-ansys">!! Place the cursor behind the equal sign and type "C-x * *"!
+!!
+Pi = 
+!! Type "P" (capital `p') in `Calc' and paste the value back into
+!! your APDL code with the &lt;y&gt; key, quit Calc with &lt;q&gt;.
 </pre>
 </div>
 <p>
@@ -1326,10 +1326,10 @@ You are receiving
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor behind the equal sign and type "C-x </span><span style="color: #b22222;">* *"!</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">Pi</span> = 3.14159265359
-<span style="color: #b22222;">!! Type "P" (capital p) in `Calc' and paste the value back into</span>
+<pre class="src src-ansys">!! Place the cursor behind the equal sign and type "C-x * *"!
+!!
+Pi = 3.14159265359
+!! Type "P" (capital p) in `Calc' and paste the value back into
 </pre>
 </div>
 <p>
@@ -1337,9 +1337,9 @@ You might round the input
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "df" in Calc for `display fixed' and then &lt;3&gt; before pasting</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">Pi</span> =
+<pre class="src src-ansys">!! Type "df" in Calc for `display fixed' and then &lt;3&gt; before pasting
+!!
+Pi =
 </pre>
 </div>
 <p>
@@ -1347,9 +1347,9 @@ We are receiving now a more compact approximation of pi
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "df" in Calc for `display fixed' and then &lt;3&gt; before pasting</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">Pi</span> = 3.142
+<pre class="src src-ansys">!! Type "df" in Calc for `display fixed' and then &lt;3&gt; before pasting
+!!
+Pi = 3.142
 </pre>
 </div>
 <p>
@@ -1357,79 +1357,79 @@ I should have thought about a better example:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Maybe above example is not so relevant because many of you are just</span>
-<span style="color: #b22222;">!! using</span>
-<span style="color: #a0522d;">Pi</span> = <span style="color: #0000ff;">acos</span>(-1)
-<span style="color: #b22222;">!! instead, but I hope you are getting the idea why to use Calc ;-)</span>
+<pre class="src src-ansys">!! Maybe above example is not so relevant because many of you are just
+!! using
+Pi = acos(-1)
+!! instead, but I hope you are getting the idea why to use Calc ;-)
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-42" class="outline-3">
-<h3 id="unnumbered-42">Highlighting APDL specials</h3>
-<div class="outline-text-3" id="text-unnumbered-42">
+<div id="outline-container-sec-3-12" class="outline-3">
+<h3 id="sec-3-12">Highlighting APDL specials</h3>
+<div class="outline-text-3" id="text-3-12">
 <p>
 TODO! for this tutorial: Colour the code snippets. 
 </p>
 </div>
-<div id="outline-container-unnumbered-43" class="outline-4">
-<h4 id="unnumbered-43">Reserved words and _RETURN statements</h4>
-<div class="outline-text-4" id="text-unnumbered-43">
+<div id="outline-container-sec-3-12-1" class="outline-4">
+<h4 id="sec-3-12-1">Reserved words and _RETURN statements</h4>
+<div class="outline-text-4" id="text-3-12-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!!</span>
-<span style="color: #a0522d;">N</span> = <span style="color: #ff0000; font-weight: bold;">_RETURN</span>           <span style="color: #b22222;">! return value of certain commands</span>
-<span style="color: #ff0000; font-weight: bold;">_aaa</span> = 9              <span style="color: #b22222;">! reserved variables: preceding underscore "_"</span>
-<span style="color: #a020f0;">d</span>,1,ux,<span style="color: #228b22;">%</span><span style="color: #ff0000; font-weight: bold;">_FIX</span><span style="color: #228b22;">%</span>         <span style="color: #b22222;">! &#8220;current&#8221; relative displacement value</span>
-<span style="color: #a0522d;">Depth</span>  = <span style="color: #ff0000;">ARG1</span>         <span style="color: #b22222;">! ARG{1-9}, AR{10-19} = "*use" variables</span>
+<pre class="src src-ansys">!!
+N = _RETURN           ! return value of certain commands
+_aaa = 9              ! reserved variables: preceding underscore "_"
+d,1,ux,%_FIX%         ! “current” relative displacement value
+Depth  = ARG1         ! ARG{1-9}, AR{10-19} = "*use" variables
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-44" class="outline-4">
-<h4 id="unnumbered-44">Old style APDL comments</h4>
-<div class="outline-text-4" id="text-unnumbered-44">
+<div id="outline-container-sec-3-12-2" class="outline-4">
+<h4 id="sec-3-12-2">Old style APDL comments</h4>
+<div class="outline-text-4" id="text-3-12-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a0522d;">var1</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3 <span style="color: #b22222;">*5)) </span><span style="color: #b22222;">! old style Ansys comment!!!!!</span>
-<span style="color: #a0522d;">var2</span> = <span style="color: #0000ff;">sinh</span>(<span style="color: #0000ff;">cos</span>(3*5))  <span style="color: #b22222;">! this is valid code</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-45" class="outline-4">
-<h4 id="unnumbered-45">Ignored characters behind commands</h4>
-<div class="outline-text-4" id="text-unnumbered-45">
+<div id="outline-container-sec-3-12-3" class="outline-4">
+<h4 id="sec-3-12-3">Ignored characters behind commands</h4>
+<div class="outline-text-4" id="text-3-12-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">f</span> <span style="color: #228b22;">$</span> fi <span style="color: #228b22;">$</span> fin <span style="color: #228b22;">$</span> <span style="color: #a020f0;">fini</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finis</span>  <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">finish</span><span style="color: #008b8b;">er</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-46" class="outline-4">
-<h4 id="unnumbered-46">The End Of File command</h4>
-<div class="outline-text-4" id="text-unnumbered-46">
+<div id="outline-container-sec-3-12-4" class="outline-4">
+<h4 id="sec-3-12-4">The End Of File command</h4>
+<div class="outline-text-4" id="text-3-12-4">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="background-color: #ff0000;">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-47" class="outline-4">
-<h4 id="unnumbered-47">Current element types and deprecated elements</h4>
-<div class="outline-text-4" id="text-unnumbered-47">
+<div id="outline-container-sec-3-12-5" class="outline-4">
+<h4 id="sec-3-12-5">Current element types and deprecated elements</h4>
+<div class="outline-text-4" id="text-3-12-5">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! A current element type:</span>
-<span style="color: #a020f0;">et</span>,10,<span style="color: #483d8b;">solid186</span>
-<span style="color: #b22222;">!! deprecated element types:</span>
-<span style="color: #a020f0;">et</span>,Steel,<span style="color: #ff0000; font-weight: bold;">beam3</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,<span style="color: #ff0000; font-weight: bold;">shell91</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! A current element type:
+et,10,solid186
+!! deprecated element types:
+et,Steel,beam3 $ et,Alu,shell91
+!!
 </pre>
 </div>
 <p>
@@ -1437,9 +1437,9 @@ Let's change the element types to current ones!
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Complete the following element fragments to current ones!</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">et</span>,Steel,beam <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,shell
+<pre class="src src-ansys">!! Complete the following element fragments to current ones!
+!!
+et,Steel,beam $ et,Alu,shell
 </pre>
 </div>
 <p>
@@ -1447,7 +1447,7 @@ For example select the following elements
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #a020f0;">et</span>,Steel,<span style="color: #483d8b;">beam188</span> <span style="color: #228b22;">$</span> <span style="color: #a020f0;">et</span>,Alu,<span style="color: #483d8b;">shell28</span>
+<pre class="src src-ansys">et,Steel,beam188 $ et,Alu,shell28
 </pre>
 </div>
 <p>
@@ -1458,9 +1458,9 @@ and you are getting a diffent element highlighting.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-48" class="outline-2">
-<h2 id="unnumbered-48">APDL environment</h2>
-<div class="outline-text-2" id="text-unnumbered-48">
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">APDL environment</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 The APDL processing and debugging environment
   Finally switch off unnecessay stuff: Emacs' menu-, tool- and
@@ -1469,30 +1469,30 @@ The APDL processing and debugging environment
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Erase all APDL code above ("M-&lt; C-w")</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Erase all APDL code above ("M-&lt; C-w")
+!!
 </pre>
 </div>
 </div>
-<div id="outline-container-unnumbered-49" class="outline-3">
-<h3 id="unnumbered-49">Choose the license type for a run</h3>
-<div class="outline-text-3" id="text-unnumbered-49">
+<div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Choose the license type for a run</h3>
+<div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-t"!  And select the required license type Use the</span>
-<span style="color: #b22222;">!! &lt;TAB&gt; key to see the predefined types</span>
+<pre class="src src-ansys">!! Type "C-c C-t"!  And select the required license type Use the
+!! &lt;TAB&gt; key to see the predefined types
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-50" class="outline-3">
-<h3 id="unnumbered-50">Display the license status</h3>
-<div class="outline-text-3" id="text-unnumbered-50">
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">Display the license status</h3>
+<div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-l"!  Checking which licenses are free, in particular</span>
-<span style="color: #b22222;">!! your chosen license</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c C-l"!  Checking which licenses are free, in particular
+!! your chosen license
+!!
 </pre>
 </div>
 
@@ -1514,23 +1514,23 @@ thumbnail view of images from a folder.
 </div>
 </div>
 
-<div id="outline-container-unnumbered-51" class="outline-3">
-<h3 id="unnumbered-51">Start the ANSYS `solver/interpreter'</h3>
-<div class="outline-text-3" id="text-unnumbered-51">
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Start the ANSYS `solver/interpreter'</h3>
+<div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c RET"!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c RET"!
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-52" class="outline-3">
-<h3 id="unnumbered-52">Communication with the interpreter</h3>
-<div class="outline-text-3" id="text-unnumbered-52">
-</div><div id="outline-container-unnumbered-53" class="outline-4">
-<h4 id="unnumbered-53">Sending window (APDL file) contents</h4>
-<div class="outline-text-4" id="text-unnumbered-53">
+<div id="outline-container-sec-4-4" class="outline-3">
+<h3 id="sec-4-4">Communication with the interpreter</h3>
+<div class="outline-text-3" id="text-4-4">
+</div><div id="outline-container-sec-4-4-1" class="outline-4">
+<h4 id="sec-4-4-1">Sending window (APDL file) contents</h4>
+<div class="outline-text-4" id="text-4-4-1">
 <p>
 The window is called a buffer in Emacs terminology, when you are
 saveing the buffer content then it represents the file content.
@@ -1538,35 +1538,35 @@ To make everything unclear. ;-)
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Reinsert the `structural' template below</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Reinsert the `structural' template below
+!!
 </pre>
 </div>
 </div>
-<div id="outline-container-unnumbered-54" class="outline-5">
-<h5 id="unnumbered-54">Send a code line or region</h5>
-<div class="outline-text-5" id="text-unnumbered-54">
+<div id="outline-container-sec-4-4-1-1" class="outline-5">
+<h5 id="sec-4-4-1-1">Send a code line or region</h5>
+<div class="outline-text-5" id="text-4-4-1-1">
 <p>
 Any time you communicate with the interpreter its output is shown in
 the <code>*ANSYS*</code> interactive window.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Go to the beginning of above code and</span>
-<span style="color: #b22222;">!! send the code line by line with "C-c C-c"!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Go to the beginning of above code and
+!! send the code line by line with "C-c C-c"!
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-55" class="outline-5">
-<h5 id="unnumbered-55">Send above code (from the cursor up to the beginning)</h5>
-<div class="outline-text-5" id="text-unnumbered-55">
+<div id="outline-container-sec-4-4-1-2" class="outline-5">
+<h5 id="sec-4-4-1-2">Send above code (from the cursor up to the beginning)</h5>
+<div class="outline-text-5" id="text-4-4-1-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor below the `solve' command and</span>
-<span style="color: #b22222;">!! type "C-c C-u" sending all code up to the beginning!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Place the cursor below the `solve' command and
+!! type "C-c C-u" sending all code up to the beginning!
+!!
 </pre>
 </div>
 <p>
@@ -1576,29 +1576,29 @@ code to the system clipboard instead.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! We have got now data and results to work with</span>
+<pre class="src src-ansys">!! We have got now data and results to work with
 </pre>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-56" class="outline-3">
-<h3 id="unnumbered-56">Graphical feedback and graphics interaction</h3>
-<div class="outline-text-3" id="text-unnumbered-56">
+<div id="outline-container-sec-4-5" class="outline-3">
+<h3 id="sec-4-5">Graphical feedback and graphics interaction</h3>
+<div class="outline-text-3" id="text-4-5">
 <p>
 Receive graphical feedback from the interpreter
 </p>
 </div>
-<div id="outline-container-unnumbered-57" class="outline-4">
-<h4 id="unnumbered-57">Open the `interactive graphics' window of ANSYS</h4>
-<div class="outline-text-4" id="text-unnumbered-57">
+<div id="outline-container-sec-4-5-1" class="outline-4">
+<h4 id="sec-4-5-1">Open the `interactive graphics' window of ANSYS</h4>
+<div class="outline-text-4" id="text-4-5-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-g" to open the ANSYS `interactive' graphics frame.</span>
-<span style="color: #b22222;">!! Then send the following line with "C-c C-c".</span>
-<span style="color: #b22222;">!!</span>
-<span style="color: #a020f0;">eplot</span>
+<pre class="src src-ansys">!! Type "C-c C-g" to open the ANSYS `interactive' graphics frame.
+!! Then send the following line with "C-c C-c".
+!!
+eplot
 </pre>
 </div>
 
@@ -1618,13 +1618,13 @@ time the graphics frame was hidden by other graphics (Desktop
 switching, etc.)!
 </p>
 </div>
-<div id="outline-container-unnumbered-58" class="outline-5">
-<h5 id="unnumbered-58">Open the ANSYS Pan/Zoom/Rotate dialog</h5>
-<div class="outline-text-5" id="text-unnumbered-58">
+<div id="outline-container-sec-4-5-1-1" class="outline-5">
+<h5 id="sec-4-5-1-1">Open the ANSYS Pan/Zoom/Rotate dialog</h5>
+<div class="outline-text-5" id="text-4-5-1-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-p" to open the ANSYS Pan/Zoom/Rotate dialog!</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c C-p" to open the ANSYS Pan/Zoom/Rotate dialog!
+!!
 </pre>
 </div>
 
@@ -1634,29 +1634,29 @@ for replotting, zooming, fitting and moving graphical objects.
 </p>
 </div>
 </div>
-<div id="outline-container-unnumbered-59" class="outline-5">
-<h5 id="unnumbered-59">Use the keybindings for zooming</h5>
-<div class="outline-text-5" id="text-unnumbered-59">
+<div id="outline-container-sec-4-5-1-2" class="outline-5">
+<h5 id="sec-4-5-1-2">Use the keybindings for zooming</h5>
+<div class="outline-text-5" id="text-4-5-1-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! "C-c C-+" Enlarge it</span>
-<span style="color: #b22222;">!! "C-c C-f" Fit the graphics</span>
-<span style="color: #b22222;">!! "C-c C--" Shrink it</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! "C-c C-+" Enlarge it
+!! "C-c C-f" Fit the graphics
+!! "C-c C--" Shrink it
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-60" class="outline-5">
-<h5 id="unnumbered-60">Use the keybindings for moving</h5>
-<div class="outline-text-5" id="text-unnumbered-60">
+<div id="outline-container-sec-4-5-1-3" class="outline-5">
+<h5 id="sec-4-5-1-3">Use the keybindings for moving</h5>
+<div class="outline-text-5" id="text-4-5-1-3">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! "C-c C-&gt;" Move right</span>
-<span style="color: #b22222;">!! "C-c C-_" Move down</span>
-<span style="color: #b22222;">!! "C-c C-&lt;" Move left</span>
-<span style="color: #b22222;">!! "C-c C-^" Move up</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! "C-c C-&gt;" Move right
+!! "C-c C-_" Move down
+!! "C-c C-&lt;" Move left
+!! "C-c C-^" Move up
+!!
 </pre>
 </div>
 <p>
@@ -1665,51 +1665,51 @@ Hint: Use Emacs `repeat' command <b>C-x z</b>, after its use already the
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! For these long keybindings Emacs' `repeat' command "C-x z" is helpful</span>
-<span style="color: #b22222;">!! Insert "C-c C-&lt;" and then "C-x z zzzzz"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! For these long keybindings Emacs' `repeat' command "C-x z" is helpful
+!! Insert "C-c C-&lt;" and then "C-x z zzzzz"
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-61" class="outline-5">
-<h5 id="unnumbered-61">Use the keybindings for replotting and iso-view</h5>
-<div class="outline-text-5" id="text-unnumbered-61">
+<div id="outline-container-sec-4-5-1-4" class="outline-5">
+<h5 id="sec-4-5-1-4">Use the keybindings for replotting and iso-view</h5>
+<div class="outline-text-5" id="text-4-5-1-4">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! "C-c C-i" Show in Iso-view</span>
-<span style="color: #b22222;">!! "C-c C-r" Replot the graphics</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! "C-c C-i" Show in Iso-view
+!! "C-c C-r" Replot the graphics
+!!
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-unnumbered-62" class="outline-4">
-<h4 id="unnumbered-62">Sending directly to the interpeter</h4>
-<div class="outline-text-4" id="text-unnumbered-62">
-</div><div id="outline-container-unnumbered-63" class="outline-5">
-<h5 id="unnumbered-63">Direct communication from the APDL window</h5>
-<div class="outline-text-5" id="text-unnumbered-63">
+<div id="outline-container-sec-4-5-2" class="outline-4">
+<h4 id="sec-4-5-2">Sending directly to the interpeter</h4>
+<div class="outline-text-4" id="text-4-5-2">
+</div><div id="outline-container-sec-4-5-2-1" class="outline-5">
+<h5 id="sec-4-5-2-1">Direct communication from the APDL window</h5>
+<div class="outline-text-5" id="text-4-5-2-1">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-q" and send your input directly to the interpreter!</span>
-<span style="color: #b22222;">!! You are getting `queried' for input by Emacs.</span>
-<span style="color: #b22222;">!! Input here: "/post1 &lt;RET&gt;" and then "C-c C-q set,list"</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c C-q" and send your input directly to the interpreter!
+!! You are getting `queried' for input by Emacs.
+!! Input here: "/post1 &lt;RET&gt;" and then "C-c C-q set,list"
+!!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-64" class="outline-5">
-<h5 id="unnumbered-64">Direct communication from the <code>*ANSYS*</code> interactive window</h5>
-<div class="outline-text-5" id="text-unnumbered-64">
+<div id="outline-container-sec-4-5-2-2" class="outline-5">
+<h5 id="sec-4-5-2-2">Direct communication from the <code>*ANSYS*</code> interactive window</h5>
+<div class="outline-text-5" id="text-4-5-2-2">
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Place the cursor in the </span><span style="color: #b22222;">*ANSYS* interactive window and write</span>
-<span style="color: #b22222;">!! "plnsol,u,sum", conclude the input with &lt;RET&gt;.</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Place the cursor in the *ANSYS* interactive window and write
+!! "plnsol,u,sum", conclude the input with &lt;RET&gt;.
+!!
 </pre>
 </div>
 </div>
@@ -1717,29 +1717,29 @@ Hint: Use Emacs `repeat' command <b>C-x z</b>, after its use already the
 </div>
 </div>
 
-<div id="outline-container-unnumbered-65" class="outline-3">
-<h3 id="unnumbered-65">Visiting the ANSYS error file</h3>
-<div class="outline-text-3" id="text-unnumbered-65">
+<div id="outline-container-sec-4-6" class="outline-3">
+<h3 id="sec-4-6">Visiting the ANSYS error file</h3>
+<div class="outline-text-3" id="text-4-6">
 <p>
 The solver error file (\*.err) is opened in tail-follow mode,
 i. e. you are seeing always the latest contend. (<b>C-c C-e</b>)
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="color: #b22222;">!! Type "C-c C-e" to open the run's error file in `tail-follow mode'!</span>
-<span style="color: #b22222;">!! Always the latest content is shown...</span>
-<span style="color: #b22222;">!!</span>
+<pre class="src src-ansys">!! Type "C-c C-e" to open the run's error file in `tail-follow mode'!
+!! Always the latest content is shown...
+!!
 </pre>
 </div>
 </div>
 </div>
 </div>
-<div id="outline-container-unnumbered-66" class="outline-2">
-<h2 id="unnumbered-66">Appendix</h2>
-<div class="outline-text-2" id="text-unnumbered-66">
-</div><div id="outline-container-unnumbered-67" class="outline-3">
-<h3 id="unnumbered-67">Regarding Emacs' keybindings</h3>
-<div class="outline-text-3" id="text-unnumbered-67">
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5">Appendix</h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1">Regarding Emacs' keybindings</h3>
+<div class="outline-text-3" id="text-5-1">
 <p>
 Even when these keybindings at first seem foreign and unhandy, an
 additional advantage getting used to them is the fact that the
@@ -1749,9 +1749,9 @@ additional advantage getting used to them is the fact that the
 </div>
 </div>
 
-<div id="outline-container-unnumbered-68" class="outline-2">
-<h2 id="unnumbered-68">Summary and Acknowledgements</h2>
-<div class="outline-text-2" id="text-unnumbered-68">
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6">Summary and Acknowledgements</h2>
+<div class="outline-text-2" id="text-6">
 <p>
 Thank you for your time, have fun with Emacs&#x2026;
 </p>
@@ -1762,13 +1762,13 @@ Thank you for your time, have fun with Emacs&#x2026;
 </p>
 </div>
 
-<div id="outline-container-unnumbered-69" class="outline-3">
-<h3 id="unnumbered-69">Acknowledgements</h3>
-<div class="outline-text-3" id="text-unnumbered-69">
+<div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1">Acknowledgements</h3>
+<div class="outline-text-3" id="text-6-1">
 <dl class="org-dl">
-<dt>Carsten Dominik</dt><dd>Ingenious <a href="http://orgmode.org/">Org-mode</a> for Emacs
+<dt> Carsten Dominik </dt><dd>Ingenious <a href="http://orgmode.org/">Org-mode</a> for Emacs
 </dd>
-<dt><a href="http://stallman.org/">RMS</a></dt><dd><a href="http://www.gnu.org/software/emacs/">GNU Emacs</a> and many other great ideas and programs
+<dt> <a href="http://stallman.org/">RMS</a> </dt><dd><a href="http://www.gnu.org/software/emacs/">GNU Emacs</a> and many other great ideas and programs
 </dd>
 </dl>
 
@@ -1780,9 +1780,10 @@ Thank you for your time, have fun with Emacs&#x2026;
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
-<p class="date">Modification date: 2015-06-26 </p>
-<p class="creator">Generated by <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10) </p>
+<p class="author">Author: H. Dieter Wilhelm</p>
+<p class="date">Created: 2015-06-28 Sun 20:02</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

@@ -3,6 +3,7 @@ help :
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
+	@echo "make HTML = update the html documentation"
 	@echo "make TAGS = make the goddam tags!"
 	@echo "make ELC = compile the el files"
 	@echo "make ALL = MODE + EMACS + EMACS_SRC + TAGS"
@@ -76,7 +77,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	 ../doc/A-M_in-depth_tutorial.org    \
@@ -112,9 +113,22 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
+HTMLs := ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../doc/default.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
+
+ORG_FILES := $(HTMLs:.html=.org)
+
+%.html : %.org
+	$(EMACS_EXE) --batch -l htmlize.el $< -eval "(org-html-export-to-html)"
+
+.PHONEY : HTML
+HTML : html.tar.xz
+
+# only archive members which are newer than the existingp archive
+html.tar.xz : $(HTMLs) makefile
+	tar cJvf $@ $(HTMLs)
 
 .PHONEY : ALL
-ALL : MODE EMACS EMACS_SRC TAGS
+ALL : MODE EMACS EMACS_SRC HTML pTAGS
 
 .PHONEY : CLEAN
 CLEAN :

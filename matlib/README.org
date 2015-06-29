@@ -15,7 +15,7 @@
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
-#+HTML_LINK_UP: ../index.org
+#+HTML_LINK_UP: ../index.html
 #+HTML_HEAD:
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:

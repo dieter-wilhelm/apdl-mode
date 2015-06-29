@@ -482,5 +482,3 @@
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
 # end:
-
-

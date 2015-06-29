@@ -1,9 +1,9 @@
 # -*- mode: org -*-
 #+TITLE:  ANSYS-Mode Highlighting and APDL Reference
-######################################################################
+# #####################################################################
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
-##+DATE:      2012-06-17 Sa
+# #+DATE:      2012-06-17 Sa
 #+DESCRIPTION:
 #+KEYWORDS:
 #+LANGUAGE:  en
@@ -16,9 +16,9 @@
 #+LINK_HOME: 
 #+XSLT:
 #+PROPERTY: tangle yes
-##+LaTeX_CLASS: koma-report
-##+LaTeX_CLASS: koma-article
-##+LATEX: \tableofcontents
+# #+LaTeX_CLASS: koma-report
+# #+LaTeX_CLASS: koma-article
+# #+LATEX: \tableofcontents
 #+LATEX_HEADER: \usepackage{scrpage2}
 #+LATEX_HEADER: \titlehead{\includegraphics[width=15cm]{ansys+emacs.png}}
 #+LATEX_HEADER: \subject{ANSYS-Mode}
@@ -39,11 +39,11 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
-#+HTML_LINK_UP: ../index.org
+#+HTML_LINK_UP: ../index.html
 
 
-##+TEXT: This is still a work in progress, good documentation is hard work!
-##+TEXT: Please report the faults.
+#+TEXT: This is still a work in progress, good documentation is hard work!
+#+TEXT: Please report the faults.
 
 * ANSYS-Mode Syntax Highlighting Reference
 #+BEGIN_LaTeX

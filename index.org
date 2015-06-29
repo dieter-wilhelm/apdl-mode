@@ -2,7 +2,7 @@
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
-#+TITLE: ANSYS-Mode Documentation
+#+TITLE: The ANSYS-Mode Documentation
 # #+DATE: <2015-06-04 Thu>
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de

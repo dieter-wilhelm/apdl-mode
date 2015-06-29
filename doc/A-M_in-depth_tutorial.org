@@ -18,7 +18,7 @@
 
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
-##+DATE:      2012-06-17 Sa
+# #+DATE:      2012-06-17 Sa
 #+DESCRIPTION: Guided ANSYS-Mode hands-on APDL Tutorial
 #+KEYWORDS: Emacs ANSYS FEA APDL MAPDL
 #+LANGUAGE:  en
@@ -28,7 +28,7 @@
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
-#+HTML_LINK_UP: ../index.org
+#+HTML_LINK_UP: ../index.html
 #+XSLT:
 #+PROPERTY: tangle yes
 
@@ -707,14 +707,14 @@ Gives you the `cmlist' command
 # !mouse completion of vglue
 # vg
 *** Completion of functions
-#+begin_src ansys  :exports none
+#+begin_src ansys  :exports none :tangle yes
   !@@ -- Completion of functions --
 #+end_src
     Completed function names have parentheses appended
 #+begin_src ansys
   !! place the cursor behind 'aco' and type "<ESC> <TAB>" and so forth
   !!
-#+end_src ansys
+#+end_src
 #+begin_src ansys
   P = aco         ! lower case completion
   P = Sig         ! upper case completion
@@ -727,7 +727,7 @@ Gives you the `cmlist' command
   P = acos()
   P = Sign()
   P = ARNEXT()
-#+end_src ansys
+#+end_src
 *** Completion of elements
 #+begin_src ansys  :exports none
   !@@ -- Element completions --
@@ -738,7 +738,7 @@ with a distinct highlighting!
   !! Completion of element names: type "<ESC> <TAB>" behind `shell'
   !!
   shell
-#+end_src ansys
+#+end_src
 *** Completion of commands
 #+begin_src ansys :exports none
   !@@ -- APDL command completions --
@@ -1032,7 +1032,7 @@ The APDL processing and debugging environment
    chosen license type.  And in the left hand Emacs window below a
    thumbnail view of images from a folder.
 
-##+ATTR_LaTeX: height=7.3cm
+#+ATTR_LaTeX: height=7.3cm
 #+ATTR_HTML: width="1200"
    [[./license.png]]
 
@@ -1102,7 +1102,7 @@ Receive graphical feedback from the interpreter
 #+end_src
 
 #+ATTR_HTML: width="1200"
-##+ATTR_LaTeX: height=6.5cm
+#+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
 
 Unfortunately there are 4 severe restrictions using this approach.
@@ -1207,7 +1207,7 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
 * Summary and Acknowledgements
 Thank you for your time, have fun with Emacs...
 
-##+ATTR_LaTeX: width=6cm
+#+ATTR_LaTeX: width=6cm
     [[./editor_learning_curves.jpg]]
 
 **  Acknowledgements
@@ -1319,7 +1319,7 @@ Thank you for your time, have fun with Emacs...
 # # #+RESULTS:
 # # : 4
 # #    this is line [[(bla)]]
-######################################################################
+# ####################################################################
 #+begin_src ansys  :tangle yes :exports none
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !! End of APDL code

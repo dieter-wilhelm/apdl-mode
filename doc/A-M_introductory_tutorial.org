@@ -351,7 +351,6 @@
 
   ... and reload ANSYS-Mode. 
 * Documentation and Licensing
-
 ** Get to know Emacs and its excellent documentation
   Newcomers to Emacs should take the [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to
   get a background of its capabilities and fire up the interactive
@@ -381,20 +380,18 @@
    - Licensing and costs: :: This is free and open software, there are
         *no costs* and effectively *no restrictions* for you using
         Emacs and ANSYS-Mode also commerically.  Both are under the
-        [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] described in the /LICENSE/ file.
+        [[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] copied in the /LICENSE.org/ file.
 # # ATTENTION: \pdfannot does not work in this environment!!!!
 # *** Installation:
    - Installation: :: More detailed instructions are necessary if you
                       are not using the mode bundled with Emacs for
                       Windows.  Please have a look in the /README.org/
-                      file.  An online version is on
-                      [[http://dieter-wilhelm.github.io/ansys-mode/][ANSYS-Modes's GitHub Page]].
-
+                      file.  An online version is at
+                      [[http://dieter-wilhelm.github.io/ansys-mode/][ANSYS-Modes's documentation site]].
 # *** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find these
         in-depth documentation included in the mode's archives on
-        [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub's releases page]] or read [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html][online]].
-    
+        [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub's releases page]] or read [[http://dieter-wilhelm.github.io/ansys-mode/][online]].
 # *** News and project history:
    - News and project history: :: They are placed in the mode's
         accompanying /NEWS.org/ file

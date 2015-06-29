@@ -113,7 +113,7 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
-HTMLs := ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../doc/default.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
+HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../doc/default.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
 
 ORG_FILES := $(HTMLs:.html=.org)
 

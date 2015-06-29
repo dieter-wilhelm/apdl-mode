@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>This is ANSYS-Mode's README file</title>
-<!-- 2015-06-29 Mon 08:57 -->
+<!-- 2015-06-29 Mon 22:08 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -203,6 +203,12 @@ for the JavaScript code in this tag.
 </ul>
 </li>
 <li><a href="#sec-6-3">6.3. Verbose instructions</a></li>
+<li><a href="#sec-6-4">6.4. Compiling Emacs under Linux</a>
+<ul>
+<li><a href="#sec-6-4-1">6.4.1. RHEL (6)</a></li>
+<li><a href="#sec-6-4-2">6.4.2. Debian and derivatives</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#sec-7">7. Usage and customisation</a></li>
@@ -793,6 +799,152 @@ explicitly called ansys-mode.
 </div>
 </div>
 </div>
+
+<div id="outline-container-sec-6-4" class="outline-3">
+<h3 id="sec-6-4"><span class="section-number-3">6.4</span> Compiling Emacs under Linux</h3>
+<div class="outline-text-3" id="text-6-4">
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="font-weight: bold;">cd</span> emacs-24.5/
+./configure
+make
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-6-4-1" class="outline-4">
+<h4 id="sec-6-4-1"><span class="section-number-4">6.4.1</span> RHEL (6)</h4>
+<div class="outline-text-4" id="text-6-4-1">
+</div><ol class="org-ol"><li><a id="sec-6-4-1-1" name="sec-6-4-1-1"></a>Required libraries<br  /><div class="outline-text-5" id="text-6-4-1-1">
+<ul class="org-ul">
+<li>ncurses-devel.x86<sub>64</sub>
+</li>
+<li>gtk2-devel.x86<sub>64</sub> (libgtk under Debian)
+</li>
+</ul>
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo yum install ncurses-devel.x86_64
+...
+</pre>
+</div>
+</div>
+</li>
+<li><a id="sec-6-4-1-2" name="sec-6-4-1-2"></a>Optional libraries<br  /><div class="outline-text-5" id="text-6-4-1-2">
+<p>
+Graphics support
+</p>
+<ul class="org-ul">
+<li>libjpeg-devel.x86<sub>64</sub>
+</li>
+<li>giflib-devel.x86<sub>64</sub> (libgif-dev under Debian)
+</li>
+<li>libtiff-devel.x86<sub>64</sub>
+</li>
+<li>libpng-devel.x86<sub>64</sub>
+</li>
+<li>libxpm-devel.x86<sub>64</sub>
+</li>
+<li>libMagickWand.x86<sub>64</sub> (for imagemagick support)
+</li>
+</ul>
+</div>
+</li></ol>
+</div>
+
+<div id="outline-container-sec-6-4-2" class="outline-4">
+<h4 id="sec-6-4-2"><span class="section-number-4">6.4.2</span> Debian and derivatives</h4>
+<div class="outline-text-4" id="text-6-4-2">
+</div><ol class="org-ol"><li><a id="sec-6-4-2-1" name="sec-6-4-2-1"></a>Required libraries<br  /><div class="outline-text-5" id="text-6-4-2-1">
+<p>
+Build dependencys with
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">sudo aptitude install build-dep emacs25
+</pre>
+</div>
+<p>
+libtiff5-dev -&gt; libtiff-dev
+libpng12-dev
+</p>
+</div>
+</li>
+<li><a id="sec-6-4-2-2" name="sec-6-4-2-2"></a>Optional libraries<br  /><div class="outline-text-5" id="text-6-4-2-2">
+<p>
+Graphics support
+</p>
+<ul class="org-ul">
+<li>libgif-dev
+</li>
+<li>libmagickwand-dev (for imagemagick support)
+</li>
+</ul>
+</div>
+<ol class="org-ol"><li><a id="sec-6-4-2-2-1" name="sec-6-4-2-2-1"></a>gnutls<br  /><div class="outline-text-6" id="text-6-4-2-2-1">
+<p>
+for smtp authentication  ~/.authinfo.gpg (<a href="auth">auth</a>)
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">aptitude search gnutls
+</pre>
+</div>
+<p>
+[  0%] Reading package lists                            <code>[100%]</code> Reading package lists                            [  0%] Building dependency tree                               <code>[100%]</code> Building dependency tree                               [  0%] Reading state information                                [  7%] Reading state information                                [  0%] Reading extended state information                                         [  0%] Initializing package states                                  [  0%] Reading task descriptions                                [  0%] Building tag database                            [-&#x2014;] ?name("gnutls"): Accessing index                                       p   dsyslog-module-gnutls           - advanced modular syslog daemon - GnuTLS su
+p   gnutls-bin                      - GNU TLS library - commandline utilities   
+v   gnutls-dev                      -                                           
+p   gnutls-doc                      - GNU TLS library - documentation and exampl
+p   gnutls26-doc                    - GNU TLS library 2.x - documentation and ex
+p   guile-gnutls                    - GNU TLS library - GNU Guile bindings      
+p   libapache2-mod-gnutls           - Apache module for SSL and TLS encryption w
+i A libcurl3-gnutls                 - easy-to-use client-side URL transfer libra
+v   libcurl3-gnutls-dev             -                                           
+p   libcurl4-gnutls-dev             - development files and documentation for li
+p   libghc-gnutls-dev               - bindings for GNU TLS                      
+v   libghc-gnutls-dev-0.1.4-5c3a9   -                                           
+p   libghc-gnutls-doc               - bindings for GNU TLS; documentation       
+p   libghc-gnutls-prof              - bindings for GNU TLS; profiling libraries 
+v   libghc-gnutls-prof-0.1.4-5c3a9  -                                           
+i   libgnutls-deb0-28               - GNU TLS library - main runtime library    
+i   libgnutls-dev                   - GNU TLS library - development files       
+v   libgnutls-openssl-dev           -                                           
+i   libgnutls-openssl27             - GNU TLS library - OpenSSL wrapper         
+p   libgnutls-xssl0                 - GNU TLS library - XSSL API runtime library
+i A libgnutls26                     - GNU TLS library - runtime library         
+p   libgnutls26-dbg                 - GNU TLS library - debugger symbols        
+p   libgnutls28-dbg                 - GNU TLS library - debugger symbols        
+p   libgnutls28-dev                 - GNU TLS library - development files       
+i A libgnutlsxx27                   - GNU TLS library - C++ runtime library     
+p   libgnutlsxx28                   - GNU TLS library - C++ runtime library     
+i A libneon27-gnutls                - HTTP and WebDAV client library (GnuTLS ena
+p   libneon27-gnutls-dbg            - Detached symbols for libneon27 (GnuTLS ena
+p   libneon27-gnutls-dev            - Header and static library files for libneo
+p   libxmlsec1-gnutls               - Gnutls engine for the XML security library
+p   python-gnutls                   - Python wrapper for the GNUTLS library     
+v   python2.7-gnutls                -                                           
+p   rsyslog-gnutls                  - TLS protocol support for rsyslog          
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">aptitude install -y libgnutls-dev gnutls-bin
+</pre>
+</div>
+</div>
+</li></ol>
+</li>
+
+<li><a id="sec-6-4-2-3" name="sec-6-4-2-3"></a>Documentation of Emacs in Debian 8<br  /><div class="outline-text-5" id="text-6-4-2-3">
+<p>
+The documenation is in the Debian non-free repository.  Because
+of a general Resolution: Why the GNU Free Documentation License
+is not suitable for Debian main
+<a href="https://www.debian.org/vote/2006/vote_001">https://www.debian.org/vote/2006/vote_001</a>hi
+</p>
+</div>
+</li></ol>
+</div>
+</div>
 </div>
 
 <div id="outline-container-sec-7" class="outline-2">
@@ -1009,7 +1161,9 @@ might also download the latest development version.
 without registration.
 </li>
 </ul>
-<hr  />
+<p>
+&#x2013;&#x2014;y
+</p>
 </div>
 </div>
 </div>

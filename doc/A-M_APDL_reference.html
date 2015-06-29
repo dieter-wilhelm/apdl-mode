@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>ANSYS-Mode Highlighting and APDL Reference</title>
-<!-- 2015-06-29 Mon 08:57 -->
+<!-- 2015-06-29 Mon 22:08 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -146,11 +146,10 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. ANSYS-Mode Syntax Highlighting Reference</a>
+<li><a href="#sec-1">1. WorkBench to APDL Translation</a>
 <ul>
-<li><a href="#sec-1-1">1.1. Header</a></li>
-<li><a href="#sec-1-2">1.2. Highlighting APDL specials</a></li>
-<li><a href="#sec-1-3">1.3. Implied (or colon) looping</a></li>
+<li><a href="#sec-1-1">1.1. Material Models</a></li>
+<li><a href="#sec-1-2">1.2. Boundary conditions</a></li>
 </ul>
 </li>
 <li><a href="#sec-2">2. APDL Reference</a>
@@ -167,305 +166,203 @@ for the JavaScript code in this tag.
 <li><a href="#sec-2-10">2.10. Undocumented commands</a></li>
 </ul>
 </li>
-<li><a href="#sec-3">3. And the rest</a></li>
+<li><a href="#sec-3">3. ANSYS-Mode Syntax Highlighting Reference</a>
+<ul>
+<li><a href="#sec-3-1">3.1. Header</a></li>
+<li><a href="#sec-3-2">3.2. Highlighting APDL specials</a></li>
+<li><a href="#sec-3-3">3.3. Implied (or colon) looping</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. And the rest</a></li>
 </ul>
 </div>
 </div>
 
 <div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> ANSYS-Mode Syntax Highlighting Reference</h2>
+<h2 id="sec-1"><span class="section-number-2">1</span> WorkBench to APDL Translation</h2>
 <div class="outline-text-2" id="text-1">
-</div>
-
-<div id="outline-container-sec-1-1" class="outline-3">
-<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Header</h3>
+</div><div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> Material Models</h3>
 <div class="outline-text-3" id="text-1-1">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! ------------------------------</span>
-<span style="font-weight: bold; font-style: italic;">!@ --- header ---</span>
-<span style="font-weight: bold; font-style: italic;">!! ------------------------------</span>
-<span style="font-weight: bold; font-style: italic;">!! Time-stamp: &lt;2012-06-22 16:42:24 uidg1626&gt;</span>
-<span style="font-weight: bold; font-style: italic;">!! NOTE: This is APDL pseudo code, checking</span>
-<span style="font-weight: bold; font-style: italic;">!!  ANSYS-Mode's highlighting capabilities and</span>
-<span style="font-weight: bold; font-style: italic;">!!  certain aspects of the language</span>
-<span style="font-weight: bold; font-style: italic;">!!  Please see further below.</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold;">/units</span>,mpa <span style="font-weight: bold; font-style: italic;">!indicate mm-t-s unit system</span>
-<span style="font-weight: bold; font-style: italic;">!@ --- Preprocessing ---</span>
-<span style="font-weight: bold;">/prep7</span>
-<span style="font-weight: bold; font-style: italic;">!@@ -- Elements --</span>
-<span style="font-weight: bold; font-style: italic;">Steel</span> = 1
-<span style="font-weight: bold; font-style: italic;">ID</span> = Steel
-<span style="font-weight: bold; font-style: italic;">real</span> = Steel
-<span style="font-weight: bold;">et</span>,ID,<span style="font-weight: bold;">solid186</span> <span style="font-weight: bold; font-style: italic;">!3d, 20 node</span>
-<span style="font-weight: bold; font-style: italic;">!@@ -- Material --</span>
-<span style="font-weight: bold;">mp</span>,nuxy,Steel,0.3 <span style="font-weight: bold; font-style: italic;">! Poisson No</span>
-<span style="font-weight: bold;">mp</span>,ex,Steel,200000 <span style="font-weight: bold; font-style: italic;">! Elastic modulus</span>
-<span style="font-weight: bold; font-style: italic;">!@@ -- Modeling --</span>
-<span style="font-weight: bold;">block</span>,0,1,0,1,0,1
-<span style="font-weight: bold; font-style: italic;">!@@ -- Meshing --</span>
-<span style="font-weight: bold;">vmesh</span>,all
-<span style="font-weight: bold; font-style: italic;">!@@ -- BCs, Loads --</span>
-<span style="font-weight: bold;">nsel</span>,s,loc,x,0
-<span style="font-weight: bold;">d</span>,all,all
-<span style="font-weight: bold;">nsel</span>,s,loc,x,1
-<span style="font-weight: bold;">d</span>,all,uy,-.1
-<span style="font-weight: bold;">allsel</span>
-<span style="font-weight: bold;">save</span>
-<span style="font-weight: bold; font-style: italic;">!@ --- Solving ---</span>
-<span style="font-weight: bold;">/solu</span>
-<span style="font-weight: bold;">solve</span>
-<span style="font-weight: bold; font-style: italic;">!@ --- Postprocessing --</span>
-<span style="font-weight: bold;">/post1</span>
-<span style="font-weight: bold;">/view</span>,,1,1,1
-<span style="font-weight: bold;">plnsol</span>,u,sum,2
-<span style="font-weight: bold;">/image</span>,save,test <span style="font-weight: bold; font-style: italic;">!save XWindow Dump xwd (or bmp on Windows)</span>
-<span style="font-weight: bold;">/image</span>,capture                <span style="font-weight: bold; font-style: italic;">!TODO: what is this: file0001.xwd?</span>
-<span style="font-weight: bold;">/sys</span>,<span style="font-style: italic;">convert test test.png</span>
-/upwind                  <span style="font-weight: bold; font-style: italic;">!TODO: 2d-graphics library? dated?</span>
-<span style="font-weight: bold;">*fft</span>                     <span style="font-weight: bold; font-style: italic;">!TODO: :-)</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
-<span style="font-weight: bold; font-style: italic;">!!  Please put the the cursor below the next paragraph of emacs lisp</span>
-<span style="font-weight: bold; font-style: italic;">!!  code and type "C-x C-e" to change the setting of</span>
-<span style="font-weight: bold; font-style: italic;">!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'</span>
-<span style="font-weight: bold; font-style: italic;">!!  change the level from 0 to 2 and toggle the flag from `t' to</span>
-<span style="font-weight: bold; font-style: italic;">!!  `nil'.  Browse the file to check the differences.</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-lisp">(<span style="font-weight: bold;">progn</span>
-  (<span style="font-weight: bold;">when</span>
-      (featurep 'ansys-mode)
-    (unload-feature 'ansys-mode))
-  (setq
-   ansys-highlighting-level 2
-   ansys-dynamic-highlighting-flag t)
-  (load-file <span style="font-style: italic;">"ansys-mode.el"</span>)
-  (ansys-mode))
-</pre>
-</div>
-
+</div><div id="outline-container-sec-1-1-1" class="outline-4">
+<h4 id="sec-1-1-1"><span class="section-number-4">1.1.1</span> Plasticity</h4>
+<div class="outline-text-4" id="text-1-1-1">
+</div><div id="outline-container-sec-1-1-1-1" class="outline-5">
+<h5 id="sec-1-1-1-1"><span class="section-number-5">1.1.1.1</span> Multilinear Kinematic Hardening (MISO)</h5>
+<div class="outline-text-5" id="text-1-1-1-1">
 <p>
-:TODO
-!! &#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;
-/units,mpa !indicate mm-t-s unit system
-c
+Implementation:
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- Ignored characters and condensed input line ($ operator)</span>
-<span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">ThisNightmare</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">/cle</span> <span style="font-weight: bold; font-style: italic;">!/clear</span>
-<span style="font-weight: bold;">f</span> <span style="font-weight: bold; text-decoration: underline;">$</span> fi <span style="font-weight: bold; text-decoration: underline;">$</span> fin <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">fini</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finis</span>  <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">er</span>
+<pre class="src src-ansys"><span style="font-weight: bold;">TB</span>,PLAS,1,1,2,MISO
 </pre>
 </div>
+<p>
+This means that one must input the curve in plastic strains and
+<b>not</b> engineering strains!
+</p>
 </div>
 </div>
-
+</div>
+</div>
 <div id="outline-container-sec-1-2" class="outline-3">
-<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Highlighting APDL specials</h3>
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> Boundary conditions</h3>
 <div class="outline-text-3" id="text-1-2">
-</div><div id="outline-container-sec-1-2-1" class="outline-4">
-<h4 id="sec-1-2-1"><span class="section-number-4">1.2.1</span> Reserved words and _RETURN statements</h4>
-<div class="outline-text-4" id="text-1-2-1">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!!</span>
-<span style="font-weight: bold; font-style: italic;">N</span>      =  <span style="font-weight: bold;">_RETURN</span>       <span style="font-weight: bold; font-style: italic;">!return value of certain commands</span>
-<span style="font-weight: bold; font-style: italic;">Alpha2</span> =  +360./(2*N)
-<span style="font-weight: bold; font-style: italic;">Xc</span>     =  <span style="font-weight: bold; font-style: italic;">!empty rhs clears variables</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-2-2" class="outline-4">
-<h4 id="sec-1-2-2"><span class="section-number-4">1.2.2</span> _RETURN values of macros</h4>
-<div class="outline-text-4" id="text-1-2-2">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold;">*return</span>                  <span style="font-weight: bold; font-style: italic;">!TODO: what is this?</span>
-<span style="font-weight: bold;">*status</span>,<span style="font-weight: bold;">_RETURN</span>          <span style="font-weight: bold; font-style: italic;">!0 normal</span>
-                         <span style="font-weight: bold; font-style: italic;">!1 note</span>
-                         <span style="font-weight: bold; font-style: italic;">!2 warning</span>
-                         <span style="font-weight: bold; font-style: italic;">!3 error</span>
-                         <span style="font-weight: bold; font-style: italic;">!4 fatal</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-2-3" class="outline-4">
-<h4 id="sec-1-2-3"><span class="section-number-4">1.2.3</span> Old style APDL comments</h4>
-<div class="outline-text-4" id="text-1-2-3">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">var1</span> = <span style="font-weight: bold;">sinh</span>(<span style="font-weight: bold;">cos</span>(3 <span style="font-weight: bold; font-style: italic;">*5)) </span><span style="font-weight: bold; font-style: italic;">! old style Ansys comment!!!!!</span>
-<span style="font-weight: bold; font-style: italic;">var2</span> = <span style="font-weight: bold;">sinh</span>(<span style="font-weight: bold;">cos</span>(3*5))  <span style="font-weight: bold; font-style: italic;">! this is valid code</span>
-<span style="font-weight: bold;">fini</span> <span style="font-weight: bold; font-style: italic;">* comment</span>
-<span style="font-weight: bold; font-style: italic;">otto</span> = 3 <span style="font-weight: bold; font-style: italic;">* 4 comment, the value of otto = 3</span><span style="font-weight: bold; font-style: italic;">!</span>
-<span style="font-weight: bold; font-style: italic;">!!</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-2-4" class="outline-4">
-<h4 id="sec-1-2-4"><span class="section-number-4">1.2.4</span> Ignored characters behind commands</h4>
-<div class="outline-text-4" id="text-1-2-4">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold;">f</span> <span style="font-weight: bold; text-decoration: underline;">$</span> fi <span style="font-weight: bold; text-decoration: underline;">$</span> fin <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">fini</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finis</span>  <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">er</span>
-<span style="font-weight: bold; font-style: italic;">!!</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-2-5" class="outline-4">
-<h4 id="sec-1-2-5"><span class="section-number-4">1.2.5</span> The End Of File command</h4>
-<div class="outline-text-4" id="text-1-2-5">
-<div class="org-src-container">
-
-<pre class="src src-ansys">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-<span style="font-weight: bold; font-style: italic;">!!</span>
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- function names --</span>
-<span style="font-weight: bold; font-style: italic;">Pi</span>=<span style="font-weight: bold;">acos</span>(-1) <span style="font-weight: bold; text-decoration: underline;">$</span> True=1 <span style="font-weight: bold; text-decoration: underline;">$</span> False=0 <span style="font-weight: bold; text-decoration: underline;">$</span> Nn=3.1
-<span style="font-weight: bold; font-style: italic;">Alpha1</span> = <span style="font-weight: bold;">rotx</span>( 14.5) - 360./ (2*Nn)
-</pre>
-</div>
-</div>
-</div>
-
-<div id="outline-container-sec-1-2-6" class="outline-4">
-<h4 id="sec-1-2-6"><span class="section-number-4">1.2.6</span> Ignored characters behind commands</h4>
-<div class="outline-text-4" id="text-1-2-6">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold;">f</span> <span style="font-weight: bold; text-decoration: underline;">$</span> fi <span style="font-weight: bold; text-decoration: underline;">$</span> fin <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">fini</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finis</span>  <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">er</span>
-<span style="font-weight: bold;">a</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">al</span> <span style="font-weight: bold; text-decoration: underline;">$</span> all <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">alls</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">allse</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">allsel</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">allsel</span><span style="font-weight: bold; text-decoration: underline;">llllll</span>
-<span style="font-weight: bold;">rectng</span><span style="font-weight: bold; text-decoration: underline;">aaaaa</span>,var1,<span style="font-weight: bold;">_X2</span>,var2,X2 <span style="font-weight: bold; font-style: italic;">! 2d rectangle</span>
-<span style="font-weight: bold; font-style: italic;">!!</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-2-7" class="outline-4">
-<h4 id="sec-1-2-7"><span class="section-number-4">1.2.7</span> The End Of File command</h4>
-<div class="outline-text-4" id="text-1-2-7">
-<div class="org-src-container">
-
-<pre class="src src-ansys">  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-  <span style="font-weight: bold;">/exit</span>,nosave           <span style="font-weight: bold; font-style: italic;">!default is save the model data</span>
-<span style="font-weight: bold; font-style: italic;">!!</span>
-</pre>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-2-8" class="outline-4">
-<h4 id="sec-1-2-8"><span class="section-number-4">1.2.8</span> Current element types and deprecated elements</h4>
-<div class="outline-text-4" id="text-1-2-8">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! A current element type:</span>
-<span style="font-weight: bold;">et</span>,10,<span style="font-weight: bold;">solid186</span>
-<span style="font-weight: bold; font-style: italic;">!! deprecated element types:</span>
-<span style="font-weight: bold;">et</span>,Steel,<span style="font-weight: bold;">beam3</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">et</span>,Alu,<span style="font-weight: bold;">shell91</span>
-<span style="font-weight: bold; font-style: italic;">!!</span>
-</pre>
-</div>
+</div><div id="outline-container-sec-1-2-0-1" class="outline-5">
+<h5 id="sec-1-2-0-1"><span class="section-number-5">1.2.0.1</span> forces</h5>
+<div class="outline-text-5" id="text-1-2-0-1">
 <p>
-Let's change the element types to current ones!
+it is possible to apply time and spatially varying loads either
+tabular or functional. Example (depending on the coordinate
+sys.): =10*sin(x)
+</p>
+<dl class="org-dl">
+<dt> moment </dt><dd>scope: geometric selection, named selection, remote
+point contact pair: conta174, targe170 and pilot node
+similar to remote point pilot node is placed at the
+centre of the geom. curvature moment is applied
+around the reference coordinate system. pinball
+radius (might) reduce(s) the memory intensive range
+of participating elements
+</dd>
+<dt> remote point </dt><dd>contact pair with reference geometry and pilot
+node(point)
+</dd>
+<dt> remote force </dt><dd>contacts with pilot node MPC formulation (flexible
+or rigid)
+</dd>
+<dt> pressure </dt><dd>surf154, sf
+</dd>
+<dt> force </dt><dd>surf154, sfe "line force": surf156, sfe
+</dd>
+<dt> bolt pretension </dt><dd>prets179 (WB: select only ONE face for whole
+stud!)
+</dd>
+<dt> bearing load </dt><dd>surf154,Elements selected in load direction and
+pressure load applied on projected area (WB: select ALL
+faces of a cylinder!)
+</dd>
+<dt> hydrostatic pressure </dt><dd>surf154, sfgrad and sf
+</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-sec-1-2-0-2" class="outline-5">
+<h5 id="sec-1-2-0-2"><span class="section-number-5">1.2.0.2</span> Pressure</h5>
+<div class="outline-text-5" id="text-1-2-0-2">
+<p>
+Surface elements <code>surf154</code> and surface loads on elements (<code>sfe</code>)
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! Complete the following element fragments to current ones!</span>
-<span style="font-weight: bold; font-style: italic;">!!</span>
-<span style="font-weight: bold;">et</span>,Steel,beam <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">et</span>,Alu,shell
+<pre class="src src-ansys">  <span style="font-weight: bold;">/com</span>,<span style="font-style: italic;">*********** Define Pressure Vector Using Surface Effect Elements **********</span><span style="font-weight: bold; font-style: italic;">*</span>
+  <span style="font-weight: bold;">local</span>,12,0,0.,0.,0.,0.,0.,0.
+  <span style="font-weight: bold;">csys</span>,0
+  <span style="font-weight: bold;">et</span>,2,154
+<span style="font-weight: bold; text-decoration: underline;">  eblock</span>,10,,,10
+  (15i9)
+         61        2        2        2       12      116      107       67       66      398      328      325      326
+         62        2        2        2       12      115      114      107      116      407      397      398      408
+         63        2        2        2       12      107      108       68       67      396      330      327      328
+         64        2        2        2       12      114      113      108      107      406      400      396      397
+         65        2        2        2       12      108      109       69       68      399      332      329      330
+         66        2        2        2       12      113      112      109      108      405      402      399      400
+         67        2        2        2       12      109      110       70       69      401      334      331      332
+         68        2        2        2       12      112      111      110      109      404      403      401      402
+         69        2        2        2       12      110      106       71       70      395      336      333      334
+         70        2        2        2       12      111      105      106      110      394      393      395      403
+  -1
+  <span style="font-weight: bold;">esel</span>,s,type,,2
+  <span style="font-weight: bold;">keyop</span>,2,2,1                <span style="font-weight: bold; font-style: italic;">! Apply load in local coordinate system</span>
+  <span style="font-weight: bold;">keyop</span>,2,11,2               <span style="font-weight: bold; font-style: italic;">! Use real and not project area</span>
+  <span style="font-weight: bold;">esel</span>,all
+
+  <span style="font-weight: bold;">*DIM</span>,<span style="font-weight: bold;">_loadvari28x</span>,TABLE,2,1,1,TIME,
+  <span style="font-weight: bold; font-style: italic;">! Time values</span>
+  <span style="font-weight: bold;">_loadvari28x</span>(1,0,1) = 0.
+  <span style="font-weight: bold;">_loadvari28x</span>(2,0,1) = 1.
+  <span style="font-weight: bold; font-style: italic;">! Load values</span>
+  <span style="font-weight: bold;">_loadvari28x</span>(1,1,1) = 0.
+  <span style="font-weight: bold;">_loadvari28x</span>(2,1,1) = -1.
+
+
+  <span style="font-weight: bold;">*DIM</span>,<span style="font-weight: bold;">_loadvari28y</span>,TABLE,2,1,1,TIME,
+  <span style="font-weight: bold; font-style: italic;">! Time values</span>
+  <span style="font-weight: bold;">_loadvari28y</span>(1,0,1) = 0.
+  <span style="font-weight: bold;">_loadvari28y</span>(2,0,1) = 1.
+  <span style="font-weight: bold; font-style: italic;">! Load values</span>
+  <span style="font-weight: bold;">_loadvari28y</span>(1,1,1) = 0.
+  <span style="font-weight: bold;">_loadvari28y</span>(2,1,1) = -1.
+
+
+  <span style="font-weight: bold;">*DIM</span>,<span style="font-weight: bold;">_loadvari28z</span>,TABLE,2,1,1,TIME,
+  <span style="font-weight: bold; font-style: italic;">! Time values</span>
+  <span style="font-weight: bold;">_loadvari28z</span>(1,0,1) = 0.
+  <span style="font-weight: bold;">_loadvari28z</span>(2,0,1) = 1.
+  <span style="font-weight: bold; font-style: italic;">! Load values</span>
+  <span style="font-weight: bold;">_loadvari28z</span>(1,1,1) = 0.
+  <span style="font-weight: bold;">_loadvari28z</span>(2,1,1) = 0.
+
+  ...
+
+<span style="font-weight: bold;">esel</span>,s,type,,2
+<span style="font-weight: bold;">nsle</span>
+<span style="font-weight: bold;">sfe</span>,all,1,pres,1,<span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-weight: bold;">_loadvari28x</span><span style="font-weight: bold; text-decoration: underline;">%</span>
+<span style="font-weight: bold;">sfe</span>,all,2,pres,1,<span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-weight: bold;">_loadvari28y</span><span style="font-weight: bold; text-decoration: underline;">%</span>
+<span style="font-weight: bold;">sfe</span>,all,3,pres,1,<span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-weight: bold;">_loadvari28z</span><span style="font-weight: bold; text-decoration: underline;">%</span>
+<span style="font-weight: bold;">nsel</span>,all
+<span style="font-weight: bold;">esel</span>,all
 </pre>
 </div>
+</div>
+</div>
+<div id="outline-container-sec-1-2-0-3" class="outline-5">
+<h5 id="sec-1-2-0-3"><span class="section-number-5">1.2.0.3</span> displacements</h5>
+<div class="outline-text-5" id="text-1-2-0-3">
+<dl class="org-dl">
+<dt> remote displacement </dt><dd>x,y,z, displacments are for the pilot node NOT
+the entire area!
+</dd>
+<dt> simply supported </dt><dd>hinge for beams (rotations are free)
+</dd>
+<dt> elastic support </dt><dd>surf154, r(4)=foundation stiffness, default
+thickness=1, damping possible
+</dd>
+<dt> cylindrical support </dt><dd>rotation with nmodif,node,x,y,z,thxy,&#x2026;
+</dd>
+<dt> compression only support </dt><dd>rigid surf2surf contacts
+</dd>
+</dl>
+</div>
+<div id="outline-container-sec-1-2-0-3-1" class="outline-6">
+<h6 id="sec-1-2-0-3-1"><span class="section-number-6">1.2.0.3.1</span> Frictionless Support</h6>
+<div class="outline-text-6" id="text-1-2-0-3-1">
 <p>
-For example select the following elements
+Fixing normal displacement with (<code>d</code>), possibly modifying nodal
+coordinate system (<code>nmodif</code>), turning into normal direction.
 </p>
 <div class="org-src-container">
 
-<pre class="src src-ansys"><span style="font-weight: bold;">et</span>,Steel,<span style="font-weight: bold;">beam188</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">et</span>,Alu,<span style="font-weight: bold;">shell28</span>
+<pre class="src src-ansys"><span style="font-weight: bold;">/com</span>,<span style="font-style: italic;">********* Frictionless Supports X *********</span>
+<span style="font-weight: bold; text-decoration: underline;">CMBLOCK</span>,<span style="font-weight: bold;">_FRICSUX</span>,NODE,       48
+(8i10)
+        61        62        63        64        65        66       115       116
+       117       118       119       120       121       122       123       124
+       ....
+       408       409       410       411       412       413       414       415
+       416       417       418       419       420       421       422       423
+<span style="font-weight: bold;">cmsel</span>,s,<span style="font-weight: bold;">_FRICSUX</span>
+<span style="font-weight: bold;">d</span>,all,ux,0
+<span style="font-weight: bold;">nsel</span>,all
+<span style="font-weight: bold;">nsel</span>,all
+<span style="font-weight: bold;">/com</span>,<span style="font-style: italic;">*********** Node Rotations ***********</span>
+<span style="font-weight: bold;">nmod</span>,61,,,,-43.6672749853753,0.,0.
+...
 </pre>
 </div>
-<p>
-and you are getting a diffent element highlighting.
-</p>
-
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- default commands</span>
-<span style="font-weight: bold;">nsel</span>,s,loc,y,0
-    ,a,loc,y,1
-    ,r,loc,x,0
-<span style="font-weight: bold;">d</span>,all,all
-</pre>
 </div>
-</div>
-</div>
-</div>
-<div id="outline-container-sec-1-3" class="outline-3">
-<h3 id="sec-1-3"><span class="section-number-3">1.3</span> Implied (or colon) looping</h3>
-<div class="outline-text-3" id="text-1-3">
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ ::: implicit : (colon) looping :::::</span>
-<span style="font-weight: bold; font-style: italic;">!! (n1:n2:dn)</span>
-<span style="font-weight: bold;">lfillt</span>,(1<span style="font-weight: bold; text-decoration: underline;">:</span>2),(3<span style="font-weight: bold; text-decoration: underline;">:</span>4),5
-<span style="font-weight: bold; font-style: italic;">!! one subscript per array</span>
-<span style="font-weight: bold;">bf</span>,(1<span style="font-weight: bold; text-decoration: underline;">:</span>10),temp,Tarray(1<span style="font-weight: bold; text-decoration: underline;">:</span>10)
-b(1<span style="font-weight: bold; text-decoration: underline;">:</span>5) = 10,20,30,40,50 <span style="font-weight: bold; font-style: italic;">!TODO: creates this an array?</span>
-<span style="font-weight: bold; font-style: italic;">!! The </span><span style="font-weight: bold; font-style: italic;">*get command and get functions are allowed</span>
-<span style="font-weight: bold;">*get</span>,Fx(1<span style="font-weight: bold; text-decoration: underline;">:</span>10),node,(1<span style="font-weight: bold; text-decoration: underline;">:</span>10),f,fz <span style="font-weight: bold; font-style: italic;">!TODO:</span>
-<span style="font-weight: bold;">a</span>(1<span style="font-weight: bold; text-decoration: underline;">:</span>5) = <span style="font-weight: bold;">nx</span>(1<span style="font-weight: bold; text-decoration: underline;">:</span>5)
-<span style="font-weight: bold; font-style: italic;">!! TODO:</span>
-Fx(1<span style="font-weight: bold; text-decoration: underline;">:</span>10) = (1<span style="font-weight: bold; text-decoration: underline;">:</span>100<span style="font-weight: bold; text-decoration: underline;">:</span>10)    <span style="font-weight: bold; font-style: italic;">!is this working? :-)</span>
-<span style="font-weight: bold; font-style: italic;">!! alternative to </span><span style="font-weight: bold; font-style: italic;">*vfill</span>
-<span style="font-weight: bold;">*vfill</span>,Fx,ramp,1,10
-</pre>
-</div>
-
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! looping</span>
-<span style="font-weight: bold;">*get</span>,Dim
-<span style="font-weight: bold;">*if</span>,Dim,le,1,then
-  <span style="font-weight: bold;">*dim</span>,Reaction,array,Ns,1
-<span style="font-weight: bold;">*endif</span>
-<span style="font-weight: bold;">*do</span>,I,1,Ns
-  <span style="font-weight: bold;">set</span>,Ls,I
-  <span style="font-weight: bold;">fsum</span>
-  <span style="font-weight: bold;">*get</span>,Fx,fsum,,item,fx
-  Reaction(I)=Fx
-<span style="font-weight: bold;">*enddo</span>
-</pre>
-</div>
-<div class="org-src-container">
-
-<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- multiline </span><span style="font-weight: bold; font-style: italic;">*msg formatting with the &amp; operator</span>
-<span style="font-weight: bold;">*MSG</span>,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
-<span style="font-style: italic;">Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
-<span style="font-style: italic;">Steel = </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G A (electrical angle = </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G DEG) </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
-<span style="font-style: italic;">_Power factor: </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
-<span style="font-style: italic;">Inductance = </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
-<span style="font-style: italic;">VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)</span>
-</pre>
 </div>
 </div>
 </div>
@@ -2115,10 +2012,308 @@ in V11<span style="font-weight: bold; text-decoration: underline;">:</span> *mru
 </div>
 </div>
 </div>
-
 <div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> And the rest</h2>
+<h2 id="sec-3"><span class="section-number-2">3</span> ANSYS-Mode Syntax Highlighting Reference</h2>
 <div class="outline-text-2" id="text-3">
+</div>
+
+<div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Header</h3>
+<div class="outline-text-3" id="text-3-1">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! ------------------------------</span>
+<span style="font-weight: bold; font-style: italic;">!@ --- header ---</span>
+<span style="font-weight: bold; font-style: italic;">!! ------------------------------</span>
+<span style="font-weight: bold; font-style: italic;">!! Time-stamp: &lt;2012-06-22 16:42:24 uidg1626&gt;</span>
+<span style="font-weight: bold; font-style: italic;">!! NOTE: This is APDL pseudo code, checking</span>
+<span style="font-weight: bold; font-style: italic;">!!  ANSYS-Mode's highlighting capabilities and</span>
+<span style="font-weight: bold; font-style: italic;">!!  certain aspects of the language</span>
+<span style="font-weight: bold; font-style: italic;">!!  Please see further below.</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold;">/units</span>,mpa <span style="font-weight: bold; font-style: italic;">!indicate mm-t-s unit system</span>
+<span style="font-weight: bold; font-style: italic;">!@ --- Preprocessing ---</span>
+<span style="font-weight: bold;">/prep7</span>
+<span style="font-weight: bold; font-style: italic;">!@@ -- Elements --</span>
+<span style="font-weight: bold; font-style: italic;">Steel</span> = 1
+<span style="font-weight: bold; font-style: italic;">ID</span> = Steel
+<span style="font-weight: bold; font-style: italic;">real</span> = Steel
+<span style="font-weight: bold;">et</span>,ID,<span style="font-weight: bold;">solid186</span> <span style="font-weight: bold; font-style: italic;">!3d, 20 node</span>
+<span style="font-weight: bold; font-style: italic;">!@@ -- Material --</span>
+<span style="font-weight: bold;">mp</span>,nuxy,Steel,0.3 <span style="font-weight: bold; font-style: italic;">! Poisson No</span>
+<span style="font-weight: bold;">mp</span>,ex,Steel,200000 <span style="font-weight: bold; font-style: italic;">! Elastic modulus</span>
+<span style="font-weight: bold; font-style: italic;">!@@ -- Modeling --</span>
+<span style="font-weight: bold;">block</span>,0,1,0,1,0,1
+<span style="font-weight: bold; font-style: italic;">!@@ -- Meshing --</span>
+<span style="font-weight: bold;">vmesh</span>,all
+<span style="font-weight: bold; font-style: italic;">!@@ -- BCs, Loads --</span>
+<span style="font-weight: bold;">nsel</span>,s,loc,x,0
+<span style="font-weight: bold;">d</span>,all,all
+<span style="font-weight: bold;">nsel</span>,s,loc,x,1
+<span style="font-weight: bold;">d</span>,all,uy,-.1
+<span style="font-weight: bold;">allsel</span>
+<span style="font-weight: bold;">save</span>
+<span style="font-weight: bold; font-style: italic;">!@ --- Solving ---</span>
+<span style="font-weight: bold;">/solu</span>
+<span style="font-weight: bold;">solve</span>
+<span style="font-weight: bold; font-style: italic;">!@ --- Postprocessing --</span>
+<span style="font-weight: bold;">/post1</span>
+<span style="font-weight: bold;">/view</span>,,1,1,1
+<span style="font-weight: bold;">plnsol</span>,u,sum,2
+<span style="font-weight: bold;">/image</span>,save,test <span style="font-weight: bold; font-style: italic;">!save XWindow Dump xwd (or bmp on Windows)</span>
+<span style="font-weight: bold;">/image</span>,capture                <span style="font-weight: bold; font-style: italic;">!TODO: what is this: file0001.xwd?</span>
+<span style="font-weight: bold;">/sys</span>,<span style="font-style: italic;">convert test test.png</span>
+/upwind                  <span style="font-weight: bold; font-style: italic;">!TODO: 2d-graphics library? dated?</span>
+<span style="font-weight: bold;">*fft</span>                     <span style="font-weight: bold; font-style: italic;">!TODO: :-)</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</span>
+<span style="font-weight: bold; font-style: italic;">!!  Please put the the cursor below the next paragraph of emacs lisp</span>
+<span style="font-weight: bold; font-style: italic;">!!  code and type "C-x C-e" to change the setting of</span>
+<span style="font-weight: bold; font-style: italic;">!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'</span>
+<span style="font-weight: bold; font-style: italic;">!!  change the level from 0 to 2 and toggle the flag from `t' to</span>
+<span style="font-weight: bold; font-style: italic;">!!  `nil'.  Browse the file to check the differences.</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-lisp">(<span style="font-weight: bold;">progn</span>
+  (<span style="font-weight: bold;">when</span>
+      (featurep 'ansys-mode)
+    (unload-feature 'ansys-mode))
+  (setq
+   ansys-highlighting-level 2
+   ansys-dynamic-highlighting-flag t)
+  (load-file <span style="font-style: italic;">"ansys-mode.el"</span>)
+  (ansys-mode))
+</pre>
+</div>
+
+<p>
+:TODO
+!! &#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;&#x2014;
+/units,mpa !indicate mm-t-s unit system
+c
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- Ignored characters and condensed input line ($ operator)</span>
+<span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">ThisNightmare</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">/cle</span> <span style="font-weight: bold; font-style: italic;">!/clear</span>
+<span style="font-weight: bold;">f</span> <span style="font-weight: bold; text-decoration: underline;">$</span> fi <span style="font-weight: bold; text-decoration: underline;">$</span> fin <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">fini</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finis</span>  <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">er</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Highlighting APDL specials</h3>
+<div class="outline-text-3" id="text-3-2">
+</div><div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> Reserved words and _RETURN statements</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!!</span>
+<span style="font-weight: bold; font-style: italic;">N</span>      =  <span style="font-weight: bold;">_RETURN</span>       <span style="font-weight: bold; font-style: italic;">!return value of certain commands</span>
+<span style="font-weight: bold; font-style: italic;">Alpha2</span> =  +360./(2*N)
+<span style="font-weight: bold; font-style: italic;">Xc</span>     =  <span style="font-weight: bold; font-style: italic;">!empty rhs clears variables</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2-2" class="outline-4">
+<h4 id="sec-3-2-2"><span class="section-number-4">3.2.2</span> _RETURN values of macros</h4>
+<div class="outline-text-4" id="text-3-2-2">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold;">*return</span>                  <span style="font-weight: bold; font-style: italic;">!TODO: what is this?</span>
+<span style="font-weight: bold;">*status</span>,<span style="font-weight: bold;">_RETURN</span>          <span style="font-weight: bold; font-style: italic;">!0 normal</span>
+                         <span style="font-weight: bold; font-style: italic;">!1 note</span>
+                         <span style="font-weight: bold; font-style: italic;">!2 warning</span>
+                         <span style="font-weight: bold; font-style: italic;">!3 error</span>
+                         <span style="font-weight: bold; font-style: italic;">!4 fatal</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2-3" class="outline-4">
+<h4 id="sec-3-2-3"><span class="section-number-4">3.2.3</span> Old style APDL comments</h4>
+<div class="outline-text-4" id="text-3-2-3">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">var1</span> = <span style="font-weight: bold;">sinh</span>(<span style="font-weight: bold;">cos</span>(3 <span style="font-weight: bold; font-style: italic;">*5)) </span><span style="font-weight: bold; font-style: italic;">! old style Ansys comment!!!!!</span>
+<span style="font-weight: bold; font-style: italic;">var2</span> = <span style="font-weight: bold;">sinh</span>(<span style="font-weight: bold;">cos</span>(3*5))  <span style="font-weight: bold; font-style: italic;">! this is valid code</span>
+<span style="font-weight: bold;">fini</span> <span style="font-weight: bold; font-style: italic;">* comment</span>
+<span style="font-weight: bold; font-style: italic;">otto</span> = 3 <span style="font-weight: bold; font-style: italic;">* 4 comment, the value of otto = 3</span><span style="font-weight: bold; font-style: italic;">!</span>
+<span style="font-weight: bold; font-style: italic;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2-4" class="outline-4">
+<h4 id="sec-3-2-4"><span class="section-number-4">3.2.4</span> Ignored characters behind commands</h4>
+<div class="outline-text-4" id="text-3-2-4">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold;">f</span> <span style="font-weight: bold; text-decoration: underline;">$</span> fi <span style="font-weight: bold; text-decoration: underline;">$</span> fin <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">fini</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finis</span>  <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">er</span>
+<span style="font-weight: bold; font-style: italic;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2-5" class="outline-4">
+<h4 id="sec-3-2-5"><span class="section-number-4">3.2.5</span> The End Of File command</h4>
+<div class="outline-text-4" id="text-3-2-5">
+<div class="org-src-container">
+
+<pre class="src src-ansys">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+<span style="font-weight: bold; font-style: italic;">!!</span>
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- function names --</span>
+<span style="font-weight: bold; font-style: italic;">Pi</span>=<span style="font-weight: bold;">acos</span>(-1) <span style="font-weight: bold; text-decoration: underline;">$</span> True=1 <span style="font-weight: bold; text-decoration: underline;">$</span> False=0 <span style="font-weight: bold; text-decoration: underline;">$</span> Nn=3.1
+<span style="font-weight: bold; font-style: italic;">Alpha1</span> = <span style="font-weight: bold;">rotx</span>( 14.5) - 360./ (2*Nn)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-2-6" class="outline-4">
+<h4 id="sec-3-2-6"><span class="section-number-4">3.2.6</span> Ignored characters behind commands</h4>
+<div class="outline-text-4" id="text-3-2-6">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold;">f</span> <span style="font-weight: bold; text-decoration: underline;">$</span> fi <span style="font-weight: bold; text-decoration: underline;">$</span> fin <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">fini</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finis</span>  <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">finish</span><span style="font-weight: bold; text-decoration: underline;">er</span>
+<span style="font-weight: bold;">a</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">al</span> <span style="font-weight: bold; text-decoration: underline;">$</span> all <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">alls</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">allse</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">allsel</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">allsel</span><span style="font-weight: bold; text-decoration: underline;">llllll</span>
+<span style="font-weight: bold;">rectng</span><span style="font-weight: bold; text-decoration: underline;">aaaaa</span>,var1,<span style="font-weight: bold;">_X2</span>,var2,X2 <span style="font-weight: bold; font-style: italic;">! 2d rectangle</span>
+<span style="font-weight: bold; font-style: italic;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2-7" class="outline-4">
+<h4 id="sec-3-2-7"><span class="section-number-4">3.2.7</span> The End Of File command</h4>
+<div class="outline-text-4" id="text-3-2-7">
+<div class="org-src-container">
+
+<pre class="src src-ansys">  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+  <span style="font-weight: bold;">/exit</span>,nosave           <span style="font-weight: bold; font-style: italic;">!default is save the model data</span>
+<span style="font-weight: bold; font-style: italic;">!!</span>
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-2-8" class="outline-4">
+<h4 id="sec-3-2-8"><span class="section-number-4">3.2.8</span> Current element types and deprecated elements</h4>
+<div class="outline-text-4" id="text-3-2-8">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! A current element type:</span>
+<span style="font-weight: bold;">et</span>,10,<span style="font-weight: bold;">solid186</span>
+<span style="font-weight: bold; font-style: italic;">!! deprecated element types:</span>
+<span style="font-weight: bold;">et</span>,Steel,<span style="font-weight: bold;">beam3</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">et</span>,Alu,<span style="font-weight: bold;">shell91</span>
+<span style="font-weight: bold; font-style: italic;">!!</span>
+</pre>
+</div>
+<p>
+Let's change the element types to current ones!
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! Complete the following element fragments to current ones!</span>
+<span style="font-weight: bold; font-style: italic;">!!</span>
+<span style="font-weight: bold;">et</span>,Steel,beam <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">et</span>,Alu,shell
+</pre>
+</div>
+<p>
+For example select the following elements
+</p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold;">et</span>,Steel,<span style="font-weight: bold;">beam188</span> <span style="font-weight: bold; text-decoration: underline;">$</span> <span style="font-weight: bold;">et</span>,Alu,<span style="font-weight: bold;">shell28</span>
+</pre>
+</div>
+<p>
+and you are getting a diffent element highlighting.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- default commands</span>
+<span style="font-weight: bold;">nsel</span>,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+<span style="font-weight: bold;">d</span>,all,all
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> Implied (or colon) looping</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ ::: implicit : (colon) looping :::::</span>
+<span style="font-weight: bold; font-style: italic;">!! (n1:n2:dn)</span>
+<span style="font-weight: bold;">lfillt</span>,(1<span style="font-weight: bold; text-decoration: underline;">:</span>2),(3<span style="font-weight: bold; text-decoration: underline;">:</span>4),5
+<span style="font-weight: bold; font-style: italic;">!! one subscript per array</span>
+<span style="font-weight: bold;">bf</span>,(1<span style="font-weight: bold; text-decoration: underline;">:</span>10),temp,Tarray(1<span style="font-weight: bold; text-decoration: underline;">:</span>10)
+b(1<span style="font-weight: bold; text-decoration: underline;">:</span>5) = 10,20,30,40,50 <span style="font-weight: bold; font-style: italic;">!TODO: creates this an array?</span>
+<span style="font-weight: bold; font-style: italic;">!! The </span><span style="font-weight: bold; font-style: italic;">*get command and get functions are allowed</span>
+<span style="font-weight: bold;">*get</span>,Fx(1<span style="font-weight: bold; text-decoration: underline;">:</span>10),node,(1<span style="font-weight: bold; text-decoration: underline;">:</span>10),f,fz <span style="font-weight: bold; font-style: italic;">!TODO:</span>
+<span style="font-weight: bold;">a</span>(1<span style="font-weight: bold; text-decoration: underline;">:</span>5) = <span style="font-weight: bold;">nx</span>(1<span style="font-weight: bold; text-decoration: underline;">:</span>5)
+<span style="font-weight: bold; font-style: italic;">!! TODO:</span>
+Fx(1<span style="font-weight: bold; text-decoration: underline;">:</span>10) = (1<span style="font-weight: bold; text-decoration: underline;">:</span>100<span style="font-weight: bold; text-decoration: underline;">:</span>10)    <span style="font-weight: bold; font-style: italic;">!is this working? :-)</span>
+<span style="font-weight: bold; font-style: italic;">!! alternative to </span><span style="font-weight: bold; font-style: italic;">*vfill</span>
+<span style="font-weight: bold;">*vfill</span>,Fx,ramp,1,10
+</pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!! looping</span>
+<span style="font-weight: bold;">*get</span>,Dim
+<span style="font-weight: bold;">*if</span>,Dim,le,1,then
+  <span style="font-weight: bold;">*dim</span>,Reaction,array,Ns,1
+<span style="font-weight: bold;">*endif</span>
+<span style="font-weight: bold;">*do</span>,I,1,Ns
+  <span style="font-weight: bold;">set</span>,Ls,I
+  <span style="font-weight: bold;">fsum</span>
+  <span style="font-weight: bold;">*get</span>,Fx,fsum,,item,fx
+  Reaction(I)=Fx
+<span style="font-weight: bold;">*enddo</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="font-weight: bold; font-style: italic;">!@@ -- multiline </span><span style="font-weight: bold; font-style: italic;">*msg formatting with the &amp; operator</span>
+<span style="font-weight: bold;">*MSG</span>,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+<span style="font-style: italic;">Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
+<span style="font-style: italic;">Steel = </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G A (electrical angle = </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G DEG) </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
+<span style="font-style: italic;">_Power factor: </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
+<span style="font-style: italic;">Inductance = </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">G </span><span style="font-weight: bold; text-decoration: underline;">%</span><span style="font-style: italic;">/ </span><span style="font-weight: bold; text-decoration: underline;">&amp;</span>
+<span style="font-style: italic;">VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> And the rest</h2>
+<div class="outline-text-2" id="text-4">
 <p>
 *taxis only for 3 dimension? table(0,1) = 3 is working as well
 </p>

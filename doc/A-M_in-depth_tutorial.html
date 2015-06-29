@@ -140,7 +140,7 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href="../index.org"> UP </a>
+ <a accesskey="h" href="../index.html"> UP </a>
  |
  <a accesskey="H" href="https://github.com/dieter-wilhelm/ansys-mode"> HOME </a>
 </div><div id="content">
@@ -158,9 +158,6 @@ for the JavaScript code in this tag.
 </ul>
 </div>
 </div>
-<p>
-##+DATE:      2012-06-17 Sa
-</p>
 
 <div id="outline-container-unnumbered-1" class="outline-2">
 <h2 id="unnumbered-1">Introduction</h2>
@@ -1022,25 +1019,21 @@ Gives you the `cmlist' command
 <h4 id="unnumbered-32">Completion of functions</h4>
 <div class="outline-text-4" id="text-unnumbered-32">
 <p>
-    Completed function names have parentheses appended
-#+begin_src ansys
-  !! place the cursor behind 'aco' and type "&lt;ESC&gt; &lt;TAB&gt;" and so forth
-  !!
-#+end_src ansys
-#+begin_src ansys
-  P = aco         ! lower case completion
-  P = Sig         ! upper case completion
-  P = ARNE          ! Capitalisation
-#+end_src ansys
-    Note that the cursor after the completion is conveniently placed
-    inside the parentheses.  The completions are unique in above
-    examples and expand immediately to:
-#+begin_src ansys :tangle no
-  P = acos()
-  P = Sign()
-  P = ARNEXT()
-#+end_src ansys
+Completed function names have parentheses appended
 </p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! place the cursor behind 'aco' and type "&lt;ESC&gt; &lt;TAB&gt;" and so forth</span>
+<span style="color: #b22222;">!!</span>
+</pre>
+</div>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #a0522d;">P</span> = aco         <span style="color: #b22222;">! lower case completion</span>
+<span style="color: #a0522d;">P</span> = Sig         <span style="color: #b22222;">! upper case completion</span>
+<span style="color: #a0522d;">P</span> = ARNE        <span style="color: #b22222;">! Capitalisation</span>
+</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-unnumbered-33" class="outline-4">
@@ -1049,12 +1042,14 @@ Gives you the `cmlist' command
 <p>
 ANSYS-Mode also complets ANSYS deprecated element names but warns you
 with a distinct highlighting!
-#+begin_src ansys
-  !! Completion of element names: type "&lt;ESC&gt; &lt;TAB&gt;" behind `shell'
-  !!
-  shell
-#+end_src ansys
 </p>
+<div class="org-src-container">
+
+<pre class="src src-ansys"><span style="color: #b22222;">!! Completion of element names: type "&lt;ESC&gt; &lt;TAB&gt;" behind `shell'</span>
+<span style="color: #b22222;">!!</span>
+<span style="color: #a020f0;">shell</span>
+</pre>
+</div>
 </div>
 </div>
 <div id="outline-container-unnumbered-34" class="outline-4">
@@ -1456,9 +1451,6 @@ chosen license type.  And in the left hand Emacs window below a
 thumbnail view of images from a folder.
 </p>
 
-<p>
-##+ATTR_LaTeX: height=7.3cm
-</p>
 
 <div class="figure">
 <p><img src="./license.png" alt="license.png" />
@@ -1555,10 +1547,11 @@ Receive graphical feedback from the interpreter
 </pre>
 </div>
 
-<p>
-##+ATTR_LaTeX: height=6.5cm
-  <img src="./process.png" alt="process.png" />
+
+<div class="figure">
+<p><img src="./process.png" alt="process.png" />
 </p>
+</div>
 
 <p>
 Unfortunately there are 4 severe restrictions using this approach.
@@ -1709,10 +1702,11 @@ additional advantage getting used to them is the fact that the
 Thank you for your time, have fun with Emacs&#x2026;
 </p>
 
-<p>
-##+ATTR_LaTeX: width=6cm
-    <img src="./editor_learning_curves.jpg" alt="editor_learning_curves.jpg" />
+
+<div class="figure">
+<p><img src="./editor_learning_curves.jpg" alt="editor_learning_curves.jpg" />
 </p>
+</div>
 </div>
 
 <div id="outline-container-unnumbered-69" class="outline-3">
@@ -1725,9 +1719,6 @@ Thank you for your time, have fun with Emacs&#x2026;
 </dd>
 </dl>
 
-<p>
-######################################################################
-</p>
 <hr  />
 </div>
 </div>

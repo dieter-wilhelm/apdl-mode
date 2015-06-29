@@ -23,22 +23,23 @@
 #+INFOJS_OPT:
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
-* Readme and installation
+* Introduction and installation
   The [[file:README.org][README]] file
-* Configuration
-  The configuration file /default.el/ is decribed in ANSYS-Mode's
-  [[file:doc/default.org][customisation page]].
-* NEWS
-  The [[file:NEWS.org][NEWS]] file
 * Tutorials
   [[file:doc/A-M_introductory_tutorial.org][Introductory tutorial]]
 
   [[file:doc/A-M_in-depth_tutorial.org][In-depth tutorial]]
+* Configuration
+  The configuration file /default.el/ is decribed in ANSYS-Mode's
+  [[file:doc/default.org][customisation page]].
 * References
   The Ansys-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
 
   The [[file:matlib/README.org][ANSYS-Mode material library]].
+* NEWS
+  The [[file:NEWS.org][NEWS]] file
 * Todo
   [[file:TODO.org][What remains to do]]
 * License
   The GNU puplic license is in the [[file:LICENSE.org][LICENSE.org]] file
+-----

@@ -11,8 +11,8 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 
-This is the text of ANSYS-Mode's README.org, it is best read in
-Emacs's Org mode.
+#+title: This is ANSYS-Mode's README file
+It is best read in Emacs's Org mode.
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
@@ -517,7 +517,7 @@ the following options:
 
 - At the [[http://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
   without registration.
-
+-----
 # The following is for Emacs
 # local variables:
 # word-wrap: t

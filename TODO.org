@@ -1,4 +1,18 @@
-#+STARTUP: content
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_CONTAINER: div
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_UP: index.html
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
+#+LATEX_HEADER:
+#+title: The Todo file of ANSYS-Mode
+
+#+STARTUP: showall
 * Deficiencies:
   - Highlighting :: Experimental user variable highlighting
 		    does not take into account:
@@ -451,7 +465,7 @@
 ** Additional APDL macro resources
    see http://www.apdl.de for further ideas and extensions or
      http://www.padtinc.com/.
-
+-----
 # The following is for Emacs
 # local variables:
 # word-wrap: t

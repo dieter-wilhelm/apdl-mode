@@ -476,5 +476,11 @@
 #+ATTR_LaTeX: :width 6cm
     [[./editor_learning_curves.jpg]]
 
+-----
+# LOCAL variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# end:
 
 

@@ -465,3 +465,10 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 #+END_SRC
+----
+# LOCAL variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# end:
+

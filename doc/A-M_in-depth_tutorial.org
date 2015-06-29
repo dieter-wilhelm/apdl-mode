@@ -1,5 +1,6 @@
 #+TITLE:     Guided ANSYS-Mode hands-on Tutorial
-######################################################################
+
+# #####################################################################
 # TODO
 # Extensibility, Emacs self-documenting function help
 # Get ansys-mode highlighted fonts into the tutorial
@@ -26,17 +27,18 @@
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
-#+LINK_HOME: 
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_UP: ../index.org
 #+XSLT:
 #+PROPERTY: tangle yes
-##+LaTeX_CLASS: koma-report
-##+LaTeX_CLASS: koma-article
+
+# #+LaTeX_CLASS: koma-report
+# #+LaTeX_CLASS: koma-article
 
 #+TEXT: This is still a work in progress, good documentation is hard work.
 #+TEXT: Please report faults!
 
-##+LATEX: \tableofcontents
+# #+LATEX: \tableofcontents
 
 # so far just defining comments (old style too) and string for ansys
 #+BEGIN_LaTeX
@@ -77,7 +79,7 @@
 
 * Introduction
 
-#[[./ansys+emacs.png]]
+  [[./ansys+emacs.png]]
 
    Being an editor mode, we are mainly dealing with text, i. e. APDL
    code.  But *also* many things in this language's context.
@@ -101,7 +103,7 @@
    
 *** Please read the *introductory* ANSYS-Mode tutorial first
     This is the file `A-M_introductory_tutorial-16.1.1.pdf' in the
-    mode's archive or use its [[http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html][online]] version.
+    mode's archive or use its [[http://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
 
     Ah yes, you are in a hurry (I thought so). *In summary:* You
     will get an illustrated overiew how ANSYS-Mode can improve your
@@ -1369,4 +1371,11 @@ Thank you for your time, have fun with Emacs...
 
 # local variables:
 # mode : ansys
+# end:
+
+-----
+# LOCAL variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
 # end:

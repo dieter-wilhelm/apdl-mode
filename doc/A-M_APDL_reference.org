@@ -12,8 +12,6 @@
 #+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+LINK_UP:   
-#+LINK_HOME: 
 #+XSLT:
 #+PROPERTY: tangle yes
 # #+LaTeX_CLASS: koma-report
@@ -45,285 +43,134 @@
 #+TEXT: This is still a work in progress, good documentation is hard work!
 #+TEXT: Please report the faults.
 
-* ANSYS-Mode Syntax Highlighting Reference
-#+BEGIN_LaTeX
-  \definecolor{dkgreen}{rgb}{0,0.5,0}
-  \definecolor{dkred}{rgb}{0.5,0,0}
-  \definecolor{gray}{rgb}{0.5,0.5,0.5}
-  \lstset{frame=none, %leftline
-    basicstyle=\ttfamily\bfseries\footnotesize,
-    morekeywords={virtualinvoke},
-    keywordstyle=\color{dkgreen},
-    ndkeywordstyle=\color{red},
-    commentstyle=\color{dkred},
-    stringstyle=\color{orange},
-%   numbers=left,
-%    numberstyle=\ttfamily\tiny\color{gray},
-%    stepnumber=1,
-%    numbersep=10pt,
-    backgroundcolor=\color{white},
-    tabsize=4,
- %   showspaces=false,
-%    showstringspaces=false,
-    xleftmargin=.23in
-  }
+* WorkBench to APDL Translation
+** Material Models
+*** Plasticity
+**** Multilinear Kinematic Hardening (MISO)
+     Implementation:
+     #+BEGIN_SRC ansys
+     TB,PLAS,1,1,2,MISO
+     #+END_SRC
+     This means that one must input the curve in plastic strains and
+     *not* engineering strains!
+** Boundary conditions
+**** forces
+     it is possible to apply time and spatially varying loads either
+     tabular or functional. Example (depending on the coordinate
+     sys.): =10*sin(x)
+     - moment :: scope: geometric selection, named selection, remote
+                 point contact pair: conta174, targe170 and pilot node
+                 similar to remote point pilot node is placed at the
+                 centre of the geom. curvature moment is applied
+                 around the reference coordinate system. pinball
+                 radius (might) reduce(s) the memory intensive range
+                 of participating elements
+     - remote point :: contact pair with reference geometry and pilot
+		       node(point)
+     - remote force :: contacts with pilot node MPC formulation (flexible
+		       or rigid)
+     - pressure :: surf154, sf
+     - force :: surf154, sfe "line force": surf156, sfe
+     - bolt pretension :: prets179 (WB: select only ONE face for whole
+	  stud!)
+     - bearing load :: surf154,Elements selected in load direction and
+		   pressure load applied on projected area (WB: select ALL
+		   faces of a cylinder!)
+     - hydrostatic pressure :: surf154, sfgrad and sf
 
-\lstdefinelanguage{ansys}
-  {
-  morecomment=[l]{!},
-  morecomment=[l]{\ *}, % olds style comments
-  morestring=[b]',
-  sensitive=false,
-  morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
-     aplot,eplot,igesin,set,lfillt},
-  otherkeywords={*MSG,*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
-    /units,/prep7,/solu,/post1,/post26,/eof,/image,/sys,*afun,/view,c***,*get,
-   *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
-   /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
-}
-#+END_LaTeX  
-   
-** Header
-#+begin_src ansys
-    !! ------------------------------
-    !@ --- header ---
-    !! ------------------------------
-    !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
-    !! NOTE: This is APDL pseudo code, checking
-    !!  ANSYS-Mode's highlighting capabilities and
-    !!  certain aspects of the language
-    !!  Please see further below.
-#+end_src
+**** Pressure
+     Surface elements ~surf154~ and surface loads on elements (~sfe~)
+      #+BEGIN_SRC ansys
+       /com,*********** Define Pressure Vector Using Surface Effect Elements ***********
+       local,12,0,0.,0.,0.,0.,0.,0.
+       csys,0
+       et,2,154
+       eblock,10,,,10
+       (15i9)
+	      61        2        2        2       12      116      107       67       66      398      328      325      326
+	      62        2        2        2       12      115      114      107      116      407      397      398      408
+	      63        2        2        2       12      107      108       68       67      396      330      327      328
+	      64        2        2        2       12      114      113      108      107      406      400      396      397
+	      65        2        2        2       12      108      109       69       68      399      332      329      330
+	      66        2        2        2       12      113      112      109      108      405      402      399      400
+	      67        2        2        2       12      109      110       70       69      401      334      331      332
+	      68        2        2        2       12      112      111      110      109      404      403      401      402
+	      69        2        2        2       12      110      106       71       70      395      336      333      334
+	      70        2        2        2       12      111      105      106      110      394      393      395      403
+       -1
+       esel,s,type,,2
+       keyop,2,2,1                ! Apply load in local coordinate system
+       keyop,2,11,2               ! Use real and not project area
+       esel,all
 
-#+begin_src ansys
-  /units,mpa !indicate mm-t-s unit system
-  !@ --- Preprocessing ---
-  /prep7
-  !@@ -- Elements --
-  Steel = 1
-  ID = Steel
-  real = Steel
-  et,ID,solid186 !3d, 20 node
-  !@@ -- Material --
-  mp,nuxy,Steel,0.3 ! Poisson No
-  mp,ex,Steel,200000 ! Elastic modulus
-  !@@ -- Modeling --
-  block,0,1,0,1,0,1
-  !@@ -- Meshing --
-  vmesh,all
-  !@@ -- BCs, Loads --
-  nsel,s,loc,x,0
-  d,all,all
-  nsel,s,loc,x,1
-  d,all,uy,-.1
-  allsel
-  save
-  !@ --- Solving ---
-  /solu
-  solve
-  !@ --- Postprocessing --
-  /post1
-  /view,,1,1,1
-  plnsol,u,sum,2
-  /image,save,test !save XWindow Dump xwd (or bmp on Windows)
-  /image,capture 		!TODO: what is this: file0001.xwd?
-  /sys,convert test test.png
-  /upwind                  !TODO: 2d-graphics library? dated?
-  *fft                     !TODO: :-)
-#+end_src
+       *DIM,_loadvari28x,TABLE,2,1,1,TIME,
+       ! Time values
+       _loadvari28x(1,0,1) = 0.
+       _loadvari28x(2,0,1) = 1.
+       ! Load values
+       _loadvari28x(1,1,1) = 0.
+       _loadvari28x(2,1,1) = -1.
 
-#+begin_src ansys
-  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !!  Please put the the cursor below the next paragraph of emacs lisp
-  !!  code and type "C-x C-e" to change the setting of
-  !!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
-  !!  change the level from 0 to 2 and toggle the flag from `t' to
-  !!  `nil'.  Browse the file to check the differences.
-#+end_src
 
-# this is for the export
-#+begin_src lisp
-  (progn
-    (when
-        (featurep 'ansys-mode)
-      (unload-feature 'ansys-mode))
-    (setq
-     ansys-highlighting-level 2
-     ansys-dynamic-highlighting-flag t)
-    (load-file "ansys-mode.el")
-    (ansys-mode))
-#+end_src
+       *DIM,_loadvari28y,TABLE,2,1,1,TIME,
+       ! Time values
+       _loadvari28y(1,0,1) = 0.
+       _loadvari28y(2,0,1) = 1.
+       ! Load values
+       _loadvari28y(1,1,1) = 0.
+       _loadvari28y(2,1,1) = -1.
 
-# and this is for the APDL file
-#+begin_src ansys :exports none
-! this is the lisp code
-  (progn
-    (when
-        (featurep 'ansys-mode)
-      (unload-feature 'ansys-mode))
-    (setq
-     ansys-highlighting-level 2
-     ansys-dynamic-highlighting-flag t)
-    (load-file "ansys-mode.el")
-    (ansys-mode))
-#+end_src
 
-:TODO
-!! ------------------------------
-/units,mpa !indicate mm-t-s unit system
-c
-#+begin_src ansys
-  !@@ -- Ignored characters and condensed input line ($ operator)
-  finishThisNightmare $ /cle !/clear
-  f $ fi $ fin $ fini $ finis  $ finish $ finisher
-#+end_src
+       *DIM,_loadvari28z,TABLE,2,1,1,TIME,
+       ! Time values
+       _loadvari28z(1,0,1) = 0.
+       _loadvari28z(2,0,1) = 1.
+       ! Load values
+       _loadvari28z(1,1,1) = 0.
+       _loadvari28z(2,1,1) = 0.
 
-** Highlighting APDL specials
-#+begin_src  ansys :exports none
-!@ --- ANSYS-Mode is highlighting APDL specials ---
-#+end_src
-*** Reserved words and _RETURN statements
-#+begin_src ansys :exports none
-!@@ -- Reserved words and _RETURN statements --
-#+end_src
-#+begin_src ansys
-  !!
-  N      =  _RETURN       !return value of certain commands
-  Alpha2 =  +360./(2*N)
-  Xc     =  !empty rhs clears variables
-#+end_src
-*** _RETURN values of macros
-#+begin_src ansys
-  *return                  !TODO: what is this?
-  *status,_RETURN          !0 normal
-                           !1 note
-                           !2 warning
-                           !3 error
-                           !4 fatal
-#+end_src    
-***  Old style APDL comments
-#+begin_src ansys :exports none
-!@@ -- Old style APDL comments --
-#+end_src
-#+begin_src  ansys
-var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
-var2 = sinh(cos(3*5))  ! this is valid code
-fini * comment
-otto = 3 * 4 comment, the value of otto = 3!
-!!
-#+end_src
-*** Ignored characters behind commands
-#+begin_src ansys :exports none
-!@@ -- Ignored characters behind commands --
-#+end_src
-#+begin_src  ansys
-f $ fi $ fin $ fini $ finis  $ finish $ finisher
-!!
-#+end_src
-*** The End Of File command
-#+begin_src  ansys :exports none
-!@@ -- End Of File command --
-#+end_src
-#+begin_src  ansys
-/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-!!
-#+end_src
+       ...
 
-#+begin_src ansys
-  !@@ -- function names --
-  Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
-  Alpha1 = rotx( 14.5) - 360./ (2*Nn)
-#+end_src
+     esel,s,type,,2
+     nsle
+     sfe,all,1,pres,1,%_loadvari28x%
+     sfe,all,2,pres,1,%_loadvari28y%
+     sfe,all,3,pres,1,%_loadvari28z%
+     nsel,all
+     esel,all
 
-*** Ignored characters behind commands
-#+begin_src ansys :exports none
-!@@ -- Ignored characters behind commands --
-#+end_src
-#+begin_src ansys
-  f $ fi $ fin $ fini $ finis  $ finish $ finisher
-  a $ al $ all $ alls $ allse $ allsel $ allselllllll
-  rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
-  !!
-#+end_src
-*** The End Of File command
-#+begin_src  ansys :exports none
-  !@@ -- End Of File command --
-#+end_src
-#+begin_src ansys
-    /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-    /exit,nosave           !default is save the model data
-  !!
-#+end_src
-*** Current element types and deprecated elements
-#+begin_src ansys :exports none
-  !@@ -- Current element types & deprecated elements
-#+end_src
-#+begin_src ansys
-  !! A current element type:
-  et,10,solid186
-  !! deprecated element types:
-  et,Steel,beam3 $ et,Alu,shell91
-  !!
-#+end_src
-Let's change the element types to current ones!
-#+begin_src ansys :tangle yes
-  !! Complete the following element fragments to current ones!
-  !!
-  et,Steel,beam $ et,Alu,shell
-
-#+end_src
-For example select the following elements
-#+begin_src ansys :tangle no
-  et,Steel,beam188 $ et,Alu,shell28
-#+end_src
-and you are getting a diffent element highlighting.
-
-#+begin_src ansys
-  !@@ -- default commands
-  nsel,s,loc,y,0
-      ,a,loc,y,1
-      ,r,loc,x,0
-  d,all,all
-#+end_src
-** Implied (or colon) looping
-#+begin_src ansys
-  !@@ ::: implicit : (colon) looping :::::
-  !! (n1:n2:dn)
-  lfillt,(1:2),(3:4),5
-  !! one subscript per array
-  bf,(1:10),temp,Tarray(1:10)
-  b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
-  !! The *get command and get functions are allowed
-  *get,Fx(1:10),node,(1:10),f,fz !TODO:
-  a(1:5) = nx(1:5)
-  !! TODO:
-  Fx(1:10) = (1:100:10)    !is this working? :-)
-  !! alternative to *vfill
-  *vfill,Fx,ramp,1,10
-#+end_src
-
-#+begin_src ansys
-  !! looping
-  ,*get,Dim
-  ,*if,Dim,le,1,then
-    *dim,Reaction,array,Ns,1
-  ,*endif
-  ,*do,I,1,Ns
-    set,Ls,I
-    fsum
-    *get,Fx,fsum,,item,fx
-    Reaction(I)=Fx
-  ,*enddo
-#+end_src
-#+begin_src ansys
-  !@@ -- multiline *msg formatting with the & operator
-  *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
-  Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
-  Steel = %G A (electrical angle = %G DEG) %/ &
-  _Power factor: %G %/ &
-  Inductance = %G %/ &
-  VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
-#+end_src
+      #+END_SRC
+**** displacements
+     - remote displacement :: x,y,z, displacments are for the pilot node NOT
+	  the entire area!
+     - simply supported :: hinge for beams (rotations are free)
+     - elastic support :: surf154, r(4)=foundation stiffness, default
+	  thickness=1, damping possible
+     - cylindrical support :: rotation with nmodif,node,x,y,z,thxy,...
+     - compression only support :: rigid surf2surf contacts
+***** Frictionless Support
+      :PROPERTIES:
+      :Version:  15.0.7
+      :END:
+      Fixing normal displacement with (~d~), possibly modifying nodal
+      coordinate system (~nmodif~), turning into normal direction.
+      #+BEGIN_SRC ansys
+        /com,********* Frictionless Supports X *********
+        CMBLOCK,_FRICSUX,NODE,       48
+        (8i10)
+                61        62        63        64        65        66       115       116
+               117       118       119       120       121       122       123       124
+               ....
+               408       409       410       411       412       413       414       415
+               416       417       418       419       420       421       422       423
+        cmsel,s,_FRICSUX
+        d,all,ux,0
+        nsel,all
+        nsel,all
+        /com,*********** Node Rotations ***********
+        nmod,61,,,,-43.6672749853753,0.,0.
+        ...
+      #+END_SRC
 
 * APDL Reference
 ** Idiosyncrasies
@@ -816,6 +663,285 @@ environment!
   !undocumented commands are highlighted differently
   /xml                     !undocumented command /xml
   /xfrm                    !documented command   /xfrm
+#+end_src
+* ANSYS-Mode Syntax Highlighting Reference
+#+BEGIN_LaTeX
+  \definecolor{dkgreen}{rgb}{0,0.5,0}
+  \definecolor{dkred}{rgb}{0.5,0,0}
+  \definecolor{gray}{rgb}{0.5,0.5,0.5}
+  \lstset{frame=none, %leftline
+    basicstyle=\ttfamily\bfseries\footnotesize,
+    morekeywords={virtualinvoke},
+    keywordstyle=\color{dkgreen},
+    ndkeywordstyle=\color{red},
+    commentstyle=\color{dkred},
+    stringstyle=\color{orange},
+%   numbers=left,
+%    numberstyle=\ttfamily\tiny\color{gray},
+%    stepnumber=1,
+%    numbersep=10pt,
+    backgroundcolor=\color{white},
+    tabsize=4,
+ %   showspaces=false,
+%    showstringspaces=false,
+    xleftmargin=.23in
+  }
+
+\lstdefinelanguage{ansys}
+  {
+  morecomment=[l]{!},
+  morecomment=[l]{\ *}, % olds style comments
+  morestring=[b]',
+  sensitive=false,
+  morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
+     aplot,eplot,igesin,set,lfillt},
+  otherkeywords={*MSG,*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
+    /units,/prep7,/solu,/post1,/post26,/eof,/image,/sys,*afun,/view,c***,*get,
+   *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
+   /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
+}
+#+END_LaTeX  
+   
+** Header
+#+begin_src ansys
+    !! ------------------------------
+    !@ --- header ---
+    !! ------------------------------
+    !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
+    !! NOTE: This is APDL pseudo code, checking
+    !!  ANSYS-Mode's highlighting capabilities and
+    !!  certain aspects of the language
+    !!  Please see further below.
+#+end_src
+
+#+begin_src ansys
+  /units,mpa !indicate mm-t-s unit system
+  !@ --- Preprocessing ---
+  /prep7
+  !@@ -- Elements --
+  Steel = 1
+  ID = Steel
+  real = Steel
+  et,ID,solid186 !3d, 20 node
+  !@@ -- Material --
+  mp,nuxy,Steel,0.3 ! Poisson No
+  mp,ex,Steel,200000 ! Elastic modulus
+  !@@ -- Modeling --
+  block,0,1,0,1,0,1
+  !@@ -- Meshing --
+  vmesh,all
+  !@@ -- BCs, Loads --
+  nsel,s,loc,x,0
+  d,all,all
+  nsel,s,loc,x,1
+  d,all,uy,-.1
+  allsel
+  save
+  !@ --- Solving ---
+  /solu
+  solve
+  !@ --- Postprocessing --
+  /post1
+  /view,,1,1,1
+  plnsol,u,sum,2
+  /image,save,test !save XWindow Dump xwd (or bmp on Windows)
+  /image,capture 		!TODO: what is this: file0001.xwd?
+  /sys,convert test test.png
+  /upwind                  !TODO: 2d-graphics library? dated?
+  *fft                     !TODO: :-)
+#+end_src
+
+#+begin_src ansys
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  !!  Please put the the cursor below the next paragraph of emacs lisp
+  !!  code and type "C-x C-e" to change the setting of
+  !!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
+  !!  change the level from 0 to 2 and toggle the flag from `t' to
+  !!  `nil'.  Browse the file to check the differences.
+#+end_src
+
+# this is for the export
+#+begin_src lisp
+  (progn
+    (when
+        (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (setq
+     ansys-highlighting-level 2
+     ansys-dynamic-highlighting-flag t)
+    (load-file "ansys-mode.el")
+    (ansys-mode))
+#+end_src
+
+# and this is for the APDL file
+#+begin_src ansys :exports none
+! this is the lisp code
+  (progn
+    (when
+        (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (setq
+     ansys-highlighting-level 2
+     ansys-dynamic-highlighting-flag t)
+    (load-file "ansys-mode.el")
+    (ansys-mode))
+#+end_src
+
+:TODO
+!! ------------------------------
+/units,mpa !indicate mm-t-s unit system
+c
+#+begin_src ansys
+  !@@ -- Ignored characters and condensed input line ($ operator)
+  finishThisNightmare $ /cle !/clear
+  f $ fi $ fin $ fini $ finis  $ finish $ finisher
+#+end_src
+
+** Highlighting APDL specials
+#+begin_src  ansys :exports none
+!@ --- ANSYS-Mode is highlighting APDL specials ---
+#+end_src
+*** Reserved words and _RETURN statements
+#+begin_src ansys :exports none
+!@@ -- Reserved words and _RETURN statements --
+#+end_src
+#+begin_src ansys
+  !!
+  N      =  _RETURN       !return value of certain commands
+  Alpha2 =  +360./(2*N)
+  Xc     =  !empty rhs clears variables
+#+end_src
+*** _RETURN values of macros
+#+begin_src ansys
+  *return                  !TODO: what is this?
+  *status,_RETURN          !0 normal
+                           !1 note
+                           !2 warning
+                           !3 error
+                           !4 fatal
+#+end_src    
+***  Old style APDL comments
+#+begin_src ansys :exports none
+!@@ -- Old style APDL comments --
+#+end_src
+#+begin_src  ansys
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+#+end_src
+*** Ignored characters behind commands
+#+begin_src ansys :exports none
+!@@ -- Ignored characters behind commands --
+#+end_src
+#+begin_src  ansys
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
+#+end_src
+*** The End Of File command
+#+begin_src  ansys :exports none
+!@@ -- End Of File command --
+#+end_src
+#+begin_src  ansys
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
+#+end_src
+
+#+begin_src ansys
+  !@@ -- function names --
+  Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
+  Alpha1 = rotx( 14.5) - 360./ (2*Nn)
+#+end_src
+
+*** Ignored characters behind commands
+#+begin_src ansys :exports none
+!@@ -- Ignored characters behind commands --
+#+end_src
+#+begin_src ansys
+  f $ fi $ fin $ fini $ finis  $ finish $ finisher
+  a $ al $ all $ alls $ allse $ allsel $ allselllllll
+  rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+  !!
+#+end_src
+*** The End Of File command
+#+begin_src  ansys :exports none
+  !@@ -- End Of File command --
+#+end_src
+#+begin_src ansys
+    /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+    /exit,nosave           !default is save the model data
+  !!
+#+end_src
+*** Current element types and deprecated elements
+#+begin_src ansys :exports none
+  !@@ -- Current element types & deprecated elements
+#+end_src
+#+begin_src ansys
+  !! A current element type:
+  et,10,solid186
+  !! deprecated element types:
+  et,Steel,beam3 $ et,Alu,shell91
+  !!
+#+end_src
+Let's change the element types to current ones!
+#+begin_src ansys :tangle yes
+  !! Complete the following element fragments to current ones!
+  !!
+  et,Steel,beam $ et,Alu,shell
+
+#+end_src
+For example select the following elements
+#+begin_src ansys :tangle no
+  et,Steel,beam188 $ et,Alu,shell28
+#+end_src
+and you are getting a diffent element highlighting.
+
+#+begin_src ansys
+  !@@ -- default commands
+  nsel,s,loc,y,0
+      ,a,loc,y,1
+      ,r,loc,x,0
+  d,all,all
+#+end_src
+** Implied (or colon) looping
+#+begin_src ansys
+  !@@ ::: implicit : (colon) looping :::::
+  !! (n1:n2:dn)
+  lfillt,(1:2),(3:4),5
+  !! one subscript per array
+  bf,(1:10),temp,Tarray(1:10)
+  b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
+  !! The *get command and get functions are allowed
+  *get,Fx(1:10),node,(1:10),f,fz !TODO:
+  a(1:5) = nx(1:5)
+  !! TODO:
+  Fx(1:10) = (1:100:10)    !is this working? :-)
+  !! alternative to *vfill
+  *vfill,Fx,ramp,1,10
+#+end_src
+
+#+begin_src ansys
+  !! looping
+  ,*get,Dim
+  ,*if,Dim,le,1,then
+    *dim,Reaction,array,Ns,1
+  ,*endif
+  ,*do,I,1,Ns
+    set,Ls,I
+    fsum
+    *get,Fx,fsum,,item,fx
+    Reaction(I)=Fx
+  ,*enddo
+#+end_src
+#+begin_src ansys
+  !@@ -- multiline *msg formatting with the & operator
+  *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+  Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+  Steel = %G A (electrical angle = %G DEG) %/ &
+  _Power factor: %G %/ &
+  Inductance = %G %/ &
+  VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
 #+end_src
 
 * And the rest

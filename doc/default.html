@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Customisation of ANSYS-Mode</title>
-<!-- 2015-06-28 Sun 20:02 -->
+<!-- 2015-06-29 Mon 08:35 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -134,51 +134,13 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
-    MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
-        displayAlign: "center",
-        displayIndent: "2em",
-
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
-             }
-        }
-    });
-/*]]>*///-->
-</script>
 </head>
 <body>
-<div id="content">
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../index.html"> UP </a>
+ |
+ <a accesskey="H" href="https://github.com/dieter-wilhelm/ansys-mode"> HOME </a>
+</div><div id="content">
 <h1 class="title">Customisation of ANSYS-Mode</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
@@ -229,12 +191,10 @@ Customisations for GNU-Linux and Windows systems.
 <p>
 All the following code examples you will find in the file
 <i>default.el</i>, which can be used as the configuration file for
-ANSYS-Mode (after moving it e. g. to
-<i>\/usr\/share\/emacs\/site-lisp\/</i> or
-<i>c:\\EMACSINSTALLDIR\\site-lisp<br  />
-</i>).  Yet this file is loaded <b>after</b>
-Emacs' user configuration file <i>~\</i>.emacs/ (or <i>~\</i>.emacs.el/ or
-<i>~\</i>.emacs.d\/init.el/, if any)!  When you intend to change any of the
+ANSYS-Mode (after moving it e. g. to <a href="file:///usr/share/emacs/site-lisp">file:///usr/share/emacs/site-lisp</a> or
+<i>c:\\EMACSINSTALLDIR\\site-lisp\\</i>).  Yet this file is loaded <b>after</b>
+Emacs' user configuration file <a href="file:///home/dieter/.emacs">file:///home/dieter/.emacs</a> (or <a href="file:///home/dieter/.emacs.el">file:///home/dieter/.emacs.el</a> or
+<a href="file:///home/dieter/.emacs.d/init.el">file:///home/dieter/.emacs.d/init.el</a>, if any)!  When you intend to change any of the
 following settings either with
 </p>
 
@@ -394,9 +354,11 @@ function (without the suffix <i>.mac</i>).
 With the setting
 </p>
 
-<pre class="example">
-(add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="font-style: italic;">"\\.mac$"</span> . ansys-mode))
 </pre>
+</div>
 
 <p>
 files with the suffix <i>.mac</i> will be opended in Emacs under
@@ -446,30 +408,15 @@ With the following code block Emacs inserts automatically an outline
 of a code structure when creating a macro file (a file with the
 suffix <i>.mac</i>).
 </p>
-<pre class="example">
-(auto-insert-mode 1)	        ; insert automatically templates
-(add-hook 'find-file-hook 'auto-insert) ; when opening new files
-(setq auto-insert-query t)   ; aks for auto insertion of APDL template
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(auto-insert-mode 1)            <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">insert automatically templates</span>
+(add-hook 'find-file-hook 'auto-insert) <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">when opening new files</span>
+(setq auto-insert-query t)   <span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">aks for auto insertion of APDL template</span>
 (add-to-list 'auto-insert-alist
-   '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
+   '(ansys-mode . [ansys-skeleton-outline-template])) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">which template to insert</span>
 </pre>
-
-<p>
-#+BEGIN_SRC emacs-lisp :exports none :tangle yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                          ;; Auto insertion
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; auto insertion stuff (when creating a new APDL file)
-</p>
-
-<p>
-(auto-insert-mode 1)                        ; insert automatically templates
-(add-hook 'find-file-hook 'auto-insert) ; when opening new files
-(setq auto-insert-query t)   ; aks for auto insertion of APDL template
-(add-to-list 'auto-insert-alist
-  '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
-#+END_SRC             ;template
-</p>
+</div>
 </div>
 </div>
 
@@ -505,9 +452,11 @@ Activating outline minor mode for selectively hiding and unhiding
 code sections:
 </p>
 
-<pre class="example">
-(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode) ;enable outlining
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(add-hook 'ansys-mode-hook 'ansys-outline-minor-mode) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">enable outlining</span>
 </pre>
+</div>
 </div>
 </div>
 
@@ -531,7 +480,7 @@ below).
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(setq ansys-dynamic-highlighting-flag nil)
-(setq ansys-dynamic-highlighting-flag t) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">default</span>
+(setq ansys-dynamic-highlighting-flag t) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">default: t</span>
 </pre>
 </div>
 </div>
@@ -545,9 +494,11 @@ only in level 2 available (statical, if above flag is not set), the
 current default is 2
 </p>
 
-<pre class="example">
-(setq ansys-highlighting-level 1) ; default: 2
+<div class="org-src-container">
+
+<pre class="src src-emacs-lisp">(setq ansys-highlighting-level 1) <span style="font-weight: bold; font-style: italic;">;</span><span style="font-weight: bold; font-style: italic;">default: 2</span>
 </pre>
+</div>
 </div>
 </div>
 </div>
@@ -635,6 +586,10 @@ ANSYS job name
 <pre class="src src-emacs-lisp">(setq ansys-job <span style="font-style: italic;">"otto"</span>)<span style="font-weight: bold; font-style: italic;">; </span><span style="font-weight: bold; font-style: italic;">default: "file"</span>
 </pre>
 </div>
+
+<p>
+-&#x2014;
+</p>
 </div>
 </div>
 </div>

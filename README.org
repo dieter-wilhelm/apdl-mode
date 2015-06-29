@@ -404,6 +404,28 @@ explicitly called ansys-mode.
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 #+END_SRC
 
+** Hints for compiling Emacs under Linux
+   #+BEGIN_SRC sh
+   cd emacs-24.5/
+   ./configure
+   make
+   #+END_SRC
+*** RHEL 6 and Debian derivatives
+**** Required libraries
+     - ncurses-devel.x86_64
+     - gtk2-devel.x86_64 (libgtk under Debian)
+     #+BEGIN_SRC sh
+     yum install ncurses-devel.x86_64
+     #+END_SRC
+**** Optional libraries
+     Graphics support
+     - libjpeg-devel.x86_64
+     - giflib-devel.x86_64 (libgif-dev under Debian)
+     - libtiff-devel.x86_64
+     - libpng-devel.x86_64
+     - libxpm-devel.x86_64
+     - libMagickWand.x86_64 (for imagemagick support)
+
 * Usage and customisation
 
 When you have a file under `ansys-mode' check out the menu bar's

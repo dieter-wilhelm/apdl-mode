@@ -40,7 +40,7 @@ DIR := $(shell pwd)
 ifeq ($(HOSTNAME),urmel)
  EMACS_DIR := /usr/local/src/
 else
- EMACS_DIR := /appl/
+ EMACS_DIR := /disk/disk1/appl/emacs/
 endif
 
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)

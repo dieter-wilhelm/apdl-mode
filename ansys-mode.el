@@ -366,7 +366,7 @@ the currently defined abbreviations.")
 (defvar ansys-parameter-help-position) ;for the compiler
 
 (cond
- ((version< "24" emacs-version)
+ ((version< emacs-version "24")
   (defvar ansys-parameter-help-position 1
     "Cursor position in -show-command-parameters.")
   (make-local-variable 'ansys-parameter-help-position))

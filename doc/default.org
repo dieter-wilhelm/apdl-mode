@@ -433,9 +433,9 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
 
       ;; GNU-Linux 64 bit
 
-      ;; for starting the solver & ansys-license-status & ANSYS help 
+      ;; for starting the solver & ansys-license-status & ANSYS help
 ;      (setq		     ;
-;	;; license servers (or license file name)
+;	;; license servers (or license file name)nn
 ;	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
 ;	;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
 ;	ansys-license-file
@@ -446,8 +446,8 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
 ;	ansys-ansysli-servers
 ;	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
 ;	)
- 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		 ;; options when starting the solver
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -465,7 +465,7 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 #+END_SRC
-----
+-----
 # LOCAL variables:
 # word-wrap: t
 # show-trailing-whitespace: t

@@ -78,7 +78,7 @@
 #+END_LaTeX  
 
 * Introduction
-
+  #+attr_html: :width 600
   [[./ansys+emacs.png]]
 
    Being an editor mode, we are mainly dealing with text, i. e. APDL
@@ -189,7 +189,7 @@
 *** Inspect available code templates
     Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64 
 
-#+ATTR_HTML: width="1200"
+#+ATTR_HTML: :width 1000
    [[./template_menu.png]]
 
 #+begin_src ansys :exports none
@@ -747,11 +747,11 @@ with a distinct highlighting!
   !! Completion of command names: type "<ESC> <TAB>" behind `a'
   !!
   a
-#+end_src ansys
+#+end_src
 #+begin_src ansys
   !! Note Emacs' message that `a' is already a valid ANSYS symbol!
   !! It is highlighted already as a command, but it is further completable.
-#+end_src ansys
+#+end_src
 *** Dynamic completion
     Is a completion on the basis of the window's content, the
     following example will demonstrate what this means.
@@ -1033,7 +1033,7 @@ The APDL processing and debugging environment
    thumbnail view of images from a folder.
 
 #+ATTR_LaTeX: height=7.3cm
-#+ATTR_HTML: width="1200"
+#+ATTR_HTML: :width 1000
    [[./license.png]]
 
 ** Start the ANSYS `solver/interpreter'
@@ -1101,7 +1101,7 @@ Receive graphical feedback from the interpreter
   eplot
 #+end_src
 
-#+ATTR_HTML: width="1200"
+#+ATTR_HTML: :width 1000
 #+ATTR_LaTeX: height=6.5cm
   [[./process.png]]
 
@@ -1208,6 +1208,7 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
 Thank you for your time, have fun with Emacs...
 
 #+ATTR_LaTeX: width=6cm
+#+ATTR_HTML: :width 640
     [[./editor_learning_curves.jpg]]
 
 **  Acknowledgements

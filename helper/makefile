@@ -118,7 +118,7 @@ HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html 
 ORG_FILES := $(HTMLs:.html=.org)
 
 %.html : %.org
-	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l ansys-mode.el -l htmlize.el $< -eval "(org-html-export-to-html)"
+	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l ansys-mode.el -l htmlize.el $< -eval "(require 'ox-html)" -eval "(setq org-export-htmlize-output-type 'css)" -eval "(org-html-export-to-html)"
 
 .PHONEY : HTML
 HTML : html.tar.xz

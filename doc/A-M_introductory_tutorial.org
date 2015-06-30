@@ -451,7 +451,7 @@
 \href{http://shop.oreilly.com/product/9780596006488.do}{%
   \includegraphics[width=5.5cm]{./gnu_emacs.png}%
 }
-#+END_LaTeX 
+#+END_LaTeX
 #+HTML: <img src="./gnu_emacs.png" alt="download page from Google Code">
 
 *** Thank you for your time getting acquainted with ANSYS-Mode!
@@ -471,8 +471,7 @@
 #+END_LaTeX
 
 #+ATTR_LaTeX: :width 6cm
-    [[./editor_learning_curves.jpg]]
-
+[[./editor_learning_curves.jpg]]
 -----
 # LOCAL variables:
 # word-wrap: t

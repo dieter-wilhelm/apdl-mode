@@ -404,18 +404,19 @@ explicitly called ansys-mode.
      (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 #+END_SRC
 
-** Hints for compiling Emacs under Linux
+** Compiling Emacs under Linux
    #+BEGIN_SRC sh
    cd emacs-24.5/
    ./configure
    make
    #+END_SRC
-*** RHEL 6 and Debian derivatives
+*** RHEL (6)
 **** Required libraries
      - ncurses-devel.x86_64
      - gtk2-devel.x86_64 (libgtk under Debian)
      #+BEGIN_SRC sh
-     yum install ncurses-devel.x86_64
+     sudo yum install ncurses-devel.x86_64
+     ...
      #+END_SRC
 **** Optional libraries
      Graphics support
@@ -425,6 +426,30 @@ explicitly called ansys-mode.
      - libpng-devel.x86_64
      - libxpm-devel.x86_64
      - libMagickWand.x86_64 (for imagemagick support)
+
+*** Debian and derivatives
+**** Required libraries
+     Build dependencys with
+     #+BEGIN_SRC sh
+     sudo aptitude install build-dep emacs25
+     #+END_SRC
+    libtiff5-dev -> libtiff-dev
+    libpng12-dev
+**** Optional libraries
+     Graphics support
+     - libgif-dev
+     - libmagickwand-dev (for imagemagick support)
+***** gnutls
+      for smtp authentication  ~/.authinfo.gpg (info:auth)
+     #+BEGIN_SRC sh :dir /sudo:: :results raw
+      aptitude install -y libgnutls-dev gnutls-bin
+     #+END_SRC
+
+**** Documentation of Emacs in Debian 8
+     The documenation is in the Debian non-free repository.  Because
+     of a general Resolution: Why the GNU Free Documentation License
+     is not suitable for Debian main
+     [[https://www.debian.org/vote/2006/vote_001]]hi
 
 * Usage and customisation
 
@@ -539,7 +564,9 @@ the following options:
 
 - At the [[http://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
   without registration.
+
 -----
+
 # The following is for Emacs
 # local variables:
 # word-wrap: t

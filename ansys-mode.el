@@ -45,13 +45,18 @@
 ;; capabilities for an associated ANSYS solver process.
 
 ;; The mode's capabilities are sophisticated but the documentation is
-;; targeted for ANSYS users with little Emacs experience.  Regarding
-;; installation and further information please consult the
-;; accompanying README file.
+;; targeted for ANSYS users with little Emacs experience.  An online
+;; version of its documention can be found at
+;; http://dieter-wilhelm.github.io/ansys-mode/.
+
+;;  The code is available on
+;;  https://github.com/dieter-wilhelm/ansys-mode/. Regarding
+;;  installation and further information please consult the
+;;  accompanying README.org file.
 
 ;;; History:
 
-;; Please consult the history section in the accompanying README file.
+;; Please consult the accompanying NEWS.org file.
 
 ;;; Code:
 
@@ -1608,7 +1613,7 @@ Please refere the configuration example `default.el'.
 
 If you haven't installed ANSYS in the default locations and the
 executables are not in your system search path or you are using a
-different ANSYS version than '145' it is necessary for the last
+different ANSYS version than '161' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `ansys-customise-ansys' or from the
 menu bar -> 'ANSYS' -> 'Customise ANSYS Mode' -> 'ANSYS-process'
@@ -2188,7 +2193,7 @@ buffer, which might be completed with <TAB>."
 			  substr ""))
 	    (when (> count 0)
 		(setq s (concat s "\n" tmpstr)))
-	    (setq s (propertize (concat s "\n") 'face 'lazy-highlight))
+	    (setq s (propertize (concat s "\n") 'face 'highlight))
 	    ;; show different face for current argument
 	    (setq count (ansys-count-commas))
 	    (setq start (ansys-search-comma s count))
@@ -2200,7 +2205,7 @@ buffer, which might be completed with <TAB>."
 	    (setq end (ansys-search-comma s (1+ count)))
 	    (unless end
 		 (setq end length))
-	    (add-text-properties start end '(face  isearch-fail) s)
+	    (add-text-properties start end '(face isearch-fail) s)
 	    (ansys-manage-overlay s)
 	    (throw 'foo nil)))
 	(delete-overlay ansys-help-overlay)

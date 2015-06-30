@@ -182,10 +182,10 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 * Requirements
 
-The mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
-GNU-Linux64.  It should also run with all older versions of Emacs down
-to Emacs-23.1 (realeased July 2009 and which is able to compile
-ANSYS-Mode 16.1).
+This mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
+GNU-Linux64.  It was also tested with Emacs-23.1 (realeased July 2009)
+on GNU-Linux64 and should run with all older versions of Emacs down to
+Emacs-23.
 
 Some of ANSYS-Mode's solver control and communication features are
 only implemented for GNU-Linux systems.
@@ -228,7 +228,7 @@ remove the compiled .elc files, if any.)
 
 ** Short instructions
 
-*For Windows systems*:
+*** For Windows systems
 
 If applicable please grab the package of a pre-compiled Emacs-24.5
 (Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
@@ -259,17 +259,48 @@ In case you want to download or have already installed the [[http://ftp.gnu.org/
 version]] of GNU Emacs, you can also download and configure the
 ANSYS-Mode package separately. Please refer to below instructions.
 
-*For existing Emacs installations on Windows and GNU-Linux*:
+*** For a GNU-Linux system without Emacs
 
-*** Direct way; no file configuration necessary
+Please download the source archive
+~ansys-mode-16.1.1.emacs-24.5.tar.xz~ from
+[[https://github.com/dieter-wilhelm/ansys-mode/releases]], unpack it
+somewhere and compile it:
 
-Important prerequisite: Emacs must know where all the code (.el or its
-compiled versions .elc) files reside!  Extract the mode archive into
-an Emacs directory which is in its default load-path (a good place is
-the `site-lisp' folder in your Emacs installation tree) or indicate
-the directory with the environment variable EMACSLOADPATH).
+   #+BEGIN_SRC sh
+   tar -xJvf ansys-mode-16.1.1.emacs-24.5.tar.xz
+   cd emacs-24.5/
+   ./configure
+   make
+   #+END_SRC
 
-From there on you must load first the mode definitions with `M-x
+after this you will find the Emacs executable ~emacs~ in the ~src/~
+directory.
+
+optionally, if you have adminstrator rights you can install Emacs in
+your system.
+   #+BEGIN_SRC sh
+   make install
+   #+END_SRC
+
+*** For existing Emacs installations on Windows and GNU-Linux
+
+**** Direct way; no file configuration necessary
+
+Emacs must know where all the code (.el or its compiled versions .elc)
+files reside!  Extract the mode's archive ~ansys-mode-16.1.1.tar.xz~
+into an Emacs directory which is in its default load-path (a good
+place is the ~site-lisp/~ folder in your Emacs installation tree) or
+indicate an arbitrary directory with the environment variable
+EMACSLOADPATH).
+
+#+BEGIN_SRC sh
+export EMACSLOADPATH="/your/drive/where/ansys-mode/resides:"
+#+END_SRC
+
+(The colon `:' at the end indicates Emacs that the specified directory
+is to be added to the default load path.)
+
+Then you can load within Emacs the mode definitions with `M-x
 load-file ansys-mode RET', i. e. typing "M-x" (first) the <Alt> key
 and then the <x> key simultaneously, you'll end up in the so called
 Emacs minibuffer prompt, now type "load-file" (you might apply the
@@ -281,7 +312,7 @@ reasons - if the compiled version is available) and press RET to
 execute the loading.  Thereafter call the mode itself with `M-x
 ansys-mode RET' for every new or existing APDL file.
 
-*** More convenient way; file configuration necessary
+**** More convenient way; file configuration necessary
 
 Extract the files somewhere on disc and put the following paragraph
 into your `~/.emacs' or `~/.emacs.el' or `~/.emacs.d/init.el'
@@ -405,11 +436,21 @@ explicitly called ansys-mode.
 #+END_SRC
 
 ** Compiling Emacs under Linux
+
    #+BEGIN_SRC sh
    cd emacs-24.5/
    ./configure
    make
    #+END_SRC
+after this you will find the Emacs executable ~emacs~ in the ~src/~
+directory.
+
+optionally, if you have adminstrator rights you can install Emacs in
+your system.
+   #+BEGIN_SRC sh
+   make install
+   #+END_SRC
+
 *** RHEL (6)
 **** Required libraries
      - ncurses-devel.x86_64

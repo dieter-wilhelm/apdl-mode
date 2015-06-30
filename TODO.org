@@ -59,6 +59,7 @@
      ansys-mode is not activated!? <- autoloaded functions, should
      work they are calling -mode.el!
 ** Wish-list
+   - color scheme of *msg command is only readable on terminals
    - add adwords to gh-pages
    - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP

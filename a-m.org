@@ -1,4 +1,4 @@
-#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline 
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
@@ -34,31 +34,12 @@
 * Introduction
 Customisations for GNU-Linux and Windows systems.
 
-All the following code examples you will find in the file
-/a-m.el/, which can be used as the configuration file for
-ANSYS-Mode (after moving it e. g. to [[/usr/share/emacs/site-lisp]] or
-[[c:\\EMACSINSTALLDIR\\site-lisp\\]]).  Yet this file is loaded *after*
-Emacs' user configuration file [[~/.emacs]] (or [[~/.emacs.el]] or
-[[~/.emacs.d/init.el]], if any)!  When you intend to change any of the
-following settings either with
-
-1) Emacs' customisation system or
-2) changing them directly in your user configuration file,
-
-then you *must* either set the variable ~inhibit-default-init~ to ~t~
-like in the following line
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-default-init t)
-#+END_SRC
-in your configuration file or remove or rename /a-m.el/ (or at
-least its corresponding sections) otherwise clashing settings in
-/.emacs/ will be overwritten!
+The customisations are written in `Emacs-lisp'.  The comment sign in
+this language is ~;~ (one semi-colon `;').
 
 * Conventions used in /a-m.el/
-
-The comment sign in Emacs lisp is ~;~ (one semi-colon `;').  Textual
-hints in /a-m.el/ are indicated with DOUBLE semi-colons ~;;~,
-please uncomment there code lines with a SINGLE comment sign, when
+Textual hints in /a-m.el/ are indicated with DOUBLE semi-colons ~;;~,
+please uncomment the code lines with a SINGLE comment sign, when
 appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -224,6 +205,7 @@ imports, see the file /example.anf/.
 ;; in the ANSYS command prompt like a regular ANSYS function (without
 ;; the suffix .mac). See the file helper/example.mac
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+(add-to-list 'auto-mode-alist '("\\.ans$" . ansys-mode))
 
 ;; .dat and .inp are WorkBench's solver input file suffixes
 ;; See the file helper/example.dat
@@ -237,15 +219,17 @@ imports, see the file /example.anf/.
 #+END_SRC
 
 * Auto insertion of code
-  With the following code block Emacs inserts automatically an outline
-  of a code structure when creating a macro file (a file with the
-  suffix /.mac/).
+  With the following code block Emacs inserts (after query) an outline
+  of a code structure when creating a new file with any suffix in the
+  ~auto-mode-alist~ for ~ansys-mode~, please see above section).
 #+BEGIN_SRC emacs-lisp
-(auto-insert-mode 1)	        ; insert automatically templates
-(add-hook 'find-file-hook 'auto-insert) ; when opening new files
-(setq auto-insert-query t)   ; aks for auto insertion of APDL template
-(add-to-list 'auto-insert-alist
-   '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
+  (auto-insert-mode 1)            ; insert automatically templates
+  (add-hook 'find-file-hook 'auto-insert) ; when opening new files
+  (setq auto-insert-query t)   ; ask before insertion of an APDL
+                               ; template
+  (add-to-list 'auto-insert-alist
+     '(ansys-mode . [ansys-skeleton-outline-template])) ;which template
+                                                        ;to insert
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
@@ -267,7 +251,7 @@ imports, see the file /example.anf/.
   yet loaded, with the following code.
   #+BEGIN_SRC emacs-lisp
 (autoload 'ansys-mode "ansys-mode" nil t)
-(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for
  calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
@@ -286,7 +270,7 @@ imports, see the file /example.anf/.
 ;; files not loaded.
 
 (autoload 'ansys-mode "ansys-mode" nil t)
-(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for
 calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
@@ -303,7 +287,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'ansys-mode-hook 'ansys-outline-minor-mode) ;enable outlining
-#+END_SRC  
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -396,7 +380,7 @@ setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
 
 #+END_SRC
 
-* Ansys processes      
+* Ansys processes
 ** License server
    License server configuration: License servers (or license file
    name) specify even the default port for lmutil (since ANSYS V 12.0)

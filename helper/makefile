@@ -3,6 +3,7 @@ help :
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
+	@echo "make ALWIN = Archive for Alwin"
 	@echo "make HTML = update the html documentation"
 	@echo "make TAGS = make the goddam tags!"
 	@echo "make ELC = compile the el files"
@@ -22,7 +23,7 @@ ANSYS_MAJOR := 16
 ANSYS_MINOR := 1
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := freeze1
+MODE_VERSION := 1
 # for consistency:
 #MODE_VERSION := freeze1
 #MODE_VERSION := beta1
@@ -68,7 +69,7 @@ EXE : $(EMACS_EXE)
 
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
-EL_FILES := ../ansys-mode.el ../ansys-keyword.el \
+EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el ../default.el
 # ansys-fontification.el is missing since it is not necessary for running A-M
 
@@ -78,6 +79,10 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
+
+WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
+  ../ansys-template.el ../ansys-process.el
+
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	 ../doc/A-M_in-depth_tutorial.org    \
@@ -104,6 +109,12 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 # the sources are built from GitHub automatically when tagged
 .PHONEY : MODE
 MODE : $(PACKAGE)
+
+.PHONEY : ALWIN
+ALWIN : MODE tools/bin/ansys-mode.sh
+	cp -ur $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
+	      tools/ansys-mode/ansys-mode-$(VERSION)
+	tar -cJvf a-m-$(VERSION).tar.xz tools
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
 	tar -xJvf $(EMACS_SOURCE_PACKAGE) 

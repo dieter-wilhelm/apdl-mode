@@ -204,11 +204,12 @@ like in the variable `ansys-program'."
 Warning: This option is computational expensive and --depending
 on the file size and your hardware --it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
-user variables is only implemented for files with the extension
-\".mac\" and in the highest highlighting level (please see the
-variable `ansys-highlighting-level') otherwise the fontification
-of variables is only static.  To take effect after setting this
-variable you have to restart `ansys-mode'."
+user variables is only implemented for files with the extensions
+either \".mac\" or \".ans\" and in the highest highlighting
+level (please see the variable `ansys-highlighting-level')
+otherwise the fontification of variables is only static.  To take
+effect after setting this variable you have to restart
+`ansys-mode'."
   :type 'boolean
   :group 'ANSYS)
 
@@ -1877,7 +1878,8 @@ improvements you have the following options:
 	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and buffer-file-name ;we have a file in the buffer
 		 ansys-dynamic-highlighting-flag
-		 (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
+		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (add-hook 'post-command-hook

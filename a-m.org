@@ -1,4 +1,4 @@
-#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline 
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
@@ -25,11 +25,17 @@
 #+TITLE: Customisation of ANSYS-Mode
 #+text: Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
+** Extending Eamcs load path
+#+BEGIN_SRC emacs-lisp :tangle yes :exports none
+ (add-to-list 'load-path default-directory)
+ (require 'ansys-mode)
+#+END_SRC
+
 * Introduction
 Customisations for GNU-Linux and Windows systems.
 
 All the following code examples you will find in the file
-/default.el/, which can be used as the configuration file for
+/a-m.el/, which can be used as the configuration file for
 ANSYS-Mode (after moving it e. g. to [[/usr/share/emacs/site-lisp]] or
 [[c:\\EMACSINSTALLDIR\\site-lisp\\]]).  Yet this file is loaded *after*
 Emacs' user configuration file [[~/.emacs]] (or [[~/.emacs.el]] or
@@ -44,14 +50,14 @@ like in the following line
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-default-init t)
 #+END_SRC
-in your configuration file or remove or rename /default.el/ (or at
+in your configuration file or remove or rename /a-m.el/ (or at
 least its corresponding sections) otherwise clashing settings in
 /.emacs/ will be overwritten!
 
-* Conventions used in /default.el/
+* Conventions used in /a-m.el/
 
 The comment sign in Emacs lisp is ~;~ (one semi-colon `;').  Textual
-hints in /default.el/ are indicated with DOUBLE semi-colons ~;;~,
+hints in /a-m.el/ are indicated with DOUBLE semi-colons ~;;~,
 please uncomment there code lines with a SINGLE comment sign, when
 appropriate.
 
@@ -60,7 +66,7 @@ appropriate.
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
-;; !!! `default.el' can be used as a configuration file (after moving
+;; `a-m.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
 ;; `c:\\EMACS_INSTALLDIR\\site-lisp').  Yet this file is then loaded
 ;; AFTER Emacs' user configuration file `~/.emacs' (or `~/.emacs.el'
@@ -68,7 +74,7 @@ appropriate.
 ;; settings with 1) Emacs' customisation system or 2) changing them
 ;; directly in your configuration file, you MUST either set the
 ;; variable `inhibit-default-init' to `t' "(setq inhibit-default-init
-;; t)" in your configuration file or remove or rename `default.el' (or
+;; t)" in your configuration file or remove or rename `a-m.el' (or
 ;; at least its corresponding sections) otherwise clashing settings in
 ;; `.emacs' will be overwritten!!!
 
@@ -121,7 +127,7 @@ ANSYS (if they are differing from the defaults and restart Emacs
   (setq ansys-current-ansys-version "150")
   ;(setq ansys-current-ansys-version "161") ; "161" is the default
                                             ; in ANSYS-Mode 16.1.1
-#+END_SRC					    
+#+END_SRC
 The installation path (what comes before the directory /ansys_inc/ on
 Linux or /ANSYS Inc/ on Windows.
 #+BEGIN_SRC emacs-lisp

@@ -201,7 +201,8 @@ this particular ANSYS release.
 
 Sources:
 - ansys-mode.el: Main file
-- ansys-keyword.el: Fontification variables build from
+- a-m.el: The configuration file
+- ansys-keyword.el: Fontification variables built from
   helper/ansys-fontification.el
 - ansys-template.el: Template definitions
 - ansys-process.el: Variables and functions related to solver
@@ -216,10 +217,10 @@ remove the compiled .elc files, if any.)
 - NEWS.org -- News and history
 - TODO.org -- Todos and deficiencies
 - LICENSE.org -- The GPL (Gnu Public License) Version 3
-- default.el -- Configuration (example) file
 - helper/example.dat -- WorkBench example APDL solver input file
 - helper/example.anf -- ANSYS geometry neutral file example
 - helper/example.mac -- APDL user macro and highlighting example
+- helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
 - matlib/ -- a directory with examples of APDL material definitions
 - doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
@@ -227,7 +228,6 @@ remove the compiled .elc files, if any.)
 - doc/A-M_APDL_reference-16.1.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 ** Short instructions
-
 *** For Windows systems
 
 If applicable please grab the package of a pre-compiled Emacs-24.5

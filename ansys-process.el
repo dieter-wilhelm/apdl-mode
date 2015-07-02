@@ -744,7 +744,8 @@ Element categories:
       ;; TODO: w32-shell-execute not know under Emacs 23.1
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
-	  (browse-url-xdg-open (concat path file))))
+	  (browse-url-xdg-open (concat path file))
+	(browse-url-default-browser (concat path file))))
      ;; windows
      ((string= system-type "windows-nt")
 ;      (if (fboundp 'w32-shell-execute)

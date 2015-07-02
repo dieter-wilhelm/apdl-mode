@@ -1,5 +1,6 @@
 Welcome to ANSYS-Mode, please read the accompanying tutorial
-/appl/tools/ansys-mode/current/A-M_introductory_tutorial-16.1.1.pdf
+/appl/tools/ansys-mode/current/A-M_introductory_tutorial-16.1.1.pdf.
+(You can view also PDF files in Emacs...)
 
 /appl/tools/bin/ansys-mode.sh starts Emacs with the APDL editing mode
 enabled. For example

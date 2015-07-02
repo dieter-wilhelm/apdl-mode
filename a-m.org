@@ -27,8 +27,10 @@
 
 ** Extending Eamcs load path
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
- (add-to-list 'load-path default-directory)
- (require 'ansys-mode)
+  ;; adding the directory of this (loaded) file to the load-path
+  (message (concat "loading from " (file-name-directory load-file-name)))
+  (add-to-list 'load-path (file-name-directory load-file-name))
+  (require 'ansys-mode)
 #+END_SRC
 
 * Introduction
@@ -362,21 +364,21 @@ setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; ANSYS version and paths
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; ANSYS version and paths
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Things you might have to configure if your ANSYS installation is
-;; completely differing from default ANSYS installation paths, as in
-;; the example below:
+  ;; Things you might have to configure if your ANSYS installation is
+  ;; completely differing from default ANSYS installation paths, as in
+  ;; the example below:
 
-      ;  (setq ansys-help-program
-      ; 	     "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-      ;; normally it looks like this:
-      ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+         (setq ansys-help-program
+                     "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+        normally it looks like this:
+        "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
 
-      ; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-      ; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+        (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
+        (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
 
 #+END_SRC
 

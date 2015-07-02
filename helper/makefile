@@ -80,6 +80,8 @@ ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
 
+WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat tools/ansys-mode/README
+
 WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el
 

@@ -41,7 +41,7 @@ DIR := $(shell pwd)
 ifeq ($(HOSTNAME),urmel)
  EMACS_DIR := /usr/local/src/
 else
- EMACS_DIR := /disk/disk1/appl/emacs/
+ EMACS_DIR := /appl/emacs/
 endif
 
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
@@ -90,7 +90,7 @@ TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	 ../doc/A-M_in-depth_tutorial.org    \
 	 ../doc/A-M_APDL_reference.org
 
-TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf			
+TUTORIALS := ../doc/A-M_introductory_tutorial-$(VERSION).pdf			
 # A-M_in-depth_tutorial-$(VERSION).ansys \
  A-M_in-depth_tutorial-$(VERSION).pdf    \
  A-M_APDL_reference-$(VERSION).pdf
@@ -113,8 +113,9 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 MODE : $(PACKAGE)
 
 .PHONEY : ALWIN
-ALWIN : MODE tools/bin/ansys-mode.sh
-	cp -ur $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
+ALWIN :  tools/bin/ansys-mode.sh makefile
+	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
+	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
 	      tools/ansys-mode/ansys-mode-$(VERSION)
 	tar -cJvf a-m-$(VERSION).tar.xz tools
 

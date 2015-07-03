@@ -3273,10 +3273,10 @@ argument ARG, the function evaluates the variable at point."
 	    str old-num com
 	    (num 0))
        (set-buffer variable-buffer)
-       (if (version< "24" emacs-version)
+       (if (version<  "24" emacs-version)
 	   (when (fboundp 'read-only-mode)
-	     (read-only-mode 1))
-	 (toggle-read-only 1))
+	     (read-only-mode -1))
+	 (toggle-read-only -1))
        (kill-region (point-min) (point-max))
        ;; insert header
        (insert

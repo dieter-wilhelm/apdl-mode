@@ -370,10 +370,11 @@ code line after this region (or paragraph)."
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
 			       )
-	   (display-buffer-other-frame "*ANSYS*"))
+	   (display-buffer-other-frame "*ANSYS*")
+	   (message "Sent region to solver."))
 	  (t
 	   (kill-ring-save beg end)
-	   ;; (indicate-copied-region)
+	   (message "Copied region.")
 	   ))
     (if (= move 4)
 	(progn
@@ -743,7 +744,8 @@ Element categories:
       ;; TODO: w32-shell-execute not know under Emacs 23.1
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
-	  (browse-url-xdg-open (concat path file))))
+	  (browse-url-xdg-open (concat path file))
+	(browse-url-default-browser (concat path file))))
      ;; windows
      ((string= system-type "windows-nt")
 ;      (if (fboundp 'w32-shell-execute)

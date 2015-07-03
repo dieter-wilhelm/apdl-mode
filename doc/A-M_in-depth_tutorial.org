@@ -183,7 +183,7 @@
 #+end_src
 *** Open this tutorial's APDL source file
 #+begin_src ansys :tangle no
-  !! Open `A-M_in-depth_tutorial-16.1.1.ansys' with "C-x C-f"!  You can take this
+  !! Open `APDL_tutorial.ans' with "C-x C-f"!  You can take this
   !! file from the latest mode's archives.
 #+end_src
 *** Inspect available code templates
@@ -280,7 +280,7 @@ The idea is to have a skeleton for starting a new APDL project.
   !@ --- Header ---
   !@ ==============================
   
-  !! FILENAME: /home/dieter/ansys-mode/trunk/APDL_tutorial.ansys
+  !! FILENAME: APDL_tutorial.ans
   !! CREATION DATE: Tue Jun 26 01:02:07 2012
   !! ANSYS VERSION: 140
   !! DESCRIPTION: outline example

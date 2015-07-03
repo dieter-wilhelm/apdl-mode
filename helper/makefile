@@ -78,7 +78,12 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat \
+	  ../doc/APDL_tutorial.ans
+
+../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
+	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
+	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat tools/ansys-mode/README
 

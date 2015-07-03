@@ -52,8 +52,7 @@ least its corresponding sections) otherwise clashing settings in
 
 The comment sign in Emacs lisp is ~;~ (one semi-colon `;').  Textual
 hints in /default.el/ are indicated with DOUBLE semi-colons ~;;~,
-please uncomment there code lines with a SINGLE comment sign, when
-appropriate.
+uncomment only code lines with a SINGLE comment sign, if appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)
@@ -121,7 +120,7 @@ ANSYS (if they are differing from the defaults and restart Emacs
   (setq ansys-current-ansys-version "150")
   ;(setq ansys-current-ansys-version "161") ; "161" is the default
                                             ; in ANSYS-Mode 16.1.1
-#+END_SRC					    
+#+END_SRC
 The installation path (what comes before the directory /ansys_inc/ on
 Linux or /ANSYS Inc/ on Windows.
 #+BEGIN_SRC emacs-lisp
@@ -188,9 +187,10 @@ With the setting
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+  (add-to-list 'auto-mode-alist '("\\.ans\\'" . ansys-mode))
 #+END_SRC
 
-files with the suffix /.mac/ will be opended in Emacs under
+files with the suffix /.mac/ or /.ans/ will be opended in Emacs under
 ANSYS-Mode.  Check the /example.mac/ file.
 ** WorkBench generated input files
 /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See the
@@ -218,6 +218,7 @@ imports, see the file /example.anf/.
 ;; in the ANSYS command prompt like a regular ANSYS function (without
 ;; the suffix .mac). See the file helper/example.mac
 (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
+(add-to-list 'auto-mode-alist '("\\.ans$" . ansys-mode))
 
 ;; .dat and .inp are WorkBench's solver input file suffixes
 ;; See the file helper/example.dat
@@ -231,9 +232,9 @@ imports, see the file /example.anf/.
 #+END_SRC
 
 * Auto insertion of code
-  With the following code block Emacs inserts automatically an outline
-  of a code structure when creating a macro file (a file with the
-  suffix /.mac/).
+  With the following code block Emacs inserts (after query) an outline
+  of a code structure when creating a new file with any suffix in the
+  ~auto-mode-alist~ for ~ansys-mode~, please see above section).
 #+BEGIN_SRC emacs-lisp
 (auto-insert-mode 1)	        ; insert automatically templates
 (add-hook 'find-file-hook 'auto-insert) ; when opening new files

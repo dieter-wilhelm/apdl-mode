@@ -1241,8 +1241,10 @@ You can always cancel minibuffer commands by typing
 the <g> key at the same time.
 
 All functions described in this help, regardless whether
-possessing a keyboard shortcut or not, can be called in this way
-or they are to be found in the ANSYS menu.
+possessing a keyboard shortcut or not, can be called in the
+interactive way or they are to be found in the ANSYS menu.  (If
+you prefer to run Emacs in a terminal you might access the menu
+with <F10> key or \"ESC-`'\".)
 
 Above described procedure has the same effect as typing
 \"\\[ansys-start-ansys-help]\" in a file buffer under ANSYS

@@ -423,7 +423,9 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; license server configuration
 
-   ;; GNU-Linux 64 bit only
+
+  ;; GNU-Linux 64 bit only !!! Warning specifiying many license server
+  ;; takes a long time for displaying the license status!!!
 
    ;; for starting the solver & ansys-license-status & ANSYS help
   (setq                 ;
@@ -431,12 +433,14 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
    ;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
    ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
    ansys-license-file
-   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
+  "32002@ls_fr_ansyslmd_ww_1.conti.de"
+;   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
    ;; since ANSYS 12.0 there is an intermediate server for
    ;; the communication between flexlm and ANSYS, 2325 is the default port
    ansys-ansysli-servers
-   "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+  "2325@ls_fr_ansyslmd_ww_1.conti.de"
+;  "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

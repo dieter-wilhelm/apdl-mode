@@ -1,6 +1,6 @@
 ;;; ansys-template.el -- APDL code templates for the ANSYS-Mode
 
-;; Copyright (C) 2006 - 20014  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 20015  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -72,8 +72,8 @@ key and choose with the mouse 2 button."
 	    "ansys-skeleton-"))
 	 (skel
 	  (if (= arg 1)
-	     (completing-read "Preview template: "
-			      obarray 'commandp t skel-string nil)
+	      (completing-read "Preview template: "
+			       obarray 'commandp t skel-string nil)
 	    (completing-read "Insert template: "
 			     obarray 'commandp t skel-string nil)))
 	 )
@@ -928,35 +928,35 @@ time stamp with the Emacs command M-x `time-stamp'."
 
 (define-skeleton ansys-skeleton-element-table
   "Element tables."
-  nil ;interactor not needed
+  nil
   "!@ ------------------------------" \n
   "!@@ -- Etables, element tables --" \n
   "!! ------------------------------" \n
-  ;; \n
-  ;; "!! etables don't take into account higher element order!" \n
-  ;; "!! they are averaged over the element" \n
-  ;; "!! ---- Mohr-Coulomb failure criterion" \n
-  ;; "Z1 = 60 !tensile strength" \n
-  ;; "Z3 = 160 !compressive strength" \n
-  ;; "etable,S1,s,1" \n
-  ;; "etable,S3,s,3" \n
-  ;; "sadd,R,S1,S3,1/Z1,-1/Z3" \n
-  ;; "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
-  ;; "!! constant element values are transfered to the nodes and optionally averaged" \n
-  ;; "pletab,R,avg !avg: average over nodes of neigbouring elements" \n
-  ;; "esel,s,type,,2" \n
-  ;; "etable,Pene,cont,pene" \n
-  ;; "!etable,chat,cont,cnos !chattering levels" \n
-  ;; "!etable,cpre,cont,pres" \n
-  ;; "!plls,Pene,Pene !line elem. results" \n
-  ;; "esort,etab,R" \n
-  ;; "etable,refl !refill all element tables for latest load set" \n
-  ;; "*get,Mc,etab,sort,,max" \n
-  ;; "*msg,,Mc" \n
-  ;; "Mohr-Coulomb criterion (< 1): %G" \n
-  ;; "ssum !Calculate and print the sum of element table items." \n
-  ;; "sabs,1 ! 1: absolut values, [0] algebraic values for table operations" \n
-  ;; "*get,My_magnet_force1,ssum,,item,S1 " \n
+  \n
+  "!! etables don't take into account higher element order!" \n
+  "!! they are averaged over the element" \n
+  "!! ---- Mohr-Coulomb failure criterion" \n
+  "Z1 = 60 !tensile strength" \n
+  "Z3 = 160 !compressive strength" \n
+  "etable,S1,s,1" \n
+  "etable,S3,s,3" \n
+  "sadd,R,S1,S3,1/Z1,-1/Z3" \n
+  "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
+  "!! constant element values are transfered to the nodes and optionally averaged" \n
+  "pletab,R,avg !avg: average over nodes of neigbouring elements" \n
+  "esel,s,type,,2" \n
+  "etable,Pene,cont,pene" \n
+  "!etable,chat,cont,cnos !chattering levels" \n
+  "!etable,cpre,cont,pres" \n
+  "!plls,Pene,Pene !line elem. results" \n
+  "esort,etab,R" \n
+  "etable,refl !refill all element tables for latest load set" \n
+  "*get,Mc,etab,sort,,max" \n
+  "*msg,,Mc" \n
+  "Mohr-Coulomb criterion (< 1): %G" \n
+  "ssum !Calculate and print the sum of element table items." \n
+  "sabs,1 ! 1: absolut values, [0] algebraic values for table operations" \n
+  "*get,My_magnet_force1,ssum,,item,S1 " \n
   \n
   )
 

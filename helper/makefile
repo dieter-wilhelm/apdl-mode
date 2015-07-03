@@ -78,8 +78,9 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat \
-	  ../doc/APDL_tutorial.ans
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
+
+#	  ../doc/APDL_tutorial.ans
 
 ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
@@ -122,7 +123,7 @@ ALWIN :  tools/bin/ansys-mode.sh makefile
 	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
 	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
 	      tools/ansys-mode/ansys-mode-$(VERSION)
-	tar -cJvf a-m-$(VERSION).tar.xz tools
+	tar -cJvf  a-m-$(VERSION).tar.xz --group HPCUser_1 tools
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
 	tar -xJvf $(EMACS_SOURCE_PACKAGE) 

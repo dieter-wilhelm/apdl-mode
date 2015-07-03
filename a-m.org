@@ -149,13 +149,13 @@ the standard ANSYS directory structure, please see further below.
 
 ;; conditional: Linux or Windows
 
-;(cond ((string= window-system "x")
-;        ;; This is an example of an installation directory on GNU-Linux
-;        (setq ansys-install-directory "/appl/")) ; default: "/"
+(cond ((string= window-system "x")
+        ;; This is an example of an installation directory on GNU-Linux
+        (setq ansys-install-directory "/appl/")) ; default: "/"
 ;       (t
 ;        ;;This an example of an installation dir. on WINDOWS
 ;        (setq ansys-install-directory "D:\\Ansys\\")) ; default: "C:\\Program Files\\"
-;							 )
+							 )
 
 ;; If the paths of your ANSYS installation is completely differing
 ;; from the normal ANSYS structures, please see below.
@@ -360,7 +360,8 @@ example below:
       ;; normally it looks like this:
       ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
 (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+(setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+(setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -378,6 +379,7 @@ setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
         ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
         (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
         (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+        (setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
 * Ansys processes
@@ -416,45 +418,45 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
    #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; ANSYS processes stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; license server configuration
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; ANSYS processes stuff
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; license server configuration
 
-      ;; GNU-Linux 64 bit
+   ;; GNU-Linux 64 bit only
 
-      ;; for starting the solver & ansys-license-status & ANSYS help
-;      (setq		     ;
-;	;; license servers (or license file name)nn
-;	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
-;	;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
-;	ansys-license-file
-;	"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
-;
-;	;; since ANSYS 12.0 there is an intermediate server for
-;	;; the communication between flexlm and ANSYS, 2325 is the default port
-;	ansys-ansysli-servers
-;	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
-;	)
+   ;; for starting the solver & ansys-license-status & ANSYS help
+  (setq                 ;
+   ;; license servers (or license file name)nn
+   ;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
+   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
+   ansys-license-file
+   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		 ;; options when starting the solver
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   ;; since ANSYS 12.0 there is an intermediate server for
+   ;; the communication between flexlm and ANSYS, 2325 is the default port
+   ansys-ansysli-servers
+   "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+   )
 
-;; Number of cores for the run, 2 does not require HPC licenses
-;(setq ansys-no-of-processors 8) ;default: 2
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                   ;; options when starting the solver
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;  which license type to use for the solver
-;(setq ansys-license "ansys") ;default: "struct"
+  ;; Number of cores for the run, 2 does not require HPC licenses
+  ;(setq ansys-no-of-processors 8) ;default: 2
 
-;; ANSYS job name
-;(setq ansys-job "otto"); default: "file"
+  ;;  which license type to use for the solver
+  ;(setq ansys-license "ansys") ;default: "struct"
 
-(message "ANSYS-Mode enabled.")
+  ;; ANSYS job name
+  ;(setq ansys-job "otto"); default: "file"
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			      ;; The End
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (message "ANSYS-Mode enabled.")
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                ;; The End
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 #+END_SRC
 -----

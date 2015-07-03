@@ -47,7 +47,8 @@
                   (M-{ does it though))
 * 16.1.2:
 ** Bugs
-   - Mouse completion is working with middle mouse button but only
+   - C-c C-j jjj not working with Emacs 23.1
+   - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
      *cfclos

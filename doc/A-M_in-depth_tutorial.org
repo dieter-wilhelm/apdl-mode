@@ -1325,11 +1325,6 @@ Thank you for your time, have fun with Emacs...
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !! End of APDL code
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  !! this is for Emacs:
-  
-  !! local variables:
-  !! mode : ansys
-  !! end:
 #+end_src
 
 # *** Copy above code with *C-c C-u*
@@ -1370,14 +1365,4 @@ Thank you for your time, have fun with Emacs...
 
 # /pnum,line,1 $ lplo
 
-# # local variables:
-# # mode : ansys
-# # end:
-
 -----
-# LOCAL variables:
-# word-wrap: t
-# show-trailing-whitespace: t
-# indicate-empty-lines: t
-# mode: org
-# end:

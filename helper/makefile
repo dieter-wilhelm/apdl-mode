@@ -22,7 +22,7 @@ ANSYS_MAJOR := 16
 ANSYS_MINOR := 1
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := freeze1
+MODE_VERSION := 1
 # for consistency:
 #MODE_VERSION := freeze1
 #MODE_VERSION := beta1
@@ -77,21 +77,21 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat \
-	  ../doc/APDL_tutorial.ans
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
+	  example.mac example.anf example.dat
 
-../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
-	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
+# ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
+# 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
+# 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	 ../doc/A-M_in-depth_tutorial.org    \
 	 ../doc/A-M_APDL_reference.org
 
-TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf			
-# A-M_in-depth_tutorial-$(VERSION).ansys \
- A-M_in-depth_tutorial-$(VERSION).pdf    \
- A-M_APDL_reference-$(VERSION).pdf
+TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf \
+		A-M_in-depth_tutorial-$(VERSION).ans  \
+	        A-M_in-depth_tutorial-$(VERSION).pdf  \
+	        A-M_APDL_reference-$(VERSION).pdf
 
 MATLIB := ../matlib/
 
@@ -153,19 +153,28 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 A-M_APDL_reference-$(VERSION).pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "../ansys-mode.el"  --execute "(org-export-as-pdf 3)"
-	  cp A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
+	  --load "../ansys-mode.el"  --execute "(org-latex-export-to-pdf)"
+	  cp ../doc/A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
 
-A-M_in-depth_tutorial-$(VERSION).ansys : ../doc/A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch --file $< \
+
+# !!! strange org-babel-tangle doesn't adhere to .ans!? !!!
+A-M_in-depth_tutorial-$(VERSION).ans : ../doc/A-M_in-depth_tutorial.org
+	$(EMACS_EXE) --batch  \
+          --execute "(require 'org)" \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
-	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
+	  --load "../ansys-mode.el" \
+          --file ../doc/A-M_in-depth_tutorial.org \
+          --execute "(org-babel-tangle nil \"A-M_in-depth_tutorial.ans\")"
+	cp ../doc/A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ans
+
+#	  --execute "(org-babel-do-load-languages  'org-babel-load-languages \
+	               '((ansys . t)) )" \
+	  --execute "(ansys-mode)"\
 
 A-M_in-depth_tutorial-$(VERSION).pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
+	  --load "ansys-mode.el" --execute "(org-latex-export-to-pdf)"
 	  cp ../doc/A-M_in-depth_tutorial.pdf A-M_in-depth_tutorial-$(VERSION).pdf
 
 A-M_introductory_tutorial-$(VERSION).pdf : ../doc/A-M_introductory_tutorial.org

@@ -408,7 +408,7 @@
 
 * Summary
 ** Use ANSYS-Mode appropriate to your needs
-**** The relevance of APDL remains tall: `WorkBench' and `AIM' operate *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is still prerequisite.   Furthermore, code APDL only for *repetitive* tasks and WB/AIM snippets.
+**** The relevance of APDL remains tall: `WorkBench' and `AIM' operate *exclusively* the ANSYS solver with it!  For a *true understanding* APDL is still prerequisite.   Furthermore, code APDL only for *repetitive* tasks and WB/AIM snippets.
 *** Basic APDL *Viewer*
          :PROPERTIES:
          :BEAMER_env: block

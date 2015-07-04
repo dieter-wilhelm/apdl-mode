@@ -1,4 +1,5 @@
-# -*- mode: org -*-
+#+DATE: Time-stamp: <2015-07-04 11:18:01 dieter>
+#+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  ANSYS-Mode Highlighting and APDL Reference
 # #####################################################################
 #+AUTHOR:    H. Dieter Wilhelm
@@ -1107,4 +1108,6 @@ and you are getting a diffent element highlighting.
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

@@ -1,6 +1,5 @@
-#+DATE: Time-stamp: <2015-07-04 11:26:00 dieter>
+#+DATE: Time-stamp: <2015-07-04>
 #+bind: org-html-preamble-format (("en" "%d"))
-
 #+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 
 # #####################################################################

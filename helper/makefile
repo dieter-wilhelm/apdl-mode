@@ -82,24 +82,25 @@ FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac examp
 
 #	  ../doc/APDL_tutorial.ans
 
-../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
-	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
+# ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
+# 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
+# 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
-WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat tools/ansys-mode/README
+WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
+		 example.mac example.anf example.dat tools/ansys-mode/README
 
 WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el
 
 
-TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
-	 ../doc/A-M_in-depth_tutorial.org    \
-	 ../doc/A-M_APDL_reference.org
+TUTORIAL_SOURCES := A-M_introductory_tutorial.org \
+	 A-M_in-depth_tutorial.org                \
+	 A-M_APDL_reference.org
 
-TUTORIALS := ../doc/A-M_introductory_tutorial-$(VERSION).pdf			
-# A-M_in-depth_tutorial-$(VERSION).ansys \
- A-M_in-depth_tutorial-$(VERSION).pdf    \
- A-M_APDL_reference-$(VERSION).pdf
+TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
+ ../doc/A-M_in-depth_tutorial.ansys 	          \
+ ../doc/A-M_in-depth_tutorial.pdf                 \
+ ../doc/A-M_APDL_reference.pdf
 
 MATLIB := ../matlib/
 
@@ -119,11 +120,13 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 MODE : $(PACKAGE)
 
 .PHONEY : ALWIN
-ALWIN :  tools/bin/ansys-mode.sh makefile
+ALWIN : a-m-$(VERSION).tar.xz
+
+a-m-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
 	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
 	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
 	      tools/ansys-mode/ansys-mode-$(VERSION)
-	tar -cJvf  a-m-$(VERSION).tar.xz --group HPCUser_1 tools
+	tar -cJvf $@ --group HPCUser_1 tools
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
 	tar -xJvf $(EMACS_SOURCE_PACKAGE) 
@@ -149,7 +152,7 @@ html.tar.xz : $(HTMLs) makefile
 	rm $(HTMLs)
 
 .PHONEY : ALL
-ALL : MODE EMACS EMACS_SRC HTML pTAGS
+ALL : MODE EMACS EMACS_SRC HTML TAGS
 
 .PHONEY : CLEAN
 CLEAN :
@@ -165,29 +168,25 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure && make
 #	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
 
-A-M_APDL_reference-$(VERSION).pdf : ../doc/A-M_APDL_reference.org
+A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "../ansys-mode.el"  --execute "(org-export-as-pdf 3)"
-	  cp A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
 
-A-M_in-depth_tutorial-$(VERSION).ansys : ../doc/A-M_in-depth_tutorial.org
+A-M_in-depth_tutorial.ansys : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
-	cp A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ansys
 
-A-M_in-depth_tutorial-$(VERSION).pdf : ../doc/A-M_in-depth_tutorial.org
+A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
-	  cp ../doc/A-M_in-depth_tutorial.pdf A-M_in-depth_tutorial-$(VERSION).pdf
 
-A-M_introductory_tutorial-$(VERSION).pdf : ../doc/A-M_introductory_tutorial.org
+../doc/A-M_introductory_tutorial.pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "/home/dieter/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
-	cp  ../doc/A-M_introductory_tutorial.pdf /home/dieter/a-m/helper/A-M_introductory_tutorial-$(VERSION).pdf
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<

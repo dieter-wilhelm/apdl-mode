@@ -3278,7 +3278,8 @@ argument ARG, the function evaluates the variable at point."
 	    str old-num com
 	    (num 0))
        (set-buffer variable-buffer)
-       (if (version<  "24" emacs-version)
+       ;; make buffer writable
+       (if (version<  "24.2" emacs-version)
 	   (when (fboundp 'read-only-mode)
 	     (read-only-mode -1))
 	 (toggle-read-only -1))
@@ -3302,7 +3303,8 @@ argument ARG, the function evaluates the variable at point."
 	 (unless (= num old-num)
 	   (insert str)))
        (goto-char (point-min))
-       (if (version< "24" emacs-version)
+       ;; make buffer read-only
+       (if (version< "24.2" emacs-version)
 	   (when (fboundp 'read-only-mode)
 	       (read-only-mode 1))
 	 (toggle-read-only 1))

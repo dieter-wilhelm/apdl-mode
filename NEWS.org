@@ -1,3 +1,5 @@
+#+DATE: Time-stamp: <2015-07-04 11:15:26 dieter>
+#+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
@@ -15,6 +17,9 @@
 #+title: News and History of ANSYS-Mode
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+** Version 16.1.2
+   - Reworked the initialisation and configuration
+
 
 ** Version 16.1.1 July 2015
 
@@ -344,4 +349,6 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

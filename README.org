@@ -1,3 +1,19 @@
+#+DATE: Time-stamp: <2015-07-04>
+#+bind: org-html-preamble-format (("en" "%d"))
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil prop:nil
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+TITLE: README
+#+AUTHOR: H. Dieter Wilhelm
+#+EMAIL: dieter@duenenhof-wilhelm.de
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+CREATOR: Emacs 24.5.1 (Org mode 8.2.10)
+
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
@@ -613,4 +629,6 @@ the following options:
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

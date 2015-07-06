@@ -745,7 +745,9 @@ Element categories:
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
 	  (browse-url-xdg-open (concat path file))
-	(browse-url-default-browser (concat path file))))
+;	(browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+	(browse-url-firefox (concat path file))
+						       ))
      ;; windows
      ((string= system-type "windows-nt")
 ;      (if (fboundp 'w32-shell-execute)

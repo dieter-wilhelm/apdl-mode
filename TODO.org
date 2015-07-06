@@ -54,8 +54,6 @@
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
    - path construction in -mode.el for help program is not working, if
      ansys-mode is not activated!? <- autoloaded functions, should
      work they are calling -mode.el!

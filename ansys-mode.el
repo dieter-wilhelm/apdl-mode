@@ -1180,7 +1180,7 @@ and P-MAX) otherwise align the current code paragraph."
   (interactive "r")
   (if mark-active
       (align p-min p-max)
-    (align-current)))
+    (align-current)))			;align-current needs a mark
 
 ;; (defvar solver-font-lock nil)
 
@@ -1868,7 +1868,9 @@ improvements you have the following options:
 
   ;; menu
   (ansys-add-ansys-menu)
-
+  ;; avoid a possible error when calling align-current without a mark
+  (set-mark (point))
+  ; (deactivate-mark)
   ;; --- user variables ---
   (if (>= ansys-highlighting-level 2)
       (when (or

@@ -218,6 +218,12 @@
     iivvgg@gmail.com,
     Michaelk@vipac.com.au,
     sparr@mfkrs1.mw.tu-dresden.de,
+    mhanke@cadfem.de,
+    tnelson@cadfem.de,
+    lkrueger@cadfem.de,
+    sheldonimaoka@yahoo.com,
+    kschoenborn@cadfem.de
+
     eyk.heinemann@continental-corporation.com,
     jens.2.missun@continental-corporation.com,
     joerg.menke@continental-corporation.com,
@@ -226,16 +232,12 @@
     Steffen.Kernbach@continental-corporation.com,
     Johann.Massinger@continental-corporation.com,
     Marco.Mechi@continental-corporation.com,
+    Marco.Betti@continental-corporation.com,
     Antonio.Zangaro@continental-corporation.com,
     martin.bruehl@continental-corporation.com,
     zlatko.penzar@continental-corporation.com,
     saravana.kumar@continental-corporation.com,
     alwin.perras@continental-corporation.com,
-    mhanke@cadfem.de,
-    tnelson@cadfem.de,
-    lkrueger@cadfem.de,
-    sheldonimaoka@yahoo.com,
-    kschoenborn@cadfem.de
 
     # oleksiy.kurenkov@continental-corporation.com, left Conti
     # sgotthold@cadfem.de, left CadFem

@@ -24,9 +24,9 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
      be switched off with a prefix argument of zero.
 
    - The command `ansys-send-to-ansys-and-proceed' (C-c C-j) is now
-     interactive, i. e. after invoking this command with its key-sequence
-     "C-c C-j" it can be repeated by typing just the final character "j"
-     (or "C-j").
+     interactive, i. e. after invoking this command with its
+     key-sequence "C-c C-j" it can be repeated by typing just the
+     final character "j" (or "C-j").  (This works from Emacs-24.4)
 
    - The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
      paragraph, when there is no region marked.  And the cursor doesn't

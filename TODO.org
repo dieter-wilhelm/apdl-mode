@@ -222,7 +222,6 @@
     afoleite@gmail.com,
     iivvgg@gmail.com,
     Michaelk@vipac.com.au,
-    sparr@mfkrs1.mw.tu-dresden.de,
     mhanke@cadfem.de,
     tnelson@cadfem.de,
     lkrueger@cadfem.de,

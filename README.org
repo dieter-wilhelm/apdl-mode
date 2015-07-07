@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-07>
+#+rDATE: Time-stamp: <2015-07-07>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -487,7 +487,7 @@ your system.
 
 *** Debian and derivatives
 **** Required libraries
-     Build dependencys with
+     Build dependencies with
      #+BEGIN_SRC sh
      sudo aptitude install build-dep emacs25
      #+END_SRC

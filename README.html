@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>This is ANSYS-Mode's README file</title>
-<!-- 2015-06-30 Tue 08:20 -->
+<!-- 2015-07-07 Tue 08:06 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -198,8 +198,9 @@ for the JavaScript code in this tag.
 <li><a href="#sec-6-1">6.1. Files</a></li>
 <li><a href="#sec-6-2">6.2. Short instructions</a>
 <ul>
-<li><a href="#sec-6-2-1">6.2.1. Direct way; no file configuration necessary</a></li>
-<li><a href="#sec-6-2-2">6.2.2. More convenient way; file configuration necessary</a></li>
+<li><a href="#sec-6-2-1">6.2.1. For Windows systems</a></li>
+<li><a href="#sec-6-2-2">6.2.2. For a GNU-Linux system without Emacs</a></li>
+<li><a href="#sec-6-2-3">6.2.3. For existing Emacs installations on Windows and GNU-Linux</a></li>
 </ul>
 </li>
 <li><a href="#sec-6-3">6.3. Verbose instructions</a></li>
@@ -247,7 +248,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 <h2 id="sec-1"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-This project supports your workflows with the FEA (Finite Element
+This project supports your work-flows with the FEA (Finite Element
 Analysis) suite <a href="http://www.ansys.com">ANSYS</a> (ANalysis SYStem, registered TM).
 </p>
 
@@ -329,7 +330,7 @@ a certain code template, respectively.
 </p>
 
 <p>
-Blelow is a Screenshot on Win64 with the ANSYS Classics GUI on the
+Below is a screen-shot on Win64 with the ANSYS Classics GUI on the
 left and Emacs in ANSYS-Mode on the right hand side.
 </p>
 
@@ -363,7 +364,7 @@ starting the ANSYS help browser, etc.).
 
 <li>Solver communication facilities, i. e. sending code fragments from
 the macro file or commands interactively to an ANSYS solver process
-(GNU-Linux only).  With abreviated input method: For the often used
+(GNU-Linux only).  With abbreviated input method: For the often used
 command C-c C-j (<code>ansys-send-to-ansys-and-proceed</code>, sending a code
 line to the solver and skipping to the next) it is sufficient to
 repeat this command just with the last input key(s) ("j" or "C-j").
@@ -417,7 +418,7 @@ can, in case the need arises, unhide and inspect these as well.
 <li>Outlining (hiding and navigating) of code sections with Emacs'
 outline-minor-mode. With outline strings '!@' you have a heading
 structure which you can collapse or show.  This is the textual
-analog to the WorkBench tree view.
+analogue to the WorkBench tree view.
 </li>
 
 <li>Auto-insertion (optionally) of a header and outline code for every
@@ -460,10 +461,10 @@ Please have a look in the <a href="NEWS.html">NEWS</a> file for the complete his
 <h2 id="sec-5"><span class="section-number-2">5</span> Requirements</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-The mode was tested with Emacs-24.5 under Win7, <a href="http://www.cygwin.com/">Cygwin</a> and
-GNU-Linux64.  It should also run with all older versions of Emacs down
-to Emacs-23.1 (realeased July 2009 and which is able to compile
-ANSYS-Mode 16.1).
+This mode was tested with Emacs-24.5 under Win7, <a href="http://www.cygwin.com/">Cygwin</a> and
+GNU-Linux64.  It was also tested with Emacs-23.1 (released July 2009)
+on GNU-Linux64 and should run with all older versions of Emacs down to
+Emacs-23.
 </p>
 
 <p>
@@ -493,7 +494,7 @@ Sources:
 <ul class="org-ul">
 <li>ansys-mode.el: Main file
 </li>
-<li>ansys-keyword.el: Fontification variables build from
+<li>ansys-keyword.el: Highlighting variables build from
 helper/ansys-fontification.el
 </li>
 <li>ansys-template.el: Template definitions
@@ -546,13 +547,12 @@ remove the compiled .elc files, if any.)
 <div id="outline-container-sec-6-2" class="outline-3">
 <h3 id="sec-6-2"><span class="section-number-3">6.2</span> Short instructions</h3>
 <div class="outline-text-3" id="text-6-2">
-<p>
-<b>For Windows systems</b>:
-</p>
-
+</div><div id="outline-container-sec-6-2-1" class="outline-4">
+<h4 id="sec-6-2-1"><span class="section-number-4">6.2.1</span> For Windows systems</h4>
+<div class="outline-text-4" id="text-6-2-1">
 <p>
 If applicable please grab the package of a pre-compiled Emacs-24.5
-(Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
+(Win32/64) bundled with a pre-configured ANSYS-Mode at above Github
 site and unpack this archive anywhere on your system (you do not need
 administrator rights).  You might subsequently run the program
 addpm.exe (located in the bin\ directory) to add an Emacs entry to the
@@ -567,7 +567,7 @@ Have fun!
 </p>
 
 <p>
-Most functionalities should work out of the box, but if you have NOT
+Most functionality should work out of the box, but if you have NOT
 installed ANSYS in its default installation directory on drive
 `C:Program Files' on Win64 and you want to start&#x2013;for
 example&#x2013;'anslic<sub>admin'</sub> or the ANSYS help browser directly from Emacs
@@ -577,7 +577,7 @@ you are using your own configuration file, please remember that it is
 loaded <b>before</b> `default.el'; this means that ANSYS-Mode settings done
 by Emacs' customisation system or written in your configuration file
 might be overwritten by `default.el'.  If you remove `default.el' or
-set 'inhibit-default-ini' to non-nil in your own init file, then
+set 'inhibit-default-init' to non-nil in your own init file, then
 default.el is not loaded any longer.
 </p>
 
@@ -586,25 +586,71 @@ In case you want to download or have already installed the <a href="http://ftp.g
 version</a> of GNU Emacs, you can also download and configure the
 ANSYS-Mode package separately. Please refer to below instructions.
 </p>
-
-<p>
-<b>For existing Emacs installations on Windows and GNU-Linux</b>:
-</p>
+</div>
 </div>
 
-<div id="outline-container-sec-6-2-1" class="outline-4">
-<h4 id="sec-6-2-1"><span class="section-number-4">6.2.1</span> Direct way; no file configuration necessary</h4>
-<div class="outline-text-4" id="text-6-2-1">
+<div id="outline-container-sec-6-2-2" class="outline-4">
+<h4 id="sec-6-2-2"><span class="section-number-4">6.2.2</span> For a GNU-Linux system without Emacs</h4>
+<div class="outline-text-4" id="text-6-2-2">
 <p>
-Important prerequisite: Emacs must know where all the code (.el or its
-compiled versions .elc) files reside!  Extract the mode archive into
-an Emacs directory which is in its default load-path (a good place is
-the `site-lisp' folder in your Emacs installation tree) or indicate
-the directory with the environment variable EMACSLOADPATH).
+Please download the source archive
+<code>ansys-mode-16.1.1.emacs-24.5.tar.xz</code> from
+<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">https://github.com/dieter-wilhelm/ansys-mode/releases</a>, unpack it
+somewhere and compile it:
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh">tar -xJvf ansys-mode-16.1.1.emacs-24.5.tar.xz
+<span style="font-weight: bold;">cd</span> emacs-24.5/
+./configure
+make
+</pre>
+</div>
+
+<p>
+after this you will find the Emacs executable <code>emacs</code> in the <code>src/</code>
+directory.
 </p>
 
 <p>
-From there on you must load first the mode definitions with `M-x
+optionally, if you have administrator rights you can install Emacs in
+your system.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">make install
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2-3" class="outline-4">
+<h4 id="sec-6-2-3"><span class="section-number-4">6.2.3</span> For existing Emacs installations on Windows and GNU-Linux</h4>
+<div class="outline-text-4" id="text-6-2-3">
+</div><ol class="org-ol"><li><a id="sec-6-2-3-1" name="sec-6-2-3-1"></a>Direct way; no file configuration necessary<br  /><div class="outline-text-5" id="text-6-2-3-1">
+<p>
+Emacs must know where all the code (.el or its compiled versions .elc)
+files reside!  Extract the mode's archive <code>ansys-mode-16.1.1.tar.xz</code>
+into an Emacs directory which is in its default load-path (a good
+place is the <code>site-lisp/</code> folder in your Emacs installation tree) or
+indicate an arbitrary directory with the environment variable
+EMACSLOADPATH).
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-sh"><span style="font-weight: bold;">export</span> <span style="font-weight: bold; font-style: italic;">EMACSLOADPATH</span>=<span style="font-style: italic;">"/your/drive/where/ansys-mode/resides:"</span>
+</pre>
+</div>
+
+<p>
+(The colon `:' at the end indicates Emacs that the specified directory
+is to be added to the default load path.)
+</p>
+
+<p>
+Then you can load within Emacs the mode definitions with `M-x
 load-file ansys-mode RET', i. e. typing "M-x" (first) the &lt;Alt&gt; key
 and then the &lt;x&gt; key simultaneously, you'll end up in the so called
 Emacs minibuffer prompt, now type "load-file" (you might apply the
@@ -617,11 +663,9 @@ execute the loading.  Thereafter call the mode itself with `M-x
 ansys-mode RET' for every new or existing APDL file.
 </p>
 </div>
-</div>
+</li>
 
-<div id="outline-container-sec-6-2-2" class="outline-4">
-<h4 id="sec-6-2-2"><span class="section-number-4">6.2.2</span> More convenient way; file configuration necessary</h4>
-<div class="outline-text-4" id="text-6-2-2">
+<li><a id="sec-6-2-3-2" name="sec-6-2-3-2"></a>More convenient way; file configuration necessary<br  /><div class="outline-text-5" id="text-6-2-3-2">
 <p>
 Extract the files somewhere on disc and put the following paragraph
 into your `~/.emacs' or `~/.emacs.el' or `~/.emacs.d/init.el'
@@ -653,6 +697,7 @@ and `.inp'.
 </pre>
 </div>
 </div>
+</li></ol>
 </div>
 </div>
 
@@ -691,8 +736,8 @@ the Emacs installation tree is in its default load-path).  Yet
 (if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
 to change the following settings with Emacs' customisation system or
 changing them directly in your personal configuration file, you must
-either set the variable `inhibit-default-ini' to `t' "(setq
-inhibit-default-ini t)" in your personal configuration file or remove
+either set the variable `inhibit-default-init' to `t' "(setq
+inhibit-default-init t)" in your personal configuration file or remove
 `default.el' otherwise your settings might be overwritten!
 </p>
 
@@ -747,7 +792,7 @@ following to your `.emacs' file:
 </div>
 
 <p>
-The suffix below belongs to the `anys neutral file' export format
+The suffix below belongs to the `ansys neutral file' export format
 which contains also an APDL header and footer.
 </p>
 
@@ -810,7 +855,22 @@ explicitly called ansys-mode.
 make
 </pre>
 </div>
+<p>
+after this you will find the Emacs executable <code>emacs</code> in the <code>src/</code>
+directory.
+</p>
+
+<p>
+optionally, if you have administrator rights you can install Emacs in
+your system.
+</p>
+<div class="org-src-container">
+
+<pre class="src src-sh">make install
+</pre>
 </div>
+</div>
+
 <div id="outline-container-sec-6-4-1" class="outline-4">
 <h4 id="sec-6-4-1"><span class="section-number-4">6.4.1</span> RHEL (6)</h4>
 <div class="outline-text-4" id="text-6-4-1">
@@ -856,7 +916,7 @@ Graphics support
 <div class="outline-text-4" id="text-6-4-2">
 </div><ol class="org-ol"><li><a id="sec-6-4-2-1" name="sec-6-4-2-1"></a>Required libraries<br  /><div class="outline-text-5" id="text-6-4-2-1">
 <p>
-Build dependencys with
+Build dependencies with
 </p>
 <div class="org-src-container">
 
@@ -895,7 +955,7 @@ for smtp authentication  ~/.authinfo.gpg (<a href="auth">auth</a>)
 
 <li><a id="sec-6-4-2-3" name="sec-6-4-2-3"></a>Documentation of Emacs in Debian 8<br  /><div class="outline-text-5" id="text-6-4-2-3">
 <p>
-The documenation is in the Debian non-free repository.  Because
+The documentation is in the Debian non-free repository.  Because
 of a general Resolution: Why the GNU Free Documentation License
 is not suitable for Debian main
 <a href="https://www.debian.org/vote/2006/vote_001">https://www.debian.org/vote/2006/vote_001</a>hi
@@ -1090,7 +1150,7 @@ Emacs function `byte-recompile-directory'.
 <p>
 ANSYS `format line' (multi-line highlighting) and `user variable'
 highlighting (when the mentioned flag above is not set) are somewhat
-brittle, please use "M-o M-o" to update the fontification in case the
+brittle, please use "M-o M-o" to update the highlighting in case the
 format line and all variables are not highlighted correctly.
 </p>
 </div>

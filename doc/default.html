@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 <title>Customisation of ANSYS-Mode</title>
-<!-- 2015-06-29 Mon 22:29 -->
+<!-- 2015-07-07 Tue 08:06 -->
 <meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta  name="generator" content="Org-mode" />
 <meta  name="author" content="H. Dieter Wilhelm" />
@@ -228,8 +228,7 @@ least its corresponding sections) otherwise clashing settings in
 <p>
 The comment sign in Emacs lisp is <code>;</code> (one semi-colon `;').  Textual
 hints in <i>default.el</i> are indicated with DOUBLE semi-colons <code>;;</code>,
-please uncomment there code lines with a SINGLE comment sign, when
-appropriate.
+uncomment only code lines with a SINGLE comment sign, if appropriate.
 </p>
 </div>
 </div>
@@ -357,11 +356,12 @@ With the setting
 <div class="org-src-container">
 
 <pre class="src src-emacs-lisp">(add-to-list 'auto-mode-alist '(<span style="font-style: italic;">"\\.mac$"</span> . ansys-mode))
+(add-to-list 'auto-mode-alist '(<span style="font-style: italic;">"\\.ans\\'"</span> . ansys-mode))
 </pre>
 </div>
 
 <p>
-files with the suffix <i>.mac</i> will be opended in Emacs under
+files with the suffix <i>.mac</i> or <i>.ans</i> will be opended in Emacs under
 ANSYS-Mode.  Check the <i>example.mac</i> file.
 </p>
 </div>
@@ -404,9 +404,9 @@ imports, see the file <i>example.anf</i>.
 <h2 id="sec-5"><span class="section-number-2">5</span> Auto insertion of code</h2>
 <div class="outline-text-2" id="text-5">
 <p>
-With the following code block Emacs inserts automatically an outline
-of a code structure when creating a macro file (a file with the
-suffix <i>.mac</i>).
+With the following code block Emacs inserts (after query) an outline
+of a code structure when creating a new file with any suffix in the
+<code>auto-mode-alist</code> for <code>ansys-mode</code>, please see above section).
 </p>
 <div class="org-src-container">
 

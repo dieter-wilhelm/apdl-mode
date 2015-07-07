@@ -20,7 +20,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
 * Introduction
 
-This project supports your workflows with the FEA (Finite Element
+This project supports your work-flows with the FEA (Finite Element
 Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
 
 It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs][GNU Emacs editor]] for
@@ -88,7 +88,7 @@ activated. The smaller windows on the left hand side are showing the
 `Variable definitions buffer' of the same file and a preview buffer of
 a certain code template, respectively.
 
-Blelow is a Screenshot on Win64 with the ANSYS Classics GUI on the
+Below is a screen-shot on Win64 with the ANSYS Classics GUI on the
 left and Emacs in ANSYS-Mode on the right hand side.
 
 [[file:doc/template_menu.png]]
@@ -110,7 +110,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 - Solver communication facilities, i. e. sending code fragments from
   the macro file or commands interactively to an ANSYS solver process
-  (GNU-Linux only).  With abreviated input method: For the often used
+  (GNU-Linux only).  With abbreviated input method: For the often used
   command C-c C-j (~ansys-send-to-ansys-and-proceed~, sending a code
   line to the solver and skipping to the next) it is sufficient to
   repeat this command just with the last input key(s) ("j" or "C-j").
@@ -155,7 +155,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
 - Outlining (hiding and navigating) of code sections with Emacs'
   outline-minor-mode. With outline strings '!@' you have a heading
   structure which you can collapse or show.  This is the textual
-  analog to the WorkBench tree view.
+  analogue to the WorkBench tree view.
 
 - Auto-insertion (optionally) of a header and outline code for every
   new APDL file.
@@ -183,7 +183,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
 * Requirements
 
 This mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
-GNU-Linux64.  It was also tested with Emacs-23.1 (realeased July 2009)
+GNU-Linux64.  It was also tested with Emacs-23.1 (released July 2009)
 on GNU-Linux64 and should run with all older versions of Emacs down to
 Emacs-23.
 
@@ -201,7 +201,7 @@ this particular ANSYS release.
 
 Sources:
 - ansys-mode.el: Main file
-- ansys-keyword.el: Fontification variables build from
+- ansys-keyword.el: Highlighting variables build from
   helper/ansys-fontification.el
 - ansys-template.el: Template definitions
 - ansys-process.el: Variables and functions related to solver
@@ -231,7 +231,7 @@ remove the compiled .elc files, if any.)
 *** For Windows systems
 
 If applicable please grab the package of a pre-compiled Emacs-24.5
-(Win32/64) bundled with a preconfigured ANSYS-Mode at above Github
+(Win32/64) bundled with a pre-configured ANSYS-Mode at above Github
 site and unpack this archive anywhere on your system (you do not need
 administrator rights).  You might subsequently run the program
 addpm.exe (located in the bin\ directory) to add an Emacs entry to the
@@ -242,7 +242,7 @@ ANSYS-Mode is now immediately available, by opening (check out
 `example.mac') or by creating a new APDL file with a `.mac' suffix.
 Have fun!
 
-Most functionalities should work out of the box, but if you have NOT
+Most functionality should work out of the box, but if you have NOT
 installed ANSYS in its default installation directory on drive
 `C:Program Files' on Win64 and you want to start--for
 example--'anslic_admin' or the ANSYS help browser directly from Emacs
@@ -252,7 +252,7 @@ you are using your own configuration file, please remember that it is
 loaded *before* `default.el'; this means that ANSYS-Mode settings done
 by Emacs' customisation system or written in your configuration file
 might be overwritten by `default.el'.  If you remove `default.el' or
-set 'inhibit-default-ini' to non-nil in your own init file, then
+set 'inhibit-default-init' to non-nil in your own init file, then
 default.el is not loaded any longer.
 
 In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
@@ -276,7 +276,7 @@ somewhere and compile it:
 after this you will find the Emacs executable ~emacs~ in the ~src/~
 directory.
 
-optionally, if you have adminstrator rights you can install Emacs in
+optionally, if you have administrator rights you can install Emacs in
 your system.
    #+BEGIN_SRC sh
    make install
@@ -364,8 +364,8 @@ the Emacs installation tree is in its default load-path).  Yet
 (if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
 to change the following settings with Emacs' customisation system or
 changing them directly in your personal configuration file, you must
-either set the variable `inhibit-default-ini' to `t' "(setq
-inhibit-default-ini t)" in your personal configuration file or remove
+either set the variable `inhibit-default-init' to `t' "(setq
+inhibit-default-init t)" in your personal configuration file or remove
 `default.el' otherwise your settings might be overwritten!
 
 If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
@@ -401,7 +401,7 @@ following to your `.emacs' file:
      (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
 #+END_SRC
 
-The suffix below belongs to the `anys neutral file' export format
+The suffix below belongs to the `ansys neutral file' export format
 which contains also an APDL header and footer.
 
 #+BEGIN_SRC emacs-lisp
@@ -445,7 +445,7 @@ explicitly called ansys-mode.
 after this you will find the Emacs executable ~emacs~ in the ~src/~
 directory.
 
-optionally, if you have adminstrator rights you can install Emacs in
+optionally, if you have administrator rights you can install Emacs in
 your system.
    #+BEGIN_SRC sh
    make install
@@ -470,7 +470,7 @@ your system.
 
 *** Debian and derivatives
 **** Required libraries
-     Build dependencys with
+     Build dependencies with
      #+BEGIN_SRC sh
      sudo aptitude install build-dep emacs25
      #+END_SRC
@@ -487,7 +487,7 @@ your system.
      #+END_SRC
 
 **** Documentation of Emacs in Debian 8
-     The documenation is in the Debian non-free repository.  Because
+     The documentation is in the Debian non-free repository.  Because
      of a general Resolution: Why the GNU Free Documentation License
      is not suitable for Debian main
      [[https://www.debian.org/vote/2006/vote_001]]hi
@@ -585,7 +585,7 @@ Emacs function `byte-recompile-directory'.
 
 ANSYS `format line' (multi-line highlighting) and `user variable'
 highlighting (when the mentioned flag above is not set) are somewhat
-brittle, please use "M-o M-o" to update the fontification in case the
+brittle, please use "M-o M-o" to update the highlighting in case the
 format line and all variables are not highlighted correctly.
 
 ** Getting help

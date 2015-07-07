@@ -1,3 +1,5 @@
+#+DATE: Time-stamp: <2015-07-04 11:20:04 dieter>
+#+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil prop:nil
@@ -100,4 +102,6 @@ mplist ! Check
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

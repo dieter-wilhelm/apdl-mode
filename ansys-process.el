@@ -419,30 +419,39 @@ final character \"j\" (or \"C-j\")."
       (ansys-next-code-line))
     ;; invalidate region
     (setq mark-active nil)
-    ;; send or copy region or line
-    (cond ((ansys-process-running-p)
-	   (setq code (buffer-substring-no-properties beg end))
-	   (comint-send-string process
-			       (concat code ""); "\n"); why did I do \n?
-			       )
-	   ;; Issue a hint to the user, if the echo area isn't in use.
-	   (unless (current-message)
-	     (message "(Type \"j\" or \"C-j\" to repeat function.)"))
-	   (display-buffer-other-frame "*ANSYS*"))
-	  (t
-	   (kill-ring-save beg end)
-	   (if region
-	       (message "Copied region.")
-	     (message "Copied code line."))))
-    ;; TODO set-transient-map not defined in 23.1
-    (if (fboundp 'set-transient-map)
+    ;; set-transient-map since 24.4
+    (when (fboundp 'set-transient-map)
 	(set-transient-map
 	 (let ((map (make-sparse-keymap)))
 	   (define-key map "j"
 	     'ansys-send-to-ansys-and-proceed)
 	   (define-key map "\C-j"
 	     'ansys-send-to-ansys-and-proceed)
-	   map)))))
+	   map)))
+    ;; send or copy region or line
+    (cond ((ansys-process-running-p)
+	   (setq code (buffer-substring-no-properties beg end))
+	   (comint-send-string process
+			       (concat code ""); "\n"); why did I do \n?
+			       )
+	   (display-buffer-other-frame "*ANSYS*")
+	   ;; Issue a hint to the user
+	   (if (fboundp 'set-transient-map)
+	       (if region
+		   (message "Sent region, type \"j\" or \"C-j\" to sent next LINE.")
+		 (message "Sent line, type \"j\" or \"C-j\" to sent next line."))
+	     (if region
+		 (message "Sent region.")
+	       (message "Sent line."))))
+	  (t
+	   (kill-ring-save beg end)
+	   (if (fboundp 'set-transient-map)
+	       (if region
+		   (message "Copied region, type \"j\" or \"C-j\" to copy next LINE.")
+		 (message "Copied line, type \"j\" or \"C-j\" to copy next line."))
+	     (if region
+		 (message "Copied region.")
+	       (message "Copied line.")))))))
 
 (defun ansys-process-running-p ()
   "Return nil if no ANSYS interpreter process is running."
@@ -745,7 +754,9 @@ Element categories:
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
 	  (browse-url-xdg-open (concat path file))
-	(browse-url-default-browser (concat path file))))
+;	(browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+	(browse-url-firefox (concat path file))
+						       ))
      ;; windows
      ((string= system-type "windows-nt")
 ;      (if (fboundp 'w32-shell-execute)

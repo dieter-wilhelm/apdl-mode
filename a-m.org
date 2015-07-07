@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-04 11:17:16 dieter>
+#+DATE: Time-stamp: <2015-07-04 11:16:12 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -27,41 +27,31 @@
 #+TITLE: Customisation of ANSYS-Mode
 #+text: Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
+** Extending Eamcs load path
+#+BEGIN_SRC emacs-lisp :tangle yes :exports none
+  ;; adding the directory of this (loaded) file to the load-path
+  (message (concat "loading from " (file-name-directory load-file-name)))
+  (add-to-list 'load-path (file-name-directory load-file-name))
+  (require 'ansys-mode)
+#+END_SRC
+
 * Introduction
 Customisations for GNU-Linux and Windows systems.
 
-All the following code examples you will find in the file
-/default.el/, which can be used as the configuration file for
-ANSYS-Mode (after moving it e. g. to [[/usr/share/emacs/site-lisp]] or
-[[c:\\EMACSINSTALLDIR\\site-lisp\\]]).  Yet this file is loaded *after*
-Emacs' user configuration file [[~/.emacs]] (or [[~/.emacs.el]] or
-[[~/.emacs.d/init.el]], if any)!  When you intend to change any of the
-following settings either with
+The customisations are written in `Emacs-lisp'.  The comment sign in
+this language is ~;~ (one semi-colon `;').
 
-1) Emacs' customisation system or
-2) changing them directly in your user configuration file,
-
-then you *must* either set the variable ~inhibit-default-init~ to ~t~
-like in the following line
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-default-init t)
-#+END_SRC
-in your configuration file or remove or rename /default.el/ (or at
-least its corresponding sections) otherwise clashing settings in
-/.emacs/ will be overwritten!
-
-* Conventions used in /default.el/
-
-The comment sign in Emacs lisp is ~;~ (one semi-colon `;').  Textual
-hints in /default.el/ are indicated with DOUBLE semi-colons ~;;~,
-uncomment only code lines with a SINGLE comment sign, if appropriate.
+* Conventions used in /a-m.el/
+Textual hints in /a-m.el/ are indicated with DOUBLE semi-colons ~;;~,
+please uncomment the code lines with a SINGLE comment sign, when
+appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
-;; !!! `default.el' can be used as a configuration file (after moving
+;; `a-m.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
 ;; `c:\\EMACS_INSTALLDIR\\site-lisp').  Yet this file is then loaded
 ;; AFTER Emacs' user configuration file `~/.emacs' (or `~/.emacs.el'
@@ -69,7 +59,7 @@ uncomment only code lines with a SINGLE comment sign, if appropriate.
 ;; settings with 1) Emacs' customisation system or 2) changing them
 ;; directly in your configuration file, you MUST either set the
 ;; variable `inhibit-default-init' to `t' "(setq inhibit-default-init
-;; t)" in your configuration file or remove or rename `default.el' (or
+;; t)" in your configuration file or remove or rename `a-m.el' (or
 ;; at least its corresponding sections) otherwise clashing settings in
 ;; `.emacs' will be overwritten!!!
 
@@ -161,13 +151,13 @@ the standard ANSYS directory structure, please see further below.
 
 ;; conditional: Linux or Windows
 
-;(cond ((string= window-system "x")
-;        ;; This is an example of an installation directory on GNU-Linux
-;        (setq ansys-install-directory "/appl/")) ; default: "/"
+(cond ((string= window-system "x")
+        ;; This is an example of an installation directory on GNU-Linux
+        (setq ansys-install-directory "/appl/")) ; default: "/"
 ;       (t
 ;        ;;This an example of an installation dir. on WINDOWS
 ;        (setq ansys-install-directory "D:\\Ansys\\")) ; default: "C:\\Program Files\\"
-;							 )
+							 )
 
 ;; If the paths of your ANSYS installation is completely differing
 ;; from the normal ANSYS structures, please see below.
@@ -189,10 +179,9 @@ With the setting
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
-  (add-to-list 'auto-mode-alist '("\\.ans\\'" . ansys-mode))
 #+END_SRC
 
-files with the suffix /.mac/ or /.ans/ will be opended in Emacs under
+files with the suffix /.mac/ will be opended in Emacs under
 ANSYS-Mode.  Check the /example.mac/ file.
 ** WorkBench generated input files
 /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See the
@@ -238,11 +227,13 @@ imports, see the file /example.anf/.
   of a code structure when creating a new file with any suffix in the
   ~auto-mode-alist~ for ~ansys-mode~, please see above section).
 #+BEGIN_SRC emacs-lisp
-(auto-insert-mode 1)	        ; insert automatically templates
-(add-hook 'find-file-hook 'auto-insert) ; when opening new files
-(setq auto-insert-query t)   ; aks for auto insertion of APDL template
-(add-to-list 'auto-insert-alist
-   '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
+  (auto-insert-mode 1)            ; insert automatically templates
+  (add-hook 'find-file-hook 'auto-insert) ; when opening new files
+  (setq auto-insert-query t)   ; ask before insertion of an APDL
+                               ; template
+  (add-to-list 'auto-insert-alist
+     '(ansys-mode . [ansys-skeleton-outline-template])) ;which template
+                                                        ;to insert
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
@@ -264,7 +255,7 @@ imports, see the file /example.anf/.
   yet loaded, with the following code.
   #+BEGIN_SRC emacs-lisp
 (autoload 'ansys-mode "ansys-mode" nil t)
-(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for
  calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
@@ -283,7 +274,7 @@ imports, see the file /example.anf/.
 ;; files not loaded.
 
 (autoload 'ansys-mode "ansys-mode" nil t)
-(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for 
+(autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for
 calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
@@ -300,7 +291,7 @@ calling a special ANSYS customisation buffer." 'interactive)
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'ansys-mode-hook 'ansys-outline-minor-mode) ;enable outlining
-#+END_SRC  
+#+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -371,29 +362,29 @@ example below:
       ;; normally it looks like this:
       ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
 (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+(setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+(setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; ANSYS version and paths
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; ANSYS version and paths
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Things you might have to configure if your ANSYS installation is
-;; completely differing from default ANSYS installation paths, as in
-;; the example below:
+  ;; Things you might have to configure if your ANSYS installation is
+  ;; completely differing from default ANSYS installation paths, as in
+  ;; the example below:
 
-      ;  (setq ansys-help-program
-      ; 	     "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-      ;; normally it looks like this:
-      ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-
-      ; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-      ; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
-
+        (setq ansys-help-program
+              "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+        ;;the ANSYS path to the help viewer looks normally like this:
+        ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+        (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
+        (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+        (setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
-* Ansys processes      
+* Ansys processes
 ** License server
    License server configuration: License servers (or license file
    name) specify even the default port for lmutil (since ANSYS V 12.0)
@@ -429,43 +420,49 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
    #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; ANSYS processes stuff
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; license server configuration
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; ANSYS processes stuff
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; license server configuration
 
-      ;; GNU-Linux 64 bit
 
-      ;; for starting the solver & ansys-license-status & ANSYS help
-;      (setq		     ;
-;	;; license servers (or license file name)nn
-;	;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
-;	;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
-;	ansys-license-file
-;	"1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
-;
-;	;; since ANSYS 12.0 there is an intermediate server for
-;	;; the communication between flexlm and ANSYS, 2325 is the default port
-;	ansys-ansysli-servers
-;	"2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
-;	)
+  ;; GNU-Linux 64 bit only !!! Warning specifiying many license server
+  ;; takes a long time for displaying the license status!!!
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		 ;; options when starting the solver
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   ;; for starting the solver & ansys-license-status & ANSYS help
+  (setq                 ;
+   ;; license servers (or license file name)nn
+   ;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
+   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
+   ansys-license-file
+  "32002@ls_fr_ansyslmd_ww_1.conti.de"
+;   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
-;; Number of cores for the run, 2 does not require HPC licenses
-;(setq ansys-no-of-processors 8) ;default: 2
+   ;; since ANSYS 12.0 there is an intermediate server for
+   ;; the communication between flexlm and ANSYS, 2325 is the default port
+   ansys-ansysli-servers
+  "2325@ls_fr_ansyslmd_ww_1.conti.de"
+;  "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+   )
 
-;;  which license type to use for the solver
-;(setq ansys-license "ansys") ;default: "struct"
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                   ;; options when starting the solver
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; ANSYS job name
-;(setq ansys-job "otto"); default: "file"
+  ;; Number of cores for the run, 2 does not require HPC licenses
+  ;(setq ansys-no-of-processors 8) ;default: 2
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			      ;; The End
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;  which license type to use for the solver
+  ;(setq ansys-license "ansys") ;default: "struct"
+
+  ;; ANSYS job name
+  ;(setq ansys-job "otto"); default: "file"
+
+  (message "ANSYS-Mode enabled.")
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                ;; The End
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 #+END_SRC
 -----

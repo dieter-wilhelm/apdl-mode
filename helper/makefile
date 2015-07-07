@@ -3,6 +3,7 @@ help :
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
+	@echo "make ALWIN = Archive for Alwin"
 	@echo "make HTML = update the html documentation"
 	@echo "make TAGS = make the goddam tags!"
 	@echo "make ELC = compile the el files"
@@ -40,7 +41,7 @@ DIR := $(shell pwd)
 ifeq ($(HOSTNAME),urmel)
  EMACS_DIR := /usr/local/src/
 else
- EMACS_DIR := /disk/disk1/appl/emacs/
+ EMACS_DIR := /appl/emacs/
 endif
 
 VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
@@ -68,7 +69,7 @@ EXE : $(EMACS_EXE)
 
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
-EL_FILES := ../ansys-mode.el ../ansys-keyword.el \
+EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el ../default.el
 # ansys-fontification.el is missing since it is not necessary for running A-M
 
@@ -77,6 +78,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
+
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 	  example.mac example.anf example.dat
 
@@ -84,14 +86,22 @@ FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
 # 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
-TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
-	 ../doc/A-M_in-depth_tutorial.org    \
-	 ../doc/A-M_APDL_reference.org
+WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
+		 example.mac example.anf example.dat tools/ansys-mode/README
 
-TUTORIALS := A-M_introductory_tutorial-$(VERSION).pdf \
-		A-M_in-depth_tutorial-$(VERSION).ans  \
-	        A-M_in-depth_tutorial-$(VERSION).pdf  \
-	        A-M_APDL_reference-$(VERSION).pdf
+WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
+  ../ansys-template.el ../ansys-process.el
+
+
+TUTORIAL_SOURCES := A-M_introductory_tutorial.org \
+	 A-M_in-depth_tutorial.org                \
+	 A-M_APDL_reference.org
+
+TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
+ ../doc/A-M_in-depth_tutorial.ansys 	          \
+ ../doc/A-M_in-depth_tutorial.pdf                 \
+ ../doc/A-M_APDL_reference.pdf
+
 
 MATLIB := ../matlib/
 
@@ -109,6 +119,15 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 # the sources are built from GitHub automatically when tagged
 .PHONEY : MODE
 MODE : $(PACKAGE)
+
+.PHONEY : ALWIN
+ALWIN : a-m-$(VERSION).tar.xz
+
+a-m-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
+	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
+	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
+	      tools/ansys-mode/ansys-mode-$(VERSION)
+	tar -cJvf $@ --group HPCUser_1 tools
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
 	tar -xJvf $(EMACS_SOURCE_PACKAGE) 
@@ -150,38 +169,25 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure && make
 #	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
 
-A-M_APDL_reference-$(VERSION).pdf : ../doc/A-M_APDL_reference.org
+A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "../ansys-mode.el"  --execute "(org-latex-export-to-pdf)"
-	  cp ../doc/A-M_APDL_reference.pdf A-M_APDL_reference-$(VERSION).pdf
+	  --load "../ansys-mode.el"  --execute "(org-export-as-pdf 3)"
 
-
-# !!! strange org-babel-tangle doesn't adhere to .ans!? !!!
-A-M_in-depth_tutorial-$(VERSION).ans : ../doc/A-M_in-depth_tutorial.org
-	$(EMACS_EXE) --batch  \
-          --execute "(require 'org)" \
+A-M_in-depth_tutorial.ansys : ../doc/A-M_in-depth_tutorial.org
+	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "../ansys-mode.el" \
-          --file ../doc/A-M_in-depth_tutorial.org \
-          --execute "(org-babel-tangle nil \"A-M_in-depth_tutorial.ans\")"
-	cp ../doc/A-M_in-depth_tutorial.ansys A-M_in-depth_tutorial-$(VERSION).ans
+	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
 
-#	  --execute "(org-babel-do-load-languages  'org-babel-load-languages \
-	               '((ansys . t)) )" \
-	  --execute "(ansys-mode)"\
-
-A-M_in-depth_tutorial-$(VERSION).pdf : ../doc/A-M_in-depth_tutorial.org
+A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-latex-export-to-pdf)"
-	  cp ../doc/A-M_in-depth_tutorial.pdf A-M_in-depth_tutorial-$(VERSION).pdf
+	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
 
-A-M_introductory_tutorial-$(VERSION).pdf : ../doc/A-M_introductory_tutorial.org
+../doc/A-M_introductory_tutorial.pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "/home/dieter/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
-	cp  ../doc/A-M_introductory_tutorial.pdf /home/dieter/a-m/helper/A-M_introductory_tutorial-$(VERSION).pdf
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<

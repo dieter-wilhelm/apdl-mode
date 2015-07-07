@@ -204,11 +204,12 @@ like in the variable `ansys-program'."
 Warning: This option is computational expensive and --depending
 on the file size and your hardware --it might make your editing
 experience somewhat sluggish.  Currently dynamic highlighting of
-user variables is only implemented for files with the extension
-\".mac\" and in the highest highlighting level (please see the
-variable `ansys-highlighting-level') otherwise the fontification
-of variables is only static.  To take effect after setting this
-variable you have to restart `ansys-mode'."
+user variables is only implemented for files with the extensions
+either \".mac\" or \".ans\" and in the highest highlighting
+level (please see the variable `ansys-highlighting-level')
+otherwise the fontification of variables is only static.  To take
+effect after setting this variable you have to restart
+`ansys-mode'."
   :type 'boolean
   :group 'ANSYS)
 
@@ -1881,7 +1882,8 @@ improvements you have the following options:
 	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and buffer-file-name ;we have a file in the buffer
 		 ansys-dynamic-highlighting-flag
-		 (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
+		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (add-hook 'post-command-hook
@@ -3194,8 +3196,11 @@ Added pseudo arguments A B C."
 	;; for the display
 	(setq ansys-user-variables
 	      (sort ansys-user-variables
-		    '(lambda (arg1 arg2)
-		       (< (cadr arg1) (cadr arg2)))))
+		    (if (version< "24" emacs-version)
+			'(lambda (arg1 arg2)
+		       (< (cadr arg1) (cadr arg2)))
+		      #'(lambda (arg1 arg2)
+			  (< (cadr arg1) (cadr arg2))))))
 	;; make the regexp for fontification
 	(setq res (mapcar 'car ansys-user-variables)
 	      res (regexp-opt res 'symbols) ;words inhibits variables ending in _!
@@ -3277,7 +3282,8 @@ argument ARG, the function evaluates the variable at point."
 	    str old-num com
 	    (num 0))
        (set-buffer variable-buffer)
-       (if (version<  "24" emacs-version)
+       ;; make buffer writable
+       (if (version<  "24.2" emacs-version)
 	   (when (fboundp 'read-only-mode)
 	     (read-only-mode -1))
 	 (toggle-read-only -1))
@@ -3301,7 +3307,8 @@ argument ARG, the function evaluates the variable at point."
 	 (unless (= num old-num)
 	   (insert str)))
        (goto-char (point-min))
-       (if (version< "24" emacs-version)
+       ;; make buffer read-only
+       (if (version< "24.2" emacs-version)
 	   (when (fboundp 'read-only-mode)
 	       (read-only-mode 1))
 	 (toggle-read-only 1))

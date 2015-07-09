@@ -71,15 +71,17 @@ EXE : $(EMACS_EXE)
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
 EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el default.el
-# ansys-fontification.el is missing since it is not necessary for running A-M
+	      ../ansys-template.el ../ansys-process.el
+# ansys-fontification.el is not included since it is not necessary for running A-M
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
+# compiled files
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org
+HELPER_FILES := example.mac example.anf example.dat
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -105,15 +107,29 @@ TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
 
 MATLIB := ../matlib/
 
-PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(TUTORIALS) $(MATLIB)
+PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
+
+default.el : makefile
+	@echo ";;; Automatically created, ANSYS-mode" > default.el
+	@echo "(load-file \"ansys-mode-$(VERSION)\\\\a-m\")" >> default.el
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
 	@echo
 	@test -d ansys-mode-$(VERSION) || \
 	    mkdir ansys-mode-$(VERSION)
-	@cp -a $(PACKAGE_FILES) ansys-mode-$(VERSION)
-	@tar -cJvf $@ ansys-mode-$(VERSION)
+	@cp -a $(FILES) ansys-mode-$(VERSION)
+	@cp -a $(EL_FILES) ansys-mode-$(VERSION)
+	@test -d ansys-mode-$(VERSION)/doc || \
+	    mkdir ansys-mode-$(VERSION)/doc
+	@cp -a $(TUTORIALS) ansys-mode-$(VERSION)/doc
+	@test -d ansys-mode-$(VERSION)/helper || \
+	    mkdir ansys-mode-$(VERSION)/helper
+	@cp -a $(HELPER_FILES) ansys-mode-$(VERSION)/helper
+	@test -d ansys-mode-$(VERSION)/matlib || \
+	    mkdir ansys-mode-$(VERSION)/matlib
+	@cp -rf $(MATLIB) ansys-mode-$(VERSION)
+	@tar -cJvf $@ ansys-mode-$(VERSION) default.el
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
@@ -140,7 +156,7 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
-HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../doc/default.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
+HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../a-m.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
 
 ORG_FILES := $(HTMLs:.html=.org)
 
@@ -172,24 +188,24 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure && make
 #	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
 
-A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
+../doc/A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "../ansys-mode.el"  --execute "(org-export-as-pdf 3)"
+	  --load "ansys-mode.el"  --execute "(org-latex-export-to-pdf)"
 
-A-M_in-depth_tutorial.ansys : ../doc/A-M_in-depth_tutorial.org
+../doc/A-M_in-depth_tutorial.ansys : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
+	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
 
-A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
+../doc/A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
+	  --load "ansys-mode.el" --execute "(org-latex-export-to-pdf)"
 
 ../doc/A-M_introductory_tutorial.pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
-	--load "/home/dieter/a-m/helper/export.el" \
+	--load "~/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
 ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt

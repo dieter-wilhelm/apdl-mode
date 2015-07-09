@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-04 11:15:26 dieter>
+#+DATE: Time-stamp: <2015-07-06>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,17 +18,16 @@
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 ** Version 16.1.2
-   - Reworked the initialisation and configuration
-
+   - Realised sending code to the ANYSClassics GUI as well.
+   - Reorganised and simplified the installation and configuration.
 
 ** Version 16.1.1 July 2015
-
    - The command `ansys-show-command-parameters' (M-?) does
-     additonally count the number of parameters and visualise at which
-     parameter position the cursor currently is.  This tooltip can now
-     be switched off with a prefix argument of zero.
+     additionally count the number of parameters and visualise at
+     which parameter position the cursor currently is.  This tool-tip
+     can now be switched off with a prefix argument of zero.
 
-   - The command `ansys-send-to-ansy-and-proceed' (C-c C-j) is now
+   - The command `ansys-send-to-ansys-and-proceed' (C-c C-j) is now
      interactive, i. e. after invoking this command with its key-sequence
      "C-c C-j" it can be repeated by typing just the final character "j"
      (or "C-j").
@@ -117,7 +116,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
      nothing!  Finding and browsing relevant APDL documentation is still
      cumbersome and too slow.
 
-     As a highlight of this release you can now read immeadiately the
+     As a highlight of this release you can now read immediately the
      detailed ANSYS help in your web browser for *all* APDL command AND
      element names around the cursor (or for the first command in the
      current line if that fails to be valid keyword).  You may input your
@@ -220,12 +219,12 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
    - Some new graphics commands like ansys-zoom-in, -zoom-out,
      -move-left, -right, -up, -down, etc.
 
-   - The lisp code had to be split up for better maintance, the code
+   - The lisp code had to be split up for better maintenance, the code
      files for are now provided in an archive together with their
      compiled state for speed reasons.
 
    - Reworked the fontification mainly for the sake of speed.  There are
-     now highlighting levels to choose from, offering e. g. higlighting
+     now highlighting levels to choose from, offering e. g. highlighting
      of deprecated element types in a warning-face, deprecated Ansys *
      comments and so on
 
@@ -243,19 +242,19 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
      clipboard).  Given a prefix argument to these commands, the cursor
      won't move to the next code line.
 
-   - The completion of Ansy keywords is reworked and has improved.  Ansys
+   - The completion of Ansys keywords is reworked and has improved.  Ansys
      symbols are now completed in 3 ways: Upcase, downcase and
      capitalise.
 
-   - New: Added tooltips to all Ansys menu entries.  Activated or
-     deactivated menue entries according to the context
+   - New: Added tool-tips to all Ansys menu entries.  Activated or
+     deactivated menu entries according to the context
 
    - Ansys mode tries to gather information from the OS environment when
      the variable `ansys-license-file' is not set by the user and uses
      now Ansys standard names as default values for some more variables.
 
    - The variables in the variable summary are now sorted according to
-     their first occurance and not any longer in "definition types".  Now
+     their first occurrence and not any longer in "definition types".  Now
      component names are included with the variable highlighting.
 
    - Added menu entry for reloading Ansys Mode for the case when certain
@@ -273,7 +272,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
    - Removed "buffer has no process" bug when killing an ansys-mode
      buffer.
 
-   - Submitting interactively Ansys commands (via minibuffer query, not
+   - Submitting interactively Ansys commands (via mini-buffer query, not
      only as written in a macro file) to the solver process,
      ansys-query-ansys-command (C-c C-q).
 

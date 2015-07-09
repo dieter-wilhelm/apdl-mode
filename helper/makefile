@@ -23,10 +23,11 @@ ANSYS_MAJOR := 16
 ANSYS_MINOR := 1
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := 1
+MODE_VERSION := test2
 # for consistency:
-#MODE_VERSION := freeze1
+#MODE_VERSION := test1
 #MODE_VERSION := beta1
+#MODE_VERSION := freeze1
 #MODE_VERSION := rc1
 #MODE_VERSION := 1
 
@@ -70,7 +71,7 @@ EXE : $(EMACS_EXE)
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
 EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el ../default.el
+  ../ansys-template.el ../ansys-process.el default.el
 # ansys-fontification.el is missing since it is not necessary for running A-M
 
 ELC_FILES := $(EL_FILES:.el=.elc)
@@ -80,7 +81,7 @@ ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org  example.mac example.anf example.dat
 
-#	  ../doc/APDL_tutorial.ans
+#	 ../doc/APDL_tutorial.ans
 
 # ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
@@ -93,9 +94,9 @@ WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el
 
 
-TUTORIAL_SOURCES := A-M_introductory_tutorial.org \
-	 A-M_in-depth_tutorial.org                \
-	 A-M_APDL_reference.org
+TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
+	            ../doc/A-M_in-depth_tutorial.org     \
+	            ../doc/A-M_APDL_reference.org
 
 TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
  ../doc/A-M_in-depth_tutorial.ansys 	          \
@@ -109,7 +110,10 @@ PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(TUTORIALS) $(MATLIB)
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
 	@echo
-	@tar -cJvf $@ $(PACKAGE_FILES)
+	@test -d ansys-mode-$(VERSION) || \
+	    mkdir ansys-mode-$(VERSION)
+	@cp -a $(PACKAGE_FILES) ansys-mode-$(VERSION)
+	@tar -cJvf $@ ansys-mode-$(VERSION)
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
@@ -129,9 +133,9 @@ a-m-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.
 	tar -cJvf $@ --group HPCUser_1 tools
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
-	tar -xJvf $(EMACS_SOURCE_PACKAGE) 
-	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp
-	tar -cJvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
+	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)
+	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
+	tar -uJvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
@@ -197,12 +201,14 @@ ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt
 # This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
 EMACS : $(EMACS_PACKAGE) $(PACKAGE)
-	 test -d share/emacs/$(EMACS_VER)/site-lisp || mkdir -p share/emacs/$(EMACS_VER)/site-lisp
-	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp
-	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp
-#	 cp -uv ../default_el share/emacs/$(EMACS_VER)/site-lisp/default.el
+	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION) || \
+	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -uv default.el share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION).$(EMACS_PACKAGE)
-	 zip -u ansys-mode-$(VERSION).$(EMACS_PACKAGE) share/emacs/$(EMACS_VER)/site-lisp/*
+	 zip -u ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
+	   share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/*
 
 ##################################################
 # getting the emacs source
@@ -220,7 +226,8 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el 
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el \
+		default.el
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)
 

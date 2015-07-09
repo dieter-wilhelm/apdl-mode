@@ -1,4 +1,4 @@
-#+rDATE: Time-stamp: <2015-07-07>
+#+rDATE: Time-stamp: <2015-07-08>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -237,10 +237,10 @@ remove the compiled .elc files, if any.)
 - helper/example.mac -- APDL user macro and highlighting example
 - helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
 - matlib/ -- a directory with examples of APDL material definitions
-- doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
-- doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
-- doc/A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code
-- doc/A-M_APDL_reference-16.1.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+- doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
+- doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
+- doc/A-M_in-depth_tutorial.ansys -- Hands-on tutorial's supplementary APDL code
+- doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
 You can actually read the PDFs in the Emacs editor as well!
 

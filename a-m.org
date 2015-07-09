@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-04 11:16:12 dieter>
+#+DATE: Time-stamp: <2015-07-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -25,15 +25,7 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 #+TITLE: Customisation of ANSYS-Mode
-#+text: Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
-
-** Extending Eamcs load path
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
-  ;; adding the directory of this (loaded) file to the load-path
-  (message (concat "loading from " (file-name-directory load-file-name)))
-  (add-to-list 'load-path (file-name-directory load-file-name))
-  (require 'ansys-mode)
-#+END_SRC
+#+text: Copyright (C) 2015 H. Dieter Wilhelm GPL V3
 
 * Introduction
 Customisations for GNU-Linux and Windows systems.
@@ -48,8 +40,9 @@ appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)
+;; This file was created from a-m.org
 
-;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2015 H. Dieter Wilhelm GPL V3
 
 ;; `a-m.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
@@ -458,11 +451,26 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
   ;; ANSYS job name
   ;(setq ansys-job "otto"); default: "file"
 
-  (message "ANSYS-Mode enabled.")
+#+END_SRC
 
+** Extending Eamcs load path
+
+#+BEGIN_SRC emacs-lisp :tangle yes :exports none
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 ;; The End
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; adding the directory of this (loaded) file to the load-path
+  (message (concat "loading from " (file-name-directory load-file-name)))
+  (add-to-list 'load-path (file-name-directory load-file-name))
+  (require 'ansys-mode)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+  (message "ANSYS-Mode enabled.")
+
+;;; initialisation.el ends here
 
 #+END_SRC
 -----

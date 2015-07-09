@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-04 11:27:20 dieter>
+#+DATE: Time-stamp: <2015-07-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+DATE: <2013-05-22 Wed>
 # #+OPTIONS: H:1 texht:t
@@ -330,8 +330,8 @@
 ** Configure system dependent aspects and user options
 #   \\Mainly the ANSYS version and its installation directory
     The mode comes pre-configured for the default installation of
-    ANSYS for Win64.  If something is amiss: Adjust
-*** the well commented configuration file /default.el/
+    ANSYS for Win64.  If something is amiss: Please adjust
+*** the well commented configuration file /a-m.el/
 	  :PROPERTIES:
 	  :BEAMER_env: block
 	  :BEAMER_envargs: C[T]

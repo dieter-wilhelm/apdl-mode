@@ -37,16 +37,24 @@
   "Customisation 'process' subgroup for the ANSYS-Mode."
   :group 'ANSYS)
 
-(defcustom ansys-install-directory
-  (cond ((string= window-system "x")
-	 ;; "/" the root dir is the default installation directory on GNU-Linux
-	 "/")
-	(t ;; the default is "C:\\Program Files\\" on Windows
-	 "C:\\Program Files\\"))
-  "This is the directory where ANSYS is installed."
+(defcustom ansys-install-directory nil
+  "This is the directory path where ANSYS has been installed.
+Which is to say the path before \"ansys_inc\" under Linux or
+\"Ansys Inc\" under Windows including the final slash or
+backslash respectively."
   :type 'string
   :group 'ANSYS-process
   )
+
+(unless (boundp 'ansys-install-directory)
+  (if (string= window-system "x")
+      ;; "/" is the ANSYS default installation directory on GNU-Linux
+      (setq ansys-install-directory "/")
+    (cond (;; my dear company's guidelines...
+	   (file-exists-p "C:\\CAx\\App\\ANSYS Inc")
+	   (setq ansys-install-directory "C:\\CAx\\App\\"))
+	  (t ;; ANSYS default is "C:\\Program Files\\" on Windows
+	   (setq ansys-install-directory "C:\\Program Files\\")))))
 
 (defcustom ansys-job "file"
   "Variable storing the ANSYS job name.

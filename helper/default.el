@@ -4,4 +4,4 @@
 ;;; prevents loading of this file.  Also the "-q" option to emacs
 ;;; prevents both "~/.emacs" and this file from being loaded at startup.
 
-(load-file "a-m")
+(load-file "ansys-mode-16.1.1\\a-m")

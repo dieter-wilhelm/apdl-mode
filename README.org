@@ -199,7 +199,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 This mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
 GNU-Linux64.  It was also tested with Emacs-23.1 (released July 2009)
-on GNU-Linux64 and should run with all older versions of Emacs down to
+on GNU-Linux64 and should run with older versions of Emacs down to
 Emacs-23.
 
 Some of ANSYS-Mode's solver control and communication features are
@@ -216,15 +216,14 @@ this particular ANSYS release.
 
 Sources:
 - ansys-mode.el: Main file
-- a-m.el: The configuration file
+- A-M.el: The configuration file
 - keyword.el: Highlighting variables built from
   helper/fontification.el
 - template.el: Template definitions
-- process.el: Variables and functions related to solver
-  processes
+- process.el: Variables and functions related to solver processes
 
 (and possibly their compiled versions with the suffix '.elc'.  In case
-you are using the mode with an older version of Emacs than 24.1 please
+you are using the mode with an older version of Emacs than 24.5 please
 remove the compiled .elc files, if any.)
 
 *Auxiliaries*:
@@ -235,14 +234,14 @@ remove the compiled .elc files, if any.)
 - helper/example.dat -- WorkBench example APDL solver input file
 - helper/example.anf -- ANSYS geometry neutral file example
 - helper/example.mac -- APDL user macro and highlighting example
-- helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
+# - helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
 - matlib/ -- a directory with examples of APDL material definitions
 - doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
-- doc/A-M_in-depth_tutorial.ansys -- Hands-on tutorial's supplementary APDL code
+- doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
 - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 
-You can actually read the PDFs in the Emacs editor as well!
+You can actually read the PDFs in Emacs as well!
 
 ** Short instructions
 *** For Windows systems

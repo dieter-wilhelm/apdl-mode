@@ -46,16 +46,6 @@ backslash respectively."
   :group 'ANSYS-process
   )
 
-(unless (boundp 'ansys-install-directory)
-  (if (string= window-system "x")
-      ;; "/" is the ANSYS default installation directory on GNU-Linux
-      (setq ansys-install-directory "/")
-    (cond (;; my dear company's guidelines...
-	   (file-exists-p "C:\\CAx\\App\\ANSYS Inc")
-	   (setq ansys-install-directory "C:\\CAx\\App\\"))
-	  (t ;; ANSYS default is "C:\\Program Files\\" on Windows
-	   (setq ansys-install-directory "C:\\Program Files\\")))))
-
 (defcustom ansys-job "file"
   "Variable storing the ANSYS job name.
 It is initialised to 'file' (which is also the ANSYS default job
@@ -78,7 +68,7 @@ Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
-\"/ansys_inc/v145/ansys/bin/ansys145\" and not only \"ansys145\".
+\"/ansys_inc/v161/ansys/bin/ansys161\" and not only \"ansys161\".
 You might customise this variable or use the function
 `ansys-program' to do this for the current session only."
   :type 'string

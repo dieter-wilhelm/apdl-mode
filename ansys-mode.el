@@ -64,7 +64,7 @@
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys_version "161"
+(defconst ansys-version_ "161"
   "ANSYS version on which ANSYS-Mode is based.")
 
 (defconst ansys_mode_version "1"
@@ -191,7 +191,7 @@ dynamically i. e. during editing when the variable
   :group 'ANSYS
   :link '(variable-link font-lock-maximum-decoration ))
 
-(defcustom ansys-current-ansys-version ansys_version
+(defcustom ansys-current-ansys-version ansys-version_
   "String of the used ANSYS version.
 This variable is used by the `ansys-skeleton-header' template and
 for setting up variables defaults with ANSYS path specifications,
@@ -998,7 +998,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
 	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys_version "."ansys_mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
+	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys-version_ "."ansys_mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
 	["List Expandable Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
 	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS-Mode"]
 	["Customise ANSYS Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
@@ -1868,7 +1868,12 @@ improvements you have the following options:
   ;; menu
   (ansys-add-ansys-menu)
 
+  ;; initialise customisation
+
+  (ansys-initialise-defcustoms)
+
   ;; --- user variables ---
+
   (if (>= ansys-highlighting-level 2)
       (when (or
 	     (unless buffer-file-name
@@ -1901,6 +1906,30 @@ improvements you have the following options:
 
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
   )
+
+(defun ansys-initialise-defcustoms ()
+
+  ;; -current-ansys-version in definition
+  ;; -install-directory
+  (unless (boundp 'ansys-install-directory)
+    (let ((dir (getenv (concat "AWP_ROOT" ansys-current-ansys-version))))
+      (cond (dir
+	     (setq ansys-install-directory (file-name-directory dir))
+	     )
+	    ((string= window-system "x")
+	     ;; "/" is the ANSYS default installation directory on GNU-Linux
+	     (setq ansys-install-directory "/"))
+   	    ;; (;; my dear company's guidelines...
+	    ;;  (file-exists-p "C:\\CAx\\App\\ANSYS Inc")
+	    ;;  (setq ansys-install-directory "C:\\CAx\\App\\"))
+	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
+	     (setq ansys-install-directory "C:\\Program Files\\")))))
+  ;; -dynamic-highlighting-flag in definition
+  ;; 
+
+  )
+
+;; -dynamic-highlighting-flag
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.
@@ -1938,9 +1967,9 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 (defun ansys-mode-version ()
   "Display the ANSYS-Mode version numbering scheme."
   (interactive)
-  (message "ANSYS-Mode version: %s.%s (based on ANSYS %s)" ansys_version
+  (message "ANSYS-Mode version: %s.%s (based on ANSYS %s)" ansys-version_
 	   ansys_mode_version
-	   ansys_version))
+	   ansys-version_))
 
 (defun ansys-reload-ansys-mode ()
   "Reload the ANSYS mayor mode.
@@ -3068,7 +3097,7 @@ These constructs appear in WorkBench created solver input files."
        "ANSYS-Mode"		  ;becomes prefix for the subject line
        (list
 	;; constants
-	'ansys_version
+	'ansys-version_
 	'ansys_mode_version
 	;; defcustoms
 	'ansys-hide-region-before-string

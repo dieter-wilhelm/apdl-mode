@@ -1978,7 +1978,10 @@ call `ansys-mode'."
   (interactive)
   (progn
     (when (featurep 'ansys-mode)
-      (unload-feature 'ansys-mode))
+      (unload-feature 'ansys-mode)
+      (unload-feature 'ansys-keyword)
+      (unload-feature 'ansys-process)
+      (unload-feature 'ansys-template))
     (load "ansys-mode")
     (ansys-mode)
     (message "ANSYS-Mode reloaded.")))

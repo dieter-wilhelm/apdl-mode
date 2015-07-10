@@ -1,4 +1,4 @@
-;;; ansys-process.el -- Managing runs and processes for ANSYS-Mode
+;;; process.el -- Managing runs and processes for ANSYS-Mode
 
 ;; Copyright (C) 2006 - 2015  H. Dieter Wilhelm GPL V3
 

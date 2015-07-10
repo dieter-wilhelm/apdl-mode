@@ -1,4 +1,4 @@
-#+rDATE: Time-stamp: <2015-07-08>
+#+rDATE: Time-stamp: <2015-07-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -217,10 +217,10 @@ this particular ANSYS release.
 Sources:
 - ansys-mode.el: Main file
 - a-m.el: The configuration file
-- ansys-keyword.el: Highlighting variables built from
-  helper/ansys-fontification.el
-- ansys-template.el: Template definitions
-- ansys-process.el: Variables and functions related to solver
+- keyword.el: Highlighting variables built from
+  helper/fontification.el
+- template.el: Template definitions
+- process.el: Variables and functions related to solver
   processes
 
 (and possibly their compiled versions with the suffix '.elc'.  In case
@@ -519,7 +519,7 @@ ANSYS-Mode help which is your `online' guide for its usage,
 key-bindings and customisation options.
 
 Templates, i.e. code snippets or so called skeletons might be extended
-in `ansys-template.el' and can be used similarly or complementary to
+in `template.el' and can be used similarly or complementary to
 a classical ANSYS macro library.
 
 * Experienced Emacs users

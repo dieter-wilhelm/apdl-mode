@@ -1,4 +1,4 @@
-;;; ansys-fontification.el-- building keywords and completions
+;;; fontification.el-- building keywords and completions
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
 
@@ -553,7 +553,7 @@ Function names are distinguished by `()'."
 
 ;; ------------------------------------------------------------
 
-(let ((buffer (find-file "ansys-keyword.el"))
+(let ((buffer (find-file "keyword.el"))
       list
       commands
       commands-1
@@ -857,9 +857,9 @@ By default Ansys keywords, get-functions, parametric-function and elements
   ;; ---------- header ----------
 
   (goto-char (point-min))
-  (insert ";; ansys-keyword.el -- Ansys mode completion and "
+  (insert ";; keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"ansys-fontification.el\" release 16.1.1.\n\n"
+  "\"fontification.el\" release 16.1.1.\n\n"
   ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")

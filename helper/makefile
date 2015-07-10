@@ -70,9 +70,9 @@ EXE : $(EMACS_EXE)
 
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
-EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
-	      ../ansys-template.el ../ansys-process.el
-# ansys-fontification.el is not included since it is not necessary for running A-M
+EL_FILES := ../A-M.el ../ansys-mode.el ../keyword.el \
+	      ../template.el ../process.el
+# fontification.el is not included since it is not necessary for running A-M
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
@@ -92,8 +92,8 @@ HELPER_FILES := example.mac example.anf example.dat
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 		 example.mac example.anf example.dat tools/ansys-mode/README
 
-WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el
+WORK_EL_FILES := ../A-M.el ../ansys-mode.el ../keyword.el \
+  ../template.el ../process.el
 
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
@@ -111,7 +111,7 @@ PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) de
 
 default.el : makefile
 	@echo ";;; Automatically created, ANSYS-mode" > default.el
-	@echo "(load-file \"ansys-mode-$(VERSION)\\\\a-m\")" >> default.el
+	@echo "(load-file \"ansys-mode-$(VERSION)\\\\A-M\")" >> default.el
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
@@ -140,9 +140,9 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 MODE : $(PACKAGE)
 
 .PHONEY : ALWIN
-ALWIN : a-m-$(VERSION).tar.xz
+ALWIN : A-M-$(VERSION).tar.xz
 
-a-m-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
+A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
 	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
 	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
 	      tools/ansys-mode/ansys-mode-$(VERSION)
@@ -156,7 +156,7 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
-HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../a-m.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
+HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
 
 ORG_FILES := $(HTMLs:.html=.org)
 
@@ -208,7 +208,7 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "~/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
+keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<
 
 %.elc : %.el
@@ -242,7 +242,7 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el \
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el \
 		default.el
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)

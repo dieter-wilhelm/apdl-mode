@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-07>
+#+DATE: Time-stamp: <2015-07-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -85,7 +85,7 @@
      macro call: tmp, is not highlighted
    - started and commented out highlighting of solver output
    - makefile errors when doing -fontification.el?
-   - ansys-template.el:85:13:Warning: reference to free variable
+   - template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
    - mouse-choose-completion is obsolete since E23.2
    - example of an ansyslmd.ini?

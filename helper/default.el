@@ -1,2 +1,2 @@
-This is an autmatically created file
-(load-file "ansys-mode-16.1.test2\\a-m")
+;;; Automatically created, ANSYS-mode
+(load-file "ansys-mode-16.1.test2\A-M")

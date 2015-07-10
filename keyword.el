@@ -1,5 +1,5 @@
-;; ansys-keyword.el -- Ansys mode completion and highlighting variables. 
-;; This file was built by "ansys-fontification.el" release 16.1.1.
+;; keyword.el -- Ansys mode completion and highlighting variables. 
+;; This file was built by "fontification.el" release 16.1.1.
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.
 

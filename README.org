@@ -1,4 +1,4 @@
-#+rDATE: Time-stamp: <2015-07-07>
+#+rDATE: Time-stamp: <2015-07-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -216,12 +216,7 @@ this particular ANSYS release.
 
 Sources:
 - ansys-mode.el: Main file
-<<<<<<< HEAD
 - ansys-keyword.el: Highlighting variables build from
-=======
-- a-m.el: The configuration file
-- ansys-keyword.el: Highlighting variables built from
->>>>>>> work
   helper/ansys-fontification.el
 - ansys-template.el: Template definitions
 - ansys-process.el: Variables and functions related to solver

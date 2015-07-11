@@ -3044,6 +3044,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
+(provide 'ansys-template)
+
 ;; Local Variables:
 ;; mode: outline-minor
 ;; indicate-empty-lines: t

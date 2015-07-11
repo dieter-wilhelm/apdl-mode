@@ -67,7 +67,7 @@
 (defconst ansys-version_ "161"
   "ANSYS version on which ANSYS-Mode is based.")
 
-(defconst ansys_mode_version "1"
+(defconst ansys-mode_version "1"
   "ANSYS-Mode version number.")
 
 (defconst ansys-parameter-substitution-commands-regexp
@@ -570,7 +570,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 (defvar ansys-dynamic-prompt)
 (defvar ansys-completions)
 
-(load "ansys-keyword")
+(require 'ansys-keyword "keyword.el")
 
 (defface ansys-arg-face
   '((((min-colors 88) (class color) (background light))
@@ -998,7 +998,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
 	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys-version_ "."ansys_mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
+	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys-version_ "."ansys-mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
 	["List Expandable Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
 	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS-Mode"]
 	["Customise ANSYS Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
@@ -1925,7 +1925,7 @@ improvements you have the following options:
 	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
 	     (setq ansys-install-directory "C:\\Program Files\\")))))
   ;; -dynamic-highlighting-flag in definition
-  ;; 
+  ;; -job
 
   )
 
@@ -1968,7 +1968,7 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
   "Display the ANSYS-Mode version numbering scheme."
   (interactive)
   (message "ANSYS-Mode version: %s.%s (based on ANSYS %s)" ansys-version_
-	   ansys_mode_version
+	   ansys-mode_version
 	   ansys-version_))
 
 (defun ansys-reload-ansys-mode ()
@@ -1981,7 +1981,7 @@ call `ansys-mode'."
       (unload-feature 'ansys-mode))
     (load "ansys-mode")
     (ansys-mode)
-    (message "ANSYS-Mode reloaded.")))
+    (message (concat "ANSYS-Mode-" ansys-version_ "." ansys-mode_version " reloaded."))))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -3098,7 +3098,7 @@ These constructs appear in WorkBench created solver input files."
        (list
 	;; constants
 	'ansys-version_
-	'ansys_mode_version
+	'ansys-mode_version
 	;; defcustoms
 	'ansys-hide-region-before-string
 	'ansys-hide-region-after-string
@@ -3138,8 +3138,8 @@ These constructs appear in WorkBench created solver input files."
        nil
        salutation))))
 
-(load "ansys-template")
-(load "ansys-process")
+(require 'ansys-template "template.el")
+(require 'ansys-process "process.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- dynamic highlighting ---

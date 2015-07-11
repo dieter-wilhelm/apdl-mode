@@ -193,10 +193,10 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
           --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "ansys-mode.el"  --execute "(org-latex-export-to-pdf)"
 
-../doc/A-M_in-depth_tutorial.ansys : ../doc/A-M_in-depth_tutorial.org
+../doc/A-M_in-depth_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
+	  --load "ansys-mode.el" --execute "(org-babel-tangle $@)"
 
 ../doc/A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \

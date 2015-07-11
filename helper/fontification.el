@@ -569,7 +569,12 @@ Function names are distinguished by `()'."
   (set-buffer buffer)
   (delete-region (point-min) (point-max))
 
-  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; we are adding to the top!
+  ;; 
+
+  (insert "(provide 'ansys-keyword)\n ;;end of keyword.el\n")
+
   ;; ---------- undocumented commands ----------
 
   ;; getting another colour than regular commands

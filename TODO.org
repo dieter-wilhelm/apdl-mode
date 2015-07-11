@@ -15,41 +15,8 @@
 #+title: The Todo file of ANSYS-Mode
 
 #+STARTUP: showall
-* Deficiencies:
-  - Highlighting :: Experimental user variable highlighting
-		    does not take into account:
-    + clearing of variables and
-    + usage of variables before their definitions (uninitialised
-      variables)
-    + the variable fontification might clash with ANSYS specifiers
-    + string substitution of %variables% in strings does not highlight
-       them in the proper variable face
-  - Highlighting :: A label :LABEL may appear behind the /input
-                    command and is not highlighted as label
-  - Highlighting :: An apostrophy clashes with the ANSYS "char"
-                    specifier Keybinding: M-Tab is captured under
-                    Windows and some GNU-Linux desktops Workaround: Press
-                    instead of M-Tab (ALT + TAB) the ESC key and then
-                    the Tab key (ESC, TAB) or apply the command from
-                    the menu bar
-  - Highlighting :: The parameter help overlay is only removed after 2
-                    min if the respective ANSYS-Mode buffer is the
-                    current buffer at that time span!
-  - Keybinding :: M-j: When there is already a `&' in a format command
-                  (like *msg, *vwrite, *mwrite)
-                  ansys-indent-format-line inserts a redundant one
-  - Completion :: Of parametric function parentheses
-		  completes redundant closing parentheses
-  - Completion :: A mouse selection from the *ANSYS-completion* buffer
-                  is only inserted upcased.
-  - Completion :: ANSYS command 'C***' will not be completed
-  - Skeleton :: Mouse selection of -structural-template does not work
-                (because of stipulated user text input from this skeleton)
-  - Navigation ::  C-c { does not skip an overlay in a number-block
-                  (M-{ does it though))
 * 16.1.2:
 ** Bugs
-   - C-c C-j jjj not working with Emacs 23.1
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
@@ -62,16 +29,17 @@
      ansys-mode is not activated!? <- autoloaded functions, should
      work they are calling -mode.el!
 ** Wish-list
+   - makefile errors when doing -fontification.el?
+   - add screw thread capability to WB translation
    - switch off advising of M-w
    - color scheme of *msg command is only readable on terminals
-   - add adwords to gh-pages
    - abreviated input method for all graphics functions zoom, etc.
+   - add adwords to gh-pages
    - defaults for template MP
-   - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
-   - add bbdb files to emacs packages?
+   - add bbdb files to emacs packages
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???
    - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
@@ -79,12 +47,10 @@
      (frictionless support)
    - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
    - show defaults for -license-file, license-utility and -ansysli-servers
-   - *msg command's format string is not higlighted (-template-element-table)
+   - started and commented out highlighting of solver output
    - Variables are not highlighted in -skeletons, it is specified in
      -mode only for files with .mac suffix; *create file tmp,mac:
      macro call: tmp, is not highlighted
-   - started and commented out highlighting of solver output
-   - makefile errors when doing -fontification.el?
    - template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
    - mouse-choose-completion is obsolete since E23.2
@@ -145,6 +111,40 @@
      - change sequence of alignment.png first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
+* Deficiencies:
+  - Highlighting :: Experimental user variable highlighting
+		    does not take into account:
+    + clearing of variables and
+    + usage of variables before their definitions (uninitialised
+      variables)
+    + the variable fontification might clash with ANSYS specifiers
+    + string substitution of %variables% in strings does not highlight
+       them in the proper variable face
+  - Highlighting :: A label :LABEL may appear behind the /input
+                    command and is not highlighted as label
+  - Highlighting :: An apostrophy clashes with the ANSYS "char"
+                    specifier Keybinding: M-Tab is captured under
+                    Windows and some GNU-Linux desktops Workaround: Press
+                    instead of M-Tab (ALT + TAB) the ESC key and then
+                    the Tab key (ESC, TAB) or apply the command from
+                    the menu bar
+  - Highlighting :: The parameter help overlay is only removed after 2
+                    min if the respective ANSYS-Mode buffer is the
+                    current buffer at that time span!
+  - Keybinding :: M-j: When there is already a `&' in a format command
+                  (like *msg, *vwrite, *mwrite)
+                  ansys-indent-format-line inserts a redundant one
+  - Keybinding :: C-c C-j jjj not working with Emacs version < Emacs-24
+  - Completion :: Of parametric function parentheses
+		  completes redundant closing parentheses
+  - Completion :: A mouse selection from the *ANSYS-completion* buffer
+                  is only inserted upcased.
+  - Completion :: ANSYS command 'C***' will not be completed
+  - Skeleton :: Mouse selection of -structural-template does not work
+                (because of stipulated user text input from this skeleton)
+  - Navigation ::  C-c { does not skip an overlay in a number-block
+                  (M-{ does it though))
+
 * Procedures
   - GNU-Linux :: ;-)
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and

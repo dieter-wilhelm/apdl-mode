@@ -40,8 +40,7 @@
 (defcustom ansys-install-directory nil
   "This is the directory path where ANSYS has been installed.
 Which is to say the path before \"ansys_inc\" under Linux or
-\"Ansys Inc\" under Windows including the final slash or
-backslash respectively."
+\"Ansys Inc\" under Windows."
   :type 'string
   :group 'ANSYS-process
   )
@@ -55,14 +54,7 @@ the respective error file."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-program
-  (let ((version (if (boundp 'ansys-current-ansys-version)
-		     ansys-current-ansys-version
-		   "161")))
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/v"
-	      version "/ansys/bin/ansys" version)
-    (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))
+(defcustom ansys-program nil
   "This variable stores the ANSYS executable name.
 Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
@@ -92,27 +84,14 @@ Windows (XP/7)."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-help-path
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/v"
-      ansys-current-ansys-version "/ansys/bin/anshelp"
-      ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))
-  "The ANSYS help executable.
-It is called with
-\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
-executable is not in the search path, you have to complement the
-executable with its complete path.  For example the default
-locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU-Linux
-and \"c:\\\\Program Files\\Ansys\
-Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
-Windows (XP/7)."
+(defcustom ansys-help-path nil
+  "The ANSYS help path."
   :type 'string
   :group 'ANSYS-process)
 
 (defcustom ansys-help-program-parameters ""
   "Stores parameters for the program `ansys-help-program' under Windows.
-In ANSYS version 150 not longer necessary."
+Since ANSYS150 not longer necessary."
   :type 'string
   :group 'ANSYS-process)
 

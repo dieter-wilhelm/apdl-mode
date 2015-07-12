@@ -74,6 +74,12 @@ EL_FILES := ../A-M.el ../ansys-mode.el ../keyword.el \
 	      ../template.el ../process.el
 # fontification.el is not included since it is not necessary for running A-M
 
+
+../A-M.el : ../A-M.org
+	$(EMACS_EXE) --batch --file $< \
+	  --execute "(add-to-list 'load-path \"~/a-m\")" \
+	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
+
 ELC_FILES := $(EL_FILES:.el=.elc)
 
 # compiled files
@@ -95,7 +101,6 @@ WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 WORK_EL_FILES := ../A-M.el ../ansys-mode.el ../keyword.el \
   ../template.el ../process.el
 
-
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	            ../doc/A-M_in-depth_tutorial.org     \
 	            ../doc/A-M_APDL_reference.org
@@ -110,8 +115,9 @@ MATLIB := ../matlib/
 PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
 
 default.el : makefile
-	@echo ";;; Automatically created, ANSYS-mode" > default.el
-	@echo "(load-file \"ansys-mode-$(VERSION)\\\\A-M\")" >> default.el
+	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > default.el
+	@echo "(let ((dir (file-name-directory load-file-name)))" >> default.el
+	@echo " (load-file (concat dir \"\\\\\\\\ansys-mode-$(VERSION)\\\\\\\\A-M.el\"))" >> default.el
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
@@ -143,9 +149,14 @@ MODE : $(PACKAGE)
 ALWIN : A-M-$(VERSION).tar.xz
 
 A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
-	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
-	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
-	      tools/ansys-mode/ansys-mode-$(VERSION)
+	mv tools/ansys-mode/README tools/
+	rm -fr tools/ansys-mode/*
+	mv tools/README tools/ansys-mode/README
+	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
+	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
+	@echo "syncing.."
+	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) $(TUTORIALS:../%=%) $(MATLIB:../%=%) \
+	      helper/tools/ansys-mode/ansys-mode-$(VERSION)
 	tar -cJvf $@ --group HPCUser_1 tools
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
@@ -208,8 +219,9 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "~/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
+../keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<
+	ln -f keyword.el ..
 
 %.elc : %.el
 	$(EMACS_EXE) --batch -f batch-byte-compile $<

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-10>
+#+DATE: Time-stamp: <2015-07-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,6 +17,7 @@
 #+STARTUP: showall
 * 16.1.2:
 ** Bugs
+   - unload-feature not working
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
@@ -25,11 +26,12 @@
      last line without \n
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated!? <- autoloaded functions, should
-     work they are calling -mode.el!
 ** Wish-list
-   - makefile errors when doing -fontification.el?
+   - include the ../ansys/matlib
+   - ../apdl/start161.ans
+   - C-c C-c checking blocks
+   - C-c C-j checking and chewing blocks
+   - make version numbers string into integers
    - add screw thread capability to WB translation
    - switch off advising of M-w
    - color scheme of *msg command is only readable on terminals

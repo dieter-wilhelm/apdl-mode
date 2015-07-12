@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-09>
+#+DATE: Time-stamp: <2015-07-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -96,10 +96,10 @@ for a Windows system or
 for a GNU-Linux system.
 ** Installed ANSYS version and installation path
 
-For reading the ANSYS help in your browser it should be sufficient
-to set at most the ANSYS version and the installation directory of
-ANSYS (if they are differing from the defaults and restart Emacs
-;-), the complete paths will be constructed with below information
+For reading the ANSYS help in your browser it should be sufficient to
+set at most the ANSYS version and the installation directory of ANSYS
+if they are differing from the defaults. (You have to restart Emacs
+;-) The complete paths will be constructed with below information
 
 #+BEGIN_SRC emacs-lisp
   (setq ansys-current-ansys-version "150")
@@ -107,57 +107,61 @@ ANSYS (if they are differing from the defaults and restart Emacs
                                             ; in ANSYS-Mode 16.1.1
 #+END_SRC
 The installation path (what comes before the directory /ansys_inc/ on
-Linux or /ANSYS Inc/ on Windows.
+Linux or /ANSYS Inc/ on Windows.  If ~ansys-install-directory~ is not
+set ANSYS-Mode can initialise it from the environment variable
+`AWP_ROOT161'.
+
 #+BEGIN_SRC emacs-lisp
 (cond ((string= window-system "x")
         ;; This is an example of an installation directory on GNU-Linux
-        (setq ansys-install-directory "/appl/")) ; default: "/"
+        (setq ansys-install-directory "/appl")) ; default: "/"
        (t
         ;;This an example of an installation dir. on WINDOWS
-        (setq ansys-install-directory "D:\\Ansys\\")) ; default: "C:\\Program Files\\"
+        (setq ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
 #+END_SRC
 
 If the paths of your ANSYS installation is completely differing from
 the standard ANSYS directory structure, please see further below.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		       ;; IMPORTANT PREREQUISIT
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; !!! If the ANSYS-Mode files (*.el) are NOT placed in a default
-;; Emacs load-path it is necessary to adjust the following
-;; variable:!!!  Hint: The directory site-lisp/ in the Emacs
-;; installation tree, for example, is in its default load-path.
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; IMPORTANT PREREQUISIT
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; !!! If the ANSYS-Mode files (*.el) are NOT placed in a default
+  ;; Emacs load-path it is necessary to adjust the following
+  ;; variable:!!!  Hint: The directory site-lisp/ in the Emacs
+  ;; installation tree, for example, is in its default load-path.
 
-;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
+  ;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
 
-;; for example: "c:\\emacs\\ansys-mode" for a Windows system or
-;; "/usr/local/src/emacs/ansys-mode" for a GNU-Linux system.
+  ;; for example: "c:\\emacs\\ansys-mode" for a Windows system or
+  ;; "/usr/local/src/emacs/ansys-mode" for a GNU-Linux system.
 
-;; For reading the ANSYS help in your browser it should be sufficient
-;; to set at most the ANSYS version and the installation directory of
-;; ANSYS (if they are differing from the defaults and restart Emacs
-;; ;-), the complete paths will be constructed with below information
+  ;; For reading the ANSYS help in your browser it should be sufficient
+  ;; to set at most the ANSYS version and the installation directory of
+  ;; ANSYS (if they are differing from the defaults and restart Emacs
+  ;; ;-), the complete paths will be constructed with below information
 
-;(setq ansys-current-ansys-version "150")
-;(setq ansys-current-ansys-version "161") ; default in ANSYS-Mode 16.1.1
+  ;(setq ansys-current-ansys-version "150") ; "161" default in ANSYS-Mode 16.1.1
 
-;; conditional: Linux or Windows
+  ;; if `ansys-install-directory' is not set ANSYS-Mode tries to
+  ;; initialise it from the environment variable `AWP_ROOT161'.
 
-(cond ((string= window-system "x")
-        ;; This is an example of an installation directory on GNU-Linux
-        (setq ansys-install-directory "/appl/")) ; default: "/"
-;       (t
-;        ;;This an example of an installation dir. on WINDOWS
-;        (setq ansys-install-directory "D:\\Ansys\\")) ; default: "C:\\Program Files\\"
-							 )
+  ;; conditional: Linux or Windows
+  ;(cond ((string= window-system "x")
+  ;        ;; This is an example of an installation directory on GNU-Linux
+  ;        (setq ansys-install-directory "/appl")) ; default: "/"
+  ;       (t
+  ;        ;;This an example of an installation dir. on WINDOWS
+  ;        (setq ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
+  ;                                                        )
 
-;; If the paths of your ANSYS installation is completely differing
-;; from the normal ANSYS structures, please see below.
+  ;; If the paths of your ANSYS installation is completely differing
+  ;; from the normal ANSYS structures, please see below.
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			   ;; IMPORTANT END
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                             ;; IMPORTANT END
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #+END_SRC
 
 * File suffixes for loading ANSYS-Mode
@@ -368,13 +372,13 @@ example below:
   ;; completely differing from default ANSYS installation paths, as in
   ;; the example below:
 
-        (setq ansys-help-program
-              "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-        ;;the ANSYS path to the help viewer looks normally like this:
-        ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-        (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-        (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
-        (setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
+  ; (setq ansys-help-program
+  ;   "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+  ; ;;the ANSYS path to the help viewer looks normally like this:
+  ; ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+  ; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
+  ; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
+  ; (setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
 * Ansys processes
@@ -423,20 +427,20 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
   ;; takes a long time for displaying the license status!!!
 
    ;; for starting the solver & ansys-license-status & ANSYS help
-  (setq                 ;
+;  (setq                 ;
    ;; license servers (or license file name)nn
    ;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
    ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
-   ansys-license-file
-  "32002@ls_fr_ansyslmd_ww_1.conti.de"
+;   ansys-license-file
+;  "32002@ls_fr_ansyslmd_ww_1.conti.de"
 ;   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
    ;; since ANSYS 12.0 there is an intermediate server for
    ;; the communication between flexlm and ANSYS, 2325 is the default port
-   ansys-ansysli-servers
-  "2325@ls_fr_ansyslmd_ww_1.conti.de"
+;   ansys-ansysli-servers
+;  "2325@ls_fr_ansyslmd_ww_1.conti.de"
 ;  "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
-   )
+;   )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                    ;; options when starting the solver
@@ -464,13 +468,13 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
   (message (concat "loading from " (file-name-directory load-file-name)))
   (add-to-list 'load-path (file-name-directory load-file-name))
   (require 'ansys-mode)
+  (ansys-initialise-defcustoms)
+  (message "ANSYS-Mode enabled.")
+
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp
-
   (message "ANSYS-Mode enabled.")
-
-;;; initialisation.el ends here
 
 #+END_SRC
 -----

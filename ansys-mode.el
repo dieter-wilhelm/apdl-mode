@@ -67,6 +67,10 @@
 (defconst ansys-version_ "161"
   "ANSYS version on which ANSYS-Mode is based.")
 
+;; Ansys calls their bug fixed/patched releases "updates"
+(defconst ansys-update_version_ "0"
+  "Utilised ANSYS update version.")
+
 (defconst ansys-mode_version "1"
   "ANSYS-Mode version number.")
 
@@ -196,6 +200,13 @@ dynamically i. e. during editing when the variable
 This variable is used by the `ansys-skeleton-header' template and
 for setting up variables defaults with ANSYS path specifications,
 like in the variable `ansys-program'."
+  :type 'string
+  :group 'ANSYS)
+
+
+(defcustom ansys-current-update-version ansys-update_version_
+  "String of the used ANSYS update version. ANSYS calls their bug
+  fixed/patched releases \"updates\"."
   :type 'string
   :group 'ANSYS)
 
@@ -1908,28 +1919,102 @@ improvements you have the following options:
   )
 
 (defun ansys-initialise-defcustoms ()
+  "Initialise the customomisation variables."
+  ;; -current-ansys-version: In its definition
 
-  ;; -current-ansys-version in definition
   ;; -install-directory
-  (unless (boundp 'ansys-install-directory)
-    (let ((dir (getenv (concat "AWP_ROOT" ansys-current-ansys-version))))
+  (when (null 'ansys-install-directory)
+    (let* ((version  ansys-current-ansys-version)
+	   ;; we have to remove `ansys_inc/v161' or `ANSYS Inc\v161' from AWP_ROOT161
+	   (dir (file-name-directory
+		 (directory-file-name
+		  (file-name-directory (getenv (concat "AWP_ROOT" version)))))))
       (cond (dir
 	     (setq ansys-install-directory (file-name-directory dir))
 	     )
 	    ((string= window-system "x")
 	     ;; "/" is the ANSYS default installation directory on GNU-Linux
 	     (setq ansys-install-directory "/"))
-   	    ;; (;; my dear company's guidelines...
-	    ;;  (file-exists-p "C:\\CAx\\App\\ANSYS Inc")
 	    ;;  (setq ansys-install-directory "C:\\CAx\\App\\"))
 	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
 	     (setq ansys-install-directory "C:\\Program Files\\")))))
-  ;; -dynamic-highlighting-flag in definition
-  ;; -job
+  ;; -dynamic-highlighting-flag: In its definition
+  ;; -job: in its definition
 
-  )
+  ;; ansys-program
+  (when (null 'ansys-program)
+    (let* ((version ansys-current-ansys-version)
+	   (update ansys-current-update-version)
+	   (idir (file-name-directory ansys-install-directory))
+	   ;; for my dear company...
+	   (exe (concat "/appl/ansys_inc/"
+			"16.1." update
+			"/v" version
+			"/ansys/bin/ansys" version)))
+      (cond ((file-executable-p exe)
+	     (setq ansys-program exe))
+	    ((string= window-system "x")
+	     (setq ansys-program (concat idir
+		     ;; here follows the ANSYS default directory structure
+		     "/ansys_inc/v" version "/ansys/bin/ansys" version)))
+	    (t
+	     (setq ansys-program
+		   (concat idir
+		     ;; here follows the ANSYS default directory structure
+		     "\\Ansys Inc\\v" version
+		     "\\ansys\\bin\\winx64\\launcher" version ".exe"))))))
 
-;; -dynamic-highlighting-flag
+  ;; -dynamic-highlighting-flag
+
+  ;; -help-path
+  (when (null 'ansys-help-path)
+    (let ((idir ansys-install-directory)
+	  (version ansys-current-ansys-version)
+	  (path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help"))
+      (cond ((file-readable-p path)
+	     (setq ansys-help-path path)
+	     ((string= window-system "x")
+	      (setq ansys-help-path
+		    (concat idir "/ansys_inc/v" version "/commonfiles/help/en-us/help")))
+	     (t
+	      (setq ansys-help-path
+		    (concat idir "\\Ansys Inc\\v" version
+		    "\\commonfiles\\help\\en-us\\help")))))))
+
+  ;; -help-program
+  (when (null 'ansys-help-program)
+    (let* ((idir ansys-install-directory)
+	  (version ansys-current-ansys-version)
+	  (exe
+	   (concat "/appl/ansys_inc/16.1.0/v" version "/ansys/bin/anshelp" version)))
+      (cond ((file-executable-p exe)
+	     (setq ansys-help-program exe)
+	     ((string= window-system "x")
+	      (setq ansys-help-program
+		    (concat idir "/ansys_inc/v" version
+		      "/ansys/bin/anshelp" version)))
+	     (t
+	      (setq ansys-help-program
+		    (concat idir "\\Ansys Inc\\v" version
+		    "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe")))))))
+
+  ;; -lmutil-program
+  (unless (boundp 'ansys-lmutil-program)
+    (let ((idir ansys-install-directory)
+	  (version ansys-current-ansys-version)
+	  (exe
+	   "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil"))
+      (cond ((file-executable-p exe)
+	     (setq ansys-lmutil-program exe)
+	     ((string= window-system "x")
+	      (setq ansys-lmutil-program
+		    (concat idir "/ansys_inc/v" version "/commonfiles/help/en-us/help")))
+	     (t
+	      (setq ansys-lmutil-program
+		    (concat idir "\\Ansys Inc\\v" version
+		    "\\commonfiles\\help\\en-us\\help")))))))
+
+  )  ;; end of init function
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.
@@ -3365,8 +3450,9 @@ The default argument is 1."
     (delete-window)
     (select-window swin)))
 
-(provide 'ansys-mode) ; this makes more sense when the file name is identical
-					;to the feature name, what are subfeatures anyway?
+(provide 'ansys-mode) ;to the feature name, what are subfeatures anyway?
+
+;;; ansys-mode.el ends here
 
 ;; Local Variables:
 ;; mode: outline-minor
@@ -3374,5 +3460,3 @@ The default argument is 1."
 ;; show-trailing-whitespace: t
 ;; word-wrap: t
 ;; End:
-
-;;; ansys-mode.el ends here

@@ -1798,3 +1798,5 @@ PRSYZ")
 manuals.  Seen mainly in Workbench output files and Ansys
 verification models.")
 
+(provide 'ansys-keyword)
+ ;;end of keyword.el

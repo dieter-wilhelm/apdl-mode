@@ -35,8 +35,8 @@ this language is ~;~ (one semi-colon `;').
 
 * Conventions used in /A-M.el/
 Textual hints in /A-M.el/ are indicated with DOUBLE semi-colons ~;;~,
-please uncomment the code lines with a SINGLE comment sign, when
-appropriate.
+please uncomment and change the code lines with a SINGLE comment sign,
+when appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)

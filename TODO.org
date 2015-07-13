@@ -28,9 +28,9 @@
       time file visit)!!!!!
 ** Wish-list
    - Documentation of installation and configuration!
-   - MinGWin: FindWindow +  ActivateWin + SendKeys?
    - C-c C-j checking and chewing blocks
    - C-c C-c checking blocks
+   - MinGWin: FindWindow +  ActivateWin + SendKeys?
    - include the ../ansys/matlib
    - ../apdl/start161.ans
    - make version numbers string into integers

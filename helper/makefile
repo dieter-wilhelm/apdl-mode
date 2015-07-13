@@ -148,16 +148,22 @@ MODE : $(PACKAGE)
 .PHONEY : ALWIN
 ALWIN : A-M-$(VERSION).tar.xz
 
-A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
+A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSION).sh makefile
 	mv tools/ansys-mode/README tools/
 	rm -fr tools/ansys-mode/*
 	mv tools/README tools/ansys-mode/README
 	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
 	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
 	@echo "syncing.."
-	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) $(TUTORIALS:../%=%) $(MATLIB:../%=%) \
-	      helper/tools/ansys-mode/ansys-mode-$(VERSION)
+	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) $(TUTORIALS:../%=%)\
+	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) helper/tools/ansys-mode/ansys-mode-$(VERSION)
+	ln -sf tools/ansys-mode/ansys-mode-$(VERSION) tools/ansys-mode/current
 	tar -cJvf $@ --group HPCUser_1 tools
+
+tools/bin/A-M-$(VERSION).sh : makefile
+	@echo "#!/bin/sh " > $@
+	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-16.1.1/A-M.el \$*" >> $@
+	chmod +x $@
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
 	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)

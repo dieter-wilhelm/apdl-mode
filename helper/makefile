@@ -106,7 +106,7 @@ TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	            ../doc/A-M_APDL_reference.org
 
 TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
- ../doc/A-M_in-depth_tutorial.ansys 	          \
+ ../doc/A-M_in-depth_tutorial.ans 	          \
  ../doc/A-M_in-depth_tutorial.pdf                 \
  ../doc/A-M_APDL_reference.pdf
 
@@ -207,7 +207,8 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 ../doc/A-M_in-depth_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-babel-tangle $@)"
+	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
+	mv ../doc/A-M_in-depth_tutorial.ansys ../doc/A-M_in-depth_tutorial.ans
 
 ../doc/A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \

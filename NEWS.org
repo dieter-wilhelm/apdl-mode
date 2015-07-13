@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-10>
+#+DATE: Time-stamp: <2015-07-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -177,7 +177,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
    - Activated outline-minor-mode and auto-insertion (in default_el)
 
    - Extended mode commands, templates and removed typos mainly in
-     template.el. For example added all *get functions in the
+     ansys-template.el. For example added all *get functions in the
      ansys-skeleton-function template
 
    - Added a custom variable the corresponding function

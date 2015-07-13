@@ -553,7 +553,7 @@ Function names are distinguished by `()'."
 
 ;; ------------------------------------------------------------
 
-(let ((buffer (find-file "keyword.el"))
+(let ((buffer (find-file "ansys-keyword.el"))
       list
       commands
       commands-1
@@ -573,7 +573,7 @@ Function names are distinguished by `()'."
   ;; we are adding to the top!
   ;; 
 
-  (insert "(provide 'ansys-keyword)\n ;;end of keyword.el\n")
+  (insert "(provide 'ansys-keyword)\n ;;end of ansys-keyword.el\n")
 
   ;; ---------- undocumented commands ----------
 
@@ -862,7 +862,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   ;; ---------- header ----------
 
   (goto-char (point-min))
-  (insert ";; keyword.el -- Ansys mode completion and "
+  (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
   "\"fontification.el\" release 16.1.1.\n\n"
   ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")

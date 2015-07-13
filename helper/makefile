@@ -70,8 +70,8 @@ EXE : $(EMACS_EXE)
 
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
-EL_FILES := ../A-M.el ../ansys-mode.el ../keyword.el \
-	      ../template.el ../process.el
+EL_FILES := ../A-M.el ../ansys-mode.el ../ansys-keyword.el \
+	      ../ansys-template.el ../ansys-process.el
 # fontification.el is not included since it is not necessary for running A-M
 
 
@@ -87,7 +87,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org
-HELPER_FILES := example.mac example.anf example.dat
+HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -98,8 +98,8 @@ HELPER_FILES := example.mac example.anf example.dat
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 		 example.mac example.anf example.dat tools/ansys-mode/README
 
-WORK_EL_FILES := ../A-M.el ../ansys-mode.el ../keyword.el \
-  ../template.el ../process.el
+WORK_EL_FILES := ../A-M.el ../ansys-mode.el ../ansys-keyword.el \
+  ../ansys-template.el ../ansys-process.el
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	            ../doc/A-M_in-depth_tutorial.org     \
@@ -129,9 +129,9 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@test -d ansys-mode-$(VERSION)/doc || \
 	    mkdir ansys-mode-$(VERSION)/doc
 	@cp -a $(TUTORIALS) ansys-mode-$(VERSION)/doc
+	@cp -a $(HELPER_FILES) ansys-mode-$(VERSION)/doc
 	@test -d ansys-mode-$(VERSION)/helper || \
 	    mkdir ansys-mode-$(VERSION)/helper
-	@cp -a $(HELPER_FILES) ansys-mode-$(VERSION)/helper
 	@test -d ansys-mode-$(VERSION)/matlib || \
 	    mkdir ansys-mode-$(VERSION)/matlib
 	@cp -rf $(MATLIB) ansys-mode-$(VERSION)
@@ -219,9 +219,9 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "~/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-../keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
+../ansys-keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<
-	ln -f keyword.el ..
+	ln -f ansys-keyword.el ..
 
 %.elc : %.el
 	$(EMACS_EXE) --batch -f batch-byte-compile $<

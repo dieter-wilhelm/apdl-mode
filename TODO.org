@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-12>
+#+DATE: Time-stamp: <2015-07-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,17 +27,18 @@
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
 ** Wish-list
+   - MinGWin: FindWindow +  ActivateWin + SendKeys?
+   - C-c C-j checking and chewing blocks
+   - C-c C-c checking blocks
    - include the ../ansys/matlib
    - ../apdl/start161.ans
-   - C-c C-c checking blocks
-   - C-c C-j checking and chewing blocks
    - make version numbers string into integers
    - add screw thread capability to WB translation
    - switch off advising of M-w
    - color scheme of *msg command is only readable on terminals
    - abreviated input method for all graphics functions zoom, etc.
-   - add adwords to gh-pages
    - defaults for template MP
+   - add adwords to gh-pages
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
@@ -53,7 +54,7 @@
    - Variables are not highlighted in -skeletons, it is specified in
      -mode only for files with .mac suffix; *create file tmp,mac:
      macro call: tmp, is not highlighted
-   - template.el:85:13:Warning: reference to free variable
+   - ansys-template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
    - mouse-choose-completion is obsolete since E23.2
    - example of an ansyslmd.ini?
@@ -91,7 +92,7 @@
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
      skeleton, critical to element differences!
-   - constraint equations in -template.el and get functions
+   - constraint equations in -ansys-template.el and get functions
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
        .anf files from DM anf export
@@ -163,7 +164,7 @@
     are still working in V 16.2
   - (tags-search "TODO")
   - (tags-search "FIXME")
-  - checkdoc, -template.el, -process.el, -mode.el done except
+  - checkdoc, -ansys-template.el, -ansys-process.el, -mode.el done except
     \\<keymap> & \\[function]
   - README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history

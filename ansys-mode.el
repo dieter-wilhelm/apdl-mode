@@ -581,7 +581,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 (defvar ansys-dynamic-prompt)
 (defvar ansys-completions)
 
-(require 'ansys-keyword "keyword.el")
+(require 'ansys-keyword "ansys-keyword.el")
 
 (defface ansys-arg-face
   '((((min-colors 88) (class color) (background light))
@@ -1930,14 +1930,14 @@ improvements you have the following options:
 		 (directory-file-name
 		  (file-name-directory (getenv (concat "AWP_ROOT" version)))))))
       (cond (dir
-	     (setq ansys-install-directory (file-name-directory dir))
-	     )
+	     (setq ansys-install-directory (file-name-directory dir)))
 	    ((string= window-system "x")
 	     ;; "/" is the ANSYS default installation directory on GNU-Linux
 	     (setq ansys-install-directory "/"))
 	    ;;  (setq ansys-install-directory "C:\\CAx\\App\\"))
 	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
 	     (setq ansys-install-directory "C:\\Program Files\\")))))
+
   ;; -dynamic-highlighting-flag: In its definition
   ;; -job: in its definition
 
@@ -1988,15 +1988,15 @@ improvements you have the following options:
 	  (exe
 	   (concat "/appl/ansys_inc/16.1.0/v" version "/ansys/bin/anshelp" version)))
       (cond ((file-executable-p exe)
-	     (setq ansys-help-program exe)
-	     ((string= window-system "x")
-	      (setq ansys-help-program
-		    (concat idir "/ansys_inc/v" version
-		      "/ansys/bin/anshelp" version)))
-	     (t
-	      (setq ansys-help-program
-		    (concat idir "\\Ansys Inc\\v" version
-		    "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe")))))))
+	     (setq ansys-help-program exe))
+	    ((string= window-system "x")
+	     (setq ansys-help-program
+		   (concat idir "/ansys_inc/v" version
+			   "/ansys/bin/anshelp" version)))
+	    (t
+	     (setq ansys-help-program
+		   (concat idir "\\Ansys Inc\\v" version
+			   "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))))))
 
   ;; -lmutil-program
   (unless (boundp 'ansys-lmutil-program)
@@ -2005,14 +2005,14 @@ improvements you have the following options:
 	  (exe
 	   "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil"))
       (cond ((file-executable-p exe)
-	     (setq ansys-lmutil-program exe)
-	     ((string= window-system "x")
-	      (setq ansys-lmutil-program
-		    (concat idir "/ansys_inc/v" version "/commonfiles/help/en-us/help")))
-	     (t
-	      (setq ansys-lmutil-program
-		    (concat idir "\\Ansys Inc\\v" version
-		    "\\commonfiles\\help\\en-us\\help")))))))
+	     (setq ansys-lmutil-program exe))
+	    ((string= window-system "x")
+	     (setq ansys-lmutil-program
+		   (concat idir "/ansys_inc/shared_files/licensing/linx64/lmutil")))
+	    (t
+	     (setq ansys-lmutil-program
+		   (concat idir 
+			   "\\Ansys Inc\\Shared Files\\Licensing\\winx64\\anslic_admin.exe"))))))
 
   )  ;; end of init function
 
@@ -3226,8 +3226,8 @@ These constructs appear in WorkBench created solver input files."
        nil
        salutation))))
 
-(require 'ansys-template "template.el")
-(require 'ansys-process "process.el")
+(require 'ansys-template "ansys-template.el")
+(require 'ansys-process "ansys-process.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- dynamic highlighting ---

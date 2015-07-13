@@ -1,4 +1,4 @@
-#+rDATE: Time-stamp: <2015-07-10>
+#+rDATE: Time-stamp: <2015-07-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -217,10 +217,10 @@ this particular ANSYS release.
 Sources:
 - ansys-mode.el: Main file
 - A-M.el: The configuration file
-- keyword.el: Highlighting variables built from
-  helper/fontification.el
-- template.el: Template definitions
-- process.el: Variables and functions related to solver processes
+- ansys-keyword.el: Highlighting variables (built from
+  helper/fontification.el)
+- ansys-template.el: Template definitions
+- ansys-process.el: Variables and functions related to solver processes
 
 (and possibly their compiled versions with the suffix '.elc'.  In case
 you are using the mode with an older version of Emacs than 24.5 please
@@ -231,15 +231,15 @@ remove the compiled .elc files, if any.)
 - NEWS.org -- News and history
 - TODO.org -- Todos and deficiencies
 - LICENSE.org -- The GPL (Gnu Public License) Version 3
-- helper/example.dat -- WorkBench example APDL solver input file
-- helper/example.anf -- ANSYS geometry neutral file example
-- helper/example.mac -- APDL user macro and highlighting example
-# - helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
-- matlib/ -- a directory with examples of APDL material definitions
+- doc/example.dat -- WorkBench example APDL solver input file
+- doc/example.anf -- ANSYS geometry neutral file example
+- doc/example.mac -- APDL user macro and highlighting example
 - doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
 - doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
 - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
 - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+# - helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
+- matlib/ -- a directory with examples of APDL material definitions
 
 You can actually read the PDFs in Emacs as well!
 
@@ -518,7 +518,7 @@ ANSYS-Mode help which is your `online' guide for its usage,
 key-bindings and customisation options.
 
 Templates, i.e. code snippets or so called skeletons might be extended
-in `template.el' and can be used similarly or complementary to
+in `ansys-template.el' and can be used similarly or complementary to
 a classical ANSYS macro library.
 
 * Experienced Emacs users

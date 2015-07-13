@@ -4,7 +4,7 @@
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 16.1.1
+;; Version: 16.1.2
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -66,12 +66,7 @@ You might customise this variable or use the function
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-help-program
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/v"
-      ansys-current-ansys-version "/ansys/bin/anshelp"
-      ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))
+(defcustom ansys-help-program nil
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -95,10 +90,7 @@ Since ANSYS150 not longer necessary."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-lmutil-program
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/shared_files/licensing/linx64/lmutil")
-    (concat ansys-install-directory "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe"))
+(defcustom ansys-lmutil-program nil
   "A FlexLM license manager executable.
 For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
 or in case of a Windows 32-bit OS \"c:\\\\Program Files\\Ansys
@@ -892,7 +884,7 @@ for displaying the license status."
 	       (w32-shell-execute nil ansys-lmutil-program))
 	      (t
 	       (w32-shell-execute nil ansys-lmutil-program "-client")))))
-    (message "Loading the anslic_admin program..."))
+    (message "Starting the anslic_admin program..."))
    (t
     (error "No license status available on %s" system-type))))
 

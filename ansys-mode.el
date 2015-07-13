@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 16.1.1
+;; Version: 16.1.2
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -1209,6 +1209,9 @@ and P-MAX) otherwise align the current code paragraph."
 ;;   (setq font-lock-defaults `(,solver-font-lock))
 ;;   )
 
+(require 'ansys-template "ansys-template.el")
+(require 'ansys-process "ansys-process.el")
+
 ;;;###autoload
 (defun ansys-mode ()
   "Support for working with the ANSYS FEA suite.
@@ -1923,16 +1926,19 @@ improvements you have the following options:
   ;; -current-ansys-version: In its definition
 
   ;; -install-directory
-  (when (null 'ansys-install-directory)
+  (when (null ansys-install-directory)
     (let* ((version  ansys-current-ansys-version)
 	   ;; we have to remove `ansys_inc/v161' or `ANSYS Inc\v161' from AWP_ROOT161
-	   (dir (file-name-directory
-		 (directory-file-name
-		  (file-name-directory (getenv (concat "AWP_ROOT" version)))))))
+	   (root (getenv (concat "AWP_ROOT" version)))
+	   (dir (if root
+		    (file-name-directory
+		     (directory-file-name
+		      (file-name-directory root)))
+		  nil)))
       (cond (dir
 	     (setq ansys-install-directory (file-name-directory dir)))
 	    ((string= window-system "x")
-	     ;; "/" is the ANSYS default installation directory on GNU-Linux
+	      ;; "/" is the ANSYS default installation directory on GNU-Linux
 	     (setq ansys-install-directory "/"))
 	    ;;  (setq ansys-install-directory "C:\\CAx\\App\\"))
 	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
@@ -1942,7 +1948,7 @@ improvements you have the following options:
   ;; -job: in its definition
 
   ;; ansys-program
-  (when (null 'ansys-program)
+  (when (null ansys-program)
     (let* ((version ansys-current-ansys-version)
 	   (update ansys-current-update-version)
 	   (idir (file-name-directory ansys-install-directory))
@@ -1956,37 +1962,37 @@ improvements you have the following options:
 	    ((string= window-system "x")
 	     (setq ansys-program (concat idir
 		     ;; here follows the ANSYS default directory structure
-		     "/ansys_inc/v" version "/ansys/bin/ansys" version)))
+					 "/ansys_inc/v" version "/ansys/bin/ansys" version)))
 	    (t
 	     (setq ansys-program
 		   (concat idir
 		     ;; here follows the ANSYS default directory structure
-		     "\\Ansys Inc\\v" version
-		     "\\ansys\\bin\\winx64\\launcher" version ".exe"))))))
+			   "\\Ansys Inc\\v" version
+			   "\\ansys\\bin\\winx64\\launcher" version ".exe"))))))
 
   ;; -dynamic-highlighting-flag
 
   ;; -help-path
-  (when (null 'ansys-help-path)
+  (when (null ansys-help-path)
     (let ((idir ansys-install-directory)
 	  (version ansys-current-ansys-version)
-	  (path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help"))
+	  (path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/"))
       (cond ((file-readable-p path)
-	     (setq ansys-help-path path)
-	     ((string= window-system "x")
-	      (setq ansys-help-path
-		    (concat idir "/ansys_inc/v" version "/commonfiles/help/en-us/help")))
-	     (t
-	      (setq ansys-help-path
-		    (concat idir "\\Ansys Inc\\v" version
-		    "\\commonfiles\\help\\en-us\\help")))))))
+	     (setq ansys-help-path path))
+	    ((string= window-system "x")
+	     (setq ansys-help-path
+		   (concat idir "/ansys_inc/v" version "/commonfiles/help/en-us/help/")))
+	    (t
+	     (setq ansys-help-path
+		   (concat idir "\\Ansys Inc\\v" version
+			   "\\commonfiles\\help\\en-us\\help\\"))))))
 
   ;; -help-program
-  (when (null 'ansys-help-program)
+  (when (null ansys-help-program)
     (let* ((idir ansys-install-directory)
-	  (version ansys-current-ansys-version)
-	  (exe
-	   (concat "/appl/ansys_inc/16.1.0/v" version "/ansys/bin/anshelp" version)))
+	   (version ansys-current-ansys-version)
+	   (exe
+	    (concat "/appl/ansys_inc/16.1.0/v" version "/ansys/bin/anshelp" version)))
       (cond ((file-executable-p exe)
 	     (setq ansys-help-program exe))
 	    ((string= window-system "x")
@@ -1999,7 +2005,7 @@ improvements you have the following options:
 			   "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))))))
 
   ;; -lmutil-program
-  (unless (boundp 'ansys-lmutil-program)
+  (when (null ansys-lmutil-program)
     (let ((idir ansys-install-directory)
 	  (version ansys-current-ansys-version)
 	  (exe
@@ -2011,10 +2017,10 @@ improvements you have the following options:
 		   (concat idir "/ansys_inc/shared_files/licensing/linx64/lmutil")))
 	    (t
 	     (setq ansys-lmutil-program
-		   (concat idir 
+		   (concat idir
 			   "\\Ansys Inc\\Shared Files\\Licensing\\winx64\\anslic_admin.exe"))))))
 
-  )  ;; end of init function
+  (message "Initialised defcustoms."))  ;; end of init function
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.
@@ -3225,9 +3231,6 @@ These constructs appear in WorkBench created solver input files."
        nil
        nil
        salutation))))
-
-(require 'ansys-template "ansys-template.el")
-(require 'ansys-process "ansys-process.el")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- dynamic highlighting ---

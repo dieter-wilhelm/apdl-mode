@@ -57,7 +57,7 @@ system where ANSYS is running.
 Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][GitHub]]. The latest
 sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
 
-The current stable version 16.1.1 of ANSYS-Mode is available at the
+The current stable version 16.1.2 of ANSYS-Mode is available at the
 [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub releases site]] or at [[https://drive.google.com/open?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&authuser=0][Google's ANSYS-Mode drive]].  There are
 residing 3 archive packages: 1) A package of ANSYS-Mode together with
 binaries of Emacs for Windows, 2) a source file package for compiling
@@ -67,7 +67,7 @@ installation.  You might fetch these archives via the command line
 way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
 for Windows:
 #+BEGIN_SRC sh
-wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
+wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.2/ansys-mode-16.1.2.emacs-24.5-bin-i686-mingw32.zip
 #+END_SRC
 Important parts of the code (completions, help strings, etc.) are
 based on the original ANSYS documentation.  Besides source files and
@@ -209,7 +209,7 @@ only implemented for GNU-Linux systems.
 
 The version scheme is a mixture of the ANSYS release (currently
 "16.1") on which the highlighting and completing code is based and the
-version increments (currently ".1") of ANSYS-Mode (thus "16.1.1") for
+version increments (currently ".1") of ANSYS-Mode (thus "16.1.2") for
 this particular ANSYS release.
 
 ** Files
@@ -239,7 +239,7 @@ remove the compiled .elc files, if any.)
 - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
 - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
 - matlib/ -- a directory with examples of APDL material definitions
-# - helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
+# - helper/tools/bin/ansys-mode-16.1.2.sh -- A wrapper for calling Emacs
 
 You can actually read the PDFs in Emacs as well!
 
@@ -260,16 +260,17 @@ Have fun!
 
 Most functionality should work out of the box, but if you have NOT
 installed ANSYS in its default installation directory on drive
-`C:Program Files' on Win64 and you want to start--for
-example--'anslic_admin' or the ANSYS help browser directly from Emacs
-please adjust the configuration file `default.el' file in Emacs'
-`site-lisp' directory according to the commented code examples.  If
-you are using your own configuration file, please remember that it is
-loaded *before* `default.el'; this means that ANSYS-Mode settings done
-by Emacs' customisation system or written in your configuration file
-might be overwritten by `default.el'.  If you remove `default.el' or
-set 'inhibit-default-init' to non-nil in your own init file, then
-default.el is not loaded any longer.
+`C:Program Files' on Win64 and you want to start - for example -
+'anslic_admin' or the ANSYS help browser directly from Emacs please
+adjust the configuration file `A-M.el' file in Emacs' `site-lisp'
+directory according to the commented code examples.
+
+If you whish to use exclusively your own configuration file, please
+remember that it is loaded *before* `default.el'; this means that
+ANSYS-Mode settings done by Emacs' customisation system or written in
+your configuration file might be overwritten by `default.el'.  If you
+remove `default.el' or set 'inhibit-default-init' to non-nil in your
+own init file, then default.el is not loaded any longer.
 
 In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
 version]] of GNU Emacs, you can also download and configure the
@@ -278,12 +279,12 @@ ANSYS-Mode package separately. Please refer to below instructions.
 *** For a GNU-Linux system without Emacs
 
 Please download the source archive
-~ansys-mode-16.1.1.emacs-24.5.tar.xz~ from
+~ansys-mode-16.1.2.emacs-24.5.tar.xz~ from
 [[https://github.com/dieter-wilhelm/ansys-mode/releases]], unpack it
 somewhere and compile it:
 
    #+BEGIN_SRC sh
-   tar -xJvf ansys-mode-16.1.1.emacs-24.5.tar.xz
+   tar -xJvf ansys-mode-16.1.2.emacs-24.5.tar.xz
    cd emacs-24.5/
    ./configure
    make
@@ -303,7 +304,7 @@ your system.
 **** Direct way; no file configuration necessary
 
 Emacs must know where all the code (.el or its compiled versions .elc)
-files reside!  Extract the mode's archive ~ansys-mode-16.1.1.tar.xz~
+files reside!  Extract the mode's archive ~ansys-mode-16.1.2.tar.xz~
 into an Emacs directory which is in its default load-path (a good
 place is the ~site-lisp/~ folder in your Emacs installation tree) or
 indicate an arbitrary directory with the environment variable

@@ -115,9 +115,10 @@ MATLIB := ../matlib/
 PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
 
 default.el : makefile
-	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > default.el
-	@echo "(let ((dir (file-name-directory load-file-name)))" >> default.el
-	@echo " (load-file (concat dir \"\\\\\\\\ansys-mode-$(VERSION)\\\\\\\\A-M.el\"))" >> default.el
+	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > $@
+	@echo "(let ((dir (file-name-directory load-file-name)))" >> $@
+	@echo "      (file (concat dir \"\\\\\\\\ansys-mode-$(VERSION)\\\\\\\\A-M.el\"))" >> $@
+	@echo "     (when (file-readable-p file) (load-file file)))" >> $@
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
@@ -157,12 +158,14 @@ A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSI
 	@echo "syncing.."
 	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) $(TUTORIALS:../%=%)\
 	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) helper/tools/ansys-mode/ansys-mode-$(VERSION)
-	ln -sf tools/ansys-mode/ansys-mode-$(VERSION) tools/ansys-mode/current
+	@pwd
+	cd ./tools/ansys-mode; ln -sf ansys-mode-$(VERSION) current
 	tar -cJvf $@ --group HPCUser_1 tools
 
 tools/bin/A-M-$(VERSION).sh : makefile
 	@echo "#!/bin/sh " > $@
-	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-16.1.1/A-M.el \$*" >> $@
+	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
+	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/A-M.el \$$*" >> $@
 	chmod +x $@
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
@@ -261,8 +264,8 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el \
-		default.el
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el 
+
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)
 

@@ -1,13 +1,12 @@
 Welcome to ANSYS-Mode, please read the accompanying tutorial
 /appl/tools/ansys-mode/current/A-M_introductory_tutorial-16.1.1.pdf.
-(You can view also PDF files in Emacs...)
+(By the way: You can also view PDF files in Emacs and it uses the same
+key-bindings as the BASH shell ...)
 
 /appl/tools/bin/A-M-16.1.1.sh starts Emacs with the APDL editing mode
-enabled. For example
+enabled. For example:
 
-$ A-M-16.1.1.sh file.ans
-
-(By the way: Emacs uses the same key-bindings as the BASH shell! ;-)
+ $ A-M-16.1.1.sh ../ansys-mode/current/doc/example.mac
 
 ANSYS-Mode is automatically switched on for the following types (file
 suffixes): .ans, .mac, .anf, .dat, .inp.
@@ -16,69 +15,26 @@ If you want to start Emacs in text (terminal) mode instead of its GUI
 mode, please provide the command line argument `-nw', like in the
 following line:
 
-$ A-M-16.1.1.sh file.ans -nw
+ $ A-M-16.1.1.sh macro.ans -nw
 
 ======================================================================
 			      Important
 
-Most functionality should work for any ANSYS version, but for some
-advanced stuff - like calling the help documentation in your browser -
-ANSYS-Mode 16.1.1 assumes that ANSYS161 is installed on your system!
-You can configure ANSYS-Mode to work with any ANSYS version, please
-have a look in the configuration file A-M.el.
+Most functionality should work for any installed ANSYS version, but
+for some advanced stuff - like calling the help documentation in your
+browser - ANSYS-Mode 16.1.1 assumes that ANSYS161 is installed on your
+system!  You can configure ANSYS-Mode to work with any ANSYS version,
+please have a look in the configuration file A-M.el.
 ======================================================================
 
-If you want to enable ANSYS-Mode without calling the wrapper
-`A-M-16.1.1.sh', then add the following lines in your ~/.emacs:
+If you want to enable ANSYS-Mode in Emacs without calling the wrapper
+`A-M-16.1.1.sh', then add the following lines in your ~/.emacs file:
 
 --->8 ----------------------------------------------------------------
 
 (add-to-list 'load-path "/appl/tools/ansys-mode/current")
-(require 'ansys-mode)
+(require 'A-M)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; file suffixes for autoloading of ansys-mode, appropriate file
-;; suffixes for which ANSYS mode is automatically called for
-
-;; .mac is the macro suffix of ANSYS i. e. these macros can be called
-;; in the ANSYS command prompt like a regular ANSYS function (without
-;; the suffix .mac). See the file helper/example.mac
-(add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
-(add-to-list 'auto-mode-alist '("\\.ans$" . ansys-mode))
-
-;; .dat and .inp are WorkBench's solver input file suffixes
-;; See the file helper/example.dat
-(add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
-(add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
-
-;; .anf is the suffix for "ANSYS Neutral" files which include mostly
-;;  gometric data but also some APDL snippets. See the file
-;;  helper/example.anf.
-(add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			  ;; Auto insertion
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (auto-insert-mode 1)            ; insert automatically templates
-  (add-hook 'find-file-hook 'auto-insert) ; when opening new files
-  (setq auto-insert-query t)   ; ask before insertion of an APDL
-                               ; template
-  (add-to-list 'auto-insert-alist
-     '(ansys-mode . [ansys-skeleton-outline-template])) ;which template
-
-;; ANSYS-Mode assumes the ANSYS version 16.1 on your system otherwise
-;;   you have to change the following
-
-  (setq ansys-current-ansys-version "161") ; "161" is the default
-  ;(setq ansys-current-ansys-version "150")
-
-(setq ansys-help-program
-    "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-      ;; normally it looks like this:
-      ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-
-(setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-(setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
 --- 8< ---------------------------------------------------------------
 
 The code is hosted on https://github.com/dieter-wilhelm/ansys-mode.

@@ -27,6 +27,7 @@
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
 ** Wish-list
+   - Documentation of installation and configuration!
    - MinGWin: FindWindow +  ActivateWin + SendKeys?
    - C-c C-j checking and chewing blocks
    - C-c C-c checking blocks
@@ -173,14 +174,15 @@
   - update/complete skeletons menu
 
     # ansys
-    (tags-query-replace "16.1" "16.2")
+    (tags-query-replace "16\.1" "16.2")
     (tags-query-replace "ANSYS 16" "ANSYS 17")
     # emacs
-    (tags-query-replace "24.5" "24.6")
+    (tags-query-replace "24\.5" "24.6")
     # version No
     (tags-query-replace "161" "170")
     # for _mode_version
-    (tags-query-replace "\".1\"" "\".2\"")
+    (tags-query-replace "1\.1" "1.2")
+    (tags-query-replace "\"1.1\"" "\"1.2\"")
     # copyright
     (tags-query-replace "- 2015" "- 2016")
     (tags-query-replace "fontification.mac" "example.mac")

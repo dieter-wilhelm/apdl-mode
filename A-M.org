@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-13>
+#+DATE: Time-stamp: <2015-07-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -457,7 +457,7 @@ between flexlm and ANSYS WorkBench, 2325 is the default port.
 
 #+END_SRC
 
-** Extending Eamcs load path
+** Extending Emacs load path
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

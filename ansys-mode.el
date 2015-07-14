@@ -2020,6 +2020,55 @@ improvements you have the following options:
 		   (concat idir
 			   "\\Ansys Inc\\Shared Files\\Licensing\\winx64\\anslic_admin.exe"))))))
 
+(defun ansys-ansysli-servers-check ()
+  "Return t if ANSYS interconnect server information is found.
+Checking whether the variable `ansys-ansysli-servers' is set or
+otherwise the environment variable ANSYSLI_SERVERS.  If neither
+is set return nil"
+  (interactive)
+  (cond
+   (ansys-ansysli-servers
+;    (setenv "ANSYSLI_SERVERS" ansys-ansysli-servers)
+;    (message "Set process environment variable ANSYSLI_SERVERS to ansys-ansysli-servers")
+    t)
+   ((getenv "ANSYSLI_SERVERS")
+    (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
+    (message "Read ansys-ansysli-servers from process environment
+    variable ANSYSLI_SERVERS") t)
+   (t nil)))
+(defun ansys-license-file-check ()
+  "Return t if ANSYS license file (server) information is found.
+Checks whether the variable `ansys-license-file' is set, if not
+sets its value to the environment variable ANSYSLMD_LICENSE_FILE
+or LM_LICENSE_FILE, in this order of precedence.  When the former
+are not available return nil."
+ (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
+       (lic2 (getenv "LM_LICENSE_FILE"))
+       )
+     (cond
+   (ansys-license-file
+;    (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
+;    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to ansys-license-file")
+    t)
+   (lic1	;need this for -license-status
+    (setq ansys-license-file lic1)
+    (message "Set ansys-license-file from ANSYSLMD_LICENSE_FILE")
+    (message "ansys-license-file=%s" lic1)
+    t)
+   (lic2
+    (setq ansys-license-file lic2)
+    (message "Set ansys-license-file from MD_LICENSE_FILE")
+    (message "ansys-license-file=%s" lic2)
+    t)
+   (t
+    nil))))
+
+  ;; -license-file
+  (when (null ansys-license-file)
+    (let ((lic (getenv (concat "ANSYSLM_LICENSE_FILE" version)))
+	  
+	  )))
+
   (message "Initialised defcustoms."))  ;; end of init function
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)

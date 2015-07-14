@@ -203,14 +203,7 @@ Variable is only used internally in the mode.")
 	(message "Starting the ANSYS Classics GUI...")
       (error "Starting ANSYS Classics canceled"))
     ;; -d : device
-    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/v161/ansys/bin/ansys161" "-p ansys " "-d 3d " "-g")
-    (process-running-child-p "*ANSYS GUI*")
-    (process-status "*ANSYS GUI*")
-
-    (process-send-string "*ANSYS GUI*" "/prep7")
-    (process-send-string "*ANSYS GUI*" "y\n")
-    (process-send-string "*ANSYS GUI*" "\r")
-    (process-send-string "*ANSYS GUI*" "/exit")
+    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161" "-p ansys " "-d 3d " "-g")
 
     )
 
@@ -365,26 +358,41 @@ final character \"j\" (or \"C-j\")."
 	end
 	(process (get-process
 		  (if (boundp 'ansys-process-name) ansys-process-name)))
-	(region (and transient-mark-mode mark-active)))
-;    	(region (region-active-p))) ;this is for Emacs-23.1
+	(region (and transient-mark-mode mark-active))
+	(block (save-excursion
+		 (back-to-indentation)
+		 (looking-at ansys-block-begin-regexp)))
+	(code (ansys-code-line-p))
+	(column (current-column)))
+    ;; (region (region-active-p))) ;this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
     ;; "region" will be the whole code line (including \n)
-    (if region
-	(setq beg (region-beginning)
-	      end (region-end))
-      (unless (ansys-code-line-p)
-	(unless stay
-	  (ansys-next-code-line))
-	(error "There was no active region or code line"))
+    (message "column: %d" column)
+    (cond
+     (region
+      (setq beg (region-beginning)
+	    end (region-end)))
+     (block
+       (move-beginning-of-line 1)
+       (setq beg (point))
+       (ansys-skip-block-forward)
+       (setq end (point))
+       (setq region t))			;block considered a region
+     (code
+      (setq beg (line-beginning-position))
       (save-excursion
-	(setq beg (line-beginning-position))
 	(forward-line 1)
 	(setq end (point))))
+      (t
+       (unless (= stay 4)
+	 (ansys-next-code-line))
+       (error "There was no active region or code line")))
     ;; move cursor to subsequent code line unless stay
     (unless (= stay 4)
       (if (and region
 	       (< (point) end))
-	(exchange-point-and-mark))
+	  (exchange-point-and-mark))
+      (move-to-column column)		;stay in the previous column
       (ansys-next-code-line))
     ;; invalidate region
     (setq mark-active nil)
@@ -407,8 +415,8 @@ final character \"j\" (or \"C-j\")."
 	   ;; Issue a hint to the user
 	   (if (fboundp 'set-transient-map)
 	       (if region
-		   (message "Sent region, type \"j\" or \"C-j\" to sent next LINE.")
-		 (message "Sent line, type \"j\" or \"C-j\" to sent next line."))
+		   (message "Sent region, type \"j\" or \"C-j\" to sent next line or block.")
+		 (message "Sent line, type \"j\" or \"C-j\" to sent next line or block."))
 	     (if region
 		 (message "Sent region.")
 	       (message "Sent line."))))
@@ -416,8 +424,8 @@ final character \"j\" (or \"C-j\")."
 	   (kill-ring-save beg end)
 	   (if (fboundp 'set-transient-map)
 	       (if region
-		   (message "Copied region, type \"j\" or \"C-j\" to copy next LINE.")
-		 (message "Copied line, type \"j\" or \"C-j\" to copy next line."))
+		   (message "Copied region, type \"j\" or \"C-j\" to copy next line or block.")
+		 (message "Copied line, type \"j\" or \"C-j\" to copy next line or block."))
 	     (if region
 		 (message "Copied region.")
 	       (message "Copied line.")))))))
@@ -1056,45 +1064,6 @@ processors (if available) for a structural analysis in ANSYS is
       (error "Specified number is not an integer"))
     (message "No of processors for the next run definition is %d" ansys-no-of-processors)))
 
-(defun ansys-license-file-check ()
-  "Return t if ANSYS license file (server) information is found.
-Checks whether the variable `ansys-license-file' is set, if not
-sets its value to the environment variable ANSYSLMD_LICENSE_FILE
-or LM_LICENSE_FILE, in this order of precedence.  When the former
-are not available return nil."
-  (cond
-   (ansys-license-file
-    (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
-    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to ansys-license-file")
-    t)
-   ((getenv "ANSYSLMD_LICENSE_FILE")	;need this for -license-status
-    (setq ansys-license-file (getenv "ANSYSLMD_LICENSE_FILE"))
-    (message "Set ansys-license-file from process environment variable ANSYSLMD_LICENSE_FILE")
-    t)
-   ((getenv "LM_LICENSE_FILE")
-    (setq ansys-license-file (getenv "LM_LICENSE_FILE"))
-    (message "Set ansys-license-file from process environment variable LM_LICENSE_FILE")
-    t)
-   (t
-    nil)))
-
-(defun ansys-ansysli-servers-check ()
-  "Return t if ANSYS interconnect server information is found.
-Checking whether the variable `ansys-ansysli-servers' is set or
-otherwise the environment variable ANSYSLI_SERVERS.  If neither
-is set return nil"
-  (interactive)
-  (cond
-   (ansys-ansysli-servers
-    (setenv "ANSYSLI_SERVERS" ansys-ansysli-servers)
-    (message "Set process environment variable ANSYSLI_SERVERS to ansys-ansysli-servers")
-    t)
-   ((getenv "ANSYSLI_SERVERS")
-    (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
-    (message "Read ansys-ansysli-servers from process environment
-    variable ANSYSLI_SERVERS") t)
-   (t nil)))
-
 (defun ansys-license-file ( file)
   "Change the ANSYS license file name or license server(s).
 And specify the string FILE in the variable `ansys-license-file'
@@ -1105,8 +1074,8 @@ number: port_number@server_name, multiple server names are
 separated by a colon, for example
 \"27005@rbgs421x:27005@rbgs422x:...\"."
   (interactive "sLicense server or license file :")
-  (cond ((string= file "")
-	 (ansys-license-file-check))
+  (cond ((null file)
+	 )
 	(t
 	 (setq ansys-license-file file)
 	 (message (concat "Set ansys-license-file to \""

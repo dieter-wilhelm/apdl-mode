@@ -74,24 +74,11 @@ based on the original ANSYS documentation.  Besides source files and
 the Emacs editor you will find tutorials in the download section. The
 complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of ANSYS-Mode]] is also online available.
 
-# For an
-# immediate impression have a look at the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
-# introductory on-line version], here you are able to see the images in
-# a higher resolution as in the PDF version.  And in the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
-# in-depth on-line tutorial] there is the source code highlighting
-# better preserved as in its PDF version.
-
 Please report bugs and inconsistencies also in the documentation!
 Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub's
 issues list]].
 
 * Example applications
-
-# Visual examples you will find in the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
-# and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
 [[file:doc/ansys-mode.jpg]]
 
@@ -206,17 +193,16 @@ only implemented for GNU-Linux systems.
 ** Short instructions
 *** For Windows systems without Emacs (or older dated versions)
 
-Download the latest archive with a pre-compiled Emacs-24.5 (bundled
-with a pre-configured ANSYS-Mode) at above GitHub site and unpack it
-anywhere on your system (you do not need administrator rights).  For
-the first steps please read the introductory tutorial.
+Download the latest archive with binaries of Emacs-24.5 (bundled with
+a pre-configured ANSYS-Mode) at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]] and unpack it anywhere on your
+system (you do not need administrator rights).  For the next steps
+please read the included introductory tutorial.
 
 *** For a GNU-Linux system without Emacs
 
 Please download the source archive
-~ansys-mode-16.1.2.emacs-24.5.tar.xz~ from
-[[https://github.com/dieter-wilhelm/ansys-mode/releases]], unpack it
-somewhere and compile it:
+~ansys-mode-16.1.2.emacs-24.5.tar.xz~ from [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it somewhere
+and compile it:
 
    #+BEGIN_SRC sh
    tar -xJvf ansys-mode-16.1.2.emacs-24.5.tar.xz
@@ -237,7 +223,7 @@ your system.
 *** For existing Emacs installations on either Windows and GNU-Linux
 
 Download the latest ANSYS-Mode archive ~ansys-mode-16.1.2.tar.xz~ from
-above GitHub site and unpack it anywhere on your system.
+above GitHub releases page and unpack it anywhere on your system.
 
 **** Direct way; no file configuration necessary
 Start Emacs, then load `A-M.el' by typing "M-x" (first) the <Alt> key

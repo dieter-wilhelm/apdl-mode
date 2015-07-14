@@ -86,7 +86,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
 HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 
 #	 ../doc/APDL_tutorial.ans
@@ -176,7 +176,10 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
-HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
+HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
+	../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html \
+	../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html \
+	../matlib/README.html ../INSTALLATION.html
 
 ORG_FILES := $(HTMLs:.html=.org)
 

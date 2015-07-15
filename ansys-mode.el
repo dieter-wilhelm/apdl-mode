@@ -481,7 +481,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   (let ((map (make-sparse-keymap)))
     (define-key map "`" 'ansys-abbrev-start) ;``?' lists abbrevs
     ;; (define-key map "\t" 'indent-according-to-mode)		  ;redundant
-    ;; standard behaviour of M-j is sufficient for me
+    (define-key map "\M-?" 'ansys-show-command-parameters)
     (define-key map "\e\t" 'ansys-complete-symbol) ;or M-C-i
     ;; --- changed standard Emacs keybindings ---
     (define-key map " " 'ansys-electric-space)
@@ -536,22 +536,24 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
 ;    (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-i" 'ansys-iso-view)
-    (define-key map "\C-c\C-j" 'ansys-send-to-ansys-and-proceed)
+    (define-key map "\C-c\C-j" 'ansys-send-to-ansys-and-proceed) ;same as ESS
 ;    (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)
-    (define-key map "\C-c\C-m" 'ansys-start-ansys) ;this is also C-c RET
+    (define-key map "\C-c\C-m" 'ansys-start-ansys) ;interactively this is also C-c RET
     (define-key map "\C-c\C-o" 'ansys-process-status)
     (define-key map "\C-c\C-p" 'ansys-start-pzr-box) ;pan-zoom-rotate
     (define-key map "\C-c\C-q" 'ansys-query-ansys-command)
     (define-key map "\C-c\C-r" 'ansys-replot)
     (define-key map "\C-c\C-s" 'ansys-display-skeleton)
-;      (define-key map "\C-c\C-t" 'ansys-if-then)
     (define-key map "\C-c\C-t" 'ansys-license)
     (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
     (define-key map "\C-c\C-v" 'ansys-display-variables)
-    (define-key map "\M-?" 'ansys-show-command-parameters)
-    (define-key map "\C-c?" 'ansys-show-command-parameters)
+;    (define-key map "\C-c\C-w" 'ansys-start-wb) ; or aim
+    (define-key map "\C-c\C-x" 'ansys-start-classics) ;classiX ;-)
+;    (define-key map "\C-c\C-y" 'ansys-start-launcher)
+;    (define-key map "\C-c\C-z" 'ansys-start-aim)
+;    (define-key map "\C-c\C-z" 'ansys-start-anslic_admin); redundant with launcher?
 ;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
        map)
     "Keymap for the ANSYS-Mode.")
@@ -958,23 +960,22 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Unhide Regions"  ansys-unhide-number-blocks :help "Unhide all hidden regions"]
 	      )
 	(list "Manage ANSYS Tasks"
-	      ["Specify License Server or - File" ansys-license-file
+	      ["Specify License Server or - File" ansys-license-file :label (if ansys-license-file "Change License Server or - File"
+									      "Specify License Server or - File")
 	      :help "Change the license server specification (for an solver/interpreter run or the license status), either naming the license server machine (with port) or the actual license file" :active ansys-is-unix-system-flag]
-	      ["Specify the License Interconnect Servers" ansys-ansysli-servers
+	      ["Specify the License Interconnect Servers" ansys-ansysli-servers :label (if ansys-ansysli-servers "Change the License Interconnect Servers"  "Specify the License Interconnect Servers")
 	      :help "Change the interconnect server specification (for an solver/interpreter run)" :active ansys-is-unix-system-flag]
-	      ["Specify License Utility" ansys-lmutil-program :help "Specify the ANSYS license utility executable"]
+	      ["Specify ANSYS Executable or launcher" ansys-program :label (if (file-executable-p ansys-program) "Change ANSYS Executable" "Specify ANSYS Executable") :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
+	      ["Specify License Utility" ansys-lmutil-program :label (if (file-executable-p ansys-lmutil-program) "Change License Utility lmutil" "Specify License Utility") :help "Specify or change the path of the ANSYS license utility lmutil"]
 	      "-"
-	      ["Specify ANSYS License Type" ansys-license :help "Specify the license type for an solver/interpreter run" :active ansys-is-unix-system-flag]
-	      ["Specify Job Name of Run" ansys-job :help "Specify the job name for an solver/interpreter run"]
-	      ["Specify ANSYS Executable or launcher" ansys-program :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
-	      ["Specify the Number of Processors" ansys-no-of-processors :help "Specify the number of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
-	      [(concat (if ansys-is-unix-system-flag
-		   "Start the APDL Solver/Interpreter"
-		   "Start the Mechanical APDL Product Launcher"))   ansys-start-ansys :help "Start an APDL solver/interpreter run under GNU-Linux or the launcher under Windows" :active (not (ansys-process-running-p))]
-	      ["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
-               "Display License Status"
-	        "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
-	      ["Display ANSYS Run Status" ansys-process-status :help "Display the status of a possible ANSYS solver/interpreter run" :active (ansys-process-running-p)]
+	      ["Change ANSYS License Type" ansys-license :label (concat "Change License Type [" ansys-license "]") :help "Specify the license type for an solver/interpreter run" :active ansys-is-unix-system-flag]
+	      ["Change Job Name of Run" ansys-job :label (concat "Change Job Name [" ansys-job "]") :help "Specify the job name for an solver/interpreter run"]
+	      ["Change the Number of Processors" ansys-no-of-processors :label (format "Change the Number of Processors [%d]" ansys-no-of-processors ) :help "Specify the number of processors to use for the ANSYS run definition." :active ansys-is-unix-system-flag]
+	      "-"
+	      ["Show License Status" ansys-license-status :help "Show the license usage in another window or start a license manager utility under Windows"]
+	      [ "Start the APDL Solver/Interpreter" ansys-start-ansys :help "Start an interactive APDL solver/interpreter run" :active (not (ansys-process-running-p))]
+	      [ "Start ANSYSClassics GUI" ansys-start-classics "Start the APDL solver/interpreter in ANSYS Classics GUI mode"]
+	      ["Display ANSYS Run Status" ansys-process-status :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
 	      ["Exit ANSYS Run"         ansys-exit-ansys :help "Exit the active solver/interpreter run" :visible (ansys-process-running-p)]
 	      "-"
 	      ["Send ANSYS Command Interactively"ansys-query-ansys-command :help "Send interactively an APDL command to a running solver/interpreter process" :active (ansys-process-running-p)]
@@ -1009,14 +1010,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
 	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Show ANSYS Mode version"     ansys-mode-version :label (concat "ANSYS Mode Version: " ansys-version_ "."ansys-mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
+	["Show ANSYS-Mode version"     ansys-mode-version :label (concat "ANSYS-Mode Version: " ansys-version_ "."ansys-mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
 	["List Expandable Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
-	["ANSYS Mode Help"	       describe-mode :help "Open a window with a description of ANSYS-Mode"]
-	["Customise ANSYS Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
+	["ANSYS-Mode Help"	       describe-mode :help "Open a window with a description of ANSYS-Mode"]
+	["Customise ANSYS-Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
-	["Reload ANSYS Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
+	["Reload ANSYS-Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew and restarting ansys-mode"]
 	"-"
-	["Exit ANSYS Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
+	["Exit ANSYS-Mode"             ansys-toggle-mode :help "Switch to the previous major mode of the file"])
   "Menu items for the ANSYS-Mode.")
 
 ;;; --- predicates ---
@@ -1921,6 +1922,50 @@ improvements you have the following options:
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
   )
 
+;; (defun ansys-ansysli-servers-check ()
+;;   "Return t if ANSYS interconnect server information is found.
+;; Checking whether the variable `ansys-ansysli-servers' is set or
+;; otherwise the environment variable ANSYSLI_SERVERS.  If neither
+;; is set return nil"
+;;   (interactive)
+;;   (cond
+;;    (ansys-ansysli-servers
+;; ;    (setenv "ANSYSLI_SERVERS" ansys-ansysli-servers)
+;; ;    (message "Set process environment variable ANSYSLI_SERVERS to ansys-ansysli-servers")
+;;     t)
+;;    ((getenv "ANSYSLI_SERVERS")
+;;     (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
+;;     (message "Read ansys-ansysli-servers from process environment
+;;     variable ANSYSLI_SERVERS") t)
+;;    (t nil)))
+
+;; (defun ansys-license-file-check ()
+;;   "Return t if ANSYS license file (server) information is found.
+;; Checks whether the variable `ansys-license-file' is set, if not
+;; sets its value to the environment variable ANSYSLMD_LICENSE_FILE
+;; or LM_LICENSE_FILE, in this order of precedence.  When the former
+;; are not available return nil."
+;;  (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
+;;        (lic2 (getenv "LM_LICENSE_FILE"))
+;;        )
+;;      (cond
+;;    (ansys-license-file
+;; ;    (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
+;; ;    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to ansys-license-file")
+;;     t)
+;;    (lic1	;need this for -license-status
+;;     (setq ansys-license-file lic1)
+;;     (message "Set ansys-license-file from ANSYSLMD_LICENSE_FILE")
+;;     (message "ansys-license-file=%s" lic1)
+;;     t)
+;;    (lic2
+;;     (setq ansys-license-file lic2)
+;;     (message "Set ansys-license-file from MD_LICENSE_FILE")
+;;     (message "ansys-license-file=%s" lic2)
+;;     t)
+;;    (t
+;;     nil))))
+
 (defun ansys-initialise-defcustoms ()
   "Initialise the customisation variables."
   ;; -current-ansys-version: In its definition
@@ -1968,7 +2013,9 @@ improvements you have the following options:
 		   (concat idir
 		     ;; here follows the ANSYS default directory structure
 			   "\\Ansys Inc\\v" version
-			   "\\ansys\\bin\\winx64\\launcher" version ".exe"))))))
+			   "\\ansys\\bin\\winx64\\ansys" version ".exe"
+;			   "\\ansys\\bin\\winx64\\launcher" version ".exe"
+									  ))))))
 
   ;; -dynamic-highlighting-flag
 
@@ -2020,75 +2067,38 @@ improvements you have the following options:
 		   (concat idir
 			   "\\Ansys Inc\\Shared Files\\Licensing\\winx64\\anslic_admin.exe"))))))
 
-(defun ansys-ansysli-servers-check ()
-  "Return t if ANSYS interconnect server information is found.
-Checking whether the variable `ansys-ansysli-servers' is set or
-otherwise the environment variable ANSYSLI_SERVERS.  If neither
-is set return nil"
-  (interactive)
-  (cond
-   (ansys-ansysli-servers
-;    (setenv "ANSYSLI_SERVERS" ansys-ansysli-servers)
-;    (message "Set process environment variable ANSYSLI_SERVERS to ansys-ansysli-servers")
-    t)
-   ((getenv "ANSYSLI_SERVERS")
-    (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
-    (message "Read ansys-ansysli-servers from process environment
-    variable ANSYSLI_SERVERS") t)
-   (t nil)))
-
-(defun ansys-license-file-check ()
-  "Return t if ANSYS license file (server) information is found.
-Checks whether the variable `ansys-license-file' is set, if not
-sets its value to the environment variable ANSYSLMD_LICENSE_FILE
-or LM_LICENSE_FILE, in this order of precedence.  When the former
-are not available return nil."
- (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
-       (lic2 (getenv "LM_LICENSE_FILE"))
-       )
-     (cond
-   (ansys-license-file
-;    (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
-;    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to ansys-license-file")
-    t)
-   (lic1	;need this for -license-status
-    (setq ansys-license-file lic1)
-    (message "Set ansys-license-file from ANSYSLMD_LICENSE_FILE")
-    (message "ansys-license-file=%s" lic1)
-    t)
-   (lic2
-    (setq ansys-license-file lic2)
-    (message "Set ansys-license-file from MD_LICENSE_FILE")
-    (message "ansys-license-file=%s" lic2)
-    t)
-   (t
-    nil))))
-
   ;; -license-file
   (when (null ansys-license-file)
     (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
-	  (lic2 (getenv "LM_LICENSE_FILE"))
+;	  (lic2 (getenv "LM_LICENSE_FILE"));Ansys doesn't use LM_LICENSE_FILE
 	  )
      (cond
       (lic1	;need this for -license-status
        (setq ansys-license-file lic1)
        (message "Read environment variable ANSYSLMD_LICENSE_FILE")
        (message "ansys-license-file=%s" lic1))
-      (lic2
-       (setq ansys-license-file lic2)
-       (message "Read environment variable MD_LICENSE_FILE")
-       (message "ansys-license-file=%s" lic2))
+      ;; (lic2
+      ;;  (setq ansys-license-file lic2)
+      ;;  (message "Read environment variable MD_LICENSE_FILE")
+      ;;  (message "ansys-license-file=%s" lic2))
       ))
 
-    ;; -ansysli-servers
+    ;; -ansysli-servers, the Interconnect license server(s)
    (when (null ansys-ansysli-servers)
      (let ((lic (getenv "ANSYSLI_SERVERS")))
-       (cond(lic
-	     (setq ansys-ansysli-servers lic)
-	     (message "Read environment variable ANSYSLI_SERVERS")
-	     (message "ansys-ansysli-servers=%s" lic)))))
+       (cond
+	(lic
+	 (setq ansys-ansysli-servers lic)
+	 (message "Read environment variable ANSYSLI_SERVERS")
+	 (message "ansys-ansysli-servers=%s" lic))
+	(ansys-license-file ;Ansys assumes the following as the last resort as well
+	 (setq ansys-ansysli-servers
+	       (replace-regexp-in-string "[0-9]*@" "2325@" ansys-license-file))
+	 (message "Assuming the same servers for Interconnect with default port")
+	 (message "ansys-ansysli-servers=%s" ansys-ansysli-servers))
+	    )))
 
-  (message "Initialised defcustoms."))))  ;; end of init function
+  (message "Initialised defcustoms.")))  ;; end of init function
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.

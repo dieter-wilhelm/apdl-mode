@@ -17,7 +17,7 @@
 #+STARTUP: showall
 * 16.1.2:
 ** Bugs
-   - unload-feature not working
+   - unload-feature not working?
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
@@ -27,7 +27,17 @@
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
 ** Wish-list
-   - Licensing initialisation, check \ANSYS Inc\Shared Files\Licensing\ansyslmd.ini
+   - Check for valid license types for the solver
+   - check lmutil under windows
+   - start WB
+   - start anslic_admin
+   - start launcher
+   - license and template status line always in the first visible line
+     of buffer (in-place-annotations?)
+   - -license-status interactive, specifying a temporal license type,
+     optional filters for output?
+   - Licensing initialisation, read \ANSYS Inc\Shared
+     Files\Licensing\ansyslmd.ini
    - Documentation of installation and configuration!
    - C-c C-c checking blocks
    - MinGWin: FindWindow +  ActivateWin + SendKeys?

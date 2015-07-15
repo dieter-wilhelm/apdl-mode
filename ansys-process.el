@@ -181,7 +181,8 @@ Variable is only used internally in the mode.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-start-classics ()
-  "Start the Ansys Classics user interface."
+  "Start the Ansys Classics user interface.
+The output of the solver is in an Emacs buffer called *ANSYS GUI*"
   (interactive)
 ;    (ansys-program "")		 ;take exec from -program var.
 ;    (ansys-license-file "")	 ;
@@ -190,22 +191,20 @@ Variable is only used internally in the mode.")
 
     (if (y-or-n-p
 	 (concat
-	  "Start run?  version: "
-	  ansys-current-ansys-version
-	  ", license type: " ansys-license
+	  "Start run of: "
+	  ansys-program
+	  ", license: " ansys-license
 	  ;; "Start run?  (license type: " (if (boundp
 	  ;; 'ansys-license) ansys-license)
 	  (if (>= ansys-no-of-processors 3)
-	      (concat ", No of processors: " (number-to-string ansys-no-of-processors))
+	      (concat ", No of procs: " (number-to-string ansys-no-of-processors))
 	    "")
 	  ", job: " (if (boundp 'ansys-job) ansys-job)
 	  " in " default-directory ", server: " ansys-license-file ")"))
 	(message "Starting the ANSYS Classics GUI...")
       (error "Starting ANSYS Classics canceled"))
     ;; -d : device
-    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161" "-p ansys " "-d 3d " "-g")
-
-    )
+    (start-process "GUI" "*ANSYS GUI*" ansys-program (concat "-p " ansys-license) "-d 3d " "-g"))
 
 (defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -481,52 +480,52 @@ initial input."
  first. The specified No of cores is not shown if they are chosen
  smaller than 3 (see `ansys-number-of-processors')."
    (interactive)
-     (if (ansys-is-unix-system-p)
-	 (let (ansys-process-buffer)
-	   (when (ansys-process-running-p)
-	     (error "An ANSYS interpreter is already running under Emacs"))
-	   (message "Preparing an ANSYS interpreter run...")
-	   ;; (setq comint-use-prompt-regexp t) TODO: ???
-	   (ansys-program "")		 ;take exec from -program var.
-	   (ansys-license-file "")	 ;
-	   (ansys-ansysli-servers "")	 ;
+   (let (ansys-process-buffer)
+     (when (ansys-process-running-p)
+       (error "An ANSYS interpreter is already running under Emacs"))
+     (message "Preparing an ANSYS interpreter run...")
+     ;; (setq comint-use-prompt-regexp t) TODO: ???
+     ;; (ansys-program "")		 ;take exec from -program var.
+     ;; (ansys-license-file "")	 ;
+     ;; (ansys-ansysli-servers "")	 ;
 					 ;(ansys-license "")		 ;
 
 					 ; env variable: ANSYS161_WORKING_DIRECTORY or -dir command line string
 					 ; (setenv "ANSYS161_WORKING_DIRECTORY" "/tmp")
 					 ; (getenv "ANSYS161_WORKING_DIRECTORY")
 
-	   (if (y-or-n-p
-		(concat
-		 "Start run?  (version: "
-		 ansys-current-ansys-version
-		 ", license type: " ansys-license
-		 ;; "Start run?  (license type: " (if (boundp
-		 ;; 'ansys-license) ansys-license)
-		 (if (>= ansys-no-of-processors 3)
-		     (concat ", No of processors: " (number-to-string ansys-no-of-processors))
-		   "")
-		 ", job: " (if (boundp 'ansys-job) ansys-job)
-		 " in " default-directory ", server: " ansys-license-file ")"))
-	       (message "Starting the ANSYS interpreter...")
-	     (error "Function ansys-start-ansys canceled"))
-	   (setq ansys-process-buffer
-		 (make-comint ansys-process-name ansys-program nil
-			      (if (>= ansys-no-of-processors 3)
-				  (concat "-np " (number-to-string ansys-no-of-processors)
-					  " -p " ansys-license " -j " ansys-job)
-				(concat "-p " ansys-license " -j " ansys-job))))
-	   ;;  (comint-send-string (get-process ansys-process-name) "\n")
-	   (display-buffer ansys-process-buffer 'other-window)
-	   ;;  (switch-to-buffer ansys-process-buffer)
-	   (other-window 1)
-	   (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
-	   (font-lock-add-keywords nil (list comint-prompt-regexp))
-	   ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
-	   )
+     (if (y-or-n-p
+	  (concat
+	   "Start run?  (version: "
+	   ansys-current-ansys-version
+	   ", license type: " ansys-license
+	   ;; "Start run?  (license type: " (if (boundp
+	   ;; 'ansys-license) ansys-license)
+	   (if (>= ansys-no-of-processors 3)
+	       (concat ", No of processors: " (number-to-string ansys-no-of-processors))
+	     "")
+	   ", job: " (if (boundp 'ansys-job) ansys-job)
+	   " in " default-directory ", server: " ansys-license-file ")"))
+	 (message "Starting the ANSYS interpreter...")
+       (error "Function ansys-start-ansys canceled"))
+     (setq ansys-process-buffer
+	   (make-comint ansys-process-name ansys-program nil
+			(if (>= ansys-no-of-processors 3)
+			    (concat "-np " (number-to-string ansys-no-of-processors)
+				    " -p " ansys-license " -j " ansys-job)
+			  (concat "-p " ansys-license " -j " ansys-job))))
+     ;;  (comint-send-string (get-process ansys-process-name) "\n")
+     (display-buffer ansys-process-buffer 'other-window)
+     ;;  (switch-to-buffer ansys-process-buffer)
+     (other-window 1)
+     (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
+     (font-lock-add-keywords nil (list comint-prompt-regexp))
+     ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
+
         ;; w32-shell-execute not know under RHEL Emacs 23.1
-       (if (fboundp 'w32-shell-execute)
-	   (w32-shell-execute "Open" ansys-program))))
+       ;; (if (fboundp 'w32-shell-execute)
+       ;; 	   (w32-shell-execute "Open" ansys-program))
+       ))
 
 (defun ansys-kill-ansys ()
   "Kill the current ANSYS run under Emacs.

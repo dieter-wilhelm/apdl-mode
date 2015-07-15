@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-14>
+#+DATE: Time-stamp: <2015-07-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,7 +27,7 @@
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
 ** Wish-list
-   - Licensing initialisation
+   - Licensing initialisation, check \ANSYS Inc\Shared Files\Licensing\ansyslmd.ini
    - Documentation of installation and configuration!
    - C-c C-c checking blocks
    - MinGWin: FindWindow +  ActivateWin + SendKeys?
@@ -58,7 +58,6 @@
    - ansys-template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
    - mouse-choose-completion is obsolete since E23.2
-   - example of an ansyslmd.ini?
    - add timer customisation for -command-parameter-help variable 1
      min, 2 min, etc.
    - example.mac: make it solver compatible

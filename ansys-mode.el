@@ -1922,7 +1922,7 @@ improvements you have the following options:
   )
 
 (defun ansys-initialise-defcustoms ()
-  "Initialise the customomisation variables."
+  "Initialise the customisation variables."
   ;; -current-ansys-version: In its definition
 
   ;; -install-directory
@@ -2036,6 +2036,7 @@ is set return nil"
     (message "Read ansys-ansysli-servers from process environment
     variable ANSYSLI_SERVERS") t)
    (t nil)))
+
 (defun ansys-license-file-check ()
   "Return t if ANSYS license file (server) information is found.
 Checks whether the variable `ansys-license-file' is set, if not
@@ -2065,11 +2066,29 @@ are not available return nil."
 
   ;; -license-file
   (when (null ansys-license-file)
-    (let ((lic (getenv (concat "ANSYSLM_LICENSE_FILE" version)))
-	  
-	  )))
+    (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
+	  (lic2 (getenv "LM_LICENSE_FILE"))
+	  )
+     (cond
+      (lic1	;need this for -license-status
+       (setq ansys-license-file lic1)
+       (message "Read environment variable ANSYSLMD_LICENSE_FILE")
+       (message "ansys-license-file=%s" lic1))
+      (lic2
+       (setq ansys-license-file lic2)
+       (message "Read environment variable MD_LICENSE_FILE")
+       (message "ansys-license-file=%s" lic2))
+      ))
 
-  (message "Initialised defcustoms."))  ;; end of init function
+    ;; -ansysli-servers
+   (when (null ansys-ansysli-servers)
+     (let ((lic (getenv "ANSYSLI_SERVERS")))
+       (cond(lic
+	     (setq ansys-ansysli-servers lic)
+	     (message "Read environment variable ANSYSLI_SERVERS")
+	     (message "ansys-ansysli-servers=%s" lic)))))
+
+  (message "Initialised defcustoms."))))  ;; end of init function
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.

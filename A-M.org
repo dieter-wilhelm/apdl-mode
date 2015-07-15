@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-14>
+#+DATE: Time-stamp: <2015-07-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -382,18 +382,23 @@ example below:
 #+END_SRC
 
 * Ansys processes
-** License server
+** License server or license file
    License server configuration: License servers (or license file
-   name) specify even the default port for lmutil (since ANSYS V 12.0)
-   on GNU-Linux GNU-Linux: License servers separated by colons (":"),
-   1055 is the default port
+   name) you have to specify also the port for (since ANSYS V12.0).
+   On GNU-Linux GNU-Linux: License servers are separated by colons
+   (":"), on Windows with semicolon ";".  1055 is the default port.
+  
+ the following variable ANSYS-Mode is
+   checking the environment variables ANSYSLMD_LICENSE_FILE and
+   MD_LICENSE_FILE.
 
 #+BEGIN_SRC emacs-lisp
 (setq ansys-license-file
   "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")
 #+END_SRC
 since ANSYS 12.0 there is an intermediate server for the communication
-between flexlm and ANSYS WorkBench, 2325 is the default port.
+between flexlm and ANSYS WorkBench, 2325 is here the default port.
+ANSYSClassics is checking this server as well.
 
 #+BEGIN_SRC emacs-lisp
 (setq ansys-ansysli-servers

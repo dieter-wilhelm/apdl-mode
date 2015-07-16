@@ -2199,7 +2199,6 @@ ansysli_servers."
        (setq ansys-license-file lic)
        (message "Read content of ansyslmd.ini")
        (message "ansys-license-file=%s" lic))
-      )
       (lic1
        (setq ansys-license-file lic1)
        (message "Read environment variable ANSYSLMD_LICENSE_FILE")

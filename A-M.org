@@ -387,7 +387,7 @@ example below:
    name) you have to specify also the port for (since ANSYS V12.0).
    On GNU-Linux GNU-Linux: License servers are separated by colons
    (":"), on Windows with semicolon ";".  1055 is the default port.
-  
+
  the following variable ANSYS-Mode is
    checking the environment variables ANSYSLMD_LICENSE_FILE and
    MD_LICENSE_FILE.
@@ -398,7 +398,7 @@ example below:
 #+END_SRC
 since ANSYS 12.0 there is an intermediate server for the communication
 between flexlm and ANSYS WorkBench, 2325 is here the default port.
-ANSYSClassics is checking this server as well.
+But the solver/interpreter is checking this server as well!?
 
 #+BEGIN_SRC emacs-lisp
 (setq ansys-ansysli-servers
@@ -472,7 +472,7 @@ ANSYSClassics is checking this server as well.
   ;; adding the directory of this (loaded) file to the load-path
   (message (concat "loading A-M.el from " (file-name-directory load-file-name)))
   (add-to-list 'load-path (file-name-directory load-file-name))
-  (require 'ansys-mode)
+  (load "ansys-mode")
   (message "Initialising defcustoms.")
   (ansys-initialise-defcustoms)
   (message "ANSYS-Mode enabled.")

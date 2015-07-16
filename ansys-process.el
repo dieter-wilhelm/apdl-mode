@@ -819,8 +819,8 @@ for displaying the license status."
   (interactive)
   (ansys-lmutil-program "")  ;check whether program is found on system
   (cond
-   ((ansys-is-unix-system-p)
-    (ansys-license-file-check)
+   (t;(ansys-is-unix-system-p)
+;    (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
     (message "Retrieving license status, please wait...")
     (with-current-buffer (get-buffer-create "*ANSYS-licenses*")
@@ -880,20 +880,17 @@ for displaying the license status."
 	))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
-   ((string= system-type "windows-nt")
-    (if (fboundp 'w32-shell-execute)
-	(let ((version (if (boundp 'ansys-current-ansys-version)
-			   ansys-current-ansys-version
-			 "145")))
-	    (cond ((> (string-to-number version) 130)
-	       (w32-shell-execute nil ansys-lmutil-program "-client145"))
-	      ((< (string-to-number version) 120)
-	       (w32-shell-execute nil ansys-lmutil-program))
-	      (t
-	       (w32-shell-execute nil ansys-lmutil-program "-client")))))
-    (message "Starting the anslic_admin program..."))
-   (t
-    (error "No license status available on %s" system-type))))
+   ;; ((string= system-type "windows-nt")
+   ;;  (if (fboundp 'w32-shell-execute)
+   ;; 	(let ((version ansys-current-ansys-version))
+   ;; 	  (cond ((> (string-to-number version) 130)
+   ;; 		 (w32-shell-execute nil ansys-lmutil-program "-client145"))
+   ;; 		((< (string-to-number version) 120)
+   ;; 		 (w32-shell-execute nil ansys-lmutil-program))
+   ;; 		(t
+   ;; 		 (w32-shell-execute nil ansys-lmutil-program "-client")))))
+   ;;  (message "Starting the anslic_admin program..."))
+   ))
 
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph
@@ -1106,7 +1103,7 @@ server names are separated by a colon, for example
 ;;     variable")
 
 (defun ansys-license ()
-  "Change the ANSYS license type to LIC.
+  "Change the ANSYS license type.
 And store it in the variable `ansys-license'."
   (interactive)
   (let ((lic (if (not (string= ansys-license ""))

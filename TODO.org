@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-15>
+#+DATE: Time-stamp: <2015-07-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,6 +27,8 @@
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
 ** Wish-list
+   - tool tip help-echo properties for keywords!
+   - saving option for -license-file, -lmutil, -program, ...
    - Check for valid license types for the solver
    - check lmutil under windows
    - start WB

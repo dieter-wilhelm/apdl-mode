@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-14>
+#+DATE: Time-stamp: <2015-07-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,6 +19,9 @@
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 ** Version 16.1.2, Not yet released
    - Realised sending code to the ANYSClassics GUI as well.
+
+   - Checking fast the available licenses (with "C-c C-l") is now also
+     available on the Windows.
 
    - Reorganised and simplified the installation and configuration.
 

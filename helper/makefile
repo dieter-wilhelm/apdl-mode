@@ -117,7 +117,7 @@ PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) de
 default.el : makefile
 	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > $@
 	@echo "(let* ((dir (file-name-directory load-file-name)))" >> $@
-	@echo "       (file (concat dir \"\\\\\\\\ansys-mode-$(VERSION)\\\\\\\\A-M.el\")))" >> $@
+	@echo "       (file (concat dir \"\\\\\\\\ansys-mode-$(VERSION)\\\\\\\\A-M.el\"))" >> $@
 	@echo "     (when (file-readable-p file) (load-file file)))" >> $@
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile

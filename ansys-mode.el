@@ -549,9 +549,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-t" 'ansys-license)
     (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
     (define-key map "\C-c\C-v" 'ansys-display-variables)
-;    (define-key map "\C-c\C-w" 'ansys-start-wb) ; or aim
+;    (define-key map "\C-c\C-w" 'ansys-start-wb) ; or aim?
     (define-key map "\C-c\C-x" 'ansys-start-classics) ;classiX ;-)
-;    (define-key map "\C-c\C-y" 'ansys-start-launcher)
+    (define-key map "\C-c\C-y" 'ansys-start-launcher)
 ;    (define-key map "\C-c\C-z" 'ansys-start-aim)
 ;    (define-key map "\C-c\C-z" 'ansys-start-anslic_admin); redundant with launcher?
 ;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
@@ -880,9 +880,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
   "Syntax table in use in `ansys-mode' buffers.")
 
 
-;;!!!! REMINDER: as of 24.4 :help properties must be constant strings, NO elisp!!!!
+;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst ansys-mode-menu
-  (list "ANSYS"
+  (list "A-Mode"
 	["Comment/Un- Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Complete Symbol"              ansys-complete-symbol :help "Complete an ANSYS command, element or function name"]
 	["Send/Copy Region or Paragraph"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send region or paragraph to ANSYS" "Copy region or paragraph to clipboard") :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard"]
@@ -961,44 +961,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Hide Region"  ansys-hide-region :help "Hide a marked region and display a hidden region message"]
 	      ["Unhide Regions"  ansys-unhide-number-blocks :help "Unhide all hidden regions"]
 	      )
-	(list "Manage ANSYS Tasks"
-	      ["Specify License Server or - File" ansys-license-file :label (if ansys-license-file "Change License Server or - File"
-									      "Specify License Server or - File")
-	      :help "Change the license server specification (for an solver/interpreter run or the license status), either naming the license server machine (with port) or the actual license file"]
-	      ["Specify the License Interconnect Servers" ansys-ansysli-servers :label (if ansys-ansysli-servers "Change the License Interconnect Servers"  "Specify the License Interconnect Servers")
-	      :help "Change the interconnect server specification (for an solver/interpreter run)"]
-	      ["Specify ANSYS Executable or launcher" ansys-program :label (if (file-executable-p ansys-program) "Change ANSYS Executable" "Specify ANSYS Executable") :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
-	      ["Specify License Utility" ansys-lmutil-program :label (if (file-executable-p ansys-lmutil-program) "Change License Utility lmutil" "Specify License Utility") :help "Specify or change the path of the ANSYS license utility lmutil"]
-	      "-"
-	      ["Change ANSYS License Type" ansys-license :label (concat "Change License Type [" ansys-license "]") :help "Specify the license type for an solver/interpreter run"]
-	      ["Change Job Name of Run" ansys-job :label (concat "Change Job Name [" ansys-job "]") :help "Specify the job name for an solver/interpreter run"]
-	      ["Change the Number of Processors" ansys-no-of-processors :label (format "Change the Number of Processors [%d]" ansys-no-of-processors ) :help "Specify the number of processors to use for the ANSYS run definition."]
-	      "-"
-	      ["License Server Status" ansys-license-status :help "Show a license manager status (number of licenses available and used)" :active (file-executable-p ansys-lmutil-program)]
-	      [ "Start the APDL Solver/Interpreter" ansys-start-ansys :help "Start an interactive APDL solver/interpreter run" :active (and (file-executable-p ansys-program) (not (ansys-process-running-p)))]
-	      [ "Start ANSYSClassics GUI" ansys-start-classics :active (file-executable-p ansys-program)]
-	      ["Display ANSYS Run Status" ansys-process-status :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
-	      ["Exit ANSYS Run"         ansys-exit-ansys :help "Exit the active solver/interpreter run" :visible (ansys-process-running-p)]
-	      "-"
-	      ["Send ANSYS Command Interactively"ansys-query-ansys-command :help "Send interactively an APDL command to a running solver/interpreter process" :active (ansys-process-running-p)]
-	      ["Start Graphics Screen"  ansys-start-graphics :help "Open the graphics screen of the ANSYS GUI" :active (ansys-process-running-p)]
-	      ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI" :active (ansys-process-running-p)]
-	      ["Replot"                 ansys-replot :help "Replot the ANSYS graphics window" :active (ansys-process-running-p)]
-	      ["Fit Graphics into screen" ansys-fit :help "Fit the ANSYS graphics into the window" :active (ansys-process-running-p)]
-	      ["Show Graphics in iso-view" ansys-iso-view :help "Show the current ANSYS graphic windows in isometric view" :active (ansys-process-running-p)]
-	      ["Zoom In"                ansys-zoom-in :help "Zoom into the graphics" :active (ansys-process-running-p)]
-	      ["Zoom Out"               ansys-zoom-out :help "Zoom out of the graphics" :active (ansys-process-running-p)]
-	      ["Move Up"                ansys-move-up :help "Move graphics objects up" :active (ansys-process-running-p)]
-	      ["Move Down"              ansys-move-down :help "Move graphics objects down" :active (ansys-process-running-p)]
-	      ["Move Right"             ansys-move-right :help "Move graphics objects to the right" :active (ansys-process-running-p)]
-	      ["Move Left"              ansys-move-left :help "Move graphics objects to the left" :active (ansys-process-running-p)]
-	      "-"
-	      ["Display all Emacs' Processes" list-processes :help "Show all active processes under Emacs, like the ANSYS help browser, etc."]
-	      ["Display ANSYS Error File"ansys-display-error-file :help "Display in another window the ANSYS error file in the current directory"]
-	      ["Write ANSYS Stop File" ansys-abort-file :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver/interpreter into the current directory"]
-	      "-"
-	      ["Kill ANSYS Run"        ansys-kill-ansys :help "Kill the current run":visible (ansys-process-running-p)]
-	      )
 	"-"
 	["Show ANSYS Command Help"     ansys-show-command-parameters :help "Display a short help for the ANSYS command near the cursor with its parameters"]
 	["Open APDL help in Browser"   ansys-browse-ansys-help :help "Open the original ANSYS help to a command or element name near the cursor in your default browser"]
@@ -1021,6 +983,97 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Reload ANSYS-Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew from files and restarting ansys-mode"]
 	"-"
 	["Exit ANSYS-Mode" ansys-toggle-mode :help "Switch to the previous major mode of the file" :label (concat "Exit ANSYS-Mode Version: " ansys-version_ "."ansys-mode_version)])
+  "Menu items for the ANSYS-Mode.")
+
+
+;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
+(defconst ansys-task-menu
+  (list
+   "ANSYS"
+   ["Specify License Server or - File" ansys-license-file
+    :label (if ansys-license-file "Change License Server or - File" "Specify License Server or - File")
+    :help "Change the license server specification (for an solver/interpreter run or the license status), either naming the license server machine (with port) or the actual license file"]
+   ["Specify the License Interconnect Servers" ansys-ansysli-servers
+    :label (if ansys-ansysli-servers "Change the License Interconnect Servers"
+	     "Specify the License Interconnect Servers")
+    :help "Change the interconnect server specification (for an solver/interpreter run)"]
+   ["Specify ANSYS Executable or launcher" ansys-program
+    :label (if (file-executable-p ansys-program) "Change ANSYS Executable"
+	     "Specify ANSYS Executable")
+    :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
+   ["Specify License Utility" ansys-lmutil-program
+    :label (if (file-executable-p ansys-lmutil-program) "Change License Utility lmutil"
+	     "Specify License Utility")
+    :help "Specify or change the path of the ANSYS license utility lmutil"]
+   "-"
+   ["License Server Status" ansys-license-status
+    :help "Show a license manager status (number of licenses available and used)"
+    :active (file-executable-p ansys-lmutil-program)]
+   ["Start the ANSYS Launcher" ansys-start-launcher :active (file-executable-p ansys-launcher)]
+   ["Start Interactive Solver/Interpreter" ansys-start-ansys
+    :help "Start an interactive APDL solver/interpreter run"
+    :active (and (ansys-is-unix-system-p)
+		 (file-executable-p ansys-program)
+		 (not (ansys-process-running-p)))]
+   ["Start ANSYSClassics GUI" ansys-start-classics :active (file-executable-p ansys-program)]
+   ["Display ANSYS Run Status" ansys-process-status
+    :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
+   ["Exit ANSYS Run" ansys-exit-ansys
+    :help "Exit the active solver/interpreter run"
+    :visible (ansys-process-running-p)]
+   "-"
+   ["Send ANSYS Command Interactively"ansys-query-ansys-command
+    :help "Send interactively an APDL command to a running solver/interpreter process"
+    :active (ansys-process-running-p)]
+   ["Start Graphics Screen"  ansys-start-graphics
+    :help "Open the graphics screen of the ANSYS GUI"
+    :active (ansys-process-running-p)]
+   ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box
+    :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI" :active (ansys-process-running-p)]
+   ["Replot" ansys-replot :help "Replot the ANSYS graphics window" :active (ansys-process-running-p)]
+   ["Fit Graphics into screen" ansys-fit
+    :help "Fit the ANSYS graphics into the window" :active (ansys-process-running-p)]
+   ["Show Graphics in iso-view" ansys-iso-view
+    :help "Show the current ANSYS graphic windows in isometric view"
+    :active (ansys-process-running-p)]
+   ["Zoom In" ansys-zoom-in
+    :help "Zoom into the graphics"
+    :active (ansys-process-running-p)]
+   ["Zoom Out" ansys-zoom-out
+    :help "Zoom out of the graphics"
+    :active (ansys-process-running-p)]
+   ["Move Up" ansys-move-up
+    :help "Move graphics objects up"
+    :active (ansys-process-running-p)]
+   ["Move Down" ansys-move-down
+    :help "Move graphics objects down"
+    :active (ansys-process-running-p)]
+   ["Move Right" ansys-move-right
+    :help "Move graphics objects to the right"
+    :active (ansys-process-running-p)]
+   ["Move Left" ansys-move-left
+    :help "Move graphics objects to the left" :active (ansys-process-running-p)]
+   "-"
+   ["Change ANSYS License Type" ansys-license
+    :label (concat "Change License Type [" ansys-license "]")
+    :help "Specify the license type for an solver/interpreter run"]
+   ["Change Job Name of Run" ansys-job
+    :label (concat "Change Job Name [" ansys-job "]")
+    :help "Specify the job name for an solver/interpreter run"]
+   ["Change the Number of Processors" ansys-no-of-processors
+    :label (format "Change the Number of Processors [%d]" ansys-no-of-processors )
+    :help "Specify the number of processors to use for the ANSYS run definition."]
+   "-"
+   ["Display all Emacs' Processes" list-processes
+    :help "Show all active processes under Emacs, like the ANSYS help browser, etc."]
+   ["Display ANSYS Error File"ansys-display-error-file
+    :help "Display in another window the ANSYS error file in the current directory"]
+   ["Write ANSYS Stop File" ansys-abort-file
+    :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver/interpreter into the current directory"]
+   "-"
+   ["Kill ANSYS Run" ansys-kill-ansys
+    :help "Kill the current run":visible (ansys-process-running-p)]
+   )
   "Menu items for the ANSYS-Mode.")
 
 ;;; --- predicates ---
@@ -1969,8 +2022,31 @@ improvements you have the following options:
 ;;    (t
 ;;     nil))))
 
+
+(defun ansys-read-ansyslmd-ini (type)
+  "Read the ANSYS license server configuration file for license TYPE.
+If TYPE is nil return the license servers, if non-nil the
+ansysli_servers."
+  (let* ((idir ansys-install-directory)
+	 ini
+	 servers
+	 ansysli)
+    (if (ansys-is-unix-system-p)
+	(setq ini (concat idir "ansys_inc/shared_files/licensing/ansyslmd.ini"))
+      (setq ini (concat idir "ANSYS Inc\\Shared Files\\Licensing\\ansyslmd.ini")))
+    (if (file-readable-p ini)
+	(with-temp-buffer
+	  (insert-file-contents ini)
+	  (if type
+	      (word-search-forward "ANSYSLI_SERVER=")
+	    (word-search-forward "SERVER="))
+	  (search-forward-regexp ".*")
+	  (message (match-string-no-properties 0)))
+      (message (concat "File "ini" not readable")))))
+
 (defun ansys-initialise-defcustoms ()
   "Initialise the customisation variables."
+
   ;; -current-ansys-version: In its definition
 
   ;; -install-directory
@@ -1987,15 +2063,17 @@ improvements you have the following options:
 	     (setq ansys-install-directory (file-name-directory dir)))
 	    ((string= window-system "x")
 	      ;; "/" is the ANSYS default installation directory on GNU-Linux
-	     (setq ansys-install-directory "/"))
+	     (setq dir "/"))
 	    ;;  (setq ansys-install-directory "C:\\CAx\\App\\"))
 	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
-	     (setq ansys-install-directory "C:\\Program Files\\")))))
+	     (setq dir "C:\\Program Files\\")))
+      (when (file-readable-p dir)
+	(setq ansys-install-directory dir))))
 
   ;; -dynamic-highlighting-flag: In its definition
   ;; -job: in its definition
 
-  ;; ansys-program
+  ;; -program
   (when (null ansys-program)
     (let* ((version ansys-current-ansys-version)
 	   (update ansys-current-update-version)
@@ -2014,11 +2092,43 @@ improvements you have the following options:
 	    (t
 	     (setq ansys-program
 		   (concat idir
-		     ;; here follows the ANSYS default directory structure
+		     ;; here follow the ANSYS default directory structure
 			   "\\Ansys Inc\\v" version
-			   "\\ansys\\bin\\winx64\\ansys" version ".exe"
-;			   "\\ansys\\bin\\winx64\\launcher" version ".exe"
-									  ))))))
+			   "\\ansys\\bin\\winx64\\ansys" version ".exe")))))
+        (if ansys-program
+	(message (concat "ansys-program set to " ansys-program))
+      (message "Couldn't find an executable for ansys-program.")))
+
+  ;; -launcher
+  (when (null ansys-launcher)
+    (let* ((version ansys-current-ansys-version)
+	   (update ansys-current-update-version)
+	   (idir (file-name-directory ansys-install-directory))
+	   ;; for my dear company...
+	   (exe (concat "/appl/ansys_inc/"
+			"16.1." update
+			"/v" version
+			"/ansys/bin/launcher" version)))
+      (cond ((file-executable-p exe)
+	     (setq ansys-launcher exe))
+	    ((string= window-system "x")
+	     (setq exe
+		   (concat
+		    idir
+		    ;; here follows the ANSYS default directory structure
+		    "ansys_inc/v" version "/ansys/bin/launcher" version)))
+	    (t
+	     (setq exe
+		   (concat
+		    idir
+		    ;; here follow the ANSYS default directory structure
+		    "Ansys Inc\\v" version
+		    "\\ansys\\bin\\winx64\\launcher" version ".exe"))))
+	    (when (file-executable-p exe)
+	      (setq ansys-launcher exe)))
+    (if ansys-lauchner
+	(message (concat "ansys-launcher set to " ansys-launcher))
+      (message "Couldn't find an executable for ansys-launcher.")))
 
   ;; -dynamic-highlighting-flag
 
@@ -2077,13 +2187,20 @@ improvements you have the following options:
 	     (when (file-executable-p exe)
 	       (setq ansys-lmutil-program exe))))))
 
+
   ;; -license-file
   (when (null ansys-license-file)
-    (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
+    (let ((lic (ansys-read-ansyslmd-ini nil))
+	  (lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
 ;	  (lic2 (getenv "LM_LICENSE_FILE"));Ansys doesn't use LM_LICENSE_FILE
 	  )
      (cond
-      (lic1	;need this for -license-status
+      (lic
+       (setq ansys-license-file lic)
+       (message "Read content of ansyslmd.ini")
+       (message "ansys-license-file=%s" lic))
+      )
+      (lic1
        (setq ansys-license-file lic1)
        (message "Read environment variable ANSYSLMD_LICENSE_FILE")
        (message "ansys-license-file=%s" lic1))
@@ -2095,12 +2212,17 @@ improvements you have the following options:
 
     ;; -ansysli-servers, the Interconnect license server(s)
    (when (null ansys-ansysli-servers)
-     (let ((lic (getenv "ANSYSLI_SERVERS")))
+     (let ((lic (ansys-read-ansyslmd-ini t))
+	   (lic1 (getenv "ANSYSLI_SERVERS")))
        (cond
 	(lic
-	 (setq ansys-ansysli-servers lic)
-	 (message "Read environment variable ANSYSLI_SERVERS")
+	 (setq ansys-license-file lic)
+	 (message "Read content of ansyslmd.ini")
 	 (message "ansys-ansysli-servers=%s" lic))
+	(lic1
+	 (setq ansys-ansysli-servers lic1)
+	 (message "Read environment variable ANSYSLI_SERVERS")
+	 (message "ansys-ansysli-servers=%s" lic1))
 	(ansys-license-file ;ANSYS assumes the following as the last resort as well
 	 (setq ansys-ansysli-servers
 	       (replace-regexp-in-string "[0-9]*@" "2325@" ansys-license-file))
@@ -2593,8 +2715,11 @@ Reindent the line if `ansys-auto-indent-flag' is non-nil."
 (defun ansys-add-ansys-menu ()
   "Add an \"ANSYS\" entry to the Emacs menu bar."
   (require 'easymenu)
+  (easy-menu-define ansys-task-menu-map ansys-mode-map
+    "Menu keymap for ANSYS Tasks." ansys-task-menu)
   (easy-menu-define ansys-mode-menu-map ansys-mode-map
     "Menu keymap for ANSYS-Mode." ansys-mode-menu)
+  (easy-menu-add ansys-task-menu-map ansys-mode-map)
   (easy-menu-add ansys-mode-menu-map ansys-mode-map))
 
 (defun ansys-calculate-indent ()   ;FIXME: comment, fixed goal column,

@@ -30,9 +30,8 @@
    - tool tip help-echo properties for keywords!
    - saving option for -license-file, -lmutil, -program, ...
    - Check for valid license types for the solver
-   - check lmutil under windows
    - start WB
-   - start anslic_admin
+   - start anslic_admin, with launcher redundant
    - start launcher
    - license and template status line always in the first visible line
      of buffer (in-place-annotations?)

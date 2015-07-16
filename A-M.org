@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-15>
+#+DATE: Time-stamp: <2015-07-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -383,6 +383,10 @@ example below:
 
 * Ansys processes
 ** License server or license file
+
+   The more license servers are specified in ~ansys-license-file~ the
+   longer it takes to get the license status.
+
    License server configuration: License servers (or license file
    name) you have to specify also the port for (since ANSYS V12.0).
    On GNU-Linux GNU-Linux: License servers are separated by colons
@@ -391,6 +395,8 @@ example below:
  the following variable ANSYS-Mode is
    checking the environment variables ANSYSLMD_LICENSE_FILE and
    MD_LICENSE_FILE.
+
+
 
 #+BEGIN_SRC emacs-lisp
 (setq ansys-license-file

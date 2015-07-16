@@ -55,7 +55,7 @@ the respective error file."
   :group 'ANSYS-process)
 
 (defcustom ansys-program nil
-  "This variable stores the ANSYS executable name.
+  "This string variable stores the ANSYS executable.
 Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
@@ -63,6 +63,17 @@ only executable's name.  For example:
 \"/ansys_inc/v161/ansys/bin/ansys161\" and not only \"ansys161\".
 You might customise this variable or use the function
 `ansys-program' to do this for the current session only."
+  :type 'string
+  :group 'ANSYS-process)
+
+(defcustom ansys-launcher nil
+  "This string variable stores the ANSYS launcher executable.
+When the respective executable is not in your search path, you
+have to specify the full qualified file name and not only
+executable's name.  For example:
+\"/ansys_inc/v161/ansys/bin/launcher161\".  You might customise this
+variable permanently or use the function `ansys-launcher' to do
+this for the current session only."
   :type 'string
   :group 'ANSYS-process)
 
@@ -205,6 +216,16 @@ The output of the solver is in an Emacs buffer called *ANSYS GUI*"
       (error "Starting ANSYS Classics canceled"))
     ;; -d : device
     (start-process "GUI" "*ANSYS GUI*" ansys-program (concat "-p " ansys-license) "-d 3d " "-g"))
+
+(defun ansys-start-launcher ()
+  "Start the Ansys Laucher."
+  (interactive)
+;    (ansys-program "")		 ;take exec from -program var.
+;    (ansys-license-file "")	 ;
+;    (ansys-ansysli-servers "")	 ;
+    ;(ansys-license "")		 ;
+    (start-process "Launcher" nil ansys-launcher)
+    (message "Startet the ANSYS Launcher..."))
 
 (defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."

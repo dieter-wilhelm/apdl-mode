@@ -600,13 +600,13 @@ variable)."
     (cond
      ((ansys-is-unix-system-p)
       (start-process "ANSYS-help-program" nil ansys-help-program)
-      (message "Started the ANSYS help browser..."))
+      (message "Started the ANSYS Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
 	  (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
 			     ansys-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
 	(error "w32-shell-execute not bound"))
-      (message "Started the ANSYS help browser..."))
+      (message "Started the ANSYS Help Viewer..."))
      (t
       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))))
 
@@ -835,16 +835,18 @@ Element categories:
 
 (defun ansys-license-status ()
   "Display the ANSYS license status or start the license tool.
-For GNU-Linux systems show the status in a separate buffer, under
-Windows start the anslic_admin.exe utility, which has a button
-for displaying the license status."
+Show the status in a separate buffer, the license
+type (`ansys-license') determines a highlighting of the license
+server summary rows."
   (interactive)
   (ansys-lmutil-program "")  ;check whether program is found on system
   (cond
    (t;(ansys-is-unix-system-p)
 ;    (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
-    (message "Retrieving license status, please wait...")
+
+    ;; lmutil calls with many license server specified takes loooooonnnnggg
+    (message "Retrieving license status, this may take some time...")
     (with-current-buffer (get-buffer-create "*ANSYS-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
@@ -892,7 +894,7 @@ for displaying the license status."
 			    'face 'match))
 	;; higlight current -license-type
 	(goto-char (point-min))
-	(search-forward-regexp (concat "\\<" ansys-license ":") nil t)
+	(search-forward-regexp nil t)
 	(forward-line)
 	(setq eol (point))
 	(forward-line -1)

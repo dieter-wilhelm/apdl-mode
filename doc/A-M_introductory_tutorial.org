@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-13>
+#+DATE: Time-stamp: <2015-07-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+DATE: <2013-05-22 Wed>
 # #+OPTIONS: H:1 texht:t
@@ -152,10 +152,9 @@
 
 * Download
 ** Download ANSYS-Mode together with the Emacs editor
-***  Remarkably there are *no* costs and license restrictions also for commercial use
-  Most convenient is taking the pre-configured ANSYS-Mode in
-  conjunction with the latest Emacs distribution for Win32/64 from
-  the [[https://github.com/dieter-wilhelm/ansys-mode/releases][ANSYS-Mode releases page]] on [[https://github.com][GitHub]].
+*** There are *no* costs and *no* license restrictions also for commercial use
+  Please download the latest ANSYS-Mode zip file for Win32/64 from the
+  [[https://github.com/dieter-wilhelm/ansys-mode/releases][ANSYS-Mode releases page]] on [[https://github.com][GitHub]].
 # #+ATTR_HTML: width="1200"
 
 #+BEGIN_LaTeX
@@ -166,10 +165,10 @@
 #+HTML: <img src="./github.png" alt="Download page from GitHub">
 
 * Installation
-** Install ANSYS-Mode together with Emacs
+** Extract ANSYS-Mode together with Emacs
   Extract the former zip archive to an arbitrary location on your file
-  system.  Optionally you might install Emacs shortcut icons for the
-  system tray with /addpm.exe/ in Emacs' /bin/ folder.
+  system.  Optionally you might create Emacs shortcut icons for the
+  system tray with /addpm.exe/ in Emacs' /bin// folder.
 
 #+ATTR_LaTeX: :width 11cm
   [[./emacs_bin_folder.png]]
@@ -178,26 +177,25 @@
 
 * Usage
 ** Open an APDL macro file with Emacs
-  Start the editor and open /example.mac/ in Emacs' /site-lisp/
-  folder or any other APDL file (with the extensions /mac/, /inp/,
-  /dat/ or /anf/, otherwise additionally type *M-x ansys-mode* and
-  <RET>).
+  Start the editor and open /doc/example.mac/ or any other APDL file
+  (with the extensions /mac/, /ans/, /inp/, /dat/ or /anf/, otherwise
+  additionally type *M-x ansys-mode* and <RET>).
 
 #+ATTR_LaTeX: :height 7.5cm
   [[./find_file_dialog.png]]
 
-** Explore the ANSYS-Mode menu
+** Explore the ANSYS-Mode menus
   If ANSYS is installed in its default folder /C:Program Files/ under
   Win64 also system dependent functions are working, like browsing the
-  APDL help with *C-c C-b*, otherwise, you can easily
-  configure this. All described features can be executed through the
-  ANSYS-Mode menu or with keyboard shortcuts.
+  APDL help with *C-c C-b*, otherwise, you can easily configure
+  this. This browsing is *much* faster as searching in the original ANSYS
+  Help Viewer.
 
 #+ATTR_LaTeX: :height 7.5cm
   [[./ansys_menu.png]]
 
 * Selected ANSYS-Mode Features
-** Inspect easily WorkBench solver input files (/example.dat/)
+** Easily inspect WorkBench solver files (/doc/example.dat/)
    ANSYS-Mode hides the normally uninteresting but usually very
    large number blocks.  On the right hand side is the unhidden content.
 #+ATTR_LaTeX: :height 7.5cm
@@ -209,7 +207,7 @@
   Please type *M-?*, alternatively: *C-c ?*, on a code line and you
   will see the APDL command's description and number of parameters
   (even when the line is commented out).  You can continue editing,
-  this temporary overlay - here in blue - remains visible for a while.
+  this temporary overlay - here in green - remains visible for a while.
 
 #+ATTR_LaTeX: :height 7.5cm
 [[./parameter_help.png]]
@@ -294,6 +292,14 @@
 
 #+ATTR_LaTeX: :height 7.5cm
   [[./calculator.png]]
+** Display the license status and preview images
+   In Emacs' lower-half you see the license status (*C-c C-l*).  All
+   described features can be executed through the ANSYS-Mode menu or
+   with keyboard shortcuts.
+
+#+ATTR_LaTeX: :height 7.3cm
+#+ATTR_HTML: :width "1200"
+   [[./license.png]]
 
 ** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU-Linux]])
    You can run the ANSYS solver under Emacs and send code lines from
@@ -304,14 +310,6 @@
 #+ATTR_HTML: :width "1200"
 #+ATTR_LaTeX: :height 6.5cm
   [[./process.png]]
-** Display the license status and preview images on GNU-Linux
-   In Emacs' mid-section you see the license state (*C-c C-l*)
-   and left Emacs window (below) a thumbnail view of images from a
-   folder.
-
-#+ATTR_LaTeX: :height 7.3cm
-#+ATTR_HTML: :width "1200"
-   [[./license.png]]
 
 ** Arrange the ANSYS-Mode windows to your needs
    The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU-Linux) with a ripped off ANSYS-Mode menu field
@@ -410,7 +408,7 @@
 
 * Summary
 ** Use ANSYS-Mode appropriate to your needs
-**** The relevance of APDL remains tall: `WorkBench' and `AIM' operate *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is still prerequisite.   Furthermore, code APDL only for *repetitive* tasks and WB/AIM snippets.
+**** The relevance of APDL remains: `WorkBench' and `AIM' operate *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is *prerequisite*.   Furthermore, code APDL only for *repetitive* tasks or WB/AIM snippets.
 *** Basic APDL *Viewer*
 	 :PROPERTIES:
 	 :BEAMER_env: block
@@ -456,7 +454,7 @@
 #+END_LaTeX
 #+HTML: <img src="./gnu_emacs.png" alt="download page from Google Code">
 
-*** Thank you for your time getting acquainted with ANSYS-Mode!
+*** Thank you for your time getting acquainted with ANSYS-Mode and Emacs!
 	 :PROPERTIES:
 	 :BEAMER_env: block
 	 :BEAMER_envargs: <2>

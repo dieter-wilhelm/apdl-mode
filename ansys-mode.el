@@ -923,10 +923,10 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	 :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
 	["Open APDL help in Browser" ansys-browse-ansys-help
 	 :help "Open the original ANSYS help to a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
-	 :active (when (file-readable-p ansys-help-path))]
+	 :active (file-readable-p ansys-help-path)]
 	["Start ANSYS help system" ansys-start-ansys-help
 	 :help "Start the original ANSYS help system. M-x ansys-start-ansys-help"
-	 :active (when (file-executable-p ansys-help-program))]
+	 :active (file-executable-p ansys-help-program)]
 	"-"
 	(list "Insert Template"
 	      ["*IF ... *ENDIF" ansys-if
@@ -1155,7 +1155,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     :help "Specify the number of processors to use for the ANSYS run definition. M-x ansys-no-of-processors"]
    "-"
    ["Display ANSYS Error File" ansys-display-error-file
-    :help "Display in another window the ANSYS error file in the current working directory. M-x ansys-display-error-file"]
+    :help "Display in another window in auto-revert-tail-mode the ANSYS error file (job.err) in the current working directory. M-x ansys-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
    ["Write ANSYS Stop File" ansys-abort-file
     :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver/interpreter into the current directory. M-x ansys-abort-file "]
    "-"
@@ -1762,7 +1762,7 @@ Please refere the configuration example `default.el'.
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current ANSYS output visible.
 
-- You can start the ANSYS help browser directly from Emacs with
+- You can start the ANSYS Help Viewer directly from Emacs with
   \"\\[ansys-start-ansys-help]\" (for `ansys-start-ansys-help').
 
 - You might also start the APDL product launcher from Emacs under
@@ -1857,16 +1857,16 @@ case the solver is not stoppable any longer in an orderly way:
 `ansys-kill-ansys'.
 
 As already indicated ANSYS-Mode has its own command for invoking
-the ANSYS help browser \"\\[ansys-start-ansys-help]\" because
+the ANSYS Help Viewer \"\\[ansys-start-ansys-help]\" because
 unfortunately the following APDL commands do not work when the
 complete GUI system of ANSYS is not active.
 
     /ui,help  !is it not working in ANSYS non-GUI modes
     help, COMMAND !is also not working in ANSYS non-GUI modes
 
-So you are not able start the help browser for a *specific* ANSYS
-command but must search within the ANSYS help browser or better
-use \"\\[ansys-browse-ansys-help]\".
+So you are not able start the Help Viewer for a *specific* ANSYS
+command but must search within the ANSYS Help Viewer or better
+use the much faster \"\\[ansys-browse-ansys-help]\".
 
 == Keybindings ==
 

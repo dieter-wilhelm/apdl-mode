@@ -218,7 +218,7 @@ The output of the solver is in an Emacs buffer called *ANSYS GUI*"
     (start-process "GUI" "*ANSYS GUI*" ansys-program (concat "-p " ansys-license) "-d 3d " "-g"))
 
 (defun ansys-start-launcher ()
-  "Start the Ansys Laucher."
+  "Start the Ansys Launcher."
   (interactive)
 ;    (ansys-program "")		 ;take exec from -program var.
 ;    (ansys-license-file "")	 ;
@@ -274,18 +274,19 @@ change it with \"\\[cd]\"."
 
 ;;;###autoload
 (defun ansys-display-error-file ()
-  "Open the current interpreter error file in the current directory.
+  "Open the current interpreter error file in the current working directory.
 You might change the directory with \"M-x `cd'\".  The error file
 name consists of the current job name and the suffix '.err'.  For
 the job name the variable `ansys-job' is used. You can change the
 job name interactively either with the \"\\[ansys-job]\" or in
 the customisation facility (by calling `ansys-customise-ansys')."
   (interactive)
-  (let ((file ansys-job))
-    (setq file (concat file ".err"))
-    (find-file-read-only-other-window file)
-    (goto-char (point-max))
-    (auto-revert-tail-mode 1)))
+  (let ((file (concat ansys-job ".err")))
+    (if (not (file-readable-p file))
+	(error "ANSYS error file \"%s\" doesn't exist in %s" file (pwd))
+      (find-file-read-only-other-window file)
+      (goto-char (point-max))
+      (auto-revert-tail-mode 1))))
 
 (defun ansys-copy-or-send-above	()
   "Copy or send all of above code - up from the cursor position."

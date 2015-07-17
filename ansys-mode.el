@@ -883,100 +883,190 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst ansys-mode-menu
   (list "A-Mode"
-	["Comment/Un- Region"           comment-dwim :help "Comment out region or uncomment region, without a marked region start a code comment"]
-	["Complete Symbol"              ansys-complete-symbol :help "Complete an ANSYS command, element or function name"]
-	["Send/Copy Region or Paragraph"   ansys-send-to-ansys :label (if (ansys-process-running-p) "Send region or paragraph to ANSYS" "Copy region or paragraph to clipboard") :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard"]
-	["Copy/Send above Code to ANSYS"ansys-copy-or-send-above :label (if (ansys-process-running-p) "Send above Code to ANSYS" "Copy above Code") :help "Either copy the code up to the beginning of file or, when a run is active, send it to the solver/interpreter"]
-	["Close Logical Block"                  ansys-close-block :help "Close an open control block with the corresponding end command"]
-	["Insert Parentheses"           insert-parentheses :help "Insert a pair of parentheses"]
-	["Preview Macro Template"       ansys-display-skeleton :help "Preview an APDL code template in another window"]
-	["Align region or paragraph"       ansys-align :help "Align ANSYS variable definitions in a marked region or the current paragraph."]
+	["Comment/Un- Region" comment-dwim
+	 :help "Comment out region or uncomment region, without a marked region start a code comment"]
+	["Complete Symbol" ansys-complete-symbol
+	 :help "Complete an ANSYS command, element or function name"]
+	["Send/Copy Region or Paragraph" ansys-send-to-ansys
+	 :label (if
+		    (ansys-process-running-p)
+		    "Send region or paragraph to ANSYS"
+		  "Copy region or paragraph to clipboard")
+	 :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard"]
+	["Copy/Send above Code to ANSYS" ansys-copy-or-send-above
+	 :label (if
+		    (ansys-process-running-p)
+		    "Send above Code to ANSYS"
+		  "Copy above Code")
+	 :help "Either copy the code up to the beginning of file or, when a run is active, send it to the solver/interpreter"]
+	["Close Logical Block" ansys-close-block
+	 :help "Close an open control block with the corresponding end command"]
+	["Insert Parentheses" insert-parentheses
+	 :help "Insert a pair of parentheses"]
+	["Preview Macro Template" ansys-display-skeleton
+	 :help "Preview an APDL code template in another window"]
+	["Align region or paragraph" ansys-align
+	 :help "Align ANSYS variable definitions in a marked region or the current paragraph. M-x ansys-align"]
+	"-"
+	["Show ANSYS Command Help" ansys-show-command-parameters
+	 :help "Display a short help for the ANSYS command near the cursor with its parameters. M-x ansys-show-command-parameters"]
+	["Display Variable Definitions" ansys-display-variables
+	 :help "Display all user variable definitions from the current file in another window. M-x ansys-display-variables"]
+	["Change ANSYS Version" ansys-current-ansys-version
+	 :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
+	 :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
+	["Installation Directory" ansys-install-directory
+	 :label (if
+		    ansys-install-directory
+		    "Change the ANSYS Installation Directory"
+		  "Set the ANSYS Installation Directory!")
+	 :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
+	["Open APDL help in Browser" ansys-browse-ansys-help
+	 :help "Open the original ANSYS help to a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
+	 :active (when (file-readable-p ansys-help-path))]
+	["Start ANSYS help system" ansys-start-ansys-help
+	 :help "Start the original ANSYS help system. M-x ansys-start-ansys-help"
+	 :active (when (file-executable-p ansys-help-program))]
 	"-"
 	(list "Insert Template"
-	      ["*IF ... *ENDIF"         ansys-if :help "Insert interactively an *if .. *endif construct"]
-	      ["*DO ... *ENDDO"	        ansys-do :help "Insert interactively a *do .. *enddo loop"]
-	      ["*IF ... *ELSEIF"	ansys-if-then :help "Insert interactively an *if,then .. (*elseif .. *else ..) *endif construct."]
-	      ["MP"	                ansys-mp :help "Insert interactively an mp statement."]
-	      ["Header"                 ansys-skeleton-header :help "Insert interactively the file header template"]
+	      ["*IF ... *ENDIF" ansys-if
+	       :help "Insert interactively an *if .. *endif construct"]
+	      ["*DO ... *ENDDO" ansys-do
+	       :help "Insert interactively a *do .. *enddo loop"]
+	      ["*IF ... *ELSEIF" ansys-if-then
+	       :help "Insert interactively an *if,then .. (*elseif .. *else ..) *endif construct."]
+	      ["MP" ansys-mp
+	       :help "Insert interactively an mp statement."]
+	      ["Header" ansys-skeleton-header
+	       :help "Insert interactively the file header template"]
 	      "-"
-	      ["Insert Pi"              ansys-insert-pi :help "Insert the variable definition \"Pi = 3.1415...\""]
-	      ["Configuration"          ansys-skeleton-configuration :help "Configuration code template"]
-	      ["View Settings"          ansys-skeleton-view-settings :help "View settings like focus point, magnification, ..."]
-	      ["Coordinate Sys. Display"ansys-skeleton-coordinates :help "Template for creating and handling coordinate systems"]
-	      ["Working Plane Operations"ansys-skeleton-working-plane :help "Template for creating and handling the working plane"]
-	      ["Multiplot Commands"     ansys-skeleton-multi-plot :help "Graphic commands which show multiple model entities simultaneously"]
-	      ["Numbering Controls"     ansys-skeleton-numbering-controls :help "Commands for numbering and colouring model entities"]
-	      ["Symbol Controls" ansys-skeleton-symbols :help "Graphic commands which show boundary conditions, surface loads and other symbols"]
-	      ["Geometry Import"        ansys-skeleton-import :help "Command for importing IGES models"]
-	      ["Control flow constructs"ansys-skeleton-looping :help "Commands for controlling loops (*do) and the program flow (*if)"]
-	      ["Symmetry Expansions"    ansys-skeleton-expand :help "Commands for expanding the view of symmetric models to their full view"]
-	      ["Element Definitions"    ansys-skeleton-element-definition :help "2D, 3D, Element defintions and their keyoptions"]
-	      ["Material Definitions"   ansys-skeleton-material-defintion :help "Various material definitions: Steel, alu, rubber, ..."]
-	      ["Modeling" ansys-skeleton-geometry :help "Operations for geometric modeling"]
-	      ["Meshing Controls"       ansys-skeleton-meshing :help "Meshing control commands: Shapes, sizes, ..."]
-	      ["Contact Pair Definition" ansys-skeleton-contact-definition :help "Full definition of flexible-flexible contact pairs"]
-	      ["Rigid Contact"           ansys-skeleton-contact-rigid :help "Definition of the rigid target contact side"]
-	      ["Contact Template"           ansys-skeleton-contact-template :help "Minimal working contact example"]
-	      ["Boundary Conditions"    ansys-skeleton-bc :help "Commands for establishing boundary conditions"]
-	      ["Buckling Analysis Type" ansys-skeleton-buckling :help "Commands for establishing a buckling analysis"]
+	      ["Insert Pi" ansys-insert-pi
+	       :help "Insert the variable definition \"Pi = 3.1415...\""]
+	      ["Configuration" ansys-skeleton-configuration
+	       :help "Configuration code template"]
+	      ["View Settings" ansys-skeleton-view-settings
+	       :help "View settings like focus point, magnification, ..."]
+	      ["Coordinate Sys. Display" ansys-skeleton-coordinates
+	       :help "Template for creating and handling coordinate systems"]
+	      ["Working Plane Operations" ansys-skeleton-working-plane
+	       :help "Template for creating and handling the working plane"]
+	      ["Multiplot Commands" ansys-skeleton-multi-plot
+	       :help "Graphic commands which show multiple model entities simultaneously"]
+	      ["Numbering Controls" ansys-skeleton-numbering-controls
+	       :help "Commands for numbering and colouring model entities"]
+	      ["Symbol Controls" ansys-skeleton-symbols
+	       :help "Graphic commands which show boundary conditions, surface loads and other symbols"]
+	      ["Geometry Import" ansys-skeleton-import
+	       :help "Command for importing IGES models"]
+	      ["Control flow constructs" ansys-skeleton-looping
+	       :help "Commands for controlling loops (*do) and the program flow (*if)"]
+	      ["Symmetry Expansions" ansys-skeleton-expand
+	       :help "Commands for expanding the view of symmetric models to their full view"]
+	      ["Element Definitions" ansys-skeleton-element-definition
+	       :help "2D, 3D, Element defintions and their keyoptions"]
+	      ["Material Definitions" ansys-skeleton-material-defintion
+	       :help "Various material definitions: Steel, alu, rubber, ..."]
+	      ["Modeling" ansys-skeleton-geometry
+	       :help "Operations for geometric modeling"]
+	      ["Meshing Controls" ansys-skeleton-meshing
+	       :help "Meshing control commands: Shapes, sizes, ..."]
+	      ["Contact Pair Definition" ansys-skeleton-contact-definition
+	       :help "Full definition of flexible-flexible contact pairs"]
+	      ["Rigid Contact" ansys-skeleton-contact-rigid
+	       :help "Definition of the rigid target contact side"]
+	      ["Contact Template" ansys-skeleton-contact-template
+	       :help "Minimal working contact example"]
+	      ["Boundary Conditions" ansys-skeleton-bc
+	       :help "Commands for establishing boundary conditions"]
+	      ["Buckling Analysis Type" ansys-skeleton-buckling
+	       :help "Commands for establishing a buckling analysis"]
 	      ["Listings, Information, Statistics"ansys-skeleton-information :help "Parameter listings, graphic options, system information, run statistics"]
-	      ["Solving"                ansys-skeleton-solve :help "ANSYS solver (/solu) commands and solver options"]
-	      ["Post1 Postprocessing"   ansys-skeleton-post1 :help "General postprocessor (/post1) commands"]
-	      ["Array Operations"       ansys-skeleton-array :help "Dimensioning, looping, changing array parameters"]
-	      ["Path plot operations"   ansys-skeleton-path-plot :help "Commands for establishing paths and plotting entities on paths"]
-	      ["Output to file"         ansys-skeleton-output-to-file :help "Commands for writing data to a file"]
-	      ["Element Table Operations"ansys-skeleton-element-table :help "Commands for establishing and manipulation element tables"]
-	      ["Post26 Postprocessing"  ansys-skeleton-post26 :help "Time history (/post26) postprocessing commands"]
-	      ["Components"  ansys-skeleton-component :help "Components (Named selections in WorkBench) template"]
-	      ["Selections"  ansys-skeleton-select :help "How to select stuff template"]
+	      ["Solving" ansys-skeleton-solve
+	       :help "ANSYS solver (/solu) commands and solver options"]
+	      ["Post1 Postprocessing" ansys-skeleton-post1
+	       :help "General postprocessor (/post1) commands"]
+	      ["Array Operations" ansys-skeleton-array
+	       :help "Dimensioning, looping, changing array parameters"]
+	      ["Path plot operations" ansys-skeleton-path-plot
+	       :help "Commands for establishing paths and plotting entities on paths"]
+	      ["Output to file" ansys-skeleton-output-to-file
+	       :help "Commands for writing data to a file"]
+	      ["Element Table Operations" ansys-skeleton-element-table
+	       :help "Commands for establishing and manipulation element tables"]
+	      ["Post26 Postprocessing" ansys-skeleton-post26
+	       :help "Time history (/post26) postprocessing commands"]
+	      ["Components" ansys-skeleton-component
+	       :help "Components (Named selections in WorkBench) template"]
+	      ["Selections" ansys-skeleton-select
+	       :help "How to select stuff template"]
 	      "-"
-	      ["Outline template"          ansys-skeleton-outline-template :help "Empty skeleton of the structur of an APDL simulation, outlineing headers and sections"]
-	      ["Beam template"          ansys-skeleton-beam-template :help "Insert a minimal template for a beam simulation"]
- 	      ["Structural template"    ansys-skeleton-structural :help "Insert a minimal template for a structural simulation"]
-	      ["Contact template"    ansys-skeleton-contact :help "Insert a minimal template for a structural contact simulation"]
-	      ["Compilation of templates"   ansys-skeleton :help "Insert a compilation of selected templates"]
+	      ["Outline template" ansys-skeleton-outline-template
+	       :help "Empty skeleton of the structur of an APDL simulation, outlineing headers and sections"]
+	      ["Beam template" ansys-skeleton-beam-template
+	       :help "Insert a minimal template for a beam simulation"]
+ 	      ["Structural template" ansys-skeleton-structural
+	       :help "Insert a minimal template for a structural simulation"]
+	      ["Contact template" ansys-skeleton-contact
+	       :help "Insert a minimal template for a structural contact simulation"]
+	      ["Compilation of templates" ansys-skeleton
+	       :help "Insert a compilation of selected templates"]
 	      )
 	(list "Navigate Code Lines"
-	      ["Previous Code Line"	ansys-previous-code-line :help "Goto previous apdl code line"]
-	      ["Next Code Line"		ansys-next-code-line :help "Goto next code line"]
-	      ["Beginning of (Continuation) Command" ansys-command-start :help "Go to the beginning of the current command"]
-	      ["End of (Continuation) Command"ansys-command-end :help "Go to the end of the current command"]
+	      ["Previous Code Line" ansys-previous-code-line
+	       :help "Goto previous apdl code line"]
+	      ["Next Code Line" ansys-next-code-line
+	       :help "Goto next code line"]
+	      ["Beginning of (Continuation) Command" ansys-command-start
+	       :help "Go to the beginning of the current command"]
+	      ["End of (Continuation) Command" ansys-command-end
+	       :help "Go to the end of the current command"]
 	      "-"
-	      ["Split Format Line at Point"ansys-indent-format-line :help "Split current line, if in a comment continue the comment, if in an ANSYS format line insert the continuation character before splitting the line"]
+	      ["Split Format Line at Point" ansys-indent-format-line
+	       :help "Split current line, if in a comment continue the comment, if in an ANSYS format line insert the continuation character before splitting the line"]
 	      )
 	(list "Work with Logical Blocks"
-	      ["Next Block End"		ansys-next-block-end :help "Go to the end of the current or next control block (*do, *if, ...)"]
-	      ["Previous Block Start"   ansys-previous-block-start-and-conditional :help "Go to the beginning of the current or next control block (*do, *if, ...)"]
-	      ["Down Block"		ansys-down-block :help "Move down one control block level"]
-	      ["Up Block"		ansys-up-block :help "Move up one control block level"]
-	      ["Skip Block Forward"     ansys-skip-block-forward :help "Skip to the end of the next control block"]
-	      ["Skip Block Backwards"   ansys-skip-block-backwards :help "Skip to the beginning of previous control block"]
-	      ["Hide Number Blocks"  ansys-hide-number-blocks :help "Hide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
-	      ["Unhide Number Blocks"  ansys-unhide-number-blocks :help "Unhide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
-	      ["Beginning of N. Block"  ansys-number-block-start :help "Go to the beginning of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	      ["Next Block End" ansys-next-block-end
+	       :help "Go to the end of the current or next control block (*do, *if, ...)"]
+	      ["Previous Block Start" ansys-previous-block-start-and-conditional
+	       :help "Go to the beginning of the current or next control block (*do, *if, ...)"]
+	      ["Down Block" ansys-down-block
+	       :help "Move down one control block level"]
+	      ["Up Block" ansys-up-block
+	       :help "Move up one control block level"]
+	      ["Skip Block Forward" ansys-skip-block-forward
+	       :help "Skip to the end of the next control block"]
+	      ["Skip Block Backwards" ansys-skip-block-backwards
+	       :help "Skip to the beginning of previous control block"]
+	      ["Hide Number Blocks" ansys-hide-number-blocks
+	       :help "Hide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	      ["Unhide Number Blocks" ansys-unhide-number-blocks
+	       :help "Unhide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	      ["Beginning of N. Block" ansys-number-block-start
+	       :help "Go to the beginning of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      ["End of Number Block"    ansys-number-block-end :help "Go to the end of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      "-"
-	      ["Close Block"            ansys-close-block :help "Close the current ANSYS control block with the respective closing command"]
-	      ["Mark Block"             ansys-mark-block :help "Mark the current control block"]
-	      ["Hide Region"  ansys-hide-region :help "Hide a marked region and display a hidden region message"]
-	      ["Unhide Regions"  ansys-unhide-number-blocks :help "Unhide all hidden regions"]
+	      ["Close Block" ansys-close-block
+	       :help "Close the current ANSYS control block with the respective closing command"]
+	      ["Mark Block" ansys-mark-block
+	       :help "Mark the current control block"]
+	      ["Hide Region" ansys-hide-region
+	       :help "Hide a marked region and display a hidden region message"]
+	      ["Unhide Regions" ansys-unhide-number-blocks
+	       :help "Unhide all hidden regions"]
+	      ["Insert Temporary Ruler" ansys-column-ruler
+	       :help "Show a temporary ruler above the current line"]
 	      )
 	"-"
-	["Show ANSYS Command Help"     ansys-show-command-parameters :help "Display a short help for the ANSYS command near the cursor with its parameters"]
-	["Open APDL help in Browser"   ansys-browse-ansys-help :help "Open the original ANSYS help to a command or element name near the cursor in your default browser"]
-	["Start ANSYS help system"     ansys-start-ansys-help :help "Start the ANSYS help browser"]
-	["Display Variable Definitions"ansys-display-variables :help "Display all user variable definitions from the current file in another window"]
-	;; ["License Status"              ansys-license-status :label (if ansys-is-unix-system-flag
-	;;      "Display License Status"
-	;;    "Start License Utility") :help "Show the license usage in another window or start a license manager utility under Windows"]
-;	["Insert Temporary Ruler"      ansys-column-ruler :help "Show a temporary ruler above the current line"]
+	["Outline Minor Mode"         outline-minor-mode :style toggle :selected t :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
+	["Show Paren Mode" show-paren-mode :style toggle :selected show-paren-mode
+	:help "Show Paren Mode highlights matching parenthesis"]
+	["Delete Selection Mode" delete-selection-mode :style toggle :selected nil
+	:help "Delete Selection Mode replaces the selection with typed text"]
 	"-"
-	["Outline Minor Mode"         outline-minor-mode :style toggle :selected outline-minor-mode :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
-	["Show Paren Mode"            show-paren-mode :style toggle :selected show-paren-mode :help "Show Paren Mode highlights matching parenthesis"]
-	["Delete Selection Mode"      delete-selection-mode :style toggle :selected delete-selection-mode :help "Delete Selection Mode replaces the selection with typed text"]
-	"-"
-;	["Show ANSYS-Mode version"     ansys-mode-version :label (concat "ANSYS-Mode Version: " ansys-version_ "."ansys-mode_version) :help "Display the ANSYS-Mode version in the mini buffer"]
-	["Help on ANSYS-Mode"	       describe-mode :help "Open a window with a description of ANSYS-Mode's usage"]
+	["ANSYS-Mode Online Documentation" ansys-mode-version
+	 :help "Display the online ANSYS-Mode Documentation in a browser."]
+	["Help on ANSYS-Mode" describe-mode
+	 :help "Open an Emacs window describing ANSYS-Mode's usage"]
 	["Customise ANSYS-Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
 	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
@@ -1009,9 +1099,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    ["License Server Status" ansys-license-status
     :help "Show a license manager status (number of licenses available and used)"
     :active (file-executable-p ansys-lmutil-program)]
-   ["Start the ANSYS Launcher" ansys-start-launcher :active (file-executable-p ansys-launcher)]
+   ["Start the ANSYS Launcher" ansys-start-launcher :active (file-executable-p ansys-launcher) :help "Start the ANSYS Mechanical Launcher. M-x ansys-start-launcher"]
    ["Start Interactive Solver/Interpreter" ansys-start-ansys
-    :help "Start an interactive APDL solver/interpreter run"
+    :help "Start an interactive APDL solver/interpreter run. M-x ansys-start-ansys"
     :active (and (ansys-is-unix-system-p)
 		 (file-executable-p ansys-program)
 		 (not (ansys-process-running-p)))]
@@ -1056,23 +1146,23 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    "-"
    ["Change ANSYS License Type" ansys-license
     :label (concat "Change License Type [" ansys-license "]")
-    :help "Specify the license type for an solver/interpreter run"]
+    :help "Specify the license type for an solver/interpreter run. M-x ansys-license"]
    ["Change Job Name of Run" ansys-job
     :label (concat "Change Job Name [" ansys-job "]")
-    :help "Specify the job name for an solver/interpreter run"]
+    :help "Specify the job name for an solver/interpreter run. M-x ansys-job"]
    ["Change the Number of Processors" ansys-no-of-processors
     :label (format "Change the Number of Processors [%d]" ansys-no-of-processors )
-    :help "Specify the number of processors to use for the ANSYS run definition."]
+    :help "Specify the number of processors to use for the ANSYS run definition. M-x ansys-no-of-processors"]
    "-"
-   ["Display all Emacs' Processes" list-processes
-    :help "Show all active processes under Emacs, like the ANSYS help browser, etc."]
-   ["Display ANSYS Error File"ansys-display-error-file
-    :help "Display in another window the ANSYS error file in the current directory"]
+   ["Display ANSYS Error File" ansys-display-error-file
+    :help "Display in another window the ANSYS error file in the current working directory. M-x ansys-display-error-file"]
    ["Write ANSYS Stop File" ansys-abort-file
-    :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver/interpreter into the current directory"]
+    :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver/interpreter into the current directory. M-x ansys-abort-file "]
    "-"
    ["Kill ANSYS Run" ansys-kill-ansys
-    :help "Kill the current run":visible (ansys-process-running-p)]
+    :help "Kill the current run. M-x ansys-kill-ansys":active (ansys-process-running-p)]
+   ["Display all Emacs' Processes" list-processes
+    :help "Show all active processes under Emacs, like shells, etc. M-x list-processes"]
    )
   "Menu items for the ANSYS-Mode.")
 
@@ -2038,10 +2128,11 @@ ansysli_servers."
 	(with-temp-buffer
 	  (insert-file-contents ini)
 	  (if type
-	      (word-search-forward "ANSYSLI_SERVER=")
-	    (word-search-forward "SERVER="))
-	  (search-forward-regexp ".*")
-	  (message (match-string-no-properties 0)))
+	      (word-search-forward "ANSYSLI_SERVERS=" nil t)
+	    (word-search-forward "SERVER=" nil t))
+	  (search-forward-regexp ".*" nil t)
+	  (match-string-no-properties 0)) ;TODO: there's no check
+					  ;against empty ini!
       (message (concat "File "ini" not readable")))))
 
 (defun ansys-initialise-defcustoms ()
@@ -2062,13 +2153,15 @@ ansysli_servers."
       (cond (dir
 	     (setq ansys-install-directory (file-name-directory dir)))
 	    ((string= window-system "x")
-	      ;; "/" is the ANSYS default installation directory on GNU-Linux
-	     (setq dir "/"))
-	    ;;  (setq ansys-install-directory "C:\\CAx\\App\\"))
-	    (t ;; ANSYS default is "C:\\Program Files\\" on Windows
-	     (setq dir "C:\\Program Files\\")))
-      (when (file-readable-p dir)
-	(setq ansys-install-directory dir))))
+	     ;; "/" is the ANSYS default installation directory on GNU-Linux
+	     (setq dir "/")
+	     (when (file-readable-p (concat dir "ansys_inc/v" version))
+	       (setq ansys-install-directory dir)))
+	    (t
+	     ;; ANSYS default is "C:\\Program Files\\" on Windows
+	     (setq dir "C:\\Program Files\\")
+	     (when (file-readable-p (concat dir "ANSYS INC\\v" version))
+	       (setq ansys-install-directory dir))))))
 
   ;; -dynamic-highlighting-flag: In its definition
   ;; -job: in its definition
@@ -2086,14 +2179,16 @@ ansysli_servers."
       (cond ((file-executable-p exe)
 	     (setq ansys-program exe))
 	    ((string= window-system "x")
-	     (setq ansys-program (concat idir
-		     ;; here follows the ANSYS default directory structure
-					 "/ansys_inc/v" version "/ansys/bin/ansys" version)))
+	     (setq ansys-program
+		   (concat
+		    idir
+		    ;; here follows the ANSYS default directory structure
+		    "/ansys_inc/v" version "/ansys/bin/ansys" version)))
 	    (t
 	     (setq ansys-program
 		   (concat idir
 		     ;; here follow the ANSYS default directory structure
-			   "\\Ansys Inc\\v" version
+			   "\\ANSYS Inc\\v" version
 			   "\\ansys\\bin\\winx64\\ansys" version ".exe")))))
         (if ansys-program
 	(message (concat "ansys-program set to " ansys-program))
@@ -2122,11 +2217,11 @@ ansysli_servers."
 		   (concat
 		    idir
 		    ;; here follow the ANSYS default directory structure
-		    "Ansys Inc\\v" version
+		    "ANSYS Inc\\v" version
 		    "\\ansys\\bin\\winx64\\launcher" version ".exe"))))
 	    (when (file-executable-p exe)
 	      (setq ansys-launcher exe)))
-    (if ansys-lauchner
+    (if ansys-launcher
 	(message (concat "ansys-launcher set to " ansys-launcher))
       (message "Couldn't find an executable for ansys-launcher.")))
 
@@ -2145,7 +2240,7 @@ ansysli_servers."
 			   "/commonfiles/help/en-us/help/")))
 	    (t
 	     (setq ansys-help-path
-		   (concat idir "\\Ansys Inc\\v" version
+		   (concat idir "\\ANSYS Inc\\v" version
 			   "\\commonfiles\\help\\en-us\\help\\"))))))
 
   ;; -help-program
@@ -2164,7 +2259,7 @@ ansysli_servers."
 			   "/ansys/bin/anshelp" version)))
 	    (t
 	     (setq ansys-help-program
-		   (concat idir "Ansys Inc\\v" version
+		   (concat idir "ANSYS Inc\\v" version
 			   "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))))))
 
   ;; -lmutil-program
@@ -2183,7 +2278,7 @@ ansysli_servers."
 	       (setq ansys-lmutil-program exe)))
 	    (t
 	     (setq exe (concat idir
-			   "Ansys Inc\\Shared Files\\Licensing\\winx64\\lmutil.exe"))
+			   "ANSYS Inc\\Shared Files\\Licensing\\winx64\\lmutil.exe"))
 	     (when (file-executable-p exe)
 	       (setq ansys-lmutil-program exe))))))
 
@@ -2192,7 +2287,7 @@ ansysli_servers."
   (when (null ansys-license-file)
     (let ((lic (ansys-read-ansyslmd-ini nil))
 	  (lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
-;	  (lic2 (getenv "LM_LICENSE_FILE"));Ansys doesn't use LM_LICENSE_FILE
+;	  (lic2 (getenv "LM_LICENSE_FILE"));ANSYS doesn't use LM_LICENSE_FILE
 	  )
      (cond
       (lic
@@ -2215,7 +2310,7 @@ ansysli_servers."
 	   (lic1 (getenv "ANSYSLI_SERVERS")))
        (cond
 	(lic
-	 (setq ansys-license-file lic)
+	 (setq ansys-ansysli-servers lic)
 	 (message "Read content of ansyslmd.ini")
 	 (message "ansys-ansysli-servers=%s" lic))
 	(lic1

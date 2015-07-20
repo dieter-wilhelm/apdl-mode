@@ -77,6 +77,17 @@ this for the current session only."
   :type 'string
   :group 'ANSYS-process)
 
+(defcustom ansys-wb nil
+  "This string variable stores the ANSYS WorkBench executable.
+When the respective executable is not in your search path, you
+have to specify the full qualified file name and not only
+executable's name.  For example:
+\"/ansys_inc/v161/Framework/bin/Linux64/runwb2\".  You might
+customise this variable permanently or use the function
+`ansys-wb' to do this for the current session only."
+  :type 'string
+  :group 'ANSYS-process)
+
 (defcustom ansys-help-program nil
   "The ANSYS help executable.
 It is called with
@@ -192,8 +203,9 @@ Variable is only used internally in the mode.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-start-classics ()
-  "Start the Ansys Classics user interface.
-The output of the solver is in an Emacs buffer called *ANSYS GUI*"
+  "Start the Ansys Classics graphical user interface.
+The output of the solver is captured in an Emacs buffer called
+*ANSYS GUI*."
   (interactive)
 ;    (ansys-program "")		 ;take exec from -program var.
 ;    (ansys-license-file "")	 ;
@@ -226,6 +238,16 @@ The output of the solver is in an Emacs buffer called *ANSYS GUI*"
     ;(ansys-license "")		 ;
     (start-process "Launcher" nil ansys-launcher)
     (message "Startet the ANSYS Launcher..."))
+
+(defun ansys-start-wb ()
+  "Start the Ansys WorkBench."
+  (interactive)
+;    (ansys-program "")		 ;take exec from -program var.
+;    (ansys-license-file "")	 ;
+;    (ansys-ansysli-servers "")	 ;
+    ;(ansys-license "")		 ;
+    (start-process "Launcher" nil ansys-wb)
+    (message "Startet the ANSYS WorkBench..."))
 
 (defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -588,7 +610,7 @@ with the ANSYS /EXIT,all command which saves all model data."
 
 ;;;###autoload
 (defun ansys-start-ansys-help ()
-  "Start the ANSYS help system.
+  "Start the ANSYS Help Viewer.
 Alternatively under a GNU-Linux system, one can also use the ANSYS
 command line \"/SYS, anshelp161\" when running ANSYS
 interactively, provided that anshelp161 is found in the search
@@ -647,6 +669,31 @@ variable)."
 	   str))))
 
 (require 'browse-url)
+
+(defun ansys-browse-apdl-guide ()
+  "Open the ANSYS APDL guide in a browser."
+  (interactive)
+  (let (file (path ansys-help-path) command)
+    (cond
+     ((ansys-is-unix-system-p)
+      (setq file "ans_apdl/Hlp_P_APDLTOC.html")
+      ;; use browse-url-default-browser!
+      (if (fboundp 'browse-url-xdg-open)
+	  (browse-url-xdg-open (concat path file))
+	;; (browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+	(browse-url-firefox (concat path file))))
+     ;; windows
+     ((string= system-type "windows-nt")
+      (setq file (concat "ans_apdl\\Hlp_P_APDLTOC.html" file))
+      ;; wrapper of ShellExecute MS-Windows API
+;      (message "file:%s path:%s" file path)
+;      (w32-shell-execute "Open" (concat path file)))
+      (browse-url-default-windows-browser (concat "file:" path file)))
+     (t
+      (error "Can only start the ANSYS help on Windows and Unix/GNU-Linux systems")))
+    (message "Called HTML browser for keyword \"%s\"..." command)))
+
+
 
 (defun ansys-browse-ansys-help ( &optional arg)
   "Open the ANSYS help for APDL commands and element names in the default web browser.
@@ -789,7 +836,7 @@ Element categories:
       (browse-url-default-windows-browser (concat path file)))
      (t
       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))
-    (message "Called html browser for keyword \"%s\"..." command)))
+    (message "Called HTML browser for keyword \"%s\"..." command)))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
@@ -839,8 +886,9 @@ Show the status in a separate buffer, the license
 type (`ansys-license') determines a highlighting of the license
 server summary rows."
   (interactive)
-  (ansys-lmutil-program "")  ;check whether program is found on system
+  ;(ansys-lmutil-program "")  ;check whether program is found on system
   (cond
+   ;; FIXME
    (t;(ansys-is-unix-system-p)
 ;    (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
@@ -894,7 +942,7 @@ server summary rows."
 			    'face 'match))
 	;; higlight current -license-type
 	(goto-char (point-min))
-	(search-forward-regexp nil t)
+	(search-forward-regexp ansys-license nil t)
 	(forward-line)
 	(setq eol (point))
 	(forward-line -1)
@@ -904,6 +952,7 @@ server summary rows."
 	))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
+   ;; FIXME:
    ;; ((string= system-type "windows-nt")
    ;;  (if (fboundp 'w32-shell-execute)
    ;; 	(let ((version ansys-current-ansys-version))
@@ -1088,11 +1137,10 @@ processors (if available) for a structural analysis in ANSYS is
   "Change the ANSYS license file name or license server(s).
 And specify the string FILE in the variable `ansys-license-file'
 which can either be the license file name or license server(s)
-specification.  The server specification should include the port
-number for the lmutil tool even when it's 1055, the default port
-number: port_number@server_name, multiple server names are
-separated by a colon, for example
-\"27005@rbgs421x:27005@rbgs422x:...\"."
+specification.  The server specification must include the port
+number (default port 1055), multiple server names are separated
+by colons `:' on Linux, semi-colons `;' on Windows , for example
+\"27005@rbgs421x:27005@rbgs422x\"."
   (interactive "sLicense server or license file :")
   (cond ((null file)
 	 )
@@ -1101,10 +1149,46 @@ separated by a colon, for example
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
-;; (error "Please specify the license server information with
-;;     the `ansys-license-file' function or either set
-;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
-;;     variable")
+(defvar ansys-current-ansys-version-history '("160" "150" "145")
+  "History list for the minibuffer input of
+  `ansys-current-ansys-version'.")
+
+(defun ansys-current-ansys-version ()
+"Specify the used or required ANSYS version.
+For example \"150\" instead of \"161\", which is the current
+default."
+(interactive)
+(let ((acav ansys-current-ansys-version))
+  (setq
+   ansys-current-ansys-version
+   (read-string
+    (concat "Specify the required ANSYS version [" acav "]:")
+    acav
+    'ansys-current-ansys-version-history
+    acav))
+;  (if (file-readable (concat )) FIXME
+  (message "Set current ANSYS version to %s." ansys-current-ansys-version)
+  (ansys-initialise-defcustoms t)))
+
+(defun ansys-install-directory ()
+  "Change the ANSYS installation directory.
+This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
+  (interactive)
+  (let ((dir))
+    (setq dir ansys-install-directory)
+    (setq dir
+	  (read-directory-name
+	   (concat "Specify the ANSYS installation directory ["
+		   ansys-install-directory "]:")
+	   nil nil ansys-install-directory))
+    (if (file-readable-p dir)
+	(progn
+	  (setq ansys-install-directory dir)
+	  (message
+	   (concat
+	    "Set ansys-install-directory to \"" dir "\".")))
+      (error "Directory not readable"))
+    (ansys-initialise-defcustoms t)))
 
 (defun ansys-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.
@@ -1121,6 +1205,7 @@ server names are separated by a colon, for example
 	 (message (concat "Set ansys-ansysli-servers to \""
 			  ansys-ansysli-servers "\".")))))
 
+;; FIXME:
 ;; (error "Please specify the license server information with
 ;;     the `ansys-license-file' function or either set
 ;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment

@@ -17,15 +17,18 @@
 #+title: News and History of ANSYS-Mode
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
-** Version 16.1.2, not yet released, targeted for August Realised
-   - 2015 sending code to the ANYSClassics GUI as well (currently
-     only on GNU-Linux/Unix).
+** Version 16.1.2, not yet released, targeted for August
+   - Sending code to the ANYSClassics GUI as well, not only to the
+     restricted interactive solver (currently only on GNU-Linux/Unix
+     with C-c C-j, C-c C-u, C-c C-c).
 
    - Checking available licenses - fast and simple with "C-c C-l" - is
      now also available on Windows platforms.
 
    - Reorganised and simplified the installation and configuration.
-     Made the initialisation more automatic.
+     Made the initialisation defaults more intelligent,
+     i. e. searching for installation paths with environment
+     variables, etc.
 
    - Reorganised and improved the menu items, separated general ANSYS
      tasks from APDL coding with two main menu Entries: A-Mode and

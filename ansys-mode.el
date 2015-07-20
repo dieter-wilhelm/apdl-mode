@@ -1063,7 +1063,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	       :help "Show a temporary ruler above the current line"]
 	      )
 	"-"
-	(list "Minor Modes"
+	(list "Helper Modes"
 	      ["Outline Minor Mode" outline-minor-mode
 	       :style toggle :selected t
 	       :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
@@ -1097,19 +1097,33 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     :label (if ansys-ansysli-servers "Change the License Interconnect Servers"
 	     "Specify the License Interconnect Servers")
     :help "Change the interconnect server specification (for an solver/interpreter run)"]
-   ["Specify ANSYS Executable or launcher" ansys-program
-    :label (if (file-executable-p ansys-program) "Change ANSYS Executable"
-	     "Specify ANSYS Executable")
-    :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
-   ["Specify License Utility" ansys-lmutil-program
-    :label (if (file-executable-p ansys-lmutil-program) "Change License Utility lmutil"
-	     "Specify License Utility")
-    :help "Specify or change the path of the ANSYS license utility lmutil"]
+   ["Change ANSYS Version" ansys-current-ansys-version
+    :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
+    :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
+   ["Installation Directory" ansys-install-directory
+    :label (if
+	       ansys-install-directory
+	       "Change the ANSYS Installation Directory"
+	     "Set the ANSYS Installation Directory!")
+    :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
+   ;; ["Specify ANSYS Executable or launcher" ansys-program
+   ;;  :label (if (file-executable-p ansys-program) "Change ANSYS Executable"
+   ;; 	     "Specify ANSYS Executable")
+   ;;  :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
+   ;; ["Specify License Utility" ansys-lmutil-program
+   ;;  :label (if (file-executable-p ansys-lmutil-program) "Change License Utility lmutil"
+   ;; 	     "Specify License Utility")
+   ;;  :help "Specify or change the path of the ANSYS license utility lmutil"]
    "-"
    ["License Server Status" ansys-license-status
     :help "Show a license manager status (number of licenses available and used)"
     :active (file-executable-p ansys-lmutil-program)]
-   ["Start the ANSYS Launcher" ansys-start-launcher :active (file-executable-p ansys-launcher) :help "Start the ANSYS Mechanical Launcher. M-x ansys-start-launcher"]
+   ["Start the ANSYS Launcher" ansys-start-launcher
+    :active (file-executable-p ansys-launcher)
+    :help "Start the ANSYS Mechanical Launcher. M-x ansys-start-launcher"]
+   ["Start the ANSYS WorkBench" ansys-start-wb
+    :active (file-executable-p ansys-wb)
+    :help "Start ANSYS WorkBench. M-x ansys-start-wb"]
    ["Start Interactive Solver/Interpreter" ansys-start-ansys
     :help "Start an interactive APDL solver/interpreter run. M-x ansys-start-ansys"
     :active (and (ansys-is-unix-system-p)
@@ -1345,8 +1359,20 @@ The cursor is either in a code comment or comment line."
 (defun ansys-mode-browse-online ()
   "Browse the ANSYS-Mode online documentations."
   (interactive)
-  (let ((path ansys-help-path)))
-  )
+  (let ((url "http://dieter-wilhelm.github.io/ansys-mode"))
+    (cond
+     ((ansys-is-unix-system-p)
+      ;; use browse-url-default-browser!
+      (if (fboundp 'browse-url-xdg-open)
+	  (browse-url-xdg-open url)
+      ;; (browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+	(browse-url-firefox url)))
+     ;; windows
+     (t
+      ;; wrapper of ShellExecute MS-Windows API
+;      (message "file:%s path:%s" file path)
+;      (w32-shell-execute "Open" (concat path file)))
+      (browse-url-default-windows-browser url)))))
 
 (defun ansys-align (p-min p-max)
   "Align current paragraph or selection of ANSYS variable definitions.
@@ -1459,7 +1485,7 @@ original ANSYS help in your web browser for an APDL command or
 element name (stating the element number is sufficient) near the
 cursor or the code line's first APDL command.  When using a
 prefix argument it inquires an keyword from you.  Keywords
-beginning with a backslash `\"' describing general manual
+beginning with a quotation mark `\"' describing general manual
 sections, for example typing `\"SHELLS\"' will call the
 collection of all shell elements in the ANSYS manual.
 
@@ -2153,12 +2179,14 @@ return nil."
       (message (concat "File "ini" not readable"))
       nil)))
 
-(defun ansys-initialise-defcustoms ()
-  "Initialise the customisation variables."
+(defun ansys-initialise-defcustoms ( &optional force)
+  "Initialise the customisation variables.
+When argument FORCE is non-nil overwrite already set
+customisation variables"
 
-  ;; -current-ansys-version: In its definition
+  ;; 1) -current-ansys-version: In its definition 161
 
-  ;; -install-directory
+  ;; 2) -install-directory
   (when (null ansys-install-directory)
     (let* ((version  ansys-current-ansys-version)
 	   ;; we have to remove `ansys_inc/v161' or `ANSYS Inc\v161' from AWP_ROOT161
@@ -2171,146 +2199,165 @@ return nil."
       (cond (dir
 	     (if (not (file-readable-p dir))
 		 (message "Directory in AWP_ROOT not readable")
-	       (message "Set ansys-install-directory from Read AWP_ROOT")
+	       (message "Set ansys-install-directory from environment AWP_ROOT")
 	       (message "ansys-install-directory = %s" dir)))
 	    ((string= window-system "x")
 	     (when (file-readable-p (concat "/ansys_inc/v" version))
 	       ;; "/" is the ANSYS default installation directory on GNU-Linux
 	       (setq dir "/")))
 	    (t
-	     (when (file-readable-p (concat "C:\\Program Files\\ANSYS Inc\\v" version)))
-	     ;; ANSYS default is "C:\\Program Files\\" on Windows
-	     (setq dir "C:\\Program Files\\")))
+	     (when (file-readable-p (concat "C:\\Program Files\\ANSYS Inc\\v" version))
+	       ;; ANSYS default is "C:\\Program Files\\" on Windows
+	       (setq dir "C:\\Program Files\\"))))
       (if dir
 	  (setq ansys-install-directory dir)
-	(message "No ANSYS installation directory found"))))
+	(message "No ANSYS default installation directory found"))))
 
-  ;; -dynamic-highlighting-flag: In its definition
-  ;; -job: in its definition
+  ;; 3) -dynamic-highlighting-flag: In its definition
 
-  ;; -program
-  (when (null ansys-program)
+  ;; 4) -job: in its definition
+
+  ;; 5) -program
+  (when (or (null ansys-program) force)
+    (let* ((version ansys-current-ansys-version)
+	   (idir (unless (null ansys-install-directory)
+		   (file-name-directory ansys-install-directory)))
+	   (exe ""))
+      (cond
+       ((string= window-system "x")
+	(setq exe
+	      (concat
+	       idir
+	       ;; here follows the ANSYS default directory structure
+	       "/ansys_inc/v" version "/ansys/bin/ansys" version)))
+       (t
+	(setq exe
+	      (concat
+	       idir
+	       ;; here follow the ANSYS default directory structure
+	       "\\ANSYS Inc\\v" version
+	       "\\ansys\\bin\\winx64\\ansys" version ".exe"))))
+      (if (file-executable-p exe)
+	  (progn
+	    (setq ansys-program exe)
+	    (message (concat "ansys-program set to " ansys-program)))
+	(message "Couldn't find default executable for ansys-program."))))
+
+  ;; 6) -wb
+  (when (or (null ansys-wb) force)
     (let* ((version ansys-current-ansys-version)
 	   (update ansys-current-update-version)
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
-	   ;; for my dear company...
-	   (exe (concat "/appl/ansys_inc/"
-			"16.1." update
-			"/v" version
-			"/ansys/bin/ansys" version)))
-      (cond ((file-executable-p exe)
-	     (setq ansys-program exe))
-	    ((string= window-system "x")
-	     (setq ansys-program
-		   (concat
-		    idir
-		    ;; here follows the ANSYS default directory structure
-		    "/ansys_inc/v" version "/ansys/bin/ansys" version)))
-	    (t
-	     (setq ansys-program
-		   (concat idir
-		     ;; here follow the ANSYS default directory structure
-			   "\\ANSYS Inc\\v" version
-			   "\\ansys\\bin\\winx64\\ansys" version ".exe")))))
-        (if ansys-program
-	(message (concat "ansys-program set to " ansys-program))
-      (message "Couldn't find an executable for ansys-program.")))
+	   (exe ""))
+      (cond
+       ((string= window-system "x")
+	(setq exe
+	      (concat
+	       idir
+	       ;; here follows the ANSYS default directory structure
+	       "/ansys_inc/v" version "/Framework/bin/Linux64/runwb2")))
+       (t
+	(setq exe
+	      (concat
+	       idir
+	       ;; here follow the ANSYS default directory structure
+	       "\\ANSYS Inc\\v" version
+	       "\\Framework\\bin\\Win64\\RunWB2.exe"))))
+      (when (file-executable-p exe)
+	(setq ansys-launcher exe))
+      (if ansys-wb
+	  (message (concat "ansys-wb set to " ansys-launcher))
+	(message "Couldn't find an executable for ansys-wb."))))
 
-  ;; -launcher
-  (when (null ansys-launcher)
+;; 7) -launcher
+  (when (or (null ansys-launcher) force)
     (let* ((version ansys-current-ansys-version)
 	   (update ansys-current-update-version)
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
-	   ;; for my dear company...
-	   (exe (concat "/appl/ansys_inc/"
-			"16.1." update
-			"/v" version
-			"/ansys/bin/launcher" version)))
-      (cond ((file-executable-p exe)
-	     (setq ansys-launcher exe))
-	    ((string= window-system "x")
-	     (setq exe
-		   (concat
-		    idir
-		    ;; here follows the ANSYS default directory structure
-		    "/ansys_inc/v" version "/ansys/bin/launcher" version)))
-	    (t
-	     (setq exe
-		   (concat
-		    idir
-		    ;; here follow the ANSYS default directory structure
-		    "\\ANSYS Inc\\v" version
-		    "\\ansys\\bin\\winx64\\launcher" version ".exe"))))
-	    (when (file-executable-p exe)
-	      (setq ansys-launcher exe)))
-    (if ansys-launcher
-	(message (concat "ansys-launcher set to " ansys-launcher))
-      (message "Couldn't find an executable for ansys-launcher.")))
+	   (exe ""))
+      (cond
+       ((string= window-system "x")
+	(setq exe
+	      (concat
+	       idir
+	       ;; here follows the ANSYS default directory structure
+	       "/ansys_inc/v" version "/ansys/bin/launcher" version)))
+       (t
+	(setq exe
+	      (concat
+	       idir
+	       ;; here follow the ANSYS default directory structure
+	       "\\ANSYS Inc\\v" version
+	       "\\ansys\\bin\\winx64\\launcher" version ".exe"))))
+      (when (file-executable-p exe)
+	(setq ansys-launcher exe))
+      (if ansys-launcher
+	  (message (concat "ansys-launcher set to " ansys-launcher))
+	(message "Couldn't find an executable for ansys-launcher."))))
 
   ;; -dynamic-highlighting-flag: t in its definition
 
-  ;; -help-path
-  (when (null ansys-help-path)
+  ;; 8) -help-path
+  (when (or (null ansys-help-path) force)
     (let ((idir ansys-install-directory)
 	  (version ansys-current-ansys-version)
-	  (path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/"))
-      (cond ((file-readable-p path)
-	     (setq ansys-help-path path))
-	    ((string= window-system "x")
-	     (setq path
-		   (concat idir "/ansys_inc/v" version
-			   "/commonfiles/help/en-us/help/")))
-	    (t
-	     (setq path
-		   (concat idir "\\ANSYS Inc\\v" version
-			   "\\commonfiles\\help\\en-us\\help\\"))))
-      (when (file-readable-p path)
-	(setq ansys-help-path path)
-	(messgage "ansys-help-path = %s" path))))
+	  (path ""))
+      (cond
+       ((string= window-system "x")
+	(setq path
+	      (concat idir "/ansys_inc/v" version
+		      "/commonfiles/help/en-us/help/")))
+       (t
+	(setq path
+	      (concat idir "\\ANSYS Inc\\v" version
+		      "\\commonfiles\\help\\en-us\\help\\"))))
+      (if (file-readable-p path)	;path must be a string, not nil
+	(progn
+	  (setq ansys-help-path path)
+	  (message "Default ansys-help-path = %s" path))
+	(message "Couldn't find default ansys-help-path"))))
 
-  ;; -help-program
-  (when (null ansys-help-program)
+  ;; 9) -help-program
+  (when (or (null ansys-help-program) force)
     (let* ((idir ansys-install-directory)
 	   (version ansys-current-ansys-version)
-	   (exe
-	    (concat "/appl/ansys_inc/16.1."
-		    ansys-current-update-version "/v"
-		    version "/ansys/bin/anshelp" version)))
-      (cond ((file-executable-p exe)
-	     (setq ansys-help-program exe))
-	    ((string= window-system "x")
-	     (setq ansys-help-program
-		   (concat idir "ansys_inc/v" version
-			   "/ansys/bin/anshelp" version)))
-	    (t
-	     (setq ansys-help-program
-		   (concat idir "ANSYS Inc\\v" version
-			   "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))))))
+	   (exe ""))
+      (cond
+       ((string= window-system "x")
+	(setq ansys-help-program
+	      (concat idir "ansys_inc/v" version
+		      "/ansys/bin/anshelp" version)))
+       (t
+	(setq exe
+	      (concat idir "ANSYS Inc\\v" version
+		      "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))))
+      (if (file-executable-p exe)
+	  (progn
+	    (message "ansys-help-program = %s" exe)
+	    (setq ansys-help-program exe))
+	(message "Found no default ansys-help-program"))))
 
-  ;; -lmutil-program
-  (when (null ansys-lmutil-program)
+  ;; 10) -lmutil-program
+  (when (or (null ansys-lmutil-program) force)
     (let ((idir ansys-install-directory)
 	  (version ansys-current-ansys-version)
-	  (exe
-	   (concat "/appl/ansys_inc/16.1." ansys-current-update-version
-		   "/shared_files/licensing/linx64/lmutil")))
-      (cond ((file-executable-p exe)
-	     (setq ansys-lmutil-program exe))
-	    ((string= window-system "x")
-	     (setq exe (concat idir
-			       "ansys_inc/shared_files/licensing/linx64/lmutil"))
-	     (when (file-executable-p exe)
-	       (setq ansys-lmutil-program exe)))
-	    (t
-	     (setq exe (concat idir
-			   "ANSYS Inc\\Shared Files\\Licensing\\winx64\\lmutil.exe"))
-	     (when (file-executable-p exe)
-	       (setq ansys-lmutil-program exe))))))
+	  (exe ""))
+      (cond
+       ((string= window-system "x")
+	(setq exe (concat idir
+			  "ansys_inc/shared_files/licensing/linx64/lmutil")))
+       (t
+	(setq exe (concat idir
+			  "ANSYS Inc\\Shared Files\\Licensing\\winx64\\lmutil.exe"))))
+      (if (file-executable-p exe)
+	  (progn
+	    (setq ansys-lmutil-program exe)
+	    (message "ansys-lmutil-program = %s" exe))
+	(message "Found no default ansys-lmutil-program"))))
 
-
-  ;; -license-file
+  ;; 11) -license-file
   (when (null ansys-license-file)
     (let ((lic (ansys-read-ansyslmd-ini nil))
 	  (lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
@@ -2329,9 +2376,11 @@ return nil."
       ;;  (setq ansys-license-file lic2)
       ;;  (message "Read environment variable MD_LICENSE_FILE")
       ;;  (message "ansys-license-file=%s" lic2))
+      (t
+       (message "Found no default ansys-license-file from environment or ini file"))
       )))
 
-    ;; -ansysli-servers, the Interconnect license server(s)
+    ;; 12) -ansysli-servers, the Interconnect license server(s)
    (when (null ansys-ansysli-servers)
      (let ((lic (ansys-read-ansyslmd-ini t))
 	   (lic1 (getenv "ANSYSLI_SERVERS")))
@@ -2349,14 +2398,10 @@ return nil."
 	       (replace-regexp-in-string "[0-9]*@" "2325@" ansys-license-file))
 	 (message "Assuming the same servers for Interconnect with default port")
 	 (message "ansys-ansysli-servers=%s" ansys-ansysli-servers))
-	    )))
+	(t
+	 (message "Found no default ansys-license-file from environment or ini file")))))
 
   (message "Initialised defcustoms."))  ;; end of init function
-
-(defun ansys-browse-apdl-guide ()
-  "Open the ANSYS APDL guide in a browser."
-  
-  )
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.

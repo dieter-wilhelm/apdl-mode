@@ -152,8 +152,10 @@ ALWIN : A-M-$(VERSION).tar.xz
 
 A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSION).sh makefile
 	mv tools/ansys-mode/README tools/
+	mv tools/ansys-mode/Conti.el tools/
 	rm -fr tools/ansys-mode/*
-	mv tools/README tools/ansys-mode/README
+	mv tools/README tools/ansys-mode/
+	mv tools/Conti.el tools/ansys-mode/
 	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
 	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
 	@echo "syncing.."
@@ -166,7 +168,8 @@ A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSI
 tools/bin/A-M-$(VERSION).sh : makefile
 	@echo "#!/bin/sh " > $@
 	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
-	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/A-M.el \$$*" >> $@
+	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/A-M.el \
+	-l /appl/tools/ansys-mode/Conti.el \$$*" >> $@
 	chmod +x $@
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)

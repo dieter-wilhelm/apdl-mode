@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-17>
+#+DATE: Time-stamp: <2015-07-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,6 +17,7 @@
 #+STARTUP: showall
 * 16.1.2:
 ** Bugs
+   - checking of -current-ansys-version and -install-directory!
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
@@ -25,26 +26,26 @@
      last line without \n
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
+   - Documentation of installation and configuration!
+   - list of new functions in -bug-report
+   - -wb function
 ** Wish-list
-   - Changing license type for -display-license-status with C-u
-   - Wikipedia entry APDL
-   - splash screen?
+   - Changing license type on the fly (with C-u) for -display-license-status
    - tool tip help-echo properties for keywords!
    - saving option for -license-file, -lmutil, -program, ...
    - Check for valid license types for the solver
    - start WB
+   - add bbdb files to emacs packages
    - license and template status line always in the first visible line
      of buffer (in-place-annotations?)
-   - -license-status interactive, specifying a temporal license type,
-     optional filters for output?
-   - Documentation of installation and configuration!
+   - splash screen?
+   - -license-status optional filters for output
    - C-c C-c checking blocks
    - MinGWin: FindWindow +  ActivateWin + SendKeys?
-   - include ../ansys/apdl?
-   - ../apdl/start161.ans
-   - make version numbers string into integers
+   - include ../ansys/apdl macros?
+   - ../apdl/start161.ans valuable?
    - add screw thread capability to WB translation
-   - switch off advising of M-w
+   - switch off advising of M-w, yeah
    - color scheme of *msg command is only readable on terminals
    - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP
@@ -52,7 +53,6 @@
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
-   - add bbdb files to emacs packages
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???
    - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account

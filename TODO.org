@@ -18,6 +18,7 @@
 * 16.1.2:
 ** Bugs
    - checking of -current-ansys-version and -install-directory!
+   - Documentation of installation and configuration!
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
@@ -26,15 +27,14 @@
      last line without \n
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - Documentation of installation and configuration!
    - list of new functions in -bug-report
-   - -wb function
+   - -wb function?
 ** Wish-list
+   - ANSYS installation on Debian 8
    - Changing license type on the fly (with C-u) for -display-license-status
    - tool tip help-echo properties for keywords!
    - saving option for -license-file, -lmutil, -program, ...
    - Check for valid license types for the solver
-   - start WB
    - add bbdb files to emacs packages
    - license and template status line always in the first visible line
      of buffer (in-place-annotations?)

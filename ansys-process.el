@@ -191,6 +191,11 @@ licenses. 2 is the ANSYS default."
   :type 'boolean)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- variables ---
+(defvar ansys-current-ansys-version-history '("160" "150" "145")
+  "History list for the minibuffer input of
+  `ansys-current-ansys-version'.")
+
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1149,46 +1154,54 @@ by colons `:' on Linux, semi-colons `;' on Windows , for example
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
-(defvar ansys-current-ansys-version-history '("160" "150" "145")
-  "History list for the minibuffer input of
-  `ansys-current-ansys-version'.")
-
 (defun ansys-current-ansys-version ()
-"Specify the used or required ANSYS version.
+  "Specify the required (and installed) ANSYS version.
 For example \"150\" instead of \"161\", which is the current
 default."
-(interactive)
-(let ((acav ansys-current-ansys-version))
-  (setq
-   ansys-current-ansys-version
-   (read-string
-    (concat "Specify the required ANSYS version [" acav "]:")
-    acav
-    'ansys-current-ansys-version-history
-    acav))
-;  (if (file-readable (concat )) FIXME
-  (message "Set current ANSYS version to %s." ansys-current-ansys-version)
-  (ansys-initialise-defcustoms t)))
+  (interactive)
+  (let* ((dir ansys-install-directory)
+	 (acav ansys-current-ansys-version)
+	 path
+	 (version
+	  (read-string
+	   (concat "Specify the required ANSYS version [" acav "]:")
+	   acav
+	   'ansys-current-ansys-version-history)))
+    (cond
+     ((ansys-is-unix-system-p)
+      (setq path (concat dir "/ansys_inc/v" version)))
+     (t
+      (setq path (concat dir "\\ANSYS Inc\\v" version))))
+    (if (file-readable-p path)
+	(progn
+	  (setq ansys-current-ansys-version version)
+	  (message "Set current ANSYS version to %s." version)
+	  (ansys-initialise-defcustoms t))
+      (error "ANSYS V%s not present: %s not readable" version path))))
 
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.
 This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
   (interactive)
-  (let ((dir))
-    (setq dir ansys-install-directory)
-    (setq dir
+  (let* ((idir ansys-install-directory)
+	 path
+	 (ndir
 	  (read-directory-name
 	   (concat "Specify the ANSYS installation directory ["
-		   ansys-install-directory "]:")
-	   nil nil ansys-install-directory))
-    (if (file-readable-p dir)
+		   idir "]:")
+	   nil nil idir)))
+    (cond ((ansys-is-unix-system-p)
+	   (setq path (concat ndir "ansys_inc")))
+	  (t
+	   (setq path (concat ndir "ANSYS Inc"))))
+    (if (file-readable-p path)
 	(progn
-	  (setq ansys-install-directory dir)
+	  (setq ansys-install-directory ndir)
 	  (message
 	   (concat
-	    "Set ansys-install-directory to \"" dir "\".")))
-      (error "Directory not readable"))
-    (ansys-initialise-defcustoms t)))
+	    "Set ansys-install-directory to \"" ndir "\".")))
+      (error "ANSYS directory %s not readable" path))
+    (ansys-initialise-defcustoms 'force)))
 
 (defun ansys-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.

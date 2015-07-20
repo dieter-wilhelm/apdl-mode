@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-16>
+#+DATE: Time-stamp: <2015-07-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -468,27 +468,26 @@ But the solver/interpreter is checking this server as well!?
 
 #+END_SRC
 
-** Extending Emacs load path
+* Extending Emacs load path and initialisation
 
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                                ;; The End
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+#+BEGIN_SRC emacs-lisp :tangle yes
 
   ;; adding the directory of this (loaded) file to the load-path
-  (message (concat "loading A-M.el from " (file-name-directory load-file-name)))
   (add-to-list 'load-path (file-name-directory load-file-name))
+  (setq ansys-mode-install-directory
+          (directory-name (file-name-directory load-file-name)))
+  (message "Installation directory of ANSYS-Mode is " ansys-mode-install-directory)
   (load "ansys-mode")
   (message "Initialising defcustoms.")
   (ansys-initialise-defcustoms)
   (message "ANSYS-Mode enabled.")
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                ;; The End
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-  (message "ANSYS-Mode enabled.")
-
-#+END_SRC
 -----
 # LOCAL variables:
 # word-wrap: t

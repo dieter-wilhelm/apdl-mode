@@ -1,4 +1,4 @@
-#+rDATE: Time-stamp: <2015-07-14>
+#+rDATE: Time-stamp: <2015-07-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -124,20 +124,23 @@ left and Emacs in ANSYS-Mode on the right hand side.
   comments, navigating number blocks, searching and creating *DO-,
   *IF-, *DOWHILE-, *CREATE-blocks, etc.
 
-- Warning of deprecated element types with a different highlighting of
-  element names in current and deprecated technology.
+- Syntax highlighting in various decoration levels for ANSYS keywords,
+  elements, strings, comments, ...  And also the highligting of user
+  defined variables!.
 
-- Syntax highlighting in various decoration levels (complete ANSYS
-  keywords, undocumented commands, deprecated elements, ...)  and
-  optionally also user defined variables (experimental feature).
+- This highlighting is more than just a colourisation.  It warns of
+  some syntax and structural mistakes. For example: Warning of
+  deprecated element types with a different highlighting for element
+  types in the current state of the art and in deprecated technology
+  and a wrong usage of the (deprecated comment sign `*').
 
-- Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
+- Summary for *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
   (2) these `user variables' are dynamically highlighted as well.
-  With a running ANSYS interpreter process (GNU-Linux only) it is also
-  possible with a keyboard shortcut to query the current status of
-  variables near the cursor.
+  With a running ANSYS solver/interpreter process (GNU-Linux only) it
+  is also possible with a keyboard shortcut to query the current value
+  or status of variables near the cursor.
 
 - Preview and/or insertion of extensible APDL code templates.  For
   example the function template shows *all* available ANSYS
@@ -147,7 +150,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
   i. e. they are asking for or completing user input.
 
 - Alignment (beautification) of whole paragraphs or marked sections
-  with variable definitions.
+  for APDL variable definitions.
 
 - Narrowing, i. e. hiding, of uninteresting content. This is done by
   default for number blocks (nblock, eblocks and cmblocks) in
@@ -160,10 +163,14 @@ left and Emacs in ANSYS-Mode on the right hand side.
   analogue to the WorkBench tree view.
 
 - Auto-insertion (optionally) of a header and outline code for every
-  new APDL file.
+  APDL file creation.
 
 - Convenient comment handling, commenting out whole paragraphs or
   control blocks and rapidly removing all comments.
+
+- Enclosing of marked regions with ANSYS string and substitution
+  delimeters `'' and `%' respectively (C-c ' and C-c %).  This works
+  for `"', `(' when inserting just the very same characters.
 
 - Auto-indentation of looping blocks and conditional control blocks
   together with closing of open blocks with auto-insertion of the
@@ -171,15 +178,17 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 - ANSYS-Mode defines abbreviations for APDL templates or other code
   constructs i. e. with writing a character after a special key (here:
-  `) triggers an expansion of complete code sequences.
+  `) triggers an expansion of complete code sequences.  You can write
+  your own abbreviations or extend the existing.
 
 - You are able to use all Emacs' facilities, like the built-in
-  calculator, file manager, image viewer and many others.  ANSYS-Mode
-  changes some Emacs default behaviour to alleviate the transition
-  from other editors and user interface standards.
+  calculator, file manager, image & document viewer and many others.
+  ANSYS-Mode changes some Emacs default behaviour to alleviate the
+  transition from other editors and user interface standards.
 
 * Requirements and installation
   Please have a look in the [[file:INSTALLATION.org][INSTALLATION]] file.
+
 * Usage
 
   Please read the introductory tutorial first.
@@ -202,24 +211,24 @@ left and Emacs in ANSYS-Mode on the right hand side.
   Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 * Acknowledgements
 
-Tim Read and Geoff Foster for their ansys-mod.el from 1997 which
-triggered the idea in 2006 to start ANSYS-Mode as a GNU public license
-(GPL) implementation with an extended feature set.
+  Tim Read and Geoff Foster for their ansys-mod.el from 1997 which
+  triggered the idea in 2006 to start ANSYS-Mode as a GNU public license
+  (GPL) implementation with an extended feature set.
 
-Further acknowledgements (in mainly reverse chronological order):
+  Further acknowledgements (in mainly reverse chronological order):
 
-- Mehmet Akgul
-- Nish Joseph
-- Alwin Perras
-- Mathias Dahl, for hide-region.el (and yupeng for some additions)
-- Thien-Thi Nguyen
-- Michael Kidner
-- Ilya Gurin
-- Alex Schroeder
-- Holger Sparr
-- Eli Zaretzki
-- Markus Triska
-- [[http://stallman.org][RMS]] (Richard Stallman) for GNU-Emacs
+  - Mehmet Akgul
+  - Nish Joseph
+  - Alwin Perras
+  - Mathias Dahl, for hide-region.el (and yupeng for some additions)
+  - Thien-Thi Nguyen
+  - Michael Kidner
+  - Ilya Gurin
+  - Alex Schroeder
+  - Holger Sparr
+  - Eli Zaretzki
+  - Markus Triska
+  - [[http://stallman.org][RMS]] (Richard Stallman) for GNU-Emacs
 
 * Further Resources
 ** ANSYS-Mode

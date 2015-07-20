@@ -203,7 +203,6 @@ like in the variable `ansys-program'."
   :type 'string
   :group 'ANSYS)
 
-
 (defcustom ansys-current-update-version ansys-update_version_
   "String of the used ANSYS update version. ANSYS calls their bug
   fixed/patched releases \"updates\"."
@@ -340,8 +339,12 @@ A hook is a variable which holds a collection of functions."
 ;; (put 'my-align-rules-list 'risky-local-variable t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; --- variables ---
+;;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defvar ansys-mode-install-directory nil ;FIXME: redundant
+  "This is the directory path where ANSYS-Mode has been installed.")
+
 (defvar ansys-overlay-str ""
   "variable to store previous overlay string.")
 
@@ -902,7 +905,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Close Logical Block" ansys-close-block
 	 :help "Close an open control block with the corresponding end command"]
 	["Insert Parentheses" insert-parentheses
-	 :help "Insert a pair of parentheses"]
+	 :help "Insert a pair of parentheses enclosing marked region. M-x insert-parentheses"];FIXME redundant, necessary for Emacs-23.1
 	["Preview Macro Template" ansys-display-skeleton
 	 :help "Preview an APDL code template in another window"]
 	["Align region or paragraph" ansys-align
@@ -921,11 +924,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 		    "Change the ANSYS Installation Directory"
 		  "Set the ANSYS Installation Directory!")
 	 :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
-	["Open APDL help in Browser" ansys-browse-ansys-help
-	 :help "Open the original ANSYS help to a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
+	["Browse APDL command help" ansys-browse-ansys-help
+	 :help "Open the original ANSYS documentation for a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
 	 :active (file-readable-p ansys-help-path)]
-	["Start ANSYS help system" ansys-start-ansys-help
-	 :help "Start the original ANSYS help system. M-x ansys-start-ansys-help"
+	["Browse ANSYS APDL Guide" ansys-browse-apdl-guide
+	 :help "Read the original ANSYS APDL Guide in a browser."
+	 :active (file-readable-p ansys-help-path)]
+	["Start ANSYS Help Viewer" ansys-start-ansys-help
+	 :help "Start the ANSYS Help Viewer executable. M-x ansys-start-ansys-help"
 	 :active (file-executable-p ansys-help-program)]
 	"-"
 	(list "Insert Template"
@@ -1057,19 +1063,23 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	       :help "Show a temporary ruler above the current line"]
 	      )
 	"-"
-	["Outline Minor Mode"         outline-minor-mode :style toggle :selected t :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
-	["Show Paren Mode" show-paren-mode :style toggle :selected show-paren-mode
-	:help "Show Paren Mode highlights matching parenthesis"]
-	["Delete Selection Mode" delete-selection-mode :style toggle :selected nil
-	:help "Delete Selection Mode replaces the selection with typed text"]
+	(list "Minor Modes"
+	      ["Outline Minor Mode" outline-minor-mode
+	       :style toggle :selected t
+	       :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
+	      ["Show Paren Mode" show-paren-mode :style toggle :selected show-paren-mode
+	       :help "Show Paren Mode highlights matching parenthesis"]
+	      ["Delete Selection Mode" delete-selection-mode :style toggle :selected nil
+	       :help "Delete Selection Mode replaces the selection with typed text"]
+	)
 	"-"
-	["ANSYS-Mode Online Documentation" ansys-mode-version
+	["ANSYS-Mode Online Documentation" ansys-mode-browse-online
 	 :help "Display the online ANSYS-Mode Documentation in a browser."]
 	["Help on ANSYS-Mode" describe-mode
 	 :help "Open an Emacs window describing ANSYS-Mode's usage"]
 	["Customise ANSYS-Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
-	["ANSYS Mode Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
+	["Submit Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
 	["Reload ANSYS-Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew from files and restarting ansys-mode"]
 	"-"
 	["Exit ANSYS-Mode" ansys-toggle-mode :help "Switch to the previous major mode of the file" :label (concat "Exit ANSYS-Mode Version: " ansys-version_ "."ansys-mode_version)])
@@ -1330,7 +1340,13 @@ The cursor is either in a code comment or comment line."
     (or (nth 3 pps) (nth 4 pps))))
 
 ;; ======================================================================
-;; --- functions ---
+;; --- interactive functions ---
+
+(defun ansys-mode-browse-online ()
+  "Browse the ANSYS-Mode online documentations."
+  (interactive)
+  (let ((path ansys-help-path)))
+  )
 
 (defun ansys-align (p-min p-max)
   "Align current paragraph or selection of ANSYS variable definitions.
@@ -2116,14 +2132,15 @@ improvements you have the following options:
 (defun ansys-read-ansyslmd-ini (type)
   "Read the ANSYS license server configuration file for license TYPE.
 If TYPE is nil return the license servers, if non-nil the
-ansysli_servers."
+ansysli_servers.  When there are no license servers readable,
+return nil."
   (let* ((idir ansys-install-directory)
 	 ini
 	 servers
 	 ansysli)
     (if (ansys-is-unix-system-p)
-	(setq ini (concat idir "ansys_inc/shared_files/licensing/ansyslmd.ini"))
-      (setq ini (concat idir "ANSYS Inc\\Shared Files\\Licensing\\ansyslmd.ini")))
+	(setq ini (concat idir "/ansys_inc/shared_files/licensing/ansyslmd.ini"))
+      (setq ini (concat idir "\\ANSYS Inc\\Shared Files\\Licensing\\ansyslmd.ini")))
     (if (file-readable-p ini)
 	(with-temp-buffer
 	  (insert-file-contents ini)
@@ -2133,7 +2150,8 @@ ansysli_servers."
 	  (search-forward-regexp ".*" nil t)
 	  (match-string-no-properties 0)) ;TODO: there's no check
 					  ;against empty ini!
-      (message (concat "File "ini" not readable")))))
+      (message (concat "File "ini" not readable"))
+      nil)))
 
 (defun ansys-initialise-defcustoms ()
   "Initialise the customisation variables."
@@ -2151,17 +2169,21 @@ ansysli_servers."
 		      (file-name-directory root)))
 		  nil)))
       (cond (dir
-	     (setq ansys-install-directory (file-name-directory dir)))
+	     (if (not (file-readable-p dir))
+		 (message "Directory in AWP_ROOT not readable")
+	       (message "Set ansys-install-directory from Read AWP_ROOT")
+	       (message "ansys-install-directory = %s" dir)))
 	    ((string= window-system "x")
-	     ;; "/" is the ANSYS default installation directory on GNU-Linux
-	     (setq dir "/")
-	     (when (file-readable-p (concat dir "ansys_inc/v" version))
-	       (setq ansys-install-directory dir)))
+	     (when (file-readable-p (concat "/ansys_inc/v" version))
+	       ;; "/" is the ANSYS default installation directory on GNU-Linux
+	       (setq dir "/")))
 	    (t
+	     (when (file-readable-p (concat "C:\\Program Files\\ANSYS Inc\\v" version)))
 	     ;; ANSYS default is "C:\\Program Files\\" on Windows
-	     (setq dir "C:\\Program Files\\")
-	     (when (file-readable-p (concat dir "ANSYS INC\\v" version))
-	       (setq ansys-install-directory dir))))))
+	     (setq dir "C:\\Program Files\\")))
+      (if dir
+	  (setq ansys-install-directory dir)
+	(message "No ANSYS installation directory found"))))
 
   ;; -dynamic-highlighting-flag: In its definition
   ;; -job: in its definition
@@ -2170,7 +2192,8 @@ ansysli_servers."
   (when (null ansys-program)
     (let* ((version ansys-current-ansys-version)
 	   (update ansys-current-update-version)
-	   (idir (file-name-directory ansys-install-directory))
+	   (idir (unless (null ansys-install-directory)
+		   (file-name-directory ansys-install-directory)))
 	   ;; for my dear company...
 	   (exe (concat "/appl/ansys_inc/"
 			"16.1." update
@@ -2198,7 +2221,8 @@ ansysli_servers."
   (when (null ansys-launcher)
     (let* ((version ansys-current-ansys-version)
 	   (update ansys-current-update-version)
-	   (idir (file-name-directory ansys-install-directory))
+	   (idir (unless (null ansys-install-directory)
+		   (file-name-directory ansys-install-directory)))
 	   ;; for my dear company...
 	   (exe (concat "/appl/ansys_inc/"
 			"16.1." update
@@ -2211,13 +2235,13 @@ ansysli_servers."
 		   (concat
 		    idir
 		    ;; here follows the ANSYS default directory structure
-		    "ansys_inc/v" version "/ansys/bin/launcher" version)))
+		    "/ansys_inc/v" version "/ansys/bin/launcher" version)))
 	    (t
 	     (setq exe
 		   (concat
 		    idir
 		    ;; here follow the ANSYS default directory structure
-		    "ANSYS Inc\\v" version
+		    "\\ANSYS Inc\\v" version
 		    "\\ansys\\bin\\winx64\\launcher" version ".exe"))))
 	    (when (file-executable-p exe)
 	      (setq ansys-launcher exe)))
@@ -2225,7 +2249,7 @@ ansysli_servers."
 	(message (concat "ansys-launcher set to " ansys-launcher))
       (message "Couldn't find an executable for ansys-launcher.")))
 
-  ;; -dynamic-highlighting-flag
+  ;; -dynamic-highlighting-flag: t in its definition
 
   ;; -help-path
   (when (null ansys-help-path)
@@ -2235,13 +2259,16 @@ ansysli_servers."
       (cond ((file-readable-p path)
 	     (setq ansys-help-path path))
 	    ((string= window-system "x")
-	     (setq ansys-help-path
+	     (setq path
 		   (concat idir "/ansys_inc/v" version
 			   "/commonfiles/help/en-us/help/")))
 	    (t
-	     (setq ansys-help-path
+	     (setq path
 		   (concat idir "\\ANSYS Inc\\v" version
-			   "\\commonfiles\\help\\en-us\\help\\"))))))
+			   "\\commonfiles\\help\\en-us\\help\\"))))
+      (when (file-readable-p path)
+	(setq ansys-help-path path)
+	(messgage "ansys-help-path = %s" path))))
 
   ;; -help-program
   (when (null ansys-help-program)
@@ -2325,6 +2352,11 @@ ansysli_servers."
 	    )))
 
   (message "Initialised defcustoms."))  ;; end of init function
+
+(defun ansys-browse-apdl-guide ()
+  "Open the ANSYS APDL guide in a browser."
+  
+  )
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-17>
+#+DATE: Time-stamp: <2015-07-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,22 +17,23 @@
 #+title: News and History of ANSYS-Mode
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
-** Version 16.1.2, not yet released, targeted for August 2015
-   - Realised sending code to the ANYSClassics GUI as well currently
-     only for GNU-Linux/Unix.
+** Version 16.1.2, not yet released, targeted for August Realised
+   - 2015 sending code to the ANYSClassics GUI as well (currently
+     only on GNU-Linux/Unix).
 
-   - Checking available licenses fast and simple (with "C-c C-l") is
+   - Checking available licenses - fast and simple with "C-c C-l" - is
      now also available on Windows platforms.
 
    - Reorganised and simplified the installation and configuration.
-     Made the initialisation more intelligent.
+     Made the initialisation more automatic.
 
    - Reorganised and improved the menu items, separated general ANSYS
      tasks from APDL coding with two main menu Entries: A-Mode and
      ANSYS.
 
-   - New functions: Reading the ANSYS-Mode documentation in a Browser,
-     ansys-start-launcher, ansys-start-classics, ...
+   - New functions: Reading the original APDL guide and ANSYS-Mode's
+     documentation in a Browser, ansys-start-launcher,
+     ansys-start-classics, ...
 
    - The command `C-c C-j' does now recognise blocks (APDL loops and
      control structures), which is to say it copies or sends complete

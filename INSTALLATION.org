@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-14>
+#+DATE: Time-stamp: <2015-07-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -322,35 +322,35 @@ your system.
      [[https://www.debian.org/vote/2006/vote_001]]hi
 
 ** Files
+  *Sources*:
+  - ansys-mode.el: Main file
+  - A-M.el: The configuration file
+  - ansys-keyword.el: Highlighting variables (built from
+    helper/fontification.el)
+  - ansys-template.el: Template definitions
+  - ansys-process.el: Variables and functions related to solver processes
 
-Sources:
-- ansys-mode.el: Main file
-- A-M.el: The configuration file
-- ansys-keyword.el: Highlighting variables (built from
-  helper/fontification.el)
-- ansys-template.el: Template definitions
-- ansys-process.el: Variables and functions related to solver processes
+  (and possibly their compiled versions with the suffix '.elc'.  In case
+  you are using the mode with an older version of Emacs than 24.5 please
+  remove the compiled .elc files, if any.)
 
-(and possibly their compiled versions with the suffix '.elc'.  In case
-you are using the mode with an older version of Emacs than 24.5 please
-remove the compiled .elc files, if any.)
+  *Auxiliaries and Documentation*:
+  - README.org -- This file
+  - NEWS.org -- News and history
+  - TODO.org -- Todos and deficiencies
+  - LICENSE.org -- The GPL (Gnu Public License) Version 3
+  - doc/example.dat -- WorkBench example APDL solver input file
+  - doc/example.anf -- ANSYS geometry neutral file example
+  - doc/example.mac -- APDL user macro and highlighting example
+  - doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
+  - doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
+  - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
+  - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+  - doc/ANSYS.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
+  - matlib/ -- a directory with examples of APDL material definitions
+  # - helper/tools/bin/ansys-mode-16.1.2.sh -- A wrapper for calling Emacs
 
-*Auxiliaries*:
-- README.org -- This file
-- NEWS.org -- News and history
-- TODO.org -- Todos and deficiencies
-- LICENSE.org -- The GPL (Gnu Public License) Version 3
-- doc/example.dat -- WorkBench example APDL solver input file
-- doc/example.anf -- ANSYS geometry neutral file example
-- doc/example.mac -- APDL user macro and highlighting example
-- doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
-- doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
-- doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
-- doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
-- matlib/ -- a directory with examples of APDL material definitions
-# - helper/tools/bin/ansys-mode-16.1.2.sh -- A wrapper for calling Emacs
-
-You can actually read the PDFs in Emacs as well!
+  You can actually read the PDFs in Emacs as well!
 
 * Changes in the Emacs behaviour
 Only for experienced Emacs users: ANSYS-Mode changes the default

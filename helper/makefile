@@ -87,7 +87,8 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
-HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
+HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
+
 
 #	 ../doc/APDL_tutorial.ans
 

@@ -899,7 +899,7 @@ server summary rows."
 ;    (ansys-ansysli-servers-check)
 
     ;; lmutil calls with many license server specified takes loooooonnnnggg
-    (message "Retrieving license status, this may take some time...")
+    (message "Retrieving license (%s) status, this may take some time..." ansys-license)
     (with-current-buffer (get-buffer-create "*ANSYS-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
@@ -953,7 +953,9 @@ server summary rows."
 	(forward-line -1)
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
-	;; (set-window-point (get-buffer-window "*ANSYS-licenses*") (point))
+	;;  we need this for windows
+	(when (not ansys-is-unix-system-p)
+	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))
 	))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))

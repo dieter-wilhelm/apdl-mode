@@ -1438,7 +1438,9 @@ below the status line, into the minibuffer, there type
 \"ansys-start-ansys-help\", then terminate it with the <RET> key.
 The 'auto-completion' feature of the minibuffer might save you
 some typing: Just enter the first characters and then press the
-<TAB> key.
+<TAB> key.  Another way of saving keystroke is to use the fuzzy
+logic of Emacs' completions.  Instead of typing
+\"ansys-start-ansys-help\" it is sufficient to type \"a-s-a-h\".
 
 You can always cancel minibuffer commands by typing
 \"C-g\" (`keyboard-quit'), i. e. pressing the <CTRL> key and then

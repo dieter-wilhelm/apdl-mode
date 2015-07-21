@@ -537,10 +537,10 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-f" 'ansys-fit)
     (define-key map "\C-c\C-g" 'ansys-start-graphics)
     (define-key map "\C-c\C-h" 'ansys-start-ansys-help)
-;    (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-i" 'ansys-iso-view)
+;    (define-key map "\C-c\C-i" 'ansys-if)
     (define-key map "\C-c\C-j" 'ansys-send-to-ansys-and-proceed) ;same as ESS
-;    (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
+;; was:   (define-key map "\C-c\C-j" (if (boundp 'ansys-job) 'ansys-job))
     (define-key map "\C-c\C-k" 'ansys-kill-ansys)
     (define-key map "\C-c\C-l" 'ansys-license-status)
     (define-key map "\C-c\C-m" 'ansys-start-ansys) ;interactively this is also C-c RET
@@ -552,7 +552,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (define-key map "\C-c\C-t" 'ansys-license)
     (define-key map "\C-c\C-u" 'ansys-copy-or-send-above)
     (define-key map "\C-c\C-v" 'ansys-display-variables)
-;    (define-key map "\C-c\C-w" 'ansys-start-wb) ; or aim?
+    (define-key map "\C-c\C-w" 'ansys-start-wb) ; or aim?
     (define-key map "\C-c\C-x" 'ansys-start-classics) ;classiX ;-)
     (define-key map "\C-c\C-y" 'ansys-start-launcher)
 ;    (define-key map "\C-c\C-z" 'ansys-start-aim)
@@ -1106,6 +1106,15 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	       "Change the ANSYS Installation Directory"
 	     "Set the ANSYS Installation Directory!")
     :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
+   ["Change ANSYS License Type" ansys-license
+    :label (concat "Change License Type [" ansys-license "]")
+    :help "Specify the license type for an solver/interpreter run. M-x ansys-license"]
+   ["Change Job Name of Run" ansys-job
+    :label (concat "Change Job Name [" ansys-job "]")
+    :help "Specify the job name for an solver/interpreter run. M-x ansys-job"]
+   ["Change the Number of Processors" ansys-no-of-processors
+    :label (format "Change the Number of Processors [%d]" ansys-no-of-processors )
+    :help "Specify the number of processors to use for the ANSYS run definition. M-x ansys-no-of-processors"]
    ;; ["Specify ANSYS Executable or launcher" ansys-program
    ;;  :label (if (file-executable-p ansys-program) "Change ANSYS Executable"
    ;; 	     "Specify ANSYS Executable")
@@ -1118,23 +1127,18 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    ["License Server Status" ansys-license-status
     :help "Show a license manager status (number of licenses available and used)"
     :active (file-executable-p ansys-lmutil-program)]
-   ["Start the ANSYS Launcher" ansys-start-launcher
+   ["ANSYS MAPDL Product Launcher" ansys-start-launcher
     :active (file-executable-p ansys-launcher)
     :help "Start the ANSYS Mechanical Launcher. M-x ansys-start-launcher"]
-   ["Start the ANSYS WorkBench" ansys-start-wb
+   ["Start ANSYS WorkBench" ansys-start-wb
     :active (file-executable-p ansys-wb)
     :help "Start ANSYS WorkBench. M-x ansys-start-wb"]
+   ["Start ANSYSClassics GUI" ansys-start-classics :active (file-executable-p ansys-program)]
    ["Start Interactive Solver/Interpreter" ansys-start-ansys
     :help "Start an interactive APDL solver/interpreter run. M-x ansys-start-ansys"
     :active (and (ansys-is-unix-system-p)
 		 (file-executable-p ansys-program)
 		 (not (ansys-process-running-p)))]
-   ["Start ANSYSClassics GUI" ansys-start-classics :active (file-executable-p ansys-program)]
-   ["Display ANSYS Run Status" ansys-process-status
-    :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
-   ["Exit ANSYS Run" ansys-exit-ansys
-    :help "Exit the active solver/interpreter run"
-    :visible (ansys-process-running-p)]
    "-"
    ["Send ANSYS Command Interactively"ansys-query-ansys-command
     :help "Send interactively an APDL command to a running solver/interpreter process"
@@ -1168,16 +1172,11 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    ["Move Left" ansys-move-left
     :help "Move graphics objects to the left" :active (ansys-process-running-p)]
    "-"
-   ["Change ANSYS License Type" ansys-license
-    :label (concat "Change License Type [" ansys-license "]")
-    :help "Specify the license type for an solver/interpreter run. M-x ansys-license"]
-   ["Change Job Name of Run" ansys-job
-    :label (concat "Change Job Name [" ansys-job "]")
-    :help "Specify the job name for an solver/interpreter run. M-x ansys-job"]
-   ["Change the Number of Processors" ansys-no-of-processors
-    :label (format "Change the Number of Processors [%d]" ansys-no-of-processors )
-    :help "Specify the number of processors to use for the ANSYS run definition. M-x ansys-no-of-processors"]
-   "-"
+   ["Display ANSYS Run Status" ansys-process-status
+    :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
+   ["Exit ANSYS Run" ansys-exit-ansys
+    :help "Exit the active solver/interpreter run"
+    :visible (ansys-process-running-p)]
    ["Display ANSYS Error File" ansys-display-error-file
     :help "Display in another window in auto-revert-tail-mode the ANSYS error file (job.err) in the current working directory. M-x ansys-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
    ["Write ANSYS Stop File" ansys-abort-file
@@ -2269,9 +2268,9 @@ customisation variables"
 	       "\\ANSYS Inc\\v" version
 	       "\\Framework\\bin\\Win64\\RunWB2.exe"))))
       (when (file-executable-p exe)
-	(setq ansys-launcher exe))
+	(setq ansys-wb exe))
       (if ansys-wb
-	  (message (concat "ansys-wb set to " ansys-launcher))
+	  (message (concat "ansys-wb set to " ansys-wb))
 	(message "Couldn't find an executable for ansys-wb."))))
 
 ;; 7) -launcher

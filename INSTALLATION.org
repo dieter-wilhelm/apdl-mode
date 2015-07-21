@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-19>
+#+DATE: Time-stamp: <2015-07-21>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -49,21 +49,20 @@ of Emacs, I recommend the directory ~site-lisp/~ in the Emacs file
 tree.  Then ANSYS-Mode's definitions are available by every start of
 Emacs.
 
-Or unpack
-it anywhere on your system and make ANSYS-Mode known to Emacs by
-loading its configuration file ~A-M.el~ manually:
+Or unpack it anywhere on your system and make ANSYS-Mode known to
+Emacs by loading its configuration file ~A-M.el~ manually:
 
 ~M-x load-file  YOUR_INSTALLATION_DIRECTORY/A-M.el~
 
-Start your Emacs, then type the <Alt> key and simultaneously the <x>
-key - then you'll end up in the so called minibuffer prompt, now type
-"load-file" (you might apply the <TAB> key for the Emacs
+Please start your Emacs, then type the <Alt> key and simultaneously
+the <x> key - then you'll end up in the so called minibuffer prompt,
+now type "load-file" (you might apply the <TAB> key for the Emacs
 auto-completion feature at any stage) and conclude this input with the
 <RET> key.  Emacs will then prompt you for a file name, type in the
 directory where you have extracted the code and "A-M.el" and press RET
 to load ANSYS-Mode's definitions in Emacs' memory.
 
-**** More general way; file configuration necessary
+**** More permanent way; file configuration necessary
 
 Extract the archive files anywhere and put the following paragraph
 into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el')
@@ -79,6 +78,7 @@ be automatically applied for all files with suffixes `.mac', `.ans',
   ;; "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode-16.1.2"
   ;; Linux directory example:
   ;; "/usr/local/src/emacs/emacs-24.5/site-lisp/ansys-mode-16.1.2"
+
   (load-file "A-M.el")
 #+END_SRC
 
@@ -309,6 +309,43 @@ your system.
      Graphics support
      - libgif-dev
      - libmagickwand-dev (for imagemagick support)
+
+
+** Installing ANSYS (15.0.7) on Debian 8 Jessie, Ubuntu
+   Only the mechanical stuff needs already 20 Gig installation space!
+   There is a lot of WorkBench stuff aisol/, Framework/, etc.
+
+   There are two libraries missing: Motif and a printing extension.
+*** libmotif-dev libaries necessary
+   /usr/ansys_inc/v150/ansys/bin/linx64/ansys.e150: error while
+   loading shared libraries: libXm.so.4: cannot open shared object
+   file: No such file or directory
+
+    #+BEGIN_SRC sh :dir /sudo::
+    aptitude install libmotif-dev
+    #+END_SRC
+
+    then go to the directory /usr/lib/x86_64-linux-gnu/ and
+    #+BEGIN_SRC sh :dir /sudo::/usr/lib/x86_64-linux-gnu/
+    ln -s libXm.so ../libXm.so.4
+    #+END_SRC
+
+    #+RESULTS:
+
+*** X Printing Extension (Xprint) client library
+    /usr/ansys_inc/v150/ansys/bin/linx64/ansys.e150: error while
+    loading shared libraries: libXp.so.6: cannot open shared object
+    file: No such file or directory
+
+    #+BEGIN_SRC sh :dir /sudo::
+     aptitude install libxp6
+    #+END_SRC
+
+    then go to the directory /usr/lib/x86_64-linux-gnu/ and
+    #+BEGIN_SRC sh :dir /sudo::/usr/lib/x86_64-linux-gnu/
+    ln -s libXp.so.6 ../libXp.so.6
+    #+END_SRC
+
 ***** gnutls
       for smtp authentication  ~/.authinfo.gpg (info:auth)
      #+BEGIN_SRC sh :dir /sudo:: :results raw

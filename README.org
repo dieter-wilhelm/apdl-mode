@@ -237,19 +237,21 @@ left and Emacs in ANSYS-Mode on the right hand side.
    - The [[http://www.emacswiki.org/emacs/AnsysMode][Wiki page of ANSYS-Mode]]
    - The [[https://github.com/dieter-wilhelm/ansys-mode][GitHub page of ANSYS-Mode]]
 ** Editor Resources
-  - The [[http://www.emacswiki.org][EmacsWiki]]
-  - A competitor of ANSYS-Mode: The commercial [[http://www.padtinc.com/pedal][Pedal]] script editor
-  - Another free [[http://apdl.de][APDL editor]], unfortunately this site seems to be
-    abandoned since 2010
-  - Simple APDL syntax highlighting is available for various editors,
-    gvim, nedit, ... just to name a few, please have a look at
-    [[http://ansys.net][ANSYS.net]].
+   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
+   - The [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for Emacs
+   - Another free [[http://apdl.de][APDL editor]], unfortunately this site seems to be
+     abandoned since 2010
+   - A commercial competitor of ANSYS-Mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor
+   - Simple APDL syntax highlighting is available for various editors,
+     gvim, nedit, ... just to name a few, please have a look at
+     [[http://ansys.net][ANSYS.net]].
 ** ANSYS and APDL resources
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (registration necessary for the
      forum)
    - A general  ANSYS repository [[http://www.ansys.net][ansys.net]]
    - The [[http://www.ansys.com][ANSYS homepage]]
    - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club in Germany
+
 -----
 
 # The following is for Emacs

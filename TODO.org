@@ -17,23 +17,25 @@
 #+STARTUP: showall
 * 16.1.2:
 ** Bugs
-   - checking of -current-ansys-version and -install-directory!
    - Documentation of installation and configuration!
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
+   - check default.el under windows!
+** Wish-list
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
-   - C-c C-a does not align a pragraph if the mark was not set (first
-      time file visit)!!!!!
-   - list of new functions in -bug-report
+   - Make a usage.org, splice into a-mode.el
+   - Remove M-( when Emacs > 24, document this in usage
+   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
+   - list of all new functions in -bug-report
    - -wb function?
-** Wish-list
-   - ANSYS installation on Debian 8
    - Changing license type on the fly (with C-u) for -display-license-status
    - tool tip help-echo properties for keywords!
-   - saving option for -license-file, -lmutil, -program, ...
+   - permanent saving option for -license-file, -lmutil, -program, ...
    - Check for valid license types for the solver
    - add bbdb files to emacs packages
    - license and template status line always in the first visible line
@@ -55,7 +57,6 @@
      strain to creep strain!
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???
-   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
    - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
@@ -83,8 +84,6 @@
      - check character variables 32 Chars. and highlight accordingly
        string 128, char 8
      - *vscfun: mean, stdev, ...
-   - -dynamic-highlighting is sluggish, highlighting somehow
-     retarded!!! Still??
    - _RETURN (-mode) somewhat milder red, clashes with reseved vars!
    - test server specifications (menu!) make interconnect
      conditional of the ANSYS version >= 120
@@ -101,6 +100,8 @@
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
      skeleton, critical to element differences!
+   - -dynamic-highlighting is sluggish, highlighting somehow
+     retarded!!! Still??
    - constraint equations in -ansys-template.el and get functions
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,

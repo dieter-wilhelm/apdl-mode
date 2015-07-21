@@ -53,6 +53,12 @@
 		"/v" version
 		"/ansys/bin/launcher" version))
 
+  (setq ansys-wb
+	(concat "/appl/ansys_inc/"
+		major "." minor "." update
+		"/v" version
+		"/Framework/bin/Linux64/runwb2"))
+
   (setq ansys-help-path (concat "/appl/ansys_inc/"
 	  major "." minor "." update
 	  "/v" version

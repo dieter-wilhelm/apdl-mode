@@ -954,7 +954,7 @@ server summary rows."
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
 	;;  on Windows the license stat buffer doesn't move to point without:
-	(when (not ansys-is-unix-system-p)
+	(when (not (ansys-is-unix-system-p))
 	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))))

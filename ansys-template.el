@@ -4,7 +4,7 @@
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 16.1.1
+;; Version: 16.1.2
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -3043,6 +3043,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   (read-string "Quartic Coefficient? : ")  \n
   \n
   )
+
+(provide 'ansys-template)
 
 ;; Local Variables:
 ;; mode: outline-minor

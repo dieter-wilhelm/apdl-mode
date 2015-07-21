@@ -1,3 +1,5 @@
+#+DATE: Time-stamp: <2015-07-21>
+#+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
@@ -15,18 +17,42 @@
 #+title: News and History of ANSYS-Mode
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+** Version 16.1.2, not yet released, targeted for August
+   - Sending code to the ANYSClassics GUI as well, not only to the
+     restricted interactive solver (currently only on GNU-Linux/Unix
+     with C-c C-j, C-c C-u, C-c C-c).
+
+   - Checking available licenses - fast and simple with "C-c C-l" - is
+     now also available on Windows platforms.
+
+   - Reorganised and simplified the installation and configuration.
+     Made the initialisation defaults more intelligent,
+     i. e. searching for installation paths with environment
+     variables, etc.
+
+   - Reorganised and improved the menu items, separated general ANSYS
+     tasks from APDL coding with two main menu Entries: A-Mode and
+     ANSYS.
+
+   - New functions: Reading the original APDL guide and ANSYS-Mode's
+     documentation in a Browser, ansys-start-launcher,
+     ansys-start-classics, ...
+
+   - The command `C-c C-j' does now recognise blocks (APDL loops and
+     control structures), which is to say it copies or sends complete
+     logical blocks to the interpreter instead of only the current
+     code line.
 
 ** Version 16.1.1 July 2015
-
    - The command `ansys-show-command-parameters' (M-?) does
-     additionally count the number of parameters and visualise at which
-     parameter position the cursor currently is.  This tool-tip can now
-     be switched off with a prefix argument of zero.
+     additionally count the number of parameters and visualise at
+     which parameter position the cursor currently is.  This tool-tip
+     can now be switched off with a prefix argument of zero.
 
    - The command `ansys-send-to-ansys-and-proceed' (C-c C-j) is now
-     interactive, i. e. after invoking this command with its
-     key-sequence "C-c C-j" it can be repeated by typing just the
-     final character "j" (or "C-j").  (This works from Emacs-24.4)
+     interactive, i. e. after invoking this command with its key-sequence
+     "C-c C-j" it can be repeated by typing just the final character "j"
+     (or "C-j").
 
    - The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
      paragraph, when there is no region marked.  And the cursor doesn't
@@ -219,10 +245,10 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
      files for are now provided in an archive together with their
      compiled state for speed reasons.
 
-   - Reworked the highlighting mainly for the sake of speed.  There are
-     now highlighting levels to choose from, offering e. g. highlighting
-     of deprecated element types in a warning-face, deprecated Ansys *
-     comments and so on
+   - Reworked the highlighting mainly for the sake of speed.  There
+     are now highlighting levels to choose from, offering
+     e. g. highlighting of deprecated element types in a warning-face,
+     deprecated Ansys * comments and so on
 
    - Updated and improved the readability of the mode's help and the
      README file
@@ -268,7 +294,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
    - Removed "buffer has no process" bug when killing an ansys-mode
      buffer.
 
-   - Submitting interactively Ansys commands (via minibuffer query, not
+   - Submitting interactively Ansys commands (via mini-buffer query, not
      only as written in a macro file) to the solver process,
      ansys-query-ansys-command (C-c C-q).
 
@@ -344,4 +370,6 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

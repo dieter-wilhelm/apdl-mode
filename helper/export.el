@@ -25,7 +25,7 @@
 ;;; Code:
 
 
-(add-to-list 'load-path "/home/dieter/org/elisp/org-mode/lisp")
+; (add-to-list 'load-path "/home/dieter/org/elisp/org-mode/lisp")
 (org-reload)
 (require 'ox-beamer)
 (add-to-list 'org-latex-classes '(

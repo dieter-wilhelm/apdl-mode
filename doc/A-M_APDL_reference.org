@@ -1,4 +1,5 @@
-# -*- mode: org -*-
+#+DATE: Time-stamp: <2015-07-14>
+#+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  ANSYS-Mode Highlighting and APDL Reference
 # #####################################################################
 #+AUTHOR:    H. Dieter Wilhelm
@@ -204,7 +205,8 @@
     *voper or *toper
   - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
     contrast to the more ralistic ones in /solu
-    
+  - You can send only a complete block structure to the solver
+
 ** File types (the whole zoo is in the operations guide) under Gnu/Linux?
    |  No | Type                                                             | Name     | temp. | Remark                             | Format  |
    |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
@@ -1107,4 +1109,6 @@ and you are getting a diffent element highlighting.
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

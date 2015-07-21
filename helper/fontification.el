@@ -1,4 +1,4 @@
-;;; ansys-fontification.el-- building keywords and completions
+;;; fontification.el-- building keywords and completions
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
 
@@ -569,7 +569,12 @@ Function names are distinguished by `()'."
   (set-buffer buffer)
   (delete-region (point-min) (point-max))
 
-  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; we are adding to the top!
+  ;; 
+
+  (insert "(provide 'ansys-keyword)\n ;;end of ansys-keyword.el\n")
+
   ;; ---------- undocumented commands ----------
 
   ;; getting another colour than regular commands
@@ -859,7 +864,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"ansys-fontification.el\" release 16.1.1.\n\n"
+  "\"fontification.el\" release 16.1.2.\n\n"
   ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")

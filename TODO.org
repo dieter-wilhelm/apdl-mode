@@ -1,3 +1,5 @@
+#+DATE: Time-stamp: <2015-07-21>
+#+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
@@ -13,60 +15,44 @@
 #+title: The Todo file of ANSYS-Mode
 
 #+STARTUP: showall
-* Deficiencies:
-  - Highlighting :: Experimental user variable highlighting
-		    does not take into account:
-    + clearing of variables and
-    + usage of variables before their definitions (uninitialised
-      variables)
-    + the variable fontification might clash with ANSYS specifiers
-    + string substitution of %variables% in strings does not highlight
-       them in the proper variable face
-  - Highlighting :: A label :LABEL may appear behind the /input
-                    command and is not highlighted as label
-  - Highlighting :: An apostrophy clashes with the ANSYS "char"
-                    specifier Keybinding: M-Tab is captured under
-                    Windows and some GNU-Linux desktops Workaround: Press
-                    instead of M-Tab (ALT + TAB) the ESC key and then
-                    the Tab key (ESC, TAB) or apply the command from
-                    the menu bar
-  - Highlighting :: The parameter help overlay is only removed after 2
-                    min if the respective ANSYS-Mode buffer is the
-                    current buffer at that time span!
-  - Keybinding :: M-j: When there is already a `&' in a format command
-                  (like *msg, *vwrite, *mwrite)
-                  ansys-indent-format-line inserts a redundant one
-  - Completion :: Of parametric function parentheses
-		  completes redundant closing parentheses
-  - Completion :: A mouse selection from the *ANSYS-completion* buffer
-                  is only inserted upcased.
-  - Completion :: ANSYS command 'C***' will not be completed
-  - Skeleton :: Mouse selection of -structural-template does not work
-                (because of stipulated user text input from this skeleton)
-  - Navigation ::  C-c { does not skip an overlay in a number-block
-                  (M-{ does it though))
 * 16.1.2:
 ** Bugs
-   - C-c C-j jjj not working with Emacs 23.1
+   - checking of -current-ansys-version and -install-directory!
+   - Documentation of installation and configuration!
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
-   - path construction in -mode.el for help program is not working, if
-     ansys-mode is not activated!? <- autoloaded functions, should
-     work they are calling -mode.el!
+   - C-c C-a does not align a pragraph if the mark was not set (first
+      time file visit)!!!!!
+   - list of new functions in -bug-report
+   - -wb function?
 ** Wish-list
+   - ANSYS installation on Debian 8
+   - Changing license type on the fly (with C-u) for -display-license-status
+   - tool tip help-echo properties for keywords!
+   - saving option for -license-file, -lmutil, -program, ...
+   - Check for valid license types for the solver
+   - add bbdb files to emacs packages
+   - license and template status line always in the first visible line
+     of buffer (in-place-annotations?)
+   - splash screen?
+   - -license-status optional filters for output
+   - C-c C-c checking blocks
+   - MinGWin: FindWindow +  ActivateWin + SendKeys?
+   - include ../ansys/apdl macros?
+   - ../apdl/start161.ans valuable?
+   - add screw thread capability to WB translation
+   - switch off advising of M-w, yeah
    - color scheme of *msg command is only readable on terminals
-   - add adwords to gh-pages
    - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP
-   - Add WorkBench (Aim) concepts to APDL translation in A-M_APDL_reference
+   - add adwords to gh-pages
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
-   - add bbdb files to emacs packages?
    - variables behind / and * without whitespace in between are not
      highlighted! try changing the character syntax???
    - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
@@ -74,16 +60,13 @@
      (frictionless support)
    - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
    - show defaults for -license-file, license-utility and -ansysli-servers
-   - *msg command's format string is not higlighted (-template-element-table)
+   - started and commented out highlighting of solver output
    - Variables are not highlighted in -skeletons, it is specified in
      -mode only for files with .mac suffix; *create file tmp,mac:
      macro call: tmp, is not highlighted
-   - started and commented out highlighting of solver output
-   - makefile errors when doing -fontification.el?
    - ansys-template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
    - mouse-choose-completion is obsolete since E23.2
-   - example of an ansyslmd.ini?
    - add timer customisation for -command-parameter-help variable 1
      min, 2 min, etc.
    - example.mac: make it solver compatible
@@ -118,7 +101,7 @@
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
      skeleton, critical to element differences!
-   - constraint equations in -template.el and get functions
+   - constraint equations in -ansys-template.el and get functions
    - fontification.el
      - add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
        .anf files from DM anf export
@@ -140,6 +123,40 @@
      - change sequence of alignment.png first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
+* Deficiencies:
+  - Highlighting :: Experimental user variable highlighting
+		    does not take into account:
+    + clearing of variables and
+    + usage of variables before their definitions (uninitialised
+      variables)
+    + the variable fontification might clash with ANSYS specifiers
+    + string substitution of %variables% in strings does not highlight
+       them in the proper variable face
+  - Highlighting :: A label :LABEL may appear behind the /input
+                    command and is not highlighted as label
+  - Highlighting :: An apostrophy clashes with the ANSYS "char"
+                    specifier Keybinding: M-Tab is captured under
+                    Windows and some GNU-Linux desktops Workaround: Press
+                    instead of M-Tab (ALT + TAB) the ESC key and then
+                    the Tab key (ESC, TAB) or apply the command from
+                    the menu bar
+  - Highlighting :: The parameter help overlay is only removed after 2
+                    min if the respective ANSYS-Mode buffer is the
+                    current buffer at that time span!
+  - Keybinding :: M-j: When there is already a `&' in a format command
+                  (like *msg, *vwrite, *mwrite)
+                  ansys-indent-format-line inserts a redundant one
+  - Keybinding :: C-c C-j jjj not working with Emacs version < Emacs-24
+  - Completion :: Of parametric function parentheses
+		  completes redundant closing parentheses
+  - Completion :: A mouse selection from the *ANSYS-completion* buffer
+                  is only inserted upcased.
+  - Completion :: ANSYS command 'C***' will not be completed
+  - Skeleton :: Mouse selection of -structural-template does not work
+                (because of stipulated user text input from this skeleton)
+  - Navigation ::  C-c { does not skip an overlay in a number-block
+                  (M-{ does it though))
+
 * Procedures
   - GNU-Linux :: ;-)
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
@@ -156,7 +173,7 @@
     are still working in V 16.2
   - (tags-search "TODO")
   - (tags-search "FIXME")
-  - checkdoc, -template.el, -process.el, -mode.el done except
+  - checkdoc, -ansys-template.el, -ansys-process.el, -mode.el done except
     \\<keymap> & \\[function]
   - README -- installation (Emacs Wiki format) and accompanying files,
        features, news, history
@@ -165,14 +182,15 @@
   - update/complete skeletons menu
 
     # ansys
-    (tags-query-replace "16.1" "16.2")
+    (tags-query-replace "16\.1" "16.2")
     (tags-query-replace "ANSYS 16" "ANSYS 17")
     # emacs
-    (tags-query-replace "24.5" "24.6")
+    (tags-query-replace "24\.5" "24.6")
     # version No
     (tags-query-replace "161" "170")
     # for _mode_version
-    (tags-query-replace "\".1\"" "\".2\"")
+    (tags-query-replace "1\.1" "1.2")
+    (tags-query-replace "\"1.1\"" "\"1.2\"")
     # copyright
     (tags-query-replace "- 2015" "- 2016")
     (tags-query-replace "fontification.mac" "example.mac")
@@ -217,7 +235,6 @@
     afoleite@gmail.com,
     iivvgg@gmail.com,
     Michaelk@vipac.com.au,
-    sparr@mfkrs1.mw.tu-dresden.de,
     mhanke@cadfem.de,
     tnelson@cadfem.de,
     lkrueger@cadfem.de,
@@ -473,4 +490,6 @@
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
 # end:

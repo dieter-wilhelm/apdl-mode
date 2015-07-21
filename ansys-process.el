@@ -4,7 +4,7 @@
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 16.1.1
+;; Version: 16.1.2
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -37,13 +37,10 @@
   "Customisation 'process' subgroup for the ANSYS-Mode."
   :group 'ANSYS)
 
-(defcustom ansys-install-directory
-  (cond ((string= window-system "x")
-	 ;; "/" the root dir is the default installation directory on GNU-Linux
-	 "/")
-	(t ;; the default is "C:\\Program Files\\" on Windows
-	 "C:\\Program Files\\"))
-  "This is the directory where ANSYS is installed."
+(defcustom ansys-install-directory nil
+  "This is the directory path where ANSYS has been installed.
+Which is to say the path before \"ansys_inc\" under Linux or
+\"Ansys Inc\" under Windows."
   :type 'string
   :group 'ANSYS-process
   )
@@ -57,31 +54,41 @@ the respective error file."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-program
-  (let ((version (if (boundp 'ansys-current-ansys-version)
-		     ansys-current-ansys-version
-		   "161")))
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/v"
-	      version "/ansys/bin/ansys" version)
-    (concat ansys-install-directory "Ansys Inc\\v" version "\\ansys\\bin\\winx64\\launcher" version ".exe")))
-  "This variable stores the ANSYS executable name.
+(defcustom ansys-program nil
+  "This string variable stores the ANSYS executable.
 Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
-\"/ansys_inc/v145/ansys/bin/ansys145\" and not only \"ansys145\".
+\"/ansys_inc/v161/ansys/bin/ansys161\" and not only \"ansys161\".
 You might customise this variable or use the function
 `ansys-program' to do this for the current session only."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-help-program
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/v"
-      ansys-current-ansys-version "/ansys/bin/anshelp"
-      ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))
+(defcustom ansys-launcher nil
+  "This string variable stores the ANSYS launcher executable.
+When the respective executable is not in your search path, you
+have to specify the full qualified file name and not only
+executable's name.  For example:
+\"/ansys_inc/v161/ansys/bin/launcher161\".  You might customise this
+variable permanently or use the function `ansys-launcher' to do
+this for the current session only."
+  :type 'string
+  :group 'ANSYS-process)
+
+(defcustom ansys-wb nil
+  "This string variable stores the ANSYS WorkBench executable.
+When the respective executable is not in your search path, you
+have to specify the full qualified file name and not only
+executable's name.  For example:
+\"/ansys_inc/v161/Framework/bin/Linux64/runwb2\".  You might
+customise this variable permanently or use the function
+`ansys-wb' to do this for the current session only."
+  :type 'string
+  :group 'ANSYS-process)
+
+(defcustom ansys-help-program nil
   "The ANSYS help executable.
 It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
@@ -94,34 +101,18 @@ Windows (XP/7)."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-help-path
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/v"
-      ansys-current-ansys-version "/ansys/bin/anshelp"
-      ansys-current-ansys-version)
-    (concat ansys-install-directory "Ansys Inc\\v" ansys-current-ansys-version "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))
-  "The ANSYS help executable.
-It is called with
-\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
-executable is not in the search path, you have to complement the
-executable with its complete path.  For example the default
-locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU-Linux
-and \"c:\\\\Program Files\\Ansys\
-Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
-Windows (XP/7)."
+(defcustom ansys-help-path nil
+  "The ANSYS help path."
   :type 'string
   :group 'ANSYS-process)
 
 (defcustom ansys-help-program-parameters ""
   "Stores parameters for the program `ansys-help-program' under Windows.
-In ANSYS version 150 not longer necessary."
+Since ANSYS150 not longer necessary."
   :type 'string
   :group 'ANSYS-process)
 
-(defcustom ansys-lmutil-program
-  (if (string= window-system "x")
-      (concat ansys-install-directory "ansys_inc/shared_files/licensing/linx64/lmutil")
-    (concat ansys-install-directory "Ansys Inc\\Shared Files\\licensing\\winx64\\anslic_admin.exe"))
+(defcustom ansys-lmutil-program nil
   "A FlexLM license manager executable.
 For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
 or in case of a Windows 32-bit OS \"c:\\\\Program Files\\Ansys
@@ -200,6 +191,11 @@ licenses. 2 is the ANSYS default."
   :type 'boolean)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- variables ---
+(defvar ansys-current-ansys-version-history '("160" "150" "145")
+  "History list for the minibuffer input of
+  `ansys-current-ansys-version'.")
+
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -212,7 +208,9 @@ Variable is only used internally in the mode.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun ansys-start-classics ()
-  "Start the Ansys Classics user interface."
+  "Start the Ansys Classics graphical user interface.
+The output of the solver is captured in an Emacs buffer called
+*ANSYS GUI*."
   (interactive)
 ;    (ansys-program "")		 ;take exec from -program var.
 ;    (ansys-license-file "")	 ;
@@ -221,29 +219,40 @@ Variable is only used internally in the mode.")
 
     (if (y-or-n-p
 	 (concat
-	  "Start run?  version: "
-	  ansys-current-ansys-version
-	  ", license type: " ansys-license
+	  "Start run of: "
+	  ansys-program
+	  ", license: " ansys-license
 	  ;; "Start run?  (license type: " (if (boundp
 	  ;; 'ansys-license) ansys-license)
 	  (if (>= ansys-no-of-processors 3)
-	      (concat ", No of processors: " (number-to-string ansys-no-of-processors))
+	      (concat ", No of procs: " (number-to-string ansys-no-of-processors))
 	    "")
 	  ", job: " (if (boundp 'ansys-job) ansys-job)
 	  " in " default-directory ", server: " ansys-license-file ")"))
 	(message "Starting the ANSYS Classics GUI...")
       (error "Starting ANSYS Classics canceled"))
     ;; -d : device
-    (start-process "GUI" "*ANSYS GUI*" "/appl/ansys_inc/v161/ansys/bin/ansys161" "-p ansys " "-d 3d " "-g")
-    (process-running-child-p "*ANSYS GUI*")
-    (process-status "*ANSYS GUI*")
+    (start-process "GUI" "*ANSYS GUI*" ansys-program (concat "-p " ansys-license) "-d 3d " "-g"))
 
-    (process-send-string "*ANSYS GUI*" "/prep7")
-    (process-send-string "*ANSYS GUI*" "y\n")
-    (process-send-string "*ANSYS GUI*" "\r")
-    (process-send-string "*ANSYS GUI*" "/exit")
+(defun ansys-start-launcher ()
+  "Start the Ansys Launcher."
+  (interactive)
+;    (ansys-program "")		 ;take exec from -program var.
+;    (ansys-license-file "")	 ;
+;    (ansys-ansysli-servers "")	 ;
+    ;(ansys-license "")		 ;
+    (start-process "Launcher" nil ansys-launcher)
+    (message "Startet the ANSYS Launcher..."))
 
-    )
+(defun ansys-start-wb ()
+  "Start the Ansys WorkBench."
+  (interactive)
+;    (ansys-program "")		 ;take exec from -program var.
+;    (ansys-license-file "")	 ;
+;    (ansys-ansysli-servers "")	 ;
+    ;(ansys-license "")		 ;
+    (start-process "Launcher" nil ansys-wb)
+    (message "Startet the ANSYS WorkBench..."))
 
 (defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -292,18 +301,19 @@ change it with \"\\[cd]\"."
 
 ;;;###autoload
 (defun ansys-display-error-file ()
-  "Open the current interpreter error file in the current directory.
+  "Open the current interpreter error file in the current working directory.
 You might change the directory with \"M-x `cd'\".  The error file
 name consists of the current job name and the suffix '.err'.  For
 the job name the variable `ansys-job' is used. You can change the
 job name interactively either with the \"\\[ansys-job]\" or in
 the customisation facility (by calling `ansys-customise-ansys')."
   (interactive)
-  (let ((file ansys-job))
-    (setq file (concat file ".err"))
-    (find-file-read-only-other-window file)
-    (goto-char (point-max))
-    (auto-revert-tail-mode 1)))
+  (let ((file (concat ansys-job ".err")))
+    (if (not (file-readable-p file))
+	(error "ANSYS error file \"%s\" doesn't exist in %s" file (pwd))
+      (find-file-read-only-other-window file)
+      (goto-char (point-max))
+      (auto-revert-tail-mode 1))))
 
 (defun ansys-copy-or-send-above	()
   "Copy or send all of above code - up from the cursor position."
@@ -396,53 +406,77 @@ final character \"j\" (or \"C-j\")."
 	end
 	(process (get-process
 		  (if (boundp 'ansys-process-name) ansys-process-name)))
-	(region (and transient-mark-mode mark-active)))
-;    	(region (region-active-p))) ;this is for Emacs-23.1
+	(region (and transient-mark-mode mark-active))
+	(block (save-excursion
+		 (back-to-indentation)
+		 (looking-at ansys-block-begin-regexp)))
+	(code (ansys-code-line-p))
+	(column (current-column)))
+    ;; (region (region-active-p))) ;this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
     ;; "region" will be the whole code line (including \n)
-    (if region
-	(setq beg (region-beginning)
-	      end (region-end))
-      (unless (ansys-code-line-p)
-	(unless stay
-	  (ansys-next-code-line))
-	(error "There was no active region or code line"))
+    (message "column: %d" column)
+    (cond
+     (region
+      (setq beg (region-beginning)
+	    end (region-end)))
+     (block
+       (move-beginning-of-line 1)
+       (setq beg (point))
+       (ansys-skip-block-forward)
+       (setq end (point))
+       (setq region t))			;block considered a region
+     (code
+      (setq beg (line-beginning-position))
       (save-excursion
-	(setq beg (line-beginning-position))
 	(forward-line 1)
 	(setq end (point))))
+      (t
+       (unless (= stay 4)
+	 (ansys-next-code-line))
+       (error "There was no active region or code line")))
     ;; move cursor to subsequent code line unless stay
     (unless (= stay 4)
       (if (and region
 	       (< (point) end))
-	(exchange-point-and-mark))
+	  (exchange-point-and-mark))
+      (move-to-column column)		;stay in the previous column
       (ansys-next-code-line))
     ;; invalidate region
     (setq mark-active nil)
-    ;; send or copy region or line
-    (cond ((ansys-process-running-p)
-	   (setq code (buffer-substring-no-properties beg end))
-	   (comint-send-string process
-			       (concat code ""); "\n"); why did I do \n?
-			       )
-	   ;; Issue a hint to the user, if the echo area isn't in use.
-	   (unless (current-message)
-	     (message "(Type \"j\" or \"C-j\" to repeat function.)"))
-	   (display-buffer-other-frame "*ANSYS*"))
-	  (t
-	   (kill-ring-save beg end)
-	   (if region
-	       (message "Copied region.")
-	     (message "Copied code line."))))
-    ;; TODO set-transient-map not defined in 23.1
-    (if (fboundp 'set-transient-map)
+    ;; set-transient-map since 24.4
+    (when (fboundp 'set-transient-map)
 	(set-transient-map
 	 (let ((map (make-sparse-keymap)))
 	   (define-key map "j"
 	     'ansys-send-to-ansys-and-proceed)
 	   (define-key map "\C-j"
 	     'ansys-send-to-ansys-and-proceed)
-	   map)))))
+	   map)))
+    ;; send or copy region or line
+    (cond ((ansys-process-running-p)
+	   (setq code (buffer-substring-no-properties beg end))
+	   (comint-send-string process
+			       (concat code ""); "\n"); why did I do \n?
+			       )
+	   (display-buffer-other-frame "*ANSYS*")
+	   ;; Issue a hint to the user
+	   (if (fboundp 'set-transient-map)
+	       (if region
+		   (message "Sent region, type \"j\" or \"C-j\" to sent next line or block.")
+		 (message "Sent line, type \"j\" or \"C-j\" to sent next line or block."))
+	     (if region
+		 (message "Sent region.")
+	       (message "Sent line."))))
+	  (t
+	   (kill-ring-save beg end)
+	   (if (fboundp 'set-transient-map)
+	       (if region
+		   (message "Copied region, type \"j\" or \"C-j\" to copy next line or block.")
+		 (message "Copied line, type \"j\" or \"C-j\" to copy next line or block."))
+	     (if region
+		 (message "Copied region.")
+	       (message "Copied line.")))))))
 
 (defun ansys-process-running-p ()
   "Return nil if no ANSYS interpreter process is running."
@@ -495,52 +529,52 @@ initial input."
  first. The specified No of cores is not shown if they are chosen
  smaller than 3 (see `ansys-number-of-processors')."
    (interactive)
-     (if (ansys-is-unix-system-p)
-	 (let (ansys-process-buffer)
-	   (when (ansys-process-running-p)
-	     (error "An ANSYS interpreter is already running under Emacs"))
-	   (message "Preparing an ANSYS interpreter run...")
-	   ;; (setq comint-use-prompt-regexp t) TODO: ???
-	   (ansys-program "")		 ;take exec from -program var.
-	   (ansys-license-file "")	 ;
-	   (ansys-ansysli-servers "")	 ;
+   (let (ansys-process-buffer)
+     (when (ansys-process-running-p)
+       (error "An ANSYS interpreter is already running under Emacs"))
+     (message "Preparing an ANSYS interpreter run...")
+     ;; (setq comint-use-prompt-regexp t) TODO: ???
+     ;; (ansys-program "")		 ;take exec from -program var.
+     ;; (ansys-license-file "")	 ;
+     ;; (ansys-ansysli-servers "")	 ;
 					 ;(ansys-license "")		 ;
 
 					 ; env variable: ANSYS161_WORKING_DIRECTORY or -dir command line string
 					 ; (setenv "ANSYS161_WORKING_DIRECTORY" "/tmp")
 					 ; (getenv "ANSYS161_WORKING_DIRECTORY")
 
-	   (if (y-or-n-p
-		(concat
-		 "Start run?  (version: "
-		 ansys-current-ansys-version
-		 ", license type: " ansys-license
-		 ;; "Start run?  (license type: " (if (boundp
-		 ;; 'ansys-license) ansys-license)
-		 (if (>= ansys-no-of-processors 3)
-		     (concat ", No of processors: " (number-to-string ansys-no-of-processors))
-		   "")
-		 ", job: " (if (boundp 'ansys-job) ansys-job)
-		 " in " default-directory ", server: " ansys-license-file ")"))
-	       (message "Starting the ANSYS interpreter...")
-	     (error "Function ansys-start-ansys canceled"))
-	   (setq ansys-process-buffer
-		 (make-comint ansys-process-name ansys-program nil
-			      (if (>= ansys-no-of-processors 3)
-				  (concat "-np " (number-to-string ansys-no-of-processors)
-					  " -p " ansys-license " -j " ansys-job)
-				(concat "-p " ansys-license " -j " ansys-job))))
-	   ;;  (comint-send-string (get-process ansys-process-name) "\n")
-	   (display-buffer ansys-process-buffer 'other-window)
-	   ;;  (switch-to-buffer ansys-process-buffer)
-	   (other-window 1)
-	   (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
-	   (font-lock-add-keywords nil (list comint-prompt-regexp))
-	   ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
-	   )
+     (if (y-or-n-p
+	  (concat
+	   "Start run?  (version: "
+	   ansys-current-ansys-version
+	   ", license type: " ansys-license
+	   ;; "Start run?  (license type: " (if (boundp
+	   ;; 'ansys-license) ansys-license)
+	   (if (>= ansys-no-of-processors 3)
+	       (concat ", No of processors: " (number-to-string ansys-no-of-processors))
+	     "")
+	   ", job: " (if (boundp 'ansys-job) ansys-job)
+	   " in " default-directory ", server: " ansys-license-file ")"))
+	 (message "Starting the ANSYS interpreter...")
+       (error "Function ansys-start-ansys canceled"))
+     (setq ansys-process-buffer
+	   (make-comint ansys-process-name ansys-program nil
+			(if (>= ansys-no-of-processors 3)
+			    (concat "-np " (number-to-string ansys-no-of-processors)
+				    " -p " ansys-license " -j " ansys-job)
+			  (concat "-p " ansys-license " -j " ansys-job))))
+     ;;  (comint-send-string (get-process ansys-process-name) "\n")
+     (display-buffer ansys-process-buffer 'other-window)
+     ;;  (switch-to-buffer ansys-process-buffer)
+     (other-window 1)
+     (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
+     (font-lock-add-keywords nil (list comint-prompt-regexp))
+     ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
+
         ;; w32-shell-execute not know under RHEL Emacs 23.1
-       (if (fboundp 'w32-shell-execute)
-	   (w32-shell-execute "Open" ansys-program))))
+       ;; (if (fboundp 'w32-shell-execute)
+       ;; 	   (w32-shell-execute "Open" ansys-program))
+       ))
 
 (defun ansys-kill-ansys ()
   "Kill the current ANSYS run under Emacs.
@@ -581,7 +615,7 @@ with the ANSYS /EXIT,all command which saves all model data."
 
 ;;;###autoload
 (defun ansys-start-ansys-help ()
-  "Start the ANSYS help system.
+  "Start the ANSYS Help Viewer.
 Alternatively under a GNU-Linux system, one can also use the ANSYS
 command line \"/SYS, anshelp161\" when running ANSYS
 interactively, provided that anshelp161 is found in the search
@@ -593,13 +627,13 @@ variable)."
     (cond
      ((ansys-is-unix-system-p)
       (start-process "ANSYS-help-program" nil ansys-help-program)
-      (message "Started the ANSYS help browser..."))
+      (message "Started the ANSYS Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
 	  (w32-shell-execute "Open" (concat "\"" ansys-help-program "\"")
 			     ansys-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
 	(error "w32-shell-execute not bound"))
-      (message "Started the ANSYS help browser..."))
+      (message "Started the ANSYS Help Viewer..."))
      (t
       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))))
 
@@ -640,6 +674,31 @@ variable)."
 	   str))))
 
 (require 'browse-url)
+
+(defun ansys-browse-apdl-guide ()
+  "Open the ANSYS APDL guide in a browser."
+  (interactive)
+  (let (file (path ansys-help-path) command)
+    (cond
+     ((ansys-is-unix-system-p)
+      (setq file "ans_apdl/Hlp_P_APDLTOC.html")
+      ;; use browse-url-default-browser!
+      (if (fboundp 'browse-url-xdg-open)
+	  (browse-url-xdg-open (concat path file))
+	;; (browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+	(browse-url-firefox (concat path file))))
+     ;; windows
+     ((string= system-type "windows-nt")
+      (setq file (concat "ans_apdl\\Hlp_P_APDLTOC.html" file))
+      ;; wrapper of ShellExecute MS-Windows API
+;      (message "file:%s path:%s" file path)
+;      (w32-shell-execute "Open" (concat path file)))
+      (browse-url-default-windows-browser (concat "file:" path file)))
+     (t
+      (error "Can only start the ANSYS help on Windows and Unix/GNU-Linux systems")))
+    (message "Called HTML browser for keyword \"%s\"..." command)))
+
+
 
 (defun ansys-browse-ansys-help ( &optional arg)
   "Open the ANSYS help for APDL commands and element names in the default web browser.
@@ -745,7 +804,9 @@ Element categories:
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
 	  (browse-url-xdg-open (concat path file))
-	(browse-url-default-browser (concat path file))))
+;	(browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+	(browse-url-firefox (concat path file))
+						       ))
      ;; windows
      ((string= system-type "windows-nt")
 ;      (if (fboundp 'w32-shell-execute)
@@ -780,7 +841,7 @@ Element categories:
       (browse-url-default-windows-browser (concat path file)))
      (t
       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))
-    (message "Called html browser for keyword \"%s\"..." command)))
+    (message "Called HTML browser for keyword \"%s\"..." command)))
 
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
@@ -826,16 +887,19 @@ Element categories:
 
 (defun ansys-license-status ()
   "Display the ANSYS license status or start the license tool.
-For GNU-Linux systems show the status in a separate buffer, under
-Windows start the anslic_admin.exe utility, which has a button
-for displaying the license status."
+Show the status in a separate buffer, the license
+type (`ansys-license') determines a highlighting of the license
+server summary rows."
   (interactive)
-  (ansys-lmutil-program "")  ;check whether program is found on system
+  ;(ansys-lmutil-program "")  ;check whether program is found on system
   (cond
-   ((ansys-is-unix-system-p)
-    (ansys-license-file-check)
+   ;; FIXME
+   (t;(ansys-is-unix-system-p)
+;    (ansys-license-file-check)
 ;    (ansys-ansysli-servers-check)
-    (message "Retrieving license status, please wait...")
+
+    ;; lmutil calls with many license server specified takes loooooonnnnggg
+    (message "Retrieving license status, this may take some time...")
     (with-current-buffer (get-buffer-create "*ANSYS-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
@@ -883,7 +947,7 @@ for displaying the license status."
 			    'face 'match))
 	;; higlight current -license-type
 	(goto-char (point-min))
-	(search-forward-regexp (concat "\\<" ansys-license ":") nil t)
+	(search-forward-regexp ansys-license nil t)
 	(forward-line)
 	(setq eol (point))
 	(forward-line -1)
@@ -893,20 +957,18 @@ for displaying the license status."
 	))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))
-   ((string= system-type "windows-nt")
-    (if (fboundp 'w32-shell-execute)
-	(let ((version (if (boundp 'ansys-current-ansys-version)
-			   ansys-current-ansys-version
-			 "145")))
-	    (cond ((> (string-to-number version) 130)
-	       (w32-shell-execute nil ansys-lmutil-program "-client145"))
-	      ((< (string-to-number version) 120)
-	       (w32-shell-execute nil ansys-lmutil-program))
-	      (t
-	       (w32-shell-execute nil ansys-lmutil-program "-client")))))
-    (message "Loading the anslic_admin program..."))
-   (t
-    (error "No license status available on %s" system-type))))
+   ;; FIXME:
+   ;; ((string= system-type "windows-nt")
+   ;;  (if (fboundp 'w32-shell-execute)
+   ;; 	(let ((version ansys-current-ansys-version))
+   ;; 	  (cond ((> (string-to-number version) 130)
+   ;; 		 (w32-shell-execute nil ansys-lmutil-program "-client145"))
+   ;; 		((< (string-to-number version) 120)
+   ;; 		 (w32-shell-execute nil ansys-lmutil-program))
+   ;; 		(t
+   ;; 		 (w32-shell-execute nil ansys-lmutil-program "-client")))))
+   ;;  (message "Starting the anslic_admin program..."))
+   ))
 
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph
@@ -1076,66 +1138,70 @@ processors (if available) for a structural analysis in ANSYS is
       (error "Specified number is not an integer"))
     (message "No of processors for the next run definition is %d" ansys-no-of-processors)))
 
-(defun ansys-license-file-check ()
-  "Return t if ANSYS license file (server) information is found.
-Checks whether the variable `ansys-license-file' is set, if not
-sets its value to the environment variable ANSYSLMD_LICENSE_FILE
-or LM_LICENSE_FILE, in this order of precedence.  When the former
-are not available return nil."
-  (cond
-   (ansys-license-file
-    (setenv "ANSYSLMD_LICENSE_FILE" ansys-license-file)
-    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to ansys-license-file")
-    t)
-   ((getenv "ANSYSLMD_LICENSE_FILE")	;need this for -license-status
-    (setq ansys-license-file (getenv "ANSYSLMD_LICENSE_FILE"))
-    (message "Set ansys-license-file from process environment variable ANSYSLMD_LICENSE_FILE")
-    t)
-   ((getenv "LM_LICENSE_FILE")
-    (setq ansys-license-file (getenv "LM_LICENSE_FILE"))
-    (message "Set ansys-license-file from process environment variable LM_LICENSE_FILE")
-    t)
-   (t
-    nil)))
-
-(defun ansys-ansysli-servers-check ()
-  "Return t if ANSYS interconnect server information is found.
-Checking whether the variable `ansys-ansysli-servers' is set or
-otherwise the environment variable ANSYSLI_SERVERS.  If neither
-is set return nil"
-  (interactive)
-  (cond
-   (ansys-ansysli-servers
-    (setenv "ANSYSLI_SERVERS" ansys-ansysli-servers)
-    (message "Set process environment variable ANSYSLI_SERVERS to ansys-ansysli-servers")
-    t)
-   ((getenv "ANSYSLI_SERVERS")
-    (setq ansys-ansysli-servers (getenv "ANSYSLI_SERVERS"))
-    (message "Read ansys-ansysli-servers from process environment
-    variable ANSYSLI_SERVERS") t)
-   (t nil)))
-
 (defun ansys-license-file ( file)
   "Change the ANSYS license file name or license server(s).
 And specify the string FILE in the variable `ansys-license-file'
 which can either be the license file name or license server(s)
-specification.  The server specification should include the port
-number for the lmutil tool even when it's 1055, the default port
-number: port_number@server_name, multiple server names are
-separated by a colon, for example
-\"27005@rbgs421x:27005@rbgs422x:...\"."
+specification.  The server specification must include the port
+number (default port 1055), multiple server names are separated
+by colons `:' on Linux, semi-colons `;' on Windows , for example
+\"27005@rbgs421x:27005@rbgs422x\"."
   (interactive "sLicense server or license file :")
-  (cond ((string= file "")
-	 (ansys-license-file-check))
+  (cond ((null file)
+	 )
 	(t
 	 (setq ansys-license-file file)
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
-;; (error "Please specify the license server information with
-;;     the `ansys-license-file' function or either set
-;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
-;;     variable")
+(defun ansys-current-ansys-version ()
+  "Specify the required (and installed) ANSYS version.
+For example \"150\" instead of \"161\", which is the current
+default."
+  (interactive)
+  (let* ((dir ansys-install-directory)
+	 (acav ansys-current-ansys-version)
+	 path
+	 (version
+	  (read-string
+	   (concat "Specify the required ANSYS version [" acav "]:")
+	   acav
+	   'ansys-current-ansys-version-history)))
+    (cond
+     ((ansys-is-unix-system-p)
+      (setq path (concat dir "/ansys_inc/v" version)))
+     (t
+      (setq path (concat dir "\\ANSYS Inc\\v" version))))
+    (if (file-readable-p path)
+	(progn
+	  (setq ansys-current-ansys-version version)
+	  (message "Set current ANSYS version to %s." version)
+	  (ansys-initialise-defcustoms t))
+      (error "ANSYS V%s not present: %s not readable" version path))))
+
+(defun ansys-install-directory ()
+  "Change the ANSYS installation directory.
+This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
+  (interactive)
+  (let* ((idir ansys-install-directory)
+	 path
+	 (ndir
+	  (read-directory-name
+	   (concat "Specify the ANSYS installation directory ["
+		   idir "]:")
+	   nil nil idir)))
+    (cond ((ansys-is-unix-system-p)
+	   (setq path (concat ndir "ansys_inc")))
+	  (t
+	   (setq path (concat ndir "ANSYS Inc"))))
+    (if (file-readable-p path)
+	(progn
+	  (setq ansys-install-directory ndir)
+	  (message
+	   (concat
+	    "Set ansys-install-directory to \"" ndir "\".")))
+      (error "ANSYS directory %s not readable" path))
+    (ansys-initialise-defcustoms 'force)))
 
 (defun ansys-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.
@@ -1152,13 +1218,14 @@ server names are separated by a colon, for example
 	 (message (concat "Set ansys-ansysli-servers to \""
 			  ansys-ansysli-servers "\".")))))
 
+;; FIXME:
 ;; (error "Please specify the license server information with
 ;;     the `ansys-license-file' function or either set
 ;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
 ;;     variable")
 
 (defun ansys-license ()
-  "Change the ANSYS license type to LIC.
+  "Change the ANSYS license type.
 And store it in the variable `ansys-license'."
   (interactive)
   (let ((lic (if (not (string= ansys-license ""))

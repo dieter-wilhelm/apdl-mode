@@ -242,7 +242,7 @@ The output of the solver is captured in an Emacs buffer called
 ;    (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
     (start-process "Launcher" nil ansys-launcher)
-    (message "Startet the ANSYS Launcher..."))
+    (message "Started the ANSYS Launcher..."))
 
 (defun ansys-start-wb ()
   "Start the Ansys WorkBench."
@@ -252,7 +252,7 @@ The output of the solver is captured in an Emacs buffer called
 ;    (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
     (start-process "Launcher" nil ansys-wb)
-    (message "Startet the ANSYS WorkBench..."))
+    (message "Started the ANSYS WorkBench..."))
 
 (defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -953,24 +953,11 @@ server summary rows."
 	(forward-line -1)
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
-	;;  we need this for windows
+	;;  on Windows the license stat buffer doesn't move to point without:
 	(when (not ansys-is-unix-system-p)
-	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))
-	))
+	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
-    (message "Updated license status: %s." (current-time-string)))
-   ;; FIXME:
-   ;; ((string= system-type "windows-nt")
-   ;;  (if (fboundp 'w32-shell-execute)
-   ;; 	(let ((version ansys-current-ansys-version))
-   ;; 	  (cond ((> (string-to-number version) 130)
-   ;; 		 (w32-shell-execute nil ansys-lmutil-program "-client145"))
-   ;; 		((< (string-to-number version) 120)
-   ;; 		 (w32-shell-execute nil ansys-lmutil-program))
-   ;; 		(t
-   ;; 		 (w32-shell-execute nil ansys-lmutil-program "-client")))))
-   ;;  (message "Starting the anslic_admin program..."))
-   ))
+    (message "Updated license status: %s." (current-time-string)))))
 
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph
@@ -1198,7 +1185,8 @@ This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
 	   (setq path (concat ndir "ANSYS Inc"))))
     (if (file-readable-p path)
 	(progn
-	  (setq ansys-install-directory ndir)
+	  (setq ansys-install-directory
+		(file-name-as-directory ndir)) ;ensure final slash
 	  (message
 	   (concat
 	    "Set ansys-install-directory to \"" ndir "\".")))

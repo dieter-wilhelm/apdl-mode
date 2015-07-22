@@ -200,8 +200,12 @@ licenses. 2 is the ANSYS default."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst ansys-process-name "ANSYS"
-  "Variable containing Emacs' name for an ANSYS process.
-Variable is only used internally in the mode.")
+  "Variable containing the name of a possible MAPDL interactive process.
+Variable is used internally only.")
+
+(defconst ansys-classics-process "Classics"
+  "Variable containing the name of a possible MAPDL GUI process.
+Variable is used internally only.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- functions ---
@@ -210,7 +214,7 @@ Variable is only used internally in the mode.")
 (defun ansys-start-classics ()
   "Start the Ansys Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
-*ANSYS GUI*."
+*Classics*."
   (interactive)
 ;    (ansys-program "")		 ;take exec from -program var.
 ;    (ansys-license-file "")	 ;
@@ -229,10 +233,21 @@ The output of the solver is captured in an Emacs buffer called
 	    "")
 	  ", job: " (if (boundp 'ansys-job) ansys-job)
 	  " in " default-directory ", server: " ansys-license-file ")"))
-	(message "Starting the ANSYS Classics GUI...")
-      (error "Starting ANSYS Classics canceled"))
+	(message "Started MAPDL in GUI mode (ANSYS Classics) ...")
+      (error "Starting MAPDL (ANSYS Classics) cancelled"))
     ;; -d : device
-    (start-process "GUI" "*ANSYS GUI*" ansys-program (concat "-p " ansys-license) "-d 3d " "-g"))
+    ;; -g : graphics mode
+    ;; -p : license
+    ;; -np: no of PROCs
+    ;; -j : job
+    (start-process ansys-classics-process
+		   ansys-classics-process
+		   ansys-program
+		   (concat " -p " ansys-license)
+		   " -d 3d "
+		   (concat " -j " ansys-job)
+		   (concat " -np " ansys-no-of-processors)
+		   " -g"))
 
 (defun ansys-start-launcher ()
   "Start the Ansys Launcher."

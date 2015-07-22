@@ -3,7 +3,7 @@ Welcome to ANSYS-Mode, please read the accompanying tutorial
 (By the way: You can also view PDF files in Emacs editor and Emacs
 uses the same key-bindings as the BASH shell ...)
 
-/appl/tools/bin/A-M-16.1.1.sh starts Emacs with the APDL editing mode
+/appl/tools/bin/A-M-16.1.2.sh starts Emacs with the APDL editing mode
 enabled. For example:
 
  $ A-M-16.1.1.sh ../ansys-mode/current/doc/example.mac
@@ -18,11 +18,11 @@ following line:
  $ A-M-16.1.1.sh macro.ans -nw
 
 ======================================================================
-			     NOTE:
+			     PLEASE NOTE
 
 Most functionality works for any installed ANSYS version, but for some
 advanced stuff - like calling the help documentation in your browser -
-ANSYS-Mode 16.1.1 assumes that ANSYS V161 is installed on your system!
+ANSYS-Mode 16.1.2 assumes that ANSYS V161 is installed on your system!
 You can configure ANSYS-Mode to work together with any ANSYS version,
 please have a look in the configuration file Conti.el, it is a must
 since the respective menu entries doesn't work on our non default
@@ -32,7 +32,7 @@ need to be adjusted.)
 ======================================================================
 
 If you want to enable ANSYS-Mode in Emacs without calling the wrapper
-`A-M-16.1.1.sh', then add the following lines in your ~/.emacs file:
+`A-M-16.1.2.sh', then add the following lines in your ~/.emacs file:
 
 --->8 ----------------------------------------------------------------
 

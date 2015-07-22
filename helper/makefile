@@ -151,10 +151,10 @@ MODE : $(PACKAGE)
 ALWIN : A-M-$(VERSION).tar.xz
 
 A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSION).sh makefile
-	mv tools/ansys-mode/README tools/
+	mv tools/ansys-mode/README.Conti tools/
 	mv tools/ansys-mode/Conti.el tools/
 	rm -fr tools/ansys-mode/*
-	mv tools/README tools/ansys-mode/
+	mv tools/README.Conti tools/ansys-mode/
 	mv tools/Conti.el tools/ansys-mode/
 	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
 	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)

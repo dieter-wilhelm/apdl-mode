@@ -17,7 +17,7 @@
 #+STARTUP: showall
 * 16.1.2:
 ** Bugs
-   - Documentation of installation and configuration!
+   - Documentation of installation, usage and configuration!
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list

@@ -1072,7 +1072,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	      ["Delete Selection Mode" delete-selection-mode :style toggle :selected delete-selection-mode
 	       :help "Delete Selection Mode replaces the selection with typed text"]
 	      ["Electric Pair Mode" electric-pair-mode :style toggle :selected electric-pair-mode
-	       :help "Electric Pair Mode insert corresponding closing delimeters"]
+	       :help "Electric Pair Mode insert corresponding closing delimeters"
+	       :visible (version< "24" emacs-version)]
 	)
 	"-"
 	["ANSYS-Mode Online Documentation" ansys-mode-browse-online

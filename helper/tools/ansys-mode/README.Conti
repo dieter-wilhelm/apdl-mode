@@ -6,7 +6,7 @@ uses the same key-bindings as the BASH shell ...)
 /appl/tools/bin/A-M-16.1.2.sh starts Emacs with the APDL editing mode
 enabled. For example:
 
- $ A-M-16.1.1.sh ../ansys-mode/current/doc/example.mac
+ $ A-M-16.1.2.sh ../ansys-mode/current/doc/example.mac
 
 ANSYS-Mode is automatically switched on for the following types (file
 suffixes): .ans, .mac, .anf, .dat and .inp.
@@ -15,7 +15,7 @@ If you want to start Emacs in text (terminal) mode instead of its GUI
 mode, please provide the command line argument `-nw', like in the
 following line:
 
- $ A-M-16.1.1.sh macro.ans -nw
+ $ A-M-16.1.2.sh macro.ans -nw
 
 ======================================================================
 			     PLEASE NOTE
@@ -24,10 +24,10 @@ Most functionality works for any installed ANSYS version, but for some
 advanced stuff - like calling the help documentation in your browser -
 ANSYS-Mode 16.1.2 assumes that ANSYS V161 is installed on your system!
 You can configure ANSYS-Mode to work together with any ANSYS version,
-please have a look in the configuration file Conti.el, it is a must
-since the respective menu entries doesn't work on our non default
-ANSYS installation path.  (There are only two variables which might
-need to be adjusted.)
+but you have set this in the configuration file Conti.el, the
+respective menu entries in ANSYS-Mode doesn't work on our non default
+ANSYS installation path for Linux workstations!  (There are only two
+variables which might need to be adjusted.)
 
 ======================================================================
 

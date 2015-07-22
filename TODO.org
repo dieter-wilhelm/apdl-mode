@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-21>
+#+DATE: Time-stamp: <2015-07-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -20,7 +20,6 @@
    - Documentation of installation and configuration!
    - C-c C-a does not align a pragraph if the mark was not set (first
       time file visit)!!!!!
-   - check default.el under windows!
 ** Wish-list
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
@@ -29,7 +28,9 @@
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
    - Make a usage.org, splice into a-mode.el
-   - Remove M-( when Emacs > 24, document this in usage
+   - Remove M-( when Emacs > 24, document this in usage, substitute
+     with electric-pair-mode? We need `'' for strings and character
+     parameters,`%' for parameter substitution,`(' for functions
    - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
    - list of all new functions in -bug-report
    - -wb function?

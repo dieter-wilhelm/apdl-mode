@@ -1175,10 +1175,11 @@ This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
   (let* ((idir ansys-install-directory)
 	 path
 	 (ndir
-	  (read-directory-name
-	   (concat "Specify the ANSYS installation directory ["
-		   idir "]:")
-	   nil nil idir)))
+	  (expand-file-name
+	   (read-directory-name
+	    (concat "Specify the ANSYS installation directory ["
+		    idir "]:")
+	    nil nil idir))))
     (cond ((ansys-is-unix-system-p)
 	   (setq path (concat ndir "ansys_inc")))
 	  (t
@@ -1190,7 +1191,7 @@ This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
 	  (message
 	   (concat
 	    "Set ansys-install-directory to \"" ndir "\".")))
-      (error "ANSYS directory %s not readable" path))
+      (error "ANSYS directory %s is not readable" path))
     (ansys-initialise-defcustoms 'force)))
 
 (defun ansys-ansysli-servers ( servers)

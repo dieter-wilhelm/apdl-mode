@@ -97,7 +97,7 @@ HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 # 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
-		 example.mac example.anf example.dat tools/ansys-mode/README
+		 example.mac example.anf example.dat tools/ansys-mode/README.Conti
 
 WORK_EL_FILES := ../A-M.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el
@@ -150,7 +150,7 @@ MODE : $(PACKAGE)
 .PHONEY : ALWIN
 ALWIN : A-M-$(VERSION).tar.xz
 
-A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSION).sh makefile
+A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README.Conti tools/bin/A-M-$(VERSION).sh makefile
 	mv tools/ansys-mode/README.Conti tools/
 	mv tools/ansys-mode/Conti.el tools/
 	rm -fr tools/ansys-mode/*
@@ -166,6 +166,7 @@ A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/A-M-$(VERSI
 	tar -cJvf $@ --group HPCUser_1 tools
 
 tools/bin/A-M-$(VERSION).sh : makefile
+	@test -d tools/bin || mkdir tools/bin
 	@echo "#!/bin/sh " > $@
 	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
 	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/A-M.el \

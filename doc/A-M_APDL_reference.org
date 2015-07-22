@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-14>
+#+DATE: Time-stamp: <2015-07-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  ANSYS-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -175,8 +175,9 @@
 
 * APDL Reference
 ** Idiosyncrasies
-  - You can only store strings of 32 characters, for only!! 128
-    characters you need to create a string array!
+  - You can only store character variables of 8 characters, strings of
+    32 characters and for *only* 248 characters you need to create a
+    string array!
   - No function definitions <- write `command' files (suffix: .mac),
     or call a macro (arbitrary suffix) with `*use', something close is
     to fill a "table" arry, interpolating values and possible real

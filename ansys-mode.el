@@ -1183,7 +1183,8 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    ["Display ANSYS Error File" ansys-display-error-file
     :help "Display in another window in auto-revert-tail-mode the ANSYS error file (job.err) in the current working directory. M-x ansys-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
    ["Write ANSYS Stop File" ansys-abort-file
-    :help "Write a file (JOB.abt containing the word \"nonlinear\") for stopping a running solver/interpreter into the current directory. M-x ansys-abort-file "]
+    :active  (file-readable-p (concat default-directory job-name ".lock"))
+    :help "Write a file (JOB.abt containing the word \"nonlinear\") for orderly stopping the solver in the current working directory. M-x ansys-abort-file "]
    "-"
    ["Kill ANSYS Run" ansys-kill-ansys
     :help "Kill the current run. M-x ansys-kill-ansys":active (ansys-process-running-p)]

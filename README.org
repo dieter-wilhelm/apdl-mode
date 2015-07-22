@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2015-07-21>
+#+DATE: Time-stamp: <2015-07-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -49,7 +49,7 @@ little Emacs experience.
 
 Advantages compared to other APDL editors: Largest feature set, user
 extensible, cost-free, GNU Emacs integrated tools, available for all
-OS, for the mode's in-built APDL help no ANSYS installation necessary.
+operating systems where the ANSYS suite is running.
 
 [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and extensible -
 yet free - editor. High quality software available for every operating

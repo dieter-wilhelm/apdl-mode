@@ -268,36 +268,43 @@ The output of the solver is captured in an Emacs buffer called
 The abort file does not terminate the current session but
 triggers the solver to stop solving in an orderly manner.  This
 function prompts for a job name when ARG is negative.  Otherwise
-it tries to guess it from the current file, if this fails the
-jobname is taken from the variable `ansys-job', you can change
-this variable by calling the equally named interactive
-function (i. e. typing \\[ansys-job]) or setting it directly as
-lisp expression (i. e.  typing \"\\[eval-expression] (setq
-ansys-job \"jobname\")\", where jobname is a name of your liking
-but must be enclosed with double quotes (\") to represent a lisp
-string).  The file jobname.abt in the current directory contains
-the sole word \"nonlinear\". In case the `default-directory' is
-not the working directory of the interesting job, you might
-change it with \"\\[cd]\"."
+it tries to guess it from the current file (for a /filname
+command), if this fails the jobname is taken from the variable
+`ansys-job', you can change this variable by calling the equally
+named interactive function (i. e. typing \\[ansys-job]) or
+setting it directly as lisp expression (i. e.  typing
+\"\\[eval-expression] (setq ansys-job \"jobname\")\", where
+jobname is a name of your liking but must be enclosed with double
+quotes (\") to represent a lisp string).  The file jobname.abt in
+the current directory contains the sole word \"nonlinear\". In
+case the `default-directory' is not the working directory of your
+respective job, you can change it with \"\\[cd]\"."
   (interactive "p")
-  (let ((jobname ansys-job)
-	filename)
+  (let ((job ansys-job)
+	file
+	lfile
+	name)
     (cond
      ((< arg 0)				;ask for job-name
-      (setq filename
+      (setq name
 	    (read-string
-	     (concat "Job name: [" jobname "] ") nil nil
-	     jobname))
-      (setq filename (concat filename ".abt")))
+	     (concat "Job name [" job "]: ") nil nil job)))
      (t					;search for /filn
       (save-excursion
 	(goto-char (point-min))
 	(if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
-	    (setq filename (concat (match-string 1) ".abt"))
-	  (setq filename (concat jobname ".abt"))))))
-    (if (yes-or-no-p (concat "Write \"" default-directory filename "\"? "))
-	(ansys-write-abort-file filename)
-      (message "ansys-abort-file canceled!"))))
+	    (setq name (match-string 1))
+	  (setq name job)))))
+    (setq lfile (concat name ".lock"))
+    (unless (file-readable-p lfile)
+      (error "No \"%s\" in %s" lfile default-directory))
+    (setq file (concat name ".abt"))
+    (if (yes-or-no-p (concat "Write \"" default-directory file "\"? "))
+	(progn
+	  (ansys-write-abort-file file)
+	  (message "Wrote MAPDL stop file %s in %s." file
+		   default-directory))
+      (message "Writing MAPDL stop file canceled!"))))
 
 ;;;###autoload
 (defun ansys-display-error-file ()
@@ -1170,16 +1177,18 @@ default."
 
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.
-This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
+This is the path before the directory `ansys_inc/' under Linux or
+`ANSYS Inc\\' under Windows."
   (interactive)
   (let* ((idir ansys-install-directory)
 	 path
 	 (ndir
-	  (expand-file-name
-	   (read-directory-name
-	    (concat "Specify the ANSYS installation directory ["
-		    idir "]:")
-	    nil nil idir))))
+	  (expand-file-name	       ;in case it was written ~
+	   (file-name-as-directory	;in case the slash is forgotten
+	    (read-directory-name
+	     (concat "Specify the ANSYS installation directory ["
+		     idir "]:")
+	     nil nil idir)))))
     (cond ((ansys-is-unix-system-p)
 	   (setq path (concat ndir "ansys_inc")))
 	  (t
@@ -1191,7 +1200,7 @@ This is the path before the directory `ansys_inc/' or `ANSYS Inc'."
 	  (message
 	   (concat
 	    "Set ansys-install-directory to \"" ndir "\".")))
-      (error "ANSYS directory %s is not readable" path))
+      (error "ANSYS directory \"%s\" is not readable" path))
     (ansys-initialise-defcustoms 'force)))
 
 (defun ansys-ansysli-servers ( servers)

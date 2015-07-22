@@ -2110,6 +2110,9 @@ improvements you have the following options:
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
 
+  ;; a-align needs a mark to work for an unspecified region
+  (set-mark 0)
+
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
   )
 

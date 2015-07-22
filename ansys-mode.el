@@ -1065,12 +1065,14 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	"-"
 	(list "Helper Modes"
 	      ["Outline Minor Mode" outline-minor-mode
-	       :style toggle :selected t
+	       :style toggle :selected outline-minor-mode
 	       :help "Outline Mode is for hiding and selectively displaying headlines and their sublevel contents"]
 	      ["Show Paren Mode" show-paren-mode :style toggle :selected show-paren-mode
 	       :help "Show Paren Mode highlights matching parenthesis"]
-	      ["Delete Selection Mode" delete-selection-mode :style toggle :selected nil
+	      ["Delete Selection Mode" delete-selection-mode :style toggle :selected delete-selection-mode
 	       :help "Delete Selection Mode replaces the selection with typed text"]
+	      ["Electric Pair Mode" electric-pair-mode :style toggle :selected electric-pair-mode
+	       :help "Electric Pair Mode insert corresponding closing delimeters"]
 	)
 	"-"
 	["ANSYS-Mode Online Documentation" ansys-mode-browse-online

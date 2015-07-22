@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-21>
+#+DATE: Time-stamp: <2015-07-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,11 +19,11 @@
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 ** Version 16.1.2, not yet released, targeted for August
    - Sending code to the ANYSClassics GUI as well, not only to the
-     restricted interactive solver (currently only on GNU-Linux/Unix
-     with C-c C-j, C-c C-u, C-c C-c).
+     restricted interactive solver (currently only on GNU-Linux and
+     Unix with C-c C-j, C-c C-u, C-c C-c).
 
-   - Checking available licenses - fast and simple with "C-c C-l" - is
-     now also available on Windows platforms.
+   - Checking available licenses - fast and simple - is now also
+     available on Windows platforms with "C-c C-l".
 
    - Reorganised and simplified the installation and configuration.
      Made the initialisation defaults more intelligent,

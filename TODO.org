@@ -21,6 +21,9 @@
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
+   - We need `'' for strings and character parameters,`%' for
+     parameter substitution,`(' for functions, % not yet working with
+     electric-pair-mode
    - Change versioning scheme to 161.2
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
@@ -29,11 +32,8 @@
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
    - Make a usage.org, splice into a-mode.el
-   - Remove M-( when Emacs > 24, document this in usage, substitute
-     with electric-pair-mode? We need `'' for strings and character
-     parameters,`%' for parameter substitution,`(' for functions
-   - C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
-   - -wb function?
+   - C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account
+   - -wb function (doesn't adjust along the decimal point)? -> align-rules-list
    - Changing license type on the fly (with C-u) for -display-license-status
    - tool tip help-echo properties for keywords!
    - permanent saving option for -license-file, -lmutil, -program, ...

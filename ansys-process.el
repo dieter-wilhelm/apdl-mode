@@ -241,13 +241,13 @@ The output of the solver is captured in an Emacs buffer called
     ;; -np: no of PROCs
     ;; -j : job
     (start-process ansys-classics-process
-		   ansys-classics-process
+		   (concat "*"ansys-classics-process"*")
 		   ansys-program
-		   (concat " -p " ansys-license)
+		   (concat (concat " -p " ansys-license)
 		   " -d 3d "
 		   (concat " -j " ansys-job)
-		   (concat " -np " ansys-no-of-processors)
-		   " -g"))
+		   (concat " -np " (number-to-string ansys-no-of-processors))
+		   " -g")))
 
 (defun ansys-start-launcher ()
   "Start the Ansys Launcher."

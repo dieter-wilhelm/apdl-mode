@@ -270,13 +270,16 @@ imports, see the file /example.anf/.
 ;; ...)  even when ANSYS Mode was not (yet) activated i.e. the lisp
 ;; files not loaded.
 
-b(autoload 'ansys-mode "ansys-mode" nil t)
+(autoload 'ansys "ansys-mode" "Opening an empty buffer in ANSYS-Mode" 'interactive)
+(autoload 'ansys-mode "ansys-mode" "Switch to ANSYS-Mode" 'interactive)
 (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for
 calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
 (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
 (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
+(autoload 'ansys-start-classics "ansys-mode" "Activate the function for starting the MAPDL in GUI Mode (ANSYS-Classics)." 'interactive)
+(autoload 'ansys-start-wb "ansys-mode" "Activate the function for starting Workbench." 'interactive)
 (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 (autoload 'ansys-mode-version "ansys-mode" "Show ANSYS-Mode's version number." 'interactive)
 
@@ -477,11 +480,11 @@ But the solver/interpreter is checking this server as well!?
   (setq ansys-mode-install-directory
            (file-name-directory load-file-name))
   (message "Installation directory of ANSYS-Mode is %s" ansys-mode-install-directory)
-  (load "ansys-mode")
+  ;(load "ansys-mode")
   ;; we initialise already here to make the autoloaded functions available
-  (message "Initialising defcustoms.")
-  (ansys-initialise-defcustoms)
-  (message "ANSYS-Mode enabled.")
+  ;(message "Initialising defcustoms.")
+  ;(ansys-initialise-defcustoms)
+  ;(message "ANSYS-Mode enabled.")
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 ;; The End

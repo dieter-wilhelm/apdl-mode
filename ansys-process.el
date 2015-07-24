@@ -1190,31 +1190,6 @@ by colons `:' on Linux, semi-colons `;' on Windows , for example
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
-(defun ansys-current-ansys-version ()
-  "Specify the required (and installed) ANSYS version.
-For example \"150\" instead of \"161\", which is the current
-default."
-  (interactive)
-  (let* ((dir ansys-install-directory)
-	 (acav ansys-current-ansys-version)
-	 path
-	 (version
-	  (read-string
-	   (concat "Specify the required ANSYS version [" acav "]:")
-	   acav
-	   'ansys-current-ansys-version-history)))
-    (cond
-     ((ansys-is-unix-system-p)
-      (setq path (concat dir "/ansys_inc/v" version)))
-     (t
-      (setq path (concat dir "\\ANSYS Inc\\v" version))))
-    (if (file-readable-p path)
-	(progn
-	  (setq ansys-current-ansys-version version)
-	  (message "Set current ANSYS version to %s." version)
-	  (ansys-initialise-defcustoms t))
-      (error "ANSYS V%s not present: %s not readable" version path))))
-
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.
 This is the path before the directory `ansys_inc/' under Linux or

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-20>
+#+DATE: Time-stamp: <2015-07-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -270,7 +270,7 @@ imports, see the file /example.anf/.
 ;; ...)  even when ANSYS Mode was not (yet) activated i.e. the lisp
 ;; files not loaded.
 
-(autoload 'ansys-mode "ansys-mode" nil t)
+b(autoload 'ansys-mode "ansys-mode" nil t)
 (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for
 calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)

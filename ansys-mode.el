@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 16.1.2
+;; Version: 161-2
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -71,7 +71,7 @@
 (defconst ansys-update_version_ "0"
   "Utilised ANSYS update version.")
 
-(defconst ansys-mode_version "1"
+(defconst ansys-mode_version "2"
   "ANSYS-Mode version number.")
 
 (defconst ansys-parameter-substitution-commands-regexp
@@ -1085,7 +1085,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Submit Bug Report"       ansys-submit-bug-report :help "Open a mail template for an ANSYS-Mode bug report"]
 	["Reload ANSYS-Mode"           ansys-reload-ansys-mode :help "Loading the mode definitions anew from files and restarting ansys-mode"]
 	"-"
-	["Exit ANSYS-Mode" ansys-toggle-mode :help "Switch to the previous major mode of the file" :label (concat "Exit ANSYS-Mode Version: " ansys-version_ "."ansys-mode_version)])
+	["Exit ANSYS-Mode" ansys-toggle-mode :help "Switch to the previous major mode of the file" :label (concat "Exit ANSYS-Mode Version: " ansys-version_ "-"ansys-mode_version)])
   "Menu items for the ANSYS-Mode.")
 
 

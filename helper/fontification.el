@@ -25,7 +25,7 @@
 
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/ansys/docu/dynprompt161.ans" "./ansys_dynprompt.txt")
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/161.0/v161/ansys/docu/dynprompt161.ans" "./ansys_dynprompt.txt")
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
 ;;     done for v12,v13,v14,v145,v150,v161
 
@@ -38,7 +38,7 @@
 ;;     apdl * commands and regular Ansys commands
 
 ;;     use: extract_tags.py
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/161.0/v161/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
 ;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
 ;;     done: v13,14,145,150, v161
 
@@ -61,7 +61,7 @@
 ;;     get function summary ->`ansys_get_functions.txt'
 
 ;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
-;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/commonfiles/help/ansys_Index.hlp" ".")
+;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/161.0/v161/commonfiles/help/ansys_Index.hlp" ".")
 ;;     the rest does code below
 ;;     done v145, v150, v161
 ;;     cp ansys_Index.hlp??? and check variable ansys-help-index
@@ -864,7 +864,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"fontification.el\" release 16.1.2.\n\n"
+  "\"fontification.el\" release 161-2.\n\n"
   ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")

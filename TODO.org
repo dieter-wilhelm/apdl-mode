@@ -15,13 +15,13 @@
 #+title: The Todo file of ANSYS-Mode
 
 #+STARTUP: showall
-* 16.1.2:
+* 161-2:
 ** Bugs
    - Documentation of installation, usage and configuration!
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
-   - Change versioning scheme to 161.2
+   - Change versioning scheme to 161-2
    - We need `'' for strings and character parameters,`%' for
      parameter substitution,`(' for functions, % not yet working with
      electric-pair-mode
@@ -184,7 +184,7 @@
   - update/complete skeletons menu
 
     # ansys
-    (tags-query-replace "16\.1" "16.2")
+    (tags-query-replace "161.2" "161-2")
     (tags-query-replace "ANSYS 16" "ANSYS 17")
     # emacs
     (tags-query-replace "24\.5" "24.6")

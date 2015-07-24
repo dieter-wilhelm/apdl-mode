@@ -45,7 +45,7 @@ else
  EMACS_DIR := /appl/emacs/
 endif
 
-VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
+VERSION := $(ANSYS_MAJOR)$(ANSYS_MINOR)-$(MODE_VERSION)
 
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg

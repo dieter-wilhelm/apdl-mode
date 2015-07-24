@@ -18,7 +18,7 @@
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
 
-** Version 161.2, not yet released, targeted for August
+** Version 161-2, not yet released, targeted for August
    - Sending code to the ANYSClassics GUI as well, not only to the
      restricted interactive solver (currently only on GNU-Linux and
      Unix with C-c C-j, C-c C-u, C-c C-c).

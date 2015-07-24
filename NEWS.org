@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-22>
+#+DATE: Time-stamp: <2015-07-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,7 +17,8 @@
 #+title: News and History of ANSYS-Mode
 
 Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
-** Version 16.1.2, not yet released, targeted for August
+
+** Version 161.2, not yet released, targeted for August
    - Sending code to the ANYSClassics GUI as well, not only to the
      restricted interactive solver (currently only on GNU-Linux and
      Unix with C-c C-j, C-c C-u, C-c C-c).
@@ -35,13 +36,15 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
      ANSYS.
 
    - New functions: Reading the original APDL guide and ANSYS-Mode's
-     documentation in a Browser, ansys-start-launcher,
-     ansys-start-classics, ...
+     documentation in a Browser, opening an empty buffer in
+     ANSYS-Mode, ansys-start-launcher, ansys-start-classics, ...
 
    - The command `C-c C-j' does now recognise blocks (APDL loops and
      control structures), which is to say it copies or sends complete
      logical blocks to the interpreter instead of only the current
      code line.
+
+   - Changed the versioning scheme
 
 ** Version 16.1.1 July 2015
    - The command `ansys-show-command-parameters' (M-?) does

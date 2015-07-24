@@ -196,6 +196,9 @@ licenses. 2 is the ANSYS default."
   "History list for the minibuffer input of
   `ansys-current-ansys-version'.")
 
+(defvar ansys-classics-flag t
+  "Flag dertermining whether a Classics window could be found.")
+
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -338,7 +341,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
       (auto-revert-tail-mode 1))))
 
 (defun ansys-copy-or-send-above	()
-  "Copy or send all of above code - up from the cursor position."
+  "Copy or send above file content to the current cursor position."
   (interactive)
   (let ((process (get-process
 		  (if (boundp 'ansys-process-name)
@@ -350,7 +353,11 @@ the customisation facility (by calling `ansys-customise-ansys')."
     ;; 	"Start this ANSYS run: (lic: " ansys-license ", job: " ansys-job ")? "))
     ;;       (message "Starting run...")
     ;;     (error "Run canceled"))
-    (cond ((ansys-process-running-p)
+    (cond (ansys-classics-flag
+	   (kill-ring-save (point-min) (point))
+	   (ansys-send-to-classics)
+	   (message "Send above file content to the Classics GUI" ))
+	  ((ansys-process-running-p)
 	   (comint-send-region process (point-min) (point))
 	   (display-buffer-other-frame (process-buffer process)))
 	  (t
@@ -370,6 +377,10 @@ the customisation facility (by calling `ansys-customise-ansys')."
     (run-with-timer ansys-blink-delay nil
                     (lambda ()
                       (delete-overlay ansys-current-region-overlay)))))
+
+(defun ansys-send-to-classics ()
+  "Sending clipboard content to the Classics GUI."
+  (call-process "xdotool.sh"))
 
 (defun ansys-send-to-ansys ( &optional move)
   "Send a region to the ANSYS interpreter,
@@ -397,7 +408,10 @@ code line after this region (or paragraph)."
     ;; (deactivate-mark nil)
     (ansys-blink-region beg end)
     ;; send or copy region or line
-    (cond ((ansys-process-running-p)
+    (cond (ansys-classics-flag
+	   (ansys-send-to-classics)
+	   (message "Sent to Classics GUI"))
+	  ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
@@ -476,7 +490,18 @@ final character \"j\" (or \"C-j\")."
 	     'ansys-send-to-ansys-and-proceed)
 	   map)))
     ;; send or copy region or line
-    (cond ((ansys-process-running-p)
+    (cond (ansys-classics-flag
+	   (kill-ring-save beg end)
+	   (if (fboundp 'set-transient-map)
+	       (if region
+		   (message "Sent region, type \"j\" or \"C-j\" to sent next line or block.")
+		 (message "Sent line, type \"j\" or \"C-j\" to sent next line or block."))
+	     (if region
+		 (message "Sent region.")
+	       (message "Sent line.")))
+	   (ansys-send-to-classics)
+	   )
+	  ((ansys-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?

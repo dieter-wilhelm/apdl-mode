@@ -2120,6 +2120,14 @@ improvements you have the following options:
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
   )
 
+(defun ansys ()
+  "Open an empty buffer in ANSYS-Mode."
+  (let ((b "macro.mac"))
+    (get-buffer-create b)
+    (switch-to-buffer b)
+    (ansys-mode)))
+
+;; FIXME
 ;; (defun ansys-ansysli-servers-check ()
 ;;   "Return t if ANSYS interconnect server information is found.
 ;; Checking whether the variable `ansys-ansysli-servers' is set or

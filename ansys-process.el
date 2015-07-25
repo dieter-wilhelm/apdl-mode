@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Version: 161-2
-;; Keywords: Languages, Convenience, ANSYS
+;; Keywords: languages, convenience
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -37,114 +37,12 @@
   "Customisation 'process' subgroup for the ANSYS-Mode."
   :group 'ANSYS)
 
-(defcustom ansys-install-directory nil
-  "This is the directory path where ANSYS has been installed.
-Which is to say the path before \"ansys_inc\" under Linux or
-\"Ansys Inc\" under Windows."
-  :type 'string
-  :group 'ANSYS-process
-  )
-
 (defcustom ansys-job "file"
   "Variable storing the ANSYS job name.
 It is initialised to 'file' (which is also the ANSYS default job
 name).  See `ansys-abort-file' for a way of stopping a solver run
 in a controlled way and `ansys-display-error-file' for viewing
 the respective error file."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-program nil
-  "This string variable stores the ANSYS executable.
-Under GNU-Linux this should be the solver, under Windows just the
-launcher.  When the respective executable is not in your search
-path, you have to specify the full qualified file name and not
-only executable's name.  For example:
-\"/ansys_inc/v161/ansys/bin/ansys161\" and not only \"ansys161\".
-You might customise this variable or use the function
-`ansys-program' to do this for the current session only."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-launcher nil
-  "This string variable stores the ANSYS launcher executable.
-When the respective executable is not in your search path, you
-have to specify the full qualified file name and not only
-executable's name.  For example:
-\"/ansys_inc/v161/ansys/bin/launcher161\".  You might customise this
-variable permanently or use the function `ansys-launcher' to do
-this for the current session only."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-wb nil
-  "This string variable stores the ANSYS WorkBench executable.
-When the respective executable is not in your search path, you
-have to specify the full qualified file name and not only
-executable's name.  For example:
-\"/ansys_inc/v161/Framework/bin/Linux64/runwb2\".  You might
-customise this variable permanently or use the function
-`ansys-wb' to do this for the current session only."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-help-program nil
-  "The ANSYS help executable.
-It is called with
-\\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
-executable is not in the search path, you have to complement the
-executable with its complete path.  For example the default
-locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU-Linux
-and \"c:\\\\Program Files\\Ansys\
-Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
-Windows (XP/7)."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-help-path nil
-  "The ANSYS help path."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-help-program-parameters ""
-  "Stores parameters for the program `ansys-help-program' under Windows.
-Since ANSYS150 not longer necessary."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-lmutil-program nil
-  "A FlexLM license manager executable.
-For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
-or in case of a Windows 32-bit OS \"c:\\\\Program Files\\Ansys
-Inc\\Shared\ Files \\Licensing\\intel\\anslic_admin.exe.  This
-variable is used for displaying the license status or starting
-the ansli_admin tool under Windows with the function
-`ansys-license-status'."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-license-file nil
-  "The FlexLM license file name or license server specification(s).
-The license server specification(s) should include the port
-number even if it's the default port 1055 because the lmutil tool
-needs it in the following way: port_number@server_name, use the
-colon for multiple servers, for example
-\"27005@rbgs421x:27005@rbgs422x\".
-
-Setting this variable skips the effect of previously set
-environment variables, which have the following order of
-precedence: 1. ANSYSLMD_LICENSE_FILE environment variable, 2.)
-The FLEXlm resource file: ~/.flexlmrc on GNU-Linux or somewhere in the
-Windows registry. 3.) The LM_LICENSE_FILE variable. 4.) The
-ansyslmd.ini file in the licensing directory (This is what
-anslic_admin is doing in an ANSYS recommended installation).  5.)
-The license file itself."
-  :type 'string
-  :group 'ANSYS-process)
-
-(defcustom ansys-ansysli-servers nil
-  "Used to identify the server machine for the Licensing Interconnect.
-Set it to port@host.  The default port is 2325."
   :type 'string
   :group 'ANSYS-process)
 
@@ -192,9 +90,6 @@ licenses. 2 is the ANSYS default."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- variables ---
-(defvar ansys-current-ansys-version-history '("160" "150" "145")
-  "History list for the minibuffer input of
-  `ansys-current-ansys-version'.")
 
 (defvar ansys-classics-flag t
   "Flag dertermining whether a Classics window could be found.")
@@ -1189,34 +1084,6 @@ by colons `:' on Linux, semi-colons `;' on Windows , for example
 	 (setq ansys-license-file file)
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
-
-(defun ansys-install-directory ()
-  "Change the ANSYS installation directory.
-This is the path before the directory `ansys_inc/' under Linux or
-`ANSYS Inc\\' under Windows."
-  (interactive)
-  (let* ((idir ansys-install-directory)
-	 path
-	 (ndir
-	  (expand-file-name	       ;in case it was written ~
-	   (file-name-as-directory	;in case the slash is forgotten
-	    (read-directory-name
-	     (concat "Specify the ANSYS installation directory ["
-		     idir "]:")
-	     nil nil idir)))))
-    (cond ((ansys-is-unix-system-p)
-	   (setq path (concat ndir "ansys_inc")))
-	  (t
-	   (setq path (concat ndir "ANSYS Inc"))))
-    (if (file-readable-p path)
-	(progn
-	  (setq ansys-install-directory
-		(file-name-as-directory ndir)) ;ensure final slash
-	  (message
-	   (concat
-	    "Set ansys-install-directory to \"" ndir "\".")))
-      (error "ANSYS directory \"%s\" is not readable" path))
-    (ansys-initialise-defcustoms 'force)))
 
 (defun ansys-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.

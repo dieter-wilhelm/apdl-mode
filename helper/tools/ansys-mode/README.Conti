@@ -1,48 +1,50 @@
 Welcome to ANSYS-Mode, please read the accompanying tutorial
 /appl/tools/ansys-mode/current/A-M_introductory_tutorial.pdf first.
 (By the way: You can also view PDF files in Emacs editor and Emacs
-uses the same key-bindings as the BASH shell ...)
+uses the same key-bindings as the BASH shell.)
 
-/appl/tools/bin/A-M-16.1.2.sh starts Emacs with the APDL editing mode
+/appl/tools/bin/A-M-161-2.sh starts Emacs with the APDL editing mode
 enabled. For example:
 
- $ A-M-16.1.2.sh ../ansys-mode/current/doc/example.mac
+ $ A-M-161-2.sh /appl/tools/ansys-mode/current/doc/example.mac
 
 ANSYS-Mode is automatically switched on for the following types (file
 suffixes): .ans, .mac, .anf, .dat and .inp.
 
-If you want to start Emacs in text (terminal) mode instead of its GUI
-mode, please provide the command line argument `-nw', like in the
-following line:
+If you want to start Emacs faster in text (terminal) mode, please
+provide the command line argument `-nw' (or --no-window-system):
 
- $ A-M-16.1.2.sh macro.ans -nw
+ $ A-M-161-2.sh macro.ans -nw
 
 ======================================================================
 			     PLEASE NOTE
 
 Most functionality works for any installed ANSYS version, but for some
 advanced stuff - like calling the help documentation in your browser -
-ANSYS-Mode 16.1.2 assumes that ANSYS V161 is installed on your system!
-You can configure ANSYS-Mode to work together with any ANSYS version,
-but you have set this in the configuration file Conti.el, the
-respective menu entries in ANSYS-Mode doesn't work on our non default
-ANSYS installation path for Linux workstations!  (There are only two
-variables which might need to be adjusted.)
+ANSYS-Mode-161-2 assumes that ANSYS V161 is installed on your system!
+You can configure ANSYS-Mode to work for any installed ANSYS version.
+You might achieve this in 3 ways: Graphically - for the current
+session - with the ANSYS-Mode menu or - temporary or permanently -
+with the Emacs customisation system or - permanently - with setting
+variables in a configuration file (Please have a look at Conti.el,
+there are only two variables which might need to be adjusted in either
+Conti.el or better your ~/.emacs.)
 
 ======================================================================
 
-If you want to enable ANSYS-Mode in Emacs without calling the wrapper
-`A-M-16.1.2.sh', then add the following lines in your ~/.emacs file:
+If you want to utilise ANSYS-Mode in Emacs without calling the shell
+script `A-M-161-2.sh', then add the following lines in your ~/.emacs
+file:
 
 --->8 ----------------------------------------------------------------
 
 (add-to-list 'load-path "/appl/tools/ansys-mode/current")
-(load "A-M") ; the main ANSYS-Mode configuration file
-(load "helper/tools/ansys-mode/Conti") ; the Company's configuration file
+(load "helper/tools/ansys-mode/Conti") ; our Company's configuration file
+(load "ansys-config") ; the main ANSYS-Mode configuration file
 
 --- 8< ---------------------------------------------------------------
 
 The code is hosted on https://github.com/dieter-wilhelm/ansys-mode.
-Please report bugs or give feedback: dieter@duenenhof-wilhelm.de
+Please report bugs or give feedback to dieter@duenenhof-wilhelm.de
 
 Thank you

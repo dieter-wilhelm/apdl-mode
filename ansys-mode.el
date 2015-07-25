@@ -64,16 +64,6 @@
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys-version_ "161"
-  "ANSYS version on which ANSYS-Mode is based.")
-
-;; Ansys calls their bug fixed/patched releases "updates"
-(defconst ansys-update_version_ "0"
-  "Utilised ANSYS update version.")
-
-(defconst ansys-mode_version "2"
-  "ANSYS-Mode version number.")
-
 (defconst ansys-parameter-substitution-commands-regexp
   "/TITLE\\|/STITLE\\|/COM\\|/AXLAB\\|/GCOLUMN\\|/TLABEL\\|/AN3D"
   "Regexp of command names which have a string behind them.")
@@ -152,8 +142,10 @@ Used for the variable `comment-start-skip'.")
   "Customisation group for the ANSYS-Mode."
   :version "23.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
-  :link '(url-link :tag "EmacsWiki" "http://www.emacswiki.org")
-  :link '(url-link :tag "GoogleCode" "http://www.code.google.com/p/ansys-mode")
+  :link '(url-link :tag "Online documentation"
+		   "http://dieter-wilhelm.github.io/ansys-mode ")
+  :link '(url-link :tag "Code on GitHub"
+		   "http://github.com/dieter-wilhelm/ansys-mode")
   :group 'Languages)
 
 (defcustom ansys-hide-region-before-string "![ ... hidden"
@@ -194,20 +186,6 @@ dynamically i. e. during editing when the variable
   :type 'integer
   :group 'ANSYS
   :link '(variable-link font-lock-maximum-decoration ))
-
-(defcustom ansys-current-ansys-version ansys-version_
-  "String of the used ANSYS version.
-This variable is used by the `ansys-skeleton-header' template and
-for setting up variables defaults with ANSYS path specifications,
-like in the variable `ansys-program'."
-  :type 'string
-  :group 'ANSYS)
-
-(defcustom ansys-current-update-version ansys-update_version_
-  "String of the used ANSYS update version. ANSYS calls their bug
-  fixed/patched releases \"updates\"."
-  :type 'string
-  :group 'ANSYS)
 
 (defcustom ansys-dynamic-highlighting-flag t
   "Non-nil means that ANSYS-Mode highlights user defined variables.
@@ -923,9 +901,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Change ANSYS Version" ansys-current-ansys-version
 	 :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
 	 :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
-	["Change ANSYS Update version" ansys-current-update-version
-	 :label (concat "Change ANSYS Version ["ansys-current-update-version"]")
-	 :visible ansys-commpany-flag
+	["Change ANSYS Update Version" ansys-current-update-version
+	 :label (concat "Change ANSYS Update Version ["ansys-current-update-version"]")
+	 :visible ansys-current-update-version
 	 :help "For certain functionalities you need to specify the proper update version of ANSYS. M-x ansys-current-update-version"]
 	["Browse APDL command help" ansys-browse-ansys-help
 	 :help "Open the original ANSYS documentation for a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
@@ -2083,7 +2061,7 @@ improvements you have the following options:
 
   ;; initialise customisation
 
-  (ansys-initialise-defcustoms)
+  (ansys-initialise)
 
   ;; --- user variables ---
 
@@ -2120,11 +2098,15 @@ improvements you have the following options:
   ;; a-align needs a mark to work for an unspecified region
   (set-mark 0)
 
+  (require 'ansys-initialise)
+  (ansys-initialise)
+
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
   )
 
 (defun ansys ()
   "Open an empty buffer in ANSYS-Mode."
+  (interactive)
   (let ((b "macro.mac"))
     (get-buffer-create b)
     (switch-to-buffer b)
@@ -2175,254 +2157,6 @@ improvements you have the following options:
 ;;    (t
 ;;     nil))))
 
-
-(defun ansys-read-ansyslmd-ini (type)
-  "Read the ANSYS license server configuration file for license TYPE.
-If TYPE is nil return the license servers, if non-nil the
-ansysli_servers.  When there are no license servers readable,
-return nil."
-  (let* ((idir ansys-install-directory)
-	 ini
-	 servers
-	 ansysli)
-    (if (ansys-is-unix-system-p)
-	(setq ini (concat idir "/ansys_inc/shared_files/licensing/ansyslmd.ini"))
-      (setq ini (concat idir "\\ANSYS Inc\\Shared Files\\Licensing\\ansyslmd.ini")))
-    (if (file-readable-p ini)
-	(with-temp-buffer
-	  (insert-file-contents ini)
-	  (if type
-	      (word-search-forward "ANSYSLI_SERVERS=" nil t)
-	    (word-search-forward "SERVER=" nil t))
-	  (search-forward-regexp ".*" nil t)
-	  (match-string-no-properties 0)) ;TODO: there's no check
-					  ;against empty ini!
-      (message (concat "File "ini" not readable"))
-      nil)))
-
-(defun ansys-initialise-defcustoms ( &optional force)
-  "Initialise the customisation variables.
-When argument FORCE is non-nil overwrite already set
-customisation variables"
-
-  ;; 1) -current-ansys-version: In its definition 161
-
-  ;; 2) -install-directory
-  (when (null ansys-install-directory)
-    (let* ((version  ansys-current-ansys-version)
-	   ;; we have to remove `ansys_inc/v161' or `ANSYS Inc\v161' from AWP_ROOT161
-	   (root (getenv (concat "AWP_ROOT" version)))
-	   (dir (if root
-		    (file-name-directory
-		     (directory-file-name
-		      (file-name-directory root)))
-		  nil)))
-      (cond (dir
-	     (if (not (file-readable-p dir))
-		 (message "Directory in AWP_ROOT not readable")
-	       (message "Set ansys-install-directory from environment AWP_ROOT")
-	       (message "ansys-install-directory = %s" dir)))
-	    ((string= window-system "x")
-	     (when (file-readable-p (concat "/ansys_inc/v" version))
-	       ;; "/" is the ANSYS default installation directory on GNU-Linux
-	       (setq dir "/")))
-	    (t
-	     (when (file-readable-p (concat "C:\\Program Files\\ANSYS Inc\\v" version))
-	       ;; ANSYS default is "C:\\Program Files\\" on Windows
-	       (setq dir "C:\\Program Files\\"))))
-      (if dir
-	  (setq ansys-install-directory dir)
-	(message "No ANSYS default installation directory found"))))
-
-  ;; 3) -dynamic-highlighting-flag: In its definition
-
-  ;; 4) -job: in its definition
-
-  ;; 5) -program
-  (when (or (null ansys-program) force)
-    (let* ((version ansys-current-ansys-version)
-	   (idir (unless (null ansys-install-directory)
-		   (file-name-directory ansys-install-directory)))
-	   (exe ""))
-      (cond
-       ((string= window-system "x")
-	(setq exe
-	      (concat
-	       idir
-	       ;; here follows the ANSYS default directory structure
-	       "/ansys_inc/v" version "/ansys/bin/ansys" version)))
-       (t
-	(setq exe
-	      (concat
-	       idir
-	       ;; here follow the ANSYS default directory structure
-	       "\\ANSYS Inc\\v" version
-	       "\\ansys\\bin\\winx64\\ansys" version ".exe"))))
-      (if (file-executable-p exe)
-	  (progn
-	    (setq ansys-program exe)
-	    (message (concat "ansys-program set to " ansys-program)))
-	(message "Couldn't find default executable for ansys-program."))))
-
-  ;; 6) -wb
-  (when (or (null ansys-wb) force)
-    (let* ((version ansys-current-ansys-version)
-	   (update ansys-current-update-version)
-	   (idir (unless (null ansys-install-directory)
-		   (file-name-directory ansys-install-directory)))
-	   (exe ""))
-      (cond
-       ((string= window-system "x")
-	(setq exe
-	      (concat
-	       idir
-	       ;; here follows the ANSYS default directory structure
-	       "/ansys_inc/v" version "/Framework/bin/Linux64/runwb2")))
-       (t
-	(setq exe
-	      (concat
-	       idir
-	       ;; here follow the ANSYS default directory structure
-	       "\\ANSYS Inc\\v" version
-	       "\\Framework\\bin\\Win64\\RunWB2.exe"))))
-      (when (file-executable-p exe)
-	(setq ansys-wb exe))
-      (if ansys-wb
-	  (message (concat "ansys-wb set to " ansys-wb))
-	(message "Couldn't find an executable for ansys-wb."))))
-
-;; 7) -launcher
-  (when (or (null ansys-launcher) force)
-    (let* ((version ansys-current-ansys-version)
-	   (update ansys-current-update-version)
-	   (idir (unless (null ansys-install-directory)
-		   (file-name-directory ansys-install-directory)))
-	   (exe ""))
-      (cond
-       ((string= window-system "x")
-	(setq exe
-	      (concat
-	       idir
-	       ;; here follows the ANSYS default directory structure
-	       "/ansys_inc/v" version "/ansys/bin/launcher" version)))
-       (t
-	(setq exe
-	      (concat
-	       idir
-	       ;; here follow the ANSYS default directory structure
-	       "\\ANSYS Inc\\v" version
-	       "\\ansys\\bin\\winx64\\launcher" version ".exe"))))
-      (when (file-executable-p exe)
-	(setq ansys-launcher exe))
-      (if ansys-launcher
-	  (message (concat "ansys-launcher set to " ansys-launcher))
-	(message "Couldn't find an executable for ansys-launcher."))))
-
-  ;; -dynamic-highlighting-flag: t in its definition
-
-  ;; 8) -help-path
-  (when (or (null ansys-help-path) force)
-    (let ((idir ansys-install-directory)
-	  (version ansys-current-ansys-version)
-	  (path ""))
-      (cond
-       ((string= window-system "x")
-	(setq path
-	      (concat idir "/ansys_inc/v" version
-		      "/commonfiles/help/en-us/help/")))
-       (t
-	(setq path
-	      (concat idir "\\ANSYS Inc\\v" version
-		      "\\commonfiles\\help\\en-us\\help\\"))))
-      (if (file-readable-p path)	;path must be a string, not nil
-	(progn
-	  (setq ansys-help-path path)
-	  (message "Default ansys-help-path = %s" path))
-	(message "Couldn't find default ansys-help-path"))))
-
-  ;; 9) -help-program
-  (when (or (null ansys-help-program) force)
-    (let* ((idir ansys-install-directory)
-	   (version ansys-current-ansys-version)
-	   (exe ""))
-      (cond
-       ((string= window-system "x")
-	(setq ansys-help-program
-	      (concat idir "ansys_inc/v" version
-		      "/ansys/bin/anshelp" version)))
-       (t
-	(setq exe
-	      (concat idir "ANSYS Inc\\v" version
-		      "\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe"))))
-      (if (file-executable-p exe)
-	  (progn
-	    (message "ansys-help-program = %s" exe)
-	    (setq ansys-help-program exe))
-	(message "Found no default ansys-help-program"))))
-
-  ;; 10) -lmutil-program
-  (when (or (null ansys-lmutil-program) force)
-    (let ((idir ansys-install-directory)
-	  (version ansys-current-ansys-version)
-	  (exe ""))
-      (cond
-       ((string= window-system "x")
-	(setq exe (concat idir
-			  "ansys_inc/shared_files/licensing/linx64/lmutil")))
-       (t
-	(setq exe (concat idir
-			  "ANSYS Inc\\Shared Files\\Licensing\\winx64\\lmutil.exe"))))
-      (if (file-executable-p exe)
-	  (progn
-	    (setq ansys-lmutil-program exe)
-	    (message "ansys-lmutil-program = %s" exe))
-	(message "Found no default ansys-lmutil-program"))))
-
-  ;; 11) -license-file
-  (when (null ansys-license-file)
-    (let ((lic (ansys-read-ansyslmd-ini nil))
-	  (lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
-;	  (lic2 (getenv "LM_LICENSE_FILE"));ANSYS doesn't use LM_LICENSE_FILE
-	  )
-     (cond
-      (lic
-       (setq ansys-license-file lic)
-       (message "Read content of ansyslmd.ini")
-       (message "ansys-license-file=%s" lic))
-      (lic1
-       (setq ansys-license-file lic1)
-       (message "Read environment variable ANSYSLMD_LICENSE_FILE")
-       (message "ansys-license-file=%s" lic1))
-      ;; (lic2
-      ;;  (setq ansys-license-file lic2)
-      ;;  (message "Read environment variable MD_LICENSE_FILE")
-      ;;  (message "ansys-license-file=%s" lic2))
-      (t
-       (message "Found no default ansys-license-file from environment or ini file"))
-      )))
-
-    ;; 12) -ansysli-servers, the Interconnect license server(s)
-   (when (null ansys-ansysli-servers)
-     (let ((lic (ansys-read-ansyslmd-ini t))
-	   (lic1 (getenv "ANSYSLI_SERVERS")))
-       (cond
-	(lic
-	 (setq ansys-ansysli-servers lic)
-	 (message "Read content of ansyslmd.ini")
-	 (message "ansys-ansysli-servers=%s" lic))
-	(lic1
-	 (setq ansys-ansysli-servers lic1)
-	 (message "Read environment variable ANSYSLI_SERVERS")
-	 (message "ansys-ansysli-servers=%s" lic1))
-	(ansys-license-file ;ANSYS assumes the following as the last resort as well
-	 (setq ansys-ansysli-servers
-	       (replace-regexp-in-string "[0-9]*@" "2325@" ansys-license-file))
-	 (message "Assuming the same servers for Interconnect with default port")
-	 (message "ansys-ansysli-servers=%s" ansys-ansysli-servers))
-	(t
-	 (message "Found no default ansys-license-file from environment or ini file")))))
-
-  (message "Initialised defcustoms."))  ;; end of init function
 
 (defun ansys-mark-paragraph (&optional arg allow-extend)
   "Put mark at beginning of this paragraph, point at end.

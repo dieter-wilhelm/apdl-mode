@@ -70,12 +70,12 @@ EXE : $(EMACS_EXE)
 
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
-EL_FILES := ../A-M.el ../ansys-mode.el ../ansys-keyword.el \
-	      ../ansys-template.el ../ansys-process.el
+EL_FILES := ../ansys-config.el ../ansys-mode.el ../ansys-keyword.el \
+	../ansys-initialise.el ../ansys-template.el ../ansys-process.el
 # fontification.el is not included since it is not necessary for running A-M
 
 
-../A-M.el : ../A-M.org
+../ansys-config.el : ../ansys-config.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
 	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
@@ -99,7 +99,7 @@ HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 		 example.mac example.anf example.dat tools/ansys-mode/README.Conti
 
-WORK_EL_FILES := ../A-M.el ../ansys-mode.el ../ansys-keyword.el \
+WORK_EL_FILES := ../ansys-config.el ../ansys-mode.el ../ansys-keyword.el \
   ../ansys-template.el ../ansys-process.el
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
@@ -118,7 +118,7 @@ PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) de
 default.el : makefile
 	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > $@
 	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@
-	@echo "       (file (concat dir \"/ansys-mode-$(VERSION)/A-M.el\")))" >> $@
+	@echo "       (file (concat dir \"/ansys-mode-$(VERSION)/ansys-config.el\")))" >> $@
 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
@@ -169,8 +169,8 @@ tools/bin/A-M-$(VERSION).sh : makefile
 	@test -d tools/bin || mkdir tools/bin
 	@echo "#!/bin/sh " > $@
 	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
-	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/A-M.el \
-	-l /appl/tools/ansys-mode/Conti.el \$$*" >> $@
+	@echo "emacs -l /appl/tools/ansys-mode/Conti.el \
+	-l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
 	chmod +x $@
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
@@ -272,7 +272,7 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el 
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el tools/ansys-mode/README.Conti
 
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)

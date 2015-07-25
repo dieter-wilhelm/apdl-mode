@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-24>
+#+DATE: Time-stamp: <2015-07-25>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -50,16 +50,16 @@ tree.  Then ANSYS-Mode's definitions are available by every start of
 Emacs.
 
 Or unpack it anywhere on your system and make ANSYS-Mode known to
-Emacs by loading its configuration file ~A-M.el~ manually:
+Emacs by loading its configuration file ~ansys-config.el~ manually:
 
-~M-x load-file  YOUR_INSTALLATION_DIRECTORY/A-M.el~
+~M-x load-file  YOUR_INSTALLATION_DIRECTORY/ansys-config.el~
 
 Please start your Emacs, then type the <Alt> key and simultaneously
 the <x> key - then you'll end up in the so called minibuffer prompt,
 now type "load-file" (you might apply the <TAB> key for the Emacs
 auto-completion feature at any stage) and conclude this input with the
 <RET> key.  Emacs will then prompt you for a file name, type in the
-directory where you have extracted the code and "A-M.el" and press RET
+directory where you have extracted the code and "ansys-config.el" and press RET
 to load ANSYS-Mode's definitions in Emacs' memory.
 
 **** More permanent way; file configuration necessary
@@ -79,7 +79,7 @@ be automatically applied for all files with suffixes `.mac', `.ans',
   ;; Linux directory example:
   ;; "/usr/local/src/emacs/emacs-24.5/site-lisp/ansys-mode-161-2"
 
-  (load-file "A-M.el")
+  (load-file "ansys-config.el")
 #+END_SRC
 
 ** Verbose installation instructions
@@ -104,7 +104,7 @@ Most functionality should work out of the box, but if you have NOT
 installed ANSYS in its default installation directory on drive
 `C:Program Files' on Win64 and you want to start - for example -
 'anslic_admin' or the ANSYS help browser directly from Emacs please
-adjust the configuration file `A-M.el' file in Emacs' `site-lisp'
+adjust the configuration file `ansys-config.el' file in Emacs' `site-lisp'
 directory according to the commented code examples.
 
 If you whish to use exclusively your own configuration file, please
@@ -373,7 +373,7 @@ your system.
 ** Files
   *Sources*:
   - ansys-mode.el: Main file
-  - A-M.el: The configuration file
+  - ansys-config.el: The configuration file
   - ansys-keyword.el: Highlighting variables (built from
     helper/fontification.el)
   - ansys-template.el: Template definitions

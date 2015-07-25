@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-24>
+#+DATE: Time-stamp: <2015-07-25>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -33,10 +33,10 @@ Customisations for GNU-Linux and Windows systems.
 The customisations are written in `Emacs-lisp'.  The comment sign in
 this language is ~;~ (one semi-colon `;').
 
-* Conventions used in /A-M.el/
-Textual hints in /A-M.el/ are indicated with DOUBLE semi-colons ~;;~,
-please uncomment and change the code lines with a SINGLE comment sign,
-when appropriate.
+* Conventions used in /ansys-config.el/
+Textual hints in /ansys-config.el/ are indicated with TWO semi-colons
+~;;~, please uncomment only the code lines with a SINGLE comment sign
+and change them when appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
 ;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)
@@ -44,7 +44,7 @@ when appropriate.
 
 ;; Copyright (C) 2015 H. Dieter Wilhelm GPL V3
 
-;; `A-M.el' can be used as a configuration file (after moving
+;; `ansys-config.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
 ;; `c:\\EMACS_INSTALLDIR\\site-lisp').  Yet this file is then loaded
 ;; AFTER Emacs' user configuration file `~/.emacs' (or `~/.emacs.el'
@@ -480,11 +480,6 @@ But the solver/interpreter is checking this server as well!?
   (setq ansys-mode-install-directory
            (file-name-directory load-file-name))
   (message "Installation directory of ANSYS-Mode is %s" ansys-mode-install-directory)
-  ;(load "ansys-mode")
-  ;; we initialise already here to make the autoloaded functions available
-  ;(message "Initialising defcustoms.")
-  ;(ansys-initialise-defcustoms)
-  ;(message "ANSYS-Mode enabled.")
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 ;; The End

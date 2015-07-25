@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2015-07-24>
+#+DATE: Time-stamp: <2015-07-25>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -207,7 +207,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
   ~APDL/~ directory in the ANSYS installation tree).
 
 * Customisation
-  ANSYS-Mode provides its own customisation file ~A-M.el~.
+  ANSYS-Mode provides its own customisation file ~ansys-config.el~.
 * News
   Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
 * Acknowledgements

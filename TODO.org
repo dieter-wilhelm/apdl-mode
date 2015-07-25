@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-24>
+#+DATE: Time-stamp: <2015-07-25>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,10 +18,13 @@
 * 161-2:
 ** Bugs
    - Documentation of installation, usage and configuration!
+   - M-? on an empty buffer returns *abbr* help instead of warning
+   - Do we need to set environment license variables?  When
+     environment var isn't set in .profile, .bash_login nor in
+     .bash_profile
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
-   - Change versioning scheme to 161-2
    - We need `'' for strings and character parameters,`%' for
      parameter substitution,`(' for functions, % not yet working with
      electric-pair-mode
@@ -184,7 +187,8 @@
   - update/complete skeletons menu
 
     # ansys
-    (tags-query-replace "161.2" "161-2")
+    (tags-query-replace "161-2" "161-3")
+    (tags-query-replace "A-M.el" "ansys-config.el")
     (tags-query-replace "ANSYS 16" "ANSYS 17")
     # emacs
     (tags-query-replace "24\.5" "24.6")

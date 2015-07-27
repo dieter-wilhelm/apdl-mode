@@ -19,16 +19,17 @@ provide the command line argument `-nw' (or --no-window-system):
 ======================================================================
 			     PLEASE NOTE
 
-Most functionality works for any installed ANSYS version, but for some
-advanced stuff - like calling the help documentation in your browser -
-ANSYS-Mode-161-2 assumes that ANSYS V161 is installed on your system!
-You can configure ANSYS-Mode to work for any installed ANSYS version.
-You might achieve this in 3 ways: Graphically - for the current
-session - with the ANSYS-Mode menu or - temporary or permanently -
-with the Emacs customisation system or - permanently - with setting
-variables in a configuration file (Please have a look at Conti.el,
-there are only two variables which might need to be adjusted in either
-Conti.el or better your ~/.emacs.)
+Most functionality works for any ANSYS version, but for some advanced
+stuff - like calling the help documentation in your browser -
+ANSYS-Mode-161-2 searches for the highest installed ANSYS version on
+your system.  You can configure ANSYS-Mode to work for any installed
+ANSYS version.  You might achieve this by setting the installation
+directory in 3 ways: Graphically - for the current session - with the
+ANSYS-Mode menu or - temporary or permanently - with the Emacs
+customisation system or - permanently - with setting the variable in a
+configuration file (Please have a look at Conti.el, there is only one
+variables which might need to be adjusted in either Conti.el or even
+better your ~/.emacs.)
 
 ======================================================================
 

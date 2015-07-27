@@ -25,6 +25,7 @@
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
+   - outline-minor-mode not activated by default, contradicts documentation?
    - customisation :version attribute is not clear and not defined for
      new stuff
    - We need `'' for strings and character parameters,`%' for

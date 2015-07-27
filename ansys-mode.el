@@ -895,7 +895,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	 :help "Display all user variable definitions from the current file in another window. M-x ansys-display-variables"]
 	["Installation Directory" ansys-install-directory
 	 :label (if ansys-install-directory
-		    "Change the ANSYS Installation Directory"
+		    (concat "Change the Installation Directory [v" ansys-current-ansys-version "]")
 		  "Set the ANSYS Installation Directory!")
 	 :help "For certain functionality you need to set the
 	 installation directory of ANSYS, the path up to the
@@ -1083,15 +1083,13 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     :label (if ansys-ansysli-servers "Change the License Interconnect Servers"
 	     "Specify the License Interconnect Servers")
     :help "Change the interconnect server specification (for an solver/interpreter run)"]
-   ["Change ANSYS Version" ansys-current-ansys-version
-    :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
-    :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
-   ["Installation Directory" ansys-install-directory
-    :label (if
-	       ansys-install-directory
-	       "Change the ANSYS Installation Directory"
-	     "Set the ANSYS Installation Directory!")
-    :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
+	["Installation Directory" ansys-install-directory
+	 :label (if ansys-install-directory
+		    (concat "Change the Installation Directory [v" ansys-current-ansys-version "]")
+		  "Set the ANSYS Installation Directory!")
+	 :help "For certain functionality you need to set the
+	 installation directory of ANSYS, the path up to the
+	 version number vXXX.  M-x ansys-install-directory"]
    ["Change ANSYS License Type" ansys-license
     :label (concat "Change License Type [" ansys-license "]")
     :help "Specify the license type for an solver/interpreter run. M-x ansys-license"]
@@ -1170,7 +1168,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     :help "Write a file (JOB.abt containing the word \"nonlinear\") for orderly stopping the solver in the current working directory. M-x ansys-abort-file "]
    "-"
    ["Kill ANSYS Run" ansys-kill-ansys
-    :help "Kill the current run. M-x ansys-kill-ansys":active (ansys-process-running-p)]
+    :help "Kill the current run. M-x ansys-kill-ansys" :active (ansys-process-running-p)]
    ["Display all Emacs' Processes" list-processes
     :help "Show all active processes under Emacs, like shells, etc. M-x list-processes"]
    )

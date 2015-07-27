@@ -169,9 +169,11 @@ tools/bin/A-M-$(VERSION).sh : makefile
 	@test -d tools/bin || mkdir tools/bin
 	@echo "#!/bin/sh " > $@
 	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
-	@echo "emacs -l /appl/tools/ansys-mode/Conti.el \
-	-l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
+	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
 	chmod +x $@
+
+# @echo "emacs -l /appl/tools/ansys-mode/Conti.el \
+# -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
 	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)

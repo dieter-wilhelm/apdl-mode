@@ -24,12 +24,12 @@
 
 ;;; Code:
 
-(unless ansys-current-ansys-version
-  (setq ansys-current-ansys-version "161"))
+;; you might set it here or in your ~/.emacs or ~/.emacs.el or
+;; ~/.emacs.d/init.el config file
 
-;; needed for our non default `ansys_inc/16.1.0/v161/' ANSYS
-;; installation path on Linux...
-(unless ansys-current-update-version
-  (setq ansys-current-update-version "0"))
+; (setq ansys-install-directory "/appl/ansys_inc/16.1.0/v160")
+
+;; uncomment and change the string for example to
+;; "/appl/ansys_inc/15.0.12/v150"
 
 ;;; Conti.el ends here

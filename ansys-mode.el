@@ -564,7 +564,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 (defvar ansys-dynamic-prompt)
 (defvar ansys-completions)
 
-(require 'ansys-keyword "ansys-keyword.el")
+(require 'ansys-keyword)
 
 (defface ansys-arg-face
   '((((min-colors 88) (class color) (background light))
@@ -897,14 +897,16 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	 :label (if ansys-install-directory
 		    "Change the ANSYS Installation Directory"
 		  "Set the ANSYS Installation Directory!")
-	 :help "For certain functionality you need to set the installation directory of ANSYS, the path before `ansys_inc' or `ANSYS Inc'.  M-x ansys-install-directory"]
-	["Change ANSYS Version" ansys-current-ansys-version
-	 :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
-	 :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
-	["Change ANSYS Update Version" ansys-current-update-version
-	 :label (concat "Change ANSYS Update Version ["ansys-current-update-version"]")
-	 :visible ansys-current-update-version
-	 :help "For certain functionalities you need to specify the proper update version of ANSYS. M-x ansys-current-update-version"]
+	 :help "For certain functionality you need to set the
+	 installation directory of ANSYS, the path up to the
+	 version number vXXX.  M-x ansys-install-directory"]
+	;; ["Change ANSYS Version" ansys-current-ansys-version
+	;;  :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
+	;;  :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
+	;; ["Change ANSYS Update Version" ansys-current-update-version
+	;;  :label (concat "Change ANSYS Update Version ["ansys-current-update-version"]")
+	;;  :visible ansys-current-update-version
+	;;  :help "For certain functionalities you need to specify the proper update version of ANSYS. M-x ansys-current-update-version"]
 	["Browse APDL command help" ansys-browse-ansys-help
 	 :help "Open the original ANSYS documentation for a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
 	 :active (file-readable-p ansys-help-path)]
@@ -1382,8 +1384,8 @@ and P-MAX) otherwise align the current code paragraph."
 ;;   (setq font-lock-defaults `(,solver-font-lock))
 ;;   )
 
-(require 'ansys-template "ansys-template.el")
-(require 'ansys-process "ansys-process.el")
+(require 'ansys-template)
+(require 'ansys-process)
 
 ;;;###autoload
 (defun ansys-mode ()
@@ -2060,7 +2062,7 @@ improvements you have the following options:
   (ansys-add-ansys-menu)
 
   ;; initialise customisation
-
+  (require 'ansys-initialise)
   (ansys-initialise)
 
   ;; --- user variables ---

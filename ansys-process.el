@@ -1085,6 +1085,34 @@ by colons `:' on Linux, semi-colons `;' on Windows , for example
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
+(defun ansys-install-directory ()
+  "Change the ANSYS installation directory.
+This is the path before the directory `ansys_inc/' under Linux or
+`ANSYS Inc\\' under Windows."
+  (interactive)
+  (let* ((idir ansys-install-directory)
+	 path
+	 (ndir
+	  (expand-file-name	       ;in case it was written ~
+	   (file-name-as-directory	;in case the slash is forgotten
+	    (read-directory-name
+	     (concat "Specify the ANSYS installation directory ["
+		     idir "]:")
+	     nil nil idir)))))
+    (cond ((ansys-is-unix-system-p)
+	   (setq path (concat ndir "ansys_inc")))
+	  (t
+	   (setq path (concat ndir "ANSYS Inc"))))
+    (if (file-readable-p path)
+	(progn
+	  (setq ansys-install-directory
+		(file-name-as-directory ndir)) ;ensure final slash
+	  (message
+	   (concat
+	    "Set ansys-install-directory to \"" ndir "\".")))
+      (error "ANSYS directory \"%s\" is not readable" path))
+    (ansys-initialise-defcustoms 'force)))
+
 (defun ansys-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.
 And specify it in the variable `ansys-ansysli-servers'.  The

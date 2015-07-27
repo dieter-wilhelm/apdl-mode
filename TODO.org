@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-25>
+#+DATE: Time-stamp: <2015-07-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -25,6 +25,8 @@
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
+   - customisation :version attribute is not clear and not defined for
+     new stuff
    - We need `'' for strings and character parameters,`%' for
      parameter substitution,`(' for functions, % not yet working with
      electric-pair-mode

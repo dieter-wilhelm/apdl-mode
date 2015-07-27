@@ -32,13 +32,15 @@
 (defconst ansys-version_ "161"
   "ANSYS version on which ANSYS-Mode is based upon.")
 
+;; FIXME: remove
 ;; Ansys calls their bug fixed/patched releases between major releases
 ;; "updates, they are not named in the default installation path, the
 ;; older update version files are normally overwritten."
-(defconst ansys-update_version nil
-  "Current ANSYS update version.
-Used also internally to signal a no-default ANSYS installation
-path, if not nil.")
+
+;; (defconst ansys-update_version nil
+;;   "Current ANSYS update version.
+;; Used also internally to signal a no-default ANSYS installation
+;; path, if not nil.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defcustoms
@@ -47,27 +49,23 @@ path, if not nil.")
   :group 'ANSYS)
 
 (defcustom ansys-install-directory nil
-  "This is the directory path where ANSYS has been installed.
-Which is to say the path before \"ansys_inc\" under Linux or
-\"Ansys Inc\" under Windows."
+  "This is the path where the MAPDL solver (ANSYS) has been installed.
+Which is to say the path up to the ANSYS version number, for
+example \"v161\".  The ANSYS installation routine sets for this
+path an environment variable, for the former versioning example:
+AWP_ROOT161."
   :type 'string
   :group 'ANSYS-initialise)
 
-(defcustom ansys-current-ansys-version ansys-version_
-  "String of the used ANSYS version.
-This variable is used by the `ansys-skeleton-header' template and
-for setting up variables defaults with ANSYS path specifications,
-like in the variable `ansys-program'."
-  :type 'string
-  :group 'ANSYS-initialise)
+;; FIXME: remove
+;; (defcustom ansys-current-update-version ansys-update_version
+;;   "String of the used ANSYS update version. ANSYS calls their bug
+;;   fixed/patched releases \"updates\"."
+;;   :type 'string
+;;   :group 'ANSYS-initialise)
 
-(defcustom ansys-current-update-version ansys-update_version
-  "String of the used ANSYS update version. ANSYS calls their bug
-  fixed/patched releases \"updates\"."
-  :type 'string
-  :group 'ANSYS-initialise)
 
-;; FIXME: the following should actually be variables...
+;; FIXME: the following defcustoms should actually be variables...
 
 (defcustom ansys-program nil
   "This string variable stores the ANSYS executable.
@@ -138,7 +136,6 @@ the ansli_admin tool under Windows with the function
   :type 'string
   :group 'ANSYS-initialise)
 
-
 (defcustom ansys-license-file nil
   "The FlexLM license file name or license server specification(s).
 The license server specification(s) should include the port
@@ -167,9 +164,16 @@ Set it to port@host.  The default port is 2325."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; variables
 
-(defvar ansys-current-ansys-version-history '("160" "150" "145")
-  "History list for the minibuffer input of
-  `ansys-current-ansys-version'.")
+
+(defvar ansys-current-ansys-version nil
+  "String of the currently used MAPDL solver version.
+This variable is used by the `ansys-skeleton-header' template and
+for setting up variables defaults with ANSYS path specifications,
+like in the variable `ansys-program'.")
+
+;; (defvar ansys-current-ansys-version-history '("160" "150" "145")
+;;   "History list for the minibuffer input of
+;;   `ansys-current-ansys-version'.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; functions
@@ -184,8 +188,8 @@ return nil."
 	 servers
 	 ansysli)
     (if (ansys-is-unix-system-p)
-	(setq ini (concat idir "/ansys_inc/shared_files/licensing/ansyslmd.ini"))
-      (setq ini (concat idir "\\ANSYS Inc\\Shared Files\\Licensing\\ansyslmd.ini")))
+	(setq ini (concat idir "/shared_files/licensing/ansyslmd.ini"))
+      (setq ini (concat idir "\\Shared Files\\Licensing\\ansyslmd.ini")))
     (if (file-readable-p ini)
 	(with-temp-buffer
 	  (insert-file-contents ini)
@@ -198,27 +202,28 @@ return nil."
       (message (concat "File "ini" not readable"))
       nil)))
 
+(defun ansys-search-version ( path)
+  "Return under PATH the highest installed ANSYS MAPDL version.
+Return nil if there is no ANSYS version installed.")
+
 (defun ansys-initialise ( &optional force)
   "Initialise the customisation variables.
 When argument FORCE is non-nil overwrite already set
 customisation variables"
 
-  ;; 1) -current-ansys-version: In its definition 161
-
-  ;; 2) -install-directory
+  ;; 1) -install-directory (with versioning information)
   (when (null ansys-install-directory)
     (let* ((version  ansys-current-ansys-version)
-	   ;; we have to remove `ansys_inc/v161' or `ANSYS Inc\v161' from AWP_ROOT161
 	   (root (getenv (concat "AWP_ROOT" version)))
 	   (dir (if root
-		    (file-name-directory
-		     (directory-file-name
-		      (file-name-directory root)))
+		    (file-name-as-directory root)
 		  nil)))
       (cond (dir
 	     (if (not (file-readable-p dir))
 		 (message "Directory in AWP_ROOT not readable")
-	       (message "Set ansys-install-directory from environment AWP_ROOT")
+	       (message "ansys-install-directory set from
+	       environment var. AWP_ROOT%s" version)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; FIXME
 	       (message "ansys-install-directory = %s" dir)))
 	    ((string= window-system "x")
 	     (when (file-readable-p (concat "/ansys_inc/v" version))
@@ -232,14 +237,12 @@ customisation variables"
 	  (setq ansys-install-directory dir)
 	(message "No ANSYS default installation directory found"))))
 
-  ;; 3) -dynamic-highlighting-flag: In its definition
+  ;; 2) -current-ansys-version: 
 
-  ;; 4) -job: in its definition
-
-  ;; 5) -program
+  ;; 3) -program
   (when (or (null ansys-program) force)
     (let* ((version ansys-current-ansys-version)
-	   (update ansys-current-update-version)
+;	   (update ansys-current-update-version)
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
 	   (exe ""))
@@ -269,10 +272,10 @@ customisation variables"
 	    (message (concat "ansys-program set to " ansys-program)))
 	(message "Couldn't find default executable for ansys-program."))))
 
-  ;; 6) -wb
+  ;; 4) -wb
   (when (or (null ansys-wb) force)
     (let* ((version ansys-current-ansys-version)
-	   (update ansys-current-update-version)
+;	   (update ansys-current-update-version)
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
 	   exe)
@@ -302,10 +305,10 @@ customisation variables"
 	  (message (concat "ansys-wb set to " ansys-wb))
 	(message "Couldn't find an executable for ansys-wb."))))
 
-;; 7) -launcher
+;; 5) -launcher
   (when (or (null ansys-launcher) force)
     (let* ((version ansys-current-ansys-version)
-	   (update ansys-current-update-version)
+;	   (update ansys-current-update-version)
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
 	   exe)
@@ -338,11 +341,11 @@ customisation variables"
 
   ;; -dynamic-highlighting-flag: t in its definition
 
-  ;; 8) -help-path
+  ;; 6) -help-path
   (when (or (null ansys-help-path) force)
     (let ((idir ansys-install-directory)
 	  (version ansys-current-ansys-version)
-	  (update ansys-current-update-version)
+;	  (update ansys-current-update-version)
 	  path)
       (cond
        (update
@@ -365,11 +368,11 @@ customisation variables"
 	  (message "Set ansys-help-path to %s" path))
 	(message "Couldn't find an ansys-help-path"))))
 
-  ;; 9) -help-program
+  ;; 7) -help-program
   (when (or (null ansys-help-program) force)
     (let* ((idir ansys-install-directory)
 	   (version ansys-current-ansys-version)
-	   (update ansys-current-update-version)
+;	   (update ansys-current-update-version)
 	   exe)
       (cond
        (udate 
@@ -392,11 +395,11 @@ customisation variables"
 	    (setq ansys-help-program exe))
 	(message "Found no ansys-help-program on your system"))))
 
-  ;; 10) -lmutil-program
+  ;; 8) -lmutil-program
   (when (or (null ansys-lmutil-program) force)
     (let ((idir ansys-install-directory)
 	  (version ansys-current-ansys-version)
-	  (update ansys-current-update-version)
+;	  (update ansys-current-update-version)
 	  exe)
       (cond
        (udate
@@ -416,9 +419,10 @@ customisation variables"
 	    (message "ansys-lmutil-program = %s" exe))
 	(message "Found no ansys-lmutil-program on your system"))))
 
-  ;; 11) -license-file
+  ;; 9) -license-file
   (when (null ansys-license-file)
-    (let* ((update ansys-current-update-version)
+    (let* (
+;	   (update ansys-current-update-version)
 	   (lic (ansys-read-ansyslmd-ini nil))
 	   (lic1 (getenv "ANSYSLMD_LICENSE_FILE")) ; ANSYS doesn't use LM_LICENSE_FILE
 	   (lic2 (when update "32002@ls_fr_ansyslmd_ww_1.conti.de")))
@@ -442,9 +446,10 @@ customisation variables"
        (message "Found no default ansys-license-file from environment or ini file"))
       )))
 
-    ;; 12) -ansysli-servers, the Interconnect license server(s)
+    ;; 10) -ansysli-servers, the Interconnect license server(s)
    (when (null ansys-ansysli-servers)
-     (let* ((update ansys-current-update-version)
+     (let* (
+;	    (update ansys-current-update-version) 
 	    (lic (ansys-read-ansyslmd-ini t))
 	    (lic1 (getenv "ANSYSLI_SERVERS"))
 	    (lic2 (when update "2325@ls_fr_ansyslmd_ww_1.conti.de")))
@@ -473,8 +478,9 @@ customisation variables"
 
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.
-This is the path before the directory `ansys_inc/' under Linux or
-`ANSYS Inc\\' under Windows."
+Which is to say the path up to the ANSYS version number, for
+example \"v161\".  The path is stored in the variable
+`ansys-install-directory'"
   (interactive)
   (let* ((idir ansys-install-directory)
 	 path
@@ -485,73 +491,70 @@ This is the path before the directory `ansys_inc/' under Linux or
 	     (concat "Specify the ANSYS installation directory ["
 		     idir "]:")
 	     nil nil idir)))))
-    (cond ((ansys-is-unix-system-p)
-	   (setq path (concat ndir "ansys_inc")))
-	  (t
-	   (setq path (concat ndir "ANSYS Inc"))))
-    (if (file-readable-p path)
+    (if (file-readable-p ndir)
 	(progn
 	  (setq ansys-install-directory
 		(file-name-as-directory ndir)) ;ensure final slash
 	  (message
 	   (concat
 	    "Set ansys-install-directory to \"" ndir "\".")))
-      (error "ANSYS directory \"%s\" is not readable" path))
+      (error "ANSYS directory \"%s\" is not readable" ndir))
     (ansys-initialise 'force)))
 
+;; FIXME: remove
+;; (defun ansys-current-ansys-version ()
+;;   "Specify the required (and installed) ANSYS version.
+;; For example \"150\" instead of \"161\", which is the current
+;; default."
+;;   (interactive)
+;;   (let* ((dir ansys-install-directory)
+;; 	 (version ansys-current-ansys-version)
+;; 	 path
+;; 	 (version
+;; 	  (read-string
+;; 	   (concat "Specify the required ANSYS version [" version "]:")
+;; 	   version
+;; 	   'ansys-current-ansys-version-history)))
+;;     (cond
+;;      ((ansys-is-unix-system-p)
+;;       (setq path (concat dir "/ansys_inc/v" version)))
+;;      (t
+;;       (setq path (concat dir "\\ANSYS Inc\\v" version))))
+;;     (if (file-readable-p path)
+;; 	(progn
+;; 	  (setq ansys-current-ansys-version version)
+;; 	  (message "Set current ANSYS version to %s." version)
+;; 	  (ansys-initialise-defcustoms t))
+;;       (error "ANSYS V%s not present: %s not readable" version path))))
 
-(defun ansys-current-ansys-version ()
-  "Specify the required (and installed) ANSYS version."
-  (interactive)
-  (let* ((dir ansys-install-directory)
-	 path
-	 (setq version ansys-current-ansys-version)
-	 (setq major (substring version 0 2))
-	 (setq minor (substring version 2))
-	 (setq update ansys-current-update-version)
-	 (update
-	  (read-string
-	   (concat "Specify the required ANSYS update version ["
-	   update "]:") update
-	   'ansys-current-update-version-history)))
-    (setq path
-	  (concat dir "/ansys_inc/"
-		  major "." minor "." update
-		  "/v" version))
-    (if (file-readable-p path)
-	(setq ansys-current-ansys-version update)
-      (error "ANSYS update version \"%s\" not present, path %s not readable"
-	     update path))
-    (message "Set current ANSYS version to %s." update)
-    (ansys-initialise 'force)))
 
-(defun ansys-current-update-version ()
-  "Specify the required (and installed) ANSYS update version.
-This variable is only necessary for a special (company
-dependened) non-standard ANSYS installation tree.  For example
-\"7\" from \"16.1.0\" instead of \"0\"."
-  (interactive)
-  (let* ((dir ansys-install-directory)
-	 path
-	 (setq version ansys-current-ansys-version)
-	 (setq major (substring version 0 2))
-	 (setq minor (substring version 2))
-	 (setq update ansys-current-update-version)
-	 (update
-	  (read-string
-	   (concat "Specify the required ANSYS update version ["
-	   update "]:") update
-	   'ansys-current-update-version-history)))
-    (setq path
-	  (concat dir "/ansys_inc/"
-		  major "." minor "." update
-		  "/v" version))
-    (if (file-readable-p path)
-	(setq ansys-current-ansys-version update)
-      (error "ANSYS update version \"%s\" not present, path %s not readable"
-	     update path))
-    (message "Set current ANSYS version to %s." update)
-    (ansys-initialise 'force)))
+;; (defun ansys-current-update-version ()
+;;   "Specify the required (and installed) ANSYS update version.
+;; This variable is only necessary for a special (company
+;; dependened) non-standard ANSYS installation tree.  For example
+;; \"7\" from \"16.1.0\" instead of \"0\"."
+;;   (interactive)
+;;   (let* ((dir ansys-install-directory)
+;; 	 path
+;; 	 (setq version ansys-current-ansys-version)
+;; 	 (setq major (substring version 0 2))
+;; 	 (setq minor (substring version 2))
+;; 	 (setq update ansys-current-update-version)
+;; 	 (update
+;; 	  (read-string
+;; 	   (concat "Specify the required ANSYS update version ["
+;; 	   update "]:") update
+;; 	   'ansys-current-update-version-history)))
+;;     (setq path
+;; 	  (concat dir "/ansys_inc/"
+;; 		  major "." minor "." update
+;; 		  "/v" version))
+;;     (if (file-readable-p path)
+;; 	(setq ansys-current-ansys-version update)
+;;       (error "ANSYS update version \"%s\" not present, path %s not readable"
+;; 	     update path))
+;;     (message "Set current ANSYS version to %s." update)
+;;     (ansys-initialise 'force)))
 
 (provide 'ansys-initialise)
 ;;; ansys-initialise.el ends here

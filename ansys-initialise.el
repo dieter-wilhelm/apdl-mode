@@ -221,14 +221,12 @@ content."
 			    process-environment)
 		    )
 	    'string<)))))
-    (if (file-readable-p dir)
-	dir
-      (message "Environment AWP_ROOTXXX exists but is not readable")
-      nil)))
-
-;; (defun ansys-search-version ( path)
-;;   "Return under PATH the highest installed ANSYS MAPDL version.
-;; Return nil if there is no ANSYS version installed.")
+    (if (null dir)
+	(message "No AWP_ROOTXXX environment variable")
+      (if (file-readable-p dir)
+	  dir
+	(message "Environment AWP_ROOTXXX set but values is not readable")
+	nil))))
 
 (defun ansys-initialise ( &optional force)
   "Initialise the customisation variables.

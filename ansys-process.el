@@ -118,34 +118,36 @@ The output of the solver is captured in an Emacs buffer called
 ;    (ansys-license-file "")	 ;
 ;    (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
-
-    (if (y-or-n-p
-	 (concat
-	  "Start run of: "
-	  ansys-program
-	  ", license: " ansys-license
-	  ;; "Start run?  (license type: " (if (boundp
-	  ;; 'ansys-license) ansys-license)
-	  (if (>= ansys-no-of-processors 3)
-	      (concat ", No of procs: " (number-to-string ansys-no-of-processors))
-	    "")
-	  ", job: " (if (boundp 'ansys-job) ansys-job)
-	  " in " default-directory ", server: " ansys-license-file ")"))
-	(message "Started MAPDL in GUI mode (ANSYS Classics) ...")
-      (error "Starting MAPDL (ANSYS Classics) cancelled"))
-    ;; -d : device
-    ;; -g : graphics mode
-    ;; -p : license
-    ;; -np: no of PROCs
-    ;; -j : job
-    (start-process ansys-classics-process
-		   (concat "*"ansys-classics-process"*")
-		   ansys-program
-		   (concat (concat " -p " ansys-license)
-		   " -d 3d "
-		   (concat " -j " ansys-job)
-		   (concat " -np " (number-to-string ansys-no-of-processors))
-		   " -g")))
+    (let ((bname (concat "*"ansys-classics-process"*")))
+      (if (y-or-n-p
+	   (concat
+	    "Start run of: "
+	    ansys-program
+	    ", license: " ansys-license
+	    ;; "Start run?  (license type: " (if (boundp
+	    ;; 'ansys-license) ansys-license)
+	    (if (>= ansys-no-of-processors 3)
+		(concat ", No of procs: " (number-to-string ansys-no-of-processors))
+	      "")
+	    ", job: " (if (boundp 'ansys-job) ansys-job)
+	    " in " default-directory ", server: " ansys-license-file ")"))
+	  (message "Started MAPDL in GUI mode (ANSYS Classics) ...")
+	(error "Starting MAPDL (ANSYS Classics) cancelled"))
+      ;; -d : device
+      ;; -g : graphics mode
+      ;; -p : license
+      ;; -np: no of PROCs
+      ;; -j : job
+      (start-process ansys-classics-process
+		     bname
+		     ansys-program
+		     (concat (concat " -p " ansys-license)
+			     " -d 3d "
+			     (concat " -j " ansys-job)
+			     (concat " -np " (number-to-string ansys-no-of-processors))
+			     " -g")))
+    (display-buffer bname 'other-window)
+    )
 
 (defun ansys-start-launcher ()
   "Start the Ansys Launcher."

@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2015-07-25>
+#+DATE: Time-stamp: <2015-07-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+DATE: <2013-05-22 Wed>
 # #+OPTIONS: H:1 texht:t
@@ -186,11 +186,11 @@
   [[./find_file_dialog.png]]
 
 ** Explore the ANSYS-Mode menus
-  If ANSYS is installed in its default folder /C:Program Files/ under
-  Win64 also system dependent functions are working, like browsing the
-  APDL help with *C-c C-b*, otherwise, you can easily configure
-  this. This browsing is *much* faster as searching in the original ANSYS
-  Help Viewer.
+  If ANSYS is installed in its default folders /C:Program Files/ under
+  Win64 and /// under Linux, also system dependent functions, like
+  browsing the APDL help with *C-c C-b*, are working.  Otherwise, you
+  can easily configure this. The former is *much* faster as searching
+  with the original ANSYS Help Viewer.
 
 #+ATTR_LaTeX: :height 7.5cm
   [[./ansys_menu.png]]
@@ -325,11 +325,10 @@
    file:ansys-mode.jpg
 
 * Configuration
-
 ** Configure system dependent aspects and user options
 #   \\Mainly the ANSYS version and its installation directory
-    The mode comes pre-configured for the default installation of
-    ANSYS for Win64.  If something is amiss: Please adjust
+    The mode comes pre-configured for a default installation of
+    ANSYS.  If something is amiss: Please use the menu or adjust
 *** the well commented configuration file /ansys-config.el/
 	  :PROPERTIES:
 	  :BEAMER_env: block
@@ -385,10 +384,10 @@
 # # ATTENTION: \pdfannot does not work in this environment!!!!
 # *** Installation:
    - Installation: :: More detailed instructions are necessary if you
-		      are not using the mode bundled with Emacs for
-		      Windows.  Please have a look in the /README.org/
-		      file.  An online version is at
-		      [[http://dieter-wilhelm.github.io/ansys-mode/][ANSYS-Modes's documentation site]].
+                      are not using the mode bundled with Emacs.
+                      Please have a look in the /INSTALLATION.org/
+                      file.  The online documentation is at
+                      [[http://dieter-wilhelm.github.io/ansys-mode/][ANSYS-Modes's documentation site]].
 # *** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find these
 	in-depth documentation included in the mode's archives on

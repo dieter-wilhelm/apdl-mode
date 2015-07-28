@@ -2110,6 +2110,7 @@ improvements you have the following options:
   (let ((b "macro.mac"))
     (get-buffer-create b)
     (switch-to-buffer b)
+    (insert "!! This is an unsaved file under ANSYS-Mode, start hacking...\n")
     (ansys-mode)))
 
 ;; FIXME

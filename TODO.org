@@ -25,6 +25,7 @@
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
+   - option to make eww default help browser
    - outline-minor-mode not activated by default, contradicts documentation?
    - customisation :version attribute is not clear and not defined for
      new stuff

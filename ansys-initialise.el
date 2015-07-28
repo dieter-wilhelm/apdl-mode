@@ -182,12 +182,14 @@ like in the variable `ansys-program'.")
 If TYPE is nil return the license servers, if non-nil the
 ansysli_servers.  When there are no license servers readable,
 return nil."
-  (let* ((idir ansys-install-directory)
+  (let* ((idir 
+	  (file-name-directory
+	   (directory-file-name ansys-install-directory)))
 	 ini
 	 )
     (if (ansys-is-unix-system-p)
-	(setq ini (concat idir "/shared_files/licensing/ansyslmd.ini"))
-      (setq ini (concat idir "\\Shared Files\\Licensing\\ansyslmd.ini")))
+	(setq ini (concat idir "shared_files/licensing/ansyslmd.ini"))
+      (setq ini (concat idir "Shared Files/Licensing/ansyslmd.ini")))
     (if (file-readable-p ini)
 	(with-temp-buffer
 	  (insert-file-contents ini)
@@ -241,6 +243,12 @@ customisation variables"
 	  (message "ansys-install-directory set from
 	       environment variable AWP_ROOTXXX")
 	  (message "ansys-install-directory = %s" dir)))
+	  (setq subdir 
+		(car 
+		 (reverse
+		  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
+	  (setq ansys-current-ansys-version (remove ?v (substring subdir 0 4)))	       
+	  (message "Current ANSYS version: %s" ansys-current-ansys-version)
        ;; default company installation path
        ((file-readable-p cdir)
 	(setq subdir 
@@ -263,7 +271,8 @@ customisation variables"
        ;; default installation path on windows
        (t
 	(setq cdir "C:\\Program Files\\ANSYS Inc")
-	(when (file-readable-p)
+	;; search for the latest version
+	(when (file-readable-p cdir)
 	  (setq subdir 
 		(car 
 		 (reverse
@@ -276,7 +285,16 @@ customisation variables"
 	(message "No ANSYS installation directory found"))))
 
   ;; 2) -current-ansys-version: 
-
+ (let* ((idir (file-name-as-directory ansys-install-directory))
+	(version ansys-current-ansys-version))
+   (when (or (and idir
+		  (not version))
+	     force)
+	 (setq length (length idir))
+	 (setq version (substring (directory-file-name idir) (- length 4) (- length 1)))
+	 (setq ansys-current-ansys-version version)
+	 (message "ansys-current-ansys-version=%s" version)))
+ 
   ;; 3) -program
   (when (and ansys-install-directory (or (null ansys-program) force))
     (let* ((version ansys-current-ansys-version)
@@ -389,7 +407,9 @@ customisation variables"
      (let* (
 	    (lic (ansys-read-ansyslmd-ini t))
 	    (lic1 (getenv "ANSYSLI_SERVERS"))
-	    (lic2 "2325@ls_fr_ansyslmd_ww_1.conti.de"))
+	    (lic2 (if
+		      (file-readable-p
+		       "/appl/ansys_inc") "2325@ls_fr_ansyslmd_ww_1.conti.de")))
        (cond
 	(lic
 	 (setq ansys-ansysli-servers lic)

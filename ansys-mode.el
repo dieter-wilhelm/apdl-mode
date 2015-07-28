@@ -2214,7 +2214,7 @@ call `ansys-mode'."
       (unload-feature 'ansys-template))
     (load "ansys-mode")
     (ansys-mode)
-    (message (concat "ANSYS-Mode-" ansys-version_ "." ansys-mode_version " reloaded."))))
+    (message (concat "ANSYS-Mode-" ansys-version_ "-" ansys-mode_version " reloaded."))))
 
 (defun ansys-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.

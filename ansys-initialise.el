@@ -408,8 +408,8 @@ customisation variables"
 	    (lic (ansys-read-ansyslmd-ini t))
 	    (lic1 (getenv "ANSYSLI_SERVERS"))
 	    (lic2 (if
-		      (file-readable-p
-		       "/appl/ansys_inc") "2325@ls_fr_ansyslmd_ww_1.conti.de")))
+		      (file-readable-p "/appl/ansys_inc")
+		      "2325@ls_fr_ansyslmd_ww_1.conti.de")))
        (cond
 	(lic
 	 (setq ansys-ansysli-servers lic)
@@ -422,16 +422,16 @@ customisation variables"
 	(lic2
 	 (setq ansys-ansysli-servers lic2)
 	 (message "Conti server: ansys-ansysli-servers=%s" lic2))
-	)
 	(ansys-license-file ;ANSYS assumes the following as the last resort as well
-			    ;FIXME: but only in anslic_admin I think
+					;FIXME: but only in anslic_admin I think
 	 (setq ansys-ansysli-servers
 	       (replace-regexp-in-string "[0-9]*@" "2325@" ansys-license-file))
 	 (message "Assuming the same servers for Interconnect with default port")
 	 (message "ansys-ansysli-servers=%s" ansys-ansysli-servers))
 	(t
-	 (message "Found no ansys-ansyslic-servers from environment or ini file"))))
-   (message "Initialised system dependened variables."))  ;; end of init function
+	 (message "Found no ansys-ansyslic-servers from environment or ini file")))))
+     ;; ------------------------------------------------------------
+     (message "Initialised system dependened variables."))  ;; end of init function
 
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.

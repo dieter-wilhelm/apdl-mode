@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-25>
+#+DATE: Time-stamp: <2015-07-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -477,9 +477,6 @@ But the solver/interpreter is checking this server as well!?
 
   ;; adding the directory of this (loaded) file to the load-path
   (add-to-list 'load-path (file-name-directory load-file-name))
-  (setq ansys-mode-install-directory
-           (file-name-directory load-file-name))
-  (message "Installation directory of ANSYS-Mode is %s" ansys-mode-install-directory)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 ;; The End

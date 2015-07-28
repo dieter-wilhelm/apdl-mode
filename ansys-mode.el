@@ -320,9 +320,6 @@ A hook is a variable which holds a collection of functions."
 ;;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defvar ansys-mode-install-directory nil ;FIXME: redundant
-  "This is the directory path where ANSYS-Mode has been installed.")
-
 (defvar ansys-overlay-str ""
   "variable to store previous overlay string.")
 

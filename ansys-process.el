@@ -145,9 +145,8 @@ The output of the solver is captured in an Emacs buffer called
 			     " -d 3d "
 			     (concat " -j " ansys-job)
 			     (concat " -np " (number-to-string ansys-no-of-processors))
-			     " -g")))
-    (display-buffer bname 'other-window)
-    )
+			     " -g"))
+    (display-buffer bname 'other-window)))
 
 (defun ansys-start-launcher ()
   "Start the Ansys Launcher."

@@ -99,8 +99,7 @@ HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
 		 example.mac example.anf example.dat tools/ansys-mode/README.Conti
 
-WORK_EL_FILES := ../ansys-config.el ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el
+WORK_EL_FILES := $(EL_FILES)
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	            ../doc/A-M_in-depth_tutorial.org     \

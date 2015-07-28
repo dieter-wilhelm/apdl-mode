@@ -264,7 +264,8 @@ customisation variables"
 	(setq ansys-current-ansys-version (remove ?. (substring subdir 0 4)))
 	(setq dir (concat cdir subdir "/v" ansys-current-ansys-version "/")))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-       ;; default installation path on Linux
+       ;; default installation path on Linux "/" or rather "/usr"
+       ;; /ansys_inc is a symlink to /usr/ansys_inc
        ((string= window-system "x")
 	(setq cdir "/ansys_inc/")
 	(when (file-readable-p cdir)
@@ -390,9 +391,11 @@ customisation variables"
   ;; 9) -license-file
   (when (null ansys-license-file)
     (let* (
+	   (lfile "ANSYSLMD_LICENSE_FILE")
 	   (lic (ansys-read-ansyslmd-ini nil))
-	   (lic1 (getenv "ANSYSLMD_LICENSE_FILE")) ; ANSYS doesn't use LM_LICENSE_FILE
-	   (lic2 "32002@ls_fr_ansyslmd_ww_1.conti.de"))
+	   (lic1 (getenv lfile)) ; ANSYS doesn't use LM_LICENSE_FILE
+	   (lic2 (if (file-readable-p "/appl/ansys_inc")
+		     "32002@ls_fr_ansyslmd_ww_1.conti.de")))
      (cond
       (lic
        (setq ansys-license-file lic)
@@ -400,11 +403,12 @@ customisation variables"
        (message "ansys-license-file=%s" lic))
       (lic1
        (setq ansys-license-file lic1)
-       (message "Read environment variable ANSYSLMD_LICENSE_FILE")
+       (message "Read environment variable %s" lfile)
        (message "ansys-license-file=%s" lic1))
       (lic2 
        (setq ansys-license-file lic2)
-       (message "Conti server: ansys-license-file=%s" lic2))
+       (message "Conti server: ansys-license-file=%s" lic2)
+       (setenv lfile lic2))
       (t
        (message "Found no default ansys-license-file from environment or ini file"))
       )))
@@ -412,10 +416,10 @@ customisation variables"
     ;; 10) -ansysli-servers, the Interconnect license server(s)
    (when (null ansys-ansysli-servers)
      (let* (
+	    (lfile "ANSYSLI_SERVERS")
 	    (lic (ansys-read-ansyslmd-ini t))
-	    (lic1 (getenv "ANSYSLI_SERVERS"))
-	    (lic2 (if
-		      (file-readable-p "/appl/ansys_inc")
+	    (lic1 (getenv lfile))
+	    (lic2 (if (file-readable-p "/appl/ansys_inc")
 		      "2325@ls_fr_ansyslmd_ww_1.conti.de")))
        (cond
 	(lic
@@ -424,11 +428,12 @@ customisation variables"
 	 (message "ansys-ansysli-servers=%s" lic))
 	(lic1
 	 (setq ansys-ansysli-servers lic1)
-	 (message "Read environment variable ANSYSLI_SERVERS")
+	 (message "Read environment variable %s" lfile)
 	 (message "ansys-ansysli-servers=%s" lic1))
 	(lic2
 	 (setq ansys-ansysli-servers lic2)
-	 (message "Conti server: ansys-ansysli-servers=%s" lic2))
+	 (message "Conti server: ansys-ansysli-servers=%s" lic2)
+	 (setenv lfile lic2))
 	(ansys-license-file ;ANSYS assumes the following as the last resort as well
 					;FIXME: but only in anslic_admin I think
 	 (setq ansys-ansysli-servers

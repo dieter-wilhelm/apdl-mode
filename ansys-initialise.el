@@ -247,14 +247,11 @@ customisation variables"
       (cond 
        ;; from environment variable
        (dir
-	(message "ansys-install-directory set from
-	       environment variable AWP_ROOTXXX")
+	(message "ansys-install-directory set from environment variable AWP_ROOTXXX")
 	(message "ansys-install-directory = %s" dir)
 	(setq subdir 
-	      (car
-	       (reverse
-		(directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
-	(setq ansys-current-ansys-version (remove ?v (substring subdir 0 4)))	       
+	      (file-name-nondirectory (directory-file-name dir)))
+	(setq ansys-current-ansys-version (remove ?v subdir))	
 	(message "Current ANSYS version: %s" ansys-current-ansys-version))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default company installation path
@@ -313,7 +310,7 @@ customisation variables"
 		   (file-name-directory ansys-install-directory)))
 	   (exe (if (ansys-is-unix-system-p)
 		    (concat idir "ansys/bin/ansys" version)
-		  (concat idir "ansys/bin/winx64/ansys.exe"))))
+		  (concat idir "ansys/bin/winx64/ansys"version".exe"))))
       (if (file-executable-p exe)
 	  (progn
 	    (setq ansys-program exe)
@@ -456,7 +453,7 @@ example \"v161\".  The path is stored in the variable
 	    (read-directory-name
 	     (concat "Specify the ANSYS installation directory ["
 		     idir "]:")
-	     nil idir nil idir))))
+	     idir idir))))
 	 (length (length ndir))
 	 (version (substring (directory-file-name ndir) (- length 4) (- length 1))))
     (message "a-i-d: %s" ndir)

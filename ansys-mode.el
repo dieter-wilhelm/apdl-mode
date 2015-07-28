@@ -2058,10 +2058,6 @@ improvements you have the following options:
   ;; menu
   (ansys-add-ansys-menu)
 
-  ;; initialise customisation
-  (require 'ansys-initialise)
-  (ansys-initialise)
-
   ;; --- user variables ---
 
   (if (>= ansys-highlighting-level 2)
@@ -2097,7 +2093,9 @@ improvements you have the following options:
   ;; a-align needs a mark to work for an unspecified region
   (set-mark 0)
 
+  ;; initialise system dependent stuff
   (require 'ansys-initialise)
+  (message "Initialising ...")
   (ansys-initialise)
 
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;

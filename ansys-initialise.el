@@ -313,7 +313,7 @@ customisation variables"
   (when (and ansys-install-directory (or (null ansys-wb) force))
     (let* ((version ansys-current-ansys-version)
 	   (idir (unless (null ansys-install-directory)
-		   (file-name-directory ansys-install-directory)))
+		   (directory-file-name (directory-file-name ansys-install-directory))))
 	   (exe 
 	    (if (ansys-is-unix-system-p)
 		(concat idir "Framework/bin/linx64/runwb2")
@@ -431,7 +431,7 @@ customisation variables"
 	(t
 	 (message "Found no ansys-ansyslic-servers from environment or ini file")))))
      ;; ------------------------------------------------------------
-     (message "Initialised system dependened variables."))  ;; end of init function
+     (message "ANSYS-Mode: Initialised system dependened variables."))  ;; end of init function
 
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.

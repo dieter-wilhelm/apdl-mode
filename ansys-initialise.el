@@ -205,20 +205,26 @@ return nil."
 (defun ansys-find-path-environment-value ()
   "Find the latest AWP_ROOTXXX environment value.
 Which is to say find the Ansys root path with the largest
-installed versioning number."
-  (car
-   (reverse
-    (sort
-     (remove nil
-	     (mapcar (lambda (str)
-		       (when
-			   (string-match
-			    "AWP_ROOT[0-9][0-9][0-9]=\\(.*\\)" 
-			    str)
-			 (match-string 1 str)))
-		     process-environment)
-	     )
-     'string<))))
+installed versioning number and check the accessibility of the
+content."
+  (let ((dir 
+	 (car
+	  (reverse
+	   (sort
+	    (remove nil
+		    (mapcar (lambda (str)
+			      (when
+				  (string-match
+				   "AWP_ROOT[0-9][0-9][0-9]=\\(.*\\)" 
+				   str)
+				(match-string 1 str)))
+			    process-environment)
+		    )
+	    'string<)))))
+    (if (file-readable-p dir)
+	dir
+      (message "Environment AWP_ROOTXXX exists but is not readable")
+      nil)))
 
 ;; (defun ansys-search-version ( path)
 ;;   "Return under PATH the highest installed ANSYS MAPDL version.
@@ -233,30 +239,34 @@ customisation variables"
   (when (null ansys-install-directory)
     (let* (
 	   (cdir "/appl/ansys_inc/")
-	   (dir (file-name-as-directory (ansys-find-path-environment-value)))
+	   (path (ansys-find-path-environment-value))
+	   (dir (if (null path)
+		    nil
+		  (file-name-as-directory path)))
 	   subdir)
       (cond 
        ;; from environment variable
        (dir
-	(if (not (file-readable-p dir))
-	    (message "Directory from AWP_ROOTXXX not readable")
-	  (message "ansys-install-directory set from
+	(message "ansys-install-directory set from
 	       environment variable AWP_ROOTXXX")
-	  (message "ansys-install-directory = %s" dir)))
-	  (setq subdir 
-		(car 
-		 (reverse
-		  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
-	  (setq ansys-current-ansys-version (remove ?v (substring subdir 0 4)))	       
-	  (message "Current ANSYS version: %s" ansys-current-ansys-version)
+	(message "ansys-install-directory = %s" dir)
+	(setq subdir 
+	      (car
+	       (reverse
+		(directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
+	(setq ansys-current-ansys-version (remove ?v (substring subdir 0 4)))	       
+	(message "Current ANSYS version: %s" ansys-current-ansys-version))
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default company installation path
        ((file-readable-p cdir)
+					;(setq cdir "/appl/ansys_inc/") ;FIXME: remove
 	(setq subdir 
 	      (car 
 	       (reverse
 		(directory-files cdir nil "[0-9][0-9]\.[0-9]" 'string<))))
 	(setq ansys-current-ansys-version (remove ?. (substring subdir 0 4)))
 	(setq dir (concat cdir subdir "/v" ansys-current-ansys-version "/")))
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on Linux
        ((string= window-system "x")
 	(setq cdir "/ansys_inc/")
@@ -268,6 +278,7 @@ customisation variables"
 	  (setq ansys-current-ansys-version (remove ?v (substring subdir 0 4)))	       
 	  (message "Current ANSYS version: %s" ansys-current-ansys-version)
 	  (setq dir (concat cdir subdir "/"))))
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on windows
        (t
 	(setq cdir "C:\\Program Files\\ANSYS Inc")
@@ -312,11 +323,10 @@ customisation variables"
   ;; 4) -wb
   (when (and ansys-install-directory (or (null ansys-wb) force))
     (let* ((version ansys-current-ansys-version)
-	   (idir (unless (null ansys-install-directory)
-		   (directory-file-name (directory-file-name ansys-install-directory))))
+	   (idir ansys-install-directory)
 	   (exe 
 	    (if (ansys-is-unix-system-p)
-		(concat idir "Framework/bin/linx64/runwb2")
+		(concat idir "Framework/bin/Linux64/runwb2") ;150, 161
 		 (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
       (when (file-executable-p exe)
 	(setq ansys-wb exe))
@@ -449,6 +459,7 @@ example \"v161\".  The path is stored in the variable
 	     nil idir nil idir))))
 	 (length (length ndir))
 	 (version (substring (directory-file-name ndir) (- length 4) (- length 1))))
+    (message "a-i-d: %s" ndir)
     (if (file-readable-p ndir)
 	(progn
 	  (setq ansys-install-directory

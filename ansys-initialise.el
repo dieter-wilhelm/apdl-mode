@@ -222,10 +222,12 @@ content."
 		    )
 	    'string<)))))
     (if (null dir)
-	(message "No AWP_ROOTXXX environment variable")
+	(progn
+	  (message "No AWP_ROOTXXX environment variable")
+	  nil)
       (if (file-readable-p dir)
 	  dir
-	(message "Environment AWP_ROOTXXX set but values is not readable")
+	(message "Environment AWP_ROOTXXX set but value is not readable")
 	nil))))
 
 (defun ansys-initialise ( &optional force)

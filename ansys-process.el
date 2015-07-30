@@ -91,8 +91,8 @@ licenses. 2 is the ANSYS default."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- variables ---
 
-(defvar ansys-classics-flag t
-  "Flag dertermining whether a Classics window could be found.")
+(defvar ansys-classics-flag nil
+  "Flag dertermining whether a Classics GUI could be found.")
 
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

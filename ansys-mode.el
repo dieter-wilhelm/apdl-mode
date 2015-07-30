@@ -2217,6 +2217,7 @@ call `ansys-mode'."
   (progn
     (when (featurep 'ansys-mode)
       (unload-feature 'ansys-mode)
+      (unload-feature 'ansys-initialise)
       (unload-feature 'ansys-keyword)
       (unload-feature 'ansys-process)
       (unload-feature 'ansys-template))

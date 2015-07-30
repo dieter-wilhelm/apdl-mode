@@ -276,7 +276,15 @@ the customisation facility (by calling `ansys-customise-ansys')."
 
 (defun ansys-send-to-classics ()
   "Sending clipboard content to the Classics GUI."
-  (call-process "xdotool.sh"))
+;  (let ((win (call-process "/home/uidg1626/script/ctrlv.sh")))
+  (let (win
+	win2)
+  ;  (message "return value: %s" win)
+    (sleep-for .5)
+    (setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
+    (sleep-for .1)
+    (call-process "/home/uidg1626/script/return.sh" nil nil nil win)
+    ))
 
 (defun ansys-send-to-ansys ( &optional move)
   "Send a region to the ANSYS interpreter,
@@ -305,6 +313,7 @@ code line after this region (or paragraph)."
     (ansys-blink-region beg end)
     ;; send or copy region or line
     (cond (ansys-classics-flag
+	   (kill-ring-save beg end)
 	   (ansys-send-to-classics)
 	   (message "Sent to Classics GUI"))
 	  ((ansys-process-running-p)
@@ -439,10 +448,10 @@ The string is completable to all current ANSYS commands and with
 an optional prefix argument ARG the current command line is the
 initial input."
   (interactive "P")
-  (unless (ansys-process-running-p)
+  (unless (or ansys-classics-flag (ansys-process-running-p))
 ;    (setq mode-line-process (format ":%s" (process-status ansys-process)))
 ;    (force-mode-line-update)
-    (error "No ANSYS process is running"))
+    (error "No MAPDL process is running"))
   (let (s)
     (if arg
 	(setq s (read-minibuffer "Send to interpreter: "
@@ -451,16 +460,21 @@ initial input."
 				  (line-end-position))))
       (setq s (completing-read "Send to interpreter: "
 	    ansys-help-index nil nil)))
-    (comint-send-string (get-process
-			 (if (boundp 'ansys-process-name)
-			     ansys-process-name)) (concat s "\n"))
-    ;;  (walk-windows
-    ;;    (lambda (w)
-    ;;      (when (string= (buffer-name (window-buffer w)) "*ANSYS*")
-    ;;        (with-selected-window w (goto-char (point-max))))))
-    ;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
-    ;; (force-mode-line-update)
-    (display-buffer "*ANSYS*" 'other-window)))
+    (cond
+     (ansys-classics-flag
+      (kill-new s)
+      (ansys-send-to-classics))
+     (t
+      (comint-send-string (get-process
+			   (if (boundp 'ansys-process-name)
+			       ansys-process-name)) (concat s "\n"))
+      ;;  (walk-windows
+      ;;    (lambda (w)
+      ;;      (when (string= (buffer-name (window-buffer w)) "*ANSYS*")
+      ;;        (with-selected-window w (goto-char (point-max))))))
+      ;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
+      ;; (force-mode-line-update)
+      (display-buffer "*ANSYS*" 'other-window)))))
 
 
 (require 'comint)

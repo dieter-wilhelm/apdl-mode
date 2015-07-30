@@ -718,7 +718,9 @@ Element categories:
 \"ALL\"TRANS -- Electromechanical solid/transducer elem.
 "
   (interactive "P")
-  (let (file path command)
+  (let (file
+	(path ansys-help-path)
+	command)
     (if arg
 	(setq command (completing-read "Browse help for keyword: "
 				       ansys-help-index))
@@ -726,80 +728,43 @@ Element categories:
     (setq file (nth 1 (assoc-string command ansys-help-index t)))
     (unless  file
       (error "Keyword \"%s\" is not uniquely completable" command))
-;    (message "Help file: %s" file)
+    ;; we must adapt the path to various items!
     (cond
-     ((ansys-is-unix-system-p)
-      ;; we must adapt the path to various items!
-      (cond ((string-match "_C_" file)
-	     (setq file (concat "ans_cmd/" file)))
-	    ((string-match "_E_" file)
-	     (setq file (concat "ans_elem/" file)))
-	    ((string-match "_P_APDL" file)
-	     (setq file (concat "ans_apdl/" file)))
-	    ((string-match "_G_AdvTOC" file)
-	     (setq file (concat "ans_adv/" file)))
-	    ((string-match "_G_StrTOC" file)
-	     (setq file (concat "ans_str/" file)))
-	    ((string-match "ans_mat.html" file)
-	     (setq file (concat "ans_mat/" file)))
-	    ((string-match "ctectoc.html" file)
-	     (setq file (concat "ans_ctec/" file)))
-	    ((string-match "ansysincrelease" file)
-	     (setq file (concat "ai_rn/" file)))
-	    ((string-match "ansys.theory" file)
-	     (setq file (concat "ans_thry/" file)))
-	    )
-      (setq path ansys-help-path)
-		 ;; (concat "file://" ansys-install-directory
-		 ;; 	 "ansys_inc/v" ansys-current-ansys-version
-		 ;; 	 "/commonfiles/help/en-us/help/"))
-;;       (start-process "browser"
-;; ;		     nil "chromium-browser" (concat path file)))
-;; 		     nil "firefox" (concat path file)))
-;; ;		     nil "xdg-open" (concat path file)))
-      ;; TODO: w32-shell-execute not know under Emacs 23.1
-      ;; use browse-url-default-browser!
-      (if (fboundp 'browse-url-xdg-open)
-	  (browse-url-xdg-open (concat path file))
-;	(browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
-	(browse-url-firefox (concat path file))
-						       ))
-     ;; windows
-     ((string= system-type "windows-nt")
-;      (if (fboundp 'w32-shell-execute)
-      (cond ((string-match "_C_" file)
-	     (setq file (concat "ans_cmd\\" file)))
-	    ((string-match "_E_" file)
-	     (setq file (concat "ans_elem\\" file)))
-	    ((string-match "_P_APDL" file)
-	     (setq file (concat "ans_apdl\\" file)))
-	    ((string-match "_G_AdvTOC" file)
-	     (setq file (concat "ans_adv\\" file)))
-	    ((string-match "_G_StrTOC" file)
-	     (setq file (concat "ans_str\\" file)))
-	    ((string-match "ans_mat.html" file)
-	     (setq file (concat "ans_mat\\" file)))
-	    ((string-match "ctectoc.html" file)
-	     (setq file (concat "ans_ctec\\" file)))
-	    ((string-match "ansysincrelease" file)
-	     (setq file (concat "ai_rn\\" file)))
-	    ((string-match "ansys.theory" file)
-	     (setq file (concat "ans_thry\\" file)))
-	    )
-;	(error "Emacs cannot find w23-shell-execute"))
-      (setq path (concat
-		  "file://"
-		  ansys-install-directory
-			 "Ansys Inc\\v" ansys-current-ansys-version
-			 "\\commonfiles\\help\\en-us\\help\\"))
-      ;; wrapper of ShellExecute MS-Windows API
-;      (message "file:%s path:%s" file path)
-;      (w32-shell-execute "Open" (concat path file)))
-      (browse-url-default-windows-browser (concat path file)))
-     (t
-      (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))
-    (message "Called HTML browser for keyword \"%s\"..." command)))
-
+     ((string-match "_C_" file)
+      (setq file (concat "ans_cmd/" file)))
+     ((string-match "_E_" file)
+      (setq file (concat "ans_elem/" file)))
+     ((string-match "_P_APDL" file)
+      (setq file (concat "ans_apdl/" file)))
+     ((string-match "_G_AdvTOC" file)
+      (setq file (concat "ans_adv/" file)))
+     ((string-match "_G_StrTOC" file)
+      (setq file (concat "ans_str/" file)))
+     ((string-match "ans_mat.html" file)
+      (setq file (concat "ans_mat/" file)))
+     ((string-match "ctectoc.html" file)
+      (setq file (concat "ans_ctec/" file)))
+     ((string-match "ansysincrelease" file)
+      (setq file (concat "ai_rn/" file)))
+     ((string-match "ansys.theory" file)
+      (setq file (concat "ans_thry/" file))))
+    ;; FIXME: remove
+;;     (cond
+;;      ((string= system-type "gnu/linux")
+;;       (if (fboundp 'browse-url-xdg-open)
+;; 	  (browse-url-xdg-open (concat path file))
+;; ;	(browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
+;; 	(browse-url-firefox (concat path file) 'new-window)))
+;;      ((string= system-type "windows-nt")
+;;       ;; TODO: w32-shell-execute not know under Emacs 23.1
+;;       ;; use browse-url-default-browser!
+;;       (browse-url-default-windows-browser (concat path file)))
+;;      (t
+;;       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))
+    (browse-url-default-browser (concat "file://" path file))
+    ;; the following will be overwritten by browse-url-default-browser?
+    ;; (message "Called HTML browser for keyword \"%s\"..." command)
+    ))
 
 ;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
 ;; (defun ansys-kill-buffer-query-function ()

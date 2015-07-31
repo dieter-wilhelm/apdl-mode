@@ -309,7 +309,6 @@ your system.
      - libgif-dev
      - libmagickwand-dev (for imagemagick support)
 
-
 ** Installing ANSYS 161 on Ubuntu 12.04 64 Bit
    Help Viewer is running out of the box
 ** Classics GUI
@@ -369,6 +368,20 @@ your system.
      of a general Resolution: Why the GNU Free Documentation License
      is not suitable for Debian main
      [[https://www.debian.org/vote/2006/vote_001]]hi
+
+*** lmutil needs additional libaries
+    ldd ./lmutil shows
+    	linux-vdso.so.1 (0x00007ffcf43ed000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f8095e4e000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f8095b4d000)
+	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f8095937000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f809558e000)
+	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f809538a000)
+	/lib64/ld-lsb-x86-64.so.3 => /lib64/ld-linux-x86-64.so.2 (0x00007f809606b000)
+
+	#+BEGIN_SRC sh
+	apt-file search ld-lsb-x86
+	#+END_SRC
 
 ** Files
   *Sources*:

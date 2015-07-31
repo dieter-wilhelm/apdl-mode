@@ -2100,8 +2100,6 @@ improvements you have the following options:
     ;; (when (y-or-n-p "Would you like to hide all blocks? This may take some time...")
     ;; 	    (hs-hide-all)))
 
-  ;; --- hooks ---
-  (run-hooks 'ansys-mode-hook)
 
   ;; a-align needs a mark to work for an unspecified region
   (set-mark 0)
@@ -2110,6 +2108,9 @@ improvements you have the following options:
   (require 'ansys-initialise)
   (message "Initialising ...")
   (ansys-initialise)
+  (outline-minor-mode t)
+  ;; --- hooks ---
+  (run-hooks 'ansys-mode-hook)
 
   ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
   )

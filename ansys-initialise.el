@@ -293,6 +293,11 @@ customisation variables"
 	  (setq ansys-install-directory dir)
 	(message "No ANSYS installation directory found"))))
 
+  ;; 1a) -classics-flag
+  (let* ()
+    (if (and (ansys-is-unix-system-p) (ansys-classics-p))
+	(setq ansys-classics-flag t)))
+
   ;; 2) -current-ansys-version: 
  (let* ((idir (file-name-as-directory ansys-install-directory))
 	(version ansys-current-ansys-version))

@@ -109,6 +109,11 @@ Variable is used internally only.")
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun ansys-classics-p ()
+  "Return the Classics - or the Command Window ID.
+0 otherwise."
+  nil)
+
 (defun ansys-start-classics ()
   "Start the Ansys Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
@@ -888,7 +893,7 @@ server summary rows."
   "Start the ANSYS display in interactive mode."
   (interactive)
   (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
+    (error "No interactive MAPDL process is running"))
   (progn (comint-send-string (get-process ansys-process-name)
 		      ;; "/show,X11c\n/menu,grph\n"
 		      "/show,3d\n/menu,grph\n"
@@ -896,30 +901,45 @@ server summary rows."
 	 (display-buffer "*ANSYS*" 'other-window)))
 
 (defun ansys-start-pzr-box ()
-  "Start the ANSYS Pan/Zoom/Rotate dialog box in interactive mode."
+  "Start the ANSYS Pan/Zoom/Rotate dialog box."
   (interactive)
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name) "/ui,view\n")
-  (display-buffer "*ANSYS*" 'other-window))
+  (cond
+   (ansys-classics-flag
+    (kill-new "/ui,view\n")
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name) "/ui,view\n")
+    (display-buffer "*ANSYS*" 'other-window))
+   (t
+    (error )))
 
 (defun ansys-iso-view (arg)
   "Show current display in isometric view (/view,,1,1,1)."
   (interactive "p")
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name) "/view,,1,1,1\n/replot\n")
-  (display-buffer "*ANSYS*" 'other-window))
+  (cond
+   (ansys-classics-flag
+    (kill-new "/view,,1,1,1\n/replot\n")
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name) "/view,,1,1,1\n/replot\n")
+    (display-buffer "*ANSYS*" 'other-window))
+   (t
+    (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
 (defun ansys-move-up (arg)
   "Move geometry up ARG steps in the graphics window.
 A Negative ARG moves ARG steps down."
   (interactive "p")
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name)
-		      (format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
-  (display-buffer "*ANSYS*" 'other-window))
+  (cond
+   (ansys-classics-flag
+    (kill-new (format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name)
+			(format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
+    (display-buffer "*ANSYS*" 'other-window))
+   (t
+     (error "No ANSYS process is running"))))
 
 (defun ansys-move-down (arg)
   "Move geometry down ARG steps in the graphics window.
@@ -931,11 +951,16 @@ A Negative ARG moves ARG steps up."
   "Move geometry right ARG steps in the graphics window.
 A Negative ARG moves ARG steps left."
   (interactive "p")
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name)
-		      (format "/focus,,-0.25*(%d),,,1\n/replot\n" arg))
-  (display-buffer "*ANSYS*" 'other-window))
+  (cond
+   (ansys-classics-flag
+    (kill-new (format "/focus,,-0.25*(%d),,,1\n/replot\n" arg))
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name)
+			(format "/focus,,-0.25*(%d),,,1\n/replot\n" arg))
+    (display-buffer "*ANSYS*" 'other-window))
+   (t
+    (error "No ANSYS process is running"))))
 
 (defun ansys-move-left (arg)
   "Move geometry left ARG steps in the graphics window.
@@ -946,26 +971,41 @@ A Negative ARG moves ARG steps right."
 (defun ansys-zoom-in ()
   "Zoom into the graphics window."
   (interactive)
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name) "/dist,,.7,1\n/replot\n") ;valid in any processor
-  (display-buffer "*ANSYS*" 'other-window)  )
+  (cond
+   (ansys-classics-flag
+     (kill-new "/dist,,.7,1\n/replot\n")
+     (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name) "/dist,,.7,1\n/replot\n") ;valid in any processor
+    (display-buffer "*ANSYS*" 'other-window))
+   (t
+    (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
 (defun ansys-zoom-out ()
   "Zoom out of the graphics window."
   (interactive)
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
-  (display-buffer "*ANSYS*" 'other-window)  )
+  (cond
+   (ansys-classics-flag
+    (kill-new "/dist,,1.4,1\n/replot\n")
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
+    (display-buffer "*ANSYS*" 'other-window))
+    (t
+     (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
 (defun ansys-replot ()
-  "Replot the ANSYS interactive graphics screen."
+  "Replot the ANSYS graphics screen."
   (interactive)
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
-  (display-buffer "*ANSYS*" 'other-window))
+  (cond
+   (ansys-classics-flag
+    (kill-new "/replot\n")
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
+    (display-buffer "*ANSYS*" 'other-window)))
+  (t
+   (error "No interactive MAPDL process running or Classics GUI can be found")))
 
 (defun ansys-fit ()
   "Fit FEA entities to the ANSYS interactive graphics screen."

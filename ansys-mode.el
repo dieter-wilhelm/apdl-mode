@@ -1133,39 +1133,44 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	       "Send above Code to ANSYS"
 	     "Copy above Code")
     :help "Either copy the code up to the beginning of file or, when a run is active, send it to the solver/interpreter"]
-   ["Send ANSYS Command Interactively" ansys-query-ansys-command
-    :help "Send interactively an APDL command to a running solver/interpreter process"
-    :active (or ansys-classics-flag (ansys-process-running-p))]
    (list "Send Graphics Command"
 	 ["Start Graphics Screen"  ansys-start-graphics
 		     :help "Open the graphics screen of the ANSYS GUI"
 		     :active (ansys-process-running-p)]
-	 ["Start Pan/Zoom/Rot. Dialog"ansys-start-pzr-box
-	  :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI" :active (ansys-process-running-p)]
-	 ["Replot" ansys-replot :help "Replot the ANSYS graphics window" :active (ansys-process-running-p)]
+	 ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box
+	  :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI"
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
+	 ["Replot" ansys-replot :help "Replot the ANSYS graphics window"
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Fit Graphics into screen" ansys-fit
-	  :help "Fit the ANSYS graphics into the window" :active (ansys-process-running-p)]
+	  :help "Fit the ANSYS graphics into the window"
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Show Graphics in iso-view" ansys-iso-view
 	  :help "Show the current ANSYS graphic windows in isometric view"
-	  :active (ansys-process-running-p)]
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Zoom In" ansys-zoom-in
 	  :help "Zoom into the graphics"
-	  :active (ansys-process-running-p)]
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Zoom Out" ansys-zoom-out
 	  :help "Zoom out of the graphics"
-	  :active (ansys-process-running-p)]
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Up" ansys-move-up
 	  :help "Move graphics objects up"
-	  :active (ansys-process-running-p)]
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Down" ansys-move-down
 	  :help "Move graphics objects down"
-	  :active (ansys-process-running-p)]
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Right" ansys-move-right
 	  :help "Move graphics objects to the right"
-	  :active (ansys-process-running-p)]
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Left" ansys-move-left
-	  :help "Move graphics objects to the left" :active (ansys-process-running-p)]
-	 )   "-"
+	  :help "Move graphics objects to the left"
+	  :active (or ansys-classics-flag (ansys-process-running-p))]
+	 )
+   ["Send ANSYS Command Interactively" ansys-query-ansys-command
+    :help "Send interactively an APDL command to a running solver/interpreter process"
+    :active (or ansys-classics-flag (ansys-process-running-p))]
+   "-"
    ["Display ANSYS Run Status" ansys-process-status
     :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
    ["Exit ANSYS Run" ansys-exit-ansys

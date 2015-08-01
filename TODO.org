@@ -27,12 +27,14 @@
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
-   - option to make eww default help browser
-   - customisation :version attribute is not clear and not defined for
-     new stuff
    - We need `'' for strings and character parameters,`%' for
      parameter substitution,`(' for functions, % not yet working with
      electric-pair-mode
+   - show defaults for -license-file, license-utility and -ansysli-servers
+   - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
+   - option to make eww default help browser
+   - customisation :version attribute is not clear and not defined for
+     new stuff
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
      on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
@@ -68,8 +70,6 @@
      highlighted! try changing the character syntax???
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
-   - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
-   - show defaults for -license-file, license-utility and -ansysli-servers
    - started and commented out highlighting of solver output
    - Variables are not highlighted in -skeletons, it is specified in
      -mode only for files with .mac suffix; *create file tmp,mac:

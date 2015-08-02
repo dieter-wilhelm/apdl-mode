@@ -2134,16 +2134,19 @@ improvements you have the following options:
   ;; --- hooks ---
   (run-hooks 'ansys-mode-hook)
 
-  ;; ;;;;;;;;;; -- end of ansys-mode -- ;;;;;;;;;;;;;;;;;;;;
+  ;;  -- end of ansys-mode --
   )
 
 (defun ansys ()
-  "Open an empty buffer in ANSYS-Mode."
+  "Open a new buffer in ANSYS-Mode.
+You must save the buffer (connect it with a file-name), otherwise
+possible edits are lost."
   (interactive)
-  (let ((b "macro.mac"))
+  (let ((b "*ANSYS macro*"))
     (get-buffer-create b)
     (switch-to-buffer b)
-    (insert "!! This is an unsaved file under ANSYS-Mode, start your APDL hacking...\n")
+    (when (< (buffer-size) 1)
+      (insert "!! This is an unnamed file under ANSYS-Mode.\n!! Save it and start your APDL hacking...\n"))
     (ansys-mode)))
 
 ;; FIXME

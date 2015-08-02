@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-31>
+#+DATE: Time-stamp: <2015-08-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,9 +21,10 @@
    - M-? on an empty buffer returns *abbr* help instead of warning
    - Do we need to set environment license variables?  When
      environment var isn't set in .profile, .bash_login nor in
-     .bash_profile
+     .bash_profile, for -start-ansys, -launcher it is necessary
    - C-c C-j tries to send a next line in the LAST line
    - Emacs is not asking to save macro.mac
+   - -help-program-parameters obsolete
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
@@ -168,7 +169,7 @@
                   (M-{ does it though))
 
 * Procedures
-  - GNU-Linux :: ;-)
+  - GNU-Linux :: instead of GNU/Linux as FSF suggesting ;-)
   - Mode Help :: keyboard input is quoted in "", emphasizing in `' and
                  keys in <>
   - APDL templates :: minimal working examples ending with -template
@@ -256,6 +257,7 @@
     jens.2.missun@continental-corporation.com,
     joerg.menke@continental-corporation.com,
     marius.tarnovetchi@continental-corporation.com,
+    matthias.koeslin@continental-corporation.com,
     razvan.ionel.curtean@continental-corporation.com,
     Steffen.Kernbach@continental-corporation.com,
     Johann.Massinger@continental-corporation.com,

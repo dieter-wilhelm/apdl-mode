@@ -97,7 +97,7 @@ licenses. 2 is the ANSYS default."
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defconst ansys-process-name "ANSYS"
+(defconst ansys-process-name "MAPDL"
   "Variable containing the name of a possible MAPDL interactive process.
 Variable is used internally only.")
 
@@ -182,7 +182,7 @@ The output of the solver is captured in an Emacs buffer called
 ;    (ansys-license-file "")	 ;
 ;    (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
-    (start-process "Launcher" nil ansys-wb)
+    (start-process "WorkBench" nil ansys-wb)
     (message "Started the ANSYS WorkBench..."))
 
 (defun ansys-write-abort-file ( filename)
@@ -528,7 +528,7 @@ initial input."
 	       (concat ", No of processors: " (number-to-string ansys-no-of-processors))
 	     "")
 	   ", job: " (if (boundp 'ansys-job) ansys-job)
-	   " in " default-directory ", server: " ansys-license-file ")"))
+	   " in " default-directory ", server: " ansys-license-file))
 	 (message "Starting the ANSYS interpreter...")
        (error "Function ansys-start-ansys canceled"))
      (setq ansys-process-buffer

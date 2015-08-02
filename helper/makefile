@@ -174,13 +174,15 @@ tools/bin/A-M-$(VERSION).sh : makefile
 # @echo "emacs -l /appl/tools/ansys-mode/Conti.el \
 # -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
 
-$(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
+.PHONEY : EMACS_SRC
+EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
+
+$(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile
+	test -d $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION) || \
+	    mkdir -p $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
 	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)
 	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
 	tar -uJvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
-
-.PHONEY : EMACS_SRC
-EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
 HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
 	../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html \
@@ -252,10 +254,16 @@ EMACS : $(EMACS_PACKAGE) $(PACKAGE)
 	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
 	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
 	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -rf $(MATLIB) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc || \
+	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
+	 cp -uv $(TUTORIALS) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
 	 cp -uv default.el share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION).$(EMACS_PACKAGE)
-	 zip -u ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
+	 zip -urv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
 	   share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/*
+	 zip -uv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
+	   share/emacs/$(EMACS_VER)/site-lisp/default.el
 
 ##################################################
 # getting the emacs source

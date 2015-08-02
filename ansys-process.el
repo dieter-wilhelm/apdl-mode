@@ -109,10 +109,22 @@ Variable is used internally only.")
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun ansys-classics-p ()
-  "Return the Classics - or the Command Window ID.
-0 otherwise."
-  nil)
+(defun ansys-toogle-classics ()
+  "Toogle sending output to ANSYS Classics.
+Try to locate an ANSYS Classics GUI or the command dialog box and
+switch output to it."
+  (interactive)
+  (let (awin
+	ewin)
+    (cond
+     (ansys-classics-flag
+      (setq ansys-classics-flag nil))
+     (t
+      (setq awin (shell-command-to-string "ansys_window.sh"))
+      (setq ewin (shell-command-to-string "emacs_window.sh"))
+      (if (string= awin "0")
+	  (error "Found no ANSYS Classics GUI")
+	(setq ansys-classics-flag t))))))
 
 (defun ansys-start-classics ()
   "Start the Ansys Classics graphical user interface.
@@ -600,8 +612,7 @@ variable)."
       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))))
 
 (defun ansys-search-keyword()
-  "Search the code line for a valid the keyword from `ansys-help-index'.
-"
+  "Search the code line for a valid the keyword from `ansys-help-index'."
   (interactive)
   (when (ansys-in-empty-line-p)
     (error "Cannot find a keyword in an empty line"))
@@ -659,8 +670,6 @@ variable)."
      (t
       (error "Can only start the ANSYS help on Windows and Unix/GNU-Linux systems")))
     (message "Called HTML browser for keyword \"%s\"..." command)))
-
-
 
 (defun ansys-browse-ansys-help ( &optional arg)
   "Open the ANSYS help for APDL commands and element names in the default web browser.
@@ -818,13 +827,13 @@ Show the status in a separate buffer, the license
 type (`ansys-license') determines a highlighting of the license
 server summary rows."
   (interactive)
-  ;(ansys-lmutil-program "")  ;check whether program is found on system
   (cond
-   ;; FIXME
-   (t;(ansys-is-unix-system-p)
-;    (ansys-license-file-check)
-;    (ansys-ansysli-servers-check)
-
+   (t
+    ;; FIXME
+    ;;(ansys-lmutil-program "")  ;check whether program is found on system
+    ;;(ansys-is-unix-system-p)
+    ;;    (ansys-license-file-check)
+    ;;   (ansys-ansysli-servers-check)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
     (message "Retrieving license (%s) status, this may take some time..." ansys-license)
     (with-current-buffer (get-buffer-create "*ANSYS-licenses*")
@@ -889,15 +898,18 @@ server summary rows."
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph
 ;; env variable ANS_CONSEC=YES disables dialog boxes
+
 (defun ansys-start-graphics ()
-  "Start the ANSYS display in interactive mode."
+  "Start - in interactive mode - the MAPDL display window."
   (interactive)
-  (unless (ansys-process-running-p)
+  (unless
+      (ansys-process-running-p)
     (error "No interactive MAPDL process is running"))
-  (progn (comint-send-string (get-process ansys-process-name)
-		      ;; "/show,X11c\n/menu,grph\n"
-		      "/show,3d\n/menu,grph\n"
-		      )
+  (progn (comint-send-string
+	  (get-process ansys-process-name)
+	  ;; "/show,X11c\n/menu,grph\n"
+	  "/show,3d\n/menu,grph\n"
+	  )
 	 (display-buffer "*ANSYS*" 'other-window)))
 
 (defun ansys-start-pzr-box ()
@@ -911,7 +923,7 @@ server summary rows."
     (comint-send-string (get-process ansys-process-name) "/ui,view\n")
     (display-buffer "*ANSYS*" 'other-window))
    (t
-    (error )))
+    (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
 (defun ansys-iso-view (arg)
   "Show current display in isometric view (/view,,1,1,1)."

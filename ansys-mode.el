@@ -1108,73 +1108,90 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    ["License Server Status" ansys-license-status
     :help "Show a license manager status (number of licenses available and used)"
     :active (file-executable-p ansys-lmutil-program)]
+   ["ANSYS WorkBench" ansys-start-wb
+    :active (file-executable-p ansys-wb)
+    :help "Start the ANSYS WorkBench. M-x ansys-start-wb"]
    ["ANSYS MAPDL Product Launcher" ansys-start-launcher
     :active (file-executable-p ansys-launcher)
-    :help "Start the ANSYS Mechanical Launcher. M-x ansys-start-launcher"]
-   ["Start ANSYS WorkBench" ansys-start-wb
-    :active (file-executable-p ansys-wb)
-    :help "Start ANSYS WorkBench. M-x ansys-start-wb"]
-   ["Start ANSYSClassics GUI" ansys-start-classics :active (file-executable-p ansys-program)]
+    :help "Start the ANSYS Mechanical APDL Product Launcher. M-x ansys-start-launcher"]
+   ["ANSYS Classics GUI" ansys-start-classics
+    :active (file-executable-p ansys-program)
+    :help "Start the ANSYS Classics GUI. M-x ansys-start-classics"]
    ["Start Interactive Solver/Interpreter" ansys-start-ansys
     :help "Start an interactive APDL solver/interpreter run. M-x ansys-start-ansys"
     :active (and (ansys-is-unix-system-p)
 		 (file-executable-p ansys-program)
 		 (not (ansys-process-running-p)))]
    "-"
+   ["Connect to Classics" ansys-toggle-classics
+    :label (if ansys-classics-flag
+	       "Switch off sending to Classics"
+	     "Switch on sending to Classics")
+    :active (and (ansys-is-unix-system-p) (not (ansys-process-running-p)))
+    :help "Check whether an ANSYS Classic is running and toogle
+   sending output to it. M-x ansys-toggle-classics"]
    ["Send/Copy Region or Paragraph" ansys-send-to-ansys
-    :label (if
+   :label (if
 	       (or ansys-classics-flag (ansys-process-running-p))
 	       "Send region or paragraph to ANSYS"
 	     "Copy region or paragraph to clipboard")
-    :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard"]
+    :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard. M-x ansys-send-to-ansys"]
+   ["Send/Copy Line or Region" ansys-send-to-ansys-and-proceed
+    :label (if
+	       (or ansys-classics-flag (ansys-process-running-p))
+	       "Send line or region to MAPDL"
+	     "Copy line or region to clipboard")
+    :help "In case of a running solver/interpreter send the marked region or by default the current line to the interpreter, otherwise copy these lines to the system clipboard. M-x ansys-send-to-ansys-and-proceed"]
    ["Copy/Send above Code to ANSYS" ansys-copy-or-send-above
     :label (if
 	       (or ansys-classics-flag (ansys-process-running-p))
-	       "Send above Code to ANSYS"
-	     "Copy above Code")
-    :help "Either copy the code up to the beginning of file or, when a run is active, send it to the solver/interpreter"]
+	       "Send above Code to MAPDL"
+	     "Copy above Code to clipboard")
+    :help "Either copy the code up to the beginning of file or, when a run is active, send it to the solver/interpreter. M-x ansys-copy-or-send-above"]
    (list "Send Graphics Command"
 	 ["Start Graphics Screen"  ansys-start-graphics
-		     :help "Open the graphics screen of the ANSYS GUI"
+		     :help "Open the graphics screen for the interactive MAPDL mode. M-x ansys-start-graphics"
 		     :active (ansys-process-running-p)]
 	 ["Start Pan/Zoom/Rot. Dialog" ansys-start-pzr-box
-	  :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI"
+	  :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI. M-x ansys-start-pzr-box"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
-	 ["Replot" ansys-replot :help "Replot the ANSYS graphics window"
+	 ["Replot" ansys-replot
+	  :help "Replot the ANSYS graphics window. M-x ansys-replot"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Fit Graphics into screen" ansys-fit
-	  :help "Fit the ANSYS graphics into the window"
+	  :help "Fit the ANSYS graphics into the window. M-x ansys-fit"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Show Graphics in iso-view" ansys-iso-view
-	  :help "Show the current ANSYS graphic windows in isometric view"
+	  :help "Show the current ANSYS graphic windows in isometric view. M-x ansys-iso-view"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Zoom In" ansys-zoom-in
-	  :help "Zoom into the graphics"
+	  :help "Zoom into the graphics. M-x ansys-zoom-in"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Zoom Out" ansys-zoom-out
-	  :help "Zoom out of the graphics"
+	  :help "Zoom out of the graphics. M-x ansys-zoom-out"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Up" ansys-move-up
-	  :help "Move graphics objects up"
+	  :help "Move graphics objects up. M-x ansys-move-up"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Down" ansys-move-down
-	  :help "Move graphics objects down"
+	  :help "Move graphics objects down. M-x ansys-move-down"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Right" ansys-move-right
-	  :help "Move graphics objects to the right"
+	  :help "Move graphics objects to the right. M-x ansys-move-right"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 ["Move Left" ansys-move-left
-	  :help "Move graphics objects to the left"
+	  :help "Move graphics objects to the left. M-x ansys-move-left"
 	  :active (or ansys-classics-flag (ansys-process-running-p))]
 	 )
    ["Send ANSYS Command Interactively" ansys-query-ansys-command
-    :help "Send interactively an APDL command to a running solver/interpreter process"
+    :help "Send interactively an APDL command to a running solver/interpreter process. M-x ansys-query-ansys-command"
     :active (or ansys-classics-flag (ansys-process-running-p))]
    "-"
    ["Display ANSYS Run Status" ansys-process-status
-    :help "Display the status of the ANSYS solver/interpreter run" :active (ansys-process-running-p)]
+    :help "Display the status of the ANSYS solver/interpreter run. M-x ansys-process-status"
+    :active (ansys-process-running-p)]
    ["Exit ANSYS Run" ansys-exit-ansys
-    :help "Exit the active solver/interpreter run"
+    :help "Exit the active solver/interpreter run. M-x ansys-exit-ansys"
     :visible (ansys-process-running-p)]
    ["Display ANSYS Error File" ansys-display-error-file
     :help "Display in another window in auto-revert-tail-mode the ANSYS error file (job.err) in the current working directory. M-x ansys-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]

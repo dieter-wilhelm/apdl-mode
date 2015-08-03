@@ -1108,12 +1108,17 @@ which can either be the license file name or license server(s)
 specification.  The server specification must include the port
 number (default port 1055), multiple server names are separated
 by colons `:' on Linux, semi-colons `;' on Windows , for example
-\"27005@rbgs421x:27005@rbgs422x\"."
-  (interactive "sLicense server or license file :")
+\"27005@rbgs421x:27005@rbgs422x\". The license specification is
+stored in the environment variable ANSYS-LICENSE-FILE."
+  (interactive
+   (list (read-string
+	  (concat "License server or license file [" ansys-license-file "]: ")
+	  nil nil ansys-license-file)))
   (cond ((null file)
-	 )
+	 buffer-name)
 	(t
 	 (setq ansys-license-file file)
+	 (setenv "ANSYSLMD_LICENSE_FILE" file)
 	 (message (concat "Set ansys-license-file to \""
 			  ansys-license-file "\".")))))
 
@@ -1152,11 +1157,15 @@ server specification must include the port number even when it is
 2325, the default port number: port_number@server_name, multiple
 server names are separated by a colon, for example
 \"rbgs421x:rbgs422x:...\"."
-  (interactive "sInterconnect license server(s) :")
-  (cond ((string= servers "")
-	 (ansys-ansysli-servers-check))
+  (interactive
+   (list (read-string (concat "Interconnect license server(s) [" ansys-ansysli-servers "]: ")
+		      nil nil ansys-ansysli-servers)))
+
+  (cond ((null servers)
+	 (buffer-name))
 	(t
 	 (setq ansys-ansysli-servers servers)
+	 (setenv "ANSYSLI_SERVERS" servers)
 	 (message (concat "Set ansys-ansysli-servers to \""
 			  ansys-ansysli-servers "\".")))))
 

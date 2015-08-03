@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-02>
+#+DATE: Time-stamp: <2015-08-03>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,10 +21,12 @@
    - M-? on an empty buffer returns *abbr* help instead of warning
    - Do we need to set environment license variables?  When
      environment var isn't set in .profile, .bash_login nor in
-     .bash_profile, for -start-ansys, -launcher it is necessary
+     .bash_profile, for -start-ansys, -launcher it is
+     necessary. Especially if one wants to overwrite the file?!...
    - C-c C-j tries to send a next line in the LAST line
-   - Emacs is not asking to save macro.mac
    - -help-program-parameters obsolete
+   - windows Emacs-23.1 no usable browser found!
+   - -send-to-ansys, -send-above copy empty regions or only comments
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list

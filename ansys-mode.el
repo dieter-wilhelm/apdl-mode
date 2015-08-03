@@ -1201,9 +1201,9 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    "-"
    ["Kill ANSYS Run" ansys-kill-ansys
     :help "Kill the current run. M-x ansys-kill-ansys" :active (ansys-process-running-p)]
-   ["Display all Emacs' Processes" list-processes
+   ["List all Emacs' Processes" list-processes
     :help "Show all active processes under Emacs, like shells, etc. M-x list-processes"]
-   ["Display Emacs' *Messages* Buffer" (display-buffer "*Messages*" 'other-window)
+   ["View Emacs' Messages" view-echo-area-messages
     :help "Display Emacs' latest messages for debugging and checking purposes"]
    )
   "Menu items for the ANSYS-Mode.")

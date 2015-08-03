@@ -91,6 +91,12 @@ licenses. 2 is the ANSYS default."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- variables ---
 
+(defvar ansys-emacs-window-id nil
+  "Editing buffer's X11 window id.")
+
+(defvar ansys-classics-window-id nil
+  "The X11 window id of the ANSYS GUI or the command window.")
+
 (defvar ansys-classics-flag nil
   "Flag dertermining whether a Classics GUI could be found.")
 
@@ -109,22 +115,33 @@ Variable is used internally only.")
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun ansys-toogle-classics ()
+(defun ansys-toggle-classics ()
   "Toogle sending output to ANSYS Classics.
 Try to locate an ANSYS Classics GUI or the command dialog box and
 switch output to it."
   (interactive)
-  (let (awin
-	ewin)
-    (cond
-     (ansys-classics-flag
-      (setq ansys-classics-flag nil))
-     (t
-      (setq awin (shell-command-to-string "ansys_window.sh"))
-      (setq ewin (shell-command-to-string "emacs_window.sh"))
-      (if (string= awin "0")
-	  (error "Found no ANSYS Classics GUI")
-	(setq ansys-classics-flag t))))))
+  (if ansys-classics-flag
+      (progn
+	(setq ansys-classics-flag nil)
+	(message "Disconnected from Classics."))
+    (ansys-classics-p)
+    (setq ansys-classics-flag t)
+    (message "Connected to Classics.")))
+
+(defun ansys-classics-p ()
+  "Check whether ANSYS Classics is running.
+Return nil if we can't find an MAPDL GUI."
+  (let ((aID (replace-regexp-in-string
+	      "\n" ""
+	      (shell-command-to-string "/home/uidg1626/script/ansys_window.sh")))
+	(eID (replace-regexp-in-string
+	      "\n" ""
+	      (shell-command-to-string "/home/uidg1626/script/emacs_window.sh"))))
+  (if (string= "\n" aID)
+      (error "No ANSYS MAPDL window found")
+    (setq ansys-emacs-window-id eID)
+    (setq ansys-classics-window-id aID)
+    aID)))
 
 (defun ansys-start-classics ()
   "Start the Ansys Classics graphical user interface.
@@ -294,14 +311,13 @@ the customisation facility (by calling `ansys-customise-ansys')."
 (defun ansys-send-to-classics ()
   "Sending clipboard content to the Classics GUI."
 ;  (let ((win (call-process "/home/uidg1626/script/ctrlv.sh")))
-  (let (win
-	win2)
+  (let ((win "otto"))
   ;  (message "return value: %s" win)
     (sleep-for .5)
-    (setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
+    ;(setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
+    (call-process "/home/uidg1626/script/ctrlv.sh" nil nil nil ansys-classics-window-id)
     (sleep-for .1)
-    (call-process "/home/uidg1626/script/return.sh" nil nil nil win)
-    ))
+    (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)
 
 (defun ansys-send-to-ansys ( &optional move)
   "Send a region to the ANSYS interpreter,
@@ -1160,7 +1176,6 @@ server names are separated by a colon, for example
   (interactive
    (list (read-string (concat "Interconnect license server(s) [" ansys-ansysli-servers "]: ")
 		      nil nil ansys-ansysli-servers)))
-
   (cond ((null servers)
 	 (buffer-name))
 	(t

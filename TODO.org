@@ -23,13 +23,14 @@
    - -help-program-parameters obsolete
    - windows Emacs-23.1 no usable browser found!
    - -send-to-ansys, -send-above copy empty regions or only comments
+   - check C-c C-x for lock file!
 ** Freeze
    - list of all new functions in -bug-report
 ** Wish-list
    - We need `'' for strings and character parameters,`%' for
      parameter substitution,`(' for functions, % not yet working with
      electric-pair-mode
-   - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
+   - Targeting ANSYS Aim
    - option to make eww default help browser
    - customisation :version attribute is not clear and not defined for
      new stuff

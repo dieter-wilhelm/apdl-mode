@@ -2105,7 +2105,8 @@ improvements you have the following options:
 	(if (and buffer-file-name ;we have a file in the buffer
 		 ansys-dynamic-highlighting-flag
 		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
-		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")
+		     (string= (buffer-name) "*MAPDL macro*")))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (add-hook 'post-command-hook
@@ -2142,7 +2143,7 @@ improvements you have the following options:
 You must save the buffer (connect it with a file-name), otherwise
 possible edits are lost."
   (interactive)
-  (let ((b "*ANSYS macro*"))
+  (let ((b "*MAPDL macro*"))
     (get-buffer-create b)
     (switch-to-buffer b)
     (when (< (buffer-size) 1)

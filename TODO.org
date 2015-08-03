@@ -19,10 +19,6 @@
 ** Bugs
    - Documentation of installation, usage and configuration!
    - M-? on an empty buffer returns *abbr* help instead of warning
-   - Do we need to set environment license variables?  When
-     environment var isn't set in .profile, .bash_login nor in
-     .bash_profile, for -start-ansys, -launcher it is
-     necessary. Especially if one wants to overwrite the file?!...
    - C-c C-j tries to send a next line in the LAST line
    - -help-program-parameters obsolete
    - windows Emacs-23.1 no usable browser found!
@@ -33,7 +29,6 @@
    - We need `'' for strings and character parameters,`%' for
      parameter substitution,`(' for functions, % not yet working with
      electric-pair-mode
-   - show defaults for -license-file, license-utility and -ansysli-servers
    - Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
    - option to make eww default help browser
    - customisation :version attribute is not clear and not defined for

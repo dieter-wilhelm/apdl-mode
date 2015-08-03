@@ -230,17 +230,6 @@ content."
 	(message "Environment AWP_ROOTXXX set but value is not readable")
 	nil))))
 
-(defun ansys-classics-p ()
-  "Check whether ANSYS Classics is running.
-Return nil if we can't find an MAPDL GUI."
-  (let ((eid (shell-command-to-string "/home/uidg1626/script/ansys_window.sh"))
-	(aid (shell-command-to-string "/home/uidg1626/script/emacs_window.sh")))
-  (if (string= " " aid)
-      (error "No MAPDL window found")
-    (setq ansys-emacs-window-id eid)
-    (setq ansys-classics-window-id aoid)
-    aid)))
-
 (defun ansys-initialise ( &optional force)
   "Initialise the customisation variables.
 When argument FORCE is non-nil overwrite already set

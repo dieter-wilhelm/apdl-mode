@@ -24,7 +24,7 @@
    - windows Emacs-23.1 no usable browser found!
    - -send-to-ansys, -send-above copy empty regions or only comments
    - check C-c C-x for lock file!
-** Freeze
+** Freezep
    - list of all new functions in -bug-report
 ** Wish-list
    - We need `'' for strings and character parameters,`%' for

@@ -133,11 +133,11 @@ switch output to it."
 Return nil if we can't find an MAPDL GUI."
   (let ((aID (replace-regexp-in-string
 	      "\n" ""
-	      (shell-command-to-string "/home/uidg1626/script/ansys_window.sh")))
+	      (shell-command-to-string "~/a-m/X11/xGetClassicsWindow")))
 	(eID (replace-regexp-in-string
 	      "\n" ""
-	      (shell-command-to-string "/home/uidg1626/script/emacs_window.sh"))))
-  (if (string= "\n" aID)
+	      (shell-command-to-string "~/a-m/X11/xGetFocusWindow"))))
+  (if (string= "" aID)
       (error "No ANSYS MAPDL window found")
     (setq ansys-emacs-window-id eID)
     (setq ansys-classics-window-id aID)
@@ -153,6 +153,11 @@ The output of the solver is captured in an Emacs buffer called
 ;    (ansys-ansysli-servers "")	 ;
     ;(ansys-license "")		 ;
     (let ((bname (concat "*"ansys-classics-process"*")))
+      (when (file-readable-p (concat default-directory ansys-job ".lock"))
+	(if (yes-or-no-p
+	     (concat "Warning: There is a \""ansys-job".lock" "\" in " default-directory ". This might indicate that there is already a solver running.  Do you wish to kill the lock file? "))
+	    (delete-file (concat ansys-job ".lock"))
+	  (error "Starting the MAPDL GUI (ANSYS Classics) cancelled")))
       (if (y-or-n-p
 	   (concat
 	    "Start run of: "
@@ -164,9 +169,9 @@ The output of the solver is captured in an Emacs buffer called
 		(concat ", No of procs: " (number-to-string ansys-no-of-processors))
 	      "")
 	    ", job: " (if (boundp 'ansys-job) ansys-job)
-	    " in " default-directory ", server: " ansys-license-file ")"))
-	  (message "Started MAPDL in GUI mode (ANSYS Classics) ...")
-	(error "Starting MAPDL (ANSYS Classics) cancelled"))
+	    " in " default-directory ", server: " ansys-license-file " "))
+	  (message "Starting MAPDL in GUI mode (ANSYS Classics) ...")
+	(error "Calling MAPDL solver (ANSYS Classics) cancelled"))
       ;; -d : device
       ;; -g : graphics mode
       ;; -p : license
@@ -317,7 +322,7 @@ the customisation facility (by calling `ansys-customise-ansys')."
     ;(setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
     (call-process "/home/uidg1626/script/ctrlv.sh" nil nil nil ansys-classics-window-id)
     (sleep-for .1)
-    (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)
+    (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)))
 
 (defun ansys-send-to-ansys ( &optional move)
   "Send a region to the ANSYS interpreter,

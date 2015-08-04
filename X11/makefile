@@ -68,13 +68,13 @@ EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 .PHONEY : EXE
 EXE : $(EMACS_EXE)
 
-X11_FILES := ../X11/xGetClassicsWindow.cpp ../X11/xPasteToWin.cpp ../X11/xGetFocusWindow.cpp ../X11/xSendReturn.cpp
+X11_FILES := ../X11/xGetClassicsWindow.cpp ../X11/xPasteToWin.cpp ../X11/xGetFocusWindow.cpp ../X11/xSendReturn.cpp ../X11/makefile 
 
 X11_EXE := $(X11_FILES:.cpp=)
 
 .PHONEY : TEST
 TEST : 
-	@echo $(X11_EXE)
+	echo $(X11_EXE)
 
 .PHONEY : ../X11
 X11 : $(X11_FILES)
@@ -85,6 +85,7 @@ PACKAGE := ansys-mode-$(VERSION).tar.xz
 EL_FILES := ../ansys-config.el ../ansys-mode.el ../ansys-keyword.el \
 	../ansys-initialise.el ../ansys-template.el ../ansys-process.el
 # fontification.el is not included since it is not necessary for running A-M
+
 
 ../ansys-config.el : ../ansys-config.org
 	$(EMACS_EXE) --batch --file $< \
@@ -171,8 +172,7 @@ A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README.Conti tools/bin/A-M-$
 	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
 	@echo "syncing.."
 	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) $(TUTORIALS:../%=%)\
-	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) $(X11_EXE:../%=%)\
-		helper/tools/ansys-mode/ansys-mode-$(VERSION)
+	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) helper/tools/ansys-mode/ansys-mode-$(VERSION)
 	@pwd
 	cd ./tools/ansys-mode; ln -sf ansys-mode-$(VERSION) current
 	tar -cJvf $@ --group HPCUser_1 tools

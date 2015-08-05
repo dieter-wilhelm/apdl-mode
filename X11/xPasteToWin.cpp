@@ -7,13 +7,13 @@
 
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#include<unistd.h>		// for sleep
-#include<string.h>
-#include <X11/Xatom.h>
-#include <iostream>
-#include <cstring>
+// #include<unistd.h>		// for sleep
+//#include<string.h>
+//#include <X11/Xatom.h>
+//#include <iostream>
+//#include <cstring>
 #include <cstdio>
-#include <cstdlib>
+// #include <cstdlib>
 
 using namespace std;
 
@@ -21,13 +21,13 @@ using namespace std;
 // A full list of available codes can be found in /usr/include/X11/keysymdef.h
 #define KEYCODE XK_V
 #define KEYCODE2 XK_Control_L
-#define KEYCODE3 XK_Return
-#define KEYCODE4 XK_Linefeed
+// #define KEYCODE3 XK_Return
+// #define KEYCODE4 XK_Linefeed
 #define MODIFIER 4 		// bitwise inclusive OR of ControlMask
 
 //const char* win_name = "ANSYS Mechanical Utility Menu";
-const char* win_name = "test.txt (~/a-m/prog) - gedit";
-char*  name;
+// const char* win_name = "test.txt (~/a-m/prog) - gedit";
+// char*  name;
 
 // Function to create a keyboard event
 XKeyEvent createKeyEvent(Display *display, Window &win,
@@ -58,18 +58,18 @@ XKeyEvent createKeyEvent(Display *display, Window &win,
 }
 
 
-Window *winList(Display *disp, unsigned long *len) {
-    Atom prop = XInternAtom(disp,"_NET_CLIENT_LIST",False), type;
-    int form;
-    unsigned long remain;
-    unsigned char *list;
-    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
-                &type,&form,len,&remain,&list) != Success) {
-        return 0;
-    }
+// Window *winList(Display *disp, unsigned long *len) {
+//     Atom prop = XInternAtom(disp,"_NET_CLIENT_LIST",False), type;
+//     int form;
+//     unsigned long remain;
+//     unsigned char *list;
+//     if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
+//                 &type,&form,len,&remain,&list) != Success) {
+//         return 0;
+//     }
 
-    return (Window*)list;
-}
+//     return (Window*)list;
+// }
 
 
 /* XFetchName? */
@@ -89,7 +89,7 @@ char *winName( Display *disp, Window win) {
 }
 
 
-main()
+main( int argc, char* argv[])
 {
   // Obtain the X11 display.
    Display *display = XOpenDisplay(0);
@@ -99,61 +99,61 @@ main()
    // Get the root window for the current display.
    Window winRoot = XDefaultRootWindow(display);
 
-   // Find the window which has the current keyboard focus.
-   Window winFocus;
-   int    revert;
-   XGetInputFocus(display, &winFocus, &revert);
+   // // Find the window which has the current keyboard focus.
+   // Window winFocus;
+   // int    revert;
+   // XGetInputFocus(display, &winFocus, &revert);
 
    // here we are searching for the respective window
    /* search for another window and hand it the input focus */
-   int i;
-   unsigned long len;
-   Window *list;
+   // int i;
+   // unsigned long len;
+   // Window *list;
 
-   list = (Window*)winList(display,&len);
-   for (i=0;i<(int)len;i++) {
-     name = winName(display,list[i]);
-     printf("%d :  %s, window %d \n",i+1,name,list[i]);
-     if( strcmp(name,win_name) == 0){
-       printf (" -> found %s window after %d windows\n",win_name,i);
-       //      XSendEvent(display,list[i],True,)
-       break;
-     }
-   }
-   if (i == (int)len){
-     printf("\nWindow not found\n\n");
-     exit(1);
-   }
+   // list = (Window*)winList(display,&len);
+   // for (i=0;i<(int)len;i++) {
+   //   name = winName(display,list[i]);
+   //   printf("%d :  %s, window %d \n",i+1,name,list[i]);
+   //   if( strcmp(name,win_name) == 0){
+   //     printf (" -> found %s window after %d windows\n",win_name,i);
+   //     //      XSendEvent(display,list[i],True,)
+   //     break;
+   //   }
+   // }
+   // if (i == (int)len){
+   //   printf("\nWindow not found\n\n");
+   //   exit(1);
+   // }
 
-   /* XSync(display,True); */
-   printf ("setting input focus to window %d\n",list[i]);
-   Window winFocus2 = list[i];
+   // /* XSync(display,True); */
+   // printf ("setting input focus to window %d\n",list[i]);
+   Window winFocus2 = argv[1];
    //XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
 
    //   Window winFocus2 = 50331665;	// we know it ;-)
-   XSetInputFocus (display, winFocus2,RevertToPointerRoot,CurrentTime);
+   //   XSetInputFocus (display, winFocus2,RevertToPointerRoot,CurrentTime);
 
    // // Send a Ctrl key press event to the window.
-   //   XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE2, 0);
-   // XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+   XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE2, 0);
+   XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
    // //   XFlush(display);
 
    // Send a v key press event to the window.
    //event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE, MODIFIER);
-   XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE, 0);
+   event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE, 0);
    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-   printf (" sending `v' key press \n");
+   //   printf (" sending `v' key press \n");
    //   XFlush(display);
 
    // Send a v key release event to the window.
    event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE, MODIFIER);
    XSendEvent(event.display, event.window, True, KeyReleaseMask, (XEvent *)&event);
-   printf (" sending `v' key release \n");
+   //   printf (" sending `v' key release \n");
    //   XFlush(display);
 
-   // // Send a ctrl key release event to the window.
-   // event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE2, 0);
-   // XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+   // Send a ctrl key release event to the window.
+   event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE2, 0);
+   XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
 
    // //XFlush(display);		// waiting until events are processed
    // //  XSync(display,False);		// waiting until events are processed

@@ -2094,16 +2094,15 @@ improvements you have the following options:
   (ansys-add-ansys-menu)
 
   ;; --- user variables ---
-
+  (message "User variables")
   (if (>= ansys-highlighting-level 2)
       (when (or
-	     (unless buffer-file-name
-	       t) ;skip rest is a buffer without a file
+	     (when (not buffer-file-name)
+	       t) ;skip below size query (buffer without a file)
 	     (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
 	     (y-or-n-p
 	      "File is larger than 1MB, switch on user variable highlighting? "))
-	(if (and buffer-file-name ;we have a file in the buffer
-		 ansys-dynamic-highlighting-flag
+	(if (and ansys-dynamic-highlighting-flag
 		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
 		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")
 		     (string= (buffer-name) "*MAPDL macro*")))

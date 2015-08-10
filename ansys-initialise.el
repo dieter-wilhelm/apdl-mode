@@ -183,8 +183,10 @@ If TYPE is nil return the license servers, if non-nil the
 ansysli_servers.  When there are no license servers readable,
 return nil."
   (let* ((idir 
-	  (file-name-directory
-	   (directory-file-name ansys-install-directory)))
+	  (if ansys-install-directory
+	      (file-name-directory
+	       (directory-file-name ansys-install-directory))
+	    nil))
 	 ini
 	 )
     (if (ansys-is-unix-system-p)
@@ -299,15 +301,16 @@ customisation variables"
 	(setq ansys-classics-flag t)))
 
   ;; 2) -current-ansys-version: 
- (let* ((idir (file-name-as-directory ansys-install-directory))
-	(version ansys-current-ansys-version))
-   (when (or (and idir
-		  (not version))
-	     force)
-	 (setq length (length idir))
-	 (setq version (substring (directory-file-name idir) (- length 4) (- length 1)))
-	 (setq ansys-current-ansys-version version)
-	 (message "ansys-current-ansys-version=%s" version)))
+  (when ansys-install-directory
+    (let* ((idir (file-name-as-directory ansys-install-directory))
+	   (version ansys-current-ansys-version))
+      (when (or (and idir
+		     (not version))
+		force)
+	(setq length (length idir))
+	(setq version (substring (directory-file-name idir) (- length 4) (- length 1)))
+	(setq ansys-current-ansys-version version)
+	(message "ansys-current-ansys-version=%s" version))))
  
   ;; 3) -program
   (when (and ansys-install-directory (or (null ansys-program) force))

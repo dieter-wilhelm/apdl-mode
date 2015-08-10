@@ -9,11 +9,11 @@
 #include <X11/keysym.h>
 // #include<unistd.h>		// for sleep
 //#include<string.h>
-//#include <X11/Xatom.h>
+#include <X11/Xatom.h>
 //#include <iostream>
 //#include <cstring>
 #include <cstdio>
-// #include <cstdlib>
+#include <cstdlib>		// stoul
 
 using namespace std;
 
@@ -127,7 +127,7 @@ main( int argc, char* argv[])
 
    // /* XSync(display,True); */
    // printf ("setting input focus to window %d\n",list[i]);
-   Window winFocus2 = argv[1];
+   Window winFocus2 = strtoul( argv[1],0,10);
    //XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
 
    //   Window winFocus2 = 50331665;	// we know it ;-)

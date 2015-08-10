@@ -836,7 +836,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (modify-syntax-entry ?> "."  table)
     (modify-syntax-entry ?< "."  table)
     (modify-syntax-entry ?. "."  table)
-    (modify-syntax-entry ?\% "." table)
+    (modify-syntax-entry ?% "." table)
     (modify-syntax-entry ?| "."  table)
     (modify-syntax-entry ?\' "." table)
     (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,

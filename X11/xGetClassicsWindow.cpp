@@ -10,10 +10,10 @@
 // #include<unistd.h>		// for sleep
 #include<string.h>
 #include <X11/Xatom.h>
-// #include <iostream>
+#include <iostream>
 // #include <cstring>
 #include <cstdlib>
-#include <cstdio>
+//#include <cstdio>
 
 using namespace std;
 
@@ -25,8 +25,8 @@ using namespace std;
 // #define KEYCODE4 XK_Linefeed
 // #define MODIFIER 4 		// bitwise inclusive OR of ControlMask
 
-const char* win_name = "ANSYS Structural Utility Menu";
-//const char* win_name = "wish";
+//const char* win_name = "ANSYS Structural Utility Menu";
+const char* win_name = "F4 OS terminal, shell";
 char*  name;
 
 // // Function to create a keyboard event
@@ -116,18 +116,20 @@ main()
      name = winName(display,list[i]);
      // printf("%d :  %s, window %d \n",i,name,list[i]);
      if( strcmp(name,win_name) == 0){
-       printf ("    -> found %s window after %d windows\n",win_name,i);
+       //printf ("    -> found %s window after %d windows\n",win_name,i);
        //      XSendEvent(display,list[i],True,)
        break;
      }
    }
    if (i == (int)len){
-     printf("\nWindow not found\n\n");
+     //printf("\nWindow not found\n\n");
+     cout << "\nWindow not found\n\n";
      exit(1);
    }
 
    /* XSync(display,True); */
-   printf ("%d\n",list[i]);
+   cout << list[i];
+   //printf ("%d\n",list[i]);
    // Window winFocus2 = list[i];
    //  XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
 

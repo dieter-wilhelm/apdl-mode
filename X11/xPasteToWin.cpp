@@ -7,13 +7,14 @@
 
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-// #include<unistd.h>		// for sleep
-//#include<string.h>
 #include <X11/Xatom.h>
-//#include <iostream>
+#include <iostream>
+#include <sstream>
+// #include<unistd.h>		// for sleep
+#include<string.h>
 //#include <cstring>
-#include <cstdio>
-#include <cstdlib>		// stoul
+//#include <cstdio>
+//#include <cstdlib>		// stoul
 
 using namespace std;
 
@@ -88,6 +89,7 @@ char *winName( Display *disp, Window win) {
     return (char*)list;
 }
 
+//istream* input;
 
 main( int argc, char* argv[])
 {
@@ -127,7 +129,13 @@ main( int argc, char* argv[])
 
    // /* XSync(display,True); */
    // printf ("setting input focus to window %d\n",list[i]);
-   Window winFocus2 = strtoul( argv[1],0,10);
+   Window winFocus2;
+   istringstream input( argv[ 1]);
+   input >> winFocus2;
+   //cout << winFocus2 << '\n';
+   //   winFocus2 = static_cast<unsigned long int>(input);
+  //Window winFocus2 = strtoul( argv[1],0,10);
+
    //XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
 
    //   Window winFocus2 = 50331665;	// we know it ;-)
@@ -208,5 +216,6 @@ main( int argc, char* argv[])
 
    // Done.
    XCloseDisplay(display);
+   //   delete input;
    return 0;
 }

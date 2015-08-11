@@ -7,27 +7,28 @@
 
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
-#include<unistd.h>		// for sleep
-#include<string.h>
 #include <X11/Xatom.h>
+//#include<unistd.h>		// for sleep
+//#include<string.h>
+#include <sstream>
 #include <iostream>
-#include <cstring>
-#include <cstdio>
 #include <cstdlib>
+//#include <cstring>
+//#include <cstdio>
 
 using namespace std;
 
 // The key code to be sent.
 // A full list of available codes can be found in /usr/include/X11/keysymdef.h
-#define KEYCODE XK_v
-#define KEYCODE2 XK_Control_L
+// #define KEYCODE XK_v
+// #define KEYCODE2 XK_Control_L
 #define KEYCODE3 XK_Return
-#define KEYCODE4 XK_Linefeed
+// #define KEYCODE4 XK_Linefeed
 #define MODIFIER 4 		// bitwise inclusive OR of ControlMask
 
-const char* win_name = "ANSYS Mechanical Utility Menu";
+//const char* win_name = "ANSYS Mechanical Utility Menu";
 //const char* win_name = "wish";
-char*  name;
+//char*  name;
 
 // Function to create a keyboard event
 XKeyEvent createKeyEvent(Display *display, Window &win,
@@ -58,39 +59,39 @@ XKeyEvent createKeyEvent(Display *display, Window &win,
 }
 
 
-Window *winList(Display *disp, unsigned long *len) {
-    Atom prop = XInternAtom(disp,"_NET_CLIENT_LIST",False), type;
-    int form;
-    unsigned long remain;
-    unsigned char *list;
+// Window *winList(Display *disp, unsigned long *len) {
+//     Atom prop = XInternAtom(disp,"_NET_CLIENT_LIST",False), type;
+//     int form;
+//     unsigned long remain;
+//     unsigned char *list;
 
-    if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
-                &type,&form,len,&remain,&list) != Success) {
-        return 0;
-    }
+//     if (XGetWindowProperty(disp,XDefaultRootWindow(disp),prop,0,1024,False,XA_WINDOW,
+//                 &type,&form,len,&remain,&list) != Success) {
+//         return 0;
+//     }
 
-    return (Window*)list;
-}
+//     return (Window*)list;
+// }
 
 
 /* XFetchName? */
 //    XGetWMName ()
-char *winName( Display *disp, Window win) {
-    Atom prop = XInternAtom(disp,"WM_NAME",False), type;
-    int form;
-    unsigned long remain, len;
-    unsigned char *list;
+// char *winName( Display *disp, Window win) {
+//     Atom prop = XInternAtom(disp,"WM_NAME",False), type;
+//     int form;
+//     unsigned long remain, len;
+//     unsigned char *list;
 
-    if (XGetWindowProperty(disp,win,prop,0,1024,False,XA_STRING,
-                &type,&form,&len,&remain,&list) != Success) {
-        return NULL;
-    }
+//     if (XGetWindowProperty(disp,win,prop,0,1024,False,XA_STRING,
+//                 &type,&form,&len,&remain,&list) != Success) {
+//         return NULL;
+//     }
 
-    return (char*)list;
-}
+//     return (char*)list;
+// }
 
 
-main()
+main( int argc, char* argv[])
 {
   // Obtain the X11 display.
    Display *display = XOpenDisplay(0);
@@ -101,34 +102,36 @@ main()
    Window winRoot = XDefaultRootWindow(display);
 
    // Find the window which has the current keyboard focus.
-   Window winFocus;
-   int    revert;
-   XGetInputFocus(display, &winFocus, &revert);
+   // Window winFocus;
+   // int    revert;
+   // XGetInputFocus(display, &winFocus, &revert);
 
    // here we are searching for the respective window
    /* search for another window and hand it the input focus */
-   int i;
-   unsigned long len;
-   Window *list;
+   // int i;
+   // unsigned long len;
+   // Window *list;
 
-   list = (Window*)winList(display,&len);
-   for (i=0;i<(int)len;i++) {
-     name = winName(display,list[i]);
-     // printf("%d :  %s, window %d \n",i,name,list[i]);
-     if( strcmp(name,win_name) == 0){
-       printf ("    -> found %s window after %d windows\n",win_name,i);
-       //      XSendEvent(display,list[i],True,)
-       break;
-     }
-   }
-   if (i == (int)len){
-     printf("\nWindow not found\n\n");
-     exit(1);
-   }
+   // list = (Window*)winList(display,&len);
+   // for (i=0;i<(int)len;i++) {
+   //   name = winName(display,list[i]);
+   //   // printf("%d :  %s, window %d \n",i,name,list[i]);
+   //   if( strcmp(name,win_name) == 0){
+   //     printf ("    -> found %s window after %d windows\n",win_name,i);
+   //     //      XSendEvent(display,list[i],True,)
+   //     break;
+   //   }
+   // }
+   // if (i == (int)len){
+   //   printf("\nWindow not found\n\n");
+   //   exit(1);
+   // }
 
    /* XSync(display,True); */
-   printf ("setting input focus to window %d\n",list[i]);
-   Window winFocus2 = list[i];
+   //printf ("setting input focus to window %d\n",list[i]);
+   Window winFocus2;
+   istringstream input( argv[1]);
+   input >> winFocus2;
    //  XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
 
    //   Window winFocus2 = 50331665;	// we know it ;-)
@@ -175,34 +178,34 @@ main()
   //  //  XSync(display,True);		// waiting until events are processed
   //  //   XFlush(display);		// waiting until events are processed
  
-   printf("Sending Return\n");
-   // Send a fake key press event to the window.
+  //  printf("Sending Return\n");
+  //  // Send a fake key press event to the window.
   //  XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE2, 0);
    XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE3, 0);
    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-   //   XFlush(display);
-   // Send a fake key release event to the window.
-   event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE3, 0);
-   XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-   // Send a fake key press event to the window.
-   event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE3, 0);
-   XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-   //   XFlush(display);
-   // Send a fake key release event to the window.
-   event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE3, 0);
-   XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
-   //   XFlush(display);
+  //  //   XFlush(display);
+  //  // Send a fake key release event to the window.
+  //  event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE3, 0);
+  //  XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+  //  // Send a fake key press event to the window.
+  //  event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE3, 0);
+  //  XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+  //  //   XFlush(display);
+  //  // Send a fake key release event to the window.
+  //  event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE3, 0);
+  //  XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+  //  //   XFlush(display);
 
-   //   XFlush(display);		// waiting until events are processed
-   //   XSync(display,False);		// waiting until events are processed
+  //  //   XFlush(display);		// waiting until events are processed
+  //  //   XSync(display,False);		// waiting until events are processed
 
-   XSync(display,False);		// waiting until events are processed
-   printf("waiting for return\n");
+  //  XSync(display,False);		// waiting until events are processed
+  //  printf("waiting for return\n");
 
-   sleep(1);				// microseconds
+  //  sleep(1);				// microseconds
 
    // returning the focus to the caller window
-   XSetInputFocus (display, winFocus,RevertToPointerRoot,CurrentTime);
+   //   XSetInputFocus (display, winFocus,RevertToPointerRoot,CurrentTime);
    //   XFlush(display);
 
 

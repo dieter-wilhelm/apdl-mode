@@ -12,9 +12,9 @@
 //#include<unistd.h>		// for sleep
 //#include<string.h>
 //#include <X11/Xatom.h>
-//#include <iostream>
+#include <iostream>
 //#include <cstring>
-#include <cstdio>		// printf
+//#include <cstdio>		// printf
 //#include <cstdlib>
 
 using namespace std;
@@ -210,6 +210,7 @@ main()
 
    // Done.
    XCloseDisplay(display);
-   printf("%d\n", winFocus) ;
+   cout << winFocus;
+   //   printf("%d\n", winFocus) ;
    return 0;
 }

@@ -29,9 +29,11 @@
    - list of all new functions: bug-report.sh, remove spurious
      defcustoms which are calculated, or leave them as last resort?
 ** Wish-list
-   - We need `'' for strings and character parameters,`%' for
-     parameter substitution,`(' for functions, % not yet working with
-     electric-pair-mode
+   - switch off advising of M-w, yeah
+   - MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
+     + ActivateWin: SetFocus()  + SendKeys? SendKeys
+     http://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
+     https://msdn.microsoft.com/en-us/library/aa383749.aspx
    - Targeting ANSYS Aim
    - option to make eww default help browser
    - customisation :version attribute is not clear and not defined for
@@ -55,14 +57,9 @@
    - splash screen?
    - -license-status optional filters for output
    - C-c C-c checking blocks
-   - MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
-     + ActivateWin: SetFocus()  + SendKeys? SendKeys
-     http://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
-   https://msdn.microsoft.com/en-us/library/aa383749.aspx
    - include ../ansys/apdl macros?
    - ../apdl/start161.ans valuable?
    - add screw thread capability to WB translation
-   - switch off advising of M-w, yeah
    - color scheme of *msg command is only readable on terminals
    - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP

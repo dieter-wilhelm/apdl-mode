@@ -857,12 +857,7 @@ type (`ansys-license') determines a highlighting of the license
 server summary rows."
   (interactive)
   (cond
-   (t
-    ;; FIXME
-    ;;(ansys-lmutil-program "")  ;check whether program is found on system
-    ;;ansys-unix-system-flag
-    ;;    (ansys-license-file-check)
-    ;;   (ansys-ansysli-servers-check)
+   ((and ansys-lmutil-program ansys-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
     (message "Retrieving license (%s) status, this may take some time..." ansys-license)
     (with-current-buffer (get-buffer-create "*ANSYS-licenses*")
@@ -922,7 +917,9 @@ server summary rows."
 	(when (not ansys-unix-system-flag)
 	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
-    (message "Updated license status: %s." (current-time-string)))))
+    (message "Updated license status: %s." (current-time-string)))
+   (t
+    (message "No license information or lmutil program found"))))
 
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph

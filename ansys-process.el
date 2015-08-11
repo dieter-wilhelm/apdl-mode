@@ -124,9 +124,10 @@ switch output to it."
       (progn
 	(setq ansys-classics-flag nil)
 	(message "Disconnected from Classics."))
-    (ansys-classics-p)
-    (setq ansys-classics-flag t)
-    (message "Connected to Classics.")))
+    (if (ansys-classics-p)
+	(progn (setq ansys-classics-flag t)
+	       (message "Connected to Classics."))
+      (error "No ANSYS Classics window found"))))
 
 (defun ansys-classics-p ()
   "Check whether ANSYS Classics is running.
@@ -138,7 +139,8 @@ Return nil if we can't find an MAPDL GUI."
 	      "\n" ""
 	      (shell-command-to-string "~/a-m/X11/xGetFocusWindow"))))
   (if (string= "" aID)
-      (error "No ANSYS MAPDL window found")
+      ;(error "No ANSYS MAPDL window found")
+      nil
     (setq ansys-emacs-window-id eID)
     (setq ansys-classics-window-id aID)
     aID)))
@@ -319,10 +321,14 @@ the customisation facility (by calling `ansys-customise-ansys')."
   (let ((win "otto"))
   ;  (message "return value: %s" win)
     (sleep-for .5)
-    ;(setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
-    (call-process "/home/uidg1626/script/ctrlv.sh" nil nil nil ansys-classics-window-id)
+    ;;(setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
+    ;; (call-process "/home/uidg1626/script/ctrlv.sh" nil nil nil ansys-classics-window-id)
+    (call-process "~/a-m/X11/xPasteToWin" nil nil nil ansys-classics-window-id)
     (sleep-for .1)
-    (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)))
+    ;; (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)
+    (call-process "~/a-m/X11/xSendReturn" nil nil nil
+		  ansys-emacs-window-id ansys-classics-window-id)
+    ))
 
 (defun ansys-send-to-ansys ( &optional move)
   "Send a region to the ANSYS interpreter,

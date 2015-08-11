@@ -75,19 +75,19 @@ XKeyEvent createKeyEvent(Display *display, Window &win,
 
 /* XFetchName? */
 //    XGetWMName ()
-char *winName( Display *disp, Window win) {
-    Atom prop = XInternAtom(disp,"WM_NAME",False), type;
-    int form;
-    unsigned long remain, len;
-    unsigned char *list;
+// char *winName( Display *disp, Window win) {
+//     Atom prop = XInternAtom(disp,"WM_NAME",False), type;
+//     int form;
+//     unsigned long remain, len;
+//     unsigned char *list;
 
-    if (XGetWindowProperty(disp,win,prop,0,1024,False,XA_STRING,
-                &type,&form,&len,&remain,&list) != Success) {
-        return NULL;
-    }
+//     if (XGetWindowProperty(disp,win,prop,0,1024,False,XA_STRING,
+//                 &type,&form,&len,&remain,&list) != Success) {
+//         return NULL;
+//     }
 
-    return (char*)list;
-}
+//     return (char*)list;
+// }
 
 //istream* input;
 
@@ -136,7 +136,7 @@ main( int argc, char* argv[])
    //   winFocus2 = static_cast<unsigned long int>(input);
   //Window winFocus2 = strtoul( argv[1],0,10);
 
-   //XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
+   XSetInputFocus ( display, winFocus2, RevertToPointerRoot, CurrentTime);
 
    //   Window winFocus2 = 50331665;	// we know it ;-)
    //   XSetInputFocus (display, winFocus2,RevertToPointerRoot,CurrentTime);
@@ -148,7 +148,7 @@ main( int argc, char* argv[])
 
    // Send a v key press event to the window.
    //event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE, MODIFIER);
-   event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE, 0);
+   event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE, MODIFIER);
    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
    //   printf (" sending `v' key press \n");
    //   XFlush(display);
@@ -161,7 +161,7 @@ main( int argc, char* argv[])
 
    // Send a ctrl key release event to the window.
    event = createKeyEvent(display, winFocus2, winRoot, False, KEYCODE2, 0);
-   XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
+   XSendEvent(event.display, event.window, True, KeyReleaseMask, (XEvent *)&event);
 
    // //XFlush(display);		// waiting until events are processed
    // //  XSync(display,False);		// waiting until events are processed
@@ -213,6 +213,11 @@ main( int argc, char* argv[])
    //   XSetInputFocus (display, winFocus,RevertToPointerRoot,CurrentTime);
    //   XFlush(display);
 
+   // Find the window which has the current keyboard focus.
+   Window winFocus;
+   int    revert;
+   XGetInputFocus(display, &winFocus, &revert);
+   cout << "window focus has window ID " << winFocus << "\n";
 
    // Done.
    XCloseDisplay(display);

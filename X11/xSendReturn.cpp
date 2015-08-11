@@ -102,9 +102,18 @@ main( int argc, char* argv[])
    Window winRoot = XDefaultRootWindow(display);
 
    // Find the window which has the current keyboard focus.
+   // this seems not reliable when ANSYS shows the tooltip!!!
    // Window winFocus;
    // int    revert;
    // XGetInputFocus(display, &winFocus, &revert);
+   // cout << "Focus window: " << winFocus << "\n";
+
+   Window winFocus;
+   istringstream input( argv[2]);
+   input >> winFocus;
+   //  XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
+   //   Window winFocus2 = 50331665;	// we know it ;-)
+   XSetInputFocus (display, winFocus,RevertToPointerRoot,CurrentTime);
 
    // here we are searching for the respective window
    /* search for another window and hand it the input focus */
@@ -126,16 +135,6 @@ main( int argc, char* argv[])
    //   printf("\nWindow not found\n\n");
    //   exit(1);
    // }
-
-   /* XSync(display,True); */
-   //printf ("setting input focus to window %d\n",list[i]);
-   Window winFocus2;
-   istringstream input( argv[1]);
-   input >> winFocus2;
-   //  XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
-
-   //   Window winFocus2 = 50331665;	// we know it ;-)
-   XSetInputFocus (display, winFocus2,RevertToPointerRoot,CurrentTime);
 
   //  // Send a Ctrl key press event to the window.
   //  XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE2, 0);
@@ -181,7 +180,7 @@ main( int argc, char* argv[])
   //  printf("Sending Return\n");
   //  // Send a fake key press event to the window.
   //  XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE2, 0);
-   XKeyEvent event = createKeyEvent(display, winFocus2, winRoot, True, KEYCODE3, 0);
+   XKeyEvent event = createKeyEvent(display, winFocus, winRoot, True, KEYCODE3, 0);
    XSendEvent(event.display, event.window, True, KeyPressMask, (XEvent *)&event);
   //  //   XFlush(display);
   //  // Send a fake key release event to the window.
@@ -207,7 +206,16 @@ main( int argc, char* argv[])
    // returning the focus to the caller window
    //   XSetInputFocus (display, winFocus,RevertToPointerRoot,CurrentTime);
    //   XFlush(display);
+   /* XSync(display,True); */
+   //printf ("setting input focus to window %d\n",list[i]);
 
+   Window winFocus2;
+   istringstream input2( argv[1]);
+   input2 >> winFocus2;
+   //  XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);
+
+   //   Window winFocus2 = 50331665;	// we know it ;-)
+   XSetInputFocus (display, winFocus2,RevertToPointerRoot,CurrentTime);
 
    // Done.
    XCloseDisplay(display);

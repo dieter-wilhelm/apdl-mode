@@ -836,7 +836,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     (modify-syntax-entry ?> "."  table)
     (modify-syntax-entry ?< "."  table)
     (modify-syntax-entry ?. "."  table)
-    (modify-syntax-entry ?\% "$" table)	;$ paired delimeter
+    (modify-syntax-entry ?\% "." table)
     (modify-syntax-entry ?| "."  table)
     (modify-syntax-entry ?\' "." table)
     (modify-syntax-entry ?\` "w" table) ;ansys-mode abbreviation specifier,
@@ -2103,9 +2103,9 @@ improvements you have the following options:
 	     (y-or-n-p
 	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and ansys-dynamic-highlighting-flag
-		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
-		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")
-		     (string= (buffer-name) "*MAPDL macro*")))
+		 (or (string= (buffer-name) "*MAPDL macro*")
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
 	    (progn (add-hook 'after-change-functions
 			     'ansys-find-user-variables nil t)
 		   (add-hook 'post-command-hook

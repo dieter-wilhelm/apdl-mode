@@ -25,8 +25,8 @@ using namespace std;
 // #define KEYCODE4 XK_Linefeed
 // #define MODIFIER 4 		// bitwise inclusive OR of ControlMask
 
-//const char* win_name = "ANSYS Structural Utility Menu";
-const char* win_name = "F4 OS terminal, shell";
+const char* win_name = "ANSYS Structural Utility Menu";
+//const char* win_name = "F4 OS terminal, shell";
 char*  name;
 
 // // Function to create a keyboard event
@@ -122,13 +122,16 @@ main()
      }
    }
    if (i == (int)len){
+     // do nothing
      //printf("\nWindow not found\n\n");
-     cout << "\nWindow not found\n\n";
-     exit(1);
+     //cout << "\nWindow not found\n\n";
+   }
+   else {
+     cout << list[i];
+     //     exit(1);
    }
 
    /* XSync(display,True); */
-   cout << list[i];
    //printf ("%d\n",list[i]);
    // Window winFocus2 = list[i];
    //  XSetInputFocus ( display, list[i], RevertToPointerRoot, CurrentTime);

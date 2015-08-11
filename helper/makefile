@@ -82,6 +82,7 @@ X11 : $(X11_FILES)
 
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
+# necessary el files
 EL_FILES := ../ansys-config.el ../ansys-mode.el ../ansys-keyword.el \
 	../ansys-initialise.el ../ansys-template.el ../ansys-process.el
 # fontification.el is not included since it is not necessary for running A-M
@@ -99,7 +100,6 @@ ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
 HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
-
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -294,7 +294,7 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el tools/ansys-mode/README.Conti
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el tools/ansys-mode/README.Conti ../ansys-config.org
 
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)

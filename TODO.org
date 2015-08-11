@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-10>
+#+DATE: Time-stamp: <2015-08-11>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,16 +19,21 @@
 ** Bugs
    - Documentation of installation, usage and configuration!
    - M-? on an empty buffer returns *abbr* help instead of warning
-   - C-c C-j tries to send a next line in the LAST line
-   - -help-program-parameters obsolete
+   - C-c C-j tries to send a next line in the LAST line and after an
+     /exit command
    - windows Emacs-23.1 no usable browser found!
    - -send-to-ansys, -send-above copy empty regions or only comments
    - importing template-header into empty file doesn't change file
      status to changed!
+   - error for -skeleton-outline-template when called ansys-mode
+     for an unnamed file without extension.
+   - APDL + WB -> Window Name is ... - Mechanical APDL (ANSYS
+     Structural)
 ** Freeze
    - list of all new functions: bug-report.sh, remove spurious
      defcustoms which are calculated, or leave them as last resort?
 ** Wish-list
+   - -help-program-parameters obsolete
    - switch off advising of M-w, yeah
    - MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
      + ActivateWin: SetFocus()  + SendKeys? SendKeys

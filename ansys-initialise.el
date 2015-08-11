@@ -48,6 +48,12 @@
   "Initialisation subgroup for ANSYS-Mode."
   :group 'ANSYS)
 
+(defcustom ansys-mode-install-directory nil
+  "The installation directory of ANSYS-Mode.
+The directory where the Elisp files reside."
+  :type 'string
+  :group 'ANSYS-initialise)
+
 (defcustom ansys-install-directory nil
   "This is the path where the MAPDL solver (ANSYS) has been installed.
 Which is to say the path up to the ANSYS version number, for
@@ -164,6 +170,9 @@ Set it to port@host.  The default port is 2325."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; variables
 
+(defvar ansys-unix-system-flag nil
+  "Indicate a Unix system with t.")
+
 (defvar ansys-current-ansys-version nil
   "String of the currently used MAPDL solver version.
 This variable is used by the `ansys-skeleton-header' template and
@@ -189,7 +198,7 @@ return nil."
 	    nil))
 	 ini
 	 )
-    (if (ansys-is-unix-system-p)
+    (if ansys-unix-system-flag
 	(setq ini (concat idir "shared_files/licensing/ansyslmd.ini"))
       (setq ini (concat idir "Shared Files/Licensing/ansyslmd.ini")))
     (if (file-readable-p ini)
@@ -236,6 +245,9 @@ content."
   "Initialise the customisation variables.
 When argument FORCE is non-nil overwrite already set
 customisation variables"
+
+  ;; 0) -unix-system-flag
+  (setq ansys-unix-system-flag (ansys-is-unix-system-p))
 
   ;; 1) -install-directory (with versioning information)
   (when (null ansys-install-directory)
@@ -297,7 +309,7 @@ customisation variables"
 
   ;; 1a) -classics-flag
   (let* ()
-    (if (and (ansys-is-unix-system-p) (ansys-classics-p))
+    (if (and ansys-unix-system-flag (ansys-classics-p))
 	(setq ansys-classics-flag t)))
 
   ;; 2) -current-ansys-version: 
@@ -317,7 +329,7 @@ customisation variables"
     (let* ((version ansys-current-ansys-version)
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
-	   (exe (if (ansys-is-unix-system-p)
+	   (exe (if ansys-unix-system-flag
 		    (concat idir "ansys/bin/ansys" version)
 		  (concat idir "ansys/bin/winx64/ansys"version".exe"))))
       (if (file-executable-p exe)
@@ -331,7 +343,7 @@ customisation variables"
     (let* ((version ansys-current-ansys-version)
 	   (idir ansys-install-directory)
 	   (exe 
-	    (if (ansys-is-unix-system-p)
+	    (if ansys-unix-system-flag
 		(concat idir "Framework/bin/Linux64/runwb2") ;150, 161
 		 (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
       (when (file-executable-p exe)
@@ -346,7 +358,7 @@ customisation variables"
 	   (idir (unless (null ansys-install-directory)
 		   (file-name-directory ansys-install-directory)))
 	   (exe
-	    (if (ansys-is-unix-system-p)
+	    (if ansys-unix-system-flag
 		(concat idir "ansys/bin/launcher" version)
 	      (concat idir  "ansys/bin/winx64/launcher" version ".exe"))))
       (when (file-executable-p exe)
@@ -371,7 +383,7 @@ customisation variables"
     (let* ((idir ansys-install-directory)
 	   (version ansys-current-ansys-version)
 	   (exe
-	    (if (ansys-is-unix-system-p)
+	    (if ansys-unix-system-flag
 		(concat idir "ansys/bin/anshelp" version)
 	      (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
       (if (file-executable-p exe)
@@ -387,7 +399,7 @@ customisation variables"
 		   ansys-install-directory)))
 	   (version ansys-current-ansys-version)
 	   (exe
-	    (if (ansys-is-unix-system-p)
+	    (if ansys-unix-system-flag
 		(concat idir "shared_files/licensing/linx64/lmutil")
 	      (concat idir "Shared Files/Licensing/winx64/lmutil.exe"))))
       (if (file-executable-p exe)
@@ -496,7 +508,7 @@ example \"v161\".  The path is stored in the variable
 ;; 	   version
 ;; 	   'ansys-current-ansys-version-history)))
 ;;     (cond
-;;      ((ansys-is-unix-system-p)
+;;      (ansys-unix-system-flag
 ;;       (setq path (concat dir "/ansys_inc/v" version)))
 ;;      (t
 ;;       (setq path (concat dir "\\ANSYS Inc\\v" version))))

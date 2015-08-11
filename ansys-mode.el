@@ -1119,7 +1119,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     :help "Start the ANSYS Classics GUI. M-x ansys-start-classics"]
    ["Start Interactive Solver/Interpreter" ansys-start-ansys
     :help "Start an interactive APDL solver/interpreter run. M-x ansys-start-ansys"
-    :active (and (ansys-is-unix-system-p)
+    :active (and ansys-unix-system-flag
 		 (file-executable-p ansys-program)
 		 (not (ansys-process-running-p)))]
    "-"
@@ -1127,7 +1127,7 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     :label (if ansys-classics-flag
 	       "Switch off sending to Classics"
 	     "Switch on sending to Classics")
-    :active (and (ansys-is-unix-system-p) (not (ansys-process-running-p)))
+    :active (and ansys-unix-system-flag (not (ansys-process-running-p)))
     :help "Check whether an ANSYS Classic is running and toogle
    sending output to it. M-x ansys-toggle-classics"]
    ["Send/Copy Region or Paragraph" ansys-send-to-ansys
@@ -1379,7 +1379,7 @@ The cursor is either in a code comment or comment line."
   (interactive)
   (let ((url "http://dieter-wilhelm.github.io/ansys-mode"))
     (cond
-     ((ansys-is-unix-system-p)
+     (ansys-unix-system-flag
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
 	  (browse-url-xdg-open url)

@@ -320,13 +320,15 @@ the customisation facility (by calling `ansys-customise-ansys')."
 ;  (let ((win (call-process "/home/uidg1626/script/ctrlv.sh")))
   (let ((win "otto"))
   ;  (message "return value: %s" win)
-    (sleep-for .5)
+    (sleep-for .5)			;wait till user lifts CTRL!
     ;;(setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
     ;; (call-process "/home/uidg1626/script/ctrlv.sh" nil nil nil ansys-classics-window-id)
-    (call-process "~/a-m/X11/xPasteToWin" nil nil nil ansys-classics-window-id)
-    (sleep-for .1)
+    (call-process (concat ansys-mode-install-directory
+			  "X11/xPasteToWin") nil nil nil ansys-classics-window-id)
+    (sleep-for .1)     ;seems to take 0.1 s for the clipboard to copy!
     ;; (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)
-    (call-process "~/a-m/X11/xSendReturn" nil nil nil
+    (call-process (concat ansys-mode-install-directory
+			  "X11/xSendReturn") nil nil nil
 		  ansys-emacs-window-id ansys-classics-window-id)
     ))
 
@@ -626,7 +628,7 @@ variable)."
   (ansys-help-program "")		;checking
   (progn
     (cond
-     ((ansys-is-unix-system-p)
+     (ansys-unix-system-flag
       (start-process "ANSYS-help-program" nil ansys-help-program)
       (message "Started the ANSYS Help Viewer..."))
      ((string= system-type "windows-nt")
@@ -680,7 +682,7 @@ variable)."
   (interactive)
   (let (file (path ansys-help-path) command)
     (cond
-     ((ansys-is-unix-system-p)
+     (ansys-unix-system-flag
       (setq file "ans_apdl/Hlp_P_APDLTOC.html")
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
@@ -858,7 +860,7 @@ server summary rows."
    (t
     ;; FIXME
     ;;(ansys-lmutil-program "")  ;check whether program is found on system
-    ;;(ansys-is-unix-system-p)
+    ;;ansys-unix-system-flag
     ;;    (ansys-license-file-check)
     ;;   (ansys-ansysli-servers-check)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
@@ -917,7 +919,7 @@ server summary rows."
 	(setq bol (point))
 	(put-text-property bol eol 'face 'font-lock-warning-face)
 	;;  on Windows the license stat buffer doesn't move to point without:
-	(when (not (ansys-is-unix-system-p))
+	(when (not ansys-unix-system-flag)
 	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))))
     (display-buffer "*ANSYS-licenses*" 'otherwindow)
     (message "Updated license status: %s." (current-time-string)))))
@@ -1163,7 +1165,7 @@ This is the path before the directory `ansys_inc/' under Linux or
 	     (concat "Specify the ANSYS installation directory ["
 		     idir "]:")
 	     nil nil idir)))))
-    (cond ((ansys-is-unix-system-p)
+    (cond (ansys-unix-system-flag
 	   (setq path (concat ndir "ansys_inc")))
 	  (t
 	   (setq path (concat ndir "ANSYS Inc"))))

@@ -12,10 +12,32 @@
 #include <X11/Xatom.h>
 #include <iostream>
 // #include <cstring>
-#include <cstdlib>
+//#include <regex>  // too young for redhat 6.6 compiler c++11
 //#include <cstdio>
+#include <regex.h>		// c library
+
 
 using namespace std;
+
+int match(const char *string, char *pattern)
+{
+    int    status;
+    regex_t    re;
+    //    if (regcomp(&re, pattern, REG_EXTENDED) != 0) {
+    if (regcomp(&re, pattern, REG_EXTENDED|REG_NOSUB) != 0) {
+	 //    if (regcomp(&re, pattern,0) != 0) {
+        return(0);      /* Report error. */
+    }
+    status = regexec(&re, string, (size_t) 0, NULL, 0);
+    regfree(&re);
+    if (status != 0) {
+        return(0);      /* Report error. */
+    }
+    return(1);
+}
+
+// char *bla = "blabla";
+// regex rgx(bla,0);
 
 // // The key code to be sent.
 // // A full list of available codes can be found in /usr/include/X11/keysymdef.h
@@ -213,5 +235,13 @@ main()
 
    // Done.
    XCloseDisplay(display);
+
+   const char* blabla= "l2: working - Mechanical APDL [ANSYS Structural]";
+   cout << "regex: 1 match, 0 none: " 
+     //	<< match( blabla, "\\(Mechanical Pups\\)|\\(A.*\\)")
+     // we need the alternatives for Classics, WB and the Command window
+	<< match( blabla, "(ANSYS .* Utility Menu)|( - Mechanical APDL)|(ANSYS Command Window)")
+        << "\n";
+
    return 0;
 }

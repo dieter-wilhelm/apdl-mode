@@ -3,10 +3,10 @@ Welcome to ANSYS-Mode, please read the accompanying tutorial
 (By the way: You can also view PDF files in Emacs editor and Emacs
 uses the same key-bindings as the BASH shell.)
 
-/appl/tools/bin/A-M-161-2.sh starts Emacs with the APDL editing mode
+/appl/tools/bin/A-M-162-1.sh starts Emacs with the APDL editing mode
 enabled. For example:
 
- $ A-M-161-2.sh /appl/tools/ansys-mode/current/doc/example.mac
+ $ A-M-162-1.sh /appl/tools/ansys-mode/current/doc/example.mac
 
 ANSYS-Mode is automatically switched on for the following types (file
 suffixes): .ans, .mac, .anf, .dat and .inp.
@@ -14,14 +14,14 @@ suffixes): .ans, .mac, .anf, .dat and .inp.
 If you want to start Emacs faster in text (terminal) mode, please
 provide the command line argument `-nw' (or --no-window-system):
 
- $ A-M-161-2.sh macro.ans -nw
+ $ A-M-162-1.sh macro.ans -nw
 
 ======================================================================
 			     PLEASE NOTE
 
 Most functionality works for any ANSYS version, but for some advanced
 stuff - like calling the help documentation in your browser -
-ANSYS-Mode-161-2 searches for the highest installed ANSYS version on
+ANSYS-Mode-162-1 searches for the highest installed ANSYS version on
 your system.  You can configure ANSYS-Mode to work for any installed
 ANSYS version.  You might achieve this by setting the installation
 directory in 3 ways: Graphically - for the current session - with the
@@ -34,7 +34,7 @@ better your ~/.emacs.)
 ======================================================================
 
 If you want to utilise ANSYS-Mode in Emacs without calling the shell
-script `A-M-161-2.sh', then add the following lines in your ~/.emacs
+script `A-M-162-1.sh', then add the following lines in your ~/.emacs
 file:
 
 --->8 ----------------------------------------------------------------

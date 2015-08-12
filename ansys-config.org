@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-11>
+#+DATE: Time-stamp: <2015-08-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -103,13 +103,13 @@ if they are differing from the defaults. (You have to restart Emacs
 
 #+BEGIN_SRC emacs-lisp
   (setq ansys-current-ansys-version "150")
-  ;(setq ansys-current-ansys-version "161") ; "161" is the default
-                                            ; in ANSYS-Mode 16.1.1
+  ;(setq ansys-current-ansys-version "162") ; "162" is the default
+                                            ; in ANSYS-Mode 162-1
 #+END_SRC
 The installation path (what comes before the directory /ansys_inc/ on
 Linux or /ANSYS Inc/ on Windows.  If ~ansys-install-directory~ is not
 set ANSYS-Mode can initialise it from the environment variable
-`AWP_ROOT161'.
+`AWP_ROOT162'.
 
 #+BEGIN_SRC emacs-lisp
 (cond ((string= window-system "x")
@@ -142,10 +142,10 @@ the standard ANSYS directory structure, please see further below.
   ;; ANSYS (if they are differing from the defaults and restart Emacs
   ;; ;-), the complete paths will be constructed with below information
 
-  ;(setq ansys-current-ansys-version "150") ; "161" default in ANSYS-Mode 16.1.1
+  ;(setq ansys-current-ansys-version "150") ; "162" default in ANSYS-Mode 162-1
 
   ;; if `ansys-install-directory' is not set ANSYS-Mode tries to
-  ;; initialise it from the environment variable `AWP_ROOT161'.
+  ;; initialise it from the environment variable `AWP_ROOT162'.
 
   ;; conditional: Linux or Windows
   ;(cond ((string= window-system "x")
@@ -358,12 +358,12 @@ completely differing from default ANSYS installation path, as in the
 example below:
 #+BEGIN_SRC emacs-lisp
 (setq ansys-help-program
-    "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+    "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
       ;; normally it looks like this:
-      ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-(setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-(setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
-(setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
+      ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+(setq ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+(setq ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
+(setq ansys-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -376,12 +376,12 @@ example below:
   ;; the example below:
 
   ; (setq ansys-help-program
-  ;   "/appl/ansys_inc/16.1.0/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+  ;   "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
   ; ;;the ANSYS path to the help viewer looks normally like this:
-  ; ;; "/INSTALL_DIRECTORY/ansys_inc/v161/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-  ; (setq ansys-help-path "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/")
-  ; (setq ansys-program "/appl/ansys_inc/16.1.0/v161/ansys/bin/ansys161")
-  ; (setq ansys-lmutil-program "/appl/ansys_inc/16.1.0/shared_files/licensing/linx64/lmutil")
+  ; ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+  ; (setq ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+  ; (setq ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
+  ; (setq ansys-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
 * Ansys processes

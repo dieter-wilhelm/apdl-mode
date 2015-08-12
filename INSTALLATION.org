@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-27>
+#+DATE: Time-stamp: <2015-08-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -31,7 +31,7 @@ only implemented for GNU-Linux systems.
 ** Short instructions
 *** For Windows systems without the Emacs editor
 Download the latest archive
-~ansys-mode-161-2.emacs-24.5-bin-i686-mingw32.zip~ with binaries of
+~ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip~ with binaries of
 Emacs-24.5 (bundled with a pre-configured ANSYS-Mode) at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]] and
 unpack it anywhere on your system (you do not need administrator
 rights).  For the next steps please read
@@ -39,7 +39,7 @@ rights).  For the next steps please read
 
 *** For existing Emacs installations on either Windows and GNU-Linux
 
-Download the latest ANSYS-Mode archive ~ansys-mode-161-2.tar.xz~ from
+Download the latest ANSYS-Mode archive ~ansys-mode-162-1.tar.xz~ from
 above GitHub releases page.
 
 **** Direct ways, no configuration necessary
@@ -75,17 +75,17 @@ be automatically applied for all files with suffixes `.mac', `.ans',
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
   ;;  Windows directory: Assuming you extracted the files on drive "c:":
-  ;; "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode-161-2"
+  ;; "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode-162-1"
   ;; Linux directory example:
-  ;; "/usr/local/src/emacs/emacs-24.5/site-lisp/ansys-mode-161-2"
+  ;; "/usr/local/src/emacs/emacs-24.5/site-lisp/ansys-mode-162-1"
 
   (load-file "ansys-config.el")
 #+END_SRC
 
 ** Verbose installation instructions
-The version scheme is a mixture of the ANSYS release (currently "161")
+The version scheme is a mixture of the ANSYS release (currently "162")
 on which the highlighting and completing code is based and the version
-(currently "2") of ANSYS-Mode, thus "161-2" for this particular
+(currently "2") of ANSYS-Mode, thus "162-1" for this particular
 release (the dash is to distinguish from ANSYS update versions like
 150.7, etc.).
 
@@ -260,11 +260,11 @@ your system.
 
 You might install Emacs with your system's packaged manager or compile
 it yourself with the source archive
-~ansys-mode-161-2.emacs-24.5.tar.xz~ from [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it somewhere
+~ansys-mode-162-1.emacs-24.5.tar.xz~ from [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it somewhere
 and type in an terminal:
 
    #+BEGIN_SRC sh
-   tar -xJvf ansys-mode-161-2.emacs-24.5.tar.xz
+   tar -xJvf ansys-mode-162-1.emacs-24.5.tar.xz
    cd emacs-24.5/
    ./configure
    make
@@ -413,7 +413,7 @@ your system.
   - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
   - doc/ANSYS.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
   - matlib/ -- a directory with examples of APDL material definitions
-  # - helper/tools/bin/ansys-mode-161-2.sh -- A wrapper for calling Emacs
+  # - helper/tools/bin/ansys-mode-162-1.sh -- A wrapper for calling Emacs
 
   You can actually read the PDFs in Emacs as well!
 

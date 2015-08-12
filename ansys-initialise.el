@@ -3,7 +3,7 @@
 ;; Copyright (C) 2015  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 161-2
+;; Version: 162-1
 ;; Keywords: languages, convenience, extensions
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -29,7 +29,7 @@
 (defconst ansys-mode_version "2"
   "ANSYS-Mode version number.")
 
-(defconst ansys-version_ "161"
+(defconst ansys-version_ "162"
   "ANSYS version on which ANSYS-Mode is based upon.")
 
 ;; FIXME: remove
@@ -57,9 +57,9 @@ The directory where the Elisp files reside."
 (defcustom ansys-install-directory nil
   "This is the path where the MAPDL solver (ANSYS) has been installed.
 Which is to say the path up to the ANSYS version number, for
-example \"v161\".  The ANSYS installation routine sets for this
+example \"v162\".  The ANSYS installation routine sets for this
 path an environment variable, for the former versioning example:
-AWP_ROOT161."
+AWP_ROOT162."
   :type 'string
   :group 'ANSYS-initialise)
 
@@ -79,7 +79,7 @@ Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
-\"/ansys_inc/v161/ansys/bin/ansys161\" and not only \"ansys161\".
+\"/ansys_inc/v162/ansys/bin/ansys162\" and not only \"ansys162\".
 You might customise this variable or use the function
 `ansys-program' to do this for the current session only."
   :type 'string
@@ -90,7 +90,7 @@ You might customise this variable or use the function
 When the respective executable is not in your search path, you
 have to specify the full qualified file name and not only
 executable's name.  For example:
-\"/ansys_inc/v161/ansys/bin/launcher161\".  You might customise this
+\"/ansys_inc/v162/ansys/bin/launcher162\".  You might customise this
 variable permanently or use the function `ansys-launcher' to do
 this for the current session only."
   :type 'string
@@ -101,7 +101,7 @@ this for the current session only."
 When the respective executable is not in your search path, you
 have to specify the full qualified file name and not only
 executable's name.  For example:
-\"/ansys_inc/v161/Framework/bin/Linux64/runwb2\".  You might
+\"/ansys_inc/v162/Framework/bin/Linux64/runwb2\".  You might
 customise this variable permanently or use the function
 `ansys-wb' to do this for the current session only."
   :type 'string
@@ -113,9 +113,9 @@ It is called with
 \\[ansys-start-ansys-help] (`ansys-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v161/ansys/bin/anshelp161\" on GNU-Linux
+locations are \"/ansys_inc/v162/ansys/bin/anshelp162\" on GNU-Linux
 and \"c:\\\\Program Files\\Ansys\
-Inc\\v161\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
+Inc\\v162\\commonfiles\\help\\HelpViewer\\ANSYSHelpViewer.exe\" on
 Windows (XP/7)."
   :type 'string
   :group 'ANSYS-initialise)
@@ -468,7 +468,7 @@ customisation variables"
 (defun ansys-install-directory ()
   "Change the ANSYS installation directory.
 Which is to say the path up to the ANSYS version number, for
-example \"v161\".  The path is stored in the variable
+example \"v162\".  The path is stored in the variable
 `ansys-install-directory'"
   (interactive)
   (let* ((idir ansys-install-directory)
@@ -496,7 +496,7 @@ example \"v161\".  The path is stored in the variable
 ;; FIXME: remove
 ;; (defun ansys-current-ansys-version ()
 ;;   "Specify the required (and installed) ANSYS version.
-;; For example \"150\" instead of \"161\", which is the current
+;; For example \"150\" instead of \"162\", which is the current
 ;; default."
 ;;   (interactive)
 ;;   (let* ((dir ansys-install-directory)
@@ -524,7 +524,7 @@ example \"v161\".  The path is stored in the variable
 ;;   "Specify the required (and installed) ANSYS update version.
 ;; This variable is only necessary for a special (company
 ;; dependened) non-standard ANSYS installation tree.  For example
-;; \"7\" from \"16.1.0\" instead of \"0\"."
+;; \"7\" from \"16.2.0\" instead of \"0\"."
 ;;   (interactive)
 ;;   (let* ((dir ansys-install-directory)
 ;; 	 path

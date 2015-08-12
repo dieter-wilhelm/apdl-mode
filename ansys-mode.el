@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 161-2
+;; Version: 162-1
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -1839,7 +1839,7 @@ Please refere the configuration example `default.el'.
 
 If you haven't installed ANSYS in the default locations and the
 executables are not in your system search path or you are using a
-different ANSYS version than '161' it is necessary for the last
+different ANSYS version than '162' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `ansys-customise-ansys' or from the
 menu bar -> 'ANSYS' -> 'Customise ANSYS Mode' -> 'ANSYS-process'

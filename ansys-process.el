@@ -4,7 +4,7 @@
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 161-2
+;; Version: 162-1
 ;; Keywords: languages, convenience
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -542,9 +542,9 @@ initial input."
      ;; (ansys-ansysli-servers "")	 ;
 					 ;(ansys-license "")		 ;
 
-					 ; env variable: ANSYS161_WORKING_DIRECTORY or -dir command line string
-					 ; (setenv "ANSYS161_WORKING_DIRECTORY" "/tmp")
-					 ; (getenv "ANSYS161_WORKING_DIRECTORY")
+					 ; env variable: ANSYS162_WORKING_DIRECTORY or -dir command line string
+					 ; (setenv "ANSYS162_WORKING_DIRECTORY" "/tmp")
+					 ; (getenv "ANSYS162_WORKING_DIRECTORY")
 
      (if (y-or-n-p
 	  (concat
@@ -620,8 +620,8 @@ with the ANSYS /EXIT,all command which saves all model data."
 (defun ansys-start-ansys-help ()
   "Start the ANSYS Help Viewer.
 Alternatively under a GNU-Linux system, one can also use the ANSYS
-command line \"/SYS, anshelp161\" when running ANSYS
-interactively, provided that anshelp161 is found in the search
+command line \"/SYS, anshelp162\" when running ANSYS
+interactively, provided that anshelp162 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)

@@ -15,7 +15,7 @@
 #+title: The Todo file of ANSYS-Mode
 
 #+STARTUP: showall
-* 161-2:
+* 162-1:
 ** Bugs
    - Documentation of installation, usage and configuration!  Conti.el
      should be redundant by now!
@@ -64,7 +64,7 @@
    - -license-status optional filters for output
    - C-c C-c checking blocks
    - include ../ansys/apdl macros?
-   - ../apdl/start161.ans valuable?
+   - ../apdl/start162.ans valuable?
    - add screw thread capability to WB translation
    - color scheme of *msg command is only readable on terminals
    - abreviated input method for all graphics functions zoom, etc.
@@ -188,7 +188,7 @@
 ** Freeze proceedures
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
-    are still working in V 161
+    are still working in V 162
   - (tags-search "TODO")
   - (tags-search "FIXME")
   - checkdoc, -ansys-template.el, -ansys-process.el, -mode.el done except
@@ -200,13 +200,14 @@
   - update/complete skeletons menu
 
     # ansys
-    (tags-query-replace "161-2" "161-3")
-    (tags-query-replace "A-M.el" "ansys-config.el")
+    (tags-query-replace "161-2" "162-1")
+    # this is for Conti stuff
+    (tags-query-replace "16.1.0" "16.2.0")
     (tags-query-replace "ANSYS 16" "ANSYS 17")
     # emacs
     (tags-query-replace "24\.5" "24.6")
     # version No
-    (tags-query-replace "161" "170")
+    (tags-query-replace "161" "162")
     # for _mode_version
     (tags-query-replace "1\.1" "1.2")
     (tags-query-replace "\"1.1\"" "\"1.2\"")

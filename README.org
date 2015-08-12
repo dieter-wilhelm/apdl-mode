@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2015-07-25>
+#+DATE: Time-stamp: <2015-08-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -58,7 +58,7 @@ system where ANSYS is running.
 Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][GitHub]]. The latest
 sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
 
-The current stable version 161-2 of ANSYS-Mode is available at the
+The current stable version 162-1 of ANSYS-Mode is available at the
 [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub releases site]] or at [[https://drive.google.com/open?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&authuser=0][Google's ANSYS-Mode drive]].  There are
 residing 3 archive packages: 1) A package of ANSYS-Mode together with
 binaries of Emacs for Windows, 2) a source file package for compiling
@@ -68,7 +68,7 @@ installation.  You might fetch these archives via the command line
 way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
 for Windows:
 #+BEGIN_SRC sh
-wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-161-2/ansys-mode-161-2.emacs-24.5-bin-i686-mingw32.zip
+wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-162-1/ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip
 #+END_SRC
 Important parts of the code (completions, help strings, etc.) are
 based on the original ANSYS documentation.  Besides source files and

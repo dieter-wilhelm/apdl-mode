@@ -20,10 +20,10 @@ EMACS_VERSION := emacs-$(EMACS_VER)
 # ansys-mode-$(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 # tutorials: A-M_xxx
 ANSYS_MAJOR := 16
-ANSYS_MINOR := 1
+ANSYS_MINOR := 2
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := test2
+MODE_VERSION := test1
 # for consistency:
 #MODE_VERSION := test1
 #MODE_VERSION := beta1

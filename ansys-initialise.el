@@ -270,11 +270,11 @@ customisation variables"
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default company installation path
        ((file-readable-p cdir)
-					;(setq cdir "/appl/ansys_inc/") ;FIXME: remove
+        (setq cdir "/appl/ansys_inc/") ;FIXME: remove
 	(setq subdir 
 	      (car 
 	       (reverse
-		(directory-files cdir nil "[0-9][0-9]\.[0-9]" 'string<))))
+		(directory-files cdir nil "[0-9][0-9]\.[0-9]"))))
 	(setq ansys-current-ansys-version (remove ?. (substring subdir 0 4)))
 	(setq dir (concat cdir subdir "/v" ansys-current-ansys-version "/")))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -286,7 +286,7 @@ customisation variables"
 	  (setq subdir 
 		(car 
 		 (reverse
-		  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
+		  (directory-files cdir nil "v[0-9][0-9][0-9]"))))
 	  (setq ansys-current-ansys-version (remove ?v (substring subdir 0 4)))	       
 	  (message "Current ANSYS version: %s" ansys-current-ansys-version)
 	  (setq dir (concat cdir subdir "/"))))

@@ -34,14 +34,16 @@
    - list of all new functions: bug-report.sh, remove spurious
      defcustoms which are calculated, or leave them as last resort?
 ** Wish-list
+   - add bbdb files to emacs packages
    - -help-program-parameters obsolete
-   - switch off advising of M-w, yeah
+   - option to make eww default help browser
    - MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
      + ActivateWin: SetFocus()  + SendKeys? SendKeys
      http://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
      https://msdn.microsoft.com/en-us/library/aa383749.aspx
+   - switch off advising of M-w, yeah
+   - C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account
    - Targeting ANSYS Aim
-   - option to make eww default help browser
    - customisation :version attribute is not clear and not defined for
      new stuff
    - Mouse completion is working with *middle* mouse button (mouse-2) but only
@@ -51,13 +53,11 @@
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
      last line without \n
    - Make a usage.org, splice into a-mode.el
-   - C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account
    - -wb function (doesn't adjust along the decimal point)? -> align-rules-list
    - Changing license type on the fly (with C-u) for -display-license-status
    - tool tip help-echo properties for keywords!
    - permanent saving option for -license-file, -lmutil, -program, ...?
    - Check for valid license types for the solver
-   - add bbdb files to emacs packages
    - license and template status line always in the first visible line
      of buffer (in-place-annotations?)
    - splash screen?

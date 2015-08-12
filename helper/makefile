@@ -3,7 +3,7 @@ help :
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
-	@echo "make ALWIN = Archive for Alwin"
+	@echo "make CONTI = Archive for Alwin"
 	@echo "make HTML = update the html documentation"
 	@echo "make TAGS = make the goddam tags!"
 	@echo "make ELC = compile the el files"
@@ -157,8 +157,8 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 .PHONEY : MODE
 MODE : $(PACKAGE)
 
-.PHONEY : ALWIN
-ALWIN : A-M-$(VERSION).tar.xz
+.PHONEY : CONTI
+CONTI : A-M-$(VERSION).tar.xz
 
 A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README.Conti tools/bin/A-M-$(VERSION).sh \
 			makefile $(X11)

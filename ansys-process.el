@@ -367,7 +367,7 @@ code line after this region (or paragraph)."
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
 			       )
-	   (display-buffer-other-frame "*ANSYS*")
+	   (display-buffer-other-frame (concat "*" ansys-process-name "*"))
 	   (message "Sent region to solver."))
 	  (t
 	   (kill-ring-save beg end)
@@ -457,7 +457,7 @@ final character \"j\" (or \"C-j\")."
 	   (comint-send-string process
 			       (concat code ""); "\n"); why did I do \n?
 			       )
-	   (display-buffer-other-frame "*ANSYS*")
+	   (display-buffer-other-frame (concat "*" ansys-process-name "*"))
 	   ;; Issue a hint to the user
 	   (if (fboundp 'set-transient-map)
 	       (if region
@@ -520,7 +520,7 @@ initial input."
       ;;        (with-selected-window w (goto-char (point-max))))))
       ;; (setq mode-line-process (format ":%s" (process-status ansys-process)))
       ;; (force-mode-line-update)
-      (display-buffer "*ANSYS*" 'other-window)))))
+      (display-buffer (concat "*" ansys-process-name "*") 'other-window)))))
 
 
 (require 'comint)
@@ -567,6 +567,7 @@ initial input."
 				    " -p " ansys-license " -j " ansys-job)
 			  (concat "-p " ansys-license " -j " ansys-job))))
      ;;  (comint-send-string (get-process ansys-process-name) "\n")
+     (setq ansys-classics-flag nil)
      (display-buffer ansys-process-buffer 'other-window)
      ;;  (switch-to-buffer ansys-process-buffer)
      (other-window 1)
@@ -589,12 +590,12 @@ the function `ansys-exit-ansys'."
   (unless (ansys-process-running-p)
     (error "No active ANSYS solver process"))
   (if (yes-or-no-p
-       "Do you want to kill the running ANSYS solver?")
+       "Do you want to kill the running MAPDL solver?")
       (progn
 ;	(message "Killing run...")
 	(delete-process (get-process ansys-process-name))
-	(message "Killing ANSYS run...done.")
-	(display-buffer "*ANSYS*" 'otherwindow)
+	(message "Killing Mechanical APDL run...done.")
+	(display-buffer (concat "*" ansys-process-name "*") 'otherwindow)
 	;; (setq mode-line-process (format ":%s" (process-status (get-process ansys-process-name))))
 	;; (force-mode-line-update)
 	)
@@ -936,7 +937,7 @@ server summary rows."
 	  ;; "/show,X11c\n/menu,grph\n"
 	  "/show,3d\n/menu,grph\n"
 	  )
-	 (display-buffer "*ANSYS*" 'other-window)))
+	 (display-buffer (concat "*" ansys-process-name "*") 'other-window)))
 
 (defun ansys-start-pzr-box ()
   "Start the ANSYS Pan/Zoom/Rotate dialog box."
@@ -947,7 +948,7 @@ server summary rows."
     (ansys-send-to-classics))
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name) "/ui,view\n")
-    (display-buffer "*ANSYS*" 'other-window))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
    (t
     (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
@@ -960,7 +961,7 @@ server summary rows."
     (ansys-send-to-classics))
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name) "/view,,1,1,1\n/replot\n")
-    (display-buffer "*ANSYS*" 'other-window))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
    (t
     (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
@@ -975,7 +976,7 @@ A Negative ARG moves ARG steps down."
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name)
 			(format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
-    (display-buffer "*ANSYS*" 'other-window))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
    (t
      (error "No ANSYS process is running"))))
 
@@ -996,7 +997,7 @@ A Negative ARG moves ARG steps left."
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name)
 			(format "/focus,,-0.25*(%d),,,1\n/replot\n" arg))
-    (display-buffer "*ANSYS*" 'other-window))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
    (t
     (error "No ANSYS process is running"))))
 
@@ -1015,7 +1016,7 @@ A Negative ARG moves ARG steps right."
      (ansys-send-to-classics))
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name) "/dist,,.7,1\n/replot\n") ;valid in any processor
-    (display-buffer "*ANSYS*" 'other-window))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
    (t
     (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
@@ -1028,7 +1029,7 @@ A Negative ARG moves ARG steps right."
     (ansys-send-to-classics))
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
-    (display-buffer "*ANSYS*" 'other-window))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
     (t
      (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
@@ -1041,7 +1042,7 @@ A Negative ARG moves ARG steps right."
     (ansys-send-to-classics))
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
-    (display-buffer "*ANSYS*" 'other-window)))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window)))
   (t
    (error "No interactive MAPDL process running or Classics GUI can be found")))
 
@@ -1051,7 +1052,7 @@ A Negative ARG moves ARG steps right."
   (unless (ansys-process-running-p)
     (error "No ANSYS process is running"))
   (comint-send-string (get-process ansys-process-name) "/dist\n/replot\n") ;valid in any processor
-  (display-buffer "*ANSYS*" 'other-window))
+  (display-buffer (concat "*" ansys-process-name "*") 'other-window))
 
 (defun ansys-program ( exec)
   "Change the ANSYS executable name to EXEC.

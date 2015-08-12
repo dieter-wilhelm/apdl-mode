@@ -3553,8 +3553,8 @@ argument ARG, the function evaluates the variable at point."
   (interactive "P")
   (cond
    (arg
-    (unless (ansys-process-running-p)
-      (error "No ANSYS process is running"))
+    (unless (or (ansys-process-running-p) ansys-classics-flag)
+      (error "No MAPDL process running"))
     (let* (
 	   (pt (point))
 	   (re "\s_[[:word:]]*")
@@ -3562,10 +3562,13 @@ argument ARG, the function evaluates the variable at point."
 	   (str (buffer-substring-no-properties
 		 (save-excursion (+ pt (skip-chars-backward re lbp)))
 		 (save-excursion (+ pt (skip-chars-forward re))))))
-      (comint-send-string (get-process ansys-process-name)
-			  (concat "*status," str "\n")
-		      )
-      (display-buffer "*ANSYS*" 'other-window)
+      (if ansys-classics-flag
+	  (progn
+	    (kill-new (concat "*status," str "\n"))
+	    (ansys-send-to-classics))
+	(comint-send-string (get-process ansys-process-name)
+			    (concat "*status," str "\n"))
+	(display-buffer (concat "*" ansys-process-name "*") 'other-window))
       (message  (concat "Enquiring status for variable: " str))))
    (t
      (ansys-find-user-variables)

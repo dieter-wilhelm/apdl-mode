@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-11>
+#+DATE: Time-stamp: <2015-08-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,7 +17,8 @@
 #+STARTUP: showall
 * 161-2:
 ** Bugs
-   - Documentation of installation, usage and configuration!
+   - Documentation of installation, usage and configuration!  Conti.el
+     should be redundant by now!
    - M-? on an empty buffer returns *abbr* help instead of warning
    - C-c C-j tries to send a next line in the LAST line and after an
      /exit command

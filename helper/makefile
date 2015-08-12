@@ -170,7 +170,8 @@ A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README.Conti tools/bin/A-M-$
 	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
 	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
 	@echo "syncing.."
-	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) $(TUTORIALS:../%=%)\
+	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) \
+	    $(TUTORIALS:../%=%) X11/ \
 	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) $(X11_EXE:../%=%)\
 		helper/tools/ansys-mode/ansys-mode-$(VERSION)
 	@pwd

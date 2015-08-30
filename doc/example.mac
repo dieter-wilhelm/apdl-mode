@@ -12,7 +12,7 @@
 !! self contained mechanical example
 finish
 /clear
-!y ! answer query
+!y ! answer query in interactive mode
 
 /units,mpa !indicate mm-t-s unit system
 !! /units

@@ -50,7 +50,7 @@
 ;; http://dieter-wilhelm.github.io/ansys-mode/.
 
 ;;  The code is available on
-;;  https://github.com/dieter-wilhelm/ansys-mode/. Regarding
+;;  https://github.com/dieter-wilhelm/ansys-mode/.  Regarding
 ;;  installation and further information please consult the
 ;;  accompanying README.org file.
 
@@ -148,15 +148,26 @@ Used for the variable `comment-start-skip'.")
 		   "http://github.com/dieter-wilhelm/ansys-mode")
   :group 'Languages)
 
+(defcustom ansys-parameter-help-duration "2 min"
+  "Duration for showing the `ansys-show-command-parameters' overlay.
+The value is a string expressing a relative time span like \"2
+hours 35 minutes\" or a number of seconds from now (the
+acceptable time formats are those recognised by the function
+`timer-duration'."
+  :type '(string number)
+  :group 'ANSYS
+  )
+
 (defcustom ansys-hide-region-before-string "![ ... hidden"
-  "String to mark the beginning of an invisible region. This string is
-not really placed in the text, it is just shown in an overlay"
+  "String to mark the beginning of an invisible region.
+This string is not really placed in the text, it is just shown in an
+overlay"
   :type '(string)
   :group 'hide-region)
 
 (defcustom ansys-hide-region-after-string " region ... ]"
-  "String to mark the beginning of an invisible region. This string is
-not really placed in the text, it is just shown in an overlay"
+  "String to mark the beginning of an invisible region.
+This string is not really placed in the text, it is just shown in an overlay"
   :type '(string)
   :group 'hide-region)
 
@@ -252,7 +263,7 @@ Nil means show a narrower temporary ruler with 50 characters."
 
 (defcustom ansys-require-spaces-flag nil
   "Non-nil means \\[insert-parentheses] inserts whitespace before ().
-When there is a region marked function `insert-parentheses'
+When there is a region marked then function `insert-parentheses'
 inserts the parentheses around the active region."
   :type 'boolean
   :group 'ANSYS)
@@ -321,7 +332,7 @@ A hook is a variable which holds a collection of functions."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defvar ansys-overlay-str ""
-  "variable to store previous overlay string.")
+  "Variable to store previous overlay string.")
 
 (defvar ansys-hide-region-overlays nil
   "Variable to store the regions we put an overlay on.")
@@ -331,7 +342,7 @@ A hook is a variable which holds a collection of functions."
 
 (defvar ansys-timer nil
   "Timer variable to set up a timer for overlay clearing.
-  Please have a look at the function `ansys-manage-overlay'.")
+Please have a look at the function `ansys-manage-overlay'.")
 
 (defvar ansys-indent-comment-string
   (concat (char-to-string ansys-comment-char) ansys-indent-comment-suffix)
@@ -2052,8 +2063,8 @@ improvements you have the following options:
 
   ;; overlay for command-parameter-help
 
-  (make-local-variable 'ansys-timer)
-  (make-local-variable 'ansys-help-overlay)
+;  (make-local-variable 'ansys-timer)
+;  (make-local-variable 'ansys-help-overlay)
   (setq ansys-help-overlay (make-overlay 1 1))
 
   ;; look at newcomment.el
@@ -2389,8 +2400,7 @@ THEN action label."
   "Display or remove the command help overlay string STR.
 Appying this function in the same line erases the help overlay.
 The help overlay will be automatically removed after some time
-interval.  The timer is sleeping, unless the buffer is the
-current one."
+interval."
   (interactive)
   (let ((ho (overlay-start ansys-help-overlay))
 	(lb (line-beginning-position))
@@ -2401,10 +2411,12 @@ current one."
       (setq ansys-help-overlay-str str)
       (move-overlay ansys-help-overlay lb lb)
       (overlay-put ansys-help-overlay 'before-string str)
-      (setq ansys-timer (run-at-time "2 min" nil
-        '(lambda () (when (and (overlayp ansys-help-overlay)
-			       (overlay-buffer ansys-help-overlay))
-		    (delete-overlay ansys-help-overlay)))))))
+      (setq ansys-timer
+	    (run-at-time
+	     ansys-parameter-help-duration nil
+	     '(lambda ()
+		(when (overlayp ansys-help-overlay)
+		  (delete-overlay ansys-help-overlay)))))))
 
 (defun ansys-search-comma (str count)
   "Return the index of the COUNT's occurance of a comma in STR.
@@ -2417,6 +2429,7 @@ Return nil otherwise."
     index))
 
 (defun ansys-update-parameter-help (&optional a b c)
+  "Upadate the parameter help counting according to cursor position."
   (let ((p (point))
 	(lo (overlays-in (line-beginning-position) (1- (line-beginning-position)))))
     (when (and (not (equal p ansys-parameter-help-position))

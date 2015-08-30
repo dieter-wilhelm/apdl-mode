@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-12>
+#+DATE: Time-stamp: <2015-08-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -26,6 +26,34 @@
 #+LATEX_HEADER:
 #+TITLE: Customisation of ANSYS-Mode
 #+text: Copyright (C) 2015 H. Dieter Wilhelm GPL V3
+
+
+Most functionality should work out of the box.  ANSYS-Mode assumes
+ANSYS in its default installation directory on drive `C:Program Files'
+on Win64 and tries  to configure the highest ANSYS version.
+	 
+	 and you want to start - for example - the license status or
+the ANSYS help browser directly from the menue please adjust the
+configuration file `ansys-config.el' file in Emacs' `site-lisp'
+directory according to the commented code examples.
+
+In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
+version]] of GNU Emacs, you can also download and configure the
+ANSYS-Mode package separately. Please refer to below instructions.
+
+Please have a look at the accompanying `default.el' customisation
+example. It can be used as a configuration file (after moving it
+e. g. to `/usr/share/emacs/site-lisp' or
+`c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
+the Emacs installation tree is in its default load-path).  Yet
+`default.el' is loaded AFTER your personal Emacs configuration file
+(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
+to change the following settings with Emacs' customisation system or
+changing them directly in your personal configuration file, you must
+either set the variable `inhibit-default-ini' to `t' "(setq
+inhibit-default-ini t)" in your personal configuration file or remove
+`default.el' otherwise your settings might be overwritten!
+
 
 * Introduction
 Customisations for GNU-Linux and Windows systems.

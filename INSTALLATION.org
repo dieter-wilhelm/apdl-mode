@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-12>
+#+DATE: Time-stamp: <2015-08-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -24,224 +24,114 @@ GNU-Linux64.  It was also tested with Emacs-23.1 (released July 2009)
 on GNU-Linux64 and should run with all older versions of Emacs down to
 Emacs-23.
 
-Some of ANSYS-Mode's solver control and communication features are
-only implemented for GNU-Linux systems.
+Some of ANSYS-Mode's solver control and communication features are not
+yet implemented for Windows systems.
 
 * Installation
-** Short instructions
-*** For Windows systems without the Emacs editor
-Download the latest archive
-~ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip~ with binaries of
-Emacs-24.5 (bundled with a pre-configured ANSYS-Mode) at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]] and
-unpack it anywhere on your system (you do not need administrator
-rights).  For the next steps please read
-~doc/A-M_introductory_tutorial.pdf~ .
+The version scheme is a mixture of the ANSYS release (currently "162")
+on which the highlighting and completing code is based and the version
+(currently "1") of ANSYS-Mode, thus "162-1" for this particular
+release (the dash is to distinguish this mode from ANSYS update
+versions like 150.7, etc.).
+** For Windows systems without the Emacs editor
+Download the latest package of ANSYS-Mode
+~ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip~ bundled with the
+binaries of Emacs-24.5 at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]] and unpack it anywhere on your system
+(you do not need administrator rights).
 
-*** For existing Emacs installations on either Windows and GNU-Linux
+You might subsequently run the program addpm.exe (located in the
+~bin\~ directory) to add an Emacs entry to the Windows start menu
+(please refer to the README.W32 file) otherwise start the Emacs
+executable ~runemacs.exe~ from there.
 
+ANSYS-Mode is automatically available for all files with suffixes
+`.mac', `.ans', `.dat' and `.inp'.  For further guidance please read
+the tutorial ~doc/A-M_introductory_tutorial.pdf~.
+** GNU-Linux/Unix systems without the Emacs editor
+Download the latest package of ANSYS-Mode
+~ansys-mode-162-1.emacs-24.5.tar.xs~ bundled with the sources of
+Emacs-24.5 at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it anywhere on your system and go to the
+usual ~./configure~, ~make~ routine, as described below.  ANSYS-Mode
+will then be automatically available for all files with suffixes
+`.mac', `.ans', `.dat' and `.inp'.  For further guidance please read
+the tutorial ~doc/A-M_introductory_tutorial.pdf~.
+** For existing Emacs installations on either Windows and GNU-Linux/Unix
 Download the latest ANSYS-Mode archive ~ansys-mode-162-1.tar.xz~ from
 above GitHub releases page.
-
-**** Direct ways, no configuration necessary
+*** Direct way, no file configuration necessary
 
 The easiest way is to extract above archive in a "default load path"
-of Emacs, I recommend the directory ~site-lisp/~ in the Emacs file
-tree.  Then ANSYS-Mode's definitions are available by every start of
-Emacs.
+of Emacs, I recommend the directory ~site-lisp/~ in Emacs' file tree.
+Then ANSYS-Mode's functionality is available when you restart Emacs.
+For the next steps please read ~doc/A-M_introductory_tutorial.pdf~ .
 
-Or unpack it anywhere on your system and make ANSYS-Mode known to
-Emacs by loading its configuration file ~ansys-config.el~ manually:
+*** More general way; file configuration necessary
+Unpack the archive anywhere on your system but then you have to make
+ANSYS-Mode known to Emacs by loading the configuration file
+~ansys-config.el~ manually, Start Emacs then do:
 
 ~M-x load-file  YOUR_INSTALLATION_DIRECTORY/ansys-config.el~
 
-Please start your Emacs, then type the <Alt> key and simultaneously
-the <x> key - then you'll end up in the so called minibuffer prompt,
-now type "load-file" (you might apply the <TAB> key for the Emacs
-auto-completion feature at any stage) and conclude this input with the
-<RET> key.  Emacs will then prompt you for a file name, type in the
-directory where you have extracted the code and "ansys-config.el" and press RET
-to load ANSYS-Mode's definitions in Emacs' memory.
-
-**** More permanent way; file configuration necessary
-
-Extract the archive files anywhere and put the following paragraph
-into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el')
-configuration file in your home directory (`~', which is determined by
-the environment variable HOME on both Windows and Unix), adjust the
-elisp code below in capital letters, restart Emacs and ansys-mode will
-be automatically applied for all files with suffixes `.mac', `.ans',
-`.dat' and `.inp'.
-
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
-  ;;  Windows directory: Assuming you extracted the files on drive "c:":
-  ;; "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode-162-1"
-  ;; Linux directory example:
-  ;; "/usr/local/src/emacs/emacs-24.5/site-lisp/ansys-mode-162-1"
-
-  (load-file "ansys-config.el")
-#+END_SRC
-
-** Verbose installation instructions
-The version scheme is a mixture of the ANSYS release (currently "162")
-on which the highlighting and completing code is based and the version
-(currently "2") of ANSYS-Mode, thus "162-1" for this particular
-release (the dash is to distinguish from ANSYS update versions like
-150.7, etc.).
-
-** Windows
-
-You might subsequently run the program
-addpm.exe (located in the bin\ directory) to add an Emacs entry to the
-Windows start menu (please refer to the README.W32 file) otherwise
-start the Emacs executable runemacs.exe from there.
-
-ANSYS-Mode is now immediately available, by opening (check out
-`example.mac') or by creating a new APDL file with a `.mac' suffix.
-Have fun!
-
-Most functionality should work out of the box, but if you have NOT
-installed ANSYS in its default installation directory on drive
-`C:Program Files' on Win64 and you want to start - for example -
-'anslic_admin' or the ANSYS help browser directly from Emacs please
-adjust the configuration file `ansys-config.el' file in Emacs' `site-lisp'
-directory according to the commented code examples.
-
-If you whish to use exclusively your own configuration file, please
-remember that it is loaded *before* `default.el'; this means that
-ANSYS-Mode settings done by Emacs' customisation system or written in
-your configuration file might be overwritten by `default.el'.  If you
-remove `default.el' or set 'inhibit-default-init' to non-nil in your
-own init file, then default.el is not loaded any longer.
-
-In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
-version]] of GNU Emacs, you can also download and configure the
-ANSYS-Mode package separately. Please refer to below instructions.
-
-*** Direct way, no configuration necessary (loading `by hand')
-
-Please consult the `direct way' description above.
-
-If you are unfamiliar by these concepts I suggest working through the
-build-in tutorial of GNU Emacs (you'll find it in the help entry in
-the menu bar), it doesn't take too much time and the investment will
-be worth it since it will accelerate your general editing capabilities
-in the future.
-
-** Permanent configuration
-
-Please have a look at the accompanying `default.el' customisation
-example. It can be used as a configuration file (after moving it
-e. g. to `/usr/share/emacs/site-lisp' or
-`c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
-the Emacs installation tree is in its default load-path).  Yet
-`default.el' is loaded AFTER your personal Emacs configuration file
-(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
-to change the following settings with Emacs' customisation system or
-changing them directly in your personal configuration file, you must
-either set the variable `inhibit-default-ini' to `t' "(setq
-inhibit-default-ini t)" in your personal configuration file or remove
-`default.el' otherwise your settings might be overwritten!
-
-If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
-load-path it is necessary to adjust the following variable.
-
-
-#+BEGIN_SRC emacs-lisp
-     (add-to-list 'load-path
-		  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
-#+END_SRC
-
-For example: "c:\\emacs\\ansys-mode" on a Windows system or
- "/usr/local/src/emacs/ansys-mode" on a GNU-Linux system.
-
-#+BEGIN_SRC emacs-lisp
-     (autoload 'ansys-mode "ansys-mode" "Activate ANSYS-Mode." 'interactive)
-#+END_SRC
-
-From here you are able to type "M-x ansys-mode RET" to activate the
-mode for every interesting file.
-
-- Automatic mode assignment
-
-When you intend to apply the mode automatically, for all files with
-the extensions `.mac', `.dat', `.inp' and `.anf' ( .dat and .inp are
-WorkBench's solver input file suffixes) you are opening, add the
-following to your `.emacs' file:
+Hold the <Alt> key and type the <x> key - then you'll end up in the so
+called minibuffer prompt, now type "load-file" (you might apply the
+<TAB> key for Emacs' auto-completion feature at any stage) and
+conclude this input with the <RET> key.  Emacs will then prompt you
+for a file name, type in the directory where you have extracted the
+code and "ansys-config.el" and press RET to load ANSYS-Mode's
+definitions.  You might open an unnamed file under ANSYS-Mode with
+~M-x ansys~.
 
 
 Extract the archive files anywhere and put the following paragraph
-into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el')
-configuration file in your home directory (`~', which is determined by
+into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el'), the
+configuration file (`~', your home directory, which is determined by
 the environment variable HOME on both Windows and Unix), adjust the
-stuff below in capital letters, restart Emacs and ansys-mode will be
-automatically applied for all files with suffixes `.mac', `.ans',
-`.dat' and `.inp'.
+elisp code below in capital letters, restart Emacs or type "C-x C-e"
+behinde the closing bracket.  And ANSYS-Mode will be automatically
+applied for all files with suffixes `.mac', `.ans', `.dat' and `.inp'.
 
 #+BEGIN_SRC emacs-lisp
-    (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
-    ;; assuming you extracted the files on drive "c:"
-    ;; for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
+  (load-file "/DIRECTORY-PATH/WHERE/THE/ANSYS-MODE/EL_FILES/RESIDE/ansys-config.el")
+  ;;  Windows example: Assuming you extracted the files on drive "c:":
+  ;; "c:/ansys-mode/ansys-mode-162-1/ansys-config.el"
+  ;; GNU-Linux/Unix example:
+  ;; "/usr/local/src/ansys-mode/ansys-mode-162-1/ansys-config.el"
 
-    ;; .mac is the macro suffix of ANSYS i. e. these macros can be called
-    ;; in the ANSYS command prompt like a regular ANSYS function (without
-    ;; the suffix .mac)
-    (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
-    (add-to-list 'auto-mode-alist '("\\.ans\\'" . ansys-mode))
-    ;; .dat and .inp are WorkBench's solver input file suffixes
-    (add-to-list 'auto-mode-alist '("\\.dat\\'" . ansys-mode))
-    (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
-    ;; .anf is the suffix for "ANSYS Neutral" files which include mostly
-    ;;  gometric data but also some APDL snippets.
-    (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-
-    (autoload 'ansys-mode "ansys-mode" nil t)
 #+END_SRC
+* ANSYS-Mode files
+ *Sources*:
+ - ansys-mode.el: Main file
+ - ansys-config.el: The configuration file/example
+ - ansys-initialise.el: The initialisation of system dependened stuff
+ - ansys-keyword.el: Highlighting variables (built from
+   helper/fontification.el)
+ - ansys-template.el: Template definitions of APDL code, a mixture of
+   documentation and insertable snippets
+ - ansys-process.el: Variables and functions related to solver processes
 
+ (and possibly their compiled versions with the suffix '.elc'.  In case
+ you are using the mode with an older version of Emacs than 24.5 please
+ remove the compiled .elc files, if any.)
 
-#+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
-     (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
-     (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
-     ;; this is the suffix for "ANSYS Neutral Files" which include some APDL.
-     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-#+END_SRC
+ *Auxiliaries and Documentation*:
+ - README.org -- This file
+ - NEWS.org -- News and history
+ - TODO.org -- Todos and deficiencies
+ - INSTALLATION.org -- The installation notes
+ - LICENSE.org -- The GPL (Gnu Public License) Version 3
+ - doc/example.dat -- WorkBench example APDL solver input file
+ - doc/example.anf -- ANSYS geometry neutral file example
+ - doc/example.mac -- APDL user macro and highlighting example
+ - doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
+ - doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
+ - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
+ - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+ - doc/ANSYS.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
+ - matlib/ -- a directory with examples of APDL material definitions
 
-The suffix below belongs to the `ansys neutral file' export format
-which contains also an APDL header and footer.
+ You can actually read the PDFs in Emacs as well!
 
-#+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-#+END_SRC
-
-- Auto-insertion of code
-
-In case you also want to enjoy the auto insertion feature, which puts
-(optionally) some predefined body of ANSYS commands to every new APDL
-file insert the following into '.emacs':
-
-#+BEGIN_SRC emacs-lisp
-     (setq auto-insert-mode 1)
-     (setq auto-insert-query t) ;insert only after request
-     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
-#+END_SRC
-
-- Auto-loading of helper functions
-
-With below section you are also able to use certain ANSYS related
-commands in a new Emacs session without the need of previously having
-explicitly called ansys-mode.
-
-#+BEGIN_SRC emacs-lisp
-     (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for calling a special ANSYS customisation buffer." 'interactive)
-     (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
-     (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
-     (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-     (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
-     (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
-#+END_SRC
-
-** Compiling Emacs under Linux
+* Compiling Emacs under GNU-Linux/Unix
 
    #+BEGIN_SRC sh
    cd emacs-24.5/
@@ -251,12 +141,12 @@ explicitly called ansys-mode.
 after this you will find the Emacs executable ~emacs~ in the ~src/~
 directory.
 
-optionally, if you have administrator rights you can install Emacs in
+optionally, if you have administrator rights you might install Emacs in
 your system.
    #+BEGIN_SRC sh
    make install
    #+END_SRC
-*** For a GNU-Linux system without Emacs
+** For a GNU-Linux system without Emacs
 
 You might install Emacs with your system's packaged manager or compile
 it yourself with the source archive
@@ -279,38 +169,37 @@ your system.
    make install
    #+END_SRC
 
-*** RHEL (6)
-**** Required libraries
-     - ncurses-devel.x86_64
-     - gtk2-devel.x86_64 (libgtk under Debian)
-     #+BEGIN_SRC sh
-     sudo yum install ncurses-devel.x86_64
-     ...
-     #+END_SRC
-**** Optional libraries
-     Graphics support
-     - libjpeg-devel.x86_64
-     - giflib-devel.x86_64 (libgif-dev under Debian)
-     - libtiff-devel.x86_64
-     - libpng-devel.x86_64
-     - libxpm-devel.x86_64
-     - libMagickWand.x86_64 (for imagemagick support)
+** RHEL 6
+*** Required libraries
+    - ncurses-devel.x86_64
+    - gtk2-devel.x86_64 (libgtk under Debian)
+    #+BEGIN_SRC sh
+    sudo yum install ncurses-devel.x86_64
+    ...
+    #+END_SRC
+*** Optional libraries
+    Graphics support
+    - libjpeg-devel.x86_64
+    - giflib-devel.x86_64 (libgif-dev under Debian)
+    - libtiff-devel.x86_64
+    - libpng-devel.x86_64
+    - libxpm-devel.x86_64
+    - libMagickWand.x86_64 (for imagemagick support)
 
-*** Debian and derivatives
-**** Required libraries
-     Build dependencies with
-     #+BEGIN_SRC sh
-     sudo aptitude install build-dep emacs25
-     #+END_SRC
-    libtiff5-dev -> libtiff-dev
-    libpng12-dev
-**** Optional libraries
-     Graphics support
-     - libgif-dev
-     - libmagickwand-dev (for imagemagick support)
-
-** Installing ANSYS 161 on Ubuntu 12.04 64 Bit
-   Help Viewer is running out of the box
+** Debian 8 and derivatives
+*** Required libraries
+    Build dependencies with
+    #+BEGIN_SRC sh
+    sudo aptitude install build-dep emacs25
+    #+END_SRC
+   libtiff5-dev -> libtiff-dev
+   libpng12-dev
+*** Optional libraries
+    Graphics support
+    - libgif-dev
+    - libmagickwand-dev (for imagemagick support)
+* Installing ANSYS 161 on Ubuntu 12.04 64 Bit
+  The ANSYS Help Viewer is running out of the box
 ** Classics GUI
    - Shared library libXm.so.4 is missing
      /usr/ansys_inc/v161/ansys/bin/linx64/ansys.e161: error while
@@ -383,43 +272,9 @@ your system.
 	apt-file search ld-lsb-x86
 	#+END_SRC
 
-** Files
-  *Sources*:
-  - ansys-mode.el: Main file
-  - ansys-config.el: The configuration file/example
-  - ansys-initialise.el: The initialisation of system dependened stuff
-  - ansys-keyword.el: Highlighting variables (built from
-    helper/fontification.el)
-  - ansys-template.el: Template definitions of APDL code, a mixture of
-    documentation and insertable snippets
-  - ansys-process.el: Variables and functions related to solver processes
-
-  (and possibly their compiled versions with the suffix '.elc'.  In case
-  you are using the mode with an older version of Emacs than 24.5 please
-  remove the compiled .elc files, if any.)
-
-  *Auxiliaries and Documentation*:
-  - README.org -- This file
-  - NEWS.org -- News and history
-  - TODO.org -- Todos and deficiencies
-  - INSTALLATION.org -- The installation notes
-  - LICENSE.org -- The GPL (Gnu Public License) Version 3
-  - doc/example.dat -- WorkBench example APDL solver input file
-  - doc/example.anf -- ANSYS geometry neutral file example
-  - doc/example.mac -- APDL user macro and highlighting example
-  - doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
-  - doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
-  - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
-  - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
-  - doc/ANSYS.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
-  - matlib/ -- a directory with examples of APDL material definitions
-  # - helper/tools/bin/ansys-mode-162-1.sh -- A wrapper for calling Emacs
-
-  You can actually read the PDFs in Emacs as well!
-
-* Changes in the Emacs behaviour
-Only for experienced Emacs users: ANSYS-Mode changes the default
-behaviour of Emacs
+* Changes in Emacs' default behaviour
+For experienced Emacs users: ANSYS-Mode changes the default behaviour
+of Emacs
 
 ** Globally
 - Switches on font-lock-mode if toggled off, e.g when calling Emacs
@@ -428,8 +283,12 @@ behaviour of Emacs
 - Advised M-w (kill-ring-save) without active region to copy the whole
   line
 
-(Delete Selection Mode, a behaviour similar on Windows platforms can
-be switched on in the ANSYS-Mode menu.)
+Delete Selection Mode, a behaviour similar on Windows platforms can
+be switched on in the ANSYS-Mode menu.
+
+Electric Pair Mode, a minor mode which inputs automatically
+corresponding APDL delimeter pairs ~()~, ~''~ and ~%%~ can be switched
+on in the menu as well.
 
 ** Locally (mode dependent)
 - ~(setq scroll-preserve-screen-position t)~

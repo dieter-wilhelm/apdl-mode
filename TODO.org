@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-12>
+#+DATE: Time-stamp: <2015-08-29>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -22,7 +22,6 @@
    - M-? on an empty buffer returns *abbr* help instead of warning
    - C-c C-j tries to send a next line in the LAST line and after an
      /exit command
-   - windows Emacs-23.1 no usable browser found!
    - -send-to-ansys, -send-above copy empty regions or only comments
    - importing template-header into empty file doesn't change file
      status to changed!
@@ -86,7 +85,6 @@
    - mouse-choose-completion is obsolete since E23.2
    - add timer customisation for -command-parameter-help variable 1
      min, 2 min, etc.
-   - example.mac: make it solver compatible
    - check *vwrite with gui mode and interactive mode (graphics window?)
    - add element numbers to the general completion list, yes or no?
    - WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
@@ -158,9 +156,6 @@
                     instead of M-Tab (ALT + TAB) the ESC key and then
                     the Tab key (ESC, TAB) or apply the command from
                     the menu bar
-  - Highlighting :: The parameter help overlay is only removed after 2
-                    min if the respective ANSYS-Mode buffer is the
-                    current buffer at that time span!
   - Keybinding :: M-j: When there is already a `&' in a format command
                   (like *msg, *vwrite, *mwrite)
                   ansys-indent-format-line inserts a redundant one

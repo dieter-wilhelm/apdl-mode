@@ -163,10 +163,8 @@ CONTI : A-M-$(VERSION).tar.xz
 A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README.Conti tools/bin/A-M-$(VERSION).sh \
 			makefile $(X11)
 	mv tools/ansys-mode/README.Conti tools/
-	mv tools/ansys-mode/Conti.el tools/
 	rm -fr tools/ansys-mode/*
 	mv tools/README.Conti tools/ansys-mode/
-	mv tools/Conti.el tools/ansys-mode/
 	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
 	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
 	@echo "syncing.."
@@ -184,9 +182,6 @@ tools/bin/A-M-$(VERSION).sh : makefile
 	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
 	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
 	chmod +x $@
-
-# @echo "emacs -l /appl/tools/ansys-mode/Conti.el \
-# -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)

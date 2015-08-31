@@ -22,14 +22,15 @@ provide the command line argument `-nw' (or --no-window-system):
 Most functionality works for any ANSYS version, but for some advanced
 stuff - like calling the help documentation in your browser -
 ANSYS-Mode-162-1 searches for the highest installed ANSYS version on
-your system.  You can configure ANSYS-Mode to work for any installed
-ANSYS version.  You might achieve this by setting the installation
-directory in 3 ways: Graphically - for the current session - with the
-ANSYS-Mode menu or - temporary or permanently - with the Emacs
-customisation system or - permanently - with setting the variable in a
-configuration file (Please have a look at Conti.el, there is only one
-variables which might need to be adjusted in either Conti.el or even
-better your ~/.emacs.)
+your system.  You can configure ANSYS-Mode to work for *any* installed
+ANSYS version.  You might achieve this by setting the ANSYS
+installation directory in 3 ways: 1) Temporary - for the current
+session - with the ANSYS-Mode menu or - 2) temporary or permanently
+for future sessions- with Emacs' customisation system (also in the
+menu) or - 3) permanently - with setting the variable in a
+configuration file.  Please have a look at ansys-config.el, there is
+only one variable "ansys-install-directory" which need to be adjusted
+in either ansys-config.el or your own ~/.emacs configuration file.
 
 ======================================================================
 
@@ -40,7 +41,6 @@ file:
 --->8 ----------------------------------------------------------------
 
 (add-to-list 'load-path "/appl/tools/ansys-mode/current")
-(load "helper/tools/ansys-mode/Conti") ; our Company's configuration file
 (load "ansys-config") ; the main ANSYS-Mode configuration file
 
 --- 8< ---------------------------------------------------------------

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-30>
+#+DATE: Time-stamp: <2015-08-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -30,16 +30,18 @@
 
 Most functionality should work out of the box.  ANSYS-Mode assumes
 ANSYS in its default installation directory on drive `C:Program Files'
-on Win64 and tries  to configure the highest ANSYS version.
+on Win64 and tries to configure ANSYS-Mode with the highest installed
+ANSYS version.
 
 and you want to start - for example - the license status or
 the ANSYS help browser directly from the menue please adjust the
 configuration file `ansys-config.el' file in Emacs' `site-lisp'
 directory according to the commented code examples.
 
-In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
-version]] of GNU Emacs, you can also download and configure the
-ANSYS-Mode package separately. Please refer to below instructions.
+In case you want to download or have already installed the
+[[http://ftp.gnu.org/pub/gnu/emacs/][original version]] of GNU Emacs,
+you can also download and configure the ANSYS-Mode package
+separately. Please refer to below instructions.
 
 Please have a look at the accompanying `default.el' customisation
 example. It can be used as a configuration file (after moving it
@@ -129,11 +131,6 @@ set at most the ANSYS version and the installation directory of ANSYS
 if they are differing from the defaults. (You have to restart Emacs
 ;-) The complete paths will be constructed with below information
 
-#+BEGIN_SRC emacs-lisp
-  (setq ansys-current-ansys-version "150")
-  ;(setq ansys-current-ansys-version "162") ; "162" is the default
-                                            ; in ANSYS-Mode 162-1
-#+END_SRC
 The installation path (what comes before the directory /ansys_inc/ on
 Linux or /ANSYS Inc/ on Windows.  If ~ansys-install-directory~ is not
 set ANSYS-Mode can initialise it from the environment variable

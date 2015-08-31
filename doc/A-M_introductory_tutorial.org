@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2015-08-12>
+#+DATE: Time-stamp: <2015-08-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+DATE: <2013-05-22 Wed>
 # #+OPTIONS: H:1 texht:t
@@ -327,19 +327,9 @@
 * Configuration
 ** Configure system dependent aspects and user options
 #   \\Mainly the ANSYS version and its installation directory
-    The mode comes pre-configured for a default installation of
-    ANSYS.  If something is amiss: Please use the menu or adjust
-*** the well commented configuration file /ansys-config.el/
-	  :PROPERTIES:
-	  :BEAMER_env: block
-	  :BEAMER_envargs: C[T]
-	  :BEAMER_col: 0.5
-	  :END:
-#+ATTR_LaTeX: :width 5.5cm
-  [[./a-m_el.png]]
-
-  ... and restart Emacs.
-*** or change the settings with Emacs' customisation system
+   Please check the mode settings with Emacs'
+    customisation system (no programming necessary) use the menu and
+*** modify settings with Emacs' customisation system
 	  :PROPERTIES:
 	  :BEAMER_env: block
 	  :BEAMER_envargs: <2->
@@ -350,6 +340,16 @@
     [[./customisation_system.png]]
 
   ... and reload ANSYS-Mode.
+*** or check the well commented file /ansys-config.el/
+	  :PROPERTIES:
+	  :BEAMER_env: block
+	  :BEAMER_envargs: C[T]
+	  :BEAMER_col: 0.5
+	  :END:
+#+ATTR_LaTeX: :width 5.5cm
+  [[./a-m_el.png]]
+
+  ... and restart Emacs.
 * Documentation and Licensing
 ** Get to know Emacs and its excellent documentation
   Newcomers to Emacs should take the [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to

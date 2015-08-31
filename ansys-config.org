@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-13>
+#+DATE: Time-stamp: <2015-08-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -31,8 +31,8 @@
 Most functionality should work out of the box.  ANSYS-Mode assumes
 ANSYS in its default installation directory on drive `C:Program Files'
 on Win64 and tries  to configure the highest ANSYS version.
-	 
-	 and you want to start - for example - the license status or
+
+and you want to start - for example - the license status or
 the ANSYS help browser directly from the menue please adjust the
 configuration file `ansys-config.el' file in Emacs' `site-lisp'
 directory according to the commented code examples.
@@ -273,6 +273,13 @@ imports, see the file /example.anf/.
 (add-to-list 'auto-insert-alist
   '(ansys-mode . [ansys-skeleton-outline-template])) ;which template to insert
 #+END_SRC
+
+* Miscellaneous
+
+  #+BEGIN_SRC emacs-lisp
+  (setq ansys-parameter-help-duration "2 min")
+  (setq ansys-parameter-help-duration 30) ; 30 seconds
+  #+END_SRC
 
 * Autoloading
   Below set of useful commands can be interactively called (with M-x

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-04 11:20:04 dieter>
+#+DATE: Time-stamp: <2015-08-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -30,7 +30,7 @@
 #+TITLE: This is the text of ANSYS-Mode's README.org for the matlib/ directory
   Its text is best read in Emacs' Org mode.
 
-  Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+  Copyright (C) 2015  H. Dieter Wilhelm, GPL V3
 
   If not indicated otherwise in the file name, material properties are
   linear and for room temperature.

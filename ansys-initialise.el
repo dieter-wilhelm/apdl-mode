@@ -59,7 +59,9 @@ The directory where the Elisp files reside."
 Which is to say the path up to the ANSYS version number, for
 example \"v162\".  The ANSYS installation routine sets for this
 path an environment variable, for the former versioning example:
-AWP_ROOT162."
+AWP_ROOT162.  With other words: this customisation variable
+includes besides the installation root directory also the
+information which ANSYS version currently is in use."
   :type 'string
   :group 'ANSYS-initialise)
 
@@ -71,7 +73,8 @@ AWP_ROOT162."
 ;;   :group 'ANSYS-initialise)
 
 
-;; FIXME: the following defcustoms should actually be variables...
+;; FIXME: the following defcustoms can actually be variables, can't
+;; they?
 
 (defcustom ansys-program nil
   "This string variable stores the ANSYS executable.

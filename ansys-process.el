@@ -1023,7 +1023,7 @@ A Negative ARG moves ARG steps right."
     (comint-send-string (get-process ansys-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
     (display-buffer (concat "*" ansys-process-name "*") 'other-window))
     (t
-     (error "No interactive MAPDL process running or Classics GUI can be found"))))
+     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
 (defun ansys-replot ()
   "Replot the ANSYS graphics screen."
@@ -1036,15 +1036,20 @@ A Negative ARG moves ARG steps right."
     (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
     (display-buffer (concat "*" ansys-process-name "*") 'other-window)))
   (t
-   (error "No interactive MAPDL process running or Classics GUI can be found")))
+   (error "No interactive MAPDL process running or no Classics GUI can be found")))
 
 (defun ansys-fit ()
   "Fit FEA entities to the ANSYS interactive graphics screen."
   (interactive)
-  (unless (ansys-process-running-p)
-    (error "No ANSYS process is running"))
-  (comint-send-string (get-process ansys-process-name) "/dist\n/replot\n") ;valid in any processor
-  (display-buffer (concat "*" ansys-process-name "*") 'other-window))
+  (cond
+   (ansys-classics-flag
+    (kill-new "/dist\n/replot\n")
+    (ansys-send-to-classics))
+   ((ansys-process-running-p)
+    (comint-send-string (get-process ansys-process-name) "/dist\n/replot\n")
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
+   (t
+    (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
 (defun ansys-program ( exec)
   "Change the ANSYS executable name to EXEC.

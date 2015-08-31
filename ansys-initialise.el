@@ -26,24 +26,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst ansys-mode_version "2"
+(defconst ansys-mode_version "1"
   "ANSYS-Mode version number.")
 
 (defconst ansys-version_ "162"
   "ANSYS version on which ANSYS-Mode is based upon.")
 
-;; FIXME: remove
-;; Ansys calls their bug fixed/patched releases between major releases
-;; "updates, they are not named in the default installation path, the
-;; older update version files are normally overwritten."
-
-;; (defconst ansys-update_version nil
-;;   "Current ANSYS update version.
-;; Used also internally to signal a no-default ANSYS installation
-;; path, if not nil.")
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defcustoms
+
 (defgroup ANSYS-initialise nil
   "Initialisation subgroup for ANSYS-Mode."
   :group 'ANSYS)
@@ -65,15 +56,7 @@ information which ANSYS version currently is in use."
   :type 'string
   :group 'ANSYS-initialise)
 
-;; FIXME: remove
-;; (defcustom ansys-current-update-version ansys-update_version
-;;   "String of the used ANSYS update version. ANSYS calls their bug
-;;   fixed/patched releases \"updates\"."
-;;   :type 'string
-;;   :group 'ANSYS-initialise)
-
-
-;; FIXME: the following defcustoms can actually be variables, can't
+;; TODO: the following defcustoms can actually be variables, can't
 ;; they?
 
 (defcustom ansys-program nil
@@ -495,61 +478,6 @@ example \"v162\".  The path is stored in the variable
       (error "ANSYS directory \"%s\" is not readable" ndir))
     (ansys-initialise 'force)
     (setq ansys-current-ansys-version version)))
-
-;; FIXME: remove
-;; (defun ansys-current-ansys-version ()
-;;   "Specify the required (and installed) ANSYS version.
-;; For example \"150\" instead of \"162\", which is the current
-;; default."
-;;   (interactive)
-;;   (let* ((dir ansys-install-directory)
-;; 	 (version ansys-current-ansys-version)
-;; 	 path
-;; 	 (version
-;; 	  (read-string
-;; 	   (concat "Specify the required ANSYS version [" version "]:")
-;; 	   version
-;; 	   'ansys-current-ansys-version-history)))
-;;     (cond
-;;      (ansys-unix-system-flag
-;;       (setq path (concat dir "/ansys_inc/v" version)))
-;;      (t
-;;       (setq path (concat dir "\\ANSYS Inc\\v" version))))
-;;     (if (file-readable-p path)
-;; 	(progn
-;; 	  (setq ansys-current-ansys-version version)
-;; 	  (message "Set current ANSYS version to %s." version)
-;; 	  (ansys-initialise-defcustoms t))
-;;       (error "ANSYS V%s not present: %s not readable" version path))))
-
-
-;; (defun ansys-current-update-version ()
-;;   "Specify the required (and installed) ANSYS update version.
-;; This variable is only necessary for a special (company
-;; dependened) non-standard ANSYS installation tree.  For example
-;; \"7\" from \"16.2.0\" instead of \"0\"."
-;;   (interactive)
-;;   (let* ((dir ansys-install-directory)
-;; 	 path
-;; 	 (setq version ansys-current-ansys-version)
-;; 	 (setq major (substring version 0 2))
-;; 	 (setq minor (substring version 2))
-;; 	 (setq update ansys-current-update-version)
-;; 	 (update
-;; 	  (read-string
-;; 	   (concat "Specify the required ANSYS update version ["
-;; 	   update "]:") update
-;; 	   'ansys-current-update-version-history)))
-;;     (setq path
-;; 	  (concat dir "/ansys_inc/"
-;; 		  major "." minor "." update
-;; 		  "/v" version))
-;;     (if (file-readable-p path)
-;; 	(setq ansys-current-ansys-version update)
-;;       (error "ANSYS update version \"%s\" not present, path %s not readable"
-;; 	     update path))
-;;     (message "Set current ANSYS version to %s." update)
-;;     (ansys-initialise 'force)))
 
 (provide 'ansys-initialise)
 ;;; ansys-initialise.el ends here

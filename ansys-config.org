@@ -431,8 +431,6 @@ example below:
    checking the environment variables ANSYSLMD_LICENSE_FILE and
    MD_LICENSE_FILE.
 
-
-
 #+BEGIN_SRC emacs-lisp
 (setq ansys-license-file
   "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")

@@ -868,7 +868,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
     table)
   "Syntax table in use in `ansys-mode' buffers.")
 
-
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst ansys-mode-menu
   (list "A-Mode"
@@ -908,13 +907,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	 :help "For certain functionality you need to set the
 	 installation directory of ANSYS, the path up to the
 	 version number vXXX.  M-x ansys-install-directory"]
-	;; ["Change ANSYS Version" ansys-current-ansys-version
-	;;  :label (concat "Change ANSYS Version ["ansys-current-ansys-version"]")
-	;;  :help "For certain functionalities you need to specify the proper version of ANSYS. M-x ansys-current-ansys-version"]
-	;; ["Change ANSYS Update Version" ansys-current-update-version
-	;;  :label (concat "Change ANSYS Update Version ["ansys-current-update-version"]")
-	;;  :visible ansys-current-update-version
-	;;  :help "For certain functionalities you need to specify the proper update version of ANSYS. M-x ansys-current-update-version"]
 	["Browse APDL command help" ansys-browse-ansys-help
 	 :help "Open the original ANSYS documentation for a command or element name near the cursor in your default browser. M-x ansys-browse-ansys-help"
 	 :active (file-readable-p ansys-help-path)]
@@ -1079,7 +1071,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
 	["Exit ANSYS-Mode" ansys-toggle-mode :help "Switch to the previous major mode of the file" :label (concat "Exit ANSYS-Mode Version: " ansys-version_ "-"ansys-mode_version)])
   "Menu items for the ANSYS-Mode.")
 
-
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst ansys-task-menu
   (list
@@ -1107,14 +1098,6 @@ Ruler strings are displayed above the current line with \\[ansys-column-ruler]."
    ["Change the Number of Processors" ansys-no-of-processors
     :label (format "Change the Number of Processors [%d]" ansys-no-of-processors )
     :help "Specify the number of processors to use for the ANSYS run definition. M-x ansys-no-of-processors"]
-   ;; ["Specify ANSYS Executable or launcher" ansys-program
-   ;;  :label (if (file-executable-p ansys-program) "Change ANSYS Executable"
-   ;; 	     "Specify ANSYS Executable")
-   ;;  :help "Specify the ANSYS solver/interpreter under GNU-Linux or the launcher (with complete path if not in $PATH)"]
-   ;; ["Specify License Utility" ansys-lmutil-program
-   ;;  :label (if (file-executable-p ansys-lmutil-program) "Change License Utility lmutil"
-   ;; 	     "Specify License Utility")
-   ;;  :help "Specify or change the path of the ANSYS license utility lmutil"]
    "-"
    ["License Server Status" ansys-license-status
     :help "Show a license manager status (number of licenses available and used)"
@@ -2242,7 +2225,7 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 (defun ansys-mode-version ()
   "Display the ANSYS-Mode version numbering scheme."
   (interactive)
-  (message "ANSYS-Mode version: %s.%s (based on ANSYS %s)" ansys-version_
+  (message "ANSYS-Mode version: %s-%s (based on ANSYS %s)" ansys-version_
 	   ansys-mode_version
 	   ansys-version_))
 

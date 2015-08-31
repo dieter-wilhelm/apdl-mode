@@ -133,14 +133,22 @@ main()
    unsigned long len;
    Window *list;
 
+   //   const char* blabla= "l2: working - Mechanical APDL [ANSYS Structural]";
+
+
    list = (Window*)winList(display,&len);
    for (i=0;i<(int)len;i++) {
      name = winName(display,list[i]);
      // printf("%d :  %s, window %d \n",i,name,list[i]);
-     if( strcmp(name,win_name) == 0){
+     //     if( strcmp(name,win_name) == 0){
+     if( match(name,"(ANSYS .* Utility Menu)|( - Mechanical APDL)|(ANSYS Command Window)")){
+       // we need the alternatives for Classics, WB and the Command window
        //printf ("    -> found %s window after %d windows\n",win_name,i);
        //      XSendEvent(display,list[i],True,)
        break;
+       //   cout << "\nregex: 1 match, 0 none: " 
+       //	<< match( blabla, "\\(Mechanical Pups\\)|\\(A.*\\)")
+       // << "\n";
      }
    }
    if (i == (int)len){
@@ -235,13 +243,5 @@ main()
 
    // Done.
    XCloseDisplay(display);
-
-   const char* blabla= "l2: working - Mechanical APDL [ANSYS Structural]";
-   cout << "regex: 1 match, 0 none: " 
-     //	<< match( blabla, "\\(Mechanical Pups\\)|\\(A.*\\)")
-     // we need the alternatives for Classics, WB and the Command window
-	<< match( blabla, "(ANSYS .* Utility Menu)|( - Mechanical APDL)|(ANSYS Command Window)")
-        << "\n";
-
    return 0;
 }

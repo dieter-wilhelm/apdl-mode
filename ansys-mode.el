@@ -2241,6 +2241,7 @@ call `ansys-mode'."
       (unload-feature 'ansys-keyword)
       (unload-feature 'ansys-process)
       (unload-feature 'ansys-template))
+    (load "ansys-config")
     (load "ansys-mode")
     (ansys-mode)
     (message (concat "ANSYS-Mode-" ansys-version_ "-" ansys-mode_version " reloaded."))))

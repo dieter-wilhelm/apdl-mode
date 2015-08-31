@@ -291,14 +291,14 @@ the customisation facility (by calling `ansys-customise-ansys')."
     ;;       (message "Starting run...")
     ;;     (error "Run canceled"))
     (cond (ansys-classics-flag
-	   (kill-ring-save (point-min) (point))
+	   (clipboard-kill-ring-save (point-min) (point))
 	   (ansys-send-to-classics)
 	   (message "Send above file content to the Classics GUI" ))
 	  ((ansys-process-running-p)
 	   (comint-send-region process (point-min) (point))
 	   (display-buffer-other-frame (process-buffer process)))
 	  (t
-	   (kill-ring-save (point-min) (point))	;point-min is heeding narrowing
+	   (clipboard-kill-ring-save (point-min) (point))	;point-min is heeding narrowing
 	   (message "Copied from beginning of buffer to cursor.")))))
 
 (defvar  ansys-current-region-overlay
@@ -318,15 +318,11 @@ the customisation facility (by calling `ansys-customise-ansys')."
 (defun ansys-send-to-classics ()
   "Sending clipboard content to the Classics GUI."
 ;  (let ((win (call-process "/home/uidg1626/script/ctrlv.sh")))
-  (let ((win "otto"))
-  ;  (message "return value: %s" win)
+  (let ()
     (sleep-for .5)			;wait till user lifts CTRL!
-    ;;(setq win (shell-command-to-string "/home/uidg1626/script/ctrlv.sh"))
-    ;; (call-process "/home/uidg1626/script/ctrlv.sh" nil nil nil ansys-classics-window-id)
     (call-process (concat ansys-mode-install-directory
 			  "X11/xPasteToWin") nil nil nil ansys-classics-window-id)
     (sleep-for .1)     ;seems to take 0.1 s for the clipboard to copy!
-    ;; (call-process "/home/uidg1626/script/return.sh" nil nil nil ansys-emacs-window-id)
     (call-process (concat ansys-mode-install-directory
 			  "X11/xSendReturn") nil nil nil
 		  ansys-emacs-window-id ansys-classics-window-id)
@@ -359,7 +355,7 @@ code line after this region (or paragraph)."
     (ansys-blink-region beg end)
     ;; send or copy region or line
     (cond (ansys-classics-flag
-	   (kill-ring-save beg end)
+	   (clipboard-kill-ring-save beg end)
 	   (ansys-send-to-classics)
 	   (message "Sent to Classics GUI"))
 	  ((ansys-process-running-p)
@@ -370,7 +366,7 @@ code line after this region (or paragraph)."
 	   (display-buffer-other-frame (concat "*" ansys-process-name "*"))
 	   (message "Sent region to solver."))
 	  (t
-	   (kill-ring-save beg end)
+	   (clipboard-kill-ring-save beg end)
 	   (message "Copied region.")
 	   ))
     (if (= move 4)
@@ -442,7 +438,7 @@ final character \"j\" (or \"C-j\")."
 	   map)))
     ;; send or copy region or line
     (cond (ansys-classics-flag
-	   (kill-ring-save beg end)
+	   (clipboard-kill-ring-save beg end)
 	   (if (fboundp 'set-transient-map)
 	       (if region
 		   (message "Sent region, type \"j\" or \"C-j\" to sent next line or block.")
@@ -467,7 +463,7 @@ final character \"j\" (or \"C-j\")."
 		 (message "Sent region.")
 	       (message "Sent line."))))
 	  (t
-	   (kill-ring-save beg end)
+	   (clipboard-kill-ring-save beg end)
 	   (if (fboundp 'set-transient-map)
 	       (if region
 		   (message "Copied region, type \"j\" or \"C-j\" to copy next line or block.")
@@ -483,10 +479,6 @@ final character \"j\" (or \"C-j\")."
     (if proc
 	(string= "run" (process-status proc))
       nil)))
-
-;; (defun ansys-update-mode-line ()
-;;   (setq mode-line-process (format ":%s" (process-status ansys-process)))
-;;   (force-mode-line-update))
 
 (defun ansys-query-ansys-command ( &optional arg)
   "Ask for a string which will be sent to the interpreter.
@@ -505,7 +497,7 @@ initial input."
 				  (line-beginning-position)
 				  (line-end-position))))
       (setq s (completing-read "Send to interpreter: "
-	    ansys-help-index nil nil)))
+	    ansys-help-index nil 'confirm)))
     (cond
      (ansys-classics-flag
       (kill-new s)

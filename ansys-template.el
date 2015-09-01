@@ -481,6 +481,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/zoom,1,off ! refit image to window" \n
   "/zoom,1,rect,0,0,1,1 ! fit image to rectangel X1,Y1 & X2,Y2" \n
   "/auto ! automatic fit mode" \n
+  "/angle,,5,xm,1 !turn view about x " \n
+  "/angle,,-20,ym,1 !turn view about y"\n
   "/user ! keep last display scaling" \n
   \n
   "!! -- style options ---" \n
@@ -533,11 +535,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/graphics,power !for post1 results" \n
   \n
   "!! .............................." \n
-  "!@@@ - element shape display -" \n
+  "!@@@ - shrunk display -" \n
   "!! .............................." \n
   \n
   "/graphics,full !/shrink doesn't work with power graphics" \n
-  "/shrink,0.5" \n
+  "/shrink,0.5 !for geom and elements " \n
   "eplot"  \n
   "vplot" \n
   \n

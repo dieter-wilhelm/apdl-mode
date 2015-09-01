@@ -323,6 +323,11 @@ the customisation facility (by calling `ansys-customise-ansys')."
     (sleep-for .5)			;wait till user lifts CTRL!
     (call-process (concat ansys-mode-install-directory
 			  "X11/xPasteToWin") nil nil nil ansys-classics-window-id)
+    (sleep-for .1)     ;seems to take at least 0.1 s for the clipboard to copy!
+    (call-process (concat ansys-mode-install-directory
+			  "X11/xSendReturn") nil nil nil
+		  ansys-emacs-window-id ansys-classics-window-id)
+    ;; repeating this as workaround... TODO
     (sleep-for .1)     ;seems to take 0.1 s for the clipboard to copy!
     (call-process (concat ansys-mode-install-directory
 			  "X11/xSendReturn") nil nil nil

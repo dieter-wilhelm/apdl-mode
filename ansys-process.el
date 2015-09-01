@@ -143,6 +143,7 @@ Return nil if we can't find an MAPDL GUI."
       nil
     (setq ansys-emacs-window-id eID)
     (setq ansys-classics-window-id aID)
+    (setq x-select-enable-clipboard t)	;for kill-new necessary
     aID)))
 
 (defun ansys-start-classics ()

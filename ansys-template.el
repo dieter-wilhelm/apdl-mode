@@ -533,6 +533,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/graphics,power !for post1 results" \n
   \n
   "!! .............................." \n
+  "!@@@ - element shape display -" \n
+  "!! .............................." \n
+  \n
+  "/graphics,full !/shrink doesn't work with power graphics" \n
+  "/shrink,0.5" \n
+  "eplot"  \n
+  "vplot" \n
+  \n
+  "!! .............................." \n
   "!@@@ - multi window plots -" \n
   "!! .............................." \n
   "/window,2,dele" \n

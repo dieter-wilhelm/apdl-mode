@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-31>
+#+DATE: Time-stamp: <2015-09-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -69,8 +69,8 @@ Textual hints in /ansys-config.el/ are indicated with TWO semi-colons
 and change them when appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;; Customisation file for ANSYS-Mode (GNU-Linux and Windows)
-;; This file was created from A-M.org
+;; Customisation file for ANSYS-Mode under GNU-Linux and Windows
+;; This file was created from the file "ansys-config.org"
 
 ;; Copyright (C) 2015 H. Dieter Wilhelm GPL V3
 

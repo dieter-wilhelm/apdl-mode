@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-15>
+#+DATE: Time-stamp: <2015-09-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -59,50 +59,49 @@ the tutorial ~doc/A-M_introductory_tutorial.pdf~.
 Download the latest ANSYS-Mode archive ~ansys-mode-162-1.tar.xz~ from
 above GitHub releases page.
 *** Direct way, no file configuration necessary
-
 The easiest way is to extract above archive in a "default load path"
 of Emacs, I recommend the directory ~site-lisp/~ in Emacs' file tree.
 Then ANSYS-Mode's functionality is available when you restart Emacs.
 For the next steps please read ~doc/A-M_introductory_tutorial.pdf~ .
-
-*** More general way; file configuration necessary
+*** More general way; file loading or configuration necessary
+**** Manual loading
 Unpack the archive anywhere on your system but then you have to make
 ANSYS-Mode known to Emacs by loading the configuration file
 ~ansys-config.el~ manually, Start Emacs then do:
 
-~M-x load-file  YOUR_INSTALLATION_DIRECTORY/ansys-config.el~
+~M-x load-file  YOUR/INSTALLATION/DIRECTORY/ansys-config.el~
 
-Hold the <Alt> key and type the <x> key - then you'll end up in the so
-called minibuffer prompt, now type "load-file" (you might apply the
-<TAB> key for Emacs' auto-completion feature at any stage) and
-conclude this input with the <RET> key.  Emacs will then prompt you
-for a file name, type in the directory where you have extracted the
-code and "ansys-config.el" and press RET to load ANSYS-Mode's
-definitions.  You might open an unnamed file under ANSYS-Mode with
-~M-x ansys~.
-
-
+The above means: Hold the <Alt> key and type the <x> key - then you'll
+end up in the so called minibuffer prompt, now type "load-file" (you
+might apply the <TAB> key for Emacs' auto-completion feature at any
+stage) and conclude this input with the <RET> key.  Emacs will then
+prompt you for a file name, type in the directory where you have
+extracted the code and "ansys-config.el" and press RET to load
+ANSYS-Mode's definitions.  You might open an unnamed file under
+ANSYS-Mode with ~M-x ansys~.
+**** File configuration
 Extract the archive files anywhere and put the following paragraph
-into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el'), the
-configuration file (`~', your home directory, which is determined by
-the environment variable HOME on both Windows and Unix), adjust the
-elisp code below in capital letters, restart Emacs or type "C-x C-e"
-behinde the closing bracket.  And ANSYS-Mode will be automatically
-applied for all files with suffixes `.mac', `.ans', `.dat' and `.inp'.
+into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el')
+initialisation file (`~' is your home directory, which is determined
+by the environment variable HOME on both Windows and Unix), *adjust*
+the elisp code below in capital letters, restart Emacs or type "C-x
+C-e" behinde the closing bracket.  And ANSYS-Mode will from then on be
+automatically applied for all opened or created files with suffixes
+`.mac', `.ans', `.dat' and `.inp'.
 
 #+BEGIN_SRC emacs-lisp
-  (load-file "/DIRECTORY-PATH/WHERE/THE/ANSYS-MODE/EL_FILES/RESIDE/ansys-config.el")
+  (load "/DIRECTORY-PATH/WHERE/THE/ANSYS-MODE/EL_FILES/RESIDE/ansys-config")
   ;;  Windows example: Assuming you extracted the files on drive "c:":
-  ;; "c:/ansys-mode/ansys-mode-162-1/ansys-config.el"
+  ;; "c:/ansys-mode/ansys-mode-162-1/ansys-config"
   ;; GNU-Linux/Unix example:
-  ;; "/usr/local/src/ansys-mode/ansys-mode-162-1/ansys-config.el"
+  ;; "/usr/local/src/ansys-mode/ansys-mode-162-1/ansys-config"
 
 #+END_SRC
 * ANSYS-Mode files
  *Sources*:
  - ansys-mode.el: Main file
- - ansys-config.el: The configuration file/example
- - ansys-initialise.el: The initialisation of system dependened stuff
+ - ansys-config.el: The configuration file
+ - ansys-initialise.el: The initialisation of system dependent stuff
  - ansys-keyword.el: Highlighting variables (built from
    helper/fontification.el)
  - ansys-template.el: Template definitions of APDL code, a mixture of

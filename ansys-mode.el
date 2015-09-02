@@ -1849,7 +1849,7 @@ default_el customisation file example.
 With the ANSYS-Mode keyboard shortcut
 \"\\[ansys-start-ansys]\" (for the command `ansys-start-ansys')
 you can start the APDL solver/interpreter under GNU-Linux as an
-asynchronous process from Emacs.  After starting the run you will
+asynchronous process of Emacs.  After starting the run you will
 see all interpreter output in a separate Emacs 'comint' (command
 interpreter) window.  You are now able to interact with this
 process in three ways, either by typing directly in the '*ANSYS*'
@@ -1889,7 +1889,7 @@ initialise a new selection but also to extend an existing one
 when repeting the command.  Please check the code navigation
 commands which ANSYS-Mode provides (type
 \"\\[describe-bindings]\" (`describe-bindings') to see which are
-available)
+available).
 
 In this mode you are able to start an ANSYS graphics
 screen (without the rest of graphical user interface) with

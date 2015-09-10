@@ -123,7 +123,19 @@ TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
 
 MATLIB := ../matlib/
 
-PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
+X11 := \
+../X11/makefile \
+../X11/xGetClassicsWindow \
+../X11/xGetClassicsWindow.cpp \
+../X11/xGetFocusWindow \
+../X11/xGetFocusWindow.cpp \
+../X11/xPasteToWin \
+../X11/xPasteToWin.cpp \
+../X11/xSendReturn \
+../X11/xSendReturn.cpp \
+
+
+PACKAGE_FILES :=  $(X11) $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
 
 default.el : makefile
 	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > $@
@@ -146,6 +158,8 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	    mkdir ansys-mode-$(VERSION)/helper
 	@test -d ansys-mode-$(VERSION)/matlib || \
 	    mkdir ansys-mode-$(VERSION)/matlib
+	@test -d ansys-mode-$(VERSION)/X11 || \
+	    mkdir ansys-mode-$(VERSION)/X11
 	@cp -rf $(MATLIB) ansys-mode-$(VERSION)
 	@tar -cJvf $@ ansys-mode-$(VERSION) default.el
 	@echo
@@ -191,7 +205,7 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile
 	    mkdir -p $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
 	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)
 	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
-	tar -uJvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
+	tar --append -Jvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
 
 HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
 	../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html \

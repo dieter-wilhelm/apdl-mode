@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2015-08-31>
+#+DATE: Time-stamp: <2015-09-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+DATE: <2013-05-22 Wed>
 # #+OPTIONS: H:1 texht:t
@@ -347,7 +347,7 @@
 	  :BEAMER_col: 0.5
 	  :END:
 #+ATTR_LaTeX: :width 5.5cm
-  [[./a-m_el.png]]
+  [[./ansys-config.png]]
 
   ... and restart Emacs.
 * Documentation and Licensing

@@ -212,6 +212,7 @@ The output of the solver is captured in an Emacs buffer called
 
 (defun ansys-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
+  (interactive)
   (find-file filename)
   (delete-region (point-min) (point-max))
   (insert "nonlinear\n")
@@ -1040,9 +1041,9 @@ A Negative ARG moves ARG steps right."
     (ansys-send-to-classics))
    ((ansys-process-running-p)
     (comint-send-string (get-process ansys-process-name) "/replot\n") ;valid in any processor
-    (display-buffer (concat "*" ansys-process-name "*") 'other-window)))
+    (display-buffer (concat "*" ansys-process-name "*") 'other-window))
   (t
-   (error "No interactive MAPDL process running or no Classics GUI can be found")))
+   (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
 (defun ansys-fit ()
   "Fit FEA entities to the ANSYS interactive graphics screen."

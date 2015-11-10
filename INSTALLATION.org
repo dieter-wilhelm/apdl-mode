@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-09-02>
+#+DATE: Time-stamp: <2015-10-29>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -197,9 +197,10 @@ your system.
     Graphics support
     - libgif-dev
     - libmagickwand-dev (for imagemagick support)
-* Installing ANSYS 161 on Ubuntu 12.04 64 Bit
-  The ANSYS Help Viewer is running out of the box
-** Classics GUI
+* Installing ANSYS on Linux
+** ANSYS 161 on Ubuntu 12.04 64 Bit
+    The ANSYS Help Viewer is running out of the box
+*** Classics GUI
    - Shared library libXm.so.4 is missing
      /usr/ansys_inc/v161/ansys/bin/linx64/ansys.e161: error while
      loading shared libraries: libXp.so.4: cannot open shared object

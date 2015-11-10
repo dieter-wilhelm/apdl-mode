@@ -714,9 +714,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!Pinb = -0.1 !search radius, neg: absolut value ( > CNOF!!!!)" \n
   "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   \n
+  "!move open contact points to onto target surface" \n
   "!ICONT = -0.05 !initial contact closure [0] relative band size (neg. absolut)" \n
   "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   \n
+  "!shift complete open contact surface to target surf. " \n
   "!CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
   "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
@@ -1129,6 +1131,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "secdata,1,1 !rect: width,height" \n
   "secplot,1" \n
   "slist, 1, 1 !list section properties" \n
+  "secnum,1 !set section pointer to ID" \n
   "!! - mass -" \n
   "et,ID,mass21,,,2 !(3)2 no rotary inertia" \n
   "et,ID,mass21   !keyo(3)=0 3d mass with rotary inertia" \n
@@ -1206,6 +1209,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "esys,12 !set element coordinates for a and v elements to 12" \n
   "shpp,off,,nowarn! control mesh shape checking" \n
   "type !element type" \n
+  "secnum,1 !set section pointer to ID" \n
+  "mat,1 !set mat pointer"\n
+  "real,1 !set real const."\n
   "vmesh,all" \n
   "amesh,all" \n
   "/shrink,.5 ![0] 0 to max 0.5, shrink elem.,l,a,v" \n
@@ -1412,7 +1418,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Th1 = -360./(2*N)" \n
   "Th2 = +360./(2*N)" \n
   "Depth=30" \n
-  "pcirc,R1,R2,Th1,Th2 ! circular area on WP" \n
+  "pcirc,R1[0],R2,Th1[0°],Th2[360°] ! circular area on WP" \n
   "rpr4,3,10,0,1.2,! polygonal area or prism volume"
   "rcon$stat !status of real constands" \n
   "*get,RN,rcon,,num,max	 !maximum real set no "
@@ -1854,6 +1860,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "nsubst,N1,N2,N3" \n
   "outres,all,all !,item,freq,cname" \n
   "antype,static !,rest,LoadStep,SubStep ![new]rest: perform restart operation" \n
+  "antype,buckle ![static],modal,harmic,trans,substr,spectr " \n
   "nlgeom,on" \n
   "autots,on" \n
   \n

@@ -81,7 +81,8 @@
 (defconst Ansys_undocumented_commands	;or macros?
   '(
     "/WB"			   ; signify a WB generated input file
-    "XMLO" "/XML" 
+    "XMLO" 
+    "/XML" 
     "CNTR" ; ,print,1 ! print out contact info and also make no initial contact an error
     "EBLOCK" "CMBLOCK" "NBLOCK" "/TRACK" "CWZPLOT" "~EUI"
     "NELE"   ; predecessor of NSLE, NELE (WorkBench 10.0 output) still
@@ -104,6 +105,7 @@
    "ARFILL"
    "ARMERGE"
    "ARSPLIT"
+   "CEWRITE" ;.dat: ansys.net: write out constraint equations into jobname.ce
    "FIPLOT"
    "GAPFINISH"
    "GAPLIST"

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-31>
+#+DATE: Time-stamp: <2016-01-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -97,6 +97,9 @@ mplist ! Check
        with a factor of 0.8 from test specimen to account for a random
        fibre orientation in thick walled parts.  They might be used as
        an example for data fitting with the TBFT command.
+* Restrictions of the material models
+  - 
+
 -----
 # LOCAL variables:
 # word-wrap: t

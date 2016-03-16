@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-11-10>
+#+DATE: Time-stamp: <2016-03-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,10 +15,16 @@
 #+title: The Todo file of ANSYS-Mode
 
 #+STARTUP: showall
-* 162-1:
+* 170-1:
+* 162-2:
 ** Bugs
+   - C-c C-s first time visit: User variables file-name-extension:
+     Wrong type argument: stringp, nilError during redisplay:
+     (jit-lock-function 1) signaled (wrong-type-argument stringp nil)
+   - /sho is not not font-locked
+   - c*** without argument is not font-locked
+   - jit-lock-function errors
    - RESCOMBINE is not fontified
-   - CEWRITE is not fontified
    - M-? on an empty buffer returns *abbr* help instead of warning
    - C-c C-j tries to send a next line in the LAST line and after an
      /exit command
@@ -27,9 +33,6 @@
      status to changed!
    - error for -skeleton-outline-template when called ansys-mode
      for an unnamed file without extension.
-   - C-c C-s first time visit: User variables file-name-extension:
-     Wrong type argument: stringp, nilError during redisplay:
-     (jit-lock-function 1) signaled (wrong-type-argument stringp nil)
    - APDL + WB -> Window Name is ... - Mechanical APDL (ANSYS
      Structural)
 ** Freeze
@@ -209,10 +212,11 @@
     # ansys
     (tags-query-replace "161-2" "162-1")
     # this is for Conti stuff
+    (tags-query-replace "16.2.0" "17.1.0")
     (tags-query-replace "16.1.0" "16.2.0")
     (tags-query-replace "ANSYS 16" "ANSYS 17")
     # emacs
-    (tags-query-replace "24\.5" "24.6")
+    (tags-query-replace "24\.5" "25.1")
     # version No
     (tags-query-replace "161" "162")
     # for _mode_version

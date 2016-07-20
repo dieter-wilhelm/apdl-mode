@@ -1476,6 +1476,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "!! area" \n
+  "btol,1e-6" \n
   "asbl,all,all ! substract area by line" \n
   "aovlap,all ! overlap areas" \n
   "asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
@@ -2295,6 +2296,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/input,tmp,mac" \n
   "*list,sim,csv" \n
+  \n
+  "!! -- 6.) output from etable" \n
+  "!! *vput: etable -> array" \n
+  "!! *vwrite: array -> file" \n
   \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- input from file ---" \n

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2016-03-16>
+#+DATE: Time-stamp: <2016-04-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -42,12 +42,13 @@
    - Menu for checking availablity for the X11 helper functions
    - List of all new functions <- bug-report.sh
 ** Wish-list
+   - C-c C-v show only the latest most current variable, if in a
+     variable block
    - remove spurious defcustoms which are calculated, or leave them as
      last resort?
    - a-start-wb: start-process seemingly uses the current working
-     directory, there might be a problem, when "pwd" of the curretn
-     buffer was/is a network drive which might temporarily not
-     available.
+     directory, there might be a problem, when "pwd" of the current
+     buffer was/is an unavailable network drive .
    - add bbdb files to emacs packages
    - -help-program-parameters obsolete
    - option to make eww default help browser
@@ -55,7 +56,7 @@
      + ActivateWin: SetFocus()  + SendKeys? SendKeys
      http://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
      https://msdn.microsoft.com/en-us/library/aa383749.aspx
-   - switch off advising of M-w, yeah
+   # - switch off advising of M-w, yeah, yeah
    - C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account
    - Targeting ANSYS Aim
    - customisation :version attribute is not clear and not defined for

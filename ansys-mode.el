@@ -2074,13 +2074,14 @@ improvements you have the following options:
   (toggle-truncate-lines 1)
   (show-paren-mode t)
   (set (make-local-variable 'scroll-preserve-screen-position) nil)
-  (defadvice kill-ring-save (before slick-copy activate compile) "When called
-  interactively with no active region, copy a single line instead."
-    (interactive (if mark-active
-		     (list (region-beginning) (region-end))
-		   (message "Copied line")
-		     (list (line-beginning-position)
-			   (line-beginning-position 2)))))
+
+  ;; (defadvice kill-ring-save (before slick-copy activate compile) "When called
+  ;; interactively with no active region, copy a single line instead."
+  ;;   (interactive (if mark-active
+  ;; 		     (list (region-beginning) (region-end))
+  ;; 		   (message "Copied line")
+  ;; 		     (list (line-beginning-position)
+  ;; 			   (line-beginning-position 2)))))
 
   (setq ansys-is-unix-system-flag (ansys-is-unix-system-p))
 

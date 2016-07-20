@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-10-29>
+#+DATE: Time-stamp: <2016-04-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -280,8 +280,8 @@ of Emacs
 - Switches on font-lock-mode if toggled off, e.g when calling Emacs
   with the -D (basic display) option
 - Show Parentheses Mode is activated ~(show-paren-mode t)~
-- Advised M-w (kill-ring-save) without active region to copy the whole
-  line
+# - Advised M-w (kill-ring-save) without active region to copy the whole
+#   line
 
 Delete Selection Mode, a behaviour similar on Windows platforms can
 be switched on in the ANSYS-Mode menu.

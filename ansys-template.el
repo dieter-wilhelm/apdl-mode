@@ -1,6 +1,6 @@
 ;;; ansys-template.el -- APDL code templates for the ANSYS-Mode
 
-;; Copyright (C) 2006 - 20015  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 20016  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -1774,7 +1774,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
   "!! .............................." \n
-  "!@@@ - coupling -" \n
+  "!@@@ - node coupling -" \n
   "!! .............................." \n
   \n
   "nsel,s,loc,x,1" \n
@@ -1785,7 +1785,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "nsel,s,loc,x,1" \n
-  "ce,next,uy,all !couple dofs" \n
+  "ce,next,0,N1,uy,fact1,N2,ux,fact2 !constrain node dofs" \n
   \n
   "allsel" \n
   "/pbc,all,on" \n

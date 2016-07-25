@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-09-01>
+#+DATE: Time-stamp: <2016-07-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -25,7 +25,7 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 #+TITLE: Customisation of ANSYS-Mode
-#+text: Copyright (C) 2015 H. Dieter Wilhelm GPL V3
+#+text: Copyright (C) 2016 H. Dieter Wilhelm GPL V3
 
 
 Most functionality should work out of the box.  ANSYS-Mode assumes
@@ -72,7 +72,7 @@ and change them when appropriate.
 ;; Customisation file for ANSYS-Mode under GNU-Linux and Windows
 ;; This file was created from the file "ansys-config.org"
 
-;; Copyright (C) 2015 H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2016 H. Dieter Wilhelm GPL V3
 
 ;; `ansys-config.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or

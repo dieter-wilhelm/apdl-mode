@@ -1,6 +1,6 @@
 ;;; ansys-initialise.el --- initialisation code      -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2015  H. Dieter Wilhelm
+;; Copyright (C) 2016  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 162-1

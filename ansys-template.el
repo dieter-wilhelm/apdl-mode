@@ -1533,6 +1533,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,dens,ID,7850e-12 !density in t/mm³" \n
   "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
   "mp,alpx,ID,AlphaSteel !secant modulus of therm. exp.!" \n
+  "!temperature dependent secant modulus" \n
+  "mpamod,ID,20		 ![0] only when not issued mp,reft or tref" \n
+  "mptemp,1,100,200,300 ! 3 temperatures" \n
+  "mpdata,alpx,ID,1,20e-6,21e-6,22e-6 ! 3 secant moduli" \n
   "!mp,ctex,ID,12e-6 ! instantaneous coofficient of therm. exp." \n
   "KSteel = 60.5 !conductivity in W/(mK)" \n
   "mp,kxx,ID,KSteel" \n
@@ -1652,6 +1656,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tb,hyper,Ogden,1,2,OGDEN !2nd order Ogden model" \n
   "tbdata,1,3.5809,1.05e-9,3.8485e5" \n
   "tbdata,4,-2.2e6,-.8778,0" \n
+  \n
+  "!! swelling, depending on fluence (humidity,precipitation,radiation,...) load" \n
+  "tb,swell,ID,1,1,line !linear swelling" \n
+  "tbdata,1,Swelling" \n
+  "tblist,swell,ID" \n
+  "!bfe,all,flue,,1! bc" \n
   \n
   "!! --- Magnetic materials ---" \n
   "Air = 4" \n
@@ -2212,6 +2222,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ ------------------------------" \n
   "!@@ -- output to file --" \n
   "!! ------------------------------" \n
+  "parsav,all ![file.parm] write all scalar and array parameters to file " \n
   \n
   "! --- 1.) write macro file without parameter substitution" \n
   "! *vwrite works only in batch mode" \n
@@ -2304,6 +2315,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- input from file ---" \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
+  "! read in all parameters written with parsav" \n
+  "parres,change ![file.parm] extend parameter set, replace existing parameters" \n
   "! read in table" \n
   \n
   "*dim,Rolf,,5,5" \n

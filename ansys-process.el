@@ -1,6 +1,7 @@
 ;;; ansys-process.el -- Managing runs and processes for ANSYS-Mode
+;; Time-stamp: <2020-01-31>
 
-;; Copyright (C) 2006 - 2015  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -850,6 +851,20 @@ Element categories:
 	   ;; (process-id (get-process ansys-process-name))
     ))
 
+(defun ansys-occur ()
+  "Show certain licenses with occur"
+ (interactive)
+ ;; mpba -- multiphysics solver
+ ;; mech_1 -- mechanical pro
+ ;; mech_2 -- mechanical premium
+ ;; struct -- structural
+ ;; stba -- structural solver
+ ;; agppi -- Design Modeler
+ ;; aim_mp -- aim standard
+ ;; disc* -- discovery
+ (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9]\\{4\\}$")
+)
+
 (defun ansys-license-status ()
   "Display the ANSYS license status or start the license tool.
 Show the status in a separate buffer, the license
@@ -866,9 +881,16 @@ server summary rows."
     (call-process ansys-lmutil-program nil "*ANSYS-licenses*" nil "lmstat" "-c "  ansys-license-file  "-a")
     (let (bol eol)
       (with-current-buffer "*ANSYS-licenses*"
-	;; remove unintersting licenses
+	;; remove uninteresting licenses
 	;; (goto-char (point-min))
 	;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
+
+	;; below key settings are only allowed in fundamental mode
+	;; otherwise it supposedly overwrites major modes keymaps!
+        (local-set-key (kbd "Q") 'kill-this-buffer)
+        (local-set-key (kbd "q") 'bury-buffer)
+        (local-set-key (kbd "g") 'ansys-license-status)
+        (local-set-key (kbd "o") 'ansys-occur)
 
 	(goto-char (point-min))
 	(while (not (eobp))
@@ -916,7 +938,8 @@ server summary rows."
 	;;  on Windows the license stat buffer doesn't move to point without:
 	(when (not ansys-unix-system-flag)
 	  (set-window-point (get-buffer-window "*ANSYS-licenses*") (point)))))
-    (display-buffer "*ANSYS-licenses*" 'otherwindow)
+    (unless (equal (current-buffer) (get-buffer "*ANSYS-licenses*"))
+      (display-buffer "*ANSYS-licenses*" 'otherwindow))
     (message "Updated license status: %s." (current-time-string)))
    (t
     (message "No license information or lmutil program found"))))
@@ -1226,4 +1249,7 @@ And store it in the variable `ansys-license'."
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
 ;; word-wrap: t
+;; time-stamp-active: t		    
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:
+

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-08-30>
+#+DATE: Time-stamp: <2020-01-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -16,7 +16,14 @@
 #+STARTUP: showall
 #+title: News and History of ANSYS-Mode
 
-Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+
+** Version 201-1
+   - Added key-bindings to the license buffer *ANSYS-licenses*
+     o - occur search
+     g - refresh license status
+     q - burry the license buffer
+     Q - quit license buffer
 
 ** Version 162-1, not yet released, targeted for September
    - Sending code to the ANYSClassics GUI is now possible as well, not
@@ -371,6 +378,7 @@ Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
    - Extended documentation, code cleaning and simplification of commands
      (e.g. comment handling) with the application of standard Emacs 22
      facilities among other things.
+
 
 # The following is for Emacs
 # local variables:

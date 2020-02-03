@@ -1,0 +1,58 @@
+		    === Welcome to ANSYS-Mode ===
+
+Please read the accompanying tutorial
+/appl/tools/ansys-mode/current/A-M_introductory_tutorial.pdf first,
+the full documentation is under
+http://dieter-wilhelm.github.io/ansys-mode.
+
+The wrapper script /appl/tools/bin/A-M-162-1.sh starts Emacs with the
+APDL editing mode enabled. For example:
+
+ $ A-M-162-1.sh /appl/tools/ansys-mode/current/doc/example.mac
+
+ANSYS-Mode is automatically switched on for the following file
+suffixes: .ans, .mac, .anf, .dat and .inp.
+
+If you want to start Emacs in text (terminal) mode, please provide the
+command line argument `-nw' (or --no-window-system):
+
+ $ A-M-162-1.sh macro.ans -nw
+
+or just
+
+ $ A-M-162-1.sh -nw
+
+======================================================================
+			     PLEASE NOTE
+
+Most functionality works for any ANSYS version, but for some system
+dependent stuff - like starting the ANSYS Classics GUI -
+ANSYS-Mode-162-1 searches by default the highest ANSYS version on your
+system.  You can configure ANSYS-Mode to work for *any* installed
+ANSYS version.  You achieve this by setting the ANSYS installation
+directory in 3 ways: 1) Temporary - for the current session - with the
+ANSYS-Mode menu or - 2) temporary or permanently for future sessions-
+with Emacs' customisation system (also in the menu) or - 3)
+permanently - with setting the variable in a configuration file.
+Please have a look at ansys-config.el, there is only one variable
+"ansys-install-directory" which need to be adjusted in either
+ansys-config.el or your own ~/.emacs configuration file.
+
+======================================================================
+
+If you want to utilise ANSYS-Mode for your Emacs without calling the
+shell script `A-M-162-1.sh', then add the following lines to your
+~/.emacs (or ~/.emacs.d/init.el) file:
+
+--->8 ----------------------------------------------------------------
+
+(add-to-list 'load-path "/appl/tools/ansys-mode/current")
+(load "ansys-config") ; the main ANSYS-Mode configuration file
+
+--- 8< ---------------------------------------------------------------
+
+The code is hosted on https://github.com/dieter-wilhelm/ansys-mode.
+Please report bugs or give feedback to dieter@duenenhof-wilhelm.de
+(hans-dieter.wilhelm@continental-corporation.com)
+
+Thank you

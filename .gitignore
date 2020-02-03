@@ -26,3 +26,9 @@ matlib/.#*
 gh-page
 alwin/
 *.elc
+X11/xGetClassicsWindow
+X11/xGetFocusWindow
+X11/xPasteToWin
+X11/xSendReturn
+doc/file*
+helper/tools*

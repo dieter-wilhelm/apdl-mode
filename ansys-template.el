@@ -1,10 +1,10 @@
 ;;; ansys-template.el -- APDL code templates for the ANSYS-Mode
 
-;; Copyright (C) 2006 - 20015  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 20016  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 16.1.1
+;; Version: 162-1
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -481,6 +481,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/zoom,1,off ! refit image to window" \n
   "/zoom,1,rect,0,0,1,1 ! fit image to rectangel X1,Y1 & X2,Y2" \n
   "/auto ! automatic fit mode" \n
+  "/angle,,5,xm,1 !turn view about x " \n
+  "/angle,,-20,ym,1 !turn view about y"\n
   "/user ! keep last display scaling" \n
   \n
   "!! -- style options ---" \n
@@ -531,6 +533,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/efacet,2! display 2 element facets (curvature) with power graphics" \n
   "/eshape,1 !1:use real constant def. for element shapes" \n
   "/graphics,power !for post1 results" \n
+  \n
+  "!! .............................." \n
+  "!@@@ - shrunk display -" \n
+  "!! .............................." \n
+  \n
+  "/graphics,full !/shrink doesn't work with power graphics" \n
+  "/shrink,0.5 !for geom and elements " \n
+  "eplot"  \n
+  "vplot" \n
   \n
   "!! .............................." \n
   "!@@@ - multi window plots -" \n
@@ -703,9 +714,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!Pinb = -0.1 !search radius, neg: absolut value ( > CNOF!!!!)" \n
   "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
   \n
+  "!move open contact points to onto target surface" \n
   "!ICONT = -0.05 !initial contact closure [0] relative band size (neg. absolut)" \n
   "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
   \n
+  "!shift complete open contact surface to target surf. " \n
   "!CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
   "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
   \n
@@ -1118,6 +1131,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "secdata,1,1 !rect: width,height" \n
   "secplot,1" \n
   "slist, 1, 1 !list section properties" \n
+  "secnum,1 !set section pointer to ID" \n
   "!! - mass -" \n
   "et,ID,mass21,,,2 !(3)2 no rotary inertia" \n
   "et,ID,mass21   !keyo(3)=0 3d mass with rotary inertia" \n
@@ -1195,6 +1209,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "esys,12 !set element coordinates for a and v elements to 12" \n
   "shpp,off,,nowarn! control mesh shape checking" \n
   "type !element type" \n
+  "secnum,1 !set section pointer to ID" \n
+  "mat,1 !set mat pointer"\n
+  "real,1 !set real const."\n
   "vmesh,all" \n
   "amesh,all" \n
   "/shrink,.5 ![0] 0 to max 0.5, shrink elem.,l,a,v" \n
@@ -1401,7 +1418,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Th1 = -360./(2*N)" \n
   "Th2 = +360./(2*N)" \n
   "Depth=30" \n
-  "pcirc,R1,R2,Th1,Th2 ! circular area on WP" \n
+  "pcirc,R1[0],R2,Th1[0°],Th2[360°] ! circular area on WP" \n
   "rpr4,3,10,0,1.2,! polygonal area or prism volume"
   "rcon$stat !status of real constands" \n
   "*get,RN,rcon,,num,max	 !maximum real set no "
@@ -1459,6 +1476,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "!! area" \n
+  "btol,1e-6" \n
   "asbl,all,all ! substract area by line" \n
   "aovlap,all ! overlap areas" \n
   "asba,A1,A2,SEPO,KEEP1,KEEP2 ! SEPO: seperate entities" \n
@@ -1515,6 +1533,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,dens,ID,7850e-12 !density in t/mm³" \n
   "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
   "mp,alpx,ID,AlphaSteel !secant modulus of therm. exp.!" \n
+  "!temperature dependent secant modulus" \n
+  "mpamod,ID,20		 ![0] only when not issued mp,reft or tref" \n
+  "mptemp,1,100,200,300 ! 3 temperatures" \n
+  "mpdata,alpx,ID,1,20e-6,21e-6,22e-6 ! 3 secant moduli" \n
   "!mp,ctex,ID,12e-6 ! instantaneous coofficient of therm. exp." \n
   "KSteel = 60.5 !conductivity in W/(mK)" \n
   "mp,kxx,ID,KSteel" \n
@@ -1634,6 +1656,12 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tb,hyper,Ogden,1,2,OGDEN !2nd order Ogden model" \n
   "tbdata,1,3.5809,1.05e-9,3.8485e5" \n
   "tbdata,4,-2.2e6,-.8778,0" \n
+  \n
+  "!! swelling, depending on fluence (humidity,precipitation,radiation,...) load" \n
+  "tb,swell,ID,1,1,line !linear swelling" \n
+  "tbdata,1,Swelling" \n
+  "tblist,swell,ID" \n
+  "!bfe,all,flue,,1! bc" \n
   \n
   "!! --- Magnetic materials ---" \n
   "Air = 4" \n
@@ -1756,7 +1784,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
   "!! .............................." \n
-  "!@@@ - coupling -" \n
+  "!@@@ - node coupling -" \n
   "!! .............................." \n
   \n
   "nsel,s,loc,x,1" \n
@@ -1767,7 +1795,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "nsel,s,loc,x,1" \n
-  "ce,next,uy,all !couple dofs" \n
+  "ce,next,0,N1,uy,fact1,N2,ux,fact2 !constrain node dofs" \n
   \n
   "allsel" \n
   "/pbc,all,on" \n
@@ -1843,6 +1871,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "nsubst,N1,N2,N3" \n
   "outres,all,all !,item,freq,cname" \n
   "antype,static !,rest,LoadStep,SubStep ![new]rest: perform restart operation" \n
+  "antype,buckle ![static],modal,harmic,trans,substr,spectr " \n
   "nlgeom,on" \n
   "autots,on" \n
   \n
@@ -2193,6 +2222,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@ ------------------------------" \n
   "!@@ -- output to file --" \n
   "!! ------------------------------" \n
+  "parsav,all ![file.parm] write all scalar and array parameters to file " \n
   \n
   "! --- 1.) write macro file without parameter substitution" \n
   "! *vwrite works only in batch mode" \n
@@ -2278,9 +2308,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/input,tmp,mac" \n
   "*list,sim,csv" \n
   \n
+  "!! -- 6.) output from etable" \n
+  "!! *vput: etable -> array" \n
+  "!! *vwrite: array -> file" \n
+  \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "!! --- input from file ---" \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
+  "! read in all parameters written with parsav" \n
+  "parres,change ![file.parm] extend parameter set, replace existing parameters" \n
   "! read in table" \n
   \n
   "*dim,Rolf,,5,5" \n
@@ -3043,6 +3079,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   (read-string "Quartic Coefficient? : ")  \n
   \n
   )
+
+(provide 'ansys-template)
 
 ;; Local Variables:
 ;; mode: outline-minor

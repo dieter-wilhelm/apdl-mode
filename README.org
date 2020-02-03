@@ -1,4 +1,5 @@
-#+rDATE: Time-stamp: <2015-07-10>
+#+STARTUP: all
+#+DATE: Time-stamp: <2020-02-03>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -48,7 +49,7 @@ little Emacs experience.
 
 Advantages compared to other APDL editors: Largest feature set, user
 extensible, cost-free, GNU Emacs integrated tools, available for all
-OS, for the mode's in-built APDL help no ANSYS installation necessary.
+operating systems where the ANSYS suite is running.
 
 [[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and extensible -
 yet free - editor. High quality software available for every operating
@@ -57,7 +58,7 @@ system where ANSYS is running.
 Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][GitHub]]. The latest
 sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
 
-The current stable version 16.1.1 of ANSYS-Mode is available at the
+The current stable version 162-1 of ANSYS-Mode is available at the
 [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub releases site]] or at [[https://drive.google.com/open?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&authuser=0][Google's ANSYS-Mode drive]].  There are
 residing 3 archive packages: 1) A package of ANSYS-Mode together with
 binaries of Emacs for Windows, 2) a source file package for compiling
@@ -67,31 +68,18 @@ installation.  You might fetch these archives via the command line
 way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
 for Windows:
 #+BEGIN_SRC sh
-wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-16.1.1/ansys-mode-16.1.1.emacs-24.5-bin-i686-mingw32.zip
+wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-162-1/ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip
 #+END_SRC
 Important parts of the code (completions, help strings, etc.) are
 based on the original ANSYS documentation.  Besides source files and
 the Emacs editor you will find tutorials in the download section. The
 complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of ANSYS-Mode]] is also online available.
 
-# For an
-# immediate impression have a look at the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html
-# introductory on-line version], here you are able to see the images in
-# a higher resolution as in the PDF version.  And in the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_in-depth_tutorial.html
-# in-depth on-line tutorial] there is the source code highlighting
-# better preserved as in its PDF version.
-
 Please report bugs and inconsistencies also in the documentation!
 Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub's
 issues list]].
 
 * Example applications
-
-# Visual examples you will find in the
-# [http://duenenhof-wilhelm.de/dieter/ansys-mode_tutorial/A-M_introductory_tutorial.html online tutorial]
-# and the following screen-shot on [http://www.emacswiki.org/emacs/AnsysMode EmacsWiki]
 
 [[file:doc/ansys-mode.jpg]]
 
@@ -137,20 +125,23 @@ left and Emacs in ANSYS-Mode on the right hand side.
   comments, navigating number blocks, searching and creating *DO-,
   *IF-, *DOWHILE-, *CREATE-blocks, etc.
 
-- Warning of deprecated element types with a different highlighting of
-  element names in current and deprecated technology.
+- Syntax highlighting in various decoration levels for ANSYS keywords,
+  elements, strings, comments, ...  And also the highligting of user
+  defined variables!.
 
-- Syntax highlighting in various decoration levels (complete ANSYS
-  keywords, undocumented commands, deprecated elements, ...)  and
-  optionally also user defined variables (experimental feature).
+- This highlighting is more than just a colourisation.  It warns of
+  some syntax and structural mistakes. For example: Warning of
+  deprecated element types with a different highlighting for element
+  types in the current state of the art and in deprecated technology
+  and a wrong usage of the (deprecated comment sign `*').
 
-- Overview of *every* variable definition (*GET, *DIM, *SET, =, *DO,
+- Summary for *every* variable definition (*GET, *DIM, *SET, =, *DO,
   CM, *VGET, ...), as well as component names, in the current file.
   These are shown in another window.  In the highest decoration level
   (2) these `user variables' are dynamically highlighted as well.
-  With a running ANSYS interpreter process (GNU-Linux only) it is also
-  possible with a keyboard shortcut to query the current status of
-  variables near the cursor.
+  With a running ANSYS solver/interpreter process (GNU-Linux only) it
+  is also possible with a keyboard shortcut to query the current value
+  or status of variables near the cursor.
 
 - Preview and/or insertion of extensible APDL code templates.  For
   example the function template shows *all* available ANSYS
@@ -160,7 +151,7 @@ left and Emacs in ANSYS-Mode on the right hand side.
   i. e. they are asking for or completing user input.
 
 - Alignment (beautification) of whole paragraphs or marked sections
-  with variable definitions.
+  for APDL variable definitions.
 
 - Narrowing, i. e. hiding, of uninteresting content. This is done by
   default for number blocks (nblock, eblocks and cmblocks) in
@@ -173,10 +164,14 @@ left and Emacs in ANSYS-Mode on the right hand side.
   analogue to the WorkBench tree view.
 
 - Auto-insertion (optionally) of a header and outline code for every
-  new APDL file.
+  APDL file creation.
 
 - Convenient comment handling, commenting out whole paragraphs or
   control blocks and rapidly removing all comments.
+
+- Enclosing of marked regions with ANSYS string and substitution
+  delimeters `'' and `%' respectively (C-c ' and C-c %).  This works
+  for `"', `(' when inserting just the very same characters.
 
 - Auto-indentation of looping blocks and conditional control blocks
   together with closing of open blocks with auto-insertion of the
@@ -184,387 +179,57 @@ left and Emacs in ANSYS-Mode on the right hand side.
 
 - ANSYS-Mode defines abbreviations for APDL templates or other code
   constructs i. e. with writing a character after a special key (here:
-  `) triggers an expansion of complete code sequences.
+  `) triggers an expansion of complete code sequences.  You can write
+  your own abbreviations or extend the existing.
 
 - You are able to use all Emacs' facilities, like the built-in
-  calculator, file manager, image viewer and many others.  ANSYS-Mode
-  changes some Emacs default behaviour to alleviate the transition
-  from other editors and user interface standards.
+  calculator, file manager, image & document viewer and many others.
+  ANSYS-Mode changes some Emacs default behaviour to alleviate the
+  transition from other editors and user interface standards.
 
+* Requirements and installation
+  Please have a look in the [[file:INSTALLATION.org][INSTALLATION]] file.
+
+* Usage
+
+  Please read the introductory tutorial first.
+
+  When you have a file under `ansys-mode' check out the menu bar's
+  `ANSYS' entry for its possibilities and select the entry `Describe
+  ANSYS Mode' or type "C-h m" (i. e. the <CTRL> key together with the
+  <h> key and subsequently the <m> key), which will display the
+  ANSYS-Mode help which is your `online' guide for its usage, and
+  key-bindings.
+
+  Templates, i.e. code snippets (also called skeletons) might be
+  extended in `ansys-template.el' and can be used similarly or
+  complementary to a classical ANSYS macro library (for example the
+  ~APDL/~ directory in the ANSYS installation tree).
+
+* Customisation
+  ANSYS-Mode provides its own customisation file ~ansys-config.el~.
 * News
-
   Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
-
-* Requirements
-
-This mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
-GNU-Linux64.  It was also tested with Emacs-23.1 (released July 2009)
-on GNU-Linux64 and should run with all older versions of Emacs down to
-Emacs-23.
-
-Some of ANSYS-Mode's solver control and communication features are
-only implemented for GNU-Linux systems.
-
-* Installation
-
-The version scheme is a mixture of the ANSYS release (currently
-"16.1") on which the highlighting and completing code is based and the
-version increments (currently ".1") of ANSYS-Mode (thus "16.1.1") for
-this particular ANSYS release.
-
-** Files
-
-Sources:
-- ansys-mode.el: Main file
-- ansys-keyword.el: Highlighting variables build from
-  helper/ansys-fontification.el
-- ansys-template.el: Template definitions
-- ansys-process.el: Variables and functions related to solver
-  processes
-
-(and possibly their compiled versions with the suffix '.elc'.  In case
-you are using the mode with an older version of Emacs than 24.1 please
-remove the compiled .elc files, if any.)
-
-*Auxiliaries*:
-- README.org -- This file
-- NEWS.org -- News and history
-- TODO.org -- Todos and deficiencies
-- LICENSE.org -- The GPL (Gnu Public License) Version 3
-- helper/example.dat -- WorkBench example APDL solver input file
-- helper/example.anf -- ANSYS geometry neutral file example
-- helper/example.mac -- APDL user macro and highlighting example
-- helper/tools/bin/ansys-mode-16.1.1.sh -- A wrapper for calling Emacs
-- matlib/ -- a directory with examples of APDL material definitions
-- doc/A-M_introductory_tutorial-16.1.1.pdf -- Your first look at ANSYS-Mode?
-- doc/A-M_in-depth_tutorial-16.1.1.pdf -- A hands-on ANSYS-Mode tutorial
-- doc/A-M_in-depth_tutorial-16.1.1.ansys -- Hands-on tutorial's supplementary APDL code
-- doc/A-M_APDL_reference-16.1.1.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
-
-You can actually read the PDFs in the Emacs editor as well!
-
-** Short instructions
-*** For Windows systems
-
-If applicable please grab the package of a pre-compiled Emacs-24.5
-(Win32/64) bundled with a pre-configured ANSYS-Mode at above GitHub
-site and unpack this archive anywhere on your system (you do not need
-administrator rights).  You might subsequently run the program
-addpm.exe (located in the bin\ directory) to add an Emacs entry to the
-Windows start menu (please refer to the README.W32 file) otherwise
-start the Emacs executable runemacs.exe from there.
-
-ANSYS-Mode is now immediately available, by opening (check out
-`example.mac') or by creating a new APDL file with a `.mac' suffix.
-Have fun!
-
-Most functionality should work out of the box, but if you have NOT
-installed ANSYS in its default installation directory on drive
-`C:Program Files' on Win64 and you want to start--for
-example--'anslic_admin' or the ANSYS help browser directly from Emacs
-please adjust the configuration file `default.el' file in Emacs'
-`site-lisp' directory according to the commented code examples.  If
-you are using your own configuration file, please remember that it is
-loaded *before* `default.el'; this means that ANSYS-Mode settings done
-by Emacs' customisation system or written in your configuration file
-might be overwritten by `default.el'.  If you remove `default.el' or
-set 'inhibit-default-init' to non-nil in your own init file, then
-default.el is not loaded any longer.
-
-In case you want to download or have already installed the [[http://ftp.gnu.org/pub/gnu/emacs/][original
-version]] of GNU Emacs, you can also download and configure the
-ANSYS-Mode package separately. Please refer to below instructions.
-
-*** For a GNU-Linux system without Emacs
-
-Please download the source archive
-~ansys-mode-16.1.1.emacs-24.5.tar.xz~ from
-[[https://github.com/dieter-wilhelm/ansys-mode/releases]], unpack it
-somewhere and compile it:
-
-   #+BEGIN_SRC sh
-   tar -xJvf ansys-mode-16.1.1.emacs-24.5.tar.xz
-   cd emacs-24.5/
-   ./configure
-   make
-   #+END_SRC
-
-after this you will find the Emacs executable ~emacs~ in the ~src/~
-directory.
-
-optionally, if you have administrator rights you can install Emacs in
-your system.
-   #+BEGIN_SRC sh
-   make install
-   #+END_SRC
-
-*** For existing Emacs installations on Windows and GNU-Linux
-
-**** Direct way; no file configuration necessary
-
-Emacs must know where all the code (.el or its compiled versions .elc)
-files reside!  Extract the mode's archive ~ansys-mode-16.1.1.tar.xz~
-into an Emacs directory which is in its default load-path (a good
-place is the ~site-lisp/~ folder in your Emacs installation tree) or
-indicate an arbitrary directory with the environment variable
-EMACSLOADPATH).
-
-#+BEGIN_SRC sh
-export EMACSLOADPATH="/your/drive/where/ansys-mode/resides:"
-#+END_SRC
-
-(The colon `:' at the end indicates Emacs that the specified directory
-is to be added to the default load path.)
-
-Then you can load within Emacs the mode definitions with `M-x
-load-file ansys-mode RET', i. e. typing "M-x" (first) the <Alt> key
-and then the <x> key simultaneously, you'll end up in the so called
-Emacs minibuffer prompt, now type "load-file" (you might apply the
-<TAB> key for the Emacs auto-completion feature at every intermediate
-stage) and conclude this input with the <RET> key. Emacs will then
-prompt you for a file, type in the directory where you have extracted
-the code and "ansys-mode.el" (or "ansys-mode.elc" - for loading speed
-reasons - if the compiled version is available) and press RET to
-execute the loading.  Thereafter call the mode itself with `M-x
-ansys-mode RET' for every new or existing APDL file.
-
-**** More convenient way; file configuration necessary
-
-Extract the files somewhere on disc and put the following paragraph
-into your `~/.emacs' or `~/.emacs.el' or `~/.emacs.d/init.el'
-configuration file in your home directory (`~'), which is determined
-by the environment variable HOME (on both Windows and Unix), adjust
-the stuff below in capital letters, restart Emacs and ansys-mode will
-be automatically applied for all files with suffixes `.mac', `.dat'
-and `.inp'.
-
-#+BEGIN_SRC emacs-lisp
-    (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\ANSYS-MODE\\FILES\\RESIDE")
-    ;; assuming you extracted the files on drive "c:"
-    ;; for example: "c:\\emacs-24.5\\share\\emacs\\24.5\\site-lisp\\ansys-mode"
-
-    ;; .mac is the macro suffix of ANSYS i. e. these macros can be called
-    ;; in the ANSYS command prompt like a regular ANSYS function (without
-    ;; the suffix .mac)
-    (add-to-list 'auto-mode-alist '("\\.mac\\'" . ansys-mode))
-    ;; .dat and .inp are WorkBench's solver input file suffixes
-    (add-to-list 'auto-mode-alist '("\\.dat\\'" . ansys-mode))
-    (add-to-list 'auto-mode-alist '("\\.inp\\'" . ansys-mode))
-    ;; .anf is the suffix for "ANSYS Neutral" files which include mostly
-    ;;  gometric data but also some APDL snippets.
-    (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-
-    (autoload 'ansys-mode "ansys-mode" nil t)
-#+END_SRC
-
-** Verbose instructions
-
-- Direct way, no configuration necessary (loading `by hand')
-
-Please consult the `direct way' description above.
-
-If you are unfamiliar by these concepts I suggest working through the
-build-in tutorial of GNU Emacs (you'll find it in the help entry in
-the menu bar), it doesn't take too much time and the investment will
-be worth it since it will accelerate your general editing capabilities
-in the future.
-
-- Permanent configuration
-
-Please have a look at the accompanying `default.el' customisation
-example. It can be used as a configuration file (after moving it
-e. g. to `/usr/share/emacs/site-lisp' or
-`c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
-the Emacs installation tree is in its default load-path).  Yet
-`default.el' is loaded AFTER your personal Emacs configuration file
-(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
-to change the following settings with Emacs' customisation system or
-changing them directly in your personal configuration file, you must
-either set the variable `inhibit-default-init' to `t' "(setq
-inhibit-default-init t)" in your personal configuration file or remove
-`default.el' otherwise your settings might be overwritten!
-
-If the ANSYS-Mode files (*.el) are NOT placed in a default Emacs
-load-path it is necessary to adjust the following variable.
-
-#+BEGIN_SRC emacs-lisp
-     (add-to-list 'load-path
-		  "C:\\YOUR\\DIRECTORY\\WHERE\\MODE\\FILES\\RECIDE")
-#+END_SRC
-
-For example: "c:\\emacs\\ansys-mode" on a Windows system or
- "/usr/local/src/emacs/ansys-mode" on a GNU-Linux system.
-
-#+BEGIN_SRC emacs-lisp
-     (autoload 'ansys-mode "ansys-mode" "Activate ANSYS-Mode." 'interactive)
-#+END_SRC
-
-From here you are able to type "M-x ansys-mode RET" to activate the
-mode for every interesting file.
-
-- Automatic mode assignment
-
-When you intend to apply the mode automatically, for all files with
-the extensions `.mac', `.dat', `.inp' and `.anf' ( .dat and .inp are
-WorkBench's solver input file suffixes) you are opening, add the
-following to your `.emacs' file:
-
-#+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.mac$" . ansys-mode))
-     (add-to-list 'auto-mode-alist '("\\.dat$" . ansys-mode))
-     (add-to-list 'auto-mode-alist '("\\.inp$" . ansys-mode))
-     ;; this is the suffix for "ANSYS Neutral Files" which include some APDL.
-     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-#+END_SRC
-
-The suffix below belongs to the `ansys neutral file' export format
-which contains also an APDL header and footer.
-
-#+BEGIN_SRC emacs-lisp
-     (add-to-list 'auto-mode-alist '("\\.anf$" . ansys-mode))
-#+END_SRC
-
-- Auto-insertion of code
-
-In case you also want to enjoy the auto insertion feature, which puts
-(optionally) some predefined body of ANSYS commands to every new APDL
-file insert the following into '.emacs':
-
-#+BEGIN_SRC emacs-lisp
-     (setq auto-insert-mode 1)
-     (setq auto-insert-query t) ;insert only after request
-     (add-to-list 'auto-insert-alist '(ansys-mode . [ansys-skeleton-compilation]))
-#+END_SRC
-
-- Auto-loading of helper functions
-
-With below section you are also able to use certain ANSYS related
-commands in a new Emacs session without the need of previously having
-explicitly called ansys-mode.
-
-#+BEGIN_SRC emacs-lisp
-     (autoload 'ansys-customise-ansys "ansys-mode" "Activate the function for calling a special ANSYS customisation buffer." 'interactive)
-     (autoload 'ansys-abort-file "ansys-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
-     (autoload 'ansys-display-error-file "ansys-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
-     (autoload 'ansys-start-ansys-help "ansys-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-     (autoload 'ansys-start-ansys "ansys-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
-     (autoload 'ansys-license-status "ansys-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
-#+END_SRC
-
-** Compiling Emacs under Linux
-
-   #+BEGIN_SRC sh
-   cd emacs-24.5/
-   ./configure
-   make
-   #+END_SRC
-after this you will find the Emacs executable ~emacs~ in the ~src/~
-directory.
-
-optionally, if you have administrator rights you can install Emacs in
-your system.
-   #+BEGIN_SRC sh
-   make install
-   #+END_SRC
-
-*** RHEL (6)
-**** Required libraries
-     - ncurses-devel.x86_64
-     - gtk2-devel.x86_64 (libgtk under Debian)
-     #+BEGIN_SRC sh
-     sudo yum install ncurses-devel.x86_64
-     ...
-     #+END_SRC
-**** Optional libraries
-     Graphics support
-     - libjpeg-devel.x86_64
-     - giflib-devel.x86_64 (libgif-dev under Debian)
-     - libtiff-devel.x86_64
-     - libpng-devel.x86_64
-     - libxpm-devel.x86_64
-     - libMagickWand.x86_64 (for imagemagick support)
-
-*** Debian and derivatives
-**** Required libraries
-     Build dependencies with
-     #+BEGIN_SRC sh
-     sudo aptitude install build-dep emacs25
-     #+END_SRC
-    libtiff5-dev -> libtiff-dev
-    libpng12-dev
-**** Optional libraries
-     Graphics support
-     - libgif-dev
-     - libmagickwand-dev (for imagemagick support)
-***** gnutls
-      for smtp authentication  ~/.authinfo.gpg (info:auth)
-     #+BEGIN_SRC sh :dir /sudo:: :results raw
-      aptitude install -y libgnutls-dev gnutls-bin
-     #+END_SRC
-
-**** Documentation of Emacs in Debian 8
-     The documentation is in the Debian non-free repository.  Because
-     of a general Resolution: Why the GNU Free Documentation License
-     is not suitable for Debian main
-     [[https://www.debian.org/vote/2006/vote_001]]hi
-
-* Usage and customisation
-
-When you have a file under `ansys-mode' check out the menu bar's
-`ANSYS' entry for its possibilities and select the entry `Describe
-ANSYS Mode' or type "C-h m" (i. e. the <CTRL> key together with the
-<h> key and subsequently the <m> key), which will display the
-ANSYS-Mode help which is your `online' guide for its usage,
-key-bindings and customisation options.
-
-Templates, i.e. code snippets or so called skeletons might be extended
-in `ansys-template.el' and can be used similarly or complementary to
-a classical ANSYS macro library.
-
-* Experienced Emacs users
-
-ANSYS-Mode changes the default behaviour of Emacs
-
-globally:
-
-- Switches on font-lock-mode if toggled off, e.g when calling Emacs
-  with the -D (basic display) option
-- Show Parentheses Mode is activated ~(show-paren-mode t)~
-- Advised M-w (kill-ring-save) without active region to copy the whole
-  line
-
-(Delete Selection Mode, a behaviour similar on Windows platforms can
-be switched on in the ANSYS-Mode menu.)
-
-locally:
-- ~(setq scroll-preserve-screen-position t)~
-- ~(toggle-truncate-lines 1)~ truncate long lines, don't wrap them
-- Changed `mark-paragraph' (M-h) to move the cursor to the end of the
-  region
-
 * Acknowledgements
 
-- Tim Read
-- Geoff Foster
+  Tim Read and Geoff Foster for their ansys-mod.el from 1997 which
+  triggered the idea in 2006 to start ANSYS-Mode as a GNU public license
+  (GPL) implementation with an extended feature set.
 
-For their ansys-mod.el from 1997 which triggered the idea in 2006 to
-start ANSYS-Mode as a GNU public license (GPL) implementation with an
-extended feature set.
+  Further acknowledgements (in mainly reverse chronological order):
 
-Further acknowledgements (in mainly reverse chronological order):
-
-- Mehmet Akgul
-- Nish Joseph
-- Alwin Perras
-- Mathias Dahl, for hide-region.el (and yupeng for some additions)
-- Thien-Thi Nguyen
-- Michael Kidner
-- Ilya Gurin
-- Alex Schroeder
-- Holger Sparr
-- Eli Zaretzki
-- Markus Triska
-- [[http://stallman.org][RMS]] (Richard Stallman) for GNU Emacs
+  - Mehmet Akgul
+  - Nish Joseph
+  - Alwin Perras
+  - Mathias Dahl, for hide-region.el (and yupeng for some additions)
+  - Thien-Thi Nguyen
+  - Michael Kidner
+  - Ilya Gurin
+  - Alex Schroeder
+  - Holger Sparr
+  - Eli Zaretzki
+  - Markus Triska
+  - [[http://stallman.org][RMS]] (Richard Stallman) for GNU-Emacs
 
 * Further Resources
 ** ANSYS-Mode
@@ -572,56 +237,20 @@ Further acknowledgements (in mainly reverse chronological order):
    - The [[http://www.emacswiki.org/emacs/AnsysMode][Wiki page of ANSYS-Mode]]
    - The [[https://github.com/dieter-wilhelm/ansys-mode][GitHub page of ANSYS-Mode]]
 ** Editor Resources
-  - The [[http://www.emacswiki.org][EmacsWiki]]
-  - A competitor of ANSYS-Mode: The commercial [[http://www.padtinc.com/pedal][Pedal]] script editor
-  - Another free [[http://apdl.de][APDL editor]], unfortunately this site seems to be
-    abandoned since 2010
-  - Simple APDL syntax highlighting is available for various editors,
-    gvim, nedit, ... just to name a few, please have a look at
-    [[http://ansys.net][ANSYS.net]].
+   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
+   - The [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for Emacs
+   - Another free [[http://apdl.de][APDL editor]], unfortunately this site seems to be
+     abandoned since 2010
+   - A commercial competitor of ANSYS-Mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor
+   - Simple APDL syntax highlighting is available for various editors,
+     gvim, nedit, ... just to name a few, please have a look at
+     [[http://ansys.net][ANSYS.net]].
 ** ANSYS and APDL resources
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (registration necessary for the
      forum)
    - A general  ANSYS repository [[http://www.ansys.net][ansys.net]]
    - The [[http://www.ansys.com][ANSYS homepage]]
    - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club in Germany
-
-* Bugs and Problems
-
-For an overview of deficiencies and outstanding issues please check
-the beginning of the [[file:TODO][TODO]] file.
-
-The `user variable' highlighting is still experimental, newly edited
-variable definitions are taken into account only when the variable
-ansys-dynamic-highlighting-flag is set (for very large files this
-slows Emacs and this flag is only implemented for `.mac' files) or any
-times when you activate the variable display (with C-c C-v) and the
-maximum highlighting level.  If not already the case try to use the
-code in compiled form, please have a look at the documentation of the
-Emacs function `byte-recompile-directory'.
-
-ANSYS `format line' (multi-line highlighting) and `user variable'
-highlighting (when the mentioned flag above is not set) are somewhat
-brittle, please use "M-o M-o" to update the highlighting in case the
-format line and all variables are not highlighted correctly.
-
-** Getting help
-
-If you experience problems installing or running this mode you have
-the following options:
-
-- Write an email to the mode [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] (you can trigger a bug report
-  from the menu or directly calling the function
-  `ansys-submit-bug-report'.  Even when you are not in the position of
-  sending emails from Emacs this will give at least a useful mail
-  template with valuable information about internal mode settings).
-
-- When you have already a (cost free) GitHub account you are able to
-  issue a bug report at the [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub issues list]].  From this site you
-  might also download the latest development version.
-
-- At the [[http://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
-  without registration.
 
 -----
 

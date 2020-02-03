@@ -3,7 +3,7 @@ help :
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
-	@echo "make ALWIN = Archive for Alwin"
+	@echo "make CONTI = Archive for my company"
 	@echo "make HTML = update the html documentation"
 	@echo "make TAGS = make the goddam tags!"
 	@echo "make ELC = compile the el files"
@@ -20,13 +20,14 @@ EMACS_VERSION := emacs-$(EMACS_VER)
 # ansys-mode-$(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
 # tutorials: A-M_xxx
 ANSYS_MAJOR := 16
-ANSYS_MINOR := 1
+ANSYS_MINOR := 2
 
 # this is the current ANSYS-Mode version suffix
-MODE_VERSION := 1
+MODE_VERSION := test1
 # for consistency:
-#MODE_VERSION := freeze1
+#MODE_VERSION := test1
 #MODE_VERSION := beta1
+#MODE_VERSION := freeze1
 #MODE_VERSION := rc1
 #MODE_VERSION := 1
 
@@ -44,7 +45,7 @@ else
  EMACS_DIR := /appl/emacs/
 endif
 
-VERSION := $(ANSYS_MAJOR).$(ANSYS_MINOR).$(MODE_VERSION)
+VERSION := $(ANSYS_MAJOR)$(ANSYS_MINOR)-$(MODE_VERSION)
 
 EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 # in the ftp.gnu.org/gnu folder is the gnu-keyring.gpg
@@ -67,50 +68,100 @@ EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 .PHONEY : EXE
 EXE : $(EMACS_EXE)
 
+X11_FILES := ../X11/xGetClassicsWindow.cpp ../X11/xPasteToWin.cpp ../X11/xGetFocusWindow.cpp ../X11/xSendReturn.cpp
+
+X11_EXE := $(X11_FILES:.cpp=)
+
+.PHONEY : TEST
+TEST : 
+	@echo $(X11_EXE)
+
+.PHONEY : ../X11
+X11 : $(X11_FILES)
+	$(MAKE) -C X11
+
 PACKAGE := ansys-mode-$(VERSION).tar.xz
 
-EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el ../default.el
-# ansys-fontification.el is missing since it is not necessary for running A-M
+# necessary el files
+EL_FILES := ../ansys-config.el ../ansys-mode.el ../ansys-keyword.el \
+	../ansys-initialise.el ../ansys-template.el ../ansys-process.el
+# fontification.el is not included since it is not necessary for running A-M
+
+../ansys-config.el : ../ansys-config.org
+	$(EMACS_EXE) --batch --file $< \
+	  --execute "(add-to-list 'load-path \"~/a-m\")" \
+	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 
+# compiled files
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
+FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
+HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
 
-FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
-	  example.mac example.anf example.dat
+#	 ../doc/APDL_tutorial.ans
 
 # ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
 # 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
 WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
-		 example.mac example.anf example.dat tools/ansys-mode/README
+		 example.mac example.anf example.dat tools/ansys-mode/README.Conti
 
-WORK_EL_FILES := ../a-m.el ../ansys-mode.el ../ansys-keyword.el \
-  ../ansys-template.el ../ansys-process.el
+WORK_EL_FILES := $(EL_FILES)
 
-
-TUTORIAL_SOURCES := A-M_introductory_tutorial.org \
-	 A-M_in-depth_tutorial.org                \
-	 A-M_APDL_reference.org
+TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
+	            ../doc/A-M_in-depth_tutorial.org     \
+	            ../doc/A-M_APDL_reference.org
 
 TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
- ../doc/A-M_in-depth_tutorial.ansys 	          \
+ ../doc/A-M_in-depth_tutorial.ans 	          \
  ../doc/A-M_in-depth_tutorial.pdf                 \
  ../doc/A-M_APDL_reference.pdf
 
-
 MATLIB := ../matlib/
 
-PACKAGE_FILES :=  $(FILES) $(EL_FILES) $(TUTORIALS) $(MATLIB)
+X11 := \
+../X11/makefile \
+../X11/xGetClassicsWindow \
+../X11/xGetClassicsWindow.cpp \
+../X11/xGetFocusWindow \
+../X11/xGetFocusWindow.cpp \
+../X11/xPasteToWin \
+../X11/xPasteToWin.cpp \
+../X11/xSendReturn \
+../X11/xSendReturn.cpp \
+
+
+PACKAGE_FILES :=  $(X11) $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
+
+default.el : makefile
+	@echo ";;; Automatically created from ANSYS-mode-$(VERSION)" > $@
+	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@
+	@echo "       (file (concat dir \"/ansys-mode-$(VERSION)/ansys-config.el\")))" >> $@
+	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo "Packaging $@ ..."
 	@echo
-	@tar -cJvf $@ $(PACKAGE_FILES)
+	@test -d ansys-mode-$(VERSION) || \
+	    mkdir ansys-mode-$(VERSION)
+	@cp -a $(FILES) ansys-mode-$(VERSION)
+	@cp -a $(EL_FILES) ansys-mode-$(VERSION)
+	@test -d ansys-mode-$(VERSION)/doc || \
+	    mkdir ansys-mode-$(VERSION)/doc
+	@cp -a $(TUTORIALS) ansys-mode-$(VERSION)/doc
+	@cp -a $(HELPER_FILES) ansys-mode-$(VERSION)/doc
+	@test -d ansys-mode-$(VERSION)/helper || \
+	    mkdir ansys-mode-$(VERSION)/helper
+	@test -d ansys-mode-$(VERSION)/matlib || \
+	    mkdir ansys-mode-$(VERSION)/matlib
+	@test -d ansys-mode-$(VERSION)/X11 || \
+	    mkdir ansys-mode-$(VERSION)/X11
+	@cp -rf $(MATLIB) ansys-mode-$(VERSION)
+	@tar -cJvf $@ ansys-mode-$(VERSION) default.el
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
@@ -120,24 +171,46 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 .PHONEY : MODE
 MODE : $(PACKAGE)
 
-.PHONEY : ALWIN
-ALWIN : a-m-$(VERSION).tar.xz
+.PHONEY : CONTI
+CONTI : A-M-$(VERSION).tar.xz
 
-a-m-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README tools/bin/ansys-mode.sh makefile
-	rm -f tools/ansys-mode/ansys-mode-$(VERSION)/matlib/*
-	cp -a $(WORK_EL_FILES) $(FILES) $(TUTORIALS) $(MATLIB) \
-	      tools/ansys-mode/ansys-mode-$(VERSION)
+A-M-$(VERSION).tar.xz : $(PACKAGE) tools/ansys-mode/README.Conti tools/bin/A-M-$(VERSION).sh \
+			makefile $(X11)
+	mv tools/ansys-mode/README.Conti tools/
+	rm -fr tools/ansys-mode/*
+	mv tools/README.Conti tools/ansys-mode/
+	@test -d tools/ansys-mode/ansys-mode-$(VERSION) || \
+	    mkdir tools/ansys-mode/ansys-mode-$(VERSION)
+	@echo "syncing.."
+	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) \
+	    $(TUTORIALS:../%=%) X11/ \
+	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) $(X11_EXE:../%=%)\
+		helper/tools/ansys-mode/ansys-mode-$(VERSION)
+	@pwd
+	cd ./tools/ansys-mode; ln -sf ansys-mode-$(VERSION) current
 	tar -cJvf $@ --group HPCUser_1 tools
 
-$(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile  $(A-M_EMACS_SOURCE_PACKAGE)
-	tar -xJvf $(EMACS_SOURCE_PACKAGE) 
-	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp
-	tar -cJvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
+tools/bin/A-M-$(VERSION).sh : makefile
+	@test -d tools/bin || mkdir tools/bin
+	@echo "#!/bin/sh " > $@
+	@echo "# Automatically created from ANSYS-mode-$(VERSION)" >> $@
+	@echo "emacs -l /appl/tools/ansys-mode/ansys-mode-$(VERSION)/ansys-config.el \$$*" >> $@
+	chmod +x $@
 
 .PHONEY : EMACS_SRC
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
-HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html ../LICENSE.html ../doc/default.html ../doc/A-M_APDL_reference.html ../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html ../matlib/README.html
+$(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile
+	test -d $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION) || \
+	    mkdir -p $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
+	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)
+	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
+	tar --append -Jvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
+
+HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
+	../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html \
+	../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html \
+	../matlib/README.html ../INSTALLATION.html
 
 ORG_FILES := $(HTMLs:.html=.org)
 
@@ -169,28 +242,30 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure && make
 #	cd $(EMACS_DIR)$(EMACS_VERSION); ./configure  --with-gif=no &&	make
 
-A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
+../doc/A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "../ansys-mode.el"  --execute "(org-export-as-pdf 3)"
+	  --load "ansys-mode.el"  --execute "(org-latex-export-to-pdf)"
 
-A-M_in-depth_tutorial.ansys : ../doc/A-M_in-depth_tutorial.org
+../doc/A-M_in-depth_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "~/ansys-mode/trunk/ansys-mode.el" --execute "(org-babel-tangle)"
+	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
+	mv ../doc/A-M_in-depth_tutorial.ansys ../doc/A-M_in-depth_tutorial.ans
 
-A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
+../doc/A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-export-as-pdf 3)"
+	  --load "ansys-mode.el" --execute "(org-latex-export-to-pdf)"
 
 ../doc/A-M_introductory_tutorial.pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
-	--load "/home/dieter/a-m/helper/export.el" \
+	--load "~/a-m/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
+../ansys-keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
 	$(EMACS_EXE) --batch --load $<
+	ln -f ansys-keyword.el ..
 
 %.elc : %.el
 	$(EMACS_EXE) --batch -f batch-byte-compile $<
@@ -198,12 +273,20 @@ ansys-keyword.el : ansys-fontification.el ansys_dynprompt.txt ansys_elements.txt
 # This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
 EMACS : $(EMACS_PACKAGE) $(PACKAGE)
-	 test -d share/emacs/$(EMACS_VER)/site-lisp || mkdir -p share/emacs/$(EMACS_VER)/site-lisp
-	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp
-	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp
-#	 cp -uv ../default_el share/emacs/$(EMACS_VER)/site-lisp/default.el
+	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION) || \
+	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 cp -rf $(MATLIB) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
+	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc || \
+	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
+	 cp -uv $(TUTORIALS) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
+	 cp -uv default.el share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION).$(EMACS_PACKAGE)
-	 zip -u ansys-mode-$(VERSION).$(EMACS_PACKAGE) share/emacs/$(EMACS_VER)/site-lisp/*
+	 zip -urv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
+	   share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/*
+	 zip -uv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
+	   share/emacs/$(EMACS_VER)/site-lisp/default.el
 
 ##################################################
 # getting the emacs source
@@ -221,7 +304,8 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) ansys-fontification.el 
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el tools/ansys-mode/README.Conti ../ansys-config.org
+
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)
 

@@ -8,9 +8,12 @@
 
 !(progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "../ansys-mode.el")(ansys-mode))
 
-
-
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! self contained mechanical example
+finish
+/clear
+!y ! answer query in interactive mode
+
 /units,mpa !indicate mm-t-s unit system
 !! /units
 !@ --- Preprocessing ---
@@ -25,8 +28,13 @@ mp,nuxy,Steel,0.3 ! Poisson No
 mp,ex,Steel,200000 ! Elastic modulus
 !@@ -- Modeling --
 block,0,1,0,1,0,1
+
 !@@ -- Meshing --
 vmesh,all
+
+/view,1,1,1,1
+/replot
+
 !@@ -- BCs, Loads --
 nsel,s,loc,x,0
 d,all,all
@@ -34,40 +42,51 @@ nsel,s,loc,x,1
 d,all,uy,-.1
 allsel
 save
+
 !@ --- Solving ---
 /solu
 solve
+
 !@ --- Postprocessing --
 /post1
 /view,,1,1,1
 plnsol,u,sum,2
-/image,save,test !save XWindow Dump xwd (or bmp on Windows)
+/image,save,test !save XWindow Dump xwd or bmp on Windows
 /sys,convert test test.png
 
-!! ------------------------------
-/units,mpa !indicate mm-t-s unit system
-c
+!! end of self contained example
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
 !@@ -- ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle !/clear
+y !answer query
 /prep7
 otto = 9
-c***, this is %right%! %otto% no % parameter expansion
+right = 'wrong'
+c***, this is %right% ! no % parameter expansion of %otto% 
+/com, this is %right% ,  parameter expansion of otto=%otto%
 /title, this is a %otto% string command similar to /com and c***
+
 !@@ -- variable definitions and functions
-k,,,,
+k ! keypoint at (0,0,0)
+N    =	_RETURN !_RETURN value of k command, No of keypoints
+_aaa = 9 !reserved underscore "_" variables
+Pi   =	acos(-1) $ True=1 $ False=0
+Xc   = 0 $ Yc = 'char' 	 ! character string variables
+R1   = 4 $ R2=20
 
-N = _RETURN		 !_RETURN value of k command
-_aaa = 9		 !reserved underscore "_" variables
-Pi=acos(-1) $ True=1 $ False=0
-Xc = 0 $ Yc = 'char' 	 ! character string variables
-R1=4$R2=20
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! align below paragraph with C-c C-a
+N=1.0
+Alpha1=sin( 14.5) - 360./ (2*N)
+Alpha2=+360./(2*N)
+Steel=1!Steel
+Depth=ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
+Xc= != empty rhs clears variables
 
-Alpha1 = rotx( 14.5) - 360./ (2*N)
-Alpha2 = +360./(2*N)
-Steel  =	1 !
-Depth  = ARG1	  !ARG{1-9}, AR{10-19} = "*use" variables
-Xc     =	  != empty rhs clears variables
-
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/prep7
 cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
 mp, nuxy,Steel,0.3 ! Poisson No
 mp, ex,Steel,200000 ! Elastic modulus
@@ -75,11 +94,13 @@ mp, ex,Steel,200000 ! Elastic modulus
 /com, === Material %Steel% is steel. ===
 !! element types & deprecated element types
 et,Steel,beam3 $ et,Alu,shell91
+
 !@@ -- default commands
 nsel,s,loc,y,0
     ,a,loc,y,1
     ,r,loc,x,0
 d,all,all
+
 !@@ ::: implicit : (colon) looping :::::
 lfillt,(1:2),(3:4),5
 
@@ -93,6 +114,7 @@ lfillt,(1:2),(3:4),5
   *get,Fx,fsum,,item,fx
   Reaction(I)=Fx
 *enddo
+
 !@@ -- multiline *msg formatting with the & operator
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
@@ -106,6 +128,7 @@ f,all,fx,1
 flist,all
 fini $ /eof
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+
 !@@@ - inertia relief -
 
 cgomga,x,y,z, ! rotational velocity about globla coord. sys.

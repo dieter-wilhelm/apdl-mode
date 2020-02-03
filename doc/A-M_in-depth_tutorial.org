@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-07>
+#+DATE: Time-stamp: <2020-02-03>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:     Guided ANSYS-Mode hands-on Tutorial
 
@@ -104,7 +104,7 @@
 ** Using this tutorial
 
 *** Please read the *introductory* ANSYS-Mode tutorial first
-    This is the file `A-M_introductory_tutorial-16.1.1.pdf' in the
+    This is the file `A-M_introductory_tutorial-162-1.pdf' in the
     mode's archive or use its [[http://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
 
     Ah yes, you are in a hurry (I thought so). *In summary:* You
@@ -1327,6 +1327,8 @@ Thank you for your time, have fun with Emacs...
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !! End of APDL code
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  !! this is for Emacs:
+
 #+end_src
 
 # *** Copy above code with *C-c C-u*
@@ -1376,4 +1378,3 @@ Thank you for your time, have fun with Emacs...
 # time-stamp-active: t
 # time-stamp-format: "%:y-%02m-%02d"
 # end:
-

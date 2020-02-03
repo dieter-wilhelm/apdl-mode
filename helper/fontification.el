@@ -1,4 +1,4 @@
-;;; ansys-fontification.el-- building keywords and completions
+;;; fontification.el-- building keywords and completions
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
 
@@ -25,22 +25,22 @@
 
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/ansys/docu/dynprompt161.ans" "./ansys_dynprompt.txt")
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans" "./ansys_dynprompt.txt")
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
-;;     done for v12,v13,v14,v145,v150,v161
+;;     done for v12,v13,v14,v145,v150,v162
 
 ;; 2.) elements: copy within the ansys help browser from the
 ;;     Element reference from the table of contents the list -> `ansys_elements.txt'
-;;     (/appl/ansys_inc/v161/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13,v14,v145,v150, v161
+;;     (/appl/ansys_inc/v162/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
+;;     done: v12,v13,v14,v145,v150, v162
 
 ;; 3.) command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
 
 ;;     use: extract_tags.py
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
 ;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
-;;     done: v13,14,145,150, v161
+;;     done: v13,14,145,150, v162
 
 ;;     dated: previously did copy&pasted from the ansys help
 ;;       ->`ansys_keywords.txt' kill /eof from the keywords (see:
@@ -61,9 +61,9 @@
 ;;     get function summary ->`ansys_get_functions.txt'
 
 ;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
-;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/16.1.0/v161/commonfiles/help/ansys_Index.hlp" ".")
+;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/ansys_Index.hlp" ".")
 ;;     the rest does code below
-;;     done v145, v150, v161
+;;     done v145, v150, v162
 ;;     cp ansys_Index.hlp??? and check variable ansys-help-index
 
 ;; _RETURN values are now documented in the -skeleton-information.
@@ -71,17 +71,18 @@
 
 ;;; necessary variables, to be maintained:
 ;; 1.) `Ansys_undocumented_commands' from the release notes,
-;;  v161/commonfiles/help/en-us/help/ai_rn/ansysincreleasenotes.html
-;;     done 145,150,v161
+;;  v162/commonfiles/help/en-us/help/ai_rn/ansysincreleasenotes.html
+;;     done 145,150,v162
 ;; 2.) `Ansys_deprecated_elements_alist' APDL documentation->feature archive: legacy elements
-;;    done 145,150, v161
+;;    done 145,150, v162
 ;; 3.) `Ansys_written_out_commands'
 ;; 4.) `Ansys_commands_without_arguments'
 ;; 
 (defconst Ansys_undocumented_commands	;or macros?
   '(
     "/WB"			   ; signify a WB generated input file
-    "XMLO" "/XML" 
+    "XMLO" 
+    "/XML" 
     "CNTR" ; ,print,1 ! print out contact info and also make no initial contact an error
     "EBLOCK" "CMBLOCK" "NBLOCK" "/TRACK" "CWZPLOT" "~EUI"
     "NELE"   ; predecessor of NSLE, NELE (WorkBench 10.0 output) still
@@ -104,6 +105,7 @@
    "ARFILL"
    "ARMERGE"
    "ARSPLIT"
+   "CEWRITE" ;.dat: ansys.net: write out constraint equations into jobname.ce
    "FIPLOT"
    "GAPFINISH"
    "GAPLIST"
@@ -306,13 +308,13 @@ files, old macros or old Ansys verification models.")
 (defconst Ansys_deprecated_elements_alist
 '(
   ("BEAM3"    . "BEAM188")
-  ("BEAM4"    . "BEAM188")		;legacy v161
+  ("BEAM4"    . "BEAM188")		;legacy v162
   ("BEAM23"   . "BEAM188")
   ("BEAM24"   . "BEAM188")
   ("BEAM44"   . "BEAM188")
   ("BEAM54"   . "BEAM188")
   ("CONTAC12". "Contac178")		;v150
-  ("CONTAC52". "Contac178")		;v161
+  ("CONTAC52". "Contac178")		;v162
   ("COMBIN7"  . "MPC184")
   ("FLUID79" . "Fluid29")		;v150
   ("FLUID80" . "Fluid29")		;v150
@@ -321,8 +323,8 @@ files, old macros or old Ansys verification models.")
   ("FLUID142" . "CFX")			;v145
   ("INFIN9"   . "INFIN110")		;v14
   ("INFIN47"  . "INFIN111")		;v14
-  ("PIPE16"   . "PIPE288")			;legacy v161
-  ("PIPE18"   . "ELBOW290")			;legacy v161
+  ("PIPE16"   . "PIPE288")			;legacy v162
+  ("PIPE18"   . "ELBOW290")			;legacy v162
   ("PLANE13"  . "PLANE223")		;v14
   ("PLANE25"  . "PLANE272")		;v14
   ("PLANE42"  . "PLANE182")
@@ -569,7 +571,12 @@ Function names are distinguished by `()'."
   (set-buffer buffer)
   (delete-region (point-min) (point-max))
 
-  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; we are adding to the top!
+  ;; 
+
+  (insert "(provide 'ansys-keyword)\n ;;end of ansys-keyword.el\n")
+
   ;; ---------- undocumented commands ----------
 
   ;; getting another colour than regular commands
@@ -859,7 +866,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; ansys-keyword.el -- Ansys mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"ansys-fontification.el\" release 16.1.1.\n\n"
+  "\"fontification.el\" release 162-1.\n\n"
   ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")
   (save-buffer)
   (message "ansys-keywords.el done.")

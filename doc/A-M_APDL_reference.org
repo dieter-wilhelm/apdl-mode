@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2015-07-04 11:18:01 dieter>
+#+DATE: Time-stamp: <2016-05-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  ANSYS-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -45,6 +45,49 @@
 #+TEXT: Please report the faults.
 
 * WorkBench to APDL Translation
+** Contacts
+*** default 3D thermal contact
+      :PROPERTIES:
+      :Version:  17.0
+      :END:
+    #+BEGIN_SRC ansys
+     2333        6        5        6        0     6458     6457     6422     6421     8356     8306     8303     8304
+-1
+keyo,cid,8,2               ! auto create asymmetric contact (from Program Controlled setting)
+keyo,cid,10,2              ! adjust contact stiffness each NR iteration (from Program Controlled setting)
+keyo,cid,12,5              ! bonded always
+keyo,cid,2,0               ! augmented Lagrange (from Program Controlled setting)
+keyo,cid,4,0               ! on Gauss point (from Program Controlled setting)
+keyo,cid,9,1               ! ignore initial gaps/penetration
+keyo,cid,7,0               ! No Prediction
+rmod,tid,3,10.	! FKN
+rmod,tid,5,0.	! ICONT
+rmod,tid,6,0.	! PINB
+rmod,tid,10,0.	! CNOF
+rmod,tid,12,0.	! FKT
+rmod,tid,36,31	! WB DSID
+rmod,cid,3,10.	! FKN
+rmod,cid,5,0.	! ICONT
+rmod,cid,6,0.	! PINB
+rmod,cid,10,0.	! CNOF
+rmod,cid,12,0.	! FKT
+rmod,cid,36,31	! WB DSID
+*set,_maxkxx,605000.
+rmod,cid,14,_maxkxx/_ASMDIAG         ! TCC, Divide by Length since Traction Based
+rmod,tid,14,_maxkxx/_ASMDIAG      ! TCC, Divide by Length since Traction Based
+keyo,cid,1,2     ! Pure thermal contact
+/com,*********** Create Contact "Contact Region 2" ***********
+/com,            Real Constant Set For Above Contact Is 8 & 7 
+*set,tid,8
+*set,cid,7
+r,tid
+r,cid
+et,tid,170
+et,cid,174
+eblock,10,,,94
+(15i9)
+     2334        8        8        8        0     8439     8419     8443     8443     8793     8794     8443     8866    
+    #+END_SRC
 ** Material Models
 *** Plasticity
 **** Multilinear Kinematic Hardening (MISO)
@@ -175,8 +218,9 @@
 
 * APDL Reference
 ** Idiosyncrasies
-  - You can only store strings of 32 characters, for only!! 128
-    characters you need to create a string array!
+  - You can only store character variables of 8 characters, strings of
+    32 characters and for *only* 248 characters you need to create a
+    string array!
   - No function definitions <- write `command' files (suffix: .mac),
     or call a macro (arbitrary suffix) with `*use', something close is
     to fill a "table" arry, interpolating values and possible real
@@ -205,7 +249,8 @@
     *voper or *toper
   - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
     contrast to the more ralistic ones in /solu
-    
+  - You can send only a complete block structure to the solver
+
 ** File types (the whole zoo is in the operations guide) under Gnu/Linux?
    |  No | Type                                                             | Name     | temp. | Remark                             | Format  |
    |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|

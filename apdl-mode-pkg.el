@@ -2,6 +2,13 @@
 ;; going back to a yearly version numbers R20.1 instead of release201.1...
 ;; adding info documentation
 
+;; reporter
+;; custom
+;; align
+;; easymenu
+;; comint
+;; browse-url
+
 (define-package "apdl-mode" "20.0" "A major Emacs mode for working with ANSYS APDL code."
   '()
   :keywords

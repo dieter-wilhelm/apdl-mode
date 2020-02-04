@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-03>
+#+DATE: Time-stamp: <2020-02-04>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -12,7 +12,6 @@
 #+LANGUAGE: en
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
-#+CREATOR: Emacs 24.5.1 (Org mode 8.2.10)
 
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,229 +26,106 @@
 #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 
-#+title: This is ANSYS-Mode's README file
-It is best read in Emacs's Org mode.
+#+title: APDL-Mode
+The GNU-Emacs major mode for the programming language APDL
+# It is best read in Emacs's Org mode.
 
-Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
-
-[[file:doc/ansys+emacs.png]]
+Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+# [[file:doc/ansys+emacs.png]]
 
 * Introduction
+  APDL (Ansys Parametric Design Language) is the solver scripting
+  language of the FEA (Finite Element Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis
+  SYStem, registered TM).
 
-This project supports your work-flows with the FEA (Finite Element
-Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis SYStem, registered TM).
+  APDL-Mode (formerly ANSYS-Mode) represents, in conjunction with the
+  GNU-Emacs editor, an advanced APDL environment with features like
+  solver communication (GNU-Linux only), license reporting, keyword
+  completion, code templates, dedicated keybindings, etc.  Over the
+  years it has accumulated lots of features for writing and debugging
+  complete FEA models in APDL code. Please convince yourself with the
+  APDL-Mode in-depth documentation -TODO-.
 
-It provides `ANSYS-Mode', an add-on to the [[http://www.gnu.org/software/emacs][GNU Emacs editor]] for
-investigating and coding APDL (Ansys Parametric Design Language).  The
-mode offers also managing and communication capabilities for various
-ANSYS processes, like interactive code debugging with the solver or
-inquiring the license manager status, etc.  Some features are quite
-sophisticated but its documentation is targeted for ANSYS users with
-little Emacs experience.
+  With the advent of the modern ANSYS GUIs - like `WorkBench' or
+  `AIM' - the usage of APDL as a wholesale modelling language has
+  diminished.  But APDL is here to stay: `WorkBench' and `AIM' operate
+  exclusively the ANSYS solver with it!  They are sending APDL input
+  (.dat) files to the solver.  For a true understanding of the GUIs'
+  inner workings a study of their APDL code is prerequisite.
 
-Advantages compared to other APDL editors: Largest feature set, user
-extensible, cost-free, GNU Emacs integrated tools, available for all
-operating systems where the ANSYS suite is running.
+  On the other hand the GUIs are not supporting all solver features.
+  So APDL `Command Snippets' enhance the GUIs' modeling capabilities.
+* Some features
+  Nowadays I find APDL-Mode mostly useful in writing these `Command
+  Snippets' or reading Snippets from others.  For in-depth
+  investigations APDL-Mode is very convient to study the solver (.dat)
+  files.
+** In-built APDL command help with argument counter
+   Especially for commands with a large number of arguments it is
+   cumbersome to count the arguments, *C-?* facilitates this for you
+   and visualises dynamically at which parameter position your cursor
+   currently is.
 
-[[http://www.gnu.org/home.en.html][GNU]] (Gnu's Not Unix) Emacs is an up-to-date, powerful and extensible -
-yet free - editor. High quality software available for every operating
-system where ANSYS is running.
+   [[file:doc/parameter_help2.png]]
+** Code outlining for inspecting WorkBench solver (.dat) files
+   APDL-Mode hides the normally uninteresting but usually very large
+   number blocks.  On the right hand side is the unhidden content.
+   #+ATTR_LaTeX: :height 7.5cm
+   [[file:doc/hidden_blocks.png]]
+   #+ATTR_LaTeX: :height 7.5cm
+   [[file:doc/unhidden_blocks.png]]
+** Highlighting example
+   The image shows an Emacs 23.2 frame (in reversed colour mode and
+   compiled with the GTK+ toolkit under GNU-Linux) with a ripped off
+   APDL-Mode menu field
 
-Ansys-Mode since version 15.0.1 is hosted on [[https://github.com][GitHub]]. The latest
-sources you'll find on its [[https://github.com/dieter-wilhelm/ansys-mode][ANSYS-Mode project site]].
-
-The current stable version 162-1 of ANSYS-Mode is available at the
-[[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub releases site]] or at [[https://drive.google.com/open?id=0Bxnk08BGWfexUThqbWxLX1NyeTg&authuser=0][Google's ANSYS-Mode drive]].  There are
-residing 3 archive packages: 1) A package of ANSYS-Mode together with
-binaries of Emacs for Windows, 2) a source file package for compiling
-the latest stable Emacs version together with ANSYS-Mode and 3) the
-sources of ANSYS-Mode alone, intended for an existing Emacs
-installation.  You might fetch these archives via the command line
-way, e. g. for the version of ANSYS-Mode bundled with Emacs binaries
-for Windows:
-#+BEGIN_SRC sh
-wget https://github.com/dieter-wilhelm/ansys-mode/releases/download/release-162-1/ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip
-#+END_SRC
-Important parts of the code (completions, help strings, etc.) are
-based on the original ANSYS documentation.  Besides source files and
-the Emacs editor you will find tutorials in the download section. The
-complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of ANSYS-Mode]] is also online available.
-
-Please report bugs and inconsistencies also in the documentation!
-Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] or open a bug report in [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub's
-issues list]].
-
-* Example applications
-
-[[file:doc/ansys-mode.jpg]]
-
-Above image shows an Emacs frame (in reversed colour mode and compiled
-with the GTK+ toolkit under GNU-Linux) with a ripped off menu field.  The
-APDL file is in the right window with the (experimental) user variable
-highlighting switched on and a help overlay (in yellow background)
-activated. The smaller windows on the left hand side are showing the
-`Variable definitions buffer' of the same file and a preview buffer of
-a certain code template, respectively.
-
-Below is a screen-shot on Win64 with the ANSYS Classics GUI on the
-left and Emacs in ANSYS-Mode on the right hand side.
-
-[[file:doc/template_menu.png]]
-
-* Features
-
-- Inbuilt syntax help (similar to the ANSYS dynamic prompt),
-  undocumented and deprecated commands are hinted as such.  This
-  syntax help counts the number of arguments and visualises your
-  cursor position in the argument list as well.
-
-- Opening the detailed ANSYS help in your web browser for an APDL
-  command or element name (the element number is sufficient) at or
-  before the cursor.  Optionally you can input the desired string
-  interactively with a completion of all valid keywords.
-
-- ANSYS process management (viewing error files, license status,
-  starting the ANSYS help browser, etc.).
-
-- Solver communication facilities, i. e. sending code fragments from
-  the macro file or commands interactively to an ANSYS solver process
-  (GNU-Linux only).  With abbreviated input method: For the often used
-  command C-c C-j (~ansys-send-to-ansys-and-proceed~, sending a code
-  line to the solver and skipping to the next) it is sufficient to
-  repeat this command just with the last input key(s) ("j" or "C-j").
-
-- Keyword completion of ANSYS commands, elements, get- and
-  parametric-functions (case-sensitive) of around 2000 ANSYS symbols.
-
-- Comprehensive keyboard shortcuts for code navigation: Skipping
-  comments, navigating number blocks, searching and creating *DO-,
-  *IF-, *DOWHILE-, *CREATE-blocks, etc.
-
-- Syntax highlighting in various decoration levels for ANSYS keywords,
-  elements, strings, comments, ...  And also the highligting of user
-  defined variables!.
-
-- This highlighting is more than just a colourisation.  It warns of
-  some syntax and structural mistakes. For example: Warning of
-  deprecated element types with a different highlighting for element
-  types in the current state of the art and in deprecated technology
-  and a wrong usage of the (deprecated comment sign `*').
-
-- Summary for *every* variable definition (*GET, *DIM, *SET, =, *DO,
-  CM, *VGET, ...), as well as component names, in the current file.
-  These are shown in another window.  In the highest decoration level
-  (2) these `user variables' are dynamically highlighted as well.
-  With a running ANSYS solver/interpreter process (GNU-Linux only) it
-  is also possible with a keyboard shortcut to query the current value
-  or status of variables near the cursor.
-
-- Preview and/or insertion of extensible APDL code templates.  For
-  example the function template shows *all* available ANSYS
-  parametric- and get functions. The respective code snippets show
-  examples of APDL work flows and considerable ANSYS know-how, these
-  are easily extensible to boot.  The templates are partly interactive
-  i. e. they are asking for or completing user input.
-
-- Alignment (beautification) of whole paragraphs or marked sections
-  for APDL variable definitions.
-
-- Narrowing, i. e. hiding, of uninteresting content. This is done by
-  default for number blocks (nblock, eblocks and cmblocks) in
-  WorkBench created solver input file (with the suffix .dat).  You
-  can, in case the need arises, unhide and inspect these as well.
-
-- Outlining (hiding and navigating) of code sections with Emacs'
-  outline-minor-mode. With outline strings '!@' you have a heading
-  structure which you can collapse or show.  This is the textual
-  analogue to the WorkBench tree view.
-
-- Auto-insertion (optionally) of a header and outline code for every
-  APDL file creation.
-
-- Convenient comment handling, commenting out whole paragraphs or
-  control blocks and rapidly removing all comments.
-
-- Enclosing of marked regions with ANSYS string and substitution
-  delimeters `'' and `%' respectively (C-c ' and C-c %).  This works
-  for `"', `(' when inserting just the very same characters.
-
-- Auto-indentation of looping blocks and conditional control blocks
-  together with closing of open blocks with auto-insertion of the
-  appropriate end keyword (case-sensitive).
-
-- ANSYS-Mode defines abbreviations for APDL templates or other code
-  constructs i. e. with writing a character after a special key (here:
-  `) triggers an expansion of complete code sequences.  You can write
-  your own abbreviations or extend the existing.
-
-- You are able to use all Emacs' facilities, like the built-in
-  calculator, file manager, image & document viewer and many others.
-  ANSYS-Mode changes some Emacs default behaviour to alleviate the
-  transition from other editors and user interface standards.
-
+   [[file:doc/ansys-mode.jpg]]
 * Requirements and installation
-  Please have a look in the [[file:INSTALLATION.org][INSTALLATION]] file.
-
+#  - APDL-Mode is now available on MELPA
+#  For further installation options
+   Please have a look in the [[file:INSTALLATION.org][INSTALLATION]] file.
 * Usage
 
-  Please read the introductory tutorial first.
+  Please read the introductory tutorial first. -TODO-
 
-  When you have a file under `ansys-mode' check out the menu bar's
-  `ANSYS' entry for its possibilities and select the entry `Describe
-  ANSYS Mode' or type "C-h m" (i. e. the <CTRL> key together with the
+  Please type `M-x apdl-mode' and check out the menu bar's `ANSYS'
+  entry for its possibilities and select the entry `Describe
+  APDL-Mode' or type "C-h m" (i. e. the <CTRL> key together with the
   <h> key and subsequently the <m> key), which will display the
-  ANSYS-Mode help which is your `online' guide for its usage, and
+  apdl-mode help which is your `online' guide for its usage, and
   key-bindings.
 
-  Templates, i.e. code snippets (also called skeletons) might be
-  extended in `ansys-template.el' and can be used similarly or
-  complementary to a classical ANSYS macro library (for example the
-  ~APDL/~ directory in the ANSYS installation tree).
-
 * Customisation
-  ANSYS-Mode provides its own customisation file ~ansys-config.el~.
+  apdl-mode provides its own customisation file
+  ~ansys-config.el~. -TODO-
 * News
-  Please have a look in the [[file:NEWS.org][NEWS]] file for the complete history
-* Acknowledgements
+  Please have a look in the [[file:NEWS.org][NEWS]] file
+* License and Acknowledgements
 
-  Tim Read and Geoff Foster for their ansys-mod.el from 1997 which
-  triggered the idea in 2006 to start ANSYS-Mode as a GNU public license
-  (GPL) implementation with an extended feature set.
+  - GPL 3
 
-  Further acknowledgements (in mainly reverse chronological order):
-
-  - Mehmet Akgul
-  - Nish Joseph
-  - Alwin Perras
-  - Mathias Dahl, for hide-region.el (and yupeng for some additions)
-  - Thien-Thi Nguyen
-  - Michael Kidner
-  - Ilya Gurin
-  - Alex Schroeder
-  - Holger Sparr
-  - Eli Zaretzki
-  - Markus Triska
-  - [[http://stallman.org][RMS]] (Richard Stallman) for GNU-Emacs
+  Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
+  from 1997 which triggered the idea in 2006 to start apdl-mode.
 
 * Further Resources
-** ANSYS-Mode
-   - The complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of ANSYS-Mode]] is available online
-   - The [[http://www.emacswiki.org/emacs/AnsysMode][Wiki page of ANSYS-Mode]]
-   - The [[https://github.com/dieter-wilhelm/ansys-mode][GitHub page of ANSYS-Mode]]
+** APDL-Mode
+   - The complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of apdl-mode]] is available online
+   - The [[http://www.emacswiki.org/emacs/AnsysMode][Wiki page of apdl-mode]]
+   - The [[https://github.com/dieter-wilhelm/ansys-mode][GitHub page of apdl-mode]]
 ** Editor Resources
-   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
-   - The [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for Emacs
-   - Another free [[http://apdl.de][APDL editor]], unfortunately this site seems to be
-     abandoned since 2010
-   - A commercial competitor of ANSYS-Mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor
-   - Simple APDL syntax highlighting is available for various editors,
-     gvim, nedit, ... just to name a few, please have a look at
-     [[http://ansys.net][ANSYS.net]].
+#   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
+#   - The [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for Emacs
+   - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
+   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor,
+     project disbandened in 2015.
+   - Simple APDL syntax highlighting addons are available for various
+     editors, gvim, nedit, ... just to name a few, please have a look
+     at [[http://ansys.net][ANSYS.net]].
 ** ANSYS and APDL resources
-   - Xansys, an [[http://www.xansys.org][ANSYS online community]] (registration necessary for the
-     forum)
-   - A general  ANSYS repository [[http://www.ansys.net][ansys.net]]
-   - The [[http://www.ansys.com][ANSYS homepage]]
+   - The ANSYS manuals in the first place
+   - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
+   - A general  ANSYS repository [[http://www.ansys.net][ANSYS.net]]
+   - The [[http://www.ansys.com][ANSYS homepage]] with their ANSYS Portal
    - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club in Germany
 
 -----

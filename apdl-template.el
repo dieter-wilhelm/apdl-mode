@@ -1,10 +1,10 @@
-;;; ansys-template.el -- APDL code templates for the ANSYS-Mode
+;;; ansys-template.el -- APDL code templates for the ANSYS-Mode   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2006 - 20016  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 162-1
+;; Version: R20.1.0
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -43,14 +43,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defvar ansys-last-skeleton nil
+(defvar apdl-last-skeleton nil
   "Variable containing the last previewed skeleton")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun ansys-display-skeleton (&optional arg)	;NEW
+(defun apdl-display-skeleton (&optional arg)	;NEW
   "Display or insert code templates.
 With an argument ARG not equal to 1 insert the template into the
 current buffer instead of previewing it in a separate window.
@@ -59,7 +59,7 @@ key and choose with the mouse 2 button."
   (interactive "p")
   (let* (
 	 (old-buffer (buffer-name))
-	 (new-buffer-name "*ANSYS-skeleton*")
+	 (new-buffer-name "*APDL-skeleton*")
 	 (skeleton-buffer
 	  (get-buffer-create new-buffer-name))
 	 s  ;yellow indicator line in the preview buffer above content
@@ -67,9 +67,9 @@ key and choose with the mouse 2 button."
 	 (visible  (get-buffer-window new-buffer-name nil))
 	 (skel-string
 	  ;; we might want to insert it while previewing...
-	  (if (and (not (= arg 1)) ansys-last-skeleton visible)
-	      ansys-last-skeleton
-	    "ansys-skeleton-"))
+	  (if (and (not (= arg 1)) apdl-last-skeleton visible)
+	      apdl-last-skeleton
+	    "apdl-skeleton-"))
 	 (skel
 	  (if (= arg 1)
 	      (completing-read "Preview template: "
@@ -77,24 +77,24 @@ key and choose with the mouse 2 button."
 	    (completing-read "Insert template: "
 			     obarray 'commandp t skel-string nil)))
 	 )
-    (setq ansys-last-skeleton skel)
+    (setq apdl-last-skeleton skel)
     (cond ((= arg 1)
 	   (switch-to-buffer-other-window skeleton-buffer)
 	   (setq buffer-read-only nil)
 	   (remove-overlays)		;from beginnin and end of buffer
-	   ;;(make-local-variable 'ansys-skeleton-overlay)
-	   (setq ansys-skeleton-overlay (make-overlay 1 1))
+	   ;;(make-local-variable 'apdl-skeleton-overlay)
+	   (setq apdl-skeleton-overlay (make-overlay 1 1))
 	   (kill-region (point-min) (point-max))
 	   (funcall (intern-soft skel))
-	   ;;    (ansys-skeleton-numbering-controls)
+	   ;;    (apdl-skeleton-numbering-controls)
 	   ;;    (insert "bla\n")
 	   (goto-char (point-min))
-	   (unless  (eq major-mode 'ansys-mode)
-	     (ansys-mode))
+	   (unless  (eq major-mode 'apdl-mode)
+	     (apdl-mode))
 	   (setq s (propertize
 		    (concat "-*- ANSYS template: "
 			    skel " -*-\n") 'face 'match))
-	   (overlay-put ansys-skeleton-overlay 'before-string s)
+	   (overlay-put apdl-skeleton-overlay 'before-string s)
 	   (set-buffer-modified-p nil)
 	   (setq buffer-read-only t)
 	   (switch-to-buffer-other-window old-buffer)
@@ -122,7 +122,7 @@ key and choose with the mouse 2 button."
   "*endif" >
   )
 
-(define-skeleton ansys-skeleton-looping
+(define-skeleton apdl-skeleton-looping
   "Control constructs"
   nil
   "!! .............................." \n
@@ -162,19 +162,19 @@ key and choose with the mouse 2 button."
   ":BRANCH" \n
   )
 
-(define-skeleton ansys-skeleton-header
+(define-skeleton apdl-skeleton-header
   "Insert a file header for an APDL script.
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
   "!@ ==============================" \n
-  "!" ansys-outline-string " ---  Header ---" \n
+  "!" apdl-outline-string " ---  Header ---" \n
   "!@ ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; 					      (buffer-file-name)
   ;; 					    (buffer-name))) \n
   "!! Time-stamp: <" (current-time-string) ">" \n
-  "!! ANSYS VERSION: " ansys-current-ansys-version \n
+  "!! ANSYS VERSION: " apdl-current-apdl-version \n
 ;;  "!! UNITS: mm-t-s" \n
   "!! NOTE: " str \n
   "!! ------------------------------" \n
@@ -186,7 +186,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-information
+(define-skeleton apdl-skeleton-information
   "Information gathering with APDL commands."
   nil
   ;; "!@ ------------------------------" \n
@@ -418,7 +418,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "VROTAT ! Volume by rotating areas - First volume number" \n
 )
 
-(define-skeleton ansys-skeleton-configuration
+(define-skeleton apdl-skeleton-configuration
   "Configuration skeleton."
   nil
   "!@ ------------------------------" \n
@@ -456,7 +456,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-view-settings
+(define-skeleton apdl-skeleton-view-settings
   "View settings skeleton."
   nil
   "!@ ------------------------------" \n
@@ -600,11 +600,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-import
+(define-skeleton apdl-skeleton-import
   "Import commands."
   nil
   "!! ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string " -- cad import -- " \n
+  "!" apdl-outline-string apdl-outline-string " -- cad import -- " \n
   \n
   "/aux15" \n
   "ioptn,iges,nodefeat" \n
@@ -637,7 +637,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-expand
+(define-skeleton apdl-skeleton-expand
   "Symmetry expansion."
   nil
   "!! ------------------------------" \n
@@ -657,7 +657,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-contact-definition
+(define-skeleton apdl-skeleton-contact-definition
   "Contact definitons skeleton."
   nil
   "!@ -------------------------------" \n
@@ -800,7 +800,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-contact-rigid
+(define-skeleton apdl-skeleton-contact-rigid
   "Rigid contacts skeleton."
   nil
   "!@ ------------------------------" \n
@@ -834,7 +834,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-coordinates
+(define-skeleton apdl-skeleton-coordinates
   "Co-ordinate systems skeleton."
   nil
   "!! .............................." \n
@@ -859,7 +859,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-working-plane
+(define-skeleton apdl-skeleton-working-plane
   "Settings for the working plane and related stuff."
   nil
   "!! .............................." \n
@@ -883,7 +883,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 ;; PlotCtrls ->Multi-plot-Ctrls???
-(define-skeleton ansys-skeleton-multi-plot
+(define-skeleton apdl-skeleton-multi-plot
   "Multi-plot skeleton"
   nil
   "!! .............................." \n
@@ -898,7 +898,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 ;; PlotCtrls ->Numbering Controls
-(define-skeleton ansys-skeleton-numbering-controls
+(define-skeleton apdl-skeleton-numbering-controls
   "Numbering controls skeleton."
   nil
   "!! .............................." \n
@@ -913,7 +913,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   )
 
 ;; PlotCtrls -> Symbols
-(define-skeleton ansys-skeleton-symbols
+(define-skeleton apdl-skeleton-symbols
   "Symbols skeleton."
   nil
   "!! .............................." \n
@@ -939,7 +939,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-element-table
+(define-skeleton apdl-skeleton-element-table
   "Element tables."
   nil
   "!@ ------------------------------" \n
@@ -973,10 +973,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-beam-template
+(define-skeleton apdl-skeleton-beam-template
   "Minimal example of a modal analysis with beams"
   nil
-  '(ansys-skeleton-header)
+  '(apdl-skeleton-header)
   "!fini" \n
   "!/clear" \n
   "!y" \n
@@ -1058,7 +1058,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "anmode" \n
   )
 
-(define-skeleton ansys-skeleton-element-definition
+(define-skeleton apdl-skeleton-element-definition
   "Element definitions skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1174,7 +1174,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-meshing
+(define-skeleton apdl-skeleton-meshing
   "Meshing skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1235,7 +1235,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-function
+(define-skeleton apdl-skeleton-function
   "Standard FORTRAN and get functions."
   nil
   "!! ==============================" \n
@@ -1388,7 +1388,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "SPLIT('PathString', 'EXT') !  Produces a separate output of the file extension from the pathstring." \n
   )
 
-(define-skeleton ansys-skeleton-geometry
+(define-skeleton apdl-skeleton-geometry
   "Geometry definitons skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1491,7 +1491,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-material-definition
+(define-skeleton apdl-skeleton-material-definition
   "Material definitons skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1679,7 +1679,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-component
+(define-skeleton apdl-skeleton-component
   "Component (Named Selections in WorkBench) skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1695,7 +1695,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
 )
 
-(define-skeleton ansys-skeleton-bc
+(define-skeleton apdl-skeleton-bc
   "Boundary conditions skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1825,7 +1825,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-buckling
+(define-skeleton apdl-skeleton-buckling
   "Buckling skeleton."
   nil
   "!@ ------------------------------" \n
@@ -1852,7 +1852,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-solve
+(define-skeleton apdl-skeleton-solve
   "Solving /solu skeleton."
   nil
   "!@ ==============================" \n
@@ -1985,7 +1985,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-post1
+(define-skeleton apdl-skeleton-post1
   "Postprocessing /postXX skeleton."
   nil
   "!@ ==============================" \n
@@ -2216,7 +2216,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-output-to-file
+(define-skeleton apdl-skeleton-output-to-file
   "In/Output to file skeleton."
   nil
   "!@ ------------------------------" \n
@@ -2405,7 +2405,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   )
 
-(define-skeleton ansys-skeleton-select
+(define-skeleton apdl-skeleton-select
   "The selections skeleton.
 Select or deselect various elements: Geometry, elements, nodes,
   ..."  nil
@@ -2440,7 +2440,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(define-skeleton ansys-skeleton-path-plot
+(define-skeleton apdl-skeleton-path-plot
   "Path plot skeleton."
   nil
   "!@ ------------------------------" \n
@@ -2467,7 +2467,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(define-skeleton ansys-skeleton-post26
+(define-skeleton apdl-skeleton-post26
   "Time postprocessing /post26 skeleton."
   nil
   "!@ ------------------------------" \n
@@ -2539,7 +2539,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(define-skeleton ansys-skeleton-array
+(define-skeleton apdl-skeleton-array
   "Fields and arrays skeleton."
   nil
   "!@ ------------------------------" \n
@@ -2638,10 +2638,10 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(define-skeleton ansys-skeleton-structural-template
+(define-skeleton apdl-skeleton-structural-template
   "Minimum working structural APDL template."
   nil					;no interactor needed
-  '(ansys-skeleton-header)
+  '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
   "!@ ==============================" \n
@@ -2681,10 +2681,10 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(define-skeleton ansys-skeleton-contact-template
+(define-skeleton apdl-skeleton-contact-template
   "Minimum working structural contact APDL template."
   nil					;no interactor needed
-  '(ansys-skeleton-header)
+  '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
   "!@ ==============================" \n
@@ -2753,43 +2753,43 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(defun ansys-skeleton-compilation-template ()
+(defun apdl-skeleton-compilation-template ()
   "Your collection of selected code templates."
   (interactive)
-  (ansys-skeleton-header)
+  (apdl-skeleton-header)
   (goto-char (point-max))
-  (ansys-skeleton-configuration)
+  (apdl-skeleton-configuration)
   (goto-char (point-max))
-  (ansys-skeleton-import)
+  (apdl-skeleton-import)
   (goto-char (point-max))
-  (ansys-skeleton-geometry)
+  (apdl-skeleton-geometry)
   (goto-char (point-max))
-  (ansys-skeleton-material-definition)
+  (apdl-skeleton-material-definition)
   (goto-char (point-max))
-  (ansys-skeleton-element-definition)
+  (apdl-skeleton-element-definition)
   (goto-char (point-max))
-  (ansys-skeleton-meshing)
+  (apdl-skeleton-meshing)
   (goto-char (point-max))
-  (ansys-skeleton-bc)
+  (apdl-skeleton-bc)
   (goto-char (point-max))
-  (ansys-skeleton-solve)
+  (apdl-skeleton-solve)
   (goto-char (point-max))
-  (ansys-skeleton-post1))
+  (apdl-skeleton-post1))
 
-(define-skeleton ansys-skeleton-outline-template
+(define-skeleton apdl-skeleton-outline-template
   "Insert outline framework into an ANSYS APDL file."
   "Insert brief purpose of file: "
   "!@ ==============================" \n
-  "!" ansys-outline-string " --- Header ---" \n
+  "!" apdl-outline-string " --- Header ---" \n
   "!@ ==============================" \n
   \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
-  "!! ANSYS VERSION: " ansys-current-ansys-version \n
+  "!! ANSYS VERSION: " apdl-current-apdl-version \n
   "!! DESCRIPTION: " str \n
   \n
   "!@ ==============================" \n
-  "!" ansys-outline-string " --- Setup ---" \n
+  "!" apdl-outline-string " --- Setup ---" \n
   "!@ ==============================" \n
   \n
   "finish " \n
@@ -2801,11 +2801,11 @@ Select or deselect various elements: Geometry, elements, nodes,
   "/title," \n
   \n
   "!@ ==============================" \n
-  "!" ansys-outline-string " --- Preprocessing --- " \n
+  "!" apdl-outline-string " --- Preprocessing --- " \n
   "!@ ==============================" \n
   \n
   "!@ ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string " -- Cad Import -- " \n
+  "!" apdl-outline-string apdl-outline-string " -- Cad Import -- " \n
   "!! ------------------------------" \n
   \n
   "/aux15 !Enter the IGES file transfer processor" \n
@@ -2816,13 +2816,13 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!!otherwise the title is defined with the iges import" \n
   \n
   "!@ ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string " -- General Preprocessing -- " \n
+  "!" apdl-outline-string apdl-outline-string " -- General Preprocessing -- " \n
   "!! ------------------------------" \n
   \n
   "/prep7" \n
   \n
   "!! .............................." \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Materials and element types -" \n
+  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Materials and element types -" \n
   "!! .............................." \n
   \n
   "!@@@ --- Materials ---" \n
@@ -2832,43 +2832,43 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!@@@ --- Contact elements ---" \n
   \n
   "!! .............................." \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Geometry -" \n
+  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Geometry -" \n
   "!! .............................." \n
   \n
   "!! .............................." \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Meshing -" \n
+  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Meshing -" \n
   "!! .............................." \n
   \n
   "!! .............................." \n
-  "!" ansys-outline-string ansys-outline-string ansys-outline-string " - Boundary conditions -" \n
+  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Boundary conditions -" \n
   "!! .............................." \n
   \n
   "!@ ==============================" \n
-  "!" ansys-outline-string " --- Solution --- " \n
+  "!" apdl-outline-string " --- Solution --- " \n
   "!@ ==============================" \n
   \n
   "/solu" \n
   "allsel" \n
   \n
   "!@ ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string
+  "!" apdl-outline-string apdl-outline-string
   " -- Solution controls -- " \n
   "!! ------------------------------" \n
   \n
   "!@ ==============================" \n
-  "!" ansys-outline-string " --- Postprocessing ---" \n
+  "!" apdl-outline-string " --- Postprocessing ---" \n
   "!@ ==============================" \n
   \n
   "!@ ------------------------------" \n
-  "!" ansys-outline-string ansys-outline-string
+  "!" apdl-outline-string apdl-outline-string
   " -- General Postprocessing -- " \n
   "!! ------------------------------" \n
   \n
   "/post1" \n
   \n
   "!@ ------------------------------" \n
-  "!" ansys-outline-string
-  ansys-outline-string " -- Time-History Postprocessing --" \n
+  "!" apdl-outline-string
+  apdl-outline-string " -- Time-History Postprocessing --" \n
   "!! ------------------------------" \n
   \n
   "/post26" \n
@@ -2877,7 +2877,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   )
 
 
-;; (defmacro define-ansys-skeleton (command documentation &rest definitions) ;FIXME: documentation
+;; (defmacro define-apdl-skeleton (command documentation &rest definitions) ;FIXME: documentation
 ;;   "Define COMMAND with an optional docstring DOCUMENTATION.
 ;; to insert statements as in DEFINITION ...  Prior
 ;; DEFINITIONS (e.g. from ~/.emacs) are maintained.  Each definition
@@ -2907,11 +2907,11 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;; 	(, documentation)
 ;; 	(interactive)
 ;; 	(skeleton-insert
-;; 	 (or (get '(, command) ansys-format)
+;; 	 (or (get '(, command) apdl-format)
 ;; 	     (error "%s statement syntax not defined for ansys format %s"
-;; 		    '(, command) ansys-format)))))))
+;; 		    '(, command) apdl-format)))))))
 
-;; (define-ansys-skeleton ansys-if
+;; (define-apdl-skeleton apdl-if
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Value/Parameter 1: "
 ;; 	  "*IF," str ","
@@ -2926,7 +2926,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;;   (mac . format))
 
 
-(define-skeleton ansys-if
+(define-skeleton apdl-if
   "Insert interactively an *if .. *endif construct."
   "Value/Parameter 1 [I]: "
   "*if," str | "I" ","
@@ -2953,7 +2953,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n)
 
 
-;; (define-ansys-skeleton ansys-if-then
+;; (define-apdl-skeleton apdl-if-then
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Value/Parameter 1: "
 ;; 	  "*IF," str ","
@@ -2974,7 +2974,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;; 	  "*ENDIF" > \n)
 ;;   (mac . format))
 
-(define-skeleton ansys-if-then
+(define-skeleton apdl-if-then
   "Insert an *if,then .. (*elseif .. *else ..) *endif construct."
   "Value/Parameter 1 [I]: "
   "*if," str | "I" ","
@@ -3018,7 +3018,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "\n*endif" >
   "\n")
 
-;; (define-ansys-skeleton ansys-do
+;; (define-apdl-skeleton apdl-do
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Parameter: "
 ;; 	  "*DO," str ","
@@ -3031,7 +3031,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;; 	  "*ENDDO" > \n)
 ;;   (mac . format))
 
-(define-skeleton ansys-do
+(define-skeleton apdl-do
   "Insert interactively a *do .. *enddo loop."
   "Loop parameter [I]: "
   "*do," str | "I" ","
@@ -3044,7 +3044,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "*enddo" > \n
 )
 
-;; (define-ansys-skeleton ansys-mp		;FIXME: skeleton a bit over the top
+;; (define-apdl-skeleton apdl-mp		;FIXME: skeleton a bit over the top
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
 ;; 	  "MP," str ","
@@ -3062,7 +3062,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;; 	  \n)
 ;;   (mac . format))
 
-(define-skeleton ansys-mp		;FIXME: skeleton a bit over the top
+(define-skeleton apdl-mp		;FIXME: skeleton a bit over the top
   "Insert interactively an mp statement."
   "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
   "MP," str ","
@@ -3080,7 +3080,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   )
 
-(provide 'ansys-template)
+(provide 'apdl-template)
 
 ;; Local Variables:
 ;; mode: outline-minor

@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-04>
+#+DATE: Time-stamp: <2020-02-05>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -17,13 +17,12 @@
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
-#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
 #+HTML_LINK_UP: index.html
 #+HTML_HEAD:
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 
 #+title: APDL-Mode
@@ -69,9 +68,10 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    [[file:doc/parameter_help2.png]]
 ** Code outlining for inspecting WorkBench solver (.dat) files
    APDL-Mode hides the normally uninteresting but usually very large
-   number blocks.  On the right hand side is the unhidden content.
+   number blocks.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/hidden_blocks.png]]
+   The image below shows the unhidden content.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/unhidden_blocks.png]]
 ** Highlighting example
@@ -86,8 +86,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    Please have a look in the [[file:INSTALLATION.org][INSTALLATION]] file.
 * Usage
 
-  Please read the introductory tutorial first. -TODO-
-
   Please type `M-x apdl-mode' and check out the menu bar's `ANSYS'
   entry for its possibilities and select the entry `Describe
   APDL-Mode' or type "C-h m" (i. e. the <CTRL> key together with the
@@ -95,38 +93,44 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   apdl-mode help which is your `online' guide for its usage, and
   key-bindings.
 
+  I suggest you have a look into the introductory tutorial
+  [[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]].
+
 * Customisation
-  apdl-mode provides its own customisation file
-  ~ansys-config.el~. -TODO-
+  apdl-mode provides its own customisation example file [[file:ansys-config.el][apdl-config.el]]
 * News
   Please have a look in the [[file:NEWS.org][NEWS]] file
 * License and Acknowledgements
-
-  - GPL 3
+  - GPL 3 - see the [[file:LICENSE.org][LICENSE]] file
 
   Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
   from 1997 which triggered the idea in 2006 to start apdl-mode.
 
+  Parts of APDL-Mode were base on octave-mod.el: Copyright (C) 1997
+  Free Software Foundation, Inc.  Author: Kurt Hornik
+  <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
+  <jwe@bevo.che.wisc.edu>
+
 * Further Resources
 ** APDL-Mode
-   - The complete [[http://dieter-wilhelm.github.io/ansys-mode][documentation of apdl-mode]] is available online
-   - The [[http://www.emacswiki.org/emacs/AnsysMode][Wiki page of apdl-mode]]
-   - The [[https://github.com/dieter-wilhelm/ansys-mode][GitHub page of apdl-mode]]
-** Editor Resources
-#   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
-#   - The [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for Emacs
+   - The complete [[http://dieter-wilhelm.github.io/apdl-mode][documentation of APDL-Mode]] is available online
+   - The [[https://github.com/dieter-wilhelm/apdl-mode][GitHub page of APDL-Mode]]
+** APDL Editor Resources
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
-   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor,
-     project disbandened in 2015.
+   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
+     Windows, project disbandened in 2015.
    - Simple APDL syntax highlighting addons are available for various
      editors, gvim, nedit, ... just to name a few, please have a look
      at [[http://ansys.net][ANSYS.net]].
-** ANSYS and APDL resources
-   - The ANSYS manuals in the first place
+
+   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
+   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
+** ANSYS and APDL Resources
+   - ANSYS manuals in the first place
+   - The [[http://www.ansys.com][ANSYS homepage]] with their ANSYS Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
    - A general  ANSYS repository [[http://www.ansys.net][ANSYS.net]]
-   - The [[http://www.ansys.com][ANSYS homepage]] with their ANSYS Portal
-   - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club in Germany
+   - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club eV in Germany
 
 -----
 

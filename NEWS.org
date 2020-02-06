@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-01-31>
+#+DATE: Time-stamp: <2020-02-04>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -14,11 +14,14 @@
 #+LATEX_HEADER:
 
 #+STARTUP: showall
-#+title: News and History of ANSYS-Mode
+#+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-** Version 201-1
+** Version R20.1 2020-02
+   - Changed version name scheme
+   - Installation from Melpa
+   - Changed the name to APDL-Mode
    - Added key-bindings to the license buffer *ANSYS-licenses*
      o - occur search
      g - refresh license status

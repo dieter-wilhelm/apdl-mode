@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2016-04-20>
+#+DATE: Time-stamp: <2020-02-04>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -14,27 +14,24 @@
 #+LATEX_HEADER:
 
 #+STARTUP: showall
-#+title: INSTALLATION of ANSYS-Mode
+#+title: INSTALLATION of APDL-Mode
 
-Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Requirements
 
-This mode was tested with Emacs-24.5 under Win7, [[http://www.cygwin.com/][Cygwin]] and
-GNU-Linux64.  It was also tested with Emacs-23.1 (released July 2009)
-on GNU-Linux64 and should run with all older versions of Emacs down to
-Emacs-23.
+This mode was tested with Emacs-26 under Win10 and GNU-Linux64.  It
+was also tested with Emacs-26 and should run with all older versions
+of Emacs down to Emacs-23.
 
-Some of ANSYS-Mode's solver control and communication features are not
+Some of APDL-Mode's solver control and communication features are not
 yet implemented for Windows systems.
 
 * Installation
-The version scheme is a mixture of the ANSYS release (currently "162")
-on which the highlighting and completing code is based and the version
-(currently "1") of ANSYS-Mode, thus "162-1" for this particular
-release (the dash is to distinguish this mode from ANSYS update
-versions like 150.7, etc.).
+The versioning scheme (R20.1.0) is using the ANSYS release year
+(2020).
+
 ** For Windows systems without the Emacs editor
-Download the latest package of ANSYS-Mode
+Download the latest package of APDL-Mode
 ~ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip~ bundled with the
 binaries of Emacs-24.5 at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]] and unpack it anywhere on your system
 (you do not need administrator rights).
@@ -44,29 +41,29 @@ You might subsequently run the program addpm.exe (located in the
 (please refer to the README.W32 file) otherwise start the Emacs
 executable ~runemacs.exe~ from there.
 
-ANSYS-Mode is automatically available for all files with suffixes
+APDL-Mode is automatically available for all files with suffixes
 `.mac', `.ans', `.dat' and `.inp'.  For further guidance please read
 the tutorial ~doc/A-M_introductory_tutorial.pdf~.
 ** GNU-Linux/Unix systems without the Emacs editor
-Download the latest package of ANSYS-Mode
+Download the latest package of APDL-Mode
 ~ansys-mode-162-1.emacs-24.5.tar.xs~ bundled with the sources of
 Emacs-24.5 at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it anywhere on your system and go to the
-usual ~./configure~, ~make~ routine, as described below.  ANSYS-Mode
+usual ~./configure~, ~make~ routine, as described below.  APDL-Mode
 will then be automatically available for all files with suffixes
 `.mac', `.ans', `.dat' and `.inp'.  For further guidance please read
 the tutorial ~doc/A-M_introductory_tutorial.pdf~.
 ** For existing Emacs installations on either Windows and GNU-Linux/Unix
-Download the latest ANSYS-Mode archive ~ansys-mode-162-1.tar.xz~ from
+Download the latest APDL-Mode archive ~ansys-mode-162-1.tar.xz~ from
 above GitHub releases page.
 *** Direct way, no file configuration necessary
 The easiest way is to extract above archive in a "default load path"
 of Emacs, I recommend the directory ~site-lisp/~ in Emacs' file tree.
-Then ANSYS-Mode's functionality is available when you restart Emacs.
+Then APDL-Mode's functionality is available when you restart Emacs.
 For the next steps please read ~doc/A-M_introductory_tutorial.pdf~ .
 *** More general way; file loading or configuration necessary
 **** Manual loading
 Unpack the archive anywhere on your system but then you have to make
-ANSYS-Mode known to Emacs by loading the configuration file
+APDL-Mode known to Emacs by loading the configuration file
 ~ansys-config.el~ manually, Start Emacs then do:
 
 ~M-x load-file  YOUR/INSTALLATION/DIRECTORY/ansys-config.el~
@@ -77,15 +74,15 @@ might apply the <TAB> key for Emacs' auto-completion feature at any
 stage) and conclude this input with the <RET> key.  Emacs will then
 prompt you for a file name, type in the directory where you have
 extracted the code and "ansys-config.el" and press RET to load
-ANSYS-Mode's definitions.  You might open an unnamed file under
-ANSYS-Mode with ~M-x ansys~.
+APDL-Mode's definitions.  You might open an unnamed file under
+APDL-Mode with ~M-x ansys~.
 **** File configuration
 Extract the archive files anywhere and put the following paragraph
 into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el')
 initialisation file (`~' is your home directory, which is determined
 by the environment variable HOME on both Windows and Unix), *adjust*
 the elisp code below in capital letters, restart Emacs or type "C-x
-C-e" behinde the closing bracket.  And ANSYS-Mode will from then on be
+C-e" behinde the closing bracket.  And APDL-Mode will from then on be
 automatically applied for all opened or created files with suffixes
 `.mac', `.ans', `.dat' and `.inp'.
 
@@ -97,7 +94,7 @@ automatically applied for all opened or created files with suffixes
   ;; "/usr/local/src/ansys-mode/ansys-mode-162-1/ansys-config"
 
 #+END_SRC
-* ANSYS-Mode files
+* APDL-Mode files
  *Sources*:
  - ansys-mode.el: Main file
  - ansys-config.el: The configuration file
@@ -121,16 +118,16 @@ automatically applied for all opened or created files with suffixes
  - doc/example.dat -- WorkBench example APDL solver input file
  - doc/example.anf -- ANSYS geometry neutral file example
  - doc/example.mac -- APDL user macro and highlighting example
- - doc/A-M_introductory_tutorial.pdf -- Your first look at ANSYS-Mode?
- - doc/A-M_in-depth_tutorial.pdf -- A hands-on ANSYS-Mode tutorial
+ - doc/A-M_introductory_tutorial.pdf -- Your first look at APDL-Mode?
+ - doc/A-M_in-depth_tutorial.pdf -- A hands-on APDL-Mode tutorial
  - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
- - doc/A-M_APDL_reference.pdf -- APDL and ANSYS-Mode syntax highlighting reference guide
+ - doc/A-M_APDL_reference.pdf -- APDL and APDL-Mode syntax highlighting reference guide
  - doc/ANSYS.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
  - matlib/ -- a directory with examples of APDL material definitions
 
  You can actually read the PDFs in Emacs as well!
 
-* Compiling Emacs under GNU-Linux/Unix
+* COMMENT Compiling Emacs under GNU-Linux/Unix
 
    #+BEGIN_SRC sh
    cd emacs-24.5/
@@ -273,7 +270,7 @@ your system.
 	#+END_SRC
 
 * Changes in Emacs' default behaviour
-For experienced Emacs users: ANSYS-Mode changes the default behaviour
+For experienced Emacs users: APDL-Mode changes the default behaviour
 of Emacs
 
 ** Globally
@@ -284,7 +281,7 @@ of Emacs
 #   line
 
 Delete Selection Mode, a behaviour similar on Windows platforms can
-be switched on in the ANSYS-Mode menu.
+be switched on in the APDL-Mode menu.
 
 Electric Pair Mode, a minor mode which inputs automatically
 corresponding APDL delimeter pairs ~()~, ~''~ and ~%%~ can be switched

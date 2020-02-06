@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2016-04-20>
+#+DATE: Time-stamp: <2020-02-05>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -10,11 +10,15 @@
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
-#+title: The Todo file of ANSYS-Mode
+#+title: The Todo file of APDL-Mode
 
 #+STARTUP: showall
+* R20.1
+  - wikipedia APDL, Ansys
+  - emacswiki ansys-mode
+  - ;; -*- lexical-binding: t -*-
+  - apdl-mode, the function -> APDL-Mode, the name?
 * 170-1:
 * 162-2:
 ** Bugs

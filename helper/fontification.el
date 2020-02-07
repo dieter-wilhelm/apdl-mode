@@ -25,12 +25,12 @@
 
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans" "./ansys_dynprompt.txt")
-;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `ansys_dynprompt.txt'
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans" "./apdl_dynprompt.txt")
+;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `apdl_dynprompt.txt'
 ;;     done for v12,v13,v14,v145,v150,v162
 
 ;; 2.) elements: copy within the ansys help browser from the
-;;     Element reference from the table of contents the list -> `ansys_elements.txt'
+;;     Element reference from the table of contents the list -> `apdl_elements.txt'
 ;;     (/appl/ansys_inc/v162/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
 ;;     done: v12,v13,v14,v145,v150, v162
 
@@ -38,12 +38,12 @@
 ;;     apdl * commands and regular Ansys commands
 
 ;;     use: extract_tags.py
-; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/ansys-mode/trunk")
-;;     cp Hlp_C_CmdTOC.html to ./ -> ansys_keywords.txt
+; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/apdl-mode/trunk")
+;;     cp Hlp_C_CmdTOC.html to ./ -> apdl_keywords.txt
 ;;     done: v13,14,145,150, v162
 
 ;;     dated: previously did copy&pasted from the ansys help
-;;       ->`ansys_keywords.txt' kill /eof from the keywords (see:
+;;       ->`apdl_keywords.txt' kill /eof from the keywords (see:
 ;;       -font-lock-keywords) <- don't know why, seems to work now
 ;;       done: v12 ----
 
@@ -52,33 +52,33 @@
 ;;     parametric functions, trigonometric functions and their inverse
 ;;     functions must be separated by hand!!! The same applies to
 ;;     hyperbolic functions there was a new one introduced in V14
-;;     ->`ansys_parametric_functions.txt'
+;;     ->`apdl_parametric_functions.txt'
 
 ;; 5.) get functions: ansys 11.0 APDL Programmer's guide Appendix B.
 ;;     i) one has to comment (#) out some headlines!!!
 ;;     ii) Prepend some string function descriptions with their name e.g.
 ;;         StrOut = STRCAT(... with STRCAT(...)
-;;     get function summary ->`ansys_get_functions.txt'
+;;     get function summary ->`apdl_get_functions.txt'
 
-;; 6.) search index for the html help in /commonfiles/help/`ansys_Index.hlp'
+;; 6.) search index for the html help in /commonfiles/help/`apdl_Index.hlp'
 ;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/ansys_Index.hlp" ".")
 ;;     the rest does code below
 ;;     done v145, v150, v162
-;;     cp ansys_Index.hlp??? and check variable ansys-help-index
+;;     cp ansys_Index.hlp??? and check variable apdl-help-index
 
 ;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
 ;;; necessary variables, to be maintained:
-;; 1.) `Ansys_undocumented_commands' from the release notes,
+;; 1.) `apdl_undocumented_commands' from the release notes,
 ;;  v162/commonfiles/help/en-us/help/ai_rn/ansysincreleasenotes.html
 ;;     done 145,150,v162
-;; 2.) `Ansys_deprecated_elements_alist' APDL documentation->feature archive: legacy elements
+;; 2.) `apdl_deprecated_elements_alist' APDL documentation->feature archive: legacy elements
 ;;    done 145,150, v162
-;; 3.) `Ansys_written_out_commands'
-;; 4.) `Ansys_commands_without_arguments'
+;; 3.) `Apdl_written_out_commands'
+;; 4.) `Apdl_commands_without_arguments'
 ;; 
-(defconst Ansys_undocumented_commands	;or macros?
+(defconst Apdl_undocumented_commands	;or macros?
   '(
     "/WB"			   ; signify a WB generated input file
     "XMLO" 
@@ -280,11 +280,11 @@
    "MSTERM"
    "PRSYZ" 				;endo of v150
    )			       
-  "Ansys commands not documented in the manuals.
+  "APDL commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output
-files, old macros or old Ansys verification models.")
+files, old macros or old APDL verification models.")
 
-(defconst Ansys_written_out_commands
+(defconst Apdl_written_out_commands
   '(
     "*END" "*ENDIF"
     "*ELSEIF"				;allows arguments behind it
@@ -294,7 +294,7 @@ files, old macros or old Ansys verification models.")
   won't allow characters appended to.")
 
 
-(defconst Ansys_commands_without_arguments
+(defconst Apdl_commands_without_arguments
   '(
     "*ENDIF" "*ENDDO" "*END" "*CFCLOS" "*CYCLE" "*ELSE" 
     "*EXIT" "/PMACRO" "*VSTAT" 
@@ -302,10 +302,10 @@ files, old macros or old Ansys verification models.")
     "/POST1" "/POST26" "/PREP7"
     "SSUM"
     )
-  "Ansys commands which aren't allowed with arguments")
+  "APDL commands which aren't allowed with arguments")
 
 ;; deprecated element list is from Ansys version 12.0, 13.0, 14.0
-(defconst Ansys_deprecated_elements_alist
+(defconst Apdl_deprecated_elements_alist
 '(
   ("BEAM3"    . "BEAM188")
   ("BEAM4"    . "BEAM188")		;legacy v162
@@ -377,7 +377,7 @@ files, old macros or old Ansys verification models.")
 "Association list of deprecated element types with their proposed
 successor.")
 
-;; (defun Ansys-elements (list)
+;; (defun APDL-elements (list)
 ;;       (mapcar
 ;;        '(lambda (name)
 ;; 	  (list
@@ -388,7 +388,7 @@ successor.")
 ;; 	   ))
 ;;        list))
 
-(defun Ansys-get-functions (list)
+(defun APDL-get-functions (list)
       (mapcar
        '(lambda (name)
 	  (list
@@ -398,7 +398,7 @@ successor.")
 	   'keep))
        list))
 
-(defun Ansys-parametric-functions (list)
+(defun APDL-parametric-functions (list)
       (mapcar
        '(lambda (name)
 	  (list
@@ -473,7 +473,7 @@ The length of STRG is greater than 4 characters."
 
 ;; TODO: check whether a.) and b.) is not congruent except *elseif
 ;; b.) regexp for commands which do not allow parameters behind it
-;;     1.) no_parameter_p Ansys_commands_without_arguments
+;;     1.) no_parameter_p Apdl_commands_without_arguments
 ;;     2.) not written_out_p
 ;; TODO: what is with $ condensation?
 
@@ -482,8 +482,8 @@ The length of STRG is greater than 4 characters."
 
 (defun written_out_p(STRING)
   "Returns true if STRING is a member of
-  \"Ansys_written_out_commands\""
-  (member STRING Ansys_written_out_commands))
+  \"Apdl_written_out_commands\""
+  (member STRING Apdl_written_out_commands))
 
 ;; (written_out_p "*END")
 
@@ -492,7 +492,7 @@ The length of STRG is greater than 4 characters."
 Argument LIST is a list of ansys commands. Return a list of
 command strings"
 (let ( tmp tmp2 tmp_list l l2)
-    (message "Preparing Ansys font lock strings, list-length: %d." (length List))
+    (message "Preparing APDL font lock strings, list-length: %d." (length List))
     (dolist (M List tmp_list)
       (setq l (length M))
       (cond ((written_out_p M)		
@@ -519,7 +519,7 @@ the length of the original string STRG."
 Written out commands and 2 lists of commands which the solver
 allows characters appended behind."
   (let ( tmp tmp_list list_a list_b list_c l l2)
-    (message "Preparing Ansys font lock 2 strings...")
+    (message "Preparing APDL font lock 2 strings...")
     (dolist (M List)
       (setq l (length M))
       (cond  ;written out stuff
@@ -542,20 +542,20 @@ allows characters appended behind."
     (message "length_a: %d length_b: %d length_c: %d" (length list_a) (length list_b) (length list_c) )
     (list list_a list_b list_c)))
 
-(defun Ansys-initialize-completions ()
-  "Create a list for Ansys completions.
+(defun APDL-initialize-completions ()
+  "Create a list for APDL completions.
 Function names are distinguished by `()'."
   (append
-   Ansys_elements
-   Ansys_commands
+   Apdl_elements
+   Apdl_commands
    (mapcar '(lambda (str) (concat str "()"))
-	   Ansys_get_functions)
+	   Apdl_get_functions)
    (mapcar '(lambda (str) (concat str "()"))
-	   Ansys_parametric_functions)))
+	   Apdl_parametric_functions)))
 
 ;; ------------------------------------------------------------
 
-(let ((buffer (find-file "ansys-keyword.el"))
+(let ((buffer (find-file "apdl-keyword.el"))
       list
       commands
       commands-1
@@ -575,15 +575,15 @@ Function names are distinguished by `()'."
   ;; we are adding to the top!
   ;; 
 
-  (insert "(provide 'ansys-keyword)\n ;;end of ansys-keyword.el\n")
+  (insert "(provide 'apdl-keyword)\n;;end of apdl-keyword.el\n")
 
   ;; ---------- undocumented commands ----------
 
   ;; getting another colour than regular commands
   (goto-char (point-min))
-  (setq undocumented-commands Ansys_undocumented_commands)
-  (insert "(defconst ansys-undocumented-command-regexp\n")
-  (prin1 (regexp-opt Ansys_undocumented_commands) buffer)
+  (setq undocumented-commands Apdl_undocumented_commands)
+  (insert "(defconst apdl-undocumented-command-regexp\n")
+  (prin1 (regexp-opt Apdl_undocumented_commands) buffer)
   (insert "\n\"Regexp of commands not documented in the Ansys
 manuals.  Seen mainly in Workbench output files and Ansys
 verification models.\")\n\n")
@@ -595,8 +595,8 @@ verification models.\")\n\n")
   (setq list nil)
   ;; first fill list with documented commands
   (with-temp-buffer
-    (insert-file-contents "ansys_keywords.txt")
-    (insert-file-contents "ansys_dynprompt.txt")
+    (insert-file-contents "apdl_keywords.txt")
+    (insert-file-contents "apdl_dynprompt.txt")
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
@@ -606,15 +606,15 @@ verification models.\")\n\n")
       (add-to-list 'list (match-string 0) 'append)))
   ;; now include the undocumented commands
   (setq list (append list
-		     (mapcar '(lambda (m) (concat m " - Ansys undocumented command\n" m))
-		       Ansys_undocumented_commands)))
+		     (mapcar '(lambda (m) (concat m " - APDL undocumented command\n" m))
+		       Apdl_undocumented_commands)))
 ;  (sort list 'string<)
   (set-buffer buffer)
   (goto-char (point-min))
-  (insert "(defconst ansys-dynamic-prompt\n'")
+  (insert "(defconst apdl-dynamic-prompt\n'")
   (setq print-length nil)		;nil: print all members of list
   (prin1 list buffer)
-  (insert "\n\"Help strings for the parameters of Ansys keywords.\")\n\n")
+  (insert "\n\"Help strings for the parameters of APDL keywords.\")\n\n")
   (message "command parameter help...done")
   ;; no formatting, it interferes with the output!
 
@@ -622,13 +622,13 @@ verification models.\")\n\n")
 
   ;; ----- documented + written out + undocumented commands ---
   ;; 0.) unique, solver type
-  ;; 1.) full Ansys name same as completed
+  ;; 1.) full APDL name same as completed
   ;; 2.) from unique to full name
 
 
   (setq list ())			;initialise list
   (with-temp-buffer
-    (insert-file-contents "ansys_keywords.txt")
+    (insert-file-contents "apdl_keywords.txt")
 ;    (setq sort-fold-case t)
 ;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
@@ -640,20 +640,20 @@ verification models.\")\n\n")
 
   (message "starting minimal level.")
   (goto-char (point-min))
-  (setq commands-1 (append commands Ansys_undocumented_commands))
+  (setq commands-1 (append commands Apdl_undocumented_commands))
 ;  (debug)
-  (insert "(defconst ansys-command-regexp\n")
+  (insert "(defconst apdl-command-regexp\n")
   (setq print-length nil)		;nil: print all members of list
   (prin1 (regexp-opt (Prepare_list commands-1))
 		     buffer)
-  (insert "\n\"Ansys short keyword name regexp\")\n\n")
+  (insert "\n\"APDL short keyword name regexp\")\n\n")
 
   (message "starting level 1.")
   (goto-char (point-min))
-  (insert "(defconst ansys-command-regexp-1\n")
+  (insert "(defconst apdl-command-regexp-1\n")
   (prin1 (regexp-opt commands)
 		     buffer)
-  (insert "\n\"Ansys full keyword name regexp\")\n\n")
+  (insert "\n\"APDL full keyword name regexp\")\n\n")
 
   (message "starting level 2.")
   (goto-char (point-min))
@@ -665,17 +665,17 @@ verification models.\")\n\n")
 	list1 (regexp-opt list1)	;written out stuff
 	list2 (regexp-opt list2)
 	list3 (regexp-opt list3))
-  (insert "(defconst ansys-command-regexp-2a\n")
+  (insert "(defconst apdl-command-regexp-2a\n")
   (prin1 list1 buffer)
-  (insert "\n\"Ansys keyword name regexp 2a\")\n\n")
+  (insert "\n\"APDL keyword name regexp 2a\")\n\n")
   ;; 
-  (insert "(defconst ansys-command-regexp-2b\n")
+  (insert "(defconst apdl-command-regexp-2b\n")
   (prin1 list2 buffer)
-  (insert "\n\"Ansys keyword name regexp 2b\")\n\n")
+  (insert "\n\"APDL keyword name regexp 2b\")\n\n")
   ;; 
-  (insert "(defconst ansys-command-regexp-2c\n")
+  (insert "(defconst apdl-command-regexp-2c\n")
   (prin1 list3 buffer)
-  (insert "\n\"Ansys keyword name regexp 2c\")\n\n")
+  (insert "\n\"APDL keyword name regexp 2c\")\n\n")
 
 
   ;; ---------- ansys elements ----------
@@ -683,7 +683,7 @@ verification models.\")\n\n")
   ;; --- regular elements ---
   (setq list ())			;initialise list
   (with-temp-buffer
-    (insert-file-contents "ansys_elements.txt")
+    (insert-file-contents "apdl_elements.txt")
 ;    (setq sort-fold-case t)
 ;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
@@ -694,31 +694,31 @@ verification models.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-	   "(defconst ansys-element-regexp\n"))
+	   "(defconst apdl-element-regexp\n"))
   (setq print-length nil)		;nil: print all members of list
   (prin1 (regexp-opt list 'words) buffer)
-  (insert "\n\"Ansys elements regexp.\")\n\n")
+  (insert "\n\"APDL elements regexp.\")\n\n")
   (beginning-of-defun)
   (fill-paragraph 0)
 
   ;; --- deprecated elements ---
   (goto-char (point-min))
   (insert (concat
-	   "(defconst ansys-deprecated-element-regexp\n"))
+	   "(defconst apdl-deprecated-element-regexp\n"))
   (setq print-length nil)		;nil: print all members of list
-  (setq deprecated-elements (mapcar 'car Ansys_deprecated_elements_alist))
+  (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
   (prin1 (regexp-opt deprecated-elements 'words) buffer)
-  (insert "\n\"Ansys deprecated elements regexp.\")\n\n")
+  (insert "\n\"APDL deprecated elements regexp.\")\n\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   ;; -- write out the alist for a possible reference --
   (goto-char (point-min))
   (insert (concat
-	   "(defconst ansys-deprecated-element-alist\n'"))
+	   "(defconst apdl-deprecated-element-alist\n'"))
   (setq print-length nil)		;nil: print all members of list
-  (setq deprecated-elements (mapcar 'car Ansys_deprecated_elements_alist))
-  (prin1 Ansys_deprecated_elements_alist buffer)
-  (insert "\n\"Association list for Ansys deprecated elements
+  (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
+  (prin1 Apdl_deprecated_elements_alist buffer)
+  (insert "\n\"Association list for APDL deprecated elements
   and their proposed replacements.\")\n\n")
   (beginning-of-defun)
   (fill-paragraph 0)
@@ -728,7 +728,7 @@ verification models.\")\n\n")
 
   (setq list ())			;initialise list
   (with-temp-buffer
-    (insert-file-contents "ansys_get_functions.txt")
+    (insert-file-contents "apdl_get_functions.txt")
 ;    (setq sort-fold-case t)
 ;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
@@ -739,10 +739,10 @@ verification models.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-	   "(defconst ansys-get-function-regexp\n"))
+	   "(defconst apdl-get-function-regexp\n"))
   (setq print-length nil)		;nil: print all members of list
   (prin1 (regexp-opt get-functions) buffer)
-  (insert "\n\"Ansys get function regexp.\")\n\n")
+  (insert "\n\"APDL get function regexp.\")\n\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "get-functions...done")
@@ -751,7 +751,7 @@ verification models.\")\n\n")
 
   (setq list ())			;initialise list
   (with-temp-buffer
-    (insert-file-contents "ansys_parametric_functions.txt")
+    (insert-file-contents "apdl_parametric_functions.txt")
 ;    (setq sort-fold-case t)
 ;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
@@ -762,10 +762,10 @@ verification models.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-	   "(defconst ansys-parametric-function-regexp\n"))
+	   "(defconst apdl-parametric-function-regexp\n"))
   (setq print-length nil)		;nil: print all members of list
   (prin1 (regexp-opt parametric-functions) buffer)
-  (insert "\n\"Ansys parametric function regexp.\")\n\n")
+  (insert "\n\"APDL parametric function regexp.\")\n\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "parametric functions...done")
@@ -781,7 +781,7 @@ verification models.\")\n\n")
 	(mapcar '(lambda (s) (concat s "()")) get-functions))
   (setq parametric-functions
 	(mapcar '(lambda (s) (concat s "()")) parametric-functions))
-  (insert "(defconst ansys-completions\n'")
+  (insert "(defconst apdl-completions\n'")
   (setq print-length nil)		;nil: print all members of list
   (prin1 (append
 	  elements
@@ -793,8 +793,8 @@ verification models.\")\n\n")
 	  ) buffer)
   ;; (prin1 commands buffer)
   ;;  buffer)
-  (insert "\n\"Ansys symbols for completion in Ansys mode.
-By default Ansys keywords, get-functions, parametric-function and elements
+  (insert "\n\"APDL symbols for completion in APDL-Mode.
+By default APDL keywords, get-functions, parametric-function and elements
  (deprecated as well) are completed.\")\n\n")
   ;; (beginning-of-defun)
   ;; (fill-paragraph nil)
@@ -805,7 +805,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (message "starting help index.")
   (with-temp-buffer
     (setq list ())			;initialise list
-    (insert-file-contents "ansys_Index.hlp")
+    (insert-file-contents "apdl_Index.hlp")
     ;; clean up redundant keywords
     (delete-matching-lines "^Hlp")
     ;; (goto-char (point-min))	  
@@ -853,7 +853,7 @@ By default Ansys keywords, get-functions, parametric-function and elements
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-    "(defconst ansys-help-index\n'"))
+    "(defconst apdl-help-index\n'"))
   (setq print-length nil)		;nil: print all members of list
   (prin1 list buffer)
   (insert "\n\"ANSYS help index alist.\")\n\n")
@@ -864,12 +864,12 @@ By default Ansys keywords, get-functions, parametric-function and elements
   ;; ---------- header ----------
 
   (goto-char (point-min))
-  (insert ";; ansys-keyword.el -- Ansys mode completion and "
+  (insert ";; apdl-keyword.el -- APDL-Mode completion and "
   "highlighting variables. \n" ";; This file was built by "
-  "\"fontification.el\" release 162-1.\n\n"
-  ";; Copyright (C) 2006 - 2015 H. Dieter Wilhelm.\n\n")
+  "\"fontification.el\" release R20.1.0.\n\n"
+  ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n")
   (save-buffer)
-  (message "ansys-keywords.el done.")
+  (message "apdl-keywords.el done.")
   ;; --- end of let
 )  
 

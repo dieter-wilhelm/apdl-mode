@@ -1,5 +1,5 @@
 ;;; apdl-mode.el -- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-06 16:42:02 dieter>
+;; Time-stamp: <2020-02-07 17:46:34 uidg1626>
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -59,6 +59,12 @@
 ;; Please consult the accompanying NEWS.org file.
 
 ;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; declare-function
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(declare-function apdl-initialise "apdl-initilaise")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
@@ -2125,7 +2131,7 @@ improvements you have the following options:
   ;;  -- end of apdl-mode --
   )
 
-(defun ansys ()
+(defun apdl ()
   "Open a new buffer in APDL-Mode.
 You must save the buffer (connect it with a file-name), otherwise
 possible edits are lost."
@@ -2219,9 +2225,9 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 (defun apdl-mode-version ()
   "Display the APDL-Mode version numbering scheme."
   (interactive)
-  (message "APDL-Mode version: %s-%s (based on ANSYS %s)" apdl-version_
-	   apdl-mode_version
-	   apdl-version_))
+  (message "APDL-Mode version: %s (based on ANSYS %s)"
+	   apdl-mode-version
+	   apdl-ansys-version))
 
 (defun apdl-reload-apdl-mode ()
   "Reload the APDL mayor mode.
@@ -2238,7 +2244,8 @@ call `apdl-mode'."
     (load "apdl-config")
     (load "apdl-mode")
     (apdl-mode)
-    (message (concat "APDL-Mode-" apdl-version_ "-" apdl-mode_version " reloaded."))))
+    (message "APDL-Mode %s based on ANSYS %s reloaded"
+     apdl-mode-version apdl-ansys-version)))
 
 (defun apdl-show-paren-mode ()		;_C
   "Switch on minor mode function `show-paren-mode'.
@@ -2380,7 +2387,7 @@ Appying this function in the same line erases the help overlay.
 The help overlay will be automatically removed after some time
 interval."
   (interactive)
-  (let ((ho (overlay-start apdl-help-overlay))
+  (let (;(ho (overlay-start apdl-help-overlay))
 	(lb (line-beginning-position)))
     (if apdl-timer
 	(cancel-timer apdl-timer))
@@ -3626,4 +3633,5 @@ The default argument is 1."
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
 ;; word-wrap: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

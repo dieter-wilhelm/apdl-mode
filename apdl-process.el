@@ -1,5 +1,5 @@
 ;;; ansys-process.el -- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-06>
+;; Time-stamp: <2020-02-07>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -33,6 +33,27 @@
 ;; Managing runs and processes for APDL-Mode
 
 ;;; Code:
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; external defvars
+
+(defvar apdl-license-types)
+(defvar apdl-program)
+(defvar apdl-launcher)
+(defvar apdl-wb)
+(defvar apdl-help-path)
+(defvar apdl-mode-install-directory)
+(defvar apdl-current-apdl-version)
+(defvar apdl-install-directory)
+(defvar apdl-ansysli-servers)
+(defvar apdl-help-program-parameters)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; declare-functions
+
+(declare-function apdl-initialise "apdl-initialise")
+;(declare-function buffer-name "") ; in-built
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- customisation ---
@@ -397,7 +418,7 @@ to the subsequent code line.  With a prefix argument STAY of
 cursor position. The command can be repeated by typing just the
 final character \"j\" (or \"C-j\")."
   (interactive "p")
-  (let (code
+  (let (;code
 	beg
 	end
 	(process (get-process
@@ -655,7 +676,7 @@ variable)."
 	 (pt (point))
 	 (re "~/*[:word:]")
 	 (lbp (line-beginning-position))
-	 (eolp (save-excursion (end-of-line) (point)))
+;	 (eolp (save-excursion (end-of-line) (point)))
 	 (str (upcase (buffer-substring-no-properties
 		       (save-excursion
 			 (+ pt (skip-chars-backward re lbp)))
@@ -979,7 +1000,7 @@ server summary rows."
    (t
     (error "No interactive MAPDL process running or Classics GUI can be found"))))
 
-(defun apdl-iso-view (arg)
+(defun apdl-iso-view ()
   "Show current display in isometric view (/view,,1,1,1)."
   (interactive "p")
   (cond
@@ -1174,7 +1195,7 @@ stored in the environment variable APDL-LICENSE-FILE."
 	  (concat "License server or license file [" apdl-license-file "]: ")
 	  nil nil apdl-license-file)))
   (cond ((null file)
-	 buffer-name)
+	 (buffer-name))
 	(t
 	 (setq apdl-license-file file)
 	 (setenv "ANSYSLMD_LICENSE_FILE" file)
@@ -1207,7 +1228,7 @@ This is the path before the directory `ansys_inc/' under Linux or
 	   (concat
 	    "Set apdl-install-directory to \"" ndir "\".")))
       (error "ANSYS directory \"%s\" is not readable" path))
-    (apdl-initialise-defcustoms 'force)))
+    (apdl-initialise 'force)))
 
 (defun apdl-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.

@@ -42,6 +42,8 @@
 ;;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defvar apdl-skeleton-overlay)
+(make-local-variable 'apdl-skeleton-overlay)
 
 (defvar apdl-last-skeleton nil
   "Variable containing the last previewed skeleton")
@@ -82,7 +84,6 @@ key and choose with the mouse 2 button."
 	   (switch-to-buffer-other-window skeleton-buffer)
 	   (setq buffer-read-only nil)
 	   (remove-overlays)		;from beginnin and end of buffer
-	   ;;(make-local-variable 'apdl-skeleton-overlay)
 	   (setq apdl-skeleton-overlay (make-overlay 1 1))
 	   (kill-region (point-min) (point-max))
 	   (funcall (intern-soft skel))

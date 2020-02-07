@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-05>
+#+DATE: Time-stamp: <2020-02-07>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -52,7 +52,6 @@ changing them directly in your personal configuration file, you must
 either set the variable `inhibit-default-ini' to `t' "(setq
 inhibit-default-ini t)" in your personal configuration file or remove
 `default.el' otherwise your settings might be overwritten!
-
 
 * Introduction
 Customisations for GNU-Linux and Windows systems.
@@ -277,32 +276,13 @@ imports, see the file /example.anf/.
 
 * Autoloading
   Below set of useful commands can be interactively called (with M-x
-  ...)  even when ANSYS Mode was not activated i.e. its lisp files not
+  ...)  even when APDL Mode was not activated i.e. its lisp files not
   yet loaded, with the following code.
   #+BEGIN_SRC emacs-lisp
+(autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
 (autoload 'apdl-mode "apdl-mode" nil t)
 (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
  calling a special ANSYS customisation buffer." 'interactive)
-(autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
-(autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
-(autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-(autoload 'apdl-start-ansys "apdl-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
-(autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
-(autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
-  #+END_SRC
-
-#+BEGIN_SRC emacs-lisp :exports none  :tangle yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			    ;; Autoloading
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set of useful commands which are now interactively available (M-x
-;; ...)  even when ANSYS Mode was not (yet) activated i.e. the lisp
-;; files not loaded.
-
-(autoload 'ansys "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
-(autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
-(autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
-calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
 (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
 (autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
@@ -311,6 +291,28 @@ calling a special ANSYS customisation buffer." 'interactive)
 (autoload 'apdl-start-wb "apdl-mode" "Activate the function for starting Workbench." 'interactive)
 (autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
 (autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
+  #+END_SRC
+
+#+BEGIN_SRC emacs-lisp :exports none  :tangle yes
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			      ;; Autoloading
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Set of useful commands which are interactively available (M-x ...)
+;; even when APDL Mode was not (yet) activated i.e. the lisp files not
+;; loaded.
+
+  (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
+  (autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
+  (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
+  calling a special ANSYS customisation buffer." 'interactive)
+  (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
+  (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
+  (autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
+  (autoload 'apdl-start-ansys "apdl-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
+  (autoload 'apdl-start-classics "apdl-mode" "Activate the function for starting the MAPDL in GUI Mode (APDL-Classics)." 'interactive)
+  (autoload 'apdl-start-wb "apdl-mode" "Activate the function for starting Workbench." 'interactive)
+  (autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
+  (autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
 
 #+END_SRC
 
@@ -509,6 +511,10 @@ But the solver/interpreter is checking this server as well!?
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 ;; The End
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 
 #+END_SRC
 

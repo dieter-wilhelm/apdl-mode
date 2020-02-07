@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-06 15:34:21 dieter>
+;; Time-stamp: <2020-02-07 16:48:18 uidg1626>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -28,10 +28,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst apdl-mode_version "1"
-  "APDL-Mode version number.")
+(defconst apdl-mode-version "R20.1.0"
+  "APDL-Mode version.")
 
-(defconst apdl-version_ "R20.1"
+(defconst apdl-ansys-version "v161"
   "ANSYS version on which APDL-Mode is based upon.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -187,7 +187,7 @@ like in the variable `apdl-program'.")
 If TYPE is nil return the license servers, if non-nil the
 ansysli_servers.  When there are no license servers readable,
 return nil."
-  (let* ((idir 
+  (let* ((idir
 	  (if apdl-install-directory
 	      (file-name-directory
 	       (directory-file-name apdl-install-directory))
@@ -214,7 +214,7 @@ return nil."
 Which is to say find the Ansys root path with the largest
 installed versioning number and check the accessibility of the
 content."
-  (let ((dir 
+  (let ((dir
 	 (car
 	  (reverse
 	   (sort
@@ -222,7 +222,7 @@ content."
 		    (mapcar (lambda (str)
 			      (when
 				  (string-match
-				   "AWP_ROOT[0-9][0-9][0-9]=\\(.*\\)" 
+				   "AWP_ROOT[0-9][0-9][0-9]=\\(.*\\)"
 				   str)
 				(match-string 1 str)))
 			    process-environment)
@@ -254,21 +254,21 @@ customisation variables"
 		    nil
 		  (file-name-as-directory path)))
 	   subdir)
-      (cond 
+      (cond
        ;; from environment variable
        (dir
 	(message "apdl-install-directory set from environment variable AWP_ROOTXXX")
 	(message "apdl-install-directory = %s" dir)
-	(setq subdir 
+	(setq subdir
 	      (file-name-nondirectory (directory-file-name dir)))
-	(setq apdl-current-apdl-version (remove ?v subdir))	
+	(setq apdl-current-apdl-version (remove ?v subdir))
 	(message "Current ANSYS version: %s" apdl-current-apdl-version))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default company installation path
        ((file-readable-p cdir)
         (setq cdir "/appl/ansys_inc/") ;FIXME: remove
-	(setq subdir 
-	      (car 
+	(setq subdir
+	      (car
 	       (reverse
 		(directory-files cdir nil "[0-9][0-9]\.[0-9]"))))
 	(setq apdl-current-apdl-version (remove ?. (substring subdir 0 4)))
@@ -279,11 +279,11 @@ customisation variables"
        ((string= window-system "x")
 	(setq cdir "/ansys_inc/")
 	(when (file-readable-p cdir)
-	  (setq subdir 
-		(car 
+	  (setq subdir
+		(car
 		 (reverse
 		  (directory-files cdir nil "v[0-9][0-9][0-9]"))))
-	  (setq apdl-current-apdl-version (remove ?v (substring subdir 0 4)))	       
+	  (setq apdl-current-apdl-version (remove ?v (substring subdir 0 4)))
 	  (message "Current ANSYS version: %s" apdl-current-apdl-version)
 	  (setq dir (concat cdir subdir "/"))))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -292,11 +292,11 @@ customisation variables"
 	(setq cdir "C:\\Program Files\\ANSYS Inc")
 	;; search for the latest version
 	(when (file-readable-p cdir)
-	  (setq subdir 
-		(car 
+	  (setq subdir
+		(car
 		 (reverse
 		  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
-	  (setq apdl-current-apdl-version (remove ?v (substring subdir 0 4)))	       
+	  (setq apdl-current-apdl-version (remove ?v (substring subdir 0 4)))
 	  (message "Current ANSYS version: %s" apdl-current-apdl-version)
 	  (setq dir (concat cdir subdir "/")))))
       (if dir
@@ -308,7 +308,7 @@ customisation variables"
     (if (and apdl-unix-system-flag (apdl-classics-p))
 	(setq apdl-classics-flag t)))
 
-  ;; 2) -current-apdl-version: 
+  ;; 2) -current-apdl-version:
   (when apdl-install-directory
     (let* ((idir (file-name-as-directory apdl-install-directory))
 	   (version1 apdl-current-apdl-version)
@@ -320,7 +320,7 @@ customisation variables"
 	(setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
 	(setq apdl-current-apdl-version version1)
 	(message "apdl-current-apdl-version=%s" version1))))
- 
+
   ;; 3) -program
   (when (and apdl-install-directory (or (null apdl-program) force))
     (let* ((version1 apdl-current-apdl-version)
@@ -338,7 +338,7 @@ customisation variables"
   ;; 4) -wb
   (when (and apdl-install-directory (or (null apdl-wb) force))
     (let* ((idir apdl-install-directory)
-	   (exe 
+	   (exe
 	    (if apdl-unix-system-flag
 		(concat idir "Framework/bin/Linux64/runwb2") ;150, 161
 		 (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
@@ -419,7 +419,7 @@ customisation variables"
        (setq apdl-license-file lic1)
        (message "Read environment variable %s" lfile)
        (message "apdl-license-file=%s" lic1))
-      (lic2 
+      (lic2
        (setq apdl-license-file lic2)
        (message "Conti server: apdl-license-file=%s" lic2)
        (setenv lfile lic2))
@@ -487,10 +487,13 @@ example \"v201\".  The path is stored in the variable
     (setq apdl-current-apdl-version version)))
 
 (provide 'apdl-initialise)
+
 ;;; apdl-initialise.el ends here
+
 ;; Local Variables:
 ;; mode: outline-minor
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; word-wrap: t
 ;; End:

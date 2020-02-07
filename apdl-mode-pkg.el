@@ -1,4 +1,3 @@
-;; going back to a yearly version numbers R20.1 instead of release201.1...
 ;; adding info documentation
 
 ;; reporter
@@ -8,10 +7,10 @@
 ;; comint
 ;; browse-url
 
-(define-package "apdl-mode" "R20.1.0" "A major GNU-Emacs mode for working with ANSYS APDL code."
+(define-package "apdl-mode" "R20.1.0" "A major mode for the APDL language of the ANSYS FEA suite."
   '()
   :keywords
-  '("APDL" "ANSYS" "Languages" "FEA" "Convenience")
+  '("APDL" "ANSYS" "languages" "FEA" "Convenience")
   :authors
   '(("H. Dieter Wilhelm" . "dieter@duenenhof-wilhelm.de"))
   :maintainer

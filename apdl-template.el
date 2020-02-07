@@ -1,4 +1,4 @@
-;;; ansys-template.el -- APDL code templates for the ANSYS-Mode   -*- lexical-binding: t; -*-
+;;; ansys-template.el -- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -92,7 +92,7 @@ key and choose with the mouse 2 button."
 	   (unless  (eq major-mode 'apdl-mode)
 	     (apdl-mode))
 	   (setq s (propertize
-		    (concat "-*- ANSYS template: "
+		    (concat "-*- APDL template: "
 			    skel " -*-\n") 'face 'match))
 	   (overlay-put apdl-skeleton-overlay 'before-string s)
 	   (set-buffer-modified-p nil)
@@ -1360,8 +1360,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "VIRTINQR(8) ! Number of read/write operations on page." \n
   "VIRTINQR(9) ! Maximum record number on page." \n
   "VIRTINQR(11) ! Maximum pages touched." \n
-  "! -- Returns the current value of ANSYS filtering keywords. --" \n
-  "KWGET(KEYWORD) ! Returns the current value the keyword specified by KEYWORD. See the ANSYS UIDL Programmer's Guide for a list of keywords and values." \n
+  "! -- Returns the current value of APDL filtering keywords. --" \n
+  "KWGET(KEYWORD) ! Returns the current value the keyword specified by KEYWORD. See the APDL UIDL Programmer's Guide for a list of keywords and values." \n
   "! -- Character String Functions Strings must be dimensioned (see *DIM) as a character parameter or enclosed in single apostrophes ('char'). --" \n
   "! -- Functions which return a double precision value of a numeric character string. --" \n
   "VALCHR(a8) ! a8 is a decimal value expressed in a string." \n

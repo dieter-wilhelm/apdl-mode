@@ -1,5 +1,5 @@
 ;;; ansys-process.el -- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-05>
+;; Time-stamp: <2020-02-06>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -30,6 +30,7 @@
 
 ;;; Commentary:
 
+;; Managing runs and processes for APDL-Mode
 
 ;;; Code:
 
@@ -39,7 +40,7 @@
 
 (defgroup APDL-process nil
   "Customisation 'process' subgroup for the APDL-Mode."
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-job "file"
   "Variable storing the ANSYS job name.
@@ -55,8 +56,8 @@ the respective error file."
   "List of available license types to choose for an ANSYS run.
 This list should contain the license types you can choose from.
 Below are often used license types (as e.g. seen with the
-function `apdl-license-status') and their corresponding
-WorkBench terminology.
+function `apdl-license-status') and their corresponding WorkBench
+terminology.
 
 \"ansys\" - Mechanical U (without thermal capability)
 \"struct\" - Structural U (with thermal capability)
@@ -147,7 +148,8 @@ Return nil if we can't find an MAPDL GUI."
       nil
     (setq apdl-emacs-window-id eID)
     (setq apdl-classics-window-id aID)
-    (setq x-select-enable-clipboard t)	;for kill-new necessary
+;    (setq x-select-enable-clipboard t)	;for kill-new necessary
+    (setq select-enable-clipboard t)	;for kill-new necessary
     aID)))
 
 (defun apdl-start-classics ()
@@ -289,7 +291,7 @@ the customisation facility (by calling `apdl-customise-ansys')."
   (let ((process (get-process
 		  (if (boundp 'apdl-process-name)
 		      apdl-process-name
-		    "ANSYS"))))
+		    "APDL"))))
     ;; no-property stuff necessary?????
     ;;   (if (y-or-n-p
     ;;        (concat
@@ -493,7 +495,7 @@ final character \"j\" (or \"C-j\")."
 
 (defun apdl-query-apdl-command ( &optional arg)
   "Ask for a string which will be sent to the interpreter.
-The string is completable to all current ANSYS commands and with
+The string is completable to all current APDL commands and with
 an optional prefix argument ARG the current command line is the
 initial input."
   (interactive "P")
@@ -519,7 +521,7 @@ initial input."
 			       apdl-process-name)) (concat s "\n"))
       ;;  (walk-windows
       ;;    (lambda (w)
-      ;;      (when (string= (buffer-name (window-buffer w)) "*ANSYS*")
+      ;;      (when (string= (buffer-name (window-buffer w)) "*APDL*")
       ;;        (with-selected-window w (goto-char (point-max))))))
       ;; (setq mode-line-process (format ":%s" (process-status apdl-process)))
       ;; (force-mode-line-update)
@@ -607,7 +609,7 @@ the function `apdl-exit-ansys'."
 (defun apdl-exit-ansys ()
   "Exit normally the current ANSYS run under Emacs.
 The function asks for confirmation before exiting the process
-with the ANSYS /EXIT,all command which saves all model data."
+with the APDL /EXIT,all command which saves all model data."
   (interactive)
   (unless (apdl-process-running-p)
     (error "Error: No active ANSYS process"))
@@ -623,8 +625,8 @@ with the ANSYS /EXIT,all command which saves all model data."
 ;;;###autoload
 (defun apdl-start-apdl-help ()
   "Start the ANSYS Help Viewer.
-Alternatively under a GNU-Linux system, one can also use the ANSYS
-command line \"/SYS, anshelp162\" when running ANSYS
+Alternatively under a GNU-Linux system, one can also use the APDL
+command line \"/SYS, anshelp201\" when running ANSYS
 interactively, provided that anshelp162 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."

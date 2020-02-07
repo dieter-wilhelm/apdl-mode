@@ -1,5 +1,5 @@
-;;; apdl-mode.el -- Editor support for working with ANSYS FEA.  -*- lexical-binding: t; -*-
-
+;;; apdl-mode.el -- The major mode for the language APDL.  -*- lexical-binding: t -*-
+;; Time-stamp: <2020-02-06 16:42:02 dieter>
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -104,7 +104,7 @@ is the \"=\" assignment command.")
 
 (defconst apdl-use-variables
   '("ARG[1-9]" "AR[1][0-9]")
-  "Variable containing the ANSYS *USE variables regexp.
+  "Variable containing the APDL *USE variables regexp.
 ARG[1-9] and AR[1][0-9] are macro local variables and can be
 passed to the *USE command.  Additionally AR[2-9][0-9] are pure
 macro local variables.")
@@ -118,7 +118,7 @@ macro local variables.")
   "Address of current maintainer of the APDL-Mode.")
 
 (defconst apdl-comment-char ?!
-  "The ANSYS comment character.")
+  "The APDL comment character.")
 
 (defconst apdl-non-code-line-regexp "^\\s-*\\($\\|\\s<\\|[+[:digit:]-]\\)"
   "Regexp indicating a comment -, number - or an empty line.
@@ -131,14 +131,14 @@ block or with a `+' or `-' sign.")
   "Regexp indicating a condensed input line.")
 
 (defconst apdl-comment-start-skip "\\S<+\\S-*"
-  "Regexp to match the start of an ANSYS comment up to its body.
+  "Regexp to match the start of an APDL comment up to its body.
 Used for the variable `comment-start-skip'.")
 
 ;; --- defcustoms ---
 
 (require 'custom)
 
-(defgroup ANSYS nil
+(defgroup APDL nil
   "Customisation group for the APDL-Mode."
   :version "23.1"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
@@ -155,7 +155,7 @@ hours 35 minutes\" or a number of seconds from now (the
 acceptable time formats are those recognised by the function
 `timer-duration'."
   :type '(string number)
-  :group 'ANSYS
+  :group 'APDL
   )
 
 (defcustom apdl-hide-region-before-string "![ ... hidden"
@@ -181,7 +181,7 @@ This string is not really placed in the text, it is just shown in an overlay"
 There are three levels available, 0 a minimalistic level
 optimised for speed and working with very large files (like
 solver input files from WorkBench), 1 and 2.  Level 0 highlights
-only the minimum (unambiguous) length of ANSYS command names and
+only the minimum (unambiguous) length of APDL command names and
 variable definitions with the '=' operator.  Level 1 highlights
 complete command names, together with functions, elements,
 deprecated elements, undocumented commands, strings from string
@@ -195,7 +195,7 @@ account after `apdl-display-variables'
 dynamically i. e. during editing when the variable
 `apdl-dynamic-highlighting-flag' is set to t."
   :type 'integer
-  :group 'ANSYS
+  :group 'APDL
   :link '(variable-link font-lock-maximum-decoration ))
 
 (defcustom apdl-dynamic-highlighting-flag t
@@ -210,15 +210,15 @@ otherwise the fontification of variables is only static.  To take
 effect after setting this variable you have to restart
 `apdl-mode'."
   :type 'boolean
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-indicate-empty-lines-flag nil
   "Non-nil means indicate empty lines on window systems.
-Do this visually at the end of an ANSYS buffer in the left
+Do this visually at the end of an APDL buffer in the left
 fringe.  You have to reload function `apdl-mode' for this
 variable to take effect."
   :type 'boolean
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-comment-padding " "
   "Padding string that `comment-dwim' puts between comment chars and text.
@@ -226,7 +226,7 @@ Extra spacing between the comment character(s) and the comment
 text makes the comment easier to read.  This padding is not
 effective for code comments (comments behind code)."
   :type 'string
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-comment-add 1
   "How many additional comment characters are inserted by \\[comment-dwim].
@@ -235,69 +235,69 @@ This determines the default value of the numeric argument of
 modes like Lisp where it can be convenient to set it to 1 so that
 regions are commented with two semi-colons."
   :type 'integer
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-code-comment-column 25
-  "Column where ANSYS code comments (behind code) are placed."
+  "Column where APDL code comments (behind code) are placed."
   :type 'integer
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-auto-indent-flag t
   "Non-nil means indent line when typing the SPC key.
 The space character is also inserted."
   :type 'boolean
   ;;  :options '(t nil) ; not necessary with booleans in Customise
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-indent-comment-suffix ""
-  "String placed after the ANSYS comment char in an code comment.
+  "String placed after the APDL comment char in an code comment.
 See `apdl-indent-comment-string'."
   :type 'string
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-ruler-wide-flag nil
   "Non-nil means show a 80 characters wide temporary ruler.
 Nil means show a narrower temporary ruler with 50 characters."
   :type 'boolean
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-require-spaces-flag nil
   "Non-nil means \\[insert-parentheses] inserts whitespace before ().
 When there is a region marked then function `insert-parentheses'
 inserts the parentheses around the active region."
   :type 'boolean
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-blink-matching-block-flag t
-  "Non-nil means blinking of matching ANSYS block keywords.
+  "Non-nil means blinking of matching APDL block keywords.
 Skip temporary to the matching beginning of the block when
 inserting a newline after an *ELSE or *END keyword."
   :type 'boolean
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-blink-matching-delay .7
   "Time in seconds for skipping to a matching block.
 See also the variable `apdl-blink-matching-block-flag'."
   :type 'number
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-block-offset 2
   "Indentation column(s) for statements in a block structure."
   :type 'integer
 ;; :options only for types hook, plist and alist
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-outline-string "@"
   "String specifying outline headings (see `outline-regexp')."
   :type 'string
-  :group 'ANSYS)
+  :group 'APDL)
 
 (defcustom apdl-mode-hook nil
   "Normal hook run before entering APDL-Mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
   :options '(apdl-show-paren-mode apdl-outline-minor-mode apdl-ruler-mode apdl-auto-insert-mode)
-  :group 'ANSYS)
+  :group 'APDL)
 
 (require 'align)
 
@@ -320,7 +320,7 @@ A hook is a variable which holds a collection of functions."
        (modes    . '(apdl-mode))
        (tab-stop . nil))
       )
-    "Rules for aligning ANSYS variable definitions."
+    "Rules for aligning APDL variable definitions."
     :type align-rules-list-type
     :group 'apdl-mode
     )
@@ -346,7 +346,7 @@ Please have a look at the function `apdl-manage-overlay'.")
 
 (defvar apdl-indent-comment-string
   (concat (char-to-string apdl-comment-char) apdl-indent-comment-suffix)
-  "String to insert when creating an ANSYS code comment.")
+  "String to insert when creating an APDL code comment.")
 
 (defvar apdl-user-variables nil
   "Variable containing the user variables and line No of first occurance.
@@ -366,20 +366,13 @@ fontification (`apdl-highlight-variable') of these variables.")
 
 (defvar apdl-mode-abbrev-table nil
   "Abbreviation definition table for the APDL-Mode.
-All ANSYS abbrevs start with a grave accent \"`\".  \"`?\" lists
+All APDL abbrevs start with a grave accent \"`\".  \"`?\" lists
 the currently defined abbreviations.")
 
 (defvar apdl-parameter-help-position) ;for the compiler
 
-(cond
- ((version< emacs-version "24")
-  (defvar apdl-parameter-help-position 1
-    "Cursor position in -show-command-parameters.")
-  (make-local-variable 'apdl-parameter-help-position))
- (t
-  (if (fboundp 'defvar-local)
-      (defvar-local apdl-parameter-help-position 1
-	"Cursor position in -show-command-parameters."))))
+(defvar-local apdl-parameter-help-position 1
+  "Cursor position in -show-command-parameters.")
 
 ;;; --- constants ---
 
@@ -389,56 +382,56 @@ the currently defined abbreviations.")
 (defconst apdl-begin-keywords
   '("\\*[dD][oO]" "\\*[dD][oO][wW][hH]?[iI]?[lL]?[eE]?"
     "\\*[iI][fF].*[tT][hH][eE][nN]" "\\*[cC][rR][eE][aA][tT][eE]")
-  "Regexps describing ANSYS block begin keywords.")
+  "Regexps describing APDL block begin keywords.")
 
 (defconst apdl-else-keywords
   '("\\*[eE][lL][sS][eE][iI][fF]" "\\*[eE][lL][sS][eE]"
     "\\*[cC][yY][cC][lL][eE]")
-  "Regexps describing ANSYS block else keywords.")
+  "Regexps describing APDL block else keywords.")
 
 (defconst apdl-end-keywords
   '("\\*[eE][nN][dD][dD][oO]" "\\*[eE][nN][dD][iI][fF]"
     "\\*[eE][nN][dD]")
-  "Regexps describing ANSYS end keywords.")
+  "Regexps describing APDL end keywords.")
 
 (defconst apdl-number-line-regexp
   "^\\s-*[(+-]?[[:digit:]]"
-  "Regexp describing an ANSYS number line.
+  "Regexp describing an APDL number line.
 Used for skipping pure number lines and CMBLOCK format strings")
 
 (defconst apdl-block-begin-regexp
   (concat "\\("
 	  (mapconcat 'identity apdl-begin-keywords "\\|")
 	  "\\)\\>")
-  "Regexp containing the ANSYS begin keywords.")
+  "Regexp containing the APDL begin keywords.")
 
 (defconst apdl-block-else-regexp
   (concat "\\("
 	  (mapconcat 'identity apdl-else-keywords "\\|")
 	  "\\)\\>")
-  "Regexp containing the ANSYS else keywords.")
+  "Regexp containing the APDL else keywords.")
 
 (defconst apdl-block-end-regexp
   (concat "\\("
 	  (mapconcat 'identity apdl-end-keywords "\\|")
 	  "\\)\\>")
-  "Regexp containing the ANSYS end keywords.")
+  "Regexp containing the APDL end keywords.")
 
 (defconst apdl-block-begin-or-end-regexp
   (concat apdl-block-begin-regexp "\\|" apdl-block-end-regexp)
-  "Regexp containing ANSYS begin and end keywords.")
+  "Regexp containing APDL begin and end keywords.")
 
 (defconst apdl-block-else-or-end-regexp
   (concat apdl-block-else-regexp "\\|" apdl-block-end-regexp)
-  "Regexp containing the ANSYS else or end keywords.")
+  "Regexp containing the APDL else or end keywords.")
 
 (defconst apdl-block-match-alist
   '(("*IF" . ("THEN" "*ELSE" "*ELSEIF" "*ENDIF"))
     ("*DO" . ("*ENDDO"))
     ("*DOWHILE" . ("*ENDDO"))
     ("*CREATE" . ("*END")))
-  "Alist with ANSYS's matching block keywords.
-It has ANSYS's begin keywords as keys and a list of the
+  "Alist with APDL's matching block keywords.
+It has APDL's begin keywords as keys and a list of the
 corresponding else or end keywords as associated values.")
 
 (defconst apdl-column-ruler-wide
@@ -835,7 +828,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	apdl-font-lock-keywords-3
 	  ))
 
-(defconst apdl-mode-syntax-table     ;FIXME check ANSYS operators and
+(defconst apdl-mode-syntax-table     ;FIXME check APDL operators and
 					;allowed variable characters
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?\r " " table)
@@ -852,29 +845,29 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (modify-syntax-entry ?\' "." table)
     (modify-syntax-entry ?\` "w" table) ;apdl-mode abbreviation specifier,
 					;not an operator but "word".
-    (modify-syntax-entry ?_ "_"  table) ;in ANSYS symbol component
-    (modify-syntax-entry ?: "_"  table) ;ANSYS label specifier, not an operator
-    (modify-syntax-entry ?* "_"  table) ;ANSYS asterisk commands syntax clashing
+    (modify-syntax-entry ?_ "_"  table) ;in APDL symbol component
+    (modify-syntax-entry ?: "_"  table) ;APDL label specifier, not an operator
+    (modify-syntax-entry ?* "_"  table) ;APDL asterisk commands syntax clashing
 					;with algebraic operators but blink-matching-
 					;needs this
-    ;;     (modify-syntax-entry ?/ "w"  table)	;ANSYS slash commands
-    (modify-syntax-entry ?\! "<" table) ;ANSYS comment character
+    ;;     (modify-syntax-entry ?/ "w"  table)	;APDL slash commands
+    (modify-syntax-entry ?\! "<" table) ;APDL comment character
     (modify-syntax-entry ?\n ">" table)
-    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for ANSYS
+    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string delimeter for APDL
     (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
-					;Normally ANSYS string delimiter, but might clash
+					;Normally APDL string delimiter, but might clash
 					;with usages of genitives etc.!
-    (modify-syntax-entry ?~ "_" table) ;ANSYS connection commands, not an operator
+    (modify-syntax-entry ?~ "_" table) ;APDL connection commands, not an operator
     table)
   "Syntax table in use in `apdl-mode' buffers.")
 
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst apdl-mode-menu
-  (list "A-Mode"
+  (list "APDL"
 	["Comment/Un- Region" comment-dwim
 	 :help "Comment out region or uncomment region, without a marked region start a code comment"]
 	["Complete Symbol" apdl-complete-symbol
-	 :help "Complete an ANSYS command, element or function name"]
+	 :help "Complete an APDL command, element or function name"]
 	["Send/Copy Region or Paragraph" apdl-send-to-ansys
 	 :label (if
 		    (or apdl-classics-flag (apdl-process-running-p))
@@ -894,10 +887,10 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	["Preview Macro Template" apdl-display-skeleton
 	 :help "Preview an APDL code template in another window"]
 	["Align region or paragraph" apdl-align
-	 :help "Align ANSYS variable definitions in a marked region or the current paragraph. M-x apdl-align"]
+	 :help "Align APDL variable definitions in a marked region or the current paragraph. M-x apdl-align"]
 	"-"
 	["Show ANSYS Command Help" apdl-show-command-parameters
-	 :help "Display a short help for the ANSYS command near the cursor with its parameters. M-x apdl-show-command-parameters"]
+	 :help "Display a short help for the APDL command near the cursor with its parameters. M-x apdl-show-command-parameters"]
 	["Display Variable Definitions" apdl-display-variables
 	 :help "Display all user variable definitions from the current file in another window. M-x apdl-display-variables"]
 	["Installation Directory" apdl-install-directory
@@ -908,7 +901,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	 installation directory of ANSYS, the path up to the
 	 version number vXXX.  M-x apdl-install-directory"]
 	["Browse APDL command help" apdl-browse-apdl-help
-	 :help "Open the original ANSYS documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
+	 :help "Open the original APDL documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
 	 :active (file-readable-p apdl-help-path)]
 	["Browse ANSYS APDL Guide" apdl-browse-apdl-guide
 	 :help "Read the original ANSYS APDL Guide in a browser."
@@ -1011,7 +1004,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	       :help "Go to the end of the current command"]
 	      "-"
 	      ["Split Format Line at Point" apdl-indent-format-line
-	       :help "Split current line, if in a comment continue the comment, if in an ANSYS format line insert the continuation character before splitting the line"]
+	       :help "Split current line, if in a comment continue the comment, if in an APDL format line insert the continuation character before splitting the line"]
 	      )
 	(list "Work with Logical Blocks"
 	      ["Next Block End" apdl-next-block-end
@@ -1027,15 +1020,15 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	      ["Skip Block Backwards" apdl-skip-block-backwards
 	       :help "Skip to the beginning of previous control block"]
 	      ["Hide Number Blocks" apdl-hide-number-blocks
-	       :help "Hide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	       :help "Hide all APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      ["Unhide Number Blocks" apdl-unhide-number-blocks
-	       :help "Unhide all ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	       :help "Unhide all APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      ["Beginning of N. Block" apdl-number-block-start
-	       :help "Go to the beginning of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
-	      ["End of Number Block"    apdl-number-block-end :help "Go to the end of an ANSYS number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	       :help "Go to the beginning of an APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+	      ["End of Number Block"    apdl-number-block-end :help "Go to the end of an APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
 	      "-"
 	      ["Close Block" apdl-close-block
-	       :help "Close the current ANSYS control block with the respective closing command"]
+	       :help "Close the current APDL control block with the respective closing command"]
 	      ["Mark Block" apdl-mark-block
 	       :help "Mark the current control block"]
 	      ["Hide Region" apdl-hide-region
@@ -1063,7 +1056,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	 :help "Display the online APDL-Mode Documentation in a browser."]
 	["Help on APDL-Mode" describe-mode
 	 :help "Open an Emacs window describing APDL-Mode's usage"]
-	["Customise APDL-Mode"        (customize-group "ANSYS") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
+	["Customise APDL-Mode"        (customize-group "APDL") :help "Open a special customisation window for changing the values and inspecting the documentation of its customisation variables"]
 	["List Mode Abbreviations"     (list-abbrevs t) :help "Display a list of all abbreviation definitions for logical blocks"]
 	["Submit Bug Report"       apdl-submit-bug-report :help "Open a mail template for an APDL-Mode bug report"]
 	["Reload APDL-Mode"           apdl-reload-apdl-mode :help "Loading the mode definitions anew from files and restarting apdl-mode"]
@@ -1074,7 +1067,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst apdl-task-menu
   (list
-   "ANSYS"
+   "APDL"
    ["Specify License Server or - File" apdl-license-file
     :label (if apdl-license-file "Change License Server or - File" "Specify License Server or - File")
     :help "Change the license server specification (for an solver/interpreter run or the license status), either naming the license server machine (with port) or the actual license file"]
@@ -1205,7 +1198,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 ;;; --- predicates ---
 
 (defun apdl-in-asterisk-comment-p ()
-  "Return t if the cursor is inside an ANSYS asterisk comment."
+  "Return t if the cursor is inside an APDL asterisk comment."
   (save-excursion
     (let ((lbp (line-beginning-position)))
       (if (search-backward " *" lbp t)
@@ -1213,20 +1206,20 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	nil))))
 
 (defun apdl-in-string-command-line-p ()
-  "Return t if in an ANSYS string command line."
+  "Return t if in an APDL string command line."
   (save-excursion
    (back-to-indentation)
    (looking-at apdl-string-commands-regexp)))
 
 (defun apdl-number-line-p ()
-  "Return t if in an ANSYS number block."
+  "Return t if in an APDL number block."
   (save-excursion
     (beginning-of-line)
     (and (not (apdl-in-format-construct-p))
 	 (looking-at apdl-number-line-regexp)))) ;"(" is for CMBLOCK format string
 
 (defun apdl-default-command-p ()
-  "Return t if in an ANSYS default command line."
+  "Return t if in an APDL default command line."
   (save-excursion
     (beginning-of-line)
     (looking-at "^\\s-*,")))
@@ -1259,7 +1252,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (if (looking-at apdl-continuation-line-regexp) t nil)))
 
 (defun apdl-in-format-command-line-p ()
-  "Return t if in an ANSYS format command line, nil otherwise.
+  "Return t if in an APDL format command line, nil otherwise.
 See the constant variable `apdl-format-commands-regexp' which
 includes the commands which need formatting lines."
   (save-excursion
@@ -1268,7 +1261,7 @@ includes the commands which need formatting lines."
 	 (concat "^\\s-*\\(" apdl-format-commands-regexp "\\)")) t nil)))
 
 (defun apdl-in-format-construct-p ()
-  "Return t if in an ANSYS format construct.
+  "Return t if in an APDL format construct.
 Otherwise nil, i.e. return nil when in a format command line."
   (cond ((apdl-continuation-line-p) t)
 	((apdl-first-line-p) nil)
@@ -1279,7 +1272,7 @@ Otherwise nil, i.e. return nil when in a format command line."
 		  (apdl-in-format-command-line-p)) t nil)))))
 
 (defun apdl-condensed-input-line-p ()
-  "Return t if in an ANSYS condensed (... $ ...) input line."
+  "Return t if in an APDL condensed (... $ ...) input line."
   (save-excursion
     (beginning-of-line)
     (if (apdl-in-format-construct-p)
@@ -1289,7 +1282,7 @@ Otherwise nil, i.e. return nil when in a format command line."
 	nil))))
 
 (defun apdl-code-line-p ()
-  "Return t if in an ANSYS code line, nil otherwise.
+  "Return t if in an APDL code line, nil otherwise.
 A code line is the complementary to the regexp
 `apdl-non-code-line-regexp'."
   (save-excursion
@@ -1297,7 +1290,7 @@ A code line is the complementary to the regexp
     (if (looking-at apdl-non-code-line-regexp) nil t)))
 
 (defun apdl-not-in-code-line-p ()
-  "Return t if not in an ANSYS code line, nil otherwise.
+  "Return t if not in an APDL code line, nil otherwise.
 A code line is the complementary to the regexp
 `apdl-non-code-line-regexp'."
   (save-excursion
@@ -1310,7 +1303,7 @@ A code line is the complementary to the regexp
 
 (defun apdl-at-end-of-code-p ()
   "Return t if the cursor is at the end of code in a line.
-This means at the end of code before whitespace or an ANSYS
+This means at the end of code before whitespace or an APDL
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
@@ -1333,7 +1326,7 @@ usg-unix-v."
 ;;particularly speedy, are they?
 
 (defsubst apdl-in-comment-p ()
-  "Return t if the cursor is inside an ANSYS comment.
+  "Return t if the cursor is inside an APDL comment.
 The cursor is either in a code comment or comment line."
   (save-excursion
     (nth 4 (parse-partial-sexp (apdl-position 'bol) (point))))) ;nth -- nth element of list
@@ -1345,7 +1338,7 @@ The cursor is either in a code comment or comment line."
     (looking-at "!")))
 
 (defsubst apdl-in-string-p () ;FIXME:are there strings defined in ansys?
-  "Return t if the cursor is inside an ANSYS string."
+  "Return t if the cursor is inside an APDL string."
   (save-excursion
     (nth 3 (parse-partial-sexp (apdl-position 'bol) (point)))))
 
@@ -1387,7 +1380,7 @@ The cursor is either in a code comment or comment line."
       (browse-url-default-windows-browser url)))))
 
 (defun apdl-align (p-min p-max)
-  "Align current paragraph or selection of ANSYS variable definitions.
+  "Align current paragraph or selection of APDL variable definitions.
 If a region is selected align it (with the region borders P-MIN
 and P-MAX) otherwise align the current code paragraph."
   (interactive "r")
@@ -1433,12 +1426,12 @@ are quoted with <>.
 == Introduction to Emacs ==
 
 In Emacs it is not only possible to run a certain command, let's
-say `apdl-start-apdl-help', from entries in Emacs' ANSYS menu bar
+say `apdl-start-apdl-help', from entries in Emacs' APDL menu bar
 or with keyboard shortcuts (here: \"\\[apdl-start-apdl-help]\")
 but additionally from the so called minibuffer.  This
 'interactive' option remains the only one if you have not yet
 activated APDL-Mode or you are currently inspecting a file which
-is not intended for this mode.  Then neither the ANSYS menu nor
+is not intended for this mode.  Then neither the APDL menu nor
 keyboard shortcuts for APDL-Mode commands are available.
 
 To run `apdl-start-apdl-help' by its function name, start with
@@ -1459,12 +1452,12 @@ the <g> key at the same time.
 
 All functions described in this help, regardless whether
 possessing a keyboard shortcut or not, can be called in the
-interactive way or they are to be found in the ANSYS menu.  (If
+interactive way or they are to be found in the APDL menu.  (If
 you prefer to run Emacs in a terminal you might access the menu
 with <F10> key or \"ESC-`'\".)
 
 Above described procedure has the same effect as typing
-\"\\[apdl-start-apdl-help]\" in a file buffer under ANSYS
+\"\\[apdl-start-apdl-help]\" in a file buffer under APDL
 mode ('C-c C-h' means while holding down the <CTRL> key typing
 the respective characters ('c' then 'h') for
 `apdl-start-apdl-help').
@@ -1480,20 +1473,20 @@ with typing \"\\[undo]\".
 
 == Usage of APDL-Mode ==
 
-** ANSYS command syntax help **
+** APDL command syntax help **
 
 Typing \"\\[apdl-show-command-parameters]\", the <CTRL> key
 simultaneously with the <c> key and then <?>, the question
 mark (for the command `apdl-show-command-parameters') displays
-above a code line a brief description of the ANSYS command and
+above a code line a brief description of the APDL command and
 its syntax.  This command counts also the number of parameters
 and visualises at which parameter position the cursor currently
 is.  The command is looking for the next valid command near the
 cursor or when using a prefix argument (`C-u' or `4') it inquires
-an ANSYS command from you. The tooltip is switched off with an
+an APDL command from you. The tooltip is switched off with an
 argument of zero (`0').
 
-** Browse the detailed ANSYS command (and element) html help **
+** Browse the detailed APDL command (and element) html help **
 
 Putting in \"\\[apdl-browse-apdl-help]\" will display the
 original ANSYS help in your web browser for an APDL command or
@@ -1504,10 +1497,10 @@ beginning with a quotation mark `\"' describing general manual
 sections, for example typing `\"SHELLS\"' will call the
 collection of all shell elements in the ANSYS manual.
 
-** ANSYS keyword completion (commands, elements, get- and
+** APDL keyword completion (commands, elements, get- and
    parametric-functions) **
 
-Type the first letter or letters of an ANSYS command, function or
+Type the first letter or letters of an APDL command, function or
 element name and use the key binding
 \"\\[apdl-complete-symbol]\" to let the function
 `apdl-complete-symbol' do the (case sensitve) completion for
@@ -1515,8 +1508,8 @@ you.  Depending on the case of your letter or letters to be
 completed, you will get a downcased, upcased or capitalised
 completion.
 
-There are around 2000 ANSYS symbols available for completion.
-Undocumented ANSYS commands and deprecated element types are also
+There are around 2000 APDL symbols available for completion.
+Undocumented APDL commands and deprecated element types are also
 completed.  The former are identified as such with a different
 highlighting and in their 'command syntax help'.  Please see also
 the variable `apdl-deprecated-element-alist' it's a list with
@@ -1548,8 +1541,8 @@ they will be aligned to
 
 ** Auto-indentation of looping and conditional blocks **
 
-You can customise the indentation depth (ANSYS Block Offset),
-please have a look for the entry 'Customise ANSYS Mode' in the
+You can customise the indentation depth (APDL Block Offset),
+please have a look for the entry 'Customise APDL Mode' in the
 APDL-Mode menu.  The Emacs customisation facility optionally
 saves your choices automatically in your .emacs file for later
 sessions.
@@ -1558,7 +1551,7 @@ sessions.
    insertion of appropriate end keywords **
 
 Typing \"\\[apdl-close-block]\" for the function
-`apdl-close-block' completes the current ANSYS block with the
+`apdl-close-block' completes the current APDL block with the
 insertion of a newline and an appropriate end keyword.
 
 ** Code navigation with extended keyboard shortcuts: Code lines,
@@ -1612,7 +1605,7 @@ suffix `.dat' number blocks are hidden by default.
 
 Moreover there are keyboard shortcuts with which you are able to
 input pairs of corresponding characters, like \"C-c %\" for '%%',
-the ANSYS substitution operators.  The advantage is that the
+the APDL substitution operators.  The advantage is that the
 cursor is place between the pair and you might give a numerical
 argument to the call and enclose already existing words with the
 pair, e. q. \"C-1 C-c %\".  Please have a look for `insert-pair'
@@ -1624,26 +1617,25 @@ The highlighting in the highest decoration level (please refer to
 `apdl-highlighting-level') tries to follow the idiosyncratic
 ANSYS solver/interpreter logic as closely as possible.  For
 example: '* ', an asterisk with following whitespace(s), is still
-a valid ANSYS comment operator (although deprecated, see the
+a valid APDL comment operator (although deprecated, see the
 ANSYS manual for the *LET command).
 
-The fontification distinguishes between ANSYS commands,
+The fontification distinguishes between APDL commands,
 undocumented commands, parametric- and get-functions, elements
 and deprecated elements.  In case of arbitrary characters after
 the command names, they are still highlighted, since these
-characters are ignored by the ANSYS intepreter.
+characters are ignored by the ANSYS APDL intepreter.
 
-Macro variables beginning with an underscore might be ANSYS
+Macro variables beginning with an underscore might be APDL
 reserved variables and therefore are higlighted in a warning
-face.  Another example is the ANSYS the percent sign, its
-highlighting reminds you that the use of such a pair around a
-parameter name might force a parameter substitution, e. g. with
-the assignment 'I=5' and '/com,TEST%I%', the /com command outputs
-TEST5.
+face.  Another example is the percent sign, its highlighting
+reminds you that the use of such a pair around a parameter name
+might force a parameter substitution, e. g. with the assignment
+'I=5' and '/com,TEST%I%', the /com command outputs TEST5.
 
 In the context of pairs of '%' characters, you can also input
 various pairs with keyboard shortcuts, e. g. apostrophies for
-ANSYS character parameters with \"C-c '\", please have a look
+APDL character parameters with \"C-c '\", please have a look
 which bindings are available with \"\\[describe-bindings]\" (for
 `describe-bindings').
 
@@ -1747,7 +1739,7 @@ for the current session by ticking on the respective option in
 the menu or permanently by setting `apdl-outline-minor-mode' for
 the `apdl-mode-hook' variable.  Please type \"M-x
 apdl-customise-ansys <RET>\" or use the customisaton system from
-the menu: ->ANSYS ->Customise ANSYS Mode.
+the menu: ->APDL ->Customise APDL Mode.
 
 ** Convenient comment handling, commenting/un- of whole
    paragraphs **
@@ -1803,9 +1795,9 @@ to to include above skeleton (optionally) for every APDL file.
 
 Please refere the configuration example `default.el'.
 
-** ANSYS process management **
+** APDL process management **
 
-- APDL-Mode writes for you an ANSYS stop file in the current
+- APDL-Mode writes for you an APDL stop file in the current
   directory (the file name is compiled from the variable
   `job-name' and the extension '.abt'). You can do this with
   \"\\[apdl-write-abort-file]\" (`apdl-write-abort-file', you
@@ -1813,11 +1805,11 @@ Please refere the configuration example `default.el'.
   change the current directory).  This stop file is halting a
   running calculation in an orderly, re-startable fashion.
 
-- You are able to view the ANSYS error file (a file consisting of
+- You are able to view the ANSYS APDL error file (a file consisting of
   the `job-name' and the suffix '.err' in the current directory)
   with \"\\[apdl-display-error-file]\" (this calls
   `apdl-display-error-file').  The error file is opened in read
-  only mode (see `toggle-read-only') and with the minor mode
+  only mode (see `read-only-mode') and with the minor mode
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current ANSYS output visible.
 
@@ -1834,10 +1826,10 @@ Please refere the configuration example `default.el'.
 
 If you haven't installed ANSYS in the default locations and the
 executables are not in your system search path or you are using a
-different ANSYS version than '162' it is necessary for the last
+different ANSYS version than '201' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `apdl-customise-ansys' or from the
-menu bar -> 'ANSYS' -> 'Customise ANSYS Mode' -> 'APDL-process'
+menu bar -> 'APDL' -> 'Customise APDL Mode' -> 'APDL-process'
 and look there for the variables 'ANSYS License File', 'ANSYS
 Util Program' and 'ANSYS Help Program' as well as 'ANSYS Help
 Program Parameters') or set the variables directly in your .emacs
@@ -1853,16 +1845,16 @@ you can start the APDL solver/interpreter under GNU-Linux as an
 asynchronous process of Emacs.  After starting the run you will
 see all interpreter output in a separate Emacs 'comint' (command
 interpreter) window.  You are now able to interact with this
-process in three ways, either by typing directly in the '*ANSYS*'
+process in three ways, either by typing directly in the '*APDL*'
 window or using \"\\[apdl-send-to-ansys]\" (for
 `apdl-send-to-ansys').  With the latter you can send either the
 current code line or a whole selected region to the running
 solver.  (A selected region means highlighted lines of code.  If
 there is no running solver the function copies the code to the
 system clipboard.)  And lastly you are able to send interactively
-ANSYS commands with
+APDL commands with
 \"\\[apdl-query-apdl-command]\" (`apdl-query-apdl-command')
-without switching to the '*ANSYS*' window. If you would like to
+without switching to the '*APDL*' window. If you would like to
 send your current code line in a slightly modified form, then
 give a prefix argument to `apdl-query-apdl-command' and the
 line will be the intial input for sending it to the interpreter.
@@ -1923,7 +1915,7 @@ complete GUI system of ANSYS is not active.
     /ui,help  !is it not working in ANSYS non-GUI modes
     help, COMMAND !is also not working in ANSYS non-GUI modes
 
-So you are not able start the Help Viewer for a *specific* ANSYS
+So you are not able start the Help Viewer for a *specific* APDL
 command but must search within the ANSYS Help Viewer or better
 use the much faster \"\\[apdl-browse-apdl-help]\".
 
@@ -1936,8 +1928,8 @@ use the much faster \"\\[apdl-browse-apdl-help]\".
 For a compilation (and respective documentation) of available
 APDL-Mode customisations it's best to open the mode's
 customisation buffer either with the command
-`apdl-customise-ansys' or from the menu bar -> 'ANSYS' ->
-'Customise ANSYS Mode' and check interesting options.
+`apdl-customise-ansys' or from the menu bar -> 'APDL' ->
+'Customise APDL Mode' and check interesting options.
 
 Another way getting to the customisation facility is to open the
 specific documentation of respective variables.  Let's change for
@@ -1962,7 +1954,7 @@ character.  Please check the configuration example `default.el'.)
 For certain options to take effect without restarting Emacs, it's
 necessary to reload APDL-Mode.  You can do this with the
 interactive command `apdl-reload-apdl-mode' or with the
-respective, toplevel ANSYS menu entry.
+respective, toplevel APDL menu entry.
 
 You can improve the loading and execution speed of APDL-Mode
 with a byte-compilation of its lisp files (if they are not
@@ -1977,7 +1969,7 @@ installing/running this mode or simply would like to suggest some
 improvements you have the following options:
 
 - Write an email to the mode maintainer, please trigger a bug
-  report form from the ANSYS menu or by calling the function
+  report form from the APDL menu or by calling the function
   `apdl-submit-bug-report' with \"\\[apdl-submit-bug-report]\".
   Even if you are not able to send emails directly via Emacs,
   this is, at least, a mail template with possibly valuable
@@ -2003,7 +1995,7 @@ improvements you have the following options:
 
   (kill-all-local-variables)		; convention
   (setq major-mode 'apdl-mode)
-  (setq mode-name "ANSYS")		; mode line string
+  (setq mode-name "APDL")		; mode line string
 
   ;; only effective for window systems!
   (setq indicate-empty-lines apdl-indicate-empty-lines-flag)
@@ -2232,7 +2224,7 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 	   apdl-version_))
 
 (defun apdl-reload-apdl-mode ()
-  "Reload the ANSYS mayor mode.
+  "Reload the APDL mayor mode.
 Clear the mode definitions if active, load the necessary code and
 call `apdl-mode'."
   (interactive)
@@ -2308,7 +2300,7 @@ inserted or evaluated unless it is the SPC key."
     (point)))
 
 (defun apdl-close-block ()		;FIXME: choices for *IF
-  "Complete an ANSYS block command with the appropriate end keyword.
+  "Complete an APDL block command with the appropriate end keyword.
 Insert the end keyword on a separate line.  An error is signaled
 if no block to close is found.  For example the *IF command
 represents only a proper block command when it is followed by a
@@ -2389,12 +2381,11 @@ The help overlay will be automatically removed after some time
 interval."
   (interactive)
   (let ((ho (overlay-start apdl-help-overlay))
-	(lb (line-beginning-position))
-	s)
+	(lb (line-beginning-position)))
     (if apdl-timer
 	(cancel-timer apdl-timer))
     (delete-overlay apdl-help-overlay)
-      (setq apdl-help-overlay-str str)
+;      (setq apdl-help-overlay-str str)
       (move-overlay apdl-help-overlay lb lb)
       (overlay-put apdl-help-overlay 'before-string str)
       (setq apdl-timer
@@ -2415,8 +2406,7 @@ Return nil otherwise."
     index))
 
 (defun apdl-update-parameter-help (&optional a b c)
-  "Update the parameter help counting according to cursor
-position."
+  "Update parameter help counting according to the cursor position."
   (let ((p (point))
 	(lo (overlays-in (line-beginning-position) (1- (line-beginning-position)))))
     (when (and (not (equal p apdl-parameter-help-position))
@@ -2426,11 +2416,11 @@ position."
     (apdl-show-command-parameters 1))))
 
 (defun apdl-show-command-parameters (&optional ask-or-toggle)
-  "Display an ANSYS command parameters help for the command near the cursor.
+  "Display an APDL command parameters help for the command near the cursor.
 Show the command name and its parameters (if any) and in a
 further line a brief description.  Count the number of parameters
 and visualise at which parameter position the cursor currently
-is.  This is done for the previous ANSYS command beginning,
+is.  This is done for the previous APDL command beginning,
 except when point is at the command beginning at the indentation.
 See also the function `apdl-command-start' how the previous
 command is found.  It displays also the parameters for commands
@@ -2511,7 +2501,7 @@ buffer, which might be completed with <TAB>."
 	(error "\"%s\" not found in keyword list" str)))))
 
 (defun apdl-check-capitalisation ( string)
-"Check case of ANSYS keyword STRING.
+"Check case of APDL keyword STRING.
 Return symbols capitalise, upcase and downcase."
 (interactive)
 ;; preferences: downcase, capitalize, upcase
@@ -2522,14 +2512,14 @@ Return symbols capitalise, upcase and downcase."
  (t 'downcase)))
 
 (defun apdl-complete-symbol ()
-  "Perform a completion on ANSYS keywords preceding the cursor.
-Complete the character(s) to ANSYS's reserved words, functions
+  "Perform a completion on APDL keywords preceding the cursor.
+Complete the character(s) to APDL's reserved words, functions
 and element names, otherwise throw an error.  When the keyword or
-the completed character(s) represent a unique ANSYS keyword
+the completed character(s) represent a unique APDL keyword
 indicate this fact with a message.  When the completion is not
 unique or only partial show the other possible completions in a
 temporary completion buffer, from which the completions might be
-chosen with the mouse.  You might remove the *ANSYS completion*
+chosen with the mouse.  You might remove the *APDL completion*
 buffer with the SPACE key."
   ;; This code taken from lisp-complete-symbol
   (interactive "*")
@@ -2566,7 +2556,7 @@ buffer with the SPACE key."
 	(cond
 	 ;; completion not possible
 	 ((null completion)
-	  (message "\"%s\" can't be completed to an ANSYS symbol"
+	  (message "\"%s\" can't be completed to an APDL symbol"
 		   completion-string)
 	  (if completion-window	;bury completion buffer
 	      (save-selected-window
@@ -2576,7 +2566,7 @@ buffer with the SPACE key."
 
 	 ;; unique and upcased like in the -completions variable
 	 ((equal completion t)
-	  (message "\"%s\" is a unique ANSYS symbol."
+	  (message "\"%s\" is a unique APDL symbol."
 		   completion-string)
 	  (kill-buffer completion-buffer))
 
@@ -2590,7 +2580,7 @@ buffer with the SPACE key."
 	  ;; possibly move back into parens
 	  (skip-chars-backward ")" (1- (point)))
 	  (kill-buffer completion-buffer)
-	  (message "\"%s\" is a unique ANSYS symbol." completion))
+	  (message "\"%s\" is a unique APDL symbol." completion))
 
 	 ;;complete or not, but not unique anyway
 	 (t
@@ -2605,12 +2595,12 @@ buffer with the SPACE key."
 	      ;; already a complete, valid symbol but fragment is further
 	      ;; completable
 	      (message
-;	       (concat "Complete ANSYS symbol.  Hit SPACE to remove the "
-	       (concat "Complete but not unique ANSYS symbol.  Hit SPACE to remove the "
+;	       (concat "Complete APDL symbol.  Hit SPACE to remove the "
+	       (concat "Complete but not unique APDL symbol.  Hit SPACE to remove the "
 		       buffer-name " buffer."))
 	    ;; not yet complete
 	    (message
-	     (concat "Incomplete ANSYS symbol.  Hit SPACE to remove the "
+	     (concat "Incomplete APDL symbol.  Hit SPACE to remove the "
 		     buffer-name " buffer.")))
 
 	  ;; mouse selections in the completion buffer?
@@ -2629,7 +2619,8 @@ buffer with the SPACE key."
 		;;        (eq (key-binding key) 'choose-completion)))
 		;; (choose-completion first)
 		       (eq (key-binding key) 'mouse-choose-completion))); <E23.2
-		(mouse-choose-completion first)
+		(choose-completion first)
+;		(mouse-choose-completion first) ; outdated function
 	      (if (eq first ?\ )
 		  (kill-buffer completion-buffer)
 		(setq unread-command-events
@@ -2638,7 +2629,7 @@ buffer with the SPACE key."
 ;;;; Electric characters & friends
 
 (defun apdl-reindent-then-newline-and-indent () ; (&ptional non-matching) ;FIXME: docu
-  "Reindent current ANSYS line, insert newline, and indent the new line.
+  "Reindent current APDL line, insert newline, and indent the new line.
 If function `abbrev-mode' is on, expand the abbreviations first."
   (interactive "*") 			;* means signal error if read-only
   (expand-abbrev)
@@ -2677,17 +2668,17 @@ Reindent the line if `apdl-auto-indent-flag' is non-nil."
 	 (self-insert-command 1))))
 
 (defun apdl-add-apdl-menu ()
-  "Add an \"ANSYS\" entry to the Emacs menu bar."
+  "Add an \"APDL\" entry to the Emacs menu bar."
   (require 'easymenu)
   (easy-menu-define apdl-task-menu-map apdl-mode-map
-    "Menu keymap for ANSYS Tasks." apdl-task-menu)
+    "Menu keymap for APDL Tasks." apdl-task-menu)
   (easy-menu-define apdl-mode-menu-map apdl-mode-map
     "Menu keymap for APDL-Mode." apdl-mode-menu)
   (easy-menu-add apdl-task-menu-map apdl-mode-map)
   (easy-menu-add apdl-mode-menu-map apdl-mode-map))
 
 (defun apdl-calculate-indent ()   ;FIXME: comment, fixed goal column,
-  "Return appropriate indentation for current line as ANSYS code.
+  "Return appropriate indentation for current line as APDL code.
 Returns an integer (the column to indent to) unless the line is a
 comment line with fixed goal column.  In that case, returns a list whose
 car is the column to indent to, and whose cdr is the current indentation
@@ -2738,7 +2729,7 @@ level."
 	 ((and (looking-at apdl-block-end-regexp)
 	       (apdl-not-in-string-or-comment-p))
 	  (setq column (- keyword_c apdl-block-offset)))
-	 ((and (looking-at ",")	   ;ANSYS default command substitution
+	 ((and (looking-at ",")	   ;APDL default command substitution
 	       (apdl-not-in-string-or-comment-p)) ;FIXME:for *msg lines etc.?
 	  (if comma_c
 	      (setq column comma_c)
@@ -2756,7 +2747,7 @@ level."
     column))
 
 (defun apdl-indent-line-function (&optional arg)
-  "Indent current line in ANSYS coding style.
+  "Indent current line in APDL coding style.
 With optional ARG, use this as offset unless this line is a
 comment with fixed goal column."
   (interactive "*p")
@@ -2775,9 +2766,9 @@ comment with fixed goal column."
 ;;;; Electric characters & friends
 
 (defun apdl-abbrev-start ()
-  "Start entering an ANSYS abbreviation.
+  "Start entering an APDL abbreviation.
 If Abbrev mode is turned on, typing ` (grave accent) followed by ? or
-\\[help-command] lists all ANSYS abbrevs.  Any other key combination is
+\\[help-command] lists all APDL abbrevs.  Any other key combination is
 executed normally.
 Note that all APDL-Mode abbrevs start with a grave accent."
   (interactive)
@@ -2807,8 +2798,8 @@ Note that all APDL-Mode abbrevs start with a grave accent."
     (current-buffer))))
 
 (defun apdl-indent-format-line ()
-  "Break ANSYS line at point, continuing comment if within one.
-If within code, insert the ANSYS continuation character `&'
+  "Break APDL line at point, continuing comment if within one.
+If within code, insert the APDL continuation character `&'
 before breaking the line.  If within a string, signal an error.
 The new line is properly indented."
   (interactive "*")
@@ -2829,7 +2820,7 @@ The new line is properly indented."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun apdl-default-command-end ()
-  "Move cursor to the end of an ANSYS default command construct."
+  "Move cursor to the end of an APDL default command construct."
   (unless (apdl-default-command-p)
     (re-search-forward "^\\s-*,"))
   (while (apdl-default-command-p)
@@ -2862,7 +2853,7 @@ futher number line is in the file signal an error."
 
 (defun apdl-number-block-start()
   "Move to the line beginning before a pure number block.
-For example an ANSYS NBLOCK or EBLOCK typically found in
+For example an APDL NBLOCK or EBLOCK typically found in
 WorkBench APDL files.  If there is no code before a number block,
 signal an error."
   (interactive)
@@ -2875,7 +2866,7 @@ signal an error."
 
 (defun apdl-number-block-end()
   "Move to the end of a pure number block.
-For example an ANSYS NBLOCK or EBLOCK typically found in
+For example an APDL NBLOCK or EBLOCK typically found in
 WorkBench APDL files."
   (interactive)
   (when (or (apdl-at-end-of-text-p)
@@ -2887,7 +2878,7 @@ WorkBench APDL files."
   (end-of-line))
 
 (defun apdl-next-code-line (&optional num)
-  "Move NUM lines of ANSYS code forward, default for NUM is 1.
+  "Move NUM lines of APDL code forward, default for NUM is 1.
 Skip past intermediate comment and empty lines."
   (interactive "p")
   (unless num (setq num 1))
@@ -2915,7 +2906,7 @@ Skip past intermediate comment and empty lines."
 	 )))
 
 (defun apdl-previous-code-line (&optional num)
-  "Move NUM lines of ANSYS code backward, default for NUM is 1.
+  "Move NUM lines of APDL code backward, default for NUM is 1.
 Skip before all empty - and comment lines and return the
 difference between NUM and actually moved code lines."
   (interactive "p")
@@ -2972,7 +2963,7 @@ previous command or to the first line if no previous command is
 there.  When on a condensed input line, go to previous `$'
 statement or to the line's first command.  When in a format
 command string move backward to the beginning of the respective
-command.  When no ANSYS command is to be found signal an error.
+command.  When no APDL command is to be found signal an error.
 When NUM is 0 move to the current code line indentation."
   (interactive "p")
   (unless num (setq num 1))
@@ -3010,7 +3001,7 @@ When NUM is 0 move to the current code line indentation."
       (setq num (1- num))))))
 
 (defun apdl-command-end (&optional num)
-  "Move to the end of the NUMth next ANSYS command or assignment statement.
+  "Move to the end of the NUMth next APDL command or assignment statement.
 Default for NUM is 1.  If in a comment or empty line, go to the
 next command or to the last line if no following command is
 there.  When on a condensed input line, go to the end of the next
@@ -3056,7 +3047,7 @@ then skip to the next code line's end."
       (setq num (1- num))))))
 
 (defun apdl-scan-blocks (count level-offset)
-  "Scan from (point) COUNT balanced ANSYS begin-end blocks.
+  "Scan from (point) COUNT balanced APDL begin-end blocks.
 Return the position thus found.  COUNT may be negative.
 
 If LEVEL-OFFSET is nonzero, the block level gets an offset of
@@ -3122,7 +3113,7 @@ backward across |ARG| blocks."
 		   (message "No %d block start(s) before cursor position" arg)))))
 
 (defun apdl-skip-block-backwards (&optional arg)
-  "Move backward across one balanced ANSYS begin-end block.
+  "Move backward across one balanced APDL begin-end block.
 With argument, do it that many times.
 Negative ARG means move forward across |ARG| blocks."
   (interactive "p")
@@ -3183,7 +3174,7 @@ or conditional or looping construct."
     (goto-char c)))
 
 (defun apdl-down-block (&optional down-level)
-  "Move forward down one begin-end block level of ANSYS code.
+  "Move forward down one begin-end block level of APDL code.
 Position cursor behind the beginning keyword of the respective
 block.  With argument DOWN-LEVEL, do this for that many levels.
 A negative argument means move backwards up DOWN-LEVEL
@@ -3197,7 +3188,7 @@ levels (see `apdl-up-block')."
       (setq down-level (- down-level inc)))))
 
 (defun apdl-up-block (&optional depth)
-  "Move backwards up one begin-end block level of ANSYS code.
+  "Move backwards up one begin-end block level of APDL code.
 Position cursor before the beginning keyword of the respective
 block.  With argument DEPTH, do this for that many levels.  A
 negative argument DEPTH means move forward down DEPTH levels (see
@@ -3207,8 +3198,8 @@ negative argument DEPTH means move forward down DEPTH levels (see
   (apdl-down-block (- depth)))
 
 (defun apdl-blink-matching-block ()
-  "Blink the matching ANSYS begin block keyword.
-If point is right after an ANSYS else or end type block keyword,
+  "Blink the matching APDL begin block keyword.
+If point is right after an APDL else or end type block keyword,
 move cursor momentarily to the corresponding begin keyword.
 Signal an error if the keywords are incompatible."
   (interactive)
@@ -3355,9 +3346,7 @@ These constructs appear in WorkBench created solver input files."
   "Open an Emacs mail buffer with an APDL-Mode bug report."
   (interactive)
   (require 'reporter)
-  (let (salutation
-	(reporter-prompt-for-summary-p t)) ;asks for a summary which
-					;goes in the subject line
+  (let ((salutation))
     (when (y-or-n-p "Do you want to write a bug report? ")
       (setq salutation
 	    "Please describe briefly what your problem is and which actions
@@ -3414,7 +3403,7 @@ These constructs appear in WorkBench created solver input files."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; ---- Restrictions ----
-;; Variables or 'parameters' in ANSYS parlance:
+;; Variables or 'parameters' in APDL parlance:
 ;; 1.) Begin with a letter
 ;; 2.) Contain only letters, numbers and the underscore '_'
 ;; 3.) Have no more than 32 characters
@@ -3450,7 +3439,7 @@ Added pseudo arguments A B C."
   (interactive)
   (save-excursion
     (save-match-data
-      (let (res var com)	; Start with ANSYS *USE vars
+      (let (res var com)	; Start with APDL *USE vars
 	(setq apdl-user-variables ())
 
 	(dolist (command apdl-variable-defining-commands)
@@ -3471,7 +3460,7 @@ Added pseudo arguments A B C."
 ;			   (match-beginning 1)
 			   (list var (line-number-at-pos))))))
 
- 	;; ANSYS = assignment
+ 	;; APDL = assignment
 	(goto-char (point-min))
  	(while (re-search-forward
 		;; search for reserved variables as well
@@ -3580,10 +3569,7 @@ argument ARG, the function evaluates the variable at point."
 	    (num 0))
        (set-buffer variable-buffer)
        ;; make buffer writable
-       (if (version<  "24.2" emacs-version)
-	   (when (fboundp 'read-only-mode)
-	     (read-only-mode -1))
-	 (toggle-read-only -1))
+       (read-only-mode -1)
        (kill-region (point-min) (point-max))
        ;; insert header
        (insert
@@ -3605,17 +3591,14 @@ argument ARG, the function evaluates the variable at point."
 	   (insert str)))
        (goto-char (point-min))
        ;; make buffer read-only
-       (if (version< "24.2" emacs-version)
-	   (when (fboundp 'read-only-mode)
-	       (read-only-mode 1))
-	 (toggle-read-only 1))
+       (read-only-mode 1)
        (set-buffer current-buffer)
        (display-buffer buffer-name 'other-window)))))
 
 (defun apdl-customise-ansys ()
   "Call the Emacs customisation facility for APDL-Mode."
   (interactive)
-  (customize-group "ANSYS"))
+  (customize-group "APDL"))
 
 (defun apdl-delete-other-window (&optional win)
   "Delete the other, not selected Emacs window.

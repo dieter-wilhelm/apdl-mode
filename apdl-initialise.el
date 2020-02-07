@@ -1,5 +1,5 @@
-;;; apdl-initialise.el --- initialisation code  -*- lexical-binding: t; -*-
-
+;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
+;; Time-stamp: <2020-02-06 15:34:21 dieter>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -21,6 +21,8 @@
 
 ;;; Commentary:
 
+;; initialisation code
+
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -29,7 +31,7 @@
 (defconst apdl-mode_version "1"
   "APDL-Mode version number.")
 
-(defconst apdl-version_ "R20"
+(defconst apdl-version_ "R20.1"
   "ANSYS version on which APDL-Mode is based upon.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -152,9 +154,14 @@ The license file itself."
 Set it to port@host.  The default port is 2325."
   :type 'string
   :group 'APDL-initialise)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; declaring functions
+
+(declare-function apdl-is-unix-system-p "apdl-mode")
+(declare-function apdl-classics-p "apdl-process")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; variables
+;; defining variables
 
 (defvar apdl-unix-system-flag nil
   "Indicate a Unix system with t.")
@@ -164,6 +171,9 @@ Set it to port@host.  The default port is 2325."
 This variable is used by the `apdl-skeleton-header' template and
 for setting up variables defaults with ANSYS path specifications,
 like in the variable `apdl-program'.")
+
+;; from -process.el
+(defvar apdl-classics-flag)
 
 ;; (defvar apdl-current-apdl-version-history '("160" "150" "145")
 ;;   "History list for the minibuffer input of
@@ -196,8 +206,8 @@ return nil."
 	  (search-forward-regexp ".*" nil t)
 	  (match-string-no-properties 0)) ;TODO: there's no check
 					  ;against empty ini!
-      (message (concat "File "ini" not readable"))
-      nil)))
+      (message "File %s not readable" ini))
+      nil))
 
 (defun apdl-find-path-environment-value ()
   "Find the latest AWP_ROOTXXX environment value.
@@ -301,23 +311,24 @@ customisation variables"
   ;; 2) -current-apdl-version: 
   (when apdl-install-directory
     (let* ((idir (file-name-as-directory apdl-install-directory))
-	   (version apdl-current-apdl-version))
+	   (version1 apdl-current-apdl-version)
+	   (length))
       (when (or (and idir
-		     (not version))
+		     (not version1))
 		force)
 	(setq length (length idir))
-	(setq version (substring (directory-file-name idir) (- length 4) (- length 1)))
-	(setq apdl-current-apdl-version version)
-	(message "apdl-current-apdl-version=%s" version))))
+	(setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
+	(setq apdl-current-apdl-version version1)
+	(message "apdl-current-apdl-version=%s" version1))))
  
   ;; 3) -program
   (when (and apdl-install-directory (or (null apdl-program) force))
-    (let* ((version apdl-current-apdl-version)
+    (let* ((version1 apdl-current-apdl-version)
 	   (idir (unless (null apdl-install-directory)
 		   (file-name-directory apdl-install-directory)))
 	   (exe (if apdl-unix-system-flag
-		    (concat idir "ansys/bin/ansys" version)
-		  (concat idir "ansys/bin/winx64/ansys"version".exe"))))
+		    (concat idir "ansys/bin/ansys" version1)
+		  (concat idir "ansys/bin/winx64/ansys"version1".exe"))))
       (if (file-executable-p exe)
 	  (progn
 	    (setq apdl-program exe)
@@ -326,8 +337,7 @@ customisation variables"
 
   ;; 4) -wb
   (when (and apdl-install-directory (or (null apdl-wb) force))
-    (let* ((version apdl-current-apdl-version)
-	   (idir apdl-install-directory)
+    (let* ((idir apdl-install-directory)
 	   (exe 
 	    (if apdl-unix-system-flag
 		(concat idir "Framework/bin/Linux64/runwb2") ;150, 161
@@ -340,19 +350,18 @@ customisation variables"
 
 ;; 5) -launcher
   (when (and apdl-install-directory (or (null apdl-launcher) force))
-    (let* ((version apdl-current-apdl-version)
+    (let* ((version1 apdl-current-apdl-version)
 	   (idir (unless (null apdl-install-directory)
 		   (file-name-directory apdl-install-directory)))
 	   (exe
 	    (if apdl-unix-system-flag
-		(concat idir "ansys/bin/launcher" version)
-	      (concat idir  "ansys/bin/winx64/launcher" version ".exe"))))
+		(concat idir "ansys/bin/launcher" version1)
+	      (concat idir  "ansys/bin/winx64/launcher" version1 ".exe"))))
       (when (file-executable-p exe)
 	(setq apdl-launcher exe))
       (if apdl-launcher
-	  (message (concat "apdl-launcher is set to " apdl-launcher))
-	(message "Couldn't find an executable for apdl-launcher."
-	exe))))
+	  (message "apdl-launcher is set to %s" apdl-launcher))
+	(message "Couldn't find an executable for apdl-launcher (%s)." exe)))
 
   ;; 6) -help-path
   (when (and apdl-install-directory (or (null apdl-help-path) force))
@@ -362,28 +371,27 @@ customisation variables"
 	  (progn
 	    (setq apdl-help-path path)
 	    (message "Set apdl-help-path to %s" path))
-	(message "Couldn't find the apdl-help-path"))))
+	(message "%s" "Couldn't find the apdl-help-path"))))
 
   ;; 7) -help-program
   (when (and apdl-install-directory (or (null apdl-help-program) force))
     (let* ((idir apdl-install-directory)
-	   (version apdl-current-apdl-version)
+	   (version1 apdl-current-apdl-version)
 	   (exe
 	    (if apdl-unix-system-flag
-		(concat idir "ansys/bin/anshelp" version)
+		(concat idir "ansys/bin/anshelp" version1)
 	      (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
       (if (file-executable-p exe)
 	  (progn
 	    (message "apdl-help-program = %s" exe)
 	    (setq apdl-help-program exe))
-	(message "Couldn'f find an executable for apdl-help-program."))))
+	(message "%s" "Couldn't find an executable for apdl-help-program."))))
 
   ;; 8) -lmutil-program
   (when (and apdl-install-directory (or (null apdl-lmutil-program) force))
     (let* ((idir (file-name-directory
 		  (directory-file-name
 		   apdl-install-directory)))
-	   (version apdl-current-apdl-version)
 	   (exe
 	    (if apdl-unix-system-flag
 		(concat idir "shared_files/licensing/linx64/lmutil")
@@ -392,7 +400,7 @@ customisation variables"
 	  (progn
 	    (setq apdl-lmutil-program exe)
 	    (message "apdl-lmutil-program = %s" exe))
-	(message "Couldn't find an executable for apdl-lmutil-program"))))
+	(message "%s" "Couldn't find an executable for apdl-lmutil-program"))))
 
   ;; 9) -license-file
   (when (null apdl-license-file)
@@ -405,7 +413,7 @@ customisation variables"
      (cond
       (lic
        (setq apdl-license-file lic)
-       (message "Read content of ansyslmd.ini")
+       (message "%s" "Read content of ansyslmd.ini")
        (message "apdl-license-file=%s" lic))
       (lic1
        (setq apdl-license-file lic1)
@@ -416,7 +424,7 @@ customisation variables"
        (message "Conti server: apdl-license-file=%s" lic2)
        (setenv lfile lic2))
       (t
-       (message "Found no default apdl-license-file from environment or ini file"))
+       (message "%s" "Found no default apdl-license-file from environment or ini file"))
       )))
 
     ;; 10) -ansysli-servers, the Interconnect license server(s)
@@ -430,7 +438,7 @@ customisation variables"
        (cond
 	(lic
 	 (setq apdl-ansysli-servers lic)
-	 (message "Read content of ansyslmd.ini")
+	 (message "%s" "Read content of ansyslmd.ini")
 	 (message "apdl-ansysli-servers=%s" lic))
 	(lic1
 	 (setq apdl-ansysli-servers lic1)
@@ -444,12 +452,13 @@ customisation variables"
 					;FIXME: but only in anslic_admin I think
 	 (setq apdl-ansysli-servers
 	       (replace-regexp-in-string "[0-9]*@" "2325@" apdl-license-file))
-	 (message "Assuming the same servers for Interconnect with default port")
+	 (message "%s" "Assuming the same servers for Interconnect with default port")
 	 (message "apdl-ansysli-servers=%s" apdl-ansysli-servers))
 	(t
-	 (message "Found no apdl-ansyslic-servers from environment or ini file")))))
+	 (message "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
+
      ;; ------------------------------------------------------------
-     (message "APDL-Mode: Initialised system dependened variables."))  ;; end of init function
+     (message "%s" "APDL-Mode: Initialised system dependened variables."))  ;; end of init function
 
 (defun apdl-install-directory ()
   "Change the ANSYS installation directory.
@@ -472,12 +481,16 @@ example \"v201\".  The path is stored in the variable
 	(progn
 	  (setq apdl-install-directory
 		(file-name-as-directory ndir)) ;ensure final slash
-	  (message
-	   (concat
-	    "Set apdl-install-directory to \"" ndir "\".")))
+	  (message "Set apdl-install-directory to \"%s\"." ndir))
       (error "ANSYS directory \"%s\" is not readable" ndir))
     (apdl-initialise 'force)
     (setq apdl-current-apdl-version version)))
 
 (provide 'apdl-initialise)
 ;;; apdl-initialise.el ends here
+;; Local Variables:
+;; mode: outline-minor
+;; indicate-empty-lines: t
+;; show-trailing-whitespace: t
+;; word-wrap: t
+;; End:

@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-05>
+#+DATE: Time-stamp: <2020-02-06>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -96,8 +96,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   I suggest you have a look into the introductory tutorial
   [[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]].
 
-* Customisation
-  apdl-mode provides its own customisation example file [[file:ansys-config.el][apdl-config.el]]
+* Configuration and Customisation
+  Please read the file [[file:apdl-config.org][apdl-config.org]], for your convenience APDL-Mode
+  provides also an customisation example [[file:ansys-config.el][apdl-config.el]].
 * News
   Please have a look in the [[file:NEWS.org][NEWS]] file
 * License and Acknowledgements

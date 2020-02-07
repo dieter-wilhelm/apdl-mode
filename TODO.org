@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-05>
+#+DATE: Time-stamp: <2020-02-06>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -11,14 +11,21 @@
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
 #+LATEX_HEADER:
-#+title: The Todo file of APDL-Mode
+#+title: The TODO file of APDL-Mode
 
 #+STARTUP: showall
-* R20.1
+* R20.1.0
+  - README (for package-el) README.org for github
+  - Emacs 25.1 September 2016, how to We need emacs >= 24 ;-) lexical
+    and other stuff
+  ANSYS is often used for ANSYS MAPDL solver / interpreter or ANSYS Classics GUI
+  - apdl-start-ansys-help
+  - apdl-anys-directory
+  - -install-dir
+  - apdl-license-file
+  - apdl-license => apdl-ansys-license?
+  - apdl-kill-ansys
   - wikipedia APDL, Ansys
-  - emacswiki ansys-mode
-  - ;; -*- lexical-binding: t -*-
-  - apdl-mode, the function -> APDL-Mode, the name?
 * 170-1:
 * 162-2:
 ** Bugs

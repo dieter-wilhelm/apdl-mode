@@ -1,5 +1,5 @@
 ;;; ansys-process.el -- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-07>
+;; Time-stamp: <2020-02-09>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -37,21 +37,31 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; external defvars
 
-(defvar apdl-license-types)
-(defvar apdl-program)
-(defvar apdl-launcher)
-(defvar apdl-wb)
-(defvar apdl-help-path)
+(defvar apdl-help-index)
+(defvar apdl-license-file)
+(defvar apdl-license-categories)
+(defvar apdl-ansys-program)
+(defvar apdl-ansys-launcher)
+(defvar apdl-ansys-wb)
+(defvar apdl-ansys-help-path)
 (defvar apdl-mode-install-directory)
-(defvar apdl-current-apdl-version)
-(defvar apdl-install-directory)
+(defvar apdl-current-ansys-version)
+(defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
-(defvar apdl-help-program-parameters)
+(defvar apdl-ansys-help-program-parameters)
+(defvar apdl-unix-system-flag)
+(defvar apdl-lmutil-program)
+(defvar apdl-ansys-help-program)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; declare-functions
 
 (declare-function apdl-initialise "apdl-initialise")
+(declare-function apdl-next-code-line "apdl-mode")
+(declare-function apdl-code-line-p "apdl-mode")
+(declare-function apdl-skip-block-forward "apdl-mode")
+(declare-function apdl-in-empty-line-p "apdl-mode")
+
 ;(declare-function buffer-name "") ; in-built
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -72,7 +82,7 @@ the respective error file."
   :type 'string
   :group 'APDL-process)
 
-(defcustom apdl-license-types
+(defcustom apdl-license-categories
   '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
   "List of available license types to choose for an ANSYS run.
 This list should contain the license types you can choose from.
@@ -86,13 +96,14 @@ terminology.
 \"ansysds\" - Mechanical/LS-Dyna (Mechanical U with ANSYS LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics
 \"preppost\" - PrepPost (no solving capabilities)"
+  :type 'list
   :group 'APDL-process)
 
 (defcustom apdl-license "struct"
   "The License type with which the ANSYS interpreter will be started.
-See `apdl-license-types' for often used ANSYS license types."
+See `apdl-license-categories' for often used ANSYS license types."
 ;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
-  :options apdl-license-types
+  :options apdl-license-categories
   ;; options not available for strings (only hooks, alists, plists E22)
   :type 'string
   :group 'APDL-process)
@@ -100,7 +111,7 @@ See `apdl-license-types' for often used ANSYS license types."
 (defcustom apdl-no-of-processors 2
   "No of processors to use for an ANSYS solver run.
 If smaller then 3 the run does not require additonal HPC
-licenses. 2 is the ANSYS default."
+licenses.  2 is the ANSYS default."
   :type 'integer
   :group 'APDL-process)
 
@@ -124,10 +135,21 @@ licenses. 2 is the ANSYS default."
   "The X11 window id of the ANSYS GUI or the command window.")
 
 (defvar apdl-classics-flag nil
-  "Flag dertermining whether a Classics GUI could be found.")
+  "Non-nil means that a Classics GUI could be found.")
 
 ;;; --- constants ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defconst apdl-begin-keywords
+  '("\\*[dD][oO]" "\\*[dD][oO][wW][hH]?[iI]?[lL]?[eE]?"
+    "\\*[iI][fF].*[tT][hH][eE][nN]" "\\*[cC][rR][eE][aA][tT][eE]")
+  "Regexps describing APDL block begin keywords.")
+
+(defconst apdl-block-begin-regexp
+  (concat "\\("
+	  (mapconcat 'identity apdl-begin-keywords "\\|")
+	  "\\)\\>")
+  "Regexp containing the APDL begin keywords.")
 
 (defconst apdl-process-name "MAPDL"
   "Variable containing the name of a possible MAPDL interactive process.
@@ -178,7 +200,7 @@ Return nil if we can't find an MAPDL GUI."
 The output of the solver is captured in an Emacs buffer called
 *Classics*."
   (interactive)
-;    (apdl-program "")		 ;take exec from -program var.
+;    (apdl-ansys-program "")		 ;take exec from -program var.
 ;    (apdl-license-file "")	 ;
 ;    (apdl-ansysli-servers "")	 ;
     ;(apdl-license "")		 ;
@@ -191,7 +213,7 @@ The output of the solver is captured in an Emacs buffer called
       (if (y-or-n-p
 	   (concat
 	    "Start run of: "
-	    apdl-program
+	    apdl-ansys-program
 	    ", license: " apdl-license
 	    ;; "Start run?  (license type: " (if (boundp
 	    ;; 'apdl-license) apdl-license)
@@ -209,7 +231,7 @@ The output of the solver is captured in an Emacs buffer called
       ;; -j : job
       (start-process apdl-classics-process
 		     bname
-		     apdl-program
+		     apdl-ansys-program
 		     (concat (concat " -p " apdl-license)
 			     " -d 3d "
 			     (concat " -j " apdl-job)
@@ -220,21 +242,21 @@ The output of the solver is captured in an Emacs buffer called
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
   (interactive)
-;    (apdl-program "")		 ;take exec from -program var.
+;    (apdl-ansys-program "")		 ;take exec from -program var.
 ;    (apdl-license-file "")	 ;
 ;    (apdl-ansysli-servers "")	 ;
     ;(apdl-license "")		 ;
-    (start-process "Launcher" nil apdl-launcher)
+    (start-process "Launcher" nil apdl-ansys-launcher)
     (message "Started the ANSYS Launcher..."))
 
 (defun apdl-start-wb ()
   "Start the Ansys WorkBench."
   (interactive)
-;    (apdl-program "")		 ;take exec from -program var.
+;    (apdl-ansys-program "")		 ;take exec from -program var.
 ;    (apdl-license-file "")	 ;
 ;    (apdl-ansysli-servers "")	 ;
     ;(apdl-license "")		 ;
-    (start-process "WorkBench" nil apdl-wb)
+    (start-process "WorkBench" nil apdl-ansys-wb)
     (message "Started the ANSYS WorkBench..."))
 
 (defun apdl-write-abort-file ( filename)
@@ -256,7 +278,7 @@ it tries to guess it from the current file (for a /filname
 command), if this fails the jobname is taken from the variable
 `apdl-job', you can change this variable by calling the equally
 named interactive function (i. e. typing \\[apdl-job]) or
-setting it directly as lisp expression (i. e.  typing
+setting it directly as Lisp expression (i. e.  typing
 \"\\[eval-expression] (setq apdl-job \"jobname\")\", where
 jobname is a name of your liking but must be enclosed with double
 quotes (\") to represent a lisp string).  The file jobname.abt in
@@ -293,9 +315,9 @@ respective job, you can change it with \"\\[cd]\"."
 ;;;###autoload
 (defun apdl-display-error-file ()
   "Open the current interpreter error file in the current working directory.
-You might change the directory with \"M-x `cd'\".  The error file
+You might change the directory with \"M-x cd\".  The error file
 name consists of the current job name and the suffix '.err'.  For
-the job name the variable `apdl-job' is used. You can change the
+the job name the variable `apdl-job' is used.  You can change the
 job name interactively either with the \"\\[apdl-job]\" or in
 the customisation facility (by calling `apdl-customise-ansys')."
   (interactive)
@@ -363,8 +385,8 @@ the customisation facility (by calling `apdl-customise-ansys')."
     ))
 
 (defun apdl-send-to-ansys ( &optional move)
-  "Send a region to the ANSYS interpreter,
-if the interpreter is not active, just copy it.  If there is no
+  "Send a region to the ANSYS MAPDL interpreter.
+If the interpreter is not active, just copy it.  If there is no
 region marked, send (or copy) the current paragraph.  With a
 prefix argument MOVE equal to \"4\" or \"C-u\" skip to the next
 code line after this region (or paragraph)."
@@ -415,7 +437,7 @@ When there is no running ANSYS interpreter process just copy the
 respective region or code line to the system clipboard and skip
 to the subsequent code line.  With a prefix argument STAY of
 \"4\" or \"C-u\" copy or send the code and remain at the current
-cursor position. The command can be repeated by typing just the
+cursor position.  The command can be repeated by typing just the
 final character \"j\" (or \"C-j\")."
   (interactive "p")
   (let (;code
@@ -521,8 +543,6 @@ an optional prefix argument ARG the current command line is the
 initial input."
   (interactive "P")
   (unless (or apdl-classics-flag (apdl-process-running-p))
-;    (setq mode-line-process (format ":%s" (process-status apdl-process)))
-;    (force-mode-line-update)
     (error "No MAPDL process is running"))
   (let (s)
     (if arg
@@ -540,12 +560,6 @@ initial input."
       (comint-send-string (get-process
 			   (if (boundp 'apdl-process-name)
 			       apdl-process-name)) (concat s "\n"))
-      ;;  (walk-windows
-      ;;    (lambda (w)
-      ;;      (when (string= (buffer-name (window-buffer w)) "*APDL*")
-      ;;        (with-selected-window w (goto-char (point-max))))))
-      ;; (setq mode-line-process (format ":%s" (process-status apdl-process)))
-      ;; (force-mode-line-update)
       (display-buffer (concat "*" apdl-process-name "*") 'other-window)))))
 
 
@@ -553,32 +567,20 @@ initial input."
 
 ;;;###autoload
 (defun apdl-start-ansys ()
-   "Start an ANSYS interpreter process under GNU-Linux or the launcher under Windows.
- For the interpreter process summarise the run's configuration
- first. The specified No of cores is not shown if they are chosen
- smaller than 3 (see `apdl-number-of-processors')."
+   "Start an ANSYS interpreter process under Linux or the launcher under Win.
+For the interpreter process summarise the run's configuration
+first.  The specified No of cores is not shown if they are chosen
+smaller than 3 (see `apdl-number-of-processors')."
    (interactive)
    (let (apdl-process-buffer)
      (when (apdl-process-running-p)
        (error "An ANSYS interpreter is already running under Emacs"))
      (message "Preparing an ANSYS interpreter run...")
-     ;; (setq comint-use-prompt-regexp t) TODO: ???
-     ;; (apdl-program "")		 ;take exec from -program var.
-     ;; (apdl-license-file "")	 ;
-     ;; (apdl-ansysli-servers "")	 ;
-					 ;(apdl-license "")		 ;
-
-					 ; env variable: ANSYS162_WORKING_DIRECTORY or -dir command line string
-					 ; (setenv "ANSYS162_WORKING_DIRECTORY" "/tmp")
-					 ; (getenv "ANSYS162_WORKING_DIRECTORY")
-
      (if (y-or-n-p
 	  (concat
 	   "Start run?  (version: "
-	   apdl-current-apdl-version
+	   apdl-current-ansys-version
 	   ", license type: " apdl-license
-	   ;; "Start run?  (license type: " (if (boundp
-	   ;; 'apdl-license) apdl-license)
 	   (if (>= apdl-no-of-processors 3)
 	       (concat ", No of processors: " (number-to-string apdl-no-of-processors))
 	     "")
@@ -587,7 +589,7 @@ initial input."
 	 (message "Starting the ANSYS interpreter...")
        (error "Function apdl-start-ansys canceled"))
      (setq apdl-process-buffer
-	   (make-comint apdl-process-name apdl-program nil
+	   (make-comint apdl-process-name apdl-ansys-program nil
 			(if (>= apdl-no-of-processors 3)
 			    (concat "-np " (number-to-string apdl-no-of-processors)
 				    " -p " apdl-license " -j " apdl-job)
@@ -603,14 +605,14 @@ initial input."
 
         ;; w32-shell-execute not know under RHEL Emacs 23.1
        ;; (if (fboundp 'w32-shell-execute)
-       ;; 	   (w32-shell-execute "Open" apdl-program))
+       ;; 	   (w32-shell-execute "Open" apdl-ansys-program))
        ))
 
 (defun apdl-kill-ansys ()
   "Kill the current ANSYS run under Emacs.
 The function asks for confirmation before actually killing the
 process.  Warning: ANSYS writes a lock file (jobname.lock) if the
-process is killed and not regularly exited.  You should prefere
+process is killed and not regularly exited.  You should prefer
 the function `apdl-exit-ansys'."
   (interactive)
   (unless (apdl-process-running-p)
@@ -644,7 +646,7 @@ with the APDL /EXIT,all command which saves all model data."
     (error "Exiting of ANSYS run canceled")))
 
 ;;;###autoload
-(defun apdl-start-apdl-help ()
+(defun apdl-start-ansys-help ()
   "Start the ANSYS Help Viewer.
 Alternatively under a GNU-Linux system, one can also use the APDL
 command line \"/SYS, anshelp201\" when running ANSYS
@@ -652,17 +654,17 @@ interactively, provided that anshelp162 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)
-  (apdl-help-program "")		;checking
+  (apdl-ansys-help-program "")		;checking
   (progn
     (cond
      (apdl-unix-system-flag
-      (start-process "APDL-help-program" nil apdl-help-program)
+      (start-process "apdl-ansys-help-program" nil apdl-ansys-help-program)
       (message "Started the ANSYS Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
-	  (w32-shell-execute "Open" (concat "\"" apdl-help-program "\"")
-			     apdl-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
-	(error "w32-shell-execute not bound"))
+	  (w32-shell-execute "Open" (concat "\"" apdl-ansys-help-program "\"")
+			     apdl-ansys-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
+	(error "Function w32-shell-execute not bound"))
       (message "Started the ANSYS Help Viewer..."))
      (t
       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))))
@@ -707,7 +709,7 @@ variable)."
 (defun apdl-browse-apdl-guide ()
   "Open the ANSYS APDL guide in a browser."
   (interactive)
-  (let (file (path apdl-help-path) command)
+  (let (file (path apdl-ansys-help-path) command)
     (cond
      (apdl-unix-system-flag
       (setq file "ans_apdl/Hlp_P_APDLTOC.html")
@@ -728,7 +730,7 @@ variable)."
     (message "Called HTML browser for keyword \"%s\"..." command)))
 
 (defun apdl-browse-apdl-help ( &optional arg)
-  "Open the ANSYS help for APDL commands and element names in the default web browser.
+  "Open the ANSYS help for APDL commands and element names in a web browser.
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
 keyword at the line beginning.  (This is working in a comment
@@ -769,7 +771,8 @@ Element categories:
 \"ALL\"HSFLDS -- Hydrostatic elem.
 \"ALL\"INFINS -- Infinite Boundary/Solid elem.
 \"ALL\"INTERS -- Interface magnetic/gasket/cohesive elem.
-\"ALL\"LINKS -- Link radiation/conduction/convection/thermal-electric/spar/ elem.
+\"ALL\"LINKS -- Link radiation/conduction/convection/thermal-electric/spar/\
+ elem.
 \"ALL\"MASS -- Mass elem
 \"ALL\"MATRIXS -- Matrix stiffness/damping/super elem
 \"ALL\"MESHS -- Mesh facet elem.
@@ -785,11 +788,10 @@ Element categories:
 \"ALL\"SOURCS -- Magnetic Electric Current source elem.
 \"ALL\"SURFS -- Surface elem.
 \"ALL\"TARGES -- Target elem.
-\"ALL\"TRANS -- Electromechanical solid/transducer elem.
-"
+\"ALL\"TRANS -- Electromechanical solid/transducer elem."
   (interactive "P")
   (let (file
-	(path apdl-help-path)
+	(path apdl-ansys-help-path)
 	command)
     (if arg
 	(setq command (completing-read "Browse help for keyword: "
@@ -878,7 +880,7 @@ Element categories:
     ))
 
 (defun apdl-occur ()
-  "Show certain licenses with occur"
+  "Show selected licenses in an occur buffer."
  (interactive)
  ;; mpba -- multiphysics solver
  ;; mech_1 -- mechanical pro
@@ -888,14 +890,13 @@ Element categories:
  ;; agppi -- Design Modeler
  ;; aim_mp -- aim standard
  ;; disc* -- discovery
- (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9]\\{4\\}$")
-)
+ (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9]\\{4\\}$"))
 
 (defun apdl-license-status ()
   "Display the ANSYS license status or start the license tool.
-Show the status in a separate buffer, the license
-type (`apdl-license') determines a highlighting of the license
-server summary rows."
+Show the status in a separate buffer, the license type variable
+`apdl-license' determines a highlighting of the license server
+summary rows."
   (interactive)
   (cond
    ((and apdl-lmutil-program apdl-license-file)
@@ -904,9 +905,9 @@ server summary rows."
     (with-current-buffer (get-buffer-create "*APDL-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
-    (call-process apdl-lmutil-program nil "*APDL-licenses*" nil "lmstat" "-c "  apdl-license-file  "-a")
+    (call-process apdl-lmutil-program nil "*Licenses*" nil "lmstat" "-c "  apdl-license-file  "-a")
     (let (bol eol)
-      (with-current-buffer "*APDL-licenses*"
+      (with-current-buffer "*Licenses*"
 	;; remove uninteresting licenses
 	;; (goto-char (point-min))
 	;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
@@ -918,18 +919,19 @@ server summary rows."
         (local-set-key (kbd "g") 'apdl-license-status)
         (local-set-key (kbd "o") 'apdl-occur)
 
-	(goto-char (point-min))
-	(while (not (eobp))
-	  (push-mark (point))
-	  (search-forward-regexp "Users of " nil t)
-	  (beginning-of-line)
-	  (delete-region (mark) (point))
-	  (forward-line 1))
-	(goto-char (point-max))
-	(push-mark (point))
-	(search-backward-regexp "Users of " nil t)
-	(forward-line 1)
-	(delete-region (mark) (point))
+	;; ;; remove users
+	;; (goto-char (point-min))
+	;; (while (not (eobp))
+	;;   (push-mark (point))
+	;;   (search-forward-regexp "Users of " nil t)
+	;;   (beginning-of-line)
+	;;   (delete-region (mark) (point))
+	;;   (forward-line 1))
+	;; (goto-char (point-max))
+	;; (push-mark (point))
+	;; (search-backward-regexp "Users of " nil t)
+	;; (forward-line 1)
+	;; (delete-region (mark) (point))
 
 	;; remove empty lines
 	(goto-char (point-min))
@@ -940,8 +942,8 @@ server summary rows."
 	(while (re-search-forward "Total of \\|Users of " nil t)
 	  (replace-match ""))
 
-	;; sorting
-	(sort-lines nil (point-min) (point-max))
+	;; ;; sorting
+	;; (sort-lines nil (point-min) (point-max))
 
 	;; add some comments
 	(goto-char (point-min))
@@ -963,9 +965,9 @@ server summary rows."
 	(put-text-property bol eol 'face 'font-lock-warning-face)
 	;;  on Windows the license stat buffer doesn't move to point without:
 	(when (not apdl-unix-system-flag)
-	  (set-window-point (get-buffer-window "*APDL-licenses*") (point)))))
-    (unless (equal (current-buffer) (get-buffer "*APDL-licenses*"))
-      (display-buffer "*APDL-licenses*" 'otherwindow))
+	  (set-window-point (get-buffer-window "*Licenses*") (point)))))
+    (unless (equal (current-buffer) (get-buffer "*Licenses*"))
+      (display-buffer "*Licenses*" 'otherwindow))
     (message "Updated license status: %s." (current-time-string)))
    (t
     (message "No license information or lmutil program found"))))
@@ -1002,7 +1004,7 @@ server summary rows."
 
 (defun apdl-iso-view ()
   "Show current display in isometric view (/view,,1,1,1)."
-  (interactive "p")
+  (interactive)
   (cond
    (apdl-classics-flag
     (kill-new "/view,,1,1,1\n/replot\n")
@@ -1107,27 +1109,27 @@ A Negative ARG moves ARG steps right."
    (t
     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
-(defun apdl-program ( exec)
+(defun apdl-ansys-program ( exec)
   "Change the ANSYS executable name to EXEC.
-And set the variable `apdl-program' accordingly if the for
+And set the variable `apdl-ansys-program' accordingly if the for
 executable EXEC can be found on the system's search path."
   (interactive "FANSYS interpreter executable: ")
   (when (string= exec "")
-    (setq exec apdl-program))
-  (setq apdl-program exec)
+    (setq exec apdl-ansys-program))
+  (setq apdl-ansys-program exec)
   (if (executable-find exec)
-      (message "apdl-program is set to \"%s\"." apdl-program)
+      (message "apdl-ansys-program is set to \"%s\"." apdl-ansys-program)
     (error "Cannot find ANSYS interpreter executable \"%s\" on the system" exec)))
 
-(defun apdl-help-program ( exec)
+(defun apdl-ansys-help-program ( exec)
   "Change the ANSYS help executable to EXEC and check for its existence.
-And store the value EXEC in the variable `apdl-help-program'."
+And store the value EXEC in the variable `apdl-ansys-help-program'."
   (interactive "FANSYS help executable: ")
   (when (string= exec "")
-    (setq exec apdl-help-program))
-  (setq apdl-help-program exec)
+    (setq exec apdl-ansys-help-program))
+  (setq apdl-ansys-help-program exec)
   (if (executable-find exec)
-      (message "apdl-program is set to \"%s\"." exec)
+      (message "apdl-ansys-program is set to \"%s\"." exec)
     (error "Cannot find the ANSYS help executable \"%s\" on the system" exec)))
 
 (defun apdl-lmutil-program ( exec)
@@ -1157,13 +1159,13 @@ And write it into the variable `apdl-job'."
 	(setq job-name (read-string "job name: " apdl-job))
       (setq job-name (read-string "job name: ")))
     (if (string= job-name "")
-	(error "job-name must not be the empty string")
+	(error "Variable `job-name' must not be the empty string")
       (message (concat "Job name is set to \"" job-name "\".")))
     (setq apdl-job job-name)))
 
 (defun apdl-no-of-processors ()
   "Change the No of processors to use for an Anys run.
-The number of processors will be put into the integer
+The number of processors will be put into the integer variable
 `apdl-no-of-processors'.  If this number is below 3 the variable
 won't affect the run definition since the default No of
 processors (if available) for a structural analysis in ANSYS is
@@ -1202,12 +1204,12 @@ stored in the environment variable APDL-LICENSE-FILE."
 	 (message (concat "Set apdl-license-file to \""
 			  apdl-license-file "\".")))))
 
-(defun apdl-install-directory ()
+(defun apdl-ansys-install-directory ()
   "Change the ANSYS installation directory.
 This is the path before the directory `ansys_inc/' under Linux or
 `ANSYS Inc\\' under Windows."
   (interactive)
-  (let* ((idir apdl-install-directory)
+  (let* ((idir apdl-ansys-install-directory)
 	 path
 	 (ndir
 	  (expand-file-name	       ;in case it was written ~
@@ -1222,11 +1224,11 @@ This is the path before the directory `ansys_inc/' under Linux or
 	   (setq path (concat ndir "ANSYS Inc"))))
     (if (file-readable-p path)
 	(progn
-	  (setq apdl-install-directory
+	  (setq apdl-ansys-install-directory
 		(file-name-as-directory ndir)) ;ensure final slash
 	  (message
 	   (concat
-	    "Set apdl-install-directory to \"" ndir "\".")))
+	    "Set apdl-ansys-install-directory to \"" ndir "\".")))
       (error "ANSYS directory \"%s\" is not readable" path))
     (apdl-initialise 'force)))
 
@@ -1263,12 +1265,13 @@ And store it in the variable `apdl-license'."
 	       "struct")))
     (setq apdl-license
 	  (completing-read (concat "License type [" lic "] (TAB for completion): ")
-			   apdl-license-types
+			   apdl-license-categories
 			   nil nil nil nil lic))
     (message (concat "ANSYS license type is now set to \"" apdl-license "\"."))))
 
-
 (provide 'apdl-process)
+
+;;; apdl-process.el ends here
 
 ;; Local Variables:
 ;; mode: outline-minor

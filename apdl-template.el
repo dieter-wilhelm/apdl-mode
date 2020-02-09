@@ -1,11 +1,11 @@
-;;; ansys-template.el -- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
+;;; apdl-template.el -- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Version: R20.1.0
-;; Keywords: Languages, Convenience, ANSYS
+;; Keywords: languages, convenience, ANSYS, tools, APDL
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -36,6 +36,10 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;;; Commentary:
+;; Collection of APDL templates
+
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -46,7 +50,7 @@
 (make-local-variable 'apdl-skeleton-overlay)
 
 (defvar apdl-last-skeleton nil
-  "Variable containing the last previewed skeleton")
+  "Variable containing the last previewed skeleton.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- functions ---
@@ -104,7 +108,7 @@ key and choose with the mouse 2 button."
 	   (funcall (intern-soft skel)))
 	  )))
 
-(define-skeleton ansys_do
+(define-skeleton apdl_do
   "Insert a *do .. *enddo loop."
   nil
   "*do,I,1,10,1" > \n
@@ -113,7 +117,7 @@ key and choose with the mouse 2 button."
   "*enddo" > \n
   )
 
-(define-skeleton ansys_if
+(define-skeleton apdl_if
   "Insert an *if .. *endif construct."
   nil
   "*if,I,eq,J,then" > \n
@@ -175,7 +179,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ;; 					      (buffer-file-name)
   ;; 					    (buffer-name))) \n
   "!! Time-stamp: <" (current-time-string) ">" \n
-  "!! ANSYS VERSION: " apdl-current-apdl-version \n
+  "!! ANSYS VERSION: " apdl-current-ansys-version \n
 ;;  "!! UNITS: mm-t-s" \n
   "!! NOTE: " str \n
   "!! ------------------------------" \n
@@ -2786,7 +2790,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
-  "!! ANSYS VERSION: " apdl-current-apdl-version \n
+  "!! ANSYS VERSION: " apdl-current-ansys-version \n
   "!! DESCRIPTION: " str \n
   \n
   "!@ ==============================" \n
@@ -3082,6 +3086,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   )
 
 (provide 'apdl-template)
+
+;;; apdl-template.el ends here
 
 ;; Local Variables:
 ;; mode: outline-minor

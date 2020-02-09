@@ -1,5 +1,6 @@
-;; Customisation file for APDL-Mode under GNU-Linux and Windows
-;; This file was created from the file "apdl-config.org"
+;;; apdl-config.el -- Customisation file for APDL-Mode under GNU-Linux and Windows
+;; This file was created from the file "apdl-config.org"!
+;; Created: {{{date}}}
 
 ;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3
 
@@ -15,11 +16,13 @@
 ;; at least its corresponding sections) otherwise clashing settings in
 ;; `.emacs' will be overwritten!!!
 
-;;; CONVENTIONS
+;;; CONVENTIONS:
 
 ;; The comment sign is `;' (one semi-colon ;) Textual hints are
 ;; indicated with DOUBLE semi-colons `;;', optionally uncomment the
 ;; code lines with a SINGLE comment sign.
+
+;;; CODE:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                        ;; IMPORTANT PREREQUISIT
@@ -92,24 +95,24 @@
   '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			    ;; Autoloading
+			      ;; Autoloading
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Set of useful commands which are now interactively available (M-x
-;; ...)  even when ANSYS Mode was not (yet) activated i.e. the lisp
-;; files not loaded.
+;; Set of useful commands which are interactively available (M-x ...)
+;; even when APDL Mode was not (yet) activated i.e. the lisp files not
+;; loaded.
 
-(autoload 'ansys "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
-(autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
-(autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
-calling a special ANSYS customisation buffer." 'interactive)
-(autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
-(autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
-(autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
-(autoload 'apdl-start-ansys "apdl-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
-(autoload 'apdl-start-classics "apdl-mode" "Activate the function for starting the MAPDL in GUI Mode (APDL-Classics)." 'interactive)
-(autoload 'apdl-start-wb "apdl-mode" "Activate the function for starting Workbench." 'interactive)
-(autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
-(autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
+  (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
+  (autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
+  (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
+  calling a special ANSYS customisation buffer." 'interactive)
+  (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
+  (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
+  (autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
+  (autoload 'apdl-start-ansys "apdl-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
+  (autoload 'apdl-start-classics "apdl-mode" "Activate the function for starting the MAPDL in GUI Mode (APDL-Classics)." 'interactive)
+  (autoload 'apdl-start-wb "apdl-mode" "Activate the function for starting Workbench." 'interactive)
+  (autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
+  (autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			     ;; Outlining
@@ -197,12 +200,14 @@ calling a special ANSYS customisation buffer." 'interactive)
   ;(setq apdl-job "otto"); default: "file"
 
 ;; adding the directory of this (loaded) file to the load-path
-(add-to-list 'load-path (file-name-directory load-file-name))
-;; setting the APDL-Mode install directory
-(setq apdl-mode-install-directory (file-name-directory load-file-name))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                              ;; The End
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (add-to-list 'load-path (file-name-directory load-file-name))
+  ;; setting the APDL-Mode install directory
+  (setq apdl-mode-install-directory (file-name-directory load-file-name))
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                ;; The End
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; apdl-config.el ends here  
 
 ;; Local Variables:
 ;; no-byte-compile: t

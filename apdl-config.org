@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-07>
+#+DATE: Time-stamp: <2020-02-09 15:08:23 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -65,10 +65,13 @@ Textual hints in /apdl-config.el/ are indicated with TWO semi-colons
 and change them when appropriate.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;; Customisation file for APDL-Mode under GNU-Linux and Windows
-;; This file was created from the file "apdl-config.org"
+;;; apdl-config.el -- Customisation file for APDL-Mode under GNU-Linux and Windows
+;; This file was created from the file "apdl-config.org"!
+;; Created: {{{date}}}
 
 ;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3
+
+;;; Comentary:
 
 ;; `apdl-config.el' can be used as a configuration file (after moving
 ;; it e. g. to `/usr/share/emacs/site-lisp' or
@@ -82,12 +85,16 @@ and change them when appropriate.
 ;; at least its corresponding sections) otherwise clashing settings in
 ;; `.emacs' will be overwritten!!!
 
-;;; CONVENTIONS
+;;; CONVENTIONS:
 
 ;; The comment sign is `;' (one semi-colon ;) Textual hints are
 ;; indicated with DOUBLE semi-colons `;;', optionally uncomment the
 ;; code lines with a SINGLE comment sign.
+
+;;; CODE:
 #+END_SRC
+
+#+RESULTS:
 
 * Important Prerequisites
 ** Finding APDL-Mode
@@ -511,6 +518,8 @@ But the solver/interpreter is checking this server as well!?
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                                 ;; The End
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; apdl-config.el ends here
 
 ;; Local Variables:
 ;; no-byte-compile: t

@@ -1,11 +1,12 @@
 ;;; apdl-mode.el -- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-07 17:46:34 uidg1626>
+;; Time-stamp: <2020-02-09>
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: R20.1.0
+;; Version: 20.1.0
+;; URL: https:/github.com/dieter-wilhelm/apdl-mode
 ;; Keywords: Languages, Convenience, ANSYS
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
@@ -60,11 +61,10 @@
 
 ;;; Code:
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; declare-function
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(declare-function apdl-initialise "apdl-initilaise")
+(require 'apdl-keyword "apdl-keyword.el")
+(require 'apdl-template)
+(require 'apdl-process)
+(require 'apdl-initialise)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
@@ -385,11 +385,6 @@ the currently defined abbreviations.")
 (defconst apdl-continuation-line-regexp ".*?&\\s-*$"
   "Regexp indicating a continuation line (of the *MSG command).")
 
-(defconst apdl-begin-keywords
-  '("\\*[dD][oO]" "\\*[dD][oO][wW][hH]?[iI]?[lL]?[eE]?"
-    "\\*[iI][fF].*[tT][hH][eE][nN]" "\\*[cC][rR][eE][aA][tT][eE]")
-  "Regexps describing APDL block begin keywords.")
-
 (defconst apdl-else-keywords
   '("\\*[eE][lL][sS][eE][iI][fF]" "\\*[eE][lL][sS][eE]"
     "\\*[cC][yY][cC][lL][eE]")
@@ -404,12 +399,6 @@ the currently defined abbreviations.")
   "^\\s-*[(+-]?[[:digit:]]"
   "Regexp describing an APDL number line.
 Used for skipping pure number lines and CMBLOCK format strings")
-
-(defconst apdl-block-begin-regexp
-  (concat "\\("
-	  (mapconcat 'identity apdl-begin-keywords "\\|")
-	  "\\)\\>")
-  "Regexp containing the APDL begin keywords.")
 
 (defconst apdl-block-else-regexp
   (concat "\\("
@@ -521,7 +510,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-e" 'apdl-display-error-file)
     (define-key map "\C-c\C-f" 'apdl-fit)
     (define-key map "\C-c\C-g" 'apdl-start-graphics)
-    (define-key map "\C-c\C-h" 'apdl-start-apdl-help)
+    (define-key map "\C-c\C-h" 'apdl-start-ansys-help)
     (define-key map "\C-c\C-i" 'apdl-iso-view)
 ;    (define-key map "\C-c\C-i" 'apdl-if)
     (define-key map "\C-c\C-j" 'apdl-send-to-apdl-and-proceed) ;same as ESS
@@ -571,8 +560,6 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 (defvar apdl-dynamic-prompt)
 (defvar apdl-completions)
 
-(require 'apdl-keyword)
-
 (defface apdl-arg-face
   '((((min-colors 88) (class color) (background light))
      :foreground "red1")
@@ -613,7 +600,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   (defconst apdl-font-lock-keywords-1
   `(
     ;; /eof is special: it crashes ANSYS in interactive mode
-    ;; TODO /eof is highlighted only first in line not behind $
+    ;; -TODO- /eof is highlighted only first in line not behind $
     ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
     ;; deprecated ansys * comment with 12.1
@@ -630,16 +617,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
        ;highlight message of comment command /COM (no comment (!)
        ;is possible behind /COM), no separating comma necessary
 
-    ;; multiline format constructs
-;; ("^\\s-*\\(?:\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(?:.*&\\s-*\n\\)+.*\\)" ;format constructs
-;;  (1 font-lock-doc-face t))
-
-
-    ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
-    ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
-    		  ;specifier and pair %.% is a parameter substitution
 (apdl-higlight-procent-and-ampersand (0 'font-lock-type-face t))
-;("%\\|&\\s-*$" (0 'font-lock-type-face t))
 
       ;/SYS command sends string to OP,no parameter substitution!
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
@@ -649,8 +627,6 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       (1 font-lock-keyword-face t) (2 font-lock-doc-face t))
    	      ;only 75 characters possible no separator necessary
 
-    ;; *use variables, local macro call arguments
-;;   ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . font-lock-warning-face)
    ("\\<\\(ARG[1-9]\\|AR[1][0-9]\\)\\>" . apdl-arg-face)
 
     ;; elements
@@ -682,9 +658,6 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
 	      apdl-command-regexp-1
 	      "\\)\\>") 1 font-lock-keyword-face)
-
-;; user variables
-;(apdl-highlight-variable . font-lock-variable-name-face)
 
     ;; some operators
     ("\\$" . 'font-lock-type-face) ;condensed input line
@@ -727,7 +700,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   (defconst apdl-font-lock-keywords-2
   `(
     ;; /eof is special: it crashes ANSYS in interactive mode
-    ;; TODO /eof is highlighted only first in line not behind $
+    ;; -TODO- /eof is highlighted only first in line not behind $
     ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
     ;; deprecated ansys * comment with 12.1
@@ -758,7 +731,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;/SYS command sends string to OP,no parameter substitution!
     ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
      font-lock-doc-face t)
-    ;TODO: c*** should get fontification from command regexp
+    ;-TODO-: c*** should get fontification from command regexp
     ("^\\s-*\\([cC]\\*\\*\\*\\)[ ,]?\\(.\\{1,75\\}\\)"
       (1 font-lock-keyword-face t) (2 font-lock-doc-face t))
    	      ;only 75 characters possible no separator necessary
@@ -899,22 +872,22 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	 :help "Display a short help for the APDL command near the cursor with its parameters. M-x apdl-show-command-parameters"]
 	["Display Variable Definitions" apdl-display-variables
 	 :help "Display all user variable definitions from the current file in another window. M-x apdl-display-variables"]
-	["Installation Directory" apdl-install-directory
-	 :label (if apdl-install-directory
-		    (concat "Change the Installation Directory [v" apdl-current-apdl-version "]")
+	["Installation Directory" apdl-ansys-install-directory
+	 :label (if apdl-ansys-install-directory
+		    (concat "Change the Installation Directory [v" apdl-current-ansys-version "]")
 		  "Set the ANSYS Installation Directory!")
 	 :help "For certain functionality you need to set the
 	 installation directory of ANSYS, the path up to the
-	 version number vXXX.  M-x apdl-install-directory"]
+	 version number vXXX.  M-x apdl-ansys-install-directory"]
 	["Browse APDL command help" apdl-browse-apdl-help
 	 :help "Open the original APDL documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
-	 :active (file-readable-p apdl-help-path)]
+	 :active (file-readable-p apdl-ansys-help-path)]
 	["Browse ANSYS APDL Guide" apdl-browse-apdl-guide
 	 :help "Read the original ANSYS APDL Guide in a browser."
-	 :active (file-readable-p apdl-help-path)]
-	["Start ANSYS Help Viewer" apdl-start-apdl-help
-	 :help "Start the ANSYS Help Viewer executable. M-x apdl-start-apdl-help"
-	 :active (file-executable-p apdl-help-program)]
+	 :active (file-readable-p apdl-ansys-help-path)]
+	["Start ANSYS Help Viewer" apdl-start-ansys-help
+	 :help "Start the ANSYS Help Viewer executable. M-x apdl-start-ansys-help"
+	 :active (file-executable-p apdl-ansys-help-program)]
 	"-"
 	(list "Insert Template"
 	      ["*IF ... *ENDIF" apdl-if
@@ -1073,7 +1046,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst apdl-task-menu
   (list
-   "APDL"
+   "ANSYS"
    ["Specify License Server or - File" apdl-license-file
     :label (if apdl-license-file "Change License Server or - File" "Specify License Server or - File")
     :help "Change the license server specification (for an solver/interpreter run or the license status), either naming the license server machine (with port) or the actual license file"]
@@ -1081,13 +1054,13 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     :label (if apdl-ansysli-servers "Change the License Interconnect Servers"
 	     "Specify the License Interconnect Servers")
     :help "Change the interconnect server specification (for an solver/interpreter run)"]
-	["Installation Directory" apdl-install-directory
-	 :label (if apdl-install-directory
-		    (concat "Change the Installation Directory [v" apdl-current-apdl-version "]")
+	["Installation Directory" apdl-ansys-install-directory
+	 :label (if apdl-ansys-install-directory
+		    (concat "Change the Installation Directory [v" apdl-current-ansys-version "]")
 		  "Set the ANSYS Installation Directory!")
 	 :help "For certain functionality you need to set the
 	 installation directory of ANSYS, the path up to the
-	 version number vXXX.  M-x apdl-install-directory"]
+	 version number vXXX.  M-x apdl-ansys-install-directory"]
    ["Change ANSYS License Type" apdl-license
     :label (concat "Change License Type [" apdl-license "]")
     :help "Specify the license type for an solver/interpreter run. M-x apdl-license"]
@@ -1102,18 +1075,18 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     :help "Show a license manager status (number of licenses available and used)"
     :active (file-executable-p apdl-lmutil-program)]
    ["ANSYS WorkBench" apdl-start-wb
-    :active (file-executable-p apdl-wb)
+    :active (file-executable-p apdl-ansys-wb)
     :help "Start the ANSYS WorkBench. M-x apdl-start-wb"]
    ["ANSYS MAPDL Product Launcher" apdl-start-launcher
-    :active (file-executable-p apdl-launcher)
+    :active (file-executable-p apdl-ansys-launcher)
     :help "Start the ANSYS Mechanical APDL Product Launcher. M-x apdl-start-launcher"]
    ["ANSYS Classics GUI" apdl-start-classics
-    :active (file-executable-p apdl-program)
+    :active (file-executable-p apdl-ansys-program)
     :help "Start the ANSYS Classics GUI. M-x apdl-start-classics"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys
     :help "Start an interactive APDL solver/interpreter run. M-x apdl-start-ansys"
     :active (and apdl-unix-system-flag
-		 (file-executable-p apdl-program)
+		 (file-executable-p apdl-ansys-program)
 		 (not (apdl-process-running-p)))]
    "-"
    ["Connect to Classics" apdl-toggle-classics
@@ -1409,64 +1382,65 @@ and P-MAX) otherwise align the current code paragraph."
 ;;   (setq font-lock-defaults `(,solver-font-lock))
 ;;   )
 
-(require 'apdl-template)
-(require 'apdl-process)
-
 ;;;###autoload
 (defun apdl-mode ()
   "Support for working with the ANSYS FEA suite.
 The documentation is targeted at users with little Emacs
 experience.  Sections dealing with features are indicated with
-two asterisks (**) at the beginning.  Your input as a keyboard
-sequence is indicated in quotation marks (\"), the actual keys
-are quoted with <>.
+two asterisks `**' at the beginning.  Your input as a keyboard
+sequence is indicated in quotation marks `\"', the actual keys
+are quoted in `<>'.
 
 == Contents ==
 
-= Introduction to Emacs
+= Introduction to GNU-Emacs
 = Usage of APDL-Mode
-= Mode Keybindings
+= Summary of keybindings
 = Customisation
 = Bugs and Problems
 
-== Introduction to Emacs ==
+== Introduction to GNU-Emacs ==
 
-In Emacs it is not only possible to run a certain command, let's
-say `apdl-start-apdl-help', from entries in Emacs' APDL menu bar
-or with keyboard shortcuts (here: \"\\[apdl-start-apdl-help]\")
-but additionally from the so called minibuffer.  This
-'interactive' option remains the only one if you have not yet
-activated APDL-Mode or you are currently inspecting a file which
-is not intended for this mode.  Then neither the APDL menu nor
-keyboard shortcuts for APDL-Mode commands are available.
+Let's assume you wrote already some APDL commands and want to
+check the ANSYS manual.  (We assume for the moment that you
+installed ANSYS together with its local documentation and that
+APDL-Mode is configured to find the executables as well.)
 
-To run `apdl-start-apdl-help' by its function name, start with
-\"M-x\", ('M-x' means holding down the <ALT> key while pressing
-the <x> key (in case your window manager is intercepting this key
-combination type <ESC> then <x> instead) the cursor will skip
-below the status line, into the minibuffer, there type
-\"apdl-start-apdl-help\", then terminate it with the <RET> key.
+In the APDL-Mode menu `APDL' is an entry to start the \"Ansys
+Help Viewer\" under Emacs.  Optionally you can start it with a
+keyboard shortcut (here: \"\\[apdl-start-ansys-help]\"). And
+additionally from the so called `minibuffer'.  This `interactive'
+option remains the only one for commands where neither menu
+entries nor keyboard shortcuts are available.
+
+To start the ANSYS Help Viewer run the command
+`apdl-start-ansys-help' by its function name, type `M-x', (M-x
+means holding down the <ALT> key while pressing the <x> key (in
+case your window manager is intercepting this key combination
+type <ESC> then <x> instead) the cursor will skip below the
+status line, into the `minibuffer', there type
+\"apdl-start-ansys-help\", then terminate it with the <RET> key.
 The 'auto-completion' feature of the minibuffer might save you
 some typing: Just enter the first characters and then press the
 <TAB> key.  Another way of saving keystroke is to use the fuzzy
-logic of Emacs' completions.  Instead of typing
-\"apdl-start-apdl-help\" it is sufficient to type \"a-s-a-h\".
+logic of Emacs' completions machine.  Instead of typing
+\"apdl-start-ansys-help\" it is sufficient to type \"a-s-a-h\".
 
 You can always cancel minibuffer commands by typing
-\"C-g\" (`keyboard-quit'), i. e. pressing the <CTRL> key and then
-the <g> key at the same time.
+\\[keyboard-quit] `keyboard-quit', i. e. pressing the <CTRL> key
+and then the <g> key at the same time.
 
 All functions described in this help, regardless whether
 possessing a keyboard shortcut or not, can be called in the
 interactive way or they are to be found in the APDL menu.  (If
-you prefer to run Emacs in a terminal you might access the menu
-with <F10> key or \"ESC-`'\".)
+you prefer to run Emacs in a terminal window you might access the
+menu with <F10> key or \"ESC-`'\".)
 
 Above described procedure has the same effect as typing
-\"\\[apdl-start-apdl-help]\" in a file buffer under APDL
-mode ('C-c C-h' means while holding down the <CTRL> key typing
-the respective characters ('c' then 'h') for
-`apdl-start-apdl-help').
+\"\\[apdl-start-ansys-help]\" in a file buffer under APDL
+mode (`C-cC-h' means while holding down the <CTRL> key typing the
+respective characters ('c' then 'h') for
+`apdl-start-ansys-help').
 
 A mouse click or typing the <RET> key, when the cursor is on the
 underlined hyperlinks (you can also skip to these links with the
@@ -1474,8 +1448,8 @@ underlined hyperlinks (you can also skip to these links with the
 <RET> when the cursor is over these links).
 
 In case something unintended happend to your code you are always
-able to resort to the Emacs `undo' functionality from the menu or
-with typing \"\\[undo]\".
+able to resort to the Emacs `undo' functionality from the `Edit'
+menu or typing \"\\[undo]\".
 
 == Usage of APDL-Mode ==
 
@@ -1484,12 +1458,12 @@ with typing \"\\[undo]\".
 Typing \"\\[apdl-show-command-parameters]\", the <CTRL> key
 simultaneously with the <c> key and then <?>, the question
 mark (for the command `apdl-show-command-parameters') displays
-above a code line a brief description of the APDL command and
-its syntax.  This command counts also the number of parameters
-and visualises at which parameter position the cursor currently
-is.  The command is looking for the next valid command near the
-cursor or when using a prefix argument (`C-u' or `4') it inquires
-an APDL command from you. The tooltip is switched off with an
+above a code line a brief description of the APDL command and its
+syntax.  This command counts also the number of parameters and
+visualises at which parameter position the cursor currently is.
+The command is looking for the next valid command near the cursor
+or when using a prefix argument (`C-u' or `4') it inquires an
+APDL command from you. The tooltip is switched off with an
 argument of zero (`0').
 
 ** Browse the detailed APDL command (and element) html help **
@@ -1507,21 +1481,20 @@ collection of all shell elements in the ANSYS manual.
    parametric-functions) **
 
 Type the first letter or letters of an APDL command, function or
-element name and use the key binding
-\"\\[apdl-complete-symbol]\" to let the function
-`apdl-complete-symbol' do the (case sensitve) completion for
-you.  Depending on the case of your letter or letters to be
-completed, you will get a downcased, upcased or capitalised
-completion.
+element name and use the key binding \"\\[apdl-complete-symbol]\"
+to let the function `apdl-complete-symbol' do the (case sensitve)
+completion for you.  Depending on the case of your letter or
+letters to be completed, you will get a downcased, upcased or
+capitalised completion.
 
 There are around 2000 APDL symbols available for completion.
 Undocumented APDL commands and deprecated element types are also
 completed.  The former are identified as such with a different
 highlighting and in their 'command syntax help'.  Please see also
-the variable `apdl-deprecated-element-alist' it's a list with
-the deprecated elements and their respective replacements (for
+the variable `apdl-deprecated-element-alist' it's a list with the
+deprecated elements and their respective replacements (for
 inspecting its content please click on above hyperlink or type
-\"C-h v\" and then type above variable name).
+`C-hv' and then type above variable name).
 
 Doing this using the <TAB> key might save you some typing in
 auto-completing the name.  When the characters before the cursor
@@ -1533,9 +1506,9 @@ removes the listing window.
 
 ** Alignment (formatting) of variable definitions **
 
-Typing \"\\[apdl-align]\" to call the function `apdl-align'
-will align marked sections or a paragraph of variable definitions
-like the following lines
+Typing \"\\[apdl-align]\" to call the function `apdl-align' will
+align marked sections or a paragraph of variable definitions like
+the following lines
 
  xyz=30.381      !this is a variable
  x = 0.4!this is another variable
@@ -1572,16 +1545,16 @@ The following block navigation commands are analogous to Emacs'
 inbuilt list/sexp navigiation.
 
 \"\\[apdl-next-block-end]\" -- `apdl-next-block-end'
-\"\\[apdl-previous-block-start-and-conditional]\" --
-`apdl-previous-block-start-and-conditional'
-Above commands are skipping to the next/previous block end/start
-keyword regardless where you are already in the block structure.
-\"\\[apdl-previous-block-start-and-conditional]\" for the function
-`apdl-previous-block-start-and-conditional' finds also *IF
-commands without bases of the keyword 'THEN'; furthermore *CYCLE
-and *EXIT looping controls.  These provide APDL constructs but
-represent no block depth and therefore are not considered when
-applying the following navigation commands.
+\"\\[apdl-previous-block-start-and-conditional]\" --\
+`apdl-previous-block-start-and-conditional' Above commands are
+skipping to the next/previous block end/start keyword regardless
+where you are already in the block structure.
+\"\\[apdl-previous-block-start-and-conditional]\" for the
+function `apdl-previous-block-start-and-conditional' finds also
+*IF commands without bases of the keyword 'THEN'; furthermore
+*CYCLE and *EXIT looping controls.  These provide APDL constructs
+but represent no block depth and therefore are not considered
+when applying the following navigation commands.
 
 \"\\[apdl-skip-block-forward]\" -- `apdl-skip-block-forward'
 \"\\[apdl-skip-block-backwards]\" -- `apdl-skip-block-backwards'
@@ -1604,9 +1577,9 @@ nblock, eblocks and cmblocks), these are common (and often quite
 large) in WorkBench solver input files (*.inp, *.dat).
 
 You can also hide and unhide these - usually uninteresting -
-blocks with `apdl-hide-number-blocks' and
-`apdl-show-number-blocks' respectively or even a region of
-you (un)liking with `apdl-hide-region'.  In files with the
+blocks with \\[apdl-hide-number-blocks] and
+\\[apdl-show-number-blocks] respectively or even a region of
+your (un)liking with \\[apdl-hide-region].  In files with the
 suffix `.dat' number blocks are hidden by default.
 
 Moreover there are keyboard shortcuts with which you are able to
@@ -1623,8 +1596,8 @@ The highlighting in the highest decoration level (please refer to
 `apdl-highlighting-level') tries to follow the idiosyncratic
 ANSYS solver/interpreter logic as closely as possible.  For
 example: '* ', an asterisk with following whitespace(s), is still
-a valid APDL comment operator (although deprecated, see the
-ANSYS manual for the *LET command).
+a valid APDL comment operator (although deprecated, see the ANSYS
+manual for the *LET command).
 
 The fontification distinguishes between APDL commands,
 undocumented commands, parametric- and get-functions, elements
@@ -1632,7 +1605,13 @@ and deprecated elements.  In case of arbitrary characters after
 the command names, they are still highlighted, since these
 characters are ignored by the ANSYS APDL intepreter.
 
-Macro variables beginning with an underscore might be APDL
+A macro is in the ANSYS parlance some file with APDL code. In
+this sense it is used in the following documentation.
+Additionally you can create keyboard macros in Emacs to fasten
+your edinting, please see `kmacro-start-macro'.
+
+
+APDL macro variables beginning with an underscore might be APDL
 reserved variables and therefore are higlighted in a warning
 face.  Another example is the percent sign, its highlighting
 reminds you that the use of such a pair around a parameter name
@@ -1681,9 +1660,9 @@ Regarding the highlighting of user variables: The idea is to give
 a visual hint whether variable names are spelled and used
 correctly everywhere not only at the place of its definition.
 
-For this to occur `apdl-highlighting-level' must be set to
-2 (the maximum, which is also the default), please have a look at
-the == customisation == section on how to change settings.
+For this to occur `apdl-highlighting-level' must be set to 2 (the
+maximum, which is also the default), please have a look at the ==
+customisation == section on how to change settings.
 
 Newly edited variable definitions are taken into account only
 when the variable `apdl-dynamic-highlighting-flag' is set (for
@@ -1696,10 +1675,12 @@ highlighting level (2).
 ** Compilation of all APDL variables definition and component
   names (*GET, *DIM, *SET, = and DO, ...) **
 
-Typing \"\\[apdl-display-variables]\" (for `apdl-display-variables')
-shows all definitions in your APDL file in a separate window.
+Typing \"\\[apdl-display-variables]\" (for
+`apdl-display-variables') shows all definitions in your APDL file
+in a separate window.
 
-You might remove '*APDL-variables*' window with \"\\[apdl-delete-other-window]\" (`apdl-delete-other-window').
+You might remove '*APDL-variables*' window with
+\"\\[apdl-delete-other-window]\" (`apdl-delete-other-window').
 
 When you place the cursor on the respective line number and type
 \"C-u M-g g\", where 'C-u' is a 'prefix' argument to 'M-g
@@ -1721,13 +1702,13 @@ which inserts a *DO loop (`apdl-do').  \"`d\" (then <SPC>) is a
 more immediate version of it without requesting user
 input (`ansys_do').  You can see all the predefined abbreviations
 with \"`?\", i. e. a question mark '?'  after the backquote '`'.
-Alternatively you might use the menu entry or the command \"M-x
-list-abbrevs <RET>\" to inspect all definitions which Emacs
+Alternatively you might use the menu entry or the command `M-x
+`list-abbrevs' <RET>' to inspect all definitions which Emacs
 knows.
 
 ** Outlining (hiding and expanding) code sections **
 
-If you are using the pre-configured APDL-Mode then
+If you are using the pre-configured APDL-Mode then function
 `outline-minor-mode' is switched on by default.
 
 With this mode you can hide certain sections of your code or
@@ -1740,12 +1721,12 @@ sections in your current file).  Check out the Outline menu
 entries.
 
 In case outlining is not activate you might call Outline Minor
-Mode with \"M-x outline-minor-mode\" or you can enable this mode
+Mode with \"\\[outline-minor-mode]\" or you can enable this mode
 for the current session by ticking on the respective option in
 the menu or permanently by setting `apdl-outline-minor-mode' for
-the `apdl-mode-hook' variable.  Please type \"M-x
-apdl-customise-ansys <RET>\" or use the customisaton system from
-the menu: ->APDL ->Customise APDL Mode.
+the `apdl-mode-hook' variable.  Please type
+\"\\[apdl-customise-ansys] <RET>\" or use the customisaton system
+from the menu: ->APDL ->Customise APDL Mode.
 
 ** Convenient comment handling, commenting/un- of whole
    paragraphs **
@@ -1783,11 +1764,11 @@ You are able to preview the code templates with
 while doing this, you might type <TAB> to complete all available
 skeleton names.
 
-Check e. g. `apdl-skeleton-outline-template', type \"M-x
-apdl-skeleton-outline-template <RET>\" to insert this skeleton
-of APDL code with outline headings.  Alternatively you can use
-the binding \"C-u C-c C-s\" for inserting templates (instead of
-just previewing them).
+Check e. g. `apdl-skeleton-outline-template', type
+\"\\[apdl-skeleton-outline-template] <RET>\" to insert this
+skeleton of APDL code with outline headings.  Alternatively you
+can use the binding \"\\=C-u \\[apdl-skeleton-outline-template]\"
+for inserting templates instead of previewing them.
 
 ** Auto-insertion of code templates into new APDL files **
 
@@ -1805,22 +1786,22 @@ Please refere the configuration example `default.el'.
 
 - APDL-Mode writes for you an APDL stop file in the current
   directory (the file name is compiled from the variable
-  `job-name' and the extension '.abt'). You can do this with
+  `job-name' and the extension '.abt').  You can do this with
   \"\\[apdl-write-abort-file]\" (`apdl-write-abort-file', you
   might previously use the Emacs command 'cd' (\"M-x cd\") to
   change the current directory).  This stop file is halting a
   running calculation in an orderly, re-startable fashion.
 
-- You are able to view the ANSYS APDL error file (a file consisting of
-  the `job-name' and the suffix '.err' in the current directory)
-  with \"\\[apdl-display-error-file]\" (this calls
-  `apdl-display-error-file').  The error file is opened in read
-  only mode (see `read-only-mode') and with the minor mode
+- You are able to view the ANSYS APDL error file (a file
+  consisting of the `job-name' and the suffix '.err' in the
+  current directory) with \"\\[apdl-display-error-file]\" (this
+  calls `apdl-display-error-file').  The error file is opened in
+  read only mode (see `read-only-mode') and with the minor mode
   `auto-revert-tail-mode', which scrolls the buffer automatically
   for keeping the current ANSYS output visible.
 
 - You can start the ANSYS Help Viewer directly from Emacs with
-  \"\\[apdl-start-apdl-help]\" (for `apdl-start-apdl-help').
+  \"\\[apdl-start-ansys-help]\" (for `apdl-start-ansys-help').
 
 - You might also start the APDL product launcher from Emacs under
   windows or the APDL interpeter under GNU-Linux with
@@ -1835,19 +1816,19 @@ executables are not in your system search path or you are using a
 different ANSYS version than '201' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `apdl-customise-ansys' or from the
-menu bar -> 'APDL' -> 'Customise APDL Mode' -> 'APDL-process'
-and look there for the variables 'ANSYS License File', 'ANSYS
-Util Program' and 'ANSYS Help Program' as well as 'ANSYS Help
-Program Parameters') or set the variables directly in your .emacs
-file.  Please have a look in the accompanying README and
-default_el customisation file example.
+menu bar -> 'APDL' -> 'Customise APDL Mode' -> 'APDL-process' and
+look there for the variables 'ANSYS License File', 'ANSYS Util
+Program' and 'ANSYS Help Program' as well as 'ANSYS Help Program
+Parameters') or set the variables directly in your .emacs file.
+Please have a look in the accompanying README and default_el
+customisation file example.
 
 ** ANSYS solver/interpreter control and communication (mainly
   restricted to GNU-Linux systems) **
 
 With the APDL-Mode keyboard shortcut
-\"\\[apdl-start-ansys]\" (for the command `apdl-start-ansys')
-you can start the APDL solver/interpreter under GNU-Linux as an
+\"\\[apdl-start-ansys]\" (for the command `apdl-start-ansys') you
+can start the APDL solver/interpreter under GNU-Linux as an
 asynchronous process of Emacs.  After starting the run you will
 see all interpreter output in a separate Emacs 'comint' (command
 interpreter) window.  You are now able to interact with this
@@ -1860,10 +1841,10 @@ there is no running solver the function copies the code to the
 system clipboard.)  And lastly you are able to send interactively
 APDL commands with
 \"\\[apdl-query-apdl-command]\" (`apdl-query-apdl-command')
-without switching to the '*APDL*' window. If you would like to
+without switching to the '*APDL*' window.  If you would like to
 send your current code line in a slightly modified form, then
-give a prefix argument to `apdl-query-apdl-command' and the
-line will be the intial input for sending it to the interpreter.
+give a prefix argument to `apdl-query-apdl-command' and the line
+will be the intial input for sending it to the interpreter.
 
 Another very useful function in this context is
 \"\\[apdl-copy-or-send-above]\" (`apdl-copy-or-send-above'),
@@ -1914,7 +1895,7 @@ case the solver is not stoppable any longer in an orderly way:
 `apdl-kill-ansys'.
 
 As already indicated APDL-Mode has its own command for invoking
-the ANSYS Help Viewer \"\\[apdl-start-apdl-help]\" because
+the ANSYS Help Viewer \"\\[apdl-start-ansys-help]\" because
 unfortunately the following APDL commands do not work when the
 complete GUI system of ANSYS is not active.
 
@@ -1929,7 +1910,7 @@ use the much faster \"\\[apdl-browse-apdl-help]\".
 
 \\{apdl-mode-map}
 
-== APDL-Mode customisation ==
+== Customisation ==
 
 For a compilation (and respective documentation) of available
 APDL-Mode customisations it's best to open the mode's
@@ -1962,12 +1943,6 @@ necessary to reload APDL-Mode.  You can do this with the
 interactive command `apdl-reload-apdl-mode' or with the
 respective, toplevel APDL menu entry.
 
-You can improve the loading and execution speed of APDL-Mode
-with a byte-compilation of its lisp files (if they are not
-already compiled, i. e. they have the suffix '.elc', please read
-the section 'Byte Compilation' in the Emacs lisp reference, which
-is availabe from the help menu).
-
 == Bugs and Problems ==
 
 Feedback is always welcome.  If you have issues while
@@ -1989,6 +1964,13 @@ improvements you have the following options:
   Emacs Wiki http://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
 
 ====================== End of APDL-Mode help ===================="
+
+;; You can improve the loading and execution speed of APDL-Mode
+;; with a byte-compilation of its lisp files (if they are not
+;; already compiled, i. e. they have the suffix '.elc', please read
+;; the section 'Byte Compilation' in the Emacs lisp reference, which
+;; is availabe from the help menu).
+
   (interactive)
 
   (unless (string= major-mode "apdl-mode")
@@ -2097,7 +2079,7 @@ improvements you have the following options:
 	     (y-or-n-p
 	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and apdl-dynamic-highlighting-flag
-		 (or (string= (buffer-name) "*MAPDL macro*")
+		 (or (string= (buffer-name) "*MAPDL code*")
 		     (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
 		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
 	    (progn (add-hook 'after-change-functions
@@ -2113,9 +2095,6 @@ improvements you have the following options:
   (when (and buffer-file-name ; a buffer with a file name
 	 (string= (file-name-extension (buffer-file-name) t) ".dat"))
     (apdl-hide-number-blocks))
-    ;; (when (y-or-n-p "Would you like to hide all blocks? This may
-    ;; 	    take some time...")  (hs-hide-all)))
-
 
   ;; a-align needs a mark to work for an unspecified region
   (set-mark 0)
@@ -2136,7 +2115,7 @@ improvements you have the following options:
 You must save the buffer (connect it with a file-name), otherwise
 possible edits are lost."
   (interactive)
-  (let ((b "*MAPDL macro*"))
+  (let ((b "*MAPDL code*"))
     (get-buffer-create b)
     (switch-to-buffer b)
     (when (< (buffer-size) 1)
@@ -2314,7 +2293,7 @@ represents only a proper block command when it is followed by a
 THEN action label."
   (interactive "*")
   (let (bb-keyword str tmp)
-    (condition-case err			;more pertinent error message
+    (condition-case nil			;more pertinent error message -TODO-
 	(progn
 	  (save-excursion
 	    (apdl-up-block)
@@ -2412,12 +2391,13 @@ Return nil otherwise."
 	    c (1+ c)))
     index))
 
-(defun apdl-update-parameter-help (&optional a b c)
+;(defun apdl-update-parameter-help (&optional a b c)
+(defun apdl-update-parameter-help ()
   "Update parameter help counting according to the cursor position."
   (let ((p (point))
 	(lo (overlays-in (line-beginning-position) (1- (line-beginning-position)))))
     (when (and (not (equal p apdl-parameter-help-position))
-	     (not (equal 1 p))		;TODO not working in the first line
+	     (not (equal 1 p))		;-TODO- not working in the first line
 	     (memq apdl-help-overlay lo))
     (setq apdl-parameter-help-position (point))
     (apdl-show-command-parameters 1))))
@@ -2718,7 +2698,7 @@ level."
 	  (when comma_c
 	    (setq lbp (line-beginning-position))
 	    (setq comma_c (- comma_c lbp))))
-	 ((looking-at ",")		;TODO: shouldn't be possible
+	 ((looking-at ",")		;-TODO-: shouldn't be possible
 	  (setq lep (line-end-position))
 	  (setq comma_c (1- (re-search-forward "," lep 'noerror))) ;excluding the comma
 	  (when comma_c
@@ -2997,7 +2977,8 @@ When NUM is 0 move to the current code line indentation."
 	  (setq num -1)
 	(forward-comment (-(buffer-size))))) ;skips also \n!
      ((apdl-condensed-input-line-p)
-      (when (looking-back "\\$\\s-*")  ;we are already before a $ sign
+      (when (looking-back "\\$\\s-*" nil)  ;we are already before a $ sign
+					; -TODO- speed things with LIMIT?
 	(skip-chars-backward " \t$"))	;skip at or before the $ char
       (if (re-search-backward "\\$\\s-*" (apdl-position 'bol) t)
 	  (skip-chars-forward "$ \t")
@@ -3371,7 +3352,7 @@ These constructs appear in WorkBench created solver input files."
 	'apdl-hide-region-after-string
 	'apdl-hide-region-propertize-markers
 	'apdl-highlighting-level
-	'apdl-current-apdl-version
+	'apdl-current-ansys-version
 	'apdl-dynamic-highlighting-flag
 	'apdl-indicate-empty-lines-flag
 	'apdl-blink-region-flag
@@ -3388,16 +3369,16 @@ These constructs appear in WorkBench created solver input files."
 	'apdl-outline-string
 	'apdl-mode-hook
 	'apdl-align-rules-list
-	'apdl-install-directory
+	'apdl-ansys-install-directory
 	'apdl-job
-	'apdl-program
-	'apdl-help-program
-	'apdl-help-path
-	'apdl-help-program-parameters
+	'apdl-ansys-program
+	'apdl-ansys-help-program
+	'apdl-ansys-help-path
+	'apdl-ansys-help-program-parameters
 	'apdl-lmutil-program
 	'apdl-license-file
 	'apdl-ansysli-servers
-	'apdl-license-types
+	'apdl-license-categories
 	'apdl-license
 	'apdl-no-of-processors
 	)
@@ -3437,7 +3418,8 @@ These constructs appear in WorkBench created solver input files."
     p))
 
 ;;with pseudo arguments a b c in case of usage as after-change-function
-(defun apdl-find-user-variables (&optional a b c)
+;(defun apdl-find-user-variables (&optional a b c)
+(defun apdl-find-user-variables ()
   "Find all user variables in the current buffer.
 Pre-process the findings into the variables `apdl-user-variables'
 and `apdl-user-variable-regexp' for subsequent fontifications.
@@ -3545,7 +3527,7 @@ Use variable `apdl-user-variable-regexp'."
   "Displays APDL variable assignments in the current buffer.
 Together with the corresponding line number N (type \\[goto-line]
 N for skipping to line N or place the cursor over the number and
-C-u \\[goto-line] takes the number automatically).  With a prefix
+`C-u' \\[goto-line] takes the number automatically).  With a prefix
 argument ARG, the function evaluates the variable at point."
   (interactive "P")
   (cond

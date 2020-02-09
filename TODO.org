@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-06>
+#+DATE: Time-stamp: <2020-02-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,17 +15,50 @@
 
 #+STARTUP: showall
 * R20.1.0
-  - README (for package-el) README.org for github
-  - Emacs 25.1 September 2016, how to We need emacs >= 24 ;-) lexical
+
+
+  # - apdl-license-categories OK
+  # - apdl-ansys-help-path OK
+  # - apdl-ansys-help-program OK
+  # - apdl-current-ansys-version OK
+  # - apdl-ansys-program OK
+  # - apdl-ansys-launcher OK
+  # - apdl-ansys-wb OK
+  # - apdl-kill-ansys OK
+  # - apdl-start-ansys-help OK
+
+  - package-lint
+  - flycheck
+    - -mode : C-u ..
+    - -initialise OK
+    - -process : C-u
+    - -config => -config.org OK
+    - -template OK
+
+  - M-x in docu strings => checkdoc
+
+  - Check customisation system
+
+  - check highlighting of license
+
+  - Emacs 25.1 September 2016, how to: We need emacs >= 24 ;-) lexical
     and other stuff
-  ANSYS is often used for ANSYS MAPDL solver / interpreter or ANSYS Classics GUI
-  - apdl-start-ansys-help
-  - apdl-anys-directory
-  - -install-dir
-  - apdl-license-file
-  - apdl-license => apdl-ansys-license?
-  - apdl-kill-ansys
-  - wikipedia APDL, Ansys
+
+  - README (for package-el) README.org for github
+
+  - ANSYS is often used synonymous for ANSYS MAPDL solver /
+    interpreter or ANSYS Classics GUI
+
+------
+
+  - Added keys to the *Licenses* buffer (formerly *ANSYS-license*)
+    - Q -- close (kill-this-buffer)
+    - q -- hide buffer (bury-buffer)
+    - g -- update license status (apdl-license-status)
+    - o -- apdl-occur
+
+  - Renamed ANSYS-Mode to APDL-Mode
+
 * 170-1:
 * 162-2:
 ** Bugs

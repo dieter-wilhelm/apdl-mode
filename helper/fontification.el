@@ -1,4 +1,4 @@
-;;; fontification.el-- building keywords and completions
+;;; fontification.el -- building keywords and completions
 
 ;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
 
@@ -19,6 +19,8 @@
 ;; along with this program; if not, you can either send email to this
 ;; program's maintainer or write to: The Free Software Foundation,
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+
+;;; Commentary:
 
 ;; at the moment it isn't working in batch mode but loading this file
 ;; does work...
@@ -78,6 +80,9 @@
 ;; 3.) `Apdl_written_out_commands'
 ;; 4.) `Apdl_commands_without_arguments'
 ;; 
+
+;;; Code:
+
 (defconst Apdl_undocumented_commands	;or macros?
   '(
     "/WB"			   ; signify a WB generated input file
@@ -290,8 +295,8 @@ files, old macros or old APDL verification models.")
     "*ELSEIF"				;allows arguments behind it
     "*ENDDO" "/POST1" "/POST26" "/PREP7"
     )
-  "Commands which aren't allowed to be abbreviated and the solver
-  won't allow characters appended to.")
+  "Commands which aren't allowed to be abbreviated.
+And the solver won't allow characters appended to.")
 
 
 (defconst Apdl_commands_without_arguments
@@ -302,7 +307,7 @@ files, old macros or old APDL verification models.")
     "/POST1" "/POST26" "/PREP7"
     "SSUM"
     )
-  "APDL commands which aren't allowed with arguments")
+  "APDL commands which aren't allowed with arguments.")
 
 ;; deprecated element list is from Ansys version 12.0, 13.0, 14.0
 (defconst Apdl_deprecated_elements_alist
@@ -374,8 +379,7 @@ files, old macros or old APDL verification models.")
   ("VISCO108" . "PLANE183")
   ("TRANS109" . "PLANE223")		;v14
 )
-"Association list of deprecated element types with their proposed
-successor.")
+"Association list of deprecated element types with their proposed successor.")
 
 ;; (defun APDL-elements (list)
 ;;       (mapcar
@@ -575,7 +579,7 @@ Function names are distinguished by `()'."
   ;; we are adding to the top!
   ;; 
 
-  (insert "(provide 'apdl-keyword)\n;;end of apdl-keyword.el\n")
+  (insert "(provide 'apdl-keyword)\n;;; apdl-keyword.el ends here\n")
 
   ;; ---------- undocumented commands ----------
 
@@ -584,9 +588,8 @@ Function names are distinguished by `()'."
   (setq undocumented-commands Apdl_undocumented_commands)
   (insert "(defconst apdl-undocumented-command-regexp\n")
   (prin1 (regexp-opt Apdl_undocumented_commands) buffer)
-  (insert "\n\"Regexp of commands not documented in the Ansys
-manuals.  Seen mainly in Workbench output files and Ansys
-verification models.\")\n\n")
+  (insert "\n\"Regexp of commands not documented in the Ansys manuals. 
+Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   ;; (beginning-of-defun)
   ;; (fill-paragraph 0)
   (message "undocumented commands...done")
@@ -646,14 +649,14 @@ verification models.\")\n\n")
   (setq print-length nil)		;nil: print all members of list
   (prin1 (regexp-opt (Prepare_list commands-1))
 		     buffer)
-  (insert "\n\"APDL short keyword name regexp\")\n\n")
+  (insert "\n\"APDL short keyword name regexp.\")\n\n")
 
   (message "starting level 1.")
   (goto-char (point-min))
   (insert "(defconst apdl-command-regexp-1\n")
   (prin1 (regexp-opt commands)
 		     buffer)
-  (insert "\n\"APDL full keyword name regexp\")\n\n")
+  (insert "\n\"APDL full keyword name regexp.\")\n\n")
 
   (message "starting level 2.")
   (goto-char (point-min))
@@ -667,15 +670,15 @@ verification models.\")\n\n")
 	list3 (regexp-opt list3))
   (insert "(defconst apdl-command-regexp-2a\n")
   (prin1 list1 buffer)
-  (insert "\n\"APDL keyword name regexp 2a\")\n\n")
+  (insert "\n\"APDL keyword name regexp 2a.\")\n\n")
   ;; 
-  (insert "(defconst apdl-command-regexp-2b\n")
+  (insert "(defconst apdl-command-regexp-2b.\n")
   (prin1 list2 buffer)
-  (insert "\n\"APDL keyword name regexp 2b\")\n\n")
+  (insert "\n\"APDL keyword name regexp 2b.\")\n\n")
   ;; 
-  (insert "(defconst apdl-command-regexp-2c\n")
+  (insert "(defconst apdl-command-regexp-2c.\n")
   (prin1 list3 buffer)
-  (insert "\n\"APDL keyword name regexp 2c\")\n\n")
+  (insert "\n\"APDL keyword name regexp 2c.\")\n\n")
 
 
   ;; ---------- ansys elements ----------
@@ -718,8 +721,8 @@ verification models.\")\n\n")
   (setq print-length nil)		;nil: print all members of list
   (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
   (prin1 Apdl_deprecated_elements_alist buffer)
-  (insert "\n\"Association list for APDL deprecated elements
-  and their proposed replacements.\")\n\n")
+  (insert "\n\"Association list for APDL deprecated elements.
+Together with their proposed replacements.\")\n\n")
   (beginning-of-defun)
   (fill-paragraph 0)
   (message "elements...done")
@@ -795,7 +798,7 @@ verification models.\")\n\n")
   ;;  buffer)
   (insert "\n\"APDL symbols for completion in APDL-Mode.
 By default APDL keywords, get-functions, parametric-function and elements
- (deprecated as well) are completed.\")\n\n")
+- deprecated as well - are completed.\")\n\n")
   ;; (beginning-of-defun)
   ;; (fill-paragraph nil)
   (message "completions...done")
@@ -864,14 +867,18 @@ By default APDL keywords, get-functions, parametric-function and elements
   ;; ---------- header ----------
 
   (goto-char (point-min))
-  (insert ";; apdl-keyword.el -- APDL-Mode completion and "
-  "highlighting variables. \n" ";; This file was built by "
+  (insert ";; apdl-keyword.el -- APDL-Mode completion and"
+  "highlighting variables.\n" ";; This file was built by"
   "\"fontification.el\" release R20.1.0.\n\n"
-  ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n")
+  ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n"
+  ";;; Commentary:\n"
+  ";;; Code:\n")
   (save-buffer)
   (message "apdl-keywords.el done.")
   ;; --- end of let
 )  
+
+;;; fontification.el ends here
 
 ;; Local Variables:
 ;; mode: outline-minor

@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-07 16:48:18 uidg1626>
+;; Time-stamp: <2020-02-09>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -47,7 +47,7 @@ The directory where the Elisp files reside."
   :type 'string
   :group 'APDL-initialise)
 
-(defcustom apdl-install-directory nil
+(defcustom apdl-ansys-install-directory nil
   "This is the path where the MAPDL solver (ANSYS) has been installed.
 Which is to say the path up to the ANSYS version number, for
 example \"v162\".  The ANSYS installation routine sets for this
@@ -61,7 +61,7 @@ information which ANSYS version currently is in use."
 ;; TODO: the following defcustoms can actually be variables, can't
 ;; they?
 
-(defcustom apdl-program nil
+(defcustom apdl-ansys-program nil
   "This string variable stores the ANSYS executable.
 Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
@@ -69,36 +69,36 @@ path, you have to specify the full qualified file name and not
 only executable's name.  For example:
 \"/ansys_inc/v162/ansys/bin/ansys162\" and not only \"ansys162\".
 You might customise this variable or use the function
-`apdl-program' to do this for the current session only."
+`apdl-ansys-program' to do this for the current session only."
   :type 'string
   :group 'APDL-initialise)
 
-(defcustom apdl-launcher nil
+(defcustom apdl-ansys-launcher nil
   "This string variable stores the ANSYS launcher executable.
 When the respective executable is not in your search path, you
 have to specify the full qualified file name and not only
 executable's name.  For example:
 \"/ansys_inc/v162/ansys/bin/launcher162\".  You might customise this
-variable permanently or use the function `apdl-launcher' to do
+variable permanently or use the function `apdl-ansys-launcher' to do
 this for the current session only."
   :type 'string
   :group 'APDL-initialise)
 
-(defcustom apdl-wb nil
+(defcustom apdl-ansys-wb nil
   "This string variable stores the ANSYS WorkBench executable.
 When the respective executable is not in your search path, you
 have to specify the full qualified file name and not only
 executable's name.  For example:
 \"/ansys_inc/v162/Framework/bin/Linux64/runwb2\".  You might
 customise this variable permanently or use the function
-`apdl-wb' to do this for the current session only."
+`apdl-ansys-wb' to do this for the current session only."
   :type 'string
   :group 'APDL-initialise)
 
-(defcustom apdl-help-program nil
+(defcustom apdl-ansys-help-program nil
   "The ANSYS help executable.
 It is called with
-\\[apdl-start-apdl-help] (`apdl-start-apdl-help').  When the
+\\[apdl-start-ansys-help] (`apdl-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
 locations are \"/ansys_inc/v162/ansys/bin/anshelp162\" on GNU-Linux
@@ -108,13 +108,13 @@ Windows (XP/7)."
   :type 'string
   :group 'APDL-initialise)
 
-(defcustom apdl-help-path nil
+(defcustom apdl-ansys-help-path nil
   "The ANSYS help path."
   :type 'string
   :group 'APDL-initialise)
 
-(defcustom apdl-help-program-parameters ""
-  "Stores parameters for the program `apdl-help-program' under Windows.
+(defcustom apdl-ansys-help-program-parameters ""
+  "Variable stores parameters for the ANSYS help program.
 Since ANSYS150 not longer necessary."
   :type 'string
   :group 'APDL-initialise)
@@ -164,20 +164,20 @@ Set it to port@host.  The default port is 2325."
 ;; defining variables
 
 (defvar apdl-unix-system-flag nil
-  "Indicate a Unix system with t.")
+  "Non-nil means APDL-mode runs under a Unix system.")
 
-(defvar apdl-current-apdl-version nil
+(defvar apdl-current-ansys-version nil
   "String of the currently used MAPDL solver version.
 This variable is used by the `apdl-skeleton-header' template and
 for setting up variables defaults with ANSYS path specifications,
-like in the variable `apdl-program'.")
+like in the variable `apdl-ansys-program'.")
 
 ;; from -process.el
 (defvar apdl-classics-flag)
 
-;; (defvar apdl-current-apdl-version-history '("160" "150" "145")
+;; (defvar apdl-current-ansys-version-history '("160" "150" "145")
 ;;   "History list for the minibuffer input of
-;;   `apdl-current-apdl-version'.")
+;;   `apdl-current-ansys-version'.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; functions
@@ -188,9 +188,9 @@ If TYPE is nil return the license servers, if non-nil the
 ansysli_servers.  When there are no license servers readable,
 return nil."
   (let* ((idir
-	  (if apdl-install-directory
+	  (if apdl-ansys-install-directory
 	      (file-name-directory
-	       (directory-file-name apdl-install-directory))
+	       (directory-file-name apdl-ansys-install-directory))
 	    nil))
 	 ini
 	 )
@@ -246,7 +246,7 @@ customisation variables"
   (setq apdl-unix-system-flag (apdl-is-unix-system-p))
 
   ;; 1) -install-directory (with versioning information)
-  (when (null apdl-install-directory)
+  (when (null apdl-ansys-install-directory)
     (let* (
 	   (cdir "/appl/ansys_inc/")
 	   (path (apdl-find-path-environment-value))
@@ -257,12 +257,12 @@ customisation variables"
       (cond
        ;; from environment variable
        (dir
-	(message "apdl-install-directory set from environment variable AWP_ROOTXXX")
-	(message "apdl-install-directory = %s" dir)
+	(message "apdl-ansys-install-directory set from environment variable AWP_ROOTXXX")
+	(message "apdl-ansys-install-directory = %s" dir)
 	(setq subdir
 	      (file-name-nondirectory (directory-file-name dir)))
-	(setq apdl-current-apdl-version (remove ?v subdir))
-	(message "Current ANSYS version: %s" apdl-current-apdl-version))
+	(setq apdl-current-ansys-version (remove ?v subdir))
+	(message "Current ANSYS version: %s" apdl-current-ansys-version))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default company installation path
        ((file-readable-p cdir)
@@ -271,8 +271,8 @@ customisation variables"
 	      (car
 	       (reverse
 		(directory-files cdir nil "[0-9][0-9]\.[0-9]"))))
-	(setq apdl-current-apdl-version (remove ?. (substring subdir 0 4)))
-	(setq dir (concat cdir subdir "/v" apdl-current-apdl-version "/")))
+	(setq apdl-current-ansys-version (remove ?. (substring subdir 0 4)))
+	(setq dir (concat cdir subdir "/v" apdl-current-ansys-version "/")))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on Linux "/" or rather "/usr"
        ;; /ansys_inc is a symlink to /usr/ansys_inc
@@ -283,8 +283,8 @@ customisation variables"
 		(car
 		 (reverse
 		  (directory-files cdir nil "v[0-9][0-9][0-9]"))))
-	  (setq apdl-current-apdl-version (remove ?v (substring subdir 0 4)))
-	  (message "Current ANSYS version: %s" apdl-current-apdl-version)
+	  (setq apdl-current-ansys-version (remove ?v (substring subdir 0 4)))
+	  (message "Current ANSYS version: %s" apdl-current-ansys-version)
 	  (setq dir (concat cdir subdir "/"))))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on windows
@@ -296,11 +296,11 @@ customisation variables"
 		(car
 		 (reverse
 		  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
-	  (setq apdl-current-apdl-version (remove ?v (substring subdir 0 4)))
-	  (message "Current ANSYS version: %s" apdl-current-apdl-version)
+	  (setq apdl-current-ansys-version (remove ?v (substring subdir 0 4)))
+	  (message "Current ANSYS version: %s" apdl-current-ansys-version)
 	  (setq dir (concat cdir subdir "/")))))
       (if dir
-	  (setq apdl-install-directory dir)
+	  (setq apdl-ansys-install-directory dir)
 	(message "No ANSYS installation directory found"))))
 
   ;; 1a) -classics-flag
@@ -309,89 +309,89 @@ customisation variables"
 	(setq apdl-classics-flag t)))
 
   ;; 2) -current-apdl-version:
-  (when apdl-install-directory
-    (let* ((idir (file-name-as-directory apdl-install-directory))
-	   (version1 apdl-current-apdl-version)
+  (when apdl-ansys-install-directory
+    (let* ((idir (file-name-as-directory apdl-ansys-install-directory))
+	   (version1 apdl-current-ansys-version)
 	   (length))
       (when (or (and idir
 		     (not version1))
 		force)
 	(setq length (length idir))
 	(setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
-	(setq apdl-current-apdl-version version1)
-	(message "apdl-current-apdl-version=%s" version1))))
+	(setq apdl-current-ansys-version version1)
+	(message "apdl-current-ansys-version=%s" version1))))
 
   ;; 3) -program
-  (when (and apdl-install-directory (or (null apdl-program) force))
-    (let* ((version1 apdl-current-apdl-version)
-	   (idir (unless (null apdl-install-directory)
-		   (file-name-directory apdl-install-directory)))
+  (when (and apdl-ansys-install-directory (or (null apdl-ansys-program) force))
+    (let* ((version1 apdl-current-ansys-version)
+	   (idir (unless (null apdl-ansys-install-directory)
+		   (file-name-directory apdl-ansys-install-directory)))
 	   (exe (if apdl-unix-system-flag
 		    (concat idir "ansys/bin/ansys" version1)
 		  (concat idir "ansys/bin/winx64/ansys"version1".exe"))))
       (if (file-executable-p exe)
 	  (progn
-	    (setq apdl-program exe)
-	    (message (concat "apdl-program set to " apdl-program)))
-	(message "Couldn't find an executable for apdl-program."))))
+	    (setq apdl-ansys-program exe)
+	    (message (concat "apdl-ansys-program set to " apdl-ansys-program)))
+	(message "Couldn't find an executable for apdl-ansys-program."))))
 
   ;; 4) -wb
-  (when (and apdl-install-directory (or (null apdl-wb) force))
-    (let* ((idir apdl-install-directory)
+  (when (and apdl-ansys-install-directory (or (null apdl-ansys-wb) force))
+    (let* ((idir apdl-ansys-install-directory)
 	   (exe
 	    (if apdl-unix-system-flag
 		(concat idir "Framework/bin/Linux64/runwb2") ;150, 161
 		 (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
       (when (file-executable-p exe)
-	(setq apdl-wb exe))
-      (if apdl-wb
-	  (message (concat "apdl-wb set to " apdl-wb))
-	(message "Couldn't find an executable for apdl-wb."))))
+	(setq apdl-ansys-wb exe))
+      (if apdl-ansys-wb
+	  (message (concat "apdl-ansys-wb set to " apdl-ansys-wb))
+	(message "Couldn't find an executable for apdl-ansys-wb."))))
 
 ;; 5) -launcher
-  (when (and apdl-install-directory (or (null apdl-launcher) force))
-    (let* ((version1 apdl-current-apdl-version)
-	   (idir (unless (null apdl-install-directory)
-		   (file-name-directory apdl-install-directory)))
+  (when (and apdl-ansys-install-directory (or (null apdl-ansys-launcher) force))
+    (let* ((version1 apdl-current-ansys-version)
+	   (idir (unless (null apdl-ansys-install-directory)
+		   (file-name-directory apdl-ansys-install-directory)))
 	   (exe
 	    (if apdl-unix-system-flag
 		(concat idir "ansys/bin/launcher" version1)
 	      (concat idir  "ansys/bin/winx64/launcher" version1 ".exe"))))
       (when (file-executable-p exe)
-	(setq apdl-launcher exe))
-      (if apdl-launcher
-	  (message "apdl-launcher is set to %s" apdl-launcher))
-	(message "Couldn't find an executable for apdl-launcher (%s)." exe)))
+	(setq apdl-ansys-launcher exe))
+      (if apdl-ansys-launcher
+	  (message "apdl-ansys-launcher is set to %s" apdl-ansys-launcher))
+	(message "Couldn't find an executable for apdl-ansys-launcher (%s)." exe)))
 
   ;; 6) -help-path
-  (when (and apdl-install-directory (or (null apdl-help-path) force))
-    (let* ((idir apdl-install-directory)
+  (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-path) force))
+    (let* ((idir apdl-ansys-install-directory)
 	   (path (concat idir "commonfiles/help/en-us/help/")))
       (if (file-readable-p path)	;path must be a string, not nil
 	  (progn
-	    (setq apdl-help-path path)
-	    (message "Set apdl-help-path to %s" path))
-	(message "%s" "Couldn't find the apdl-help-path"))))
+	    (setq apdl-ansys-help-path path)
+	    (message "Set apdl-ansys-help-path to %s" path))
+	(message "%s" "Couldn't find the apdl-ansys-help-path"))))
 
   ;; 7) -help-program
-  (when (and apdl-install-directory (or (null apdl-help-program) force))
-    (let* ((idir apdl-install-directory)
-	   (version1 apdl-current-apdl-version)
+  (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-program) force))
+    (let* ((idir apdl-ansys-install-directory)
+	   (version1 apdl-current-ansys-version)
 	   (exe
 	    (if apdl-unix-system-flag
 		(concat idir "ansys/bin/anshelp" version1)
 	      (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
       (if (file-executable-p exe)
 	  (progn
-	    (message "apdl-help-program = %s" exe)
-	    (setq apdl-help-program exe))
-	(message "%s" "Couldn't find an executable for apdl-help-program."))))
+	    (message "apdl-ansys-help-program = %s" exe)
+	    (setq apdl-ansys-help-program exe))
+	(message "%s" "Couldn't find an executable for apdl-ansys-help-program."))))
 
   ;; 8) -lmutil-program
-  (when (and apdl-install-directory (or (null apdl-lmutil-program) force))
+  (when (and apdl-ansys-install-directory (or (null apdl-lmutil-program) force))
     (let* ((idir (file-name-directory
 		  (directory-file-name
-		   apdl-install-directory)))
+		   apdl-ansys-install-directory)))
 	   (exe
 	    (if apdl-unix-system-flag
 		(concat idir "shared_files/licensing/linx64/lmutil")
@@ -460,13 +460,13 @@ customisation variables"
      ;; ------------------------------------------------------------
      (message "%s" "APDL-Mode: Initialised system dependened variables."))  ;; end of init function
 
-(defun apdl-install-directory ()
+(defun apdl-ansys-install-directory ()
   "Change the ANSYS installation directory.
 Which is to say the path up to the ANSYS version number, for
 example \"v201\".  The path is stored in the variable
-`apdl-install-directory'"
+`apdl-ansys-install-directory'"
   (interactive)
-  (let* ((idir apdl-install-directory)
+  (let* ((idir apdl-ansys-install-directory)
 	 (ndir
 	  (expand-file-name	       ;in case it was written ~
 	   (file-name-as-directory	;in case the slash is forgotten
@@ -479,12 +479,12 @@ example \"v201\".  The path is stored in the variable
     (message "a-i-d: %s" ndir)
     (if (file-readable-p ndir)
 	(progn
-	  (setq apdl-install-directory
+	  (setq apdl-ansys-install-directory
 		(file-name-as-directory ndir)) ;ensure final slash
-	  (message "Set apdl-install-directory to \"%s\"." ndir))
+	  (message "Set apdl-ansys-install-directory to \"%s\"." ndir))
       (error "ANSYS directory \"%s\" is not readable" ndir))
     (apdl-initialise 'force)
-    (setq apdl-current-apdl-version version)))
+    (setq apdl-current-ansys-version version)))
 
 (provide 'apdl-initialise)
 

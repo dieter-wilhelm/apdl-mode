@@ -7,7 +7,7 @@
 ;; browse-url
 
 (define-package "apdl-mode" "20.1.0" "A major mode for the APDL language of the ANSYS FEA suite."
-  '(emacs "25")
+  '((emacs "25"))
   :keywords
   '("APDL" "ANSYS" "languages" "FEA" "convenience" "tools")
   :authors

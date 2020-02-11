@@ -1,11 +1,14 @@
-;;; apdl-template.el -- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
+;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: R20.1.0
+;; Version: 20.1.0
+;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience, ANSYS, tools, APDL
+;; URL: https://github.com/dieter-wilhelm/apdl-mode
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -105,8 +108,7 @@ key and choose with the mouse 2 button."
 	   (switch-to-buffer-other-window old-buffer)
 	   )
 	  (t
-	   (funcall (intern-soft skel)))
-	  )))
+	   (funcall (intern-soft skel))))))
 
 (define-skeleton apdl_do
   "Insert a *do .. *enddo loop."
@@ -114,8 +116,7 @@ key and choose with the mouse 2 button."
   "*do,I,1,10,1" > \n
   - \n
   "*cycle !bypass below commands in *do loop" > \n
-  "*enddo" > \n
-  )
+  "*enddo" > \n)
 
 (define-skeleton apdl_if
   "Insert an *if .. *endif construct."
@@ -124,8 +125,7 @@ key and choose with the mouse 2 button."
   > _ \n
   "!! *elseif,K,gt,L" > \n
   "!! *else" > \n
-  "*endif" >
-  )
+  "*endif" >)
 
 (define-skeleton apdl-skeleton-looping
   "Control constructs"
@@ -164,8 +164,7 @@ key and choose with the mouse 2 button."
   \n
   "! goto branching" \n
   "*go,:BRANCH" \n
-  ":BRANCH" \n
-  )
+  ":BRANCH" \n)
 
 (define-skeleton apdl-skeleton-header
   "Insert a file header for an APDL script.
@@ -188,8 +187,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "! /clear" \n
   "! y" \n
   "/units,mpa !indicate mm-t-s unit system" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-information
   "Information gathering with APDL commands."
@@ -420,8 +418,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "VDRAG ! Drag area pattern to create volume - First volume number" \n
   "VEXT ! Volume by extruding areas - First volume number" \n
   "VOFFST ! Volume offset from given area - Volume number" \n
-  "VROTAT ! Volume by rotating areas - First volume number" \n
-)
+  "VROTAT ! Volume by rotating areas - First volume number" \n)
 
 (define-skeleton apdl-skeleton-configuration
   "Configuration skeleton."
@@ -458,8 +455,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/graphics,power" \n
   "/efacet,4" \n
   "/type,4 !better hidden line removal" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-view-settings
   "View settings skeleton."
@@ -602,8 +598,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,off !switch off wp" \n
   "/triad,rbot"_ \n
   "/triad,off" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-import
   "Import commands."
@@ -639,8 +634,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! lines might be skipped with the SKIP parameter" \n
   "*tread,Hans,tmp,out,,skip !the value Hans(0,0) must be smaller then Hans(0,1) and Hans(1,0)!" \n
   "*vplot,Hans(1,0),Hans(1,1),2,3" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-expand
   "Symmetry expansion."
@@ -659,8 +653,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! -- cyclic expansion --" \n
   "cyclic,status" \n
   "/cycexpand ! expand graphics rep." \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-contact-definition
   "Contact definitons skeleton."
@@ -802,8 +795,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plls,Pene,Pene !line element results" \n
   "resume,Job_name,db" \n
   "ssum !sum of element table items" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-contact-rigid
   "Rigid contacts skeleton."
@@ -836,8 +828,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo !2d/3d" \n
   "e,Nmax+1" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-coordinates
   "Co-ordinate systems skeleton."
@@ -861,8 +852,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,off !switch off wp" \n
   "/triad,rbot"_ \n
   "/triad,off"
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-working-plane
   "Settings for the working plane and related stuff."
@@ -884,8 +874,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "wpstyl,,,,,,,0 !grid spec: 0 grid+triad,1 grid,2 [triad]" \n
   "!wpstyl,stat" \n
   "csys,wp ! or csys,4: change csys to wp" \n
-  \n
-  )
+  \n)
 
 ;; PlotCtrls ->Multi-plot-Ctrls???
 (define-skeleton apdl-skeleton-multi-plot
@@ -899,8 +888,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/gtype,all,node,0 !turn off nodes (elem,keyp,line,area)" \n
   "/gtype,,volu,1 !turn on volumens" \n
   "gplot" \n
-  \n
-  )
+  \n)
 
 ;; PlotCtrls ->Numbering Controls
 (define-skeleton apdl-skeleton-numbering-controls
@@ -914,8 +902,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/number,2 ![0]: colour & number, 1:colour only, 2 number only" \n
   "/pnum,defa !1: turn off any numbering" \n
   "/replot" \n
-  \n
-  )
+  \n)
 
 ;; PlotCtrls -> Symbols
 (define-skeleton apdl-skeleton-symbols
@@ -941,8 +928,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/psymb,ndir,1 !only for rotated nodal co-ordinate systems!" \n
   "/psymb,stat" \n
   "/repl" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-element-table
   "Element tables."
@@ -975,8 +961,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "ssum !Calculate and print the sum of element table items." \n
   "sabs,1 ! 1: absolut values, [0] algebraic values for table operations" \n
   "*get,My_magnet_force1,ssum,,item,S1 " \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-beam-template
   "Minimal example of a modal analysis with beams"
@@ -1060,8 +1045,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/view,,1,1,1" \n
   "pldisp" \n
   "plnsol,u,sum,2" \n
-  "anmode" \n
-  )
+  "anmode" \n)
 
 (define-skeleton apdl-skeleton-element-definition
   "Element definitions skeleton."
@@ -1176,8 +1160,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
   \n
   "!! /pnum,type,1 $ eplot ! display materials" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-meshing
   "Meshing skeleton."
@@ -1237,8 +1220,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/cycexpand ! expand graphics rep." \n
   \n
   "/pnum,mat,1 $ eplot" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-function
   "Standard FORTRAN and get functions."
@@ -1390,8 +1372,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "SPLIT('PathString', 'DIR') !  Produces a separate output of the directory from the pathstring." \n
   "SPLIT('PathString', 'FILE') !  Produces a separate output of the complete filename (with extension) from the pathstring." \n
   "SPLIT('PathString', 'NAME') ! Produces a separate output of the filename from the pathstring." \n
-  "SPLIT('PathString', 'EXT') !  Produces a separate output of the file extension from the pathstring." \n
-  )
+  "SPLIT('PathString', 'EXT') !  Produces a separate output of the file extension from the pathstring." \n)
 
 (define-skeleton apdl-skeleton-geometry
   "Geometry definitons skeleton."
@@ -1493,8 +1474,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "vsbw,all,,delete !v substracted by wp" \n
   "vdele,all,,,1 !skwp 1:delete kp,l,a as well" \n
   "vsym! symmetry reflections: arsym,esym" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-material-definition
   "Material definitons skeleton."
@@ -1681,8 +1661,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "mp,murx,Magnet,Br/(Mu0*Hc)" \n
   \n
   "/pnum,mat,1 $ eplot" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-component
   "Component (Named Selections in WorkBench) skeleton."
@@ -1697,8 +1676,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "cmsel,all !additional select all components" \n
   "cmdele,cmName !delete component cmName" \n
   "*GET, Parameter, COMP, 0, ncomp! Get the number of components" \n
-  \n
-)
+  \n)
 
 (define-skeleton apdl-skeleton-bc
   "Boundary conditions skeleton."
@@ -1827,8 +1805,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/pbc,nfor,,1 ! show nodal forces"  \n
   "/pbc,rfor,,1 ![0],1:show reaction forces" \n
   "/pbc,defa !reset /pbc" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-buckling
   "Buckling skeleton."
@@ -1854,8 +1831,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "fini $ /solu	 !switch to another loadstep?" \n
   "expass,on" \n
   "mxpand,3" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-solve
   "Solving /solu skeleton."
@@ -1987,8 +1963,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "cycopt,status" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-post1
   "Postprocessing /postXX skeleton."
@@ -2218,8 +2193,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/show,close" \n
   \n
   "!! cycexpand,on ! graphical expansion" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-output-to-file
   "In/Output to file skeleton."
@@ -2407,8 +2381,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/ui,copy,save,tiff,graph,color,norm,portrait,yes,100 !100 max qality" \n
   "/sys,ls *.eps" \n
   "/sys,display *.eps" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-select
   "The selections skeleton.
@@ -2442,8 +2415,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "nsel,u,,,Ntmp"> \n
   "*get,E,elem,E,nxth" \n
   "*enddo"> \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-path-plot
   "Path plot skeleton."
@@ -2469,8 +2441,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
   "paget,Path,table" \n
   "!path $ stat" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-post26
   "Time postprocessing /post26 skeleton."
@@ -2541,8 +2512,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "*list,tmp,mac" \n
   "/input,tmp,mac" \n
   "*list,sim,txt" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-array
   "Fields and arrays skeleton."
@@ -2640,8 +2610,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "/gcolumn,3,'Ogden'" \n
   "/gthk,curve,4 !curve thickness" \n
   "*vplot,F_y(1,0),F_y(1,1),2.0"
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-structural-template
   "Minimum working structural APDL template."
@@ -2755,8 +2724,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!@ ==============================" \n
   "/post1" \n
   "plnsol,u,sum" \n
-  \n
-  )
+  \n)
 
 (defun apdl-skeleton-compilation-template ()
   "Your collection of selected code templates."
@@ -2878,58 +2846,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   "/post26" \n
   \n
-  "/eof ------------------------------" \n
-  )
-
-
-;; (defmacro define-apdl-skeleton (command documentation &rest definitions) ;FIXME: documentation
-;;   "Define COMMAND with an optional docstring DOCUMENTATION.
-;; to insert statements as in DEFINITION ...  Prior
-;; DEFINITIONS (e.g. from ~/.emacs) are maintained.  Each definition
-;; is built up as (format PROMPT ELEMENT ...).  Alternately a
-;; synonym definition can be (format . PREVIOUSLY-DEFINED-FORMAT).
-
-;; For the meaning of (PROMPT ELEMENT ...) see `skeleton-insert'.
-;; Each DEFINITION is actually stored as
-;; 	(put COMMAND format (PROMPT ELEMENT ...)), which you can
-;; also do yourself."
-;;   (unless (stringp documentation)
-;;     (setq definitions (cons documentation definitions)
-;; 	  documentation ""))
-;;   ;; The compiled version doesn't work.
-;;   (require 'backquote)
-;;   (`(progn
-;;       (let ((definitions '(, definitions)))
-;; 	(while definitions
-;; 	  ;; skeleton need not be loaded to define these
-;; 	  (or (get '(, command) (car (car definitions)))
-;; 	      (put '(, command) (car (car definitions))
-;; 		   (if (symbolp (cdr (car definitions)))
-;; 		       (get '(, command) (cdr (car definitions)))
-;; 		     (cdr (car definitions)))))
-;; 	  (setq definitions (cdr definitions))))
-;;       (defun (, command) ()
-;; 	(, documentation)
-;; 	(interactive)
-;; 	(skeleton-insert
-;; 	 (or (get '(, command) apdl-format)
-;; 	     (error "%s statement syntax not defined for ansys format %s"
-;; 		    '(, command) apdl-format)))))))
-
-;; (define-apdl-skeleton apdl-if
-;;   "Insert an if statement in the current format's syntax."
-;;   (format "Value/Parameter 1: "
-;; 	  "*IF," str ","
-;; 	  (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;; 	  ","
-;; 	  (read-string "Value/Parameter 2: ")
-;; 	  ","
-;; 	  (read-string "Action: (:label,STOP,EXIT,CYCLE,THEN) ")
-;; 	  \n >_
-;; 	  "*ENDIF"
-;; 	  \n)
-;;   (mac . format))
-
+  "/eof ------------------------------" \n)
 
 (define-skeleton apdl-if
   "Insert interactively an *if .. *endif construct."
@@ -2941,8 +2858,8 @@ Select or deselect various elements: Geometry, elements, nodes,
 		   t			;require-match
 		   nil			;inital input
 		   nil			;history
-		   "eq"			;default
-		   )
+		   ;;default
+		   "eq")
   ","
   (skeleton-read "Value/Parameter 2 [J]: ") | "J"
   ","
@@ -2989,8 +2906,8 @@ Select or deselect various elements: Geometry, elements, nodes,
 		   t			;require-match
 		   nil			;inital input
 		   nil			;history
-		   "eq"			;default
-		   )
+		   ;;default
+		   "eq")
   ","
   (skeleton-read "Value/Parameter 2 [J]: ") | "J"
   ","
@@ -3011,8 +2928,8 @@ Select or deselect various elements: Geometry, elements, nodes,
      t				;require-match
      nil			;inital input
      nil			;history
-     "eq"			;default
-     )
+     ;;default
+     "eq")
     ","
     (read-string "Next Value/Parameter 2: ")
    ",then" _ >
@@ -3046,8 +2963,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   ","
   (read-string "Increment Value/Parameter [1]: ") | "1" \n
   > _ \n
-  "*enddo" > \n
-)
+  "*enddo" > \n)
 
 ;; (define-apdl-skeleton apdl-mp		;FIXME: skeleton a bit over the top
 ;;   "Insert an if statement in the current format's syntax."
@@ -3082,8 +2998,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   (read-string "Cubic Coefficient? : ")
   ","
   (read-string "Quartic Coefficient? : ")  \n
-  \n
-  )
+  \n)
 
 (provide 'apdl-template)
 

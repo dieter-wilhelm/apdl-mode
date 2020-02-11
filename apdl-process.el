@@ -1,12 +1,15 @@
-;;; ansys-process.el -- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-09>
+;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
+;; Time-stamp: <2020-02-10>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Maintainer: H. Dieter Wilhelm
-;; Version: R20.1.0
+;; Version: 20.1.0
+;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience
+;; URL: https://github.com/dieter-wilhelm/apdl-mode
+
+;; Maintainer: H. Dieter Wilhelm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -381,8 +384,7 @@ the customisation facility (by calling `apdl-customise-ansys')."
     (sleep-for .1)     ;seems to take 0.1 s for the clipboard to copy!
     (call-process (concat apdl-mode-install-directory
 			  "X11/xSendReturn") nil nil nil
-		  apdl-emacs-window-id apdl-classics-window-id)
-    ))
+		  apdl-emacs-window-id apdl-classics-window-id)))
 
 (defun apdl-send-to-ansys ( &optional move)
   "Send a region to the ANSYS MAPDL interpreter.
@@ -417,14 +419,13 @@ code line after this region (or paragraph)."
 	  ((apdl-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string process
-			       (concat code ""); "\n"); why did I do \n?
-			       )
+			       ;; "\n"); why did I do \n?
+			       (concat code ""))
 	   (display-buffer-other-frame (concat "*" apdl-process-name "*"))
 	   (message "Sent region to solver."))
 	  (t
 	   (clipboard-kill-ring-save beg end)
-	   (message "Copied region.")
-	   ))
+	   (message "Copied region.")))
     (if (= move 4)
 	(progn
 	  (goto-char end)
@@ -502,13 +503,12 @@ final character \"j\" (or \"C-j\")."
 	     (if region
 		 (message "Sent region.")
 	       (message "Sent line.")))
-	   (apdl-send-to-classics)
-	   )
+	   (apdl-send-to-classics))
 	  ((apdl-process-running-p)
 	   (setq code (buffer-substring-no-properties beg end))
 	   (comint-send-string process
-			       (concat code ""); "\n"); why did I do \n?
-			       )
+			       ;; "\n"); why did I do \n?
+			       (concat code ""))
 	   (display-buffer-other-frame (concat "*" apdl-process-name "*"))
 	   ;; Issue a hint to the user
 	   (if (fboundp 'set-transient-map)
@@ -600,13 +600,7 @@ smaller than 3 (see `apdl-number-of-processors')."
      ;;  (switch-to-buffer apdl-process-buffer)
      (other-window 1)
      (setq comint-prompt-regexp "BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:")
-     (font-lock-add-keywords nil (list comint-prompt-regexp))
-     ;; comint-output-filter-functions '(ansi-color-process-output comint-postoutput-scroll-to-bottom comint-watch-for-password-prompt comint-truncate-buffer)
-
-        ;; w32-shell-execute not know under RHEL Emacs 23.1
-       ;; (if (fboundp 'w32-shell-execute)
-       ;; 	   (w32-shell-execute "Open" apdl-ansys-program))
-       ))
+     (font-lock-add-keywords nil (list comint-prompt-regexp))))
 
 (defun apdl-kill-ansys ()
   "Kill the current ANSYS run under Emacs.
@@ -623,10 +617,7 @@ the function `apdl-exit-ansys'."
 ;	(message "Killing run...")
 	(delete-process (get-process apdl-process-name))
 	(message "Killing Mechanical APDL run...done.")
-	(display-buffer (concat "*" apdl-process-name "*") 'otherwindow)
-	;; (setq mode-line-process (format ":%s" (process-status (get-process apdl-process-name))))
-	;; (force-mode-line-update)
-	)
+	(display-buffer (concat "*" apdl-process-name "*") 'otherwindow))
     (message "Killing of ANSYS run canceled.")))
 
 (defun apdl-exit-ansys ()
@@ -684,8 +675,7 @@ variable)."
 			 (+ pt (skip-chars-backward re lbp)))
 		       (save-excursion
 			 (+ pt (skip-chars-forward re))))))
-	 (cmpl (try-completion str apdl-help-index))
-	 )
+	 (cmpl (try-completion str apdl-help-index)))
     (when (or (string= str "") (not cmpl))
       ;; we are surrounded by whities, or not on a valid keyword, try
       ;; the first command (possibly behind an comment char)
@@ -820,30 +810,7 @@ Element categories:
       (setq file (concat "ai_rn/" file)))
      ((string-match "ansys.theory" file)
       (setq file (concat "ans_thry/" file))))
-    ;; FIXME: remove
-;;     (cond
-;;      ((string= system-type "gnu/linux")
-;;       (if (fboundp 'browse-url-xdg-open)
-;; 	  (browse-url-xdg-open (concat path file))
-;; ;	(browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
-;; 	(browse-url-firefox (concat path file) 'new-window)))
-;;      ((string= system-type "windows-nt")
-;;       ;; TODO: w32-shell-execute not know under Emacs 23.1
-;;       ;; use browse-url-default-browser!
-;;       (browse-url-default-windows-browser (concat path file)))
-;;      (t
-;;       (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))
-    (browse-url-default-browser (concat "file://" path file))
-    ;; the following will be overwritten by browse-url-default-browser?
-    ;; (message "Called HTML browser for keyword \"%s\"..." command)
-    ))
-
-;; ;; TODO: this function is supposedly obsolete with Emacs 23.2
-;; (defun apdl-kill-buffer-query-function ()
-;;   (if (or (string= (process-status (get-process apdl-process-name)) "run")
-;; 	  (string= (process-status (get-process apdl-process-name)) "stop"))
-;;       (yes-or-no-p "ANSYS process is active, quit buffer anyway? ")
-;;     t))
+    (browse-url-default-browser (concat "file://" path file))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
@@ -875,9 +842,7 @@ Element categories:
     (if status
 	(message "ANSYS process is in state \"%s\"" ;, process identification No: %d"
 		 (symbol-name status))
-      (message "No ANSYS interpreter process is running."))
-	   ;; (process-id (get-process apdl-process-name))
-    ))
+      (message "No ANSYS interpreter process is running."))))
 
 (defun apdl-occur ()
   "Show selected licenses in an occur buffer."
@@ -985,8 +950,7 @@ summary rows."
   (progn (comint-send-string
 	  (get-process apdl-process-name)
 	  ;; "/show,X11c\n/menu,grph\n"
-	  "/show,3d\n/menu,grph\n"
-	  )
+	  "/show,3d\n/menu,grph\n")
 	 (display-buffer (concat "*" apdl-process-name "*") 'other-window)))
 
 (defun apdl-start-pzr-box ()

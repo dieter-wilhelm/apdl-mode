@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-06>
+#+DATE: Time-stamp: <2020-02-11>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -30,7 +30,7 @@ The GNU-Emacs major mode for the programming language APDL
 # It is best read in Emacs's Org mode.
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-# [[file:doc/ansys+emacs.png]]
+[[file:doc/ansys+emacs2020.png]]
 
 * Introduction
   APDL (Ansys Parametric Design Language) is the solver scripting

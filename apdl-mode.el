@@ -1,13 +1,17 @@
-;;; apdl-mode.el -- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-09>
+;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
+;; Time-stamp: <2020-02-10>
+
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Version: 20.1.0
+;; Package-Requires: ((emacs "25"))
+;; Keywords: languages, convenience, tools, ANSYS, APDL
+;; URL: https://github.com/dieter-wilhelm/apdl-mode
+
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-;; Version: 20.1.0
-;; URL: https:/github.com/dieter-wilhelm/apdl-mode
-;; Keywords: Languages, Convenience, ANSYS
+
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
 ;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
@@ -102,8 +106,7 @@
     ("\\*vit\\w*"."*VITRP")
     ("\\*vop\\w*"."*VOPER")
     ("\\*vsc\\w*"."*VSCFUN")
-    ("\\*vfi\\w*"."*vfill")
-    )
+    ("\\*vfi\\w*"."*vfill"))
   "Alist for commands which define user variables.
 In the form of (regexp . command_string), intentionally excluded
 is the \"=\" assignment command.")
@@ -161,8 +164,7 @@ hours 35 minutes\" or a number of seconds from now (the
 acceptable time formats are those recognised by the function
 `timer-duration'."
   :type '(string number)
-  :group 'APDL
-  )
+  :group 'APDL)
 
 (defcustom apdl-hide-region-before-string "![ ... hidden"
   "String to mark the beginning of an invisible region.
@@ -324,12 +326,10 @@ A hook is a variable which holds a collection of functions."
       (apdl-align-comment
        (regexp   . "[0-9.)]+\\(\\s-*\\)\\!")
        (modes    . '(apdl-mode))
-       (tab-stop . nil))
-      )
+       (tab-stop . nil)))
     "Rules for aligning APDL variable definitions."
     :type align-rules-list-type
-    :group 'apdl-mode
-    )
+    :group 'apdl-mode)
 
 ;; (put 'my-align-rules-list 'risky-local-variable t)
 
@@ -451,8 +451,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 (when (> emacs-major-version 21)
   (add-to-list 'insert-pair-alist '(?\* ?\*))
   (add-to-list 'insert-pair-alist '(?\$ ?\$))
-  (add-to-list 'insert-pair-alist '(?\% ?\%))
-  )
+  (add-to-list 'insert-pair-alist '(?\% ?\%)))
 
 (defconst apdl-mode-map
   (let ((map (make-sparse-keymap)))
@@ -512,9 +511,9 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-g" 'apdl-start-graphics)
     (define-key map "\C-c\C-h" 'apdl-start-ansys-help)
     (define-key map "\C-c\C-i" 'apdl-iso-view)
-;    (define-key map "\C-c\C-i" 'apdl-if)
+    ;;    (define-key map "\C-c\C-i" 'apdl-if)
     (define-key map "\C-c\C-j" 'apdl-send-to-apdl-and-proceed) ;same as ESS
-;; was:   (define-key map "\C-c\C-j" (if (boundp 'apdl-job) 'apdl-job))
+    ;; was:   (define-key map "\C-c\C-j" (if (boundp 'apdl-job) 'apdl-job))
     (define-key map "\C-c\C-k" 'apdl-kill-ansys)
     (define-key map "\C-c\C-l" 'apdl-license-status)
     (define-key map "\C-c\C-m" 'apdl-start-ansys) ;interactively this is also C-c RET
@@ -593,9 +592,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
       (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
 		apdl-command-regexp
-		"\\)") 1 font-lock-keyword-face)
-      )
-    )
+		"\\)") 1 font-lock-keyword-face)))
 
   (defconst apdl-font-lock-keywords-1
   `(
@@ -664,10 +661,9 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (":" . 'font-lock-type-face)   ;colon loops only
 
     ;; deprecated *go labels (max 8 chars including the colon) only at
-;; the line beginning because they might clash with 'colon' loops
-    ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
-)
-)
+    ;; the line beginning because they might clash with 'colon' loops
+					;GOTO Labels, branching
+    ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face)))
 
 ;; C-u C-x = -- describe char
 ;; order of execution
@@ -784,19 +780,16 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (":" . 'font-lock-type-face)   ;colon loops only
 
     ;; deprecated *go labels (max 8 chars including the colon) only at
-;; the line beginning because they might clash with 'colon' loops
-    ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face) ;GOTO Labels, branching
-))
+    ;; the line beginning because they might clash with 'colon' loops
+    ;;GOTO Labels, branching
+    ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face)))
 
 ;; testing
 (defconst apdl-font-lock-keywords-3
   '(
     ("%" (0 font-lock-builtin-face keep))
     ("^/com.*" (0 font-lock-string-face prepend))
-    ("bla" (0 font-lock-variable-name-face prepend))
-    )
-  )
-)
+    ("bla" (0 font-lock-variable-name-face prepend)))))
 
 (defconst apdl-font-lock-keyword-list
       '(
@@ -804,8 +797,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	apdl-font-lock-keywords-1
 	apdl-font-lock-keywords-2
 	;; testing
-	apdl-font-lock-keywords-3
-	  ))
+	apdl-font-lock-keywords-3))
 
 (defconst apdl-mode-syntax-table     ;FIXME check APDL operators and
 					;allowed variable characters
@@ -970,8 +962,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	      ["Contact template" apdl-skeleton-contact
 	       :help "Insert a minimal template for a structural contact simulation"]
 	      ["Compilation of templates" apdl-skeleton
-	       :help "Insert a compilation of selected templates"]
-	      )
+	       :help "Insert a compilation of selected templates"])
 	(list "Navigate Code Lines"
 	      ["Previous Code Line" apdl-previous-code-line
 	       :help "Goto previous apdl code line"]
@@ -983,8 +974,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	       :help "Go to the end of the current command"]
 	      "-"
 	      ["Split Format Line at Point" apdl-indent-format-line
-	       :help "Split current line, if in a comment continue the comment, if in an APDL format line insert the continuation character before splitting the line"]
-	      )
+	       :help "Split current line, if in a comment continue the comment, if in an APDL format line insert the continuation character before splitting the line"])
 	(list "Work with Logical Blocks"
 	      ["Next Block End" apdl-next-block-end
 	       :help "Go to the end of the current or next control block (*do, *if, ...)"]
@@ -1015,8 +1005,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	      ["Unhide Regions" apdl-unhide-number-blocks
 	       :help "Unhide all hidden regions"]
 	      ["Insert Temporary Ruler" apdl-column-ruler
-	       :help "Show a temporary ruler above the current line"]
-	      )
+	       :help "Show a temporary ruler above the current line"])
 	"-"
 	(list "Helper Modes"
 	      ["Outline Minor Mode" outline-minor-mode
@@ -1028,8 +1017,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	       :help "Delete Selection Mode replaces the selection with typed text"]
 	      ["Electric Pair Mode" electric-pair-mode :style toggle :selected electric-pair-mode
 	       :help "Electric Pair Mode insert corresponding closing delimeters"
-	       :visible (version< "24" emacs-version)]
-	)
+	       :visible (version< "24" emacs-version)])
 	"-"
 	["APDL-Mode Online Documentation" apdl-mode-browse-online
 	 :help "Display the online APDL-Mode Documentation in a browser."]
@@ -1147,8 +1135,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	  :active (or apdl-classics-flag (apdl-process-running-p))]
 	 ["Move Left" apdl-move-left
 	  :help "Move graphics objects to the left. M-x apdl-move-left"
-	  :active (or apdl-classics-flag (apdl-process-running-p))]
-	 )
+	  :active (or apdl-classics-flag (apdl-process-running-p))])
    ["Send ANSYS Command Interactively" apdl-query-apdl-command
     :help "Send interactively an APDL command to a running solver/interpreter process. M-x apdl-query-apdl-command"
     :active (or apdl-classics-flag (apdl-process-running-p))]
@@ -1170,8 +1157,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
    ["List all Emacs' Processes" list-processes
     :help "Show all active processes under Emacs, like shells, etc. M-x list-processes"]
    ["View Emacs' Messages" view-echo-area-messages
-    :help "Display Emacs' latest messages for debugging and checking purposes"]
-   )
+    :help "Display Emacs' latest messages for debugging and checking purposes"])
   "Menu items for the APDL-Mode.")
 
 ;;; --- predicates ---
@@ -2105,10 +2091,8 @@ improvements you have the following options:
   (apdl-initialise)
   (outline-minor-mode t)
   ;; --- hooks ---
-  (run-hooks 'apdl-mode-hook)
-
+  (run-hooks 'apdl-mode-hook))
   ;;  -- end of apdl-mode --
-  )
 
 (defun apdl ()
   "Open a new buffer in APDL-Mode.
@@ -2429,9 +2413,7 @@ buffer, which might be completed with <TAB>."
 	  ((= ask-or-toggle 4)
 	   (setq str (completing-read
 		      "Type function or command name for help: "
-		      apdl-help-index))
-	   ;;	(message "keyword %s" str)
-	   )
+		      apdl-help-index)))
 	  ((apdl-in-comment-line-p)
 	   (save-excursion
 	     (back-to-indentation)
@@ -2441,8 +2423,7 @@ buffer, which might be completed with <TAB>."
 	  ((apdl-in-indentation-p) ; we are before a possible command
 	   (save-excursion
 	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
-	     (setq str (match-string-no-properties 0)))
-	   )
+	     (setq str (match-string-no-properties 0))))
 	  ((unless (apdl-in-indentation-p)
 	     (save-excursion
 	       (apdl-command-start)
@@ -2512,14 +2493,11 @@ buffer with the SPACE key."
   (interactive "*")
   (let* ((buffer-name "*APDL-completion*")
 	(completion-buffer (get-buffer-create buffer-name))
-	(completion-window (get-buffer-window completion-buffer))
-	)
+	(completion-window (get-buffer-window completion-buffer)))
     (if (and (eq last-command this-command)
 	     completion-window		;already window there?
-	     (window-live-p completion-window)	;window is visible
-;	     (window-buffer window)
-	     ;; (buffer-name (window-buffer window))
-	     )
+	     ;;window is visible
+	     (window-live-p completion-window))
 	;; If this command was repeated, and
 	;; there's a fresh completion window with a live buffer,
 	;; and this command is repeated, scroll that window.
@@ -2768,21 +2746,20 @@ Note that all APDL-Mode abbrevs start with a grave accent."
 	(list-abbrevs t)
       (setq unread-command-events (list c))))) ;)
 
-
-;; redefine function because of bug in Emacs 23.2 squashed in 23.3
-(defun prepare-abbrev-list-buffer (&optional local)
-  "Temporary redefinition of internal Emacs function with the argument LOCAL."
-  (let ((l-a-t-n  (abbrev-table-name local-abbrev-table)))
-   (with-current-buffer (get-buffer-create "*Abbrevs*")
-    (erase-buffer)
-    (if local
-        (insert-abbrev-table-description l-a-t-n t)
-      (dolist (table abbrev-table-name-list)
-        (insert-abbrev-table-description table t)))
-    (goto-char (point-min))
-    (set-buffer-modified-p nil)
-    (edit-abbrevs-mode)
-    (current-buffer))))
+;; ;; redefine function because of bug in Emacs 23.2 squashed in 23.3
+;; (defun prepare-abbrev-list-buffer (&optional local)
+;;   "Temporary redefinition of internal Emacs function with the argument LOCAL."
+;;   (let ((l-a-t-n  (abbrev-table-name local-abbrev-table)))
+;;    (with-current-buffer (get-buffer-create "*Abbrevs*")
+;;     (erase-buffer)
+;;     (if local
+;;         (insert-abbrev-table-description l-a-t-n t)
+;;       (dolist (table abbrev-table-name-list)
+;;         (insert-abbrev-table-description table t)))
+;;     (goto-char (point-min))
+;;     (set-buffer-modified-p nil)
+;;     (edit-abbrevs-mode)
+;;     (current-buffer))))
 
 (defun apdl-indent-format-line ()
   "Break APDL line at point, continuing comment if within one.
@@ -2889,8 +2866,7 @@ Skip past intermediate comment and empty lines."
 	 (setq num (1- num))
 	 (when (and (not (apdl-last-line-p))
 		    (/= num 0))
-	   (apdl-next-code-line num))
-	 )))
+	   (apdl-next-code-line num)))))
 
 (defun apdl-previous-code-line (&optional num)
   "Move NUM lines of APDL code backward, default for NUM is 1.
@@ -3257,28 +3233,23 @@ the `apdl-hide-region-overlays' \"overlay ring\"."
                  (if apdl-hide-region-propertize-markers
                      (propertize apdl-hide-region-after-string
                                  'font-lock-face 'region)
-                   apdl-hide-region-after-string))
-    )
-  )
+                   apdl-hide-region-after-string))))
 
 (defun apdl-hide-number-blocks ()
   "Hide all number blocks (nblock, eblocks, cmblocks) in file.
 These constructs appear in WorkBench created solver input files."
   (interactive)
-  (let (
-	(p-orig (point))
+  (let ((p-orig (point))
 	p1
 	p2
-	lines
-	)
+	lines)
     (message "Hiding number blocks ...")
     (goto-char (point-min))
     (while (re-search-forward "nblock\\|eblock\\|cmblock" nil t)
       (setq p1 (point))
       (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
       (setq p2 (point)
-	    lines (count-lines p1 p2)
-	    )
+	    lines (count-lines p1 p2))
       (when (> lines 5) ;only hide blocks if larger then 5 lines
 	(goto-char p1)
 	(forward-line 3) ; show one line of numbers before markers
@@ -3286,12 +3257,8 @@ These constructs appear in WorkBench created solver input files."
 	(goto-char p2)
 	(forward-line -2) ; show one line of numbers after markers
 	(end-of-line)
-	(apdl-hide-region)
-	)
-      )
-    (goto-char p-orig)
-    )
-  )
+	(apdl-hide-region)))
+    (goto-char p-orig)))
 
 (defun apdl-unhide-number-blocks ()
   "Unhide all hidden regions in the current buffer."
@@ -3380,8 +3347,7 @@ These constructs appear in WorkBench created solver input files."
 	'apdl-ansysli-servers
 	'apdl-license-categories
 	'apdl-license
-	'apdl-no-of-processors
-	)
+	'apdl-no-of-processors)
        nil
        nil
        salutation))))
@@ -3460,8 +3426,7 @@ Added pseudo arguments A B C."
  	      (or (apdl-in-string-or-comment-p)
  		  (apdl-in-string-command-line-p)
  		  (apdl-in-format-construct-p)
- 		  (apdl-find-duplicate-p var apdl-user-variables)
-		  )
+ 		  (apdl-find-duplicate-p var apdl-user-variables))
  	    (add-to-list 'apdl-user-variables
  			 (list var (line-number-at-pos)))))
 	;; we must sort the variables according to their occurance

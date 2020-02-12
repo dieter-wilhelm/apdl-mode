@@ -680,11 +680,11 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (prin1 list1 buffer)
   (insert "\n\"APDL keyword name regexp 2a.\")\n\n")
   ;; 
-  (insert "(defconst apdl-command-regexp-2b.\n")
+  (insert "(defconst apdl-command-regexp-2b\n")
   (prin1 list2 buffer)
   (insert "\n\"APDL keyword name regexp 2b.\")\n\n")
   ;; 
-  (insert "(defconst apdl-command-regexp-2c.\n")
+  (insert "(defconst apdl-command-regexp-2c\n")
   (prin1 list3 buffer)
   (insert "\n\"APDL keyword name regexp 2c.\")\n\n")
 

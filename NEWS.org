@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-04>
+#+DATE: Time-stamp: <2020-02-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,17 +18,17 @@
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-** Version R20.1 2020-02
-   - Changed version name scheme
+** Version 20.1.0  2020-02
+   - Changed version naming scheme
    - Installation from Melpa
    - Changed the name to APDL-Mode
-   - Added key-bindings to the license buffer *ANSYS-licenses*
+   - Added key-bindings to the license buffer *Licenses*
      o - occur search
      g - refresh license status
      q - burry the license buffer
      Q - quit license buffer
 
-** Version 162-1, not yet released, targeted for September
+** Version 162-1, not yet released, targeted for Sep 2015
    - Sending code to the ANYSClassics GUI is now possible as well, not
      only to the restricted interactive solver (currently only on
      GNU-Linux and Unix with C-c C-j, C-c C-u, C-c C-c).

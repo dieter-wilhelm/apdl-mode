@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-09>
+#+DATE: Time-stamp: <2020-02-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -14,52 +14,35 @@
 #+title: The TODO file of APDL-Mode
 
 #+STARTUP: showall
-* R20.1.0
-
-
-  # - apdl-license-categories OK
-  # - apdl-ansys-help-path OK
-  # - apdl-ansys-help-program OK
-  # - apdl-current-ansys-version OK
-  # - apdl-ansys-program OK
-  # - apdl-ansys-launcher OK
-  # - apdl-ansys-wb OK
-  # - apdl-kill-ansys OK
-  # - apdl-start-ansys-help OK
+* 20.1.0
 
   - package-lint
-  - flycheck
-    - -mode : C-u ..
+    - only problems with prefix names
+
+  - flycheck :done
     - -initialise OK
-    - -process : C-u
     - -config => -config.org OK
     - -template OK
 
-  - M-x in docu strings => checkdoc
+  - checkdoc : done
+
+  - try to read the ansys help in EWW :-)
 
   - Check customisation system
+    - online documentation: still ANSYS-mode!
+    - DefaultNo of processor is now 4
+
+  - The APDL menu entry in the terminal is not working => wrong type
+    argument!
 
   - check highlighting of license
-
-  - Emacs 25.1 September 2016, how to: We need emacs >= 24 ;-) lexical
-    and other stuff
 
   - README (for package-el) README.org for github
 
   - ANSYS is often used synonymous for ANSYS MAPDL solver /
     interpreter or ANSYS Classics GUI
 
-------
 
-  - Added keys to the *Licenses* buffer (formerly *ANSYS-license*)
-    - Q -- close (kill-this-buffer)
-    - q -- hide buffer (bury-buffer)
-    - g -- update license status (apdl-license-status)
-    - o -- apdl-occur
-
-  - Renamed ANSYS-Mode to APDL-Mode
-
-* 170-1:
 * 162-2:
 ** Bugs
    - C-c C-s first time visit: User variables file-name-extension:
@@ -281,8 +264,7 @@
 
 ** Release
   - Add the latest news from NEWS.org to the README.org
-  - update Emacs wiki (README), home page, GitHub, Google drive with
-    download, documentation page
+  - update Emacs wiki (README), home page, GitHub
   - publication emails (with tutorial and news):
 
     The project is hosted on
@@ -303,40 +285,6 @@
 
       Dieter
 
-
-    makgul@gmail.com,
-    yangdawei.hit@qq.com
-    weizhuo.du@peraglobal.com,
-    info@auc-ev.de,
-    afoleite@gmail.com,
-    iivvgg@gmail.com,
-    Michaelk@vipac.com.au,
-    mhanke@cadfem.de,
-    tnelson@cadfem.de,
-    lkrueger@cadfem.de,
-    sheldonimaoka@yahoo.com,
-    kschoenborn@cadfem.de
-
-    eyk.heinemann@continental-corporation.com,
-    jens.2.missun@continental-corporation.com,
-    joerg.menke@continental-corporation.com,
-    marius.tarnovetchi@continental-corporation.com,
-    matthias.koeslin@continental-corporation.com,
-    razvan.ionel.curtean@continental-corporation.com,
-    Steffen.Kernbach@continental-corporation.com,
-    Johann.Massinger@continental-corporation.com,
-    Marco.Mechi@continental-corporation.com,
-    Marco.Betti@continental-corporation.com,
-    Antonio.Zangaro@continental-corporation.com,
-    martin.bruehl@continental-corporation.com,
-    zlatko.penzar@continental-corporation.com,
-    saravana.kumar@continental-corporation.com,
-    alwin.perras@continental-corporation.com,
-
-    # oleksiy.kurenkov@continental-corporation.com, left Conti
-    # sgotthold@cadfem.de, left CadFem
-    # mike.brusoe@continental-corporation.com, left Conti
-    # gmueller1950@gmx.de, deceased
 
 * Ideas for further versions
 ** Parameter help and documentation

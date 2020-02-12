@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-11>
+#+DATE: Time-stamp: <2020-02-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -27,13 +27,13 @@
 
 #+title: APDL-Mode
 The GNU-Emacs major mode for the programming language APDL
-# It is best read in Emacs's Org mode.
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-[[file:doc/ansys+emacs2020.png]]
+
+file:doc/ansys+emacs2020.png]]
 
 * Introduction
-  APDL (Ansys Parametric Design Language) is the solver scripting
+  APDL (ANSYS Parametric Design Language) is the solver scripting
   language of the FEA (Finite Element Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis
   SYStem, registered TM).
 
@@ -42,8 +42,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   solver communication (GNU-Linux only), license reporting, keyword
   completion, code templates, dedicated keybindings, etc.  Over the
   years it has accumulated lots of features for writing and debugging
-  complete FEA models in APDL code. Please convince yourself with the
-  APDL-Mode in-depth documentation -TODO-.
+  FEA models in APDL code. Please convince yourself with the APDL-Mode
+  in-depth documentation.
 
   With the advent of the modern ANSYS GUIs - like `WorkBench' or
   `AIM' - the usage of APDL as a wholesale modelling language has
@@ -52,12 +52,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   (.dat) files to the solver.  For a true understanding of the GUIs'
   inner workings a study of their APDL code is prerequisite.
 
-  On the other hand the GUIs are not supporting all solver features.
-  So APDL `Command Snippets' enhance the GUIs' modeling capabilities.
-* Some features
+  On the other hand GUIs are not supporting all solver features.  So
+  APDL `Command Snippets' enhance the GUIs' modelling capabilities.
+* Some highlights
   Nowadays I find APDL-Mode mostly useful in writing these `Command
-  Snippets' or reading Snippets from others.  For in-depth
-  investigations APDL-Mode is very convient to study the solver (.dat)
+  Snippets' or reading snippets from others.  For in-depth
+  investigations APDL-Mode is very convenient to study the solver (.dat)
   files.
 ** In-built APDL command help with argument counter
    Especially for commands with a large number of arguments it is
@@ -66,6 +66,14 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    currently is.
 
    [[file:doc/parameter_help2.png]]
+
+** Pin-pointing to the relevant ANSYS documentation entry
+   Without searching you can directly trigger the relevant ANSYS
+   manual entry for your APDL commands or element names, among other
+   subjects.  The help entry is shown in a web browser.  (To that end
+   you must have installed the local ANSYS documentation and
+   configured APDL-Mode as well.)
+
 ** Code outlining for inspecting WorkBench solver (.dat) files
    APDL-Mode hides the normally uninteresting but usually very large
    number blocks.
@@ -119,10 +127,10 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** APDL Editor Resources
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
    - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
-     Windows, project disbandened in 2015.
-   - Simple APDL syntax highlighting addons are available for various
-     editors, gvim, nedit, ... just to name a few, please have a look
-     at [[http://ansys.net][ANSYS.net]].
+     Windows, project disbanded in 2015.
+   - Simple APDL syntax highlighting extensions are available for
+     various editors, gvim, nedit, ... to name a few, please have a
+     look at [[http://ansys.net][ANSYS.net]].
 
    - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
    - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
@@ -131,7 +139,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - The [[http://www.ansys.com][ANSYS homepage]] with their ANSYS Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
    - A general  ANSYS repository [[http://www.ansys.net][ANSYS.net]]
-   - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club eV in Germany
+   - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club eV. in Germany
 
 -----
 

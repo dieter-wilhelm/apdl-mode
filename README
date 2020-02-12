@@ -1,3 +1,10 @@
+The GNU-Emacs major mode for the programming language APDL
+
+APDL (Ansys Parametric Design Language) is the solver scripting
+language of the FEA (Finite Element Analysis) suite ANSYS (ANalysis
+SYStem, registered TM http://www.ansys.com).
+
+
 - Aim
 - Installation
 - Usage

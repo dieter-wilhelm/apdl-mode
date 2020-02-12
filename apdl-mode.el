@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-10>
+;; Time-stamp: <2020-02-12>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -11,7 +11,6 @@
 
 ;; Maintainer: H. Dieter Wilhelm
 ;; Created: 2006-02
-
 
 ;; Parts of this mode were originally base on octave-mod.el: Copyright
 ;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
@@ -40,7 +39,7 @@
 
 ;;; Commentary:
 
-;; Editor support for working with ANSYS FEA.
+;; Editor support for working with APDL code and ANSYS FEA.
 
 ;; The APDL-Mode package provides support for the FEA (Finite Element
 ;; Analysis) program ANSYS (http://www.ansys.com) under Windows and
@@ -65,7 +64,7 @@
 
 ;;; Code:
 
-(require 'apdl-keyword "apdl-keyword.el")
+(require 'apdl-keyword)
 (require 'apdl-template)
 (require 'apdl-process)
 (require 'apdl-initialise)
@@ -860,7 +859,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	["Align region or paragraph" apdl-align
 	 :help "Align APDL variable definitions in a marked region or the current paragraph. M-x apdl-align"]
 	"-"
-	["Show ANSYS Command Help" apdl-show-command-parameters
+	["Show APDL Command Help" apdl-show-command-parameters
 	 :help "Display a short help for the APDL command near the cursor with its parameters. M-x apdl-show-command-parameters"]
 	["Display Variable Definitions" apdl-display-variables
 	 :help "Display all user variable definitions from the current file in another window. M-x apdl-display-variables"]
@@ -1370,74 +1369,70 @@ and P-MAX) otherwise align the current code paragraph."
 
 ;;;###autoload
 (defun apdl-mode ()
-  "Support for working with the ANSYS FEA suite.
-The documentation is targeted at users with little Emacs
-experience.  Sections dealing with features are indicated with
-two asterisks `**' at the beginning.  Your input as a keyboard
-sequence is indicated in quotation marks `\"', the actual keys
-are quoted in `<>'.
+"Editor support for the APDL language and working with ANSYS FEA.
 
-== Contents ==
+== APDL-Mode help contents ==
 
-= Introduction to GNU-Emacs
-= Usage of APDL-Mode
+= Tutorial
+= Applications of APDL-Mode
 = Summary of keybindings
 = Customisation
 = Bugs and Problems
 
-== Introduction to GNU-Emacs ==
+== Tutorial ==
 
-Let's assume you wrote already some APDL commands and want to
-check the ANSYS manual.  (We assume for the moment that you
-installed ANSYS together with its local documentation and that
-APDL-Mode is configured to find the executables as well.)
+This introduction is targeted at users with no GNU-Emacs
+experience.
 
-In the APDL-Mode menu `APDL' is an entry to start the \"Ansys
-Help Viewer\" under Emacs.  Optionally you can start it with a
-keyboard shortcut (here: \"\\[apdl-start-ansys-help]\"). And
-additionally from the so called `minibuffer'.  This `interactive'
-option remains the only one for commands where neither menu
-entries nor keyboard shortcuts are available.
+Let's assume you wrote some APDL command and want to check its
+parameters.  In the menu bar use the \"APDL\" pull-down menu with
+the entry \"Show APDL Command Help\".  The menu shows also the
+keyboard shortcut for accessing this command \
+`\\[apdl-show-command-parameters]'.  You need to know that
+Gnu-Emacs is abreviating certain key sequences \
+\\[apdl-show-command-parameters] means typing the control key
+<ALT> and the regular key `?' simultaneously.
 
-To start the ANSYS Help Viewer run the command
-`apdl-start-ansys-help' by its function name, type `M-x', (M-x
-means holding down the <ALT> key while pressing the <x> key (in
-case your window manager is intercepting this key combination
-type <ESC> then <x> instead) the cursor will skip below the
-status line, into the `minibuffer', there type
-\"apdl-start-ansys-help\", then terminate it with the <RET> key.
-The 'auto-completion' feature of the minibuffer might save you
-some typing: Just enter the first characters and then press the
-<TAB> key.  Another way of saving keystroke is to use the fuzzy
-logic of Emacs' completions machine.  Instead of typing
-\"apdl-start-ansys-help\" it is sufficient to type \"a-s-a-h\".
+GNU-Emacs provides also a third, so called interactive way to
+access this and other functions.  By typing
+`\\[execute-extended-command]' (the <ALT> key and the `x' key at
+the same time) you are able to access the, so called,
+`minibuffer' below the status line.  There you can input the
+desired function by its name.  In above example the function
+`apdl-show-command-parameters'.  So type `M-x' and in the
+minibuffer type `apdl-start-ansys-help' and starting it with the
+<RET> key.
+
+Typing long function names can be abbreviated with the
+auto-completion feature.  Just enter the first few characters of
+a command and then press the <TAB> key.  Another way of saving
+keystrokes is to use the Gnu-Emacs' fuzzy logic.  Instead of
+typing `apdl-show-command-parameter' it is sufficient to type
+`a-s-c-p' (and run it with <RET>).
 
 You can always cancel minibuffer commands by typing
-\\[keyboard-quit] `keyboard-quit', i. e. pressing the <CTRL> key
-and then the <g> key at the same time.
+\\[keyboard-quit] (the function `keyboard-quit'), i. e. pressing
+the <CTRL> key and the `g' key at the same time.
 
 All functions described in this help, regardless whether
-possessing a keyboard shortcut or not, can be called in the
-interactive way or they are to be found in the APDL menu.  (If
-you prefer to run Emacs in a terminal window you might access the
-menu with <F10> key or \"ESC-`'\".)
+possessing a keyboard shortcut or not, can be called in this
+interactive way or they can be found in the APDL or ANSYS
+menu.  (If you prefer to run Emacs in a terminal window you might
+access the menu bar with <F10> key or `M-`'.)
 
-Above described procedure has the same effect as typing
-\"\\[apdl-start-ansys-help]\" in a file buffer under APDL
-mode (`C-cC-h' means while holding down the <CTRL> key typing the
-respective characters ('c' then 'h') for
-`apdl-start-ansys-help').
-
-A mouse click or typing the <RET> key, when the cursor is on the
-underlined hyperlinks (you can also skip to these links with the
-<TAB> key) will display their respective help strings (or typing
-<RET> when the cursor is over these links).
+You may have noticed the underlined names in this help.  These
+are hyperlinks to further help, a mouse click or typing the <RET>
+key, when the cursor is on them (you can skip to these links with
+the <TAB> key) will display their respective help strings.
 
 In case something unintended happend to your code you are always
-able to resort to the Emacs `undo' functionality from the `Edit'
-menu or typing \"\\[undo]\".
+able to resort to the Emacs `undo' functionality from the
+\"Edit\" menu or by typing `\\[undo]'.
 
-== Usage of APDL-Mode ==
+== Applications of APDL-Mode ==
+
+Sections dealing with features are indicated with two asterisks
+`**' at the beginning.
 
 ** APDL command syntax help **
 
@@ -1449,7 +1444,7 @@ syntax.  This command counts also the number of parameters and
 visualises at which parameter position the cursor currently is.
 The command is looking for the next valid command near the cursor
 or when using a prefix argument (`C-u' or `4') it inquires an
-APDL command from you. The tooltip is switched off with an
+APDL command from you.  The tooltip is switched off with an
 argument of zero (`0').
 
 ** Browse the detailed APDL command (and element) html help **
@@ -1569,12 +1564,12 @@ your (un)liking with \\[apdl-hide-region].  In files with the
 suffix `.dat' number blocks are hidden by default.
 
 Moreover there are keyboard shortcuts with which you are able to
-input pairs of corresponding characters, like \"C-c %\" for '%%',
+input pairs of corresponding characters, like `C-c %' for '%%',
 the APDL substitution operators.  The advantage is that the
-cursor is place between the pair and you might give a numerical
+cursor is placed between the pair and you might give a numerical
 argument to the call and enclose already existing words with the
-pair, e. q. \"C-1 C-c %\".  Please have a look for `insert-pair'
-and see below in the keybindings section.
+pair, e. q. `C-1' `C-c %'.  Please have a look for `insert-pair'
+and see below in the Keybindings section.
 
 ** Sophisticated highlighting (optionally: User variables) **
 
@@ -1606,8 +1601,8 @@ might force a parameter substitution, e. g. with the assignment
 
 In the context of pairs of '%' characters, you can also input
 various pairs with keyboard shortcuts, e. g. apostrophies for
-APDL character parameters with \"C-c '\", please have a look
-which bindings are available with \"\\[describe-bindings]\" (for
+APDL character parameters with `C-c', please have a look which
+bindings are available with \"\\[describe-bindings]\" (for
 `describe-bindings').
 
 The format strings of *MSG, *MWRITE, *VWRITE and *VREAD are also
@@ -1626,8 +1621,10 @@ less general fortran ones):
 %%	Single percent sign
 %wI	w is the column width. Integer is preceded by the number
         of blank characters needed to fill the column.
-%0wI	Same as above except integer is padded by zeroes instead of spaces.
-%0w.pI	Pad integer with zeros as necessary to obtain a minimum of p digits.
+%0wI	Same as above except integer is padded by zeroes instead of\
+ spaces.
+%0w.pI	Pad integer with zeros as necessary to obtain a minimum of\
+ p digits.
 %w.pF	w is the column width. Floating point format to p
           decimal places.
 %w.pG	General format with p significant digits.
@@ -1669,7 +1666,7 @@ You might remove '*APDL-variables*' window with
 \"\\[apdl-delete-other-window]\" (`apdl-delete-other-window').
 
 When you place the cursor on the respective line number and type
-\"C-u M-g g\", where 'C-u' is a 'prefix' argument to 'M-g
+`C-u' `M-g g', where `C-u' is a 'prefix' argument to `M-g
 g' (`goto-line')).  Emacs will then skip to the corresponding
 definition line in the macro file.
 
@@ -1753,7 +1750,7 @@ skeleton names.
 Check e. g. `apdl-skeleton-outline-template', type
 \"\\[apdl-skeleton-outline-template] <RET>\" to insert this
 skeleton of APDL code with outline headings.  Alternatively you
-can use the binding \"\\=C-u \\[apdl-skeleton-outline-template]\"
+can use the binding \"<CTRL> + u \\[apdl-skeleton-outline-template]\"
 for inserting templates instead of previewing them.
 
 ** Auto-insertion of code templates into new APDL files **
@@ -1764,7 +1761,8 @@ to to include above skeleton (optionally) for every APDL file.
       (auto-insert-mode 1)
       (add-hook 'find-file-hook 'auto-insert)
       (setq auto-insert-query t)
-      (add-to-list 'auto-insert-alist '(apdl-mode . [apdl-skeleton-outline-template]))
+      (add-to-list 'auto-insert-alist '(apdl-mode .\
+       [apdl-skeleton-outline-template]))
 
 Please refere the configuration example `default.el'.
 
@@ -1774,9 +1772,10 @@ Please refere the configuration example `default.el'.
   directory (the file name is compiled from the variable
   `job-name' and the extension '.abt').  You can do this with
   \"\\[apdl-write-abort-file]\" (`apdl-write-abort-file', you
-  might previously use the Emacs command 'cd' (\"M-x cd\") to
-  change the current directory).  This stop file is halting a
-  running calculation in an orderly, re-startable fashion.
+  might previously use the Emacs command 'cd' (\"<ALT> + x
+  \\[cd] \") to change the current directory).  This stop file is
+  halting a running calculation in an orderly, re-startable
+  fashion.
 
 - You are able to view the ANSYS APDL error file (a file
   consisting of the `job-name' and the suffix '.err' in the
@@ -1863,17 +1862,16 @@ screen (without the rest of graphical user interface) with
 you are able to check and debug your macro file content visually.
 The graphics in this state is changeable with APDL commands (like
 /view,1,1,1,1) but unfortunately not through mouse interactions!
-If you want to turn, zoom, etc. the model it is best to call
-`apdl-start-pzr-box' with \\[apdl-start-pzr-box] and a dialog
-box will pop up.  This is the usual ANSYS Pan/Zoom/Rotate dialog
-for the graphics screen.  But beware: Before you are able to send
+If you want to turn, zoom, etc., the model it is best to call
+`apdl-start-pzr-box' with \\[apdl-start-pzr-box] and a dialog box
+will pop up.  This is the usual ANSYS Pan/Zoom/Rotate dialog for
+the graphics screen.  But beware: Before you are able to send
 further commands to the solver, you first have to close the PZR
 dialog box.  There is also a family of interactive commands to
-reposition the graphics, like
-\\[apdl-zoom-in] (`apdl-zoom-in'), replotting works with
-\\[apdl-replot] (`apdl-replot') and a fit to the screen with
-\\[apdl-fit] (`apdl-fit'), of course, they are available from
-the menu as well.
+reposition the graphics, like \\[apdl-zoom-in] (`apdl-zoom-in'),
+replotting works with \\[apdl-replot] (`apdl-replot') and a fit
+to the screen with \\[apdl-fit] (`apdl-fit'), of course, they are
+available from the menu as well.
 
 There is also a command for saving the data and ending the solver
 run: `apdl-exit-ansys' and a command for an emergency kill in
@@ -2065,7 +2063,7 @@ improvements you have the following options:
 	     (y-or-n-p
 	      "File is larger than 1MB, switch on user variable highlighting? "))
 	(if (and apdl-dynamic-highlighting-flag
-		 (or (string= (buffer-name) "*MAPDL code*")
+		 (or (string= (buffer-name) "*APDL code*")
 		     (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
 		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
 	    (progn (add-hook 'after-change-functions
@@ -2099,7 +2097,7 @@ improvements you have the following options:
 You must save the buffer (connect it with a file-name), otherwise
 possible edits are lost."
   (interactive)
-  (let ((b "*MAPDL code*"))
+  (let ((b "*APDL code*"))
     (get-buffer-create b)
     (switch-to-buffer b)
     (when (< (buffer-size) 1)
@@ -3571,7 +3569,7 @@ The default argument is 1."
     (delete-window)
     (select-window swin)))
 
-(provide 'apdl-mode) ;to the feature name, what are subfeatures anyway?
+(provide 'apdl-mode)
 
 ;;; apdl-mode.el ends here
 

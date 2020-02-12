@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-10>
+;; Time-stamp: <2020-02-12>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -318,10 +318,10 @@ respective job, you can change it with \"\\[cd]\"."
 ;;;###autoload
 (defun apdl-display-error-file ()
   "Open the current interpreter error file in the current working directory.
-You might change the directory with \"M-x cd\".  The error file
-name consists of the current job name and the suffix '.err'.  For
-the job name the variable `apdl-job' is used.  You can change the
-job name interactively either with the \"\\[apdl-job]\" or in
+You might change the directory with `M-x cd <RET>'.  The error
+file name consists of the current job name and the suffix '.err'.
+For the job name the variable `apdl-job' is used.  You can change
+the job name interactively either with the \"\\[apdl-job]\" or in
 the customisation facility (by calling `apdl-customise-ansys')."
   (interactive)
   (let ((file (concat apdl-job ".err")))
@@ -390,8 +390,8 @@ the customisation facility (by calling `apdl-customise-ansys')."
   "Send a region to the ANSYS MAPDL interpreter.
 If the interpreter is not active, just copy it.  If there is no
 region marked, send (or copy) the current paragraph.  With a
-prefix argument MOVE equal to \"4\" or \"C-u\" skip to the next
-code line after this region (or paragraph)."
+prefix argument MOVE equal to `4' or `C-u' skip to the next code
+line after this region (or paragraph)."
   (interactive "p")
   (let (code
 	beg
@@ -436,10 +436,10 @@ code line after this region (or paragraph)."
   "Send a region or code line to the ANSYS interpreter.
 When there is no running ANSYS interpreter process just copy the
 respective region or code line to the system clipboard and skip
-to the subsequent code line.  With a prefix argument STAY of
-\"4\" or \"C-u\" copy or send the code and remain at the current
-cursor position.  The command can be repeated by typing just the
-final character \"j\" (or \"C-j\")."
+to the subsequent code line.  With a prefix argument STAY of `4'
+or `C-u' copy or send the code and remain at the current cursor
+position.  The command can be repeated by typing just the final
+character `j' (or `C-j')."
   (interactive "p")
   (let (;code
 	beg

@@ -19,13 +19,13 @@
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 ** Version 20.1.0  2020-02
-   - Changed version naming scheme
+   - Changed version naming scheme for the package.el format
    - Installation from Melpa
    - Changed the name to APDL-Mode
    - Added key-bindings to the license buffer *Licenses*
      o - occur search
      g - refresh license status
-     q - burry the license buffer
+     q - bury the license buffer
      Q - quit license buffer
 
 ** Version 162-1, not yet released, targeted for Sep 2015

@@ -15,34 +15,28 @@
 
 #+STARTUP: showall
 * 20.1.0
-
+** bugs
+  - M-? with too many commas throws an error
+  - apdl command in sandbox not working <= autoload not working?
+  - The APDL menu entry in the terminal is not working => wrong type
+    argument!
+  - check highlighting of -license-type
+** wishes
+  - try to read the ansys help in EWW :-)
+  - Check customisation system
+    - online documentation: still ANSYS-mode!
+    - DefaultNo of processor is now 4
+** misc
+  - README (for package-el) README.org for github
+  - ANSYS is often used synonymous for ANSYS MAPDL solver /
+    interpreter or ANSYS Classics GUI
   - package-lint
     - only problems with prefix names
-
   - flycheck :done
     - -initialise OK
     - -config => -config.org OK
     - -template OK
-
   - checkdoc : done
-
-  - try to read the ansys help in EWW :-)
-
-  - Check customisation system
-    - online documentation: still ANSYS-mode!
-    - DefaultNo of processor is now 4
-
-  - The APDL menu entry in the terminal is not working => wrong type
-    argument!
-
-  - check highlighting of license
-
-  - README (for package-el) README.org for github
-
-  - ANSYS is often used synonymous for ANSYS MAPDL solver /
-    interpreter or ANSYS Classics GUI
-
-
 * 162-2:
 ** Bugs
    - C-c C-s first time visit: User variables file-name-extension:
@@ -284,7 +278,6 @@
     If you don't have access to above archives please email me.
 
       Dieter
-
 
 * Ideas for further versions
 ** Parameter help and documentation

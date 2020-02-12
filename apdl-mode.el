@@ -2092,6 +2092,7 @@ improvements you have the following options:
   (run-hooks 'apdl-mode-hook))
   ;;  -- end of apdl-mode --
 
+;;;###autoload
 (defun apdl ()
   "Open a new buffer in APDL-Mode.
 You must save the buffer (connect it with a file-name), otherwise

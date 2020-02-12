@@ -30,7 +30,7 @@ The GNU-Emacs major mode for the programming language APDL
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-file:doc/ansys+emacs2020.png]]
+[[file:doc/ansys+emacs2020.png]]
 
 * Introduction
   APDL (ANSYS Parametric Design Language) is the solver scripting
@@ -50,16 +50,16 @@ file:doc/ansys+emacs2020.png]]
   diminished.  But APDL is here to stay: `WorkBench' and `AIM' operate
   exclusively the ANSYS solver with it!  They are sending APDL input
   (.dat) files to the solver.  For a true understanding of the GUIs'
-  inner workings a study of their APDL code is prerequisite.
+  inner workings a study of this APDL code is prerequisite.
 
-  On the other hand GUIs are not supporting all solver features.  So
-  APDL `Command Snippets' enhance the GUIs' modelling capabilities.
+  Moreover the GUIs are not supporting all solver features.  So APDL
+  `Command Snippets' enhance the GUIs' modelling capabilities.
 * Some highlights
   Nowadays I find APDL-Mode mostly useful in writing these `Command
-  Snippets' or reading snippets from others.  For in-depth
-  investigations APDL-Mode is very convenient to study the solver (.dat)
-  files.
-** In-built APDL command help with argument counter
+  Snippets' or inspecting snippets from colleagues.  For in-depth
+  investigations APDL-Mode is very convenient to study the solver
+  (.dat) files.
+** In-built APDL short command help with argument counter
    Especially for commands with a large number of arguments it is
    cumbersome to count the arguments, *C-?* facilitates this for you
    and visualises dynamically at which parameter position your cursor
@@ -68,11 +68,12 @@ file:doc/ansys+emacs2020.png]]
    [[file:doc/parameter_help2.png]]
 
 ** Pin-pointing to the relevant ANSYS documentation entry
-   Without searching you can directly trigger the relevant ANSYS
-   manual entry for your APDL commands or element names, among other
-   subjects.  The help entry is shown in a web browser.  (To that end
-   you must have installed the local ANSYS documentation and
-   configured APDL-Mode as well.)
+   Without searching in the ANSYS Help Viewer you can directly trigger
+   the relevant ANSYS manual entry from Emacs.  This is working for
+   APDL commands or element names, among other subjects.  The help
+   entries are shown in a web browser.  (To that end you must have
+   installed the local ANSYS documentation and configured APDL-Mode as
+   well.)
 
 ** Code outlining for inspecting WorkBench solver (.dat) files
    APDL-Mode hides the normally uninteresting but usually very large
@@ -94,15 +95,15 @@ file:doc/ansys+emacs2020.png]]
    Please have a look in the [[file:INSTALLATION.org][INSTALLATION]] file.
 * Usage
 
-  Please type `M-x apdl-mode' and check out the menu bar's `ANSYS'
-  entry for its possibilities and select the entry `Describe
-  APDL-Mode' or type "C-h m" (i. e. the <CTRL> key together with the
-  <h> key and subsequently the <m> key), which will display the
-  apdl-mode help which is your `online' guide for its usage, and
-  key-bindings.
+  Please type `M-x apdl <RET>' then you are able to check the menu
+  bar's `APDL' or `ANSYS' entries.  Please select `Describe APDL-Mode'
+  or type "C-h m" (i. e. the <CTRL> key together with the `h' key and
+  subsequently the `m' key), which will display the APDL-Mode help
+  which is your `quick guide.
 
-  I suggest you have a look into the introductory tutorial
-  [[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]].
+  I suggest you have a look into the Emacs tutorial and the
+  introductory APDL-Mode tutorial ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]) as
+  well.
 
 * Configuration and Customisation
   Please read the file [[file:apdl-config.org][apdl-config.org]], for your convenience APDL-Mode

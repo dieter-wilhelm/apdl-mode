@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-12>
+#+DATE: Time-stamp: <2020-02-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -59,7 +59,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   Snippets' or inspecting snippets from colleagues.  For in-depth
   investigations APDL-Mode is very convenient to study the solver
   (.dat) files.
-** In-built APDL short command help with argument counter
+** In-built APDL command help with argument counter
    Especially for commands with a large number of arguments it is
    cumbersome to count the arguments, *C-?* facilitates this for you
    and visualises dynamically at which parameter position your cursor
@@ -67,13 +67,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    [[file:doc/parameter_help2.png]]
 
-** Pin-pointing to the relevant ANSYS documentation entry
-   Without searching in the ANSYS Help Viewer you can directly trigger
-   the relevant ANSYS manual entry from Emacs.  This is working for
-   APDL commands or element names, among other subjects.  The help
-   entries are shown in a web browser.  (To that end you must have
-   installed the local ANSYS documentation and configured APDL-Mode as
-   well.)
+** Pin-pointing the relevant ANSYS documentation
+   Without the detour of searching in the ANSYS Help Viewer or in the
+   online help you can directly trigger the relevant manual entry from
+   your APDL session.  This works for APDL commands, element names and
+   other manual topics.  The help topics are shown in a web browser.
+   (To that end you must have installed the local ANSYS documentation
+   and configured APDL-Mode.)
+
+   #+caption: Browsing the manual in a web browser (here with EWW in GNU-Emacs).
+   [[file:doc/browse_manual.png][file:d:/apdl-mode/doc/browse_manual.png]]
 
 ** Code outlining for inspecting WorkBench solver (.dat) files
    APDL-Mode hides the normally uninteresting but usually very large

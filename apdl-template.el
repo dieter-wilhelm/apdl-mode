@@ -59,7 +59,7 @@
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun apdl-display-skeleton (&optional arg)	;NEW
+(defun apdl-display-skeleton (&optional arg)                         ;NEW
   "Display or insert code templates.
 With an argument ARG not equal to 1 insert the template into the
 current buffer instead of previewing it in a separate window.
@@ -67,48 +67,48 @@ You might trigger a completion of templates with the <TAB> or <?>
 key and choose with the mouse 2 button."
   (interactive "p")
   (let* (
-	 (old-buffer (buffer-name))
-	 (new-buffer-name "*APDL-skeleton*")
-	 (skeleton-buffer
-	  (get-buffer-create new-buffer-name))
-	 s  ;yellow indicator line in the preview buffer above content
-	 ;; if skeleton window is visible in selected frame
-	 (visible  (get-buffer-window new-buffer-name nil))
-	 (skel-string
-	  ;; we might want to insert it while previewing...
-	  (if (and (not (= arg 1)) apdl-last-skeleton visible)
-	      apdl-last-skeleton
-	    "apdl-skeleton-"))
-	 (skel
-	  (if (= arg 1)
-	      (completing-read "Preview template: "
-			       obarray 'commandp t skel-string nil)
-	    (completing-read "Insert template: "
-			     obarray 'commandp t skel-string nil)))
-	 )
+         (old-buffer (buffer-name))
+         (new-buffer-name "*APDL-skeleton*")
+         (skeleton-buffer
+          (get-buffer-create new-buffer-name))
+         s  ;yellow indicator line in the preview buffer above content
+         ;; if skeleton window is visible in selected frame
+         (visible  (get-buffer-window new-buffer-name nil))
+         (skel-string
+          ;; we might want to insert it while previewing...
+          (if (and (not (= arg 1)) apdl-last-skeleton visible)
+              apdl-last-skeleton
+            "apdl-skeleton-"))
+         (skel
+          (if (= arg 1)
+              (completing-read "Preview template: "
+                               obarray 'commandp t skel-string nil)
+            (completing-read "Insert template: "
+                             obarray 'commandp t skel-string nil)))
+         )
     (setq apdl-last-skeleton skel)
     (cond ((= arg 1)
-	   (switch-to-buffer-other-window skeleton-buffer)
-	   (setq buffer-read-only nil)
-	   (remove-overlays)		;from beginnin and end of buffer
-	   (setq apdl-skeleton-overlay (make-overlay 1 1))
-	   (kill-region (point-min) (point-max))
-	   (funcall (intern-soft skel))
-	   ;;    (apdl-skeleton-numbering-controls)
-	   ;;    (insert "bla\n")
-	   (goto-char (point-min))
-	   (unless  (eq major-mode 'apdl-mode)
-	     (apdl-mode))
-	   (setq s (propertize
-		    (concat "-*- APDL template: "
-			    skel " -*-\n") 'face 'match))
-	   (overlay-put apdl-skeleton-overlay 'before-string s)
-	   (set-buffer-modified-p nil)
-	   (setq buffer-read-only t)
-	   (switch-to-buffer-other-window old-buffer)
-	   )
-	  (t
-	   (funcall (intern-soft skel))))))
+           (switch-to-buffer-other-window skeleton-buffer)
+           (setq buffer-read-only nil)
+           (remove-overlays)                                                  ;from beginnin and end of buffer
+           (setq apdl-skeleton-overlay (make-overlay 1 1))
+           (kill-region (point-min) (point-max))
+           (funcall (intern-soft skel))
+           ;;    (apdl-skeleton-numbering-controls)
+           ;;    (insert "bla\n")
+           (goto-char (point-min))
+           (unless  (eq major-mode 'apdl-mode)
+             (apdl-mode))
+           (setq s (propertize
+                    (concat "-*- APDL template: "
+                            skel " -*-\n") 'face 'match))
+           (overlay-put apdl-skeleton-overlay 'before-string s)
+           (set-buffer-modified-p nil)
+           (setq buffer-read-only t)
+           (switch-to-buffer-other-window old-buffer)
+           )
+          (t
+           (funcall (intern-soft skel))))))
 
 (define-skeleton apdl_do
   "Insert a *do .. *enddo loop."
@@ -175,11 +175,11 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!" apdl-outline-string " ---  Header ---" \n
   "!@ ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
-  ;; 					      (buffer-file-name)
-  ;; 					    (buffer-name))) \n
+  ;;                                                                                                                                    (buffer-file-name)
+  ;;                                                                                                                                  (buffer-name))) \n
   "!! Time-stamp: <" (current-time-string) ">" \n
   "!! ANSYS VERSION: " apdl-current-ansys-version \n
-;;  "!! UNITS: mm-t-s" \n
+  ;;  "!! UNITS: mm-t-s" \n
   "!! NOTE: " str \n
   "!! ------------------------------" \n
   \n
@@ -313,7 +313,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "NODES $ stat ! - Nodes" \n
   "ELEM $ stat ! - Elements" \n
   "SELM $ stat ! - Superelements" \n
-;; Pipe is not supported any longer in v130  "PIPE $ stat ! - Pipe modeling" \n
+  ;; Pipe is not supported any longer in v130  "PIPE $ stat ! - Pipe modeling" \n
   "DIGIT $ stat ! - Node digitizing" \n
   "COUPLE $ stat ! - Node coupling" \n
   "CEQN $ stat ! - Constraint equations" \n
@@ -785,10 +785,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,first" \n
   "plnsol,cont,gap,0,1" \n
   "esel,s,type,,Contact" \n
-  "etable,Stat,cont,stat	 !3-closed sticking" \n
-  "			 !2-closed sliding" \n
-  "			 !1-open near" \n
-  "			 !0-open far" \n
+  "etable,Stat,cont,stat                          !3-closed sticking" \n
+  "                                                                            !2-closed sliding" \n
+  "                                                                            !1-open near" \n
+  "                                                                            !0-open far" \n
   "!/efacet,2" \n
   "plls,stat,stat" \n
   "etable,Pene,cont,pene !pres|sfric|stot|slide|gap|flux|cnos|fprs" \n
@@ -1178,9 +1178,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
   \n
   "!! max and min element sizes for a given 'lesize' spacing ratio" \n
-  "Length = 10		 !line segment length" \n
-  "Ratio = 1/500.0		 !spacing ratio" \n
-  "N = 10			 !number of line divisions" \n
+  "Length = 10                                                   !line segment length" \n
+  "Ratio = 1/500.0                                                   !spacing ratio" \n
+  "N = 10                                                                            !number of line divisions" \n
   "!! lesize uses a geometric series" \n
   "Res = Length*(1-Ratio**(1/(N-1.0)))/(1-Ratio**(N/(N-1.0)))" \n
   "/go" \n
@@ -1238,7 +1238,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = LOG10() !Common log, Briggs' log" \n
   "A = SQRT()  !Square root" \n
   "A = NINT()  !Nearest integer, poor man's round(x,2)=nint(x*100)/100" \n
-; bullshit  "A = abs(nint()) !round" \n
+  ;; bullshit  "A = abs(nint()) !round" \n
   "A = MOD()   !mod(x,y): modulo x/y" \n
   "A = RAND()  !rand(lower_bound,upper_bound):uniform dist." \n
   "A = GDIS()  !gdis(mean,stdd): gaussian distribution" \n
@@ -1407,7 +1407,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "pcirc,R1[0],R2,Th1[0°],Th2[360°] ! circular area on WP" \n
   "rpr4,3,10,0,1.2,! polygonal area or prism volume"
   "rcon$stat !status of real constands" \n
-  "*get,RN,rcon,,num,max	 !maximum real set no "
+  "*get,RN,rcon,,num,max                          !maximum real set no "
   "Cylinder = RN + 1 !new real set" \n
   "ID = Cylinder" \n
   "r,ID,Length" \n
@@ -1519,7 +1519,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
   "mp,alpx,ID,AlphaSteel !secant modulus of therm. exp.!" \n
   "!temperature dependent secant modulus" \n
-  "mpamod,ID,20		 ![0] only when not issued mp,reft or tref" \n
+  "mpamod,ID,20                                                   ![0] only when not issued mp,reft or tref" \n
   "mptemp,1,100,200,300 ! 3 temperatures" \n
   "mpdata,alpx,ID,1,20e-6,21e-6,22e-6 ! 3 secant moduli" \n
   "!mp,ctex,ID,12e-6 ! instantaneous coofficient of therm. exp." \n
@@ -1568,7 +1568,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbpt,,4.e-2,1645." \n
   "tbpt,,5.e-2,1640." \n
   "tbpt,,5.4e-2,1600." \n
-  "mp,ex,Steel,1300/.6e-2	      ! Elastic modulus" \n
+  "mp,ex,Steel,1300/.6e-2                               ! Elastic modulus" \n
   "!! -- mpwrite overwrites without warning existing files! " \n
   "mpwrite,C75S_hardened,MPA_MPL,,lib,Steel !write to library" \n
   \n
@@ -1635,7 +1635,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbdata,2,.3*ShearModule/6.6" \n
   "!! -- check whether to drop elem. midside nodes and use u-p formulation" \n
   "!! -- u-p is not needed in plane stress configurations!" \n
-  "keyopt,Mooney,6,1		 !(6)1: mixed u-p formulation" \n
+  "keyopt,Mooney,6,1                                                   !(6)1: mixed u-p formulation" \n
   "!! --- Ogden for high strain applic. (700 % strain) ---" \n
   "Ogden = 3" \n
   "tb,hyper,Ogden,1,2,OGDEN !2nd order Ogden model" \n
@@ -1828,7 +1828,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "bucopt,lanb,3" \n
   "outres,all,all" \n
   "solve" \n
-  "fini $ /solu	 !switch to another loadstep?" \n
+  "fini $ /solu                          !switch to another loadstep?" \n
   "expass,on" \n
   "mxpand,3" \n
   \n)
@@ -2099,7 +2099,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "/efacet,2" \n
-;  "psdisp,0" \n
+  ;;  "psdisp,0" \n
   "/graphics,full ! results averaging also from interior" \n
   "pletab,Pene" \n
   "plls,Pene,Pene !line element results" \n
@@ -2119,8 +2119,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! ------------------------------" \n
   \n
   "!! animation" \n
-  "lcdef,1,,1		 !real" \n
-  "lcdef,2,,1,1		 !complex" \n
+  "lcdef,1,,1                                                   !real" \n
+  "lcdef,2,,1,1                                                   !complex" \n
   "/show,pscr,,,8! 8 colour planes" \n
   "*afun,deg" \n
   "N = 20" \n
@@ -2159,10 +2159,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "etable,chat,cont,cnos" \n
   "etable,cpre,cont,pres" \n
   "etable,Slid,cont,slide" \n
-  "etable,St,cont,stat	 !3-closed sticking" \n
-  "!! 			 !2-closed sliding" \n
-  "!! 			 !1-open but near" \n
-  "!! 			 !0-open and far, outside pinball" \n
+  "etable,St,cont,stat                          !3-closed sticking" \n
+  "!!                                                                             !2-closed sliding" \n
+  "!!                                                                             !1-open but near" \n
+  "!!                                                                             !0-open and far, outside pinball" \n
   "set,list" \n
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
@@ -2435,9 +2435,9 @@ Select or deselect various elements: Geometry, elements, nodes,
   "pcalc,intg,Res,By,S !integrate By with respect to the path length" \n
   "pcalc,intg,L,1,S ! path length?" \n
   "/axlab,x,distance !axis label" \n
-  "psel,s,axis,...    	 !select multiple paths" \n
-  "plpath,By		 !plot in graph" \n
-  "plpagm,By,5		 !plot on geom." \n
+  "psel,s,axis,...                              !select multiple paths" \n
+  "plpath,By                                                   !plot in graph" \n
+  "plpagm,By,5                                                   !plot on geom." \n
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
   "paget,Path,table" \n
   "!path $ stat" \n
@@ -2555,24 +2555,24 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!@ ------------------------------" \n
   "!@@ -- arrays --" \n
   "!! ------------------------------" \n
-   \n
+  \n
   \n
   "!@ ------------------------------" \n
   "!@@@ -- string arrays --" \n
   "!! ------------------------------" \n
-   \n
-   "*dim,Dir,string,248 ! maximum of 248 characters!" \n
-   "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
-   "*stat,Dir" \n
-   "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
-   "/syp,ls, Dir(1)" \n
-   "File = 'eptoeqv_at_shaft_press-fit'" \n
-   "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
+  \n
+  "*dim,Dir,string,248 ! maximum of 248 characters!" \n
+  "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
+  "*stat,Dir" \n
+  "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
+  "/syp,ls, Dir(1)" \n
+  "File = 'eptoeqv_at_shaft_press-fit'" \n
+  "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
   \n
   "!@ ------------------------------" \n
   "!@@@ -- Fortran arrays --" \n
   "!! ------------------------------" \n
-   \n
+  \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
   "*del,B,,nopr !undocumented feature: deleting without warning" \n
   "*dim,B,table,10,1,1,TIME !table type interpolating" \n
@@ -2614,7 +2614,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 
 (define-skeleton apdl-skeleton-structural-template
   "Minimum working structural APDL template."
-  nil					;no interactor needed
+  nil                                                                                                                             ;no interactor needed
   '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
@@ -2657,7 +2657,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 
 (define-skeleton apdl-skeleton-contact-template
   "Minimum working structural contact APDL template."
-  nil					;no interactor needed
+  nil                                                                                                                             ;no interactor needed
   '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
@@ -2700,11 +2700,11 @@ Select or deselect various elements: Geometry, elements, nodes,
   "keyo,cid,2,1               ! penalty function only" \n
   "keyo,cid,9,1               ! ignore initial gaps/penetration" \n
   "keyo,cid,7,0               ! No Prediction" \n
-  "rmod,cid,3,10.	! FKN" \n
-  "rmod,cid,5,0.	! ICONT" \n
-  "rmod,cid,6,0.	! PINB" \n
-  "rmod,cid,10,0.	! CNOF" \n
-  "rmod,cid,12,0.	! FKT" \n
+  "rmod,cid,3,10.                         ! FKN" \n
+  "rmod,cid,5,0.                         ! ICONT" \n
+  "rmod,cid,6,0.                         ! PINB" \n
+  "rmod,cid,10,0.                         ! CNOF" \n
+  "rmod,cid,12,0.                         ! FKT" \n
   "!@@ -- Loads --" \n
   "nsel,s,loc,x,0" \n
   "d,all,all" \n
@@ -2853,23 +2853,23 @@ Select or deselect various elements: Geometry, elements, nodes,
   "Value/Parameter 1 [I]: "
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "
-		   '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-		   nil			;predicate
-		   t			;require-match
-		   nil			;inital input
-		   nil			;history
-		   ;;default
-		   "eq")
+                   '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
+                   nil                                                                           ;predicate
+                   t                                                                           ;require-match
+                   nil                                                                           ;inital input
+                   nil                                                                           ;history
+                   ;;default
+                   "eq")
   ","
   (skeleton-read "Value/Parameter 2 [J]: ") | "J"
   ","
   (completing-read "Action [then] (use TAB to complete): "
-		   '(":label" "stop" "exit" "cycle" "then")
-		   nil
-		   t
-		   nil
-		   nil
-		   "then") > \n
+                   '(":label" "stop" "exit" "cycle" "then")
+                   nil
+                   t
+                   nil
+                   nil
+                   "then") > \n
   - \n
   "*endif" > \n
   \n)
@@ -2878,22 +2878,22 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;; (define-apdl-skeleton apdl-if-then
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Value/Parameter 1: "
-;; 	  "*IF," str ","
-;; 	  (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;; 	  ","
-;; 	  (read-string "Value/Parameter 2: ")
-;; 	  ",THEN" \n
-;; 	  > _ \n
-;; 	  ("*ELSEIF? %s: "
-;; 	   > "*ELSEIF," str ","
-;; 	   (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;; 	   ","
-;; 	   (read-string "Next Value/Parameter: ")
-;; 	   ",THEN" \n
-;; 	   > \n)
-;; 	  "*ELSE" > \n
-;; 	  > \n
-;; 	  "*ENDIF" > \n)
+;;                            "*IF," str ","
+;;                            (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;;                            ","
+;;                            (read-string "Value/Parameter 2: ")
+;;                            ",THEN" \n
+;;                            > _ \n
+;;                            ("*ELSEIF? %s: "
+;;                             > "*ELSEIF," str ","
+;;                             (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;;                             ","
+;;                             (read-string "Next Value/Parameter: ")
+;;                             ",THEN" \n
+;;                             > \n)
+;;                            "*ELSE" > \n
+;;                            > \n
+;;                            "*ENDIF" > \n)
 ;;   (mac . format))
 
 (define-skeleton apdl-if-then
@@ -2901,56 +2901,56 @@ Select or deselect various elements: Geometry, elements, nodes,
   "Value/Parameter 1 [I]: "
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "
-		   '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-		   nil			;predicate
-		   t			;require-match
-		   nil			;inital input
-		   nil			;history
-		   ;;default
-		   "eq")
+                   '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
+                   nil                                                                           ;predicate
+                   t                                                                           ;require-match
+                   nil                                                                           ;inital input
+                   nil                                                                           ;history
+                   ;;default
+                   "eq")
   ","
   (skeleton-read "Value/Parameter 2 [J]: ") | "J"
   ","
   (completing-read "Action [then] (use TAB to complete): "
-		   '(":label" "stop" "exit" "cycle" "then")
-		   nil
-		   t
-		   nil
-		   nil
-		   "then") > _ \n
+                   '(":label" "stop" "exit" "cycle" "then")
+                   nil
+                   t
+                   nil
+                   nil
+                   "then") > _ \n
   ;; * elsif subskeleton
   ("*elseif construct(s)? Value/Paramter 1: (%s) "
-    > "*elseif," str ","
-    (completing-read
-     "Operand [eq] (ne, lt, gt, le, ge, ablt, abgt, use TAB to complete): "
-     '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-     nil			;predicate
-     t				;require-match
-     nil			;inital input
-     nil			;history
-     ;;default
-     "eq")
-    ","
-    (read-string "Next Value/Parameter 2: ")
+   > "*elseif," str ","
+   (completing-read
+    "Operand [eq] (ne, lt, gt, le, ge, ablt, abgt, use TAB to complete): "
+    '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
+    nil                                                                           ;predicate
+    t                                                                                                    ;require-match
+    nil                                                                           ;inital input
+    nil                                                                           ;history
+    ;;default
+    "eq")
+   ","
+   (read-string "Next Value/Parameter 2: ")
    ",then" _ >
-     \n) 			;-- e o subskeleton
+   \n)                                                                            ;-- e o subskeleton
   ;; else subskeleton
   '(if (y-or-n-p "*else construct? ")
-      (insert "*else")) >
+       (insert "*else")) >
   "\n*endif" >
   "\n")
 
 ;; (define-apdl-skeleton apdl-do
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Parameter: "
-;; 	  "*DO," str ","
-;; 	  (read-string "Start Value/Parameter: ")
-;; 	  ","
-;; 	  (read-string "Finish Value/Parameter: ")
-;; 	  ","
-;; 	  (read-string "Increment Value/Parameter: ") \n
-;; 	  > _ \n
-;; 	  "*ENDDO" > \n)
+;;                            "*DO," str ","
+;;                            (read-string "Start Value/Parameter: ")
+;;                            ","
+;;                            (read-string "Finish Value/Parameter: ")
+;;                            ","
+;;                            (read-string "Increment Value/Parameter: ") \n
+;;                            > _ \n
+;;                            "*ENDDO" > \n)
 ;;   (mac . format))
 
 (define-skeleton apdl-do
@@ -2965,25 +2965,25 @@ Select or deselect various elements: Geometry, elements, nodes,
   > _ \n
   "*enddo" > \n)
 
-;; (define-apdl-skeleton apdl-mp		;FIXME: skeleton a bit over the top
+;; (define-apdl-skeleton apdl-mp                                                  ;FIXME: skeleton a bit over the top
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
-;; 	  "MP," str ","
-;; 	  (read-string "Material Number: ")
-;; 	  ","
-;; 	  (read-string "Constant Value: ")
-;; 	  ","
-;; 	  (read-string "Linear Coefficient? : ")
-;; 	  ","
-;; 	  (read-string "Quadratic Coefficient? : ")
-;; 	  ","
-;; 	  (read-string "Cubic Coefficient? : ")
-;; 	  ","
-;; 	  (read-string "Quartic Coefficient? : ")
-;; 	  \n)
+;;                            "MP," str ","
+;;                            (read-string "Material Number: ")
+;;                            ","
+;;                            (read-string "Constant Value: ")
+;;                            ","
+;;                            (read-string "Linear Coefficient? : ")
+;;                            ","
+;;                            (read-string "Quadratic Coefficient? : ")
+;;                            ","
+;;                            (read-string "Cubic Coefficient? : ")
+;;                            ","
+;;                            (read-string "Quartic Coefficient? : ")
+;;                            \n)
 ;;   (mac . format))
 
-(define-skeleton apdl-mp		;FIXME: skeleton a bit over the top
+(define-skeleton apdl-mp                                                  ;FIXME: skeleton a bit over the top
   "Insert interactively an mp statement."
   "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
   "MP," str ","

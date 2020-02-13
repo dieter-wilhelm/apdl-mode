@@ -20,21 +20,21 @@
 
 ;;; Commentary:
 
-;; 
+;;
 
 ;;; Code:
 
 
-; (add-to-list 'load-path "/home/dieter/org/elisp/org-mode/lisp")
+;; (add-to-list 'load-path "/home/dieter/org/elisp/org-mode/lisp")
 (org-reload)
 (require 'ox-beamer)
 (add-to-list 'org-latex-classes '(
-	     "A-M" "\\documentclass{beamer}" 
-	     ("\\section{%s}" . "\\section*{%s}") 
-	     ("\\subsection{%s}" . "\\subsection*{%s}") 
-	     ("\\subsubsection{%s}" . "\\subsubsection*{%s}") 
-	     ("\\paragraph{%s}" . "\\paragraph*{%s}") \
-	     ("\\subparagraph{%s}" . "\\subparagraph*{%s}")) 
-         )
+                                  "A-M" "\\documentclass{beamer}"
+                                  ("\\section{%s}" . "\\section*{%s}")
+                                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                                  ("\\paragraph{%s}" . "\\paragraph*{%s}") \
+                                  ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+             )
 
 ;;; export.el ends here

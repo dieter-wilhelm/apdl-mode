@@ -6,7 +6,28 @@
 ;; comint
 ;; browse-url
 
-(define-package "apdl-mode" "20.1.0" "A major mode for the APDL language of the ANSYS FEA suite."
+(define-package "apdl-mode" "20.1.0"
+  "A major mode for the APDL language of the ANSYS FEA suite."
+  "
+APDL (Ansys Parametric Design Language) is the solver scripting
+language of the FEA (Finite Element Analysis) suite ANSYS (ANalysis
+SYStem, registered TM http://www.ansys.com).
+
+APDL-Mode (formerly ANSYS-Mode) represents, in conjunction with
+the GNU-Emacs editor, an advanced APDL environment.  Including
+features features like immediate documentation access, keyword
+completion, code templates, dedicated keybindings, solver
+communication (GNU-Linux only), license reporting, etc.
+
+------------------------------
+First usage:
+
+Open an APDL-Mode buffer with `M-x apdl'.  From there you might
+investigate the menu entries `APDL' and `ANSYS'.
+
+For the APDL-Mode help with a brief tutorial and further guidance
+please type `C-h m'.
+"
   '((emacs "25.1"))
   :keywords
   '("APDL" "ANSYS" "languages" "FEA" "convenience" "tools")

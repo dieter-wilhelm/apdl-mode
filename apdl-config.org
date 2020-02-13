@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-13 15:08:15 uidg1626>
+#+DATE: Time-stamp: <2020-02-13 15:41:15 uidg1626>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -395,13 +395,17 @@ Things you might have to configure if your ANSYS installation is
 completely differing from default ANSYS installation path, as in the
 example below:
 #+BEGIN_SRC emacs-lisp
-(setq apdl-ansys-help-program
-    "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-      ;; normally it looks like this:
-      ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-(setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
-(setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
-(setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
+  (setq apdl-ansys-help-program
+      "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+	;; normally it looks like this:
+	;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+  (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+  (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
+  (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
+
+  ;; if you want to read the manual in GNU-Emacs' EWW browser
+  (setq browse-url-browser-function 'eww-browse-url)
+
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -420,6 +424,10 @@ example below:
   ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
   ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
   ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
+
+  ;; if you want to read the manual in GNU-Emacs' EWW browser
+  ;(setq browse-url-browser-function 'eww-browse-url)
+
 #+END_SRC
 
 * Ansys processes
@@ -453,7 +461,7 @@ But the solver/interpreter is checking this server as well!?
 ** Solver options
    Number of cores for the run, 2 does not require HPC licenses
    #+BEGIN_SRC emacs-lisp
-   (setq apdl-no-of-processors 8) ;default: 2
+   (setq apdl-no-of-processors 8) ;default: 4
    #+END_SRC
 
    Which license type to use for the solver

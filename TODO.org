@@ -16,18 +16,23 @@
 #+STARTUP: showall
 * 20.1.0
 ** bugs
-  - M-? with too many commas throws an error
-  - apdl command in sandbox not working <= autoload not working?
-  - The APDL menu entry in the terminal is not working => wrong type
-    argument!
-  - check highlighting of -license-type
+   - Build package with makefile and add installation recipe, update
+     INSTALLATION.org
+   - C-c C-b is not working for EWW under windows file://c/ => c:/
+   - M-? with too many commas throws an error
+   - The ANSYS menu enty is not working under Win10??
+   - The APDL menu entry in the terminal is not working => wrong type
+     argument!
+   - check highlighting of -license-type
+   - apdl command in sandbox not working <= autoload not working?
 ** wishes
-  - try to read the ansys help in EWW :-)
-  - Check customisation system
-    - online documentation: still ANSYS-mode!
-    - DefaultNo of processor is now 4
+   - Check customisation system
+   - online documentation: still ANSYS-mode!
 ** misc
+   - Read the ansys manual in EWW => (setq browse-url-browser-function
+     'eww-browse-url)
    - what is default.el <=> apdl-config.el?, dito. a-m.el!?
+   - Trigger the ANSYS online manual
    - README (for package-el) README.org for github
    - ANSYS is often used synonymous for ANSYS MAPDL solver /
      interpreter or ANSYS Classics GUI

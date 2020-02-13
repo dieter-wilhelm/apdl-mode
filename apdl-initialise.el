@@ -188,26 +188,26 @@ If TYPE is nil return the license servers, if non-nil the
 ansysli_servers.  When there are no license servers readable,
 return nil."
   (let* ((idir
-	  (if apdl-ansys-install-directory
-	      (file-name-directory
-	       (directory-file-name apdl-ansys-install-directory))
-	    nil))
-	 ini
-	 )
+          (if apdl-ansys-install-directory
+              (file-name-directory
+               (directory-file-name apdl-ansys-install-directory))
+            nil))
+         ini
+         )
     (if apdl-unix-system-flag
-	(setq ini (concat idir "shared_files/licensing/ansyslmd.ini"))
+        (setq ini (concat idir "shared_files/licensing/ansyslmd.ini"))
       (setq ini (concat idir "Shared Files/Licensing/ansyslmd.ini")))
     (if (file-readable-p ini)
-	(with-temp-buffer
-	  (insert-file-contents ini)
-	  (if type
-	      (word-search-forward "ANSYSLI_SERVERS=" nil t)
-	    (word-search-forward "SERVER=" nil t))
-	  (search-forward-regexp ".*" nil t)
-	  (match-string-no-properties 0)) ;TODO: there's no check
-					  ;against empty ini!
+        (with-temp-buffer
+          (insert-file-contents ini)
+          (if type
+              (word-search-forward "ANSYSLI_SERVERS=" nil t)
+            (word-search-forward "SERVER=" nil t))
+          (search-forward-regexp ".*" nil t)
+          (match-string-no-properties 0)) ;TODO: there's no check
+      ;; against empty ini!
       (message "File %s not readable" ini))
-      nil))
+    nil))
 
 (defun apdl-find-path-environment-value ()
   "Find the latest AWP_ROOTXXX environment value.
@@ -215,27 +215,27 @@ Which is to say find the Ansys root path with the largest
 installed versioning number and check the accessibility of the
 content."
   (let ((dir
-	 (car
-	  (reverse
-	   (sort
-	    (remove nil
-		    (mapcar (lambda (str)
-			      (when
-				  (string-match
-				   "AWP_ROOT[0-9][0-9][0-9]=\\(.*\\)"
-				   str)
-				(match-string 1 str)))
-			    process-environment)
-		    )
-	    'string<)))))
+         (car
+          (reverse
+           (sort
+            (remove nil
+                    (mapcar (lambda (str)
+                              (when
+                                  (string-match
+                                   "AWP_ROOT[0-9][0-9][0-9]=\\(.*\\)"
+                                   str)
+                                (match-string 1 str)))
+                            process-environment)
+                    )
+            'string<)))))
     (if (null dir)
-	(progn
-	  (message "No AWP_ROOTXXX environment variable")
-	  nil)
+        (progn
+          (message "No AWP_ROOTXXX environment variable")
+          nil)
       (if (file-readable-p dir)
-	  dir
-	(message "Environment AWP_ROOTXXX set but value is not readable")
-	nil))))
+          dir
+        (message "Environment AWP_ROOTXXX set but value is not readable")
+        nil))))
 
 (defun apdl-initialise ( &optional force)
   "Initialise the customisation variables.
@@ -248,217 +248,217 @@ customisation variables"
   ;; 1) -install-directory (with versioning information)
   (when (null apdl-ansys-install-directory)
     (let* (
-	   (cdir "/appl/ansys_inc/")
-	   (path (apdl-find-path-environment-value))
-	   (dir (if (null path)
-		    nil
-		  (file-name-as-directory path)))
-	   subdir)
+           (cdir "/appl/ansys_inc/")
+           (path (apdl-find-path-environment-value))
+           (dir (if (null path)
+                    nil
+                  (file-name-as-directory path)))
+           subdir)
       (cond
        ;; from environment variable
        (dir
-	(message "apdl-ansys-install-directory set from environment variable AWP_ROOTXXX")
-	(message "apdl-ansys-install-directory = %s" dir)
-	(setq subdir
-	      (file-name-nondirectory (directory-file-name dir)))
-	(setq apdl-current-ansys-version (remove ?v subdir))
-	(message "Current ANSYS version: %s" apdl-current-ansys-version))
+        (message "apdl-ansys-install-directory set from environment variable AWP_ROOTXXX")
+        (message "apdl-ansys-install-directory = %s" dir)
+        (setq subdir
+              (file-name-nondirectory (directory-file-name dir)))
+        (setq apdl-current-ansys-version (remove ?v subdir))
+        (message "Current ANSYS version: %s" apdl-current-ansys-version))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default company installation path
        ((file-readable-p cdir)
         (setq cdir "/appl/ansys_inc/") ;FIXME: remove
-	(setq subdir
-	      (car
-	       (reverse
-		(directory-files cdir nil "[0-9][0-9]\.[0-9]"))))
-	(setq apdl-current-ansys-version (remove ?. (substring subdir 0 4)))
-	(setq dir (concat cdir subdir "/v" apdl-current-ansys-version "/")))
+        (setq subdir
+              (car
+               (reverse
+                (directory-files cdir nil "[0-9][0-9]\.[0-9]"))))
+        (setq apdl-current-ansys-version (remove ?. (substring subdir 0 4)))
+        (setq dir (concat cdir subdir "/v" apdl-current-ansys-version "/")))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on Linux "/" or rather "/usr"
        ;; /ansys_inc is a symlink to /usr/ansys_inc
        ((string= window-system "x")
-	(setq cdir "/ansys_inc/")
-	(when (file-readable-p cdir)
-	  (setq subdir
-		(car
-		 (reverse
-		  (directory-files cdir nil "v[0-9][0-9][0-9]"))))
-	  (setq apdl-current-ansys-version (remove ?v (substring subdir 0 4)))
-	  (message "Current ANSYS version: %s" apdl-current-ansys-version)
-	  (setq dir (concat cdir subdir "/"))))
+        (setq cdir "/ansys_inc/")
+        (when (file-readable-p cdir)
+          (setq subdir
+                (car
+                 (reverse
+                  (directory-files cdir nil "v[0-9][0-9][0-9]"))))
+          (setq apdl-current-ansys-version (remove ?v (substring subdir 0 4)))
+          (message "Current ANSYS version: %s" apdl-current-ansys-version)
+          (setq dir (concat cdir subdir "/"))))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on windows
        (t
-	(setq cdir "C:\\Program Files\\ANSYS Inc")
-	;; search for the latest version
-	(when (file-readable-p cdir)
-	  (setq subdir
-		(car
-		 (reverse
-		  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
-	  (setq apdl-current-ansys-version (remove ?v (substring subdir 0 4)))
-	  (message "Current ANSYS version: %s" apdl-current-ansys-version)
-	  (setq dir (concat cdir subdir "/")))))
+        (setq cdir "C:\\Program Files\\ANSYS Inc")
+        ;; search for the latest version
+        (when (file-readable-p cdir)
+          (setq subdir
+                (car
+                 (reverse
+                  (directory-files cdir nil "v[0-9][0-9][0-9]" 'string<))))
+          (setq apdl-current-ansys-version (remove ?v (substring subdir 0 4)))
+          (message "Current ANSYS version: %s" apdl-current-ansys-version)
+          (setq dir (concat cdir subdir "/")))))
       (if dir
-	  (setq apdl-ansys-install-directory dir)
-	(message "No ANSYS installation directory found"))))
+          (setq apdl-ansys-install-directory dir)
+        (message "No ANSYS installation directory found"))))
 
   ;; 1a) -classics-flag
   (let* ()
     (if (and apdl-unix-system-flag (apdl-classics-p))
-	(setq apdl-classics-flag t)))
+        (setq apdl-classics-flag t)))
 
   ;; 2) -current-apdl-version:
   (when apdl-ansys-install-directory
     (let* ((idir (file-name-as-directory apdl-ansys-install-directory))
-	   (version1 apdl-current-ansys-version)
-	   (length))
+           (version1 apdl-current-ansys-version)
+           (length))
       (when (or (and idir
-		     (not version1))
-		force)
-	(setq length (length idir))
-	(setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
-	(setq apdl-current-ansys-version version1)
-	(message "apdl-current-ansys-version=%s" version1))))
+                     (not version1))
+                force)
+        (setq length (length idir))
+        (setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
+        (setq apdl-current-ansys-version version1)
+        (message "apdl-current-ansys-version=%s" version1))))
 
   ;; 3) -program
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-program) force))
     (let* ((version1 apdl-current-ansys-version)
-	   (idir (unless (null apdl-ansys-install-directory)
-		   (file-name-directory apdl-ansys-install-directory)))
-	   (exe (if apdl-unix-system-flag
-		    (concat idir "ansys/bin/ansys" version1)
-		  (concat idir "ansys/bin/winx64/ansys"version1".exe"))))
+           (idir (unless (null apdl-ansys-install-directory)
+                   (file-name-directory apdl-ansys-install-directory)))
+           (exe (if apdl-unix-system-flag
+                    (concat idir "ansys/bin/ansys" version1)
+                  (concat idir "ansys/bin/winx64/ansys"version1".exe"))))
       (if (file-executable-p exe)
-	  (progn
-	    (setq apdl-ansys-program exe)
-	    (message (concat "apdl-ansys-program set to " apdl-ansys-program)))
-	(message "Couldn't find an executable for apdl-ansys-program."))))
+          (progn
+            (setq apdl-ansys-program exe)
+            (message (concat "apdl-ansys-program set to " apdl-ansys-program)))
+        (message "Couldn't find an executable for apdl-ansys-program."))))
 
   ;; 4) -wb
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-wb) force))
     (let* ((idir apdl-ansys-install-directory)
-	   (exe
-	    (if apdl-unix-system-flag
-		(concat idir "Framework/bin/Linux64/runwb2") ;150, 161
-		 (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
+           (exe
+            (if apdl-unix-system-flag
+                (concat idir "Framework/bin/Linux64/runwb2") ;150, 161
+              (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
       (when (file-executable-p exe)
-	(setq apdl-ansys-wb exe))
+        (setq apdl-ansys-wb exe))
       (if apdl-ansys-wb
-	  (message (concat "apdl-ansys-wb set to " apdl-ansys-wb))
-	(message "Couldn't find an executable for apdl-ansys-wb."))))
+          (message (concat "apdl-ansys-wb set to " apdl-ansys-wb))
+        (message "Couldn't find an executable for apdl-ansys-wb."))))
 
-;; 5) -launcher
+  ;; 5) -launcher
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-launcher) force))
     (let* ((version1 apdl-current-ansys-version)
-	   (idir (unless (null apdl-ansys-install-directory)
-		   (file-name-directory apdl-ansys-install-directory)))
-	   (exe
-	    (if apdl-unix-system-flag
-		(concat idir "ansys/bin/launcher" version1)
-	      (concat idir  "ansys/bin/winx64/launcher" version1 ".exe"))))
+           (idir (unless (null apdl-ansys-install-directory)
+                   (file-name-directory apdl-ansys-install-directory)))
+           (exe
+            (if apdl-unix-system-flag
+                (concat idir "ansys/bin/launcher" version1)
+              (concat idir  "ansys/bin/winx64/launcher" version1 ".exe"))))
       (when (file-executable-p exe)
-	(setq apdl-ansys-launcher exe))
+        (setq apdl-ansys-launcher exe))
       (if apdl-ansys-launcher
-	  (message "apdl-ansys-launcher is set to %s" apdl-ansys-launcher))
-	(message "Couldn't find an executable for apdl-ansys-launcher (%s)." exe)))
+          (message "apdl-ansys-launcher is set to %s" apdl-ansys-launcher))
+      (message "Couldn't find an executable for apdl-ansys-launcher (%s)." exe)))
 
   ;; 6) -help-path
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-path) force))
     (let* ((idir apdl-ansys-install-directory)
-	   (path (concat idir "commonfiles/help/en-us/help/")))
-      (if (file-readable-p path)	;path must be a string, not nil
-	  (progn
-	    (setq apdl-ansys-help-path path)
-	    (message "Set apdl-ansys-help-path to %s" path))
-	(message "%s" "Couldn't find the apdl-ansys-help-path"))))
+           (path (concat idir "commonfiles/help/en-us/help/")))
+      (if (file-readable-p path)         ;path must be a string, not nil
+          (progn
+            (setq apdl-ansys-help-path path)
+            (message "Set apdl-ansys-help-path to %s" path))
+        (message "%s" "Couldn't find the apdl-ansys-help-path"))))
 
   ;; 7) -help-program
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-program) force))
     (let* ((idir apdl-ansys-install-directory)
-	   (version1 apdl-current-ansys-version)
-	   (exe
-	    (if apdl-unix-system-flag
-		(concat idir "ansys/bin/anshelp" version1)
-	      (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
+           (version1 apdl-current-ansys-version)
+           (exe
+            (if apdl-unix-system-flag
+                (concat idir "ansys/bin/anshelp" version1)
+              (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
       (if (file-executable-p exe)
-	  (progn
-	    (message "apdl-ansys-help-program = %s" exe)
-	    (setq apdl-ansys-help-program exe))
-	(message "%s" "Couldn't find an executable for apdl-ansys-help-program."))))
+          (progn
+            (message "apdl-ansys-help-program = %s" exe)
+            (setq apdl-ansys-help-program exe))
+        (message "%s" "Couldn't find an executable for apdl-ansys-help-program."))))
 
   ;; 8) -lmutil-program
   (when (and apdl-ansys-install-directory (or (null apdl-lmutil-program) force))
     (let* ((idir (file-name-directory
-		  (directory-file-name
-		   apdl-ansys-install-directory)))
-	   (exe
-	    (if apdl-unix-system-flag
-		(concat idir "shared_files/licensing/linx64/lmutil")
-	      (concat idir "Shared Files/Licensing/winx64/lmutil.exe"))))
+                  (directory-file-name
+                   apdl-ansys-install-directory)))
+           (exe
+            (if apdl-unix-system-flag
+                (concat idir "shared_files/licensing/linx64/lmutil")
+              (concat idir "Shared Files/Licensing/winx64/lmutil.exe"))))
       (if (file-executable-p exe)
-	  (progn
-	    (setq apdl-lmutil-program exe)
-	    (message "apdl-lmutil-program = %s" exe))
-	(message "%s" "Couldn't find an executable for apdl-lmutil-program"))))
+          (progn
+            (setq apdl-lmutil-program exe)
+            (message "apdl-lmutil-program = %s" exe))
+        (message "%s" "Couldn't find an executable for apdl-lmutil-program"))))
 
   ;; 9) -license-file
   (when (null apdl-license-file)
     (let* (
-	   (lfile "ANSYSLMD_LICENSE_FILE")
-	   (lic (apdl-read-ansyslmd-ini nil))
-	   (lic1 (getenv lfile)) ; ANSYS doesn't use LM_LICENSE_FILE
-	   (lic2 (if (file-readable-p "/appl/ansys_inc")
-		     "32002@ls_fr_ansyslmd_ww_1.conti.de")))
-     (cond
-      (lic
-       (setq apdl-license-file lic)
-       (message "%s" "Read content of ansyslmd.ini")
-       (message "apdl-license-file=%s" lic))
-      (lic1
-       (setq apdl-license-file lic1)
-       (message "Read environment variable %s" lfile)
-       (message "apdl-license-file=%s" lic1))
-      (lic2
-       (setq apdl-license-file lic2)
-       (message "Conti server: apdl-license-file=%s" lic2)
-       (setenv lfile lic2))
-      (t
-       (message "%s" "Found no default apdl-license-file from environment or ini file"))
-      )))
+           (lfile "ANSYSLMD_LICENSE_FILE")
+           (lic (apdl-read-ansyslmd-ini nil))
+           (lic1 (getenv lfile)) ; ANSYS doesn't use LM_LICENSE_FILE
+           (lic2 (if (file-readable-p "/appl/ansys_inc")
+                     "32002@ls_fr_ansyslmd_ww_1.conti.de")))
+      (cond
+       (lic
+        (setq apdl-license-file lic)
+        (message "%s" "Read content of ansyslmd.ini")
+        (message "apdl-license-file=%s" lic))
+       (lic1
+        (setq apdl-license-file lic1)
+        (message "Read environment variable %s" lfile)
+        (message "apdl-license-file=%s" lic1))
+       (lic2
+        (setq apdl-license-file lic2)
+        (message "Conti server: apdl-license-file=%s" lic2)
+        (setenv lfile lic2))
+       (t
+        (message "%s" "Found no default apdl-license-file from environment or ini file"))
+       )))
 
-    ;; 10) -ansysli-servers, the Interconnect license server(s)
-   (when (null apdl-ansysli-servers)
-     (let* (
-	    (lfile "ANSYSLI_SERVERS")
-	    (lic (apdl-read-ansyslmd-ini t))
-	    (lic1 (getenv lfile))
-	    (lic2 (if (file-readable-p "/appl/ansys_inc")
-		      "2325@ls_fr_ansyslmd_ww_1.conti.de")))
-       (cond
-	(lic
-	 (setq apdl-ansysli-servers lic)
-	 (message "%s" "Read content of ansyslmd.ini")
-	 (message "apdl-ansysli-servers=%s" lic))
-	(lic1
-	 (setq apdl-ansysli-servers lic1)
-	 (message "Read environment variable %s" lfile)
-	 (message "apdl-ansysli-servers=%s" lic1))
-	(lic2
-	 (setq apdl-ansysli-servers lic2)
-	 (message "Conti server: apdl-ansysli-servers=%s" lic2)
-	 (setenv lfile lic2))
-	(apdl-license-file ;ANSYS assumes the following as the last resort as well
-					;FIXME: but only in anslic_admin I think
-	 (setq apdl-ansysli-servers
-	       (replace-regexp-in-string "[0-9]*@" "2325@" apdl-license-file))
-	 (message "%s" "Assuming the same servers for Interconnect with default port")
-	 (message "apdl-ansysli-servers=%s" apdl-ansysli-servers))
-	(t
-	 (message "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
+  ;; 10) -ansysli-servers, the Interconnect license server(s)
+  (when (null apdl-ansysli-servers)
+    (let* (
+           (lfile "ANSYSLI_SERVERS")
+           (lic (apdl-read-ansyslmd-ini t))
+           (lic1 (getenv lfile))
+           (lic2 (if (file-readable-p "/appl/ansys_inc")
+                     "2325@ls_fr_ansyslmd_ww_1.conti.de")))
+      (cond
+       (lic
+        (setq apdl-ansysli-servers lic)
+        (message "%s" "Read content of ansyslmd.ini")
+        (message "apdl-ansysli-servers=%s" lic))
+       (lic1
+        (setq apdl-ansysli-servers lic1)
+        (message "Read environment variable %s" lfile)
+        (message "apdl-ansysli-servers=%s" lic1))
+       (lic2
+        (setq apdl-ansysli-servers lic2)
+        (message "Conti server: apdl-ansysli-servers=%s" lic2)
+        (setenv lfile lic2))
+       (apdl-license-file ;ANSYS assumes the following as the last resort as well
+        ;; FIXME: but only in anslic_admin I think
+        (setq apdl-ansysli-servers
+              (replace-regexp-in-string "[0-9]*@" "2325@" apdl-license-file))
+        (message "%s" "Assuming the same servers for Interconnect with default port")
+        (message "apdl-ansysli-servers=%s" apdl-ansysli-servers))
+       (t
+        (message "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
 
-     ;; ------------------------------------------------------------
-     (message "%s" "APDL-Mode: Initialised system dependened variables."))  ;; end of init function
+  ;; ------------------------------------------------------------
+  (message "%s" "APDL-Mode: Initialised system dependened variables."))  ;; end of init function
 
 (defun apdl-ansys-install-directory ()
   "Change the ANSYS installation directory.
@@ -467,21 +467,21 @@ example \"v201\".  The path is stored in the variable
 `apdl-ansys-install-directory'"
   (interactive)
   (let* ((idir apdl-ansys-install-directory)
-	 (ndir
-	  (expand-file-name	       ;in case it was written ~
-	   (file-name-as-directory	;in case the slash is forgotten
-	    (read-directory-name
-	     (concat "Specify the ANSYS installation directory ["
-		     idir "]:")
-	     idir idir))))
-	 (length (length ndir))
-	 (version (substring (directory-file-name ndir) (- length 4) (- length 1))))
+         (ndir
+          (expand-file-name                ;in case it was written ~
+           (file-name-as-directory         ;in case the slash is forgotten
+            (read-directory-name
+             (concat "Specify the ANSYS installation directory ["
+                     idir "]:")
+             idir idir))))
+         (length (length ndir))
+         (version (substring (directory-file-name ndir) (- length 4) (- length 1))))
     (message "a-i-d: %s" ndir)
     (if (file-readable-p ndir)
-	(progn
-	  (setq apdl-ansys-install-directory
-		(file-name-as-directory ndir)) ;ensure final slash
-	  (message "Set apdl-ansys-install-directory to \"%s\"." ndir))
+        (progn
+          (setq apdl-ansys-install-directory
+                (file-name-as-directory ndir)) ;ensure final slash
+          (message "Set apdl-ansys-install-directory to \"%s\"." ndir))
       (error "ANSYS directory \"%s\" is not readable" ndir))
     (apdl-initialise 'force)
     (setq apdl-current-ansys-version version)))

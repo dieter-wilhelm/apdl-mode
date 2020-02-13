@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-12>
+#+DATE: Time-stamp: <2020-02-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,16 +27,17 @@
     - online documentation: still ANSYS-mode!
     - DefaultNo of processor is now 4
 ** misc
-  - README (for package-el) README.org for github
-  - ANSYS is often used synonymous for ANSYS MAPDL solver /
-    interpreter or ANSYS Classics GUI
-  - package-lint
-    - only problems with prefix names
-  - flycheck :done
-    - -initialise OK
-    - -config => -config.org OK
-    - -template OK
-  - checkdoc : done
+   - what is default.el <=> apdl-config.el?, dito. a-m.el!?
+   - README (for package-el) README.org for github
+   - ANSYS is often used synonymous for ANSYS MAPDL solver /
+     interpreter or ANSYS Classics GUI
+   - package-lint
+     - only problems with prefix names
+   - flycheck :done
+     - -initialise OK
+     - -config => -config.org OK
+     - -template OK
+   - checkdoc : done
 * 162-2:
 ** Bugs
    - C-c C-s first time visit: User variables file-name-extension:

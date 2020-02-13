@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-12 20:40:46 dieter>
+#+DATE: Time-stamp: <2020-02-13 15:08:15 uidg1626>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -40,18 +40,18 @@ In case you want to download or have already installed the
 you can also download and configure the APDL-Mode package
 separately. Please refer to below instructions.
 
-Please have a look at the accompanying `default.el' customisation
-example. It can be used as a configuration file (after moving it
-e. g. to `/usr/share/emacs/site-lisp' or
-`c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
-the Emacs installation tree is in its default load-path).  Yet
-`default.el' is loaded AFTER your personal Emacs configuration file
-(if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
-to change the following settings with Emacs' customisation system or
-changing them directly in your personal configuration file, you must
-either set the variable `inhibit-default-ini' to `t' "(setq
-inhibit-default-ini t)" in your personal configuration file or remove
-`default.el' otherwise your settings might be overwritten!
+# Please have a look at the accompanying `default.el' customisation
+# example. It can be used as a configuration file (after moving it
+# e. g. to `/usr/share/emacs/site-lisp' or
+# `c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
+# the Emacs installation tree is in its default load-path).  Yet
+# `default.el' is loaded AFTER your personal Emacs configuration file
+# (if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
+# to change the following settings with Emacs' customisation system or
+# changing them directly in your personal configuration file, you must
+# either set the variable `inhibit-default-ini' to `t' "(setq
+# inhibit-default-ini t)" in your personal configuration file or remove
+# `default.el' otherwise your settings might be overwritten!
 
 * Introduction
 Customisations for GNU-Linux and Windows systems.
@@ -135,17 +135,17 @@ if they are differing from the defaults. (You have to restart Emacs
 ;-) The complete paths will be constructed with below information
 
 The installation path (what comes before the directory /ansys_inc/ on
-Linux or /ANSYS Inc/ on Windows.  If ~apdl-install-directory~ is not
+Linux or /ANSYS Inc/ on Windows.  If ~apdl-ansys-install-directory~ is not
 set APDL-Mode can initialise it from the environment variable
 `AWP_ROOT162'.
 
 #+BEGIN_SRC emacs-lisp
 (cond ((string= window-system "x")
         ;; This is an example of an installation directory on GNU-Linux
-        (setq apdl-install-directory "/appl")) ; default: "/"
+        (setq apdl-ansys-install-directory "/appl")) ; default: "/"
        (t
         ;;This an example of an installation dir. on WINDOWS
-        (setq apdl-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
+        (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
 #+END_SRC
 
 If the paths of your ANSYS installation is completely differing from
@@ -172,16 +172,16 @@ the standard ANSYS directory structure, please see further below.
 
   ;(setq apdl-current-apdl-version "150") ; "162" default in APDL-Mode 162-1
 
-  ;; if `apdl-install-directory' is not set APDL-Mode tries to
+  ;; if `apdl-ansys-install-directory' is not set APDL-Mode tries to
   ;; initialise it from the environment variable `AWP_ROOT162'.
 
   ;; conditional: Linux or Windows
   ;(cond ((string= window-system "x")
   ;        ;; This is an example of an installation directory on GNU-Linux
-  ;        (setq apdl-install-directory "/appl")) ; default: "/"
+  ;        (setq apdl-ansys-install-directory "/appl")) ; default: "/"
   ;       (t
   ;        ;;This an example of an installation dir. on WINDOWS
-  ;        (setq apdl-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
+  ;        (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
   ;                                                        )
 
   ;; If the paths of your ANSYS installation is completely differing
@@ -395,12 +395,12 @@ Things you might have to configure if your ANSYS installation is
 completely differing from default ANSYS installation path, as in the
 example below:
 #+BEGIN_SRC emacs-lisp
-(setq apdl-help-program
+(setq apdl-ansys-help-program
     "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
       ;; normally it looks like this:
       ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-(setq apdl-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
-(setq apdl-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
+(setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+(setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
 (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 
@@ -417,8 +417,8 @@ example below:
   ;   "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
   ; ;;the ANSYS path to the help viewer looks normally like this:
   ; ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-  ; (setq apdl-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
-  ; (setq apdl-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
+  ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+  ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
   ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 #+END_SRC
 

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-13>
+#+DATE: Time-stamp: <2020-02-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -16,9 +16,9 @@
 #+STARTUP: showall
 * 20.1.0
 ** bugs
+   - bug-report about package.el
    - Build package with makefile and add installation recipe, update
-     INSTALLATION.org
-   - C-c C-b is not working for EWW under windows file://c/ => c:/
+     INSTALLATION.org and do a 20.1.0 release
    - M-? with too many commas throws an error
    - The ANSYS menu enty is not working under Win10??
    - The APDL menu entry in the terminal is not working => wrong type
@@ -28,16 +28,22 @@
 ** wishes
    - Check customisation system
    - online documentation: still ANSYS-mode!
+   - Trigger the ANSYS online manual, if there's no local docu
 ** misc
+   - package-lint
+     - problems with prefix names and default key bindings...
+   - are the material properties documented?
+   - how about the work branch?
    - Read the ansys manual in EWW => (setq browse-url-browser-function
-     'eww-browse-url)
+     'eww-browse-url) I had to change the configuration of
+     apdl-ansys-help-path though: "/c:/CAx/App/ANSYS
+     Inc/v201/commonfiles/help/en-us/help/" (note the slash before c:!
+     whats going on here?) for chrome file:///c:/ is working as
+     well...
    - what is default.el <=> apdl-config.el?, dito. a-m.el!?
-   - Trigger the ANSYS online manual
    - README (for package-el) README.org for github
    - ANSYS is often used synonymous for ANSYS MAPDL solver /
      interpreter or ANSYS Classics GUI
-   - package-lint
-     - only problems with prefix names
    - flycheck :done
      - -initialise OK
      - -config => -config.org OK

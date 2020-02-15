@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-13 15:41:15 uidg1626>
+#+DATE: Time-stamp: <2020-02-14 22:28:34 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -400,6 +400,9 @@ example below:
 	;; normally it looks like this:
 	;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
   (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+  ;; on windows systems (note the slash before c:!)
+  (setq apdl-ansys-help-path "/c:/Program Files/ANSYS Inc/16.2.0/v162/commonfiles/help/en-us/help/")
+  
   (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
   (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 
@@ -421,6 +424,9 @@ example below:
   ;   "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
   ; ;;the ANSYS path to the help viewer looks normally like this:
   ; ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+  ;; ;; on windows systems (note the slash before c:!)
+  ;; (setq apdl-ansys-help-path "/c:/Program Files/ANSYS Inc/16.2.0/v162/commonfiles/help/en-us/help/")
+
   ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
   ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
   ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")

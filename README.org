@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-13>
+#+DATE: Time-stamp: <2020-02-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -50,14 +50,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   diminished.  But APDL is here to stay: `WorkBench' and `AIM' operate
   exclusively the ANSYS solver with it!  They are sending APDL input
   (.dat) files to the solver.  For a true understanding of the GUIs'
-  inner workings a study of this APDL code is prerequisite.
+  inner workings a study of APDL code is prerequisite.
 
   Moreover the GUIs are not supporting all solver features.  So APDL
   `Command Snippets' enhance the GUIs' modelling capabilities.
 * Some highlights
-  Nowadays I find APDL-Mode mostly useful in writing these `Command
-  Snippets' or reading snippets from colleagues.  Or for studying
-  solver (.dat) files which are created by WorkBench.
+  Nowadays I find APDL-Mode mostly useful in writing `Command
+  Snippets' and inspecting longer snippets from other sources.
+  Likewise for studying solver (.dat) files which were created by
+  WorkBench.  Alone APDL-Mode's support for rapidly accessing the
+  ANSYS APDL documentation is worth using it.
 ** In-built APDL command help with argument counter
    Especially for commands with a large number of arguments it is
    cumbersome to count the arguments, *C-?* facilitates this for you
@@ -100,23 +102,34 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 #  - APDL-Mode is now available on MELPA
 #  For further installation options
 
-1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to Emacs please check the
-   tutorial in the `Help' menu).
-2) Install the APDL-Mode package (You need at least Emacs-25.1.)
+1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to the Emacs editor please check
+   the tutorial in the `Help' menu, please really do it ;-).
+
+2) Download APDL-Mode's tar file from [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]]:
+
+3) Install the APDL-Mode package (You need at least emacs-25.1.)
+
+   Type `M-x package-install-file' and select the downloaded tar
+   package.
+
+
    # melpa, add the following in your GNU-Emacs init file:
    # (add-to-list 'package-archives
    # 	     '("melpa" . "http://melpa.org/packages/") t)
    # Then do M-x package-list-packages, find apdl-mode and install it.
 
+   That's it.
+
    For further installation options please have a
    look in the [[file:INSTALLATION.org][INSTALLATION]] file.
-* Usage
-  Please type `M-x apdl' then you are in an APDL-Mode buffer and you
-  can check the menu bar's `APDL' or `ANSYS' entries.  Please select
-  `Describe APDL-Mode' or type `C-h m', which will display the
-  APDL-Mode help with further guidance.
 
-  You might check the introductory APDL-Mode tutorial
+* Usage
+  Please type `M-x apdl' which opens an APDL-Mode buffer and you can
+  inspect the menu bar's `APDL' or `ANSYS' entries.  Please select
+  `Describe APDL-Mode' or type `C-h m', which will display APDL-Mode's
+  help with further guidance in using it.
+
+  You might also check the introductory APDL-Mode tutorial
   ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]) for an overview as well.
 
 * Configuration and Customisation

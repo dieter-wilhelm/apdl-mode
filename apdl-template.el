@@ -59,6 +59,8 @@
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(declare-function apdl-mode "apdl-mode")
+
 (defun apdl-display-skeleton (&optional arg)                         ;NEW
   "Display or insert code templates.
 With an argument ARG not equal to 1 insert the template into the

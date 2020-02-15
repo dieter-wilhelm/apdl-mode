@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-12>
+;; Time-stamp: <2020-02-15>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -762,7 +762,7 @@ Element categories:
 \"ALL\"INFINS -- Infinite Boundary/Solid elem.
 \"ALL\"INTERS -- Interface magnetic/gasket/cohesive elem.
 \"ALL\"LINKS -- Link radiation/conduction/convection/thermal-electric/spar/\
- elem.
+elem.
 \"ALL\"MASS -- Mass elem
 \"ALL\"MATRIXS -- Matrix stiffness/damping/super elem
 \"ALL\"MESHS -- Mesh facet elem.
@@ -783,6 +783,8 @@ Element categories:
   (let (file
         (path apdl-ansys-help-path)
         command)
+    (unless path
+      (error "Error: `apdl-ansys-help-path' is not configured"))
     (if arg
         (setq command (completing-read "Browse help for keyword: "
                                        apdl-help-index))
@@ -810,7 +812,7 @@ Element categories:
       (setq file (concat "ai_rn/" file)))
      ((string-match "ansys.theory" file)
       (setq file (concat "ans_thry/" file))))
-    (browse-url-default-browser (concat "file://" path file))))
+    (browse-url-of-file (concat "file://" path file))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).

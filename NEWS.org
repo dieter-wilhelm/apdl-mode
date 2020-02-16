@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-12>
+#+DATE: Time-stamp: <2020-02-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,14 +19,15 @@
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 ** Version 20.1.0  2020-02
-   - Changed version naming scheme for the package.el format
-   - Installation from Melpa
    - Changed the name to APDL-Mode
-   - Added key-bindings to the license buffer *Licenses*
+   - Changed version naming scheme (package.el format)
+   - Installation now with Emacs' packageing system
+   - Added key-bindings to the license buffer **Licenses** (C-c C-l)
      o - occur search
      g - refresh license status
      q - bury the license buffer
      Q - quit license buffer
+   - Better warning for C-c C-b when A-M is not configured
 
 ** Version 162-1, not yet released, targeted for Sep 2015
    - Sending code to the ANYSClassics GUI is now possible as well, not
@@ -315,7 +316,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      only as written in a macro file) to the solver process,
      ansys-query-ansys-command (C-c C-q).
 
-** ansys-mode.el 11.0.1 in comparison to ansys-mod.el:
+** ansys-mode.el 11.0.1 2009 in comparison to ansys-mod.el:
 
    - New: Provides Ansys command parameter- and syntax help.
 

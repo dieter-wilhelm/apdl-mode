@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-15>
+#+DATE: Time-stamp: <2020-02-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -38,12 +38,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   SYStem, registered TM).
 
   APDL-Mode (formerly ANSYS-Mode) represents, in conjunction with the
-  GNU-Emacs editor, an advanced APDL environment with features like
-  solver communication (GNU-Linux only), license reporting, keyword
-  completion, code templates, dedicated keybindings, etc.  Over the
-  years it has accumulated lots of features for writing and debugging
-  FEA models in APDL code. Please convince yourself with the APDL-Mode
-  in-depth documentation.
+  GNU-Emacs editor, an advanced APDL environment with features like,
+  pin-pointing the APDL reference documentation, keyword completion,
+  code templates, dedicated keybindings, solver communication
+  (GNU-Linux only), license reporting, etc.  Over the years it has
+  accumulated lots of features for writing and debugging FEA models in
+  APDL code. Please convince yourself with the APDL-Mode in-depth
+  documentation.
 
   With the advent of the modern ANSYS GUIs - like `WorkBench' or
   `AIM' - the usage of APDL as a wholesale modelling language has
@@ -54,7 +55,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   Moreover the GUIs are not supporting all solver features.  So APDL
   `Command Snippets' enhance the GUIs' modelling capabilities.
-* Some highlights
+* Some Highlights
   Nowadays I find APDL-Mode mostly useful in writing `Command
   Snippets' and inspecting longer snippets from other sources.
   Likewise for studying solver (.dat) files which were created by
@@ -102,16 +103,15 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 #  - APDL-Mode is now available on MELPA
 #  For further installation options
 
-1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to the Emacs editor please check
-   the tutorial in the `Help' menu, please really do it ;-).
+1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
+   tutorial in its `Help' menu, please really do it ;-).
 
-2) Download APDL-Mode's tar file from [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]]:
+2) Download APDL-Mode's tar file from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
 
 3) Install the APDL-Mode package (You need at least emacs-25.1.)
 
    Type `M-x package-install-file' and select the downloaded tar
    package.
-
 
    # melpa, add the following in your GNU-Emacs init file:
    # (add-to-list 'package-archives
@@ -120,50 +120,48 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    That's it.
 
-   For further installation options please have a
-   look in the [[file:INSTALLATION.org][INSTALLATION]] file.
+   # For further installation options please have a
+   # look in the [[file:INSTALLATION.org][INSTALLATION]] file.
 
 * Usage
-  Please type `M-x apdl' which opens an APDL-Mode buffer and you can
-  inspect the menu bar's `APDL' or `ANSYS' entries.  Please select
-  `Describe APDL-Mode' or type `C-h m', which will display APDL-Mode's
-  help with further guidance in using it.
+  Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
+  inspect the menu bar's `APDL' and `ANSYS' entries.  Please select
+  `Describe APDL-Mode' (or type `C-h m'), which will display
+  APDL-Mode's help with further guidance.
 
   You might also check the introductory APDL-Mode tutorial
-  ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]) for an overview as well.
+  ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]) as well.
 
+  The complete [[http://dieter-wilhelm.github.io/apdl-mode][documentation of APDL-Mode]] is available online
 * Configuration and Customisation
   Please read the file [[file:apdl-config.org][apdl-config.org]] and adjust the customisation
   example [[file:ansys-config.el][apdl-config.el]].
 * News
   Please have a look in the [[file:NEWS.org][NEWS]] file
 * License
-  - GPL 3 - see the [[file:LICENSE.org][LICENSE]] file
+  GPL 3 - see the [[file:LICENSE.org][LICENSE]] file
 * Acknowledgements
   Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
   from 1997 which triggered the idea in 2006 to start apdl-mode.
 
   Parts of APDL-Mode were base on octave-mod.el: Copyright (C) 1997
-  Free Software Foundation, Inc.  Author: Kurt Hornik
-  <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
-  <jwe@bevo.che.wisc.edu>
+  Free Software Foundation, Inc.  Author: [[Kurt.Hornik@wu-wien.ac.at][Kurt Hornik]]
+  Author: [[jwe@bevo.che.wisc.edu][John Eaton]]
 
 * Further Resources
-** APDL-Mode
-   - The complete [[http://dieter-wilhelm.github.io/apdl-mode][documentation of APDL-Mode]] is available online
-** APDL Editor Resources
+** Emacs editor resources
+   - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
+   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
+** Other APDL editor resources
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
    - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
      Windows, project disbanded in 2015.
    - Simple APDL syntax highlighting extensions are available for
      various editors, gvim, nedit, ... to name a few, please have a
      look at [[http://ansys.net][ANSYS.net]].
-
-   - [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
-   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
-** ANSYS and APDL Resources
-   - ANSYS manuals in the first place
-   - The [[http://www.ansys.com][ANSYS homepage]] with their ANSYS Portal and Learning Hub
+** ANSYS and APDL resources
+   - The ANSYS reference manuals
+   - The [[http://www.ansys.com][ANSYS homepage]] with the ANSYS Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
    - A general  ANSYS repository [[http://www.ansys.net][ANSYS.net]]
    - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club eV. in Germany

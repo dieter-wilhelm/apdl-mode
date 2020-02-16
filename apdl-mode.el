@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-12>
+;; Time-stamp: <2020-02-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -364,7 +364,9 @@ The regexp is used for the
 fontification (`apdl-highlight-variable') of these variables.")
 
 (defvar apdl-is-unix-system-flag nil
-  "Non-nil means computer runs a GNU-Linux system.")
+  "Non-nil means computer runs a Unix system.
+Any of GNU-Linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
+usg-unix-v")
 
 (defvar apdl-previous-major-mode ""
   "The buffer's previous major mode (before APDL-Mode).")
@@ -1271,14 +1273,14 @@ This means at the end of code before whitespace or an APDL
 comment."
   (if (looking-at "\\s-*$\\|\\s-*!") t nil))
 
-;; ANSYS will support in the future only GNU-Linux 64 and Windows 64
-;; for the entire ANSYS platform, some support of legacy Unices (AIX
-;; IBM, HP-UX HP, SGI, Solaris SUN) for standalone apps will be
-;; provided so I don't restrict anys-mode to GNU-Linux
 (defun apdl-is-unix-system-p ()
-  "Return t when we are on a unix system.
+  "Return t when we are on a Unix system.
 gnu/linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
-usg-unix-v."
+usg-unix-v.  ANSYS supports only GNU-Linux 64 and Windows 64 for
+the entire ANSYS platform with some support of legacy Unices (AIX
+IBM, HP-UX HP, SGI, Solaris SUN) for standalone apps will be
+provided so I won't restrict some aspects of APDL-Mode to
+GNU-Linux."
   (not
    (or (string= system-type "gnu")                 ;gnu with the hurd kernel
        (string= system-type "darwin")                 ;mac

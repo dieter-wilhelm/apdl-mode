@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-15>
+;; Time-stamp: <2020-02-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1169,34 +1169,6 @@ stored in the environment variable APDL-LICENSE-FILE."
          (setenv "ANSYSLMD_LICENSE_FILE" file)
          (message (concat "Set apdl-license-file to \""
                           apdl-license-file "\".")))))
-
-(defun apdl-ansys-install-directory ()
-  "Change the ANSYS installation directory.
-This is the path before the directory `ansys_inc/' under Linux or
-`ANSYS Inc\\' under Windows."
-  (interactive)
-  (let* ((idir apdl-ansys-install-directory)
-         path
-         (ndir
-          (expand-file-name                            ;in case it was written ~
-           (file-name-as-directory                     ;in case the slash is forgotten
-            (read-directory-name
-             (concat "Specify the ANSYS installation directory ["
-                     idir "]:")
-             nil nil idir)))))
-    (cond (apdl-unix-system-flag
-           (setq path (concat ndir "ansys_inc")))
-          (t
-           (setq path (concat ndir "ANSYS Inc"))))
-    (if (file-readable-p path)
-        (progn
-          (setq apdl-ansys-install-directory
-                (file-name-as-directory ndir)) ;ensure final slash
-          (message
-           (concat
-            "Set apdl-ansys-install-directory to \"" ndir "\".")))
-      (error "ANSYS directory \"%s\" is not readable" path))
-    (apdl-initialise 'force)))
 
 (defun apdl-ansysli-servers ( servers)
   "Change the ANSYS interconnect servers to SERVERS.

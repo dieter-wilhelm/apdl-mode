@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-09>
+;; Time-stamp: <2020-02-16>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -28,7 +28,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst apdl-mode-version "R20.1.0"
+(defconst apdl-mode-version "20.1.0"
   "APDL-Mode version.")
 
 (defconst apdl-ansys-version "v161"
@@ -163,8 +163,8 @@ Set it to port@host.  The default port is 2325."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defining variables
 
-(defvar apdl-unix-system-flag nil
-  "Non-nil means APDL-mode runs under a Unix system.")
+;; (defvar apdl-unix-system-flag nil
+;;   "Non-nil means APDL-mode runs under a Unix system.")
 
 (defvar apdl-current-ansys-version nil
   "String of the currently used MAPDL solver version.
@@ -247,8 +247,7 @@ customisation variables"
 
   ;; 1) -install-directory (with versioning information)
   (when (null apdl-ansys-install-directory)
-    (let* (
-           (cdir "/appl/ansys_inc/")
+    (let* ((cdir "/appl/ansys_inc/")
            (path (apdl-find-path-environment-value))
            (dir (if (null path)
                     nil

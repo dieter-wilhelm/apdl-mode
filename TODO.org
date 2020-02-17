@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-17>
+#+DATE: Time-stamp: <2020-02-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,7 +19,11 @@
   -initalise is run bei -mode with 'force or without?
   -initialise <= apdl-ansys-install-directory!?
 
-  What is -browse-apdl-guide?
+  - open EWW in another buffer
+  - open apdl manual in a EWW buffer
+
+   What is apdl-browse-apdl-guide? => the APDL manual
+   a-b-a-g => a-b-ANSYS-APDL-manual
 
 ** bugs
    - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file

@@ -696,28 +696,14 @@ variable)."
 
 (require 'browse-url)
 
-(defun apdl-browse-apdl-guide ()
-  "Open the ANSYS APDL guide in a browser."
+(defun apdl-browse-ansys-apdl-manual ()
+  "Open the ANSYS APDL manual in a browser."
   (interactive)
-  (let (file (path apdl-ansys-help-path) command)
-    (cond
-     (apdl-unix-system-flag
-      (setq file "ans_apdl/Hlp_P_APDLTOC.html")
-      ;; use browse-url-default-browser!
-      (if (fboundp 'browse-url-xdg-open)
-          (browse-url-xdg-open (concat path file))
-        ;; (browse-url-default-browser (concat path file)) not working with E23.1 on RHEL
-        (browse-url-firefox (concat path file))))
-     ;; windows
-     ((string= system-type "windows-nt")
-      (setq file (concat "ans_apdl\\Hlp_P_APDLTOC.html" file))
-      ;; wrapper of ShellExecute MS-Windows API
-      ;;      (message "file:%s path:%s" file path)
-      ;;      (w32-shell-execute "Open" (concat path file)))
-      (browse-url-default-windows-browser (concat "file:" path file)))
-     (t
-      (error "Can only start the ANSYS help on Windows and Unix/GNU-Linux systems")))
-    (message "Called HTML browser for keyword \"%s\"..." command)))
+  (let ((file "ans_apdl/Hlp_P_APDLTOC.html")
+	(path apdl-ansys-help-path))
+    (unless path
+      (error "Error: `apdl-ansys-help-path' is not configured"))
+    (browse-url-of-file (concat "file://" path file))))
 
 (defun apdl-browse-apdl-help ( &optional arg)
   "Open the ANSYS help for APDL commands and element names in a web browser.

@@ -875,7 +875,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                  ["Browse APDL command help" apdl-browse-apdl-help
                   :help "Open the original APDL documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
                   :active (file-readable-p apdl-ansys-help-path)]
-                 ["Browse ANSYS APDL Guide" apdl-browse-apdl-guide
+                 ["Browse ANSYS APDL Guide" apdl-browse-ansys-apdl-manual
                   :help "Read the original ANSYS APDL Guide in a browser."
                   :active (file-readable-p apdl-ansys-help-path)]
                  ["Start ANSYS Help Viewer" apdl-start-ansys-help

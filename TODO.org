@@ -16,32 +16,25 @@
 #+STARTUP: showall
 * 20.1.0
 
-  Update the configuration section, the autoload entries are obselete
-  with package.el.
-
   -initalise is run bei -mode with 'force or without?
   -initialise <= apdl-ansys-install-directory!?
 
-   What is -browse-apdl-guide?
-
-
-  Delete unnecessary remote branches
+  What is -browse-apdl-guide?
 
 ** bugs
+   - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file
+     is not found
    - M-? with too many commas throws an error, is the error message
      good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
    - check highlighting of -license-type
-
-   - The ANSYS menu enty is not working under Win10??
-   - apdl command in sandbox not working <= autoload not working?, done
 ** wishes
    - are the material properties documented, matlib?
    - Check the customisation system
    - online documentation: still ANSYS-mode!
-   - Trigger the ANSYS online manual, if there's no local docu for C-c C-b
-
+   - Trigger the ANSYS online manual, if there's no local docu for C-c
+     C-b
 ** misc
    - bug-report about package.el "NAME-readme.txt", done
    - package-lint

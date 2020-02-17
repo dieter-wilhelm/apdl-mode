@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-16>
+#+DATE: Time-stamp: <2020-02-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -139,7 +139,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * News
   Please have a look in the [[file:NEWS.org][NEWS]] file
 * License
-  GPL 3 - see the [[file:LICENSE.org][LICENSE]] file
+  The GPL 3, please see the [[file:LICENSE.org][LICENSE]] file
 * Acknowledgements
   Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
   from 1997 which triggered the idea in 2006 to start apdl-mode.
@@ -176,3 +176,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 # time-stamp-active: t
 # time-stamp-format: "%:y-%02m-%02d"
 # end:
+* TODOs
+  Please see the [[file:TODO.org][TODO]] file
+

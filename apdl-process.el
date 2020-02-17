@@ -111,10 +111,10 @@ See `apdl-license-categories' for often used ANSYS license types."
   :type 'string
   :group 'APDL-process)
 
-(defcustom apdl-no-of-processors 2
+(defcustom apdl-no-of-processors 4
   "No of processors to use for an ANSYS solver run.
-If smaller then 3 the run does not require additonal HPC
-licenses.  2 is the ANSYS default."
+If smaller then 4 the run does not require additonal HPC
+licenses.  4 is the ANSYS default."
   :type 'integer
   :group 'APDL-process)
 

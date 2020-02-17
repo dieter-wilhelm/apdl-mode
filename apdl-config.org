@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-14 22:28:34 dieter>
+#+DATE: Time-stamp: <2020-02-17 13:51:44 uidg1626>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -22,74 +22,43 @@
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
 #+LATEX_HEADER:
-#+TITLE: Customisation of APDL-Mode
+#+TITLE: Configuration and Customisation of APDL-Mode
 #+text: Copyright (C) 2016 - 2020, H. Dieter Wilhelm, GPL V3
 
-Most functionality should work out of the box.  APDL-Mode assumes
-ANSYS in its default installation directory on drive `C:Program Files'
-on Win64 and tries to configure APDL-Mode with the highest installed
-ANSYS version.
+Most functionality of APDL-Mode is working without configurations.
 
-and you want to start - for example - the license status or
-the ANSYS help browser directly from the menue please adjust the
-configuration file `apdl-config.el' file in Emacs' `site-lisp'
-directory according to the commented code examples.
+For system dependent operations APDL-Mode is trying to guess the
+necessary parameters from default installation paths and environment
+variables.  (APDL-Mode is using the highest installed ANSYS
+version.)
 
-In case you want to download or have already installed the
-[[http://ftp.gnu.org/pub/gnu/emacs/][original version]] of GNU Emacs,
-you can also download and configure the APDL-Mode package
-separately. Please refer to below instructions.
-
-# Please have a look at the accompanying `default.el' customisation
-# example. It can be used as a configuration file (after moving it
-# e. g. to `/usr/share/emacs/site-lisp' or
-# `c:\\EMACS_INSTALLDIR\\site-lisp', hint: The directory site-lisp/ in
-# the Emacs installation tree is in its default load-path).  Yet
-# `default.el' is loaded AFTER your personal Emacs configuration file
-# (if there is any) `~/.emacs' (or `~/.emacs.d/init.el')!  If you intend
-# to change the following settings with Emacs' customisation system or
-# changing them directly in your personal configuration file, you must
-# either set the variable `inhibit-default-ini' to `t' "(setq
-# inhibit-default-ini t)" in your personal configuration file or remove
-# `default.el' otherwise your settings might be overwritten!
-
-* Introduction
-Customisations for GNU-Linux and Windows systems.
-
-The customisations are written in `Emacs-lisp'.  The comment sign in
-this language is ~;~ (one semi-colon `;').
+The customisations itself are written in `Emacs-Lisp'.  The comment
+sign in this language is ~;~ (one semi-colon `;').
 
 * Conventions used in /apdl-config.el/
 Textual hints in /apdl-config.el/ are indicated with TWO semi-colons
 ~;;~, please uncomment only the code lines with a SINGLE comment sign
 and change them when appropriate.
 
+Please add the interesting code lines into your GNU-Emacs init file or
+load this file in the init file with `(load-file
+"PATH/apdl-config.el")'.
+
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;; apdl-config.el -- Customisation file for APDL-Mode under GNU-Linux and Windows
-;; This file was created from the file "apdl-config.org"!
-;; Created: {{{date}}}
+;;; apdl-config.el -- Customisation example for APDL-Mode
+;; This file was built from the file "apdl-config.org".
 
 ;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3
 
 ;;; Comentary:
+;; The customisations itself are written in `Emacs-Lisp'.  
+;; The comment is ~;~ (one semi-colon `;').  Textual hints
+;; are indicated with DOUBLE semi-colons `;;', optionally uncomment
+;; the code lines with a SINGLE comment sign.
 
-;; `apdl-config.el' can be used as a configuration file (after moving
-;; it e. g. to `/usr/share/emacs/site-lisp' or
-;; `c:\\EMACS_INSTALLDIR\\site-lisp').  Yet this file is then loaded
-;; AFTER Emacs' user configuration file `~/.emacs' (or `~/.emacs.el'
-;; or `~/.emacs.d/init.el')!  If you intend to change the following
-;; settings with 1) Emacs' customisation system or 2) changing them
-;; directly in your configuration file, you MUST either set the
-;; variable `inhibit-default-init' to `t' "(setq inhibit-default-init
-;; t)" in your configuration file or remove or rename `a-m.el' (or
-;; at least its corresponding sections) otherwise clashing settings in
-;; `.emacs' will be overwritten!!!
-
-;;; Commentary:
-
-;; The comment sign is `;' (one semi-colon ;) Textual hints are
-;; indicated with DOUBLE semi-colons `;;', optionally uncomment the
-;; code lines with a SINGLE comment sign.
+;; Please add the interesting code lines into your GNU-Emacs init file or
+;; load this file in the init file with `(load-file
+;; "PATH/apdl-config.el")'.
 
 ;;; CODE:
 #+END_SRC
@@ -97,7 +66,7 @@ and change them when appropriate.
 #+RESULTS:
 
 * Important Prerequisites
-** Finding APDL-Mode
+** COMMENT Finding APDL-Mode
 If the APDL-Mode files (the files with the suffix /.el/) are *not*
 placed in a default Emacs load path.  Please see the variable
 load-path .
@@ -129,15 +98,9 @@ for a Windows system or
 for a GNU-Linux system.
 ** Installed ANSYS version and installation path
 
-For reading the ANSYS help in your browser it should be sufficient to
-set at most the ANSYS version and the installation directory of ANSYS
-if they are differing from the defaults. (You have to restart Emacs
-;-) The complete paths will be constructed with below information
-
-The installation path (what comes before the directory /ansys_inc/ on
-Linux or /ANSYS Inc/ on Windows.  If ~apdl-ansys-install-directory~ is not
-set APDL-Mode can initialise it from the environment variable
-`AWP_ROOT162'.
+If you want - e.g - to read the ANSYS help in your browser you must
+have installed the local help of ANSYS and APDL-Mode must know the
+installation directory.
 
 #+BEGIN_SRC emacs-lisp
 (cond ((string= window-system "x")
@@ -149,47 +112,23 @@ set APDL-Mode can initialise it from the environment variable
 #+END_SRC
 
 If the paths of your ANSYS installation is completely differing from
-the standard ANSYS directory structure, please see further below.
+the standard ANSYS directory structure, please also configure the
+section INSTALLATION PATHS further below.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                         ;; IMPORTANT PREREQUISIT
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; !!! If the APDL-Mode files (*.el) are NOT placed in a default
-  ;; Emacs load-path it is necessary to adjust the following
-  ;; variable:!!!  Hint: The directory site-lisp/ in the Emacs
-  ;; installation tree, for example, is in its default load-path.
-
-  ;(add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\APDL-MODE\\FILES\\RESIDE")
-
-  ;; for example: "c:\\emacs\\apdl-mode" for a Windows system or
-  ;; "/usr/local/src/emacs/apdl-mode" for a GNU-Linux system.
-
-  ;; For reading the ANSYS help in your browser it should be sufficient
-  ;; to set at most the ANSYS version and the installation directory of
-  ;; ANSYS (if they are differing from the defaults and restart Emacs
-  ;; ;-), the complete paths will be constructed with below information
-
-  ;(setq apdl-current-apdl-version "150") ; "162" default in APDL-Mode 162-1
-
-  ;; if `apdl-ansys-install-directory' is not set APDL-Mode tries to
-  ;; initialise it from the environment variable `AWP_ROOT162'.
 
   ;; conditional: Linux or Windows
+
   ;(cond ((string= window-system "x")
   ;        ;; This is an example of an installation directory on GNU-Linux
   ;        (setq apdl-ansys-install-directory "/appl")) ; default: "/"
   ;       (t
   ;        ;;This an example of an installation dir. on WINDOWS
   ;        (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
-  ;                                                        )
 
   ;; If the paths of your ANSYS installation is completely differing
   ;; from the normal ANSYS structures, please see below.
 
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                             ;; IMPORTANT END
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 #+END_SRC
 
 * File suffixes for loading APDL-Mode
@@ -267,11 +206,12 @@ imports, see the file /example.anf/.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto insertion stuff (when creating a new APDL file)
 
-(auto-insert-mode 1)		        ; insert automatically templates
-(add-hook 'find-file-hook 'auto-insert) ; when opening new files
-(setq auto-insert-query t)   ; aks for auto insertion of APDL template
-(add-to-list 'auto-insert-alist
-  '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
+; (auto-insert-mode 1)		        ; insert automatically templates
+; (add-hook 'find-file-hook 'auto-insert) ; when opening new files
+; (setq auto-insert-query t)   ; aks for auto insertion of APDL template
+; (add-to-list 'auto-insert-alist
+;  '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
+
 #+END_SRC
 
 * Miscellaneous
@@ -281,7 +221,7 @@ imports, see the file /example.anf/.
   (setq apdl-parameter-help-duration 30) ; 30 seconds
   #+END_SRC
 
-* Autoloading
+* COMMENT Autoloading (became obsolete with the packaging system)
   Below set of useful commands can be interactively called (with M-x
   ...)  even when APDL Mode was not activated i.e. its lisp files not
   yet loaded, with the following code.
@@ -390,7 +330,7 @@ current default is 2
 ;(setq apdl-highlighting-level 1) ; default: 2
 
 #+END_SRC
-* Ansys version and paths
+* Ansys installation paths
 Things you might have to configure if your ANSYS installation is
 completely differing from default ANSYS installation path, as in the
 example below:
@@ -465,7 +405,7 @@ But the solver/interpreter is checking this server as well!?
 #+END_SRC
 
 ** Solver options
-   Number of cores for the run, 2 does not require HPC licenses
+   Number of cores for the run: 4 does not require HPC licenses
    #+BEGIN_SRC emacs-lisp
    (setq apdl-no-of-processors 8) ;default: 4
    #+END_SRC
@@ -510,8 +450,8 @@ But the solver/interpreter is checking this server as well!?
                    ;; options when starting the solver
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;; Number of cores for the run, 2 does not require HPC licenses
-  ;(setq apdl-no-of-processors 8) ;default: 2
+  ;; Number of cores for the run, 4 does not require HPC licenses
+  ;(setq apdl-no-of-processors 8) ;default: 4
 
   ;;  which license type to use for the solver
   ;(setq apdl-license "ansys") ;default: "struct"
@@ -519,10 +459,21 @@ But the solver/interpreter is checking this server as well!?
   ;; ANSYS job name
   ;(setq apdl-job "otto"); default: "file"
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                              ;; The End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; apdl-config.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+  
 #+END_SRC
+-----
 
-* Extending Emacs load path and initialisation
-
+* COMMENT Extending Emacs load path and initialisation
+  redundant with package.el
 #+BEGIN_SRC emacs-lisp :tangle yes
 
 ;; adding the directory of this (loaded) file to the load-path

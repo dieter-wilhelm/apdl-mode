@@ -134,12 +134,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   The complete [[http://dieter-wilhelm.github.io/apdl-mode][documentation of APDL-Mode]] is available online
 * Configuration and Customisation
-  Please read the file [[file:apdl-config.org][apdl-config.org]] and adjust the customisation
-  example [[file:ansys-config.el][apdl-config.el]].
+  Please read the file [[file:apdl-config.org][apdl-config.org]] and adjust the acompanying
+  example file [[file:ansys-config.el][apdl-config.el]].
 * News
-  Please have a look in the [[file:NEWS.org][NEWS]] file
+  Please have a look into the [[file:NEWS.org][NEWS]] file
 * License
-  The GPL 3, please see the [[file:LICENSE.org][LICENSE]] file
+  The GPL 3, please read the [[file:LICENSE.org][LICENSE]] file
 * Acknowledgements
   Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
   from 1997 which triggered the idea in 2006 to start apdl-mode.
@@ -163,9 +163,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - The ANSYS reference manuals
    - The [[http://www.ansys.com][ANSYS homepage]] with the ANSYS Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
+   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.
    - A general  ANSYS repository [[http://www.ansys.net][ANSYS.net]]
    - [[http://www.auc-ev.de/][AUC]], the ANSYS User Club eV. in Germany
 
+* TODOs
+  Please read the [[file:TODO.org][TODO]] file
 -----
 
 # The following is for Emacs
@@ -176,6 +179,4 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 # time-stamp-active: t
 # time-stamp-format: "%:y-%02m-%02d"
 # end:
-* TODOs
-  Please see the [[file:TODO.org][TODO]] file
 

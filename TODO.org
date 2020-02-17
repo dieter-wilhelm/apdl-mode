@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-16>
+#+DATE: Time-stamp: <2020-02-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -16,30 +16,30 @@
 #+STARTUP: showall
 * 20.1.0
 
-  Update the configuration section, the autoload entries are obselete
-  with package.el.
+  -initalise is run bei -mode with 'force or without?
+  -initialise <= apdl-ansys-install-directory!?
 
-  -initialise <= apdl-ansys-install-directory!?  There are 2
-   definitions!  => branch
+  - open EWW in another buffer
+  - open apdl manual in a EWW buffer
 
-
-  Delete unnecessary remote branches
+   What is apdl-browse-apdl-guide? => the APDL manual
+   a-b-a-g => a-b-ANSYS-APDL-manual
 
 ** bugs
+   - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file
+     is not found
    - M-? with too many commas throws an error, is the error message
      good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
    - check highlighting of -license-type
-
-   - The ANSYS menu enty is not working under Win10??
-   - apdl command in sandbox not working <= autoload not working?, done
 ** wishes
-   - are the material properties documented, matlib?
+   - are the material properties documented, matlib?  Matlib is used
+     in -template.el, document directory somewhere
    - Check the customisation system
    - online documentation: still ANSYS-mode!
-   - Trigger the ANSYS online manual, if there's no local docu for C-c C-b
-
+   - Trigger the ANSYS online manual, if there's no local docu for C-c
+     C-b
 ** misc
    - bug-report about package.el "NAME-readme.txt", done
    - package-lint
@@ -63,7 +63,7 @@
    - c*** without argument is not font-locked
    - jit-lock-function errors
    - RESCOMBINE is not fontified
-   - M-? on an empty buffer returns *abbr* help instead of warning
+   - M-? on an empty buffer returns *abbr* help instead of a warning
    - C-c C-j tries to send a next line in the LAST line and after an
      /exit command
    - -send-to-ansys, -send-above copy empty regions or only comments
@@ -280,19 +280,13 @@
 
     The project is hosted on
 
-    https://github.com/dieter-wilhelm/ansys-mode
+    [[https://github.com/dieter-wilhelm/apdl-mode]]
 
     Where you will find the latest development version.
 
     Stable versions and prebuild packages are on the releases page:
 
-    https://github.com/dieter-wilhelm/ansys-mode/releases
-
-    An alternative releases archive is hosted at Google Drive:
-
-    https://drive.google.com/?tab=mo&authuser=0#folders/0Bxnk08BGWfexUThqbWxLX1NyeTg
-
-    If you don't have access to above archives please email me.
+    [[https://github.com/dieter-wilhelm/apdl-mode/releases]]
 
       Dieter
 
@@ -516,9 +510,6 @@
 ** Unknown ANSYS stuff
    - what the heck is the *UILIST command?
    - Is hyper56 a valid element?
-** Additional APDL macro resources
-   see http://www.apdl.de for further ideas and extensions or
-     http://www.padtinc.com/.
 -----
 # The following is for Emacs
 # local variables:

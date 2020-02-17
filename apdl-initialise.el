@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-16>
+;; Time-stamp: <2020-02-17>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -241,7 +241,7 @@ content."
   "Initialise the customisation variables.
 When argument FORCE is non-nil overwrite already set
 customisation variables"
-
+  (message "Initialising system dependent stuff ...")
   ;; 0) -unix-system-flag
   (setq apdl-unix-system-flag (apdl-is-unix-system-p))
 

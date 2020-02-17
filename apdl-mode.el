@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-16>
+;; Time-stamp: <2020-02-17>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -2086,8 +2086,6 @@ improvements you have the following options:
   (set-mark 0)
 
   ;; initialise system dependent stuff
-  (require 'apdl-initialise)
-  (message "Initialising ...")
   (apdl-initialise)
   (outline-minor-mode t)
   ;; --- hooks ---

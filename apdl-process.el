@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-16>
+;; Time-stamp: <2020-02-17>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -812,7 +812,7 @@ elem.
       (setq file (concat "ai_rn/" file)))
      ((string-match "ansys.theory" file)
       (setq file (concat "ans_thry/" file))))
-    (browse-url-of-file (concat "file://" path file))))
+    (browse-url-of-file (concat "file:///" path file))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-16>
+#+DATE: Time-stamp: <2020-02-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,8 +19,10 @@
   Update the configuration section, the autoload entries are obselete
   with package.el.
 
-  -initialise <= apdl-ansys-install-directory!?  There are 2
-   definitions!  => branch
+  -initalise is run bei -mode with 'force or without?
+  -initialise <= apdl-ansys-install-directory!?
+
+   What is -browse-apdl-guide?
 
 
   Delete unnecessary remote branches

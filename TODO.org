@@ -14,37 +14,33 @@
 #+title: The TODO file of APDL-Mode
 
 #+STARTUP: showall
-* 20.1.0
-
-  -initalise is run bei -mode with 'force or without?
-  -initialise <= apdl-ansys-install-directory!?
-
-  - open EWW in another buffer
-  - open apdl manual in a EWW buffer
-
-   What is apdl-browse-apdl-guide? => the APDL manual
-   a-b-a-g => a-b-ANSYS-APDL-manual
-
-** bugs
-   - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file
-     is not found
+* 20.
+   - Update (online) documentation: still ANSYS-mode 16.1.!
+   - First edit in *APDL code*: self-insert-command: Wrong number of
+     arguments: (0 . 0), 3
+** minor bugs
+   - document the Apdl Parameter Help Duration in M-?
    - M-? with too many commas throws an error, is the error message
      good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
    - check highlighting of -license-type
+** checks
+   - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file
+     is not found => solved?
 ** wishes
+   - base APDL-Mode on ANSYS 201
+   - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used
-     in -template.el, document directory somewhere
+     in -template.el, how about document this directory somewhere?
    - Check the customisation system
-   - online documentation: still ANSYS-mode!
    - Trigger the ANSYS online manual, if there's no local docu for C-c
      C-b
+* 20.1.0
 ** misc
    - bug-report about package.el "NAME-readme.txt", done
    - package-lint
      - problems with prefix names and default key bindings...
-   - how about the work branch?
    - what is default.el <=> apdl-config.el?, dito. a-m.el!?
    - README (for package-el) README.org for github
    - ANSYS is often used synonymous for ANSYS MAPDL solver /

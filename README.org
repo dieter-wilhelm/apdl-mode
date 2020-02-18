@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-17>
+#+DATE: Time-stamp: <2020-02-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -33,14 +33,14 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 [[file:doc/ansys+emacs2020.png]]
 
 * Introduction
-  APDL (ANSYS Parametric Design Language) is the solver scripting
+  APDL ([[https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language][ANSYS Parametric Design Language]]) is the solver scripting
   language of the FEA (Finite Element Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis
   SYStem, registered TM).
 
-  APDL-Mode (formerly ANSYS-Mode) represents, in conjunction with the
-  GNU-Emacs editor, an advanced APDL environment with features like,
+  APDL-Mode (formerly ANSYS-Mode) is - in conjunction with the
+  GNU-Emacs editor - an advanced APDL environment with features like,
   pin-pointing the APDL reference documentation, keyword completion,
-  code templates, dedicated keybindings, solver communication
+  code templates, dedicated highlighting, solver communication
   (GNU-Linux only), license reporting, etc.  Over the years it has
   accumulated lots of features for writing and debugging FEA models in
   APDL code. Please convince yourself with the APDL-Mode in-depth
@@ -49,18 +49,20 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   With the advent of the modern ANSYS GUIs - like `WorkBench' or
   `AIM' - the usage of APDL as a wholesale modelling language has
   diminished.  But APDL is here to stay: `WorkBench' and `AIM' operate
-  exclusively the ANSYS solver with it!  They are sending APDL input
-  (.dat) files to the solver.  For a true understanding of the GUIs'
-  inner workings a study of APDL code is prerequisite.
+  exclusively the ANSYS solver with it!  They are producing and
+  sending APDL input (.dat) files to the solver.  For a true
+  understanding of the GUIs' inner workings a study of APDL code is
+  prerequisite.
 
   Moreover the GUIs are not supporting all solver features.  So APDL
-  `Command Snippets' enhance the GUIs' modelling capabilities.
+  `Command Snippets' are used to enhance the GUIs' modelling
+  capabilities.
 * Some Highlights
   Nowadays I find APDL-Mode mostly useful in writing `Command
   Snippets' and inspecting longer snippets from other sources.
   Likewise for studying solver (.dat) files which were created by
-  WorkBench.  Alone APDL-Mode's support for rapidly accessing the
-  ANSYS APDL documentation is worth using it.
+  WorkBench.  Accessing rapidly the ANSYS APDL reference documentation
+  alone is worth using APDL-Mode!
 ** In-built APDL command help with argument counter
    Especially for commands with a large number of arguments it is
    cumbersome to count the arguments, *C-?* facilitates this for you
@@ -90,13 +92,15 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    number blocks.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/hidden_blocks.png]]
+
    The image below shows the unhidden content.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/unhidden_blocks.png]]
 ** Highlighting example
    The image shows an Emacs 23.2 frame (in reversed colour mode and
    compiled with the GTK+ toolkit under GNU-Linux) with a ripped off
-   APDL-Mode menu field
+   APDL-Mode menu field.  And shows an APDL variable buffer, the APDL
+   file and an APDL template preview.
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
@@ -145,8 +149,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   from 1997 which triggered the idea in 2006 to start apdl-mode.
 
   Parts of APDL-Mode were base on octave-mod.el: Copyright (C) 1997
-  Free Software Foundation, Inc.  Author: [[Kurt.Hornik@wu-wien.ac.at][Kurt Hornik]]
-  Author: [[jwe@bevo.che.wisc.edu][John Eaton]]
+  Free Software Foundation, Inc.  Author: [[mailto:Kurt.Hornik@wu-wien.ac.at][Kurt Hornik]]
+  Author: [[mailto:jwe@bevo.che.wisc.edu][John Eaton]]
 
 * Further Resources
 ** Emacs editor resources

@@ -25,6 +25,7 @@
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
    - check highlighting of -license-type
+<<<<<<< HEAD
 ** checks
    - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file
      is not found => solved?
@@ -37,6 +38,15 @@
    - Trigger the ANSYS online manual, if there's no local docu for C-c
      C-b
 * 20.1.0
+=======
+** wishes
+   - are the material properties documented, matlib?  Matlib is used
+     in -template.el, document directory somewhere
+   - Check the customisation system
+   - online documentation: still ANSYS-mode!
+   - Trigger the ANSYS online manual, if there's no local docu for C-c
+     C-b
+>>>>>>> Improve and rename apdl-browse-ansys-apdl-manual
 ** misc
    - bug-report about package.el "NAME-readme.txt", done
    - package-lint

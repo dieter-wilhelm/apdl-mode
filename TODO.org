@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-18>
+#+DATE: Time-stamp: <2020-02-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,38 +15,36 @@
 
 #+STARTUP: showall
 * 20.
-   - Update (online) documentation: still ANSYS-mode 16.1.!
-   - First edit in *APDL code*: self-insert-command: Wrong number of
+  - package-installed-p: package.el is not yet initialized!
+    emacs-25.1!
+  - WB templates :-), no geom stuff
+    - shift APDL templates away
+    - search templates with keywords
+    - Snippet types
+      - Items (/prep7), attached to tree items
+      - Prep and /solu (before solve command)
+      - /post, no do-loops?
+  - Update (online) documentation: still ANSYS-mode 16.1.!
+  - First edit in *APDL code*: self-insert-command: Wrong number of
      arguments: (0 . 0), 3
 ** minor bugs
-   - document the Apdl Parameter Help Duration in M-?
    - M-? with too many commas throws an error, is the error message
      good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
    - check highlighting of -license-type
-<<<<<<< HEAD
 ** checks
-   - The ANSYS menu C-c C-l is not greyed out, when apdl-license-file
-     is not found => solved?
 ** wishes
+   - Trigger the ANSYS online manual, if there's no local docu for C-c
+     C-b
+   - Melpa integration
    - base APDL-Mode on ANSYS 201
+   - document the Apdl Parameter Help Duration in M-?
    - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?
    - Check the customisation system
-   - Trigger the ANSYS online manual, if there's no local docu for C-c
-     C-b
 * 20.1.0
-=======
-** wishes
-   - are the material properties documented, matlib?  Matlib is used
-     in -template.el, document directory somewhere
-   - Check the customisation system
-   - online documentation: still ANSYS-mode!
-   - Trigger the ANSYS online manual, if there's no local docu for C-c
-     C-b
->>>>>>> Improve and rename apdl-browse-ansys-apdl-manual
 ** misc
    - bug-report about package.el "NAME-readme.txt", done
    - package-lint

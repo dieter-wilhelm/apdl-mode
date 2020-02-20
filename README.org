@@ -105,11 +105,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    The image below shows the unhidden content.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/unhidden_blocks.png]]
-** Highlighting example
-   The image shows an Emacs 23.2 frame (in reversed colour mode and
-   compiled with the GTK+ toolkit under GNU-Linux) with a ripped off
-   APDL-Mode menu field.  And shows an APDL variable buffer, the APDL
-   file and an APDL template preview.
+** Command Snippet Templates and Highlighting Example
+   The image shows GNU-Emacs with a ripped off APDL-Mode menu field,
+   the APDL variable buffer, the APDL file itself and an APDL template
+   preview.  You are able to collect your most often used command
+   snippets into Emacs' template system and have them available
+   immediately.
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
@@ -166,12 +167,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
    - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
 ** Other APDL editor resources
-   - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
-   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
-     Windows, project disbanded in 2015.
+   - The ANSYS [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, done in 2017
    - Simple APDL syntax highlighting extensions are available for
      various editors, gvim, nedit, ... to name a few, please have a
      look at [[http://ansys.net][ANSYS.net]].
+   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
+     Windows, project disbanded in 2015.
+   - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
 ** ANSYS and APDL resources
    - The ANSYS reference manuals
    - The [[http://www.ansys.com][ANSYS homepage]] with the ANSYS Portal and Learning Hub

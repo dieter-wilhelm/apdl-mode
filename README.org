@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-19>
+#+DATE: Time-stamp: <2020-02-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -52,13 +52,19 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   `WorkBench' and `AIM' operate exclusively the ANSYS solver with it!
   They are producing and sending APDL input (.dat) files to the
   solver.  For a true understanding of the GUIs' inner workings a
-  study of their APDL code is prerequisite!
+  study of their APDL code is prerequisite!  Moreover, the GUIs are
+  not supporting all solver features.  So "Command (APDL)" snippets
+  are used to enhance the GUIs' modelling capabilities.
 
-  Moreover the GUIs are not supporting all solver features.  So
-  "Command (APDL)" snippets are used to enhance the GUIs' modelling
-  capabilities.  When you "Export" such a WorkBench command object it
-  becomes associated with a file and thus editable also with a third
-  party editor.
+  Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
+  files which were created by WorkBench.  Likewise for writing
+  WorkBench `Command' snippets and inspecting longer snippets from
+  other sources.  Accessing swiftly the ANSYS APDL reference
+  documentation alone is worth using APDL-Mode!
+
+  When you "Export" or "Import" such a WorkBench Command (APDL) object
+  it becomes associated with a file and thus is also editable with a
+  third party editor.
 
   [[file:doc/connect_command_snippet_to_file.png]]
 
@@ -67,11 +73,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   button.
 
 * Some Highlights
-  Nowadays I find APDL-Mode mostly useful in writing `Command
-  Snippets' and inspecting longer snippets from other sources.
-  Likewise for studying solver (.dat) files which were created by
-  WorkBench.  Accessing rapidly the ANSYS APDL reference documentation
-  alone is worth using APDL-Mode!
 ** In-built APDL command help with argument counter
    Especially for commands with a large number of arguments it is
    cumbersome to count the arguments, *C-?* facilitates this for you
@@ -114,18 +115,17 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
-#  - APDL-Mode is now available on MELPA
-#  For further installation options
+  #  - APDL-Mode is now available on MELPA
+  #  For further installation options
 
-1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
-   tutorial in its `Help' menu, please really do it ;-).
+  1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
+     tutorial in its `Help' menu, please really do it ;-).  You need at
+     least Emacs version 25.1. for APDL-Mode, current is version 26.3.
 
-2) Download APDL-Mode's tar file from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
+  2) Download APDL-Mode's tar file from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
 
-3) Install the APDL-Mode package (You need at least emacs-25.1.)
-
-   Type `M-x package-install-file' and select the downloaded tar
-   package.
+  3) Install the APDL-Mode package. Pleae type `M-x package-install-file
+     <RET>' and select the downloaded tar package.
 
    # melpa, add the following in your GNU-Emacs init file:
    # (add-to-list 'package-archives
@@ -134,14 +134,18 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    That's it.
 
+   (If you are using Emacs' packaging system for the very first time
+   it is necessary to initiate it first, please type: `M-:
+   (package-intialize) <RET>')
+
    # For further installation options please have a
    # look in the [[file:INSTALLATION.org][INSTALLATION]] file.
 
 * Usage
   Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
   inspect the menu bar's `APDL' and `ANSYS' entries.  Please select
-  `Describe APDL-Mode' (or type `C-h m'), which will display
-  APDL-Mode's help with further guidance.
+  `Describe APDL-Mode' (or type `C-h m'), which will display the
+  mode's help with further guidance.
 
   You might also check the introductory APDL-Mode tutorial
   ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]) as well.
@@ -167,7 +171,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
    - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
 ** Other APDL editor resources
-   - The ANSYS [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, done in 2017
+   - The ANSYS [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, published in 2017
+     (and not maintained since then?)
    - Simple APDL syntax highlighting extensions are available for
      various editors, gvim, nedit, ... to name a few, please have a
      look at [[http://ansys.net][ANSYS.net]].

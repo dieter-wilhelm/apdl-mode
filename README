@@ -14,8 +14,8 @@ FEA models in APDL code.
 ------------------------------
 First usage:
 
-Open an APDL-Mode buffer with `M-x apdl'.  From this buffer you can
-investigate the menu entries `APDL' and `ANSYS'.
+Please type `M-x apdl' to open an APDL-Mode buffer.  From this buffer
+you can investigate the menu entries `APDL' and `ANSYS'.
 
-For the APDL-Mode help please type `C-h m' with a brief tutorial.
+For the APDL-Mode help and a brief tutorial please type `C-h m'.
 

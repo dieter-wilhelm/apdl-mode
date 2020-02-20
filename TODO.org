@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-19>
+#+DATE: Time-stamp: <2020-02-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,8 +15,6 @@
 
 #+STARTUP: showall
 * 20.
-  - package-installed-p: package.el is not yet initialized!
-    emacs-25.1!
   - WB templates :-), no geom stuff
     - shift APDL templates away
     - search templates with keywords

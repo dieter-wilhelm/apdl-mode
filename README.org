@@ -124,7 +124,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   2) Download APDL-Mode's tar file from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
 
-  3) Install the APDL-Mode package. Pleae type `M-x package-install-file
+  3) Install the APDL-Mode package. Please type `M-x package-install-file
      <RET>' and select the downloaded tar package.
 
    # melpa, add the following in your GNU-Emacs init file:
@@ -136,7 +136,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    (If you are using Emacs' packaging system for the very first time
    it is necessary to initiate it first, please type: `M-:
-   (package-intialize) <RET>')
+   (package-initialize) <RET>')
 
    # For further installation options please have a
    # look in the [[file:INSTALLATION.org][INSTALLATION]] file.

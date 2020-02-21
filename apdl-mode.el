@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-18>
+;; Time-stamp: <2020-02-21>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -3383,8 +3383,9 @@ These constructs appear in WorkBench created solver input files."
     p))
 
 ;;with pseudo arguments a b c in case of usage as after-change-function
-;; (defun apdl-find-user-variables (&optional a b c)
-(defun apdl-find-user-variables ()
+(defun apdl-find-user-variables (&optional a b c)
+;;(defun apdl-find-user-variables ()
+;; fontification is not working!? -TODO-
   "Find all user variables in the current buffer.
 Pre-process the findings into the variables `apdl-user-variables'
 and `apdl-user-variable-regexp' for subsequent fontifications.

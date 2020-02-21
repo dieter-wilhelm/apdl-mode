@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-20>
+#+DATE: Time-stamp: <2020-02-21>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -82,13 +82,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    [[file:doc/parameter_help2.png]]
 
 ** Pin-pointing the relevant ANSYS documentation
-   You can trigger (*C-c C-b*) the relevant manual entry directly from
-   your APDL session without the detour of searching in the ANSYS Help
-   Viewer or waiting for the ANSYS online help.  This works not only
-   for APDL commands but also element names and other manual
-   topics. (To that end you must have installed the local ANSYS
-   documentation and configured APDL-Mode.)  The topics are shown in a
-   web browser.
+   You can trigger (*C-c C-b*) the relevant ANSYS manual entry
+   directly from your APDL-Mode session without the detour of
+   searching in the ANSYS Help Viewer or waiting for the ANSYS online
+   help.  This works not only for APDL commands but also element names
+   and other manual topics. (To that end you must have installed the
+   local ANSYS documentation and configured APDL-Mode.)  The topics
+   are shown in a web browser.
 
    The image below is showing a manual entry in GNU-Emacs's EWW
    browser. You are able to consult the manual side-by-side with your
@@ -119,13 +119,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   #  For further installation options
 
   1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
-     tutorial in its `Help' menu, please really do it ;-).  You need at
-     least Emacs version 25.1. for APDL-Mode, current is version 26.3.
+     tutorial in its `Help' menu, please really do it ;-).  You should
+     use at least Emacs version 25.1.
 
-  2) Download APDL-Mode's tar file from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
+  2) Download APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
 
-  3) Install the APDL-Mode package. Please type `M-x package-install-file
-     <RET>' and select the downloaded tar package.
+  3) Install the package in Emacs: Please type `M-x
+     package-install-file <RET>' and select the downloaded tar file.
 
    # melpa, add the following in your GNU-Emacs init file:
    # (add-to-list 'package-archives
@@ -134,9 +134,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    That's it.
 
-   (If you are using Emacs' packaging system for the very first time
-   it is necessary to initiate it first, please type: `M-:
-   (package-initialize) <RET>')
+   *Hint:* If you are getting an error message "package.el is not yet
+     initialized", you are using Emacs' packaging system for the very
+     first time and it is necessary to initialise this machinery
+     first, please type: `M-: (package-initialize) <RET>' and then
+     apply `M-x package-install-file <RET>' again.
 
    # For further installation options please have a
    # look in the [[file:INSTALLATION.org][INSTALLATION]] file.

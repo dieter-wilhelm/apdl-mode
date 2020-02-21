@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-18>
+;; Time-stamp: <2020-02-20>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -457,7 +457,7 @@ customisation variables"
         (message "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
 
   ;; ------------------------------------------------------------
-  (message "%s" "APDL-Mode: Initialised system dependened variables."))  ;; end of init function
+  (message "%s" "APDL-Mode: Initialised system dependent variables."))  ;; end of init function
 
 (defun apdl-ansys-install-directory ()
   "Change the ANSYS installation directory.

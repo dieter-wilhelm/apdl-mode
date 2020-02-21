@@ -14,24 +14,40 @@
 #+title: The TODO file of APDL-Mode
 
 #+STARTUP: showall
-* 20.
-  - WB templates :-), no geom stuff
-    - shift APDL templates away
-    - search templates with keywords
-    - Snippet types
-      - Items (/prep7), attached to tree items
-      - Prep and /solu (before solve command)
-      - /post, no do-loops?
-  - Update (online) documentation: still ANSYS-mode 16.1.!
-  - First edit in *APDL code*: self-insert-command: Wrong number of
-     arguments: (0 . 0), 3
+
+Point - or minor release?
+How bad is install docu in 20.1.0?
+
+* TODO 20.2.0 Release
+  DEADLINE: <2020-04-20 Mon>
+  - WB template system => template branch
+    - temperature dependent material
+    - reaction forces
+    - some images in post
+    - writing files
+    - brittle failure criterion
+  - updating intro tutorial and docu => presentation, (online)
+    documentation: still ANSYS-Mode 16.1.!
+** Todos
+   - What about WB JavaScript!?
+   - WB templates :-), no geom stuff
+     - new -wb-template.el
+     - shift APDL templates away
+     - search templates with keywords
+     - Snippet types
+       - Model items /prep7 like, "attached to model items"
+       - Setup items, /solu (before solve command)
+       - Postprocessing items, /post
+   - First edit in *APDL code*: self-insert-command: Wrong number of
+      arguments: (0 . 0), 3
 ** minor bugs
+   - check highlighting of -license-category
    - M-? with too many commas throws an error, is the error message
      good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
-   - check highlighting of -license-type
 ** checks
+   - Customisation system
 ** wishes
    - Trigger the ANSYS online manual, if there's no local docu for C-c
      C-b
@@ -41,7 +57,6 @@
    - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?
-   - Check the customisation system
 * 20.1.0
 ** misc
    - bug-report about package.el "NAME-readme.txt", done

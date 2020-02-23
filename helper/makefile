@@ -9,15 +9,15 @@
 	@echo "make ELC = compile the el files"
 	@echo "make ALL = MODE + EMACS + EMACS_SRC + TAGS"
 	@echo "make CLEAN = clean the elc files"
-	@echo "make TAG_RELEASE = "
+#	@echo "make TAG_RELEASE = "
 	@echo "make PACK = Emacs tar package"
 	@echo "make [help]  = this help"
 	@echo "make -k = --keep-going, even if some targets can't be made.."
 
-# Semantic versioning: MA.Mi.Pa
+# Semantic versioning: MA.Mi.Pa, Ma = year
 APDL_MAJOR := 20
 APDL_MINOR := 1
-APDL_PATCH := 0
+APDL_PATCH := 1
 
 
 # EMACS_VER needed for Emacs' windows installaion tree
@@ -156,6 +156,7 @@ $(PACKAGE) : $(PACKAGE_FILES)  makefile
 	@test -d $(P_DIR)/doc || \
 	    mkdir $(P_DIR)/doc
 #	@cp -a $(TUTORIALS) P_DIR/doc
+	@cp -a $(TUTORIAL_SOURCES) $(P_DIR)/doc
 	@cp -a $(HELPER_FILES) $(P_DIR)/doc
 	@test -d $(P_DIR)/helper || \
 	    mkdir $(P_DIR)/helper
@@ -169,11 +170,10 @@ $(PACKAGE) : $(PACKAGE_FILES)  makefile
 	@echo "... $@ done."
 	@echo "------------------------------"
 
-
 # MODE: this is the Ansys mode "installation" package
 # the sources are built from GitHub automatically when tagged
 .PHONEY : PACK
-PACK : $(PACKAGE)
+PACK : $(PACKAGE) makefile
 
 .PHONEY : CONTI
 CONTI : A-M-$(VERSION).tar.xz
@@ -317,7 +317,7 @@ TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)
 
-.PHONEY : TAG_RELEASE
-TAG_RELEASE :
-	git tag release-$(VERSION)
+#.PHONEY : TAG_RELEASE
+#TAG_RELEASE :
+#	git tag release-$(VERSION)
 # echo "git tag release-$(VERSION)"

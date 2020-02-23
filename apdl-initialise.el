@@ -1,9 +1,9 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-20>
+;; Time-stamp: <2020-02-23>
 ;; Copyright (C) 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: R20.1.0
+;; Version: 20.1.1
 ;; Keywords: languages, convenience, extensions
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -28,7 +28,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst apdl-mode-version "20.1.0"
+(defconst apdl-mode-version "20.1.1"
   "APDL-Mode version.")
 
 (defconst apdl-ansys-version "v161"
@@ -163,7 +163,7 @@ Set it to port@host.  The default port is 2325."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defining variables
 
-;; (defvar apdl-unix-system-flag nil
+;; (defvar apdl-is-unix-system-flag nil
 ;;   "Non-nil means APDL-mode runs under a Unix system.")
 
 (defvar apdl-current-ansys-version nil
@@ -171,6 +171,9 @@ Set it to port@host.  The default port is 2325."
 This variable is used by the `apdl-skeleton-header' template and
 for setting up variables defaults with ANSYS path specifications,
 like in the variable `apdl-ansys-program'.")
+
+;; from -mode.el
+(defvar apdl-is-unix-system-flag)
 
 ;; from -process.el
 (defvar apdl-classics-flag)
@@ -194,7 +197,7 @@ return nil."
             nil))
          ini
          )
-    (if apdl-unix-system-flag
+    (if apdl-is-unix-system-flag
         (setq ini (concat idir "shared_files/licensing/ansyslmd.ini"))
       (setq ini (concat idir "Shared Files/Licensing/ansyslmd.ini")))
     (if (file-readable-p ini)
@@ -243,7 +246,7 @@ When argument FORCE is non-nil overwrite already set
 customisation variables"
   (message "Initialising system dependent stuff ...")
   ;; 0) -unix-system-flag
-  (setq apdl-unix-system-flag (apdl-is-unix-system-p))
+  (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))
 
   ;; 1) -install-directory (with versioning information)
   (when (null apdl-ansys-install-directory)
@@ -304,7 +307,7 @@ customisation variables"
 
   ;; 1a) -classics-flag
   (let* ()
-    (if (and apdl-unix-system-flag (apdl-classics-p))
+    (if (and apdl-is-unix-system-flag (apdl-classics-p))
         (setq apdl-classics-flag t)))
 
   ;; 2) -current-apdl-version:
@@ -325,7 +328,7 @@ customisation variables"
     (let* ((version1 apdl-current-ansys-version)
            (idir (unless (null apdl-ansys-install-directory)
                    (file-name-directory apdl-ansys-install-directory)))
-           (exe (if apdl-unix-system-flag
+           (exe (if apdl-is-unix-system-flag
                     (concat idir "ansys/bin/ansys" version1)
                   (concat idir "ansys/bin/winx64/ansys"version1".exe"))))
       (if (file-executable-p exe)
@@ -338,7 +341,7 @@ customisation variables"
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-wb) force))
     (let* ((idir apdl-ansys-install-directory)
            (exe
-            (if apdl-unix-system-flag
+            (if apdl-is-unix-system-flag
                 (concat idir "Framework/bin/Linux64/runwb2") ;150, 161
               (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
       (when (file-executable-p exe)
@@ -353,7 +356,7 @@ customisation variables"
            (idir (unless (null apdl-ansys-install-directory)
                    (file-name-directory apdl-ansys-install-directory)))
            (exe
-            (if apdl-unix-system-flag
+            (if apdl-is-unix-system-flag
                 (concat idir "ansys/bin/launcher" version1)
               (concat idir  "ansys/bin/winx64/launcher" version1 ".exe"))))
       (when (file-executable-p exe)
@@ -377,7 +380,7 @@ customisation variables"
     (let* ((idir apdl-ansys-install-directory)
            (version1 apdl-current-ansys-version)
            (exe
-            (if apdl-unix-system-flag
+            (if apdl-is-unix-system-flag
                 (concat idir "ansys/bin/anshelp" version1)
               (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
       (if (file-executable-p exe)
@@ -392,7 +395,7 @@ customisation variables"
                   (directory-file-name
                    apdl-ansys-install-directory)))
            (exe
-            (if apdl-unix-system-flag
+            (if apdl-is-unix-system-flag
                 (concat idir "shared_files/licensing/linx64/lmutil")
               (concat idir "Shared Files/Licensing/winx64/lmutil.exe"))))
       (if (file-executable-p exe)

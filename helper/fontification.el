@@ -1,9 +1,9 @@
 ;;; fontification.el --- building keywords and completions
 
-;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.1.0
+;; Version: 20.1.1
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience, tools, ANSYS, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -877,9 +877,9 @@ By default APDL keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; apdl-keyword.el --- APDL-Mode completion and"
           "highlighting variables. -*- lexical-binding:t -*-\n" ";; This file was built by"
-          "\"fontification.el\" release 20.1.0.\n\n"
+          "\"fontification.el\" release 20.1.1.\n\n"
           ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n"
-          ";; Version: 20.1.0\n"
+          ";; Version: 20.1.1\n"
           ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n"
           ";;; Commentary:\n"
           ";; Code for APDL command help and command completions.\n\n"

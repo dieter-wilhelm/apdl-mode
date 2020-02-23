@@ -38,3 +38,4 @@ helper/tools*
 misc/
 helper/apdl-keyword*
 helper/apdl-mode-*
+apdl-config.el

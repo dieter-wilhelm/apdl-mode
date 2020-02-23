@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-22>
+#+DATE: Time-stamp: <2020-02-23>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -20,24 +20,24 @@ How bad is install docu in 20.1.0?
 
 * TODO 20.2.0 Release
   DEADLINE: <2020-04-20 Mon>
-  - WB template system => template branch
+  - WB template system => template branch: OK
     - temperature dependent material
     - reaction forces
     - some images in post
     - writing files
     - brittle failure criterion
   - updating intro tutorial and docu => presentation, (online)
-    documentation: still ANSYS-Mode 16.1.!
+    documentation: still a mess after renaming
 ** Todos
-   - What about WB JavaScript!?
    - WB templates :-), no geom stuff
      - new -wb-template.el
      - shift APDL templates away
      - search templates with keywords
-     - Snippet types
+     - Command snippet types
        - Model items /prep7 like, "attached to model items"
        - Setup items, /solu (before solve command)
        - Postprocessing items, /post
+   - What about WB JavaScript!?
    - First edit in *APDL code*: self-insert-command: Wrong number of
       arguments: (0 . 0), 3
 ** minor bugs
@@ -256,7 +256,7 @@ How bad is install docu in 20.1.0?
   - check whether all undocumented commands
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
     are still working in V 162
-  - (tags-search "TODO")
+  - (tags-search "-TODO-")
   - (tags-search "FIXME")
   - checkdoc, -ansys-template.el, -ansys-process.el, -mode.el done except
     \\<keymap> & \\[function]
@@ -277,11 +277,11 @@ How bad is install docu in 20.1.0?
     # version No
     (tags-query-replace "161" "162")
     # for _mode_version
-    (tags-query-replace "1\.1" "1.2")
+    (tags-query-replace "20\.1\.0" "20.1.1")
     (tags-query-replace "\"1.1\"" "\"1.2\"")
     # copyright
-    (tags-query-replace "- 2015" "- 2016")
-    (tags-query-replace "fontification.mac" "example.mac")
+    (tags-query-replace "- 2020" "- 2021")
+    # (tags-query-replace "fontification.mac" "example.mac")
 
     checkdoc then dry run: Emacs
     24.5 -Q testing: example.mac /*commands and default command

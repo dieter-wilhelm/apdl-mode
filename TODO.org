@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-20>
+#+DATE: Time-stamp: <2020-02-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -49,6 +49,7 @@ How bad is install docu in 20.1.0?
 ** checks
    - Customisation system
 ** wishes
+   - Replaced README with apdl-mode-readme.txt
    - Trigger the ANSYS online manual, if there's no local docu for C-c
      C-b
    - Melpa integration

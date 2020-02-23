@@ -35,3 +35,6 @@ helper/tools*
 # gimp files
 *.xcf
 *.tar
+misc/
+helper/apdl-keyword*
+helper/apdl-mode-*

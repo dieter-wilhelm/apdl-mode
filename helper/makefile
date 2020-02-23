@@ -136,7 +136,7 @@ X11 := \
 
 
 # PACKAGE_FILES :=  $(X11) $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
-PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) 
+PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOURCES)
 
 default.el : makefile
 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@

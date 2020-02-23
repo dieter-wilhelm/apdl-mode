@@ -1,6 +1,6 @@
-#+DATE: Time-stamp: <2016-05-20>
+#+DATE: Time-stamp: <2020-02-23>
 #+bind: org-html-preamble-format (("en" "%d"))
-#+TITLE:  ANSYS-Mode Highlighting and APDL Reference
+#+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
@@ -20,7 +20,7 @@
 # #+LATEX: \tableofcontents
 #+LATEX_HEADER: \usepackage{scrpage2}
 #+LATEX_HEADER: \titlehead{\includegraphics[width=15cm]{ansys+emacs.png}}
-#+LATEX_HEADER: \subject{ANSYS-Mode}
+#+LATEX_HEADER: \subject{APDL-Mode}
 #+LATEX_HEADER: \subtitle{APDL and Syntax Highlighting}
 #+LATEX_HEADER:\areaset{15cm}{25cm} %textarea on page
 #+LATEX_HEADER:\pagestyle{scrheadings}
@@ -710,7 +710,7 @@ environment!
   /xml                     !undocumented command /xml
   /xfrm                    !documented command   /xfrm
 #+end_src
-* ANSYS-Mode Syntax Highlighting Reference
+* APDL-Mode Syntax Highlighting Reference
 #+BEGIN_LaTeX
   \definecolor{dkgreen}{rgb}{0,0.5,0}
   \definecolor{dkred}{rgb}{0.5,0,0}
@@ -755,7 +755,7 @@ environment!
     !! ------------------------------
     !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
     !! NOTE: This is APDL pseudo code, checking
-    !!  ANSYS-Mode's highlighting capabilities and
+    !!  APDL-Mode's highlighting capabilities and
     !!  certain aspects of the language
     !!  Please see further below.
 #+end_src
@@ -845,7 +845,7 @@ c
 
 ** Highlighting APDL specials
 #+begin_src  ansys :exports none
-!@ --- ANSYS-Mode is highlighting APDL specials ---
+!@ --- APDL-Mode is highlighting APDL specials ---
 #+end_src
 *** Reserved words and _RETURN statements
 #+begin_src ansys :exports none

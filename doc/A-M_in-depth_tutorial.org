@@ -1,6 +1,6 @@
-#+DATE: Time-stamp: <2020-02-03>
+#+DATE: Time-stamp: <2020-02-23>
 #+bind: org-html-preamble-format (("en" "%d"))
-#+TITLE:     Guided ANSYS-Mode hands-on Tutorial
+#+TITLE: Guided APDL-Mode hands-on Tutorial
 
 # #####################################################################
 # TODO
@@ -21,7 +21,7 @@
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
-#+DESCRIPTION: Guided ANSYS-Mode hands-on APDL Tutorial
+#+DESCRIPTION: Guided APDL-Mode hands-on APDL Tutorial
 #+KEYWORDS: Emacs ANSYS FEA APDL MAPDL
 #+LANGUAGE:  en
 #+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
@@ -103,12 +103,12 @@
 	command reference.
 ** Using this tutorial
 
-*** Please read the *introductory* ANSYS-Mode tutorial first
+*** Please read the *introductory* APDL-Mode tutorial first
     This is the file `A-M_introductory_tutorial-162-1.pdf' in the
     mode's archive or use its [[http://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
 
     Ah yes, you are in a hurry (I thought so). *In summary:* You
-    will get an illustrated overiew how ANSYS-Mode can improve your
+    will get an illustrated overiew how APDL-Mode can improve your
     workflows and that the software is available without any costs and
     with (practically) no license restrictions also for commercial
     use.
@@ -145,7 +145,7 @@
     [[./find_file_dialog.png]]
 
     (Shortcut *C-x C-f*) ... and inspect its content.
-** Use ANSYS-Mode's `command help'
+** Use APDL-Mode's `command help'
 
 #+ATTR_LaTeX: height=7.5cm
     [[./parameter_help.png]]
@@ -159,7 +159,7 @@
    {*)
 * APDL editing
 #+begin_src ansys :exports none
-  !! This is the auto-generated APDL source of the ANSYS-Mode
+  !! This is the auto-generated APDL source of the APDL-Mode
   !! hands-on APDL tutorial (from A-M_in-depth_tutorial.org)
   !! Copyright (C) 2006 - 2015 H. Dieter Wilhelm GPL V3
 
@@ -178,7 +178,7 @@
    one. These are more apt for their complete insertion.
 
    You can build your own library.  *Everything* is extensible in
-   Emacs and ANSYS-Mode, not only the APDL templates!
+   Emacs and APDL-Mode, not only the APDL templates!
 
 #+begin_src ansys :exports none
   !@ --- Extensible APDL templates ---
@@ -199,7 +199,7 @@
 #+end_src
 #+begin_src ansys
    !! Check out all available and extendable APDL templates!
-   !! Type "C-c C-s" to trigger the ANSYS-Mode template preview
+   !! Type "C-c C-s" to trigger the APDL-Mode template preview
    !! and then the <TAB> key for a completion window.
    !!
 #+end_src
@@ -574,10 +574,10 @@ Is this not nicely thought out from Emacs' developers, is it?
     !!
   *endif
 #+end_src
-** Check out ANSYS-Mode's built-in documentation
+** Check out APDL-Mode's built-in documentation
    It is allways with you.
 #+begin_src ansys :exports none
-  !@ --- The ANSYS-Mode help ---
+  !@ --- The APDL-Mode help ---
 #+end_src
 #+begin_src ansys
   !! Type "C-h m" for reading the built-in mode help
@@ -734,7 +734,7 @@ Gives you the `cmlist' command
 #+begin_src ansys  :exports none
   !@@ -- Element completions --
 #+end_src
-ANSYS-Mode also complets ANSYS deprecated element names but warns you
+APDL-Mode also complets ANSYS deprecated element names but warns you
 with a distinct highlighting!
 #+begin_src ansys
   !! Completion of element names: type "<ESC> <TAB>" behind `shell'
@@ -787,9 +787,9 @@ After typing the second time *M-/*:
 #+end_src
 ** Abbreviations facility
 #+begin_src ansys :exports none
-  !@ --- ANSYS-Mode defined abbreviations ---
+  !@ --- APDL-Mode defined abbreviations ---
 #+end_src
-*** Use the ANSYS-Mode defined abbreviations
+*** Use the APDL-Mode defined abbreviations
 #+begin_src ansys
   !! type a <SPACE> behind the special character ``' and abbreviation characters
   !!
@@ -815,7 +815,7 @@ After typing the second time *M-/*:
 
   ! Interactive *do loop abbrev.
 #+end_src
-Inspect available abbreviation definitions from ANSYS-Mode.  Display
+Inspect available abbreviation definitions from APDL-Mode.  Display
 all (locally) defined abbreviations with *C-u M-x list-abbrevs*
 #+begin_src ansys
   !! Type a "C-u M-x list-abbrevs" for a list of all mode defined abbreviations
@@ -932,7 +932,7 @@ I should have thought about a better example:
 ** Highlighting APDL specials
 TODO! for this tutorial: Colour the code snippets.
 #+begin_src  ansys :exports none
-!@ --- ANSYS-Mode is highlighting APDL specials ---
+!@ --- APDL-Mode is highlighting APDL specials ---
 #+end_src
 *** Reserved words and _RETURN statements
 #+begin_src ansys :exports none
@@ -1001,7 +1001,7 @@ The APDL processing and debugging environment
    !@ --- APDL environment ---
    !@ ==============================
    !! Prerequisites:
-   !! 1) A fully configured ANSYS-Mode and
+   !! 1) A fully configured APDL-Mode and
    !! 2) a GNU-Linux or GNU-Linux system
 #+end_src
   Finally switch off unnecessay stuff: Emacs' menu-, tool- and
@@ -1124,7 +1124,7 @@ switching, etc.)!
   !!
 #+end_src
 
-To alleviate these severe restrictions ANSYS-Mode provides keybindings
+To alleviate these severe restrictions APDL-Mode provides keybindings
 for replotting, zooming, fitting and moving graphical objects.
 **** Use the keybindings for zooming
 #+begin_src ansys :exports none

@@ -98,7 +98,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../README ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
+FILES := ../LICENSE.org ../apdl-mode-readme.txt ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
 HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
 
 #	 ../doc/APDL_tutorial.ans

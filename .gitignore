@@ -32,3 +32,6 @@ X11/xPasteToWin
 X11/xSendReturn
 doc/file*
 helper/tools*
+# gimp files
+*.xcf
+*.tar

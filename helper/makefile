@@ -317,7 +317,7 @@ TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)
 
-#.PHONEY : TAG_RELEASE
-#TAG_RELEASE :
-#	git tag release-$(VERSION)
-# echo "git tag release-$(VERSION)"
+.PHONEY : TAG_RELEASE
+TAG_RELEASE :
+	git tag -a $(VERSION)
+echo "git tag -a $(VERSION)"

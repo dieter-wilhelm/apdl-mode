@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-23>
+#+DATE: Time-stamp: <2020-02-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,8 +15,13 @@
 
 #+STARTUP: showall
 
-Point - or minor release?
-How bad is install docu in 20.1.0?
+Focus on WorkBench Command Snippets!
+
+1) Help system, online
+2) Docu, intro
+3) WB Templates
+4) Base A-M on ANSYS v201
+5) Clean menus, esp. templates
 
 * TODO 20.2.0 Release
   DEADLINE: <2020-04-20 Mon>
@@ -29,6 +34,8 @@ How bad is install docu in 20.1.0?
   - updating intro tutorial and docu => presentation, (online)
     documentation: still a mess after renaming
 ** Todos
+   - Trigger the ANSYS online manual, if there's no local docu for C-c
+     C-b
    - WB templates :-), no geom stuff
      - new -wb-template.el
      - shift APDL templates away
@@ -37,27 +44,23 @@ How bad is install docu in 20.1.0?
        - Model items /prep7 like, "attached to model items"
        - Setup items, /solu (before solve command)
        - Postprocessing items, /post
-   - What about WB JavaScript!?
-   - First edit in *APDL code*: self-insert-command: Wrong number of
-      arguments: (0 . 0), 3
+   - What about hint to WB JavaScript!?
 ** minor bugs
-   - check highlighting of -license-category
    - M-? with too many commas throws an error, is the error message
      good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
+   - check highlighting of -license-category
 ** checks
-   - Customisation system
+   - First edit in *APDL code*: self-insert-command: Wrong number of
+      arguments: (0 . 0), 3?
+   - Customisation system, is it working?
 ** wishes
-   - Replaced README with apdl-mode-readme.txt
-   - Trigger the ANSYS online manual, if there's no local docu for C-c
-     C-b
-   - Melpa integration
-   - base APDL-Mode on ANSYS 201
+   - Melpa integration for later
    - document the Apdl Parameter Help Duration in M-?
-   - how about deleting the work branch?
+   - how about deleting the work branch, v20, v16?
    - are the material properties documented, matlib?  Matlib is used
-     in -template.el, how about document this directory somewhere?
+     in -template.el, how about document the material db somewhere?
 * 20.1.0
 ** misc
    - bug-report about package.el "NAME-readme.txt", done

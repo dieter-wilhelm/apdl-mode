@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-18>
+;; Time-stamp: <2020-02-24>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -67,6 +67,12 @@
 
 ;; (declare-function buffer-name "") ; in-built
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; requires
+
+(require 'comint)
+(require 'url)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- customisation ---
@@ -563,8 +569,6 @@ initial input."
       (display-buffer (concat "*" apdl-process-name "*") 'other-window)))))
 
 
-(require 'comint)
-
 ;;;###autoload
 (defun apdl-start-ansys ()
   "Start an ANSYS interpreter process under Linux or the launcher under Win.
@@ -769,8 +773,6 @@ elem.
   (let (file
         (path apdl-ansys-help-path)
         command)
-    (unless path
-      (error "Error: `apdl-ansys-help-path' is not configured"))
     (if arg
         (setq command (completing-read "Browse help for keyword: "
                                        apdl-help-index))
@@ -798,7 +800,11 @@ elem.
       (setq file (concat "ai_rn/" file)))
      ((string-match "ansys.theory" file)
       (setq file (concat "ans_thry/" file))))
-    (browse-url-of-file (concat "file:///" path file))))
+    (if path
+	(browse-url-of-file (concat "file:///" path file))
+      (unless apdl-current-ansys-version
+	(error "Please set `apdl-current-ansys-version'"))
+      (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file)))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
@@ -843,7 +849,8 @@ elem.
   ;; agppi -- Design Modeler
   ;; aim_mp -- aim standard
   ;; disc* -- discovery
-  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9]\\{4\\}$"))
+  ;; and time XX:XX:XX of status request
+  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"))
 
 (defun apdl-license-status ()
   "Display the ANSYS license status or start the license tool.

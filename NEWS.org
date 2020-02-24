@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-18>
+#+DATE: Time-stamp: <2020-02-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,7 +17,11 @@
 #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-** Version 20.
+
+** Version 20.2.0
+   - A-M can also use the ANSYS online-help (you don't have to install
+     the local ANSYS help package)
+** Version 20.1.1 2020-02
    - Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual
    - Improved configuration docu
    - EWW as a help viewer is now working under Windows

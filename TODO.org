@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-21>
+#+DATE: Time-stamp: <2020-02-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -47,6 +47,8 @@
      argument!
 ** checks
    - Customisation system
+   - Check C-c C-b, seems not to work for "v201"
+     apdl-current-ansys-version
 ** wishes
    - open EWW in another window!
    - ANSYS uses sinve version 19. by default its online help.  Trigger
@@ -56,7 +58,6 @@
      the help
      https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v195/ans_cmd/Hlp_C_NSEL.html
      - Ansys help configuration:
-
    - Melpa integration
    - base APDL-Mode on ANSYS 201
    - document the Apdl Parameter Help Duration in M-?

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-21>
+;; Time-stamp: <2020-02-24>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -855,7 +855,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                  ["Close Logical Block" apdl-close-block
                   :help "Close an open control block with the corresponding end command"]
                  ["Insert Parentheses" insert-parentheses
-                  :help "Insert a pair of parentheses enclosing marked region. M-x insert-parentheses"];FIXME redundant, necessary for Emacs-23.1
+                  :help "Insert a pair of parentheses enclosing marked region. M-x insert-parentheses"];-FIXME- redundant, necessary for Emacs-23.1
                  ["Preview Macro Template" apdl-display-skeleton
                   :help "Preview an APDL code template in another window"]
                  ["Align region or paragraph" apdl-align
@@ -874,7 +874,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                   version number vXXX.  M-x apdl-ansys-install-directory"]
                  ["Browse APDL command help" apdl-browse-apdl-help
                   :help "Open the original APDL documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
-                  :active (file-readable-p apdl-ansys-help-path)]
+                  :active apdl-current-ansys-version]
                  ["Browse ANSYS APDL Manual" apdl-browse-ansys-apdl-manual
                   :help "Read the original ANSYS APDL Guide in a browser."
                   :active (file-readable-p apdl-ansys-help-path)]

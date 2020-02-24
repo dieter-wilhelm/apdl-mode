@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-21>
+#+DATE: Time-stamp: <2020-02-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -84,11 +84,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** Pin-pointing the relevant ANSYS documentation
    You can trigger (*C-c C-b*) the relevant ANSYS manual entry
    directly from your APDL-Mode session without the detour of
-   searching in the ANSYS Help Viewer or waiting for the ANSYS online
-   help.  This works not only for APDL commands but also element names
-   and other manual topics. (To that end you must have installed the
-   local ANSYS documentation and configured APDL-Mode.)  The topics
-   are shown in a web browser.
+   searching in the ANSYS online help (default since V19).  This works
+   not only for APDL commands but also element names and other manual
+   topics. (To that end you must have started / registered the ANSYS
+   online help once from an ANSYS product.  But I recommend installing
+   the ANSYS documentation locally, loading is much faster.)
 
    The image below is showing a manual entry in GNU-Emacs's EWW
    browser. You are able to consult the manual side-by-side with your

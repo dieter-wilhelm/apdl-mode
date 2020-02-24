@@ -849,7 +849,8 @@ elem.
   ;; agppi -- Design Modeler
   ;; aim_mp -- aim standard
   ;; disc* -- discovery
-  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9]\\{4\\}$"))
+  ;; and time XX:XX:XX of status request
+  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"))
 
 (defun apdl-license-status ()
   "Display the ANSYS license status or start the license tool.

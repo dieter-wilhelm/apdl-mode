@@ -1,9 +1,9 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-20>
-;; Copyright (C) 2020  H. Dieter Wilhelm
+;; Time-stamp: <2020-02-24>
+;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: R20.1.0
+;; Version: 20.2.0
 ;; Keywords: languages, convenience, extensions
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -21,18 +21,23 @@
 
 ;;; Commentary:
 
-;; initialisation code
+;; Initialisation code:
+
+;; Read the ANSYS installation dependent parameters mainly from
+;; environment variables.
 
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst apdl-mode-version "20.1.0"
+(defconst apdl-mode-version "20.2.0"
   "APDL-Mode version.")
 
-(defconst apdl-ansys-version "v161"
-  "ANSYS version on which APDL-Mode is based upon.")
+(defconst apdl-ansys-version "v193"
+  "ANSYS version on which APDL-Mode is based upon.
+With respect to the documentation, like deprecated elements,
+command names, etc.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defcustoms

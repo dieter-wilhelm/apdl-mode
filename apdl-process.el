@@ -710,7 +710,14 @@ variable)."
     (browse-url-of-file (concat "file://" path file))))
 
 (defun apdl-browse-apdl-help ( &optional arg)
-  "Open the ANSYS help for APDL commands and element names in a web browser.
+  "Browse the ANSYS help for APDL commands, elements and other topics.
+
+If you are using the ANSYS online help - default since V19 - then
+you need to register at the ANSYS help site.  Please start some
+help topic with an ANSYS application first, the you can use
+APDL-Mode for pin-pointing your topics.  For an even faster
+access I recommend installing the local ANSYS help.
+
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
 keyword at the line beginning.  (This is working in a comment

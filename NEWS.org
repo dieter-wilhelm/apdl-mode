@@ -19,8 +19,9 @@
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 ** Version 20.2.0
+   - Updated docu for keywords, elements, etc to v193 (mostly to v201)
    - A-M can also use the ANSYS online-help (you don't have to install
-     the local ANSYS help package)
+     the local ANSYS help package, but for speed you should ;-)
 ** Version 20.1.1 2020-02
    - Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual
    - Improved configuration docu

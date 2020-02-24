@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 # #! /bin/env pyhton
 
-#  Copyright (C) 2006 - 20015  H. Dieter Wilhelm GPL V3
+#  Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 # Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 # Maintainer: H. Dieter Wilhelm
-# Version: 16.1.1
+# Version: 20.2.0
 # Keywords: Languages, Convenience, ANSYS
 # 
 # ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -35,9 +35,9 @@ import os
 import glob
 import re
 
-version = "161"                 # ansys version
+version = "201"                 # ansys version
 f_list = glob.glob("Hlp_C_CmdTOC.html")
-out = "ansys_keywords.txt"
+out = "apdl_keywords.txt"
 o = open(out,'w+')              # w+: write anew
 o.write("# Command list for ANSYS V" + version + "\n")
 

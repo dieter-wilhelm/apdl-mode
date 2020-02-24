@@ -13,6 +13,8 @@
 #+LATEX_HEADER:
 #+title: The TODO file of APDL-Mode
 
+# CAD Kernel of spaceclaim is ACIS (licensed from Dassault)
+
 #+STARTUP: showall
 * 20.2.0 Release
   - WB template system => template branch

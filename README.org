@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-21>
+#+DATE: Time-stamp: <2020-02-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -182,7 +182,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      Windows, project disbanded in 2015.
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
 ** ANSYS and APDL resources
-   - The ANSYS reference manuals
+   - The online ANSYS [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
+     the ANSYS [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
    - The [[http://www.ansys.com][ANSYS homepage]] with the ANSYS Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
    - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.

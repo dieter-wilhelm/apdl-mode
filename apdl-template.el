@@ -61,6 +61,8 @@
 
 (declare-function apdl-mode "apdl-mode")
 
+(require 'apdl-wb-template)
+
 (defun apdl-display-skeleton (&optional arg)
   "Display or insert code templates.
 With an argument ARG not equal to 1 insert the template into the

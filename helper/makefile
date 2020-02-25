@@ -2,7 +2,7 @@
 	@echo "This is the makefile of APDL-Mode $(VERSION) using $(EMACS_VERSION)"
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
-	@echo "make EMACS = Windoze version of emacs with pre-configured ANSYS-Mode"
+	@echo "make EMACS = Windoze version of emacs with pre-configured APDL-Mode"
 	@echo "make CONTI = Archive for my company"
 	@echo "make HTML = update the html documentation"
 	@echo "make TAGS = make the etags"
@@ -16,7 +16,7 @@
 
 # Semantic versioning: MA.Mi.Pa
 APDL_MAJOR := 20
-APDL_MINOR := 1
+APDL_MINOR := 2
 APDL_PATCH := 0
 
 
@@ -34,7 +34,11 @@ EMACS_VERSION := emacs-$(EMACS_VER)
 HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
 # the sources dir
-S_DIR := "/home/dieter/ansys-mode/"
+ifeq ($(HOSTNAME),ping)
+S_DIR := "/home/dieter/apdl-mode/"
+else
+S_DIR := "/mnt/hgfs/D/apdl-mode/"
+endif
 
 # use make in the "tags" release directories
 #RELEASE := $(shell $$($(DIR)))
@@ -42,7 +46,7 @@ S_DIR := "/home/dieter/ansys-mode/"
 ifeq ($(HOSTNAME),ping)
  EMACS_DIR := /usr/local/src/emacs/
 else
- EMACS_DIR := /appl/emacs/
+ EMACS_DIR := /usr/local/src/
 endif
 
 VERSION := $(APDL_MAJOR).$(APDL_MINOR).$(APDL_PATCH)
@@ -84,12 +88,12 @@ PACKAGE := apdl-mode-$(VERSION).tar
 
 # necessary el files
 EL_FILES := ../apdl-config.el ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
-	../apdl-initialise.el ../apdl-template.el ../apdl-process.el
+	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el ../apdl-process.el
 # fontification.el is not included since it is not necessary for running A-M
 
 ../apdl-config.el : ../apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
-	  --execute "(add-to-list 'load-path \"~/ansys-mode\")" \
+	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
 	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
 
 ELC_FILES := $(EL_FILES:.el=.elc)
@@ -268,9 +272,9 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "~/ansys-mode/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-../ansys-keyword.el : fontification.el ansys_dynprompt.txt ansys_elements.txt ansys_parametric_functions.txt ansys_get_functions.txt ansys_keywords.txt
+../ansys-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt
 	$(EMACS_EXE) --batch --load $<
-	ln -f ansys-keyword.el ..
+	ln -f apdl-keyword.el ..
 
 # this is for compiling Elisp files, we need to set the load-path for a pristine Emacs
 # -f means --funcall

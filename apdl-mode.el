@@ -2061,9 +2061,9 @@ improvements you have the following options:
       (when (or
                       (when (not buffer-file-name)
                         t) ;skip below size query (buffer without a file)
-                      (> 1000000 (nth 7 (file-attributes (buffer-file-name))))
+                      (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
                       (y-or-n-p
-                       "File is larger than 1MB, switch on user variable highlighting? "))
+                       "File is larger than 30 MB, switch on user variable highlighting? "))
                  (if (and apdl-dynamic-highlighting-flag
                                    (or (string= (buffer-name) "*APDL code*")
                                        (string= (file-name-extension (buffer-file-name) 'dot) ".ans")

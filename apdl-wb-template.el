@@ -1,10 +1,10 @@
 ;;; apdl-wb-template.el --- APDL WorkBench templates for the APDL-Mode   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 20.1.0
+;; Version: 20.2.0
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience, ANSYS, tools, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -42,7 +42,8 @@
 
 ;;; Commentary:
 
-;; Collection of templates for WorkBench command (APDL) objects
+;; Collection of templates for WorkBench and AIM Command (APDL)
+;; objects
 
 ;;; Code:
 
@@ -54,7 +55,7 @@
 ;; strings "here comes\n" str | "default" " again."
 
 ;; default values
-(define-skeleton apdl-wb-test
+(define-skeleton apdl-template-wb-test
   "Write greetings"
   "Type name of idiot: "
   "hello, " str | "Otto von Bernstein" "!\n"
@@ -62,7 +63,7 @@
 
 ;; skeleton in skeleton
 ;; _ interesting / cursor region
-(define-skeleton apdl-wb-test2
+(define-skeleton apdl-template-wb-test2
   "Write greetings"
   "Type name of idiot: "
   ("Put a name in: " "hello, " str "!\n")

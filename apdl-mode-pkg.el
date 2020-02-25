@@ -28,7 +28,7 @@
 
 ;; short doc string less than 36 chars!?
 
-(define-package "apdl-mode" "20.1.0" "Major mode for the APDL programming language."
+(define-package "apdl-mode" "20.2.0" "Major mode for the APDL programming language."
   '((emacs "25.1"))
   :keywords
   '("APDL" "ANSYS" "languages" "FEA" "convenience" "tools")

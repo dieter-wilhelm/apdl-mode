@@ -48,6 +48,8 @@
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
 ** checks
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
    - Customisation system
    - Check C-c C-b, seems not to work for "v201"
      apdl-current-ansys-version

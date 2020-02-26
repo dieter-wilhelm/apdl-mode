@@ -17,7 +17,6 @@
 
 #+STARTUP: showall
 * 20.2.0 Release
-  - start the APDL manual also online
   - mark is active :> deactivate mark!
   - first time start: file-mode specification error:
     (wrong-type-argument)? the same with templates!!
@@ -60,16 +59,10 @@
    - Check C-c C-b, seems not to work for "v201"
      apdl-current-ansys-version
 ** wishes
+   - start the APDL manual also online
+   - Start runbWB2 --aim, Discovery AIM
    - open EWW in another window!
-   - ANSYS uses sinve version 19. by default its online help.  Trigger
-     the ANSYS online manual, if there's no local docu for C-c
-     C-b. You need to log into the ANSYS portal to read the online
-     tutorial!  This address should work if you already logged into
-     the help
-     https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v195/ans_cmd/Hlp_C_NSEL.html
-     - Ansys help configuration:
    - Melpa integration
-   - base APDL-Mode on ANSYS 201
    - document the Apdl Parameter Help Duration in M-?
    - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used

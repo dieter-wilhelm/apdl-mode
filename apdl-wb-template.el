@@ -62,18 +62,17 @@
 
 ;; skeleton in skeleton
 ;; _ interesting / cursor region
-(define-skeleton apdl-template-wb-test2
+(define-skeleton apdl-skeleton-wb-test2
   "Write greetings"
   "Type name of idiot: "
   ("Put a name in: " "hello, " str "!\n")
    "Here "_ "it goes.\n")
 
-(define-skeleton apdl-template-wb-test3
-"Calculate the maximum torque"
+(define-skeleton apdl-skeleton-wb-2d-press-fit_calcs
+"Post: Calculate the maximum torque.
+And other parameters from a plane stress press-fit simulation."
 nil
-"!!here we are" _ "\n"
-(insert-file "/apdl-mode/max_torque.mac")
-)
+(insert-file "./template/plane_stress_press-fit_torque_calculations.mac"))
 
 (provide 'apdl-wb-template)
 

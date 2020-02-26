@@ -1,0 +1,41 @@
+/com,==============================================================
+
+!! Prerequisites:
+!! 1.) 2d plane stress model with element length adjusted!!!!
+!! 2.) Define assymetrical contact options
+!! 3.) Local, cylindrical coordinate system ID:12
+
+!! Adjust the variables
+friction = 0.1 !friction co-efficient
+symmetry = 1   !symmetry order (1 means full model, 2 means half
+	       !model, etc.)
+
+!! *if
+  !! esel,s,type,,cid_press_fit ! must be asymetrical contact
+!! Requires element type variable 'cid_press_fit' and input argument
+!! arg1
+!! *endif
+csys,12 ! local cylindrical co-ordinate system
+
+set,last
+esel,s,ename,,conta172 ! only asymetrical contacts please!
+etable,a,volu	       ! contact element areas (or path)
+etable,r,cent,x	       ! element centres
+!! pressing-out torque
+smult,forc,cp,a,friction,symmetry
+!! Torque
+smult,torq,forc,r
+!! Average contact pressure
+etable,cp,cont,pres
+*get,en,elem,,count
+smult,cpres,cp,,1/en
+
+ssum			       ! summations for all selected elements
+*get,my_force,ssum,,item,forc  ! pressing-out force
+*get,my_torque,ssum,,item,torq ! transmissible torque
+*get,my_avg_contact_pressure,ssum,,item,cpres !average contact pressure
+
+allsel
+
+/com,+++++++++++++++++++
+

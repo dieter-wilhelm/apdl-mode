@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-25>
+#+DATE: Time-stamp: <2020-02-26>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,8 +17,10 @@
 
 #+STARTUP: showall
 * 20.2.0 Release
-  - online help works now also for v201:
   - start the APDL manual also online
+  - mark is active :> deactivate mark!
+  - first time start: file-mode specification error:
+    (wrong-type-argument)? the same with templates!!
 
   - WB template system => template branch
     - dispatcher / selctor : keyword search
@@ -28,6 +30,7 @@
     - writing files
     - brittle failure criterion
 ** Todos
+   - apdl function sets region!
    - 1/en, en is variable but fraction not fontified?
    - what is the advantage of ARG1-9? => parameter system
    - C-c C-s in *APDL code* file-name-extension: Wrong type argument:

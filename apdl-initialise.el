@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el -- initialisation code for apdl-mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-25>
+;; Time-stamp: <2020-02-26>
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
@@ -319,22 +319,23 @@ customisation variables"
     (if (and apdl-is-unix-system-flag (apdl-classics-p))
         (setq apdl-classics-flag t)))
 
-  ;; 2) -current-apdl-version:
-  (when apdl-ansys-install-directory
-    (let* ((idir (file-name-as-directory apdl-ansys-install-directory))
-           (version1 apdl-current-ansys-version)
-           (length))
-      (when (or (and idir
-                     (not version1))
-                force)
-        (setq length (length idir))
-        (setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
-        (setq apdl-current-ansys-version version1)
-        (message "apdl-current-ansys-version=%s" version1))))
+  ;; should be  done in 1)
+  ;; ;; 2) -current-apdl-version:
+  ;; (when apdl-ansys-install-directory
+  ;;   (let* ((idir (file-name-as-directory apdl-ansys-install-directory))
+  ;;          (version1 apdl-current-ansys-version)
+  ;;          (length))
+  ;;     (when (or (and idir
+  ;;                    (not version1))
+  ;;               force)
+  ;;       (setq length (length idir))
+  ;;       (setq version1 (substring (directory-file-name idir) (- length 4) (- length 1)))
+  ;;       (setq apdl-current-ansys-version version1)
+  ;;       (message "apdl-current-ansys-version=%s" version1))))
 
   ;; 3) -program
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-program) force))
-    (let* ((version1 apdl-current-ansys-version)
+    (let* ((version1 (remove ?v apdl-current-ansys-version))
            (idir (unless (null apdl-ansys-install-directory)
                    (file-name-directory apdl-ansys-install-directory)))
            (exe (if apdl-is-unix-system-flag
@@ -352,7 +353,7 @@ customisation variables"
            (exe
             (if apdl-is-unix-system-flag
                 (concat idir "Framework/bin/Linux64/runwb2") ;150, 161
-              (concat idir "Framework/bin/Win64/RunWB2.exe" ))))
+              (concat idir "Framework/bin/Win64/RunWB2.exe" )))) ; 195
       (when (file-executable-p exe)
         (setq apdl-ansys-wb exe))
       (if apdl-ansys-wb
@@ -361,13 +362,13 @@ customisation variables"
 
   ;; 5) -launcher
   (when (and apdl-ansys-install-directory (or (null apdl-ansys-launcher) force))
-    (let* ((version1 apdl-current-ansys-version)
-           (idir (unless (null apdl-ansys-install-directory)
-                   (file-name-directory apdl-ansys-install-directory)))
+    (let* ( (idir (unless (null apdl-ansys-install-directory)
+		    (file-name-directory apdl-ansys-install-directory)))
            (exe
+      ;; since v19 there is no launcher191.exe, only launcher.exe...
             (if apdl-is-unix-system-flag
-                (concat idir "ansys/bin/launcher" version1)
-              (concat idir  "ansys/bin/winx64/launcher" version1 ".exe"))))
+                (concat idir "ansys/bin/launcher")
+              (concat idir  "ansys/bin/winx64/launcher.exe"))))
       (when (file-executable-p exe)
         (setq apdl-ansys-launcher exe))
       (if apdl-ansys-launcher

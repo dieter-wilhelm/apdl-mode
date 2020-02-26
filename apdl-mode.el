@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-25>
+;; Time-stamp: <2020-02-26>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1045,50 +1045,50 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     :help "Change the interconnect server specification (for an solver/interpreter run)"]
                  ["Installation Directory" apdl-ansys-install-directory
                   :label (if apdl-ansys-install-directory
-                                      (concat "Change the Installation Directory [v" apdl-current-ansys-version "]")
+                                      (concat "Change the Installation Directory [" apdl-current-ansys-version "]")
                                     "Set the ANSYS Installation Directory!")
                   :help "For certain functionality you need to set the
                   installation directory of ANSYS, the path up to the
                   version number vXXX.  M-x apdl-ansys-install-directory"]
-   ["Change ANSYS License Type" apdl-license
+   ["Change MAPDL License Type" apdl-license
     :label (concat "Change License Type [" apdl-license "]")
     :help "Specify the license type for an solver/interpreter run. M-x apdl-license"]
    ["Change Job Name of Run" apdl-job
     :label (concat "Change Job Name [" apdl-job "]")
     :help "Specify the job name for an solver/interpreter run. M-x apdl-job"]
-   ["Change the Number of Processors" apdl-no-of-processors
+   ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]" apdl-no-of-processors )
-    :help "Specify the number of processors to use for the ANSYS run definition. M-x apdl-no-of-processors"]
+    :help "Specify the number of processors to use for the ANSYS run definition. (apdl-no-of-processors)"]
    "-"
    ["License Server Status" apdl-license-status
-    :help "Show the license server status (number of licenses available and used)"
+    :help "Show the license server status, the number of licenses available and used (apdl-license-status)"
     :active (and (file-executable-p apdl-lmutil-program) apdl-license-file)]
-   ["ANSYS WorkBench" apdl-start-wb
+   ["Start ANSYS WorkBench" apdl-start-wb
     :active (file-executable-p apdl-ansys-wb)
-    :help "Start the ANSYS WorkBench. M-x apdl-start-wb"]
+    :help "Start the ANSYS WorkBench. (apdl-start-wb)"]
    ["ANSYS MAPDL Product Launcher" apdl-start-launcher
     :active (file-executable-p apdl-ansys-launcher)
-    :help "Start the ANSYS Mechanical APDL Product Launcher. M-x apdl-start-launcher"]
+    :help "Start the ANSYS Mechanical APDL Product Launcher. (apdl-start-launcher)"]
    ["ANSYS Classics GUI" apdl-start-classics
     :active (file-executable-p apdl-ansys-program)
-    :help "Start the ANSYS Classics GUI. M-x apdl-start-classics"]
+    :help "Start the ANSYS Classics MAPDL GUI. (apdl-start-classics)"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys
-    :help "Start an interactive APDL solver/interpreter run. M-x apdl-start-ansys"
+    :help "Start an interactive MAPDL solver/interpreter run under Linux. (apdl-start-ansys)"
     :active (and apdl-unix-system-flag
                                    (file-executable-p apdl-ansys-program)
                                    (not (apdl-process-running-p)))]
    "-"
    ["Connect to Classics" apdl-toggle-classics
     :label (if apdl-classics-flag
-                        "Switch off sending to Classics"
-                      "Switch on sending to Classics")
+                        "Switch off sending to Classics MAPDL"
+                      "Switch on sending to Classics MAPDL")
     :active (and apdl-unix-system-flag (not (apdl-process-running-p)))
     :help "Check whether an ANSYS Classic is running and toogle
-   sending output to it. M-x apdl-toggle-classics"]
+   sending output to it. (apdl-toggle-classics)"]
    ["Send/Copy Region or Paragraph" apdl-send-to-ansys
    :label (if
                         (or apdl-classics-flag (apdl-process-running-p))
-                        "Send region or paragraph to ANSYS"
+                        "Send region or paragraph to MAPDL"
                       "Copy region or paragraph to clipboard")
     :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard. M-x apdl-send-to-ansys"]
    ["Send/Copy Line or Region" apdl-send-to-apdl-and-proceed
@@ -1137,24 +1137,24 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                   ["Move Left" apdl-move-left
                    :help "Move graphics objects to the left. M-x apdl-move-left"
                    :active (or apdl-classics-flag (apdl-process-running-p))])
-   ["Send ANSYS Command Interactively" apdl-query-apdl-command
-    :help "Send interactively an APDL command to a running solver/interpreter process. M-x apdl-query-apdl-command"
+   ["Send MAPDL Command Interactively" apdl-query-apdl-command
+    :help "Send interactively an APDL command to a running MAPDL solver/interpreter process. M-x apdl-query-apdl-command"
     :active (or apdl-classics-flag (apdl-process-running-p))]
    "-"
-   ["Display ANSYS Run Status" apdl-process-status
-    :help "Display the status of the ANSYS solver/interpreter run. M-x apdl-process-status"
+   ["Display MAPDL Run Status" apdl-process-status
+    :help "Display the status of the ANSYS MAPDL solver/interpreter run. M-x apdl-process-status"
     :active (apdl-process-running-p)]
-   ["Exit ANSYS Run" apdl-exit-ansys
-    :help "Exit the active solver/interpreter run. M-x apdl-exit-ansys"
+   ["Exit MAPDL Run" apdl-exit-ansys
+    :help "Exit the active MAPDL solver/interpreter run. M-x apdl-exit-ansys"
     :visible (apdl-process-running-p)]
-   ["Display ANSYS Error File" apdl-display-error-file
-    :help "Display in another window in auto-revert-tail-mode the ANSYS error file (job.err) in the current working directory. M-x apdl-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
-   ["Write ANSYS Stop File" apdl-abort-file
+   ["Display MAPDL Error File" apdl-display-error-file
+    :help "Display in another window in auto-revert-tail-mode the ANSYS MAPDL error file (job.err) in the current working directory. M-x apdl-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
+   ["Write MAPDL Stop File" apdl-abort-file
     :active  (file-readable-p (concat default-directory job-name ".lock"))
     :help "Write a file (JOB.abt containing the word \"nonlinear\") for orderly stopping the solver in the current working directory. M-x apdl-abort-file "]
    "-"
-   ["Kill ANSYS Run" apdl-kill-ansys
-    :help "Kill the current run. M-x apdl-kill-ansys" :active (apdl-process-running-p)]
+   ["Kill MAPDL Run" apdl-kill-ansys
+    :help "Kill the current MAPDL run. M-x apdl-kill-ansys" :active (apdl-process-running-p)]
    ["List all Emacs' Processes" list-processes
     :help "Show all active processes under Emacs, like shells, etc. M-x list-processes"]
    ["View Emacs' Messages" view-echo-area-messages

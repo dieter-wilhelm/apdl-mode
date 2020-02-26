@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-25>
+;; Time-stamp: <2020-02-26>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -49,7 +49,7 @@
 (defvar apdl-ansys-help-path)
 (defvar apdl-mode-install-directory)
 (defvar apdl-current-ansys-version)
-(defvar apdl-ansys-install-directory)
+;(defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
 (defvar apdl-ansys-help-program-parameters)
 (defvar apdl-unix-system-flag)

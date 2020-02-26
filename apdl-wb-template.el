@@ -1,4 +1,4 @@
-;;; apdl-wb-template.el --- APDL WorkBench templates for the APDL-Mode   -*- lexical-binding: t; -*-
+;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -39,7 +39,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;;; Commentary:
 
 ;; Collection of templates for WorkBench and AIM Command (APDL)
@@ -68,6 +67,13 @@
   "Type name of idiot: "
   ("Put a name in: " "hello, " str "!\n")
    "Here "_ "it goes.\n")
+
+(define-skeleton apdl-template-wb-test3
+"Calculate the maximum torque"
+nil
+"!!here we are" _ "\n"
+(insert-file "/apdl-mode/max_torque.mac")
+)
 
 (provide 'apdl-wb-template)
 

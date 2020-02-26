@@ -1,4 +1,4 @@
- help : 
+help : 
 	@echo "This is the makefile of APDL-Mode $(VERSION) using $(EMACS_VERSION)"
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
@@ -87,6 +87,18 @@ X11 : $(X11_FILES)
 PACKAGE := apdl-mode-$(VERSION).tar
 
 # necessary el files
+EL_FILES := ../apdl-config.el ../apdl-mode.e: $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
+
+.PHONEY : EXE
+EXE : $(EMACS_EXE)
+
+X11_FILES := ../X11/xGetClassicsWindow.cpp ../X11/xPasteToWin.cpp ../X11/xGetFocusWindow.cpp ../X11/xSendReturn.cpp
+
+X11_EXE := $(X11_FILES:.cpp=)
+
+PACKAGE := apdl-mode-$(VERSION).tar
+
+# necessary el files
 EL_FILES := ../apdl-config.el ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el ../apdl-process.el
 # fontification.el is not included since it is not necessary for running A-M
@@ -103,7 +115,7 @@ ELC_FILES := $(EL_FILES:.el=.elc)
 ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../README ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
-HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
+EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -139,8 +151,8 @@ X11 := \
 ../X11/xSendReturn.cpp \
 
 
-# PACKAGE_FILES :=  $(X11) $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
-PACKAGE_FILES :=  $(FILES) $(HELPER_FILES) $(EL_FILES) $(MATLIB) 
+# PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
+PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) 
 
 default.el : makefile
 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
@@ -160,7 +172,7 @@ $(PACKAGE) : $(PACKAGE_FILES)  makefile
 	@test -d $(P_DIR)/doc || \
 	    mkdir $(P_DIR)/doc
 #	@cp -a $(TUTORIALS) P_DIR/doc
-	@cp -a $(HELPER_FILES) $(P_DIR)/doc
+	@cp -a $(EXAMPLE_FILES) $(P_DIR)/doc
 	@test -d $(P_DIR)/helper || \
 	    mkdir $(P_DIR)/helper
 	@test -d $(P_DIR)/matlib || \
@@ -193,7 +205,7 @@ A-M-$(VERSION).tar.xz : $(PACKAGE) \ # tools/apdl-mode/README.Conti
 	@echo "syncing.."
 	cd ..;rsync -aR --exclude '*~' $(WORK_EL_FILES:../%=%) $(FILES:../%=%) \
 	    $(TUTORIALS:../%=%) X11/ \
-	    $(MATLIB:../%=%) $(HELPER_FILES:../%=%) $(X11_EXE:../%=%)\
+	    $(MATLIB:../%=%) $(EXAMPLE_FILES:../%=%) $(X11_EXE:../%=%)\
 		helper/tools/apdl-mode/apdl-mode-$(VERSION)
 	@pwd
 	cd ./tools/apdl-mode; ln -sf apdl-mode-$(VERSION) current
@@ -272,7 +284,7 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "~/ansys-mode/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-../ansys-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt
+../ansys-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt makefile
 	$(EMACS_EXE) --batch --load $<
 	ln -f apdl-keyword.el ..
 

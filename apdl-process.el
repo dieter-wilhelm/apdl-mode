@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-24>
+;; Time-stamp: <2020-02-25>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -712,11 +712,11 @@ variable)."
 (defun apdl-browse-apdl-help ( &optional arg)
   "Browse the ANSYS help for APDL commands, elements and other topics.
 
-If you are using the ANSYS online help - default since V19 - then
-you need to register at the ANSYS help site.  Please start some
-help topic with an ANSYS application first, the you can use
-APDL-Mode for pin-pointing your topics.  For an even faster
-access I recommend installing the local ANSYS help.
+ATTENTION: If you are using the ANSYS online help - default since
+V19 - then first you need to register at the ANSYS help site!
+Please start some help topic with an ANSYS application first, the
+you can use APDL-Mode for pin-pointing your topics.  For an even
+faster access I recommend installing the local ANSYS help.
 
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
@@ -811,7 +811,10 @@ elem.
 	(browse-url-of-file (concat "file:///" path file))
       (unless apdl-current-ansys-version
 	(error "Please set `apdl-current-ansys-version'"))
-      (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file)))))
+      ;; since v201 changed the path to the online help:
+      (if (string= apdl-current-ansys-version "v201")
+	  (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
+	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).

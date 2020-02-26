@@ -1,6 +1,6 @@
 ;;; fontification.el --- building keywords and completions
 
-;; Copyright (C) 2006 - 2015 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.2.0

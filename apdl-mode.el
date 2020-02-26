@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-24>
+;; Time-stamp: <2020-02-25>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -867,7 +867,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                   :help "Display all user variable definitions from the current file in another window. M-x apdl-display-variables"]
                  ["Installation Directory" apdl-ansys-install-directory
                   :label (if apdl-ansys-install-directory
-                                      (concat "Change the Installation Directory [v" apdl-current-ansys-version "]")
+                                      (concat "Change the Installation Directory [" apdl-current-ansys-version "]")
                                     "Set the ANSYS Installation Directory!")
                   :help "For certain functionality you need to set the
                   installation directory of ANSYS, the path up to the
@@ -1332,7 +1332,7 @@ The cursor is either in a code comment or comment line."
   (interactive)
   (let ((url "http://dieter-wilhelm.github.io/apdl-mode"))
     (cond
-     (apdl-unix-system-flag
+     (apdl-is-unix-system-flag
       ;; use browse-url-default-browser!
       (if (fboundp 'browse-url-xdg-open)
                    (browse-url-xdg-open url)

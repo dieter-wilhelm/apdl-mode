@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-26>
+;; Time-stamp: <2020-02-27>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -2083,7 +2083,7 @@ improvements you have the following options:
     (apdl-hide-number-blocks))
 
   ;; a-align needs a mark to work for an unspecified region
-  (set-mark 0)
+  ;(set-mark 0) -TODO-
 
   ;; initialise system dependent stuff
   (apdl-initialise)
@@ -2102,7 +2102,7 @@ possible edits are lost."
     (get-buffer-create b)
     (switch-to-buffer b)
     (when (< (buffer-size) 1)
-      (insert "!! This is an unnamed file under APDL-Mode.\n!! Save it and start your APDL hacking...\n"))
+      (insert "!! This is an unnamed file under APDL-Mode.\n!! Please save it (C-x C-s) and start your APDL hacking...\n\n"))
     (apdl-mode)))
 
 ;; FIXME

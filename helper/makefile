@@ -35,7 +35,7 @@ HOSTNAME := $(shell hostname)
 DIR := $(shell pwd)
 # the sources dir
 ifeq ($(HOSTNAME),ping)
-S_DIR := "/home/dieter/apdl-mode/"
+S_DIR := "/home/dieter/a-m/"
 else
 S_DIR := "/mnt/hgfs/D/apdl-mode/"
 endif
@@ -284,7 +284,7 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "~/ansys-mode/helper/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-../ansys-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt makefile
+../apdl-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt makefile
 	$(EMACS_EXE) --batch --load $<
 	ln -f apdl-keyword.el ..
 

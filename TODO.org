@@ -18,29 +18,11 @@
 #+STARTUP: showall
 * 20.2.0 Release
 
-  - WB template system => template branch
-    - menu configuration?
-      - macro templates
-      - WB templates
+  Feature freeze [2020-02-27 Do]
+  Testing of the template branch
 
-	- preview of WB templates C-c C-w
-
-    - dispatcher / selctor : keyword search
-    - temperature dependent material
-    - reaction forces
-    - some images in post
-    - writing files
-    - what is the advantage of ARG1-9? => parameter system
-    - brittle failure criterion
-  - WB templates :-), no geom stuff
-    - shift APDL templates away
-    - search templates with keywords
-    - Snippet types
-      - Model items /prep7 like, "attached to model items"
-      - Setup items, /solu (before solve command)
-      - Postprocessing items, /post
-
-** Todos
+** Todos, bugs
+   - -wbt-if: strange behaviour
    - first time start: file-mode specification error:
      (wrong-type-argument)? the same with templates!!
    - C-c C-s in *APDL code* file-name-extension: Wrong type argument:
@@ -48,28 +30,33 @@
      signaled (wrong-type-argument stringp nil)
    - First edit in *APDL code*: self-insert-command: Wrong number of
       arguments: (0 . 0), 3
+** checks
+   - M-? with too many commas throws an error, is the error message
+     good enough?
+   - Customisation system
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
+   - Check C-c C-b, seems not to work for "v201"
+     apdl-current-ansys-version, Ansys included an "en"
 ** minor bugs
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
-   - M-? with too many commas throws an error, is the error message
-     good enough?
    - The APDL menu entry in the terminal is not working => wrong type
      argument!
-** checks
-   - changed file size without warning to 30 MB what is Emacs-26
-     using?
-   - Customisation system
-   - Check C-c C-b, seems not to work for "v201"
-     apdl-current-ansys-version
 ** wishes
+*** templates
+    - further code examples!
+    - what is the advantage of ARG1-9? => parameter system
+    - intelligent template selector with keywords in the line of helm
+*** misc
    - include example code in function APDL
-   - Start runbWB2 --aim, Discovery AIM
    - open EWW in another window!
    - Melpa integration <= 2021?
    - document the APDL Parameter Help Duration in M-?
    - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?
+   - Start runbWB2 --aim, Discovery AIM
 
 * TODO 20.1.1 Release
   DEADLINE: <2020-02-23 Sun>

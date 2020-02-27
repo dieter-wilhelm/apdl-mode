@@ -138,6 +138,7 @@ TUTORIALS := ../doc/A-M_introductory_tutorial.pdf \
  ../doc/A-M_APDL_reference.pdf
 
 MATLIB := ../matlib/
+TEMPLATE := ../template/
 
 X11 := \
 ../X11/makefile \
@@ -180,6 +181,9 @@ $(PACKAGE) : $(PACKAGE_FILES)  makefile
 # @test -d P_DIR/X11 || \
 #     mkdir P_DIR/X11
 	@cp -rf $(MATLIB) $(P_DIR)
+	@test -d $(P_DIR)/template || \
+	    mkdir $(P_DIR)/template
+	@cp -rf $(TEMPLATE) $(P_DIR)
 	tar -cf $@ $(P_DIR) # ../apdl-mode-readme.txt # default.el
 	@echo
 	@echo "... $@ done."

@@ -148,7 +148,7 @@ Used for the variable `comment-start-skip'.")
 
 (defgroup APDL nil
   "Customisation group for the APDL-Mode."
-  :version "23.1"
+  :version "20.2.0"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link :tag "Online documentation"
                                      "http://dieter-wilhelm.github.io/apdl-mode ")
@@ -526,7 +526,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-t" 'apdl-license)
     (define-key map "\C-c\C-u" 'apdl-copy-or-send-above)
     (define-key map "\C-c\C-v" 'apdl-display-variables)
-    (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim, runwb2--aim?
+    (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim: runwb2--aim?
     (define-key map "\C-c\C-x" 'apdl-start-classics) ;classiX ;-)
     (define-key map "\C-c\C-y" 'apdl-start-launcher)
 ;;    (define-key map "\C-c\C-z" 'apdl-start-aim)
@@ -973,14 +973,12 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                         :help "Insert interactively a *do .. *enddo loop"]
                        ["*IF ... *ELSEIF" apdl-if-then
                         :help "Insert interactively an *if,then .. (*elseif .. *else ..) *endif construct."]
-                       ["MP" apdl-mp
-                        :help "Insert interactively an mp statement."]
-                       ["Header" apdl-skeleton-header
-                        :help "Insert interactively the file header template"]
-                       ["Insert Pi" apdl-insert-pi
-                        :help "Insert the variable definition \"Pi = 3.1415...\""]
+                       ["Do loop" apdl-wbt-do
+                        :help "Insert a do loop."]
+                       ["Header" apdl-wbt-if
+                        :help "Insert an if loop."]
                        "-"
-                       ["Post: Press-fit calcs" apdl-wbt-2d-press-fit_calcs
+                       ["Post: Press-fit calcs" apdl-wbt-post-2d-press-fit_calcs
                         :help "Post: Calculate the maximum torque and other parameters from a plane stress press-fit simulation."])
 		 "-"
                  (list "Navigate Code Lines"

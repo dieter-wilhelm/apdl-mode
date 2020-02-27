@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-26>
+#+DATE: Time-stamp: <2020-02-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -47,11 +47,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   in-depth documentation.
 
   With the advent of the modern ANSYS GUIs - like `WorkBench' or
-  `AIM' - the usage of APDL as a wholesale modelling language has
-  diminished for non automated tasks.  But APDL is here to stay:
-  `WorkBench' and `AIM' operate exclusively the ANSYS solver with it!
-  They are producing and sending APDL input (.dat) files to the
-  solver.  For a true understanding of the GUIs' inner workings a
+  `Discovery AIM' - the usage of APDL as a wholesale modelling
+  language has diminished for non automated tasks.  But APDL is here
+  to stay: `WorkBench' and `AIM' operate exclusively the ANSYS solver
+  with it!  They are producing and sending APDL input (.dat) files to
+  the solver.  For a true understanding of the GUIs' inner workings a
   study of their APDL code is prerequisite!  Moreover, the GUIs are
   not supporting all solver features.  So "Command (APDL)" snippets
   are used to enhance the GUIs' modelling capabilities.
@@ -62,13 +62,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   other sources.  Accessing swiftly the ANSYS APDL reference
   documentation alone is worth using APDL-Mode!
 
-  When you "Export" or "Import" such a WorkBench Command (APDL) object
-  it becomes associated with a file and thus is also editable with a
+  When you "Export" (or "Import") such a WorkBench Command (APDL)
+  object it becomes associated with a file and is editable with a
   third party editor.
 
   [[file:doc/connect_command_snippet_to_file.png]]
 
-  When you are now editing the file the "File Status" in Workbench
+  When you have modified the file then the "File Status" in Workbench
   changes and you can pull-in the updated content with the "Refresh"
   button.
 

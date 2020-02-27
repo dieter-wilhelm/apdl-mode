@@ -107,31 +107,69 @@ key and choose with the mouse 2 button."
 ;; wbt workbench templates:
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; skeleton-insert
-;; docu string
-;; interactor string or nil
-;; strings "here comes\n" str | "default" " again."
+;; ;; skeleton-insert
+;; ;; docu string
+;; ;; interactor string or nil
+;; ;; strings "here comes\n" str | "default" " again."
 
-;; default values
-(define-skeleton apdl-wbt-test
-  "Write greetings"
-  "Type name of idiot: "
-  "hello, " str | "Otto von Bernstein" "!\n"
-  "Here it goes.\n")
+;; ;; default values
+;; (define-skeleton apdl-wbt-test
+;;   "Write greetings"
+;;   "Type name of idiot: "
+;;   "hello, " str | "Otto von Bernstein" "!\n"
+;;   "Here it goes.\n")
 
-;; skeleton in skeleton
-;; _ interesting / cursor region
-(define-skeleton apdl-wbt-test2
-  "Write greetings"
-  "Type name of idiot: "
-  ("Put a name in: " "hello, " str "!\n")
-   "Here "_ "it goes.\n")
+;; ;; skeleton in skeleton
+;; ;; _ interesting / cursor region
+;; (define-skeleton apdl-wbt-test2
+;;   "Write greetings"
+;;   "Type name of idiot: "
+;;   ("Put a name in: " "hello, " str "!\n")
+;;    "Here "_ "it goes.\n")
 
-(define-skeleton apdl-wbt-2d-press-fit_calcs
-"Post: Calculate the maximum torque.
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; "./" seems to be extracted to the Emacs folder ~/.emacs.d/ !!!
+
+;; There are the following Command types in WorkBench:
+;; 1. Prep (/prep7) items, without geometry objects available, only selections
+;; 2. Solu (/solu) items, before solve
+;; 3. Post (/post) items, after solve
+
+(defconst apdl-wb-template-directory
+  "~/.emacs.d/elpa/apdl-mode-20.2.0/template/"
+  "Constant string to centralise the folder of the WorkBench /
+  Discovery AIM template files.")
+
+(define-skeleton apdl-wbt-post-2d-press-fit_calcs
+"Calculate the transmissible torque from contact results.
 And other parameters from a plane stress press-fit simulation."
 nil
-(insert-file "./template/plane_stress_press-fit_torque_calculations.mac"))
+"/com,==============================================================\n"
+"/com, Inserted: " (current-time-string) ", APDL-Mode: " apdl-mode-version " \n"
+"/com,==============================================================\n"
+
+(insert-file (concat apdl-wb-template-directory
+		     "plane_stress_press-fit_torque_calculations.mac")))
+
+(define-skeleton apdl-wbt-do
+  "Insert a *do .. *enddo loop."
+  nil
+  "*do,I,1,10,1" > \n
+  - \n
+  "!*cycle !bypass below commands in *do loop" > \n
+  "*enddo" > \n)
+
+
+(define-skeleton apdl-wbt-if
+  "Insert an *if .. *endif construct."
+  nil
+  "*if,I,eq,J,then" > \n
+  > _ \n
+  "!! *elseif,K,gt,L" > \n
+  "!! *else" > \n
+  "*endif" >)
+
 
 (provide 'apdl-wb-template)
 

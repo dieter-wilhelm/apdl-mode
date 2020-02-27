@@ -48,13 +48,72 @@
 
 (declare-function apdl-mode "apdl-mode")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; --- functions ---
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun apdl-display-wb-skeleton (&optional arg)
+  "Display or insert WorkBench Command (APDL) templates.
+With an argument ARG not equal to 1 insert the template into the
+current buffer instead of previewing it in a separate window.
+You might trigger a completion of templates with the <TAB> or <?>
+key and choose with the mouse 2 button."
+  (interactive "p")
+  (let* (
+         (old-buffer (buffer-name))
+         (new-buffer-name "*APDL-skeleton*")
+         (skeleton-buffer
+          (get-buffer-create new-buffer-name))
+         s  ;yellow indicator line in the preview buffer above content
+         ;; if skeleton window is visible in selected frame
+         (visible  (get-buffer-window new-buffer-name nil))
+         (skel-string
+          ;; we might want to insert it while previewing...
+          (if (and (not (= arg 1)) apdl-last-skeleton visible)
+              apdl-last-skeleton
+            "apdl-wbt-"))
+         (skel
+          (if (= arg 1)
+              (completing-read "Preview template: "
+                               obarray 'commandp t skel-string nil)
+            (completing-read "Insert template: "
+                             obarray 'commandp t skel-string nil)))
+         )
+    (setq apdl-last-skeleton skel)
+    (cond ((= arg 1)
+           (switch-to-buffer-other-window skeleton-buffer)
+           (setq buffer-read-only nil)
+           (remove-overlays)                                                  ;from beginnin and end of buffer
+           (setq apdl-skeleton-overlay (make-overlay 1 1))
+           (kill-region (point-min) (point-max))
+           (funcall (intern-soft skel))
+           ;;    (apdl-skeleton-numbering-controls)
+           ;;    (insert "bla\n")
+           (goto-char (point-min))
+           (unless  (eq major-mode 'apdl-mode)
+             (apdl-mode))
+           (setq s (propertize
+                    (concat "-*- APDL template: "
+                            skel " -*-\n") 'face 'match))
+           (overlay-put apdl-skeleton-overlay 'before-string s)
+           (set-buffer-modified-p nil)
+           (setq buffer-read-only t)
+           (switch-to-buffer-other-window old-buffer)
+           )
+          (t
+           (funcall (intern-soft skel))))))
+
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; wbt workbench templates:
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; skeleton-insert
 ;; docu string
 ;; interactor string or nil
 ;; strings "here comes\n" str | "default" " again."
 
 ;; default values
-(define-skeleton apdl-template-wb-test
+(define-skeleton apdl-wbt-test
   "Write greetings"
   "Type name of idiot: "
   "hello, " str | "Otto von Bernstein" "!\n"
@@ -62,13 +121,13 @@
 
 ;; skeleton in skeleton
 ;; _ interesting / cursor region
-(define-skeleton apdl-skeleton-wb-test2
+(define-skeleton apdl-wbt-test2
   "Write greetings"
   "Type name of idiot: "
   ("Put a name in: " "hello, " str "!\n")
    "Here "_ "it goes.\n")
 
-(define-skeleton apdl-skeleton-wb-2d-press-fit_calcs
+(define-skeleton apdl-wbt-2d-press-fit_calcs
 "Post: Calculate the maximum torque.
 And other parameters from a plane stress press-fit simulation."
 nil

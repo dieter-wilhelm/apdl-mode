@@ -526,7 +526,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-t" 'apdl-license)
     (define-key map "\C-c\C-u" 'apdl-copy-or-send-above)
     (define-key map "\C-c\C-v" 'apdl-display-variables)
-    (define-key map "\C-c\C-w" 'apdl-start-wb) ; or aim?
+    (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim, runwb2--aim?
     (define-key map "\C-c\C-x" 'apdl-start-classics) ;classiX ;-)
     (define-key map "\C-c\C-y" 'apdl-start-launcher)
 ;;    (define-key map "\C-c\C-z" 'apdl-start-aim)
@@ -856,8 +856,6 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                   :help "Close an open control block with the corresponding end command"]
                  ["Insert Parentheses" insert-parentheses
                   :help "Insert a pair of parentheses enclosing marked region. M-x insert-parentheses"];-FIXME- redundant, necessary for Emacs-23.1
-                 ["Preview Macro Template" apdl-display-skeleton
-                  :help "Preview an APDL code template in another window"]
                  ["Align region or paragraph" apdl-align
                   :help "Align APDL variable definitions in a marked region or the current paragraph. M-x apdl-align"]
                  "-"
@@ -882,7 +880,9 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                   :help "Start the ANSYS Help Viewer executable. M-x apdl-start-ansys-help"
                   :active (file-executable-p apdl-ansys-help-program)]
                  "-"
-                 (list "Insert Template"
+                 ["Preview Macro Template" apdl-display-skeleton
+                  :help "Preview an APDL code template in another window"]
+                 (list "Insert Macro Template"
                        ["*IF ... *ENDIF" apdl-if
                         :help "Insert interactively an *if .. *endif construct"]
                        ["*DO ... *ENDDO" apdl-do
@@ -964,6 +964,25 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                         :help "Insert a minimal template for a structural contact simulation"]
                        ["Compilation of templates" apdl-skeleton
                         :help "Insert a compilation of selected templates"])
+                 ["Preview WorkBench Template" apdl-display-wb-skeleton
+                  :help "Preview an WorkBench Command (APDL) template in another window"]
+                 (list "Insert WorkBench Template"
+                       ["*IF ... *ENDIF" apdl-if
+                        :help "Insert interactively an *if .. *endif construct"]
+                       ["*DO ... *ENDDO" apdl-do
+                        :help "Insert interactively a *do .. *enddo loop"]
+                       ["*IF ... *ELSEIF" apdl-if-then
+                        :help "Insert interactively an *if,then .. (*elseif .. *else ..) *endif construct."]
+                       ["MP" apdl-mp
+                        :help "Insert interactively an mp statement."]
+                       ["Header" apdl-skeleton-header
+                        :help "Insert interactively the file header template"]
+                       ["Insert Pi" apdl-insert-pi
+                        :help "Insert the variable definition \"Pi = 3.1415...\""]
+                       "-"
+                       ["Post: Press-fit calcs" apdl-wbt-2d-press-fit_calcs
+                        :help "Post: Calculate the maximum torque and other parameters from a plane stress press-fit simulation."])
+		 "-"
                  (list "Navigate Code Lines"
                        ["Previous Code Line" apdl-previous-code-line
                         :help "Goto previous apdl code line"]

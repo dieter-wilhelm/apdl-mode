@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-26>
+#+DATE: Time-stamp: <2020-02-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,36 +17,39 @@
 
 #+STARTUP: showall
 * 20.2.0 Release
-  - mark is active :> deactivate mark!
-  - first time start: file-mode specification error:
-    (wrong-type-argument)? the same with templates!!
 
   - WB template system => template branch
+    - menu configuration?
+      - macro templates
+      - WB templates
+
+	- preview of WB templates C-c C-w
+
     - dispatcher / selctor : keyword search
     - temperature dependent material
     - reaction forces
     - some images in post
     - writing files
+    - what is the advantage of ARG1-9? => parameter system
     - brittle failure criterion
+  - WB templates :-), no geom stuff
+    - shift APDL templates away
+    - search templates with keywords
+    - Snippet types
+      - Model items /prep7 like, "attached to model items"
+      - Setup items, /solu (before solve command)
+      - Postprocessing items, /post
+
 ** Todos
-   - apdl function sets region!
-   - 1/en, en is variable but fraction not fontified?
-   - what is the advantage of ARG1-9? => parameter system
+   - first time start: file-mode specification error:
+     (wrong-type-argument)? the same with templates!!
    - C-c C-s in *APDL code* file-name-extension: Wrong type argument:
      stringp, nilError during redisplay: (jit-lock-function 1)
      signaled (wrong-type-argument stringp nil)
-   - What about WB JavaScript!?
-   - WB templates :-), no geom stuff
-     - new -wb-template.el
-     - shift APDL templates away
-     - search templates with keywords
-     - Snippet types
-       - Model items /prep7 like, "attached to model items"
-       - Setup items, /solu (before solve command)
-       - Postprocessing items, /post
    - First edit in *APDL code*: self-insert-command: Wrong number of
       arguments: (0 . 0), 3
 ** minor bugs
+   - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - M-? with too many commas throws an error, is the error message
      good enough?
@@ -59,11 +62,11 @@
    - Check C-c C-b, seems not to work for "v201"
      apdl-current-ansys-version
 ** wishes
-   - start the APDL manual also online
+   - include example code in function APDL
    - Start runbWB2 --aim, Discovery AIM
    - open EWW in another window!
-   - Melpa integration
-   - document the Apdl Parameter Help Duration in M-?
+   - Melpa integration <= 2021?
+   - document the APDL Parameter Help Duration in M-?
    - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?

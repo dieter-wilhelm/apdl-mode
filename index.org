@@ -2,8 +2,8 @@
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
-#+TITLE: The ANSYS-Mode Documentation
-# #+DATE: <2015-06-04 Thu>
+#+DATE: Time-stamp: <2020-02-28 16:10:22 uidg1626>
+#+TITLE: The Comprehensive APDL-Mode Documentation
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
 #+DESCRIPTION:
@@ -11,35 +11,41 @@
 #+LANGUAGE: en
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
-#+CREATOR: Emacs 24.5.1 (Org mode 8.2.10)
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
-#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
 #+HTML_HEAD:
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
-* Introduction and installation
-  The [[file:README.org][README]] file
+* Introduction
+  You'll find in [[file:README.org][README.org]] the following topics:
+  - Features
+  - Installation
+  - Usage
+  - Configuration
+  - Customisation
+  - News
+  - License
+  - Acknowledgements
+  - Further Resources
+  - TODOs
 * Tutorials
-  [[file:doc/A-M_introductory_tutorial.org][Introductory tutorial]]
-
-  [[file:doc/A-M_in-depth_tutorial.org][In-depth tutorial]]
-* Configuration
-  The configuration file /default.el/ is decribed in ANSYS-Mode's
-  [[file:doc/default.org][customisation page]].
-* References
-  The Ansys-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
-
-  The [[file:matlib/README.org][ANSYS-Mode material library]].
-* NEWS
-  The [[file:NEWS.org][NEWS]] file
-* Todo
-  [[file:TODO.org][What remains to do]]
-* License
-  The GNU puplic license is in the [[file:LICENSE.org][LICENSE.org]] file
+  - [[file:doc/A-M_introductory_tutorial.org][Introductory Tutorial]]
+  - [[file:doc/A-M_in-depth_tutorial.org][In-depth Tutorial]]
+* Reference Manuals
+  - The Apdl-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
+  - The [[file:matlib/README.org][APDL-Mode material library]].
 -----
+
+# The following is for Emacs
+# local variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
+# end:

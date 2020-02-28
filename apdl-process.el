@@ -1,5 +1,5 @@
-;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-26>
+;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t -*-
+;; Time-stamp: <2020-02-28>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -52,7 +52,7 @@
 ;(defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
 (defvar apdl-ansys-help-program-parameters)
-(defvar apdl-unix-system-flag)
+(defvar apdl-is-unix-system-flag)
 (defvar apdl-lmutil-program)
 (defvar apdl-ansys-help-program)
 
@@ -652,7 +652,7 @@ variable)."
   (apdl-ansys-help-program "")                                          ;checking
   (progn
     (cond
-     (apdl-unix-system-flag
+     (apdl-is-unix-system-flag
       (start-process "apdl-ansys-help-program" nil apdl-ansys-help-program)
       (message "Started the ANSYS Help Viewer..."))
      ((string= system-type "windows-nt")
@@ -787,26 +787,29 @@ elem.
     (setq file (nth 1 (assoc-string command apdl-help-index t)))
     (unless  file
       (error "Keyword \"%s\" is not uniquely completable" command))
-    ;; we must adapt the path to various items!
-    (cond
-     ((string-match "_C_" file)
-      (setq file (concat "ans_cmd/" file)))
-     ((string-match "_E_" file)
-      (setq file (concat "ans_elem/" file)))
-     ((string-match "_P_APDL" file)
-      (setq file (concat "ans_apdl/" file)))
-     ((string-match "_G_AdvTOC" file)
-      (setq file (concat "ans_adv/" file)))
-     ((string-match "_G_StrTOC" file)
-      (setq file (concat "ans_str/" file)))
-     ((string-match "ans_mat.html" file)
-      (setq file (concat "ans_mat/" file)))
-     ((string-match "ctectoc.html" file)
-      (setq file (concat "ans_ctec/" file)))
-     ((string-match "ansysincrelease" file)
-      (setq file (concat "ai_rn/" file)))
-     ((string-match "ansys.theory" file)
-      (setq file (concat "ans_thry/" file))))
+
+    ;; ;; we must adapt the path to various items!
+    ;; ;;  since 201 not any longer
+
+    ;; (cond
+    ;;  ((string-match "_C_" file)
+    ;;   (setq file (concat "ans_cmd/" file)))
+    ;;  ((string-match "_E_" file)
+    ;;   (setq file (concat "ans_elem/" file)))
+    ;;  ((string-match "_P_APDL" file)
+    ;;   (setq file (concat "ans_apdl/" file)))
+    ;;  ((string-match "_G_AdvTOC" file)
+    ;;   (setq file (concat "ans_adv/" file)))
+    ;;  ((string-match "_G_StrTOC" file)
+    ;;   (setq file (concat "ans_str/" file)))
+    ;;  ((string-match "ans_mat.html" file)
+    ;;   (setq file (concat "ans_mat/" file)))
+    ;;  ((string-match "ctectoc.html" file)
+    ;;   (setq file (concat "ans_ctec/" file)))
+    ;;  ((string-match "ansysincrelease" file)
+    ;;   (setq file (concat "ai_rn/" file)))
+    ;;  ((string-match "ansys.theory" file)
+    ;;   (setq file (concat "ans_thry/" file))))
     (if path
 	(browse-url-of-file (concat "file:///" path file))
       (unless apdl-current-ansys-version
@@ -934,7 +937,7 @@ summary rows."
         (setq bol (point))
         (put-text-property bol eol 'face 'font-lock-warning-face)
         ;;  on Windows the license stat buffer doesn't move to point without:
-        (when (not apdl-unix-system-flag)
+        (when (not apdl-is-unix-system-flag)
           (set-window-point (get-buffer-window "*Licenses*") (point)))))
     (unless (equal (current-buffer) (get-buffer "*Licenses*"))
       (display-buffer "*Licenses*" 'otherwindow))

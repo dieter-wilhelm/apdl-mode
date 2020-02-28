@@ -290,7 +290,7 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 
 ../apdl-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt makefile
 	$(EMACS_EXE) --batch --load $<
-	ln -f apdl-keyword.el ..
+	cp apdl-keyword.el ..
 
 # this is for compiling Elisp files, we need to set the load-path for a pristine Emacs
 # -f means --funcall

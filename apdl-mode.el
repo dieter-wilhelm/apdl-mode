@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-27>
+;; Time-stamp: <2020-02-28>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -66,6 +66,7 @@
 
 (require 'apdl-keyword)
 (require 'apdl-template)
+(require 'apdl-wb-template)
 (require 'apdl-process)
 (require 'apdl-initialise)
 
@@ -2294,65 +2295,65 @@ THEN action label."
   (interactive "*")
   (let (bb-keyword str tmp)
     (condition-case nil                                                   ;more pertinent error message -TODO-
-                 (progn
-                   (save-excursion
-                     (apdl-up-block)
-                     (setq bb-keyword (buffer-substring-no-properties
-                                                         (match-beginning 1) (match-end 1)))
-                     ;; for *IF we're getting more than one word (*IF,...,THEN)
-                     (setq tmp (compare-strings bb-keyword 0 nil "*IF" 0 nil 'ignore-case))
-                     (when (> tmp  2)
-                       (setq bb-keyword
-                                      (substring-no-properties
-                                       (buffer-substring-no-properties
-                                        (match-beginning 1) (match-end 1)) 0 3))))
-                   ;; prepare insertion of keyword
-                   (setq str (car (reverse                 ;FIXME: uncomplete, why?
-                                                     ;; RESTRICTED: asssoc-string Emacs 21.4
-                                                     (assoc-string bb-keyword
-                                                                                     apdl-block-match-alist 1))))
-                   ;; capitalise properly
-                   (let ((case-fold-search nil))
-                     (when (string-match
-                                     "\\([a-z].\\)\\|\\(\\*\\|/\\|~\\)[a-z]" bb-keyword)
-                       (setq str (downcase str))))
-                   (cond
-                    ((apdl-in-empty-line-p)
-;; (delete-blank-lines) deletes in 23.1 an isolated empty line
-                     (insert str)
-                     (indent-according-to-mode))
-                    ((apdl-in-indentation-p)
-                     (beginning-of-line)
-                     (open-line 1)
-                     (insert str)
-                     (indent-according-to-mode)
-                     (forward-line 1)
-                     (indent-according-to-mode)
-                     (forward-line -1)
-                     (end-of-line))
-                    ((apdl-in-string-or-comment-p)
-                     (end-of-line)
-                     (newline)
-                     (insert str)
-                     (indent-according-to-mode))
-                    ((and (apdl-code-line-p)
-                                   (not (apdl-at-end-of-text-p)))
-                     (indent-according-to-mode)
-                     (newline 2)
-                     (forward-line -1)
-                     (insert str)
-                     (indent-according-to-mode)
-                     (forward-line 1)
-                     (indent-according-to-mode)
-                     (forward-line -1)
-                     (end-of-line))
-                    (t
-                     (indent-according-to-mode)
-                     (newline)
-                     (insert str)
-                     (indent-according-to-mode)))
-                   (apdl-blink-matching-block)
-                   t)
+	(progn
+	  (save-excursion
+	    (apdl-up-block)
+	    (setq bb-keyword (buffer-substring-no-properties
+			      (match-beginning 1) (match-end 1)))
+	    ;; for *IF we're getting more than one word (*IF,...,THEN)
+	    (setq tmp (compare-strings bb-keyword 0 nil "*IF" 0 nil 'ignore-case))
+	    (when (> tmp  2)
+	      (setq bb-keyword
+		    (substring-no-properties
+		     (buffer-substring-no-properties
+		      (match-beginning 1) (match-end 1)) 0 3))))
+	  ;; prepare insertion of keyword
+	  (setq str (car (reverse                 ;FIXME: uncomplete, why?
+			  ;; RESTRICTED: asssoc-string Emacs 21.4
+			  (assoc-string bb-keyword
+					apdl-block-match-alist 1))))
+	  ;; capitalise properly
+	  (let ((case-fold-search nil))
+	    (when (string-match
+		   "\\([a-z].\\)\\|\\(\\*\\|/\\|~\\)[a-z]" bb-keyword)
+	      (setq str (downcase str))))
+	  (cond
+	   ((apdl-in-empty-line-p)
+	    ;; (delete-blank-lines) deletes in 23.1 an isolated empty line
+	    (insert str)
+	    (indent-according-to-mode))
+	   ((apdl-in-indentation-p)
+	    (beginning-of-line)
+	    (open-line 1)
+	    (insert str)
+	    (indent-according-to-mode)
+	    (forward-line 1)
+	    (indent-according-to-mode)
+	    (forward-line -1)
+	    (end-of-line))
+	   ((apdl-in-string-or-comment-p)
+	    (end-of-line)
+	    (newline)
+	    (insert str)
+	    (indent-according-to-mode))
+	   ((and (apdl-code-line-p)
+		 (not (apdl-at-end-of-text-p)))
+	    (indent-according-to-mode)
+	    (newline 2)
+	    (forward-line -1)
+	    (insert str)
+	    (indent-according-to-mode)
+	    (forward-line 1)
+	    (indent-according-to-mode)
+	    (forward-line -1)
+	    (end-of-line))
+	   (t
+	    (indent-according-to-mode)
+	    (newline)
+	    (insert str)
+	    (indent-according-to-mode)))
+	  (apdl-blink-matching-block)
+	  t)
       (error (message "Cannot find a proper block command to close")))))
 
 ;;; --- Command parameters and command completions ----
@@ -2367,40 +2368,40 @@ The help overlay will be automatically removed after some time
 interval."
   (interactive)
   (let (;(ho (overlay-start apdl-help-overlay))
-                 (lb (line-beginning-position)))
+	(lb (line-beginning-position)))
     (if apdl-timer
-                 (cancel-timer apdl-timer))
+	(cancel-timer apdl-timer))
     (delete-overlay apdl-help-overlay)
-;;      (setq apdl-help-overlay-str str)
-      (move-overlay apdl-help-overlay lb lb)
-      (overlay-put apdl-help-overlay 'before-string str)
-      (setq apdl-timer
-                     (run-at-time
-                      apdl-parameter-help-duration nil
-                      '(lambda ()
-                                  (when (overlayp apdl-help-overlay)
-                                    (delete-overlay apdl-help-overlay)))))))
+    ;;      (setq apdl-help-overlay-str str)
+    (move-overlay apdl-help-overlay lb lb)
+    (overlay-put apdl-help-overlay 'before-string str)
+    (setq apdl-timer
+	  (run-at-time
+	   apdl-parameter-help-duration nil
+	   '(lambda ()
+	      (when (overlayp apdl-help-overlay)
+		(delete-overlay apdl-help-overlay)))))))
 
 (defun apdl-search-comma (str count)
   "Return the index of the COUNT's occurance of a comma in STR.
 Return nil otherwise."
   (let ((index 0)
-                 (c 0))
+	(c 0))
     (while (and (> count c) (not (null index)))
       (setq index (string-match "," str (1+ index))
-                     c (1+ c)))
+	    c (1+ c)))
     index))
 
 ;; (defun apdl-update-parameter-help (&optional a b c)
 (defun apdl-update-parameter-help ()
   "Update parameter help counting according to the cursor position."
   (let ((p (point))
-                 (lo (overlays-in (line-beginning-position) (1- (line-beginning-position)))))
+	(lo (overlays-in (line-beginning-position) (1- (line-beginning-position)))))
     (when (and (not (equal p apdl-parameter-help-position))
-                      (not (equal 1 p))                                  ;-TODO- not working in the first line
-                      (memq apdl-help-overlay lo))
-    (setq apdl-parameter-help-position (point))
-    (apdl-show-command-parameters 1))))
+	       (not (equal 1 p))                                  ;-TODO- not working in the first line
+	       (memq apdl-help-overlay lo))
+      (setq apdl-parameter-help-position (point))
+      (apdl-show-command-parameters 1))))
 
 (defun apdl-show-command-parameters (&optional ask-or-toggle)
   "Display an APDL command parameters help for the command near the cursor.
@@ -2417,72 +2418,72 @@ switch off the command parameters highlighting, with an prefix
 buffer, which might be completed with <TAB>."
   (interactive "p" )
   (let ((case-fold-search t)                                  ;in case customised to nil
-                 (count 0)
-                 substr
-                 tmpstr
-                 start
-                 end
-                 length
-                 str)
+	(count 0)
+	substr
+	tmpstr
+	start
+	end
+	length
+	str)
     ;; enquire or search for a valid command name
     (cond ((= ask-or-toggle 0))                                  ;do nothing
-                   ((= ask-or-toggle 4)
-                    (setq str (completing-read
-                                        "Type function or command name for help: "
-                                        apdl-help-index)))
-                   ((apdl-in-comment-line-p)
-                    (save-excursion
-                      (back-to-indentation)
-                      (skip-chars-forward " !")
-                      (re-search-forward "[^[:space:]]\\w*\\>" nil t))
-                    (setq str (match-string-no-properties 0)))
-                   ((apdl-in-indentation-p) ; we are before a possible command
-                    (save-excursion
-                      (re-search-forward "[^[:space:]]\\w*\\>" nil t)
-                      (setq str (match-string-no-properties 0))))
-                   ((unless (apdl-in-indentation-p)
-                      (save-excursion
-                        (apdl-command-start)
-                        (re-search-forward "[^[:space:]]\\w*\\>" nil t)
-                        (setq str (match-string-no-properties 0))))))
+	  ((= ask-or-toggle 4)
+	   (setq str (completing-read
+		      "Type function or command name for help: "
+		      apdl-help-index)))
+	  ((apdl-in-comment-line-p)
+	   (save-excursion
+	     (back-to-indentation)
+	     (skip-chars-forward " !")
+	     (re-search-forward "[^[:space:]]\\w*\\>" nil t))
+	   (setq str (match-string-no-properties 0)))
+	  ((apdl-in-indentation-p) ; we are before a possible command
+	   (save-excursion
+	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	     (setq str (match-string-no-properties 0))))
+	  ((unless (apdl-in-indentation-p)
+	     (save-excursion
+	       (apdl-command-start)
+	       (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	       (setq str (match-string-no-properties 0))))))
     ;; search, amend and display help string in overlay
     (if (= ask-or-toggle 0)
-                 (delete-overlay apdl-help-overlay)
+	(delete-overlay apdl-help-overlay)
       (catch 'foo
-                 (dolist (s apdl-dynamic-prompt)
-                   (when (string-match (concat "^" str) s)
-                     (setq length (length s))
-                     ;; creating additional row with comma counts
-                     (setq start (string-match "\n" s)) ;looking for the first line break
-                     (setq substr (substring s (1+ start)))
-                     (setq tmpstr (mapconcat
-                                                     (lambda (str)
-                                                       (cond ((string-match "," (string str))
-                                                                       (setq count (1+ count))
-                                                                       (if (> count 9)
-                                                                           (setq count 0))
-                                                                       (format "%d" count))
-                                                                      (t "-")))
-                                                     substr ""))
-                     (when (> count 0)
-                                  (setq s (concat s "\n" tmpstr)))
-                     (setq s (propertize (concat s "\n") 'face 'highlight))
-                     ;; show different face for current argument
-                     (setq count (apdl-count-commas))
-                     (setq start (apdl-search-comma s count))
-                     (cond ((null start)
-;;                                     (skip-chars-backward "[^,]")
-                                     (error "Too many commas, command has fewer arguments"))
-                                    ((= 0 start)
-                                     (setq start  (1+ (string-match "\n" s)))))
-                     (setq end (apdl-search-comma s (1+ count)))
-                     (unless end
-                                   (setq end length))
-                     (add-text-properties start end '(face isearch-fail) s)
-                     (apdl-manage-overlay s)
-                     (throw 'foo nil)))
-                 (delete-overlay apdl-help-overlay)
-                 (error "\"%s\" not found in keyword list" str)))))
+	(dolist (s apdl-dynamic-prompt)
+	  (when (string-match (concat "^" str) s)
+	    (setq length (length s))
+	    ;; creating additional row with comma counts
+	    (setq start (string-match "\n" s)) ;looking for the first line break
+	    (setq substr (substring s (1+ start)))
+	    (setq tmpstr (mapconcat
+			  (lambda (str)
+			    (cond ((string-match "," (string str))
+				   (setq count (1+ count))
+				   (if (> count 9)
+				       (setq count 0))
+				   (format "%d" count))
+				  (t "-")))
+			  substr ""))
+	    (when (> count 0)
+	      (setq s (concat s "\n" tmpstr)))
+	    (setq s (propertize (concat s "\n") 'face 'highlight))
+	    ;; show different face for current argument
+	    (setq count (apdl-count-commas))
+	    (setq start (apdl-search-comma s count))
+	    (cond ((null start)
+		   ;;                                     (skip-chars-backward "[^,]")
+		   (error "Too many commas, command has fewer arguments"))
+		  ((= 0 start)
+		   (setq start  (1+ (string-match "\n" s)))))
+	    (setq end (apdl-search-comma s (1+ count)))
+	    (unless end
+	      (setq end length))
+	    (add-text-properties start end '(face isearch-fail) s)
+	    (apdl-manage-overlay s)
+	    (throw 'foo nil)))
+	(delete-overlay apdl-help-overlay)
+	(error "\"%s\" not found in keyword list" str)))))
 
 (defun apdl-check-capitalisation ( string)
 "Check case of APDL keyword STRING.
@@ -2508,31 +2509,31 @@ buffer with the SPACE key."
   ;; This code taken from lisp-complete-symbol
   (interactive "*")
   (let* ((buffer-name "*APDL-completion*")
-                 (completion-buffer (get-buffer-create buffer-name))
-                 (completion-window (get-buffer-window completion-buffer)))
+	 (completion-buffer (get-buffer-create buffer-name))
+	 (completion-window (get-buffer-window completion-buffer)))
     (if (and (eq last-command this-command)
-                      completion-window                                  ;already window there?
-                      ;;window is visible
-                      (window-live-p completion-window))
-                 ;; If this command was repeated, and
-                 ;; there's a fresh completion window with a live buffer,
-                 ;; and this command is repeated, scroll that window.
-                 (with-current-buffer (window-buffer completion-window)
-                   (if (pos-visible-in-window-p (point-max) completion-window)
-                       (set-window-start completion-window (point-min))
-                     (save-selected-window
-                       (select-window completion-window)
-                       (scroll-up)))))
-      ;; Do completion.
-      (let* ((end (progn (skip-chars-backward " \t") (point)))
-                      (beg (save-excursion (skip-chars-backward "()")
-                                                                      (backward-sexp 1) (point)))
-                      (completion-string (buffer-substring-no-properties beg end))
-                      (completion (try-completion
-                                                     completion-string apdl-completions))
-                      (completion-list (all-completions
-                                                          completion-string apdl-completions))
-                      (cc (apdl-check-capitalisation completion-string)))
+	     completion-window                                  ;already window there?
+	     ;;window is visible
+	     (window-live-p completion-window))
+	;; If this command was repeated, and
+	;; there's a fresh completion window with a live buffer,
+	;; and this command is repeated, scroll that window.
+	(with-current-buffer (window-buffer completion-window)
+	  (if (pos-visible-in-window-p (point-max) completion-window)
+	      (set-window-start completion-window (point-min))
+	    (save-selected-window
+	      (select-window completion-window)
+	      (scroll-up)))))
+    ;; Do completion.
+    (let* ((end (progn (skip-chars-backward " \t") (point)))
+	   (beg (save-excursion (skip-chars-backward "()")
+				(backward-sexp 1) (point)))
+	   (completion-string (buffer-substring-no-properties beg end))
+	   (completion (try-completion
+			completion-string apdl-completions))
+	   (completion-list (all-completions
+			     completion-string apdl-completions))
+	   (cc (apdl-check-capitalisation completion-string)))
 
                  (cond
                   ;; completion not possible
@@ -2822,14 +2823,14 @@ futher number line is in the file signal an error."
     (cond
      ((< dir 1)
       (while (progn
-                        (unless (re-search-backward re nil t)
-                                   (error "Can't find preceding number line"))
-                        (apdl-in-format-construct-p))))
+	       (unless (re-search-backward re nil t)
+		 (error "Can't find preceding number line"))
+	       (apdl-in-format-construct-p))))
      (t
       (while (progn
-                        (unless (re-search-forward re nil t)
-                                   (error "Cant't find subsequent number line"))
-                        (apdl-in-format-construct-p)))))))
+	       (unless (re-search-forward re nil t)
+		 (error "Cant't find subsequent number line"))
+	       (apdl-in-format-construct-p)))))))
 
 (defun apdl-number-block-start()
   "Move to the line beginning before a pure number block.
@@ -2838,7 +2839,7 @@ WorkBench APDL files.  If there is no code before a number block,
 signal an error."
   (interactive)
   (when (or (apdl-in-indentation-p)
-                     (not (apdl-number-line-p)))
+	    (not (apdl-number-line-p)))
     (apdl-search-number-line -1))
   (while (apdl-number-line-p)
     (forward-line -1))
@@ -2850,7 +2851,7 @@ For example an APDL NBLOCK or EBLOCK typically found in
 WorkBench APDL files."
   (interactive)
   (when (or (apdl-at-end-of-text-p)
-                     (not (apdl-number-line-p)))
+	    (not (apdl-number-line-p)))
     (apdl-search-number-line))
   (while (apdl-number-line-p)
     (forward-line))
@@ -2863,26 +2864,26 @@ Skip past intermediate comment and empty lines."
   (interactive "p")
   (unless num (setq num 1))
   (unless (memq last-command '(next-line
-                                                          previous-line
-                                                          apdl-next-code-line
-                                                          apdl-previous-code-line))
+			       previous-line
+			       apdl-next-code-line
+			       apdl-previous-code-line))
     (setq temporary-goal-column (current-column)))
   (cond ((eobp)
-                  (message "End of buffer"))
-                 (t
-                  (forward-line 1)
-                  (while (and (apdl-not-in-code-line-p)
-                                       (not (apdl-last-line-p)))
-                                        (forward-line 1))
-;; (forward-comment (buffer-size))
-                  ;; temporary-goal-column might be a cons cell since E23.2
-                  (move-to-column  (if (integerp temporary-goal-column)
-                                                         (truncate temporary-goal-column)
-                                                       (truncate (car temporary-goal-column))))
-                  (setq num (1- num))
-                  (when (and (not (apdl-last-line-p))
-                                      (/= num 0))
-                    (apdl-next-code-line num)))))
+	 (message "End of buffer"))
+	(t
+	 (forward-line 1)
+	 (while (and (apdl-not-in-code-line-p)
+		     (not (apdl-last-line-p)))
+	   (forward-line 1))
+	 ;; (forward-comment (buffer-size))
+	 ;; temporary-goal-column might be a cons cell since E23.2
+	 (move-to-column  (if (integerp temporary-goal-column)
+			      (truncate temporary-goal-column)
+			    (truncate (car temporary-goal-column))))
+	 (setq num (1- num))
+	 (when (and (not (apdl-last-line-p))
+		    (/= num 0))
+	   (apdl-next-code-line num)))))
 
 (defun apdl-previous-code-line (&optional num)
   "Move NUM lines of APDL code backward, default for NUM is 1.
@@ -2891,26 +2892,26 @@ difference between NUM and actually moved code lines."
   (interactive "p")
   (unless num (setq num 1))
   (unless (memq last-command '(next-line
-                                                          previous-line
-                                                          apdl-next-code-line
-                                                          apdl-previous-code-line))
+			       previous-line
+			       apdl-next-code-line
+			       apdl-previous-code-line))
     (setq temporary-goal-column (current-column)))
   (let ((p 0))
     (forward-line -1)
     (while (and (apdl-not-in-code-line-p)
-                                  (not (apdl-first-line-p)))
+		(not (apdl-first-line-p)))
       (forward-line -1))
     ;; (unless (apdl-first-line-p)                 ;in case we aren't at b-o-l
     ;;   (beginning-of-line)                                  ;for forward-comment
     ;;   (forward-comment (-(buffer-size))) ;and in case we are in a comment line
-;; starting with Emacs 23.1 t-g-c might be a cons cell
+    ;; starting with Emacs 23.1 t-g-c might be a cons cell
     (move-to-column   (if (integerp temporary-goal-column)
-                                                     (truncate temporary-goal-column)
-                                                   (truncate (car temporary-goal-column))))
+			  (truncate temporary-goal-column)
+			(truncate (car temporary-goal-column))))
     (setq num (1- num)
-                   p num)
+	  p num)
     (when (and (apdl-number-line-p)
-                        (/= num 0))
+	       (/= num 0))
       (setq p (apdl-previous-code-line num)))
     p))
 
@@ -3033,30 +3034,30 @@ Return the position thus found.  COUNT may be negative.
 If LEVEL-OFFSET is nonzero, the block level gets an offset of
 LEVEL-OFFSET."
   (let ((min-level-offset (if (> level-offset 0) 0 level-offset)) ;level-offset
-;; can become large (we are going deeper
-;; down block levels) but never
-;; smaller than min-level-offset
-                 (inc (if (> count 0) 1 -1))
-                 (pt (point)))
+	;; can become large (we are going deeper
+	;; down block levels) but never
+	;; smaller than min-level-offset
+	(inc (if (> count 0) 1 -1))
+	(pt (point)))
     (save-excursion
       (while (/= count 0)
-                 (catch 'foo                                                   ;end the inner while loop
-                   (while (or (re-search-forward apdl-block-begin-or-end-regexp nil t inc) ;FIXME:it's not working when
-;; in a block regexp
-                                       (when (/= level-offset 0) (error "Can't reach specified block level")))
-                     (unless (apdl-in-string-or-comment-p)
-                       (cond
-                        ((match-end 1) (setq level-offset (+ level-offset inc))) ;begin-block-keywords
-                        ((match-end 2) (setq level-offset (- level-offset inc)))) ;end-block-keywords
-                       (when (< level-offset min-level-offset)
-                                  (if (< min-level-offset 0)
-                                      (error "Reached minimum block level: Can't go deeper")
-                                    (error "Reached maximum block level: Can't go further up")))
-                       (when (= level-offset 0) (throw 'foo nil)))))
-                 (setq count (- count inc)))
+	(catch 'foo                                                   ;end the inner while loop
+	  (while (or (re-search-forward apdl-block-begin-or-end-regexp nil t inc) ;FIXME:it's not working when
+		     ;; in a block regexp
+		     (when (/= level-offset 0) (error "Can't reach specified block level")))
+	    (unless (apdl-in-string-or-comment-p)
+	      (cond
+	       ((match-end 1) (setq level-offset (+ level-offset inc))) ;begin-block-keywords
+	       ((match-end 2) (setq level-offset (- level-offset inc)))) ;end-block-keywords
+	      (when (< level-offset min-level-offset)
+		(if (< min-level-offset 0)
+		    (error "Reached minimum block level: Can't go deeper")
+		  (error "Reached maximum block level: Can't go further up")))
+	      (when (= level-offset 0) (throw 'foo nil)))))
+	(setq count (- count inc)))
       (if (= pt (point))
-                   (error "No block keyword found")
-                 (point)))))
+	  (error "No block keyword found")
+	(point)))))
 
 (defun apdl-mark-block ()     ;FIXME: this is not consistent with
 ;; mark-paragraph, cursor below construct
@@ -3109,19 +3110,19 @@ end."
   (interactive "p")
   (unless count (setq count 1))
   (let ((c)
-                 (dir (if (< count 0 ) -1 1))
-                 (n (abs count)))
+	(dir (if (< count 0 ) -1 1))
+	(n (abs count)))
     (save-excursion
       (dotimes (i n)
-                 (while (progn
-                                   (setq c (re-search-forward apdl-block-end-regexp nil t dir))
-                                   (unless c
-                                     (if (< dir 0)
-                                         (error "No previous block end(s), %d is(are) missing"
-                                                         (- n i))
-                                       (error "No further block end(s), %d is(are) missing"
-                                                       (- n i))))
-                                   (apdl-in-string-or-comment-p)))))
+	(while (progn
+		 (setq c (re-search-forward apdl-block-end-regexp nil t dir))
+		 (unless c
+		   (if (< dir 0)
+		       (error "No previous block end(s), %d is(are) missing"
+			      (- n i))
+		     (error "No further block end(s), %d is(are) missing"
+			    (- n i))))
+		 (apdl-in-string-or-comment-p)))))
     (goto-char c)))
 
 (defun apdl-previous-block-start-and-conditional (&optional count)
@@ -3134,23 +3135,23 @@ or conditional or looping construct."
   (interactive "p")
   (unless count (setq count 1))
   (let ((c)
-                 (dir (if (< count 0 ) -1 1))
-                 (n (abs count))
-                 (b-regexp
-                  (concat
-                   apdl-block-begin-regexp
-                   "\\|\\*[iI][fF]\\>\\|\\*[cC][yY][cC]\\|\\*[eE][xX][iI]")))
+	(dir (if (< count 0 ) -1 1))
+	(n (abs count))
+	(b-regexp
+	 (concat
+	  apdl-block-begin-regexp
+	  "\\|\\*[iI][fF]\\>\\|\\*[cC][yY][cC]\\|\\*[eE][xX][iI]")))
     (save-excursion
       (dotimes (i n)
-                 (while (progn
-                                   (setq c (re-search-backward b-regexp nil t dir))
-                                   (unless c
-                                     (if (< dir 0)
-                                         (error "No further block start(s), %d is(are) missing"
-                                                         (- n i))
-                                       (error "No previous block start(s), %d is(are) missing"
-                                                       (- n i))))
-                                   (apdl-in-string-or-comment-p)))))
+	(while (progn
+		 (setq c (re-search-backward b-regexp nil t dir))
+		 (unless c
+		   (if (< dir 0)
+		       (error "No further block start(s), %d is(are) missing"
+			      (- n i))
+		     (error "No previous block start(s), %d is(are) missing"
+			    (- n i))))
+		 (apdl-in-string-or-comment-p)))))
     (goto-char c)))
 
 (defun apdl-down-block (&optional down-level)
@@ -3186,46 +3187,46 @@ Signal an error if the keywords are incompatible."
   (when apdl-blink-matching-block-flag
     (let (bb-keyword bb-arg eb-keyword pos eol)
       (when
-                   (and
-                    (apdl-not-in-string-or-comment-p)
-                    (looking-at "\\>")
-                    (save-excursion
-                      (skip-syntax-backward "w") ;FIXME: is * in word syntax?
-                      (looking-at apdl-block-else-or-end-regexp))) ;FIXME: and otherwise?
-                 (save-excursion
-                   (cond
-                    ((match-end 1)                                  ;else keyword
-                     (setq eb-keyword
-                                    (buffer-substring-no-properties
-                                     (match-beginning 1) (match-end 1)))
-                     (apdl-up-block))
-                    ((match-end 2)                                  ;end keyword
-                     (setq eb-keyword
-                                    (buffer-substring-no-properties
-                                     (match-beginning 2) (match-end 2)))
-                     (apdl-skip-block-backwards)))
-                   (forward-word)
-                   (setq pos (point)
-                                  bb-keyword (buffer-substring-no-properties
-                                                       (match-beginning 0) pos)
-;;                                  pos (1+ pos);FIXME: bb-arg is eating commas
-                                  eol (apdl-position 'eol)
-                                  bb-arg (save-excursion
-                                                    (save-restriction
-                                                      (goto-char pos)
-                                                      (while (and (skip-syntax-forward "^<" eol)
-                                                                           (apdl-in-string-p)
-                                                                           (not (forward-char 1))))
-                                                      (skip-syntax-backward " ")
-                                                      (buffer-substring-no-properties pos (point)))))
-                   (if (member-ignore-case
-                        eb-keyword (cdr (assoc-string bb-keyword apdl-block-match-alist 1)))
-                       (progn
-                                  (message "`%s' matches `%s%s'" eb-keyword bb-keyword bb-arg)
-                                  (when (pos-visible-in-window-p)
-                                    (sit-for apdl-blink-matching-delay)))
-                     (error "Block keywords `%s' and `%s' do not match"
-                                     bb-keyword eb-keyword)))))))
+	  (and
+	   (apdl-not-in-string-or-comment-p)
+	   (looking-at "\\>")
+	   (save-excursion
+	     (skip-syntax-backward "w") ;FIXME: is * in word syntax?
+	     (looking-at apdl-block-else-or-end-regexp))) ;FIXME: and otherwise?
+	(save-excursion
+	  (cond
+	   ((match-end 1)                                  ;else keyword
+	    (setq eb-keyword
+		  (buffer-substring-no-properties
+		   (match-beginning 1) (match-end 1)))
+	    (apdl-up-block))
+	   ((match-end 2)                                  ;end keyword
+	    (setq eb-keyword
+		  (buffer-substring-no-properties
+		   (match-beginning 2) (match-end 2)))
+	    (apdl-skip-block-backwards)))
+	  (forward-word)
+	  (setq pos (point)
+		bb-keyword (buffer-substring-no-properties
+			    (match-beginning 0) pos)
+		;;                                  pos (1+ pos);FIXME: bb-arg is eating commas
+		eol (apdl-position 'eol)
+		bb-arg (save-excursion
+			 (save-restriction
+			   (goto-char pos)
+			   (while (and (skip-syntax-forward "^<" eol)
+				       (apdl-in-string-p)
+				       (not (forward-char 1))))
+			   (skip-syntax-backward " ")
+			   (buffer-substring-no-properties pos (point)))))
+	  (if (member-ignore-case
+	       eb-keyword (cdr (assoc-string bb-keyword apdl-block-match-alist 1)))
+	      (progn
+		(message "`%s' matches `%s%s'" eb-keyword bb-keyword bb-arg)
+		(when (pos-visible-in-window-p)
+		  (sit-for apdl-blink-matching-delay)))
+	    (error "Block keywords `%s' and `%s' do not match"
+		   bb-keyword eb-keyword)))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hiding regions heavily borrowed from M. Dahls hide-region.el
@@ -3401,8 +3402,8 @@ These constructs appear in WorkBench created solver input files."
 
 ;;with pseudo arguments a b c in case of usage as after-change-function
 (defun apdl-find-user-variables (&optional a b c)
-;;(defun apdl-find-user-variables ()
-;; fontification is not working!? -TODO-
+  ;;(defun apdl-find-user-variables ()
+  ;; fontification is not working!? -TODO-
   "Find all user variables in the current buffer.
 Pre-process the findings into the variables `apdl-user-variables'
 and `apdl-user-variable-regexp' for subsequent fontifications.
@@ -3412,25 +3413,25 @@ Added pseudo arguments A B C."
   (save-excursion
     (save-match-data
       (let (res var com)                 ; Start with APDL *USE vars
-                 (setq apdl-user-variables ())
+	(setq apdl-user-variables ())
 
-                 (dolist (command apdl-variable-defining-commands)
-                   (setq com (car command))
-                   (goto-char (point-min))
+	(dolist (command apdl-variable-defining-commands)
+	  (setq com (car command))
+	  (goto-char (point-min))
 
-                   (while (re-search-forward
-                                    ;; take care of variables clashing with command names
-                                    (concat "\\(?:^\\|$\\)\\s-*" com
- "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
-                     (setq var (match-string-no-properties 1))
-                   ;; format line, comment, message, C***
-                     (unless (or (apdl-in-string-or-comment-p)
-                                                   (apdl-in-string-command-line-p)
-                                                   (apdl-in-format-construct-p)
-                                                   (apdl-find-duplicate-p var apdl-user-variables))
-                       (add-to-list 'apdl-user-variables
-;;                                                      (match-beginning 1)
-                                                      (list var (line-number-at-pos))))))
+	  (while (re-search-forward
+		  ;; take care of variables clashing with command names
+		  (concat "\\(?:^\\|$\\)\\s-*" com
+			  "\\s-*,\\s-*\\([[:alpha:]][[:alnum:]_]\\{0,31\\}\\)") nil t)
+	    (setq var (match-string-no-properties 1))
+	    ;; format line, comment, message, C***
+	    (unless (or (apdl-in-string-or-comment-p)
+			(apdl-in-string-command-line-p)
+			(apdl-in-format-construct-p)
+			(apdl-find-duplicate-p var apdl-user-variables))
+	      (add-to-list 'apdl-user-variables
+			   ;;                                                      (match-beginning 1)
+			   (list var (line-number-at-pos))))))
 
                   ;; APDL = assignment
                  (goto-char (point-min))
@@ -3469,11 +3470,11 @@ Added pseudo arguments A B C."
 This function is used as a highlighting function."
   (save-excursion
     (while (progn
-                      (re-search-forward variable limit t)
-                      (or (apdl-in-asterisk-comment-p)
-                                   (and (or (apdl-in-format-construct-p)
-                                                     (apdl-in-string-command-line-p)
-                                                     (not (looking-at "%")))))))))
+	     (re-search-forward variable limit t)
+	     (or (apdl-in-asterisk-comment-p)
+		 (and (or (apdl-in-format-construct-p)
+			  (apdl-in-string-command-line-p)
+			  (not (looking-at "%")))))))))
 
 (defun apdl-highlight-variable (limit)
   "Find user variables from (point) to position LIMIT for highlighting.
@@ -3517,54 +3518,54 @@ argument ARG, the function evaluates the variable at point."
     (unless (or (apdl-process-running-p) apdl-classics-flag)
       (error "No MAPDL process running"))
     (let* (
-                    (pt (point))
-                    (re "\s_[[:word:]]*")
-                    (lbp (line-beginning-position))
-                    (str (buffer-substring-no-properties
-                                   (save-excursion (+ pt (skip-chars-backward re lbp)))
-                                   (save-excursion (+ pt (skip-chars-forward re))))))
+	   (pt (point))
+	   (re "\s_[[:word:]]*")
+	   (lbp (line-beginning-position))
+	   (str (buffer-substring-no-properties
+		 (save-excursion (+ pt (skip-chars-backward re lbp)))
+		 (save-excursion (+ pt (skip-chars-forward re))))))
       (if apdl-classics-flag
-                   (progn
-                     (kill-new (concat "*status," str "\n"))
-                     (apdl-send-to-classics))
-                 (comint-send-string (get-process apdl-process-name)
-                                                       (concat "*status," str "\n"))
-                 (display-buffer (concat "*" apdl-process-name "*") 'other-window))
+	  (progn
+	    (kill-new (concat "*status," str "\n"))
+	    (apdl-send-to-classics))
+	(comint-send-string (get-process apdl-process-name)
+			    (concat "*status," str "\n"))
+	(display-buffer (concat "*" apdl-process-name "*") 'other-window))
       (message  (concat "Enquiring status for variable: " str))))
    (t
-     (apdl-find-user-variables)
-     (let* ((current-buffer (buffer-name))
-                     (buffer-name "*APDL-variables*")
-                     (variable-buffer (get-buffer-create buffer-name))
-                     str old-num com
-                     (num 0))
-       (set-buffer variable-buffer)
-       ;; make buffer writable
-       (read-only-mode -1)
-       (kill-region (point-min) (point-max))
-       ;; insert header
-       (insert
-                 (propertize
-                  (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
-                  'face 'match))
-       (insert (propertize "Line  | Definition\n" 'mouse-face
-                                                      'highlight 'face 'bold))
-       ;; insert variable lines
-       (dolist (command apdl-user-variables)
-                  (setq old-num num
-                        num (cadr command)                 ;cadr same as nth 1
-                        com (apdl-copy-buffer-line current-buffer num)
-                        str (concat
-                                      (propertize (format "%5d | " num)
-                                                                    'mouse-face 'highlight 'face 'bold)
-                                      com "\n"))
-                  (unless (= num old-num)
-                    (insert str)))
-       (goto-char (point-min))
-       ;; make buffer read-only
-       (read-only-mode 1)
-       (set-buffer current-buffer)
-       (display-buffer buffer-name 'other-window)))))
+    (apdl-find-user-variables)
+    (let* ((current-buffer (buffer-name))
+	   (buffer-name "*APDL-variables*")
+	   (variable-buffer (get-buffer-create buffer-name))
+	   str old-num com
+	   (num 0))
+      (set-buffer variable-buffer)
+      ;; make buffer writable
+      (read-only-mode -1)
+      (kill-region (point-min) (point-max))
+      ;; insert header
+      (insert
+       (propertize
+	(concat "-*- APDL variables of buffer " current-buffer " -*-\n")
+	'face 'match))
+      (insert (propertize "Line  | Definition\n" 'mouse-face
+			  'highlight 'face 'bold))
+      ;; insert variable lines
+      (dolist (command apdl-user-variables)
+	(setq old-num num
+	      num (cadr command)                 ;cadr same as nth 1
+	      com (apdl-copy-buffer-line current-buffer num)
+	      str (concat
+		   (propertize (format "%5d | " num)
+			       'mouse-face 'highlight 'face 'bold)
+		   com "\n"))
+	(unless (= num old-num)
+	  (insert str)))
+      (goto-char (point-min))
+      ;; make buffer read-only
+      (read-only-mode 1)
+      (set-buffer current-buffer)
+      (display-buffer buffer-name 'other-window)))))
 
 (defun apdl-customise-ansys ()
   "Call the Emacs customisation facility for APDL-Mode."

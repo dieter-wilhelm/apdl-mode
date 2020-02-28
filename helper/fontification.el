@@ -408,7 +408,7 @@ And the solver won't allow characters appended to.")
 
 (defun APDL-get-functions (list)
   (mapcar
-   '(lambda (name)
+   #'(lambda (name)
        (list
         (concat "\\(" name "\\)\\s-*(")
         1
@@ -418,7 +418,7 @@ And the solver won't allow characters appended to.")
 
 (defun APDL-parametric-functions (list)
   (mapcar
-   '(lambda (name)
+   #'(lambda (name)
        (list
         (concat "\\(" name "\\)\\s-*(")
         '(1 font-lock-function-name-face keep)))
@@ -566,9 +566,9 @@ Function names are distinguished by `()'."
   (append
    Apdl_elements
    Apdl_commands
-   (mapcar '(lambda (str) (concat str "()"))
+   (mapcar #'(lambda (str) (concat str "()"))
            Apdl_get_functions)
-   (mapcar '(lambda (str) (concat str "()"))
+   (mapcar #'(lambda (str) (concat str "()"))
            Apdl_parametric_functions)))
 
 ;; ------------------------------------------------------------
@@ -593,7 +593,7 @@ Function names are distinguished by `()'."
 ;; we are adding to the top!
 ;;
 
-  (insert "(provide 'apdl-keyword)\n;;; apdl-keyword.el ends here\n")
+  (insert "(provide 'apdl-keyword)\n\n;;; apdl-keyword.el ends here\n")
 
 ;; ---------- undocumented commands ----------
 
@@ -623,7 +623,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
       (add-to-list 'list (match-string 0) 'append)))
 ;; now include the undocumented commands
   (setq list (append list
-                     (mapcar '(lambda (m) (concat m " - APDL undocumented command\n" m))
+                     (mapcar #'(lambda (m) (concat m " - APDL undocumented command\n" m))
                              Apdl_undocumented_commands)))
 ;;  (sort list 'string<)
   (set-buffer buffer)
@@ -795,9 +795,9 @@ Together with their proposed replacements.\")\n\n")
 ;;           parametric-functions get-functions))
 
   (setq get-functions
-        (mapcar '(lambda (s) (concat s "()")) get-functions))
+        (mapcar #'(lambda (s) (concat s "()")) get-functions))
   (setq parametric-functions
-        (mapcar '(lambda (s) (concat s "()")) parametric-functions))
+        (mapcar #'(lambda (s) (concat s "()")) parametric-functions))
   (insert "(defconst apdl-completions\n'")
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (append
@@ -886,10 +886,10 @@ By default APDL keywords, get-functions, parametric-function and elements
           "\"fontification.el\" release 20.2.0.\n\n"
           ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n"
           ";; Version: 20.2.0\n"
-          ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n"
+          ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n\n"
           ";;; Commentary:\n"
-          ";; Code for APDL command help and command completions.\n\n"
-          ";;; Code:\n")
+          ";;  Code for APDL command help and command completions.\n\n"
+          ";;; Code:\n\n")
   (save-buffer)
   (message "apdl-keywords.el done.")
 ;; --- end of let

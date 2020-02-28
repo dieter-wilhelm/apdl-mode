@@ -46,6 +46,9 @@
 
 ;;; Code:
 
+(defvar apdl-last-skeleton)
+(defvar apdl-skeleton-overlay)
+
 (declare-function apdl-mode "apdl-mode")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

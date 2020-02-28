@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-27>
+#+DATE: Time-stamp: <2020-02-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -162,7 +162,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
   file endings, especially the `.mac' suffix.  Please read the file
   [[file:apdl-config.org][apdl-config.org]], or the accompanying template file [[file:ansys-config.el][apdl-config.el]].
-
 * News
   Please have a look into the [[file:NEWS.org][NEWS]] file
 * License

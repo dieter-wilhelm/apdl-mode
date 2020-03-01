@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-28>
+;; Time-stamp: <2020-03-01>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1389,7 +1389,7 @@ and P-MAX) otherwise align the current code paragraph."
 
 ;;;###autoload
 (defun apdl-mode ()
-"Editor support for the APDL language and working with ANSYS FEA.
+  "Editor support for the APDL language and working with ANSYS FEA.
 
 == APDL-Mode help contents ==
 
@@ -1969,11 +1969,11 @@ improvements you have the following options:
 
 ====================== End of APDL-Mode help ===================="
 
-;; You can improve the loading and execution speed of APDL-Mode
-;; with a byte-compilation of its lisp files (if they are not
-;; already compiled, i. e. they have the suffix '.elc', please read
-;; the section 'Byte Compilation' in the Emacs lisp reference, which
-;; is availabe from the help menu).
+  ;; You can improve the loading and execution speed of APDL-Mode
+  ;; with a byte-compilation of its lisp files (if they are not
+  ;; already compiled, i. e. they have the suffix '.elc', please read
+  ;; the section 'Byte Compilation' in the Emacs lisp reference, which
+  ;; is availabe from the help menu).
 
   (interactive)
 
@@ -1982,8 +1982,8 @@ improvements you have the following options:
   (put 'apdl-previous-major-mode 'permanent-local t)
 
   (when (and (overlayp apdl-help-overlay)
-                      (overlay-buffer apdl-help-overlay))
-                                      (delete-overlay apdl-help-overlay))
+	     (overlay-buffer apdl-help-overlay))
+    (delete-overlay apdl-help-overlay))
 
   (kill-all-local-variables)                                  ; convention
   (setq major-mode 'apdl-mode)
@@ -2031,8 +2031,8 @@ improvements you have the following options:
 
   ;; overlay for command-parameter-help
 
-;;  (make-local-variable 'apdl-timer)
-;;  (make-local-variable 'apdl-help-overlay)
+  ;;  (make-local-variable 'apdl-timer)
+  ;;  (make-local-variable 'apdl-help-overlay)
   (setq apdl-help-overlay (make-overlay 1 1))
 
   ;; look at newcomment.el
@@ -2050,12 +2050,12 @@ improvements you have the following options:
 
   (make-local-variable 'outline-regexp)
   (make-local-variable 'apdl-hide-region-overlays)
-;;  outline searches only at the line beginning
+  ;;  outline searches only at the line beginning
   (setq outline-regexp (concat "!\\(" apdl-outline-string "\\)+"))
 
   ;; discrepancies from Emacs defaults
   (apdl-font-lock-mode)                 ;switch on font-lock when it's toggled
-;;  (delete-selection-mode t)
+  ;;  (delete-selection-mode t)
   (toggle-truncate-lines 1)
   (show-paren-mode t)
   (set (make-local-variable 'scroll-preserve-screen-position) nil)
@@ -2074,38 +2074,70 @@ improvements you have the following options:
   (apdl-add-apdl-menu)
 
   ;; --- user variables ---
-  (message "User variables")
-  (if (>= apdl-highlighting-level 2)
-      (when (or
-                      (when (not buffer-file-name)
-                        t) ;skip below size query (buffer without a file)
-                      (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
-                      (y-or-n-p
-                       "File is larger than 30 MB, switch on user variable highlighting? "))
-                 (if (and apdl-dynamic-highlighting-flag
-                                   (or (string= (buffer-name) "*APDL code*")
-                                       (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
-                                       (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
-                     (progn (add-hook 'after-change-functions
-                                                        'apdl-find-user-variables nil t)
-                                     (add-hook 'post-command-hook
-                                                        'apdl-update-parameter-help nil t)
-                                     (message "Dynamic highlighting of user variables activated."))
-                   (message "Non-dynamic highlighting of variables activated."))
-                 (apdl-find-user-variables)))
+  ;;
+  (message "Dealing with user variables.")
+  ;; -highlighting-level >= 2 and apdl-dynamic-highlighting-flag
+  (if (and (>= apdl-highlighting-level 2)
+	   apdl-dynamic-highlighting-flag
+	   (or
+	    ;; either *APDL code* buffer
+	    (string= (buffer-name) "*APDL code*")
+	    ;; or  .mac or .ans files and both smaller than 30 Mb
+	    (and (buffer-file-name)
+		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
+		 ;; 30 Mb bigger than file?
+		 (when (file-attributes (buffer-file-name)) ;opened an existing file
+		   (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
+		       t
+		     (y-or-n-p "File is larger than 30 MB, switch on user variable highlighting? "))))))
+      (progn
+	(message "before apdl-update-p.")
+	(add-hook 'after-change-functions
+		  'apdl-find-user-variables nil t)
+	(add-hook 'post-command-hook
+		  'apdl-update-parameter-help nil t)
+	(message "Dynamic highlighting of user variables activated."))
+    (message "Non-dynamic highlighting of variables activated."))
+
+    (apdl-find-user-variables)
+
+;;   (if (>= apdl-highlighting-level 2)
+;;       (when (or
+;; 	     (when (not buffer-file-name)
+;; 	       t) ;skip below size query (buffer without a file)
+;; 	     (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
+;; 	     (y-or-n-p
+;; 	      "File is larger than 30 MB, switch on user variable highlighting? "))
+;; 	(message "before if.")
+;; 	(if (and apdl-dynamic-highlighting-flag
+;; 		 (or (string= (buffer-name) "*APDL code*")
+
+;; ;		     (message "before ans.")
+;; 		     (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+;; ;		   (message "before mac.")
+;; 		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
+;; 	    (progn (message "before addhook.")
+;; 		   (add-hook 'after-change-functions
+;; 			     'apdl-find-user-variables nil t)
+;; 		   (message "before apdl-update-p.")
+;; 		   (add-hook 'post-command-hook
+;; 			     'apdl-update-parameter-help nil t)
+;; 		   (message "Dynamic highlighting of user variables activated."))
+;; 	  (message "Non-dynamic highlighting of variables activated."))
+;; 	(apdl-find-user-variables)))
 
   ;; .dat WorkBench solver input files
-
   (when (and buffer-file-name ; a buffer with a file name
-                  (string= (file-name-extension (buffer-file-name) t) ".dat"))
+	     (string= (file-name-extension (buffer-file-name) t) ".dat"))
     (apdl-hide-number-blocks))
 
   ;; a-align needs a mark to work for an unspecified region
-  ;(set-mark 0) -TODO-
+  ;;(set-mark 0) -TODO-
 
   ;; initialise system dependent stuff
   (apdl-initialise)
-  (outline-minor-mode t)
+  ; (outline-minor-mode t)
   ;; --- hooks ---
   (run-hooks 'apdl-mode-hook))
   ;;  -- end of apdl-mode --

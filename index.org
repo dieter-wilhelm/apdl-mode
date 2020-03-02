@@ -2,7 +2,7 @@
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
-#+DATE: Time-stamp: <2020-02-28 16:10:22 uidg1626>
+#+DATE: Time-stamp: <2020-02-29>
 #+TITLE: The Comprehensive APDL-Mode Documentation
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
@@ -21,6 +21,25 @@
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
 #+LATEX_HEADER:
+
+
+# ##############################
+# project definition
+
+# (setq org-publish-project-alist
+#       '(("apdl"
+# 	 :base-directory "/mnt/hgfs/D/apdl-mode/"
+# 	 :publishing-directory "/mnt/hgfs/D/apdl-mode/"
+# 	 :section-numbers nil
+# 	 :table-of-contents nil
+#          :publishing-function org-html-publish-to-html
+# 	 ;; :style "<link rel=\"stylesheet\"
+#          ;;             href=\"../other/mystyle.css\"
+#          ;;             type=\"text/css\"/>"
+# 	 )))
+
+
+
 * Introduction
   You'll find in [[file:README.org][README.org]] the following topics:
   - Features

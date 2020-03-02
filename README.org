@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-28>
+#+DATE: Time-stamp: <2020-03-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -106,12 +106,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    The image below shows the unhidden content.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/unhidden_blocks.png]]
-** Command Snippet Templates and Highlighting Example
+** Command Snippet Templates and Code Highlighting Example
    The image shows GNU-Emacs with a ripped off APDL-Mode menu field,
    the APDL variable buffer, the APDL file itself and an APDL template
-   preview.  You are able to collect your most often used command
-   snippets into Emacs' template system and have them available
-   immediately.
+   preview.  You are able to compile your most often used WorkBench /
+   Discovery AIM Command snippets and have them all immediately
+   available for inspection and inclusion.
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
@@ -120,10 +120,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
      tutorial in its `Help' menu, please really do it ;-).  You should
-     use at least Emacs version 25.1.
-
+     use at least use Emacs version 25.1.
   2) Download APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
-
   3) Install the package in Emacs: Please type `M-x
      package-install-file <RET>' and select the downloaded tar file.
 
@@ -136,7 +134,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    *Hint:* If you are getting an error message "package.el is not yet
      initialized", you are using Emacs' packaging system for the very
-     first time and it is necessary to initialise this machinery
+     first time.  And it is necessary to initialise this machinery
      first, please type: `M-: (package-initialize) <RET>' and then
      apply `M-x package-install-file <RET>' again.
 
@@ -160,8 +158,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   default the highest installed ANSYS version.)
 
   I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
-  file endings, especially the `.mac' suffix.  Please read the file
-  [[file:apdl-config.org][apdl-config.org]], or the accompanying template file [[file:ansys-config.el][apdl-config.el]].
+  file endings, especially the `.mac' suffix.  Please read
+  [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
+  [[file:ansys-config.el][apdl-config.el]].
 * News
   Please have a look into the [[file:NEWS.org][NEWS]] file
 * License

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-01>
+;; Time-stamp: <2020-03-02>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -2074,28 +2074,61 @@ improvements you have the following options:
   (apdl-add-apdl-menu)
 
   ;; --- user variables ---
-  (message "User variables")
-  (if (>= apdl-highlighting-level 2)
-      (when (or
-	     (when (not buffer-file-name)
-	       t) ;skip below size query (buffer without a file)
-	     (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
-	     (y-or-n-p
-	      "File is larger than 30 MB, switch on user variable highlighting? "))
-	(if (and apdl-dynamic-highlighting-flag
-		 (or (string= (buffer-name) "*APDL code*")
-		     (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
-		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
-	    (progn (add-hook 'after-change-functions
-			     'apdl-find-user-variables nil t)
-		   (add-hook 'post-command-hook
-			     'apdl-update-parameter-help nil t)
-		   (message "Dynamic highlighting of user variables activated."))
-	  (message "Non-dynamic highlighting of variables activated."))
-	(apdl-find-user-variables)))
+  ;;
+  (message "Dealing with user variables.")
+  ;; -highlighting-level >= 2 and apdl-dynamic-highlighting-flag
+  (if (and (>= apdl-highlighting-level 2)
+	   apdl-dynamic-highlighting-flag
+	   (or
+	    ;; either *APDL code* buffer
+	    (string= (buffer-name) "*APDL code*")
+	    ;; or  .mac or .ans files and both smaller than 30 Mb
+	    (and (buffer-file-name)
+		 (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
+		 ;; 30 Mb bigger than file?
+		 (when (file-attributes (buffer-file-name)) ;opened an existing file
+		   (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
+		       t
+		     (y-or-n-p "File is larger than 30 MB, switch on user variable highlighting? "))))))
+      (progn
+	(message "before apdl-update-p.")
+	(add-hook 'after-change-functions
+		  'apdl-find-user-variables nil t)
+	(add-hook 'post-command-hook
+		  'apdl-update-parameter-help nil t)
+	(message "Dynamic highlighting of user variables activated."))
+    (message "Non-dynamic highlighting of variables activated."))
+
+    (apdl-find-user-variables)
+
+;;   (if (>= apdl-highlighting-level 2)
+;;       (when (or
+;; 	     (when (not buffer-file-name)
+;; 	       t) ;skip below size query (buffer without a file)
+;; 	     (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
+;; 	     (y-or-n-p
+;; 	      "File is larger than 30 MB, switch on user variable highlighting? "))
+;; 	(message "before if.")
+;; 	(if (and apdl-dynamic-highlighting-flag
+;; 		 (or (string= (buffer-name) "*APDL code*")
+
+;; ;		     (message "before ans.")
+;; 		     (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+;; ;		   (message "before mac.")
+;; 		     (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
+;; 	    (progn (message "before addhook.")
+;; 		   (add-hook 'after-change-functions
+;; 			     'apdl-find-user-variables nil t)
+;; 		   (message "before apdl-update-p.")
+;; 		   (add-hook 'post-command-hook
+;; 			     'apdl-update-parameter-help nil t)
+;; 		   (message "Dynamic highlighting of user variables activated."))
+;; 	  (message "Non-dynamic highlighting of variables activated."))
+;; 	(apdl-find-user-variables)))
 
   ;; .dat WorkBench solver input files
-  (when (and buffer-file-name ; a buffer with a file name or nil
+  (when (and buffer-file-name ; a buffer with a file name
 	     (string= (file-name-extension (buffer-file-name) t) ".dat"))
     (apdl-hide-number-blocks))
 

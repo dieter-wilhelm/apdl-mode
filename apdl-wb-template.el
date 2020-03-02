@@ -30,19 +30,17 @@
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Comment:
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Commentary:
+
+;; Collection of templates for WorkBench and AIM Command (APDL)
+;; objects
+
 ;; Convention used for outlining
 ;; !@ is surrounded by 30 equal signs  ==============================
 ;; !@@ by 30 dashes ------------------------------
 ;; !@@@ by 30 dots ..............................
 ;; and empty lines
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; Commentary:
-
-;; Collection of templates for WorkBench and AIM Command (APDL)
-;; objects
 
 ;;; Code:
 
@@ -110,6 +108,8 @@ key and choose with the mouse 2 button."
 ;; wbt workbench templates:
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; test interregion templates!
+
 ;; ;; skeleton-insert
 ;; ;; docu string
 ;; ;; interactor string or nil
@@ -129,7 +129,6 @@ key and choose with the mouse 2 button."
 ;;   "Type name of idiot: "
 ;;   ("Put a name in: " "hello, " str "!\n")
 ;;    "Here "_ "it goes.\n")
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; "./" seems to be extracted to the Emacs folder ~/.emacs.d/ !!!
@@ -168,7 +167,7 @@ nil
   "Insert an *if .. *endif construct."
   nil
   "*if,I,eq,J,then" > \n
-  > _ \n
+  - \n
   "!! *elseif,K,gt,L" > \n
   "!! *else" > \n
   "*endif" >)

@@ -25,10 +25,11 @@
      argument!
 ** wishes
 *** templates
-   - Add more WorkBench/ Discovery AIM templates
-   - what is the advantage of ARG1-9? => parameter system, should I
-     include optionally?
-   - intelligent template selector with keywords in the line of helm
+    - intelligent template selector with keywords in the line of helm
+    - do we need interregion templates?
+    - Add more WorkBench/ Discovery AIM templates
+    - what is the advantage of ARG1-9? => parameter system, should I
+      include optionally?
 *** misc
    - open EWW in another window!
    - include example code in function apdl: no!
@@ -38,27 +39,6 @@
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?
    - Start optionally runbWB2 --aim, Discovery AIM
-* TODO 20.2.0 Release
-  Feature freeze [2020-02-27 Do]: Testing of the template branch
-  Update documentation, html brutally outdated, ..
-  - gh-pages:
-    - create a README.org (copy from index.org?)
-    - makefile for htmls or is it org-mode publish, it is
-** Todos, bugs
-   - M-? with too many commas throws an error, then the counting is
-     not updated any longer!
-   - -wbt-if: strange behaviour
-** checks
-   - check C-u C-c C-b with various topics => Works partly ;-)
-   - Customisation system
-   - changed file size without warning to 30 MB what is Emacs-26
-     using?
-* DONE 20.1.1 Release
-  - updating intro tutorial and docu => presentation, (online)
-    documentation: Is a mess, still ANSYS-Mode 16.1.!
-** Bug
-   - in fontication system!
-* 20.1.0
 ** misc
    - bug-report about package.el "NAME-readme.txt", done
    - package-lint
@@ -68,10 +48,25 @@
    - ANSYS is often used synonymous for ANSYS MAPDL solver /
      interpreter or ANSYS Classics GUI
    - flycheck :done
-     - -initialise OK
-     - -config => -config.org OK
-     - -template OK
-   - checkdoc : done
+     - initialise OK
+     - config => -config.org OK
+     - template OK
+   - checkdoc : from makefile
+* TODO 20.2.0 Release
+  Feature freeze [2020-02-27 Do]: Testing of the template branch
+  Update documentation, html brutally outdated, ..
+  - gh-pages:
+    - create a README.org (copy from index.org?)
+    - makefile for htmls or is it org-mode publish, it is
+** Todos, bugs
+   - Intercept M-? with too many commas, throws an error, then the
+     counting is not updated any longer!
+** checks
+   - compile
+   - check C-u C-c C-b with various topics => Works partly ;-)
+   - Customisation system
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
 * 162-2:
 ** Bugs
    - C-c C-s first time visit: User variables file-name-extension:

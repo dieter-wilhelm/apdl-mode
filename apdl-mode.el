@@ -859,24 +859,25 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                   :help "Insert a pair of parentheses enclosing marked region. M-x insert-parentheses"];-FIXME- redundant, necessary for Emacs-23.1
                  ["Align region or paragraph" apdl-align
                   :help "Align APDL variable definitions in a marked region or the current paragraph. M-x apdl-align"]
+                 ["Display Variable Definitions" apdl-display-variables
+                  :help "Display all user variable definitions from the current file in another window. M-x apdl-display-variables"]
                  "-"
                  ["Show APDL Command Help" apdl-show-command-parameters
                   :help "Display a short help for the APDL command near the cursor with its parameters. M-x apdl-show-command-parameters"]
-                 ["Display Variable Definitions" apdl-display-variables
-                  :help "Display all user variable definitions from the current file in another window. M-x apdl-display-variables"]
-                 ["Installation Directory" apdl-ansys-install-directory
-                  :label (if apdl-ansys-install-directory
-                                      (concat "Change the Installation Directory [" apdl-current-ansys-version "]")
-                                    "Set the ANSYS Installation Directory!")
-                  :help "For certain functionality you need to set the
-                  installation directory of ANSYS, the path up to the
-                  version number vXXX.  M-x apdl-ansys-install-directory"]
+                 ;; ["Installation Directory" apdl-ansys-install-directory
+                 ;;  :label (if apdl-ansys-install-directory
+                 ;;                      (concat "Change the Installation Directory [" apdl-current-ansys-version "]")
+                 ;;                    "Set the ANSYS Installation Directory!")
+                 ;;  :help "For certain functionality you need to set the
+                 ;;  installation directory of ANSYS, the path up to the
+                 ;;  version number vXXX.  M-x apdl-ansys-install-directory"]
                  ["Browse APDL command help" apdl-browse-apdl-help
                   :help "Open the original APDL documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
                   :active apdl-current-ansys-version]
-                 ["Browse ANSYS APDL Manual" apdl-browse-ansys-apdl-manual
-                  :help "Read the original ANSYS APDL Guide in a browser."
-                  :active (file-readable-p apdl-ansys-help-path)]
+                 ["Browse the ANSYS APDL Guide" apdl-browse-ansys-apdl-manual
+                  :help "Read the original ANSYS Paramtetric Design Language Guide in a browser."
+;                  :active (file-readable-p apdl-ansys-help-path) ; now online :-)
+		  ]
                  ["Start ANSYS Help Viewer" apdl-start-ansys-help
                   :help "Start the ANSYS Help Viewer executable. M-x apdl-start-ansys-help"
                   :active (file-executable-p apdl-ansys-help-program)]
@@ -2074,7 +2075,6 @@ improvements you have the following options:
   (apdl-add-apdl-menu)
 
   ;; --- user variables ---
-  ;;
   (message "Dealing with user variables.")
   ;; -highlighting-level >= 2 and apdl-dynamic-highlighting-flag
   (if (and (>= apdl-highlighting-level 2)

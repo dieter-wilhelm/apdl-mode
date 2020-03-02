@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t -*-
-;; Time-stamp: <2020-02-28>
+;; Time-stamp: <2020-03-02>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -701,13 +701,15 @@ variable)."
 (require 'browse-url)
 
 (defun apdl-browse-ansys-apdl-manual ()
-  "Open the ANSYS APDL manual in a browser."
+  "Open the ANSYS Parametric Design Language Guide in a browser."
   (interactive)
   (let ((file "ans_apdl/Hlp_P_APDLTOC.html")
 	(path apdl-ansys-help-path))
-    (unless path
-      (error "Error: `apdl-ansys-help-path' is not configured"))
-    (browse-url-of-file (concat "file://" path file))))
+    (if path
+	(browse-url-of-file (concat "file://" path file))
+      (if (string= apdl-current-ansys-version "v201")
+	  (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
+	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
 (defun apdl-browse-apdl-help ( &optional arg)
   "Browse the ANSYS help for APDL commands, elements and other topics.

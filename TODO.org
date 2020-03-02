@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-01>
+#+DATE: Time-stamp: <2020-03-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -16,30 +16,7 @@
 # CAD Kernel of spaceclaim is ACIS (licensed from Dassault)
 
 #+STARTUP: showall
-* TODO 20.2.0 Release
-
-  Feature freeze [2020-02-27 Do]
-  Testing of the template branch
-  Update documentation, html brutally outdated, ..
-  - gh-pages:
-    - create a README.org (copy from index.org?)
-    - makefile for htmls or is it org-mode publish
-
-** Todos, bugs
-   - M-? with too many commas throws an error, then the counting is
-     not updated any longer!
-   - -wbt-if: strange behaviour
-   - C-c C-s in *APDL code* file-name-extension: Wrong type argument:
-     Clear: buffer without a file name stringp, nilError during
-     redisplay: (jit-lock-function 1) signaled (wrong-type-argument
-     stringp nil)
-   - First edit in *APDL code*: self-insert-command: Wrong number of
-      arguments: (0 . 0), 3
-** checks
-   - check C-c C-b with topics
-   - Customisation system
-   - changed file size without warning to 30 MB what is Emacs-26
-     using?
+* TODO Version 20.3?
 ** minor bugs
    - Remove times stamp in *License* buffer when updating with `g'.
    - 1/en, en is variable but fraction not fontified?
@@ -48,22 +25,37 @@
      argument!
 ** wishes
 *** templates
-    - further code examples!
-    - what is the advantage of ARG1-9? => parameter system
-    - intelligent template selector with keywords in the line of helm
+   - Add more WorkBench/ Discovery AIM templates
+   - what is the advantage of ARG1-9? => parameter system, should I
+     include optionally?
+   - intelligent template selector with keywords in the line of helm
 *** misc
-   - include example code in function APDL
    - open EWW in another window!
+   - include example code in function apdl: no!
    - Melpa integration <= 2021?
    - document the APDL Parameter Help Duration in M-?
    - how about deleting the work branch?
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?
-   - Start runbWB2 --aim, Discovery AIM
-
+   - Start optionally runbWB2 --aim, Discovery AIM
+* TODO 20.2.0 Release
+  Feature freeze [2020-02-27 Do]: Testing of the template branch
+  Update documentation, html brutally outdated, ..
+  - gh-pages:
+    - create a README.org (copy from index.org?)
+    - makefile for htmls or is it org-mode publish, it is
+** Todos, bugs
+   - M-? with too many commas throws an error, then the counting is
+     not updated any longer!
+   - -wbt-if: strange behaviour
+** checks
+   - check C-u C-c C-b with various topics => Works partly ;-)
+   - Customisation system
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
 * DONE 20.1.1 Release
   - updating intro tutorial and docu => presentation, (online)
-    documentation: still ANSYS-Mode 16.1.!
+    documentation: Is a mess, still ANSYS-Mode 16.1.!
 ** Bug
    - in fontication system!
 * 20.1.0

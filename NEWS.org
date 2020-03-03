@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-02>
+#+DATE: Time-stamp: <2020-03-03>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -24,10 +24,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      formerly used for starting WorkBench).
    - Improved the automated configuration of ANSYS installation
      dependent components
-   - Updated docu and completions for keywords, elements, etc. to v193
-     (mostly to v201)
-   - A-M can now browse the ANSYS online-help (you don't have to
-     install the local ANSYS help package, but it is recommended
+   - Made M-? (the parameter help) robuster, command names can now be
+     changed when the help overlay is visible
+   - Updated documentation and completions for keywords, elements,
+     etc. to v193 (mostly to v201)
+   - A-M can call a browser for the ANSYS online-help (you don't have
+     to install the local ANSYS help package, though it is advisable
      because of speed reasons ;-)
 ** Version 20.1.1 2020-02 bugfix
    - Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual

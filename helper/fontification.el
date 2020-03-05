@@ -3,7 +3,7 @@
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.1.1
+;; Version: 20.2.0
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience, tools, ANSYS, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -36,21 +36,23 @@
 ;; HINT: every line in the *.txt files starting with an # will be ignored
 ;; 1.) command parameter help: copy file
 ;; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans" "./apdl_dynprompt.txt")
+;; (call-process "cp" nil "*tmp*" t "dynprompt193.ans" "./apdl_dynprompt.txt")
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `apdl_dynprompt.txt'
-;;     done for v12,v13,v14,v145,v150,v162
+;;     done for v12,v13,v14,v145,v150,v162, v195
 
 ;; 2.) elements: copy within the ansys help browser from the
 ;;     Element reference from the table of contents the list -> `apdl_elements.txt'
 ;;     (/appl/ansys_inc/v162/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13,v14,v145,v150, v162
+;;     done: v12,v13,v14,v145,v150, v162, v201
 
 ;; 3.) command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
 
 ;;     use: extract_tags.py
 ;; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/apdl-mode/trunk")
+;; (call-process "cp" nil "*tmp*" t "Hlp_C_CmdTOC.html" "apdl_keywords.txt")
 ;;     cp Hlp_C_CmdTOC.html to ./ -> apdl_keywords.txt
-;;     done: v13,14,145,150, v162
+;;     done: v13,14,145,150, v162, v201
 
 ;;     dated: previously did copy&pasted from the ansys help
 ;;       ->`apdl_keywords.txt' kill /eof from the keywords (see:
@@ -73,7 +75,7 @@
 ;; 6.) search index for the html help in /commonfiles/help/`apdl_Index.hlp'
 ;;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/ansys_Index.hlp" ".")
 ;;     the rest does code below
-;;     done v145, v150, v162
+;;     done v145, v150, v162, v201
 ;;     cp ansys_Index.hlp??? and check variable apdl-help-index
 
 ;; _RETURN values are now documented in the -skeleton-information.
@@ -81,10 +83,11 @@
 
 ;;; necessary variables, to be maintained:
 ;; 1.) `apdl_undocumented_commands' from the release notes,
-;;  v162/commonfiles/help/en-us/help/ai_rn/ansysincreleasenotes.html
-;;     done 145,150,v162
-;; 2.) `apdl_deprecated_elements_alist' APDL documentation->feature archive: legacy elements
-;;    done 145,150, v162
+;;  v201/commonfiles/help/en-us/help/ai_rn/global_releasenotes.html
+;;     done 145,150,v162, no undocumented in v201
+;; 2.) `apdl_deprecated_elements_alist' APDL documentation ->
+;;       Feature archive: legacy elements, v201: archived elements?
+;;    done 145,150, v162, v201
 ;; 3.) `Apdl_written_out_commands'
 ;; 4.) `Apdl_commands_without_arguments'
 ;;
@@ -317,33 +320,36 @@ And the solver won't allow characters appended to.")
     )
   "APDL commands which aren't allowed with arguments.")
 
-;; deprecated element list is from Ansys version 12.0, 13.0, 14.0
+;; deprecated element list is from Ansys version 12.0, 13.0, 14.0, 16.2, archived elements v201
 (defconst Apdl_deprecated_elements_alist
   '(
     ("BEAM3"    . "BEAM188")
-    ("BEAM4"    . "BEAM188")            ;legacy v162
+    ("BEAM4"    . "BEAM188")            ;legacy v162, v201
     ("BEAM23"   . "BEAM188")
     ("BEAM24"   . "BEAM188")
     ("BEAM44"   . "BEAM188")
     ("BEAM54"   . "BEAM188")
-    ("CONTAC12". "Contac178")           ;v150
-    ("CONTAC52". "Contac178")           ;v162
+    ("CONTAC12". "CONTA178")           ;v150; v201
+    ("CONTAC52". "CONTA178")           ;v162; v201
+    ("CONTA171". "CONTA172")		;archived v201
+    ("CONTA173". "CONTA174")		;archived v201
+    ("CONTA176". "CONTA177")		;archived v201
     ("COMBIN7"  . "MPC184")
-    ("FLUID79" . "Fluid29")             ;v150
-    ("FLUID80" . "Fluid29")             ;v150
-    ("FLUID81" . "Fluid29")             ;v150
+    ("FLUID79" . "Fluid29")             ;v150; v201
+    ("FLUID80" . "Fluid29")             ;v150; v201
+    ("FLUID81" . "Fluid29")             ;v150; v201
     ("FLUID141" . "CFX")                ;v145
     ("FLUID142" . "CFX")                ;v145
     ("INFIN9"   . "INFIN110")           ;v14
     ("INFIN47"  . "INFIN111")           ;v14
-    ("PIPE16"   . "PIPE288")            ;legacy v162
-    ("PIPE18"   . "ELBOW290")           ;legacy v162
+    ("PIPE16"   . "PIPE288")            ;legacy v162, v201
+    ("PIPE18"   . "ELBOW290")           ;legacy v162, v201
     ("PLANE13"  . "PLANE223")           ;v14
     ("PLANE25"  . "PLANE272")           ;v14
-    ("PLANE42"  . "PLANE182")
+    ("PLANE42"  . "PLANE182")		;v201
     ("PLANE53"  . "PLANE233")           ;v14
     ("PLANE67"  . "PLANE223")
-    ("PLANE82"  . "PLANE183")
+    ("PLANE82"  . "PLANE183")		;v201
     ("PLANE83"  . "SOLID273")           ;v14
     ("PLANE145" . "-")                  ;p-elements are out in 13.0
     ("PLANE146" . "-")
@@ -357,23 +363,23 @@ And the solver won't allow characters appended to.")
     ("PIPE17"   . "PIPE288")
     ("PIPE18"   . "ELBOW290")
     ("PIPE20"   . "PIPE288")
-    ("PIPE59"   . "PIPE288")
+    ("PIPE59"   . "PIPE288")		;archived v201
     ("PIPE60"   . "ELBOW290")
     ("SHELL41"  . "SHELL181")          ;v14
     ("SHELL43"  . "SHELL181")
     ("SHELL57"  . "SHELL131")
-    ("SHELL63"  . "SHELL181")
+    ("SHELL63"  . "SHELL181")		;archived v201
     ("SHELL91"  . "SHELL281")
     ("SHELL93"  . "SHELL281")
     ("SHELL99"  . "SHELL281")
     ("SHELL150" . "-")                 ;p-elements are out in 13.0
     ("SOLID5"   . "SOLID226")            ;v14
-    ("SOLID45"  . "SOLID185")
+    ("SOLID45"  . "SOLID185")		 ;archived v201
     ("SOLID46"  . "SOLID185")
-    ("SOLID65" .  "SOLID185")          ;v145
+    ("SOLID65" .  "SOLID185")          ;v145; v201
     ("SOLID69"  . "SOLID226")
-    ("SOLID92"  . "SOLID187")
-    ("SOLID95"  . "SOLID186")
+    ("SOLID92"  . "SOLID187")		;archived v201
+    ("SOLID95"  . "SOLID186")		;archived v201
     ("SOLID117" . "SOLID236")          ;v14
     ("SOLID127" . "-")                 ;p-elements are out in 13.0
     ("SOLID128" . "-")
@@ -402,7 +408,7 @@ And the solver won't allow characters appended to.")
 
 (defun APDL-get-functions (list)
   (mapcar
-   '(lambda (name)
+   #'(lambda (name)
        (list
         (concat "\\(" name "\\)\\s-*(")
         1
@@ -412,7 +418,7 @@ And the solver won't allow characters appended to.")
 
 (defun APDL-parametric-functions (list)
   (mapcar
-   '(lambda (name)
+   #'(lambda (name)
        (list
         (concat "\\(" name "\\)\\s-*(")
         '(1 font-lock-function-name-face keep)))
@@ -560,9 +566,9 @@ Function names are distinguished by `()'."
   (append
    Apdl_elements
    Apdl_commands
-   (mapcar '(lambda (str) (concat str "()"))
+   (mapcar #'(lambda (str) (concat str "()"))
            Apdl_get_functions)
-   (mapcar '(lambda (str) (concat str "()"))
+   (mapcar #'(lambda (str) (concat str "()"))
            Apdl_parametric_functions)))
 
 ;; ------------------------------------------------------------
@@ -587,7 +593,7 @@ Function names are distinguished by `()'."
 ;; we are adding to the top!
 ;;
 
-  (insert "(provide 'apdl-keyword)\n;;; apdl-keyword.el ends here\n")
+  (insert "(provide 'apdl-keyword)\n\n;;; apdl-keyword.el ends here\n")
 
 ;; ---------- undocumented commands ----------
 
@@ -617,7 +623,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
       (add-to-list 'list (match-string 0) 'append)))
 ;; now include the undocumented commands
   (setq list (append list
-                     (mapcar '(lambda (m) (concat m " - APDL undocumented command\n" m))
+                     (mapcar #'(lambda (m) (concat m " - APDL undocumented command\n" m))
                              Apdl_undocumented_commands)))
 ;;  (sort list 'string<)
   (set-buffer buffer)
@@ -789,9 +795,9 @@ Together with their proposed replacements.\")\n\n")
 ;;           parametric-functions get-functions))
 
   (setq get-functions
-        (mapcar '(lambda (s) (concat s "()")) get-functions))
+        (mapcar #'(lambda (s) (concat s "()")) get-functions))
   (setq parametric-functions
-        (mapcar '(lambda (s) (concat s "()")) parametric-functions))
+        (mapcar #'(lambda (s) (concat s "()")) parametric-functions))
   (insert "(defconst apdl-completions\n'")
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (append
@@ -816,7 +822,7 @@ By default APDL keywords, get-functions, parametric-function and elements
   (message "starting help index.")
   (with-temp-buffer
     (setq list ())               ;initialise list
-    (insert-file-contents "apdl_Index.hlp")
+    (insert-file-contents "ansys_Index.hlp")
 ;; clean up redundant keywords
     (delete-matching-lines "^Hlp")
 ;; (goto-char (point-min))
@@ -853,13 +859,13 @@ By default APDL keywords, get-functions, parametric-function and elements
     (while (re-search-forward
             "^\\([^[:space:]]+\\)[[:space:]]+\\([^[:space:]]+\\)$" nil t)
       (add-to-list 'list (list (match-string 1) (match-string 2)) 'append)))
-  (add-to-list 'list (list "\"RELEASE NOTES\"" "ansysincreleasenotes.html") 'append)
-  (add-to-list 'list (list "\"CONTACT TECHNOLOGY GUIDE\"" "ctectoc.html") 'append)
-  (add-to-list 'list (list "\"PARAMETRIC DESIGN LANGUAGE GUIDE\"" "Hlp_P_APDLTOC.html") 'append)
-  (add-to-list 'list (list "\"STRUCTURAL ANALYSIS GUIDE\"" "Hlp_G_StrTOC.html") 'append)
-  (add-to-list 'list (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\"" "Hlp_G_AdvTOC.html") 'append)
-  (add-to-list 'list (list "\"MATERIAL MODELS\"" "ans_mat.html") 'append)
-  (add-to-list 'list (list "\"THEORY REFERENCE\"" "ansys.theory.html") 'append)
+  (add-to-list 'list (list "\"RELEASE NOTES\"" "ai_rn/global_releasenotes.html") 'append)
+  (add-to-list 'list (list "\"CONTACT TECHNOLOGY GUIDE\"" "ans_ctec/ctectoc.html") 'append)
+  (add-to-list 'list (list "\"PARAMETRIC DESIGN LANGUAGE GUIDE\"" "ans_apdl/Hlp_P_APDLTOC.html") 'append)
+  (add-to-list 'list (list "\"STRUCTURAL ANALYSIS GUIDE\"" "ans_str/Hlp_G_StrTOC.html") 'append)
+  (add-to-list 'list (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\"" "ans_str/Hlp_G_AdvTOC.html") 'append)
+  (add-to-list 'list (list "\"MATERIAL MODELS\"" "ans_mat/ans_mat.html") 'append)
+  (add-to-list 'list (list "\"THEORY REFERENCE\"" "ans_thry/ansys.theory.html") 'append)
   (message "adding help index...")
   (set-buffer buffer)
   (goto-char (point-min))
@@ -877,13 +883,13 @@ By default APDL keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert ";; apdl-keyword.el --- APDL-Mode completion and"
           "highlighting variables. -*- lexical-binding:t -*-\n" ";; This file was built by"
-          "\"fontification.el\" release 20.1.1.\n\n"
+          "\"fontification.el\" release 20.2.0.\n\n"
           ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n"
-          ";; Version: 20.1.1\n"
-          ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n"
+          ";; Version: 20.2.0\n"
+          ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n\n"
           ";;; Commentary:\n"
-          ";; Code for APDL command help and command completions.\n\n"
-          ";;; Code:\n")
+          ";;  Code for APDL command help and command completions.\n\n"
+          ";;; Code:\n\n")
   (save-buffer)
   (message "apdl-keywords.el done.")
 ;; --- end of let

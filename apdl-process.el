@@ -1,5 +1,5 @@
-;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2020-02-23>
+;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t -*-
+;; Time-stamp: <2020-03-05 22:39:10 dieter>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -49,10 +49,10 @@
 (defvar apdl-ansys-help-path)
 (defvar apdl-mode-install-directory)
 (defvar apdl-current-ansys-version)
-(defvar apdl-ansys-install-directory)
+;(defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
 (defvar apdl-ansys-help-program-parameters)
-(defvar apdl-unix-system-flag)
+(defvar apdl-is-unix-system-flag)
 (defvar apdl-lmutil-program)
 (defvar apdl-ansys-help-program)
 
@@ -67,6 +67,12 @@
 
 ;; (declare-function buffer-name "") ; in-built
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; requires
+
+(require 'comint)
+(require 'url)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- customisation ---
@@ -563,8 +569,6 @@ initial input."
       (display-buffer (concat "*" apdl-process-name "*") 'other-window)))))
 
 
-(require 'comint)
-
 ;;;###autoload
 (defun apdl-start-ansys ()
   "Start an ANSYS interpreter process under Linux or the launcher under Win.
@@ -648,7 +652,7 @@ variable)."
   (apdl-ansys-help-program "")                                          ;checking
   (progn
     (cond
-     (apdl-unix-system-flag
+     (apdl-is-unix-system-flag
       (start-process "apdl-ansys-help-program" nil apdl-ansys-help-program)
       (message "Started the ANSYS Help Viewer..."))
      ((string= system-type "windows-nt")
@@ -697,16 +701,25 @@ variable)."
 (require 'browse-url)
 
 (defun apdl-browse-ansys-apdl-manual ()
-  "Open the ANSYS APDL manual in a browser."
+  "Open the ANSYS Parametric Design Language Guide in a browser."
   (interactive)
   (let ((file "ans_apdl/Hlp_P_APDLTOC.html")
 	(path apdl-ansys-help-path))
-    (unless path
-      (error "Error: `apdl-ansys-help-path' is not configured"))
-    (browse-url-of-file (concat "file://" path file))))
+    (if path
+	(browse-url-of-file (concat "file://" path file))
+      (if (string= apdl-current-ansys-version "v201")
+	  (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
+	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
 (defun apdl-browse-apdl-help ( &optional arg)
-  "Open the ANSYS help for APDL commands and element names in a web browser.
+  "Browse the ANSYS help for APDL commands, elements and other topics.
+
+ATTENTION: If you are using the ANSYS online help - default since
+V19 - then first you need to register at the ANSYS help site!
+Please start some help topic with an ANSYS application first, the
+you can use APDL-Mode for pin-pointing your topics.  For an even
+faster access I recommend installing the local ANSYS help.
+
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
 keyword at the line beginning.  (This is working in a comment
@@ -769,8 +782,6 @@ elem.
   (let (file
         (path apdl-ansys-help-path)
         command)
-    (unless path
-      (error "Error: `apdl-ansys-help-path' is not configured"))
     (if arg
         (setq command (completing-read "Browse help for keyword: "
                                        apdl-help-index))
@@ -778,27 +789,37 @@ elem.
     (setq file (nth 1 (assoc-string command apdl-help-index t)))
     (unless  file
       (error "Keyword \"%s\" is not uniquely completable" command))
-    ;; we must adapt the path to various items!
-    (cond
-     ((string-match "_C_" file)
-      (setq file (concat "ans_cmd/" file)))
-     ((string-match "_E_" file)
-      (setq file (concat "ans_elem/" file)))
-     ((string-match "_P_APDL" file)
-      (setq file (concat "ans_apdl/" file)))
-     ((string-match "_G_AdvTOC" file)
-      (setq file (concat "ans_adv/" file)))
-     ((string-match "_G_StrTOC" file)
-      (setq file (concat "ans_str/" file)))
-     ((string-match "ans_mat.html" file)
-      (setq file (concat "ans_mat/" file)))
-     ((string-match "ctectoc.html" file)
-      (setq file (concat "ans_ctec/" file)))
-     ((string-match "ansysincrelease" file)
-      (setq file (concat "ai_rn/" file)))
-     ((string-match "ansys.theory" file)
-      (setq file (concat "ans_thry/" file))))
-    (browse-url-of-file (concat "file:///" path file))))
+
+    ;; ;; we must adapt the path to various items!
+    ;; ;;  since 201 not any longer
+
+    ;; (cond
+    ;;  ((string-match "_C_" file)
+    ;;   (setq file (concat "ans_cmd/" file)))
+    ;;  ((string-match "_E_" file)
+    ;;   (setq file (concat "ans_elem/" file)))
+    ;;  ((string-match "_P_APDL" file)
+    ;;   (setq file (concat "ans_apdl/" file)))
+    ;;  ((string-match "_G_AdvTOC" file)
+    ;;   (setq file (concat "ans_adv/" file)))
+    ;;  ((string-match "_G_StrTOC" file)
+    ;;   (setq file (concat "ans_str/" file)))
+    ;;  ((string-match "ans_mat.html" file)
+    ;;   (setq file (concat "ans_mat/" file)))
+    ;;  ((string-match "ctectoc.html" file)
+    ;;   (setq file (concat "ans_ctec/" file)))
+    ;;  ((string-match "ansysincrelease" file)
+    ;;   (setq file (concat "ai_rn/" file)))
+    ;;  ((string-match "ansys.theory" file)
+    ;;   (setq file (concat "ans_thry/" file))))
+    (if path
+	(browse-url-of-file (concat "file:///" path file))
+      (unless apdl-current-ansys-version
+	(error "Please set `apdl-current-ansys-version'"))
+      ;; since v201 changed the path to the online help:
+      (if (string= apdl-current-ansys-version "v201")
+	  (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
+	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
@@ -843,7 +864,8 @@ elem.
   ;; agppi -- Design Modeler
   ;; aim_mp -- aim standard
   ;; disc* -- discovery
-  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9]\\{4\\}$"))
+  ;; and time XX:XX:XX of status request
+  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"))
 
 (defun apdl-license-status ()
   "Display the ANSYS license status or start the license tool.
@@ -917,7 +939,7 @@ summary rows."
         (setq bol (point))
         (put-text-property bol eol 'face 'font-lock-warning-face)
         ;;  on Windows the license stat buffer doesn't move to point without:
-        (when (not apdl-unix-system-flag)
+        (when (not apdl-is-unix-system-flag)
           (set-window-point (get-buffer-window "*Licenses*") (point)))))
     (unless (equal (current-buffer) (get-buffer "*Licenses*"))
       (display-buffer "*Licenses*" 'otherwindow))

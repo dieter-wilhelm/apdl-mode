@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-23>
+#+DATE: Time-stamp: <2020-03-05>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -47,11 +47,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   in-depth documentation.
 
   With the advent of the modern ANSYS GUIs - like `WorkBench' or
-  `AIM' - the usage of APDL as a wholesale modelling language has
-  diminished for non automated tasks.  But APDL is here to stay:
-  `WorkBench' and `AIM' operate exclusively the ANSYS solver with it!
-  They are producing and sending APDL input (.dat) files to the
-  solver.  For a true understanding of the GUIs' inner workings a
+  `Discovery AIM' - the usage of APDL as a wholesale modelling
+  language has diminished for non automated tasks.  But APDL is here
+  to stay: `WorkBench' and `AIM' operate exclusively the ANSYS solver
+  with it!  They are producing and sending APDL input (.dat) files to
+  the solver.  For a true understanding of the GUIs' inner workings a
   study of their APDL code is prerequisite!  Moreover, the GUIs are
   not supporting all solver features.  So "Command (APDL)" snippets
   are used to enhance the GUIs' modelling capabilities.
@@ -62,13 +62,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   other sources.  Accessing swiftly the ANSYS APDL reference
   documentation alone is worth using APDL-Mode!
 
-  When you "Export" or "Import" such a WorkBench Command (APDL) object
-  it becomes associated with a file and thus is also editable with a
+  When you "Export" (or "Import") such a WorkBench Command (APDL)
+  object it becomes associated with a file and is editable with a
   third party editor.
 
   [[file:doc/connect_command_snippet_to_file.png]]
 
-  When you are now editing the file the "File Status" in Workbench
+  When you have modified the file then the "File Status" in Workbench
   changes and you can pull-in the updated content with the "Refresh"
   button.
 
@@ -84,11 +84,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** Pin-pointing the relevant ANSYS documentation
    You can trigger (*C-c C-b*) the relevant ANSYS manual entry
    directly from your APDL-Mode session without the detour of
-   searching in the ANSYS Help Viewer or waiting for the ANSYS online
-   help.  This works not only for APDL commands but also element names
-   and other manual topics.  (Since ANSYS V19 the online help is the
-   default.  To speed up the access I reccomend installing the local
-   ANSYS documentation.)  The topics are shown in a web browser.
+   searching in the ANSYS online help (default since V19).  This works
+   not only for APDL commands but also element names and other manual
+   topics. (To that end you must have started / registered the ANSYS
+   online help once from an ANSYS product.  But I recommend installing
+   the ANSYS documentation locally, loading is much faster.)
 
    The image below is showing a manual entry in GNU-Emacs's EWW
    browser. You are able to consult the manual side-by-side with your
@@ -106,12 +106,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    The image below shows the unhidden content.
    #+ATTR_LaTeX: :height 7.5cm
    [[file:doc/unhidden_blocks.png]]
-** Command Snippet Templates and Highlighting Example
+** Command Snippet Templates and Code Highlighting Example
    The image shows GNU-Emacs with a ripped off APDL-Mode menu field,
    the APDL variable buffer, the APDL file itself and an APDL template
-   preview.  You are able to collect your most often used command
-   snippets into Emacs' template system and have them available
-   immediately.
+   preview.  You are able to compile your most often used WorkBench /
+   Discovery AIM Command snippets and have them all immediately
+   available for inspection and inclusion.
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
@@ -120,10 +120,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
      tutorial in its `Help' menu, please really do it ;-).  You should
-     use at least Emacs version 25.1.
-
+     use at least use Emacs version 25.1.
   2) Download APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
-
   3) Install the package in Emacs: Please type `M-x
      package-install-file <RET>' and select the downloaded tar file.
 
@@ -136,7 +134,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    *Hint:* If you are getting an error message "package.el is not yet
      initialized", you are using Emacs' packaging system for the very
-     first time and it is necessary to initialise this machinery
+     first time.  And it is necessary to initialise this machinery
      first, please type: `M-: (package-initialize) <RET>' and then
      apply `M-x package-install-file <RET>' again.
 
@@ -154,8 +152,15 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   The complete [[http://dieter-wilhelm.github.io/apdl-mode][documentation of APDL-Mode]] is available online
 * Configuration and Customisation
-  Please read the file [[file:apdl-config.org][apdl-config.org]] and adjust the acompanying
-  example file [[file:ansys-config.el][apdl-config.el]].
+  Most functionality of APDL-Mode is working without additional
+  configurations.  APDL-Mode should be intelligent enough to figure
+  out ANSYS installation dependent configurations.  (It uses by
+  default the highest installed ANSYS version.)
+
+  I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
+  file endings, especially the `.mac' suffix.  Please read
+  [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
+  [[file:ansys-config.el][apdl-config.el]].
 * News
   APDL-Mode uses now for the installation the packaging system of
   GNU-Emacs.  For further news please have a look into the [[file:NEWS.org][NEWS]] file.
@@ -173,7 +178,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      Windows, project disbanded in 2015.
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
 ** ANSYS and APDL resources
-   - The ANSYS reference manuals
+   - The online ANSYS [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
+     the ANSYS [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
    - The [[http://www.ansys.com][ANSYS homepage]] with the ANSYS Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][ANSYS online community]] (forum registration is necessary)
    - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.

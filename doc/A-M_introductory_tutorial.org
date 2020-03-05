@@ -1,7 +1,6 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-23>
+#+DATE: Time-stamp: <2020-02-24>
 #+bind: org-html-preamble-format (("en" "%d"))
-# #+DATE: <2013-05-22 Wed>
 # #+OPTIONS: H:1 texht:t
 # #+BEAMER_COLOR_THEME:
 # #+BEAMER_FONT_THEME:
@@ -15,7 +14,7 @@
 # #+LATEX_HEADER_EXTRA:
 
 #+TITLE: Introductory Tutorial for APDL-Mode
-#+BEAMER_HEADER: \subtitle{A GNU Emacs programming mode for the APDL language, version 20.1.1}
+#+BEAMER_HEADER: \subtitle{A GNU Emacs programming mode for the APDL language, version 20.2.0}
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+TEXT: blabla

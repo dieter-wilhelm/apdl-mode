@@ -34,8 +34,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 * Introduction
   APDL ([[https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language][ANSYS Parametric Design Language]]) is the solver scripting
-  language of the FEA (Finite Element Analysis) suite [[http://www.ansys.com][ANSYS]] (ANalysis
-  SYStem, registered TM).
+  language of the mechanical FEA (Finite Element Analysis) suite [[http://www.ansys.com][ANSYS]]
+  (ANalysis SYStem, registered TM).
 
   APDL-Mode (formerly ANSYS-Mode) is - in conjunction with the
   GNU-Emacs editor - an advanced APDL environment with features like,
@@ -57,7 +57,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   are used to enhance the GUIs' modelling capabilities.
 
   Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
-  files which were created by WorkBench.  Likewise for writing
+  files which were created by WorkBench.  And, especially, for writing
   WorkBench `Command' snippets and inspecting longer snippets from
   other sources.  Accessing swiftly the ANSYS APDL reference
   documentation alone is worth using APDL-Mode!

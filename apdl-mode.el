@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-03>
+;; Time-stamp: <2020-03-05>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -2465,10 +2465,10 @@ buffer, the beginning command characters can be completed with
 	length
 	str)
     ;; enquire or search for a valid command name
-    (cond ((= ask-or-toggle 0))                                  ;do nothing
+    (cond ((= ask-or-toggle 0))		;do nothing
 	  ((= ask-or-toggle 4)
 	   (setq str (completing-read
-		      "Type function or command name for help: "
+		      "Type APDL keyword to get its short help: "
 		      apdl-help-index)))
 	  ((apdl-in-comment-line-p)
 	   (save-excursion
@@ -2476,7 +2476,10 @@ buffer, the beginning command characters can be completed with
 	     (skip-chars-forward " !")
 	     (re-search-forward "[^[:space:]]\\w*\\>" nil t))
 	   (setq str (match-string-no-properties 0)))
-	  ((apdl-in-indentation-p) ; we are before a possible command
+	  ((apdl-in-indentation-p)  ; we are before a possible command
+	   ;; -TODO- strange bug, when cursor is in a line with only
+	   ;; -commas and no command follows in lines below, then ;;
+	   ;; -match-string-no-properties bails out!?
 	   (save-excursion
 	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	     (setq str (match-string-no-properties 0))))
@@ -2490,7 +2493,7 @@ buffer, the beginning command characters can be completed with
 	(delete-overlay apdl-help-overlay)
       (catch 'foo
 	(dolist (s apdl-dynamic-prompt)
-	  (when (string-match (concat "^" str) s)
+	  (when (and (string-match (concat "^" str) s) (not (string= "" s)))
 	    (setq length (length s))
 	    ;; creating additional row with comma counts
 	    (setq start (string-match "\n" s)) ;looking for the first line break

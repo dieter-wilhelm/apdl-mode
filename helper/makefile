@@ -108,14 +108,14 @@ EL_FILES := ../apdl-config.el ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pk
 	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
 	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
 
-ELC_FILES := $(EL_FILES:.el=.elc)
+ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 
 # compile Elisp files
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
 FILES := ../LICENSE.org ../apdl-mode-readme.txt ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
-HELPER_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
+EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -339,4 +339,4 @@ TAGS : $(TAGS_FILES)
 .PHONEY : TAG_RELEASE
 TAG_RELEASE :
 	git tag -a $(VERSION)
-echo "git tag -a $(VERSION)"
+	echo "git tag -a $(VERSION)"

@@ -21,6 +21,7 @@ helper/hide-region.el
 helper/htmlize.el
 helper/ansys-keyword.el
 helper/share
+helper/apdl-mode-*
 matlib/#*#
 matlib/.#*
 gh-page
@@ -36,6 +37,4 @@ helper/tools*
 *.xcf
 *.tar
 misc/
-helper/apdl-keyword*
-helper/apdl-mode-*
 apdl-config.el

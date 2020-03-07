@@ -1,0 +1,1158 @@
+#+DATE: Time-stamp: <2020-02-23>
+#+bind: org-html-preamble-format (("en" "%d"))
+#+TITLE:  APDL-Mode Highlighting and APDL Reference
+# #####################################################################
+#+AUTHOR:    H. Dieter Wilhelm
+#+EMAIL:     dieter@duenenhof-wilhelm.de
+# #+DATE:      2012-06-17 Sa
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:  en
+#+OPTIONS:   email:t H:5 num:t toc:2 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+EXPORT_SELECT_TAGS: export
+#+EXPORT_EXCLUDE_TAGS: noexport
+#+XSLT:
+#+PROPERTY: tangle yes
+# #+LaTeX_CLASS: koma-report
+# #+LaTeX_CLASS: koma-article
+# #+LATEX: \tableofcontents
+#+LATEX_HEADER: \usepackage{scrpage2}
+#+LATEX_HEADER: \titlehead{\includegraphics[width=15cm]{ansys+emacs.png}}
+#+LATEX_HEADER: \subject{APDL-Mode}
+#+LATEX_HEADER: \subtitle{APDL and Syntax Highlighting}
+#+LATEX_HEADER:\areaset{15cm}{25cm} %textarea on page
+#+LATEX_HEADER:\pagestyle{scrheadings}
+#+LATEX_HEADER:\ifoot{\author}
+#+LATEX_HEADER:\ofoot{\includegraphics[width=3cm]{ansys+emacs.png}}
+
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_CONTAINER: div
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
+#+LATEX_HEADER:
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_UP: ../index.html
+
+
+#+TEXT: This is still a work in progress, good documentation is hard work!
+#+TEXT: Please report the faults.
+
+* WorkBench to APDL Translation
+** Contacts
+*** default 3D thermal contact
+      :PROPERTIES:
+      :Version:  17.0
+      :END:
+    #+BEGIN_SRC ansys
+     2333        6        5        6        0     6458     6457     6422     6421     8356     8306     8303     8304
+-1
+keyo,cid,8,2               ! auto create asymmetric contact (from Program Controlled setting)
+keyo,cid,10,2              ! adjust contact stiffness each NR iteration (from Program Controlled setting)
+keyo,cid,12,5              ! bonded always
+keyo,cid,2,0               ! augmented Lagrange (from Program Controlled setting)
+keyo,cid,4,0               ! on Gauss point (from Program Controlled setting)
+keyo,cid,9,1               ! ignore initial gaps/penetration
+keyo,cid,7,0               ! No Prediction
+rmod,tid,3,10.	! FKN
+rmod,tid,5,0.	! ICONT
+rmod,tid,6,0.	! PINB
+rmod,tid,10,0.	! CNOF
+rmod,tid,12,0.	! FKT
+rmod,tid,36,31	! WB DSID
+rmod,cid,3,10.	! FKN
+rmod,cid,5,0.	! ICONT
+rmod,cid,6,0.	! PINB
+rmod,cid,10,0.	! CNOF
+rmod,cid,12,0.	! FKT
+rmod,cid,36,31	! WB DSID
+*set,_maxkxx,605000.
+rmod,cid,14,_maxkxx/_ASMDIAG         ! TCC, Divide by Length since Traction Based
+rmod,tid,14,_maxkxx/_ASMDIAG      ! TCC, Divide by Length since Traction Based
+keyo,cid,1,2     ! Pure thermal contact
+/com,*********** Create Contact "Contact Region 2" ***********
+/com,            Real Constant Set For Above Contact Is 8 & 7 
+*set,tid,8
+*set,cid,7
+r,tid
+r,cid
+et,tid,170
+et,cid,174
+eblock,10,,,94
+(15i9)
+     2334        8        8        8        0     8439     8419     8443     8443     8793     8794     8443     8866    
+    #+END_SRC
+** Material Models
+*** Plasticity
+**** Multilinear Kinematic Hardening (MISO)
+     Implementation:
+     #+BEGIN_SRC ansys
+     TB,PLAS,1,1,2,MISO
+     #+END_SRC
+     This means that one must input the curve in plastic strains and
+     *not* engineering strains!
+** Boundary conditions
+**** forces
+     it is possible to apply time and spatially varying loads either
+     tabular or functional. Example (depending on the coordinate
+     sys.): =10*sin(x)
+     - moment :: scope: geometric selection, named selection, remote
+                 point contact pair: conta174, targe170 and pilot node
+                 similar to remote point pilot node is placed at the
+                 centre of the geom. curvature moment is applied
+                 around the reference coordinate system. pinball
+                 radius (might) reduce(s) the memory intensive range
+                 of participating elements
+     - remote point :: contact pair with reference geometry and pilot
+		       node(point)
+     - remote force :: contacts with pilot node MPC formulation (flexible
+		       or rigid)
+     - pressure :: surf154, sf
+     - force :: surf154, sfe "line force": surf156, sfe
+     - bolt pretension :: prets179 (WB: select only ONE face for whole
+	  stud!)
+     - bearing load :: surf154,Elements selected in load direction and
+		   pressure load applied on projected area (WB: select ALL
+		   faces of a cylinder!)
+     - hydrostatic pressure :: surf154, sfgrad and sf
+
+**** Pressure
+     Surface elements ~surf154~ and surface loads on elements (~sfe~)
+      #+BEGIN_SRC ansys
+       /com,*********** Define Pressure Vector Using Surface Effect Elements ***********
+       local,12,0,0.,0.,0.,0.,0.,0.
+       csys,0
+       et,2,154
+       eblock,10,,,10
+       (15i9)
+	      61        2        2        2       12      116      107       67       66      398      328      325      326
+	      62        2        2        2       12      115      114      107      116      407      397      398      408
+	      63        2        2        2       12      107      108       68       67      396      330      327      328
+	      64        2        2        2       12      114      113      108      107      406      400      396      397
+	      65        2        2        2       12      108      109       69       68      399      332      329      330
+	      66        2        2        2       12      113      112      109      108      405      402      399      400
+	      67        2        2        2       12      109      110       70       69      401      334      331      332
+	      68        2        2        2       12      112      111      110      109      404      403      401      402
+	      69        2        2        2       12      110      106       71       70      395      336      333      334
+	      70        2        2        2       12      111      105      106      110      394      393      395      403
+       -1
+       esel,s,type,,2
+       keyop,2,2,1                ! Apply load in local coordinate system
+       keyop,2,11,2               ! Use real and not project area
+       esel,all
+
+       *DIM,_loadvari28x,TABLE,2,1,1,TIME,
+       ! Time values
+       _loadvari28x(1,0,1) = 0.
+       _loadvari28x(2,0,1) = 1.
+       ! Load values
+       _loadvari28x(1,1,1) = 0.
+       _loadvari28x(2,1,1) = -1.
+
+
+       *DIM,_loadvari28y,TABLE,2,1,1,TIME,
+       ! Time values
+       _loadvari28y(1,0,1) = 0.
+       _loadvari28y(2,0,1) = 1.
+       ! Load values
+       _loadvari28y(1,1,1) = 0.
+       _loadvari28y(2,1,1) = -1.
+
+
+       *DIM,_loadvari28z,TABLE,2,1,1,TIME,
+       ! Time values
+       _loadvari28z(1,0,1) = 0.
+       _loadvari28z(2,0,1) = 1.
+       ! Load values
+       _loadvari28z(1,1,1) = 0.
+       _loadvari28z(2,1,1) = 0.
+
+       ...
+
+     esel,s,type,,2
+     nsle
+     sfe,all,1,pres,1,%_loadvari28x%
+     sfe,all,2,pres,1,%_loadvari28y%
+     sfe,all,3,pres,1,%_loadvari28z%
+     nsel,all
+     esel,all
+
+      #+END_SRC
+**** displacements
+     - remote displacement :: x,y,z, displacments are for the pilot node NOT
+	  the entire area!
+     - simply supported :: hinge for beams (rotations are free)
+     - elastic support :: surf154, r(4)=foundation stiffness, default
+	  thickness=1, damping possible
+     - cylindrical support :: rotation with nmodif,node,x,y,z,thxy,...
+     - compression only support :: rigid surf2surf contacts
+***** Frictionless Support
+      :PROPERTIES:
+      :Version:  15.0.7
+      :END:
+      Fixing normal displacement with (~d~), possibly modifying nodal
+      coordinate system (~nmodif~), turning into normal direction.
+      #+BEGIN_SRC ansys
+        /com,********* Frictionless Supports X *********
+        CMBLOCK,_FRICSUX,NODE,       48
+        (8i10)
+                61        62        63        64        65        66       115       116
+               117       118       119       120       121       122       123       124
+               ....
+               408       409       410       411       412       413       414       415
+               416       417       418       419       420       421       422       423
+        cmsel,s,_FRICSUX
+        d,all,ux,0
+        nsel,all
+        nsel,all
+        /com,*********** Node Rotations ***********
+        nmod,61,,,,-43.6672749853753,0.,0.
+        ...
+      #+END_SRC
+
+* APDL Reference
+** Idiosyncrasies
+  - You can only store character variables of 8 characters, strings of
+    32 characters and for *only* 248 characters you need to create a
+    string array!
+  - No function definitions <- write `command' files (suffix: .mac),
+    or call a macro (arbitrary suffix) with `*use', something close is
+    to fill a "table" arry, interpolating values and possible real
+    indexing A(0.3).
+  - you can get table array values with real index values but must use
+    integers for assigning them the values, the same goes for *vplot:
+    it needs the arry indices in integers and is, moreover, only
+    capable to plot the columns and not their line values!
+  - *vplot does only plot the columns of arrys, it is not possible to
+    specify rows
+  - No direct array values to file export in GUI mode <- write command
+    file for *vwrite, or use a (lookup) table for this purpose
+  - *vwread does not work with C format specifiers in contrast to *vwrite
+  - Still (v15) no *round* function in sight, but someting like
+    nint(max*1e3)/1e3 might do
+  - One cannot easily get the variable value, either one must assign
+    the variable to another one, or use the `*stat' command
+  - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
+  - Inconsistent naming: /{x,y}range but /axlab,{x,y},
+  - The /contour command does not work on device /show,PNG
+  - DELETION OF ARRY parameters without warning only possible with an
+    undocumented option: *del,Array,,nopr
+  - *cfwrite does parameter substituion without %%: *cfwrite, X_points
+    = NoN,*cfwrite, the same as X_points = %NoN%????
+  - No direct operation on arrays like A=A*3, take a detour with
+    *voper or *toper
+  - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
+    contrast to the more ralistic ones in /solu
+  - You can send only a complete block structure to the solver
+
+** File types (the whole zoo is in the operations guide) under Gnu/Linux?
+   |  No | Type                                                             | Name     | temp. | Remark                             | Format  |
+   |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
+   |   1 | abort                                                            | .abt     |       |                                    | binary  |
+   |   2 | graphics annotation commands                                     | .ano     | yes   |                                    | ascii   |
+   |   3 | neutral file format                                              | .anf     | no    |                                    | ascii   |
+   |   4 | animation                                                        | .anim    |       |                                    | binary  |
+   |   5 |                                                                  | .ans_log |       |                                    | ascii   |
+   |   6 | input data copied from batch input file /batch                   | .bat     | yes   |                                    |         |
+   |   7 | sparce solver                                                    | .bcs     | no    | run time statistics                | ascii   |
+   |   8 | interpolated body forces (bfint)                                 | .bfin    | no    |                                    | ascii   |
+   |   9 |                                                                  | .cdb     |       |                                    |         |
+   |  10 | sparce solver                                                    | .dsp     |       | run time statistics                | ascii   |
+   |  11 | interpolated DOF data (cbdof)                                    | .cbdo    | no    |                                    | ascii   |
+   |  12 | color map                                                        | .cmap    | no    |                                    | ascii   |
+   |  13 | default command file suffix (*cfopen, *cfwrite)                  | .cmd     | no    |                                    | ascii   |
+   |  14 | component mode synthesis                                         | .cms     | no    |                                    | binary  |
+   |  15 | nonlinear diagnostics file (nldiag)                              | .cnd     | no    |                                    | ascii   |
+   |  16 | pcg solver                                                       | .pcs     |       | run time statistics                | ascii   |
+   |  17 | workbench solver input                                           | .dat     |       |                                    | ascii   |
+   |  18 | database                                                         | .db      |       |                                    | binary  |
+   |  19 | db backup                                                        | .dbb     |       |                                    | binary  |
+   |  20 | databas from vmseh failure in batch mode                         | .dbe     | no    |                                    | binary  |
+   |  21 | fortran solution information                                     | .dbg     | no    |                                    | ascii   |
+   |  22 | Do-loop nesting                                                  | .do#     | yes   |                                    |         |
+   |  23 | scratch file modal analysis                                      | .dscr    | yes   |                                    | binary  |
+   |  24 |                                                                  | .D#      |       |                                    |         |
+   |  25 | perfomance information sparse solver distributed                 | .dsp     | no    |                                    | ascii   |
+   |  26 | scratch file distributed sparse solver                           | .dsp#    |       |                                    | binary  |
+   |  27 | Superelement DOF solution from use pass                          | .dsub    | no    |                                    | binary  |
+   |  28 | Element definitions (EWRITE)                                     | .elem    | no    |                                    | ascii   |
+   |  29 | element matrices                                                 | .emat    |       |                                    | binary  |
+   |  30 | element saved data                                               | .esav    |       |                                    |         |
+   |  31 | errors and warnings                                              | .err     |       |                                    | ascii   |
+   |  32 | distributed memory                                               | #.err    |       |                                    |         |
+   |  33 | rotated element matrices                                         | .erot    | yes   |                                    |         |
+   |  34 | Element saved data ESAV files created by nonlinear analyses      | .esav    | yes   |                                    | binary  |
+   |  35 | scratch file PCG Lanczos eigensolver                             | .evc     | yes   |                                    | binary  |
+   |  36 | scratch file PCG Lanczos eigensolver                             | .evl     | yes   |                                    | binary  |
+   |  37 |                                                                  | .ext     |       |                                    |         |
+   |  38 |                                                                  | .exti    |       |                                    |         |
+   |  39 | local results file distributed memory                            | #.ext    |       |                                    |         |
+   |  40 | stiffness-mass matrices                                          | .full    |       |                                    | binary  |
+   |  41 | Fatigue data [FTWRITE]                                           | .fatg    | no    |                                    | ascii   |
+   |  42 | neutral graphics file                                            | .grph    | no    |                                    | ascii   |
+   |  43 | Graphical solution tracking file                                 | .gst     | no    |                                    | binary  |
+   |  44 | IGES file from ANSYS solid model data [IGESOUT]                  | .iges    | no    |                                    | ascii   |
+   |  45 | initial state                                                    | .ist     |       |                                    |         |
+   |  46 | Loading and bc of load steps (used for multiframe restart)       | .ldhi    |       |                                    | ascii   |
+   |  47 | Database command log file [LGWRITE]                              | .lgw     | no    |                                    | ascii   |
+   |  48 | scratch file for sparse solver                                   | ???.ln#  | yes   |                                    |         |
+   |  49 | Load case file (where nn = load case number) [LCWRITE]           | .l#      | no    |                                    | binary  |
+   |  50 | Factorized stiffness matrix                                      | .ln22    | no    |                                    | binary  |
+   |  51 | Command input history                                            | .log     | no    |                                    | ascii   |
+   |  52 | lock file                                                        | .lock    | yes   | prevent runs in the same directory | binary  |
+   |  53 | scratch file mode superposition                                  | .lscr    | yes   |                                    |         |
+   |  54 | scratch file substructure pass w/ more than 1 load vector        | .lv      | yes   |                                    | binary  |
+   |  55 | macro                                                            | .mac     |       |                                    | ascii   |
+   |  56 | Mapping data [HBMAT]                                             | .mapping | no    |                                    | ascii   |
+   |  57 | Mapping data in Harwell-Boeing format [HBMAT]                    | .matrix  | no    |                                    | asc/bin |
+   |  58 | Modal coordinates from harmonic or transient analysis            | .mcf     | no    |                                    | ascii   |
+   |  59 | modal element load vector                                        | .mlv     | no    |                                    | binary  |
+   |  60 | Nonlinear analysis convergence monitoring                        | .mntr    | no    |                                    | ascii   |
+   |  61 | modal analyses                                                   | .mode    |       |                                    | binary  |
+   |  62 | Material property definitions [MPWRITE]                          | .mp      |       |                                    | ascii   |
+   |  63 | Modal analysis frequencies and mode shapes                       | .modesym | no    |                                    | binary  |
+   |  64 | mode-superposition transient  (multiframe restart)               | .m#      |       |                                    | binary  |
+   |  65 | Nonlinear diagnostics file tracking contact quantities [NLHIST]  | .nlh     | no    |                                    | ascii   |
+   |  66 | Node definitions [NWRITE]                                        | .node    | no    |                                    | ascii   |
+   |  67 | Stores Newton-Raphson iteration information [NLDIAG,NRRE,ON]     | .nr      | no    |                                    | binary  |
+   |  68 | old element .esav data from converged solution                   | .osav    |       |                                    |         |
+   |  69 | Solver messages                                                  | .out     | no    |                                    | ascii   |
+   |  70 | slave output file distributed memory                             | #.out    |       |                                    |         |
+   |  71 | database virtual memory                                          | .page    | yes   | if database space unavailable      |         |
+   |  72 | Parameter definitions [PARSAV]                                   | .parm    | no    |                                    | ascii   |
+   |  73 | Stores performance information when running the PCG solver       | .pcs     | no    |                                    | ascii   |
+   |  74 | FLOTRAN printout file                                            | .pfl     | no    |                                    | ascii   |
+   |  75 | plot file extension for electromagnetic trainsient               | .plt     |       |                                    |         |
+   |  76 | Stores pivot information when running the sparse solver          | .pvts    | no    |                                    | ascii   |
+   |  77 | scratch file for PCG solver                                      | .pc#     | yes   |                                    | binary  |
+   |  78 | scratch file for PCG solver                                      | .pda     | yes   |                                    | binary  |
+   |  79 | scratch file for PCG solver                                      | .pma     | yes   |                                    |         |
+   |  80 | Results file for initial contact state                           | .rcn     | no    |                                    | binary  |
+   |  81 | restart database                                                 | .rdb     | no    |                                    |         |
+   |  82 | FLOTRAN residual file [FLDATA,OUTP]                              | .rdf     |       |                                    |         |
+   |  83 | Database from structural analyses after # times of rezoning      | .rd#     | no    |                                    | binary  |
+   |  84 | mode-superposition transient reduced displacements               | .rdsp    | no    |                                    | binary  |
+   |  85 | mode-superposition harmonic  reduced complex displacements       | .rfrq    | no    |                                    | binary  |
+   |  86 | flotran res.                                                     | .rfl     |       |                                    | binary  |
+   |  87 | magnetic res.                                                    | .rmg     |       |                                    | binary  |
+   |  88 | structural results                                               | .rst     |       |                                    | binary  |
+   |  89 | combination of local results file in distributed memory          | #.rst    |       |                                    |         |
+   |  90 | linear perturbation results                                      | .rstp    |       |                                    |         |
+   |  91 | FLOTRAN "wall" results file                                      | .rsw     | no    |                                    | ascii   |
+   |  92 | FLOTRAN run data                                                 | .run     | no    |                                    | ascii   |
+   |  93 | thermal results                                                  | .rth     |       |                                    | binary  |
+   |  94 | Results file from structural analyses after nn times of rezoning | .rs#     | no    |                                    | binary  |
+   |  95 | nonlinear static or full transient                               | .r#      |       |                                    |         |
+   |  96 | load step No #    [LSWRITE]                                      | .s#      |       |                                    | ascii   |
+   |  97 | scratch file for Jacobi Conjugate Gradient solver                | .scr     | yes   |                                    | binary  |
+   |  98 | Superelement load vector data from generation pass               | .seld    |       |                                    |         |
+   |  99 | scratch file for supernode solver                                | .snode#  | yes   |                                    | binary  |
+   | 100 | Superelement name and number from use pass                       | .sort    |       |                                    |         |
+   | 101 | Status of an ANSYS batch run                                     | .stat    | no    |                                    | ascii   |
+   | 102 | scratch file for substructure generation pass                    | .sscr    | yes   |                                    | binary  |
+   | 103 | substructure matrices                                            | .sub     |       |                                    |         |
+   | 104 | Hyperelastic material constants                                  | .tb      | no    |                                    | ascii   |
+   | 105 | Renamed DSUB File for input to substructure expansion pass       | .usub    | no    |                                    | binary  |
+   | 106 | FLOTRAN boundary condition data (ANSYS to FLOTRAN)               | .xbc     | no    |                                    | ascii   |
+   | 107 | FLOTRAN geometry data (ANSYS to FLOTRAN)                         | .xgm     | no    |                                    | ascii   |
+   | 108 | FLOTRAN initial condition data (ANSYS to FLOTRAN)                | .xic     | no    |                                    | ascii   |
+   | 109 | restart                                                          | .x#      |       |                                    |         |
+   |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
+   | 110 | Old (10/11) WorkBench database                                   | .wbdb    | no    |                                    | binary  |
+   | 111 |                                                                  | .dsdb    |       |                                    |         |
+   | 112 | WB archive                                                       | .wbpz    |       |                                    | binary  |
+   | 113 | FE Modeler                                                       | .fedb    |       |                                    |         |
+   | 114 | Engineering Data                                                 | .eddb    |       |                                    |         |
+   | 115 | Engineering Data                                                 | .xml     |       |                                    |         |
+   | 116 | DesignXplorer                                                    | .dxdb    |       |                                    |         |
+   | 117 |                                                                  | .mechdat |       |                                    |         |
+   | 118 | Mesh input file                                                  | .cmdb    |       |                                    |         |
+   | 119 |                                                                  | .meshdat |       |                                    |         |
+   | 120 | WorkBench project database                                       | .wbpj    |       |                                    |         |
+   | 121 | design point                                                     | .wbdp    |       |                                    |         |
+   | 122 | WB material - AKA "engineering" data                             | .engd    |       |                                    |         |
+   | 123 | DesignModeler database                                           | .agdb    |       |                                    |         |
+   #+TBLFM: $1=@#-1
+
+   - .mac
+   - .db
+   - .dbb
+   
+
+#+begin_src ansys :exports none
+  c***,**************************************************
+  !@ --- APDL Reference ---
+  c******************************************************
+  !! the comma behind `c***' is not necessary, one example of the many
+  !! APDL peculiarities, which are not documented!
+#+end_src
+** Defining parameters
+up to 5000
+*** Double, char38, char8?, logical? TODO:
+    in table only 8 chars?
+    
+*** Variable names (called `parameter' in the ANSYS manual)
+All numeric values are stored as double precision values.  Not defined
+variables are assigned a tiny value near zero.  The interpreter is not case sensitve
+:TODO except in strings?
+**** Must begin with a letter or an underscore
+#+begin_src ansys :exports none
+  !@ --- Defining parameters ---
+  !@@ -- Variable names --
+  
+  !! Must begin with a letter or an underscore The interpreter is not
+  !! case sensitive for expressions only for strings
+#+end_src
+#+begin_src ansys
+  1ansys = 3                    !is not a valid variable name
+  a1nsys = 3                    !a1nsys is a valid variable name
+  A1NSys = 4                    !this is the same variable
+  A1NSys = Temp                 !`Temp' is not defined
+#+end_src
+    The following text is the respective ANSYS solver/interpreter output.
+#+begin_src ansys-solver :tangle no
+  BEGIN:
+   1ansys = 3                    !is not a valid variable name
+  PARAMETER 1ANSYS =     3.000000000    
+  *** ERROR ***                           CP =       0.259   TIME= 18:06:41
+  Invalid character in parameter name.                                    
+   The setting of parameter= 1ANSYS is ignored.                           
+  BEGIN:
+   a1nsys = 3                    !a1nsys is a valid variable name
+  PARAMETER A1NSYS =     3.000000000    
+  BEGIN:
+   A1NSys = 4                    !this is the same variable
+  PARAMETER A1NSYS =     4.000000000    
+  BEGIN:
+   A1NSys = Temp                 !`Temp' is not defined
+  *** WARNING ***                         CP =       0.260   TIME= 18:06:56
+  Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
+  PARAMETER A1NSYS =    0.7888609052E-30
+  BEGIN:
+#+end_src
+**** Should not begin with an underscore
+    This convention is used in nameing variables in ANSYS supplied
+    macros and the GUI.
+
+#+begin_src ansys :exports none
+   !! Should not begin with an underscore
+#+end_src
+    
+#+begin_src ansys
+  _ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
+  _ = 3        ! a single underscore definition is valid
+  X = _
+  _ = 3 !the single underscore represents  also a `variable' in APDL
+#+end_src
+**** Variable names with a trailing underscore
+    These are hidden from the `*status' command output and can be
+    deleted as a group with `*del'.
+#+begin_src ansys :exports none
+  !! Variable names with a trailing underscore
+#+end_src
+
+#+begin_src ansys
+  ansys_ = 3              !this is a `hidden' variable from *status
+  *status                 !does not show `ansys_'
+         ,PRM_            !show variables with trailing underscore
+  *del,,PRM_              !delete all variables with trailing underscore
+#+end_src
+#+begin_src ansys-solver :tangle no
+     BEGIN:
+    ansys_ = 3
+     PARAMETER ANSYS_ =     3.000000000    
+     BEGIN:
+     *status
+     ABBREVIATION STATUS-
+      ABBREV    STRING
+      SAVE_DB   SAVE
+      RESUM_DB  RESUME
+      QUIT      Fnc_/EXIT
+      POWRGRPH  Fnc_/GRAPHICS
+    
+     PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
+                      (INCLUDING        4 INTERNAL PARAMETERS)
+    
+     NAME                              VALUE                        TYPE  DIMENSIONS
+     X                                 3.00000000                    SCALAR
+     BEGIN:
+    ,PRM_
+     PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
+                      (INCLUDING        4 INTERNAL PARAMETERS)
+    
+     NAME                              VALUE                        TYPE  DIMENSIONS
+     ANSYS_                            3.00000000                    SCALAR
+     BEGIN:
+#+end_src
+**** Must contain only letters, numbers and underscores
+#+begin_src ansys :exports none
+  !! Must contain only letters, numbers and underscores
+#+end_src
+#+begin_src ansys
+  !! only letters, numbers and underscores are allowed
+  a1n§sys = 3              !this is not a valid variable name
+  a1n_sys = 3              !this is a valid variable name
+#+end_src
+the ANSYS interpreter output looks like this:
+#+begin_src ansys-solver :tangle no
+  BEGIN:
+   a1n§sys = 3              !this is not a valid variable name
+  ,*** ERROR ***                           CP =       0.256   TIME= 17:35:07
+  Invalid character in parameter name.                                    
+   The setting of parameter= A1N§SYS is ignored.                         
+  BEGIN:
+   a1n_sys = 3              !this is a valid variable name
+  PARAMETER A1N_SYS =     3.000000000    
+  BEGIN:
+#+end_src
+**** Must contain no more than 32 characters    
+#+begin_src ansys :exports none
+  !! Must contain no more than 32 characters    
+#+end_src
+#+begin_src ansys
+  !! The following is not a valid variable name
+  v23456789_123456789_123456789_123 = 3
+  !! The following is a valid variable name
+  v23456789_123456789_123456789_12  = 3
+#+end_src
+**** Local Variables
+#+begin_src ansys :exports none
+  !! Local Variables
+#+end_src
+#+begin_src ansys
+  Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
+  AR18 = AR19
+  *stat,argx
+#+end_src
+
+*** Character strings
+    Must not contain more than 32 characters
+#+begin_src ansys :exports none
+  !@@ -- Character strings --
+  !! Must not contain more than 32 characters
+#+end_src
+#+begin_src ansys
+  ! character string variables are enclosed with `''
+  Yc = '012345678901234567901234567890123' !not a character variable any more
+  Symetry = 'yes'
+#+end_src
+** Erasing variables from memory
+#+begin_src ansys :exports none
+  !@@ -- Erasing variables from memory --
+#+end_src
+#+begin_src ansys
+  !! defining
+  Scalar = 3               !the `=' assignment is a shorthand for `*set'
+  *set,Scalar,4            !reassignment
+  *set,Vector,1,2,3,4,5,6,7,8,9,10
+  Vector = 0,1,2,3,4,5,6,7,8,9,10,11,12 !TODO:
+  Vector = 4               !TODO:
+  !! deleting
+  Scalar =     !this is not a variable any more
+  *set,Scalar               !alternative to `Scalar ='
+  *del,all                 !delete all variables!
+  *del,Vector   !TODO:
+#+end_src    
+
+** Variable substitution with `%'
+#+begin_src ansys :exports none
+  !@@ -- Variable substitution with `%' --
+#+end_src
+*** Substitution of Numeric Variables
+In "string commands" like `/com', where a string follows the command
+name one can force the substitution of a parameter name to its value.
+Other examples are
+#+begin_src ansys :exports none
+  !! Substitution of Numeric Variables
+#+end_src
+#+begin_src ansys
+  Steel = 1
+  /com,Material %Steel% is steel
+  !! ATTENTION: in the following situation!
+  /com,%Steel% does NOT substitute variable Steel
+  /com, %Steel% does substitute variable Steel
+  /com,Stuff like %Steel+1% returns 2
+#+end_src
+*** Substitution of Character Variables
+It is possible to substitute a command name
+#+begin_src ansys :exports none
+   !! Substitution of Character Variables
+#+end_src
+#+begin_src ansys
+  R='RESUME'
+  %R%,MODEL,DB
+#+end_src
+#+begin_src ansys
+  !! string, message commands and comment behaviour && %$$% %% :bla: &&&
+  
+  /com, bla = %bla%
+  igesin,'test','%iges%'
+  /title,Nothing in %particular%
+  !! in "string commands" are no code comments possible
+  /com,beam3 %YES% ! this is *really not commented out!!!! &
+  c*** *beam3 !otto *otto %neither% here !!!!!!! &
+  /com, bearm laskf %otto% !%otto% we are here 
+  
+#+end_src
+**** In certain `string commands'
+~/title~ and ~/com~ are string commands similar to ~c***~ 
+#+begin_src ansys
+  right = 'wrong'
+  /title, the value of right is  %right%
+  /com, this is %right%: /com does expand parameters as well
+#+end_src
+**** Unfortunately here is no expansion possible
+neither with ~c***~ nor with ~/sys~
+#+begin_src ansys
+  right = 9
+  c***,this is %right%: c*** allows no parameter expansion
+  /sys,ls "*.mac" %otto% &
+  /syp,ls, %otto% !this is not working, no substitution!
+  I = 1
+  otto = 'file00%I%.eps'
+  /syp,ls, otto !this is working as intended
+#+end_src
+   
+*** Dynamic Substitution of Numeric or Character Variables
+ or forced substitution (deferred)
+#+begin_src ansys :exports none
+  !! Dynamic Substitution of Numeric or Character Variables
+#+end_src
+
+#+begin_src ansys
+  Case = 'case 1'
+  /title,This is  %Case%
+                           !/stitle
+                           !*ask
+                           !/tlabel
+                           !/an3d
+                           !in tables TODO:
+  aplot
+  Case = 'case 2'
+  !! not necessary to reissue /title, "This is case 2"
+  !! will appear on subsequent plots
+  aplot
+#+end_src    
+
+** Expressions
+*** Exponentiation Operator is `**'
+#+begin_src ansys :exports none
+   !! Exponentiation Operator is `**'
+#+end_src    
+*** Multiplication Expression
+    Beware of the oldstyle ANSYS comment!
+#+begin_src ansys :exports none
+  !! Beware of the oldstyle ANSYS comment!
+#+end_src    
+#+begin_src  ansys
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+#+end_src
+*** Operators: `<' and  `>' :TODO
+#+begin_src ansys :exports none
+   !! Operators: `<' and  `>' :TODO
+#+end_src    
+#+begin_src ansys
+  otto = 1.82
+  karl = 1.97
+  margret =  otto < karl !margret = otto
+  maria = karl < otto    !maria = otto
+  *status,karl > otto
+#+end_src    
+** Arrays
+   4 types: array, char of 8 characters, table and string 128 chars
+#+begin_src ansys :exports none
+  !@@ -- Arrays --
+#+end_src   
+*** Specifiying array element values
+#+begin_src ansys :exports none
+   !! Specifiying array element values
+#+end_src
+*** APDL Math
+#+begin_src ansys :exports none
+   !! APDL Math
+#+end_src    
+APDL Math works in its own workspace independent of the APDL
+environment!
+#+begin_src ansys
+  No = 100
+  Pi = acos(-1)
+  Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
+  Dat = 0:2*Pi:2*Pi/No
+  *vfun
+  *vec,import,apdl,Dat
+  *fft,Forw,Dat,OutDat,,,Full !what's the difference?
+  *fft,    ,Dat,OutDat,,,Part !what's the difference?
+  *export,OutDat,apdl,APDLOutDat
+#+end_src    
+
+** debugging
+#+begin_src ansys
+  debug                    !TODO: undocumented?
+#+end_src
+** Multiple runs, probabilistic design
+#+begin_src ansys
+  PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
+  in V11: *mrun                    !TODO: 
+#+end_src   
+** Undocumented commands
+#+begin_src ansys
+  !undocumented commands are highlighted differently
+  /xml                     !undocumented command /xml
+  /xfrm                    !documented command   /xfrm
+#+end_src
+* APDL-Mode Syntax Highlighting Reference
+#+BEGIN_LaTeX
+  \definecolor{dkgreen}{rgb}{0,0.5,0}
+  \definecolor{dkred}{rgb}{0.5,0,0}
+  \definecolor{gray}{rgb}{0.5,0.5,0.5}
+  \lstset{frame=none, %leftline
+    basicstyle=\ttfamily\bfseries\footnotesize,
+    morekeywords={virtualinvoke},
+    keywordstyle=\color{dkgreen},
+    ndkeywordstyle=\color{red},
+    commentstyle=\color{dkred},
+    stringstyle=\color{orange},
+%   numbers=left,
+%    numberstyle=\ttfamily\tiny\color{gray},
+%    stepnumber=1,
+%    numbersep=10pt,
+    backgroundcolor=\color{white},
+    tabsize=4,
+ %   showspaces=false,
+%    showstringspaces=false,
+    xleftmargin=.23in
+  }
+
+\lstdefinelanguage{ansys}
+  {
+  morecomment=[l]{!},
+  morecomment=[l]{\ *}, % olds style comments
+  morestring=[b]',
+  sensitive=false,
+  morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
+     aplot,eplot,igesin,set,lfillt},
+  otherkeywords={*MSG,*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
+    /units,/prep7,/solu,/post1,/post26,/eof,/image,/sys,*afun,/view,c***,*get,
+   *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
+   /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
+}
+#+END_LaTeX  
+   
+** Header
+#+begin_src ansys
+    !! ------------------------------
+    !@ --- header ---
+    !! ------------------------------
+    !! Time-stamp: <2012-06-22 16:42:24 uidg1626>
+    !! NOTE: This is APDL pseudo code, checking
+    !!  APDL-Mode's highlighting capabilities and
+    !!  certain aspects of the language
+    !!  Please see further below.
+#+end_src
+
+#+begin_src ansys
+  /units,mpa !indicate mm-t-s unit system
+  !@ --- Preprocessing ---
+  /prep7
+  !@@ -- Elements --
+  Steel = 1
+  ID = Steel
+  real = Steel
+  et,ID,solid186 !3d, 20 node
+  !@@ -- Material --
+  mp,nuxy,Steel,0.3 ! Poisson No
+  mp,ex,Steel,200000 ! Elastic modulus
+  !@@ -- Modeling --
+  block,0,1,0,1,0,1
+  !@@ -- Meshing --
+  vmesh,all
+  !@@ -- BCs, Loads --
+  nsel,s,loc,x,0
+  d,all,all
+  nsel,s,loc,x,1
+  d,all,uy,-.1
+  allsel
+  save
+  !@ --- Solving ---
+  /solu
+  solve
+  !@ --- Postprocessing --
+  /post1
+  /view,,1,1,1
+  plnsol,u,sum,2
+  /image,save,test !save XWindow Dump xwd (or bmp on Windows)
+  /image,capture 		!TODO: what is this: file0001.xwd?
+  /sys,convert test test.png
+  /upwind                  !TODO: 2d-graphics library? dated?
+  *fft                     !TODO: :-)
+#+end_src
+
+#+begin_src ansys
+  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  !!  Please put the the cursor below the next paragraph of emacs lisp
+  !!  code and type "C-x C-e" to change the setting of
+  !!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
+  !!  change the level from 0 to 2 and toggle the flag from `t' to
+  !!  `nil'.  Browse the file to check the differences.
+#+end_src
+
+# this is for the export
+#+begin_src lisp
+  (progn
+    (when
+        (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (setq
+     ansys-highlighting-level 2
+     ansys-dynamic-highlighting-flag t)
+    (load-file "ansys-mode.el")
+    (ansys-mode))
+#+end_src
+
+# and this is for the APDL file
+#+begin_src ansys :exports none
+! this is the lisp code
+  (progn
+    (when
+        (featurep 'ansys-mode)
+      (unload-feature 'ansys-mode))
+    (setq
+     ansys-highlighting-level 2
+     ansys-dynamic-highlighting-flag t)
+    (load-file "ansys-mode.el")
+    (ansys-mode))
+#+end_src
+
+:TODO
+!! ------------------------------
+/units,mpa !indicate mm-t-s unit system
+c
+#+begin_src ansys
+  !@@ -- Ignored characters and condensed input line ($ operator)
+  finishThisNightmare $ /cle !/clear
+  f $ fi $ fin $ fini $ finis  $ finish $ finisher
+#+end_src
+
+** Highlighting APDL specials
+#+begin_src  ansys :exports none
+!@ --- APDL-Mode is highlighting APDL specials ---
+#+end_src
+*** Reserved words and _RETURN statements
+#+begin_src ansys :exports none
+!@@ -- Reserved words and _RETURN statements --
+#+end_src
+#+begin_src ansys
+  !!
+  N      =  _RETURN       !return value of certain commands
+  Alpha2 =  +360./(2*N)
+  Xc     =  !empty rhs clears variables
+#+end_src
+*** _RETURN values of macros
+#+begin_src ansys
+  *return                  !TODO: what is this?
+  *status,_RETURN          !0 normal
+                           !1 note
+                           !2 warning
+                           !3 error
+                           !4 fatal
+#+end_src    
+***  Old style APDL comments
+#+begin_src ansys :exports none
+!@@ -- Old style APDL comments --
+#+end_src
+#+begin_src  ansys
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+#+end_src
+*** Ignored characters behind commands
+#+begin_src ansys :exports none
+!@@ -- Ignored characters behind commands --
+#+end_src
+#+begin_src  ansys
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
+#+end_src
+*** The End Of File command
+#+begin_src  ansys :exports none
+!@@ -- End Of File command --
+#+end_src
+#+begin_src  ansys
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
+#+end_src
+
+#+begin_src ansys
+  !@@ -- function names --
+  Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
+  Alpha1 = rotx( 14.5) - 360./ (2*Nn)
+#+end_src
+
+*** Ignored characters behind commands
+#+begin_src ansys :exports none
+!@@ -- Ignored characters behind commands --
+#+end_src
+#+begin_src ansys
+  f $ fi $ fin $ fini $ finis  $ finish $ finisher
+  a $ al $ all $ alls $ allse $ allsel $ allselllllll
+  rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+  !!
+#+end_src
+*** The End Of File command
+#+begin_src  ansys :exports none
+  !@@ -- End Of File command --
+#+end_src
+#+begin_src ansys
+    /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+    /exit,nosave           !default is save the model data
+  !!
+#+end_src
+*** Current element types and deprecated elements
+#+begin_src ansys :exports none
+  !@@ -- Current element types & deprecated elements
+#+end_src
+#+begin_src ansys
+  !! A current element type:
+  et,10,solid186
+  !! deprecated element types:
+  et,Steel,beam3 $ et,Alu,shell91
+  !!
+#+end_src
+Let's change the element types to current ones!
+#+begin_src ansys :tangle yes
+  !! Complete the following element fragments to current ones!
+  !!
+  et,Steel,beam $ et,Alu,shell
+
+#+end_src
+For example select the following elements
+#+begin_src ansys :tangle no
+  et,Steel,beam188 $ et,Alu,shell28
+#+end_src
+and you are getting a diffent element highlighting.
+
+#+begin_src ansys
+  !@@ -- default commands
+  nsel,s,loc,y,0
+      ,a,loc,y,1
+      ,r,loc,x,0
+  d,all,all
+#+end_src
+** Implied (or colon) looping
+#+begin_src ansys
+  !@@ ::: implicit : (colon) looping :::::
+  !! (n1:n2:dn)
+  lfillt,(1:2),(3:4),5
+  !! one subscript per array
+  bf,(1:10),temp,Tarray(1:10)
+  b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
+  !! The *get command and get functions are allowed
+  *get,Fx(1:10),node,(1:10),f,fz !TODO:
+  a(1:5) = nx(1:5)
+  !! TODO:
+  Fx(1:10) = (1:100:10)    !is this working? :-)
+  !! alternative to *vfill
+  *vfill,Fx,ramp,1,10
+#+end_src
+
+#+begin_src ansys
+  !! looping
+  ,*get,Dim
+  ,*if,Dim,le,1,then
+    *dim,Reaction,array,Ns,1
+  ,*endif
+  ,*do,I,1,Ns
+    set,Ls,I
+    fsum
+    *get,Fx,fsum,,item,fx
+    Reaction(I)=Fx
+  ,*enddo
+#+end_src
+#+begin_src ansys
+  !@@ -- multiline *msg formatting with the & operator
+  *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+  Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+  Steel = %G A (electrical angle = %G DEG) %/ &
+  _Power factor: %G %/ &
+  Inductance = %G %/ &
+  VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
+#+end_src
+
+* And the rest
+
+  *taxis only for 3 dimension? table(0,1) = 3 is working as well
+
+#+begin_src ansys
+  !@@ --! multiline message format command this is tricky: use M-o M-o
+  *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+  Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+  Steel = %G A (electrical angle = %G DEG) %/ &
+  _Power factor: %G %/ &
+  Inductance = %G %/ &
+  VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+  aldk this is not any longer in the *msg format construct
+  /com this is not any longer in the *msg format construct
+  
+  *vwrite,B(1,1),B(2,1),%yes%
+  alkd %D &
+  %E%/%E
+#+end_src
+#+begin_src ansys
+  !! commands which do not allow arguments
+  /prep7 $ FINISH !$ means nothing behind
+  /prep7 !still nothing behind
+  /prep7 * old style comment, this is allowed
+  /prep7 this is an error  
+#+end_src
+#+begin_src ansys
+  nsel,s,loc,x,1
+  nsel = 3  !you CAN have variable names clashing with commands
+#+end_src
+
+#+begin_src ansys
+  !@@ -- Goto branching --
+  *go,:branch
+  aselsalsdkfjaölsdkfjaölskdjf,all
+  :branch
+#+end_src
+
+#+begin_src ansys
+  !-----------------------------------------------------------------------
+  ! mdlbl.mac
+  ! Puts Modal Info on Plot
+  !-----------------------------------------------------------------------
+  /post1
+  set,last
+  *get,nmd,active,,set,sbst
+  pfct= $ ffrq= $ adir=
+  nsel,s,l
+  
+  *dim,pfct,,nmd,6
+      ,
+      ,ffrq,,nmd
+      ,adir,char,nmd
+  
+  
+  adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
+  *stat,adir
+  *do,i,1,nmd
+    *get,ffrq(i),mode,i,freq
+    *do,j,1,6
+      *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
+    *enddo
+  *enddo
+  /annot,delete
+  /plopt,info,0
+  /plopt,minm,off
+  /triad,off
+  /erase
+  iadd = arg1
+  *if,iadd,eq,0,then
+    iadd = 1
+  *endif
+  /tspe,15,1,1,0,0
+  /TSPE, 15, 1.000,   1,   0,   0
+  xx = 1.05
+  yy = .9
+  !  Change the window settings if you need different 
+  !  aspect ratios for your geometry
+  /win,1,-1,1,.5,1
+      ,2,-1,1,0,.5
+      ,3,-1,1,-.5,0
+      ,4,-1,1,-1,-.5
+  !
+  /win,2,off
+  /win,3,off
+  /win,4,off
+  
+  *get,vx,graph,1,view,x
+  *get,vy,graph,1,view,y
+  *get,vz,graph,1,view,z
+  *get,va,graph,1,angle
+  *get,vd,graph,1,dist
+  *do,i,2,4
+    /view,i,vx,vy,vz
+    /dist,i,vd
+    /angle,i,va
+  *enddo
+  
+  *do,i,1,4
+    ii = i - 1 + iadd 
+    set,1,ii
+    plnsol,u,sum
+    *if,i,eq,1,then
+      /noerase
+    *endif
+    /win,i,off
+    *if,i,ne,4,then
+      /win,i+1,on
+    *endif
+  *enddo
+  *do,i,1,4
+    ii = i - 1 + iadd
+    /TLAB, xx, yy  ,Mode: %ii%
+    yy = yy - .05
+    /TLAB, xx, yy,Freq: %ffrq(ii)%
+    yy = yy - .05
+    *do,j,1,6
+      /TLAB, xx, yy  ,PF %adir(j)%: %pfct(ii,j)%
+      yy = yy - .05
+    *enddo
+     yy = yy -.11
+  *enddo
+  /erase
+  /annot,delete
+  sz = .8
+  xloc = 0
+  yloc = 0
+  
+  *dim,data,,5
+  data(1) = 12,15,28,10,32
+  hsz = sz/2
+  
+  /pspec,0,1,1
+  /poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+           1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+  
+  x0 = xloc + hsz
+  y0 = yloc + .7*hsz
+  lof = .05
+  
+  *vscfun,dsum,sum,data(1)
+  /LSPE, 15, 0, 1.000
+  /TSPEC, 15, 0.700, 1, 0, 0
+  ang1 = 0
+  *do,i,1,5
+    ang2 = ang1 + (360*data(i)/dsum) 
+    /PSPE, 2*i, 1, 1 
+    /PWED, xloc,yloc,sz*.4, ang1,ang2 
+    /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
+    pvl = 100*data(i)/dsum 
+    /tlab, x0+1.5*lof,y0, %pvl% % 
+  
+    y0 = y0 - 1.5*lof 
+    ang1 = ang2
+  *enddo
+  /eof
+#+end_src
+
+-----
+# LOCAL variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
+# end:

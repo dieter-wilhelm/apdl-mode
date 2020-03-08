@@ -51,6 +51,7 @@
     (tags-query-replace "26\.3" "27.1")
     # for _mode_version
     (tags-query-replace "20\.1\.0" "20.2.0")
+    (tags-query-replace "ansys+emacs2020.png" "ansys+emacs2020-03.png")
 #    (tags-query-replace "ANSYS" "Ansys") done
     # copyright
     (tags-query-replace "- 2020" "- 2021")

@@ -28,7 +28,7 @@
 #+title: APDL-Mode
 The GNU-Emacs major mode for the programming language APDL
 
-[[file:doc/ansys+emacs2020.png]]
+[[file:doc/ansys+emacs2020-03.png]]
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 

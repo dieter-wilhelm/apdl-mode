@@ -19,7 +19,7 @@ helper/emacs-24.5
 helper/hide-region+.el
 helper/hide-region.el
 helper/htmlize.el
-helper/ansys-keyword.el
+helper/apdl-keyword.el
 helper/share
 helper/apdl-mode-*
 matlib/#*#

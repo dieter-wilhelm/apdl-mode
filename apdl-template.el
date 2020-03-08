@@ -6,7 +6,7 @@
 ;; Maintainer: H. Dieter Wilhelm
 ;; Version: 20.1.1
 ;; Package-Requires: ((emacs "25"))
-;; Keywords: languages, convenience, ANSYS, tools, APDL
+;; Keywords: languages, convenience, Ansys, tools, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
 
 
@@ -180,7 +180,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ;;                                                                                                                                    (buffer-file-name)
   ;;                                                                                                                                  (buffer-name))) \n
   "!! Time-stamp: <" (current-time-string) ">" \n
-  "!! ANSYS VERSION: " apdl-current-ansys-version \n
+  "!! Ansys VERSION: " apdl-current-ansys-version \n
   ;;  "!! UNITS: mm-t-s" \n
   "!! NOTE: " str \n
   "!! ------------------------------" \n
@@ -495,7 +495,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,1 !display working plane" \n
   "/plopts,wp,off !switch off wp" \n
   "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off ANSYS logo" \n
+  "/plopts,logo,off !switch off Ansys logo" \n
   "/plopts,date,1 !show only date and not time" \n
   "/plopts,title,off !switch of title display" \n
   "!! --- WB like legend display --- " \n
@@ -704,9 +704,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- contact options --" \n
   "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!! " \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY ANSYS version < 12.0!)" \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY Ansys version < 12.0!)" \n
   "rmodif,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
-  "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for ANSYS!!!" \n
+  "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n
   "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
   "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
@@ -871,7 +871,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/plopts,wp,off !switch off wp" \n
   "/triad,off !off: switch off co-ordinate triad, rbot, ltop, ..." \n
   "/plopts,frame,off !switch off graphics frame" \n
-  "/plopts,logo,off !switch off ANSYS logo" \n
+  "/plopts,logo,off !switch off Ansys logo" \n
   "wpstyl,,,,,,1 !type spec 0,1,2 cartesian,cylindrical,spherical" \n
   "wpstyl,,,,,,,0 !grid spec: 0 grid+triad,1 grid,2 [triad]" \n
   "!wpstyl,stat" \n
@@ -2183,7 +2183,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "andata !contour animation over result data range" \n
   "anmres !multiple result files" \n
   \n
-  "/show,spring_washer6,grph !ANSYS graphics format for the display utility" \n
+  "/show,spring_washer6,grph !Ansys graphics format for the display utility" \n
   "! display is saveing the animation in the HOME folder on Windows" \n
   "*get,Nls,active,,set,nset" \n
   "set,first" \n
@@ -2752,7 +2752,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   (apdl-skeleton-post1))
 
 (define-skeleton apdl-skeleton-outline-template
-  "Insert outline framework into an ANSYS APDL file."
+  "Insert outline framework into an Ansys APDL file."
   "Insert brief purpose of file: "
   "!@ ==============================" \n
   "!" apdl-outline-string " --- Header ---" \n
@@ -2760,7 +2760,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
-  "!! ANSYS VERSION: " apdl-current-ansys-version \n
+  "!! Ansys VERSION: " apdl-current-ansys-version \n
   "!! DESCRIPTION: " str \n
   \n
   "!@ ==============================" \n

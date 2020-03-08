@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-23>
+#+DATE: Time-stamp: <2020-03-08>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -19,7 +19,7 @@
 # #+LaTeX_CLASS: koma-article
 # #+LATEX: \tableofcontents
 #+LATEX_HEADER: \usepackage{scrpage2}
-#+LATEX_HEADER: \titlehead{\includegraphics[width=15cm]{ansys+emacs.png}}
+#+LATEX_HEADER: \titlehead{\includegraphics[width=15cm]{ansys+emacs2020.png}}
 #+LATEX_HEADER: \subject{APDL-Mode}
 #+LATEX_HEADER: \subtitle{APDL and Syntax Highlighting}
 #+LATEX_HEADER:\areaset{15cm}{25cm} %textarea on page
@@ -35,14 +35,14 @@
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
+# #+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
-#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
 #+HTML_LINK_UP: ../index.html
 
 
 #+TEXT: This is still a work in progress, good documentation is hard work!
-#+TEXT: Please report the faults.
+#+TEXT: Please report faults, thank you.
 
 * WorkBench to APDL Translation
 ** Contacts
@@ -96,7 +96,7 @@ eblock,10,,,94
      TB,PLAS,1,1,2,MISO
      #+END_SRC
      This means that one must input the curve in plastic strains and
-     *not* engineering strains!
+     true stresses, *not* in the engineering quantities!
 ** Boundary conditions
 **** forces
      it is possible to apply time and spatially varying loads either

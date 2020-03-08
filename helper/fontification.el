@@ -5,7 +5,7 @@
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.2.0
 ;; Package-Requires: ((emacs "25"))
-;; Keywords: languages, convenience, tools, ANSYS, APDL
+;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
 
 ;; Maintainer: H. Dieter Wilhelm
@@ -873,7 +873,7 @@ By default APDL keywords, get-functions, parametric-function and elements
            "(defconst apdl-help-index\n'"))
   (setq print-length nil)          ;nil: print all members of list
   (prin1 list buffer)
-  (insert "\n\"ANSYS help index alist.\")\n\n")
+  (insert "\n\"Ansys help index alist.\")\n\n")
   (beginning-of-defun)
 ;;  (fill-paragraph 0)
   (message "help index...done.")

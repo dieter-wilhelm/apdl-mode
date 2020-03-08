@@ -17,7 +17,7 @@
 ;; First usage:
 
 ;; Open an APDL-Mode buffer with `M-x apdl'.  From there you might
-;; investigate the menu entries `APDL' and `ANSYS'.
+;; investigate the menu entries `APDL' and `Ansys'.
 
 ;; For the APDL-Mode help with a brief tutorial and further guidance
 ;; please type `C-h m'."  
@@ -27,7 +27,7 @@
 (define-package "apdl-mode" "20.2.0" "Major mode for the APDL programming language."
   '((emacs "25.1"))
   :keywords
-  '("APDL" "ANSYS" "languages" "FEA" "convenience" "tools")
+  '("APDL" "Ansys" "languages" "FEA" "convenience" "tools")
   :authors
   '(("H. Dieter Wilhelm" . "dieter@duenenhof-wilhelm.de"))
   :maintainer

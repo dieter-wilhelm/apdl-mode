@@ -1,12 +1,12 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-05>
+;; Time-stamp: <2020-03-08>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.2.0
 ;; Package-Requires: ((emacs "25"))
-;; Keywords: languages, convenience, tools, ANSYS, APDL
+;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
 
 ;; Maintainer: H. Dieter Wilhelm
@@ -39,17 +39,17 @@
 
 ;;; Commentary:
 
-;; Editor support for working with APDL code and ANSYS FEA.
+;; Editor support for working with APDL code and Ansys FEA.
 
 ;; The APDL-Mode package provides support for the FEA (Finite Element
-;; Analysis) program ANSYS (http://www.ansys.com) under Windows and
+;; Analysis) program Ansys (http://www.ansys.com) under Windows and
 ;; GNU-Linux systems.  It defines 'APDL-Mode', a major mode for
 ;; viewing, writing and navigating in APDL (Ansys Parametric Design
 ;; Language) files as well as providing managing and communication
-;; capabilities for an associated ANSYS solver process.
+;; capabilities for an associated Ansys solver process.
 
 ;; The mode's capabilities are sophisticated but the documentation is
-;; targeted for ANSYS users with little Emacs experience.  An online
+;; targeted for Ansys users with little Emacs experience.  An online
 ;; version of its documention can be found at
 ;; http://dieter-wilhelm.github.io/apdl-mode/.
 
@@ -99,7 +99,7 @@
     ("\\<page\\w*" "PAGET")
     ("\\<pdef\\w*"."PDEF")
     ("\\*sre\\w*"."*SREAD")
-    ("\\*set.?"."*SET") ;ANSYS inconsistency *SET works only with one additional character
+    ("\\*set.?"."*SET") ;Ansys inconsistency *SET works only with one additional character
     ("\\*top\\*w"."*TOPER")
     ("\\*vge\\w*"."*VGET") ; Not true in 14.0 variable must be dimensiond with *dim
     ("\\*vfu\\w*"."*VFUN")
@@ -132,7 +132,7 @@ macro local variables.")
 (defconst apdl-non-code-line-regexp "^\\s-*\\($\\|\\s<\\|[+[:digit:]-]\\)"
   "Regexp indicating a comment -, number - or an empty line.
 A comment line contrasting a \"code comment\" which follows code
-to be analysed from the ANSYS solver/interpreter.  A \"number
+to be analysed from the Ansys solver/interpreter.  A \"number
 line\" is a line beginning with a number e. g. from an element
 block or with a `+' or `-' sign.")
 
@@ -583,7 +583,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;; variables + reserved _names (max. 32 chars long)
       (variable_r
        "^\\s-*\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*=")
-      ;; reserved vars consisting of a single "_" are valid in ANSYS 12.1
+      ;; reserved vars consisting of a single "_" are valid in Ansys 12.1
       (reserved_vars_r
       "\\_<\\(_[[:alnum:]_]\\{0,31\\}\\>\\)"))
 
@@ -598,7 +598,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
   (defconst apdl-font-lock-keywords-1
   `(
-    ;; /eof is special: it crashes ANSYS in interactive mode
+    ;; /eof is special: it crashes Ansys in interactive mode
     ;; -TODO- /eof is highlighted only first in line not behind $
     ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
@@ -697,7 +697,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
   (defconst apdl-font-lock-keywords-2
   `(
-    ;; /eof is special: it crashes ANSYS in interactive mode
+    ;; /eof is special: it crashes Ansys in interactive mode
     ;; -TODO- /eof is highlighted only first in line not behind $
     ("\\(?:^\\|\\$\\)\\s-*\\(/[eE][oO][fF].*\\)" 1 'trailing-whitespace t)
 
@@ -844,13 +844,13 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                  ["Send/Copy Region or Paragraph" apdl-send-to-ansys
                   :label (if
                                       (or apdl-classics-flag (apdl-process-running-p))
-                                      "Send region or paragraph to ANSYS"
+                                      "Send region or paragraph to Ansys"
                                     "Copy region or paragraph to clipboard")
                   :help "In case of a running solver/interpreter send the marked region or by default the current paragraph to the interpreter, otherwise copy these lines to the system clipboard"]
-                 ["Copy/Send above Code to ANSYS" apdl-copy-or-send-above
+                 ["Copy/Send above Code to Ansys" apdl-copy-or-send-above
                   :label (if
                                       (or apdl-classics-flag (apdl-process-running-p))
-                                      "Send above Code to ANSYS"
+                                      "Send above Code to Ansys"
                                     "Copy above Code")
                   :help "Either copy the code up to the beginning of file or, when a run is active, send it to the solver/interpreter"]
                  ["Close Logical Block" apdl-close-block
@@ -867,19 +867,19 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                  ;; ["Installation Directory" apdl-ansys-install-directory
                  ;;  :label (if apdl-ansys-install-directory
                  ;;                      (concat "Change the Installation Directory [" apdl-current-ansys-version "]")
-                 ;;                    "Set the ANSYS Installation Directory!")
+                 ;;                    "Set the Ansys Installation Directory!")
                  ;;  :help "For certain functionality you need to set the
-                 ;;  installation directory of ANSYS, the path up to the
+                 ;;  installation directory of Ansys, the path up to the
                  ;;  version number vXXX.  M-x apdl-ansys-install-directory"]
                  ["Browse APDL command help" apdl-browse-apdl-help
                   :help "Open the original APDL documentation for a command or element name near the cursor in your default browser. M-x apdl-browse-apdl-help"
                   :active apdl-current-ansys-version]
-                 ["Browse the ANSYS APDL Guide" apdl-browse-ansys-apdl-manual
-                  :help "Read the original ANSYS Paramtetric Design Language Guide in a browser."
+                 ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
+                  :help "Read the original Ansys Paramtetric Design Language Guide in a browser."
 ;                  :active (file-readable-p apdl-ansys-help-path) ; now online :-)
 		  ]
-                 ["Start ANSYS Help Viewer" apdl-start-ansys-help
-                  :help "Start the ANSYS Help Viewer executable. M-x apdl-start-ansys-help"
+                 ["Start Ansys Help Viewer" apdl-start-ansys-help
+                  :help "Start the Ansys Help Viewer executable. M-x apdl-start-ansys-help"
                   :active (file-executable-p apdl-ansys-help-program)]
                  "-"
                  ["Preview Macro Template" apdl-display-skeleton
@@ -938,7 +938,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                         :help "Commands for establishing a buckling analysis"]
                        ["Listings, Information, Statistics"apdl-skeleton-information :help "Parameter listings, graphic options, system information, run statistics"]
                        ["Solving" apdl-skeleton-solve
-                        :help "ANSYS solver (/solu) commands and solver options"]
+                        :help "Ansys solver (/solu) commands and solver options"]
                        ["Post1 Postprocessing" apdl-skeleton-post1
                         :help "General postprocessor (/post1) commands"]
                        ["Array Operations" apdl-skeleton-array
@@ -1054,7 +1054,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 ;;!!!! REMINDER: as of 24.5 :help properties must be constant strings, NO elisp!!!!
 (defconst apdl-task-menu
   (list
-   "ANSYS"
+   "Ansys"
    ["Specify License Server or - File" apdl-license-file
     :label (if apdl-license-file "Change License Server or - File" "Specify License Server or - File")
     :help "Change the license server specification (for an solver/interpreter run or the license status), either naming the license server machine (with port) or the actual license file"]
@@ -1065,9 +1065,9 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                  ["Installation Directory" apdl-ansys-install-directory
                   :label (if apdl-ansys-install-directory
                                       (concat "Change the Installation Directory [" apdl-current-ansys-version "]")
-                                    "Set the ANSYS Installation Directory!")
+                                    "Set the Ansys Installation Directory!")
                   :help "For certain functionality you need to set the
-                  installation directory of ANSYS, the path up to the
+                  installation directory of Ansys, the path up to the
                   version number vXXX.  M-x apdl-ansys-install-directory"]
    ["Change MAPDL License Type" apdl-license
     :label (concat "Change License Type [" apdl-license "]")
@@ -1077,20 +1077,20 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     :help "Specify the job name for an solver/interpreter run. M-x apdl-job"]
    ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]" apdl-no-of-processors )
-    :help "Specify the number of processors to use for the ANSYS run definition. (apdl-no-of-processors)"]
+    :help "Specify the number of processors to use for the Ansys run definition. (apdl-no-of-processors)"]
    "-"
    ["License Server Status" apdl-license-status
     :help "Show the license server status, the number of licenses available and used (apdl-license-status)"
     :active (and (file-executable-p apdl-lmutil-program) apdl-license-file)]
-   ["Start ANSYS WorkBench" apdl-start-wb
+   ["Start Ansys WorkBench" apdl-start-wb
     :active (file-executable-p apdl-ansys-wb)
-    :help "Start the ANSYS WorkBench. (apdl-start-wb)"]
-   ["ANSYS MAPDL Product Launcher" apdl-start-launcher
+    :help "Start the Ansys WorkBench. (apdl-start-wb)"]
+   ["Ansys MAPDL Product Launcher" apdl-start-launcher
     :active (file-executable-p apdl-ansys-launcher)
-    :help "Start the ANSYS Mechanical APDL Product Launcher. (apdl-start-launcher)"]
-   ["ANSYS Classics GUI" apdl-start-classics
+    :help "Start the Ansys Mechanical APDL Product Launcher. (apdl-start-launcher)"]
+   ["Ansys Classics GUI" apdl-start-classics
     :active (file-executable-p apdl-ansys-program)
-    :help "Start the ANSYS Classics MAPDL GUI. (apdl-start-classics)"]
+    :help "Start the Ansys Classics MAPDL GUI. (apdl-start-classics)"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys
     :help "Start an interactive MAPDL solver/interpreter run under Linux. (apdl-start-ansys)"
     :active (and apdl-unix-system-flag
@@ -1102,7 +1102,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                         "Switch off sending to Classics MAPDL"
                       "Switch on sending to Classics MAPDL")
     :active (and apdl-unix-system-flag (not (apdl-process-running-p)))
-    :help "Check whether an ANSYS Classic is running and toogle
+    :help "Check whether an Ansys Classic is running and toogle
    sending output to it. (apdl-toggle-classics)"]
    ["Send/Copy Region or Paragraph" apdl-send-to-ansys
    :label (if
@@ -1116,7 +1116,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                         "Send line or region to MAPDL"
                       "Copy line or region to clipboard")
     :help "In case of a running solver/interpreter send the marked region or by default the current line to the interpreter, otherwise copy these lines to the system clipboard. M-x apdl-send-to-apdl-and-proceed"]
-   ["Copy/Send above Code to ANSYS" apdl-copy-or-send-above
+   ["Copy/Send above Code to Ansys" apdl-copy-or-send-above
     :label (if
                         (or apdl-classics-flag (apdl-process-running-p))
                         "Send above Code to MAPDL"
@@ -1127,16 +1127,16 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                                        :help "Open the graphics screen for the interactive MAPDL mode. M-x apdl-start-graphics"
                                        :active (apdl-process-running-p)]
                   ["Start Pan/Zoom/Rot. Dialog" apdl-start-pzr-box
-                   :help "Open the Pan/Zoom/Rotate dialog of the ANSYS GUI. M-x apdl-start-pzr-box"
+                   :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI. M-x apdl-start-pzr-box"
                    :active (or apdl-classics-flag (apdl-process-running-p))]
                   ["Replot" apdl-replot
-                   :help "Replot the ANSYS graphics window. M-x apdl-replot"
+                   :help "Replot the Ansys graphics window. M-x apdl-replot"
                    :active (or apdl-classics-flag (apdl-process-running-p))]
                   ["Fit Graphics into screen" apdl-fit
-                   :help "Fit the ANSYS graphics into the window. M-x apdl-fit"
+                   :help "Fit the Ansys graphics into the window. M-x apdl-fit"
                    :active (or apdl-classics-flag (apdl-process-running-p))]
                   ["Show Graphics in iso-view" apdl-iso-view
-                   :help "Show the current ANSYS graphic windows in isometric view. M-x apdl-iso-view"
+                   :help "Show the current Ansys graphic windows in isometric view. M-x apdl-iso-view"
                    :active (or apdl-classics-flag (apdl-process-running-p))]
                   ["Zoom In" apdl-zoom-in
                    :help "Zoom into the graphics. M-x apdl-zoom-in"
@@ -1161,13 +1161,13 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     :active (or apdl-classics-flag (apdl-process-running-p))]
    "-"
    ["Display MAPDL Run Status" apdl-process-status
-    :help "Display the status of the ANSYS MAPDL solver/interpreter run. M-x apdl-process-status"
+    :help "Display the status of the Ansys MAPDL solver/interpreter run. M-x apdl-process-status"
     :active (apdl-process-running-p)]
    ["Exit MAPDL Run" apdl-exit-ansys
     :help "Exit the active MAPDL solver/interpreter run. M-x apdl-exit-ansys"
     :visible (apdl-process-running-p)]
    ["Display MAPDL Error File" apdl-display-error-file
-    :help "Display in another window in auto-revert-tail-mode the ANSYS MAPDL error file (job.err) in the current working directory. M-x apdl-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
+    :help "Display in another window in auto-revert-tail-mode the Ansys MAPDL error file (job.err) in the current working directory. M-x apdl-display-error-file" :active (file-readable-p (concat default-directory job-name ".err"))]
    ["Write MAPDL Stop File" apdl-abort-file
     :active  (file-readable-p (concat default-directory job-name ".lock"))
     :help "Write a file (JOB.abt containing the word \"nonlinear\") for orderly stopping the solver in the current working directory. M-x apdl-abort-file "]
@@ -1295,8 +1295,8 @@ comment."
 (defun apdl-is-unix-system-p ()
   "Return t when we are on a Unix system.
 gnu/linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
-usg-unix-v.  ANSYS supports only GNU-Linux 64 and Windows 64 for
-the entire ANSYS platform with some support of legacy Unices (AIX
+usg-unix-v.  Ansys supports only GNU-Linux 64 and Windows 64 for
+the entire Ansys platform with some support of legacy Unices (AIX
 IBM, HP-UX HP, SGI, Solaris SUN) for standalone apps will be
 provided so I won't restrict some aspects of APDL-Mode to
 GNU-Linux."
@@ -1390,7 +1390,7 @@ and P-MAX) otherwise align the current code paragraph."
 
 ;;;###autoload
 (defun apdl-mode ()
-  "Editor support for the APDL language and working with ANSYS FEA.
+  "Editor support for the APDL language and working with Ansys FEA.
 
 == APDL-Mode help contents ==
 
@@ -1437,7 +1437,7 @@ the <CTRL> key and the `g' key at the same time.
 
 All functions described in this help, regardless whether
 possessing a keyboard shortcut or not, can be called in this
-interactive way or they can be found in the APDL or ANSYS
+interactive way or they can be found in the APDL or Ansys
 menu.  (If you prefer to run Emacs in a terminal window you might
 access the menu bar with <F10> key or `M-`'.)
 
@@ -1471,13 +1471,13 @@ argument of zero (`0').
 ** Browse the detailed APDL command (and element) html help **
 
 Putting in \"\\[apdl-browse-apdl-help]\" will display the
-original ANSYS help in your web browser for an APDL command or
+original Ansys help in your web browser for an APDL command or
 element name (stating the element number is sufficient) near the
 cursor or the code line's first APDL command.  When using a
 prefix argument it inquires an keyword from you.  Keywords
 beginning with a quotation mark `\"' describing general manual
 sections, for example typing `\"SHELLS\"' will call the
-collection of all shell elements in the ANSYS manual.
+collection of all shell elements in the Ansys manual.
 
 ** APDL keyword completion (commands, elements, get- and
    parametric-functions) **
@@ -1596,18 +1596,18 @@ and see below in the Keybindings section.
 
 The highlighting in the highest decoration level (please refer to
 `apdl-highlighting-level') tries to follow the idiosyncratic
-ANSYS solver/interpreter logic as closely as possible.  For
+Ansys solver/interpreter logic as closely as possible.  For
 example: '* ', an asterisk with following whitespace(s), is still
-a valid APDL comment operator (although deprecated, see the ANSYS
+a valid APDL comment operator (although deprecated, see the Ansys
 manual for the *LET command).
 
 The fontification distinguishes between APDL commands,
 undocumented commands, parametric- and get-functions, elements
 and deprecated elements.  In case of arbitrary characters after
 the command names, they are still highlighted, since these
-characters are ignored by the ANSYS APDL intepreter.
+characters are ignored by the Ansys APDL intepreter.
 
-A macro is in the ANSYS parlance some file with APDL code. In
+A macro is in the Ansys parlance some file with APDL code. In
 this sense it is used in the following documentation.
 Additionally you can create keyboard macros in Emacs to fasten
 your edinting, please see `kmacro-start-macro'.
@@ -1694,7 +1694,7 @@ definition line in the macro file.
 Additionally you are able with a prefix argument for
 \"\\[apdl-display-variables]\" to receive the current value of
 your variables at the cursor position.  For this functionality it
-is necessary to have a running ANSYS process (GNU-Linux systems
+is necessary to have a running Ansys process (GNU-Linux systems
 only, please see below the chapter about the solver
 communication).
 
@@ -1798,15 +1798,15 @@ Please refere the configuration example `default.el'.
   halting a running calculation in an orderly, re-startable
   fashion.
 
-- You are able to view the ANSYS APDL error file (a file
+- You are able to view the Ansys APDL error file (a file
   consisting of the `job-name' and the suffix '.err' in the
   current directory) with \"\\[apdl-display-error-file]\" (this
   calls `apdl-display-error-file').  The error file is opened in
   read only mode (see `read-only-mode') and with the minor mode
   `auto-revert-tail-mode', which scrolls the buffer automatically
-  for keeping the current ANSYS output visible.
+  for keeping the current Ansys output visible.
 
-- You can start the ANSYS Help Viewer directly from Emacs with
+- You can start the Ansys Help Viewer directly from Emacs with
   \"\\[apdl-start-ansys-help]\" (for `apdl-start-ansys-help').
 
 - You might also start the APDL product launcher from Emacs under
@@ -1817,19 +1817,19 @@ Please refere the configuration example `default.el'.
   please use \"\\[apdl-license-status]\" (for
   `apdl-license-status').
 
-If you haven't installed ANSYS in the default locations and the
+If you haven't installed Ansys in the default locations and the
 executables are not in your system search path or you are using a
-different ANSYS version than '201' it is necessary for the last
+different Ansys version than '201' it is necessary for the last
 two capabilities to customise some variables either calling the
 Emacs customisation facility `apdl-customise-ansys' or from the
 menu bar -> 'APDL' -> 'Customise APDL Mode' -> 'APDL-process' and
-look there for the variables 'ANSYS License File', 'ANSYS Util
-Program' and 'ANSYS Help Program' as well as 'ANSYS Help Program
+look there for the variables 'Ansys License File', 'Ansys Util
+Program' and 'Ansys Help Program' as well as 'Ansys Help Program
 Parameters') or set the variables directly in your .emacs file.
 Please have a look in the accompanying README and default_el
 customisation file example.
 
-** ANSYS solver/interpreter control and communication (mainly
+** Ansys solver/interpreter control and communication (mainly
   restricted to GNU-Linux systems) **
 
 With the APDL-Mode keyboard shortcut
@@ -1877,7 +1877,7 @@ commands which APDL-Mode provides (type
 \"\\[describe-bindings]\" (`describe-bindings') to see which are
 available).
 
-In this mode you are able to start an ANSYS graphics
+In this mode you are able to start an Ansys graphics
 screen (without the rest of graphical user interface) with
 \\[apdl-start-graphics] (function `apdl-start-graphics').  Thus
 you are able to check and debug your macro file content visually.
@@ -1885,7 +1885,7 @@ The graphics in this state is changeable with APDL commands (like
 /view,1,1,1,1) but unfortunately not through mouse interactions!
 If you want to turn, zoom, etc., the model it is best to call
 `apdl-start-pzr-box' with \\[apdl-start-pzr-box] and a dialog box
-will pop up.  This is the usual ANSYS Pan/Zoom/Rotate dialog for
+will pop up.  This is the usual Ansys Pan/Zoom/Rotate dialog for
 the graphics screen.  But beware: Before you are able to send
 further commands to the solver, you first have to close the PZR
 dialog box.  There is also a family of interactive commands to
@@ -1900,15 +1900,15 @@ case the solver is not stoppable any longer in an orderly way:
 `apdl-kill-ansys'.
 
 As already indicated APDL-Mode has its own command for invoking
-the ANSYS Help Viewer \"\\[apdl-start-ansys-help]\" because
+the Ansys Help Viewer \"\\[apdl-start-ansys-help]\" because
 unfortunately the following APDL commands do not work when the
-complete GUI system of ANSYS is not active.
+complete GUI system of Ansys is not active.
 
-    /ui,help  !is it not working in ANSYS non-GUI modes
-    help, COMMAND !is also not working in ANSYS non-GUI modes
+    /ui,help  !is it not working in Ansys non-GUI modes
+    help, COMMAND !is also not working in Ansys non-GUI modes
 
 So you are not able start the Help Viewer for a *specific* APDL
-command but must search within the ANSYS Help Viewer or better
+command but must search within the Ansys Help Viewer or better
 use the much faster \"\\[apdl-browse-apdl-help]\".
 
 == Keybindings ==
@@ -2157,39 +2157,39 @@ possible edits are lost."
 
 ;; FIXME
 ;; (defun apdl-ansysli-servers-check ()
-;;   "Return t if ANSYS interconnect server information is found.
+;;   "Return t if Ansys interconnect server information is found.
 ;; Checking whether the variable `apdl-ansysli-servers' is set or
-;; otherwise the environment variable ANSYSLI_SERVERS.  If neither
+;; otherwise the environment variable AnsysLI_SERVERS.  If neither
 ;; is set return nil"
 ;;   (interactive)
 ;;   (cond
 ;;    (apdl-ansysli-servers
-;; ;    (setenv "ANSYSLI_SERVERS" apdl-ansysli-servers)
-;; ;    (message "Set process environment variable ANSYSLI_SERVERS to apdl-ansysli-servers")
+;; ;    (setenv "AnsysLI_SERVERS" apdl-ansysli-servers)
+;; ;    (message "Set process environment variable AnsysLI_SERVERS to apdl-ansysli-servers")
 ;;     t)
-;;    ((getenv "ANSYSLI_SERVERS")
-;;     (setq apdl-ansysli-servers (getenv "ANSYSLI_SERVERS"))
+;;    ((getenv "AnsysLI_SERVERS")
+;;     (setq apdl-ansysli-servers (getenv "AnsysLI_SERVERS"))
 ;;     (message "Read apdl-ansysli-servers from process environment
-;;     variable ANSYSLI_SERVERS") t)
+;;     variable AnsysLI_SERVERS") t)
 ;;    (t nil)))
 
 ;; (defun apdl-license-file-check ()
-;;   "Return t if ANSYS license file (server) information is found.
+;;   "Return t if Ansys license file (server) information is found.
 ;; Checks whether the variable `apdl-license-file' is set, if not
-;; sets its value to the environment variable ANSYSLMD_LICENSE_FILE
+;; sets its value to the environment variable AnsysLMD_LICENSE_FILE
 ;; or LM_LICENSE_FILE, in this order of precedence.  When the former
 ;; are not available return nil."
-;;  (let ((lic1 (getenv "ANSYSLMD_LICENSE_FILE"))
+;;  (let ((lic1 (getenv "AnsysLMD_LICENSE_FILE"))
 ;;        (lic2 (getenv "LM_LICENSE_FILE"))
 ;;        )
 ;;      (cond
 ;;    (apdl-license-file
-;; ;    (setenv "ANSYSLMD_LICENSE_FILE" apdl-license-file)
-;; ;    (message "Set process environment variable ANSYSLMD_LICENSE_FILE to apdl-license-file")
+;; ;    (setenv "AnsysLMD_LICENSE_FILE" apdl-license-file)
+;; ;    (message "Set process environment variable AnsysLMD_LICENSE_FILE to apdl-license-file")
 ;;     t)
 ;;    (lic1                 ;need this for -license-status
 ;;     (setq apdl-license-file lic1)
-;;     (message "Set apdl-license-file from ANSYSLMD_LICENSE_FILE")
+;;     (message "Set apdl-license-file from AnsysLMD_LICENSE_FILE")
 ;;     (message "apdl-license-file=%s" lic1)
 ;;     t)
 ;;    (lic2
@@ -2237,7 +2237,7 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 (defun apdl-mode-version ()
   "Display the APDL-Mode version numbering scheme."
   (interactive)
-  (message "APDL-Mode version: %s (based on ANSYS %s)"
+  (message "APDL-Mode version: %s (based on Ansys %s)"
                     apdl-mode-version
                     apdl-ansys-version))
 
@@ -2256,7 +2256,7 @@ call `apdl-mode'."
     (load "apdl-config")
     (load "apdl-mode")
     (apdl-mode)
-    (message "APDL-Mode %s based on ANSYS %s reloaded"
+    (message "APDL-Mode %s based on Ansys %s reloaded"
      apdl-mode-version apdl-ansys-version)))
 
 (defun apdl-show-paren-mode ()                                  ;_C

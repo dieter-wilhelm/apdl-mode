@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-05 22:39:10 dieter>
+;; Time-stamp: <2020-03-08>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -83,8 +83,8 @@
   :group 'APDL)
 
 (defcustom apdl-job "file"
-  "Variable storing the ANSYS job name.
-It is initialised to 'file' (which is also the ANSYS default job
+  "Variable storing the Ansys job name.
+It is initialised to 'file' (which is also the Ansys default job
 name).  See `apdl-abort-file' for a way of stopping a solver run
 in a controlled way and `apdl-display-error-file' for viewing
 the respective error file."
@@ -93,7 +93,7 @@ the respective error file."
 
 (defcustom apdl-license-categories
   '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
-  "List of available license types to choose for an ANSYS run.
+  "List of available license types to choose for an Ansys run.
 This list should contain the license types you can choose from.
 Below are often used license types (as e.g. seen with the
 function `apdl-license-status') and their corresponding WorkBench
@@ -102,15 +102,15 @@ terminology.
 \"ansys\" - Mechanical U (without thermal capability)
 \"struct\" - Structural U (with thermal capability)
 \"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
-\"ansysds\" - Mechanical/LS-Dyna (Mechanical U with ANSYS LS-Dyna inter-phase)
+\"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics
 \"preppost\" - PrepPost (no solving capabilities)"
   :type 'list
   :group 'APDL-process)
 
 (defcustom apdl-license "struct"
-  "The License type with which the ANSYS interpreter will be started.
-See `apdl-license-categories' for often used ANSYS license types."
+  "The License type with which the Ansys interpreter will be started.
+See `apdl-license-categories' for often used Ansys license types."
   ;;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
   :options apdl-license-categories
   ;; options not available for strings (only hooks, alists, plists E22)
@@ -118,9 +118,9 @@ See `apdl-license-categories' for often used ANSYS license types."
   :group 'APDL-process)
 
 (defcustom apdl-no-of-processors 4
-  "No of processors to use for an ANSYS solver run.
+  "No of processors to use for an Ansys solver run.
 If smaller then 4 the run does not require additonal HPC
-licenses.  4 is the ANSYS default."
+licenses.  4 is the Ansys default."
   :type 'integer
   :group 'APDL-process)
 
@@ -141,7 +141,7 @@ licenses.  4 is the ANSYS default."
   "Editing buffer's X11 window id.")
 
 (defvar apdl-classics-window-id nil
-  "The X11 window id of the ANSYS GUI or the command window.")
+  "The X11 window id of the Ansys GUI or the command window.")
 
 (defvar apdl-classics-flag nil
   "Non-nil means that a Classics GUI could be found.")
@@ -173,8 +173,8 @@ Variable is used internally only.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun apdl-toggle-classics ()
-  "Toogle sending output to ANSYS Classics.
-Try to locate an ANSYS Classics GUI or the command dialog box and
+  "Toogle sending output to Ansys Classics.
+Try to locate an Ansys Classics GUI or the command dialog box and
 switch output to it."
   (interactive)
   (if apdl-classics-flag
@@ -184,10 +184,10 @@ switch output to it."
     (if (apdl-classics-p)
         (progn (setq apdl-classics-flag t)
                (message "Connected to Classics."))
-      (error "No ANSYS Classics window found"))))
+      (error "No Ansys Classics window found"))))
 
 (defun apdl-classics-p ()
-  "Check whether ANSYS Classics is running.
+  "Check whether Ansys Classics is running.
 Return nil if we can't find an MAPDL GUI."
   (let ((aID (replace-regexp-in-string
               "\n" ""
@@ -196,7 +196,7 @@ Return nil if we can't find an MAPDL GUI."
               "\n" ""
               (shell-command-to-string "~/a-m/X11/xGetFocusWindow"))))
     (if (string= "" aID)
-        ;; (error "No ANSYS MAPDL window found")
+        ;; (error "No Ansys MAPDL window found")
         nil
       (setq apdl-emacs-window-id eID)
       (setq apdl-classics-window-id aID)
@@ -218,7 +218,7 @@ The output of the solver is captured in an Emacs buffer called
       (if (yes-or-no-p
            (concat "Warning: There is a \""apdl-job".lock" "\" in " default-directory ". This might indicate that there is already a solver running.  Do you wish to kill the lock file? "))
           (delete-file (concat apdl-job ".lock"))
-        (error "Starting the MAPDL GUI (ANSYS Classics) cancelled")))
+        (error "Starting the MAPDL GUI (Ansys Classics) cancelled")))
     (if (y-or-n-p
          (concat
           "Start run of: "
@@ -231,8 +231,8 @@ The output of the solver is captured in an Emacs buffer called
             "")
           ", job: " (if (boundp 'apdl-job) apdl-job)
           " in " default-directory ", server: " apdl-license-file " "))
-        (message "Starting MAPDL in GUI mode (ANSYS Classics) ...")
-      (error "Calling MAPDL solver (ANSYS Classics) cancelled"))
+        (message "Starting MAPDL in GUI mode (Ansys Classics) ...")
+      (error "Calling MAPDL solver (Ansys Classics) cancelled"))
     ;; -d : device
     ;; -g : graphics mode
     ;; -p : license
@@ -256,7 +256,7 @@ The output of the solver is captured in an Emacs buffer called
   ;;    (apdl-ansysli-servers "")                      ;
   ;; (apdl-license "")                                           ;
   (start-process "Launcher" nil apdl-ansys-launcher)
-  (message "Started the ANSYS Launcher..."))
+  (message "Started the Ansys Launcher..."))
 
 (defun apdl-start-wb ()
   "Start the Ansys WorkBench."
@@ -266,7 +266,7 @@ The output of the solver is captured in an Emacs buffer called
   ;;    (apdl-ansysli-servers "")                      ;
   ;; (apdl-license "")                                           ;
   (start-process "WorkBench" nil apdl-ansys-wb)
-  (message "Started the ANSYS WorkBench..."))
+  (message "Started the Ansys WorkBench..."))
 
 (defun apdl-write-abort-file ( filename)
   "Open file FILENAME, clear it's contents and insert \"nonlinear\"."
@@ -279,7 +279,7 @@ The output of the solver is captured in an Emacs buffer called
 
 ;;;###autoload
 (defun apdl-abort-file (&optional arg)
-  "Writes an ANSYS abort file for stopping the current run.
+  "Writes an Ansys abort file for stopping the current run.
 The abort file does not terminate the current session but
 triggers the solver to stop solving in an orderly manner.  This
 function prompts for a job name when ARG is negative.  Otherwise
@@ -332,7 +332,7 @@ the customisation facility (by calling `apdl-customise-ansys')."
   (interactive)
   (let ((file (concat apdl-job ".err")))
     (if (not (file-readable-p file))
-        (error "ANSYS error file \"%s\" doesn't exist in %s" file (pwd))
+        (error "Ansys error file \"%s\" doesn't exist in %s" file (pwd))
       (find-file-read-only-other-window file)
       (goto-char (point-max))
       (auto-revert-tail-mode 1))))
@@ -347,7 +347,7 @@ the customisation facility (by calling `apdl-customise-ansys')."
     ;; no-property stuff necessary?????
     ;;   (if (y-or-n-p
     ;;        (concat
-    ;;                      "Start this ANSYS run: (lic: " apdl-license ", job: " apdl-job ")? "))
+    ;;                      "Start this Ansys run: (lic: " apdl-license ", job: " apdl-job ")? "))
     ;;       (message "Starting run...")
     ;;     (error "Run canceled"))
     (cond (apdl-classics-flag
@@ -393,7 +393,7 @@ the customisation facility (by calling `apdl-customise-ansys')."
                           apdl-emacs-window-id apdl-classics-window-id)))
 
 (defun apdl-send-to-ansys ( &optional move)
-  "Send a region to the ANSYS MAPDL interpreter.
+  "Send a region to the Ansys MAPDL interpreter.
 If the interpreter is not active, just copy it.  If there is no
 region marked, send (or copy) the current paragraph.  With a
 prefix argument MOVE equal to `4' or `C-u' skip to the next code
@@ -439,8 +439,8 @@ line after this region (or paragraph)."
       (goto-char point))))
 
 (defun apdl-send-to-apdl-and-proceed ( &optional stay)
-  "Send a region or code line to the ANSYS interpreter.
-When there is no running ANSYS interpreter process just copy the
+  "Send a region or code line to the Ansys interpreter.
+When there is no running Ansys interpreter process just copy the
 respective region or code line to the system clipboard and skip
 to the subsequent code line.  With a prefix argument STAY of `4'
 or `C-u' copy or send the code and remain at the current cursor
@@ -535,7 +535,7 @@ character `j' (or `C-j')."
                (message "Copied line.")))))))
 
 (defun apdl-process-running-p ()
-  "Return nil if no ANSYS interpreter process is running."
+  "Return nil if no Ansys interpreter process is running."
   (let ((proc (get-process
                (if (boundp 'apdl-process-name) apdl-process-name))))
     (if proc
@@ -571,15 +571,15 @@ initial input."
 
 ;;;###autoload
 (defun apdl-start-ansys ()
-  "Start an ANSYS interpreter process under Linux or the launcher under Win.
+  "Start an Ansys interpreter process under Linux or the launcher under Win.
 For the interpreter process summarise the run's configuration
 first.  The specified No of cores is not shown if they are chosen
 smaller than 3 (see `apdl-number-of-processors')."
   (interactive)
   (let (apdl-process-buffer)
     (when (apdl-process-running-p)
-      (error "An ANSYS interpreter is already running under Emacs"))
-    (message "Preparing an ANSYS interpreter run...")
+      (error "An Ansys interpreter is already running under Emacs"))
+    (message "Preparing an Ansys interpreter run...")
     (if (y-or-n-p
          (concat
           "Start run?  (version: "
@@ -590,7 +590,7 @@ smaller than 3 (see `apdl-number-of-processors')."
             "")
           ", job: " (if (boundp 'apdl-job) apdl-job)
           " in " default-directory ", server: " apdl-license-file))
-        (message "Starting the ANSYS interpreter...")
+        (message "Starting the Ansys interpreter...")
       (error "Function apdl-start-ansys canceled"))
     (setq apdl-process-buffer
           (make-comint apdl-process-name apdl-ansys-program nil
@@ -607,14 +607,14 @@ smaller than 3 (see `apdl-number-of-processors')."
     (font-lock-add-keywords nil (list comint-prompt-regexp))))
 
 (defun apdl-kill-ansys ()
-  "Kill the current ANSYS run under Emacs.
+  "Kill the current Ansys run under Emacs.
 The function asks for confirmation before actually killing the
-process.  Warning: ANSYS writes a lock file (jobname.lock) if the
+process.  Warning: Ansys writes a lock file (jobname.lock) if the
 process is killed and not regularly exited.  You should prefer
 the function `apdl-exit-ansys'."
   (interactive)
   (unless (apdl-process-running-p)
-    (error "No active ANSYS solver process"))
+    (error "No active Ansys solver process"))
   (if (yes-or-no-p
        "Do you want to kill the running MAPDL solver?")
       (progn
@@ -622,29 +622,29 @@ the function `apdl-exit-ansys'."
         (delete-process (get-process apdl-process-name))
         (message "Killing Mechanical APDL run...done.")
         (display-buffer (concat "*" apdl-process-name "*") 'otherwindow))
-    (message "Killing of ANSYS run canceled.")))
+    (message "Killing of Ansys run canceled.")))
 
 (defun apdl-exit-ansys ()
-  "Exit normally the current ANSYS run under Emacs.
+  "Exit normally the current Ansys run under Emacs.
 The function asks for confirmation before exiting the process
 with the APDL /EXIT,all command which saves all model data."
   (interactive)
   (unless (apdl-process-running-p)
-    (error "Error: No active ANSYS process"))
+    (error "Error: No active Ansys process"))
   (if (yes-or-no-p
-       "Do you want to exit the ANSYS run?")
+       "Do you want to exit the Ansys run?")
       (progn
         (message "Trying to exit run ...")
         (process-send-string (get-process apdl-process-name) "finish $ /exit,all\n"))
     ;; (setq mode-line-process (format ":%s" (process-status apdl-process)))
     ;; (force-mode-line-update))
-    (error "Exiting of ANSYS run canceled")))
+    (error "Exiting of Ansys run canceled")))
 
 ;;;###autoload
 (defun apdl-start-ansys-help ()
-  "Start the ANSYS Help Viewer.
+  "Start the Ansys Help Viewer.
 Alternatively under a GNU-Linux system, one can also use the APDL
-command line \"/SYS, anshelp201\" when running ANSYS
+command line \"/SYS, anshelp201\" when running Ansys
 interactively, provided that anshelp162 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
@@ -654,15 +654,15 @@ variable)."
     (cond
      (apdl-is-unix-system-flag
       (start-process "apdl-ansys-help-program" nil apdl-ansys-help-program)
-      (message "Started the ANSYS Help Viewer..."))
+      (message "Started the Ansys Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
           (w32-shell-execute "Open" (concat "\"" apdl-ansys-help-program "\"")
                              apdl-ansys-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
         (error "Function w32-shell-execute not bound"))
-      (message "Started the ANSYS Help Viewer..."))
+      (message "Started the Ansys Help Viewer..."))
      (t
-      (error "Can only start the ANSYS help on Windows and GNU-Linux systems")))))
+      (error "Can only start the Ansys help on Windows and GNU-Linux systems")))))
 
 (defun apdl-search-keyword()
   "Search the code line for a valid the keyword from `apdl-help-index'."
@@ -701,7 +701,7 @@ variable)."
 (require 'browse-url)
 
 (defun apdl-browse-ansys-apdl-manual ()
-  "Open the ANSYS Parametric Design Language Guide in a browser."
+  "Open the Ansys Parametric Design Language Guide in a browser."
   (interactive)
   (let ((file "ans_apdl/Hlp_P_APDLTOC.html")
 	(path apdl-ansys-help-path))
@@ -712,13 +712,13 @@ variable)."
 	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
 (defun apdl-browse-apdl-help ( &optional arg)
-  "Browse the ANSYS help for APDL commands, elements and other topics.
+  "Browse the Ansys help for APDL commands, elements and other topics.
 
-ATTENTION: If you are using the ANSYS online help - default since
-V19 - then first you need to register at the ANSYS help site!
-Please start some help topic with an ANSYS application first, the
+ATTENTION: If you are using the Ansys online help - default since
+V19 - then first you need to register at the Ansys help site!
+Please start some help topic with an Ansys application first, the
 you can use APDL-Mode for pin-pointing your topics.  For an even
-faster access I recommend installing the local ANSYS help.
+faster access I recommend installing the local Ansys help.
 
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
@@ -849,9 +849,9 @@ elem.
   (interactive)
   (let ((status (process-status apdl-process-name)))
     (if status
-        (message "ANSYS process is in state \"%s\"" ;, process identification No: %d"
+        (message "Ansys process is in state \"%s\"" ;, process identification No: %d"
                  (symbol-name status))
-      (message "No ANSYS interpreter process is running."))))
+      (message "No Ansys interpreter process is running."))))
 
 (defun apdl-occur ()
   "Show selected licenses in an occur buffer."
@@ -868,7 +868,7 @@ elem.
   (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"))
 
 (defun apdl-license-status ()
-  "Display the ANSYS license status or start the license tool.
+  "Display the Ansys license status or start the license tool.
 Show the status in a separate buffer, the license type variable
 `apdl-license' determines a highlighting of the license server
 summary rows."
@@ -964,7 +964,7 @@ summary rows."
          (display-buffer (concat "*" apdl-process-name "*") 'other-window)))
 
 (defun apdl-start-pzr-box ()
-  "Start the ANSYS Pan/Zoom/Rotate dialog box."
+  "Start the Ansys Pan/Zoom/Rotate dialog box."
   (interactive)
   (cond
    (apdl-classics-flag
@@ -1002,7 +1002,7 @@ A Negative ARG moves ARG steps down."
                         (format "/focus,,,-0.25*(%d),,1\n/replot\n" arg))
     (display-buffer (concat "*" apdl-process-name "*") 'other-window))
    (t
-    (error "No ANSYS process is running"))))
+    (error "No Ansys process is running"))))
 
 (defun apdl-move-down (arg)
   "Move geometry down ARG steps in the graphics window.
@@ -1023,7 +1023,7 @@ A Negative ARG moves ARG steps left."
                         (format "/focus,,-0.25*(%d),,,1\n/replot\n" arg))
     (display-buffer (concat "*" apdl-process-name "*") 'other-window))
    (t
-    (error "No ANSYS process is running"))))
+    (error "No Ansys process is running"))))
 
 (defun apdl-move-left (arg)
   "Move geometry left ARG steps in the graphics window.
@@ -1058,7 +1058,7 @@ A Negative ARG moves ARG steps right."
     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
 (defun apdl-replot ()
-  "Replot the ANSYS graphics screen."
+  "Replot the Ansys graphics screen."
   (interactive)
   (cond
    (apdl-classics-flag
@@ -1071,7 +1071,7 @@ A Negative ARG moves ARG steps right."
     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
 (defun apdl-fit ()
-  "Fit FEA entities to the ANSYS interactive graphics screen."
+  "Fit FEA entities to the Ansys interactive graphics screen."
   (interactive)
   (cond
    (apdl-classics-flag
@@ -1084,30 +1084,30 @@ A Negative ARG moves ARG steps right."
     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
 
 (defun apdl-ansys-program ( exec)
-  "Change the ANSYS executable name to EXEC.
+  "Change the Ansys executable name to EXEC.
 And set the variable `apdl-ansys-program' accordingly if the for
 executable EXEC can be found on the system's search path."
-  (interactive "FANSYS interpreter executable: ")
+  (interactive "FAnsys interpreter executable: ")
   (when (string= exec "")
     (setq exec apdl-ansys-program))
   (setq apdl-ansys-program exec)
   (if (executable-find exec)
       (message "apdl-ansys-program is set to \"%s\"." apdl-ansys-program)
-    (error "Cannot find ANSYS interpreter executable \"%s\" on the system" exec)))
+    (error "Cannot find Ansys interpreter executable \"%s\" on the system" exec)))
 
 (defun apdl-ansys-help-program ( exec)
-  "Change the ANSYS help executable to EXEC and check for its existence.
+  "Change the Ansys help executable to EXEC and check for its existence.
 And store the value EXEC in the variable `apdl-ansys-help-program'."
-  (interactive "FANSYS help executable: ")
+  (interactive "FAnsys help executable: ")
   (when (string= exec "")
     (setq exec apdl-ansys-help-program))
   (setq apdl-ansys-help-program exec)
   (if (executable-find exec)
       (message "apdl-ansys-program is set to \"%s\"." exec)
-    (error "Cannot find the ANSYS help executable \"%s\" on the system" exec)))
+    (error "Cannot find the Ansys help executable \"%s\" on the system" exec)))
 
 (defun apdl-lmutil-program ( exec)
-  "Change the ANSYS license management utility executable to EXEC.
+  "Change the Ansys license management utility executable to EXEC.
 And specify it in the variable `apdl-lmutil-program'.  The
 function inserts the string `default-directory' in the prompt
 when the variable `insert-default-directory' is not nil.  For
@@ -1115,17 +1115,17 @@ Lin64 it is the 'lmutil' executable
 /ansys_inc/shared_files/licensing/linx64/lmutil.  For Windows the
 anslic_admin utility: `C:\\Ansys Inc\\Shared
 Files\\licensing\\win64\\anslic_admin.exe'"
-  (interactive "FANSYS License Management Utility executable: ")
+  (interactive "FAnsys License Management Utility executable: ")
   (when (string= exec "")                                          ;use default
     (setq exec apdl-lmutil-program))
   (setq apdl-lmutil-program exec)
   (if (executable-find exec)
       (message "apdl-lmutil-program is set to \"%s\"." apdl-lmutil-program)
-    (error "Cannot find ANSYS LM Utility executable \"%s\" on this system" exec)))
+    (error "Cannot find Ansys LM Utility executable \"%s\" on this system" exec)))
 
 ;;;###autoload
 (defun apdl-job ()
-  "Change the ANSYS job name.
+  "Change the Ansys job name.
 And write it into the variable `apdl-job'."
   (interactive)
   (let ((job-name))
@@ -1142,7 +1142,7 @@ And write it into the variable `apdl-job'."
 The number of processors will be put into the integer variable
 `apdl-no-of-processors'.  If this number is below 3 the variable
 won't affect the run definition since the default No of
-processors (if available) for a structural analysis in ANSYS is
+processors (if available) for a structural analysis in Ansys is
 2."
   (interactive)
   (let ((no-string (number-to-string apdl-no-of-processors))
@@ -1158,7 +1158,7 @@ processors (if available) for a structural analysis in ANSYS is
     (message "No of processors for the next run definition is %d" apdl-no-of-processors)))
 
 (defun apdl-license-file ( file)
-  "Change the ANSYS license file name or license server(s).
+  "Change the Ansys license file name or license server(s).
 And specify the string FILE in the variable `apdl-license-file'
 which can either be the license file name or license server(s)
 specification.  The server specification must include the port
@@ -1174,12 +1174,12 @@ stored in the environment variable APDL-LICENSE-FILE."
          (buffer-name))
         (t
          (setq apdl-license-file file)
-         (setenv "ANSYSLMD_LICENSE_FILE" file)
+         (setenv "AnsysLMD_LICENSE_FILE" file)
          (message (concat "Set apdl-license-file to \""
                           apdl-license-file "\".")))))
 
 (defun apdl-ansysli-servers ( servers)
-  "Change the ANSYS interconnect servers to SERVERS.
+  "Change the Ansys interconnect servers to SERVERS.
 And specify it in the variable `apdl-ansysli-servers'.  The
 server specification must include the port number even when it is
 2325, the default port number: port_number@server_name, multiple
@@ -1192,18 +1192,18 @@ server names are separated by a colon, for example
          (buffer-name))
         (t
          (setq apdl-ansysli-servers servers)
-         (setenv "ANSYSLI_SERVERS" servers)
+         (setenv "AnsysLI_SERVERS" servers)
          (message (concat "Set apdl-ansysli-servers to \""
                           apdl-ansysli-servers "\".")))))
 
 ;; FIXME:
 ;; (error "Please specify the license server information with
 ;;     the `apdl-license-file' function or either set
-;;     ANSYSLMD_LICENSE_FILE or LM-LICENSE-FILE environment
+;;     AnsysLMD_LICENSE_FILE or LM-LICENSE-FILE environment
 ;;     variable")
 
 (defun apdl-license ()
-  "Change the ANSYS license type.
+  "Change the Ansys license type.
 And store it in the variable `apdl-license'."
   (interactive)
   (let ((lic (if (not (string= apdl-license ""))
@@ -1213,7 +1213,7 @@ And store it in the variable `apdl-license'."
           (completing-read (concat "License type [" lic "] (TAB for completion): ")
                            apdl-license-categories
                            nil nil nil nil lic))
-    (message (concat "ANSYS license type is now set to \"" apdl-license "\"."))))
+    (message (concat "Ansys license type is now set to \"" apdl-license "\"."))))
 
 (provide 'apdl-process)
 

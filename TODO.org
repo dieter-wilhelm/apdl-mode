@@ -1,27 +1,26 @@
-#+DATE: Time-stamp: <2020-03-05>
+#+DATE: Time-stamp: <2020-03-08>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
-#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
 #+HTML_LINK_UP: index.html
 #+HTML_HEAD:
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
 #+LATEX_HEADER:
+#+STARTUP: showall
+
 #+title: The TODO file of APDL-Mode
 
-# CAD Kernel of spaceclaim is ACIS (licensed from Dassault)
-
-#+STARTUP: showall
-* TODO Version 20.3?
+* TODO Version 20.X
 ** minor bugs
    - Remove times stamp in *License* buffer when updating with `g'.
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
-   - The APDL menu entry in the terminal is not working => wrong type
+   - The APDL menu entry in terminal mode is not working => wrong type
      argument!?
 ** wishes
 *** templates
@@ -29,39 +28,53 @@
     - intelligent template selector with keywords in the line of helm
     - do we need interregion templates?
     - what is the advantage of ARG1-9? => parameter system, should I
-      include optionally?
+      include ARG[1-9] optionally?
 *** misc
-   - open EWW in another window!
-   - Melpa integration <= 2021?
-   - document the APDL Parameter Help Duration in M-?
-   - how about deleting the work branch?
-   - are the material properties documented, matlib?  Matlib is used
-     in -template.el, how about document this directory somewhere?
-   - Start optionally runbWB2 --aim, Discovery AIM
-** misc
-   - why initialising anew any time -mode is called?
-   - package-lint
-     - problems with prefix names and default key bindings...
-   - what is default.el <=> apdl-config.el?, dito. a-m.el!?
-   - README (for package-el) README.org for github
-   - ANSYS is often used synonymous for ANSYS MAPDL solver /
-     interpreter or ANSYS Classics GUI
-   - checkdoc, flycheck etc. : from makefile
+    1) Melpa integration <= 2021?
+    2) open EWW in another window!
+    3) why initialising anew any time -mode is called?
+    4) find nice style css stuff for html export?
+    5) integrate new Ansys logo in A-M logo and reverted back from ANSYS
+       to Ansys.
+    6) docu in info mode
+    7) how about deleting the unused branches?
+    8) Start optionally runbWB2 --aim, Discovery AIM
+    9) package-lint
+       - problems with prefix names and default key bindings...
+    10) ANSYS is often used synonymous for ANSYS MAPDL solver /
+	interpreter or ANSYS Classics GUI
+    11) checkdoc, flycheck etc. : from makefile
+** Proceedures
+    # ansys
+    (tags-query-replace "v193" "v201")
+    # emacs
+    (tags-query-replace "26\.3" "27.1")
+    # for _mode_version
+    (tags-query-replace "20\.1\.0" "20.2.0")
+#    (tags-query-replace "ANSYS" "Ansys") done
+    # copyright
+    (tags-query-replace "- 2020" "- 2021")
+
 * TODO 20.2.0 Release
-  Feature freeze [2020-02-27 Do]: Testing of the template branch
+  DEADLINE: <2020-04-08 Mi>
+  Feature freeze [2020-02-27 Do]: Testing of the master branch
   Update documentation, html brutally outdated, ..
   - gh-pages:
-    - create a README.org (copy from index.org?)
-    - makefile for htmls or is it org-mode publish, it is
+    - create a README.org copy from index.org?: Done
+    - makefile for htmls or is it org-mode publish: It is.
 ** Todos, bugs
 ** checks
-   - M-?
    - compile
-   - check C-u C-c C-b with various topics => Works partly ;-)
+   - check C-u C-c C-b with various topics )=> Works partly ;-)
    - Customisation system
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 * 20.1.1
+   - are the material properties documented, matlib?  Matlib is used
+     in -template.el, how about document this directory somewhere?
+     Done in matlib/README.org
+  - document the APDL Parameter Help Duration in M-?: Done in
+    -config.org!
   - bug-report about package.el "NAME-readme.txt", done
 * 162-2:
 ** Bugs

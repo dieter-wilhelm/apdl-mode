@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-05>
+#+DATE: Time-stamp: <2020-03-08>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -118,25 +118,29 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   #  - APDL-Mode is now available on MELPA
   #  For further installation options
 
-  1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
-     tutorial in its `Help' menu, please really do it ;-).  You should
-     use at least use Emacs version 25.1.
-  2) Download APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
-  3) Install the package in Emacs: Please type `M-x
-     package-install-file <RET>' and select the downloaded tar file.
-
    # melpa, add the following in your GNU-Emacs init file:
    # (add-to-list 'package-archives
    # 	     '("melpa" . "http://melpa.org/packages/") t)
    # Then do M-x package-list-packages, find apdl-mode and install it.
 
+  1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
+     tutorial in its `Help' menu, please really do it ;-).  You should
+     use at least Emacs version 25.1.
+  2) Download APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
+  3) Install the package in Emacs: Please type `M-x
+     package-install-file <RET>' and select the downloaded tar file.
+
+
    That's it.
 
    *Hint:* If you are getting an error message "package.el is not yet
-     initialized", you are using Emacs' packaging system for the very
-     first time.  And it is necessary to initialise this machinery
-     first, please type: `M-: (package-initialize) <RET>' and then
-     apply `M-x package-install-file <RET>' again.
+   initialized", you are using Emacs' packaging system for the very
+   first time.  It is necessary to initialise this machinery once,
+   please type: `M-: (package-initialize) <RET>' and then apply `M-x
+   package-install-file <RET>' again.
+
+  APDL-Mode is tested with Ansys v193 and v201, as well as with
+  Emacs-25 and 26.
 
    # For further installation options please have a
    # look in the [[file:INSTALLATION.org][INSTALLATION]] file.

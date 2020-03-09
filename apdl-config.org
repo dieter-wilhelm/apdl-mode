@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-26 18:37:20 uidg1626>
+#+DATE: Time-stamp: <2020-03-09 21:41:32 uidg1626>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -30,7 +30,7 @@ Most functionality of APDL-Mode is working without configurations.
 For system dependent operations APDL-Mode is trying to guess the
 necessary parameters from default installation paths and / or
 environment variables.  (APDL-Mode is using the highest installed
-ANSYS version.)
+Ansys version.)
 
 The customisations itself are written in `Emacs-Lisp'.  The comment
 sign in this language is ~;~ (one semi-colon `;').
@@ -96,7 +96,7 @@ for a Windows system or
 (add-to-list 'load-path "/usr/local/src/emacs/apdl-mode")
 #+END_SRC
 for a GNU-Linux system.
-** Installed ANSYS version and installation path
+** Installed Ansys version and installation path
 
 #+BEGIN_SRC emacs-lisp
 (cond ((string= window-system "x")
@@ -107,7 +107,7 @@ for a GNU-Linux system.
         (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
 #+END_SRC
 
-If your ANSYS installation differs completely from the standard ANSYS
+If your Ansys installation differs completely from the standard Ansys
 directory structure, then please consult the section `INSTALLATION
 PATHS' further below.
 
@@ -122,17 +122,17 @@ PATHS' further below.
   ;        ;;This an example of an installation dir. on WINDOWS
   ;        (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
 
-  ;; If the paths of your ANSYS installation is completely differing
-  ;; from the normal ANSYS structures, please see below.
+  ;; If the paths of your Ansys installation is completely differing
+  ;; from the normal Ansys structures, please see below.
 
 #+END_SRC
 
 * File suffixes for loading APDL-Mode
-Configure your file suffixes for which ANSYS mode is automatically
+Configure your file suffixes for which Ansys mode is automatically
 called for.
 ** Macro files
-/.mac/ is the macro suffix of ANSYS i. e. these macro files can be
-called in the ANSYS command prompt or APDL like a regular ANSYS
+/.mac/ is the macro suffix of Ansys i. e. these macro files can be
+called in the Ansys command prompt or APDL like a regular Ansys
 function (without the suffix /.mac/).
 
 With the setting
@@ -151,8 +151,8 @@ file /example.dat/.
   (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
   (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
 #+END_SRC
-** The ANSYS Neutral file format
-/.anf/ is the suffix for "ANSYS Neutral" files which include mostly
+** The Ansys Neutral file format
+/.anf/ is the suffix for "Ansys Neutral" files which include mostly
 gometric data but also some APDL snippets. These files are used for
 imports, see the file /example.anf/.
 
@@ -163,10 +163,10 @@ imports, see the file /example.anf/.
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file suffixes for autoloading of APDL-Mode, appropriate file
-;; suffixes for which ANSYS mode is automatically called for
+;; suffixes for which Ansys mode is automatically called for
 
-;; .mac is the macro suffix of ANSYS i. e. these macros can be called
-;; in the ANSYS command prompt like a regular ANSYS function (without
+;; .mac is the macro suffix of Ansys i. e. these macros can be called
+;; in the Ansys command prompt like a regular Ansys function (without
 ;; the suffix .mac). See the file helper/example.mac
 (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
 (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
@@ -176,7 +176,7 @@ imports, see the file /example.anf/.
 (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
 (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
 
-;; .anf is the suffix for "ANSYS Neutral" files which include mostly
+;; .anf is the suffix for "Ansys Neutral" files which include mostly
 ;;  gometric data but also some APDL snippets. See the file
 ;;  helper/example.anf.
 (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
@@ -225,14 +225,14 @@ imports, see the file /example.anf/.
 (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
 (autoload 'apdl-mode "apdl-mode" nil t)
 (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
- calling a special ANSYS customisation buffer." 'interactive)
-(autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
-(autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
-(autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
+ calling a special Ansys customisation buffer." 'interactive)
+(autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting Ansys runs." 'interactive)
+(autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
+(autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the Ansys help browser." 'interactive)
 (autoload 'apdl-start-ansys "apdl-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
 (autoload 'apdl-start-classics "apdl-mode" "Activate the function for starting the MAPDL in GUI Mode (APDL-Classics)." 'interactive)
 (autoload 'apdl-start-wb "apdl-mode" "Activate the function for starting Workbench." 'interactive)
-(autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
+(autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
 (autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
   #+END_SRC
 
@@ -247,14 +247,14 @@ imports, see the file /example.anf/.
   (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
   (autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
   (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
-  calling a special ANSYS customisation buffer." 'interactive)
-  (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting ANSYS runs." 'interactive)
-  (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the ANSYS error file." 'interactive)
-  (autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the ANSYS help browser." 'interactive)
+  calling a special Ansys customisation buffer." 'interactive)
+  (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting Ansys runs." 'interactive)
+  (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
+  (autoload 'apdl-start-apdl-help "apdl-mode" "Activate the function for starting the Ansys help browser." 'interactive)
   (autoload 'apdl-start-ansys "apdl-mode" "Activate the function for starting the APDL interpreter under GNU-Linux or product launcher under Windows." 'interactive)
   (autoload 'apdl-start-classics "apdl-mode" "Activate the function for starting the MAPDL in GUI Mode (APDL-Classics)." 'interactive)
   (autoload 'apdl-start-wb "apdl-mode" "Activate the function for starting Workbench." 'interactive)
-  (autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying ANSYS license status or starting a license utility." 'interactive)
+  (autoload 'apdl-license-status "apdl-mode" "Activate the function for displaying Ansys license status or starting a license utility." 'interactive)
   (autoload 'apdl-mode-version "apdl-mode" "Show APDL-Mode's version number." 'interactive)
 
 #+END_SRC
@@ -327,20 +327,21 @@ current default is 2
 
 #+END_SRC
 * Ansys installation paths
-Things you might have to configure if your ANSYS installation is
-completely differing from default ANSYS installation path, as in the
+Things you might have to configure if your Ansys installation is
+completely differing from default Ansys installation path, as in the
 example below:
 #+BEGIN_SRC emacs-lisp
   (setq apdl-ansys-help-program
-      "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
+      "/appl/ansys_inc/16.2.0/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
 	;; normally it looks like this:
-	;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
-  (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
+	;; "/INSTALL_DIRECTORY/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
+  (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
   ;; on windows systems (note the slash before c:!)
-  (setq apdl-ansys-help-path "/c:/Program Files/ANSYS Inc/16.2.0/v162/commonfiles/help/en-us/help/")
-  
-  (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
-  (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
+  (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
+  (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/winx64/launcher")  
+  (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")  
+  (setq apdl-ansys-program "/appl/ansys_inc/19.3.0/ansys/bin/ansys195")
+  (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
   ;; if you want to read the manual in GNU-Emacs' EWW browser
   (setq browse-url-browser-function 'eww-browse-url)
@@ -349,22 +350,24 @@ example below:
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                         ;; ANSYS version and paths
+                         ;; Ansys version and paths
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;; Things you might have to configure if your ANSYS installation is
-  ;; completely differing from default ANSYS installation paths, as in
+  ;; Things you might have to configure if your Ansys installation is
+  ;; completely differing from default Ansys installation paths, as in
   ;; the example below:
 
   ; (setq apdl-help-program
-  ;   "/appl/ansys_inc/16.2.0/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe")
-  ; ;;the ANSYS path to the help viewer looks normally like this:
-  ; ;; "/INSTALL_DIRECTORY/ansys_inc/v162/commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"
+  ;   "/appl/ansys_inc/16.2.0/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
+  ; ;;the Ansys path to the help viewer looks normally like this:
+  ; ;; "/INSTALL_DIRECTORY/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
   ;; ;; on windows systems (note the slash before c:!)
-  ;; (setq apdl-ansys-help-path "/c:/Program Files/ANSYS Inc/16.2.0/v162/commonfiles/help/en-us/help/")
+  ;; (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
 
-  ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v162/commonfiles/help/en-us/help/")
-  ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v162/ansys/bin/ansys162")
+  ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
+  ; (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/launcher162")  
+  ; (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")  
+  ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v195/ansys/bin/ansys162")
   ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 
   ;; if you want to read the manual in GNU-Emacs' EWW browser
@@ -379,20 +382,20 @@ example below:
    longer it takes to get the license status.
 
    License server configuration: License servers (or license file
-   name) you have to specify also the port for (since ANSYS V12.0).
+   name) you have to specify also the port for (since Ansys V12.0).
    On GNU-Linux GNU-Linux: License servers are separated by colons
    (":"), on Windows with semicolon ";".  1055 is the default port.
 
  the following variable APDL-Mode is
-   checking the environment variables ANSYSLMD_LICENSE_FILE and
+   checking the environment variables AnsysLMD_LICENSE_FILE and
    MD_LICENSE_FILE.
 
 #+BEGIN_SRC emacs-lisp
 (setq apdl-license-file
   "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")
 #+END_SRC
-since ANSYS 12.0 there is an intermediate server for the communication
-between flexlm and ANSYS WorkBench, 2325 is here the default port.
+since Ansys 12.0 there is an intermediate server for the communication
+between flexlm and Ansys WorkBench, 2325 is here the default port.
 But the solver/interpreter is checking this server as well!?
 
 #+BEGIN_SRC emacs-lisp
@@ -411,14 +414,14 @@ But the solver/interpreter is checking this server as well!?
    (setq apdl-license "ansys") ;default: "struct"
    #+END_SRC
 
-   ANSYS job name
+   Ansys job name
    #+BEGIN_SRC emacs-lisp
    (setq apdl-job "otto"); default: "file"
    #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                         ;; ANSYS processes stuff
+                         ;; Ansys processes stuff
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; license server configuration
 
@@ -426,17 +429,17 @@ But the solver/interpreter is checking this server as well!?
   ;; GNU-Linux 64 bit only !!! Warning specifiying many license server
   ;; takes a long time for displaying the license status!!!
 
-   ;; for starting the solver & apdl-license-status & ANSYS help
+   ;; for starting the solver & apdl-license-status & Ansys help
 ;  (setq                 ;
    ;; license servers (or license file name)nn
-   ;; specify even the default port for lmutil (since ANSYS V 12.0) on GNU-Linux
+   ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
    ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
 ;   apdl-license-file
 ;  "32002@ls_fr_ansyslmd_ww_1.conti.de"
 ;   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
-   ;; since ANSYS 12.0 there is an intermediate server for
-   ;; the communication between flexlm and ANSYS, 2325 is the default port
+   ;; since Ansys 12.0 there is an intermediate server for
+   ;; the communication between flexlm and Ansys, 2325 is the default port
 ;   apdl-ansysli-servers
 ;  "2325@ls_fr_ansyslmd_ww_1.conti.de"
 ;  "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
@@ -452,7 +455,7 @@ But the solver/interpreter is checking this server as well!?
   ;;  which license type to use for the solver
   ;(setq apdl-license "ansys") ;default: "struct"
 
-  ;; ANSYS job name
+  ;; Ansys job name
   ;(setq apdl-job "otto"); default: "file"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -468,6 +471,7 @@ But the solver/interpreter is checking this server as well!?
 #+END_SRC
 -----
 
+-----
 * COMMENT Extending Emacs load path and initialisation
   redundant with package.el
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -488,7 +492,7 @@ But the solver/interpreter is checking this server as well!?
 
 #+END_SRC
 
------
+
 # LOCAL variables:
 # word-wrap: t
 # show-trailing-whitespace: t

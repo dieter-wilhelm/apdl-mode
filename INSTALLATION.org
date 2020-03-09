@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-04>
+#+DATE: Time-stamp: <2020-03-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,7 +27,7 @@ Some of APDL-Mode's solver control and communication features are not
 yet implemented for Windows systems.
 
 * Installation
-The versioning scheme (R20.1.0) is using the ANSYS release year
+The versioning scheme (R20.1.0) is using the Ansys release year
 (2020).
 
 ** For Windows systems without the Emacs editor
@@ -116,13 +116,13 @@ automatically applied for all opened or created files with suffixes
  - INSTALLATION.org -- The installation notes
  - LICENSE.org -- The GPL (Gnu Public License) Version 3
  - doc/example.dat -- WorkBench example APDL solver input file
- - doc/example.anf -- ANSYS geometry neutral file example
+ - doc/example.anf -- Ansys geometry neutral file example
  - doc/example.mac -- APDL user macro and highlighting example
  - doc/A-M_introductory_tutorial.pdf -- Your first look at APDL-Mode?
  - doc/A-M_in-depth_tutorial.pdf -- A hands-on APDL-Mode tutorial
  - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
  - doc/A-M_APDL_reference.pdf -- APDL and APDL-Mode syntax highlighting reference guide
- - doc/ANSYS.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
+ - doc/Ansys.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
  - matlib/ -- a directory with examples of APDL material definitions
 
  You can actually read the PDFs in Emacs as well!
@@ -194,9 +194,9 @@ your system.
     Graphics support
     - libgif-dev
     - libmagickwand-dev (for imagemagick support)
-* Installing ANSYS on Linux
-** ANSYS 161 on Ubuntu 12.04 64 Bit
-    The ANSYS Help Viewer is running out of the box
+* Installing Ansys on Linux
+** Ansys 161 on Ubuntu 12.04 64 Bit
+    The Ansys Help Viewer is running out of the box
 *** Classics GUI
    - Shared library libXm.so.4 is missing
      /usr/ansys_inc/v161/ansys/bin/linx64/ansys.e161: error while
@@ -208,7 +208,7 @@ your system.
     l -s libXp.so.4 ../libXp.so.4
     #+END_SRC
 
-** Installing ANSYS 150.7 on Debian 8 Jessie 64 Bit
+** Installing Ansys 150.7 on Debian 8 Jessie 64 Bit
    Only the mechanical stuff needs already 20 Gig installation space!
    There is a lot of WorkBench stuff aisol/, Framework/, etc.
 
@@ -306,7 +306,7 @@ maximum highlighting level.  If not already the case try to use the
 code in compiled form, please have a look at the documentation of the
 Emacs function `byte-recompile-directory'.
 
-ANSYS `format line' (multi-line highlighting) and `user variable'
+Ansys `format line' (multi-line highlighting) and `user variable'
 highlighting (when the mentioned flag above is not set) are somewhat
 brittle, please use "M-o M-o" to update the highlighting in case the
 format line and all variables are not highlighted correctly.

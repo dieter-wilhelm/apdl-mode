@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-08>
+;; Time-stamp: <2020-03-09>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 

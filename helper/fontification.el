@@ -38,7 +38,7 @@
 ;; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans" "./apdl_dynprompt.txt")
 ;; (call-process "cp" nil "*tmp*" t "dynprompt193.ans" "./apdl_dynprompt.txt")
 ;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `apdl_dynprompt.txt'
-;;     done for v12,v13,v14,v145,v150,v162, v195
+;;     done for v12,v13,v14,v145,v150,v162, v193
 
 ;; 2.) elements: copy within the ansys help browser from the
 ;;     Element reference from the table of contents the list -> `apdl_elements.txt'
@@ -695,7 +695,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (insert "\n\"APDL keyword name regexp 2c.\")\n\n")
 
 
-;; ---------- ansys elements ----------
+;; ---------- Ansys elements ----------
 
 ;; --- regular elements ---
   (setq list ())               ;initialise list

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-08>
+#+DATE: Time-stamp: <2020-03-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -297,7 +297,7 @@ eblock,10,,,94
    |  41 | Fatigue data [FTWRITE]                                           | .fatg    | no    |                                    | ascii   |
    |  42 | neutral graphics file                                            | .grph    | no    |                                    | ascii   |
    |  43 | Graphical solution tracking file                                 | .gst     | no    |                                    | binary  |
-   |  44 | IGES file from ANSYS solid model data [IGESOUT]                  | .iges    | no    |                                    | ascii   |
+   |  44 | IGES file from Ansys solid model data [IGESOUT]                  | .iges    | no    |                                    | ascii   |
    |  45 | initial state                                                    | .ist     |       |                                    |         |
    |  46 | Loading and bc of load steps (used for multiframe restart)       | .ldhi    |       |                                    | ascii   |
    |  47 | Database command log file [LGWRITE]                              | .lgw     | no    |                                    | ascii   |
@@ -354,14 +354,14 @@ eblock,10,,,94
    |  98 | Superelement load vector data from generation pass               | .seld    |       |                                    |         |
    |  99 | scratch file for supernode solver                                | .snode#  | yes   |                                    | binary  |
    | 100 | Superelement name and number from use pass                       | .sort    |       |                                    |         |
-   | 101 | Status of an ANSYS batch run                                     | .stat    | no    |                                    | ascii   |
+   | 101 | Status of an Ansys batch run                                     | .stat    | no    |                                    | ascii   |
    | 102 | scratch file for substructure generation pass                    | .sscr    | yes   |                                    | binary  |
    | 103 | substructure matrices                                            | .sub     |       |                                    |         |
    | 104 | Hyperelastic material constants                                  | .tb      | no    |                                    | ascii   |
    | 105 | Renamed DSUB File for input to substructure expansion pass       | .usub    | no    |                                    | binary  |
-   | 106 | FLOTRAN boundary condition data (ANSYS to FLOTRAN)               | .xbc     | no    |                                    | ascii   |
-   | 107 | FLOTRAN geometry data (ANSYS to FLOTRAN)                         | .xgm     | no    |                                    | ascii   |
-   | 108 | FLOTRAN initial condition data (ANSYS to FLOTRAN)                | .xic     | no    |                                    | ascii   |
+   | 106 | FLOTRAN boundary condition data (Ansys to FLOTRAN)               | .xbc     | no    |                                    | ascii   |
+   | 107 | FLOTRAN geometry data (Ansys to FLOTRAN)                         | .xgm     | no    |                                    | ascii   |
+   | 108 | FLOTRAN initial condition data (Ansys to FLOTRAN)                | .xic     | no    |                                    | ascii   |
    | 109 | restart                                                          | .x#      |       |                                    |         |
    |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
    | 110 | Old (10/11) WorkBench database                                   | .wbdb    | no    |                                    | binary  |
@@ -397,7 +397,7 @@ up to 5000
 *** Double, char38, char8?, logical? TODO:
     in table only 8 chars?
     
-*** Variable names (called `parameter' in the ANSYS manual)
+*** Variable names (called `parameter' in the Ansys manual)
 All numeric values are stored as double precision values.  Not defined
 variables are assigned a tiny value near zero.  The interpreter is not case sensitve
 :TODO except in strings?
@@ -415,14 +415,14 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   A1NSys = 4                    !this is the same variable
   A1NSys = Temp                 !`Temp' is not defined
 #+end_src
-    The following text is the respective ANSYS solver/interpreter output.
+    The following text is the respective Ansys solver/interpreter output.
 #+begin_src ansys-solver :tangle no
   BEGIN:
    1ansys = 3                    !is not a valid variable name
-  PARAMETER 1ANSYS =     3.000000000    
+  PARAMETER 1Ansys =     3.000000000    
   *** ERROR ***                           CP =       0.259   TIME= 18:06:41
   Invalid character in parameter name.                                    
-   The setting of parameter= 1ANSYS is ignored.                           
+   The setting of parameter= 1Ansys is ignored.                           
   BEGIN:
    a1nsys = 3                    !a1nsys is a valid variable name
   PARAMETER A1NSYS =     3.000000000    
@@ -437,7 +437,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   BEGIN:
 #+end_src
 **** Should not begin with an underscore
-    This convention is used in nameing variables in ANSYS supplied
+    This convention is used in nameing variables in Ansys supplied
     macros and the GUI.
 
 #+begin_src ansys :exports none
@@ -445,7 +445,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 #+end_src
     
 #+begin_src ansys
-  _ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
+  _ansys = 3   !`_ansys' represents a reserved variable in Ansys supplied macros
   _ = 3        ! a single underscore definition is valid
   X = _
   _ = 3 !the single underscore represents  also a `variable' in APDL
@@ -466,7 +466,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 #+begin_src ansys-solver :tangle no
      BEGIN:
     ansys_ = 3
-     PARAMETER ANSYS_ =     3.000000000    
+     PARAMETER Ansys_ =     3.000000000    
      BEGIN:
      *status
      ABBREVIATION STATUS-
@@ -487,7 +487,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
                       (INCLUDING        4 INTERNAL PARAMETERS)
     
      NAME                              VALUE                        TYPE  DIMENSIONS
-     ANSYS_                            3.00000000                    SCALAR
+     Ansys_                            3.00000000                    SCALAR
      BEGIN:
 #+end_src
 **** Must contain only letters, numbers and underscores
@@ -499,7 +499,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   a1n§sys = 3              !this is not a valid variable name
   a1n_sys = 3              !this is a valid variable name
 #+end_src
-the ANSYS interpreter output looks like this:
+the Ansys interpreter output looks like this:
 #+begin_src ansys-solver :tangle no
   BEGIN:
    a1n§sys = 3              !this is not a valid variable name
@@ -646,9 +646,9 @@ neither with ~c***~ nor with ~/sys~
    !! Exponentiation Operator is `**'
 #+end_src    
 *** Multiplication Expression
-    Beware of the oldstyle ANSYS comment!
+    Beware of the oldstyle Ansys comment!
 #+begin_src ansys :exports none
-  !! Beware of the oldstyle ANSYS comment!
+  !! Beware of the oldstyle Ansys comment!
 #+end_src    
 #+begin_src  ansys
 var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!

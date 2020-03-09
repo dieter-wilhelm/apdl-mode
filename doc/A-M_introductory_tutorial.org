@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-02-24>
+#+DATE: Time-stamp: <2020-03-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+OPTIONS: H:1 texht:t
 # #+BEAMER_COLOR_THEME:
@@ -18,8 +18,8 @@
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+TEXT: blabla
-#+DESCRIPTION: *APDL-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA.
-#+KEYWORDS: Emacs ANSYS FEA APDL
+#+DESCRIPTION: *APDL-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with Ansys FEA.
+#+KEYWORDS: Emacs Ansys FEA APDL
 #+LANGUAGE:  en
 #+OPTIONS:   H:2 num:nil toc:nil \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t email:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
@@ -49,7 +49,7 @@
 
 * Introduction
 ** Introducing APDL-Mode -- an APDL environment
-   [[https://github.com/dieter-wilhelm/apdl-mode][This project]] supports your APDL workflows with the FEA suite [[http://www.ansys.com][ANSYS]].
+   [[https://github.com/dieter-wilhelm/apdl-mode][This project]] supports your APDL workflows with the FEA suite [[http://www.ansys.com][Ansys]].
 # #+BEGIN_export LaTeX
 # \pdfannot % generic annotation
 # % width 4cm % the dimension of the annotation can be controlled
@@ -66,7 +66,7 @@
 # }%\hspace{.4cm}%
 # \quad%
 # #+END_export
-#   workflows with the FEA suite [[http://www.ansys.com][ANSYS]].
+#   workflows with the FEA suite [[http://www.ansys.com][Ansys]].
 
 # #+BEGIN_export LaTeX
 # \pdfannot % generic annotation
@@ -84,7 +84,7 @@
 # }%\hspace{.4cm}%
 # \quad%
 # #+END_export
-# suite [[http://www.ansys.com][ANSYS]].
+# suite [[http://www.ansys.com][Ansys]].
 
 # #+BEGIN_export LaTeX
 # \pdfannot % generic annotation
@@ -98,7 +98,7 @@
 # /T (H. Dieter Wilhelm: Acronyms)
 # % /Opepn true % if given then the text annotation will be opened
 # /Contents % text contents
-# (ANSYS = ANalysis SYStem, registered TM)
+# (Ansys = ANalysis SYStem, registered TM)
 # }%
 # #+END_export
 
@@ -106,10 +106,10 @@
 #+HTML: <br>
    It provides an editor mode for [[http://www.gnu.org/software/emacs/][GNU Emacs]] for investigating and
    coding APDL.  The mode offers also managing and communication
-   capabilities for various ANSYS processes, like interactive code
+   capabilities for various Ansys processes, like interactive code
    debugging with the solver or inquiring the license manager status,
    etc.  Some features are quite sophisticated but its documentation
-   is accessible for ANSYS users with little APDL and [[http://en.wikipedia.org/wiki/Emacs][Emacs]]
+   is accessible for Ansys users with little APDL and [[http://en.wikipedia.org/wiki/Emacs][Emacs]]
    experience.
 # #+BEGIN_export LaTeX
 # \pdfannot % generic annotation
@@ -148,7 +148,7 @@
 # #+END_export
   [[http://www.gnu.org/home.en.html][GNU]]-Emacs is an modern, powerful and extensible - yet free -
   editor. High quality software available for every operating system
-  where ANSYS is running.
+  where Ansys is running.
 
 * Download and Installation
 ** Download GNU-Emacs and the APDL-Mode Tar Package
@@ -195,10 +195,10 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #   [[./find_file_dialog.png]]
 
 ** Explore the APDL-Mode menus
-  If ANSYS is installed in its default folders, also system dependent
+  If Ansys is installed in its default folders, also system dependent
   functions, like browsing the APDL help with *C-c C-b*, are working.
   Otherwise, you can easily configure this. The former is *much*
-  faster as searching with the original ANSYS Help Viewer.
+  faster as searching with the original Ansys Help Viewer.
 
 #+ATTR_LaTeX: :height 7.5cm
  [[./ansys_menu.png]]
@@ -242,7 +242,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 [[./parameter_help2.png]]
 
 ** Select and insert templates from the menu into your code
-   Screenshot with the ANSYS Classics GUI on the left and Emacs on the
+   Screenshot with the Ansys Classics GUI on the left and Emacs on the
    right on Win64
 
 #+ATTR_LaTeX: :height 8cm
@@ -322,10 +322,10 @@ package-install-file <RET>~ and select the downloaded tar archive.
    [[./license.png]]
 
 ** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU-Linux]])
-   You can run the ANSYS solver under Emacs and send code lines from
+   You can run the Ansys solver under Emacs and send code lines from
    above APDL window with *C-c C-j* (*C-c C-c* for whole regions)
    directly to this process. Below you see the *interactive* solver
-   output and on the left hand side the corresponding ANSYS images.
+   output and on the left hand side the corresponding Ansys images.
 
 #+ATTR_HTML: :width "1200"
 #+ATTR_LaTeX: :height 6.5cm
@@ -345,7 +345,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 
 * Configuration
 ** Configure system dependent aspects and user options
-#   \\Mainly the ANSYS version and its installation directory
+#   \\Mainly the Ansys version and its installation directory
    Please check the mode settings with Emacs'
     customisation system (no programming necessary) use the menu and
 *** modify settings with Emacs' customisation system
@@ -427,7 +427,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 
 * Summary
 ** Use APDL-Mode appropriate to your needs
-**** The relevance of APDL remains: `WorkBench' and `AIM' operate *exclusively* the ANSYS solver with it!  For a *true understanding* the study of APDL is *prerequisite*.   Furthermore, code APDL only for *repetitive* tasks or WB/AIM snippets.
+**** The relevance of APDL remains: `WorkBench' and `AIM' operate *exclusively* the Ansys solver with it!  For a *true understanding* the study of APDL is *prerequisite*.   Furthermore, code APDL only for *repetitive* tasks or WB/AIM snippets.
 *** Basic APDL *Viewer*
 	 :PROPERTIES:
 	 :BEAMER_env: block

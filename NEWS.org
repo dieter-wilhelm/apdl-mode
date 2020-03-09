@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-08>
+#+DATE: Time-stamp: <2020-03-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,18 +18,18 @@
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-** Version 20.2.0: 2020-0?: Updated keywords to ANSYS v193
+** Version 20.2.0: 2020-0?: Updated keywords to Ansys v193
    - Added a template preview system for Worbench `Command (APDL)'
      objects with the keybinding `C-c C-w' (this keybinding was
      formerly used for starting WorkBench).
-   - Improved the automated configuration of ANSYS installation
+   - Improved the automated configuration of Ansys installation
      dependent components
    - Made M-? (the parameter help) robuster, command names can now be
      changed when the help overlay is visible
    - Updated documentation and completions for keywords, elements,
      etc. to v193 (mostly to v201)
-   - A-M can call a browser for the ANSYS online-help (you don't have
-     to install the local ANSYS help package, though it is advisable
+   - A-M can call a browser for the Ansys online-help (you don't have
+     to install the local Ansys help package, though it is advisable
      because of speed reasons.
 
 ** Version 20.1.1: 2020-02: Bugfix release
@@ -61,17 +61,17 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - New customisation variable `ansys-parameter-help-duration' for
      adjusting the display duration of the
      `ansys-show-command-parameters' overlay.
-   - Reorganised and improved the menu items, separated general ANSYS
+   - Reorganised and improved the menu items, separated general Ansys
      tasks from APDL coding with two main menu Entries: A-Mode and
-     ANSYS.
-   - New functions: Reading the original APDL guide and ANSYS-Mode's
+     Ansys.
+   - New functions: Reading the original APDL guide and Ansys-Mode's
      documentation in a Browser, opening an empty buffer in
-     ANSYS-Mode, ansys-start-launcher, ansys-start-classics, ...
+     Ansys-Mode, ansys-start-launcher, ansys-start-classics, ...
    - The command `C-c C-j' does now recognise blocks (APDL loops and
      control structures), which is to say it copies or sends complete
      logical blocks to the interpreter instead of only the current
      code line.
-   - Changed ANSYS-Mode's versioning scheme from 16.2.1 to 162-1
+   - Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 ** Version 16.1.1 July 2015
    - The command `ansys-show-command-parameters' (M-?) does
@@ -85,22 +85,22 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
      paragraph, when there is no region marked.  And the cursor doesn't
      skip to the next code line without a prefix argument "C-u".
-   - The output buffer *ANSYS* of the interpreter commands might now
+   - The output buffer *Ansys* of the interpreter commands might now
      reside on a another Emacs frame.
-   - switched on truncation of lines for ANSYS-Mode buffers, e. g. it is
+   - switched on truncation of lines for Ansys-Mode buffers, e. g. it is
      easier to read when there are many parameters in the
      ansys-show-parameter-help.
    - Extended the APDL material library which includes now creep and
      multi-linear plasticity data in matlib/ as well.
    - Is packaged with the current stable version Emacs-24.5 and updated
-     for ANSYS 16.  Besides the Windows version there is also now a
+     for Ansys 16.  Besides the Windows version there is also now a
      source package available for compiling Emacs-24.5 together with
-     ANSYS-Mode.
+     Ansys-Mode.
    - Renamed README, NEWS and TODO to *.org, fontification.mac to
      example.mac.  Included an example.dat and example.anf
 
 ** Version 15.0.1 Aug 2014
-   - Added an example of an ANSYS material library
+   - Added an example of an Ansys material library
    - C-c C-c (ansys-send-to-ansys) doesn't skip to the next code line any
      longer but remains in the code line. The former behaviour borrows
      the new function C-c C-j (ansys-send-to-ansys-and-proceed),
@@ -141,11 +141,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** Version 14.5.1 Sep 2012
 
    - Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
-     the detailed ANSYS help in your web-browser for an APDL command or
+     the detailed Ansys help in your web-browser for an APDL command or
      element name (also the element number is sufficient) around the
      cursor (or if that fails at the line beginning).
 
-     Are you also tired of the ANSYS help browser?  For example try
+     Are you also tired of the Ansys help browser?  For example try
      searching for the `F' APDL command, it is impossible! (update 2014:
      This has improved with the new help viewer in V15.) You have to pick
      it up from the alphabetical command list. Likewise when you are
@@ -154,12 +154,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      cumbersome and too slow.
 
      As a highlight of this release you can now read immediately the
-     detailed ANSYS help in your web browser for *all* APDL command AND
+     detailed Ansys help in your web browser for *all* APDL command AND
      element names around the cursor (or for the first command in the
      current line if that fails to be valid keyword).  You may input your
-     search string also interactively, including its completion to ANSYS
+     search string also interactively, including its completion to Ansys
      help keywords and of certain help categories, like `Release Notes'
-     and such. This is an ideal complement to ANSYS-Mode's in-built
+     and such. This is an ideal complement to Ansys-Mode's in-built
      `command syntax help'.
 
    - The function `ansys-start-ansys' is now available under Windows as well
@@ -172,7 +172,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      out as well (only for the first command in case of
      `ansys-show-command-parameters').
    - Also the input of `ansys-query-ansys-command' (C-c C-q) is now
-     completable to all current ANSYS commands and with an optional
+     completable to all current Ansys commands and with an optional
      prefix argument the current code line is copied as the initial
      input.
    - Improved the introductory and the in-depth tutorial and extended the
@@ -185,8 +185,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      now skipping over node and elements blocks, which are only pure
      number blocks.  They are now alternatives to
      `ansys-number-block-start' C-c { and C-c } respectively
-   - Removed bug in customisation system and dropped 32 bit ANSYS support
-     in line with the ANSYS OS
+   - Removed bug in customisation system and dropped 32 bit Ansys support
+     in line with the Ansys OS
      [http://www.ansys.com/Support/Platform+Support strategy] for 2013.
    - Described a poor man's round() workaround in ansys-template-function
      under the nint() entry

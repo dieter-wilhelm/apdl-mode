@@ -1,10 +1,10 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-08>
+;; Time-stamp: <2020-03-09>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.1.1
+;; Version: 20.2.0
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode

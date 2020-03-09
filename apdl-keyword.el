@@ -136,7 +136,7 @@ Together with their proposed replacements.")
 *MERGE, Name1, Name2, Val1, Val2" "*MFOURI - Calculates the coefficients for, or evaluates, a Fourier series.
 *MFOURI, Oper, COEFF, MODE, ISYM, THETA, CURVE" "*MFUN - Copies or transposes an array parameter matrix.
 *MFUN, ParR, Func, Par1" "*MOPER -  Performs matrix operations on array parameter matrices.
-*MOPER, ParR, Par1, Oper, Val1, Val2, Val3, Val4, Val5, Val6" "*MSG - Writes an output message via the ANSYS message subroutine.
+*MOPER, ParR, Par1, Oper, Val1, Val2, Val3, Val4, Val5, Val6" "*MSG - Writes an output message via the Ansys message subroutine.
 *MSG, Lab, VAL1, VAL2, VAL3, VAL4, VAL5, VAL6, VAL7, VAL8" "*MULT - Performs the matrix multiplication M3 =     M1(T1)*M2(T2).
 *MULT, M1, T1, M2, T2, M3" "*MWRITE - Writes a matrix to a file in a formatted sequence. 
 *MWRITE, ParR, Fname, Ext, --, Label, n1, n2, n3" "*NRM - Computes the norm of the specified matrix or vector.
@@ -170,7 +170,7 @@ Together with their proposed replacements.")
 *VLEN, NROW, NINC" "*VMASK - Specifies an array parameter as a masking vector.
 *VMASK, Par" "*VOPER - Operates on two array parameters.
 *VOPER, ParR, Par1, Oper, Par2, CON1, CON2" "*VPLOT - Graphs columns (vectors) of array parameters.
-*VPLOT, ParX, ParY, Y2, Y3, Y4, Y5, Y6, Y7, Y8" "*VPUT -  Restores array parameter values into the ANSYS database.
+*VPLOT, ParX, ParY, Y2, Y3, Y4, Y5, Y6, Y7, Y8" "*VPUT -  Restores array parameter values into the Ansys database.
 *VPUT, ParR, Entity, ENTNUM, Item1, IT1NUM, Item2, IT2NUM, KLOOP" "*VREAD - Reads data and produces an array parameter vector or matrix.
 *VREAD, ParR, Fname, Ext, --, Label, n1, n2, n3, NSKIP" "*VSCFUN - Determines properties of an array parameter.
 *VSCFUN, ParR, Func, Par1" "*VSTAT
@@ -182,7 +182,7 @@ Together with their proposed replacements.")
 /ANFILE, LAB, Fname, Ext, --" "/ANGLE - Rotates the display about an axis.
 /ANGLE, WN, THETA, Axis, KINCR" "/ANNOT - Activates graphics for annotating displays (GUI).
 /ANNOT, Lab, VAL1, VAL2" "/ANUM - Specifies the annotation number, type, and hot spot (GUI).
-/ANUM, NUM, TYPE, XHOT, YHOT" "/ASSIGN - Reassigns a file name to an ANSYS file identifier.
+/ANUM, NUM, TYPE, XHOT, YHOT" "/ASSIGN - Reassigns a file name to an Ansys file identifier.
 /ASSIGN, Ident, Fname, Ext, --, LGkey" "/AUTO - Resets the focus and distance specifications to \"automatically calculated.\"
 /AUTO, WN" "/AUX12
 /AUX12 - Enters the radiation processor." "/AUX15
@@ -385,7 +385,7 @@ ANMODE, NFRAM, DELAY, NCYCL, KACCEL" "ANORM - Reorients area normals.
 ANORM, ANUM, NOEFLIP" "ANPRES - Produces an animated sequence of the time-harmonic pressure variation of an engine-order excitation in a cyclic harmonic analysis.
 ANPRES, NFRAM, DELAY, NCYCL, RefFrame" "ANSOL - Specifies averaged nodal data to be stored from the results file in the solution coordinate system. 
 ANSOL, NVAR, NODE, Item, Comp, Name, Mat, Real, Ename" "ANSTOAQWA - Creates an AQWA-LINE input file from the current Mechanical APDL model.
-ANSTOAQWA, Fname, VertAxis, Gc, Rho, HWL, DiffKey, SymxKey, SymyKey" "ANSTOASAS - Creates an ASAS input file from the current ANSYS model.
+ANSTOAQWA, Fname, VertAxis, Gc, Rho, HWL, DiffKey, SymxKey, SymyKey" "ANSTOASAS - Creates an ASAS input file from the current Ansys model.
 ANSTOASAS, Fname, KEY" "ANTIME - Generates a sequential contour animation over a range of time.
 ANTIME, NFRAM, DELAY, NCYCL, AUTOCNTRKY, RSLTDAT, MIN, MAX" "ANTYPE - Specifies the analysis type and restart status.
 ANTYPE, Antype, Status, LDSTEP, SUBSTEP, Action, --, PRELP" "AOFFST - Generates an area, offset from a given area.
@@ -522,7 +522,7 @@ CMWRITE, Fname, Ext, --, --, Fmat" "CNCHECK - Provides and/or adjusts the initia
 CNCHECK, Option, RID1, RID2, RINC, InterType, TRlevel, CGAP, CPEN, IOFF" "CNKMOD - Modifies contact element key options.
 CNKMOD, ITYPE, KNUM, VALUE" "CNTR - Redirects contact pair output quantities to a text file.
 CNTR, Option, Key" "CNVTOL - Sets convergence values for nonlinear analyses.
-CNVTOL, Lab, VALUE, TOLER, NORM, MINREF" "COMBINE - Combines distributed memory parallel (Distributed ANSYS) files.
+CNVTOL, Lab, VALUE, TOLER, NORM, MINREF" "COMBINE - Combines distributed memory parallel (Distributed Ansys) files.
 COMBINE, FileType, NUM" "COMPRESS
 COMPRESS - Deletes all specified sets." "CON4 - Creates a conical volume anywhere on the working plane.
 CON4, XCENTER, YCENTER, RAD1, RAD2, DEPTH" "CONE - Creates a conical volume centered about the working plane origin.
@@ -574,7 +574,7 @@ DCGOMG, DCGOX, DCGOY, DCGOZ" "DCUM - Specifies that DOF constraint values are to
 DCUM, Oper, RFACT, IFACT, TBASE" "DCVSWP - Performs a DC voltage sweep on a ROM element.
 DCVSWP, Option, Elem, Cnum, Vmax, Vinc1, Vinc2, Gap" "DDASPEC - Specifies the shock spectrum computation constants for DDAM analysis.
 DDASPEC, KeyRef, Shptyp, MountLoc, Deftyp, Amin" "DDELE - Deletes degree-of-freedom constraints.
-DDELE, NODE, Lab, NEND, NINC, Rkey" "DDOPTION -  Sets domain decomposer option for Distributed ANSYS.
+DDELE, NODE, Lab, NEND, NINC, Rkey" "DDOPTION -  Sets domain decomposer option for Distributed Ansys.
 DDOPTION, Decomp, NProcPerSol" "DEACT
 DEACT - Specifies \"Element birth and death\" as the subsequent status topic." "DEFINE
 DEFINE - Specifies \"Data definition settings\" as the subsequent status topic." "DELETE - Specifies sets in the results file to be deleted before postprocessing.
@@ -601,7 +601,7 @@ DLDELE, LINE, Lab" "DLIST - Lists DOF constraints.
 DLIST, NODE1, NODE2, NINC" "DLLIST - Lists DOF constraints on a line.
 DLLIST, LINE" "DMOVE - Digitizes nodes on surfaces and along intersections.
 DMOVE, NODE1, NODE2, NINC" "DMPEXT - Extracts modal damping coefficients in a specified frequency range.
-DMPEXT, SMODE, TMODE, Dmpname, Freqb, Freqe, NSTEPS" "DMPOPTION - Specifies distributed memory parallel (Distributed ANSYS) file combination             options.
+DMPEXT, SMODE, TMODE, Dmpname, Freqb, Freqe, NSTEPS" "DMPOPTION - Specifies distributed memory parallel (Distributed Ansys) file combination             options.
 DMPOPTION, FileType, Combine, ResCombFreq" "DMPRAT - Sets a modal damping ratio.
 DMPRAT, RATIO" "DMPSTR - Sets constant structural damping data.
 DMPSTR, COEFF, DMPSFreqTab" "DNSOL - Defines or modifies solution results at a node.
@@ -685,15 +685,15 @@ ETLIST, ITYP1, ITYP2, INC" "ETYPE
 ETYPE - Specifies \"Element types\" as the subsequent status topic." "EUSORT
 EUSORT - Restores original order of the element table." "EWRITE - Writes elements to a file.
 EWRITE, Fname, Ext, --, KAPPND, Format" "EXBOPT - Specifies .EXB file output options in a CMS generation    pass.
-EXBOPT, OUTINV2, OUTTCMS, OUTSUB, OUTCMS, OUTCOMP, OUTRM, NOINV, OUTELE" "EXOPTION - Specifies the EXPROFILE options for the Mechanical APDL to       ANSYS CFX profile file transfer.
+EXBOPT, OUTINV2, OUTTCMS, OUTSUB, OUTCMS, OUTCOMP, OUTRM, NOINV, OUTELE" "EXOPTION - Specifies the EXPROFILE options for the Mechanical APDL to       Ansys CFX profile file transfer.
 EXOPTION, Ldtype, Option, VALUE" "EXP - Forms the exponential of a variable.
 EXP, IR, IA, --, --, Name, --, --, FACTA, FACTB" "EXPAND - Displays the results of a modal cyclic symmetry analysis.
 EXPAND, Nrepeat, MODAL, HIndex, Icsys, SctAng, --, Phase" "EXPASS - Specifies an expansion pass of an analysis.
-EXPASS, Key, --, --, KeyStat" "EXPROFILE - Exports Mechanical APDL interface data on selected nodes to an ANSYS CFX Profile       file.
+EXPASS, Key, --, --, KeyStat" "EXPROFILE - Exports Mechanical APDL interface data on selected nodes to an Ansys CFX Profile       file.
 EXPROFILE, Ldtype, Load, VALUE, Pname, Fname, Fext, Fdir" "EXPSOL - Specifies the solution to be expanded for mode-superposition analyses or substructure analyses.
 EXPSOL, LSTEP, SBSTEP, TIMFRQ, Elcalc" "EXTOPT - Controls options relating to the generation of volume elements from area elements.
 EXTOPT, Lab, Val1, Val2, Val3, Val4" "EXTREM - Lists the extreme values for variables.
-EXTREM, NVAR1, NVAR2, NINC" "EXUNIT - Specifies the interface data unit labels to be written to the profile file from    Mechanical APDL to ANSYS CFX transfer.
+EXTREM, NVAR1, NVAR2, NINC" "EXUNIT - Specifies the interface data unit labels to be written to the profile file from    Mechanical APDL to Ansys CFX transfer.
 EXUNIT, Ldtype, Load, Untype, Name" "F - Specifies force loads at nodes.
 F, NODE, Lab, VALUE, VALUE2, NEND, NINC" "FC - Provides failure criteria information and activates a data table to input temperature-dependent stress and strain limits.
 FC, MAT, Lab1, Lab2, DATA1, DATA2, DATA3, DATA4, DATA5, DATA6" "FCCHECK
@@ -756,7 +756,7 @@ GSLIST, Lab" "GSSOL - Specifies which results to store from the results file whe
 GSSOL, NVAR, Item, Comp, Name" "GSUM
 GSUM - Calculates and prints geometry items." "HARFRQ - Defines the frequency range in a harmonic analysis.
 HARFRQ, FREQB, FREQE, --, LogOpt, FREQARR, Toler" "HBMAT - Writes an assembled global matrix in Harwell-Boeing format.
-HBMAT, Fname, Ext, --, Form, Matrx, Rhs, Mapping" "HELP - Displays help information on ANSYS commands and element types.
+HBMAT, Fname, Ext, --, Form, Matrx, Rhs, Mapping" "HELP - Displays help information on Ansys commands and element types.
 HELP, Name" "HEMIOPT - Specifies options for Hemicube view factor calculation.
 HEMIOPT, HRES" "HFANG - Defines or displays spatial angles of a spherical radiation surface for sound radiation parameter calculations.
 HFANG, Lab, PHI1, PHI2, THETA1, THETA2" "HFSYM - Indicates the presence of symmetry planes for the computation of acoustic fields in the near and far field domains (beyond the finite element region).
@@ -771,7 +771,7 @@ HROUT, Reimky, Clust, Mcont, EngCalc" "IC - Specifies initial conditions at node
 IC, NODE, Lab, VALUE, VALUE2,NEND, NINC" "ICDELE
 ICDELE - Deletes initial conditions at nodes." "ICLIST - Lists the initial conditions.
 ICLIST, NODE1, NODE2, NINC, Lab" "ICROTATE - Specifies initial velocity at nodes as a sum of rotation about an axis and             translation.
-ICROTATE, NODE, OMEGA, X1, Y1, Z1, X2, Y2, Z2, Vx, Vy, Vz, ACCEL" "IGESIN - Transfers IGES data from a file into ANSYS.
+ICROTATE, NODE, OMEGA, X1, Y1, Z1, X2, Y2, Z2, Vx, Vy, Vz, ACCEL" "IGESIN - Transfers IGES data from a file into Ansys.
 IGESIN, Fname, Ext, --" "IGESOUT - Writes solid model data to a file in IGES Version 5.1 format.
 IGESOUT, Fname, Ext, --, ATT" "IMAGIN - Forms an imaginary variable from a complex variable.
 IMAGIN, IR, IA, --, --, Name, --, --, FACTA" "IMESH - Generates nodes and interface elements along lines or areas.
@@ -784,7 +784,7 @@ INT1, IR, IY, IX, --, Name, --, --, FACTA, FACTB, CONST" "INVOPT - Enables or di
 INVOPT, Option" "IOPTN - Controls options relating to importing a model.
 IOPTN, Lab, VAL1" "IRLF - Specifies that inertia relief calculations are to be performed.
 IRLF, KEY" "IRLIST
-IRLIST - Prints inertia relief summary table." "JPEG - Provides JPEG file export for ANSYS displays. 
+IRLIST - Prints inertia relief summary table." "JPEG - Provides JPEG file export for Ansys displays. 
 JPEG, Kywrd, OPT" "JSOL - Specifies result items to be stored for the joint element.
 JSOL, NVAR, ELEM, ITEM, COMP, Name" "K - Defines a keypoint.
 K, NPT, X, Y, Z" "KATT - Associates attributes with the selected, unmeshed keypoints.
@@ -1082,7 +1082,7 @@ PLZZ, RotVel, DeltaRotVel" "PMAP - Creates mapping of the path geometry by defin
 PMAP, FORM, DISCON" "PMGTRAN - Summarizes electromagnetic results from a transient analysis.
 PMGTRAN, Fname, FREQ, Fcnam1, Fcnam2, Pcnam1, Pcnam2, Ecnam1, Ccnam1" "PMLOPT - Defines perfectly matched layers (PMLs) or irregular perfectly    matched layers (IPML).
 PMLOPT, PSYS, Lab, Xminus, Xplus, Yminus, Yplus, Zminus, Zplus, MixOpt" "PMLSIZE - Determines number of PML or IPML layers.
-PMLSIZE, FREQB, FREQE, DMIN, DMAX, THICK, ANGLE, WAVESPEED" "PNGR - Provides PNG file export for ANSYS displays. 
+PMLSIZE, FREQB, FREQE, DMIN, DMAX, THICK, ANGLE, WAVESPEED" "PNGR - Provides PNG file export for Ansys displays. 
 PNGR, Kywrd, OPT, VAL" "POINT
 POINT - Specifies \"Point flow tracing settings\" as the subsequent status topic." "POLY
 POLY - Creates a polygonal area based on working plane coordinate pairs." "POWERH
@@ -1154,7 +1154,7 @@ READ, Fname, NSKIP, Format, Xfield, Yfield, Zfield, pRfield, pIfield" "REAL - Se
 REAL, NSET" "REALVAR - Forms a variable using only the real part of a complex variable. 
 REALVAR, IR, IA, --, --, Name, --, --, FACTA" "RECTNG - Creates a rectangular area anywhere on the working plane. 
 RECTNG, X1, X2, Y1, Y2" "REMESH - Specifies the starting and ending remeshing points, and other options, for rezoning.
-REMESH, Action, Filename, Ext, --, Opt1, Opt2" "RESCOMBINE - Reads results from local results files into the database after a distributed memory parallel (Distributed ANSYS) solution.
+REMESH, Action, Filename, Ext, --, Opt1, Opt2" "RESCOMBINE - Reads results from local results files into the database after a distributed memory parallel (Distributed Ansys) solution.
 RESCOMBINE, NUMFILES, Fname, Ext, Lstep, Sbstep, Fact, KIMG, TIME, ANGLE, NSET, ORDER" "RESCONTROL - Controls file writing for multiframe restarts.
 RESCONTROL, Action, Ldstep, Frequency, MAXFILES, --, MAXTotalFiles, Filetype" "RESET
 RESET - Resets all POST1 or POST26 specifications to initial defaults. " "RESP - Generates a response spectrum. 
@@ -1222,7 +1222,7 @@ SECLOCK, dof, MINVALUE, MAXVALUE, dof, MINVALUE, MAXVALUE, dof, MINVALUE, MAXVAL
 SECMODIF, SECID, Kywrd" "SECNUM - Sets the element section attribute pointer.
 SECNUM, SECID" "SECOFFSET - Defines the section offset for cross sections.
 SECOFFSET, Location, OFFSET1, OFFSET2, CG-Y, CG-Z, SH-Y, SH-Z" "SECPLOT - Plots the geometry of a beam, pipe, shell, or reinforcing section to scale.
-SECPLOT, SECID, VAL1, VAL2, VAL3" "SECREAD - Reads a custom section library or a user-defined section mesh into ANSYS.
+SECPLOT, SECID, VAL1, VAL2, VAL3" "SECREAD - Reads a custom section library or a user-defined section mesh into Ansys.
 SECREAD, Fname, Ext, --, Option" "SECSTOP - Specifies stops on the components of relative motion in a joint element.
 SECSTOP, dof, MINVALUE, MAXVALUE, dof, MINVALUE, MAXVALUE, dof, MINVALUE, MAXVALUE" "SECTYPE - Associates section type information with a section ID number.
 SECTYPE, SECID, Type, Subtype, Name, REFINEKEY" "SECWRITE - Creates an ASCII file containing user mesh section information.
@@ -1360,7 +1360,7 @@ TBPT, Oper, X1, X2, X3, ..., XN" "TBTEMP - Defines a temperature for a material 
 TBTEMP, TEMP, KMOD" "TCHG - Converts 20-node degenerate tetrahedral elements to their 10-node non-degenerate counterparts.
 TCHG, ENAME1, ENAME2, ETYPE2" "THEXPAND - Enables or disables thermal loading
 THEXPAND, KEY" "THOPT - Specifies nonlinear transient thermal solution options.
-THOPT, Refopt, REFORMTOL, NTABPOINTS, TEMPMIN, TEMPMAX, --, ALGO" "TIFF - Provides TIFF file Export for ANSYS Displays.
+THOPT, Refopt, REFORMTOL, NTABPOINTS, TEMPMIN, TEMPMAX, --, ALGO" "TIFF - Provides TIFF file Export for Ansys Displays.
 TIFF, Kywrd, OPT" "TIME - Sets the time for a load step.
 TIME, TIME" "TIMERANGE - Specifies the time range for which data are to be stored.
 TIMERANGE, TMIN, TMAX" "TIMINT - Turns on transient effects.
@@ -1450,12 +1450,12 @@ XFCRKMESH, EnrichmentID, ElemComp, NodeComp" "XFDATA - Defines a crack in the mo
 XFDATA, EnrichmentID, LSM or -- , ELEMNUM, NODENUM, PHI, PSI" "XFENRICH - Defines parameters associated with crack propagation using XFEM
 XFENRICH, EnrichmentID, CompName, MAT_ID,Method, RADIUS, SNAPTOLER" "XFLIST - Lists enrichment details and associated crack information
 XFLIST, EnrichmentID" "XVAR - Specifies the X variable to be displayed.
-XVAR, N" "~CAT5IN - Transfers a .CATPart file into the ANSYS program.
-~CAT5IN, Name, Extension, Path, Entity, FMT, NOCL, NOAN" "~CATIAIN - Transfers a CATIA model into the ANSYS program.
-~CATIAIN, Name, Extension, Path, - -, - -, BLANK, - -" "~PARAIN - Transfers a Parasolid file into the ANSYS program.
-~PARAIN, Name, Extension, Path, Entity, FMT, Scale" "~PROEIN - Transfers a Creo Parametric part into the ANSYS program.
-~PROEIN, Name, Extension, Path, Proecomm" "~SATIN - Transfers a .SAT file into the ANSYS program.
-~SATIN, Name, Extension, Path, Entity, FMT, NOCL, NOAN" "~UGIN - Transfers an NX part into the ANSYS program.
+XVAR, N" "~CAT5IN - Transfers a .CATPart file into the Ansys program.
+~CAT5IN, Name, Extension, Path, Entity, FMT, NOCL, NOAN" "~CATIAIN - Transfers a CATIA model into the Ansys program.
+~CATIAIN, Name, Extension, Path, - -, - -, BLANK, - -" "~PARAIN - Transfers a Parasolid file into the Ansys program.
+~PARAIN, Name, Extension, Path, Entity, FMT, Scale" "~PROEIN - Transfers a Creo Parametric part into the Ansys program.
+~PROEIN, Name, Extension, Path, Proecomm" "~SATIN - Transfers a .SAT file into the Ansys program.
+~SATIN, Name, Extension, Path, Entity, FMT, NOCL, NOAN" "~UGIN - Transfers an NX part into the Ansys program.
 ~UGIN, Name, Extension, Path, Entity, LAYER, FMT" "/WB - APDL undocumented command
 /WB" "XMLO - APDL undocumented command
 XMLO" "/XML - APDL undocumented command

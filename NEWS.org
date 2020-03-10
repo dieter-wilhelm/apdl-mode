@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-09>
+#+DATE: Time-stamp: <2020-03-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,7 +18,7 @@
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-** Version 20.2.0: 2020-0?: Updated keywords to Ansys v193
+** Version 20.2.0: 2020-03: Updated keywords to Ansys v195
    - Added a template preview system for Worbench `Command (APDL)'
      objects with the keybinding `C-c C-w' (this keybinding was
      formerly used for starting WorkBench).
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - Made M-? (the parameter help) robuster, command names can now be
      changed when the help overlay is visible
    - Updated documentation and completions for keywords, elements,
-     etc. to v193 (mostly to v201)
+     etc. to v195 (some to v201)
    - A-M can call a browser for the Ansys online-help (you don't have
      to install the local Ansys help package, though it is advisable
      because of speed reasons.

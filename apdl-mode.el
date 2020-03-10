@@ -1,4 +1,4 @@
-;;; apdl-mode.el --- The major mode for the language APDL.  -*- lexical-binding: t -*-
+;;; apdl-mode.el --- The major mode for the language APDL  -*- lexical-binding: t -*-
 ;; Time-stamp: <2020-03-10>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
@@ -458,9 +458,8 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 (defconst apdl-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map "`" 'apdl-abbrev-start) ;``?' lists abbrevs
-    ;; (define-key map "\t" 'indent-according-to-mode)                                    ;redundant
     (define-key map "\M-?" 'apdl-show-command-parameters)
-    (define-key map "\e\t" 'apdl-complete-symbol) ;or M-C-i
+    (define-key map "\C-\M-i" 'apdl-complete-symbol) 
     ;; --- changed standard Emacs keybindings ---
     (define-key map " " 'apdl-electric-space)
     (define-key map "\M-j" 'apdl-indent-format-line)
@@ -510,9 +509,9 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-d" 'apdl-do)
     (define-key map "\C-c\C-e" 'apdl-display-error-file)
     (define-key map "\C-c\C-f" 'apdl-fit)
-    (define-key map "\C-c\C-g" 'apdl-start-graphics)
-    (define-key map "\C-c\C-h" 'apdl-start-ansys-help)
-    (define-key map "\C-c\C-i" 'apdl-iso-view)
+;;    (define-key map "\C-c\C-g" 'apdl-start-graphics) ;reserved
+;;    (define-key map "\C-c\C-h" 'apdl-start-ansys-help) ;reserved?
+;;    (define-key map "\C-c\C-i" 'apdl-iso-view) ; reserved: C-tab
     ;;    (define-key map "\C-c\C-i" 'apdl-if)
     (define-key map "\C-c\C-j" 'apdl-send-to-apdl-and-proceed) ;same as ESS
     ;; was:   (define-key map "\C-c\C-j" (if (boundp 'apdl-job) 'apdl-job))

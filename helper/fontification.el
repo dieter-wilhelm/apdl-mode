@@ -881,19 +881,44 @@ By default APDL keywords, get-functions, parametric-function and elements
 ;; ---------- header ----------
 
   (goto-char (point-min))
-  (insert ";; apdl-keyword.el --- APDL-Mode completion and"
-          "highlighting variables. -*- lexical-binding:t -*-\n" ";; This file was built by"
-          "\"fontification.el\" release 20.2.0.\n\n"
-          ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm.\n\n"
-          ";; Version: 20.2.0\n"
-          ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n\n"
-          ";;; Commentary:\n"
-          ";;  Code for APDL command help and command completions.\n\n"
-          ";;; Code:\n\n")
+  (insert
+";;; apdl-keyword.el --- APDL-Mode completion and highlighting variables. -*- lexical-binding:t -*-\n"
+"\n"
+";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm\n"
+"\n"
+";; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>\n"
+";; Version: 20.2.0\n"
+";; Package-Requires: ((emacs "25"))\n"
+";; Keywords: languages, convenience, tools, Ansys, APDL\n"
+";; URL: https://github.com/dieter-wilhelm/apdl-mode\n"
+"\n"
+";; Maintainer: H. Dieter Wilhelm\n"
+"\n"
+";; This program is free software; you can redistribute it and/or modify\n"
+";; it under the terms of the GNU General Public License as published by\n"
+";; the Free Software Foundation; either version 2, or (at your option)\n"
+";; any later version.\n"
+"\n"
+";; This lisp script is distributed in the hope that it will be useful,\n"
+";; but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+";; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
+"\n"
+";; Permission is granted to distribute copies of this lisp script\n"
+";; provided the copyright notice and this permission are preserved in\n"
+";; all copies.\n"
+"\n"
+";; You should have received a copy of the GNU General Public License\n"
+";; along with this program; if not, you can either send email to this\n"
+";; program's maintainer or write to: The Free Software Foundation,\n"
+";; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.\n"
+"\n"
+";;; Commentary:\n"
+";; This file was built by fontification.el!\n"
+"\n"
+";;; Code:\n"
+"\n")
   (save-buffer)
-  (message "apdl-keywords.el done.")
-;; --- end of let
-  )
+  (message "apdl-keywords.el done."))
 
 ;;; fontification.el ends here
 

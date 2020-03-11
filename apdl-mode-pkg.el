@@ -1,11 +1,34 @@
-;; adding info documentation
-;; reporter
-;; custom
-;; align
-;; easymenu
-;; comint
-;; browse-url
+;;; apdl-mode-pk.el --- defining the GNU-Emacs package -*-lexical-binding:t -*-
 
+;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
+
+;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Version: 20.2.0
+;; Package-Requires: ((emacs "25"))
+;; Keywords: languages, convenience, tools, Ansys, APDL
+;; URL: https://github.com/dieter-wilhelm/apdl-mode
+
+;; Maintainer: H. Dieter Wilhelm
+
+;; This program is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 2, or (at your option)
+;; any later version.
+;;
+;; This lisp script is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+;;
+;; Permission is granted to distribute copies of this lisp script
+;; provided the copyright notice and this permission are preserved in
+;; all copies.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, you can either send email to this
+;; program's maintainer or write to: The Free Software Foundation,
+;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+
+;;; Commentary:
 
 ;; APDL-Mode (formerly ANSYS-Mode) represents, in conjunction with
 ;; the GNU-Emacs editor, an advanced APDL environment.  Including
@@ -22,8 +45,6 @@
 ;; For the APDL-Mode help with a brief tutorial and further guidance
 ;; please type `C-h m'."  
 
-;; short doc string less than 36 chars!?
-
 (define-package "apdl-mode" "20.2.0" "Major mode for the APDL programming language."
   '((emacs "25.1"))
   :keywords
@@ -34,6 +55,7 @@
   '("H. Dieter Wilhelm" . "dieter@duenenhof-wilhelm.de")
   :url "https://github.com/dieter-wilhelm/apdl-mode")
 
+;;; apdl-mode-pkg.el ends here
+
 ;; Local Variables:
-;; no-byte-compile: t
 ;; End:

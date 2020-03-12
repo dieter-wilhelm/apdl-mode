@@ -86,13 +86,12 @@ key and choose with the mouse 2 button."
               (completing-read "Preview template: "
                                obarray 'commandp t skel-string nil)
             (completing-read "Insert template: "
-                             obarray 'commandp t skel-string nil)))
-         )
+                             obarray 'commandp t skel-string nil))))
     (setq apdl-last-skeleton skel)
     (cond ((= arg 1)
            (switch-to-buffer-other-window skeleton-buffer)
            (setq buffer-read-only nil)
-           (remove-overlays)                                                  ;from beginnin and end of buffer
+           (remove-overlays)    ;from beginnin and end of buffer
            (setq apdl-skeleton-overlay (make-overlay 1 1))
            (kill-region (point-min) (point-max))
            (funcall (intern-soft skel))
@@ -107,8 +106,7 @@ key and choose with the mouse 2 button."
            (overlay-put apdl-skeleton-overlay 'before-string s)
            (set-buffer-modified-p nil)
            (setq buffer-read-only t)
-           (switch-to-buffer-other-window old-buffer)
-           )
+           (switch-to-buffer-other-window old-buffer))
           (t
            (funcall (intern-soft skel))))))
 
@@ -177,8 +175,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!" apdl-outline-string " ---  Header ---" \n
   "!@ ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
-  ;;                                                                                                                                    (buffer-file-name)
-  ;;                                                                                                                                  (buffer-name))) \n
+  ;; (buffer-file-name)
+  ;; (buffer-name))) \n
   "!! Time-stamp: <" (current-time-string) ">" \n
   "!! Ansys VERSION: " apdl-current-ansys-version \n
   ;;  "!! UNITS: mm-t-s" \n
@@ -246,7 +244,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*list,file,ext ! list file content" \n
   "/runst ! enter run statistics processor" \n
   "/pstatus ! display window stats specifications" \n
-  "list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
+  "list: k-,l-,a-,v-,n-,e-,ce-,cp-,mp-,f-,bf-,d-,da-,dk-,dl-,fk-,af-,sf-,sfl-,
+bfa-
+,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   \n
   "*status ! parameters, arrays and abbreviations" \n
   "*status,_STATUS !return value: 0:no error, 1:note, 2:warning, 3:error" \n
@@ -315,7 +315,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "NODES $ stat ! - Nodes" \n
   "ELEM $ stat ! - Elements" \n
   "SELM $ stat ! - Superelements" \n
-  ;; Pipe is not supported any longer in v130  "PIPE $ stat ! - Pipe modeling" \n
+  ;; Pipe is not supported any longer in v130 "PIPE $ stat ! - Pipe
+  ;; modeling" \n
   "DIGIT $ stat ! - Node digitizing" \n
   "COUPLE $ stat ! - Node coupling" \n
   "CEQN $ stat ! - Constraint equations" \n
@@ -436,7 +437,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "False = 0" \n
   "/mplib,read,YourLibraryPath !define material library path" \n
   "/mplib,stat !stat defined material library paths" \n
-  "/units,MPA  !I'm using mostly MPA (Tmms) (important only for material libs)" \n
+  "/units,MPA  !I'm using mostly MPA (Tmms)
+(important only for material libs)" \n
   "mpread,steel_elastic,,,lib" \n
   \n
   "!! --- Directory and file names -- " \n
@@ -478,8 +480,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/view,,wp !view normal to working plane" \n
   "/focus,1 $ /repl !focus wn 1 to csys,0" \n
   "!/focus,1,,.5,,1 $ /repl !focus with screen coordinate multiplier" \n
-  "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0: absolut" \n
-  "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,1:use multiplier" \n
+  "/angle,1,10,xs,1!rotation {x,y,z}m global {x,y,z}s screen 1:cumulative 0:
+absolut" \n
+  "/dist,1,1/2.,1 $ /repl !1/2:distance (zoom) to object <1 nearer/larger,
+1:use multiplier" \n
   "/dscale,all,10 !set displacment multiplier" \n
   "/zoom,1,off ! refit image to window" \n
   "/zoom,1,rect,0,0,1,1 ! fit image to rectangel X1,Y1 & X2,Y2" \n
@@ -526,7 +530,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/number,1 !0:colours & numbers,1:colours,2:numbers" \n
   "/pnum,mat,1 !1: turn on numbering" \n
-  "!NODE ELEM MAT TYPE REAL LOC SVAL ESYS KP LINE AREA VOLU STAT TABN  SEC DOMA DEFA" \n
+  "!NODE ELEM MAT TYPE REAL LOC SVAL ESYS KP LINE AREA VOLU STAT TABN
+ SEC DOMA DEFA" \n
   "/pnum,defa !1: turn off any numbering" \n
   \n
   "!! .............................." \n
@@ -634,7 +639,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/inquire,Numlines,LINES,'%Dir(1)%ground_plate_temperature',csv" \n
   "*dim,Hans,table,Numlines,4 !column and row 0 must not be dimensioned!" \n
   "!! lines might be skipped with the SKIP parameter" \n
-  "*tread,Hans,tmp,out,,skip !the value Hans(0,0) must be smaller then Hans(0,1) and Hans(1,0)!" \n
+  "*tread,Hans,tmp,out,,skip !the value Hans(0,0) must be smaller then
+Hans(0,1) and Hans(1,0)!" \n
   "*vplot,Hans(1,0),Hans(1,1),2,3" \n
   \n)
 
@@ -645,10 +651,14 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!@@@ - symmetry expansion -" \n
   "!! ------------------------------" \n
   \n
-  "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3" \n
-  "!DX1,DY1,DZ1,... 1.) normal vector of reflection plane 2.) increments between patterns" \n
-  "! full: no tranlation<-small nonzero value, half: mirroring, increment is doubled" \n
-  "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian, half:mirror" \n
+  "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, Method2,
+DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3" \n
+  "!DX1,DY1,DZ1,... 1.) normal vector of reflection plane 2.)
+increments between patterns" \n
+  "! full: no tranlation<-small nonzero value, half: mirroring,
+increment is doubled" \n
+  "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian,
+half:mirror" \n
   "/expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
   "/expand,18,axis,,,10 !axisymmetric (180 ° rot. around y-axis)" \n
   "/expand !switch off expansion" \n
@@ -671,7 +681,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "gcdef, Option, SECT1, SECT2, MATID, REALID" \n
   "tb,inter,MatID,,,bonded !contact interaction" \n
   "mp,mu,MatID,.1 !friction " \n
-  "!! rigid targets without real constants are allowed with general contact definitons!" \n
+  "!! rigid targets without real constants are allowed with general
+contact definitons!" \n
   "ET,100,170,,1" \n
   "TYPE,100" \n
   "SECNUM,101" \n
@@ -702,29 +713,39 @@ time stamp with the Emacs command M-x `time-stamp'."
   "et,Target,targe169  !2d" \n
   \n
   "!! --- contact options --" \n
-  "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
+  "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure
+Lagrange" \n
   "!! " \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. ONLY Ansys version < 12.0!)" \n
-  "rmodif,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1) smaller: bigger penetration, easier convergence" \n
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat.
+ONLY Ansys version < 12.0!)" \n
+  "rmodif,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1)
+smaller: bigger penetration, easier convergence" \n
   "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n
-  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering control" \n
-  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) bigger: less chattering" \n
+  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering
+control" \n
+  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1)
+bigger: less chattering" \n
   \n
   "!Pinb = -0.1 !search radius, neg: absolut value ( > CNOF!!!!)" \n
-  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute distance)" \n
+  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute
+distance)" \n
   \n
   "!move open contact points to onto target surface" \n
-  "!ICONT = -0.05 !initial contact closure [0] relative band size (neg. absolut)" \n
-  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure (positiv:penetration)" \n
+  "!ICONT = -0.05 !initial contact closure [0] relative band size
+(neg. absolut)" \n
+  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure
+(positiv:penetration)" \n
   \n
   "!shift complete open contact surface to target surf. " \n
   "!CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
-  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset (e.g. beams)" \n
+  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset
+(e.g. beams)" \n
   \n
   "!keyo,Contact,4,0 !keyo(4): location of contact detection" \n
   "    !! [0]:Gauss points, 3(V13):surface projection method" \n
-  "!keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICONT (node movement in a band)" \n
+  "!keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICON
+ (node movement in a band)" \n
   "    !! 0: no adjustm." \n
   "    !! 1: close gap with auto CNOF" \n
   "    !! 2: reduce penetr. w. auto CNOF" \n
@@ -737,12 +758,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "    !! 2: include everyth. ramped" \n
   "    !! 3: include offset only" \n
   "    !! 4: incl. offset only, ramped" \n
-  "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,1:each substep" \n
+  "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,
+1:each substep" \n
   "!keyo,Contact,11,1 !SHELL thickness effect" \n
-  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,3:bonded" \n
+  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,
+3:bonded" \n
   "real,Contact" \n
   \n
-  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, must be neg." \n
+  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping,
+must be neg." \n
   \n
   "Mu = 0.1 !Mu is the friction factor" \n
   "!Mu = 0 ! frictionless" \n
@@ -788,9 +812,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "plnsol,cont,gap,0,1" \n
   "esel,s,type,,Contact" \n
   "etable,Stat,cont,stat                          !3-closed sticking" \n
-  "                                                                            !2-closed sliding" \n
-  "                                                                            !1-open near" \n
-  "                                                                            !0-open far" \n
+  "                                                      !2-closed sliding" \n
+  "                                                           !1-open near" \n
+  "                                                            !0-open far" \n
   "!/efacet,2" \n
   "plls,stat,stat" \n
   "etable,Pene,cont,pene !pres|sfric|stot|slide|gap|flux|cnos|fprs" \n
@@ -803,7 +827,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Rigid contacts skeleton."
   nil
   "!@ ------------------------------" \n
-  "!@@ -- rigid target creation -- " \n
+  "!@@ -- rigid target creation --- " \n
   "!! ------------------------------" \n
   \n
   "Contact="_ \n
@@ -840,13 +864,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! .............................." \n
   \n
   "csys,4 ![0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
-  "clocal,11,cylin !define local coord. sys. 11 from active, with type cylindrical" \n
+  "clocal,11,cylin !define local coord. sys. 11 from active, with
+type cylindrical" \n
   "wpcsys,12 !set working plane to coordinate system 12" \n
   "wprota,,,90 !rotate wp" \n
-  "wpstyl,SNAP,GRSPAC,GRMIN,GRMAX,WPTOL,WPCTYP,GRTYPE,WPVIS,SNAPANG !style of wp" \n
-  "!! .............................." \n
+  "wpstyl,SNAP,GRSPAC,GRMIN,GRMAX,WPTOL,WPCTYP,GRTYPE,WPVIS,SNAPANG
+!style of wp" \n
+  "!! ..............................." \n
   "!@@@ - coordinate system display -" \n
-  "!! .............................." \n
+  "!! ..............................." \n
   \n
   "/psymb,cs,1 ! display local coord." \n
   "/psymb,ndir,1 ! display (only) rotated nodal coord." \n
@@ -948,7 +974,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "etable,S3,s,3" \n
   "sadd,R,S1,S3,1/Z1,-1/Z3" \n
   "sexp,X,S1,,-1 !warning: sexp uses modulus of S!!!!!" \n
-  "!! constant element values are transfered to the nodes and optionally averaged" \n
+  "!! constant element values are transfered to the nodes and optionally
+averaged" \n
   "pletab,R,avg !avg: average over nodes of neigbouring elements" \n
   "esel,s,type,,2" \n
   "etable,Pene,cont,pene" \n
@@ -974,7 +1001,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!y" \n
   "/units,mpa !indicate mm-t-s unit system" \n
   "!@ ==============================" \n
-  "!@ --- Preprocessing ---" \n
+  "!@ ------- Preprocessing --------" \n
   "!@ ==============================" \n
   "/prep7" \n
   "!@@ -- Elements --" \n
@@ -1071,7 +1098,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Plane = ET+1" \n
   "ID = Plane" \n
   "real,ID" \n
-  "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane strain, 3:plane stress with thickness real constant" \n
+  "et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric,
+2:plane strain,
+3:plane stress with thickness real constant" \n
   "/eshape,1 !1:use real constant def. for element shapes" \n
   "/graphics,power !for post1 results" \n
   "r,ID,13 ! thickness" \n
@@ -1180,9 +1209,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lesize,all,,,3 ! SPACE neg: center to end division" \n
   \n
   "!! max and min element sizes for a given 'lesize' spacing ratio" \n
-  "Length = 10                                                   !line segment length" \n
-  "Ratio = 1/500.0                                                   !spacing ratio" \n
-  "N = 10                                                                            !number of line divisions" \n
+  "Length = 10                                !line segment length" \n
+  "Ratio = 1/500.0                                  !spacing ratio" \n
+  "N = 10                                !number of line divisions" \n
   "!! lesize uses a geometric series" \n
   "Res = Length*(1-Ratio**(1/(N-1.0)))/(1-Ratio**(N/(N-1.0)))" \n
   "/go" \n
@@ -1254,7 +1283,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "A = ASIN()  !Arcsine,arg. between -1.0 and +1.0 " \n
   "A = ACOS()  !Arccosine,arg. between -1.0 and +1.0 " \n
   "A = ATAN()  !Arctangent" \n
-  "A = ATAN2() !atan2(x,y): arctangent of y/x with the sign of each component considered" \n
+  "A = ATAN2() !atan2(x,y): arctangent of y/x with the sign of each
+component considered" \n
   \n
   "!! ==============================" \n
   "!! --- get functions ---" \n
@@ -1268,61 +1298,108 @@ time stamp with the Emacs command M-x `time-stamp'."
   "VSEL(V) ! Status of volume V: -1=unselected, 0=undefined, 1=selected." \n
   "! -- Next Selected Entity --" \n
   "NDNEXT(N) ! Next selected node having a node number greater than N." \n
-  "ELNEXT(E) ! Next selected element having an element number greater than E." \n
-  "KPNEXT(K) ! Next selected keypoint having a keypoint number greater than K." \n
+  "ELNEXT(E) ! Next selected element having an element number greater
+than E." \n
+  "KPNEXT(K) ! Next selected keypoint having a keypoint number greater
+than K." \n
   "LSNEXT(L) ! Next selected line having a line number greater than L." \n
   "ARNEXT(A) ! Next selected area having an area number greater than A." \n
   "VLNEXT(V) ! Next selected volume having a volume number greater than V." \n
   "! -- Locations --" \n
-  "CENTRX(E) ! Centroid X-coordinate of element E in global Cartesian coordinate system. Centroid is determined from the selected nodes on the element." \n
-  "CENTRY(E) ! Centroid Y-coordinate of element E in global Cartesian coordinate system. Centroid is determined from the selected nodes on the element." \n
-  "CENTRZ(E) ! Centroid Z-coordinate of element E in global Cartesian coordinate system. Centroid is determined from the selected nodes on the element." \n
+  "CENTRX(E) ! Centroid X-coordinate of element E in global Cartesian
+coordinate system. Centroid is determined from the selected nodes on the
+element." \n
+  "CENTRY(E) ! Centroid Y-coordinate of element E in global Cartesian
+coordinate system. Centroid is determined from the selected nodes on the
+element." \n
+  "CENTRZ(E) ! Centroid Z-coordinate of element E in global Cartesian coordinate
+ system. Centroid is determined from the selected nodes on the element." \n
   "NX(N) ! X-coordinate of node N in the active coordinate system." \n
   "NY(N) ! Y-coordinate of node N in the active coordinate system." \n
   "NZ(N) ! Z-coordinate of node N in the active coordinate system." \n
   "KX(K) ! X-coordinate of keypoint K in the active coordinate system" \n
   "KY(K) ! Y-coordinate of keypoint K in the active coordinate system" \n
   "KZ(K) ! Z-coordinate of keypoint K in the active coordinate system" \n
-  "LX(L,LFRAC) ! X-coordinate of line L at length fraction LFRAC (0.0 to 1.0)." \n
-  "LY(L,LFRAC) ! Y-coordinate of line L at length fraction LFRAC (0.0 to 1.0)." \n
-  "LZ(L,LFRAC) ! Z-coordinate of line L at length fraction LFRAC (0.0 to 1.0)." \n
+  "LX(L,LFRAC) ! X-coordinate of line L at length fraction
+LFRAC (0.0 to 1.0)." \n
+  "LY(L,LFRAC) ! Y-coordinate of line L at length fraction
+LFRAC (0.0 to 1.0)." \n
+  "LZ(L,LFRAC) ! Z-coordinate of line L at length fraction
+LFRAC (0.0 to 1.0)." \n
   "LSX(L,LFRAC) ! X slope of line L at length fraction LFRAC (0.0 to 1.0)." \n
   "LSY(L,LFRAC) ! Y slope of line L at length fraction LFRAC (0.0 to 1.0)." \n
   "LSZ(L,LFRAC) ! Z slope of line L at length fraction LFRAC (0.0 to 1.0)." \n
   "! -- Nearest to Location --" \n
-  "NODE(X,Y,Z) ! Number of the selected node nearest the X,Y,Z point (in the active coordinate system, lowest number for coincident nodes)." \n
-  "KP(X,Y,Z) ! Number of the selected keypoint nearest the X,Y,Z point (in the active coordinate system, lowest number for coincident nodes)." \n
+  "NODE(X,Y,Z) ! Number of the selected node nearest the X,Y,Z point
+(in the active coordinate system, lowest number for coincident nodes)." \n
+  "KP(X,Y,Z) ! Number of the selected keypoint nearest the X,Y,Z point
+(in the active coordinate system, lowest number for coincident nodes)." \n
   "! -- Distances --" \n
   "DISTND(N1,N2) ! Distance between nodes N1 and N2." \n
   "DISTKP(K1,K2) ! Distance between keypoints K1 and K2." \n
-  "DISTEN(E,N) ! Distance between the centroid of element E and node N. Centroid is determined from the selected nodes on the element." \n
+  "DISTEN(E,N) ! Distance between the centroid of element E and node N.
+Centroid is determined from the selected nodes on the element." \n
   "! -- Angles (in radians by default -- see the *AFUN command) --" \n
-  "ANGLEN(N1,N2,N3) ! Subtended angle between two lines (defined by three nodes where N1 is the vertex node). Default is in radians." \n
-  "ANGLEK(K1,K2,K3) ! Subtended angle between two lines (defined by three keypoints where K1 is the vertex keypoint). Default is in radians." \n
+  "ANGLEN(N1,N2,N3) ! Subtended angle between two lines (defined by three
+nodes where N1 is the vertex node). Default is in radians." \n
+  "ANGLEK(K1,K2,K3) ! Subtended angle between two lines (defined by three
+keypoints where K1 is the vertex keypoint). Default is in radians." \n
   "! -- Nearest to Entity --" \n
   "NNEAR(N) ! Selected node nearest node N." \n
   "KNEAR(K) ! Selected keypoint nearest keypoint K." \n
-  "ENEARN(N) ! Selected element nearest node N. The element position is calculated from the selected nodes." \n
+  "ENEARN(N) ! Selected element nearest node N. The element position is
+calculated from the selected nodes." \n
   "! -- Areas --" \n
-  "AREAND(N1,N2,N3) ! Area of the triangle with vertices at nodes N1, N2, and N3." \n
-  "AREAKP(K1,K2,K3) ! Area of the triangle with vertices at keypoints K1, K2, and K3." \n
-  "ARNODE(N) ! Area at node N apportioned from selected elements attached to node N. For 2-D planar solids, returns edge area associated with the node. For axisymmetric solids, returns edge surface area associated with the node. For 3-D volumetric solids, returns face area associated with the node. For 3?D, select all the nodes of the surface of interest before using ARNODE." \n
+  "AREAND(N1,N2,N3) ! Area of the triangle with vertices at nodes N1, N2,
+and N3." \n
+  "AREAKP(K1,K2,K3) ! Area of the triangle with vertices at keypoints K1, K2,
+and K3." \n
+  "ARNODE(N) ! Area at node N apportioned from selected elements attached to
+node N. For 2-D planar solids, returns edge area associated with the node.
+For axisymmetric solids, returns edge surface area associated with the node.
+For 3-D volumetric solids, returns face area associated with the node. For 3?D,
+select all the nodes of the surface of interest before using ARNODE." \n
   "! -- Normals --" \n
-  "NORMNX(N1,N2,N3) ! X-direction cosine of the normal to the plane containing nodes N1, N2, and N3." \n
-  "NORMNY(N1,N2,N3) ! Y-direction cosine of the normal to the plane containing nodes N1, N2, and N3." \n
-  "NORMNZ(N1,N2,N3) ! Z-direction cosine of the normal to the plane containing nodes N1, N2, and N3." \n
-  "NORMKX(K1,K2,K3) ! X-direction cosine of the normal to the plane containing keypoints K1, K2, and K3." \n
-  "NORMKY(K1,K2,K3) ! Y-direction cosine of the normal to the plane containing keypoints K1, K2, and K3." \n
+  "NORMNX(N1,N2,N3) ! X-direction cosine of the normal to the plane containing
+nodes N1, N2, and N3." \n
+  "NORMNY(N1,N2,N3) ! Y-direction cosine of the normal to the plane containing
+nodes N1, N2, and N3." \n
+  "NORMNZ(N1,N2,N3) ! Z-direction cosine of the normal to the plane containing
+nodes N1, N2, and N3." \n
+  "NORMKX(K1,K2,K3) ! X-direction cosine of the normal to the plane containing
+keypoints K1, K2, and K3." \n
+  "NORMKY(K1,K2,K3) ! Y-direction cosine of the normal to the plane containing
+keypoints K1, K2, and K3." \n
   "NORMKZ(K1,K2,K3) ! Z-direction cosine of the normal to the plane containing keypoints K1, K2, and K3." \n
   "! -- Connectivity --" \n
-  "ENEXTN(N,LOC) ! Element connected to node N. LOC is the position in the resulting list when many elements share the node. A zero is returned at the end of the list." \n
+  "ENEXTN(N,LOC) ! Element connected to node N. LOC is the position in the
+resulting list when many elements share the node. A zero is returned at the
+end of the list." \n
   "NELEM(E,NPOS) ! Node number in position NPOS (1--20) of element E." \n
-  "NODEDOF(N) ! Returns the bit pattern for the active DOFs at the specified node.bit 0 is UX, bit 1 is UY,... bit 5 is ROTZ bits 6,7,8 are AX,AY,AZ bits 9,10,11 are VX,VY,VZ bit 18 is PRES, bit 19 is TEMP, bit 20 is VOLT, bit 21 is MAG bit 24 is EMF, bit 25 is CURR For a node with UX,UY,UZ the return value will be 7 (bits 0,1,2) For a node with UX,UY,UZ,ROTX,ROTY,ROTZ the return value will be 63 (bits 0,1,2,3,4,5)" \n
+  "NODEDOF(N) ! Returns the bit pattern for the active DOFs at the specified
+node.bit 0 is UX, bit 1 is UY,... bit 5 is ROTZ bits 6,7,8 are AX,AY,AZ bits
+9,10,11 are VX,VY,VZ bit 18 is PRES, bit 19 is TEMP, bit 20 is VOLT, bit 21
+is MAG bit 24 is EMF, bit 25 is CURR For a node with UX,UY,UZ the return value
+will be 7 (bits 0,1,2) For a node with UX,UY,UZ,ROTX,ROTY,ROTZ the return value
+will be 63 (bits 0,1,2,3,4,5)" \n
   "! -- Faces --" \n
-  "ELADJ(E,FACE) ! For 2-D planar solids and 3-D volumetric solids, element adjacent to a face (FACE) of element E. The face number is the same as the surface load key number. Only elements of the same dimensionality and shape are considered. A -1 is returned if more than one is adjacent." \n
-  "NDFACE(E,FACE,LOC) ! Node in position LOC of a face number FACE of element E. The face number is the same as the surface load key number. LOC is the nodal position on the face (for an IJLK face, LOC=1 is at node I, 2 is at node J, etc.)" \n
-  "NMFACE(E) ! Face number of element E containing the selected nodes. The face number output is the surface load key. If multiple load keys occur on a face (such as for line and area elements) the lowest load key for that face is output." \n
-  "ARFACE(E) ! For 2-D planar solids and 3-D volumetric solids, returns the area of the face of element E containing the selected nodes. For axisymmetric elements, the area is the full (360 degree) area." \n
+  "ELADJ(E,FACE) ! For 2-D planar solids and 3-D volumetric
+  solids, element adjacent to a face (FACE) of element E. The
+  face number is the same as the surface load key number. Only
+  elements of the same dimensionality and shape are considered. A
+  -1 is returned if more than one is adjacent." \n
+  "NDFACE(E,FACE,LOC) ! Node in position LOC of a face number
+  FACE of element E. The face number is the same as the surface
+  load key number. LOC is the nodal position on the face (for an
+  IJLK face, LOC=1 is at node I, 2 is at node J, etc.)" \n
+  "NMFACE(E) ! Face number of element E containing the selected
+  nodes. The face number output is the surface load key. If
+  multiple load keys occur on a face (such as for line and area
+  elements) the lowest load key for that face is output." \n
+  "ARFACE(E) ! For 2-D planar solids and 3-D volumetric solids,
+  returns the area of the face of element E containing the
+  selected nodes. For axisymmetric elements, the area is the
+  full (360 degree) area." \n
   "! -- Degree of Freedom Results --" \n
   "UX(N) ! UX structural displacement at node N." \n
   "UY(N) ! UY structural displacement at node N." \n
@@ -1330,7 +1407,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "ROTX(N) ! ROTX structural rotation at node N." \n
   "ROTY(N) ! ROTY structural rotation at node N." \n
   "ROTZ(N) ! ROTZ structural rotation at node N." \n
-  "TEMP(N) ! Temperature at node N. For SHELL131 and SHELL132 elements with KEYOPT(3) = 0 or 1, use TBOT(N), TE2(N), TE3(N), . . ., TTOP(N) instead of TEMP(N)." \n
+  "TEMP(N) ! Temperature at node N. For SHELL131 and SHELL132
+  elements with KEYOPT(3) = 0 or 1, use TBOT(N), TE2(N), TE3(N),
+  . . ., TTOP(N) instead of TEMP(N)." \n
   "PRES(N) ! Pressure at node N." \n
   "VX(N) ! VX fluid velocity at node N." \n
   "VY(N) ! VY fluid velocity at node N." \n
@@ -1350,9 +1429,14 @@ time stamp with the Emacs command M-x `time-stamp'."
   "VIRTINQR(9) ! Maximum record number on page." \n
   "VIRTINQR(11) ! Maximum pages touched." \n
   "! -- Returns the current value of APDL filtering keywords. --" \n
-  "KWGET(KEYWORD) ! Returns the current value the keyword specified by KEYWORD. See the APDL UIDL Programmer's Guide for a list of keywords and values." \n
-  "! -- Character String Functions Strings must be dimensioned (see *DIM) as a character parameter or enclosed in single apostrophes ('char'). --" \n
-  "! -- Functions which return a double precision value of a numeric character string. --" \n
+  "KWGET(KEYWORD) ! Returns the current value the keyword
+  specified by KEYWORD. See the APDL UIDL Programmer's Guide for
+  a list of keywords and values." \n
+  "! -- Character String Functions Strings must be
+  dimensioned (see *DIM) as a character parameter or enclosed in
+  single apostrophes ('char'). --" \n
+  "! -- Functions which return a double precision value of a
+  numeric character string. --" \n
   "VALCHR(a8) ! a8 is a decimal value expressed in a string." \n
   "VALOCT(a8) ! a8 is an octal value expressed in a string." \n
   "VALHEX(a8) ! a8 is a hex value expressed in a string." \n
@@ -1360,21 +1444,36 @@ time stamp with the Emacs command M-x `time-stamp'."
   "CHRVAL(dp) ! dp is a double precision variable." \n
   "CHROCT(dp) ! dp is an integer value." \n
   "CHRHEX(dp) ! dp is an integer value." \n
-  "! -- Functions which manipulate strings: StrOut is the output string (or character parameter) Str1 and Str2 are input strings. Strings are a maximum of 128 characters. (see *DIM) StrOut = STRSUB(Str1, nLoc,nChar)  Get the nChar substring starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2) Add Str2 at the end of Str1. --" \n
-  "STRFILL(Str1,Str2,nLoc) ! StrOut = STRFILL(Str1,Str2,nLoc)  Add Str2 to Str1 starting at character nLoc." \n
+  "! -- Functions which manipulate strings: StrOut is the output
+  string (or character parameter) Str1 and Str2 are input
+  strings. Strings are a maximum of 128 characters. (see *DIM)
+  StrOut = STRSUB(Str1, nLoc,nChar) Get the nChar substring
+  starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2)
+  Add Str2 at the end of Str1. --" \n
+  "STRFILL(Str1,Str2,nLoc) ! StrOut = STRFILL(Str1,Str2,nLoc) Add
+  Str2 to Str1 starting at character nLoc." \n
   "STRCOMP(Str1) ! StrOut = STRCOMP(Str1) Remove all blanks from Str1" \n
   "STRCOMP(Str1) ! Left-justify Str1" \n
-  "STRPOS(Str1,Str2) ! nLoc = STRPOS(Str1,Str2) Get starting location of Str2 in Str1." \n
+  "STRPOS(Str1,Str2) ! nLoc = STRPOS(Str1,Str2) Get starting
+  location of Str2 in Str1." \n
   "STRLENG(Str1) ! nLoc = STRLENG(Str1) Location of last nonblank character" \n
   "UPCASE(Str1) ! StrOut = UPCASE(Str1) Upper case of Str1" \n
   "LWCASE(Str1) ! StrOut = LWCASE(Str1) Lower case of Str1" \n
   "! -- The following functions manipulate file names. --" \n
-  "JOIN('directory','filename','extension') ! Path String = JOIN ('directory','filename','extension')  Produces a contiguous pathstring. e.g. directory/filename.ext" \n
-  "JOIN('directory','filename') ! Path String = JOIN ('directory','filename') Produces a contiguous pathstring. e.g. directory/filename" \n
-  "SPLIT('PathString', 'DIR') !  Produces a separate output of the directory from the pathstring." \n
-  "SPLIT('PathString', 'FILE') !  Produces a separate output of the complete filename (with extension) from the pathstring." \n
-  "SPLIT('PathString', 'NAME') ! Produces a separate output of the filename from the pathstring." \n
-  "SPLIT('PathString', 'EXT') !  Produces a separate output of the file extension from the pathstring." \n)
+  "JOIN('directory','filename','extension') ! Path String =
+  JOIN ('directory','filename','extension') Produces a contiguous
+  pathstring. e.g. directory/filename.ext" \n
+  "JOIN('directory','filename') ! Path String =
+  JOIN ('directory','filename') Produces a contiguous
+  pathstring. e.g. directory/filename" \n
+  "SPLIT('PathString', 'DIR') !  Produces a separate output of
+  the directory from the pathstring." \n
+  "SPLIT('PathString', 'FILE') !  Produces a separate output of
+  the complete filename (with extension) from the pathstring." \n
+  "SPLIT('PathString', 'NAME') ! Produces a separate output of
+  the filename from the pathstring." \n
+  "SPLIT('PathString', 'EXT') !  Produces a separate output of
+  the file extension from the pathstring." \n)
 
 (define-skeleton apdl-skeleton-geometry
   "Geometry definitons skeleton."
@@ -1419,7 +1518,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "source,X,Y,Z !default undefined kp and node location" \n
   "kl,L1,Ratio,KPNo !keypoint on line" \n
   "!! --- LINES ---" \n
-  "l,KP1,KP2, NDIV, SPACE, slope vector XV1, YV1, ZV1, XV2, YV2, ZV2 !line in the respective CS with opt. slope" \n
+  "l,KP1,KP2, NDIV, SPACE, slope vector XV1, YV1, ZV1, XV2, YV2,
+  ZV2 !line in the respective CS with opt. slope" \n
   "lstr,KP1,KP2 !straight line irrespective of current CS" \n
   "larc,Kp1,Kp2,Kpc,rad !if rad is blank, fit throught KPs" \n
   "circle,centreKp,radiusKp," \n
@@ -1451,8 +1551,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "lglue,all !glue lines, retaining area attributes" \n
   "ldiv,1,.5 !divide line 1 in ratio .5" \n
   "!! --- areas ---" \n
-  "arsym,X|Y|Z, NA1, NA2, NINC, KINC, NOELEM, IMOVE !cartesian reflection normal to X,y,z"
-  "agen,ITIME,NA1,NA2,NINC,DX,DY,DZ,KINC,NOELEM,IMOVE!Generate areas from a pattern of areas" \n
+  "arsym,X|Y|Z, NA1, NA2, NINC, KINC, NOELEM, IMOVE !cartesian
+reflection normal to X,y,z"
+  "agen,ITIME,NA1,NA2,NINC,DX,DY,DZ,KINC,NOELEM,IMOVE!Generate
+  areas from a pattern of areas" \n
   "atran !Transfers a pattern of areas to another coord.-system." \n
   "arotat !areas from rotated lines" \n
   "!! --- volume ---" \n
@@ -1500,7 +1602,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "!! --- material library --- " \n
   "/mplib,write,/HOME/uidg1626/a-m/matlib" \n
-  "!! --- It is advisable to make the material files which are commented read only!" \n
+  "!! --- It is advisable to make the material files which are
+  commented read only!" \n
   "/mplib,read,/HOME/uidg1626/a-m/matlib" \n
   "/mplib,stat !shows the read write directories" \n
   "!! which materials are in the mplib?" \n
@@ -1521,7 +1624,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "AlphaSteel = 12e-6 ! thermal expansion in 1/K" \n
   "mp,alpx,ID,AlphaSteel !secant modulus of therm. exp.!" \n
   "!temperature dependent secant modulus" \n
-  "mpamod,ID,20                                                   ![0] only when not issued mp,reft or tref" \n
+  "mpamod,ID,20 ![0] only when not issued mp,reft or tref" \n
   "mptemp,1,100,200,300 ! 3 temperatures" \n
   "mpdata,alpx,ID,1,20e-6,21e-6,22e-6 ! 3 secant moduli" \n
   "!mp,ctex,ID,12e-6 ! instantaneous coofficient of therm. exp." \n
@@ -1537,7 +1640,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "True_tensile_strain = log( 1+Tensile_strain)" \n
   "Tensile_stress = 260" \n
   "True_tensile_stress = Tensile_stress*(1+Tensile_strain)" \n
-  "Tangent_modulus = (True_tensile_stress-Yield_stress) / True_tensile_strain" \n
+  "Tangent_modulus = (True_tensile_stress-Yield_stress) /
+  True_tensile_strain" \n
   "tbdata,,Yield_stress,Tangent_modulus" \n
   "tblist,all,ID !list properties" \n
   "tbplot,biso,ID" \n
@@ -1548,7 +1652,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tb,biso,Alu,1" \n
   "tbdata,,Yield_stress,Tangent_modulus" \n
   \n
-  "!! - KINH: Multilinear kinematic hardening of 0.5 mm hardened C75S spring sheet steel - " \n
+  "!! - KINH: Multilinear kinematic hardening of 0.5 mm hardened
+  C75S spring sheet steel - " \n
   "Steel = 1" \n
   "ID = Steel" \n
   "mp,nuxy,ID,0.3 ! Poisson No" \n
@@ -1637,14 +1742,15 @@ time stamp with the Emacs command M-x `time-stamp'."
   "tbdata,2,.3*ShearModule/6.6" \n
   "!! -- check whether to drop elem. midside nodes and use u-p formulation" \n
   "!! -- u-p is not needed in plane stress configurations!" \n
-  "keyopt,Mooney,6,1                                                   !(6)1: mixed u-p formulation" \n
+  "keyopt,Mooney,6,1 !(6)1: mixed u-p formulation" \n
   "!! --- Ogden for high strain applic. (700 % strain) ---" \n
   "Ogden = 3" \n
   "tb,hyper,Ogden,1,2,OGDEN !2nd order Ogden model" \n
   "tbdata,1,3.5809,1.05e-9,3.8485e5" \n
   "tbdata,4,-2.2e6,-.8778,0" \n
   \n
-  "!! swelling, depending on fluence (humidity,precipitation,radiation,...) load" \n
+  "!! swelling, depending on
+  fluence (humidity,precipitation,radiation,...) load" \n
   "tb,swell,ID,1,1,line !linear swelling" \n
   "tbdata,1,Swelling" \n
   "tblist,swell,ID" \n
@@ -1669,7 +1775,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "Component (Named Selections in WorkBench) skeleton."
   nil
   "!@ ------------------------------" \n
-  "!@@ -- components --" \n
+  "!@@ --------- components --------" \n
   "!! ------------------------------" \n
   \n
   "cm,cmName,volu !,,area;line;kp;elem;node" \n
@@ -1853,7 +1959,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "N3=N1/4 ! minimum No of substeps " \n
   "nsubst,N1,N2,N3" \n
   "outres,all,all !,item,freq,cname" \n
-  "antype,static !,rest,LoadStep,SubStep ![new]rest: perform restart operation" \n
+  "antype,static !,rest,LoadStep,SubStep ![new]rest: perform
+  restart operation" \n
   "antype,buckle ![static],modal,harmic,trans,substr,spectr " \n
   "nlgeom,on" \n
   "autots,on" \n
@@ -1889,7 +1996,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "stabilize,constant,energy,1e-4 !constant over LS" \n
   "stabilize,reduce,energy,1e-4 !reduce to the end of LS" \n
   "stabilize !decactivate stabilisation" \n
-  "antyp,,rest,1,next-to-last-converged substep!!!!!!! to calculate the stabilistation factors" \n
+  "antyp,,rest,1,next-to-last-converged substep!!!!!!! to
+  calculate the stabilistation factors" \n
   "!! --- or arclength method ---" \n
   "arclen,on ! arclen stabilisation method" \n
   \n
@@ -1976,7 +2084,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   \n
   "/post1" \n
   "!! --- theory reference: Nodal and centroidal data evaluation ---" \n
-  "eresx!defa->elastic:extrapolate from integration points to nodes, nonlinear:copy, yes->extrapolate linear part, no->copy to nodes" \n
+  "eresx!defa->elastic:extrapolate from integration points to
+  nodes, nonlinear:copy, yes->extrapolate linear part, no->copy
+  to nodes" \n
   "!! --- derived nodal data computation ---" \n
   "avprin !principal sums and vector sums" \n
   "avres !result averaging for PowerGraphics" \n
@@ -1989,14 +2099,17 @@ time stamp with the Emacs command M-x `time-stamp'."
   "set,last" \n
   "pldisp,2 !display displaced structure" \n
   "!! - contours -" \n
-  "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with undeformed edges" \n
+  "plnsol,u,sum,2 !0:deformed only, 1:with undef model 2:with
+  undeformed edges" \n
   "plnsol,s,eqv ! von Mises" \n
   "shell,bot, ![top],mid select shell location for result ouput" \n
   "plnsol,s,1 ! maximum principle: Lamé" \n
   "plnsol,s,int ! stress intensity: Tresca" \n
-  "prnsol,s,x !|presol components in global x-dir (except transformed:nrotat,rsys)" \n
+  "prnsol,s,x !|presol components in global x-dir (except
+  transformed:nrotat,rsys)" \n
   "plnsol,s,xy ! shear in xy-dir." \n
-  "plnsol,epto,1!principal total mechanical strain (excluding thermal) (EPEL + EPPL + EPCR)," \n
+  "plnsol,epto,1!principal total mechanical strain (excluding
+  thermal) (EPEL + EPPL + EPCR)," \n
   "plnsol,eptt,1!principal total mechanical strain + thermal strain" \n
   "!! - vectors -" \n
   "plvect,u !display vector results" \n
@@ -2048,8 +2161,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/color,wbak,whit !white background or:" \n
   "/RGB,index,100,100,100,0" \n
   "/RGB,index,0,0,0,15" \n
-  "/gfile,1200 !resolution height of /show 1000 [256,[800],2400], width is 1.33*height" \n
-  "/show,png !creates jobnameXXX.png files quality not as good as with /image" \n
+  "/gfile,1200 !resolution height of /show 1000 [256,[800],2400],
+  width is 1.33*height" \n
+  "/show,png !creates jobnameXXX.png files quality not as good as
+  with /image" \n
   "pngr,stat !additional png options (orientation,compression,...)" \n
   "plvect,B" \n
   "/noerase" \n
@@ -2161,25 +2276,29 @@ time stamp with the Emacs command M-x `time-stamp'."
   "etable,chat,cont,cnos" \n
   "etable,cpre,cont,pres" \n
   "etable,Slid,cont,slide" \n
-  "etable,St,cont,stat                          !3-closed sticking" \n
-  "!!                                                                             !2-closed sliding" \n
-  "!!                                                                             !1-open but near" \n
-  "!!                                                                             !0-open and far, outside pinball" \n
+  "etable,St,cont,stat                 !3-closed sticking" \n
+  "!!                                  !2-closed sliding" \n
+  "!!                                  !1-open but near" \n
+  "!!                                  !0-open and far, outside pinball" \n
   "set,list" \n
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
   \n
   "!@ ------------------------------" \n
-  "!@@ -- animations --" \n
+  "!@@ ---------- animations -------" \n
   "!@ ------------------------------" \n
   \n
   "plnsol,s,1" \n
   "/anfile,save !save/resume animation to/from jobname.anim" \n
   "/anfile,save,cylind !save animation to cylind.anim" \n
-  "anim,20,1,.3 !cycles:20[5],mode:1[0],forward-reverse 1:forward-forward,delay: .3[.1]" \n
+  "anim,20,1,.3 !cycles:20[5],mode:1[0],forward-reverse
+  1:forward-forward,delay: .3[.1]" \n
   "anmode !mode shape animation" \n
-  "anharm,40,.3,1 !40[12]frames,.3[.1] s delay,1[5] cycles,harmonics animation or complex mode shapes" \n
-  "antime,20,.3,1,0,0,0,2!animate time data,20[5]: frames, .3[.1]: s delay, 1[5]: anim. cycles, [0]:no scaling,[0] current LS, 2:range,min tim, max time" \n
+  "anharm,40,.3,1 !40[12]frames,.3[.1] s delay,1[5]
+  cycles,harmonics animation or complex mode shapes" \n
+  "antime,20,.3,1,0,0,0,2!animate time data,20[5]: frames,
+  .3[.1]: s delay, 1[5]: anim. cycles, [0]:no scaling,[0] current
+  LS, 2:range,min tim, max time" \n
   "andata !contour animation over result data range" \n
   "anmres !multiple result files" \n
   \n
@@ -2258,8 +2377,10 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*end ! end macro file" > \n
   "/input,test,mac,,:LABEL ! read macro file from label LABEL onwards" \n
   \n
-  "!! --- 4.) output includes responses from commands, notes, errors and warnings" \n
-  "/output,bla,mac !write macro file, overwrite content,up to 75 characters only!" \n
+  "!! --- 4.) output includes responses from commands, notes,
+  errors and warnings" \n
+  "/output,bla,mac !write macro file, overwrite content,up to 75
+  characters only!" \n
   "!/output,bla,mac,,append !append to macro file" \n
   "/com,*mwrite,B(1),'bla','txt'" \n
   "/com,%G" \n
@@ -2297,7 +2418,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! --- input from file ---" \n
   "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   "! read in all parameters written with parsav" \n
-  "parres,change ![file.parm] extend parameter set, replace existing parameters" \n
+  "parres,change ![file.parm] extend parameter set, replace
+  existing parameters" \n
   "! read in table" \n
   \n
   "*dim,Rolf,,5,5" \n
@@ -2362,7 +2484,8 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*dim,Dir,string,248 ! string array with maximum of 248 characters!" \n
   "Dir(1) = '/very/very/very/long/path/to/heaven/'" \n
   "*stat,Dir" \n
-  "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
+  "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not
+  directly behind comma" \n
   "/syp,ls, Dir(1)" \n
   "File = 'eptoeqv_at_shaft_press-fit'" \n
   "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
@@ -2401,7 +2524,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   "asel,inve, !invert current set" \n
   "N1="
   \n
-  "esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)|live|layer|sec|stra|sfe|bfe|path|etab"\n
+  "esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)|
+live|layer|sec|stra|sfe|bfe|path|etab"\n
   "esel,a,ename,172 !select additionally conta172 elements" \n
   \n
   "!! lowest face No of element E from selected nodes" \n
@@ -2429,7 +2553,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
   \n
   "path,Name,nPts[2],nSets[30],nDiv[20] ! define active path \"Name\"" \n
-  "!ppath,P,N,x,y,z,CS !coord. in global cartesian csys, but use CS for path interpolation" \n
+  "!ppath,P,N,x,y,z,CS !coord. in global cartesian csys, but use
+  CS for path interpolation" \n
   "ppath,1,N   !define path point by node No N" \n
   "ppath,2,,X,Y,Z ! path point by coordinates" \n
   "pdef,By,b,y" \n
@@ -2437,9 +2562,9 @@ Select or deselect various elements: Geometry, elements, nodes,
   "pcalc,intg,Res,By,S !integrate By with respect to the path length" \n
   "pcalc,intg,L,1,S ! path length?" \n
   "/axlab,x,distance !axis label" \n
-  "psel,s,axis,...                              !select multiple paths" \n
-  "plpath,By                                                   !plot in graph" \n
-  "plpagm,By,5                                                   !plot on geom." \n
+  "psel,s,axis,...                        !select multiple paths" \n
+  "plpath,By                              !plot in graph" \n
+  "plpagm,By,5                            !plot on geom." \n
   "!write into table variable content: x,y,z,path length?,v1,v2,..." \n
   "paget,Path,table" \n
   "!path $ stat" \n
@@ -2448,9 +2573,9 @@ Select or deselect various elements: Geometry, elements, nodes,
 (define-skeleton apdl-skeleton-post26
   "Time postprocessing /post26 skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!@ -----------------------------------" \n
   "!@ --- time-history postprocessing ---" \n
-  "!! ------------------------------" \n
+  "!! -----------------------------------" \n
   \n
   "/post26" \n
   "numvar,200 !maximum No of variables, 1 is always time"
@@ -2566,7 +2691,8 @@ Select or deselect various elements: Geometry, elements, nodes,
   "*dim,Dir,string,248 ! maximum of 248 characters!" \n
   "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
   "*stat,Dir" \n
-  "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not directly behind comma" \n
+  "/com, %Dir(1)%bla.mac! bug (V15) in /com: substitution not
+  directly behind comma" \n
   "/syp,ls, Dir(1)" \n
   "File = 'eptoeqv_at_shaft_press-fit'" \n
   "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
@@ -2616,7 +2742,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 
 (define-skeleton apdl-skeleton-structural-template
   "Minimum working structural APDL template."
-  nil                                                                                                                             ;no interactor needed
+  nil ;no interactor needed
   '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
@@ -2654,12 +2780,11 @@ Select or deselect various elements: Geometry, elements, nodes,
   "plnsol,u,sum,2" \n
   "nsel,s,loc,x,0" \n
   "fsum !sum nodal forces/moments of selected elements" \n
-  \n
-  )
+  \n)
 
 (define-skeleton apdl-skeleton-contact-template
   "Minimum working structural contact APDL template."
-  nil                                                                                                                             ;no interactor needed
+  nil        ;no interactor needed
   '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
@@ -2790,14 +2915,15 @@ Select or deselect various elements: Geometry, elements, nodes,
   "/title,new title" \n
   "!!otherwise the title is defined with the iges import" \n
   \n
-  "!@ ------------------------------" \n
+  "!@ ----------------------------------------" \n
   "!" apdl-outline-string apdl-outline-string " -- General Preprocessing -- " \n
-  "!! ------------------------------" \n
+  "!! ----------------------------------------" \n
   \n
   "/prep7" \n
   \n
   "!! .............................." \n
-  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Materials and element types -" \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " - Materials and element types -" \n
   "!! .............................." \n
   \n
   "!@@@ --- Materials ---" \n
@@ -2807,15 +2933,18 @@ Select or deselect various elements: Geometry, elements, nodes,
   "!@@@ --- Contact elements ---" \n
   \n
   "!! .............................." \n
-  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Geometry -" \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " - Geometry -" \n
   "!! .............................." \n
   \n
   "!! .............................." \n
-  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Meshing -" \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " - Meshing -" \n
   "!! .............................." \n
   \n
   "!! .............................." \n
-  "!" apdl-outline-string apdl-outline-string apdl-outline-string " - Boundary conditions -" \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " - Boundary conditions -" \n
   "!! .............................." \n
   \n
   "!@ ==============================" \n
@@ -2856,10 +2985,10 @@ Select or deselect various elements: Geometry, elements, nodes,
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "
                    '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-                   nil                                                                           ;predicate
-                   t                                                                           ;require-match
-                   nil                                                                           ;inital input
-                   nil                                                                           ;history
+                   nil ;predicate
+                   t ;require-match
+                   nil ;inital input
+                   nil ;history
                    ;;default
                    "eq")
   ","
@@ -2880,22 +3009,22 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;; (define-apdl-skeleton apdl-if-then
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Value/Parameter 1: "
-;;                            "*IF," str ","
-;;                            (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;;                            ","
-;;                            (read-string "Value/Parameter 2: ")
-;;                            ",THEN" \n
-;;                            > _ \n
-;;                            ("*ELSEIF? %s: "
-;;                             > "*ELSEIF," str ","
-;;                             (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;;                             ","
-;;                             (read-string "Next Value/Parameter: ")
-;;                             ",THEN" \n
-;;                             > \n)
-;;                            "*ELSE" > \n
-;;                            > \n
-;;                            "*ENDIF" > \n)
+;;               "*IF," str ","
+;;                (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;;             ","
+;;            (read-string "Value/Parameter 2: ")
+;;            ",THEN" \n
+;;            > _ \n
+;;           ("*ELSEIF? %s: "
+;;           > "*ELSEIF," str ","
+;;           (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
+;;             ","
+;;             (read-string "Next Value/Parameter: ")
+;;              ",THEN" \n
+;;              > \n)
+;;              "*ELSE" > \n
+;;              > \n
+;;               "*ENDIF" > \n)
 ;;   (mac . format))
 
 (define-skeleton apdl-if-then
@@ -2904,10 +3033,10 @@ Select or deselect various elements: Geometry, elements, nodes,
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "
                    '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-                   nil                                                                           ;predicate
-                   t                                                                           ;require-match
-                   nil                                                                           ;inital input
-                   nil                                                                           ;history
+                   nil ;predicate
+                   t ;require-match
+                   nil ;inital input
+                   nil ;history
                    ;;default
                    "eq")
   ","
@@ -2926,16 +3055,16 @@ Select or deselect various elements: Geometry, elements, nodes,
    (completing-read
     "Operand [eq] (ne, lt, gt, le, ge, ablt, abgt, use TAB to complete): "
     '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-    nil                                                                           ;predicate
-    t                                                                                                    ;require-match
-    nil                                                                           ;inital input
-    nil                                                                           ;history
+    nil ;predicate
+    t ;require-match
+    nil ;inital input
+    nil ;history
     ;;default
     "eq")
    ","
    (read-string "Next Value/Parameter 2: ")
    ",then" _ >
-   \n)                                                                            ;-- e o subskeleton
+   \n) ;-- e o subskeleton
   ;; else subskeleton
   '(if (y-or-n-p "*else construct? ")
        (insert "*else")) >
@@ -2967,7 +3096,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   > _ \n
   "*enddo" > \n)
 
-;; (define-apdl-skeleton apdl-mp                                                  ;FIXME: skeleton a bit over the top
+;; (define-apdl-skeleton apdl-mp ;FIXME: skeleton a bit over the top
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
 ;;                            "MP," str ","
@@ -2985,7 +3114,7 @@ Select or deselect various elements: Geometry, elements, nodes,
 ;;                            \n)
 ;;   (mac . format))
 
-(define-skeleton apdl-mp                                                  ;FIXME: skeleton a bit over the top
+(define-skeleton apdl-mp ;FIXME: skeleton a bit over the top
   "Insert interactively an mp statement."
   "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
   "MP," str ","

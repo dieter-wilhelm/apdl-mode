@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-10>
+#+DATE: Time-stamp: <2020-03-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -37,6 +37,14 @@
     - do we need interregion templates?
 *** misc
     1) Melpa integration <= 2021?
+       -wb-template.el checkdoc, p-lint: whitespace-mode OK
+       -config.el
+       -keyword.el
+       -initialise.el
+       -mode-pkg.el
+       -process.el
+       -template.el
+       -mode.el
     2) open EWW in another window!
     3) why initialising anew any time -mode is called?
     4) find nice style css stuff for html export?
@@ -45,6 +53,7 @@
     7) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
 ** checks
+   - template line breaks
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** Release proceedures

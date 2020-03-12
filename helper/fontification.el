@@ -33,23 +33,28 @@
 ;; at the moment it isn't working in batch mode but loading this file
 ;; does work...
 
-;; HINT: every line in the *.txt files starting with an # will be ignored
-;; 1.) command parameter help: copy file
-;; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans" "./apdl_dynprompt.txt")
-;; (call-process "cp" nil "*tmp*" t "dynprompt193.ans" "./apdl_dynprompt.txt")
-;;     ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `apdl_dynprompt.txt'
-;;     done for v12,v13,v14,v145,v150,v162, v193
+;; HINT: every line in the *.txt files starting with an # will be
+;; ignored 1.) command parameter help: copy file (call-process "cp"
+;; nil "*tmp*" t
+;; "/appl/ansys_inc/162.0/v162/ansys/docu/dynprompt162.ans"
+;; "./apdl_dynprompt.txt") (call-process "cp" nil "*tmp*" t
+;; "dynprompt193.ans" "./apdl_dynprompt.txt")
+;; ansys_inc/vXXX/ansys/docu/dynpromptXXX.ans -> `apdl_dynprompt.txt'
+;; done for v12,v13,v14,v145,v150,v162, v193
 
 ;; 2.) elements: copy within the ansys help browser from the
-;;     Element reference from the table of contents the list -> `apdl_elements.txt'
-;;     (/appl/ansys_inc/v162/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
-;;     done: v12,v13,v14,v145,v150, v162, v201
+;;  Element reference from the table of contents the list -> `apdl_elements.txt'
+;;  (/appl/ansys_inc/v162/commonfiles/help/en-us/help/ans_elem/toc.toc xml file)
+;;  done: v12,v13,v14,v145,v150, v162, v201
 
 ;; 3.) command reference: keywords:
 ;;     apdl * commands and regular Ansys commands
 
 ;;     use: extract_tags.py
-;; (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/en-us/help/ans_cmd/Hlp_C_CmdTOC.html" "/HOME/uidg1626/apdl-mode/trunk")
+;; (call-process "cp" nil "*tmp*" t
+;; "/appl/ansys_inc/162.0/v162/commonfiles/help/\
+;; en-us/help/ans_cmd/Hlp_C_CmdTOC.html"
+;; "/HOME/uidg1626/apdl-mode/trunk")
 ;; (call-process "cp" nil "*tmp*" t "Hlp_C_CmdTOC.html" "apdl_keywords.txt")
 ;;     cp Hlp_C_CmdTOC.html to ./ -> apdl_keywords.txt
 ;;     done: v13,14,145,150, v162, v201
@@ -73,7 +78,8 @@
 ;;     get function summary ->`apdl_get_functions.txt'
 
 ;; 6.) search index for the html help in /commonfiles/help/`apdl_Index.hlp'
-;;      (call-process "cp" nil "*tmp*" t "/appl/ansys_inc/162.0/v162/commonfiles/help/ansys_Index.hlp" ".")
+;; (call-process "cp" nil "*tmp*" t
+;; "/appl/ansys_inc/162.0/v162/commonfiles/help/ansys_Index.hlp" ".")
 ;;     the rest does code below
 ;;     done v145, v150, v162, v201
 ;;     cp ansys_Index.hlp??? and check variable apdl-help-index
@@ -99,7 +105,8 @@
     "/WB"                     ; signify a WB generated input file
     "XMLO"
     "/XML"
-    "CNTR" ; ,print,1 ! print out contact info and also make no initial contact an error
+    "CNTR" ; ,print,1 ! print out contact info and also make no
+	   ; initial contact an error
     "EBLOCK" "CMBLOCK" "NBLOCK" "/TRACK" "CWZPLOT" "~EUI"
     "NELE"   ; predecessor of NSLE, NELE (WorkBench 10.0 output) still
 ;; working in Ansys 11.0 though
@@ -320,7 +327,8 @@ And the solver won't allow characters appended to.")
     )
   "APDL commands which aren't allowed with arguments.")
 
-;; deprecated element list is from Ansys version 12.0, 13.0, 14.0, 16.2, archived elements v201
+;; deprecated element list is from Ansys version
+;; 12.0, 13.0, 14.0, 16.2, archived elements v201
 (defconst Apdl_deprecated_elements_alist
   '(
     ("BEAM3"    . "BEAM188")
@@ -410,18 +418,18 @@ And the solver won't allow characters appended to.")
   (mapcar
    #'(lambda (name)
        (list
-        (concat "\\(" name "\\)\\s-*(")
-        1
-        'font-lock-function-name-face
-        'keep))
+	(concat "\\(" name "\\)\\s-*(")
+	1
+	'font-lock-function-name-face
+	'keep))
    list))
 
 (defun APDL-parametric-functions (list)
   (mapcar
    #'(lambda (name)
        (list
-        (concat "\\(" name "\\)\\s-*(")
-        '(1 font-lock-function-name-face keep)))
+	(concat "\\(" name "\\)\\s-*(")
+	'(1 font-lock-function-name-face keep)))
    list))
 
 (defun double_entry_p(strg commands)
@@ -429,12 +437,12 @@ And the solver won't allow characters appended to.")
   (let ( (n 0) (l (length strg)) (str))
     (dolist (M commands)
       (if (> (length M) l)
-          (setq str (substring M 0 l))
-        (setq str M))
+	  (setq str (substring M 0 l))
+	(setq str M))
       (if (string= str strg)
-          (setq n (1+ n))))
+	  (setq n (1+ n))))
     (if (> n 1)
-        t)))
+	t)))
 
 (defun make_unique( strg commands)
   "Return a sub-string of STRG which is unique in COMMANDS.
@@ -443,20 +451,20 @@ The length of STRG is greater than 4 characters."
     (while (<= n l)
       (setq str (substring strg 0 n))
       (if (double_entry_p str commands)
-          (setq n (1+ n))
-        (setq n (1+ l))))
+	  (setq n (1+ n))
+	(setq n (1+ l))))
     str))
 
 (defun asterisk(String)
   (let ((str String))
     (if (= (elt String 0) ?*)
-        (setq str (concat "\\" str)))
+	(setq str (concat "\\" str)))
     str)
   )
 
 (defun slice (string)
   (let* ((l (length string))
-         (s ""))
+	 (s ""))
     (dolist (c (split-string string "" t))
       (setq s (concat s "\\(?:" c)))
     (dotimes (i l s)
@@ -514,18 +522,18 @@ command strings"
     (dolist (M List tmp_list)
       (setq l (length M))
       (cond ((written_out_p M)
-             (setq tmp_list (cons M tmp_list)))
-            ((<= l 4)               ;shorter stuff
-             (setq tmp_list (cons M tmp_list)))
-            (t ;;long command names
-             (setq tmp (make_unique M List)
-                   tmp_list (cons tmp tmp_list)))))))
+	     (setq tmp_list (cons M tmp_list)))
+	    ((<= l 4)               ;shorter stuff
+	     (setq tmp_list (cons M tmp_list)))
+	    (t ;;long command names
+	     (setq tmp (make_unique M List)
+		   tmp_list (cons tmp tmp_list)))))))
 
 (defun Overlapping (strg l)
   "Return a list of a sequences of strings starting from L up to
 the length of the original string STRG."
   (let (lisy
-        (n1 (length strg)))
+	(n1 (length strg)))
     (when (> l n1)
       (error "string length too small"))
     (dotimes (i (1+ (- n1 l)) lisy)
@@ -542,22 +550,23 @@ allows characters appended behind."
       (setq l (length M))
       (cond  ;written out stuff
        ((written_out_p M)
-        (setq list_a (cons M list_a)))
+	(setq list_a (cons M list_a)))
        ((< l 4)               ;short stuff
-        (setq list_a (cons M list_a)))
+	(setq list_a (cons M list_a)))
 ;; variable ending stuff
        ((= l 4)
-        (setq tmp_list (cons M tmp_list)))
+	(setq tmp_list (cons M tmp_list)))
        (t ;;the rest, longer command names
-        (setq tmp (make_unique M List)
-              l2 (length tmp)
-              tmp (Overlapping M l2)
-              tmp_list (append tmp tmp_list)))))
+	(setq tmp (make_unique M List)
+	      l2 (length tmp)
+	      tmp (Overlapping M l2)
+	      tmp_list (append tmp tmp_list)))))
 
     (setq l2 (/ (length tmp_list) 2)
-          list_b (butlast tmp_list l2)
-          list_c (last tmp_list l2))
-    (message "length_a: %d length_b: %d length_c: %d" (length list_a) (length list_b) (length list_c) )
+	  list_b (butlast tmp_list l2)
+	  list_c (last tmp_list l2))
+    (message "length_a: %d length_b: %d length_c: %d"
+	     (length list_a) (length list_b) (length list_c) )
     (list list_a list_b list_c)))
 
 (defun APDL-initialize-completions ()
@@ -567,9 +576,9 @@ Function names are distinguished by `()'."
    Apdl_elements
    Apdl_commands
    (mapcar #'(lambda (str) (concat str "()"))
-           Apdl_get_functions)
+	   Apdl_get_functions)
    (mapcar #'(lambda (str) (concat str "()"))
-           Apdl_parametric_functions)))
+	   Apdl_parametric_functions)))
 
 ;; ------------------------------------------------------------
 
@@ -617,14 +626,15 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
-                                        ;(write-file "keyw+promt.txt")
+					;(write-file "keyw+promt.txt")
     (goto-char (point-min))
     (while (re-search-forward "^\\(.\\w*\\>\\).*\n\\1.*" nil t)
       (add-to-list 'list (match-string 0) 'append)))
 ;; now include the undocumented commands
   (setq list (append list
-                     (mapcar #'(lambda (m) (concat m " - APDL undocumented command\n" m))
-                             Apdl_undocumented_commands)))
+		     (mapcar #'(lambda (m) (concat m
+" - APDL undocumented command\n" m))
+			     Apdl_undocumented_commands)))
 ;;  (sort list 'string<)
   (set-buffer buffer)
   (goto-char (point-min))
@@ -662,26 +672,26 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (insert "(defconst apdl-command-regexp\n")
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (regexp-opt (Prepare_list commands-1))
-         buffer)
+	 buffer)
   (insert "\n\"APDL short keyword name regexp.\")\n\n")
 
   (message "starting level 1.")
   (goto-char (point-min))
   (insert "(defconst apdl-command-regexp-1\n")
   (prin1 (regexp-opt commands)
-         buffer)
+	 buffer)
   (insert "\n\"APDL full keyword name regexp.\")\n\n")
 
   (message "starting level 2.")
   (goto-char (point-min))
 ;;  regexp becoming too big for font-lock!!! when keywords are around 4000
   (setq list (Prepare_list_2 commands)
-        list1 (car list)
-        list2 (nth 1 list)
-        list3 (nth 2 list)
-        list1 (regexp-opt list1)     ;written out stuff
-        list2 (regexp-opt list2)
-        list3 (regexp-opt list3))
+	list1 (car list)
+	list2 (nth 1 list)
+	list3 (nth 2 list)
+	list1 (regexp-opt list1)     ;written out stuff
+	list2 (regexp-opt list2)
+	list3 (regexp-opt list3))
   (insert "(defconst apdl-command-regexp-2a\n")
   (prin1 list1 buffer)
   (insert "\n\"APDL keyword name regexp 2a.\")\n\n")
@@ -711,7 +721,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-           "(defconst apdl-element-regexp\n"))
+	   "(defconst apdl-element-regexp\n"))
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (regexp-opt list 'words) buffer)
   (insert "\n\"APDL elements regexp.\")\n\n")
@@ -721,7 +731,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
 ;; --- deprecated elements ---
   (goto-char (point-min))
   (insert (concat
-           "(defconst apdl-deprecated-element-regexp\n"))
+	   "(defconst apdl-deprecated-element-regexp\n"))
   (setq print-length nil)          ;nil: print all members of list
   (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
   (prin1 (regexp-opt deprecated-elements 'words) buffer)
@@ -731,7 +741,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
 ;; -- write out the alist for a possible reference --
   (goto-char (point-min))
   (insert (concat
-           "(defconst apdl-deprecated-element-alist\n'"))
+	   "(defconst apdl-deprecated-element-alist\n'"))
   (setq print-length nil)          ;nil: print all members of list
   (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
   (prin1 Apdl_deprecated_elements_alist buffer)
@@ -756,7 +766,7 @@ Together with their proposed replacements.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-           "(defconst apdl-get-function-regexp\n"))
+	   "(defconst apdl-get-function-regexp\n"))
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (regexp-opt get-functions) buffer)
   (insert "\n\"APDL get function regexp.\")\n\n")
@@ -779,7 +789,7 @@ Together with their proposed replacements.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-           "(defconst apdl-parametric-function-regexp\n"))
+	   "(defconst apdl-parametric-function-regexp\n"))
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (regexp-opt parametric-functions) buffer)
   (insert "\n\"APDL parametric function regexp.\")\n\n")
@@ -795,19 +805,19 @@ Together with their proposed replacements.\")\n\n")
 ;;           parametric-functions get-functions))
 
   (setq get-functions
-        (mapcar #'(lambda (s) (concat s "()")) get-functions))
+	(mapcar #'(lambda (s) (concat s "()")) get-functions))
   (setq parametric-functions
-        (mapcar #'(lambda (s) (concat s "()")) parametric-functions))
+	(mapcar #'(lambda (s) (concat s "()")) parametric-functions))
   (insert "(defconst apdl-completions\n'")
   (setq print-length nil)          ;nil: print all members of list
   (prin1 (append
-          elements
-          deprecated-elements
-          get-functions
-          parametric-functions
-          commands
-          undocumented-commands
-          ) buffer)
+	  elements
+	  deprecated-elements
+	  get-functions
+	  parametric-functions
+	  commands
+	  undocumented-commands
+	  ) buffer)
 ;; (prin1 commands buffer)
 ;;  buffer)
   (insert "\n\"APDL symbols for completion in APDL-Mode.
@@ -857,20 +867,31 @@ By default APDL keywords, get-functions, parametric-function and elements
     (next-line)
 ;; (dotimes (i 10) (re-search-forward
     (while (re-search-forward
-            "^\\([^[:space:]]+\\)[[:space:]]+\\([^[:space:]]+\\)$" nil t)
+	    "^\\([^[:space:]]+\\)[[:space:]]+\\([^[:space:]]+\\)$" nil t)
       (add-to-list 'list (list (match-string 1) (match-string 2)) 'append)))
-  (add-to-list 'list (list "\"RELEASE NOTES\"" "ai_rn/global_releasenotes.html") 'append)
-  (add-to-list 'list (list "\"CONTACT TECHNOLOGY GUIDE\"" "ans_ctec/ctectoc.html") 'append)
-  (add-to-list 'list (list "\"PARAMETRIC DESIGN LANGUAGE GUIDE\"" "ans_apdl/Hlp_P_APDLTOC.html") 'append)
-  (add-to-list 'list (list "\"STRUCTURAL ANALYSIS GUIDE\"" "ans_str/Hlp_G_StrTOC.html") 'append)
-  (add-to-list 'list (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\"" "ans_str/Hlp_G_AdvTOC.html") 'append)
-  (add-to-list 'list (list "\"MATERIAL MODELS\"" "ans_mat/ans_mat.html") 'append)
-  (add-to-list 'list (list "\"THEORY REFERENCE\"" "ans_thry/ansys.theory.html") 'append)
+  (add-to-list
+'list (list "\"RELEASE NOTES\"" "ai_rn/global_releasenotes.html") 'append)
+  (add-to-list
+   'list (list "\"CONTACT TECHNOLOGY GUIDE\"" "ans_ctec/ctectoc.html") 'append)
+  (add-to-list
+   'list (list
+	  "\"PARAMETRIC DESIGN LANGUAGE GUIDE\""
+	  "ans_apdl/Hlp_P_APDLTOC.html") 'append)
+  (add-to-list 'list
+(list "\"STRUCTURAL ANALYSIS GUIDE\"" "ans_str/Hlp_G_StrTOC.html") 'append)
+  (add-to-list 'list
+	       (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\""
+		     "ans_str/Hlp_G_AdvTOC.html") 'append)
+  (add-to-list 'list
+	       (list "\"MATERIAL MODELS\"" "ans_mat/ans_mat.html") 'append)
+  (add-to-list 'list
+	       (list "\"THEORY REFERENCE\""
+		     "ans_thry/ansys.theory.html") 'append)
   (message "adding help index...")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
-           "(defconst apdl-help-index\n'"))
+	   "(defconst apdl-help-index\n'"))
   (setq print-length nil)          ;nil: print all members of list
   (prin1 list buffer)
   (insert "\n\"Ansys help index alist.\")\n\n")
@@ -882,13 +903,13 @@ By default APDL keywords, get-functions, parametric-function and elements
 
   (goto-char (point-min))
   (insert
-";;; apdl-keyword.el --- APDL-Mode completion and highlighting variables. -*- lexical-binding:t -*-\n"
+";;; apdl-keyword.el --- APDL-Mode completion and highlighting variables -*- lexical-binding:t -*-\n"
 "\n"
 ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm\n"
 "\n"
 ";; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>\n"
 ";; Version: 20.2.0\n"
-";; Package-Requires: ((emacs "25"))\n"
+";; Package-Requires: ((emacs \"25\"))\n"
 ";; Keywords: languages, convenience, tools, Ansys, APDL\n"
 ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n"
 "\n"
@@ -923,6 +944,8 @@ By default APDL keywords, get-functions, parametric-function and elements
 ;;; fontification.el ends here
 
 ;; Local Variables:
-;; mode: outline-minor
+;; mode: flycheck
+;; indicate-empty-lines: t
+;; show-trailing-whitespace: t
 ;; time-stamp-active: t
 ;; End:

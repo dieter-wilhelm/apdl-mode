@@ -1,4 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
+;; Time-stamp: <2020-03-12>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -8,7 +9,6 @@
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience, Ansys, tools, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -30,7 +30,6 @@
 ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Commentary:
 
 ;; Collection of templates for WorkBench and AIM Command (APDL)
@@ -78,13 +77,12 @@ key and choose with the mouse 2 button."
               (completing-read "Preview template: "
                                obarray 'commandp t skel-string nil)
             (completing-read "Insert template: "
-                             obarray 'commandp t skel-string nil)))
-         )
+                             obarray 'commandp t skel-string nil))))
     (setq apdl-last-skeleton skel)
     (cond ((= arg 1)
            (switch-to-buffer-other-window skeleton-buffer)
            (setq buffer-read-only nil)
-           (remove-overlays)                                                  ;from beginnin and end of buffer
+           (remove-overlays) ;from beginnin and end of buffer
            (setq apdl-skeleton-overlay (make-overlay 1 1))
            (kill-region (point-min) (point-max))
            (funcall (intern-soft skel))
@@ -99,8 +97,7 @@ key and choose with the mouse 2 button."
            (overlay-put apdl-skeleton-overlay 'before-string s)
            (set-buffer-modified-p nil)
            (setq buffer-read-only t)
-           (switch-to-buffer-other-window old-buffer)
-           )
+           (switch-to-buffer-other-window old-buffer))
           (t
            (funcall (intern-soft skel))))))
 
@@ -138,10 +135,10 @@ key and choose with the mouse 2 button."
 ;; 2. Solu (/solu) items, before solve
 ;; 3. Post (/post) items, after solve
 
-(defconst apdl-wb-template-directory
-  "~/.emacs.d/elpa/apdl-mode-20.2.0/template/"
-  "Constant string to centralise the folder of the WorkBench /
-  Discovery AIM template files.")
+(defconst apdl-wb-template-directory (concat user-emacs-directory
+  "elpa/apdl-mode-20.2.0/template/")
+  "This String contains the template folder.
+Of the WorkBench / Discovery AIM template files.")
 
 (define-skeleton apdl-wbt-post-2d-press-fit_calcs
 "Calculate the transmissible torque from contact results.
@@ -175,11 +172,13 @@ nil
 
 (provide 'apdl-wb-template)
 
-;;; apdl-template.el ends here
+;;; apdl-wb-template.el ends here
 
 ;; Local Variables:
 ;; mode: outline-minor
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
 ;; word-wrap: t
+;; time-stamp-active: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

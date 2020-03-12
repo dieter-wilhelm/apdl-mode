@@ -1,4 +1,5 @@
-;;; apdl-mode-pk.el --- defining the GNU-Emacs package -*-lexical-binding:t -*-
+;;; apdl-mode-pkg.el --- Defining the APDL-Mode package -*-lexical-binding:t -*-
+;; Time-stamp: <2020-03-12 21:48:15 dieter>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -43,7 +44,11 @@
 ;; investigate the menu entries `APDL' and `Ansys'.
 
 ;; For the APDL-Mode help with a brief tutorial and further guidance
-;; please type `C-h m'."  
+;; please type `C-h m'."
+
+;;; Code:
+
+(require 'package)
 
 (define-package "apdl-mode" "20.2.0" "Major mode for the APDL programming language."
   '((emacs "25.1"))
@@ -55,7 +60,13 @@
   '("H. Dieter Wilhelm" . "dieter@duenenhof-wilhelm.de")
   :url "https://github.com/dieter-wilhelm/apdl-mode")
 
+(provide 'apdl-mode-pkg)
+
 ;;; apdl-mode-pkg.el ends here
 
 ;; Local Variables:
+;; indicate-empty-lines: t
+;; show-trailing-whitespace: t
+;; show-trailing-whitespace: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

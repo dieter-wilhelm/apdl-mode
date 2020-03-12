@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-09 21:41:32 uidg1626>
+#+DATE: Time-stamp: <2020-03-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -45,13 +45,46 @@ load this file in the init file with `(load-file
 "PATH/apdl-config.el")'.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;; apdl-config.el -- Customisation example for APDL-Mode
+;;; apdl-config.el --- Customisation example for APDL-Mode
 ;; This file was built from the file "apdl-config.org".
 
 ;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3
+;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Version: 20.2.0
+;; Package-Requires: ((emacs "25"))
+;; Keywords: languages, convenience, tools, Ansys, APDL
+;; URL: https://github.com/dieter-wilhelm/apdl-mode
 
-;;; Comentary:
-;; The customisations itself are written in `Emacs-Lisp'.  
+;; Maintainer: H. Dieter Wilhelm
+;; Created: 2006-02
+
+;; Parts of this mode were originally base on octave-mod.el: Copyright
+;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
+;; <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
+;; <jwe@bevo.che.wisc.edu>
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; This code is free software; you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published
+;; by the Free Software Foundation; either version 3, or (at your
+;; option) any later version.
+;;
+;; This lisp script is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+;;
+;; Permission is granted to distribute copies of this lisp script
+;; provided the copyright notice and this permission are preserved in
+;; all copies.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, you can either send email to this
+;; program's maintainer or write to: The Free Software Foundation,
+;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; Commentary:
+;; The customisations itself are written in `Emacs-Lisp'.
 ;; The comment is ~;~ (one semi-colon `;').  Textual hints
 ;; are indicated with DOUBLE semi-colons `;;', optionally uncomment
 ;; the code lines with a SINGLE comment sign.
@@ -375,6 +408,26 @@ example below:
 
 #+END_SRC
 
+* COMMENT Extending Emacs load path and initialisation
+  redundant with package.el
+#+BEGIN_SRC emacs-lisp :tangle yes
+
+;; adding the directory of this (loaded) file to the load-path
+(add-to-list 'load-path (file-name-directory load-file-name))
+;; setting the APDL-Mode install directory
+(setq apdl-mode-install-directory (file-name-directory load-file-name))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                              ;; The End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; apdl-config.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
+
+#+END_SRC
+
 * Ansys processes
 ** License server or license file
 
@@ -462,42 +515,18 @@ But the solver/interpreter is checking this server as well!?
                               ;; The End
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(provide 'apdl-config)
 ;;; apdl-config.el ends here
-
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
-  
-#+END_SRC
------
-
------
-* COMMENT Extending Emacs load path and initialisation
-  redundant with package.el
-#+BEGIN_SRC emacs-lisp :tangle yes
-
-;; adding the directory of this (loaded) file to the load-path
-(add-to-list 'load-path (file-name-directory load-file-name))
-;; setting the APDL-Mode install directory
-(setq apdl-mode-install-directory (file-name-directory load-file-name))
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                              ;; The End
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;;; apdl-config.el ends here
-
-;; Local Variables:
-;; no-byte-compile: t
-;; End:
 
 #+END_SRC
 
+-----
 
-# LOCAL variables:
+# Local Variables:
 # word-wrap: t
 # show-trailing-whitespace: t
 # indicate-empty-lines: t
 # time-stamp-active: t
 # time-stamp-format: "%:y-%02m-%02d"
-# end:
+# End:
 

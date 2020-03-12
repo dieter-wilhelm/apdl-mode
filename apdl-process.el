@@ -1,15 +1,14 @@
-;;; apdl-process.el --- Managing runs and processes for APDL-Mode   -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-09>
+;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
+;; Time-stamp: <2020-03-12>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+;; Maintainer: H. Dieter Wilhelm
 ;; Version: 20.2.0
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
-
-;; Maintainer: H. Dieter Wilhelm
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; This code is free software; you can redistribute it and/or modify
@@ -209,10 +208,6 @@ Return nil if we can't find an MAPDL GUI."
 The output of the solver is captured in an Emacs buffer called
 *Classics*."
   (interactive)
-  ;;    (apdl-ansys-program "")                                           ;take exec from -program var.
-  ;;    (apdl-license-file "")                      ;
-  ;;    (apdl-ansysli-servers "")                      ;
-  ;; (apdl-license "")                                           ;
   (let ((bname (concat "*"apdl-classics-process"*")))
     (when (file-readable-p (concat default-directory apdl-job ".lock"))
       (if (yes-or-no-p
@@ -251,20 +246,20 @@ The output of the solver is captured in an Emacs buffer called
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
   (interactive)
-  ;;    (apdl-ansys-program "")                                           ;take exec from -program var.
-  ;;    (apdl-license-file "")                      ;
-  ;;    (apdl-ansysli-servers "")                      ;
-  ;; (apdl-license "")                                           ;
+  ;;    (apdl-ansys-program "")  ;take exec from -program var.
+  ;;    (apdl-license-file "")
+  ;;    (apdl-ansysli-servers "")
+  ;; (apdl-license "")
   (start-process "Launcher" nil apdl-ansys-launcher)
   (message "Started the Ansys Launcher..."))
 
 (defun apdl-start-wb ()
   "Start the Ansys WorkBench."
   (interactive)
-  ;;    (apdl-ansys-program "")                                           ;take exec from -program var.
-  ;;    (apdl-license-file "")                      ;
-  ;;    (apdl-ansysli-servers "")                      ;
-  ;; (apdl-license "")                                           ;
+  ;;    (apdl-ansys-program "") ;take exec from -program var.
+  ;;    (apdl-license-file "")
+  ;;    (apdl-ansysli-servers "")
+  ;; (apdl-license "")
   (start-process "WorkBench" nil apdl-ansys-wb)
   (message "Started the Ansys WorkBench..."))
 
@@ -439,7 +434,7 @@ line after this region (or paragraph)."
       (goto-char point))))
 
 (defun apdl-send-to-apdl-and-proceed ( &optional stay)
-  "Send a region or code line to the Ansys interpreter.
+  "Send a region or code line to the Ansys MAPDL interpreter.
 When there is no running Ansys interpreter process just copy the
 respective region or code line to the system clipboard and skip
 to the subsequent code line.  With a prefix argument STAY of `4'
@@ -571,7 +566,7 @@ initial input."
 
 ;;;###autoload
 (defun apdl-start-ansys ()
-  "Start an Ansys interpreter process under Linux or the launcher under Win.
+  "Start the MAPDL interpreter under Linux or the launcher under Windows.
 For the interpreter process summarise the run's configuration
 first.  The specified No of cores is not shown if they are chosen
 smaller than 3 (see `apdl-number-of-processors')."

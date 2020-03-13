@@ -1,5 +1,5 @@
 ;;; apdl-mode-pkg.el --- Defining the APDL-Mode package -*-lexical-binding:t -*-
-;; Time-stamp: <2020-03-12 21:48:15 dieter>
+;; Time-stamp: <2020-03-13>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -48,7 +48,7 @@
 
 ;;; Code:
 
-(require 'package)
+;; (require 'package)
 
 (define-package "apdl-mode" "20.2.0" "Major mode for the APDL programming language."
   '((emacs "25.1"))
@@ -60,13 +60,12 @@
   '("H. Dieter Wilhelm" . "dieter@duenenhof-wilhelm.de")
   :url "https://github.com/dieter-wilhelm/apdl-mode")
 
-(provide 'apdl-mode-pkg)
+;; (provide 'apdl-mode-pkg)
 
 ;;; apdl-mode-pkg.el ends here
 
 ;; Local Variables:
 ;; indicate-empty-lines: t
-;; show-trailing-whitespace: t
 ;; show-trailing-whitespace: t
 ;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

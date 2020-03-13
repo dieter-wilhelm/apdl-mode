@@ -48,7 +48,7 @@
 (defvar apdl-ansys-help-path)
 (defvar apdl-mode-install-directory)
 (defvar apdl-current-ansys-version)
-;(defvar apdl-ansys-install-directory)
+                                        ;(defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
 (defvar apdl-ansys-help-program-parameters)
 (defvar apdl-is-unix-system-flag)
@@ -295,11 +295,11 @@ respective job, you can change it with \"\\[cd]\"."
         lfile
         name)
     (cond
-     ((< arg 0)                                                                                    ;ask for job-name
+     ((< arg 0)                         ; ask for job-name
       (setq name
             (read-string
              (concat "Job name [" job "]: ") nil nil job)))
-     (t                                                                                                         ;search for /filn
+     (t                                 ; search for /filn
       (save-excursion
         (goto-char (point-min))
         (if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
@@ -353,7 +353,7 @@ the customisation facility (by calling `apdl-customise-ansys')."
            (comint-send-region process (point-min) (point))
            (display-buffer-other-frame (process-buffer process)))
           (t
-           (clipboard-kill-ring-save (point-min) (point))                     ;point-min is heeding narrowing
+           (clipboard-kill-ring-save (point-min) (point)) ; point-min is heeding narrowing
            (message "Copied from beginning of buffer to cursor.")))))
 
 (defvar  apdl-current-region-overlay
@@ -374,15 +374,15 @@ the customisation facility (by calling `apdl-customise-ansys')."
   "Sending clipboard content to the Classics GUI."
   ;;  (let ((win (call-process "/home/uidg1626/script/ctrlv.sh")))
   (let ()
-    (sleep-for .5)                                                               ;wait till user lifts CTRL!
+    (sleep-for .5)                    ; wait till user lifts CTRL!
     (call-process (concat apdl-mode-install-directory
                           "X11/xPasteToWin") nil nil nil apdl-classics-window-id)
-    (sleep-for .1)     ;seems to take at least 0.1 s for the clipboard to copy!
+    (sleep-for .1) ; seems to take at least 0.1 s for the clipboard to copy!
     (call-process (concat apdl-mode-install-directory
                           "X11/xSendReturn") nil nil nil
                           apdl-emacs-window-id apdl-classics-window-id)
     ;; repeating this as workaround... TODO
-    (sleep-for .1)     ;seems to take 0.1 s for the clipboard to copy!
+    (sleep-for .1) ; seems to take 0.1 s for the clipboard to copy!
     (call-process (concat apdl-mode-install-directory
                           "X11/xSendReturn") nil nil nil
                           apdl-emacs-window-id apdl-classics-window-id)))
@@ -409,7 +409,7 @@ line after this region (or paragraph)."
     (setq beg (region-beginning)
           end (region-end))
     ;; invalidate region
-    (deactivate-mark)                                                               ;for Emacs 23.1 no arguments
+    (deactivate-mark)                ; for Emacs 23.1 no arguments
     ;; (deactivate-mark nil)
     (apdl-blink-region beg end)
     ;; send or copy region or line
@@ -466,7 +466,7 @@ character `j' (or `C-j')."
        (setq beg (point))
        (apdl-skip-block-forward)
        (setq end (point))
-       (setq region t))                                                               ;block considered a region
+       (setq region t))                ; block considered a region
      (code
       (setq beg (line-beginning-position))
       (save-excursion
@@ -481,7 +481,7 @@ character `j' (or `C-j')."
       (if (and region
                (< (point) end))
           (exchange-point-and-mark))
-      (move-to-column column)                                          ;stay in the previous column
+      (move-to-column column)        ; stay in the previous column
       (apdl-next-code-line))
     ;; invalidate region
     (setq mark-active nil)
@@ -644,7 +644,7 @@ interactively, provided that anshelp162 is found in the search
 paths for executables (these are stored in the PATH environment
 variable)."
   (interactive)
-  (apdl-ansys-help-program "")                                          ;checking
+  (apdl-ansys-help-program "")          ; checking
   (progn
     (cond
      (apdl-is-unix-system-flag
@@ -686,11 +686,11 @@ variable)."
                    (buffer-substring-no-properties pt
                                                    (+ pt (skip-chars-forward re))))))
       (setq cmpl (try-completion str apdl-help-index)))
-    (cond ((stringp cmpl)                                          ;not unique
+    (cond ((stringp cmpl)               ; not unique
            cmpl)
           ((equal cmpl nil)
            (error "\"%s\" is not a valid keyword" str))
-          (t                                                                                    ;perfect match
+          (t                            ; perfect match
            str))))
 
 (require 'browse-url)
@@ -699,14 +699,14 @@ variable)."
   "Open the Ansys Parametric Design Language Guide in a browser."
   (interactive)
   (let ((file "ans_apdl/Hlp_P_APDLTOC.html")
-	(path apdl-ansys-help-path))
+        (path apdl-ansys-help-path))
     (if path
-	(browse-url-of-file (concat "file://" path file))
+        (browse-url-of-file (concat "file://" path file))
       (if (string= apdl-current-ansys-version "v201")
-	  (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
-	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
+          (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
+        (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
-(defun apdl-browse-apdl-help ( &optional arg)
+(defun apdl-browse-apdl-help (&optional arg)
   "Browse the Ansys help for APDL commands, elements and other topics.
 
 ATTENTION: If you are using the Ansys online help - default since
@@ -808,13 +808,13 @@ elem.
     ;;  ((string-match "ansys.theory" file)
     ;;   (setq file (concat "ans_thry/" file))))
     (if path
-	(browse-url-of-file (concat "file:///" path file))
+        (browse-url-of-file (concat "file:///" path file))
       (unless apdl-current-ansys-version
-	(error "Please set `apdl-current-ansys-version'"))
+        (error "Please set `apdl-current-ansys-version'"))
       ;; since v201 changed the path to the online help:
       (if (string= apdl-current-ansys-version "v201")
-	  (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
-	(browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
+          (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
+        (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
@@ -844,7 +844,7 @@ elem.
   (interactive)
   (let ((status (process-status apdl-process-name)))
     (if status
-        (message "Ansys process is in state \"%s\"" ;, process identification No: %d"
+        (message "Ansys process is in state \"%s\"" ; process identification No: %d"
                  (symbol-name status))
       (message "No Ansys interpreter process is running."))))
 
@@ -1034,7 +1034,7 @@ A Negative ARG moves ARG steps right."
     (kill-new "/dist,,.7,1\n/replot\n")
     (apdl-send-to-classics))
    ((apdl-process-running-p)
-    (comint-send-string (get-process apdl-process-name) "/dist,,.7,1\n/replot\n") ;valid in any processor
+    (comint-send-string (get-process apdl-process-name) "/dist,,.7,1\n/replot\n") ; valid in any processor
     (display-buffer (concat "*" apdl-process-name "*") 'other-window))
    (t
     (error "No interactive MAPDL process running or Classics GUI can be found"))))
@@ -1047,7 +1047,7 @@ A Negative ARG moves ARG steps right."
     (kill-new "/dist,,1.4,1\n/replot\n")
     (apdl-send-to-classics))
    ((apdl-process-running-p)
-    (comint-send-string (get-process apdl-process-name) "/dist,,1.4,1\n/replot\n") ;valid in any processor
+    (comint-send-string (get-process apdl-process-name) "/dist,,1.4,1\n/replot\n") ; valid in any processor
     (display-buffer (concat "*" apdl-process-name "*") 'other-window))
    (t
     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
@@ -1060,7 +1060,7 @@ A Negative ARG moves ARG steps right."
     (kill-new "/replot\n")
     (apdl-send-to-classics))
    ((apdl-process-running-p)
-    (comint-send-string (get-process apdl-process-name) "/replot\n") ;valid in any processor
+    (comint-send-string (get-process apdl-process-name) "/replot\n") ; valid in any processor
     (display-buffer (concat "*" apdl-process-name "*") 'other-window))
    (t
     (error "No interactive MAPDL process running or no Classics GUI can be found"))))
@@ -1111,7 +1111,7 @@ Lin64 it is the 'lmutil' executable
 anslic_admin utility: `C:\\Ansys Inc\\Shared
 Files\\licensing\\win64\\anslic_admin.exe'"
   (interactive "FAnsys License Management Utility executable: ")
-  (when (string= exec "")                                          ;use default
+  (when (string= exec "")               ; use default
     (setq exec apdl-lmutil-program))
   (setq apdl-lmutil-program exec)
   (if (executable-find exec)
@@ -1152,7 +1152,7 @@ processors (if available) for a structural analysis in Ansys is
       (error "Specified number is not an integer"))
     (message "No of processors for the next run definition is %d" apdl-no-of-processors)))
 
-(defun apdl-license-file ( file)
+(defun apdl-license-file (file)
   "Change the Ansys license file name or license server(s).
 And specify the string FILE in the variable `apdl-license-file'
 which can either be the license file name or license server(s)

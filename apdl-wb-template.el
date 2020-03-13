@@ -136,20 +136,20 @@ key and choose with the mouse 2 button."
 ;; 3. Post (/post) items, after solve
 
 (defconst apdl-wb-template-directory (concat user-emacs-directory
-  "elpa/apdl-mode-20.2.0/template/")
+                                             "elpa/apdl-mode-20.2.0/template/")
   "This String contains the template folder.
 Of the WorkBench / Discovery AIM template files.")
 
 (define-skeleton apdl-wbt-post-2d-press-fit_calcs
-"Calculate the transmissible torque from contact results.
+  "Calculate the transmissible torque from contact results.
 And other parameters from a plane stress press-fit simulation."
-nil
-"/com,==============================================================\n"
-"/com, Inserted: " (current-time-string) ", APDL-Mode: " apdl-mode-version " \n"
-"/com,==============================================================\n"
+  nil
+  "/com,==============================================================\n"
+  "/com, Inserted: " (current-time-string) ", APDL-Mode: " apdl-mode-version " \n"
+  "/com,==============================================================\n"
 
-(insert-file (concat apdl-wb-template-directory
-		     "plane_stress_press-fit_torque_calculations.mac")))
+  (insert-file (concat apdl-wb-template-directory
+                       "plane_stress_press-fit_torque_calculations.mac")))
 
 (define-skeleton apdl-wbt-do
   "Insert a *do .. *enddo loop."

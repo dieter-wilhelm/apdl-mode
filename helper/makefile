@@ -114,7 +114,7 @@ ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE.org ../apdl-mode-readme.txt ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
+FILES := ../LICENSE.md ../apdl-mode-readme.txt ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
 EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
 
 #	 ../doc/APDL_tutorial.ans
@@ -123,7 +123,7 @@ EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
 # 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
-WORK_FILES := ../LICENSE.org ../README.org ../TODO.org ../NEWS.org \
+WORK_FILES := ../LICENSE.md ../README.org ../TODO.org ../NEWS.org \
 		 example.mac example.anf example.dat # tools/ansys-mode/README.Conti
 
 WORK_EL_FILES := $(EL_FILES)

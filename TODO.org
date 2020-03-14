@@ -22,6 +22,7 @@
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
 ** minor bugs
+   - what is doc/default.org?
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type
@@ -56,6 +57,9 @@
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** Release proceedures
+   Attention: in apdl_keywords.txt there are many whitespace
+   delete-trailing-whitespace
+
    package-lint
      - problems with prefix names and default key bindings...
    checkdoc, flycheck etc. : from makefile

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-12>
+#+DATE: Time-stamp: <2020-03-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -175,10 +175,10 @@ With the setting
 #+END_SRC
 
 files with the suffix /.mac/ will be opended in Emacs under
-APDL-Mode.  Check the /example.mac/ file.
+APDL-Mode.  Check the /example.mac/ file in the /doc/ folder.
 ** WorkBench generated input files
 /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See the
-file /example.dat/.
+file /example.dat/ in the /doc/ folder.
 
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
@@ -187,7 +187,7 @@ file /example.dat/.
 ** The Ansys Neutral file format
 /.anf/ is the suffix for "Ansys Neutral" files which include mostly
 gometric data but also some APDL snippets. These files are used for
-imports, see the file /example.anf/.
+imports, see the file /example.anf/ in the /doc/ folder.
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
@@ -200,18 +200,18 @@ imports, see the file /example.anf/.
 
 ;; .mac is the macro suffix of Ansys i. e. these macros can be called
 ;; in the Ansys command prompt like a regular Ansys function (without
-;; the suffix .mac). See the file helper/example.mac
+;; the suffix .mac). See the file doc/example.mac
 (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
 (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
 
 ;; .dat and .inp are WorkBench's solver input file suffixes
-;; See the file helper/example.dat
+;; See the file doc/example.dat
 (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
 (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
 
 ;; .anf is the suffix for "Ansys Neutral" files which include mostly
 ;;  gometric data but also some APDL snippets. See the file
-;;  helper/example.anf.
+;;  doc/example.anf.
 (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 #+END_SRC
 

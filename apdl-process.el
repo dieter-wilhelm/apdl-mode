@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-12>
+;; Time-stamp: <2020-03-14>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -48,7 +48,7 @@
 (defvar apdl-ansys-help-path)
 (defvar apdl-mode-install-directory)
 (defvar apdl-current-ansys-version)
-                                        ;(defvar apdl-ansys-install-directory)
+;; (defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
 (defvar apdl-ansys-help-program-parameters)
 (defvar apdl-is-unix-system-flag)
@@ -71,7 +71,6 @@
 
 (require 'comint)
 (require 'url)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- customisation ---
@@ -199,8 +198,8 @@ Return nil if we can't find an MAPDL GUI."
         nil
       (setq apdl-emacs-window-id eID)
       (setq apdl-classics-window-id aID)
-      ;;    (setq x-select-enable-clipboard t)                     ;for kill-new necessary
-      (setq select-enable-clipboard t)                     ;for kill-new necessary
+      ;;    (setq x-select-enable-clipboard t)             ; for kill-new necessary
+      (setq select-enable-clipboard t)                     ; for kill-new necessary
       aID)))
 
 (defun apdl-start-classics ()
@@ -246,7 +245,7 @@ The output of the solver is captured in an Emacs buffer called
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
   (interactive)
-  ;;    (apdl-ansys-program "")  ;take exec from -program var.
+  ;;    (apdl-ansys-program "")  ; take exec from -program var.
   ;;    (apdl-license-file "")
   ;;    (apdl-ansysli-servers "")
   ;; (apdl-license "")
@@ -256,7 +255,7 @@ The output of the solver is captured in an Emacs buffer called
 (defun apdl-start-wb ()
   "Start the Ansys WorkBench."
   (interactive)
-  ;;    (apdl-ansys-program "") ;take exec from -program var.
+  ;;    (apdl-ansys-program "") ; take exec from -program var.
   ;;    (apdl-license-file "")
   ;;    (apdl-ansysli-servers "")
   ;; (apdl-license "")
@@ -401,7 +400,7 @@ line after this region (or paragraph)."
         (process (get-process
                   (if (boundp 'apdl-process-name) apdl-process-name)))
         (region (and transient-mark-mode mark-active)))
-    ;;                         (region (region-active-p))) ;this is for Emacs-23.1
+    ;;                         (region (region-active-p))) ; this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
     ;; "region" will be the whole code line (including \n)
     (unless region
@@ -442,7 +441,7 @@ or `C-u' copy or send the code and remain at the current cursor
 position.  The command can be repeated by typing just the final
 character `j' (or `C-j')."
   (interactive "p")
-  (let (;code
+  (let (; code
         beg
         end
         (process (get-process
@@ -453,7 +452,7 @@ character `j' (or `C-j')."
                  (looking-at apdl-block-begin-regexp)))
         (code (apdl-code-line-p))
         (column (current-column)))
-    ;; (region (region-active-p))) ;this is for Emacs-23.1
+    ;; (region (region-active-p))) ; this is for Emacs-23.1
     ;; make a valid region if possible, when region is not active:
     ;; "region" will be the whole code line (including \n)
     (message "column: %d" column)
@@ -652,8 +651,9 @@ variable)."
       (message "Started the Ansys Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
-          (w32-shell-execute "Open" (concat "\"" apdl-ansys-help-program "\"")
-                             apdl-ansys-help-program-parameters)  ;HINT: Eli Z.,M. Dahl
+          (w32-shell-execute
+	   "Open" (concat "\"" apdl-ansys-help-program "\"")
+	   apdl-ansys-help-program-parameters)  ; HINT: Eli Z.,M. Dahl
         (error "Function w32-shell-execute not bound"))
       (message "Started the Ansys Help Viewer..."))
      (t

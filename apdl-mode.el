@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-12>
+;; Time-stamp: <2020-03-14>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -463,7 +463,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
 (defconst apdl-mode-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "`" 'apdl-abbrev-start) ;``?' lists abbrevs
+    (define-key map "`" 'apdl-abbrev-start) ; ``?' lists abbrevs
     (define-key map "\M-?" 'apdl-show-command-parameters)
     (define-key map "\C-\M-i" 'apdl-complete-symbol)
     ;; --- changed standard Emacs keybindings ---
@@ -487,7 +487,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-\M-p" 'apdl-skip-block-backwards)
     (define-key map "\C-\M-d" 'apdl-down-block)
     (define-key map "\C-\M-u" 'apdl-up-block)
-    (define-key map "\C-\M-h" 'apdl-mark-block) ;formerly mark defun
+    (define-key map "\C-\M-h" 'apdl-mark-block) ; formerly mark defun
     ;; --- further block keys ---
     (define-key map "\C-c]" 'apdl-close-block)
     (define-key map "\C-c}" 'apdl-number-block-end)
@@ -515,18 +515,18 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-d" 'apdl-do)
     (define-key map "\C-c\C-e" 'apdl-display-error-file)
     (define-key map "\C-c\C-f" 'apdl-fit)
-    ;;    (define-key map "\C-c\C-g" 'apdl-start-graphics) ;reserved
-    ;;    (define-key map "\C-c\C-h" 'apdl-start-ansys-help) ;reserved?
+    ;;    (define-key map "\C-c\C-g" 'apdl-start-graphics) ; reserved
+    ;;    (define-key map "\C-c\C-h" 'apdl-start-ansys-help) ; reserved?
     ;;    (define-key map "\C-c\C-i" 'apdl-iso-view) ; reserved: C-tab
     ;;    (define-key map "\C-c\C-i" 'apdl-if)
-    (define-key map "\C-c\C-j" 'apdl-send-to-apdl-and-proceed) ;same as ESS
+    (define-key map "\C-c\C-j" 'apdl-send-to-apdl-and-proceed) ; same as ESS
     ;; was:   (define-key map "\C-c\C-j" (if (boundp 'apdl-job) 'apdl-job))
     (define-key map "\C-c\C-k" 'apdl-kill-ansys)
     (define-key map "\C-c\C-l" 'apdl-license-status)
-    (define-key map "\C-c\C-m" 'apdl-start-ansys) ;interactively this
-                                        ;is also C-c RET
+    (define-key map "\C-c\C-m" 'apdl-start-ansys) ; interactively this
+                                        ; is also C-c RET
     (define-key map "\C-c\C-o" 'apdl-process-status)
-    (define-key map "\C-c\C-p" 'apdl-start-pzr-box) ;pan-zoom-rotate
+    (define-key map "\C-c\C-p" 'apdl-start-pzr-box) ; pan-zoom-rotate
     (define-key map "\C-c\C-q" 'apdl-query-apdl-command)
     (define-key map "\C-c\C-r" 'apdl-replot)
     (define-key map "\C-c\C-s" 'apdl-display-skeleton)
@@ -534,22 +534,22 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-u" 'apdl-copy-or-send-above)
     (define-key map "\C-c\C-v" 'apdl-display-variables)
     (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim: runwb2--aim?
-    (define-key map "\C-c\C-x" 'apdl-start-classics) ;classiX ;-)
+    (define-key map "\C-c\C-x" 'apdl-start-classics)
     (define-key map "\C-c\C-y" 'apdl-start-launcher)
-    ;;    (define-key map "\C-c\C-z" 'apdl-start-aim)
-    ;;(define-key map "\C-c\C-z" 'apdl-start-anslic_admin)
+    ;; (define-key map "\C-c\C-z" 'apdl-start-aim)
+    ;; (define-key map "\C-c\C-z" 'apdl-start-anslic_admin)
     ;; redundant with launcher?
-    ;;    (define-key map [f1] 'describe-mode) ; [f1] reserved for user
+    ;; (define-key map [f1] 'describe-mode) ; [f1] reserved for user
     map)
   "Keymap for the APDL-Mode.")
 
-(defun apdl-toggle-mode nil ;FIXME this toggles also all ansys minor-hooks?
+(defun apdl-toggle-mode nil ; FIXME this toggles also all ansys minor-hooks?
   "Restore the buffer's previous major mode, if possible."
   (interactive)
   (if (or (string= apdl-previous-major-mode "apdl-mode")
           (string= apdl-previous-major-mode ""))
       (error "There was no previous major mode except \"APDL-Mode\"")
-    ;;buffers opended with auto-mode
+    ;; buffers opended with auto-mode
     (funcall apdl-previous-major-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -618,7 +618,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;; asterisk command fontification
       ;; some string faces
       ("\\(?:^\\|\\$\\)\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
-       font-lock-doc-face t) ;titles
+       font-lock-doc-face t) ; titles
       ("\\(?:^\\|\\$\\)\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)"
        1 font-lock-doc-face t)
       ;; highlight message of comment command /COM (no comment (!)
@@ -667,8 +667,8 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
                 "\\)\\>") 1 font-lock-keyword-face)
 
       ;; some operators
-      ("\\$" . 'font-lock-type-face) ;condensed input line
-      (":" . 'font-lock-type-face)   ;colon loops only
+      ("\\$" . 'font-lock-type-face) ; condensed input line
+      (":" . 'font-lock-type-face)   ; colon loops only
 
       ;; deprecated *go labels (max 8 chars including the colon) only at
       ;; the line beginning because they might clash with 'colon' loops
@@ -718,7 +718,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;; asterisk command fontification
       ;; some string faces
       ("\\(?:^\\|\\$\\)\\s-*\\(?:/TIT\\|/TITL\\|/TITLE\\)\\s-*,\\(.*\\)$" 1
-       font-lock-doc-face t) ;titles
+       font-lock-doc-face t) ; titles
       ("\\(?:^\\|\\$\\)\\s-*/[cC][oO][mM].?\\(.\\{0,75\\}\\)" 1
        font-lock-doc-face t)
       ;; highlight message of comment command /COM (no comment (!)
@@ -726,13 +726,13 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
       ;; multiline format constructs
       ("^\\s-*\\(?:\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\
-  \\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(?:.*&\\s-*\n\\)+.*\\)" ;format
-                                        ;constructs
+  \\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(?:.*&\\s-*\n\\)+.*\\)" ; format
+                                        ; constructs
        (1 font-lock-doc-face t))
 
 
-      ;; ("&\\s-*$" 0 font-lock-type-face t) ;format continuation char
-      ;; ("%" 0 font-lock-type-face prepend) ;single % acts as a format
+      ;; ("&\\s-*$" 0 font-lock-type-face t) ; format continuation char
+      ;; ("%" 0 font-lock-type-face prepend) ; single % acts as a format
       ;; specifier and pair %.% is a parameter substitution
       (apdl-higlight-procent-and-ampersand (0 'font-lock-type-face t))
       ;; ("%\\|&\\s-*$" (0 'font-lock-type-face t))
@@ -791,12 +791,12 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       (apdl-highlight-variable . font-lock-variable-name-face)
 
       ;; some operators
-      ("\\$" . 'font-lock-type-face) ;condensed input line
-      (":" . 'font-lock-type-face)   ;colon loops only
+      ("\\$" . 'font-lock-type-face) ; condensed input line
+      (":" . 'font-lock-type-face)   ; colon loops only
 
       ;; deprecated *go labels (max 8 chars including the colon) only at
       ;; the line beginning because they might clash with 'colon' loops
-      ;;GOTO Labels, branching
+      ;; GOTO Labels, branching
       ("^\\s-*:\\([[:alnum:]_]\\{1,7\\}\\)" 1 font-lock-type-face)))
 
   ;; testing
@@ -814,7 +814,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 	;; testing
 	apdl-font-lock-keywords-3))
 
-(defconst apdl-mode-syntax-table     ;FIXME check APDL operators and
+(defconst apdl-mode-syntax-table     ; FIXME check APDL operators and
   ;; allowed variable characters
   (let ((table (make-syntax-table)))
     (modify-syntax-entry ?\r " " table)
@@ -829,23 +829,22 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (modify-syntax-entry ?\% "." table)
     (modify-syntax-entry ?| "."  table)
     (modify-syntax-entry ?\' "." table)
-    (modify-syntax-entry ?\` "w" table) ;apdl-mode abbreviation specifier,
+    (modify-syntax-entry ?\` "w" table) ; apdl-mode abbreviation specifier,
     ;; not an operator but "word".
-    (modify-syntax-entry ?_ "_"  table) ;in APDL symbol component
-    (modify-syntax-entry ?: "_"  table) ;APDL label specifier, not an operator
-    (modify-syntax-entry ?* "_"  table) ;APDL asterisk commands syntax clashing
-    ;; with algebraic operators but blink-matching-
-    ;; needs this
-    ;; (modify-syntax-entry ?/ "w"  table)         ;APDL slash commands
-    (modify-syntax-entry ?\! "<" table) ;APDL comment character
+    (modify-syntax-entry ?_ "_"  table) ; in APDL symbol component
+    (modify-syntax-entry ?: "_"  table) ; APDL label specifier, not an operator
+    (modify-syntax-entry ?* "_"  table) ; APDL asterisk commands syntax clashing
+    ;; with algebraic operators but blink-matching- needs this
+    ;; (modify-syntax-entry ?/ "w" table) ; APDL slash commands
+    (modify-syntax-entry ?\! "<" table) ; APDL comment character
     (modify-syntax-entry ?\n ">" table)
-    (modify-syntax-entry ?\" "w" table) ;`"' is *not* a string
-                                        ;delimeter for APDL
+    (modify-syntax-entry ?\" "w" table) ; `"' is *not* a string
+                                        ; delimeter for APDL
     (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
     ;; Normally APDL string delimiter, but might clash
     ;; with usages of genitives etc.!
-    (modify-syntax-entry ?~ "_" table) ;APDL connection commands, not
-                                        ;an operator
+    (modify-syntax-entry ?~ "_" table)  ; APDL connection commands,
+                                        ; not an operator
     table)
   "Syntax table in use in `apdl-mode' buffers.")
 
@@ -876,7 +875,7 @@ active, send it to the solver/interpreter"]
     :help "Close an open control block with the corresponding end command"]
    ["Insert Parentheses" insert-parentheses
     :help "Insert a pair of parentheses enclosing marked region
-(insert-parentheses)"];-FIXME- redundant, necessary for Emacs-23.1
+(insert-parentheses)"] ; -FIXME- redundant, necessary for Emacs-23.1
    ["Align region or paragraph" apdl-align
     :help "Align APDL variable definitions in a marked region or the current
 paragraph (apdl-align)"]
@@ -1279,8 +1278,8 @@ stopping the solver in the current working directory (apdl-abort-file)"]
   (save-excursion
     (beginning-of-line)
     (and (not (apdl-in-format-construct-p))
-         (looking-at apdl-number-line-regexp)))) ;"(" is for CMBLOCK
-                                        ;format string
+         (looking-at apdl-number-line-regexp)))) ; "(" is for CMBLOCK
+						 ; format string
 
 (defun apdl-default-command-p ()
   "Return t if in an APDL default command line."
@@ -1387,15 +1386,15 @@ GNU-Linux."
        (string= system-type "windows-nt")
        (string= system-type "cygwin"))))
 
-;;FIXME DEFSUBSTs with DEFUNs (apdl-position) inside aren't
-;;particularly speedy, are they?
+;; FIXME DEFSUBSTs with DEFUNs (apdl-position) inside aren't
+;; particularly speedy, are they?
 
 (defsubst apdl-in-comment-p ()
   "Return t if the cursor is inside an APDL comment.
 The cursor is either in a code comment or comment line."
   (save-excursion
     (nth 4 (parse-partial-sexp (apdl-position 'bol)
-                               (point))))) ;nth -- nth element of list
+                               (point))))) ; nth -- nth element of list
 
 (defsubst apdl-in-comment-line-p ()
   "Return t if the cursor is in a comment line."
@@ -1403,7 +1402,7 @@ The cursor is either in a code comment or comment line."
     (back-to-indentation)
     (looking-at "!")))
 
-(defsubst apdl-in-string-p () ;FIXME:are there strings defined in ansys?
+(defsubst apdl-in-string-p () ; FIXME:are there strings defined in ansys?
   "Return t if the cursor is inside an APDL string."
   (save-excursion
     (nth 3 (parse-partial-sexp (apdl-position 'bol) (point)))))
@@ -1453,20 +1452,7 @@ and P-MAX) otherwise align the current code paragraph."
   (interactive "r")
   (if mark-active
       (align p-min p-max)
-    (align-current))) ;align-current needs a mark
-
-;; (defvar solver-font-lock nil)
-
-;; (defun apdl-solver-mode () "Helper mode for the fontification of
-;;   the solver output" (interactive) (kill-all-local-variables) (setq
-;;   major-mode 'apdl-solver-mode) (setq mode-name "APDL-Solver") ;
-;;   mode line string (setq solver-font-lock
-;;   ;'("BEGIN:\\|PREP7:\\|SOLU_LS[0-9]+:\\|POST1:\\|POST26:\\|RUNSTAT:\
-;; \\|AUX2:\\|AUX3:\\|AUX12:\\|AUX15:"
-;;   ; 1 font-lock-warning-face) ) '("BEGIN:" "PREP7:"
-;;   "SOLU_LS[0-9]+:" "POST1:" "POST26:" "RUNSTAT:" "AUX2:" "AUX3:"
-;;   "AUX12:" "AUX15:") ) (setq font-lock-defaults
-;;   `(,solver-font-lock)) )
+    (align-current))) ; align-current needs a mark
 
 ;;;###autoload
 (defun apdl-mode ()
@@ -2084,9 +2070,9 @@ improvements you have the following options:
 
   (setq align-mode-rules-list apdl-align-rules-list)
   ;; (when (> apdl-highlighting-level 1)
-  ;;   (setq font-lock-multiline t)) ;for *msg, *vwrite,.. format strings
+  ;;   (setq font-lock-multiline t)) ; for *msg, *vwrite,.. format strings
 
-  (make-local-variable 'apdl-user-variable-regexp) ;for font-lock
+  (make-local-variable 'apdl-user-variable-regexp) ; for font-lock
   (setq apdl-user-variable-regexp nil)
 
   (make-local-variable 'parens-require-spaces)
@@ -2136,7 +2122,7 @@ improvements you have the following options:
   (setq outline-regexp (concat "!\\(" apdl-outline-string "\\)+"))
 
   ;; discrepancies from Emacs defaults
-  (apdl-font-lock-mode)                 ;switch on font-lock when it's toggled
+  (apdl-font-lock-mode)                 ; switch on font-lock when it's toggled
   ;;  (delete-selection-mode t)
   (toggle-truncate-lines 1)
   (show-paren-mode t)
@@ -2170,9 +2156,9 @@ improvements you have the following options:
                      (string= (file-name-extension (buffer-file-name)
                                                    'dot) ".mac"))
                  ;; 30 Mb bigger than file?
-                 (when (file-attributes (buffer-file-name)) ;open an
-                                        ;existing
-                                        ;file
+                 (when (file-attributes (buffer-file-name)) ; open an
+							    ; existing
+							    ; file
                    (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
                        t
                      (y-or-n-p "File is larger than 30 MB, switch on \
@@ -2191,7 +2177,7 @@ user variable highlighting? "))))))
   ;;   (if (>= apdl-highlighting-level 2)
   ;;       (when (or
   ;; 	     (when (not buffer-file-name)
-  ;; 	       t) ;skip below size query (buffer without a file)
+  ;; 	       t) ; skip below size query (buffer without a file)
   ;; 	     (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
   ;; 	     (y-or-n-p
   ;; "File is larger than 30 MB, switch on user variable highlighting? "))
@@ -2219,7 +2205,7 @@ user variable highlighting? "))))))
     (apdl-hide-number-blocks))
 
   ;; a-align needs a mark to work for an unspecified region
-  ;;(set-mark 0) -TODO-
+  ;; (set-mark 0) -TODO-
 
   ;; initialise system dependent stuff
   (apdl-initialise)
@@ -2276,7 +2262,7 @@ possible edits are lost."
 ;; ; (message "Set process environment variable AnsysLMD_LICENSE_FILE
 ;; to apdl-license-file")
 ;;     t)
-;;    (lic1                 ;need this for -license-status
+;;    (lic1                 ; need this for -license-status
 ;;     (setq apdl-license-file lic1)
 ;;     (message "Set apdl-license-file from AnsysLMD_LICENSE_FILE")
 ;;     (message "apdl-license-file=%s" lic1)
@@ -2311,14 +2297,14 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
   (unless arg (setq arg 1))
   (when (zerop arg)
     (error "Cannot mark zero paragraphs"))
-  (cond ((and allow-extend  ;we already called this function
+  (cond ((and allow-extend  ; we already called this function
               (or (and (eq last-command this-command) (mark t))
                   (and transient-mark-mode mark-active)))
          (forward-paragraph arg))
-        ((and (bolp) (eolp))      ;we are in an empty line
+        ((and (bolp) (eolp))      ; we are in an empty line
          (push-mark nil t t)
          (forward-paragraph arg))
-        (t    ;we are within a paragraph
+        (t    ; we are within a paragraph
          (backward-paragraph arg)
          (push-mark nil t t)
          (forward-paragraph arg))))
@@ -2394,20 +2380,20 @@ inserted or evaluated unless it is the SPC key."
        apdl-column-ruler-narrow)
      (line-beginning-position))))
 
-(defun apdl-position (position) ;FIXME: with `line-beginning-position' etc.
+(defun apdl-position (position) ; FIXME: with `line-beginning-position' etc.
   ;; redundant function
   "Return the value of point at certain POSITIONs."
   (save-excursion
     (cond
-     ((eq position 'bol)  (beginning-of-line)) ;line-beginning-position
-     ((eq position 'eol)  (end-of-line))       ;line-end-position
+     ((eq position 'bol)  (beginning-of-line)) ; line-beginning-position
+     ((eq position 'eol)  (end-of-line))       ; line-end-position
      ((eq position 'boi)  (back-to-indentation))
      ((eq position 'bonl) (forward-line 1))
      ((eq position 'bopl) (forward-line -1))
      (t (error "Unknown buffer position requested: %s" position)))
     (point)))
 
-(defun apdl-close-block () ;FIXME: choices for *IF
+(defun apdl-close-block () ; FIXME: choices for *IF
   "Complete an APDL block command with the appropriate end keyword.
 Insert the end keyword on a separate line.  An error is signaled
 if no block to close is found.  For example the *IF command
@@ -2415,7 +2401,7 @@ represents only a proper block command when it is followed by a
 THEN action label."
   (interactive "*")
   (let (bb-keyword str tmp)
-    (condition-case nil ;more pertinent error message -TODO-
+    (condition-case nil ; more pertinent error message -TODO-
         (progn
           (save-excursion
             (apdl-up-block)
@@ -2430,7 +2416,7 @@ THEN action label."
                      (buffer-substring-no-properties
                       (match-beginning 1) (match-end 1)) 0 3))))
           ;; prepare insertion of keyword
-          (setq str (car (reverse                 ;FIXME: uncomplete, why?
+          (setq str (car (reverse                 ; FIXME: uncomplete, why?
                           ;; RESTRICTED: asssoc-string Emacs 21.4
                           (assoc-string bb-keyword
                                         apdl-block-match-alist 1))))
@@ -2489,7 +2475,7 @@ Appying this function in the same line erases the help overlay.
 The help overlay will be automatically removed after some time
 interval."
   (interactive)
-  (let (;(ho (overlay-start apdl-help-overlay))
+  (let (; (ho (overlay-start apdl-help-overlay))
         (lb (line-beginning-position)))
     (if apdl-timer
         (cancel-timer apdl-timer))
@@ -2524,7 +2510,7 @@ changed.  Then call `apdl-show-command-parameters'."
         (lo (overlays-in (line-beginning-position)
                          (1- (line-beginning-position)))))
     (when (and (not (equal p apdl-parameter-help-position))
-               (not (equal 1 p))    ;-TODO- not working in the first line
+               (not (equal 1 p))    ; -TODO- not working in the first line
                (memq apdl-help-overlay lo))
       (setq apdl-parameter-help-position (point))
       (apdl-show-command-parameters 1))))
@@ -2547,7 +2533,7 @@ switch off the command parameters highlighting, with an prefix
 buffer, the beginning command characters can be completed with
 <TAB>."
   (interactive "p" )
-  (let ((case-fold-search t) ;in case customised to nil
+  (let ((case-fold-search t) ; in case customised to nil
         (count 0)
         substr
         tmpstr
@@ -2556,7 +2542,7 @@ buffer, the beginning command characters can be completed with
         length
         str)
     ;; enquire or search for a valid command name
-    (cond ((= ask-or-toggle 0))		;do nothing
+    (cond ((= ask-or-toggle 0))		; do nothing
           ((= ask-or-toggle 4)
            (setq str (completing-read
                       "Type APDL keyword to get its short help: "
@@ -2567,9 +2553,9 @@ buffer, the beginning command characters can be completed with
              (skip-chars-forward " !")
              (re-search-forward "[^[:space:]]\\w*\\>" nil t))
            (setq str (match-string-no-properties 0)))
-          ((apdl-in-indentation-p)  ; we are before a possible command
+          ((apdl-in-indentation-p)  ; we are possibly before a command
            ;; -TODO- strange bug, when cursor is in a line with only
-           ;; -commas and no command follows in lines below, then ;;
+           ;; -commas and no command follows in lines below, then
            ;; -match-string-no-properties bails out!?
            (save-excursion
              (re-search-forward "[^[:space:]]\\w*\\>" nil t)
@@ -2587,7 +2573,7 @@ buffer, the beginning command characters can be completed with
           (when (and (string-match (concat "^" str) s) (not (string= "" s)))
             (setq length (length s))
             ;; creating additional row with comma counts
-            (setq start (string-match "\n" s)) ;looking for the first line break
+            (setq start (string-match "\n" s)) ; looking for the first line break
             (setq substr (substring s (1+ start)))
             (setq tmpstr (mapconcat
                           (lambda (str)
@@ -2648,8 +2634,8 @@ buffer with the SPACE key."
          (completion-buffer (get-buffer-create buffer-name))
          (completion-window (get-buffer-window completion-buffer)))
     (if (and (eq last-command this-command)
-             completion-window ;already window there?
-             ;;window is visible
+             completion-window ; already window there?
+             ;; window is visible
              (window-live-p completion-window))
         ;; If this command was repeated, and
         ;; there's a fresh completion window with a live buffer,
@@ -2676,7 +2662,7 @@ buffer with the SPACE key."
        ((null completion)
         (message "\"%s\" can't be completed to an APDL symbol"
                  completion-string)
-        (if completion-window                 ;bury completion buffer
+        (if completion-window                 ; bury completion buffer
             (save-selected-window
               (select-window completion-window)
               (bury-buffer)))
@@ -2689,7 +2675,7 @@ buffer with the SPACE key."
         (kill-buffer completion-buffer))
 
        ;; unique or uniquely completable, case independent
-       ((= (length completion-list) 1) ;uniqe
+       ((= (length completion-list) 1) ; uniqe
         (setq completion (funcall cc completion))
         (unless (string= completion completion-string)
           (setq completion (funcall cc completion))
@@ -2700,7 +2686,7 @@ buffer with the SPACE key."
         (kill-buffer completion-buffer)
         (message "\"%s\" is a unique APDL symbol." completion))
 
-       ;;complete or not, but not unique anyway
+       ;; complete or not, but not unique anyway
        (t
         (setq completion (funcall cc completion))
         (unless (string= completion completion-string)
@@ -2729,8 +2715,8 @@ Hit SPACE to remove the "
                 (set-buffer (get-buffer completion-buffer))
                 ;; we are temporarily in the completion buffer
                 (setq key (read-key-sequence nil)
-                      first (aref key 0)) ;first key of key sequence
-                (and (consp first)                     ;is cons cell
+                      first (aref key 0)) ; first key of key sequence
+                (and (consp first)                     ; is cons cell
                      (consp (event-start first))
                      (eq
                       (window-buffer (posn-window (event-start first)))
@@ -2748,17 +2734,17 @@ Hit SPACE to remove the "
 ;;;; Electric characters & friends
 
 (defun apdl-reindent-then-newline-and-indent ()
-  ;; (&ptional non-matching) ;FIXME: docu
+  ;; (&ptional non-matching) ; FIXME: docu
   "Reindent current APDL line, insert newline, and indent the new line.
 If function `abbrev-mode' is on, expand the abbreviations first."
-  (interactive "*") ;* means signal error if read-only
+  (interactive "*") ; * means signal error if read-only
   (expand-abbrev)
   (apdl-blink-matching-block)
   (save-excursion
     (delete-region
      (point)
      (progn (skip-chars-backward " \t")
-            (point))) ;move trailing whitespace
+            (point))) ; move trailing whitespace
     (indent-according-to-mode))
   (insert "\n")
   (indent-according-to-mode))
@@ -2767,7 +2753,7 @@ If function `abbrev-mode' is on, expand the abbreviations first."
   "Insert a space in APDL-Mode.
 Maybe expand abbrevs and blink matching block open keywords.
 Reindent the line if `apdl-auto-indent-flag' is non-nil."
-  (interactive "*") ;error if read only
+  (interactive "*") ; error if read only
   (setq last-command-event ? )
   (cond ((and mark-active transient-mark-mode delete-selection-mode)
          (kill-region (point) (mark))
@@ -2797,30 +2783,30 @@ Reindent the line if `apdl-auto-indent-flag' is non-nil."
   (easy-menu-add apdl-task-menu-map apdl-mode-map)
   (easy-menu-add apdl-mode-menu-map apdl-mode-map))
 
-(defun apdl-calculate-indent ()   ;FIXME: comment, fixed goal column,
+(defun apdl-calculate-indent ()   ; FIXME: comment, fixed goal column,
   "Return appropriate indentation for current line as APDL code.
 Returns an integer (the column to indent to) unless the line is a
 comment line with fixed goal column.  In that case, returns a
 list whose car is the column to indent to, and whose cdr is the
 current indentation level."
-  (let ((column 0) ;column
-        (keyword_c 0) ;for specified commands
-        (comma_c nil) ;for default commands
-        lep ;line end predicate
-        lbp) ;line beginning pr.
+  (let ((column 0)    ; column
+        (keyword_c 0) ; for specified commands
+        (comma_c nil) ; for default commands
+        lep           ; line end predicate
+        lbp)          ; line beginning pr.
     ;; --- first for the previous code line ---
     (save-excursion
-      (when (zerop (apdl-previous-code-line)) ;otherwise at the first line
+      (when (zerop (apdl-previous-code-line)) ; otherwise at the first line
         (if (or (apdl-condensed-input-line-p)
                 (and (apdl-in-indentation-p)
                      (not (apdl-default-command-p))))
             (back-to-indentation)
-          (apdl-command-start)) ;skip to the beginning of an *msg and
-                                        ;default command
+          (apdl-command-start)) ; skip to the beginning of an *msg and
+				; default command
         (setq keyword_c (current-column))
         (cond
          ((looking-at apdl-block-begin-regexp)
-          (when (looking-at "\\*if.*,\\s-*then") ;*if base1 or base2
+          (when (looking-at "\\*if.*,\\s-*then") ; *if base1 or base2
             ;; must be THEN for being a block keyword
             (setq keyword_c (+ keyword_c apdl-block-offset))))
          ((looking-at apdl-block-else-regexp)
@@ -2831,17 +2817,17 @@ current indentation level."
           (when comma_c
             (setq lbp (line-beginning-position))
             (setq comma_c (- comma_c lbp))))
-         ((looking-at ",") ;-TODO-: shouldn't be possible
+         ((looking-at ",") ; -TODO-: shouldn't be possible
           (setq lep (line-end-position))
           (setq comma_c (1- (re-search-forward
-                             "," lep 'noerror))) ;excluding the comma
+                             "," lep 'noerror))) ; excluding the comma
           (when comma_c
             (setq lbp (line-beginning-position))
             (setq comma_c (- comma_c lbp)))))))
     ;; --- now for the current code line ---
     (save-excursion
       (back-to-indentation)
-      (if (apdl-first-line-p) ;we are at the first code line
+      (if (apdl-first-line-p) ; we are at the first code line
           (setq column (current-column))
         (cond
          ((and (looking-at apdl-block-else-regexp)
@@ -2850,12 +2836,12 @@ current indentation level."
          ((and (looking-at apdl-block-end-regexp)
                (apdl-not-in-string-or-comment-p))
           (setq column (- keyword_c apdl-block-offset)))
-         ((and (looking-at ",") ;APDL default command substitution
-               (apdl-not-in-string-or-comment-p)) ;FIXME:for *msg lines etc.?
+         ((and (looking-at ",") ; APDL default command substitution
+               (apdl-not-in-string-or-comment-p)) ; FIXME:for *msg lines etc.?
           (if comma_c
               (setq column comma_c)
             (setq column keyword_c)))
-         ((and (looking-at "\\s<\\w") ;FIXME:? this is for "code comments"
+         ((and (looking-at "\\s<\\w") ; FIXME:? this is for "code comments"
                (not (looking-at
                      ( concat
                        "\\(\\s<\\s<\\s-\\S<\\)\\|\\(\\^\\s<"
@@ -2875,11 +2861,11 @@ comment with fixed goal column."
   (unless arg (setq arg 1))
   (let ((icol (apdl-calculate-indent))
         (relpos (- (current-column) (current-indentation))))
-    (if (listp icol) ;FIXME: -calculate-indent returns no list
+    (if (listp icol) ; FIXME: -calculate-indent returns no list
         (setq icol (car icol))
       (setq icol (+ icol (1- arg))))
     (if (< icol 0)
-        (error "Unmatched end keyword") ;FIXME: this is probably wrong
+        (error "Unmatched end keyword") ; FIXME: this is probably wrong
       (indent-line-to icol)
       (if (> relpos 0)
           (move-to-column (truncate (+ icol relpos)))))))
@@ -2893,14 +2879,14 @@ If Abbrev mode is turned on, typing ` (grave accent) followed by ? or
 executed normally.
 Note that all APDL-Mode abbrevs start with a grave accent."
   (interactive)
-  ;;  (if (not abbrev-mode) ;FIXME: redundant with E22.?
+  ;;  (if (not abbrev-mode) ; FIXME: redundant with E22.?
   ;;      (self-insert-command 1)
   (let (c)
     (insert last-command-event)
     (if (or (eq (setq c (read-event)) ??)
             (eq c help-char))
         (list-abbrevs t)
-      (setq unread-command-events (list c))))) ;)
+      (setq unread-command-events (list c))))) ; )
 
 ;; ;; redefine function because of bug in Emacs 23.2 squashed in 23.3
 ;; (defun prepare-abbrev-list-buffer (&optional local)
@@ -2927,7 +2913,7 @@ The new line is properly indented."
   (cond
    ((apdl-in-comment-p)
     (indent-new-comment-line))
-   ((apdl-in-string-p) ;FIXME: there are no strings defined yet
+   ((apdl-in-string-p) ; FIXME: there are no strings defined yet
     (error "Cannot split a code line inside a string"))
    ((apdl-in-format-construct-p)
     (insert " &")
@@ -3040,9 +3026,9 @@ difference between NUM and actually moved code lines."
     (while (and (apdl-not-in-code-line-p)
                 (not (apdl-first-line-p)))
       (forward-line -1))
-    ;; (unless (apdl-first-line-p)                 ;in case we aren't at b-o-l
-    ;;   (beginning-of-line) ;for forward-comment
-    ;; (forward-comment (-(buffer-size))) ;and in case we are in a comment line
+    ;; (unless (apdl-first-line-p)                 ; in case we aren't at b-o-l
+    ;;   (beginning-of-line) ; for forward-comment
+    ;; (forward-comment (-(buffer-size))) ; and in case we are in a comment line
     ;; starting with Emacs 23.1 t-g-c might be a cons cell
     (move-to-column   (if (integerp temporary-goal-column)
                           (truncate temporary-goal-column)
@@ -3058,7 +3044,7 @@ difference between NUM and actually moved code lines."
   "Move cursor back to the beginning of a previous format command.
 Signal an error when there is no format command."
   (interactive)
-  (when (re-search-backward apdl-format-commands-regexp) ;signals error
+  (when (re-search-backward apdl-format-commands-regexp) ; signals error
     (back-to-indentation)))
 
 (defun apdl-move-to-end-of-format-string ()
@@ -3066,7 +3052,7 @@ Signal an error when there is no format command."
   (when (apdl-in-format-command-line-p)
     (forward-line))
   (while (and (apdl-continuation-line-p)
-              (= (forward-line 1) 0))) ;in case of wrong format at eof
+              (= (forward-line 1) 0))) ; in case of wrong format at eof
   (move-end-of-line 1))
 
 (defun apdl-move-before-comment()
@@ -3099,7 +3085,7 @@ When NUM is 0 move to the current code line indentation."
       (while (apdl-default-command-p)
         (forward-line -1))
       (end-of-line))
-     ((and (not (apdl-code-line-p))                 ;in empty line or comment
+     ((and (not (apdl-code-line-p))            ; in empty line or comment
            (not (= num 0))
            (not (apdl-first-line-p)))
       (beginning-of-line)
@@ -3107,11 +3093,11 @@ When NUM is 0 move to the current code line indentation."
      ((apdl-in-indentation-p)
       (if (apdl-first-line-p)
           (setq num -1)
-        (forward-comment (-(buffer-size))))) ;skips also \n!
+        (forward-comment (-(buffer-size))))) ; skips also \n!
      ((apdl-condensed-input-line-p)
-      (when (looking-back "\\$\\s-*" nil)  ;we are already before a $ sign
+      (when (looking-back "\\$\\s-*" nil)  ; we are already before a $ sign
         ;; -TODO- speed things with LIMIT?
-        (skip-chars-backward " \t$")) ;skip at or before the $ char
+        (skip-chars-backward " \t$")) ; skip at or before the $ char
       (if (re-search-backward "\\$\\s-*" (apdl-position 'bol) t)
           (skip-chars-forward "$ \t")
         (back-to-indentation))
@@ -3139,7 +3125,7 @@ then skip to the next code line's end."
           (setq num -1)
         (forward-comment (buffer-size))))
      ((or (apdl-in-format-command-line-p)
-          (apdl-in-format-construct-p)) ;not the format command line
+          (apdl-in-format-construct-p)) ; not the format command line
       (apdl-move-to-end-of-format-string)
       (setq num (1- num)))
      ((apdl-number-line-p)
@@ -3148,14 +3134,14 @@ then skip to the next code line's end."
      ((apdl-default-command-p)
       (apdl-default-command-end)
       (setq num (1- num)))
-     ((and (not (apdl-code-line-p)) ;in empty line or comment
+     ((and (not (apdl-code-line-p)) ; in empty line or comment
            (not (= num 0))
            (not (apdl-last-line-p)))
       (end-of-line)
       (forward-comment (-(buffer-size))))
      ((apdl-condensed-input-line-p)
-      (when (looking-at "\\s-*\\$")    ;we are already before a $ sign
-        (skip-chars-forward " \t$")) ;skip at or before the $ char
+      (when (looking-at "\\s-*\\$")    ; we are already before a $ sign
+        (skip-chars-forward " \t$"))   ; skip at or before the $ char
       (if (re-search-forward "\\s-*\\$" (apdl-position 'eol) t)
           (skip-chars-backward " \t$")
         (end-of-line))
@@ -3172,26 +3158,26 @@ Return the position thus found.  COUNT may be negative.
 
 If LEVEL-OFFSET is nonzero, the block level gets an offset of
 LEVEL-OFFSET."
-  (let ((min-level-offset (if (> level-offset 0) 0 level-offset)) ;level-offset
-        ;; can become large (we are going deeper
-        ;; down block levels) but never
-        ;; smaller than min-level-offset
+  (let ((min-level-offset (if (> level-offset 0) 0 level-offset)) ; level-offset
+        ;; can become large (we are going deeper down block levels)
+        ;; but never smaller than min-level-offset
         (inc (if (> count 0) 1 -1))
         (pt (point)))
     (save-excursion
       (while (/= count 0)
-        (catch 'foo ;end the inner while loop
+        (catch 'foo ; end the inner while loop
           (while (or (re-search-forward apdl-block-begin-or-end-regexp
-                                        nil t inc) ;FIXME:it's not working when
+                                        nil t inc) ; FIXME:it's not
+						   ; working when
                      ;; in a block regexp
                      (when (/= level-offset 0)
                        (error "Can't reach specified block level")))
             (unless (apdl-in-string-or-comment-p)
               (cond
                ((match-end 1) (setq level-offset
-                                    (+ level-offset inc))) ;begin-block-keywords
+                                    (+ level-offset inc))) ; begin-block-keywords
                ((match-end 2) (setq level-offset
-                                    (- level-offset inc)))) ;end-block-keywords
+                                    (- level-offset inc)))) ; end-block-keywords
               (when (< level-offset min-level-offset)
                 (if (< min-level-offset 0)
                     (error "Reached minimum block level: Can't go deeper")
@@ -3202,7 +3188,7 @@ LEVEL-OFFSET."
           (error "No block keyword found")
         (point)))))
 
-(defun apdl-mark-block ()     ;FIXME: this is not consistent with
+(defun apdl-mark-block ()     ; FIXME: this is not consistent with
   ;; mark-paragraph, cursor below construct
   "Mark current block level.
 Either inside of block structure or in the line of a block beginning
@@ -3229,7 +3215,7 @@ keyword."
   "Move forward across one balanced begin- and end-block keyword pair.
 With argument, do it that many times.  Negative ARG means move
 backward across |ARG| blocks."
-  (interactive "p") ;"p" defaults to 1 only when interactive
+  (interactive "p") ; "p" defaults to 1 only when interactive
   (unless arg (setq arg 1))
   (goto-char (or (apdl-scan-blocks arg 0)
                  (if (> arg 0)
@@ -3334,16 +3320,17 @@ Signal an error if the keywords are incompatible."
            (apdl-not-in-string-or-comment-p)
            (looking-at "\\>")
            (save-excursion
-             (skip-syntax-backward "w") ;FIXME: is * in word syntax?
-             (looking-at apdl-block-else-or-end-regexp))) ;FIXME: and otherwise?
+             (skip-syntax-backward "w") ; FIXME: is * in word syntax?
+             (looking-at apdl-block-else-or-end-regexp))) ; FIXME: and
+							  ; otherwise?
         (save-excursion
           (cond
-           ((match-end 1)                                  ;else keyword
+           ((match-end 1)                                 ; else keyword
             (setq eb-keyword
                   (buffer-substring-no-properties
                    (match-beginning 1) (match-end 1)))
             (apdl-up-block))
-           ((match-end 2)                                  ;end keyword
+           ((match-end 2)                                 ; end keyword
             (setq eb-keyword
                   (buffer-substring-no-properties
                    (match-beginning 2) (match-end 2)))
@@ -3352,7 +3339,7 @@ Signal an error if the keywords are incompatible."
           (setq pos (point)
                 bb-keyword (buffer-substring-no-properties
                             (match-beginning 0) pos)
-                ;; pos (1+ pos);FIXME: bb-arg is eating commas
+                ;; pos (1+ pos); FIXME: bb-arg is eating commas
                 eol (apdl-position 'eol)
                 bb-arg (save-excursion
                          (save-restriction
@@ -3411,7 +3398,7 @@ These constructs appear in WorkBench created solver input files."
       (re-search-forward "^-1\\|^cmsel\\|^d" nil nil)
       (setq p2 (point)
             lines (count-lines p1 p2))
-      (when (> lines 5) ;only hide blocks if larger then 5 lines
+      (when (> lines 5)  ; only hide blocks if larger then 5 lines
         (goto-char p1)
         (forward-line 3) ; show one line of numbers before markers
         (set-mark (point))
@@ -3435,19 +3422,19 @@ These constructs appear in WorkBench created solver input files."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (unless apdl-mode-abbrev-table
-  (let ((ac abbrevs-changed)) ;inhibit offer to save .abbrev_defs
+  (let ((ac abbrevs-changed)) ; inhibit offer to save .abbrev_defs
     (define-abbrev-table 'apdl-mode-abbrev-table ())
     (define-abbrev apdl-mode-abbrev-table
-      "`1" "finish\n/clear\n!y\n"  ) ;the first 1 one
-    (define-abbrev apdl-mode-abbrev-table "`i" ""      'ansys_if)        ;for if
-    (define-abbrev apdl-mode-abbrev-table "`d" ""      'ansys_do)        ;for do
+      "`1" "finish\n/clear\n!y\n"  ) ; the first 1 one
+    (define-abbrev apdl-mode-abbrev-table "`i" ""      'ansys_if)
+    (define-abbrev apdl-mode-abbrev-table "`d" ""      'ansys_do)
     (define-abbrev apdl-mode-abbrev-table
       "`p" "*dim,Dir,string,248 ! maximum of 248 characters!\nDir(1) = \
  '/HOME/uidg1626/development/report/ej/95ks91leg0/'\n\
 /syp,ls,Dir(1)\n") ; for path
     ;;    (define-abbrev apdl-mode-abbrev-table "`p" "" 'apdl-insert-pi)
     (define-abbrev apdl-mode-abbrev-table "`if" "" 'apdl-if)
-    (define-abbrev apdl-mode-abbrev-table "`ie" "" 'apdl-if-then) ;for IfThen
+    (define-abbrev apdl-mode-abbrev-table "`ie" "" 'apdl-if-then)
     (define-abbrev apdl-mode-abbrev-table "`do" "" 'apdl-do)
     (define-abbrev apdl-mode-abbrev-table "`e"
       "/eof ----------------------------------------\n"
@@ -3457,14 +3444,15 @@ These constructs appear in WorkBench created solver input files."
       '(lambda () (indent-according-to-mode)))
     (define-abbrev apdl-mode-abbrev-table "`t" "/title,"
       '(lambda () (indent-according-to-mode)))
-    (setq abbrevs-changed ac))) ;reset `abbrevs-changed' to previous state
+    (setq abbrevs-changed ac))) ; reset `abbrevs-changed' to previous
+				; state
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- Bug reporting ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-(defun apdl-submit-bug-report ()                 ;from Octave
+(defun apdl-submit-bug-report ()                 ; from Octave
   "Open an Emacs mail buffer with an APDL-Mode bug report."
   (interactive)
   (require 'reporter)
@@ -3476,7 +3464,7 @@ These constructs appear in WorkBench created solver input files."
   would be advantageous.")
       (reporter-submit-bug-report
        apdl-maintainer-address
-       "APDL-Mode" ;becomes prefix for the subject line
+       "APDL-Mode" ; becomes prefix for the subject line
        (list
         ;; constants
         'apdl-version_
@@ -3552,11 +3540,11 @@ These constructs appear in WorkBench created solver input files."
       (pop l))
     p))
 
-;;with pseudo arguments _a _b _c in case of usage as
-;;after-change-function.  Underscore before variable removes compiler
-;;warning about unused lexical variables.
+;; with pseudo arguments _a _b _c in case of usage as
+;; after-change-function.  Underscore before variable removes compiler
+;; warning about unused lexical variables.
 (defun apdl-find-user-variables (&optional _a _b _c)
-  ;;(defun apdl-find-user-variables ()
+  ;; (defun apdl-find-user-variables ()
   ;; fontification is not working!? -TODO-
   "Find all user variables in the current buffer.
 Pre-process the findings into the variables `apdl-user-variables'
@@ -3613,8 +3601,8 @@ Added pseudo arguments _A _B _C."
                           (< (cadr arg1) (cadr arg2))))))
         ;; make the regexp for fontification
         (setq res (mapcar 'car apdl-user-variables)
-              res (regexp-opt res 'symbols) ;words
-                                        ;inhibits variables ending in _!
+              res (regexp-opt res 'symbols) ; words inhibits variables
+					    ; ending in _!
               apdl-user-variable-regexp res)))))
 
 ;; in comments: ok
@@ -3709,7 +3697,7 @@ argument ARG, the function evaluates the variable at point."
       ;; insert variable lines
       (dolist (command apdl-user-variables)
         (setq old-num num
-              num (cadr command)                 ;cadr same as nth 1
+              num (cadr command)                 ; cadr same as nth 1
               com (apdl-copy-buffer-line current-buffer num)
               str (concat
                    (propertize (format "%5d | " num)

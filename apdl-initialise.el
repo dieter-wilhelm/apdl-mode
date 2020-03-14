@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-12 21:48:29 dieter>
+;; Time-stamp: <2020-03-14>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -218,7 +218,7 @@ return nil."
               (word-search-forward "AnsysLI_SERVERS=" nil t)
             (word-search-forward "SERVER=" nil t))
           (search-forward-regexp ".*" nil t)
-          (match-string-no-properties 0)) ;TODO: there's no check
+          (match-string-no-properties 0)) ; TODO: there's no check
       ;; against empty ini!
       (message "File %s not readable" ini)
       nil)))
@@ -283,7 +283,7 @@ AWP_ROOTXXX")
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default my-Company installation path
        ((file-readable-p cdir)
-        (setq cdir "/appl/ansys_inc/") ;FIXME: remove
+        (setq cdir "/appl/ansys_inc/") ; FIXME: remove
         (setq subdir
               (car
                (reverse
@@ -362,7 +362,7 @@ AWP_ROOTXXX")
       (let* ((idir apdl-ansys-install-directory)
              (exe
               (if apdl-is-unix-system-flag
-                  (concat idir "Framework/bin/Linux64/runwb2") ;150, 161
+                  (concat idir "Framework/bin/Linux64/runwb2") ; 150, 161
                 (concat idir "Framework/bin/Win64/RunWB2.exe" )))) ; 195
         (when (file-executable-p exe)
           (setq apdl-ansys-wb exe))
@@ -391,7 +391,7 @@ AWP_ROOTXXX")
                                                 force))
       (let* ((idir apdl-ansys-install-directory)
              (path (concat idir "commonfiles/help/en-us/help/")))
-        (if (file-readable-p path) ;path must be a string, not nil
+        (if (file-readable-p path) ; path must be a string, not nil
             (progn
               (setq apdl-ansys-help-path path)
               (message "Set apdl-ansys-help-path to %s" path))
@@ -435,7 +435,7 @@ AWP_ROOTXXX")
              (lfile "AnsysLMD_LICENSE_FILE")
              (lic (apdl-read-ansyslmd-ini nil))
              (lic1 (getenv lfile)) ; Ansys doesn't use LM_LICENSE_FILE
-             ;; corporate stuff ;-)
+             ;; corporate stuff
              (lic2 (if (file-readable-p "/appl/ansys_inc")
                        "32002@ls_fr_ansyslmd_ww_1.conti.de")))
         (cond
@@ -477,8 +477,8 @@ AWP_ROOTXXX")
           (setq apdl-ansysli-servers lic2)
           (message "Conti server: apdl-ansysli-servers=%s" lic2)
           (setenv lfile lic2))
-         (apdl-license-file ;Ansys assumes the following as the last
-                                        ;resort as well
+         (apdl-license-file ; Ansys assumes the following as the last
+			    ; resort as well
           ;; FIXME: but only in anslic_admin I think
           (setq apdl-ansysli-servers
                 (replace-regexp-in-string "[0-9]*@" "2325@" apdl-license-file))
@@ -501,8 +501,8 @@ example \"v201\".  The path is stored in the variable
   (interactive)
   (let* ((idir apdl-ansys-install-directory)
          (ndir
-          (expand-file-name                ;in case it was written ~
-           (file-name-as-directory         ;in case the slash is forgotten
+          (expand-file-name                ; in case it was written ~
+           (file-name-as-directory         ; in case the slash is forgotten
             (read-directory-name
              (concat "Specify the Ansys installation directory ["
                      idir "]:")
@@ -514,7 +514,7 @@ example \"v201\".  The path is stored in the variable
     (if (file-readable-p ndir)
         (progn
           (setq apdl-ansys-install-directory
-                (file-name-as-directory ndir)) ;ensure final slash
+                (file-name-as-directory ndir)) ; ensure final slash
           (message "Set apdl-ansys-install-directory to \"%s\"." ndir))
       (error "Ansys directory \"%s\" is not readable" ndir))
     (apdl-initialise 'force)

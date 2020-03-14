@@ -73,7 +73,7 @@ key and choose with the mouse 2 button."
          (new-buffer-name "*APDL-skeleton*")
          (skeleton-buffer
           (get-buffer-create new-buffer-name))
-         s  ;yellow indicator line in the preview buffer above content
+         s  ; yellow indicator line in the preview buffer above content
          ;; if skeleton window is visible in selected frame
          (visible  (get-buffer-window new-buffer-name nil))
          (skel-string
@@ -91,7 +91,7 @@ key and choose with the mouse 2 button."
     (cond ((= arg 1)
            (switch-to-buffer-other-window skeleton-buffer)
            (setq buffer-read-only nil)
-           (remove-overlays)    ;from beginnin and end of buffer
+           (remove-overlays)    ; from beginnin and end of buffer
            (setq apdl-skeleton-overlay (make-overlay 1 1))
            (kill-region (point-min) (point-max))
            (funcall (intern-soft skel))
@@ -2742,7 +2742,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 
 (define-skeleton apdl-skeleton-structural-template
   "Minimum working structural APDL template."
-  nil ;no interactor needed
+  nil ; no interactor needed
   '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
@@ -2784,7 +2784,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 
 (define-skeleton apdl-skeleton-contact-template
   "Minimum working structural contact APDL template."
-  nil        ;no interactor needed
+  nil        ; no interactor needed
   '(apdl-skeleton-header)
   "!@ ==============================" \n
   "!@ --- Preprocessing ---" \n
@@ -2985,11 +2985,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "
                    '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-                   nil ;predicate
-                   t ;require-match
-                   nil ;inital input
-                   nil ;history
-                   ;;default
+                   nil ; predicate
+                   t   ; require-match
+                   nil ; inital input
+                   nil ; history
+                   ;; default
                    "eq")
   ","
   (skeleton-read "Value/Parameter 2 [J]: ") | "J"
@@ -3033,11 +3033,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*if," str | "I" ","
   (completing-read "Operand [eq] (use TAB to complete): "
                    '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-                   nil ;predicate
-                   t ;require-match
-                   nil ;inital input
-                   nil ;history
-                   ;;default
+                   nil ; predicate
+                   t   ; require-match
+                   nil ; inital input
+                   nil ; history
+                   ;; default
                    "eq")
   ","
   (skeleton-read "Value/Parameter 2 [J]: ") | "J"
@@ -3055,16 +3055,16 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
    (completing-read
     "Operand [eq] (ne, lt, gt, le, ge, ablt, abgt, use TAB to complete): "
     '("eq" "ne" "lt" "gt" "le" "ge" "ablt" "abgt")
-    nil ;predicate
-    t ;require-match
-    nil ;inital input
-    nil ;history
-    ;;default
+    nil ; predicate
+    t   ; require-match
+    nil ; inital input
+    nil ; history
+    ;; default
     "eq")
    ","
    (read-string "Next Value/Parameter 2: ")
    ",then" _ >
-   \n) ;-- e o subskeleton
+   \n) ; -- e o subskeleton
   ;; else subskeleton
   '(if (y-or-n-p "*else construct? ")
        (insert "*else")) >
@@ -3096,7 +3096,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   > _ \n
   "*enddo" > \n)
 
-;; (define-apdl-skeleton apdl-mp ;FIXME: skeleton a bit over the top
+;; (define-apdl-skeleton apdl-mp ; FIXME: skeleton a bit over the top
 ;;   "Insert an if statement in the current format's syntax."
 ;;   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
 ;;                            "MP," str ","
@@ -3114,7 +3114,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 ;;                            \n)
 ;;   (mac . format))
 
-(define-skeleton apdl-mp ;FIXME: skeleton a bit over the top
+(define-skeleton apdl-mp ; FIXME: skeleton a bit over the top
   "Insert interactively an mp statement."
   "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
   "MP," str ","

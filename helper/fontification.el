@@ -100,7 +100,7 @@
 
 ;;; Code:
 
-(defconst Apdl_undocumented_commands    ;or macros?
+(defconst Apdl_undocumented_commands    ; or macros?
   '(
     "/WB"                     ; signify a WB generated input file
     "XMLO"
@@ -110,17 +110,17 @@
     "EBLOCK" "CMBLOCK" "NBLOCK" "/TRACK" "CWZPLOT" "~EUI"
     "NELE"   ; predecessor of NSLE, NELE (WorkBench 10.0 output) still
 ;; working in Ansys 11.0 though
-    "EALL"   ;esel,all? (WorkBench 10.0)
-    "NALL"   ;nsel,all? (WB 10.0)
-    "FLITEM" ;log command
+    "EALL"   ; esel,all? (WorkBench 10.0)
+    "NALL"   ; nsel,all? (WB 10.0)
+    "FLITEM" ; log command
     "LSLN"
     "PSOLVE"
     "ASLN"
-    "/VERIFY"                           ;verification run?
-    "/SSS"                              ;scale plot values /sss,3
-    "~CFIN"                             ;Ansys 11.0
-    "*EVAL"                             ;Ansys 11.0
-    "*MOONEY"                           ;Ansys 11.0
+    "/VERIFY"                           ; verification run?
+    "/SSS"                              ; scale plot values /sss,3
+    "~CFIN"                             ; Ansys 11.0
+    "*EVAL"                             ; Ansys 11.0
+    "*MOONEY"                           ; Ansys 11.0
     "/RUNSTAT"                          ; 13.0
     "ALPFILL"
     "ARCOLLAPSE"
@@ -128,7 +128,7 @@
     "ARFILL"
     "ARMERGE"
     "ARSPLIT"
-    "CEWRITE" ;.dat: ansys.net: write out constraint equations into jobname.ce
+    "CEWRITE" ; .dat: ansys.net: write out constraint equations into jobname.ce
     "FIPLOT"
     "GAPFINISH"
     "GAPLIST"
@@ -166,7 +166,7 @@
     "SLPPLOT"
     "SLSPLOT"
     "VCVFILL"
-    "/OPT"                              ;v14
+    "/OPT"                              ; v14
     "OPEQN"
     "OPFACT"
     "OPFRST"
@@ -222,7 +222,7 @@
     "TZAMESH"
     "TZDELE"
     "TZEGEN"
-    "XVAROPT"                    ;v14 end
+    "XVAROPT"                    ; v14 end
     "PGSAVE"
     "SOLCONTROL"
     "TOTAL"
@@ -250,8 +250,8 @@
     "POUTRES"
     "VTFREQ"
     "VTPOST"
-    "VTSL"                              ;end of 14.5
-    "FLDATA1-40"                        ;beginning of 15.0
+    "VTSL"                              ; end of 14.5
+    "FLDATA1-40"                        ; beginning of 15.0
     "HFPCSWP"
     "MSDATA"
     "MSVARY"
@@ -301,7 +301,7 @@
     "HFPA"
     "MSCAP"
     "MSTERM"
-    "PRSYZ"                             ;endo of v150
+    "PRSYZ"                             ; endo of v150
     )
   "APDL commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output
@@ -310,7 +310,7 @@ files, old macros or old APDL verification models.")
 (defconst Apdl_written_out_commands
   '(
     "*END" "*ENDIF"
-    "*ELSEIF"                         ;allows arguments behind it
+    "*ELSEIF"                         ; allows arguments behind it
     "*ENDDO" "/POST1" "/POST26" "/PREP7"
     )
   "Commands which aren't allowed to be abbreviated.
@@ -332,34 +332,34 @@ And the solver won't allow characters appended to.")
 (defconst Apdl_deprecated_elements_alist
   '(
     ("BEAM3"    . "BEAM188")
-    ("BEAM4"    . "BEAM188")            ;legacy v162, v201
+    ("BEAM4"    . "BEAM188")            ; legacy v162, v201
     ("BEAM23"   . "BEAM188")
     ("BEAM24"   . "BEAM188")
     ("BEAM44"   . "BEAM188")
     ("BEAM54"   . "BEAM188")
-    ("CONTAC12". "CONTA178")           ;v150; v201
-    ("CONTAC52". "CONTA178")           ;v162; v201
-    ("CONTA171". "CONTA172")		;archived v201
-    ("CONTA173". "CONTA174")		;archived v201
-    ("CONTA176". "CONTA177")		;archived v201
+    ("CONTAC12". "CONTA178")            ; v150; v201
+    ("CONTAC52". "CONTA178")            ; v162; v201
+    ("CONTA171". "CONTA172")		; archived v201
+    ("CONTA173". "CONTA174")		; archived v201
+    ("CONTA176". "CONTA177")		; archived v201
     ("COMBIN7"  . "MPC184")
-    ("FLUID79" . "Fluid29")             ;v150; v201
-    ("FLUID80" . "Fluid29")             ;v150; v201
-    ("FLUID81" . "Fluid29")             ;v150; v201
-    ("FLUID141" . "CFX")                ;v145
-    ("FLUID142" . "CFX")                ;v145
-    ("INFIN9"   . "INFIN110")           ;v14
-    ("INFIN47"  . "INFIN111")           ;v14
-    ("PIPE16"   . "PIPE288")            ;legacy v162, v201
-    ("PIPE18"   . "ELBOW290")           ;legacy v162, v201
-    ("PLANE13"  . "PLANE223")           ;v14
-    ("PLANE25"  . "PLANE272")           ;v14
-    ("PLANE42"  . "PLANE182")		;v201
-    ("PLANE53"  . "PLANE233")           ;v14
+    ("FLUID79" . "Fluid29")             ; v150; v201
+    ("FLUID80" . "Fluid29")             ; v150; v201
+    ("FLUID81" . "Fluid29")             ; v150; v201
+    ("FLUID141" . "CFX")                ; v145
+    ("FLUID142" . "CFX")                ; v145
+    ("INFIN9"   . "INFIN110")           ; v14
+    ("INFIN47"  . "INFIN111")           ; 14
+    ("PIPE16"   . "PIPE288")            ; egacy v162, v201
+    ("PIPE18"   . "ELBOW290")           ; egacy v162, v201
+    ("PLANE13"  . "PLANE223")           ; 14
+    ("PLANE25"  . "PLANE272")           ; 14
+    ("PLANE42"  . "PLANE182")		; 201
+    ("PLANE53"  . "PLANE233")           ; 14
     ("PLANE67"  . "PLANE223")
-    ("PLANE82"  . "PLANE183")		;v201
-    ("PLANE83"  . "SOLID273")           ;v14
-    ("PLANE145" . "-")                  ;p-elements are out in 13.0
+    ("PLANE82"  . "PLANE183")		; 201
+    ("PLANE83"  . "SOLID273")           ; 14
+    ("PLANE145" . "-")                  ; -elements are out in 13.0
     ("PLANE146" . "-")
     ("CONTAC12" . "CONTA178")
     ("CONTAC52" . "CONTA178")
@@ -371,25 +371,25 @@ And the solver won't allow characters appended to.")
     ("PIPE17"   . "PIPE288")
     ("PIPE18"   . "ELBOW290")
     ("PIPE20"   . "PIPE288")
-    ("PIPE59"   . "PIPE288")		;archived v201
+    ("PIPE59"   . "PIPE288")		; archived v201
     ("PIPE60"   . "ELBOW290")
-    ("SHELL41"  . "SHELL181")          ;v14
+    ("SHELL41"  . "SHELL181")           ; v14
     ("SHELL43"  . "SHELL181")
     ("SHELL57"  . "SHELL131")
-    ("SHELL63"  . "SHELL181")		;archived v201
+    ("SHELL63"  . "SHELL181")		; archived v201
     ("SHELL91"  . "SHELL281")
     ("SHELL93"  . "SHELL281")
     ("SHELL99"  . "SHELL281")
-    ("SHELL150" . "-")                 ;p-elements are out in 13.0
-    ("SOLID5"   . "SOLID226")            ;v14
-    ("SOLID45"  . "SOLID185")		 ;archived v201
+    ("SHELL150" . "-")                   ; p-elements are out in 13.0
+    ("SOLID5"   . "SOLID226")            ; v14
+    ("SOLID45"  . "SOLID185")		 ; archived v201
     ("SOLID46"  . "SOLID185")
-    ("SOLID65" .  "SOLID185")          ;v145; v201
+    ("SOLID65" .  "SOLID185")            ; v145; v201
     ("SOLID69"  . "SOLID226")
-    ("SOLID92"  . "SOLID187")		;archived v201
-    ("SOLID95"  . "SOLID186")		;archived v201
-    ("SOLID117" . "SOLID236")          ;v14
-    ("SOLID127" . "-")                 ;p-elements are out in 13.0
+    ("SOLID92"  . "SOLID187")		 ; archived v201
+    ("SOLID95"  . "SOLID186")		 ; archived v201
+    ("SOLID117" . "SOLID236")            ; v14
+    ("SOLID127" . "-")                   ; p-elements are out in 13.0
     ("SOLID128" . "-")
     ("SOLID147" . "-")
     ("SOLID148" . "-")
@@ -399,7 +399,7 @@ And the solver won't allow characters appended to.")
     ("VISCO106" . "PLANE182")
     ("VISCO107" . "SOLID185")
     ("VISCO108" . "PLANE183")
-    ("TRANS109" . "PLANE223")          ;v14
+    ("TRANS109" . "PLANE223")          ; v14
     )
   "Association list of deprecated element types with their proposed successor.")
 
@@ -410,7 +410,7 @@ And the solver won't allow characters appended to.")
 ;;         (concat "\\<\\(" name "\\)\\>")
 ;;         1
 ;;         'font-lock-variable-name-face
-;;         'keep               ;do not overwrite comment-faces
+;;         'keep               ; do not overwrite comment-faces
 ;;         ))
 ;;        list))
 
@@ -523,9 +523,9 @@ command strings"
       (setq l (length M))
       (cond ((written_out_p M)
 	     (setq tmp_list (cons M tmp_list)))
-	    ((<= l 4)               ;shorter stuff
+	    ((<= l 4)               ; shorter stuff
 	     (setq tmp_list (cons M tmp_list)))
-	    (t ;;long command names
+	    (t ;; long command names
 	     (setq tmp (make_unique M List)
 		   tmp_list (cons tmp tmp_list)))))))
 
@@ -548,15 +548,15 @@ allows characters appended behind."
     (message "Preparing APDL font lock 2 strings...")
     (dolist (M List)
       (setq l (length M))
-      (cond  ;written out stuff
+      (cond  ; written out stuff
        ((written_out_p M)
 	(setq list_a (cons M list_a)))
-       ((< l 4)               ;short stuff
+       ((< l 4)               ; short stuff
 	(setq list_a (cons M list_a)))
 ;; variable ending stuff
        ((= l 4)
 	(setq tmp_list (cons M tmp_list)))
-       (t ;;the rest, longer command names
+       (t ;; the rest, longer command names
 	(setq tmp (make_unique M List)
 	      l2 (length tmp)
 	      tmp (Overlapping M l2)
@@ -626,7 +626,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
-					;(write-file "keyw+promt.txt")
+					; (write-file "keyw+promt.txt")
     (goto-char (point-min))
     (while (re-search-forward "^\\(.\\w*\\>\\).*\n\\1.*" nil t)
       (add-to-list 'list (match-string 0) 'append)))
@@ -639,7 +639,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (set-buffer buffer)
   (goto-char (point-min))
   (insert "(defconst apdl-dynamic-prompt\n'")
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 list buffer)
   (insert "\n\"Help strings for the parameters of APDL keywords.\")\n\n")
   (message "command parameter help...done")
@@ -653,7 +653,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
 ;; 2.) from unique to full name
 
 
-  (setq list ())               ;initialise list
+  (setq list ())               ; initialise list
   (with-temp-buffer
     (insert-file-contents "apdl_keywords.txt")
 ;;    (setq sort-fold-case t)
@@ -670,7 +670,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (setq commands-1 (append commands Apdl_undocumented_commands))
 ;;  (debug)
   (insert "(defconst apdl-command-regexp\n")
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 (regexp-opt (Prepare_list commands-1))
 	 buffer)
   (insert "\n\"APDL short keyword name regexp.\")\n\n")
@@ -689,17 +689,17 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
 	list1 (car list)
 	list2 (nth 1 list)
 	list3 (nth 2 list)
-	list1 (regexp-opt list1)     ;written out stuff
+	list1 (regexp-opt list1)     ; written out stuff
 	list2 (regexp-opt list2)
 	list3 (regexp-opt list3))
   (insert "(defconst apdl-command-regexp-2a\n")
   (prin1 list1 buffer)
   (insert "\n\"APDL keyword name regexp 2a.\")\n\n")
-;;
+
   (insert "(defconst apdl-command-regexp-2b\n")
   (prin1 list2 buffer)
   (insert "\n\"APDL keyword name regexp 2b.\")\n\n")
-;;
+
   (insert "(defconst apdl-command-regexp-2c\n")
   (prin1 list3 buffer)
   (insert "\n\"APDL keyword name regexp 2c.\")\n\n")
@@ -708,7 +708,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
 ;; ---------- Ansys elements ----------
 
 ;; --- regular elements ---
-  (setq list ())               ;initialise list
+  (setq list ())               ; initialise list
   (with-temp-buffer
     (insert-file-contents "apdl_elements.txt")
 ;;    (setq sort-fold-case t)
@@ -717,12 +717,12 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
     (goto-char (point-min))
     (while (re-search-forward "^\\w+\\>" nil t)
       (add-to-list 'list (match-string 0) 'append)))
-  (setq elements list)          ;needed for completion list
+  (setq elements list)          ; needed for completion list
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
 	   "(defconst apdl-element-regexp\n"))
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 (regexp-opt list 'words) buffer)
   (insert "\n\"APDL elements regexp.\")\n\n")
   (beginning-of-defun)
@@ -732,7 +732,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (goto-char (point-min))
   (insert (concat
 	   "(defconst apdl-deprecated-element-regexp\n"))
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
   (prin1 (regexp-opt deprecated-elements 'words) buffer)
   (insert "\n\"APDL deprecated elements regexp.\")\n\n")
@@ -742,7 +742,7 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
   (goto-char (point-min))
   (insert (concat
 	   "(defconst apdl-deprecated-element-alist\n'"))
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (setq deprecated-elements (mapcar 'car Apdl_deprecated_elements_alist))
   (prin1 Apdl_deprecated_elements_alist buffer)
   (insert "\n\"Association list for APDL deprecated elements.
@@ -753,7 +753,7 @@ Together with their proposed replacements.\")\n\n")
 
 ;; ---------- get functions ----------
 
-  (setq list ())               ;initialise list
+  (setq list ())               ; initialise list
   (with-temp-buffer
     (insert-file-contents "apdl_get_functions.txt")
 ;;    (setq sort-fold-case t)
@@ -762,12 +762,12 @@ Together with their proposed replacements.\")\n\n")
     (goto-char (point-min))
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
-  (setq get-functions list)     ;we need this variable for the completions!
+  (setq get-functions list)     ; we need this variable for the completions!
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
 	   "(defconst apdl-get-function-regexp\n"))
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 (regexp-opt get-functions) buffer)
   (insert "\n\"APDL get function regexp.\")\n\n")
   (beginning-of-defun)
@@ -776,7 +776,7 @@ Together with their proposed replacements.\")\n\n")
 
 ;; ---------- parametric functions ----------
 
-  (setq list ())               ;initialise list
+  (setq list ())               ; initialise list
   (with-temp-buffer
     (insert-file-contents "apdl_parametric_functions.txt")
 ;;    (setq sort-fold-case t)
@@ -785,12 +785,12 @@ Together with their proposed replacements.\")\n\n")
     (goto-char (point-min))
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
-  (setq parametric-functions list) ;we need this later for completions!
+  (setq parametric-functions list) ; we need this later for completions!
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
 	   "(defconst apdl-parametric-function-regexp\n"))
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 (regexp-opt parametric-functions) buffer)
   (insert "\n\"APDL parametric function regexp.\")\n\n")
   (beginning-of-defun)
@@ -809,7 +809,7 @@ Together with their proposed replacements.\")\n\n")
   (setq parametric-functions
 	(mapcar #'(lambda (s) (concat s "()")) parametric-functions))
   (insert "(defconst apdl-completions\n'")
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 (append
 	  elements
 	  deprecated-elements
@@ -831,7 +831,7 @@ By default APDL keywords, get-functions, parametric-function and elements
 
   (message "starting help index.")
   (with-temp-buffer
-    (setq list ())               ;initialise list
+    (setq list ())               ; initialise list
     (insert-file-contents "ansys_Index.hlp")
 ;; clean up redundant keywords
     (delete-matching-lines "^Hlp")
@@ -845,7 +845,7 @@ By default APDL keywords, get-functions, parametric-function and elements
 ;; (while (re-search-forward "^Hlp_G" nil t)
 ;;   (replace-match "G" nil nil))
 ;; (goto-char (point-min))
-;; (while (re-search-forward "^Hlp_R" nil t) ;releas notes
+;; (while (re-search-forward "^Hlp_R" nil t) ; release notes
 ;;   (replace-match "R" nil nil))
 ;; (goto-char (point-min))
 
@@ -892,7 +892,7 @@ By default APDL keywords, get-functions, parametric-function and elements
   (goto-char (point-min))
   (insert (concat
 	   "(defconst apdl-help-index\n'"))
-  (setq print-length nil)          ;nil: print all members of list
+  (setq print-length nil)          ; nil: print all members of list
   (prin1 list buffer)
   (insert "\n\"Ansys help index alist.\")\n\n")
   (beginning-of-defun)
@@ -944,7 +944,6 @@ By default APDL keywords, get-functions, parametric-function and elements
 ;;; fontification.el ends here
 
 ;; Local Variables:
-;; mode: flycheck
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
 ;; time-stamp-active: t

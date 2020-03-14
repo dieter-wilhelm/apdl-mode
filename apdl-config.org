@@ -98,7 +98,7 @@ load this file in the init file with `(load-file
 
 #+RESULTS:
 
-* Important Prerequisites
+* COMMENT Important Prerequisites
 ** COMMENT Finding APDL-Mode
 If the APDL-Mode files (the files with the suffix /.el/) are *not*
 placed in a default Emacs load path.  Please see the variable
@@ -129,7 +129,7 @@ for a Windows system or
 (add-to-list 'load-path "/usr/local/src/emacs/apdl-mode")
 #+END_SRC
 for a GNU-Linux system.
-** Installed Ansys version and installation path
+** COMMENT Installed Ansys version and installation path
 
 #+BEGIN_SRC emacs-lisp
 (cond ((string= window-system "x")
@@ -160,7 +160,7 @@ PATHS' further below.
 
 #+END_SRC
 
-* File suffixes for loading APDL-Mode
+* File suffixes for auto loading APDL-Mode
 Configure your file suffixes for which Ansys mode is automatically
 called for.
 ** Macro files
@@ -190,7 +190,7 @@ gometric data but also some APDL snippets. These files are used for
 imports, see the file /example.anf/ in the /doc/ folder.
 
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+  (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
@@ -220,13 +220,13 @@ imports, see the file /example.anf/ in the /doc/ folder.
   of a code structure when creating a new file with any suffix in the
   ~auto-mode-alist~ for ~apdl-mode~, please see above section).
 #+BEGIN_SRC emacs-lisp
-  (auto-insert-mode 1)            ; insert automatically templates
+  (auto-insert-mode 1)         ; insert automatically templates
   (add-hook 'find-file-hook 'auto-insert) ; when opening new files
   (setq auto-insert-query t)   ; ask before insertion of an APDL
                                ; template
   (add-to-list 'auto-insert-alist
      '(apdl-mode . [apdl-skeleton-outline-template])) ;which template
-                                                        ;to insert
+                                                      ;to insert
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
@@ -245,9 +245,17 @@ imports, see the file /example.anf/ in the /doc/ folder.
 
 * Miscellaneous
 
-  #+BEGIN_SRC emacs-lisp
+  #+BEGIN_SRC emacs-lisp :tangle yes
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                            ;; Miscellaneous
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
   (setq apdl-parameter-help-duration "2 min")
   (setq apdl-parameter-help-duration 30) ; 30 seconds
+
+  ;; if you want to read the manual in GNU-Emacs' EWW browser
+  ; (setq browse-url-browser-function 'eww-browse-url)
+
   #+END_SRC
 
 * COMMENT Autoloading (became obsolete with the packaging system)
@@ -297,7 +305,7 @@ imports, see the file /example.anf/ in the /doc/ folder.
   code sections:
 
 #+BEGIN_SRC emacs-lisp
-(add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
+  (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -322,7 +330,7 @@ files (but only when apdl-highlighting-level is set to 2, see
 below).
 #+BEGIN_SRC emacs-lisp
 (setq apdl-dynamic-highlighting-flag nil)
-(setq apdl-dynamic-highlighting-flag t) ;default: t
+; (setq apdl-dynamic-highlighting-flag t) ;default: t
 
 #+END_SRC
 ** Decoration levels
@@ -331,7 +339,7 @@ only in level 2 available (statical, if above flag is not set), the
 current default is 2
 
 #+BEGIN_SRC emacs-lisp
-(setq apdl-highlighting-level 1) ;default: 2
+(setq apdl-highlighting-level 1) ; default: 2
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -347,8 +355,8 @@ current default is 2
 ;; files (but only when apdl-highlighting-level is set to 2, see
 ;; below).
 
-;(setq apdl-dynamic-highlighting-flag nil)
-;(setq apdl-dynamic-highlighting-flag t) ;default
+; (setq apdl-dynamic-highlighting-flag nil)
+; (setq apdl-dynamic-highlighting-flag t) ; default
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) of user variables and decoration
@@ -356,7 +364,7 @@ current default is 2
 ;; in level 2 available (statical, if above flag is not set), the
 ;; default is 2
 
-;(setq apdl-highlighting-level 1) ; default: 2
+; (setq apdl-highlighting-level 1) ; default: 2
 
 #+END_SRC
 * Ansys installation paths
@@ -371,13 +379,10 @@ example below:
   (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
   ;; on windows systems (note the slash before c:!)
   (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
-  (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/winx64/launcher")  
-  (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")  
+  (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/winx64/launcher")
+  (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")
   (setq apdl-ansys-program "/appl/ansys_inc/19.3.0/ansys/bin/ansys195")
   (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
-
-  ;; if you want to read the manual in GNU-Emacs' EWW browser
-  (setq browse-url-browser-function 'eww-browse-url)
 
 #+END_SRC
 
@@ -392,19 +397,16 @@ example below:
 
   ; (setq apdl-help-program
   ;   "/appl/ansys_inc/16.2.0/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
-  ; ;;the Ansys path to the help viewer looks normally like this:
+  ; ;; the Ansys path to the help viewer looks normally like this:
   ; ;; "/INSTALL_DIRECTORY/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
-  ;; ;; on windows systems (note the slash before c:!)
-  ;; (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
+  ; ;; on windows systems (note the slash before c:!)
+  ; (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
 
   ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
-  ; (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/launcher162")  
-  ; (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")  
+  ; (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/launcher162")
+  ; (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")
   ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v195/ansys/bin/ansys162")
   ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
-
-  ;; if you want to read the manual in GNU-Emacs' EWW browser
-  ;(setq browse-url-browser-function 'eww-browse-url)
 
 #+END_SRC
 
@@ -439,37 +441,37 @@ example below:
    On GNU-Linux GNU-Linux: License servers are separated by colons
    (":"), on Windows with semicolon ";".  1055 is the default port.
 
- the following variable APDL-Mode is
-   checking the environment variables AnsysLMD_LICENSE_FILE and
-   MD_LICENSE_FILE.
+   the following variable APDL-Mode is checking the environment
+   variables AnsysLMD_LICENSE_FILE and MD_LICENSE_FILE.
 
-#+BEGIN_SRC emacs-lisp
-(setq apdl-license-file
-  "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")
-#+END_SRC
-since Ansys 12.0 there is an intermediate server for the communication
-between flexlm and Ansys WorkBench, 2325 is here the default port.
-But the solver/interpreter is checking this server as well!?
+   #+BEGIN_SRC emacs-lisp
+     (setq apdl-license-file
+       "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")
+   #+END_SRC
 
-#+BEGIN_SRC emacs-lisp
-(setq apdl-ansysli-servers
-   "2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com")
-#+END_SRC
+   since Ansys 12.0 there is an intermediate server for the communication
+   between flexlm and Ansys WorkBench, 2325 is here the default port.
+   But the solver/interpreter is checking this server as well!?
+
+   #+BEGIN_SRC emacs-lisp
+   (setq apdl-ansysli-servers
+      "2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com")
+   #+END_SRC
 
 ** Solver options
    Number of cores for the run: 4 does not require HPC licenses
    #+BEGIN_SRC emacs-lisp
-   (setq apdl-no-of-processors 8) ;default: 4
+     (setq apdl-no-of-processors 8) ;default: 4
    #+END_SRC
 
    Which license type to use for the solver
    #+BEGIN_SRC emacs-lisp
-   (setq apdl-license "ansys") ;default: "struct"
+     (setq apdl-license "ansys") ;default: "struct"
    #+END_SRC
 
    Ansys job name
    #+BEGIN_SRC emacs-lisp
-   (setq apdl-job "otto"); default: "file"
+     (setq apdl-job "otto"); default: "file"
    #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
@@ -484,15 +486,15 @@ But the solver/interpreter is checking this server as well!?
 
    ;; for starting the solver & apdl-license-status & Ansys help
 ;  (setq                 ;
-   ;; license servers (or license file name)nn
-   ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
-   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
+;   ;; license servers (or license file name)nn
+;   ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
+;   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
 ;   apdl-license-file
 ;  "32002@ls_fr_ansyslmd_ww_1.conti.de"
 ;   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
-   ;; since Ansys 12.0 there is an intermediate server for
-   ;; the communication between flexlm and Ansys, 2325 is the default port
+;   ;; since Ansys 12.0 there is an intermediate server for
+;   ;; the communication between flexlm and Ansys, 2325 is the default port
 ;   apdl-ansysli-servers
 ;  "2325@ls_fr_ansyslmd_ww_1.conti.de"
 ;  "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
@@ -503,23 +505,23 @@ But the solver/interpreter is checking this server as well!?
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Number of cores for the run, 4 does not require HPC licenses
-  ;(setq apdl-no-of-processors 8) ;default: 4
+  ; (setq apdl-no-of-processors 8) ; default: 4
 
   ;;  which license type to use for the solver
-  ;(setq apdl-license "ansys") ;default: "struct"
+  ; (setq apdl-license "ansys") ; default: "struct"
 
   ;; Ansys job name
-  ;(setq apdl-job "otto"); default: "file"
+  ; (setq apdl-job "otto"); default: "file"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                               ;; The End
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'apdl-config)
+
 ;;; apdl-config.el ends here
 
 #+END_SRC
-
 -----
 
 # Local Variables:

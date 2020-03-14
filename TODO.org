@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-12>
+#+DATE: Time-stamp: <2020-03-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,9 +21,7 @@
      does it for local help?
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
-   - Ansys Classics can't be started and with the launcher
 ** minor bugs
-   - Remove times stamp in *License* buffer when updating with `g'.
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type
@@ -45,6 +43,7 @@
        -process.el
        -template.el
        -mode.el
+       (tags-search ";[^; ]")
     2) open EWW in another window!
     3) why initialising anew any time -mode is called?
     4) find nice style css stuff for html export?

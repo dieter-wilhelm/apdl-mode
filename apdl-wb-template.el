@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-12>
+;; Time-stamp: <2020-03-14>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -64,7 +64,7 @@ key and choose with the mouse 2 button."
          (new-buffer-name "*APDL-skeleton*")
          (skeleton-buffer
           (get-buffer-create new-buffer-name))
-         s  ;yellow indicator line in the preview buffer above content
+         s  ; yellow indicator line in the preview buffer above content
          ;; if skeleton window is visible in selected frame
          (visible  (get-buffer-window new-buffer-name nil))
          (skel-string
@@ -82,7 +82,7 @@ key and choose with the mouse 2 button."
     (cond ((= arg 1)
            (switch-to-buffer-other-window skeleton-buffer)
            (setq buffer-read-only nil)
-           (remove-overlays) ;from beginnin and end of buffer
+           (remove-overlays) ; from beginnin and end of buffer
            (setq apdl-skeleton-overlay (make-overlay 1 1))
            (kill-region (point-min) (point-max))
            (funcall (intern-soft skel))

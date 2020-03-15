@@ -261,7 +261,7 @@ customisation variables"
   (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))
 
   ;; 1) -install-directory (with Ansys version information)
-  (when (null apdl-ansys-install-directory)
+  (unless apdl-ansys-install-directory
     (let* ((cdir "/appl/ansys_inc/")
            (path (apdl-find-path-environment-value))
            (dir (if (null path)
@@ -346,7 +346,7 @@ AWP_ROOTXXX")
     ;; 3) -program
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-program) force))
       (let* ((version1 (remove ?v apdl-current-ansys-version))
-             (idir (unless (null apdl-ansys-install-directory)
+             (idir (when apdl-ansys-install-directory
                      (file-name-directory apdl-ansys-install-directory)))
              (exe (if apdl-is-unix-system-flag
                       (concat idir "ansys/bin/ansys" version1)
@@ -372,7 +372,7 @@ AWP_ROOTXXX")
 
     ;; 5) -launcher
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-launcher) force))
-      (let* ( (idir (unless (null apdl-ansys-install-directory)
+      (let* ( (idir (when  apdl-ansys-install-directory
                       (file-name-directory apdl-ansys-install-directory)))
               (exe
                ;; since v19 there is no launcher191.exe, only launcher.exe...
@@ -430,7 +430,7 @@ AWP_ROOTXXX")
           (message "%s" "Couldn't find an executable for apdl-lmutil-program"))))
 
     ;; 9) -license-file
-    (when (null apdl-license-file)
+    (unless apdl-license-file
       (let* (
              (lfile "AnsysLMD_LICENSE_FILE")
              (lic (apdl-read-ansyslmd-ini nil))
@@ -457,7 +457,7 @@ AWP_ROOTXXX")
            "Found no default apdl-license-file from environment or ini file")))))
 
     ;; 10) -ansysli-servers, the Interconnect license server(s)
-    (when (null apdl-ansysli-servers)
+    (unless apdl-ansysli-servers
       (let* (
              (lfile "AnsysLI_SERVERS")
              (lic (apdl-read-ansyslmd-ini t))

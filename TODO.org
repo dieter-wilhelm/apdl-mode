@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-14>
+#+DATE: Time-stamp: <2020-03-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,14 +15,18 @@
 
 #+title: The TODO file of APDL-Mode
 
-* TODO Version 20.X
+* TODO Version 20.3
 ** Todos, bugs
+   - Check the LICENSES file links!
+   - Check templates (formatting changed strongly!)
+   - Update and centralise DOCUs
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
      does it for local help?
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
 ** minor bugs
-   - what is doc/default.org?
+   - what is doc/default.org? configuration for /usr/share/emacs/site-lisp.
+     => remove from package and put it in .gitignore
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type
@@ -58,20 +62,22 @@
      using?
 ** Release proceedures
    Attention: in apdl_keywords.txt there are many whitespace
-   delete-trailing-whitespace
+   (delete-trailing-whitespace)
 
    package-lint
      - problems with prefix names and default key bindings...
    checkdoc, flycheck etc. : from makefile
+
+    # for _mode_version
+    (tags-query-replace "20\.2\.0" "20.2.1")
     # copyright year
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
     (tags-query-replace "v195" "v201")
     # emacs
     (tags-query-replace "26\.3" "27.1")
-    # for _mode_version
-    (tags-query-replace "20\.2\.0" "20.2.1")
-    # (tags-query-replace "ansys+emacs.png" "ansys+emacs2020.png")
+    (tags-search "((emacs \"25.1\"))")
+    # (tags-query-replace "((emacs \"25\"))" "((emacs \"25.1\"))")
     # (tags-query-replace "ansys+emacs2020.png" "ansys+emacs2020-03.png")
     # (tags-query-replace "ANSYS" "Ansys")
 

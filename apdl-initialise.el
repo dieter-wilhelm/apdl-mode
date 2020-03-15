@@ -1,11 +1,11 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-14>
+;; Time-stamp: <2020-03-15>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.2.0
-;; Package-Requires: ((emacs "25"))
+;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, extensions
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
 

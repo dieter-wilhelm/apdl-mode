@@ -2486,9 +2486,9 @@ interval."
     (setq apdl-timer
           (run-at-time
            apdl-parameter-help-duration nil
-           '(lambda ()
-              (when (overlayp apdl-help-overlay)
-                (delete-overlay apdl-help-overlay)))))))
+           (lambda ()
+	     (when (overlayp apdl-help-overlay)
+	       (delete-overlay apdl-help-overlay)))))))
 
 (defun apdl-search-comma (str count)
   "Return the index of the COUNT's occurance of a comma in STR.
@@ -3438,12 +3438,12 @@ These constructs appear in WorkBench created solver input files."
     (define-abbrev apdl-mode-abbrev-table "`do" "" 'apdl-do)
     (define-abbrev apdl-mode-abbrev-table "`e"
       "/eof ----------------------------------------\n"
-      '(lambda () (indent-according-to-mode)))
+      (lambda () (indent-according-to-mode)))
     (define-abbrev apdl-mode-abbrev-table
       "`c" "!! ========================================\n"
-      '(lambda () (indent-according-to-mode)))
+      (lambda () (indent-according-to-mode)))
     (define-abbrev apdl-mode-abbrev-table "`t" "/title,"
-      '(lambda () (indent-according-to-mode)))
+      (lambda () (indent-according-to-mode)))
     (setq abbrevs-changed ac))) ; reset `abbrevs-changed' to previous
 				; state
 
@@ -3595,14 +3595,14 @@ Added pseudo arguments _A _B _C."
         (setq apdl-user-variables
               (sort apdl-user-variables
                     (if (version< "24" emacs-version)
-                        '(lambda (arg1 arg2)
-                           (< (cadr arg1) (cadr arg2)))
-                      #'(lambda (arg1 arg2)
-                          (< (cadr arg1) (cadr arg2))))))
+                        (lambda (arg1 arg2)
+			  (< (cadr arg1) (cadr arg2)))
+                      (lambda (arg1 arg2)
+			(< (cadr arg1) (cadr arg2))))))
         ;; make the regexp for fontification
         (setq res (mapcar 'car apdl-user-variables)
               res (regexp-opt res 'symbols) ; words inhibits variables
-					    ; ending in _!
+					; ending in _!
               apdl-user-variable-regexp res)))))
 
 ;; in comments: ok

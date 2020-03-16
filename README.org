@@ -26,13 +26,15 @@
 #+LATEX_HEADER:
 
 #+title: APDL-Mode
+
+[[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
+[[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+
 The GNU-Emacs major mode for the programming language APDL
 
 [[file:doc/ansys+emacs2020-03.png]]
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-
-[[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
 
 * Introduction
   APDL ([[https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language][Ansys Parametric Design Language]]) is the solver scripting
@@ -40,7 +42,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   (ANalysis SYStem, registered TM).
 
   APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
-  GNU-Emacs editor - an advanced APDL environment with features like,
+  [[https://www.gnu.org/software/emacs/][GNU-Emacs]] editor - an advanced APDL environment with features like,
   pin-pointing the APDL reference documentation, keyword completion,
   code templates, dedicated highlighting, solver communication
   (GNU-Linux only), license reporting, etc.  Over the years it has
@@ -118,23 +120,26 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    [[file:doc/ansys-mode.jpg]]
 * Installation
 ** Melpa
-   APDL-Mode is now available on the Emacs package archive [[https://melpa.org/][Melpa]].
+   APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]].
+
+   [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
+   [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+
    Please add
    #+begin_src elisp
    (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+	     '("melpa" . "https://melpa.org/packages/") t)
    #+end_src
 
    to your initialisation file.  Then type: `M-x list-packages', find
    `apdl-mode', mark it with `i' and install it with `x'.
 
    If you prefer the stable package archive instead of development
-   versions use
+   versions exchange above package source with
    #+begin_src elisp
       (add-to-list 'package-archives
-      '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+      '("melpa-stable" . "https://stable.melpa.org/packages/") t)
    #+end_src
-   instead as the package source.
 
 ** Manual installation
    If you have problems accessing the Melpa archive - for example -
@@ -146,7 +151,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
       You should use at least Emacs version 25.1.
    2) Download the latest APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]]
       release page.
-   3) Install the package in Emacs: Please type `M-x
+   3) Install the package within Emacs: Please type `M-x
       package-install-file <RET>' and select the downloaded tar file.
 
 
@@ -162,9 +167,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    APDL-Mode is tested for Ansys v193 and v201, as well as under
    Emacs-25 and 26.
 
-   # For further installation options please have a
-   # look in the [[file:INSTALLATION.org][INSTALLATION]] file.
-
+** Development and source code installation
+   Please clone the APDL-Mode git archive
+   #+begin_src sh
+     git https://github.com/dieter-wilhelm/apdl-mode.git
+   #+end_src
+   or download the ZIP archive from Github and add the following line
+   #+begin_src elisp
+   (require 'apdl-mode)
+   #+end_src
+   to your initialisation file (the load-path must be set as well).
 * Usage
   Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
   inspect the menu bar's `APDL' and `Ansys' entries.  Please select

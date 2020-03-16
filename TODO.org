@@ -22,11 +22,13 @@
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
      does it for local help?
    - Update and centralise DOCUs, info style?
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
+   - Melpa readme
    - Check templates (formatting changed strongly!)
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
-   - changed file size without warning to 30 MB what is Emacs-26
-     using?
+   - merge config branch and stashes
 ** minor bugs
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
@@ -38,12 +40,12 @@
     - intelligent template selector with keywords in the line of helm
     - what is the advantage of ARG1-9? => parameter system, should I
       include ARG[1-9] optionally?
-    - do we need interregion templates?
+    - do we need inter-region templates?
 *** misc
     1) open EWW in another window!
     2) why initialising anew any time -mode is called?
     3) Travis CI continuous integration!
-    4) melpa stable link in README.org
+    4) https://github.com/marketplace/coveralls
     5) find nice style css stuff for html export?
     6) Start optionally runbWB2 --aim, Discovery AIM
     7) Ansys is often used synonymous for Ansys MAPDL solver /

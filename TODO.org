@@ -16,8 +16,9 @@
 #+title: The TODO file of APDL-Mode
 
 * TODO Version 20.3
+  DEADLINE: <2020-04-16 Thu>
 ** Todos, bugs
-   - Check the LICENSES file links!
+   - melpa stable link
    - Check templates (formatting changed strongly!)
    - Update and centralise DOCUs
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,

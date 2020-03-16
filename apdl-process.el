@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-15>
+;; Time-stamp: <2020-03-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -688,7 +688,7 @@ variable)."
       (setq cmpl (try-completion str apdl-help-index)))
     (cond ((stringp cmpl)               ; not unique
            cmpl)
-          ((equal cmpl nil)
+          ((not cmpl)
            (error "\"%s\" is not a valid keyword" str))
           (t                            ; perfect match
            str))))
@@ -934,7 +934,7 @@ summary rows."
         (setq bol (point))
         (put-text-property bol eol 'face 'font-lock-warning-face)
         ;;  on Windows the license stat buffer doesn't move to point without:
-        (when (not apdl-is-unix-system-flag)
+        (unless apdl-is-unix-system-flag
           (set-window-point (get-buffer-window "*Licenses*") (point)))))
     (unless (equal (current-buffer) (get-buffer "*Licenses*"))
       (display-buffer "*Licenses*" 'otherwindow))

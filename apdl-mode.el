@@ -2943,7 +2943,7 @@ futher number line is in the file signal an error."
   (interactive "p")
   (unless dir (setq dir 1))
   (let ((re apdl-number-line-regexp))
-    (when (not (apdl-at-end-of-text-p))
+    (unless (apdl-at-end-of-text-p)
       (beginning-of-line))
     (cond
      ((< dir 1)

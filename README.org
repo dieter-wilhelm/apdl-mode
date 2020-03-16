@@ -211,7 +211,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
 * License
   The GPL v3, the GNU Public license.  There are no costs and no usage
-  restrictions even in commercial application, please read the [[file:LICENSE.org][LICENSE]]
+  restrictions even in commercial application, please read the [[file:LICENSE][LICENSE]]
   file
 * Acknowledgements
   Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el

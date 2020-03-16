@@ -408,13 +408,13 @@ Used for skipping pure number lines and CMBLOCK format strings")
 
 (defconst apdl-block-else-regexp
   (concat "\\("
-          (mapconcat 'identity apdl-else-keywords "\\|")
+          (mapconcat #'identity apdl-else-keywords "\\|")
           "\\)\\>")
   "Regexp containing the APDL else keywords.")
 
 (defconst apdl-block-end-regexp
   (concat "\\("
-          (mapconcat 'identity apdl-end-keywords "\\|")
+          (mapconcat #'identity apdl-end-keywords "\\|")
           "\\)\\>")
   "Regexp containing the APDL end keywords.")
 
@@ -2166,9 +2166,9 @@ user variable highlighting? "))))))
       (progn
         (message "before apdl-update-p.")
         (add-hook 'after-change-functions
-                  'apdl-find-user-variables nil t)
+                  #'apdl-find-user-variables nil t)
         (add-hook 'post-command-hook
-                  'apdl-update-parameter-help nil t)
+                  #'apdl-update-parameter-help nil t)
         (message "Dynamic highlighting of user variables activated."))
     (message "Non-dynamic highlighting of variables activated."))
 
@@ -2694,7 +2694,7 @@ buffer with the SPACE key."
           (insert completion))
         (with-output-to-temp-buffer buffer-name
           (display-completion-list completion-list))
-        (if (= (apply 'min (mapcar 'length completion-list))
+        (if (= (apply #'min (mapcar #'length completion-list))
                (length completion))
             ;; already a complete, valid symbol but fragment is further
             ;; completable
@@ -3600,7 +3600,7 @@ Added pseudo arguments _A _B _C."
                       (lambda (arg1 arg2)
 			(< (cadr arg1) (cadr arg2))))))
         ;; make the regexp for fontification
-        (setq res (mapcar 'car apdl-user-variables)
+        (setq res (mapcar #'car apdl-user-variables)
               res (regexp-opt res 'symbols) ; words inhibits variables
 					; ending in _!
               apdl-user-variable-regexp res)))))

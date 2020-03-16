@@ -155,11 +155,11 @@ X11 := \
 # PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
 PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOURCES)
 
-default.el : makefile
-	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
-	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@
-	@echo "       (file (concat dir \"/apdl-mode-$(VERSION)/apdl-config.el\")))" >> $@
-	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
+# default.el : makefile
+# 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
+# 	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@
+# 	@echo "       (file (concat dir \"/apdl-mode-$(VERSION)/apdl-config.el\")))" >> $@
+# 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
 P_DIR := apdl-mode-$(VERSION)
 
@@ -308,12 +308,11 @@ EMACS : $(EMACS_PACKAGE) $(PACKAGE)
 	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc || \
 	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
 	 cp -uv $(TUTORIALS) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
-	 cp -uv default.el share/emacs/$(EMACS_VER)/site-lisp
+	 cp -uv share/emacs/$(EMACS_VER)/site-lisp
 	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION).$(EMACS_PACKAGE)
 	 zip -urv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
 	   share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/*
-	 zip -uv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
-	   share/emacs/$(EMACS_VER)/site-lisp/default.el
+	 zip -uv ansys-mode-$(VERSION).$(EMACS_PACKAGE) 
 
 ##################################################
 # getting the emacs source

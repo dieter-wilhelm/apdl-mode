@@ -17,17 +17,17 @@
 
 * TODO Version 20.3
   DEADLINE: <2020-04-16 Thu>
-** Todos, bugs
-   - melpa stable link
-   - Check templates (formatting changed strongly!)
-   - Update and centralise DOCUs
+** Todos, bugs, checks
+   - Do we need a (require 'apdl-) after Melpa installation?
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
      does it for local help?
+   - Update and centralise DOCUs, info style?
+   - Check templates (formatting changed strongly!)
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
 ** minor bugs
-   - what is doc/default.org? configuration for /usr/share/emacs/site-lisp.
-     => remove from package and put it in .gitignore
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type
@@ -40,34 +40,23 @@
       include ARG[1-9] optionally?
     - do we need interregion templates?
 *** misc
-    1) Melpa integration <= 2021?
-       -wb-template.el checkdoc, p-lint: whitespace-mode OK
-       -config.el
-       -keyword.el
-       -initialise.el
-       -mode-pkg.el
-       -process.el
-       -template.el
-       -mode.el
-       (tags-search ";[^; ]")
-    2) open EWW in another window!
-    3) why initialising anew any time -mode is called?
-    4) find nice style css stuff for html export?
-    5) documentation in info mode
+    1) open EWW in another window!
+    2) why initialising anew any time -mode is called?
+    3) Travis CI continuous integration!
+    4) melpa stable link in README.org
+    5) find nice style css stuff for html export?
     6) Start optionally runbWB2 --aim, Discovery AIM
     7) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
-** checks
-   - template line breaks
-   - changed file size without warning to 30 MB what is Emacs-26
-     using?
+
 ** Release proceedures
-   Attention: in apdl_keywords.txt there are many whitespace
+   Attention: in apdl_keywords.txt there are many trailing whitespaces
    (delete-trailing-whitespace)
 
+   whitespace-mode
    package-lint
      - problems with prefix names and default key bindings...
-   checkdoc, flycheck etc. : from makefile
+   checkdoc, flycheck etc. : from makefile?
 
     # for _mode_version
     (tags-query-replace "20\.2\.0" "20.2.1")

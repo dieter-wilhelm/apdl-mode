@@ -32,6 +32,7 @@ X11/xGetFocusWindow
 X11/xPasteToWin
 X11/xSendReturn
 doc/file*
+doc/default*
 helper/tools*
 # gimp files
 *.xcf

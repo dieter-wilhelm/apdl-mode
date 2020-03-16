@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-15>
+;; Time-stamp: <2020-03-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -42,7 +42,7 @@
 ;; Editor support for working with APDL code and Ansys FEA.
 
 ;; The APDL-Mode package provides support for the FEA (Finite Element
-;; Analysis) program Ansys (http://www.ansys.com) under Windows and
+;; Analysis) program Ansys (https://www.ansys.com) under Windows and
 ;; GNU-Linux systems.  It defines 'APDL-Mode', a major mode for
 ;; viewing, writing and navigating in APDL (Ansys Parametric Design
 ;; Language) files as well as providing managing and communication
@@ -51,7 +51,7 @@
 ;; The mode's capabilities are sophisticated but the documentation is
 ;; targeted for Ansys users with little Emacs experience.  An online
 ;; version of its documention can be found at
-;; http://dieter-wilhelm.github.io/apdl-mode/.
+;; https://dieter-wilhelm.github.io/apdl-mode/.
 
 ;;  The code is available on
 ;;  https://github.com/dieter-wilhelm/apdl-mode/.  Regarding
@@ -155,9 +155,9 @@ Used for the variable `comment-start-skip'.")
   :version "20.2.0"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link :tag "Online documentation"
-                   "http://dieter-wilhelm.github.io/apdl-mode ")
+                   "https://dieter-wilhelm.github.io/apdl-mode ")
   :link '(url-link :tag "Code on GitHub"
-                   "http://github.com/dieter-wilhelm/apdl-mode")
+                   "https://github.com/dieter-wilhelm/apdl-mode")
   :group 'Languages)
 
 (defcustom apdl-parameter-help-duration "2 min"
@@ -1429,7 +1429,7 @@ The cursor is either in a code comment or comment line."
 (defun apdl-mode-browse-online ()
   "Browse the APDL-Mode online documentations."
   (interactive)
-  (let ((url "http://dieter-wilhelm.github.io/apdl-mode"))
+  (let ((url "https://dieter-wilhelm.github.io/apdl-mode"))
     (cond
      (apdl-is-unix-system-flag
       ;; use browse-url-default-browser!
@@ -2032,7 +2032,7 @@ improvements you have the following options:
   will also find the latest versions of APDL-Mode.
 
 - Or you can leave comments and hints at the APDL-Mode page of
-  Emacs Wiki http://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
+  Emacs Wiki https://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
 
 ====================== End of APDL-Mode help ===================="
 

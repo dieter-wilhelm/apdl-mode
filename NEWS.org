@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-10>
+#+DATE: Time-stamp: <2020-03-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -10,7 +10,7 @@
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
+#+CREATOR: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="https://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 
 #+STARTUP: showall
@@ -187,7 +187,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      `ansys-number-block-start' C-c { and C-c } respectively
    - Removed bug in customisation system and dropped 32 bit Ansys support
      in line with the Ansys OS
-     [http://www.ansys.com/Support/Platform+Support strategy] for 2013.
+     [https://www.ansys.com/Support/Platform+Support strategy] for 2013.
    - Described a poor man's round() workaround in ansys-template-function
      under the nint() entry
 

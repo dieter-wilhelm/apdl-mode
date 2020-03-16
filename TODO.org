@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-15>
+#+DATE: Time-stamp: <2020-03-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -77,7 +77,7 @@
     # emacs
     (tags-query-replace "26\.3" "27.1")
     (tags-search "((emacs \"25.1\"))")
-    # (tags-query-replace "((emacs \"25\"))" "((emacs \"25.1\"))")
+    (tags-query-replace "http:" "https:")
     # (tags-query-replace "ansys+emacs2020.png" "ansys+emacs2020-03.png")
     # (tags-query-replace "ANSYS" "Ansys")
 
@@ -128,7 +128,7 @@
    - option to make eww default help browser
    - MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
      + ActivateWin: SetFocus()  + SendKeys? SendKeys
-     http://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
+     https://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
      https://msdn.microsoft.com/en-us/library/aa383749.aspx
    # - switch off advising of M-w, yeah, yeah
    - C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account

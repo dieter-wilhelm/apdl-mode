@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-09>
+#+DATE: Time-stamp: <2020-03-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -120,7 +120,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    # melpa, add the following in your GNU-Emacs init file:
    # (add-to-list 'package-archives
-   # 	     '("melpa" . "http://melpa.org/packages/") t)
+   # 	     '("melpa" . "https://melpa.org/packages/") t)
    # Then do M-x package-list-packages, find apdl-mode and install it.
 
   1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
@@ -177,7 +177,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      (and not maintained since then?)
    - Simple APDL syntax highlighting extensions are available for
      various editors, gvim, nedit, ... to name a few, please have a
-     look at [[http://ansys.net][Ansys.net]].
+     look at [[https://ansys.net][Ansys.net]].
    - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
      Windows, project disbanded in 2015.
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011

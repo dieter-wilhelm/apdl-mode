@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-09>
+#+DATE: Time-stamp: <2020-03-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE: Guided APDL-Mode hands-on Tutorial
 
@@ -26,7 +26,7 @@
 #+LANGUAGE:  en
 #+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
@@ -105,7 +105,7 @@
 
 *** Please read the *introductory* APDL-Mode tutorial first
     This is the file `A-M_introductory_tutorial-162-1.pdf' in the
-    mode's archive or use its [[http://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
+    mode's archive or use its [[https://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
 
     Ah yes, you are in a hurry (I thought so). *In summary:* You
     will get an illustrated overiew how APDL-Mode can improve your
@@ -1214,7 +1214,7 @@ Thank you for your time, have fun with Emacs...
     [[./editor_learning_curves.jpg]]
 
 **  Acknowledgements
-    - Carsten Dominik :: Ingenious [[http://orgmode.org/][Org-mode]] for Emacs
+    - Carsten Dominik :: Ingenious [[https://orgmode.org/][Org-mode]] for Emacs
     - [[http://stallman.org/][RMS]] :: [[http://www.gnu.org/software/emacs/][GNU Emacs]] and many other great ideas and programs
 
 # ** writing an abort file

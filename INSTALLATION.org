@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-09>
+#+DATE: Time-stamp: <2020-03-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -10,7 +10,6 @@
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 
 #+STARTUP: showall
@@ -326,7 +325,7 @@ the following options:
   issue a bug report at the [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub issues list]].  From this site you
   might also download the latest development version.
 
-- At the [[http://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
+- At the [[https://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
   without registration.
 
 -----

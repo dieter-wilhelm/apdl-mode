@@ -32,6 +32,8 @@ The GNU-Emacs major mode for the programming language APDL
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
+[[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+
 * Introduction
   APDL ([[https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language][Ansys Parametric Design Language]]) is the solver scripting
   language of the mechanical FEA (Finite Element Analysis) suite [[http://www.ansys.com][Ansys]]
@@ -115,23 +117,41 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
-  #  - APDL-Mode is now available on MELPA
-  #  For further installation options
+** Melpa
+   APDL-Mode is now available on the Emacs package archive [[https://melpa.org/][Melpa]].
+   Please add
+   #+begin_src elisp
+   (add-to-list 'package-archives
+	     '("melpa" . "http://melpa.org/packages/") t)
+   #+end_src
 
-   # melpa, add the following in your GNU-Emacs init file:
-   # (add-to-list 'package-archives
-   # 	     '("melpa" . "https://melpa.org/packages/") t)
-   # Then do M-x package-list-packages, find apdl-mode and install it.
+   to your initialisation file.  Then type: `M-x list-packages', find
+   `apdl-mode', mark it with `i' and install it with `x'.
 
-  1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] (if you are new to this editor please check the
-     tutorial in its `Help' menu, please really do it ;-).  You should
-     use at least Emacs version 25.1.
-  2) Download APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
-  3) Install the package in Emacs: Please type `M-x
-     package-install-file <RET>' and select the downloaded tar file.
+   If you prefer the stable package archive instead of development
+   versions use
+   #+begin_src elisp
+      (add-to-list 'package-archives
+      '("melpa-stable" . "http://melpa-stable.milkbox.net/packages/") t)
+   #+end_src
+   instead as the package source.
+
+** Manual installation
+   If you have problems accessing the Melpa archive - for example -
+   behind a corporate firewall.  You can install APDL-Mode manually:
+
+
+   1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] first (if you are new to this editor please
+      check the tutorial in its `Help' menu, please really do it ;-).
+      You should use at least Emacs version 25.1.
+   2) Download the latest APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]]
+      release page.
+   3) Install the package in Emacs: Please type `M-x
+      package-install-file <RET>' and select the downloaded tar file.
 
 
    That's it.
+
 
    *Hint:* If you are getting an error message "package.el is not yet
    initialized", you are using Emacs' packaging system for the very
@@ -139,8 +159,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    please type: `M-: (package-initialize) <RET>' and then apply `M-x
    package-install-file <RET>' again.
 
-  APDL-Mode is tested with Ansys v193 and v201, as well as with
-  Emacs-25 and 26.
+   APDL-Mode is tested for Ansys v193 and v201, as well as under
+   Emacs-25 and 26.
 
    # For further installation options please have a
    # look in the [[file:INSTALLATION.org][INSTALLATION]] file.

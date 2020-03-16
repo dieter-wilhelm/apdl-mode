@@ -10,13 +10,15 @@
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
-#+CREATOR: <a href="https://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="https://orgmode.org">Org</a> mode 8.2.10)
 #+LATEX_HEADER:
 
 #+STARTUP: showall
 #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+
+** Version 20.3.0
+   - APDL-Mode is now available on [[https://melpa.org/][Melpa]]!
 
 ** Version 20.2.0: 2020-03: Updated keywords to Ansys v195
    - Added a template preview system for Worbench `Command (APDL)'

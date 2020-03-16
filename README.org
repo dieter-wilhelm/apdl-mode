@@ -26,15 +26,14 @@
 #+LATEX_HEADER:
 
 #+title: APDL-Mode
+The GNU-Emacs major mode for the programming language APDL
 
 [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
 
-The GNU-Emacs major mode for the programming language APDL
+Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 [[file:doc/ansys+emacs2020-03.png]]
-
-Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 * Introduction
   APDL ([[https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language][Ansys Parametric Design Language]]) is the solver scripting
@@ -170,33 +169,49 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** Development and source code installation
    Please clone the APDL-Mode git archive
    #+begin_src sh
-     git https://github.com/dieter-wilhelm/apdl-mode.git
+     git clone https://github.com/dieter-wilhelm/apdl-mode.git
    #+end_src
-   or download the ZIP archive from Github and add the following line
+   or download the Github ZIP archive and add the following line
    #+begin_src elisp
    (require 'apdl-mode)
    #+end_src
-   to your initialisation file (the load-path must be set as well).
+   to your initialisation file (the source directory must be set in
+   the `load-path' variable as well).
 * Usage
   Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
-  inspect the menu bar's `APDL' and `Ansys' entries.  Please select
-  `Describe APDL-Mode' (or type `C-h m'), which will display the
-  mode's help with further guidance.
+  inspect the menu bar's `APDL' and `Ansys' entries.  For existing
+  APDL files please type `M-x apdl-mode' to start this mode (or
+  configure Emacs to auto-load it for certain file suffices, please
+  see the following section).
 
-  You might also check the introductory APDL-Mode tutorial
-  ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]) as well.
+  For further guidance please select `Describe APDL-Mode' (or type
+  `C-h m'), which will display the mode's help.  You might also check
+  the introductory APDL-Mode tutorial ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]).
 
-  The complete [[http://dieter-wilhelm.github.io/apdl-mode][documentation of APDL-Mode]] is available online
+  The complete documentation of APDL-Mode is available [[http://dieter-wilhelm.github.io/apdl-mode][online]].
 * Configuration and Customisation
   Most functionality of APDL-Mode is working without additional
-  configurations.  APDL-Mode should be intelligent enough to figure
-  out Ansys installation dependent configurations.  (It uses by
-  default the highest installed Ansys version.)
+  configurations.  APDL-Mode is intelligent enough to figure out Ansys
+  installation dependent configurations (for regular Ansys
+  installations.  It uses by default the highest installed Ansys
+  version.)
 
   I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
-  file endings, especially the `.mac' suffix.  Please read
-  [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
-  [[file:ansys-config.el][apdl-config.el]].
+  file endings, especially the `.mac' suffix.
+
+  #+begin_src elisp
+    ;; Traditional APDL file suffices
+    (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
+    (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+    ;; Workbench solver file suffices
+    (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
+    (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+    ;; Ansys neutral geometry file suffix
+    (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+  #+end_src
+
+  Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
+  [[file:ansys-config.el][apdl-config.el]] for details and further configurations.
 * News
   APDL-Mode uses now for the installation the packaging system of
   GNU-Emacs.  For further news please have a look into the [[file:NEWS.org][NEWS]] file.

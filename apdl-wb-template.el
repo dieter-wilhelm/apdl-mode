@@ -1,11 +1,11 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-15>
+;; Time-stamp: <2020-03-16>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 20.2.0
+;; Version: 20.3.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, Ansys, tools, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -136,7 +136,7 @@ key and choose with the mouse 2 button."
 ;; 3. Post (/post) items, after solve
 
 (defconst apdl-wb-template-directory (concat user-emacs-directory
-                                             "elpa/apdl-mode-20.2.0/template/")
+                                             "elpa/apdl-mode-20.3.0/template/")
   "This String contains the template folder.
 Of the WorkBench / Discovery AIM template files.")
 

@@ -4,7 +4,7 @@
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.2.0
+;; Version: 20.3.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, extensions
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -36,7 +36,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst apdl-mode-version "20.2.0"
+(defconst apdl-mode-version "20.3.0"
   "APDL-Mode version.")
 
 (defconst apdl-ansys-version "v193"

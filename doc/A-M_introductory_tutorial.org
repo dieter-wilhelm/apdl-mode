@@ -14,7 +14,7 @@
 # #+LATEX_HEADER_EXTRA:
 
 #+TITLE: Introductory Tutorial for APDL-Mode
-#+BEAMER_HEADER: \subtitle{A GNU Emacs programming mode for the APDL language, version 20.2.0}
+#+BEAMER_HEADER: \subtitle{A GNU Emacs programming mode for the APDL language, version 20.3.0}
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+TEXT: blabla

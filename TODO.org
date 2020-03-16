@@ -15,13 +15,14 @@
 
 #+title: The TODO file of APDL-Mode
 
-* TODO Version 20.3
+* TODO Version 20.3.0
   DEADLINE: <2020-04-16 Thu>
 ** Todos, bugs, checks
-   - Do we need a (require 'apdl-) after Melpa installation?
+   - Update and centralise DOCUs, info style?
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
      does it for local help?
-   - Update and centralise DOCUs, info style?
+   - -wb-template-directory depends on melpa version! This is working
+     only for the stable version!
    - changed file size without warning to 30 MB what is Emacs-26
      using?
    - Melpa readme
@@ -29,6 +30,7 @@
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
    - merge config branch and stashes
+   - Do we need a (require 'apdl-) after Melpa installation? NO
 ** minor bugs
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
@@ -61,7 +63,7 @@
    checkdoc, flycheck etc. : from makefile?
 
     # for _mode_version
-    (tags-query-replace "20\.2\.0" "20.2.1")
+    (tags-query-replace "20\.3\.0" "20.4.0")
     # copyright year
     (tags-query-replace "- 2020" "- 2021")
     # ansys version

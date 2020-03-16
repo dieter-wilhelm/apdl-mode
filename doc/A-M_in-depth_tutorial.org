@@ -21,7 +21,7 @@
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
-#+DESCRIPTION: Guided APDL-Mode hands-on APDL Tutorial
+#+DESCRIPTION: Guided APDL-Mode hands-on APDL Tutorial, Version 20.3.0
 #+KEYWORDS: Emacs Ansys FEA APDL MAPDL
 #+LANGUAGE:  en
 #+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t

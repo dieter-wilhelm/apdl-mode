@@ -5,7 +5,7 @@
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
-#+DESCRIPTION:
+#+DESCRIPTION: Version 20.3.0
 #+KEYWORDS:
 #+LANGUAGE:  en
 #+OPTIONS:   email:t H:5 num:t toc:2 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t

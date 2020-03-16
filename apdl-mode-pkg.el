@@ -1,10 +1,10 @@
 ;;; apdl-mode-pkg.el --- Defining the APDL-Mode package -*-lexical-binding:t -*-
-;; Time-stamp: <2020-03-15>
+;; Time-stamp: <2020-03-16>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.2.0
+;; Version: 20.3.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -50,7 +50,7 @@
 
 ;; (require 'package)
 
-(define-package "apdl-mode" "20.2.0" "Major mode for the APDL programming language."
+(define-package "apdl-mode" "20.3.0" "Major mode for the APDL programming language."
   '((emacs "25.1"))
   :keywords
   '("APDL" "Ansys" "languages" "FEA" "convenience" "tools")

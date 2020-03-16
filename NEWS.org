@@ -3,6 +3,7 @@
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
+#+DESCRIPTION: Version 20.3.0
 #+HTML_CONTAINER: div
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
 #+HTML_LINK_UP: index.html

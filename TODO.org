@@ -18,20 +18,37 @@
 * TODO Version 20.3.0
   DEADLINE: <2020-04-16 Thu>
 ** Todos, bugs, checks
-   - Update and centralise DOCUs, info style?
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
-     does it for local help?
+     does it for local help? NO it doesn't
+   - Check templates (formatting changed strongly!) especially
+     -compilation-template!  Indent is not correct., -skeleton-function!?
    - -wb-template-directory depends on melpa version! This is working
      only for the stable version!
-   - changed file size without warning to 30 MB what is Emacs-26
-     using?
-   - Melpa readme
-   - Check templates (formatting changed strongly!)
+   - Update and centralise DOCUs, info style?
+     - shift org-files to doc, except README.org: Focus: Intro +
+       Features + Installation
+       - usage
+       - config
+     - orgs
+       - install
+       - news
+       - todo
+       - config
+       - index
+     - tutorials
+       - -intro-tut
+       - -apdl-reference
+       - -in-depth_tutorial
+     - combine apdl-mode help, tutorial, usage, customisation
+       - tutorial
+       - bugs
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
-   - merge config branch and stashes
-   - Do we need a (require 'apdl-) after Melpa installation? NO
+   - changed file size without warning to 30 MB what is Emacs-26
+     using?
 ** minor bugs
+   - C-s C-s apdl-calculate-indent: Can't deduce sensible column
+     offset, for some templates
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type
@@ -45,14 +62,21 @@
     - do we need inter-region templates?
 *** misc
     1) open EWW in another window!
-    2) why initialising anew any time -mode is called?
+    2) why initialising anew any time -mode is called? especially with
+       C-c C-s!
     3) Travis CI continuous integration!
     4) https://github.com/marketplace/coveralls
     5) find nice style css stuff for html export?
     6) Start optionally runbWB2 --aim, Discovery AIM
     7) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
+    8) what is .gitattributes
+    9) Melpa readme
+    10) merge config branch and stashes
 
+
+** Done
+   - Do we need a (require 'apdl-) after Melpa installation? NO
 ** Release proceedures
    Attention: in apdl_keywords.txt there are many trailing whitespaces
    (delete-trailing-whitespace)

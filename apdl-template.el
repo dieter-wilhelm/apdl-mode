@@ -3005,28 +3005,6 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*endif" > \n
   \n)
 
-
-;; (define-apdl-skeleton apdl-if-then
-;;   "Insert an if statement in the current format's syntax."
-;;   (format "Value/Parameter 1: "
-;;               "*IF," str ","
-;;                (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;;             ","
-;;            (read-string "Value/Parameter 2: ")
-;;            ",THEN" \n
-;;            > _ \n
-;;           ("*ELSEIF? %s: "
-;;           > "*ELSEIF," str ","
-;;           (read-string "Operation: (EQ,NE,LT,GT,LE,GE,ABLT,ABGT) ")
-;;             ","
-;;             (read-string "Next Value/Parameter: ")
-;;              ",THEN" \n
-;;              > \n)
-;;              "*ELSE" > \n
-;;              > \n
-;;               "*ENDIF" > \n)
-;;   (mac . format))
-
 (define-skeleton apdl-if-then
   "Insert an *if,then .. (*elseif .. *else ..) *endif construct."
   "Value/Parameter 1 [I]: "
@@ -3071,19 +3049,6 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "\n*endif" >
   "\n")
 
-;; (define-apdl-skeleton apdl-do
-;;   "Insert an if statement in the current format's syntax."
-;;   (format "Parameter: "
-;;                            "*DO," str ","
-;;                            (read-string "Start Value/Parameter: ")
-;;                            ","
-;;                            (read-string "Finish Value/Parameter: ")
-;;                            ","
-;;                            (read-string "Increment Value/Parameter: ") \n
-;;                            > _ \n
-;;                            "*ENDDO" > \n)
-;;   (mac . format))
-
 (define-skeleton apdl-do
   "Insert interactively a *do .. *enddo loop."
   "Loop parameter [I]: "
@@ -3095,24 +3060,6 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   (read-string "Increment Value/Parameter [1]: ") | "1" \n
   > _ \n
   "*enddo" > \n)
-
-;; (define-apdl-skeleton apdl-mp ; FIXME: skeleton a bit over the top
-;;   "Insert an if statement in the current format's syntax."
-;;   (format "Material Property: (EX,ALPX,PRXY,NUXY,GXY,DAMP,MU,DENS,KXX) "
-;;                            "MP," str ","
-;;                            (read-string "Material Number: ")
-;;                            ","
-;;                            (read-string "Constant Value: ")
-;;                            ","
-;;                            (read-string "Linear Coefficient? : ")
-;;                            ","
-;;                            (read-string "Quadratic Coefficient? : ")
-;;                            ","
-;;                            (read-string "Cubic Coefficient? : ")
-;;                            ","
-;;                            (read-string "Quartic Coefficient? : ")
-;;                            \n)
-;;   (mac . format))
 
 (define-skeleton apdl-mp ; FIXME: skeleton a bit over the top
   "Insert interactively an mp statement."

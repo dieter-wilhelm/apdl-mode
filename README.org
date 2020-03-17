@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-16>
+#+DATE: Time-stamp: <2020-03-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -212,9 +212,22 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
   [[file:ansys-config.el][apdl-config.el]] for details and further configurations.
+* Bugs
+  - Write an email to the mode maintainer, please trigger a bug report
+    form from the APDL menu or by calling the function
+    `apdl-submit-bug-report'.  Even if you are not able to send emails
+    directly via Emacs, this is a template with valuable information
+    like mode settings and Emacs internals.
+
+  - You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issue site]].
+
+  - Or you can leave comments and hints at the APDL-Mode page of
+    [[https://www.emacswiki.org/emacs/APDLMode][Emacs Wiki]].
+
 * News
-  APDL-Mode uses now for the installation the packaging system of
-  GNU-Emacs.  For further news please have a look into the [[file:NEWS.org][NEWS]] file.
+  APDL-Mode can now be installed from [[https://melpa.org/][Melpa]].
+
+  For further news please have a look into the [[file:NEWS.org][NEWS]] file.
 * Further Resources
 ** Emacs editor resources
    - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.

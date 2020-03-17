@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-16>
+;; Time-stamp: <2020-03-17>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -64,7 +64,7 @@
 
 ;;; Code:
 
-(require 'apdl-keyword "apdl-keyword.el")
+(require 'apdl-keyword)
 (require 'apdl-template)
 (require 'apdl-wb-template)
 (require 'apdl-process)
@@ -2032,7 +2032,7 @@ improvements you have the following options:
   will also find the latest versions of APDL-Mode.
 
 - Or you can leave comments and hints at the APDL-Mode page of
-  Emacs Wiki https://www.emacswiki.org/cgi-bin/wiki/AnsysMode.
+  Emacs Wiki https://www.emacswiki.org/emacs/APDLMode.
 
 ====================== End of APDL-Mode help ===================="
 

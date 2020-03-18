@@ -24,6 +24,8 @@
      does it for local help? NO it doesn't
    - Check templates (formatting changed strongly!) especially
      -compilation-template!  Indent is not correct., -skeleton-function!?
+     - C-s C-s apdl-calculate-indent: Can't deduce sensible column
+       offset, for some templates
    - Update and centralise DOCUs, info style?
      - do we need a short help, yes for installation + config + first steps
      - shift org-files to doc, except README.org: Focus: Intro +
@@ -48,8 +50,6 @@
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** minor bugs
-   - C-s C-s apdl-calculate-indent: Can't deduce sensible column
-     offset, for some templates
    - 1/en, en is variable but fraction not fontified?
    - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type

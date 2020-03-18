@@ -45,6 +45,7 @@
 
 (defvar apdl-last-skeleton)
 (defvar apdl-skeleton-overlay)
+(defvar apdl-mode-install-directory)
 
 (declare-function apdl-mode "apdl-mode")
 
@@ -135,22 +136,16 @@ key and choose with the mouse 2 button."
 ;; 2. Solu (/solu) items, before solve
 ;; 3. Post (/post) items, after solve
 
-(defconst apdl-wb-template-directory
-  (concat (file-name-directory (buffer-file-name))
-	  "template/")
-  "This String contains the template folder.
-These are the template files for WorkBench and Discovery AIM.")
-
 (define-skeleton apdl-wbt-post-2d-press-fit_calcs
   "Calculate the transmissible torque from contact results.
 And other parameters from a plane stress press-fit simulation."
   nil
   "/com,==============================================================\n"
-  "/com, Inserted: " (current-time-string) ", APDL-Mode: " apdl-mode-version " \n"
+  "/com, Inserted: "(current-time-string)", APDL-Mode: "apdl-mode-version"\n"
   "/com,==============================================================\n"
-
-  (insert-file (concat apdl-wb-template-directory
-                       "plane_stress_press-fit_torque_calculations.mac")))
+  (insert-file
+   (concat apdl-mode-install-directory "template/"
+	   "plane_stress_press-fit_torque_calculations.mac")))
 
 (define-skeleton apdl-wbt-do
   "Insert a *do .. *enddo loop."

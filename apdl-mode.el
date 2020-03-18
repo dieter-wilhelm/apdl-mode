@@ -1883,17 +1883,17 @@ Please refere the configuration example `default.el'.
   please use \"\\[apdl-license-status]\" (for
   `apdl-license-status').
 
-If you haven't installed Ansys in the default locations and the
-executables are not in your system search path or you are using a
-different Ansys version than '201' it is necessary for the last
-two capabilities to customise some variables either calling the
-Emacs customisation facility `apdl-customise-ansys' or from the
-menu bar -> 'APDL' -> 'Customise APDL Mode' -> 'APDL-process' and
-look there for the variables 'Ansys License File', 'Ansys Util
+If your Ansys installation is not in the default locations
+APDL-Mode might not be able to find its executables.  Or you want
+to use mixed Ansys version installations then it is necessary to
+customise some variables.  Either by calling the Emacs
+customisation facility `apdl-customise-ansys' or from the menu
+bar -> 'APDL' -> 'Customise APDL Mode' -> 'APDL-process' and look
+there for the variables 'Ansys License File', 'Ansys Util
 Program' and 'Ansys Help Program' as well as 'Ansys Help Program
 Parameters') or set the variables directly in your .emacs file.
-Please have a look in the accompanying README and default_el
-customisation file example.
+Please have a look in the accompanying README.org and the
+apdl-config.el customisation example.
 
 ** Ansys solver/interpreter control and communication (mainly
   restricted to GNU-Linux systems) **
@@ -2122,19 +2122,16 @@ improvements you have the following options:
   (setq outline-regexp (concat "!\\(" apdl-outline-string "\\)+"))
 
   ;; discrepancies from Emacs defaults
-  (apdl-font-lock-mode)                 ; switch on font-lock when it's toggled
-  ;;  (delete-selection-mode t)
-  (toggle-truncate-lines 1)
-  (show-paren-mode t)
-  (set (make-local-variable 'scroll-preserve-screen-position) nil)
+  (apdl-font-lock-mode)                 ; switch on font-lock when
+					; it's toggled
 
-  ;; (defadvice kill-ring-save (before slick-copy activate compile) "When called
-  ;; interactively with no active region, copy a single line instead."
-  ;;   (interactive (if mark-active
-  ;; (list (region-beginning) (region-end))
-  ;; (message "Copied line")
-  ;; (list (line-beginning-position)
-  ;; (line-beginning-position 2)))))
+  ;; It is impolite to enforce below behaviour over possible user
+  ;; customisations
+
+  ;; ; (delete-selection-mode t)
+  ;; ; (toggle-truncate-lines 1)
+  ;; ; (show-paren-mode t)
+  ;; ; (set (make-local-variable 'scroll-preserve-screen-position) nil)
 
   (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))
 
@@ -2157,8 +2154,8 @@ improvements you have the following options:
                                                    'dot) ".mac"))
                  ;; 30 Mb bigger than file?
                  (when (file-attributes (buffer-file-name)) ; open an
-							    ; existing
-							    ; file
+					; existing
+					; file
                    (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
                        t
                      (y-or-n-p "File is larger than 30 MB, switch on \
@@ -3475,7 +3472,6 @@ These constructs appear in WorkBench created solver input files."
         ;; constants
         'apdl-mode-version
         'apdl-ansys-version
-	'apdl-wb-template-directory
         ;; defcustoms
         'apdl-hide-region-before-string
         'apdl-hide-region-after-string
@@ -3499,6 +3495,7 @@ These constructs appear in WorkBench created solver input files."
         'apdl-mode-hook
         'apdl-align-rules-list
         'apdl-ansys-install-directory
+	'apdl-mode-install-directory
         'apdl-job
         'apdl-ansys-program
         'apdl-ansys-help-program

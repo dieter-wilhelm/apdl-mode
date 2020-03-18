@@ -37,10 +37,10 @@
 ;; constants
 
 (defconst apdl-mode-version "20.3.0"
-  "APDL-Mode version.")
+  "The APDL-Mode version string.")
 
 (defconst apdl-ansys-version "v193"
-  "Ansys version on which APDL-Mode is based upon.
+  "Ansys version string on which APDL-Mode is based upon.
 With respect to the documentation, like deprecated elements,
 command names, etc.")
 
@@ -51,9 +51,10 @@ command names, etc.")
   "Initialisation subgroup for APDL-Mode."
   :group 'APDL)
 
-(defcustom apdl-mode-install-directory nil
+(defcustom apdl-mode-install-directory
+  (file-name-directory (locate-library "apdl-mode"))
   "The installation directory of APDL-Mode.
-The directory where the Elisp files reside."
+A string describing the directory where the Elisp files reside."
   :type 'string
   :group 'APDL-initialise)
 
@@ -175,8 +176,8 @@ Set it to port@host.  The default port is 2325."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defining variables
 
-;; (defvar apdl-is-unix-system-flag nil
-;;   "Non-nil means APDL-mode runs under a Unix system.")
+(defvar apdl-initialised-flag nil
+  "Non-nil means that APDL-Mode is already initialised.")
 
 (defvar apdl-current-ansys-version nil
   "String of the currently used MAPDL solver version.
@@ -190,10 +191,6 @@ like: \"v201\"")
 
 ;; from -process.el
 (defvar apdl-classics-flag)
-
-;; (defvar apdl-current-ansys-version-history '("160" "150" "145")
-;;   "History list for the minibuffer input of
-;;   `apdl-current-ansys-version'.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; functions
@@ -322,10 +319,10 @@ AWP_ROOTXXX")
           (setq apdl-current-ansys-version (substring subdir 0 4))
           ;; (remove ?v (substring subdir 0 4)))
           (message "Current Ansys version: %s" apdl-current-ansys-version)
-          (setq dir (concat cdir subdir "/"))))
-       (if dir
-           (setq apdl-ansys-install-directory dir)
-         (message "No Ansys installation directory found")))))
+          (setq dir (concat cdir subdir "/")))))
+      (if dir
+	  (setq apdl-ansys-install-directory dir)
+	(message "No Ansys installation directory found"))))
 
     ;; ;; 1a) -classics-flag ; not supported any longer 2020-03
     ;; (let* ()
@@ -480,6 +477,7 @@ AWP_ROOTXXX")
           (message
            "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
     ;; ------------------------------------------------------------
+    (setq apdl-initialised-flag t)
     (message "%s" "APDL-Mode: Initialised system dependent variables."))
 ;; end of init function
 

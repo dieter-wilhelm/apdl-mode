@@ -2318,10 +2318,13 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
            apdl-mode-version
            apdl-ansys-version))
 
+
+;;  ATTENTION: reloading seems to be critical, when there are multiple
+;;  entries in `load-path' for APDL-Mode!
 (defun apdl-reload-apdl-mode ()
-  "Reload the APDL mayor mode.
-Clear the mode definitions if active, load the necessary code and
-call `apdl-mode'."
+  "Reload APDL mayor mode for debugging purposes.
+Clear (unload) all mode definitions, if apdl-mode is active, load
+the necessary code and call `apdl-mode'."
   (interactive)
   (progn
     (when (featurep 'apdl-mode)
@@ -2329,9 +2332,10 @@ call `apdl-mode'."
       (unload-feature 'apdl-initialise)
       (unload-feature 'apdl-keyword)
       (unload-feature 'apdl-process)
-      (unload-feature 'apdl-template))
-    (load "apdl-config")
-    (load "apdl-mode")
+      (unload-feature 'apdl-template)
+      (unload-feature 'apdl-wb-template))
+;;    (load "apdl-config") ; don't rely on apdl-config!
+    (load "apdl-mode") ; either load .elc or .el
     (apdl-mode)
     (message "APDL-Mode %s based on Ansys %s reloaded"
              apdl-mode-version apdl-ansys-version)))

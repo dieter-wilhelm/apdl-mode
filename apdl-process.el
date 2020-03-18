@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-16>
+;; Time-stamp: <2020-03-18>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -808,13 +808,22 @@ elem.
     ;;  ((string-match "ansys.theory" file)
     ;;   (setq file (concat "ans_thry/" file))))
     (if path
-        (browse-url-of-file (concat "file:///" path file))
+	(progn
+	  (when (eq browse-url-browser-function 'eww-browse-url)
+	      (switch-to-buffer-other-window nil))
+	  (browse-url-of-file (concat "file:///" path file)))
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
       ;; since v201 changed the path to the online help:
       (if (string= apdl-current-ansys-version "v201")
-          (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
-        (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
+	  (browse-url
+	   (concat
+	    "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/"
+	    apdl-current-ansys-version "/en/" file))
+        (browse-url
+	 (concat
+	  "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/"
+	  apdl-current-ansys-version "/" file))))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).

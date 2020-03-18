@@ -62,18 +62,16 @@
       include ARG[1-9] optionally?
     - do we need inter-region templates?
 *** misc
-    1) open EWW in another window!
-    2) why initialising anew any time -mode is called? especially with
-       C-c C-s!
-    3) Travis CI continuous integration!
-    4) https://github.com/marketplace/coveralls
-    5) find nice style css stuff for html export?
-    6) Start optionally runbWB2 --aim, Discovery AIM
-    7) Ansys is often used synonymous for Ansys MAPDL solver /
+    1) Travis CI continuous integration!
+    2) https://github.com/marketplace/coveralls
+    3) find nice style css stuff for html export?
+    4) Start optionally runbWB2 --aim, Discovery AIM
+    5) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
-    8) what is .gitattributes
-    9) Melpa readme
-    10) merge config branch and stashes
+    6) what is .gitattributes
+    7) Melpa readme
+    8) merge config branch and stashes
+
 ** Done
    - -wb-template-directory depends on melpa version! This is working
      only for the stable version!

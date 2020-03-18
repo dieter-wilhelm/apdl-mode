@@ -3465,16 +3465,17 @@ These constructs appear in WorkBench created solver input files."
   (let ((salutation))
     (when (y-or-n-p "Do you want to write a bug report? ")
       (setq salutation
-            "Please describe briefly what your problem is and which actions
-  triggered the bug.  A self contained, reproducible test case
-  would be advantageous.")
+            "Please describe briefly what your problem is and
+  which actions triggered the bug.  A self contained,
+  reproducible test case would be advantageous.")
       (reporter-submit-bug-report
        apdl-maintainer-address
        "APDL-Mode" ; becomes prefix for the subject line
        (list
         ;; constants
-        'apdl-version_
-        'apdl-mode_version
+        'apdl-mode-version
+        'apdl-ansys-version
+	'apdl-wb-template-directory
         ;; defcustoms
         'apdl-hide-region-before-string
         'apdl-hide-region-after-string

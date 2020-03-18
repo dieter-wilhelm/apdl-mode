@@ -22,8 +22,6 @@
 ** Todos, bugs, checks
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
      does it for local help? NO it doesn't
-   - -wb-template-directory depends on melpa version! This is working
-     only for the stable version!
    - Check templates (formatting changed strongly!) especially
      -compilation-template!  Indent is not correct., -skeleton-function!?
    - Update and centralise DOCUs, info style?
@@ -77,6 +75,8 @@
     9) Melpa readme
     10) merge config branch and stashes
 ** Done
+   - -wb-template-directory depends on melpa version! This is working
+     only for the stable version!
    - Is the -help-path working without backslashes under Window?, yes it is
    - Do we need a (require 'apdl-) after Melpa installation? NO
 ** Release proceedures

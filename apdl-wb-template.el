@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-16>
+;; Time-stamp: <2020-03-18>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -135,10 +135,11 @@ key and choose with the mouse 2 button."
 ;; 2. Solu (/solu) items, before solve
 ;; 3. Post (/post) items, after solve
 
-(defconst apdl-wb-template-directory (concat user-emacs-directory
-                                             "elpa/apdl-mode-20.3.0/template/")
+(defconst apdl-wb-template-directory
+  (concat (file-name-directory (buffer-file-name))
+	  "template/")
   "This String contains the template folder.
-Of the WorkBench / Discovery AIM template files.")
+These are the template files for WorkBench and Discovery AIM.")
 
 (define-skeleton apdl-wbt-post-2d-press-fit_calcs
   "Calculate the transmissible torque from contact results.

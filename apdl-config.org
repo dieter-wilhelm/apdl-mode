@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-16 18:40:50 dieter>
+#+DATE: Time-stamp: <2020-03-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -29,7 +29,7 @@ Most functionality of APDL-Mode is working without configurations.
 
 For system dependent operations APDL-Mode is trying to guess the
 necessary parameters from default installation paths and / or
-environment variables.  (APDL-Mode is using the highest installed
+environment variables.  (APDL-Mode is choosing the highest installed
 Ansys version.)
 
 The customisations itself are written in `Emacs-Lisp'.  The comment
@@ -98,7 +98,7 @@ load this file in the init file with `(load-file
 
 #+RESULTS:
 
-* COMMENT Important Prerequisites
+* Important Prerequisites
 ** COMMENT Finding APDL-Mode
 If the APDL-Mode files (the files with the suffix /.el/) are *not*
 placed in a default Emacs load path.  Please see the variable
@@ -129,35 +129,40 @@ for a Windows system or
 (add-to-list 'load-path "/usr/local/src/emacs/apdl-mode")
 #+END_SRC
 for a GNU-Linux system.
-** COMMENT Installed Ansys version and installation path
+** Ansys Installation path with version information
+If you have a non default installation APDL-Mode might not be able to
+find the Ansys installation.  Please configure your installation path
+up to and including the versioning number.
 
 #+BEGIN_SRC emacs-lisp
-(cond ((string= window-system "x")
-        ;; This is an example of an installation directory on GNU-Linux
-        (setq apdl-ansys-install-directory "/appl")) ; default: "/"
-       (t
-        ;;This an example of an installation dir. on WINDOWS
-        (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
+  (cond ((string= window-system "x")
+	  ;; This is an example of an installation directory on GNU-Linux
+	  (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
+	  ;; the default might look like "/ansys_inc/v201/"
+	 (t ;This an example of an installation directory on WINDOWS
+	  ;; Emacs is using here forward slashes as under Unix and not
+	  ;; the backslash "\"!
+	  (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
+	  ;; default: "C:/Program Files/Ansys Inc/v201/"
 #+END_SRC
 
 If your Ansys installation differs completely from the standard Ansys
-directory structure, then please consult the section `INSTALLATION
-PATHS' further below.
+directory structure, or you want to use a mixed version system, then
+please consult the section `INSTALLATION PATHS' further below.
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-
-  ;; conditional: Linux or Windows
+  ;; conditional for Linux and Windows
 
   ;(cond ((string= window-system "x")
   ;        ;; This is an example of an installation directory on GNU-Linux
-  ;        (setq apdl-ansys-install-directory "/appl")) ; default: "/"
+  ;        (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
+  ;        ;;default: "/ansys_inc/v201/"
   ;       (t
   ;        ;;This an example of an installation dir. on WINDOWS
-  ;        (setq apdl-ansys-install-directory "D:\\Ansys")) ; default: "C:\\Program Files"
-
-  ;; If the paths of your Ansys installation is completely differing
-  ;; from the normal Ansys structures, please see below.
-
+  ;        ;; Emacs is using here also forward slashes ans under
+  ;        ;; Unix and not "\"!
+  ;        (setq apdl-ansys-install-directory "D:/Ansys/v210/"))
+  ;        ;; default: "C:/Program Files/Ansys Inc/v201/"
 #+END_SRC
 
 * File suffixes for auto loading APDL-Mode
@@ -368,45 +373,44 @@ current default is 2
 
 #+END_SRC
 * Ansys installation paths
-Things you might have to configure if your Ansys installation is
-completely differing from default Ansys installation path, as in the
-example below:
+Further things you possibly have to configure if your Ansys
+installation is completely differing from a default Ansys installation
+path, or if you want to mix various Ansys versions:
 #+BEGIN_SRC emacs-lisp
   (setq apdl-ansys-help-program
-      "/appl/ansys_inc/16.2.0/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
-	;; normally it looks like this:
-	;; "/INSTALL_DIRECTORY/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
+      "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
+      ;; normally it looks like this:
+      ;; "/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
+  ;; On WINDOWS: slash before /d: is unnecessary, but possible?
+  (setq apdl-ansys-help-path "d:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
   (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
-  ;; on windows systems (note the slash before c:!)
-  (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
-  (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/winx64/launcher")
-  (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")
+  (setq apdl-ansys-launcher "/appl/ansys_inc/v195/ansys/bin/winx64/launcher")
+  (setq apdl-ansys-wb "/appl/ansys_inc/v195/Framework/bin/Linux64/runwb2")
   (setq apdl-ansys-program "/appl/ansys_inc/19.3.0/ansys/bin/ansys195")
   (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                         ;; Ansys version and paths
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			   ;; Ansys version and paths
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  ;; Things you might have to configure if your Ansys installation is
-  ;; completely differing from default Ansys installation paths, as in
-  ;; the example below:
+    ;; Things you might have to configure if your Ansys installation is
+    ;; completely differing from default Ansys installation paths, as in
+    ;; the example below, or you want to use a mixed version system:
 
-  ; (setq apdl-help-program
-  ;   "/appl/ansys_inc/16.2.0/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
-  ; ;; the Ansys path to the help viewer looks normally like this:
-  ; ;; "/INSTALL_DIRECTORY/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
-  ; ;; on windows systems (note the slash before c:!)
-  ; (setq apdl-ansys-help-path "/c:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
+    ; (setq apdl-help-program
+    ;   "/appl/ansys_inc/16.2.0/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
+    ; ;; the Ansys path to the help viewer looks normally like this:
+    ; ;; "/INSTALL_DIRECTORY/ansys_inc/v195/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
+    ; (setq apdl-ansys-help-path "d:/Program Files/Ansys Inc/16.2.0/v195/commonfiles/help/en-us/help/")
 
-  ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
-  ; (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/launcher162")
-  ; (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")
-  ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v195/ansys/bin/ansys162")
-  ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
+    ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v195/commonfiles/help/en-us/help/")
+    ; (setq apdl-ansys-launcher "/ansys_inc/v195/ansys/bin/launcher162")
+    ; (setq apdl-ansys-wb "/ansys_inc/v195/Framework/bin/Linux64/runwb2")
+    ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v195/ansys/bin/ansys162")
+    ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 
 #+END_SRC
 

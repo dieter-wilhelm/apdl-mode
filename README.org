@@ -1,9 +1,9 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-17>
+#+DATE: Time-stamp: <2020-03-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
-#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
-#+OPTIONS: e:t email:nil f:t inline:t num:t p:nil pri:nil prop:nil
+#+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
@@ -118,6 +118,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
+  Please install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] first, you should install at least Emacs
+  version 25.1.  (If you are new to this editor please check the
+  tutorial in its `Help' menu, please really do it ;-)
 ** Melpa
    APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]].
 
@@ -141,21 +144,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    #+end_src
 
 ** Manual installation
-   If you have problems accessing the Melpa archive - for example -
-   behind a corporate firewall.  You can install APDL-Mode manually:
+   If you are behind a corporate firewall and you are not able to
+   install APDL-Mode from Emacs' package menu, you can download and
+   install APDL-Mode manually:
 
-
-   1) Install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] first (if you are new to this editor please
-      check the tutorial in its `Help' menu, please really do it ;-).
-      You should use at least Emacs version 25.1.
-   2) Download the latest APDL-Mode's tar package from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]]
-      release page.
-   3) Install the package within Emacs: Please type `M-x
-      package-install-file <RET>' and select the downloaded tar file.
-
+   - Download the latest APDL-Mode's tar package from [[https://melpa.org/#/apdl-mode][Melpa]] or - for a
+     released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
+   - Install the package within Emacs: Please type `M-x
+     package-install-file <RET>' and select your downloaded tar file.
 
    That's it.
-
 
    *Hint:* If you are getting an error message "package.el is not yet
    initialized", you are using Emacs' packaging system for the very
@@ -163,11 +161,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    please type: `M-: (package-initialize) <RET>' and then apply `M-x
    package-install-file <RET>' again.
 
-   APDL-Mode is tested for Ansys v193 and v201, as well as under
-   Emacs-25 and 26.
-
 ** Development and source code installation
-   Please clone the APDL-Mode git archive
+   Please clone the APDL-Mode git archive in a directory of your
+   choice:
    #+begin_src sh
      git clone https://github.com/dieter-wilhelm/apdl-mode.git
    #+end_src
@@ -188,13 +184,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   `C-h m'), which will display the mode's help.  You might also check
   the introductory APDL-Mode tutorial ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]).
 
+  APDL-Mode is tested with Ansys v193 and v201 under Windows, as well
+  as under Emacs-25 and 26 under GNU-Linux and Windows.
+
   The complete documentation of APDL-Mode is available [[http://dieter-wilhelm.github.io/apdl-mode][online]].
 * Configuration and Customisation
   Most functionality of APDL-Mode is working without additional
   configurations.  APDL-Mode is intelligent enough to figure out Ansys
-  installation dependent configurations (for regular Ansys
-  installations.  It uses by default the highest installed Ansys
-  version.)
+  installation dependent paths (for regular Ansys installations, it
+  chooses by default the highest installed Ansys version on your
+  system).
 
   I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
   file endings, especially the `.mac' suffix.
@@ -212,17 +211,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
   Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
   [[file:ansys-config.el][apdl-config.el]] for details and further configurations.
-* Bugs
-  - Write an email to the mode maintainer, please trigger a bug report
-    form from the APDL menu or by calling the function
-    `apdl-submit-bug-report'.  Even if you are not able to send emails
-    directly via Emacs, this is a template with valuable information
-    like mode settings and Emacs internals.
+* Bugs and Problems
+  Please write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Trigger a bug report
+  form from the APDL menu or by calling the function
+  `apdl-submit-bug-report'.  Even if you have not configured Emacs to
+  send emails, please copy this template for the maintainer.
 
-  - You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issue site]].
+  You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]].
 
-  - Or you can leave comments and hints at the APDL-Mode page of
-    [[https://www.emacswiki.org/emacs/APDLMode][Emacs Wiki]].
+  And you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
+  [[https://www.emacswiki.org][Emacs Wiki]].
 
 * News
   APDL-Mode can now be installed from [[https://melpa.org/][Melpa]].

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-16>
+#+DATE: Time-stamp: <2020-03-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,14 +17,17 @@
 
 * TODO Version 20.3.0
   DEADLINE: <2020-04-16 Thu>
+
+  Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs, checks
    - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
      does it for local help? NO it doesn't
-   - Check templates (formatting changed strongly!) especially
-     -compilation-template!  Indent is not correct., -skeleton-function!?
    - -wb-template-directory depends on melpa version! This is working
      only for the stable version!
+   - Check templates (formatting changed strongly!) especially
+     -compilation-template!  Indent is not correct., -skeleton-function!?
    - Update and centralise DOCUs, info style?
+     - do we need a short help, yes for installation + config + first steps
      - shift org-files to doc, except README.org: Focus: Intro +
        Features + Installation
        - usage
@@ -73,9 +76,8 @@
     8) what is .gitattributes
     9) Melpa readme
     10) merge config branch and stashes
-
-
 ** Done
+   - Is the -help-path working without backslashes under Window?, yes it is
    - Do we need a (require 'apdl-) after Melpa installation? NO
 ** Release proceedures
    Attention: in apdl_keywords.txt there are many trailing whitespaces
@@ -87,6 +89,9 @@
    checkdoc, flycheck etc. : from makefile?
 
     # for _mode_version
+    APDL_MAJOR := 20
+    APDL_MINOR := 4
+    APDL_PATCH := 0
     (tags-query-replace "20\.3\.0" "20.4.0")
     # copyright year
     (tags-query-replace "- 2020" "- 2021")

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-17>
+;; Time-stamp: <2020-03-18>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -2209,9 +2209,11 @@ user variable highlighting? "))))))
 
   ;; initialise system dependent stuff
   (apdl-initialise)
-                                        ; (outline-minor-mode t)
+  ;; that is not friendly to enforce stuff on users
+  ;; (outline-minor-mode t)
   ;; --- hooks ---
-  (run-hooks 'apdl-mode-hook))
+  ;; (run-hooks 'apdl-mode-hook)
+  )
 ;;  -- end of apdl-mode --
 
 ;;;###autoload

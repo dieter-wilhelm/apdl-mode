@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-16>
+;; Time-stamp: <2020-03-18>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -57,14 +57,16 @@ The directory where the Elisp files reside."
   :type 'string
   :group 'APDL-initialise)
 
+;; -TODO-: are environment variables also set under GNU-Linux?
 (defcustom apdl-ansys-install-directory nil
   "This is the path where the MAPDL solver (Ansys) has been installed.
-Which is to say the path up to the Ansys version number, for
-example \"v201\".  The Ansys installation routine sets for this
-path an environment variable, for the former versioning example:
-\"AWP_ROOT201\".  With other words: this customisation variable
-includes besides the installation root directory also the
-information which Ansys version currently is in use."
+Which is to say the path up to (and including) the Ansys version
+number, for example \"/ansys_inc/v201/\".  The Ansys installation
+routine sets for this path an environment variable, for the
+former versioning example: \"AWP_ROOT201\".  With other words:
+this customisation variable includes besides the installation
+root directory also the information which Ansys version is
+currently in use."
   :type 'string
   :group 'APDL-initialise)
 
@@ -260,17 +262,21 @@ customisation variables"
   ;; 0) -unix-system-flag
   (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))
 
-  ;; 1) -install-directory (with Ansys version information)
+  ;; 1) -install-directory
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;            !!!! with Ansys version information!!!!
+  ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (unless apdl-ansys-install-directory
-    (let* ((cdir "/appl/ansys_inc/")
+    (let* ((cdir "/appl/ansys_inc/")	; this is a corporate path
+	   ;; from environment variable below, I think only under
+	   ;; Windows!?
            (path (apdl-find-path-environment-value))
            (dir (if (null path)
                     nil
                   (file-name-as-directory path)))
            subdir)
       (cond
-       ;; from environment variable
-       (dir
+       (dir 				; from environment
         (setq apdl-ansys-install-directory dir)
         (message
          "apdl-ansys-install-directory set from environment variable
@@ -281,9 +287,8 @@ AWP_ROOTXXX")
         (setq apdl-current-ansys-version subdir) ; (remove ?v subdir))
         (message "Current Ansys version: %s" apdl-current-ansys-version))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-       ;; default my-Company installation path
+       ;; from company Linux installation path
        ((file-readable-p cdir)
-        (setq cdir "/appl/ansys_inc/") ; FIXME: remove
         (setq subdir
               (car
                (reverse
@@ -292,8 +297,9 @@ AWP_ROOTXXX")
         (setq dir (concat cdir subdir apdl-current-ansys-version "/")))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on Linux "/" or rather "/usr"
-       ;; /ansys_inc is a symlink to /usr/ansys_inc
-       ((string= window-system "x")
+       ;; /ansys_i..nc is a symlink to /usr/ansys_inc!
+       ((apdl-is-unix-system-p)
+	(message "Checking the default path under a Unix system.")
         (setq cdir "/ansys_inc/")
         (when (file-readable-p cdir)
           (setq subdir
@@ -301,13 +307,12 @@ AWP_ROOTXXX")
                  (reverse
                   (directory-files cdir nil "v[0-9][0-9][0-9]"))))
           (setq apdl-current-ansys-version (substring subdir 0 4))
-          ;; (remove ?v (substring subdir 0 4)))
           (message "Current Ansys version: %s" apdl-current-ansys-version)
           (setq dir (concat cdir subdir "/"))))
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
        ;; default installation path on windows
        (t
-        (setq cdir "C:\\Program Files\\Ansys Inc")
+        (setq cdir "C:/Program Files/Ansys Inc/")
         ;; search for the latest version
         (when (file-readable-p cdir)
           (setq subdir
@@ -318,30 +323,16 @@ AWP_ROOTXXX")
           ;; (remove ?v (substring subdir 0 4)))
           (message "Current Ansys version: %s" apdl-current-ansys-version)
           (setq dir (concat cdir subdir "/"))))
-
        (if dir
            (setq apdl-ansys-install-directory dir)
-         (message "No Ansys installation directory found"))))
+         (message "No Ansys installation directory found")))))
 
-    ;; 1a) -classics-flag
-    (let* ()
-      (if (and apdl-is-unix-system-flag (apdl-classics-p))
-          (setq apdl-classics-flag t)))
+    ;; ;; 1a) -classics-flag ; not supported any longer 2020-03
+    ;; (let* ()
+    ;;   (if (and apdl-is-unix-system-flag (apdl-classics-p))
+    ;;       (setq apdl-classics-flag t)))
 
-    ;; should be  done in 1)
-    ;; ;; 2) -current-apdl-version:
-    ;; (when apdl-ansys-install-directory
-    ;;   (let* ((idir (file-name-as-directory apdl-ansys-install-directory))
-    ;;          (version1 apdl-current-ansys-version)
-    ;;          (length))
-    ;;     (when (or (and idir
-    ;;                    (not version1))
-    ;;               force)
-    ;;       (setq length (length idir))
-    ;;       (setq version1 (substring (directory-file-name idir) (- length 4)
-    ;;       (- length 1)))
-    ;;       (setq apdl-current-ansys-version version1)
-    ;;       (message "apdl-current-ansys-version=%s" version1))))
+    ;; ;; 2) -current-apdl-version: is in the directory included
 
     ;; 3) -program
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-program) force))
@@ -375,7 +366,7 @@ AWP_ROOTXXX")
       (let* ( (idir (when  apdl-ansys-install-directory
                       (file-name-directory apdl-ansys-install-directory)))
               (exe
-               ;; since v19 there is no launcher191.exe, only launcher.exe...
+               ;; since v19 there seems no launcher191.exe, only launcher.exe...
                (if apdl-is-unix-system-flag
                    (concat idir "ansys/bin/launcher")
                  (concat idir  "ansys/bin/winx64/launcher.exe"))))
@@ -488,16 +479,15 @@ AWP_ROOTXXX")
          (t
           (message
            "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
-
     ;; ------------------------------------------------------------
-    (message "%s" "APDL-Mode: Initialised system dependent variables.")))
+    (message "%s" "APDL-Mode: Initialised system dependent variables."))
 ;; end of init function
 
 (defun apdl-ansys-install-directory ()
   "Change the Ansys installation directory.
-Which is to say the path up to the Ansys version number, for
-example \"v201\".  The path is stored in the variable
-`apdl-ansys-install-directory'"
+Which is to say the path up to (and including) the Ansys version
+number, for example \"/ansys_inc/v201/\".  The path is stored in
+the variable `apdl-ansys-install-directory'"
   (interactive)
   (let* ((idir apdl-ansys-install-directory)
          (ndir

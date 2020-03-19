@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-18>
+;; Time-stamp: <2020-03-19>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 

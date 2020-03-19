@@ -80,7 +80,7 @@ Under GNU-Linux this should be the solver, under Windows just the
 launcher.  When the respective executable is not in your search
 path, you have to specify the full qualified file name and not
 only executable's name.  For example:
-\"/ansys_inc/v162/ansys/bin/ansys162\" and not only \"ansys162\".
+\"/ansys_inc/v201/ansys/bin/ansys195\" and not only \"ansys195\".
 You might customise this variable or use the function
 `apdl-ansys-program' to do this for the current session only."
   :type 'string
@@ -102,7 +102,7 @@ this for the current session only."
 When the respective executable is not in your search path, you
 have to specify the full qualified file name and not only
 executable's name.  For example:
-\"/ansys_inc/v162/Framework/bin/Linux64/runwb2\".  You might
+\"/ansys_inc/v195/Framework/bin/Linux64/runwb2\".  You might
 customise this variable permanently or use the function
 `apdl-ansys-wb' to do this for the current session only."
   :type 'string
@@ -363,16 +363,17 @@ AWP_ROOTXXX")
       (let* ( (idir (when  apdl-ansys-install-directory
                       (file-name-directory apdl-ansys-install-directory)))
               (exe
-               ;; since v19 there seems no launcher191.exe, only launcher.exe...
+               ;; since v191 there is no launcher191.exe, only
+               ;; launcher.exe...
                (if apdl-is-unix-system-flag
                    (concat idir "ansys/bin/launcher")
                  (concat idir  "ansys/bin/winx64/launcher.exe"))))
         (when (file-executable-p exe)
           (setq apdl-ansys-launcher exe))
         (if apdl-ansys-launcher
-            (message "apdl-ansys-launcher is set to %s" apdl-ansys-launcher))
-        (message "Couldn't find an executable for apdl-ansys-launcher (%s)."
-                 exe)))
+            (message "apdl-ansys-launcher is set to %s" apdl-ansys-launcher)
+	  (message "Couldn't find an executable for apdl-ansys-launcher (%s)."
+		   exe))))
 
     ;; 6) -help-path
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-path)

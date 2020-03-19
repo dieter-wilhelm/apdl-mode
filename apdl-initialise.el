@@ -340,7 +340,7 @@ AWP_ROOTXXX")
 	   (idir (file-name-directory apdl-ansys-install-directory))
 	   (exe (if apdl-is-unix-system-flag
 		    (concat idir "ansys/bin/ansys" version1)
-		  (concat idir "ansys/bin/winx64/ANSYS"version1".exe"))))
+		  (concat idir "ansys/bin/winx64/MAPDL.exe"))))
       (if (file-executable-p exe)
 	  (progn
 	    (setq apdl-ansys-program exe)

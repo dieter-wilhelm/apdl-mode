@@ -203,7 +203,7 @@ Return nil if we can't find an MAPDL GUI."
       aID)))
 
 (defun apdl-start-classics ()
-  "Start the Ansys Classics graphical user interface.
+  "Start the Ansys MAPDL Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
 *Classics*."
   (interactive)
@@ -220,11 +220,11 @@ The output of the solver is captured in an Emacs buffer called
           ", license: " apdl-license
           ;; "Start run?  (license type: " (if (boundp
           ;; 'apdl-license) apdl-license)
-          (if (>= apdl-no-of-processors 3)
+          (if (> apdl-no-of-processors 4)
               (concat ", No of procs: " (number-to-string apdl-no-of-processors))
             "")
           ", job: " (if (boundp 'apdl-job) apdl-job)
-          " in " default-directory ", server: " apdl-license-file " "))
+          " in " default-directory ", lic server: " apdl-license-file " "))
         (message "Starting MAPDL in GUI mode (Ansys Classics) ...")
       (error "Calling MAPDL solver (Ansys Classics) cancelled"))
     ;; -d : device
@@ -232,14 +232,19 @@ The output of the solver is captured in an Emacs buffer called
     ;; -p : license
     ;; -np: no of PROCs
     ;; -j : job
+    ;; v195 new params?: -t -lch
+    ;; -g -p ansys -np 2 -j "file" -d 3D
     (start-process apdl-classics-process
-                   bname
+		   (if apdl-is-unix-system-flag
+		       bname
+		     nil)
                    apdl-ansys-program
-                   (concat (concat " -p " apdl-license)
-                           " -d 3d "
-                           (concat " -j " apdl-job)
+                   (concat " -g"
+			   (concat " -p " apdl-license)
                            (concat " -np " (number-to-string apdl-no-of-processors))
-                           " -g"))
+                           (concat " -j \"" apdl-job "\"")
+                           " -d 3D" ; 3d device, win32
+                           ))
     (display-buffer bname 'other-window)))
 
 (defun apdl-start-launcher ()

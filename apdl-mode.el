@@ -1106,7 +1106,7 @@ apdl-mode"]
 
 (defconst apdl-task-menu
   (list
-   "Ansys"
+   "MAPDL"
    ["Specify License Server or - File" apdl-license-file
     :label (if apdl-license-file
                "Change License Server or - File"
@@ -1152,7 +1152,7 @@ and used (apdl-license-status)"
     :active (file-executable-p apdl-ansys-launcher)
     :help "Start the Ansys Mechanical APDL Product Launcher
 (apdl-start-launcher)"]
-   ["Ansys Classics GUI" apdl-start-classics
+   ["Ansys MAPDL Classics GUI" apdl-start-classics
     :active (file-executable-p apdl-ansys-program)
     :help "Start the Ansys Classics MAPDL GUI (apdl-start-classics)"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys
@@ -1162,13 +1162,14 @@ and used (apdl-license-status)"
                  (file-executable-p apdl-ansys-program)
                  (not (apdl-process-running-p)))]
    "--"
-   ["Connect to Classics" apdl-toggle-classics
-    :label (if apdl-classics-flag
-               "Switch off sending to Classics MAPDL"
-             "Switch on sending to Classics MAPDL")
-    :active (and apdl-is-unix-system-flag (not (apdl-process-running-p)))
-    :help "Check whether an Ansys Classic is running and toogle sending output
-to it (apdl-toggle-classics)"]
+   ;; not supported any longer 2020-03
+;;    ["Connect to Classics" apdl-toggle-classics
+;;     :label (if apdl-classics-flag
+;;                "Switch off sending to Classics MAPDL"
+;;              "Switch on sending to Classics MAPDL")
+;;     :active (and apdl-is-unix-system-flag (not (apdl-process-running-p)))
+;;     :help "Check whether an Ansys Classic is running and toogle sending output
+;; to it (apdl-toggle-classics)"]
    ["Send/Copy Region or Paragraph" apdl-send-to-ansys
     :label (if
                (or apdl-classics-flag (apdl-process-running-p))

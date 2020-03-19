@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-18>
+#+DATE: Time-stamp: <2020-03-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -251,15 +251,18 @@ imports, see the file /example.anf/ in the /doc/ folder.
 * Miscellaneous
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-                            ;; Miscellaneous
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			      ;; Miscellaneous
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-  (setq apdl-parameter-help-duration "2 min")
-  (setq apdl-parameter-help-duration 30) ; 30 seconds
+    (setq apdl-parameter-help-duration "2 min")
+    (setq apdl-parameter-help-duration 30) ; 30 seconds
 
-  ;; if you want to read the manual in GNU-Emacs' EWW browser
-  ; (setq browse-url-browser-function 'eww-browse-url)
+    ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
+    ;; might only work for locally installed help documents (1.7 GB
+    ;; package v201) since v191 the online help is the default.
+
+    ; (setq browse-url-browser-function 'eww-browse-url)
 
   #+END_SRC
 
@@ -525,6 +528,9 @@ path, or if you want to mix various Ansys versions:
 
 ;;; apdl-config.el ends here
 
+;; Local Variables:
+;; no-byte-compile: t
+;; End:
 #+END_SRC
 -----
 

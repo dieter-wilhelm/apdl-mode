@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-18>
+#+DATE: Time-stamp: <2020-03-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -175,17 +175,17 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    the `load-path' variable as well).
 * Usage
   Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
-  inspect the menu bar's `APDL' and `Ansys' entries.  For existing
+  inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
   APDL files please type `M-x apdl-mode' to start this mode (or
-  configure Emacs to auto-load it for certain file suffices, please
+  configure Emacs to auto-load it for certain file suffixes, please
   see the following section).
 
   For further guidance please select `Describe APDL-Mode' (or type
   `C-h m'), which will display the mode's help.  You might also check
   the introductory APDL-Mode tutorial ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]).
 
-  APDL-Mode is tested with Ansys v193 and v201 under Windows, as well
-  as under Emacs-25 and 26 under GNU-Linux and Windows.
+  APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
+  well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
   The complete documentation of APDL-Mode is available [[http://dieter-wilhelm.github.io/apdl-mode][online]].
 * Configuration and Customisation
@@ -199,10 +199,10 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   file endings, especially the `.mac' suffix.
 
   #+begin_src elisp
-    ;; Traditional APDL file suffices
+    ;; Traditional APDL file suffixes
     (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
     (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
-    ;; Workbench solver file suffices
+    ;; Workbench solver file suffixes
     (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
     (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
     ;; Ansys neutral geometry file suffix

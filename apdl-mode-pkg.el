@@ -1,5 +1,5 @@
 ;;; apdl-mode-pkg.el --- Defining the APDL-Mode package -*-lexical-binding:t -*-
-;; Time-stamp: <2020-03-16>
+;; Time-stamp: <2020-03-19>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -66,6 +66,7 @@
 
 ;; Local Variables:
 ;; indicate-empty-lines: t
+;; no-byte-compile: t
 ;; show-trailing-whitespace: t
 ;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

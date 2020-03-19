@@ -1064,6 +1064,8 @@ command"]
    "--"
    (list
     "Helper Modes"
+    ["Ruler Mode" ruler-mode
+     :help "Toggle display of ruler in header line (Ruler mode)."]
     ["Outline Minor Mode" outline-minor-mode
      :style toggle :selected outline-minor-mode
      :help "Outline Mode is for hiding and selectively displaying headlines
@@ -2342,10 +2344,10 @@ the necessary code and call `apdl-mode'."
 The Matching parenthesis is highlighted."
   (show-paren-mode 1))
 
-(defun apdl-ruler-mode ()               ; _C
-  "Switch on minor mode function `ruler-mode'.
-Display a ruler in the header line."
-  (ruler-mode 1))
+;; (defun apdl-ruler-mode ()               ; _C
+;;   "Toggle display of ruler in header line.
+;; This is the minor mode `ruler-mode'."
+;;   (ruler-mode))
 
 (defun apdl-font-lock-mode ()
   "Switch on function `font-lock-mode'.

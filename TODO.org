@@ -20,8 +20,7 @@
 
   Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs, checks
-   - C-u C-c C-b in browser for "All"stuff doesn't skip to subjects..,
-     does it for local help? NO it doesn't
+   - C-u C-c C-b in browser for some of the "All"stuff isn't working
    - Check templates (formatting changed strongly!) especially
      -compilation-template!  Indent is not correct., -skeleton-function!?
      - C-s C-s apdl-calculate-indent: Can't deduce sensible column
@@ -70,8 +69,6 @@
        interpreter or Ansys Classics GUI
     6) what is .gitattributes
     7) Melpa readme
-    8) merge config branch and stashes
-
 ** Done
    - -wb-template-directory depends on melpa version! This is working
      only for the stable version!

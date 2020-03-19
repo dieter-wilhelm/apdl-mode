@@ -1106,11 +1106,12 @@ apdl-mode"]
 
 (defconst apdl-task-menu
   (list
-   "Ansys"
+   "MAPDL"
    ["Specify License Server or - File" apdl-license-file
     :label (if apdl-license-file
                "Change License Server or - File"
              "Specify License Server or - File")
+    :visible apdl-is-unix-system-flag
     :help "Change the license server specification (for an solver/interpreter
 run or the license status), either naming the license server machine
 (with port) or the actual license file"]
@@ -1118,6 +1119,7 @@ run or the license status), either naming the license server machine
     :label (if apdl-ansysli-servers
                "Change the License Interconnect Servers"
              "Specify the License Interconnect Servers")
+    :visible apdl-is-unix-system-flag
     :help "Change the interconnect server specification (for an solver/
 interpreter run)"]
    ["Installation Directory" apdl-ansys-install-directory
@@ -1134,10 +1136,12 @@ of Ansys, the path up to the version number vXXX
 (apdl-license)"]
    ["Change Job Name of Run" apdl-job
     :label (concat "Change Job Name [" apdl-job "]")
+    :visible apdl-is-unix-system-flag
     :help "Specify the job name for an solver/interpreter run (apdl-job)"]
    ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]"
                    apdl-no-of-processors )
+    :visible apdl-is-unix-system-flag
     :help "Specify the number of processors to use for the Ansys run
 definition (apdl-no-of-processors)"]
    "--"
@@ -1154,6 +1158,7 @@ and used (apdl-license-status)"
 (apdl-start-launcher)"]
    ["Ansys Classics GUI" apdl-start-classics
     :active (file-executable-p apdl-ansys-program)
+    :visible apdl-is-unix-system-flag ; -TODO- can't get it to run!
     :help "Start the Ansys Classics MAPDL GUI (apdl-start-classics)"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys
     :help "Start an interactive MAPDL solver/interpreter run under Linux
@@ -1166,6 +1171,7 @@ and used (apdl-license-status)"
     :label (if apdl-classics-flag
                "Switch off sending to Classics MAPDL"
              "Switch on sending to Classics MAPDL")
+    :visible apdl-is-unix-system-flag
     :active (and apdl-is-unix-system-flag (not (apdl-process-running-p)))
     :help "Check whether an Ansys Classic is running and toogle sending output
 to it (apdl-toggle-classics)"]

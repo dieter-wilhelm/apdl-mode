@@ -329,21 +329,23 @@ AWP_ROOTXXX")
     ;;   (if (and apdl-is-unix-system-flag (apdl-classics-p))
     ;;       (setq apdl-classics-flag t)))
 
-    ;; ;; 2) -current-apdl-version: is in the directory included
+    ;; ;; 2) -current-apdl-version: is in the -ansys-install-directory
+    ;; ;; included
 
-    ;; 3) -program
-    (when (and apdl-ansys-install-directory (or (null apdl-ansys-program) force))
-      (let* ((version1 (remove ?v apdl-current-ansys-version))
-             (idir (when apdl-ansys-install-directory
-                     (file-name-directory apdl-ansys-install-directory)))
-             (exe (if apdl-is-unix-system-flag
-                      (concat idir "ansys/bin/ansys" version1)
-                    (concat idir "ansys/bin/winx64/ansys"version1".exe"))))
-        (if (file-executable-p exe)
-            (progn
-              (setq apdl-ansys-program exe)
-              (message (concat "apdl-ansys-program set to " apdl-ansys-program)))
-          (message "Couldn't find an executable for apdl-ansys-program."))))
+  ;; 3) -ansys-program under Win10 seems to be case sensitive!  Since
+  ;; at least v191 there is also an MAPDL.exe
+  (when (and apdl-ansys-install-directory
+	     (or (null apdl-ansys-program) force))
+    (let* ((version1 (remove ?v apdl-current-ansys-version))
+	   (idir (file-name-directory apdl-ansys-install-directory))
+	   (exe (if apdl-is-unix-system-flag
+		    (concat idir "ansys/bin/ansys" version1)
+		  (concat idir "ansys/bin/winx64/ANSYS"version1".exe"))))
+      (if (file-executable-p exe)
+	  (progn
+	    (setq apdl-ansys-program exe)
+	    (message (concat "apdl-ansys-program set to " apdl-ansys-program)))
+	(message "Couldn't find an executable for apdl-ansys-program."))))
 
     ;; 4) -wb
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-wb) force))
@@ -479,7 +481,7 @@ AWP_ROOTXXX")
            "%s" "Found no apdl-ansyslic-servers from environment or ini file")))))
     ;; ------------------------------------------------------------
     (setq apdl-initialised-flag t)
-    (message "%s" "APDL-Mode: Initialised system dependent variables."))
+    (message "%s" "\nAPDL-Mode: Initialised system dependent variables."))
 ;; end of init function
 
 (defun apdl-ansys-install-directory ()

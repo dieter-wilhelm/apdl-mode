@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-19>
+#+DATE: Time-stamp: <2020-03-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,11 +17,15 @@
 
 * TODO Version 20.3.0 Update v201 docu, melpa
   DEADLINE: <2020-04-16 Thu>
+  feature freeze [2020-03-20 Fr]
 
 #  Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs, checks
+   - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
+     v201 version..
    - Update and centralise DOCUs, info style?
      - do we need a short help, yes for installation + config + first steps
+     - add intro to wb- template system
      - shift org-files to doc, except README.org: Focus: Intro +
        Features + Installation
        - usage
@@ -40,9 +44,9 @@
        - tutorial
        - bugs
      - find nice style css stuff for html export?
-   - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
-     v201 version..
 ** minor bugs
+   - APDL-Mode documentation is only shown in default browswer, not
+     shown in eww
    - C-u C-c C-b in browser on Win10 for some of the "All"stuff isn't
      working for chrome?
    - Check templates (formatting changed strongly!) especially
@@ -50,8 +54,6 @@
      - C-s C-s apdl-calculate-indent: Can't deduce sensible column
        offset, for some templates
    - 1/en, en is variable but fraction not fontified?
-   - The APDL menu entry in terminal mode is not working => wrong type
-     argument!?
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** wishes
@@ -62,14 +64,17 @@
       include ARG[1-9] optionally?
     - do we need inter-region templates?
 *** misc
-    1) Travis CI continuous integration!
-    2) https://github.com/marketplace/coveralls
-    3) Start optionally runbWB2 --aim, Discovery AIM
-    4) Ansys is often used synonymous for Ansys MAPDL solver /
+    1) derive A-M from prog-modes
+    2) Travis CI continuous integration!
+    3) https://github.com/marketplace/coveralls
+    4) Start optionally runbWB2 --aim, Discovery AIM
+    5) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
-    5) Melpa readme
-    6) what is .gitattributes
+    6) Melpa README, better wait till emacs-27?
 ** Done
+   - The APDL menu entry in terminal mode is not working => wrong type
+     argument!?
+   - what is .gitattributes
    - check highlighting of -license-category,should work on white
      background..
    - -wb-template-directory depends on melpa version! This is working

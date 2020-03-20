@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-19>
+#+DATE: Time-stamp: <2020-03-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -25,6 +25,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - EWW browser for the local help is now opening in a different
      "Window" and is not hiding the APDL buffer any longer
    - Added Ruler Mode to the helper modes
+   - Added customisation section for Worbench / Discover Aim templates
 
 ** Version 20.2.0: 2020-03: Updated keywords to Ansys v195
    - Added a template preview system for Worbench `Command (APDL)'

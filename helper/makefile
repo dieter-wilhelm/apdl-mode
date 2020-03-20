@@ -87,7 +87,7 @@ X11 : $(X11_FILES)
 PACKAGE := apdl-mode-$(VERSION).tar
 
 # necessary el files
-EL_FILES := ../apdl-config.el ../apdl-mode.e: $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
+EL_FILES :=  ../apdl-mode.e: $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
 
 .PHONEY : EXE
 EXE : $(EMACS_EXE)
@@ -99,11 +99,11 @@ X11_EXE := $(X11_FILES:.cpp=)
 PACKAGE := apdl-mode-$(VERSION).tar
 
 # necessary el files
-EL_FILES := ../apdl-config.el ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
+EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el ../apdl-process.el
 # fontification.el is not included since it is not necessary for running A-M
 
-../apdl-config.el : ../apdl-config.org
+../doc/apdl-config.el : ../doc/apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
 	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
@@ -115,7 +115,7 @@ ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 ELC : $(ELC_FILES)
 
 FILES := ../LICENSE ../apdl-mode-readme.txt ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
-EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat 
+EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat ../doc/apdl-config.el ../doc/apdl-config.org
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -163,7 +163,7 @@ PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOU
 
 P_DIR := apdl-mode-$(VERSION)
 
-$(PACKAGE) : $(PACKAGE_FILES)  makefile
+$(PACKAGE) : ELC $(PACKAGE_FILES)  makefile
 	@echo "Packaging GNU-Emacs package $@ ..."
 	@echo
 	@test -d $(P_DIR) || \
@@ -218,7 +218,7 @@ tools/bin/A-M-$(VERSION).sh : makefile
 	@test -d tools/bin || mkdir tools/bin
 	@echo "#!/bin/sh " > $@
 	@echo "# Automatically created from APDL-Mode-$(VERSION)" >> $@
-	@echo "emacs -l /appl/tools/apdl-mode/apdl-mode-$(VERSION)/ansys-config.el \$$*" >> $@
+	@echo "emacs -l /appl/tools/apdl-mode/apdl-mode-$(VERSION)/doc/apdl-config.el \$$*" >> $@
 	chmod +x $@
 
 .PHONEY : EMACS_SRC
@@ -330,7 +330,7 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el ../apdl-config.org
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el ../doc/apdl-config.org
 
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)

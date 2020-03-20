@@ -65,10 +65,10 @@
 ;;; Code:
 
 (require 'apdl-keyword)
+(require 'apdl-initialise)
+(require 'apdl-process)
 (require 'apdl-template)
 (require 'apdl-wb-template)
-(require 'apdl-process)
-(require 'apdl-initialise)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
@@ -3503,8 +3503,8 @@ These constructs appear in WorkBench created solver input files."
         'apdl-outline-string
         'apdl-mode-hook
         'apdl-align-rules-list
-        'apdl-ansys-install-directory
-	'apdl-mode-install-directory
+	'apdl-ansys-install-directory
+	'apdl-mode-wb-custom-template-directory
         'apdl-job
         'apdl-ansys-program
         'apdl-ansys-help-program

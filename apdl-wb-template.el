@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-18>
+;; Time-stamp: <2020-03-20>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -46,6 +46,22 @@
 (defvar apdl-last-skeleton)
 (defvar apdl-skeleton-overlay)
 (defvar apdl-mode-install-directory)
+
+(defconst apdl-wb-default-template-directory
+  (concat apdl-mode-install-directory "template/")
+  "Directory where the APDL-Mode Workbench templates residing.")
+
+(defgroup APDL-template nil
+  "Customisation 'template' subgroup"
+  :group 'APDL)
+
+(defcustom apdl-wb-custom-template-directory
+  apdl-mode-install-directory
+  "Directory where your Worbench / Aim templates are residing.
+You should customise this variable and use it for your own
+templates."
+  :type 'directory
+  :group 'APDL-template)
 
 (declare-function apdl-mode "apdl-mode")
 
@@ -144,7 +160,7 @@ And other parameters from a plane stress press-fit simulation."
   "/com, Inserted: "(current-time-string)", APDL-Mode: "apdl-mode-version"\n"
   "/com,==============================================================\n"
   (insert-file
-   (concat apdl-mode-install-directory "template/"
+   (concat apdl-wb-default-template-directory
 	   "plane_stress_press-fit_torque_calculations.mac")))
 
 (define-skeleton apdl-wbt-do

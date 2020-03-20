@@ -38,4 +38,7 @@ helper/tools*
 *.xcf
 *.tar
 misc/
-apdl-config.el
+doc/apdl-config.el
+README.md
+add-directory_to-load-path.el
+./

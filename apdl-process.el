@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-19>
+;; Time-stamp: <2020-03-20>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -81,7 +81,7 @@
   :group 'APDL)
 
 (defcustom apdl-job "file"
-  "Variable storing the Ansys job name.
+  "String variable storing the Ansys job name.
 It is initialised to 'file' (which is also the Ansys default job
 name).  See `apdl-abort-file' for a way of stopping a solver run
 in a controlled way and `apdl-display-error-file' for viewing
@@ -106,7 +106,7 @@ terminology.
   :type 'list
   :group 'APDL-process)
 
-(defcustom apdl-license "struct"
+(defcustom apdl-license "ansys"
   "The License type with which the Ansys interpreter will be started.
 See `apdl-license-categories' for often used Ansys license types."
   ;;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")

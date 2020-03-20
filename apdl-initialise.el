@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-19>
+;; Time-stamp: <2020-03-20>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -39,10 +39,15 @@
 (defconst apdl-mode-version "20.3.0"
   "The APDL-Mode version string.")
 
+(defconst apdl-mode-install-directory
+  (file-name-directory (locate-library "apdl-mode"))
+  "The installation directory of APDL-Mode.
+A string describing the directory where the Elisp files reside.")
+
 (defconst apdl-ansys-version "v193"
   "Ansys version string on which APDL-Mode is based upon.
-With respect to the documentation, like deprecated elements,
-command names, etc.")
+With respect to keywords and documentation, like deprecated
+elements, command names, etc.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; defcustoms
@@ -50,13 +55,6 @@ command names, etc.")
 (defgroup APDL-initialise nil
   "Initialisation subgroup for APDL-Mode."
   :group 'APDL)
-
-(defcustom apdl-mode-install-directory
-  (file-name-directory (locate-library "apdl-mode"))
-  "The installation directory of APDL-Mode.
-A string describing the directory where the Elisp files reside."
-  :type 'string
-  :group 'APDL-initialise)
 
 ;; -TODO-: are environment variables also set under GNU-Linux?
 (defcustom apdl-ansys-install-directory nil
@@ -68,7 +66,7 @@ former versioning example: \"AWP_ROOT201\".  With other words:
 this customisation variable includes besides the installation
 root directory also the information which Ansys version is
 currently in use."
-  :type 'string
+  :type 'directory
   :group 'APDL-initialise)
 
 ;; TODO: the following defcustoms can actually be variables, can't
@@ -83,7 +81,7 @@ only executable's name.  For example:
 \"/ansys_inc/v201/ansys/bin/ansys195\" and not only \"ansys195\".
 You might customise this variable or use the function
 `apdl-ansys-program' to do this for the current session only."
-  :type 'string
+  :type '(file :must-match t)
   :group 'APDL-initialise)
 
 (defcustom apdl-ansys-launcher nil
@@ -94,7 +92,7 @@ executable's name.  For example:
 \"/ansys_inc/v162/ansys/bin/launcher162\".  You might customise this
 variable permanently or use the function `apdl-ansys-launcher' to do
 this for the current session only."
-  :type 'string
+  :type '(file :must-match t)
   :group 'APDL-initialise)
 
 (defcustom apdl-ansys-wb nil
@@ -105,42 +103,42 @@ executable's name.  For example:
 \"/ansys_inc/v195/Framework/bin/Linux64/runwb2\".  You might
 customise this variable permanently or use the function
 `apdl-ansys-wb' to do this for the current session only."
-  :type 'string
+  :type '(file :must-match t)
   :group 'APDL-initialise)
 
 (defcustom apdl-ansys-help-program nil
-  "The Ansys help executable.
+  "The Ansys help viewer executable.
 It is called with
 \\[apdl-start-ansys-help] (`apdl-start-ansys-help').  When the
 executable is not in the search path, you have to complement the
 executable with its complete path.  For example the default
-locations are \"/ansys_inc/v162/ansys/bin/anshelp162\" on GNU-Linux
-and \"c:\\\\Program Files\\Ansys\
-Inc\\v162\\commonfiles\\help\\HelpViewer\\AnsysHelpViewer.exe\" on
-Windows (XP/7)."
-  :type 'string
+locations are \"/ansys_inc/v162/ansys/bin/anshelp162\" on
+GNU-Linux and \"c:/Program Files/Ansys
+Inc/v162/commonfiles/help/HelpViewer/AnsysHelpViewer.exe\" on
+Windows (Windows 10)."
+  :type '(file :must-match t)
   :group 'APDL-initialise)
 
 (defcustom apdl-ansys-help-path nil
   "The Ansys help path."
-  :type 'string
+  :type 'directory
   :group 'APDL-initialise)
 
-(defcustom apdl-ansys-help-program-parameters ""
-  "Variable stores parameters for the Ansys help program.
-Since Ansys150 not longer necessary."
-  :type 'string
-  :group 'APDL-initialise)
+;; ;; -TODO- erase 2020-03
+;; (defcustom apdl-ansys-help-program-parameters ""
+;;   "Variable stores parameters for the Ansys help program.
+;; Since Ansys150 not longer necessary."
+;;   :type 'string
+;;   :group 'APDL-initialise)
 
 (defcustom apdl-lmutil-program nil
   "A FlexLM license manager executable.
 For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
-or in case of a Windows 32-bit OS \"c:\\\\Program Files\\Ansys
-Inc\\Shared\ Files \\Licensing\\intel\\anslic_admin.exe.  This
-variable is used for displaying the license status or starting
-the ansli_admin tool under Windows with the function
-`apdl-license-status'."
-  :type 'string
+or in case of a Windows OS \"c:/Program Files/Ansys Inc/Shared
+Files/Licensing/anslic_admin.exe\".  This variable is used for
+displaying the license status or starting the anslic_admin tool
+under Windows with the function `apdl-license-status'."
+  :type '(file :must-match t)
   :group 'APDL-initialise)
 
 (defcustom apdl-license-file nil

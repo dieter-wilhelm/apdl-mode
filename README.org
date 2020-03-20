@@ -28,8 +28,8 @@
 #+title: APDL-Mode
 The GNU-Emacs major mode for the programming language APDL
 
-[[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+[[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
@@ -124,8 +124,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** Melpa
    APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]].
 
-   [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
    [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+   [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 
    Please add
    #+begin_src elisp
@@ -209,7 +209,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
   #+end_src
 
-  Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration [[file:ansys-config.el][file]]
+  Please read [[file:doc/apdl-config.org][apdl-config.org]], or the accompanying configuration [[file:doc/ansys-config.el][file]]
   for details and further configurations.
 * Bugs and Problems
   Please write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Trigger a bug report
@@ -247,9 +247,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
      Windows, project disbanded in 2015.
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
 * License
-  The GPL v3, the GNU Public license.  There are no costs and no usage
-  restrictions even in commercial application, please read the [[file:LICENSE][LICENSE]]
-  file
+  The GNU GPL v3, the GNU General Public license version 3.  There are
+  no costs and no usage restrictions even in commercial application,
+  please read the [[file:LICENSE][LICENSE]] file.
 * Acknowledgements
   Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
   from 1997 which triggered the idea in 2006 to start apdl-mode.

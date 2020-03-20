@@ -20,12 +20,14 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 ** Version 20.3.0: Melpa installation #, updated to v201
    - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!
-   - Improved initialisation of Ansys installation dependent
-     parameters
+   - Added a new menu entry for browsing interactively the
+     documentation for keywords
    - EWW browser for the local help is now opening in a different
      "Window" and is not hiding the APDL buffer any longer
    - Added Ruler Mode to the helper modes
    - Added customisation section for Worbench / Discover Aim templates
+   - Improved initialisation of Ansys installation dependent
+     parameters
 
 ** Version 20.2.0: 2020-03: Updated keywords to Ansys v195
    - Added a template preview system for Worbench `Command (APDL)'

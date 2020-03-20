@@ -890,6 +890,10 @@ parameters (apdl-show-command-parameters)"]
     :help "Open the original APDL documentation for a command or element name
 near the cursor in your default browser (apdl-browse-apdl-help)"
     :active apdl-current-ansys-version]
+   ["Browse interactively the command help" (apdl-browse-apdl-help t)
+    :help "Open the original APDL documentation for a command,
+element name or other subjects (apdl-browse-apdl-help)."
+    :active apdl-current-ansys-version]
    ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
     :help "Read the original Ansys Paramtetric Design Language Guide in a
 browser (apdl-browse-ansys-apdl-manual)"
@@ -1091,10 +1095,10 @@ and their sublevel contents"]
    ["Customise APDL-Mode"        (customize-group "APDL")
     :help "Open a special customisation window for changing the values
 and inspecting the documentation of its customisation variables"]
-   ["List Mode Abbreviations"     (list-abbrevs t)
+   ["List Mode Abbreviations" (list-abbrevs t)
     :help
     "Display a list of all abbreviation definitions for logical blocks"]
-   ["Submit Bug Report"       apdl-submit-bug-report
+   ["Submit Bug Report" apdl-submit-bug-report
     :help "Open a mail template for an APDL-Mode bug report"]
    ["Reload APDL-Mode" apdl-reload-apdl-mode
     :help "Loading the mode definitions anew from files and restarting

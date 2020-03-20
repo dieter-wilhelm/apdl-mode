@@ -163,7 +163,8 @@ PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOU
 
 P_DIR := apdl-mode-$(VERSION)
 
-$(PACKAGE) : ELC $(PACKAGE_FILES)  makefile
+$(PACKAGE) : $(PACKAGE_FILES)  makefile
+	$(EMACS_EXE) --batch -L $(S_DIR) --eval '(byte-recompile-directory $(S_DIR) 0)'
 	@echo "Packaging GNU-Emacs package $@ ..."
 	@echo
 	@test -d $(P_DIR) || \
@@ -185,6 +186,7 @@ $(PACKAGE) : ELC $(PACKAGE_FILES)  makefile
 	    mkdir $(P_DIR)/template
 	@cp -rf $(TEMPLATE) $(P_DIR)
 	tar -cf $@ $(P_DIR) # ../apdl-mode-readme.txt # default.el
+	rm -r $(P_DIR)
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"

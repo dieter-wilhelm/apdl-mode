@@ -60,7 +60,7 @@
   "Directory where your Worbench / Aim templates are residing.
 You should customise this variable and use it for your own
 templates."
-  :type 'directory
+  :type '(directory)
   :group 'APDL-template)
 
 (declare-function apdl-mode "apdl-mode")

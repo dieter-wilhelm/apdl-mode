@@ -783,7 +783,7 @@ elem.
         (path apdl-ansys-help-path)
         command)
     (if arg
-        (setq command (completing-read "Browse help for keyword: "
+        (setq command (completing-read "Browse help for keyword [TAB to complete]: "
                                        apdl-help-index))
       (setq command (apdl-search-keyword)))
     (setq file (nth 1 (assoc-string command apdl-help-index t)))

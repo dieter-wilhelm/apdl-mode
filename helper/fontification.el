@@ -850,12 +850,12 @@ By default APDL keywords, get-functions, parametric-function and elements
 ;; (goto-char (point-min))
 
     (while (re-search-forward "^SHELLS" nil t)
-      (replace-match "\"SHELLS\"" nil nil))
+      (replace-match "\"SHELLS\"" nil nil)) ; unique v201
     (goto-char (point-min))
-    (while (re-search-forward "^PLANE " nil t)
+    (while (re-search-forward "^PLANE " nil t) ; unique v201
       (replace-match "\"PLANES\"" nil nil))
     (goto-char (point-min))
-    (while (re-search-forward "^SOLID " nil t)
+    (while (re-search-forward "^SOLID " nil t) ; uniqe v201
       (replace-match "\"SOLIDS\"" nil nil))
     (goto-char (point-min))
 ;; Replace suffix ALL with "ALL"

@@ -15,10 +15,10 @@
 
 #+title: The TODO file of APDL-Mode
 
-* TODO Version 20.3.0
+* TODO Version 20.3.0 Update v201 docu, melpa
   DEADLINE: <2020-04-16 Thu>
 
-  Ansys local help v201 1.7 GB [2020-03-17 Di]
+#  Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs, checks
    - Update and centralise DOCUs, info style?
      - do we need a short help, yes for installation + config + first steps
@@ -50,7 +50,6 @@
      - C-s C-s apdl-calculate-indent: Can't deduce sensible column
        offset, for some templates
    - 1/en, en is variable but fraction not fontified?
-   - check highlighting of -license-category
    - The APDL menu entry in terminal mode is not working => wrong type
      argument!?
    - changed file size without warning to 30 MB what is Emacs-26
@@ -65,13 +64,14 @@
 *** misc
     1) Travis CI continuous integration!
     2) https://github.com/marketplace/coveralls
-    3) 
-    4) Start optionally runbWB2 --aim, Discovery AIM
-    5) Ansys is often used synonymous for Ansys MAPDL solver /
+    3) Start optionally runbWB2 --aim, Discovery AIM
+    4) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
-    6) Melpa readme
-    7) what is .gitattributes
+    5) Melpa readme
+    6) what is .gitattributes
 ** Done
+   - check highlighting of -license-category,should work on white
+     background..
    - -wb-template-directory depends on melpa version! This is working
      only for the stable version!
    - Is the -help-path working without backslashes under Window?, yes it is

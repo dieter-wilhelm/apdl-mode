@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-19>
+;; Time-stamp: <2020-03-20>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1065,6 +1065,7 @@ command"]
    (list
     "Helper Modes"
     ["Ruler Mode" ruler-mode
+     :style toggle :selected ruler-mode
      :help "Toggle display of ruler in header line (Ruler mode)."]
     ["Outline Minor Mode" outline-minor-mode
      :style toggle :selected outline-minor-mode

@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-19>
+#+DATE: Time-stamp: <2020-03-20>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -176,13 +176,13 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Usage
   Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
   inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
-  APDL files please type `M-x apdl-mode' to start this mode (or
+  APDL files please type `M-x apdl-mode' to start this mode or
   configure Emacs to auto-load it for certain file suffixes, please
-  see the following section).
+  see the following section.
 
   For further guidance please select `Describe APDL-Mode' (or type
   `C-h m'), which will display the mode's help.  You might also check
-  the introductory APDL-Mode tutorial ([[file:doc/A-M_introductory_tutorial.org][A-M_introductory_tutorial.org]]).
+  the introductory APDL-Mode [[file:doc/A-M_introductory_tutorial.org][tutorial]].
 
   APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
   well as under Emacs-25 and 26 under GNU-Linux and Windows.
@@ -191,9 +191,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Configuration and Customisation
   Most functionality of APDL-Mode is working without additional
   configurations.  APDL-Mode is intelligent enough to figure out Ansys
-  installation dependent paths (for regular Ansys installations, it
+  installation dependent paths.  For regular Ansys installations, it
   chooses by default the highest installed Ansys version on your
-  system).
+  system.
 
   I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
   file endings, especially the `.mac' suffix.
@@ -209,24 +209,31 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
   #+end_src
 
-  Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration file
-  [[file:ansys-config.el][apdl-config.el]] for details and further configurations.
+  Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration [[file:ansys-config.el][file]]
+  for details and further configurations.
 * Bugs and Problems
   Please write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Trigger a bug report
-  form from the APDL menu or by calling the function
+  form from the APDL-Mode menu or by calling the function
   `apdl-submit-bug-report'.  Even if you have not configured Emacs to
-  send emails, please copy this template for the maintainer.
+  send emails, please copy the content of the mail template for the
+  maintainer.
 
-  You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]].
-
-  And you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
+  You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]].  And
+  you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
   [[https://www.emacswiki.org][Emacs Wiki]].
-
 * News
-  APDL-Mode can now be installed from [[https://melpa.org/][Melpa]].
+  APDL-Mode can now be installed from the package archive [[https://melpa.org/][Melpa]].
 
   For further news please have a look into the [[file:NEWS.org][NEWS]] file.
 * Further Resources
+** Ansys and APDL resources
+   - The online Ansys [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
+     the Ansys [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
+   - The [[http://www.ansys.com][Ansys homepage]] with the Ansys Portal and Learning Hub
+   - Xansys, an [[http://www.xansys.org][Ansys online community]] (forum registration is necessary)
+   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.
+   - A general  Ansys repository [[http://www.ansys.net][Ansys.net]]
+   - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
 ** Emacs editor resources
    - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
    - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
@@ -239,14 +246,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
      Windows, project disbanded in 2015.
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
-** Ansys and APDL resources
-   - The online Ansys [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
-     the Ansys [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
-   - The [[http://www.ansys.com][Ansys homepage]] with the Ansys Portal and Learning Hub
-   - Xansys, an [[http://www.xansys.org][Ansys online community]] (forum registration is necessary)
-   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.
-   - A general  Ansys repository [[http://www.ansys.net][Ansys.net]]
-   - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
 * License
   The GPL v3, the GNU Public license.  There are no costs and no usage
   restrictions even in commercial application, please read the [[file:LICENSE][LICENSE]]
@@ -260,7 +259,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   Author: [[mailto:jwe@bevo.che.wisc.edu][John Eaton]]
 
 * TODOs
-  Please read the [[file:TODO.org][TODO]] file
+  Please check the [[file:TODO.org][TODO]] file
 -----
 
 # The following is for Emacs

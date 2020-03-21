@@ -307,8 +307,9 @@ See also the variable `apdl-blink-matching-block-flag'."
   "Normal hook run before entering APDL-Mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
-  :options '(apdl-show-paren-mode apdl-outline-minor-mode
-                                  apdl-ruler-mode apdl-auto-insert-mode)
+;;  :options '(apdl-show-paren-mode apdl-outline-minor-mode
+;;             apdl-ruler-mode apdl-auto-insert-mode)
+;; 2020-03-21: don't change Emacs defaults settings..
   :group 'APDL)
 
 (require 'align)
@@ -925,6 +926,8 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
      :help "Insert the variable definition \"Pi = 3.1415...\""]
     ["Configuration" apdl-skeleton-configuration
      :help "Configuration code template"]
+    ["Get- and Fortran Functions" apdl-skeleton-function
+     :help "Get- and Fortran functions template"]
     ["View Settings" apdl-skeleton-view-settings
      :help "View settings like focus point, magnification, ..."]
     ["Coordinate Sys. Display" apdl-skeleton-coordinates
@@ -1499,7 +1502,13 @@ and P-MAX) otherwise align the current code paragraph."
     (align-current))) ; align-current needs a mark
 
 ;;;###autoload
-(defun apdl-mode ()
+(define-derived-mode apdl-mode prog-mode "APDL"
+  :syntax-table apdl-mode-syntax-table
+  ;; killing all local variables is done for you
+  ;; setting the major mode variable is done for you
+  ;; setting the mode name is done for you
+  ;; setting use-local-map is done for you
+  ;; the apdl-mode-hook is run automatically for you
   "Editor support for the APDL language and working with Ansys FEA.
 
 == APDL-Mode help contents ==
@@ -2080,33 +2089,27 @@ improvements you have the following options:
 
 ====================== End of APDL-Mode help ===================="
 
-  ;; You can improve the loading and execution speed of APDL-Mode
-  ;; with a byte-compilation of its lisp files (if they are not
-  ;; already compiled, i. e. they have the suffix '.elc', please read
-  ;; the section 'Byte Compilation' in the Emacs lisp reference, which
-  ;; is availabe from the help menu).
+;  (interactive) ; derived mode not necessary
 
-  (interactive)
-
-  (unless (string= major-mode "apdl-mode")
-    (set (make-local-variable 'apdl-previous-major-mode) major-mode))
-  (put 'apdl-previous-major-mode 'permanent-local t)
+  ;; (unless (string= major-mode "apdl-mode")
+  ;;   (set (make-local-variable 'apdl-previous-major-mode) major-mode))
+  ;; (put 'apdl-previous-major-mode 'permanent-local t)
 
   (when (and (overlayp apdl-help-overlay)
              (overlay-buffer apdl-help-overlay))
     (delete-overlay apdl-help-overlay))
 
-  (kill-all-local-variables)            ; convention
-  (setq major-mode 'apdl-mode)
-  (setq mode-name "APDL")               ; mode line string
+;  (kill-all-local-variables)            ; convention
+;  (setq major-mode 'apdl-mode)
+;  (setq mode-name "APDL")               ; mode line string
 
   ;; only effective for window systems!
   (setq indicate-empty-lines apdl-indicate-empty-lines-flag)
 
   (setq completion-ignore-case t) ; keyword completion regardless of cases
 
-  (use-local-map apdl-mode-map)
-  (set-syntax-table apdl-mode-syntax-table)
+;  (use-local-map apdl-mode-map)
+;  (set-syntax-table apdl-mode-syntax-table)
   (setq local-abbrev-table apdl-mode-abbrev-table)
 
   (setq font-lock-maximum-decoration
@@ -2205,7 +2208,7 @@ improvements you have the following options:
                      (y-or-n-p "File is larger than 30 MB, switch on \
 user variable highlighting? "))))))
       (progn
-        (message "before apdl-update-p.")
+; debug (message "before apdl-update-p.")
         (add-hook 'after-change-functions
                   #'apdl-find-user-variables nil t)
         (add-hook 'post-command-hook

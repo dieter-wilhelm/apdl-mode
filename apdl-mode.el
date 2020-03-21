@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-20>
+;; Time-stamp: <2020-03-21>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -861,42 +861,44 @@ start a code comment"]
                (or apdl-classics-flag (apdl-process-running-p))
                "Send region or paragraph to Ansys"
              "Copy region or paragraph to clipboard")
-    :help "In case of a running solver/interpreter send marked region or - by
-default - the current paragraph to the interpreter, otherwise copy these lines
-to the system clipboard"]
-   ["Copy/Send above Code to Ansys" apdl-copy-or-send-above
+    :help "In case of a running solver/interpreter send marked
+region or - by default - the current paragraph to the
+interpreter, otherwise copy these lines to the system clipboard"]
+["Copy/Send above Code to Ansys" apdl-copy-or-send-above
     :label (if
                (or apdl-classics-flag (apdl-process-running-p))
                "Send above Code to Ansys"
              "Copy above Code")
-    :help "Either copy the code up to the beginning of file or, when a run is
-active, send it to the solver/interpreter"]
+    :help "Either copy the code up to the beginning of file or,
+when a run is active, send it to the solver/interpreter"]
    ["Close Logical Block" apdl-close-block
-    :help "Close an open control block with the corresponding end command"]
-   ["Insert Parentheses" insert-parentheses
+    :help "Close an open control block with the corresponding end
+   command"] ["Insert Parentheses" insert-parentheses
     :help "Insert a pair of parentheses enclosing marked region
 (insert-parentheses)"] ; -FIXME- redundant, necessary for Emacs-23.1
    ["Align region or paragraph" apdl-align
-    :help "Align APDL variable definitions in a marked region or the current
-paragraph (apdl-align)"]
-   ["Display Variable Definitions" apdl-display-variables
-    :help "Display all user variable definitions from the current file in
-another window (apdl-display-variables)"]
+    :help "Align APDL variable definitions in a marked region or
+the current paragraph (apdl-align)"] ["Display Variable
+Definitions" apdl-display-variables
+    :help "Display all user variable definitions from the current
+file in another window (apdl-display-variables)"]
    "--"
    ["Show APDL Command Help" apdl-show-command-parameters
-    :help "Display a short help for the APDL command near the cursor with its
-parameters (apdl-show-command-parameters)"]
-   ["Browse APDL command help" apdl-browse-apdl-help
-    :help "Open the original APDL documentation for a command or element name
-near the cursor in your default browser (apdl-browse-apdl-help)"
+    :help "Display a short help for the APDL command near the
+cursor with its parameters (apdl-show-command-parameters)"]
+["Browse the APDL command help" apdl-browse-apdl-help
+    :help "Open the original APDL documentation for a command or
+element name near the cursor in your default
+browser (apdl-browse-apdl-help)"
     :active apdl-current-ansys-version]
-   ["Browse interactively the command help" (apdl-browse-apdl-help t)
-    :help "Open the original APDL documentation for a command,
-element name or other subjects (apdl-browse-apdl-help)."
+   ["Interactively browse the command help" (apdl-browse-apdl-help t)
+    :help "Choose interactively the original APDL documentation
+for a command, element name or other
+subjects (apdl-browse-apdl-help)."
     :active apdl-current-ansys-version]
    ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
-    :help "Read the original Ansys Paramtetric Design Language Guide in a
-browser (apdl-browse-ansys-apdl-manual)"
+    :help "Read the original Ansys Paramtetric Design Language
+Guide in a browser (apdl-browse-ansys-apdl-manual)"
     ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
     ]
    ["Start Ansys Help Viewer" apdl-start-ansys-help
@@ -926,23 +928,30 @@ browser (apdl-browse-ansys-apdl-manual)"
     ["View Settings" apdl-skeleton-view-settings
      :help "View settings like focus point, magnification, ..."]
     ["Coordinate Sys. Display" apdl-skeleton-coordinates
-     :help "Template for creating and handling coordinate systems"]
-    ["Working Plane Operations" apdl-skeleton-working-plane
-     :help "Template for creating and handling the working plane"]
+     :help "Template for creating and handling coordinate
+    systems"]
+    ["Working Plane Operations"
+    apdl-skeleton-working-plane
+     :help "Template for creating and handling the working
+    plane"]
     ["Multiplot Commands" apdl-skeleton-multi-plot
-     :help "Graphic commands which show multiple entities simultaneously"]
-    ["Numbering Controls" apdl-skeleton-numbering-controls
+     :help "Graphic commands which show multiple entities
+    simultaneously"]
+    ["Numbering Controls"
+    apdl-skeleton-numbering-controls
      :help "Commands for numbering and colouring model entities"]
     ["Symbol Controls" apdl-skeleton-symbols
-     :help "Graphic commands which show boundary conditions, surface loads and
-other symbols"]
-    ["Geometry Import" apdl-skeleton-import
+     :help "Graphic commands which show boundary conditions,
+surface loads and other symbols"]
+    ["Geometry Import"
+apdl-skeleton-import
      :help "Command for importing IGES models"]
     ["Control flow constructs" apdl-skeleton-looping
-     :help "Commands for controlling loops (*do) and the program flow (*if)"]
+     :help "Commands for controlling loops (*do) and the program
+    flow (*if)"]
     ["Symmetry Expansions" apdl-skeleton-expand
-     :help "Commands for expanding the view of symmetric models to their full
-view"]
+     :help "Commands for expanding the view of symmetric models
+to their full view"]
     ["Element Definitions" apdl-skeleton-element-definition
      :help "2D, 3D, Element defintions and their keyoptions"]
     ["Material Definitions" apdl-skeleton-material-defintion
@@ -962,8 +971,8 @@ view"]
     ["Buckling Analysis Type" apdl-skeleton-buckling
      :help "Commands for establishing a buckling analysis"]
     ["Listings, Information, Statistics"apdl-skeleton-information
-     :help "Parameter listings, graphic options, system information, run
-statistics"]
+     :help "Parameter listings, graphic options, system
+information, run statistics"]
     ["Solving" apdl-skeleton-solve
      :help "Ansys solver (/solu) commands and solver options"]
     ["Post1 Postprocessing" apdl-skeleton-post1
@@ -971,11 +980,13 @@ statistics"]
     ["Array Operations" apdl-skeleton-array
      :help "Dimensioning, looping, changing array parameters"]
     ["Path plot operations" apdl-skeleton-path-plot
-     :help "Commands for establishing paths and plotting entities on paths"]
+     :help "Commands for establishing paths and plotting entities
+    on paths"]
     ["Output to file" apdl-skeleton-output-to-file
      :help "Commands for writing data to a file"]
     ["Element Table Operations" apdl-skeleton-element-table
-     :help "Commands for establishing and manipulation element tables"]
+     :help "Commands for establishing and manipulation element
+    tables"]
     ["Post26 Postprocessing" apdl-skeleton-post26
      :help "Time history (/post26) postprocessing commands"]
     ["Components" apdl-skeleton-component
@@ -984,18 +995,20 @@ statistics"]
      :help "How to select stuff template"]
     "--"
     ["Outline template" apdl-skeleton-outline-template
-     :help "Empty skeleton of the structur of an APDL simulation, outlineing
-headers and sections"]
+     :help "Empty skeleton of the structur of an APDL simulation,
+outlineing headers and sections"]
     ["Beam template" apdl-skeleton-beam-template
      :help "Insert a minimal template for a beam simulation"]
     ["Structural template" apdl-skeleton-structural
      :help "Insert a minimal template for a structural simulation"]
     ["Contact template" apdl-skeleton-contact
-     :help "Insert a minimal template for a structural contact simulation"]
+     :help "Insert a minimal template for a structural contact
+    simulation"]
     ["Compilation of templates" apdl-skeleton
      :help "Insert a compilation of selected templates"])
    ["Preview WorkBench Template" apdl-display-wb-skeleton
-    :help "Preview an WorkBench Command (APDL) template in another window"]
+    :help "Preview an WorkBench Command (APDL) template in
+    another window"]
    (list
     "Insert WorkBench Template"
     ["*IF ... *ENDIF" apdl-if
@@ -1003,16 +1016,16 @@ headers and sections"]
     ["*DO ... *ENDDO" apdl-do
      :help "Insert interactively a *do .. *enddo loop"]
     ["*IF ... *ELSEIF" apdl-if-then
-     :help "Insert interactively an *if,then .. (*elseif .. *else ..)
-*endif construct."]
+     :help "Insert interactively an *if,then .. (*elseif .. *else
+..)  *endif construct."]
     ["Do loop" apdl-wbt-do
      :help "Insert a do loop."]
     ["Header" apdl-wbt-if
      :help "Insert an if loop."]
     "--"
     ["Post: Press-fit calcs" apdl-wbt-post-2d-press-fit_calcs
-     :help "Post: Calculate the maximum torque and other parameters from a
-plane stress press-fit simulation."])
+     :help "Post: Calculate the maximum torque and other
+parameters from a plane stress press-fit simulation."])
    "--"
    (list
     "Navigate Code Lines"
@@ -1026,16 +1039,17 @@ plane stress press-fit simulation."])
      :help "Go to the end of the current command"]
     "--"
     ["Split Format Line at Point" apdl-indent-format-line
-     :help "Split current line, if in a comment continue the comment, if in an
-APDL format line insert the continuation character before splitting the line"])
+     :help "Split current line, if in a comment continue the
+comment, if in an APDL format line insert the continuation
+character before splitting the line"])
    (list
     "Work with Logical Blocks"
     ["Next Block End" apdl-next-block-end
      :help "Go to the end of the current or next control block
 (*do, *if, ...)"]
     ["Previous Block Start" apdl-previous-block-start-and-conditional
-     :help "Go to the beginning of the current or next control block
-(*do, *if, ...)"]
+     :help "Go to the beginning of the current or next control
+     block (*do, *if, ...)"]
     ["Down Block" apdl-down-block
      :help "Move down one control block level"]
     ["Up Block" apdl-up-block
@@ -1045,22 +1059,26 @@ APDL format line insert the continuation character before splitting the line"])
     ["Skip Block Backwards" apdl-skip-block-backwards
      :help "Skip to the beginning of previous control block"]
     ["Hide Number Blocks" apdl-hide-number-blocks
-     :help "Hide all APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+     :help "Hide all APDL number blocks (EBLOCK, NBLOCK,
+    CMBLOCK)"]
     ["Unhide Number Blocks" apdl-unhide-number-blocks
-     :help "Unhide all APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+     :help "Unhide all APDL number blocks (EBLOCK, NBLOCK,
+    CMBLOCK)"]
     ["Beginning of N. Block" apdl-number-block-start
      :help "Go to the beginning of an APDL number blocks
 (EBLOCK, NBLOCK, CMBLOCK)"]
     ["End of Number Block"    apdl-number-block-end
-     :help "Go to the end of an APDL number blocks (EBLOCK, NBLOCK, CMBLOCK)"]
+     :help "Go to the end of an APDL number blocks (EBLOCK,
+     NBLOCK, CMBLOCK)"]
     "--"
     ["Close Block" apdl-close-block
-     :help "Close the current APDL control block with the respective closing
-command"]
+     :help "Close the current APDL control block with the
+respective closing command"]
     ["Mark Block" apdl-mark-block
      :help "Mark the current control block"]
     ["Hide Region" apdl-hide-region
-     :help "Hide a marked region and display a hidden region message"]
+     :help "Hide a marked region and display a hidden region
+    message"]
     ["Unhide Regions" apdl-unhide-number-blocks
      :help "Unhide all hidden regions"]
     ["Insert Temporary Ruler" apdl-column-ruler
@@ -1073,15 +1091,16 @@ command"]
      :help "Toggle display of ruler in header line (Ruler mode)."]
     ["Outline Minor Mode" outline-minor-mode
      :style toggle :selected outline-minor-mode
-     :help "Outline Mode is for hiding and selectively displaying headlines
-and their sublevel contents"]
+     :help "Outline Mode is for hiding and selectively displaying
+headlines and their sublevel contents"]
     ["Show Paren Mode" show-paren-mode :style toggle
      :selected show-paren-mode
      :help "Show Paren Mode highlights matching parenthesis"]
     ["Delete Selection Mode" delete-selection-mode
      :style toggle :selected delete-selection-mode
      :help
-     "Delete Selection Mode replaces the selection with typed text"]
+     "Delete Selection Mode replaces the selection with typed
+    text"]
     ["Electric Pair Mode" electric-pair-mode
      :style toggle :selected electric-pair-mode
      :help
@@ -1089,20 +1108,23 @@ and their sublevel contents"]
      :visible (version< "24" emacs-version)])
    "--"
    ["APDL-Mode Online Documentation" apdl-mode-browse-online
-    :help "Display the online APDL-Mode Documentation in a browser."]
+    :help "Display the online APDL-Mode Documentation in a
+   browser."]
    ["Help on APDL-Mode" describe-mode
     :help "Open an Emacs window describing APDL-Mode's usage"]
    ["Customise APDL-Mode"        (customize-group "APDL")
-    :help "Open a special customisation window for changing the values
-and inspecting the documentation of its customisation variables"]
+    :help "Open a special customisation window for changing the
+values and inspecting the documentation of its customisation
+variables"]
    ["List Mode Abbreviations" (list-abbrevs t)
     :help
-    "Display a list of all abbreviation definitions for logical blocks"]
+    "Display a list of all abbreviation definitions for logical
+   blocks"]
    ["Submit Bug Report" apdl-submit-bug-report
     :help "Open a mail template for an APDL-Mode bug report"]
    ["Reload APDL-Mode" apdl-reload-apdl-mode
-    :help "Loading the mode definitions anew from files and restarting
-apdl-mode"]
+    :help "Loading the mode definitions anew from files and
+restarting apdl-mode"]
    "--"
    ["Exit APDL-Mode" apdl-toggle-mode
     :help "Switch to the previous major mode of the file"
@@ -1117,24 +1139,24 @@ apdl-mode"]
                "Change License Server or - File"
              "Specify License Server or - File")
     :visible apdl-is-unix-system-flag
-    :help "Change the license server specification (for an solver/interpreter
-run or the license status), either naming the license server machine
-(with port) or the actual license file"]
-   ["Specify the License Interconnect Servers" apdl-ansysli-servers
+    :help "Change the license server specification (for an
+solver/interpreter run or the license status), either naming the
+license server machine (with port) or the actual license file"]
+["Specify the License Interconnect Servers" apdl-ansysli-servers
     :label (if apdl-ansysli-servers
                "Change the License Interconnect Servers"
              "Specify the License Interconnect Servers")
     :visible apdl-is-unix-system-flag
-    :help "Change the interconnect server specification (for an solver/
-interpreter run)"]
+    :help "Change the interconnect server specification (for an
+solver/ interpreter run)"]
    ["Installation Directory" apdl-ansys-install-directory
     :label (if apdl-ansys-install-directory
                (concat "Change the Installation Directory ["
                        apdl-current-ansys-version "]")
              "Set the Ansys Installation Directory!")
-    :help "For certain functionality you need to set the installation directory
-of Ansys, the path up to the version number vXXX
-(apdl-ansys-install-directory)"]
+    :help "For certain functionality you need to set the
+installation directory of Ansys, the path up to the version
+number vXXX (apdl-ansys-install-directory)"]
    ["Change MAPDL License Type" apdl-license
     :label (concat "Change License Type [" apdl-license "]")
     :help "Specify the license type for an solver/interpreter run
@@ -1142,17 +1164,18 @@ of Ansys, the path up to the version number vXXX
    ["Change Job Name of Run" apdl-job
     :label (concat "Change Job Name [" apdl-job "]")
     :visible apdl-is-unix-system-flag
-    :help "Specify the job name for an solver/interpreter run (apdl-job)"]
+    :help "Specify the job name for an solver/interpreter
+   run (apdl-job)"]
    ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]"
                    apdl-no-of-processors )
     :visible apdl-is-unix-system-flag
-    :help "Specify the number of processors to use for the Ansys run
-definition (apdl-no-of-processors)"]
+    :help "Specify the number of processors to use for the Ansys
+run definition (apdl-no-of-processors)"]
    "--"
    ["License Server Status" apdl-license-status
-    :help "Show the license server status, the number of licenses available
-and used (apdl-license-status)"
+    :help "Show the license server status, the number of licenses
+available and used (apdl-license-status)"
     :active (and (file-executable-p apdl-lmutil-program) apdl-license-file)]
    ["Start Ansys WorkBench" apdl-start-wb
     :active (file-executable-p apdl-ansys-wb)
@@ -1164,10 +1187,11 @@ and used (apdl-license-status)"
    ["Ansys MAPDL Classics GUI" apdl-start-classics
     :active (file-executable-p apdl-ansys-program)
     :visible apdl-is-unix-system-flag ; -TODO- can't get it to run!
-    :help "Start the Ansys Classics MAPDL GUI (apdl-start-classics)"]
+    :help "Start the Ansys Classics MAPDL
+   GUI (apdl-start-classics)"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys
-    :help "Start an interactive MAPDL solver/interpreter run under Linux
-(apdl-start-ansys)"
+    :help "Start an interactive MAPDL solver/interpreter run
+    under Linux (apdl-start-ansys)"
     :active (and apdl-is-unix-system-flag
                  (file-executable-p apdl-ansys-program)
                  (not (apdl-process-running-p)))]
@@ -1185,27 +1209,30 @@ and used (apdl-license-status)"
                (or apdl-classics-flag (apdl-process-running-p))
                "Send region or paragraph to MAPDL"
              "Copy region or paragraph to clipboard")
-    :help "In case of a running solver/interpreter send the marked region or
-by default the current paragraph to the interpreter, otherwise copy these
-lines to the system clipboard (apdl-send-to-ansys)"]
+    :help "In case of a running solver/interpreter send the
+marked region or by default the current paragraph to the
+interpreter, otherwise copy these lines to the system
+clipboard (apdl-send-to-ansys)"]
    ["Send/Copy Line or Region" apdl-send-to-apdl-and-proceed
     :label (if (or apdl-classics-flag (apdl-process-running-p))
                "Send line or region to MAPDL"
              "Copy line or region to clipboard")
-    :help "In case of a running solver/interpreter send the marked region or
-by default the current line to the interpreter, otherwise copy these lines
-to the system clipboard (apdl-send-to-apdl-and-proceed)"]
+    :help "In case of a running solver/interpreter send the
+marked region or by default the current line to the interpreter,
+otherwise copy these lines to the system
+clipboard (apdl-send-to-apdl-and-proceed)"]
    ["Copy/Send above Code to Ansys" apdl-copy-or-send-above
     :label (if (or apdl-classics-flag (apdl-process-running-p))
                "Send above Code to MAPDL"
              "Copy above Code to clipboard")
-    :help "Either copy the code up to the beginning of file or, when a run
-is active, send it to the solver/interpreter (apdl-copy-or-send-above)"]
+    :help "Either copy the code up to the beginning of file or,
+when a run is active, send it to the
+solver/interpreter (apdl-copy-or-send-above)"]
    (list
     "Send Graphics Command"
     ["Start Graphics Screen" apdl-start-graphics
-     :help "Open the graphics screen for the interactive MAPDL mode
-(apdl-start-graphics)"
+     :help "Open the graphics screen for the interactive MAPDL
+     mode (apdl-start-graphics)"
      :active (apdl-process-running-p)]
     ["Start Pan/Zoom/Rot. Dialog" apdl-start-pzr-box
      :help "Open the Pan/Zoom/Rotate dialog of the Ansys GUI
@@ -1218,8 +1245,8 @@ is active, send it to the solver/interpreter (apdl-copy-or-send-above)"]
      :help "Fit the Ansys graphics into the window (apdl-fit)"
      :active (or apdl-classics-flag (apdl-process-running-p))]
     ["Show Graphics in iso-view" apdl-iso-view
-     :help "Show the current Ansys graphic windows in isometric view
-(apdl-iso-view)"
+     :help "Show the current Ansys graphic windows in isometric
+     view (apdl-iso-view)"
      :active (or apdl-classics-flag (apdl-process-running-p))]
     ["Zoom In" apdl-zoom-in
      :help "Zoom into the graphics (apdl-zoom-in)"
@@ -1240,34 +1267,38 @@ is active, send it to the solver/interpreter (apdl-copy-or-send-above)"]
      :help "Move graphics objects to the left (apdl-move-left)"
      :active (or apdl-classics-flag (apdl-process-running-p))])
    ["Send MAPDL Command Interactively" apdl-query-apdl-command
-    :help "Send interactively an APDL command to a running MAPDL solver
-interpreter process (apdl-query-apdl-command)"
+    :help "Send interactively an APDL command to a running MAPDL
+solver interpreter process (apdl-query-apdl-command)"
     :active (or apdl-classics-flag (apdl-process-running-p))]
    "--"
    ["Display MAPDL Run Status" apdl-process-status
-    :help "Display the status of the Ansys MAPDL solver/interpreter run
-(apdl-process-status)"
+    :help "Display the status of the Ansys MAPDL
+    solver/interpreter run (apdl-process-status)"
     :active (apdl-process-running-p)]
    ["Exit MAPDL Run" apdl-exit-ansys
-    :help "Exit the active MAPDL solver/interpreter run (apdl-exit-ansys)"
+    :help "Exit the active MAPDL solver/interpreter
+    run (apdl-exit-ansys)"
     :visible (apdl-process-running-p)]
    ["Display MAPDL Error File" apdl-display-error-file
-    :help "Display in another window in auto-revert-tail-mode the MAPDL error
-file (job.err) in the current working directory (apdl-display-error-file)"
+    :help "Display in another window in auto-revert-tail-mode the
+MAPDL error file (job.err) in the current working
+directory (apdl-display-error-file)"
     :active (file-readable-p (concat default-directory apdl-job ".err"))]
    ["Write MAPDL Stop File" apdl-abort-file
     :active  (file-readable-p (concat default-directory apdl-job ".lock"))
-    :help "Write a file: JOB.abt containing the word \"nonlinear\" for orderly
-stopping the solver in the current working directory (apdl-abort-file)"]
+    :help "Write a file: JOB.abt containing the word
+\"nonlinear\" for orderly stopping the solver in the current
+working directory (apdl-abort-file)"]
    "--"
    ["Kill MAPDL Run" apdl-kill-ansys
     :help "Kill the current MAPDL run (apdl-kill-ansys)"
     :active (apdl-process-running-p)]
    ["List all Emacs' Processes" list-processes
-    :help "Show all active processes under Emacs, like shells, etc.
-(list-processes)"]
+    :help "Show all active processes under Emacs, like shells,
+    etc. (list-processes)"]
    ["View Emacs' Messages" view-echo-area-messages
-    :help "Display Emacs' latest messages for debugging and checking purposes"])
+    :help "Display Emacs' latest messages for debugging and
+    checking purposes"])
   "Ansys menu items for APDL-Mode.")
 
 ;;; --- predicates ---

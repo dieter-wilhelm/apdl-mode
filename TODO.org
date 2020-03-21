@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-20>
+#+DATE: Time-stamp: <2020-03-21>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -20,12 +20,15 @@
   feature freeze [2020-03-20 Fr]
 
 #  Ansys local help v201 1.7 GB [2020-03-17 Di]
-** Todos, bugs, checks
+** Todos, bugs
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
    - Update and centralise DOCUs, info style?
+     - customise system (explain `M-x customize-set-value' as long as
+       (debbugs-gnu-bugs 25678) is not solved)
      - do we need a short help, yes for installation + config + first steps
-     - add intro to wb- template system
+     - add intro to the wb-template system
+     - explain interactive browsing of keywords => menu entry
      - shift org-files to doc, except README.org: Focus: Intro +
        Features + Installation
        - usage
@@ -47,13 +50,15 @@
 ** minor bugs
    - APDL-Mode documentation is only shown in default browswer, not
      shown in eww
-   - C-u C-c C-b in browser on Win10 for some of the "All"stuff isn't
-     working for chrome?
+   - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
+     the respective page section on Chrome and Edge!?
    - Check templates (formatting changed strongly!) especially
-     -compilation-template!  Indent is not correct., -skeleton-function!?
+     -compilation-template!  Indent is not correct.,
+     -skeleton-function!?
      - C-s C-s apdl-calculate-indent: Can't deduce sensible column
        offset, for some templates
    - 1/en, en is variable but fraction not fontified?
+** check
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** wishes
@@ -62,7 +67,6 @@
     - intelligent template selector with keywords in the line of helm
     - what is the advantage of ARG1-9? => parameter system, should I
       include ARG[1-9] optionally?
-    - do we need inter-region templates?
 *** misc
     1) derive A-M from prog-modes
     2) Travis CI continuous integration!

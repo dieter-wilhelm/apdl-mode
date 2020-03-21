@@ -925,6 +925,8 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
      :help "Insert the variable definition \"Pi = 3.1415...\""]
     ["Configuration" apdl-skeleton-configuration
      :help "Configuration code template"]
+    ["Get- and Fortran functions" apdl-skeleton-function
+     :help "Get- and Fortran functions template"]
     ["View Settings" apdl-skeleton-view-settings
      :help "View settings like focus point, magnification, ..."]
     ["Coordinate Sys. Display" apdl-skeleton-coordinates

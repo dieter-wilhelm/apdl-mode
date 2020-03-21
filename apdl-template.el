@@ -1283,7 +1283,7 @@ averaged" \n
   "A = ASIN()  !Arcsine,arg. between -1.0 and +1.0 " \n
   "A = ACOS()  !Arccosine,arg. between -1.0 and +1.0 " \n
   "A = ATAN()  !Arctangent" \n
-  "A = ATAN2() !atan2(x,y): arctangent of y/x with the sign of each
+  "A = ATAN2() !atan2(x,y): arctangent of y/x with the sign of each \
 component considered" \n
   \n
   "!! ==============================" \n
@@ -1298,21 +1298,21 @@ component considered" \n
   "VSEL(V) ! Status of volume V: -1=unselected, 0=undefined, 1=selected." \n
   "! -- Next Selected Entity --" \n
   "NDNEXT(N) ! Next selected node having a node number greater than N." \n
-  "ELNEXT(E) ! Next selected element having an element number greater
+  "ELNEXT(E) ! Next selected element having an element number greater \
 than E." \n
-  "KPNEXT(K) ! Next selected keypoint having a keypoint number greater
+  "KPNEXT(K) ! Next selected keypoint having a keypoint number greater \
 than K." \n
   "LSNEXT(L) ! Next selected line having a line number greater than L." \n
   "ARNEXT(A) ! Next selected area having an area number greater than A." \n
   "VLNEXT(V) ! Next selected volume having a volume number greater than V." \n
   "! -- Locations --" \n
-  "CENTRX(E) ! Centroid X-coordinate of element E in global Cartesian
-coordinate system. Centroid is determined from the selected nodes on the
+  "CENTRX(E) ! Centroid X-coordinate of element E in global Cartesian \
+coordinate system. Centroid is determined from the selected nodes on the \
 element." \n
   "CENTRY(E) ! Centroid Y-coordinate of element E in global Cartesian
 coordinate system. Centroid is determined from the selected nodes on the
 element." \n
-  "CENTRZ(E) ! Centroid Z-coordinate of element E in global Cartesian coordinate
+  "CENTRZ(E) ! Centroid Z-coordinate of element E in global Cartesian coordinate \
  system. Centroid is determined from the selected nodes on the element." \n
   "NX(N) ! X-coordinate of node N in the active coordinate system." \n
   "NY(N) ! Y-coordinate of node N in the active coordinate system." \n
@@ -1320,86 +1320,86 @@ element." \n
   "KX(K) ! X-coordinate of keypoint K in the active coordinate system" \n
   "KY(K) ! Y-coordinate of keypoint K in the active coordinate system" \n
   "KZ(K) ! Z-coordinate of keypoint K in the active coordinate system" \n
-  "LX(L,LFRAC) ! X-coordinate of line L at length fraction
+  "LX(L,LFRAC) ! X-coordinate of line L at length fraction \
 LFRAC (0.0 to 1.0)." \n
-  "LY(L,LFRAC) ! Y-coordinate of line L at length fraction
+  "LY(L,LFRAC) ! Y-coordinate of line L at length fraction \
 LFRAC (0.0 to 1.0)." \n
-  "LZ(L,LFRAC) ! Z-coordinate of line L at length fraction
+  "LZ(L,LFRAC) ! Z-coordinate of line L at length fraction \
 LFRAC (0.0 to 1.0)." \n
   "LSX(L,LFRAC) ! X slope of line L at length fraction LFRAC (0.0 to 1.0)." \n
   "LSY(L,LFRAC) ! Y slope of line L at length fraction LFRAC (0.0 to 1.0)." \n
   "LSZ(L,LFRAC) ! Z slope of line L at length fraction LFRAC (0.0 to 1.0)." \n
   "! -- Nearest to Location --" \n
-  "NODE(X,Y,Z) ! Number of the selected node nearest the X,Y,Z point
+  "NODE(X,Y,Z) ! Number of the selected node nearest the X,Y,Z point \
 (in the active coordinate system, lowest number for coincident nodes)." \n
-  "KP(X,Y,Z) ! Number of the selected keypoint nearest the X,Y,Z point
+  "KP(X,Y,Z) ! Number of the selected keypoint nearest the X,Y,Z point \
 (in the active coordinate system, lowest number for coincident nodes)." \n
   "! -- Distances --" \n
   "DISTND(N1,N2) ! Distance between nodes N1 and N2." \n
   "DISTKP(K1,K2) ! Distance between keypoints K1 and K2." \n
-  "DISTEN(E,N) ! Distance between the centroid of element E and node N.
+  "DISTEN(E,N) ! Distance between the centroid of element E and node N. \
 Centroid is determined from the selected nodes on the element." \n
   "! -- Angles (in radians by default -- see the *AFUN command) --" \n
-  "ANGLEN(N1,N2,N3) ! Subtended angle between two lines (defined by three
+  "ANGLEN(N1,N2,N3) ! Subtended angle between two lines (defined by three \
 nodes where N1 is the vertex node). Default is in radians." \n
-  "ANGLEK(K1,K2,K3) ! Subtended angle between two lines (defined by three
+  "ANGLEK(K1,K2,K3) ! Subtended angle between two lines (defined by three \
 keypoints where K1 is the vertex keypoint). Default is in radians." \n
   "! -- Nearest to Entity --" \n
   "NNEAR(N) ! Selected node nearest node N." \n
   "KNEAR(K) ! Selected keypoint nearest keypoint K." \n
-  "ENEARN(N) ! Selected element nearest node N. The element position is
+  "ENEARN(N) ! Selected element nearest node N. The element position is \
 calculated from the selected nodes." \n
   "! -- Areas --" \n
-  "AREAND(N1,N2,N3) ! Area of the triangle with vertices at nodes N1, N2,
+  "AREAND(N1,N2,N3) ! Area of the triangle with vertices at nodes N1, N2, \
 and N3." \n
-  "AREAKP(K1,K2,K3) ! Area of the triangle with vertices at keypoints K1, K2,
+  "AREAKP(K1,K2,K3) ! Area of the triangle with vertices at keypoints K1, K2, \
 and K3." \n
-  "ARNODE(N) ! Area at node N apportioned from selected elements attached to
-node N. For 2-D planar solids, returns edge area associated with the node.
-For axisymmetric solids, returns edge surface area associated with the node.
-For 3-D volumetric solids, returns face area associated with the node. For 3?D,
-select all the nodes of the surface of interest before using ARNODE." \n
+  "ARNODE(N) ! Area at node N apportioned from selected elements attached to \
+node N. For 2-D planar solids, returns edge area associated with the node. \
+For axisymmetric solids, returns edge surface area associated with the node. \
+For 3-D volumetric solids, returns face area associated with the node. For \
+3?D, select all the nodes of the surface of interest before using ARNODE." \n
   "! -- Normals --" \n
-  "NORMNX(N1,N2,N3) ! X-direction cosine of the normal to the plane containing
+  "NORMNX(N1,N2,N3) ! X-direction cosine of the normal to the plane containing \
 nodes N1, N2, and N3." \n
-  "NORMNY(N1,N2,N3) ! Y-direction cosine of the normal to the plane containing
+  "NORMNY(N1,N2,N3) ! Y-direction cosine of the normal to the plane containing \
 nodes N1, N2, and N3." \n
-  "NORMNZ(N1,N2,N3) ! Z-direction cosine of the normal to the plane containing
+  "NORMNZ(N1,N2,N3) ! Z-direction cosine of the normal to the plane containing \
 nodes N1, N2, and N3." \n
-  "NORMKX(K1,K2,K3) ! X-direction cosine of the normal to the plane containing
+  "NORMKX(K1,K2,K3) ! X-direction cosine of the normal to the plane containing \
 keypoints K1, K2, and K3." \n
-  "NORMKY(K1,K2,K3) ! Y-direction cosine of the normal to the plane containing
+  "NORMKY(K1,K2,K3) ! Y-direction cosine of the normal to the plane containing \
 keypoints K1, K2, and K3." \n
-  "NORMKZ(K1,K2,K3) ! Z-direction cosine of the normal to the plane containing keypoints K1, K2, and K3." \n
+  "NORMKZ(K1,K2,K3) ! Z-direction cosine of the normal to the plane containing \ keypoints K1, K2, and K3." \n
   "! -- Connectivity --" \n
-  "ENEXTN(N,LOC) ! Element connected to node N. LOC is the position in the
-resulting list when many elements share the node. A zero is returned at the
+  "ENEXTN(N,LOC) ! Element connected to node N. LOC is the position in the \
+resulting list when many elements share the node. A zero is returned at the \
 end of the list." \n
   "NELEM(E,NPOS) ! Node number in position NPOS (1--20) of element E." \n
-  "NODEDOF(N) ! Returns the bit pattern for the active DOFs at the specified
-node.bit 0 is UX, bit 1 is UY,... bit 5 is ROTZ bits 6,7,8 are AX,AY,AZ bits
-9,10,11 are VX,VY,VZ bit 18 is PRES, bit 19 is TEMP, bit 20 is VOLT, bit 21
-is MAG bit 24 is EMF, bit 25 is CURR For a node with UX,UY,UZ the return value
-will be 7 (bits 0,1,2) For a node with UX,UY,UZ,ROTX,ROTY,ROTZ the return value
+  "NODEDOF(N) ! Returns the bit pattern for the active DOFs at the specified \
+node.bit 0 is UX, bit 1 is UY,... bit 5 is ROTZ bits 6,7,8 are AX,AY,AZ bits \
+9,10,11 are VX,VY,VZ bit 18 is PRES, bit 19 is TEMP, bit 20 is VOLT, bit 21 \
+is MAG bit 24 is EMF, bit 25 is CURR For a node with UX,UY,UZ the return value \
+will be 7 (bits 0,1,2) For a node with UX,UY,UZ,ROTX,ROTY,ROTZ the return value \
 will be 63 (bits 0,1,2,3,4,5)" \n
   "! -- Faces --" \n
-  "ELADJ(E,FACE) ! For 2-D planar solids and 3-D volumetric
-  solids, element adjacent to a face (FACE) of element E. The
-  face number is the same as the surface load key number. Only
-  elements of the same dimensionality and shape are considered. A
-  -1 is returned if more than one is adjacent." \n
-  "NDFACE(E,FACE,LOC) ! Node in position LOC of a face number
-  FACE of element E. The face number is the same as the surface
-  load key number. LOC is the nodal position on the face (for an
-  IJLK face, LOC=1 is at node I, 2 is at node J, etc.)" \n
-  "NMFACE(E) ! Face number of element E containing the selected
-  nodes. The face number output is the surface load key. If
-  multiple load keys occur on a face (such as for line and area
-  elements) the lowest load key for that face is output." \n
-  "ARFACE(E) ! For 2-D planar solids and 3-D volumetric solids,
-  returns the area of the face of element E containing the
-  selected nodes. For axisymmetric elements, the area is the
-  full (360 degree) area." \n
+  "ELADJ(E,FACE) ! For 2-D planar solids and 3-D volumetric \
+solids, element adjacent to a face (FACE) of element E. The \
+face number is the same as the surface load key number. Only \
+elements of the same dimensionality and shape are considered. A \
+-1 is returned if more than one is adjacent." \n
+  "NDFACE(E,FACE,LOC) ! Node in position LOC of a face number \
+FACE of element E. The face number is the same as the surface \
+load key number. LOC is the nodal position on the face (for an \
+IJLK face, LOC=1 is at node I, 2 is at node J, etc.)" \n
+  "NMFACE(E) ! Face number of element E containing the selected \
+nodes. The face number output is the surface load key. If \
+multiple load keys occur on a face (such as for line and area \
+elements) the lowest load key for that face is output." \n
+  "ARFACE(E) ! For 2-D planar solids and 3-D volumetric solids, \
+returns the area of the face of element E containing the \
+selected nodes. For axisymmetric elements, the area is the \
+full (360 degree) area." \n
   "! -- Degree of Freedom Results --" \n
   "UX(N) ! UX structural displacement at node N." \n
   "UY(N) ! UY structural displacement at node N." \n
@@ -1407,8 +1407,8 @@ will be 63 (bits 0,1,2,3,4,5)" \n
   "ROTX(N) ! ROTX structural rotation at node N." \n
   "ROTY(N) ! ROTY structural rotation at node N." \n
   "ROTZ(N) ! ROTZ structural rotation at node N." \n
-  "TEMP(N) ! Temperature at node N. For SHELL131 and SHELL132
-  elements with KEYOPT(3) = 0 or 1, use TBOT(N), TE2(N), TE3(N),
+  "TEMP(N) ! Temperature at node N. For SHELL131 and SHELL132 \
+  elements with KEYOPT(3) = 0 or 1, use TBOT(N), TE2(N), TE3(N), \
   . . ., TTOP(N) instead of TEMP(N)." \n
   "PRES(N) ! Pressure at node N." \n
   "VX(N) ! VX fluid velocity at node N." \n
@@ -1429,13 +1429,13 @@ will be 63 (bits 0,1,2,3,4,5)" \n
   "VIRTINQR(9) ! Maximum record number on page." \n
   "VIRTINQR(11) ! Maximum pages touched." \n
   "! -- Returns the current value of APDL filtering keywords. --" \n
-  "KWGET(KEYWORD) ! Returns the current value the keyword
-  specified by KEYWORD. See the APDL UIDL Programmer's Guide for
+  "KWGET(KEYWORD) ! Returns the current value the keyword \
+  specified by KEYWORD. See the APDL UIDL Programmer's Guide for \
   a list of keywords and values." \n
-  "! -- Character String Functions Strings must be
-  dimensioned (see *DIM) as a character parameter or enclosed in
+  "! -- Character String Functions Strings must be \
+  dimensioned (see *DIM) as a character parameter or enclosed in \
   single apostrophes ('char'). --" \n
-  "! -- Functions which return a double precision value of a
+  "! -- Functions which return a double precision value of a \
   numeric character string. --" \n
   "VALCHR(a8) ! a8 is a decimal value expressed in a string." \n
   "VALOCT(a8) ! a8 is an octal value expressed in a string." \n
@@ -1444,35 +1444,35 @@ will be 63 (bits 0,1,2,3,4,5)" \n
   "CHRVAL(dp) ! dp is a double precision variable." \n
   "CHROCT(dp) ! dp is an integer value." \n
   "CHRHEX(dp) ! dp is an integer value." \n
-  "! -- Functions which manipulate strings: StrOut is the output
-  string (or character parameter) Str1 and Str2 are input
-  strings. Strings are a maximum of 128 characters. (see *DIM)
-  StrOut = STRSUB(Str1, nLoc,nChar) Get the nChar substring
-  starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2)
+  "! -- Functions which manipulate strings: StrOut is the output \
+  string (or character parameter) Str1 and Str2 are input \
+  strings. Strings are a maximum of 128 characters. (see *DIM) \
+  StrOut = STRSUB(Str1, nLoc,nChar) Get the nChar substring \
+  starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2) \
   Add Str2 at the end of Str1. --" \n
-  "STRFILL(Str1,Str2,nLoc) ! StrOut = STRFILL(Str1,Str2,nLoc) Add
+  "STRFILL(Str1,Str2,nLoc) ! StrOut = STRFILL(Str1,Str2,nLoc) Add \
   Str2 to Str1 starting at character nLoc." \n
   "STRCOMP(Str1) ! StrOut = STRCOMP(Str1) Remove all blanks from Str1" \n
   "STRCOMP(Str1) ! Left-justify Str1" \n
-  "STRPOS(Str1,Str2) ! nLoc = STRPOS(Str1,Str2) Get starting
+  "STRPOS(Str1,Str2) ! nLoc = STRPOS(Str1,Str2) Get starting \
   location of Str2 in Str1." \n
   "STRLENG(Str1) ! nLoc = STRLENG(Str1) Location of last nonblank character" \n
   "UPCASE(Str1) ! StrOut = UPCASE(Str1) Upper case of Str1" \n
   "LWCASE(Str1) ! StrOut = LWCASE(Str1) Lower case of Str1" \n
   "! -- The following functions manipulate file names. --" \n
-  "JOIN('directory','filename','extension') ! Path String =
-  JOIN ('directory','filename','extension') Produces a contiguous
+  "JOIN('directory','filename','extension') ! Path String = \
+  JOIN ('directory','filename','extension') Produces a contiguous \
   pathstring. e.g. directory/filename.ext" \n
-  "JOIN('directory','filename') ! Path String =
-  JOIN ('directory','filename') Produces a contiguous
+  "JOIN('directory','filename') ! Path String = \
+  JOIN ('directory','filename') Produces a contiguous \
   pathstring. e.g. directory/filename" \n
-  "SPLIT('PathString', 'DIR') !  Produces a separate output of
+  "SPLIT('PathString', 'DIR') !  Produces a separate output of \
   the directory from the pathstring." \n
-  "SPLIT('PathString', 'FILE') !  Produces a separate output of
+  "SPLIT('PathString', 'FILE') !  Produces a separate output of \
   the complete filename (with extension) from the pathstring." \n
-  "SPLIT('PathString', 'NAME') ! Produces a separate output of
+  "SPLIT('PathString', 'NAME') ! Produces a separate output of \
   the filename from the pathstring." \n
-  "SPLIT('PathString', 'EXT') !  Produces a separate output of
+  "SPLIT('PathString', 'EXT') !  Produces a separate output of \
   the file extension from the pathstring." \n)
 
 (define-skeleton apdl-skeleton-geometry

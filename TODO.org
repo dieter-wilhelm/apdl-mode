@@ -21,6 +21,7 @@
 
 #  Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs
+   - loops: apdl-calculate-indent: Can't deduce sensible column offset
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
    - Update and centralise DOCUs, info style?

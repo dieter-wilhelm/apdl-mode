@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-21>
+#+DATE: Time-stamp: <2020-03-23>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,9 +19,10 @@
   DEADLINE: <2020-04-16 Thu>
   feature freeze [2020-03-20 Fr]
 
+# save-excursion, while do not explain their the return value
+
 #  Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs
-   - loops: apdl-calculate-indent: Can't deduce sensible column offset
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
    - Update and centralise DOCUs, info style?

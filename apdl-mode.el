@@ -894,8 +894,8 @@ when a run is active, send it to the solver/interpreter"]
 (insert-parentheses)"] ; -FIXME- redundant, necessary for Emacs-23.1
    ["Align region or paragraph" apdl-align
     :help "Align APDL variable definitions in a marked region or
-the current paragraph (apdl-align)"] ["Display Variable
-Definitions" apdl-display-variables
+the current paragraph (apdl-align)"]
+["Display Variable Definitions" apdl-display-variables
     :help "Display all user variable definitions from the current
 file in another window (apdl-display-variables)"]
    "--"

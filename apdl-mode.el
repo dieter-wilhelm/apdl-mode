@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-21>
+;; Time-stamp: <2020-03-23>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -131,6 +131,18 @@ macro local variables.")
 
 (defconst apdl-comment-char ?!
   "The APDL comment character.")
+
+;; \sCODE,code
+;; -:whitespace
+;; <:commentstart
+
+;; whitespace +
+;; $
+;; comment
+;; digits
+
+;; "^\\s-*\\($\\|\\s<\\|[+[:digit:]-]\\)"
+
 
 (defconst apdl-non-code-line-regexp "^\\s-*\\($\\|\\s<\\|[+[:digit:]-]\\)"
   "Regexp indicating a comment -, number - or an empty line.
@@ -467,17 +479,19 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\M-?" 'apdl-show-command-parameters)
     (define-key map "\C-\M-i" 'apdl-complete-symbol)
     ;; --- changed standard Emacs keybindings ---
-    (define-key map " " 'apdl-electric-space)
+;;    (define-key map " " 'apdl-electric-space)
     (define-key map "\M-j" 'apdl-indent-format-line)
     (define-key map "\n" 'apdl-reindent-then-newline-and-indent)
     ;; end block indentation
 
-    ;; --- especially interesting for continuation lines and condensed input
+    ;; --- especially interesting for continuation lines and condensed
+    ;; --- input
     (define-key map "\M-a" 'apdl-command-start)
     (define-key map "\M-e" 'apdl-command-end)
     ;; -- adaption of mark-paragraph
     (define-key map "\M-h" 'apdl-mark-paragraph)
-    ;; --- command movement --- (like defuns), skip comments and empty lines
+    ;; --- command movement --- (like defuns), skip comments and empty
+    ;; --- lines
     (define-key map "\M-p" 'apdl-previous-code-line)
     (define-key map "\M-n" 'apdl-next-code-line)
     ;; --- block movements ---
@@ -533,7 +547,8 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-t" 'apdl-license)
     (define-key map "\C-c\C-u" 'apdl-copy-or-send-above)
     (define-key map "\C-c\C-v" 'apdl-display-variables)
-    (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim: runwb2--aim?
+    (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim:
+							  ; runwb2--aim?
     (define-key map "\C-c\C-x" 'apdl-start-classics)
     (define-key map "\C-c\C-y" 'apdl-start-launcher)
     ;; (define-key map "\C-c\C-z" 'apdl-start-aim)
@@ -543,7 +558,8 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     map)
   "Keymap for the APDL-Mode.")
 
-(defun apdl-toggle-mode nil ; FIXME this toggles also all ansys minor-hooks?
+(defun apdl-toggle-mode nil ; -FIXME- this toggles also all ansys
+			    ; minor-hooks?
   "Restore the buffer's previous major mode, if possible."
   (interactive)
   (if (or (string= apdl-previous-major-mode "apdl-mode")
@@ -1328,7 +1344,9 @@ working directory (apdl-abort-file)"]
 						 ; format string
 
 (defun apdl-default-command-p ()
-  "Return t if in an APDL default command line."
+  "Return t if in an APDL default command line.
+The current code is reusing the previous APDL command with a line
+beginning with a comma."
   (save-excursion
     (beginning-of-line)
     (looking-at "^\\s-*,")))
@@ -2833,7 +2851,7 @@ Reindent the line if `apdl-auto-indent-flag' is non-nil."
   (easy-menu-add apdl-mode-menu-map apdl-mode-map))
 
 (defun apdl-calculate-indent ()   ; FIXME: comment, fixed goal column,
-  "Return appropriate indentation for current line as APDL code.
+  "Return appropriate indentation for the current APDL code line.
 Returns an integer (the column to indent to) unless the line is a
 comment line with fixed goal column.  In that case, returns a
 list whose car is the column to indent to, and whose cdr is the
@@ -2842,22 +2860,24 @@ current indentation level."
         (keyword_c 0) ; for specified commands
         (comma_c nil) ; for default commands
         lep           ; line end predicate
-        lbp)          ; line beginning pr.
+        lbp)          ; line beginning predicate
     ;; --- first for the previous code line ---
     (save-excursion
-      (when (zerop (apdl-previous-code-line)) ; otherwise at the first line
+      (when (zerop (apdl-previous-code-line 1)) ; there is a previous
+					      ; code line
         (if (or (apdl-condensed-input-line-p)
                 (and (apdl-in-indentation-p)
                      (not (apdl-default-command-p))))
             (back-to-indentation)
-          (apdl-command-start)) ; skip to the beginning of an *msg and
+          (apdl-command-start)) ; skip to the beginning of a *msg and
 				; default command
         (setq keyword_c (current-column))
         (cond
          ((looking-at apdl-block-begin-regexp)
-          (when (looking-at "\\*if.*,\\s-*then") ; *if base1 or base2
+	  ;; checking for then keywords in if
+;          (when (looking-at "\\*if.*,\\s-*then") ; *if base1 or base2
             ;; must be THEN for being a block keyword
-            (setq keyword_c (+ keyword_c apdl-block-offset))))
+            (setq keyword_c (+ keyword_c apdl-block-offset)));)
          ((looking-at apdl-block-else-regexp)
           (setq keyword_c (+ keyword_c apdl-block-offset)))
          ((looking-at "[^\n,]") ; */ are also valid default commands 12.1
@@ -2890,7 +2910,8 @@ current indentation level."
           (if comma_c
               (setq column comma_c)
             (setq column keyword_c)))
-         ((and (looking-at "\\s<\\w") ; FIXME:? this is for "code comments"
+         ((and (looking-at "\\s<\\w") ; FIXME:? this is for "code
+				      ; comments"
                (not (looking-at
                      ( concat
                        "\\(\\s<\\s<\\s-\\S<\\)\\|\\(\\^\\s<"
@@ -2905,7 +2926,8 @@ current indentation level."
 (defun apdl-indent-line-function (&optional arg)
   "Indent current line in APDL coding style.
 With optional ARG, use this as offset unless this line is a
-comment with fixed goal column."
+comment with fixed goal column.  This function is saved in
+`indent-line-function'."
   (interactive "*p")
   (unless arg (setq arg 1))
   (let ((icol (apdl-calculate-indent))
@@ -3059,10 +3081,12 @@ Skip past intermediate comment and empty lines."
                     (/= num 0))
            (apdl-next-code-line num)))))
 
+
 (defun apdl-previous-code-line (&optional num)
   "Move NUM lines of APDL code backward, default for NUM is 1.
-Skip before all empty - and comment lines and return the
-difference between NUM and actually moved code lines."
+Skip all empty - and comment lines and return the difference
+between NUM and actually moved code lines.  Check if there is
+previous a code line before the cursor."
   (interactive "p")
   (unless num (setq num 1))
   (unless (memq last-command '(next-line
@@ -3070,24 +3094,44 @@ difference between NUM and actually moved code lines."
                                apdl-next-code-line
                                apdl-previous-code-line))
     (setq temporary-goal-column (current-column)))
-  (let ((p 0))
-    (forward-line -1)
-    (while (and (apdl-not-in-code-line-p)
-                (not (apdl-first-line-p)))
-      (forward-line -1))
-    ;; (unless (apdl-first-line-p)                 ; in case we aren't at b-o-l
-    ;;   (beginning-of-line) ; for forward-comment
-    ;; (forward-comment (-(buffer-size))) ; and in case we are in a comment line
-    ;; starting with Emacs 23.1 t-g-c might be a cons cell
-    (move-to-column   (if (integerp temporary-goal-column)
-                          (truncate temporary-goal-column)
-                        (truncate (car temporary-goal-column))))
-    (setq num (1- num)
-          p num)
-    (when (and (apdl-number-line-p)
-               (/= num 0))
-      (setq p (apdl-previous-code-line num)))
-    p))
+  (let ((Diff num)
+	(CFlag t) 			; Previous code line flag
+	(Goal num))
+    (cond
+     ((= num 0)
+      (message "%s" "do nothing and return 0")
+      num)
+     ((apdl-first-line-p)
+      (message "Already at first line.")
+      num)
+     ((save-excursion			; here we are not at bob
+	(while (progn
+		 (forward-line -1)
+		 (and (apdl-not-in-code-line-p)
+		      (not (apdl-first-line-p)))))
+	;; we are either at the first line or in a code line or both
+	(if (apdl-not-in-code-line-p)
+	    nil	       ; first line without code
+	  t))               ; we found a previous code line
+      (while (progn
+	       (forward-line -1)
+	       (apdl-not-in-code-line-p)))
+      (setq Goal (1- Goal)	   ; moved to first previous code line
+	    Diff Goal)
+      ;; move to goal column
+      (move-to-column (if (integerp temporary-goal-column)
+			  (truncate temporary-goal-column)
+			(truncate (car temporary-goal-column))))
+      ;; recursion for possibly further code
+      (unless (= Goal 0)		; = : numerically equal
+	(setq Diff (apdl-previous-code-line Goal)))
+      ;; (if (= 1 (- num Diff))
+      ;; 	  (message "Moved %d code line" (- num Diff))
+      ;; 	(message "Moved %d code lines" (- num Diff)))
+      Diff)
+     (t 				; found no code line
+      (message "No previous code line found.")
+      num))))
 
 (defun apdl-back-to-format-command ()
   "Move cursor back to the beginning of a previous format command.

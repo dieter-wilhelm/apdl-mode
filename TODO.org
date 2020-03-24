@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-23>
+#+DATE: Time-stamp: <2020-03-24>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,8 +18,6 @@
 * TODO Version 20.3.0 Update v201 docu, melpa
   DEADLINE: <2020-04-16 Thu>
   feature freeze [2020-03-20 Fr]
-
-# save-excursion, while do not explain their the return value
 
 #  Ansys local help v201 1.7 GB [2020-03-17 Di]
 ** Todos, bugs
@@ -50,17 +48,18 @@
        - bugs
      - find nice style css stuff for html export?
 ** minor bugs
+   - fmagsum in -template-post1 not fontified
    - APDL-Mode documentation is only shown in default browswer, not
      shown in eww
    - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
      the respective page section on Chrome and Edge!?
+   - 1/en, en is variable but fraction not fontified?
+** check
    - Check templates (formatting changed strongly!) especially
      -compilation-template!  Indent is not correct.,
      -skeleton-function!?
      - C-s C-s apdl-calculate-indent: Can't deduce sensible column
        offset, for some templates
-   - 1/en, en is variable but fraction not fontified?
-** check
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** wishes
@@ -70,7 +69,7 @@
     - what is the advantage of ARG1-9? => parameter system, should I
       include ARG[1-9] optionally?
 *** misc
-    1) derive A-M from prog-modes
+    1) derive A-M from prog-modes => branch derived
     2) Travis CI continuous integration!
     3) https://github.com/marketplace/coveralls
     4) Start optionally runbWB2 --aim, Discovery AIM

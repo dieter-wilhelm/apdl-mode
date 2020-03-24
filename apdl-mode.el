@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-23>
+;; Time-stamp: <2020-03-24>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -3130,7 +3130,7 @@ previous a code line before the cursor."
       ;; 	(message "Moved %d code lines" (- num Diff)))
       Diff)
      (t 				; found no code line
-      (message "No previous code line found.")
+     ;; (message "No previous code line found.") ; in all templates
       num))))
 
 (defun apdl-back-to-format-command ()

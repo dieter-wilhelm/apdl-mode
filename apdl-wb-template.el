@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-20>
+;; Time-stamp: <2020-03-24>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -168,7 +168,7 @@ And other parameters from a plane stress press-fit simulation."
   nil
   "*do,I,1,10,1" > \n
   - \n
-  "!*cycle !bypass below commands in *do loop" > \n
+  "!! *cycle ! bypass below commands in *do loop" > \n
   "*enddo" > \n)
 
 

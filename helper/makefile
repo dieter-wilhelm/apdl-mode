@@ -16,7 +16,7 @@ help :
 
 # Semantic versioning: MA.Mi.Pa, Ma = year
 APDL_MAJOR := 20
-APDL_MINOR := 3
+APDL_MINOR := 4
 APDL_PATCH := 0
 
 

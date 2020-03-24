@@ -14,13 +14,7 @@
 #+STARTUP: showall
 
 #+title: The TODO file of APDL-Mode
-* Version 20.4.0 Update v201
-
-* TODO Version 20.3.0 Melpa
-  DEADLINE: <2020-04-16 Thu>
-  feature freeze [2020-03-20 Fr]
-
-#  Ansys local help v201 1.7 GB [2020-03-17 Di]
+* TODO Version 20.4.0, Update to v201
 ** Todos, bugs
    - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
      v201 version..
@@ -74,6 +68,10 @@
     6) Melpa README, better wait till emacs-27?
 ** Done
 ** Release proceedures
+
+   gca = git commit -a = gau + gc
+   gta = git tag -a 20.4.0
+
    Attention: in apdl_keywords.txt there are many trailing whitespaces
    (delete-trailing-whitespace)
 
@@ -83,10 +81,10 @@
 
     # for makefile
     APDL_MAJOR := 20
-    APDL_MINOR := 4
+    APDL_MINOR := 5
     APDL_PATCH := 0
     # A-M version
-    (tags-query-replace "20\.3\.0" "20.4.0")
+    (tags-query-replace "20\.4\.0" "20.5.0")
     # copyright year
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
@@ -96,9 +94,14 @@
     (tags-search "((emacs \"25.1\"))")
 
 
-* DONE 20.2.0 Release
+* DONE 20.3.0, Melpa
+  [2020-03-24 Di]
+  feature freeze [2020-03-20 Fr]
+#  Ansys local help v201 1.7 GB [2020-03-17 Di]
+
+* DONE 20.2.0
   [2020-03-10 Tue]
-* 20.1.1
+* DONE 20.1.1
    - are the material properties documented, matlib?  Matlib is used
      in -template.el, how about document this directory somewhere?
      Done in matlib/README.org

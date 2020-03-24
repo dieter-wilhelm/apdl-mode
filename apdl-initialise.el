@@ -44,7 +44,7 @@
   "The installation directory of APDL-Mode.
 A string describing the directory where the Elisp files reside.")
 
-(defconst apdl-ansys-version "v193"
+(defconst apdl-ansys-version "v201"
   "Ansys version string on which APDL-Mode is based upon.
 With respect to keywords and documentation, like deprecated
 elements, command names, etc.")
@@ -100,7 +100,7 @@ this for the current session only."
 When the respective executable is not in your search path, you
 have to specify the full qualified file name and not only
 executable's name.  For example:
-\"/ansys_inc/v195/Framework/bin/Linux64/runwb2\".  You might
+\"/ansys_inc/v201/Framework/bin/Linux64/runwb2\".  You might
 customise this variable permanently or use the function
 `apdl-ansys-wb' to do this for the current session only."
   :type '(file :must-match t)

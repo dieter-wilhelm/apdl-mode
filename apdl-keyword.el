@@ -525,7 +525,7 @@ CISOL, n, ID, node, Cont, Dtype" "CLOCAL - Defines a local coordinate system rel
 CLOCAL, KCN, KCS, XL, YL, ZL, THXY, THYZ, THZX, PAR1, PAR2" "CLOG - Forms the common log of a variable
 CLOG, IR, IA, --, --, Name, --, --, FACTA, FACTB" "CLRMSHLN
 CLRMSHLN - Clears meshed entities." "CM - Groups geometry items into a component.
-CM, Cname, Entity" "CMACEL - Specifies the translational acceleration of an element component
+CM, Cname, Entity, --, KOPOT" "CMACEL - Specifies the translational acceleration of an element component
 CMACEL, CM_NAME, CMACEL_X, CMACEL_Y, CMACEL_Z" "CMATRIX - Performs electrostatic field solutions and calculates the self and mutual capacitances between multiple conductors.
 CMATRIX, SYMFAC, Condname, NUMCOND, GRNDKEY, Capname" "CMDELE - Deletes a component or assembly definition.
 CMDELE, Name" "CMDOMEGA - Specifies the rotational acceleration of an element component about a user-defined rotational axis.
@@ -539,9 +539,9 @@ CMPLOT, Label, Entity, Keyword" "CMROTATE - Specifies the rotational velocity of
 CMROTATE, CM_Name, ROTATX, ROTATY, ROTATZ, X1, Y1, Z1, X2, Y2, Z2" "CMSEL - Selects a subset of components and assemblies.
 CMSEL, Type, Name, Entity" "CMSFILE - Specifies a list of component mode synthesis (CMS) results files for plotting results on the assembly.
 CMSFILE, Option, Fname, Ext, CmsKey" "CMSOPT - Specifies component mode synthesis (CMS) analysis options.
-CMSOPT, CMSMETH, NMODE, FREQB, FREQE, FBDDEF, FBDVAL, IOKEY, --, --, ELCALC, --, EIGMETH, nStartVN" "CMWRITE - Writes node and element components and assemblies to a file.
+CMSOPT, Cmsmeth, NMODE, FREQB, FREQE, Fbddef, FBDVAL, IOkey, --, --, Elcalc, --, Eigmeth, nStartVN" "CMWRITE - Writes node and element components and assemblies to a file.
 CMWRITE, Fname, Ext, --, --, Fmat" "CNCHECK - Provides and/or adjusts the initial status of contact pairs.
-CNCHECK, Option, RID1, RID2, RINC, InterType, TRlevel, CGAP, CPEN, IOFF" "CNKMOD - Modifies contact element key options.
+CNCHECK, Option, RID1, RID2, RINC, InterType, TRlevel, Val1, Val2, Val3" "CNKMOD - Modifies contact element key options.
 CNKMOD, ITYPE, KNUM, VALUE" "CNTR - Redirects contact pair output quantities to a text file.
 CNTR, Option, Key" "CNVTOL - Sets convergence values for nonlinear analyses.
 CNVTOL, Lab, VALUE, TOLER, NORM, MINREF" "COMBINE - Combines distributed memory parallel (Distributed ANSYS) files.
@@ -597,7 +597,7 @@ DCUM, Oper, RFACT, IFACT, TBASE" "DCVSWP - Performs a DC voltage sweep on a ROM 
 DCVSWP, Option, Elem, Cnum, Vmax, Vinc1, Vinc2, Gap" "DDASPEC - Specifies the shock spectrum computation constants for DDAM analysis.
 DDASPEC, KeyRef, Shptyp, MountLoc, Deftyp, Amin" "DDELE - Deletes degree-of-freedom constraints.
 DDELE, NODE, Lab, NEND, NINC, Rkey" "DDOPTION -  Sets domain decomposer option for Distributed ANSYS.
-DDOPTION, Decomp, NProcPerSol" "DEACT
+DDOPTION, Decomp, NPROCPERSOL, NUMLPFREQS" "DEACT
 DEACT - Specifies \"Element birth and death\" as the subsequent status topic." "DEFINE
 DEFINE - Specifies \"Data definition settings\" as the subsequent status topic." "DELETE - Specifies sets in the results file to be deleted before postprocessing.
 DELETE, SET, Nstart, Nend" "DELTIM - Specifies the time step sizes to be used for the current load step.
@@ -669,7 +669,7 @@ EMSYM, NSECT" "EMTGEN - Generates a set of TRANS126 elements.
 EMTGEN, Ncomp, Ecomp, PNcomp, DOF, GAP, GAPMIN, FKN, EPZERO, --, Smethod" "EMUNIT - Specifies the system of units for magnetic field problems.
 EMUNIT, Lab, VALUE" "EN - Defines an element by its number and node connectivity.
 EN, IEL, I, J, K, L, M, N, O, P" "ENDRELEASE - Specifies degrees of freedom to be decoupled for end release.
-ENDRELEASE, --, TOLERANCE, Dof1, Dof2, Dof3, Dof4" "ENERSOL - Specifies the total energies to be stored.
+ENDRELEASE, --, TOLERANCE, Dof1, Dof2, Dof3, Dof4, KJCT" "ENERSOL - Specifies the total energies to be stored.
 ENERSOL, NVAR, Item, --, Name" "ENGEN - Generates elements from an existing pattern.
 ENGEN, IINC, ITIME, NINC, IEL1, IEL2, IEINC, MINC, TINC, RINC, CINC, SINC, DX, DY, DZ" "ENORM - Reorients shell element normals or line element node connectivity.
 ENORM, ENUM" "ENSYM - Generates elements by symmetry reflection.
@@ -820,8 +820,8 @@ KDIST, KP1, KP2" "KEEP - Stores POST26 definitions and data during active sessio
 KEEP, Key" "KESIZE - Specifies the edge lengths of the elements nearest a keypoint.
 KESIZE, NPT, SIZE, FACT1, FACT2" "KEYOPT - Sets element key options.
 KEYOPT, ITYPE, KNUM, VALUE" "KEYPTS
-KEYPTS - Specifies \"Keypoints\" as the subsequent status topic." "KEYW - Sets a keyword used by the GUI for context filtering (GUI).
-KEYW, Keyword, KEY" "KFILL - Generates keypoints between two keypoints.
+KEYPTS - Specifies \"Keypoints\" as the subsequent status topic." "KEYW
+KEYW - Sets a keyword used by the GUI for context filtering (GUI)." "KFILL - Generates keypoints between two keypoints.
 KFILL, NP1, NP2, NFILL, NSTRT, NINC, SPACE" "KGEN - Generates additional keypoints from a pattern of keypoints.
 KGEN, ITIME, NP1, NP2, NINC, DX, DY, DZ, KINC, NOELEM, IMOVE" "KL - Generates a keypoint at a specified location on an existing line.
 KL, NL1, RATIO, NK1" "KLIST - Lists the defined keypoints or hard points.
@@ -847,7 +847,7 @@ KWPLAN, WN, KORIG, KXAX, KPLAN" "L - Defines a line between two keypoints.
 L, P1, P2, NDIV, SPACE, XV1, YV1, ZV1, XV2, YV2, ZV2" "L2ANG - Generates a line at an angle with two existing lines.
 L2ANG, NL1, NL2, ANG1, ANG2, PHIT1, PHIT2" "L2TAN - Generates a line tangent to two lines.
 L2TAN, NL1, NL2" "LANBOPTION - Specifies Block Lanczos eigensolver options.
-LANBOPTION, StrmCk" "LANG - Generates a straight line at an angle with a line.
+LANBOPTION, StrmCk, --, AltMeth" "LANG - Generates a straight line at an angle with a line.
 LANG, NL1, P3, ANG, PHIT, LOCAT" "LARC - Defines a circular arc.
 LARC, P1, P2, PC, RAD" "LAREA - Generates the shortest line between two keypoints on an area.
 LAREA, P1, P2, NAREA" "LARGE - Finds the largest (the envelope) of three variables.
@@ -892,7 +892,7 @@ LINV, NL, NV" "LIST - Lists out the sets in the results file.
 LIST, LEVEL" "LLIST - Lists the defined lines.
 LLIST, NL1, NL2, NINC, Lab" "LMESH - Generates nodes and line elements along lines.
 LMESH, NL1, NL2, NINC" "LNSRCH - Activates a line search to be used with Newton-Raphson.
-LNSRCH, Key" "LOCAL - Defines a local coordinate system by a location and orientation.
+LNSRCH, Key, LSTOL, LStrun" "LOCAL - Defines a local coordinate system by a location and orientation.
 LOCAL, KCN, KCS, XC, YC, ZC, THXY, THYZ, THZX, PAR1, PAR2" "LOVLAP - Overlaps lines.
 LOVLAP, NL1, NL2, NL3, NL4, NL5, NL6, NL7, NL8, NL9" "LPLOT - Displays the selected lines.
 LPLOT, NL1, NL2, NINC" "LPTN - Partitions lines.
@@ -922,8 +922,8 @@ LTRAN, KCNTO, NL1, NL2, NINC, KINC, NOELEM, IMOVE" "LUMPM - Specifies a lumped m
 LUMPM, Key, --, KeyElt" "LVSCALE - Scales the load vector for mode-superposition analyses.
 LVSCALE, FACT, LDSTEP" "LWPLAN - Defines the working plane normal to a location on a line.
 LWPLAN, WN, NL1, RATIO" "M - Defines master degrees of freedom for superelement generation analyses.
-M, NODE, Lab1, NEND, NINC, Lab2, Lab3, Lab4, Lab5, Lab6" "MACOPT - Specifies modal assurance criterion (MAC) calculation options for     RSTMAC.
-MACOPT, Option, Value1" "MAGOPT - Specifies options for a 3-D magnetostatic field analysis.
+M, NODE, Lab1, NEND, NINC, Lab2, Lab3, Lab4, Lab5, Lab6, SUPPORT" "MACOPT - Specifies modal assurance criterion (MAC) calculation options for     RSTMAC.
+MACOPT, Option, Value1, Value2" "MAGOPT - Specifies options for a 3-D magnetostatic field analysis.
 MAGOPT, Value" "MAGSOLV - Specifies magnetic solution options and initiates the solution.
 MAGSOLV, OPT, NRAMP, CNVCSG, CNVFLUX, NEQIT, BIOT,CNVTOL" "MAP - Maps pressures from source points to target surface elements.
 MAP, --, kDIM, --, kOUT, LIMIT" "MAP2DTO3D - Initiates a 2-D to 3-D analysis and maps variables.
@@ -936,7 +936,7 @@ MAT, MAT" "MATER
 MATER - Specifies \"Material properties\" as the subsequent status topic." "MCHECK - Checks mesh connectivity.
 MCHECK, Lab" "MDAMP - Defines the damping ratios as a function of mode.
 MDAMP, STLOC, V1, V2, V3, V4, V5, V6" "MDELE - Deletes master degrees of freedom.
-MDELE, NODE, Lab1, NEND, NINC, Lab2, Lab3, Lab4, Lab5, Lab6" "MDPLOT - Plots frequency-dependent modal damping coefficients calculated by DMPEXT.
+MDELE, NODE, Lab1, NEND, NINC, Lab2, Lab3, Lab4, Lab5, Lab6, SUPPORT" "MDPLOT - Plots frequency-dependent modal damping coefficients calculated by DMPEXT.
 MDPLOT, Function, Dmpname, Scale" "MEMM - Allows the current session to keep allocated memory
 MEMM, Lab, Kywrd" "MESHING
 MESHING - Specifies \"Meshing\" as the subsequent status topic." "MGEN - Generates additional MDOF from a previously defined set.
@@ -1048,7 +1048,8 @@ OCZONE, ZoneType, ZoneName, CompNameInt, CompNameExt" "OMEGA - Specifies the rot
 OMEGA, OMEGX, OMEGY, OMEGZ" "OPERATE
 OPERATE - Specifies \"Operation data\" as the subsequent status topic." "OPNCONTROL - Sets decision parameter for automatically increasing the time step interval.
 OPNCONTROL, Lab, VALUE, NUMSTEP" "OUTAERO - Outputs the superelement matrices and load vectors to formatted files for aeroelastic analysis.
-OUTAERO, SENAME, TIMEB, DTIME" "OUTOPT
+OUTAERO, SENAME, TIMEB, DTIME" "OUTGEOM - Controls geometry-related data written to the results file.
+OUTGEOM, Item, Freq" "OUTOPT
 OUTOPT - Specifies \"Output options\" as the subsequent status topic." "OUTPR - Controls the solution printout.
 OUTPR, Item, Freq, Cname" "OUTRES - Controls the solution-result data written to the database.
 OUTRES, Item, Freq, Cname, -- , NSVAR, DSUBres" "OVCHECK - Checks for overconstraint among constraint equations and Lagrange multipliers.
@@ -1091,8 +1092,8 @@ PLMAP, Item, --, NODEkey, ImagKey" "PLMC - Plots the modal coordinates from a mo
 PLMC, LSTEP, SBSTEP, TIMFRQ, KIMG, HIbeg, HIend" "PLNEAR - Plots the pressure in the near zone exterior to the equivalent source surface.
 PLNEAR, Lab, Opt, KCN, VAL1, VAL2, VAL3, VAL4, VAL5, VAL6, VAL7, VAL8,VAL9" "PLNSOL - Displays solution results as continuous element contours.
 PLNSOL, Item, Comp, KUND, Fact, FileID, AVG" "PLORB
-PLORB - Displays the orbital motion of a rotating structure" "PLOT, NSTRT, NEND, NINC
-PLOTTING" "PLPAGM - Displays path items along the path geometry.
+PLORB - Displays the orbital motion of a rotating structure" "PLOTTING
+PLOTTING - Specifies \"Plotting settings\" as the subsequent status topic." "PLPAGM - Displays path items along the path geometry.
 PLPAGM, Item, Gscale, Nopt" "PLPATH - Displays path items on a graph.
 PLPATH, Lab1, Lab2, Lab3, Lab4, Lab5, Lab6" "PLSECT - Displays membrane and membrane-plus-bending linearized stresses.
 PLSECT, Item, Comp, RHO, KBR, KBR3D" "PLTIME - Defines the time range for which data are to be displayed.
@@ -1126,7 +1127,8 @@ PRIM - Specifies \"Solid model primitives\" as the subsequent status topic." "PR
 PRINT - Specifies \"Print settings\" as the subsequent status topic." "PRISM - Creates a prism volume based on working plane coordinate pairs.
 PRISM, Z1, Z2" "PRITER
 PRITER - Prints solution summary data." "PRJSOL - Prints joint element output.
-PRJSOL, Item, Comp" "PRNEAR - Prints the pressure in the near zone exterior to the equivalent source surface.
+PRJSOL, Item, Comp" "PRMC - Prints the modal coordinates from a mode-superposition solution.
+PRMC, LSTEP, SBSTEP, TIMFRQ, KIMG, HIbeg, HIend" "PRNEAR - Prints the pressure in the near zone exterior to the equivalent source surface.
 PRNEAR, Lab, Opt, KCN, VAL1, VAL2, VAL3, VAL4, VAL5, VAL6, VAL7, VAL8,VAL9" "PRNLD - Prints the summed element nodal loads.
 PRNLD, Lab, TOL, Item" "PRNSOL - Prints nodal solution results.
 PRNSOL, Item, Comp, --, --, --, AVG" "PROD - Multiplies variables.
@@ -1269,11 +1271,12 @@ SFACT, TYPE" "SFADELE - Deletes surface loads from areas.
 SFADELE, AREA, LKEY, Lab" "SFALIST - Lists the surface loads for the specified area.
 SFALIST, AREA, Lab" "SFBEAM - Specifies surface loads on beam and pipe elements.
 SFBEAM, Elem, LKEY, Lab, VALI, VALJ, VAL2I, VAL2J, IOFFST, JOFFST, LENRAT" "SFCALC - Calculates the safety factor or margin of safety.
-SFCALC, LabR, LabS, LabT, TYPE" "SFCUM - Specifies that surface loads are to be accumulated.
+SFCALC, LabR, LabS, LabT, TYPE" "SFCONTROL - Defines structural surface-load properties on selected       elements and nodes for subsequent loading commands.
+SFCONTROL, KCSYS, LCOMP, VAL1, VAL2, VAL3, KTAPER, KUSE, KAREA, KPROJ" "SFCUM - Specifies that surface loads are to be accumulated.
 SFCUM, Lab, Oper, FACT, FACT2" "SFDELE - Deletes surface loads.
 SFDELE, Nlist, Lab" "SFE - Defines surface loads on elements.
 SFE, Elem, LKEY, Lab, KVAL, VAL1, VAL2, VAL3, VAL4" "SFEDELE - Deletes surface loads from elements.
-SFEDELE, ELEM, LKEY, Lab" "SFELIST - Lists the surface loads for elements.
+SFEDELE, ELEM, LKEY, Lab, Lcomp" "SFELIST - Lists the surface loads for elements.
 SFELIST, ELEM, Lab" "SFFUN - Specifies a varying surface load.
 SFFUN, Lab, Par, Par2" "SFGRAD - Specifies a gradient (slope) for surface loads.
 SFGRAD, Lab, SLKCN, Sldir, SLZER, SLOPE" "SFL - Specifies surface loads on lines of an area.
@@ -1337,7 +1340,7 @@ SSPE, E11 , E21 , E22 , T" "SSPM - Specifies mass density for a preintegrated sh
 SSPM, DENS, T" "SSTATE - Defines a steady-state rolling analysis.
 SSTATE, Action, CM_Name, Val1, Val2, Val3, Val4, Val5, Val6, Val7, Val8, Val9" "SSUM
 SSUM - Calculates and prints the sum of element table items." "STABILIZE - Activates stabilization for all elements that support nonlinear             stabilization.
-STABILIZE, Key, Method, VALUE, SubStpOpt, FORCELIMIT" "STAT
+STABILIZE, Key, Method, VALUE, SubStpOpt, FORCELIMIT, RECALCDAMP" "STAT
 STAT - Displays the status of database settings." "STEF - Specifies Stefan-Boltzmann radiation constant.
 STEF, VALUE" "STORE - Stores data in the database for the defined variables.
 STORE, Lab, NPTS, --, FREQ, Toler" "SUBOPT - Specifies Subspace (SUBSP) eigensolver options.
@@ -1390,8 +1393,8 @@ TIMINT, Key, Lab" "TIMP - Improves the quality of tetrahedral elements that are 
 TIMP, ELEM, CHGBND, IMPLEVEL" "TINTP - Defines transient integration parameters.
 TINTP, GAMMA, ALPHA, DELTA, THETA, OSLM, TOL, --, --, AVSMOOTH, ALPHAF, ALPHAM" "TOFFST - Specifies the temperature offset from absolute zero to zero.
 TOFFST, VALUE" "TORUS - Creates a toroidal volume.
-TORUS, RAD1, RAD2, RAD3, THETA1, THETA2" "TRANS, Fname, Ext, --
-TRANSFER - Transfers a pattern of nodes to another coordinate system." "TREF - Defines the reference temperature for thermal strain calculations.
+TORUS, RAD1, RAD2, RAD3, THETA1, THETA2" "TRANSFER - Transfers a pattern of nodes to another coordinate system.
+TRANSFER, KCNTO, INC, NODE1, NODE2, NINC" "TREF - Defines the reference temperature for thermal strain calculations.
 TREF, TREF" "TRNOPT - Specifies transient analysis options.
 TRNOPT, Method, MAXMODE, --, MINMODE, MCout, TINTOPT, VAout, DMPSFreq, EngCalc" "TRPDEL - Deletes particle flow or charged particle trace points.
 TRPDEL, NTRP1, NTRP2, TRPINC" "TRPLIS - Lists the particle flow or charged particle trace points.

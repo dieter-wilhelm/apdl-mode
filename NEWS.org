@@ -17,6 +17,8 @@
 #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+** Version 20.4.0: 2020- Update to Ansys 2020R1 v201
+   - Updated keywords to Ansys 2020R1
 
 ** Version 20.3.0: 2020-03 Melpa installation
    - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!

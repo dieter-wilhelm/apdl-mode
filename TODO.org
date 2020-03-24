@@ -14,10 +14,8 @@
 #+STARTUP: showall
 
 #+title: The TODO file of APDL-Mode
-* TODO Version 20.4.0, Update to v201
+* TODO Version 20.4.0, update to v201
 ** Todos, bugs
-   - M-C-i is not consistent with M-?! The mix of Ansys v195 and docu
-     v201 version..
    - Update and centralise DOCUs, info style?
      - customise system (explain `M-x customize-set-value' as long as
        (debbugs-gnu-bugs 25678) is not solved)
@@ -72,8 +70,8 @@
    gca = git commit -a = gau + gc
    gta = git tag -a 20.4.0
 
-   Attention: in apdl_keywords.txt there are many trailing whitespaces
-   (delete-trailing-whitespace)
+   Attention: in apdl_keywords.txt there are many
+   trailing whitespaces (delete-trailing-whitespace)
 
    whitespace-mode
    package-lint
@@ -88,7 +86,7 @@
     # copyright year
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
-    (tags-query-replace "v195" "v201")
+    (tags-query-replace "v201" "v211")
     # emacs
     (tags-query-replace "26\.3" "27.1")
     (tags-search "((emacs \"25.1\"))")

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-24>
+#+DATE: Time-stamp: <2020-03-25>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -14,16 +14,24 @@
 #+STARTUP: showall
 
 #+title: The TODO file of APDL-Mode
-* TODO Version 20.4.0, update to v201
+     # (defconst superfrobnicator-base (file-name-directory load-file-name))
+
+     # (defun superfrobnicator-fetch-image (file)
+     #   (expand-file-name file superfrobnicator-base))
+
+* TODO Version 20.4.0, info docu?
 ** Todos, bugs
    - Update and centralise DOCUs, info style?
+     - C-u info file
+     - package with file "dir"
      - customise system (explain `M-x customize-set-value' as long as
        (debbugs-gnu-bugs 25678) is not solved)
-     - do we need a short help, yes for installation + config + first steps
+     - do we need a short help, yes for installation + config + first
+       steps:
      - add intro to the wb-template system
      - explain interactive browsing of keywords => menu entry
-     - shift org-files to doc, except README.org: Focus: Intro +
-       Features + Installation
+     - shift org-files to doc or info, except README.org: Focus:
+       Intro + Features + Installation
        - usage
        - config
      - orgs
@@ -66,6 +74,9 @@
     6) Melpa README, better wait till emacs-27?
 ** Done
 ** Release proceedures
+
+   - NEWS.org
+   - README.org News
 
    gca = git commit -a = gau + gc
    gta = git tag -a 20.4.0
@@ -291,7 +302,7 @@
     [[elisp:(find-tag "Ansys_undocumented_commands")]]
     are still working in V 162
   - (tags-search "-TODO-")
-  - (tags-search "FIXME")
+  - (tags-search "-FIXME-")
   - checkdoc, -ansys-template.el, -ansys-process.el, -mode.el done except
     \\<keymap> & \\[function]
   - README -- installation (Emacs Wiki format) and accompanying files,

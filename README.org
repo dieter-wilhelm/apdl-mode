@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-24>
+#+DATE: Time-stamp: <2020-03-25>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -195,22 +195,22 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   chooses by default the highest installed Ansys version on your
   system.
 
-  I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
-  file endings, especially the `.mac' suffix.
+  # I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
+  # file endings, especially the `.mac' suffix.
 
-  #+begin_src elisp
-    ;; Traditional APDL file suffixes
-    (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
-    (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
-    ;; Workbench solver file suffixes
-    (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
-    (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
-    ;; Ansys neutral geometry file suffix
-    (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
-  #+end_src
+  # #+begin_src elisp
+  #   ;; Traditional APDL file suffixes
+  #   (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
+  #   (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+  #   ;; Workbench solver file suffixes
+  #   (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
+  #   (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+  #   ;; Ansys neutral geometry file suffix
+  #   (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+  # #+end_src
 
-  Please read [[file:doc/apdl-config.org][apdl-config.org]], or the accompanying configuration [[file:doc/ansys-config.el][file]]
-  for details and further configurations.
+  Please read [[file:doc/apdl-config.org][apdl-config.org]], or the accompanying configuration
+  example [[file:doc/ansys-config.el][file]] for details.
 * Bugs and Problems
   Please write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Trigger a bug report
   form from the APDL-Mode menu or by calling the function
@@ -222,8 +222,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
   [[https://www.emacswiki.org][Emacs Wiki]].
 * News
-  APDL-Mode can now be installed from the package archive [[https://melpa.org/][Melpa]].
-
   For further news please have a look into the [[file:NEWS.org][NEWS]] file.
 * Further Resources
 ** Ansys and APDL resources

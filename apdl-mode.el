@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-24>
+;; Time-stamp: <2020-03-25>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -868,9 +868,10 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   (list
    "APDL"
    ["Comment/Un- Region" comment-dwim
-    :help  "Comment out region or uncomment region, without a marked region
-start a code comment"]
-   ["Complete Symbol" apdl-complete-symbol
+    :help "Comment out region or uncomment region, without a
+marked region start or realign a code comment in the current
+line."]
+   ["Complete APDL Keyword" apdl-complete-symbol
     :help "Complete an APDL command, element or function name"]
    ["Send/Copy Region or Paragraph" apdl-send-to-ansys
     :label (if
@@ -880,7 +881,7 @@ start a code comment"]
     :help "In case of a running solver/interpreter send marked
 region or - by default - the current paragraph to the
 interpreter, otherwise copy these lines to the system clipboard"]
-["Copy/Send above Code to Ansys" apdl-copy-or-send-above
+   ["Copy/Send above Code to Ansys" apdl-copy-or-send-above
     :label (if
                (or apdl-classics-flag (apdl-process-running-p))
                "Send above Code to Ansys"
@@ -889,27 +890,28 @@ interpreter, otherwise copy these lines to the system clipboard"]
 when a run is active, send it to the solver/interpreter"]
    ["Close Logical Block" apdl-close-block
     :help "Close an open control block with the corresponding end
-   command"] ["Insert Parentheses" insert-parentheses
-    :help "Insert a pair of parentheses enclosing marked region
-(insert-parentheses)"] ; -FIXME- redundant, necessary for Emacs-23.1
+   command"]
+;;    ["Insert Parentheses" insert-parentheses
+;;     :help "Insert a pair of parentheses enclosing marked region
+;; (insert-parentheses)"] ; -FIXME- redundant, necessary for Emacs-23.1
    ["Align region or paragraph" apdl-align
     :help "Align APDL variable definitions in a marked region or
 the current paragraph (apdl-align)"]
-["Display Variable Definitions" apdl-display-variables
+   ["Display Variable Definitions" apdl-display-variables
     :help "Display all user variable definitions from the current
 file in another window (apdl-display-variables)"]
    "--"
-   ["Show APDL Command Help" apdl-show-command-parameters
+   ["Show the Short Command Help" apdl-show-command-parameters
     :help "Display a short help for the APDL command near the
 cursor with its parameters (apdl-show-command-parameters)"]
-["Browse the APDL command help" apdl-browse-apdl-help
+   ["Browse the APDL Keyword Help" apdl-browse-apdl-help
     :help "Open the original APDL documentation for a command or
-element name near the cursor in your default
+element name near the cursor in the default
 browser (apdl-browse-apdl-help)"
     :active apdl-current-ansys-version]
-   ["Interactively browse the command help" (apdl-browse-apdl-help t)
-    :help "Choose interactively the original APDL documentation
-for a command, element name or other
+   ["Interactively Browse Keywords" (apdl-browse-apdl-help t)
+    :help "Choose and browse the original APDL documentation for
+a command, element name or other
 subjects (apdl-browse-apdl-help)."
     :active apdl-current-ansys-version]
    ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
@@ -917,7 +919,7 @@ subjects (apdl-browse-apdl-help)."
 Guide in a browser (apdl-browse-ansys-apdl-manual)"
     ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
     ]
-   ["Start Ansys Help Viewer" apdl-start-ansys-help
+   ["Start the Ansys Help Viewer" apdl-start-ansys-help
     :help "Start the Ansys Help Viewer executable (apdl-start-ansys-help)"
     :active (file-executable-p apdl-ansys-help-program)]
    "--"
@@ -1517,6 +1519,13 @@ and P-MAX) otherwise align the current code paragraph."
   (if mark-active
       (align p-min p-max)
     (align-current))) ; align-current needs a mark
+
+;;  the autoload cookie is copying stuff to the -autoloads.el file
+;;  check with (update-file-autoloads)
+
+;;;###autoload (add-to-list 'auto-mode-alist '("\\.mac\\'" . apdl-mode))
+;;;###autoload (add-to-list 'auto-mode-alist '("\\.dat\\'" . apdl-mode))
+;;;###autoload (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
 
 ;;;###autoload
 (defun apdl-mode ()
@@ -2218,14 +2227,14 @@ improvements you have the following options:
                                                    'dot) ".mac"))
                  ;; 30 Mb bigger than file?
                  (when (file-attributes (buffer-file-name)) ; open an
-					; existing
-					; file
+							    ; existing
+							    ; file
                    (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
                        t
                      (y-or-n-p "File is larger than 30 MB, switch on \
 user variable highlighting? "))))))
       (progn
-        (message "before apdl-update-p.")
+	;; (message "before apdl-update-p.")
         (add-hook 'after-change-functions
                   #'apdl-find-user-variables nil t)
         (add-hook 'post-command-hook
@@ -2269,13 +2278,15 @@ user variable highlighting? "))))))
   ;; (set-mark 0) -TODO-
 
   ;; initialise system dependent stuff
-  (apdl-initialise)
+  (unless apdl-initialised-flag
+    (apdl-initialise))
   ;; that is not friendly to enforce stuff on users
   ;; (outline-minor-mode t)
   ;; --- hooks ---
   ;; (run-hooks 'apdl-mode-hook)
   )
 ;;  -- end of apdl-mode --
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;###autoload
 (defun apdl ()
@@ -3095,7 +3106,6 @@ previous a code line before the cursor."
                                apdl-previous-code-line))
     (setq temporary-goal-column (current-column)))
   (let ((Diff num)
-	(CFlag t) 			; Previous code line flag
 	(Goal num))
     (cond
      ((= num 0)

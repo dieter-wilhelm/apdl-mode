@@ -162,6 +162,7 @@ PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOU
 # 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
 P_DIR := apdl-mode-$(VERSION)
+I_DIR := $(P_DIR)/info/
 
 $(PACKAGE) : $(PACKAGE_FILES)  makefile
 	$(EMACS_EXE) --batch -L $(S_DIR) --eval '(byte-recompile-directory $(S_DIR) 0)'
@@ -181,6 +182,12 @@ $(PACKAGE) : $(PACKAGE_FILES)  makefile
 	    mkdir $(P_DIR)/matlib
 # @test -d P_DIR/X11 || \
 #     mkdir P_DIR/X11
+	@test -d $(I_DIR) || mkdir $(I_DIR)
+	@cp ../info/dir $(P_DIR)
+	@cp ../info/apdl-mode.info $(P_DIR)
+	@cp ../info/apdl-mode.texi $(P_DIR)
+#	@cp ../info/APDL-Mode.info $(P_DIR)
+#	@cp ../info/APDL-Mode.texi $(P_DIR)
 	@cp -rf $(MATLIB) $(P_DIR)
 	@test -d $(P_DIR)/template || \
 	    mkdir $(P_DIR)/template

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-24 14:47:18 dieter>
+#+DATE: Time-stamp: <2020-03-25 12:58:04 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -173,22 +173,29 @@ called for.
 called in the Ansys command prompt or APDL like a regular Ansys
 function (without the suffix /.mac/).
 
-With the setting
+APDL-Mode has configured GNU-Emacs to open files with this suffix
+under apdl-mode.
+
+With the following setting
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
+  (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
 #+END_SRC
 
-files with the suffix /.mac/ will be opended in Emacs under
-APDL-Mode.  Check the /example.mac/ file in the /doc/ folder.
+files with the suffix /.ans/ will be opended in Emacs under APDL-Mode.
+Please check the /example.mac/ file in the /doc/ folder.
 ** WorkBench generated input files
 /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See the
 file /example.dat/ in the /doc/ folder.
 
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
-  (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
-#+END_SRC
+APDL-Mode has configured GNU-Emacs to open files with these suffixes
+under apdl-mode.
+
+# #+BEGIN_SRC emacs-lisp
+#   (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode)) ;
+#   (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+# #+END_SRC
+
 ** The Ansys Neutral file format
 /.anf/ is the suffix for "Ansys Neutral" files which include mostly
 gometric data but also some APDL snippets. These files are used for
@@ -199,25 +206,33 @@ imports, see the file /example.anf/ in the /doc/ folder.
 #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; file suffixes for autoloading of APDL-Mode, appropriate file
-;; suffixes for which Ansys mode is automatically called for
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; file suffixes for autoloading of APDL-Mode, appropriate file
+  ;; suffixes for which Ansys mode is automatically called for
 
-;; .mac is the macro suffix of Ansys i. e. these macros can be called
-;; in the Ansys command prompt like a regular Ansys function (without
-;; the suffix .mac). See the file doc/example.mac
-(add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
-(add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+  ;; .mac is the macro suffix of Ansys i. e. these macros can be called
+  ;; in the Ansys command prompt like a regular Ansys function (without
+  ;; the suffix .mac).  See the file doc/example.mac
 
-;; .dat and .inp are WorkBench's solver input file suffixes
-;; See the file doc/example.dat
-(add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
-(add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+  ;; APDL-Mode has configured GNU-Emacs to open files with this suffix
+  ;; under apdl-mode.
 
-;; .anf is the suffix for "Ansys Neutral" files which include mostly
-;;  gometric data but also some APDL snippets. See the file
-;;  doc/example.anf.
-(add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
+  (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+
+  ;; .dat and .inp are WorkBench's solver input file suffixes
+  ;; See the file doc/example.dat
+
+  ;; APDL-Mode has configured GNU-Emacs to open files with these suffixes
+  ;; under apdl-mode.
+
+  ;; (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
+  ;; (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+
+  ;; .anf is the suffix for "Ansys Neutral" files which include mostly
+  ;;  gometric data but also some APDL snippets. See the file
+  ;;  doc/example.anf.
+  (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 #+END_SRC
 
 * Auto insertion of code

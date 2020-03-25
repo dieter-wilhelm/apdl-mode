@@ -1,4 +1,5 @@
 ;;; fontification.el --- building keywords and completions
+;; Time-stamp: <2020-03-25 08:52:41 dieter>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -947,4 +948,5 @@ By default APDL keywords, get-functions, parametric-function and elements
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
 ;; time-stamp-active: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

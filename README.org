@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-25>
+#+DATE: Time-stamp: <2020-03-26>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -195,6 +195,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   chooses by default the highest installed Ansys version on your
   system.
 
+  APDL-Mode configures GNU-Emacs to open all files with the suffixes
+  ".mac", ".dat" and ".inp" under apdl-mode.
+
   # I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
   # file endings, especially the `.mac' suffix.
 
@@ -210,7 +213,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   # #+end_src
 
   Please read [[file:doc/apdl-config.org][apdl-config.org]], or the accompanying configuration
-  example [[file:doc/ansys-config.el][file]] for details.
+  example [[file:doc/ansys-config.el][file]] for further details.
 * Bugs and Problems
   Please write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Trigger a bug report
   form from the APDL-Mode menu or by calling the function
@@ -222,6 +225,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
   [[https://www.emacswiki.org][Emacs Wiki]].
 * News
+  APDL-Mode's completions- and help system is updated to Ansys 2020R1.
   For further news please have a look into the [[file:NEWS.org][NEWS]] file.
 * Further Resources
 ** Ansys and APDL resources
@@ -236,6 +240,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
    - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
 ** Other APDL editor resources
+   - Since Ansys 2020R1 the Command (APDL) worksheet acquired -
+     finally - syntax highlighting and command completion.
    - The Ansys [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, published in 2017
      (and not maintained since then?)
    - Simple APDL syntax highlighting extensions are available for

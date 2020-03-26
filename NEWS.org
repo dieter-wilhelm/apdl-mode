@@ -19,11 +19,9 @@
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ** Version 20.4.0: 2020-04, update to Ansys 2020R1
    - Updated keywords to Ansys 2020R1 (v201)
-   - The apdl-mode function is now called when opening files with the
-     suffixes ".mac", ".dat" and ".inp". without further user
-     configuration.
-   - Added a menu entry for displaying the user's licenses
-
+   - Added a menu entry for displaying the user's taken licenses
+   - Files with the suffixes ".mac", ".dat" and ".inp" are openend in
+     apdl-mode without further user configuration.
 ** Version 20.3.0: 2020-03 Melpa installation
    - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!
    - Added a new menu entry for browsing interactively the

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- The major mode for the language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-25>
+;; Time-stamp: <2020-03-26>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -538,7 +538,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-k" 'apdl-kill-ansys)
     (define-key map "\C-c\C-l" 'apdl-license-status)
     (define-key map "\C-c\C-m" 'apdl-start-ansys) ; interactively this
-                                        ; is also C-c RET
+    ;; C-c C-n is also C-c RET
     (define-key map "\C-c\C-o" 'apdl-process-status)
     (define-key map "\C-c\C-p" 'apdl-start-pzr-box) ; pan-zoom-rotate
     (define-key map "\C-c\C-q" 'apdl-query-apdl-command)
@@ -551,9 +551,10 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 							  ; runwb2--aim?
     (define-key map "\C-c\C-x" 'apdl-start-classics)
     (define-key map "\C-c\C-y" 'apdl-start-launcher)
-    ;; (define-key map "\C-c\C-z" 'apdl-start-aim)
     ;; (define-key map "\C-c\C-z" 'apdl-start-anslic_admin)
-    ;; redundant with launcher?
+    ;; redundant with C-c C-l
+    (define-key map "\C-c\C-z" 'apdl-user-license-status)
+    ;; (define-key map "\C-c\C-z" 'apdl-start-aim)
     ;; (define-key map [f1] 'describe-mode) ; [f1] reserved for user
     map)
   "Keymap for the APDL-Mode.")
@@ -1158,11 +1159,11 @@ restarting apdl-mode"]
     :label (if apdl-license-file
                "Change License Server or - File"
              "Specify License Server or - File")
-    :visible apdl-is-unix-system-flag
+    ;; :visible apdl-is-unix-system-flag
     :help "Change the license server specification (for an
 solver/interpreter run or the license status), either naming the
 license server machine (with port) or the actual license file"]
-["Specify the License Interconnect Servers" apdl-ansysli-servers
+   ["Specify the License Interconnect Servers" apdl-ansysli-servers
     :label (if apdl-ansysli-servers
                "Change the License Interconnect Servers"
              "Specify the License Interconnect Servers")
@@ -1188,7 +1189,7 @@ number vXXX (apdl-ansys-install-directory)"]
    run (apdl-job)"]
    ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]"
-                   apdl-no-of-processors )
+                   apdl-no-of-processors)
     :visible apdl-is-unix-system-flag
     :help "Specify the number of processors to use for the Ansys
 run definition (apdl-no-of-processors)"]
@@ -1196,16 +1197,22 @@ run definition (apdl-no-of-processors)"]
    ["License Server Status" apdl-license-status
     :help "Show the license server status, the number of licenses
 available and used (apdl-license-status)"
-    :active (and (file-executable-p apdl-lmutil-program) apdl-license-file)]
+    :active (and apdl-lmutil-program (file-executable-p apdl-lmutil-program)
+		 apdl-license-file apdl-username)]
+   ["License User Status" apdl-user-license-status
+    :help "Show the license user status, the licenses
+used (apdl-user-license-status)"
+    :active (and apdl-lmutil-program (file-executable-p apdl-lmutil-program)
+		 apdl-license-file)]
    ["Start Ansys WorkBench" apdl-start-wb
-    :active (file-executable-p apdl-ansys-wb)
+    :active (and apdl-ansys-wb (file-executable-p apdl-ansys-wb))
     :help "Start the Ansys WorkBench (apdl-start-wb)"]
    ["Ansys MAPDL Product Launcher" apdl-start-launcher
-    :active (file-executable-p apdl-ansys-launcher)
+    :active (and apdl-ansys-launcher (file-executable-p apdl-ansys-launcher))
     :help "Start the Ansys Mechanical APDL Product Launcher
 (apdl-start-launcher)"]
    ["Ansys MAPDL Classics GUI" apdl-start-classics
-    :active (file-executable-p apdl-ansys-program)
+    :active (and apdl-ansys-program (file-executable-p apdl-ansys-program))
     :visible apdl-is-unix-system-flag ; -TODO- can't get it to run!
     :help "Start the Ansys Classics MAPDL
    GUI (apdl-start-classics)"]

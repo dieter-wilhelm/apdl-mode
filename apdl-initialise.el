@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-24>
+;; Time-stamp: <2020-03-26>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -55,6 +55,11 @@ elements, command names, etc.")
 (defgroup APDL-initialise nil
   "Initialisation subgroup for APDL-Mode."
   :group 'APDL)
+
+(defcustom apdl-username nil
+  "String containing the user name."
+  :type 'string
+  :group 'APDL-initialise)
 
 ;; -TODO-: are environment variables also set under GNU-Linux?
 (defcustom apdl-ansys-install-directory nil
@@ -254,8 +259,11 @@ content."
 When argument FORCE is non-nil overwrite already set
 customisation variables"
   (message "Initialising Ansys installation dependent parameters ...")
-  ;; 0) -unix-system-flag
+  ;; 0) -unix-system-flag, system environment
   (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))
+
+  (unless apdl-username
+    (setq apdl-username (getenv "USERNAME")))
 
   ;; 1) -install-directory
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

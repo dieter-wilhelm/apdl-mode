@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-25>
+#+DATE: Time-stamp: <2020-03-26>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -22,6 +22,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - The apdl-mode function is now called when opening files with the
      suffixes ".mac", ".dat" and ".inp". without further user
      configuration.
+   - Added a menu entry for displaying the user's licenses
 
 ** Version 20.3.0: 2020-03 Melpa installation
    - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!

@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-24>
+;; Time-stamp: <2020-03-26>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -39,6 +39,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; external defvars
 
+(defvar apdl-username)
 (defvar apdl-help-index)
 (defvar apdl-license-file)
 (defvar apdl-license-categories)
@@ -80,6 +81,33 @@
   "Customisation 'process' subgroup for the APDL-Mode."
   :group 'APDL)
 
+(defcustom apdl-license-occur-regexp
+  '("electronics_desktop"
+    "a_spaceclaim_dirmod"
+    "disc"				; disc* -- discovery
+    "aim_mp"				; aim_mp -- Discovery Aim
+					; standard
+    "stba"				; stba -- structural solver
+    "struct"				; struct -- structural
+    "mpba"				; mpba -- multiphysics solver
+    "ane3"				; ane3 -- magnetics
+					; ane3fl -- multiphysics
+    "^ansys"				; ansys -- structural
+    "anshpc"				; anshpc -- HPC licenses
+    "^preppost"				; preppost -- PrePost
+					; processing
+    "mech_"				; mech_1 -- mechanical pro
+					; mech_2 -- mechanical premium
+    "agppi"				; agppi -- Design Modeler
+    "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]")	; and time XX:XX:XX of status
+					; request
+  "List of strings of interesting licenses.
+This list is concatenated to a regexp for the function
+`apdl-occur'."
+  :type 'list
+  :group 'APDL-process)
+
+
 (defcustom apdl-job "file"
   "String variable storing the Ansys job name.
 It is initialised to 'file' (which is also the Ansys default job
@@ -90,7 +118,12 @@ the respective error file."
   :group 'APDL-process)
 
 (defcustom apdl-license-categories
-  '("ansys" "struct" "ane3" "ansysds" "ane3fl" "preppost")
+  '("ansys"
+    "struct"
+    "ane3"
+    "ansysds"
+    "ane3fl"
+    "preppost")
   "List of available license types to choose for an Ansys run.
 This list should contain the license types you can choose from.
 Below are often used license types (as e.g. seen with the
@@ -863,24 +896,102 @@ elem.
       (message "No Ansys interpreter process is running."))))
 
 (defun apdl-occur ()
-  "Show selected licenses in an occur buffer."
+  "Show selected licenses in an occur buffer.
+Interesting licenses are compiled in the string
+`apdl-license-occur-regexp' which is used in the function
+`apdl-license-status'."
   (interactive)
-  ;; mpba -- multiphysics solver
-  ;; mech_1 -- mechanical pro
-  ;; mech_2 -- mechanical premium
-  ;; struct -- structural
-  ;; stba -- structural solver
-  ;; agppi -- Design Modeler
-  ;; aim_mp -- aim standard
-  ;; disc* -- discovery
-  ;; and time XX:XX:XX of status request
-  (occur "disc\\|aim_mp\\|stba\\|struct\\|mpba\\|ane3\\|^ansys\\|anshpc\\|^preppost\\|mech_\\|agppi\\|[0-9][0-9]:[0-9][0-9]:[0-9][0-9]"))
+  (occur
+   (mapconcat 'identity apdl-license-occur-regexp "\\|")))
+
+(defun apdl-user-license-status ()
+  "Display the Ansys license user status.
+Show the status for the user `apdl-username' in a separate
+buffer, the license type variable `apdl-license' determines a
+highlighting of the license server summary rows.  There are
+additional keybindings for the license buffer: `g' for updating
+the license status, `Q' for killing the Buffer and `q' for
+burying it."
+  (interactive)
+  (cond
+   ((and apdl-lmutil-program apdl-license-file)
+    ;; lmutil calls with many license server specified takes loooooonnnnggg
+    (message "Retrieving user license (%s) status, this may take some time..." apdl-license)
+    (with-current-buffer (get-buffer-create "*User-licenses*")
+      (delete-region (point-min) (point-max)))
+    ;; syncronous call
+    (call-process apdl-lmutil-program nil "*User-licenses*" nil "lmstat" "-c "  apdl-license-file  "-a")
+    (let (bol eol
+	      (user apdl-username))
+      (with-current-buffer "*User-licenses*"
+        ;; remove uninteresting licenses
+        ;; (goto-char (point-min))
+        ;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
+
+        ;; below key settings are only allowed in fundamental mode
+        ;; otherwise it supposedly overwrites major modes keymaps!
+        (local-set-key (kbd "Q") 'kill-this-buffer)
+        (local-set-key (kbd "q") 'bury-buffer)
+        (local-set-key (kbd "g") 'apdl-user-license-status)
+
+        ;; remove empty lines
+        (goto-char (point-min))
+        (delete-matching-lines "^$")
+
+        ;; remove lines with expiry: date
+        (goto-char (point-min))
+        (delete-matching-lines "expiry:")
+
+        ;; shorten lines
+        (goto-char (point-min))
+        (while (re-search-forward "Total of \\|Users of " nil t)
+          (replace-match ""))
+
+	;; keep either lines with user or lines not beginning with
+	;; whitespace
+	(goto-char (point-min))
+	(keep-lines (concat "^[^ ]\\|" user))
+
+	;; keep double line only with user in 2nd line
+	(goto-char (point-min))
+	(keep-lines (concat "^[^ ]+.*\n[ ]+" user))
+
+        ;; add some comments
+        (goto-char (point-min))
+        (insert (propertize
+                 (concat " -*- User license status from " apdl-license-file
+                         " -*-\n") 'face 'match))
+
+        (goto-char (point-max))
+        (insert "\n")
+        (insert (propertize (concat (current-time-string) "\n")
+                            'face 'match))
+        ;; higlight current -license-type
+        (goto-char (point-min))
+        (search-forward-regexp apdl-license nil t)
+        (forward-line)
+        (setq eol (point))
+        (forward-line -1)
+        (setq bol (point))
+        (put-text-property bol eol 'face 'font-lock-warning-face)
+        ;;  on Windows the license stat buffer doesn't move to point without:
+        (unless apdl-is-unix-system-flag
+          (set-window-point (get-buffer-window "*User-licenses*") (point)))))
+    (unless (equal (current-buffer) (get-buffer "*User-licenses*"))
+      (display-buffer "*User-licenses*" 'otherwindow))
+    (message "Updated user license status: %s." (current-time-string)))
+   (t
+    (message "No license information or lmutil program found"))))
 
 (defun apdl-license-status ()
   "Display the Ansys license status or start the license tool.
 Show the status in a separate buffer, the license type variable
 `apdl-license' determines a highlighting of the license server
-summary rows."
+summary rows.  There are additional keybindings for the license
+buffer: `g' for updating the license status, `o' for showing an
+occur buffer with the interesting licenses from
+`apdl-license-occur-regexp', `Q' for killing the Buffer and `q'
+for burying it."
   (interactive)
   (cond
    ((and apdl-lmutil-program apdl-license-file)
@@ -902,6 +1013,7 @@ summary rows."
         (local-set-key (kbd "q") 'bury-buffer)
         (local-set-key (kbd "g") 'apdl-license-status)
         (local-set-key (kbd "o") 'apdl-occur)
+        (local-set-key (kbd "u") 'apdl-user-license-status)
 
         ;; ;; remove users
         ;; (goto-char (point-min))
@@ -920,6 +1032,10 @@ summary rows."
         ;; remove empty lines
         (goto-char (point-min))
         (delete-matching-lines "^$")
+
+        ;; remove lines with expiry: date
+        (goto-char (point-min))
+        (delete-matching-lines "expiry:")
 
         ;; shorten lines
         (goto-char (point-min))

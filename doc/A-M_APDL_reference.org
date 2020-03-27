@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-24 13:38:23 dieter>
+#+DATE: Time-stamp: <2020-03-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -90,13 +90,13 @@ eblock,10,,,94
     #+END_SRC
 ** Material Models
 *** Plasticity
-**** Multilinear Kinematic Hardening (MISO)
-     Implementation:
-     #+BEGIN_SRC ansys
-     TB,PLAS,1,1,2,MISO
-     #+END_SRC
-     This means that one must input the curve in plastic strains and
-     true stresses, *not* in the engineering quantities!
+    Multilinear Kinematic Hardening (MISO)
+    Implementation:
+    #+BEGIN_SRC ansys
+    TB,PLAS,1,1,2,MISO
+    #+END_SRC
+    This means that one must input the curve in plastic strains and
+    true stresses, *not* in the engineering quantities!
 ** Boundary conditions
 **** forces
      it is possible to apply time and spatially varying loads either
@@ -394,18 +394,19 @@ eblock,10,,,94
 #+end_src
 ** Defining parameters
 up to 5000
-*** Double, char38, char8?, logical? TODO:
+*** Double, char38, char8, logical, TODO
     in table only 8 chars?
-    
-*** Variable names (called `parameter' in the Ansys manual)
+
+*** Variable names
+(called `parameter' in the Ansys manual)
 All numeric values are stored as double precision values.  Not defined
 variables are assigned a tiny value near zero.  The interpreter is not case sensitve
 :TODO except in strings?
-**** Must begin with a letter or an underscore
+- Must begin with a letter or an underscore
 #+begin_src ansys :exports none
   !@ --- Defining parameters ---
   !@@ -- Variable names --
-  
+
   !! Must begin with a letter or an underscore The interpreter is not
   !! case sensitive for expressions only for strings
 #+end_src
@@ -419,38 +420,38 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 #+begin_src ansys-solver :tangle no
   BEGIN:
    1ansys = 3                    !is not a valid variable name
-  PARAMETER 1Ansys =     3.000000000    
+  PARAMETER 1Ansys =     3.000000000
   *** ERROR ***                           CP =       0.259   TIME= 18:06:41
-  Invalid character in parameter name.                                    
-   The setting of parameter= 1Ansys is ignored.                           
+  Invalid character in parameter name.
+   The setting of parameter= 1Ansys is ignored.
   BEGIN:
    a1nsys = 3                    !a1nsys is a valid variable name
-  PARAMETER A1NSYS =     3.000000000    
+  PARAMETER A1NSYS =     3.000000000
   BEGIN:
    A1NSys = 4                    !this is the same variable
-  PARAMETER A1NSYS =     4.000000000    
+  PARAMETER A1NSYS =     4.000000000
   BEGIN:
    A1NSys = Temp                 !`Temp' is not defined
   *** WARNING ***                         CP =       0.260   TIME= 18:06:56
-  Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
+  Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used.
   PARAMETER A1NSYS =    0.7888609052E-30
   BEGIN:
 #+end_src
-**** Should not begin with an underscore
+- Should not begin with an underscore
     This convention is used in nameing variables in Ansys supplied
     macros and the GUI.
 
 #+begin_src ansys :exports none
    !! Should not begin with an underscore
 #+end_src
-    
+
 #+begin_src ansys
   _ansys = 3   !`_ansys' represents a reserved variable in Ansys supplied macros
   _ = 3        ! a single underscore definition is valid
   X = _
   _ = 3 !the single underscore represents  also a `variable' in APDL
 #+end_src
-**** Variable names with a trailing underscore
+- Variable names with a trailing underscore
     These are hidden from the `*status' command output and can be
     deleted as a group with `*del'.
 #+begin_src ansys :exports none
@@ -466,7 +467,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
 #+begin_src ansys-solver :tangle no
      BEGIN:
     ansys_ = 3
-     PARAMETER Ansys_ =     3.000000000    
+     PARAMETER Ansys_ =     3.000000000
      BEGIN:
      *status
      ABBREVIATION STATUS-
@@ -475,22 +476,22 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
       RESUM_DB  RESUME
       QUIT      Fnc_/EXIT
       POWRGRPH  Fnc_/GRAPHICS
-    
+
      PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
                       (INCLUDING        4 INTERNAL PARAMETERS)
-    
+
      NAME                              VALUE                        TYPE  DIMENSIONS
      X                                 3.00000000                    SCALAR
      BEGIN:
     ,PRM_
      PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
                       (INCLUDING        4 INTERNAL PARAMETERS)
-    
+
      NAME                              VALUE                        TYPE  DIMENSIONS
      Ansys_                            3.00000000                    SCALAR
      BEGIN:
 #+end_src
-**** Must contain only letters, numbers and underscores
+- Must contain only letters, numbers and underscores
 #+begin_src ansys :exports none
   !! Must contain only letters, numbers and underscores
 #+end_src
@@ -504,16 +505,16 @@ the Ansys interpreter output looks like this:
   BEGIN:
    a1n§sys = 3              !this is not a valid variable name
   ,*** ERROR ***                           CP =       0.256   TIME= 17:35:07
-  Invalid character in parameter name.                                    
-   The setting of parameter= A1N§SYS is ignored.                         
+  Invalid character in parameter name.
+   The setting of parameter= A1N§SYS is ignored.
   BEGIN:
    a1n_sys = 3              !this is a valid variable name
-  PARAMETER A1N_SYS =     3.000000000    
+  PARAMETER A1N_SYS =     3.000000000
   BEGIN:
 #+end_src
-**** Must contain no more than 32 characters    
+- Must contain no more than 32 characters
 #+begin_src ansys :exports none
-  !! Must contain no more than 32 characters    
+  !! Must contain no more than 32 characters
 #+end_src
 #+begin_src ansys
   !! The following is not a valid variable name
@@ -521,7 +522,7 @@ the Ansys interpreter output looks like this:
   !! The following is a valid variable name
   v23456789_123456789_123456789_12  = 3
 #+end_src
-**** Local Variables
+- Local Variables
 #+begin_src ansys :exports none
   !! Local Variables
 #+end_src
@@ -558,9 +559,10 @@ the Ansys interpreter output looks like this:
   *set,Scalar               !alternative to `Scalar ='
   *del,all                 !delete all variables!
   *del,Vector   !TODO:
-#+end_src    
+#+end_src
 
-** Variable substitution with `%'
+** Variable substitution
+   with `%'
 #+begin_src ansys :exports none
   !@@ -- Variable substitution with `%' --
 #+end_src
@@ -590,24 +592,24 @@ It is possible to substitute a command name
 #+end_src
 #+begin_src ansys
   !! string, message commands and comment behaviour && %$$% %% :bla: &&&
-  
+
   /com, bla = %bla%
   igesin,'test','%iges%'
   /title,Nothing in %particular%
   !! in "string commands" are no code comments possible
   /com,beam3 %YES% ! this is *really not commented out!!!! &
   c*** *beam3 !otto *otto %neither% here !!!!!!! &
-  /com, bearm laskf %otto% !%otto% we are here 
-  
+  /com, bearm laskf %otto% !%otto% we are here
+
 #+end_src
-**** In certain `string commands'
-~/title~ and ~/com~ are string commands similar to ~c***~ 
+- In certain `string commands'
+~/title~ and ~/com~ are string commands similar to ~c***~
 #+begin_src ansys
   right = 'wrong'
   /title, the value of right is  %right%
   /com, this is %right%: /com does expand parameters as well
 #+end_src
-**** Unfortunately here is no expansion possible
+- Unfortunately here is no expansion possible
 neither with ~c***~ nor with ~/sys~
 #+begin_src ansys
   right = 9
@@ -618,7 +620,7 @@ neither with ~c***~ nor with ~/sys~
   otto = 'file00%I%.eps'
   /syp,ls, otto !this is working as intended
 #+end_src
-   
+
 *** Dynamic Substitution of Numeric or Character Variables
  or forced substitution (deferred)
 #+begin_src ansys :exports none
@@ -638,18 +640,19 @@ neither with ~c***~ nor with ~/sys~
   !! not necessary to reissue /title, "This is case 2"
   !! will appear on subsequent plots
   aplot
-#+end_src    
+#+end_src
 
 ** Expressions
-*** Exponentiation Operator is `**'
+*** Exponentiation Operator
+    is `**'
 #+begin_src ansys :exports none
    !! Exponentiation Operator is `**'
-#+end_src    
+#+end_src
 *** Multiplication Expression
     Beware of the oldstyle Ansys comment!
 #+begin_src ansys :exports none
   !! Beware of the oldstyle Ansys comment!
-#+end_src    
+#+end_src
 #+begin_src  ansys
 var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
 var2 = sinh(cos(3*5))  ! this is valid code
@@ -657,22 +660,23 @@ fini * comment
 otto = 3 * 4 comment, the value of otto = 3!
 !!
 #+end_src
-*** Operators: `<' and  `>' :TODO
+*** Operators
+    `<' and  `>' :TODO
 #+begin_src ansys :exports none
    !! Operators: `<' and  `>' :TODO
-#+end_src    
+#+end_src
 #+begin_src ansys
   otto = 1.82
   karl = 1.97
   margret =  otto < karl !margret = otto
   maria = karl < otto    !maria = otto
   *status,karl > otto
-#+end_src    
+#+end_src
 ** Arrays
    4 types: array, char of 8 characters, table and string 128 chars
 #+begin_src ansys :exports none
   !@@ -- Arrays --
-#+end_src   
+#+end_src
 *** Specifiying array element values
 #+begin_src ansys :exports none
    !! Specifiying array element values
@@ -680,7 +684,7 @@ otto = 3 * 4 comment, the value of otto = 3!
 *** APDL Math
 #+begin_src ansys :exports none
    !! APDL Math
-#+end_src    
+#+end_src
 APDL Math works in its own workspace independent of the APDL
 environment!
 #+begin_src ansys
@@ -693,7 +697,7 @@ environment!
   *fft,Forw,Dat,OutDat,,,Full !what's the difference?
   *fft,    ,Dat,OutDat,,,Part !what's the difference?
   *export,OutDat,apdl,APDLOutDat
-#+end_src    
+#+end_src
 
 ** debugging
 #+begin_src ansys
@@ -702,8 +706,8 @@ environment!
 ** Multiple runs, probabilistic design
 #+begin_src ansys
   PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
-  in V11: *mrun                    !TODO: 
-#+end_src   
+  in V11: *mrun                    !TODO:
+#+end_src
 ** Undocumented commands
 #+begin_src ansys
   !undocumented commands are highlighted differently
@@ -711,43 +715,43 @@ environment!
   /xfrm                    !documented command   /xfrm
 #+end_src
 * APDL-Mode Syntax Highlighting Reference
-#+BEGIN_LaTeX
-  \definecolor{dkgreen}{rgb}{0,0.5,0}
-  \definecolor{dkred}{rgb}{0.5,0,0}
-  \definecolor{gray}{rgb}{0.5,0.5,0.5}
-  \lstset{frame=none, %leftline
-    basicstyle=\ttfamily\bfseries\footnotesize,
-    morekeywords={virtualinvoke},
-    keywordstyle=\color{dkgreen},
-    ndkeywordstyle=\color{red},
-    commentstyle=\color{dkred},
-    stringstyle=\color{orange},
-%   numbers=left,
-%    numberstyle=\ttfamily\tiny\color{gray},
-%    stepnumber=1,
-%    numbersep=10pt,
-    backgroundcolor=\color{white},
-    tabsize=4,
- %   showspaces=false,
-%    showstringspaces=false,
-    xleftmargin=.23in
-  }
+# #+BEGIN_LaTeX :exports none
+#   \definecolor{dkgreen}{rgb}{0,0.5,0}
+#   \definecolor{dkred}{rgb}{0.5,0,0}
+#   \definecolor{gray}{rgb}{0.5,0.5,0.5}
+#   \lstset{frame=none, %leftline
+#     basicstyle=\ttfamily\bfseries\footnotesize,
+#     morekeywords={virtualinvoke},
+#     keywordstyle=\color{dkgreen},
+#     ndkeywordstyle=\color{red},
+#     commentstyle=\color{dkred},
+#     stringstyle=\color{orange},
+# %   numbers=left,
+# %    numberstyle=\ttfamily\tiny\color{gray},
+# %    stepnumber=1,
+# %    numbersep=10pt,
+#     backgroundcolor=\color{white},
+#     tabsize=4,
+#  %   showspaces=false,
+# %    showstringspaces=false,
+#     xleftmargin=.23in
+#   }
 
-\lstdefinelanguage{ansys}
-  {
-  morecomment=[l]{!},
-  morecomment=[l]{\ *}, % olds style comments
-  morestring=[b]',
-  sensitive=false,
-  morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
-     aplot,eplot,igesin,set,lfillt},
-  otherkeywords={*MSG,*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
-    /units,/prep7,/solu,/post1,/post26,/eof,/image,/sys,*afun,/view,c***,*get,
-   *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
-   /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
-}
-#+END_LaTeX  
-   
+# \lstdefinelanguage{ansys}
+#   {
+#   morecomment=[l]{!},
+#   morecomment=[l]{\ *}, % olds style comments
+#   morestring=[b]',
+#   sensitive=false,
+#   morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
+#      aplot,eplot,igesin,set,lfillt},
+#   otherkeywords={*MSG,*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
+#     /units,/prep7,/solu,/post1,/post26,/eof,/image,/sys,*afun,/view,c***,*get,
+#    *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
+#    /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
+# }
+# #+END_LaTeX
+
 ** Header
 #+begin_src ansys
     !! ------------------------------
@@ -865,7 +869,7 @@ c
                            !2 warning
                            !3 error
                            !4 fatal
-#+end_src    
+#+end_src
 ***  Old style APDL comments
 #+begin_src ansys :exports none
 !@@ -- Old style APDL comments --
@@ -987,7 +991,7 @@ and you are getting a diffent element highlighting.
   Steel = %G A (electrical angle = %G DEG) %/ &
   _Power factor: %G %/ &
   Inductance = %G %/ &
-  VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
+  VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 #+end_src
 
 * And the rest
@@ -1004,7 +1008,7 @@ and you are getting a diffent element highlighting.
   VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
   aldk this is not any longer in the *msg format construct
   /com this is not any longer in the *msg format construct
-  
+
   *vwrite,B(1,1),B(2,1),%yes%
   alkd %D &
   %E%/%E
@@ -1014,7 +1018,7 @@ and you are getting a diffent element highlighting.
   /prep7 $ FINISH !$ means nothing behind
   /prep7 !still nothing behind
   /prep7 * old style comment, this is allowed
-  /prep7 this is an error  
+  /prep7 this is an error
 #+end_src
 #+begin_src ansys
   nsel,s,loc,x,1
@@ -1038,13 +1042,13 @@ and you are getting a diffent element highlighting.
   *get,nmd,active,,set,sbst
   pfct= $ ffrq= $ adir=
   nsel,s,l
-  
+
   *dim,pfct,,nmd,6
       ,
       ,ffrq,,nmd
       ,adir,char,nmd
-  
-  
+
+
   adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
   *stat,adir
   *do,i,1,nmd
@@ -1066,7 +1070,7 @@ and you are getting a diffent element highlighting.
   /TSPE, 15, 1.000,   1,   0,   0
   xx = 1.05
   yy = .9
-  !  Change the window settings if you need different 
+  !  Change the window settings if you need different
   !  aspect ratios for your geometry
   /win,1,-1,1,.5,1
       ,2,-1,1,0,.5
@@ -1076,7 +1080,7 @@ and you are getting a diffent element highlighting.
   /win,2,off
   /win,3,off
   /win,4,off
-  
+
   *get,vx,graph,1,view,x
   *get,vy,graph,1,view,y
   *get,vz,graph,1,view,z
@@ -1087,9 +1091,9 @@ and you are getting a diffent element highlighting.
     /dist,i,vd
     /angle,i,va
   *enddo
-  
+
   *do,i,1,4
-    ii = i - 1 + iadd 
+    ii = i - 1 + iadd
     set,1,ii
     plnsol,u,sum
     *if,i,eq,1,then
@@ -1117,32 +1121,32 @@ and you are getting a diffent element highlighting.
   sz = .8
   xloc = 0
   yloc = 0
-  
+
   *dim,data,,5
   data(1) = 12,15,28,10,32
   hsz = sz/2
-  
+
   /pspec,0,1,1
   /poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
            1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
-  
+
   x0 = xloc + hsz
   y0 = yloc + .7*hsz
   lof = .05
-  
+
   *vscfun,dsum,sum,data(1)
   /LSPE, 15, 0, 1.000
   /TSPEC, 15, 0.700, 1, 0, 0
   ang1 = 0
   *do,i,1,5
-    ang2 = ang1 + (360*data(i)/dsum) 
-    /PSPE, 2*i, 1, 1 
-    /PWED, xloc,yloc,sz*.4, ang1,ang2 
-    /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
-    pvl = 100*data(i)/dsum 
-    /tlab, x0+1.5*lof,y0, %pvl% % 
-  
-    y0 = y0 - 1.5*lof 
+    ang2 = ang1 + (360*data(i)/dsum)
+    /PSPE, 2*i, 1, 1
+    /PWED, xloc,yloc,sz*.4, ang1,ang2
+    /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof
+    pvl = 100*data(i)/dsum
+    /tlab, x0+1.5*lof,y0, %pvl% %
+
+    y0 = y0 - 1.5*lof
     ang1 = ang2
   *enddo
   /eof

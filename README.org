@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-26>
+#+DATE: Time-stamp: <2020-03-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -93,7 +93,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    online help once from an Ansys product.  But I recommend installing
    the Ansys documentation locally, loading is much faster.)
 
-   The image below is showing a manual entry in GNU-Emacs's EWW
+   The image below is showing a manual entry in GNU-Emacs' EWW
    browser. You are able to consult the manual side-by-side with your
    APDL code.
 
@@ -237,18 +237,20 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - A general  Ansys repository [[http://www.ansys.net][Ansys.net]]
    - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
 ** Emacs editor resources
-   - Emacs [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site.
-   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for GNU-Emacs
+   - The [[https://www.gnu.org/software/emacs/tour/index.html][guided Tour]] of GNU-Emacs
+   - Emacs' [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site for Emacs
+   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for everything Emacs related
+   - The [[mailto:help-gnu-emacs@gnu.org][Emacs help]] mailing list
 ** Other APDL editor resources
    - Since Ansys 2020R1 the Command (APDL) worksheet acquired -
-     finally - syntax highlighting and command completion.
+     finally - syntax highlighting and command completion
    - The Ansys [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, published in 2017
      (and not maintained since then?)
    - Simple APDL syntax highlighting extensions are available for
      various editors, gvim, nedit, ... to name a few, please have a
-     look at [[https://ansys.net][Ansys.net]].
+     look at [[https://ansys.net][Ansys.net]]
    - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
-     Windows, project disbanded in 2015.
+     Windows, project disbanded in 2015
    - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
 * License
   The GNU GPL v3, the GNU General Public license version 3.  There are

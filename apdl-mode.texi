@@ -1,0 +1,3309 @@
+\input texinfo    @c -*- texinfo -*-
+@c %**start of header
+@setfilename apdl-mode.info
+@settitle APDL-Mode's Info Documentation Configuration and Customisation of APDL-Mode APDL-Mode Highlighting and APDL Reference
+@documentencoding UTF-8
+@documentlanguage en
+@syncodeindex pg cp
+@c %**end of header
+
+@dircategory Emacs
+@direntry
+* APDL Mode: (top).     The major mode for the APDL language.
+@end direntry
+
+@finalout
+@titlepage
+@title APDL-Mode's Info Documentation
+@subtitle Version 20.4.0 Time-stamp: "2020-03-27"
+@author H@. Dieter Wilhelm H@. Dieter Wilhelm H@. Dieter Wilhelm (@email{dieter@@duenenhof-wilhelm.de})
+@end titlepage
+
+@contents
+
+@ifnottex
+@node Top
+@top APDL-Mode's Info Documentation Configuration and Customisation of APDL-Mode APDL-Mode Highlighting and APDL Reference
+
+This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-27"
+
+
+@image{/home/dieter/a-m/doc/ansys+emacs2020-03,5cm,,Alternate @i{APDL-Mode logo},png}
+@end ifnottex
+
+@menu
+* Copying::
+* Tutorial::
+* Usage::
+* Configuration and Customisation::
+* APDL Reference::
+* Invoking sample::
+* GNU Free Documentation License::
+* Index::
+
+@detailmenu
+--- The Detailed Node Listing ---
+
+Usage
+
+* Finding Help::
+* Completion::
+* Code Alignment::
+* Auto-indentation of looping and conditional blocks::
+* Closing of open control blocks::
+* Code navigation with extended keyboard shortcuts::
+* Sophisticated highlighting::
+* Compilation of all APDL variables definition and component names::
+* Use of the Emacs abbreviation facility for block templates::
+* Outlining (hiding and expanding) code sections::
+* Convenient comment handling, commenting/un- of whole paragraphs: Convenient comment handling commenting/un- of whole paragraphs. 
+* Insertion of code template in an APDL file::
+* Auto-insertion of code templates into new APDL files::
+* APDL process management::
+* Ansys solver/interpreter control and communication::
+
+Finding Help
+
+* Brief Command and Syntax Help::
+* APDL Keyword Documentation::
+
+
+Configuration and Customisation
+
+* Conventions used in @emph{apdl-config.el}: Conventions used in @emph{apdl-configel}. 
+* Important Prerequisites::
+* File suffixes for auto loading APDL-Mode::
+* Auto insertion of code::
+* Miscellaneous::
+* Outlining::
+* Highlighting (Colourisation)::
+* Ansys installation dependent configurations::
+* Ansys processes::
+
+Important Prerequisites
+
+* Ansys Installation path with version information::
+
+
+File suffixes for auto loading APDL-Mode
+
+* Macro files::
+* WorkBench generated input files::
+* The Ansys Neutral file format::
+
+
+Highlighting (Colourisation)
+
+* Dynamic highlighting of variables::
+* Decoration levels::
+
+
+Ansys processes
+
+* License server or license file::
+* Solver options::
+
+
+APDL Reference
+
+* WorkBench to APDL Translation::
+* APDL Reference: APDL Reference (1). 
+* APDL-Mode Syntax Highlighting Reference::
+* And the rest::
+
+WorkBench to APDL Translation
+
+* Contacts::
+* Material Models::
+* Boundary conditions::
+
+
+APDL Reference
+
+* Idiosyncrasies::
+* File types (the whole zoo is in the operations guide) under Gnu/Linux?::
+* Defining parameters::
+* Erasing variables from memory::
+* Variable substitution::
+* Expressions::
+* Arrays::
+* debugging::
+* Multiple runs, probabilistic design: Multiple runs probabilistic design. 
+* Undocumented commands::
+
+
+APDL-Mode Syntax Highlighting Reference
+
+* Header::
+* Highlighting APDL specials::
+* Implied (or colon) looping::
+
+
+@end detailmenu
+@end menu
+
+@node Copying
+@chapter Copying
+
+Copyright @copyright{} 2020 H@. Dieter Wilhelm
+
+@quotation
+Permission is granted to copy, distribute and/or modify this
+document under the terms of the GNU Free Documentation License,
+Version 1.3 or any later version published by the Free Software
+Foundation; with no Invariant Sections, with no Front-Cover Texts,
+and with no Back-Cover Texts.  A copy of the license is included in
+the section entitled @ref{GNU Free Documentation License}.
+
+@end quotation
+
+@node Tutorial
+@chapter Tutorial
+
+This introduction is targeted at users with no GNU-Emacs experience.
+
+Let’s assume you wrote some APDL command and want to check its
+parameters.  In the menu bar use the "APDL" pull-down menu with the
+entry "Show APDL Command Help".  The menu shows also the keyboard
+shortcut for accessing this command ‘M-?’.  You need to know that
+Gnu-Emacs is abreviating certain key sequences M-? means typing the
+control key <ALT> and the regular key ‘?’ simultaneously.
+
+GNU-Emacs provides also a third, so called interactive way to access
+this and other functions.  By typing ‘M-x’ (the <ALT> key and the ‘x’
+key at the same time) you are able to access the, so called,
+‘minibuffer’ below the status line.  There you can input the desired
+function by its name.  In above example the function
+‘apdl-show-command-parameters’.  So type ‘M-x’ and in the minibuffer
+type ‘apdl-start-ansys-help’ and starting it with the <RET> key.
+
+Typing long function names can be abbreviated with the auto-completion
+feature.  Just enter the first few characters of a command and then
+press the <TAB> key.  Another way of saving keystrokes is to use the
+Gnu-Emacs’ fuzzy logic.  Instead of typing
+‘apdl-show-command-parameter’ it is sufficient to type ‘a-s-c-p’ (and
+run it with <RET>).
+
+You can always cancel minibuffer commands by typing C-g (the function
+‘keyboard-quit’), i. e. pressing the <CTRL> key and the ‘g’ key at the
+same time.
+
+All functions described in this help, regardless whether possessing a
+keyboard shortcut or not, can be called in this interactive way or
+they can be found in the APDL or Ansys menu.  (If you prefer to run
+Emacs in a terminal window you might access the menu bar with <F10>
+key or ‘M-‘’.)
+
+You may have noticed the underlined names in this help.  These are
+hyperlinks to further help, a mouse click or typing the <RET> key,
+when the cursor is on them (you can skip to these links with the <TAB>
+key) will display their respective help strings.
+
+In case something unintended happend to your code you are always able
+to resort to the Emacs ‘undo’ functionality from the "Edit" menu or by
+typing ‘C-x u’.
+
+@node Usage
+@chapter Usage
+
+@menu
+* Finding Help::
+* Completion::
+* Code Alignment::
+* Auto-indentation of looping and conditional blocks::
+* Closing of open control blocks::
+* Code navigation with extended keyboard shortcuts::
+* Sophisticated highlighting::
+* Compilation of all APDL variables definition and component names::
+* Use of the Emacs abbreviation facility for block templates::
+* Outlining (hiding and expanding) code sections::
+* Convenient comment handling, commenting/un- of whole paragraphs: Convenient comment handling commenting/un- of whole paragraphs. 
+* Insertion of code template in an APDL file::
+* Auto-insertion of code templates into new APDL files::
+* APDL process management::
+* Ansys solver/interpreter control and communication::
+@end menu
+
+@node Finding Help
+@section Finding Help
+
+In buffer display of short or browsing the complete Ansys
+documentation in a browser.
+
+@menu
+* Brief Command and Syntax Help::
+* APDL Keyword Documentation::
+@end menu
+
+@node Brief Command and Syntax Help
+@subsection Brief Command and Syntax Help
+
+Typing "M-?", the <CTRL> key simultaneously with the <c> key and then
+<?>, the question mark (for the command
+‘apdl-show-command-parameters’) displays above a code line a brief
+description of the APDL command and its syntax.  This command counts
+also the number of parameters and visualises at which parameter
+position the cursor currently is.  The command is looking for the next
+valid command near the cursor or when using a prefix argument (‘C-u’
+or ‘4’) it inquires an APDL command from you.  The tooltip is switched
+off with an argument of zero (‘0’).
+
+@node APDL Keyword Documentation
+@subsection APDL Keyword Documentation
+
+Browse the detailed APDL command, element and selected topics html
+help.
+
+typing "C-c C-b" will display the original Ansys help in your web
+browser for an APDL command or element name (stating the element
+number is sufficient) near the cursor or the code line’s first APDL
+command.  When using a prefix argument it inquires an keyword from
+you.  Keywords beginning with a quotation mark ‘"’ describing general
+manual sections, for example typing ‘"SHELLS"’ will call the
+collection of all shell elements in the Ansys manual.
+
+@node Completion
+@section Completion
+
+APDL keyword completion (commands, elements, get- and
+parametric-functions)
+
+Type the first letter or letters of an APDL command, function or
+element name and use the key binding "C-M-i"
+to let the function ‘apdl-complete-symbol’ do the (case sensitve)
+completion for you.  Depending on the case of your letter or
+letters to be completed, you will get a downcased, upcased or
+capitalised completion.
+
+There are around 2000 APDL symbols available for completion.
+Undocumented APDL commands and deprecated element types are also
+completed.  The former are identified as such with a different
+highlighting and in their ’command syntax help’.  Please see also
+the variable ‘apdl-deprecated-element-alist’ it’s a list with the
+deprecated elements and their respective replacements (for
+inspecting its content please click on above hyperlink or type
+‘C-hv’ and then type above variable name).
+
+Doing this using the <TAB> key might save you some typing in
+auto-completing the name.  When the characters before the cursor
+are not unambiguous a completion list is shown, select the
+suitable word from the list, either by navigation the cursor over
+the symbol and typing <RET> or clicking with the left (or middle)
+mouse button is completing the symbol.  Hitting the <SPACE> key
+removes the listing window.
+
+@node Code Alignment
+@section Code Alignment
+
+Formatting of variable definitions:
+
+Typing "C-c C-a" to call the function ‘apdl-align’ will
+align marked sections or a paragraph of variable definitions like
+the following lines
+
+xyz=30.381      !this is a variable
+x = 0.4!this is another variable
+
+they will be aligned to
+
+xyz = 30.381 !this is a variable
+x   =  0.4   !this is another variable
+
+@node Auto-indentation of looping and conditional blocks
+@section Auto-indentation of looping and conditional blocks
+
+You can customise the indentation depth (APDL Block Offset),
+please have a look for the entry ’Customise APDL Mode’ in the
+APDL-Mode menu.  The Emacs customisation facility optionally
+saves your choices automatically in your .emacs file for later
+sessions.
+
+@node Closing of open control blocks
+@section Closing of open control blocks
+
+(*do, *if, @dots{}) with the insertion of appropriate end keywords
+
+Typing "C-c ]" for the function
+`apdl-close-block’ completes the current APDL block with the
+insertion of a newline and an appropriate end keyword.
+
+@node Code navigation with extended keyboard shortcuts
+@section Code navigation with extended keyboard shortcuts
+
+Code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc.
+
+"M-n" -- ‘apdl-next-code-line’ and
+"M-p" -- ‘apdl-previous-code-line’
+are going to the next/previous code line, skipping intermediate
+comments and empty lines.
+
+The following block navigation commands are analogous to Emacs’
+inbuilt list/sexp navigiation.
+
+"C-M-f" -- ‘apdl-next-block-end’
+"C-M-b" --‘apdl-previous-block-start-and-conditional’ Above commands are
+skipping to the next/previous block end/start keyword regardless
+where you are already in the block structure.
+"C-M-b" for the
+function ‘apdl-previous-block-start-and-conditional’ finds also
+*IF commands without bases of the keyword ’THEN’; furthermore
+*CYCLE and *EXIT looping controls.  These provide APDL constructs
+but represent no block depth and therefore are not considered
+when applying the following navigation commands.
+
+"C-M-n" -- ‘apdl-skip-block-forward’
+"C-M-p" -- ‘apdl-skip-block-backwards’
+
+Are looking for and skipping over a complete block (at the
+current block level, skipping possibly over deeper block
+structures).
+
+"C-M-u" -- ‘apdl-up-block’
+"C-M-d" -- ‘apdl-down-block’
+
+Are searching for and skipping up/down a block structure from the
+current block level.
+
+"C-c @{" -- ‘apdl-number-block-start’
+"C-c @}" -- ‘apdl-number-block-end’
+
+Are searching for and skipping over ’pure’ number blocks (the
+nblock, eblocks and cmblocks), these are common (and often quite
+large) in WorkBench solver input files (*.inp, *.dat).
+
+You can also hide and unhide these - usually uninteresting -
+blocks with M-x apdl-hide-number-blocks and
+M-x apdl-show-number-blocks respectively or even a region of
+your (un)liking with M-x apdl-hide-region.  In files with the
+suffix ‘.dat’ number blocks are hidden by default.
+
+Moreover there are keyboard shortcuts with which you are able to
+input pairs of corresponding characters, like ‘C-c %’ for ’%%’,
+the APDL substitution operators.  The advantage is that the
+cursor is placed between the pair and you might give a numerical
+argument to the call and enclose already existing words with the
+pair, e. q. ‘C-1’ ‘C-c %’.  Please have a look for ‘insert-pair’
+and see below in the Keybindings section.
+
+@node Sophisticated highlighting
+@section Sophisticated highlighting
+
+(optionally: User variables)
+
+The highlighting in the highest decoration level (please refer to
+‘apdl-highlighting-level’) tries to follow the idiosyncratic
+Ansys solver/interpreter logic as closely as possible.  For
+example: ’* ’, an asterisk with following whitespace(s), is still
+a valid APDL comment operator (although deprecated, see the Ansys
+manual for the *LET command).
+
+The fontification distinguishes between APDL commands,
+undocumented commands, parametric- and get-functions, elements
+and deprecated elements.  In case of arbitrary characters after
+the command names, they are still highlighted, since these
+characters are ignored by the Ansys APDL intepreter.
+
+A macro is in the Ansys parlance some file with APDL code. In
+this sense it is used in the following documentation.
+Additionally you can create keyboard macros in Emacs to fasten
+your edinting, please see ‘kmacro-start-macro’.
+
+
+APDL macro variables beginning with an underscore might be APDL
+reserved variables and therefore are higlighted in a warning
+face.  Another example is the percent sign, its highlighting
+reminds you that the use of such a pair around a parameter name
+might force a parameter substitution, e. g. with the assignment
+’I=5’ and ’/com,TEST%I%’, the /com command outputs TEST5.
+
+In the context of pairs of ’%’ characters, you can also input
+various pairs with keyboard shortcuts, e. g. apostrophies for
+APDL character parameters with ‘C-c’, please have a look which
+bindings are available with "C-h b" (for
+‘describe-bindings’).
+
+The format strings of *MSG, *MWRITE, *VWRITE and *VREAD are also
+highlighted (in decoration levels 2, again please refer to
+‘apdl-highlighting-level’).  Below is a summary of the C-format
+descriptors which can be used for above commands.  (with these
+format descriptors there are no parentheses needed in contrast to
+less general fortran ones):
+
+%I                 Integer data
+%F                 Floating point format
+%G                 General numeric format
+%E                 Scientific notation
+%C,%S                 Character strings (up to 128 characters) or arrays;
+%/                 Line break
+%%                 Single percent sign
+%wI                 w is the column width. Integer is preceded by the number
+      of blank characters needed to fill the column.
+%0wI           Same as above except integer is padded by zeroes instead of spaces.
+%0w.pI       Pad integer with zeros as necessary to obtain a minimum of p digits.
+%w.pF               w is the column width. Floating point format to p
+       decimal places.
+%w.pG            General format with p significant digits.
+%w.pE            Scientific notation to p decimal places.
+%wC,
+%wS             Character string with column width of w.
+%-wC,
+%-wS            Left justify character string (right justify is default).
+%wX            Include w blank characters.
+
+example code:
+*vwrite,B(1,1),B(2,1)
+%E%/%E
+
+Regarding the highlighting of user variables: The idea is to give
+a visual hint whether variable names are spelled and used
+correctly everywhere not only at the place of its definition.
+
+For this to occur ‘apdl-highlighting-level’ must be set to 2 (the
+maximum, which is also the default), please have a look at the @samp{=
+customisation =} section on how to change settings.
+
+Newly edited variable definitions are taken into account only
+when the variable ‘apdl-dynamic-highlighting-flag’ is set (for
+very large files this might slow Emacs and therefore the flag is
+only effective for files ending in ’.mac’) or every times you
+activating the variable display (with
+"C-c C-v", see below) in the maximum
+highlighting level (2).
+
+@node Compilation of all APDL variables definition and component names
+@section Compilation of all APDL variables definition and component names
+
+(*GET, *DIM, *SET, = and DO, @dots{})
+
+Typing "C-c C-v" (for
+‘apdl-display-variables’) shows all definitions in your APDL file
+in a separate window.
+
+You might remove ’*APDL-variables*’ window with
+"C-x 4 k" (‘apdl-delete-other-window’).
+
+When you place the cursor on the respective line number and type
+‘C-u’ ‘M-g g’, where ‘C-u’ is a ’prefix’ argument to ‘M-g
+g’ (‘goto-line’)).  Emacs will then skip to the corresponding
+definition line in the macro file.
+
+Additionally you are able with a prefix argument for
+"C-c C-v" to receive the current value of
+your variables at the cursor position.  For this functionality it
+is necessary to have a running Ansys process (GNU-Linux systems
+only, please see below the chapter about the solver
+communication).
+
+@node Use of the Emacs abbreviation facility for block templates
+@section Use of the Emacs abbreviation facility for block templates
+
+E.g. typing "‘do" (the backquote ’‘’ then ’do’) and the space
+key <SPC> under APDL-Mode triggers an interactive code template
+which inserts a *DO loop (‘apdl-do’).  "‘d" (then <SPC>) is a
+more immediate version of it without requesting user
+input (‘ansys_do’).  You can see all the predefined abbreviations
+with "‘?", i. e. a question mark ’?’  after the backquote ’‘’.
+Alternatively you might use the menu entry or the command ‘M-x
+‘list-abbrevs’ <RET>’ to inspect all definitions which Emacs
+knows.
+
+@node Outlining (hiding and expanding) code sections
+@section Outlining (hiding and expanding) code sections
+
+If you are using the pre-configured APDL-Mode then function
+‘outline-minor-mode’ is switched on by default.
+
+With this mode you can hide certain sections of your code or
+navigate to customisable outline headings.  Certain characters
+--by default ’!@@’ (see the variable ‘ansys_outline_string’)-- at
+the beginning of a line in your code represent such headings.
+’!@@@@’ specifies a subheading and so on (please call the function
+‘apdl-skeleton-outline-template’ to insert a skeleton of outline
+sections in your current file).  Check out the Outline menu
+entries.
+
+In case outlining is not activate you might call Outline Minor
+Mode with "M-x outline-minor-mode" or you can enable this mode
+for the current session by ticking on the respective option in
+the menu or permanently by setting ‘apdl-outline-minor-mode’ for
+the ‘apdl-mode-hook’ variable.  Please type
+"M-x apdl-customise-ansys <RET>" or use the customisaton system
+from the menu: ->APDL ->Customise APDL Mode.
+
+@node Convenient comment handling commenting/un- of whole paragraphs
+@section Convenient comment handling, commenting/un- of whole paragraphs
+
+@itemize
+@item
+"M-;" calls ‘comment-dwim’ (Do What I Mean ;-):
+@end itemize
+
+In a code line: This command inserts comment char
+‘apdl-indent-comment-string’ at ‘apdl-code-comment-column’ (if
+feasible, i. e. the code line is not too long).  With a prefix
+argument: Kill existing code comment.
+
+With an highlighted region: Commenting out (‘comment-region’) or
+Uncommenting (‘uncomment-region’) that region.
+
+In an empty line: Inserts ’!! ’ with the right indentation.
+
+@itemize
+@item
+"C-M-j" (or "M-j", calls
+‘indent-new-comment-line’).
+@end itemize
+
+Breaks a code comment and inserts a single exclamation mark
+’!’ (‘apdl-comment-char’) at column
+‘apdl-code-comment-column’ (if possible).
+
+In comment lines ’!! ’ with two comment
+characters (‘apdl-indent-comment-string’) breaks the comment and
+begins a the same comment style at the the current indentation.
+
+In an empty line or a line without comment: Just inserts a new
+line.
+
+@node Insertion of code template in an APDL file
+@section Insertion of code template in an APDL file
+
+You are able to preview the code templates with
+"C-c C-s" (for ‘apdl-display-skeleton’),
+while doing this, you might type <TAB> to complete all available
+skeleton names.
+
+Check e. g. ‘apdl-skeleton-outline-template’, type
+"M-x apdl-skeleton-outline-template <RET>" to insert this
+skeleton of APDL code with outline headings.  Alternatively you
+can use the binding "<CTRL> + u M-x apdl-skeleton-outline-template"
+for inserting templates instead of previewing them.
+
+@node Auto-insertion of code templates into new APDL files
+@section Auto-insertion of code templates into new APDL files
+
+Put the following section in your .emacs file, in case you want
+to to include above skeleton (optionally) for every APDL file.
+
+(auto-insert-mode 1)
+(add-hook ’find-file-hook ’auto-insert)
+(setq auto-insert-query t)
+(add-to-list ’auto-insert-alist ’(apdl-mode .
+    [apdl-skeleton-outline-template]))
+
+Please refere the configuration example ‘default.el’.
+
+@node APDL process management
+@section APDL process management
+
+@itemize
+@item
+APDL-Mode writes for you an APDL stop file in the current
+directory (the file name is compiled from the variable
+‘apdl-job’ and the extension ’.abt’).  You can do this with
+"M-x apdl-write-abort-file" (‘apdl-write-abort-file’, you
+might previously use the Emacs command ’cd’ ("<ALT> + x
+M-x cd ") to change the current directory).  This stop file is
+halting a running calculation in an orderly, re-startable
+fashion.
+
+@item
+You are able to view the Ansys APDL error file (a file
+consisting of the ‘apdl-job’ and the suffix ’.err’ in the
+current directory) with "C-c C-e" (this
+calls ‘apdl-display-error-file’).  The error file is opened in
+read only mode (see ‘read-only-mode’) and with the minor mode
+‘auto-revert-tail-mode’, which scrolls the buffer automatically
+for keeping the current Ansys output visible.
+
+@item
+You can start the Ansys Help Viewer directly from Emacs with
+"M-x apdl-start-ansys-help" (for ‘apdl-start-ansys-help’).
+
+@item
+You might also start the APDL product launcher from Emacs under
+windows or the APDL interpeter under GNU-Linux with
+"C-c RET" (for ‘apdl-start-ansys’).
+
+@item
+For displaying the available licenses (in another Emacs window)
+please use "C-c C-l" (for
+‘apdl-license-status’).
+@end itemize
+
+If your Ansys installation is not in the default locations
+APDL-Mode might not be able to find its executables.  Or you want
+to use mixed Ansys version installations then it is necessary to
+customise some variables.  Either by calling the Emacs
+customisation facility ‘apdl-customise-ansys’ or from the menu
+bar -> ’APDL’ -> ’Customise APDL Mode’ -> ’APDL-process’ and look
+there for the variables ’Ansys License File’, ’Ansys Util
+Program’ and ’Ansys Help Program’ as well as ’Ansys Help Program
+Parameters’) or set the variables directly in your .emacs file.
+Please have a look in the accompanying README.org and the
+apdl-config.el customisation example.
+
+@node Ansys solver/interpreter control and communication
+@section Ansys solver/interpreter control and communication
+
+(mainly restricted to GNU-Linux systems)
+
+With the APDL-Mode keyboard shortcut
+"C-c RET" (for the command ‘apdl-start-ansys’) you
+can start the APDL solver/interpreter under GNU-Linux as an
+asynchronous process of Emacs.  After starting the run you will
+see all interpreter output in a separate Emacs ’comint’ (command
+interpreter) window.  You are now able to interact with this
+process in three ways, either by typing directly in the ’*APDL*’
+window or using "C-c C-c" (for
+‘apdl-send-to-ansys’).  With the latter you can send either the
+current code line or a whole selected region to the running
+solver.  (A selected region means highlighted lines of code.  If
+there is no running solver the function copies the code to the
+system clipboard.)  And lastly you are able to send interactively
+APDL commands with
+"C-c C-q" (‘apdl-query-apdl-command’)
+without switching to the ’*APDL*’ window.  If you would like to
+send your current code line in a slightly modified form, then
+give a prefix argument to ‘apdl-query-apdl-command’ and the line
+will be the intial input for sending it to the interpreter.
+
+Another very useful function in this context is
+"C-c C-u" (‘apdl-copy-or-send-above’),
+which sends all code from the beginning up to the current line to
+the solver/interpreter.  If there is no running interpreter the
+function copies the code to the system clipboard.
+
+The last two commands (‘apdl-copy-or-send-above’ and
+‘apdl-send-to-ansys’) are skipping to the next code line (if
+possible).  If you don’t need this behaviour supply any prefix
+argument to them and the cursor will remain in the current line
+or in the last line of the previously highlighted region.
+
+When you are not familiar with Emacs’ keybindings you probably
+want to select your part of interest with dragging the mouse
+pointer while pressing the first mouse button.  Often it is
+faster to select regions with specialised keyboard commands.  For
+example "C-M-h" (‘apdl-mark-block’) marks a whole
+block level, "M-x mark-paragraph (‘mark-paragraph’) marks the
+current paragraph, the last command can not only be used to
+initialise a new selection but also to extend an existing one
+when repeting the command.  Please check the code navigation
+commands which APDL-Mode provides (type
+"C-h b" (‘describe-bindings’) to see which are
+available).
+
+In this mode you are able to start an Ansys graphics
+screen (without the rest of graphical user interface) with
+M-x apdl-start-graphics (function ‘apdl-start-graphics’).  Thus
+you are able to check and debug your macro file content visually.
+The graphics in this state is changeable with APDL commands (like
+/view,1,1,1,1) but unfortunately not through mouse interactions!
+If you want to turn, zoom, etc., the model it is best to call
+‘apdl-start-pzr-box’ with C-c C-p and a dialog box
+will pop up.  This is the usual Ansys Pan/Zoom/Rotate dialog for
+the graphics screen.  But beware: Before you are able to send
+further commands to the solver, you first have to close the PZR
+dialog box.  There is also a family of interactive commands to
+reposition the graphics, like C-c C-+ (‘apdl-zoom-in’),
+replotting works with C-c C-r (‘apdl-replot’) and a fit
+to the screen with C-c C-f (‘apdl-fit’), of course, they are
+available from the menu as well.
+
+There is also a command for saving the data and ending the solver
+run: ‘apdl-exit-ansys’ and a command for an emergency kill in
+case the solver is not stoppable any longer in an orderly way:
+‘apdl-kill-ansys’.
+
+As already indicated APDL-Mode has its own command for invoking
+the Ansys Help Viewer "M-x apdl-start-ansys-help" because
+unfortunately the following APDL commands do not work when the
+complete GUI system of Ansys is not active.
+
+/ui,help  !is it not working in Ansys non-GUI modes
+help, COMMAND !is also not working in Ansys non-GUI modes
+
+So you are not able start the Help Viewer for a @strong{specific} APDL
+command but must search within the Ansys Help Viewer or better
+use the much faster "C-c C-b".
+
+@node Configuration and Customisation
+@chapter Configuration and Customisation
+
+Most functionality of APDL-Mode is working without configurations.
+
+For system dependent operations APDL-Mode is trying to guess the
+necessary parameters from default installation paths and / or
+environment variables.  (APDL-Mode is choosing the highest installed
+Ansys version.)
+
+The customisations itself are written in `Emacs-Lisp'.  The comment
+sign in this language is @code{;} (one semi-colon `;').
+
+@menu
+* Conventions used in @emph{apdl-config.el}: Conventions used in @emph{apdl-configel}. 
+* Important Prerequisites::
+* File suffixes for auto loading APDL-Mode::
+* Auto insertion of code::
+* Miscellaneous::
+* Outlining::
+* Highlighting (Colourisation)::
+* Ansys installation dependent configurations::
+* Ansys processes::
+@end menu
+
+@node Conventions used in @emph{apdl-configel}
+@section Conventions used in @emph{apdl-config.el}
+
+Textual hints in @emph{apdl-config.el} are indicated with TWO semi-colons
+@code{;;}, please uncomment only the code lines with a SINGLE comment sign
+and change them when appropriate.
+
+Please add the interesting code lines into your GNU-Emacs init file or
+load this file in the init file with `(load-file
+"PATH/apdl-config.el")'.
+
+@node Important Prerequisites
+@section Important Prerequisites
+
+@menu
+* Ansys Installation path with version information::
+@end menu
+
+@node Ansys Installation path with version information
+@subsection Ansys Installation path with version information
+
+If you have a non default installation APDL-Mode might not be able to
+find the Ansys installation.  Please configure your installation path
+up to and including the versioning number.
+
+@lisp
+(cond ((string= window-system "x")
+        ;; This is an example of an installation directory on GNU-Linux
+        (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
+        ;; the default might look like "/ansys_inc/v201/"
+       (t ;This an example of an installation directory on WINDOWS
+        ;; Emacs is using here forward slashes as under Unix and not
+        ;; the backslash "\"!
+        (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
+        ;; default: "C:/Program Files/Ansys Inc/v201/"
+@end lisp
+
+If your Ansys installation differs completely from the standard Ansys
+directory structure, or you want to use a mixed version system, then
+please consult the section `INSTALLATION PATHS' further below.
+
+@node File suffixes for auto loading APDL-Mode
+@section File suffixes for auto loading APDL-Mode
+
+Configure your file suffixes for which Ansys mode is automatically
+called for.
+
+@menu
+* Macro files::
+* WorkBench generated input files::
+* The Ansys Neutral file format::
+@end menu
+
+@node Macro files
+@subsection Macro files
+
+@emph{.mac} is the macro suffix of Ansys i. e. these macro files can be
+called in the Ansys command prompt or APDL like a regular Ansys
+function (without the suffix @emph{.mac}).
+
+APDL-Mode has configured GNU-Emacs to open files with this suffix
+under apdl-mode.
+
+With the following setting
+
+@lisp
+(add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+@end lisp
+
+files with the suffix @emph{.ans} will be opended in Emacs under APDL-Mode.
+Please check the @emph{example.mac} file in the @emph{doc} folder.
+
+@node WorkBench generated input files
+@subsection WorkBench generated input files
+
+@emph{.dat} and @emph{.inp} are WorkBench's solver input file suffixes.  See the
+file @emph{example.dat} in the @emph{doc} folder.
+
+APDL-Mode has configured GNU-Emacs to open files with these suffixes
+under apdl-mode.
+
+@node The Ansys Neutral file format
+@subsection The Ansys Neutral file format
+
+@emph{.anf} is the suffix for "Ansys Neutral" files which include mostly
+gometric data but also some APDL snippets. These files are used for
+imports, see the file @emph{example.anf} in the @emph{doc} folder.
+
+@lisp
+(add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+@end lisp
+
+@node Auto insertion of code
+@section Auto insertion of code
+
+With the following code block Emacs inserts (after query) an outline
+of a code structure when creating a new file with any suffix in the
+@code{auto-mode-alist} for @code{apdl-mode}, please see above section).
+@lisp
+(auto-insert-mode 1)         ; insert automatically templates
+(add-hook 'find-file-hook 'auto-insert) ; when opening new files
+(setq auto-insert-query t)   ; ask before insertion of an APDL
+                             ; template
+(add-to-list 'auto-insert-alist
+   '(apdl-mode . [apdl-skeleton-outline-template])) ;which template
+                                                    ;to insert
+@end lisp
+
+@node Miscellaneous
+@section Miscellaneous
+
+@lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                          ;; Miscellaneous
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(setq apdl-parameter-help-duration "2 min")
+(setq apdl-parameter-help-duration 30) ; 30 seconds
+
+;; If you want to read the manual in GNU-Emacs' EWW browser.  This
+;; might only work for locally installed help documents (1.7 GB
+;; package v201) since v191 the online help is the default.
+
+; (setq browse-url-browser-function 'eww-browse-url)
+
+@end lisp
+
+@node Outlining
+@section Outlining
+
+Activating outline minor mode for selectively hiding and unhiding
+code sections:
+
+@lisp
+(add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
+@end lisp
+
+@node Highlighting (Colourisation)
+@section Highlighting (Colourisation)
+
+@menu
+* Dynamic highlighting of variables::
+* Decoration levels::
+@end menu
+
+@node Dynamic highlighting of variables
+@subsection Dynamic highlighting of variables
+
+The following toggles a dynamics change of the highlighting: While
+you are editing your new variable definitions highlighted and the
+cursor position is shown in the parameter help overlay
+
+Uncommenting the following might slow the editing of large .mac
+files (but only when apdl-highlighting-level is set to 2, see
+below).
+@lisp
+(setq apdl-dynamic-highlighting-flag nil)
+; (setq apdl-dynamic-highlighting-flag t) ;default: t
+
+@end lisp
+
+@node Decoration levels
+@subsection Decoration levels
+
+Decoration levels 0,1,2 are available.  User variable highlighting is
+only in level 2 available (statical, if above flag is not set), the
+current default is 2
+
+@lisp
+(setq apdl-highlighting-level 1) ; default: 2
+@end lisp
+
+@node Ansys installation dependent configurations
+@section Ansys installation dependent configurations
+
+Further things you possibly have to configure if your Ansys
+installation is completely differing from a default Ansys installation
+path, or if you want to mix various Ansys versions:
+@lisp
+(setq apdl-ansys-help-program
+    "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
+    ;; normally it looks like this:
+    ;; "/ansys_inc/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
+;; On WINDOWS: slash before /d: is unnecessary, but possible?
+(setq apdl-ansys-help-path "d:/Program Files/Ansys Inc/16.2.0/v201/commonfiles/help/en-us/help/")
+(setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v201/commonfiles/help/en-us/help/")
+(setq apdl-ansys-launcher "/appl/ansys_inc/v201/ansys/bin/winx64/launcher")
+(setq apdl-ansys-wb "/appl/ansys_inc/v201/Framework/bin/Linux64/runwb2")
+(setq apdl-ansys-program "/appl/ansys_inc/19.3.0/ansys/bin/ansys195")
+(setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
+
+@end lisp
+
+@node Ansys processes
+@section Ansys processes
+
+@menu
+* License server or license file::
+* Solver options::
+@end menu
+
+@node License server or license file
+@subsection License server or license file
+
+The more license servers are specified in @code{apdl-license-file} the
+longer it takes to get the license status.
+
+License server configuration: License servers (or license file
+name) you have to specify also the port for (since Ansys V12.0).
+On GNU-Linux GNU-Linux: License servers are separated by colons
+(":"), on Windows with semicolon ";".  1055 is the default port.
+
+the following variable APDL-Mode is checking the environment
+variables AnsysLMD_LICENSE_FILE and MD_LICENSE_FILE.
+
+@lisp
+(setq apdl-license-file
+  "1055@@frlifl01.auto.contiwan.com:1055@@frlifl02.auto.contiwan.com")
+@end lisp
+
+since Ansys 12.0 there is an intermediate server for the communication
+between flexlm and Ansys WorkBench, 2325 is here the default port.
+But the solver/interpreter is checking this server as well!?
+
+@lisp
+(setq apdl-ansysli-servers
+   "2325@@frlifl01.auto.contiwan.com:2325@@frlifl02.auto.contiwan.com")
+@end lisp
+
+@node Solver options
+@subsection Solver options
+
+Number of cores for the run: 4 does not require HPC licenses
+@lisp
+(setq apdl-no-of-processors 8) ;default: 4
+@end lisp
+
+Which license type to use for the solver
+@lisp
+(setq apdl-license "ansys") ;default: "struct"
+@end lisp
+
+Ansys job name
+@lisp
+(setq apdl-job "otto"); default: "file"
+@end lisp
+
+@node APDL Reference
+@chapter APDL Reference
+
+@menu
+* WorkBench to APDL Translation::
+* APDL Reference: APDL Reference (1). 
+* APDL-Mode Syntax Highlighting Reference::
+* And the rest::
+@end menu
+
+@node WorkBench to APDL Translation
+@section WorkBench to APDL Translation
+
+@menu
+* Contacts::
+* Material Models::
+* Boundary conditions::
+@end menu
+
+@node Contacts
+@subsection Contacts
+
+@menu
+* default 3D thermal contact::
+@end menu
+
+@node default 3D thermal contact
+@subsubsection default 3D thermal contact
+
+@example
+     2333        6        5        6        0     6458     6457     6422     6421     8356     8306     8303     8304
+-1
+keyo,cid,8,2               ! auto create asymmetric contact (from Program Controlled setting)
+keyo,cid,10,2              ! adjust contact stiffness each NR iteration (from Program Controlled setting)
+keyo,cid,12,5              ! bonded always
+keyo,cid,2,0               ! augmented Lagrange (from Program Controlled setting)
+keyo,cid,4,0               ! on Gauss point (from Program Controlled setting)
+keyo,cid,9,1               ! ignore initial gaps/penetration
+keyo,cid,7,0               ! No Prediction
+rmod,tid,3,10.        ! FKN
+rmod,tid,5,0.        ! ICONT
+rmod,tid,6,0.        ! PINB
+rmod,tid,10,0.        ! CNOF
+rmod,tid,12,0.        ! FKT
+rmod,tid,36,31        ! WB DSID
+rmod,cid,3,10.        ! FKN
+rmod,cid,5,0.        ! ICONT
+rmod,cid,6,0.        ! PINB
+rmod,cid,10,0.        ! CNOF
+rmod,cid,12,0.        ! FKT
+rmod,cid,36,31        ! WB DSID
+*set,_maxkxx,605000.
+rmod,cid,14,_maxkxx/_ASMDIAG         ! TCC, Divide by Length since Traction Based
+rmod,tid,14,_maxkxx/_ASMDIAG      ! TCC, Divide by Length since Traction Based
+keyo,cid,1,2     ! Pure thermal contact
+/com,*********** Create Contact "Contact Region 2" ***********
+/com,            Real Constant Set For Above Contact Is 8 & 7 
+*set,tid,8
+*set,cid,7
+r,tid
+r,cid
+et,tid,170
+et,cid,174
+eblock,10,,,94
+(15i9)
+     2334        8        8        8        0     8439     8419     8443     8443     8793     8794     8443     8866    
+@end example
+
+@node Material Models
+@subsection Material Models
+
+@menu
+* Plasticity::
+@end menu
+
+@node Plasticity
+@subsubsection Plasticity
+
+Multilinear Kinematic Hardening (MISO)
+Implementation:
+@example
+TB,PLAS,1,1,2,MISO
+@end example
+This means that one must input the curve in plastic strains and
+true stresses, @strong{not} in the engineering quantities!
+
+@node Boundary conditions
+@subsection Boundary conditions
+
+@enumerate
+@item
+forces
+
+
+it is possible to apply time and spatially varying loads either
+tabular or functional. Example (depending on the coordinate
+sys.): =10*sin(x)
+@table @asis
+@item moment
+scope: geometric selection, named selection, remote
+point contact pair: conta174, targe170 and pilot node
+similar to remote point pilot node is placed at the
+centre of the geom. curvature moment is applied
+around the reference coordinate system. pinball
+radius (might) reduce(s) the memory intensive range
+of participating elements
+@item remote point
+contact pair with reference geometry and pilot
+node(point)
+@item remote force
+contacts with pilot node MPC formulation (flexible
+or rigid)
+@item pressure
+surf154, sf
+@item force
+surf154, sfe "line force": surf156, sfe
+@item bolt pretension
+prets179 (WB: select only ONE face for whole
+stud!)
+@item bearing load
+surf154,Elements selected in load direction and
+pressure load applied on projected area (WB: select ALL
+faces of a cylinder!)
+@item hydrostatic pressure
+surf154, sfgrad and sf
+@end table
+
+@item
+Pressure
+
+
+Surface elements @code{surf154} and surface loads on elements (@code{sfe})
+@example
+  /com,*********** Define Pressure Vector Using Surface Effect Elements ***********
+  local,12,0,0.,0.,0.,0.,0.,0.
+  csys,0
+  et,2,154
+  eblock,10,,,10
+  (15i9)
+         61        2        2        2       12      116      107       67       66      398      328      325      326
+         62        2        2        2       12      115      114      107      116      407      397      398      408
+         63        2        2        2       12      107      108       68       67      396      330      327      328
+         64        2        2        2       12      114      113      108      107      406      400      396      397
+         65        2        2        2       12      108      109       69       68      399      332      329      330
+         66        2        2        2       12      113      112      109      108      405      402      399      400
+         67        2        2        2       12      109      110       70       69      401      334      331      332
+         68        2        2        2       12      112      111      110      109      404      403      401      402
+         69        2        2        2       12      110      106       71       70      395      336      333      334
+         70        2        2        2       12      111      105      106      110      394      393      395      403
+  -1
+  esel,s,type,,2
+  keyop,2,2,1                ! Apply load in local coordinate system
+  keyop,2,11,2               ! Use real and not project area
+  esel,all
+
+  *DIM,_loadvari28x,TABLE,2,1,1,TIME,
+  ! Time values
+  _loadvari28x(1,0,1) = 0.
+  _loadvari28x(2,0,1) = 1.
+  ! Load values
+  _loadvari28x(1,1,1) = 0.
+  _loadvari28x(2,1,1) = -1.
+
+
+  *DIM,_loadvari28y,TABLE,2,1,1,TIME,
+  ! Time values
+  _loadvari28y(1,0,1) = 0.
+  _loadvari28y(2,0,1) = 1.
+  ! Load values
+  _loadvari28y(1,1,1) = 0.
+  _loadvari28y(2,1,1) = -1.
+
+
+  *DIM,_loadvari28z,TABLE,2,1,1,TIME,
+  ! Time values
+  _loadvari28z(1,0,1) = 0.
+  _loadvari28z(2,0,1) = 1.
+  ! Load values
+  _loadvari28z(1,1,1) = 0.
+  _loadvari28z(2,1,1) = 0.
+
+  ...
+
+esel,s,type,,2
+nsle
+sfe,all,1,pres,1,%_loadvari28x%
+sfe,all,2,pres,1,%_loadvari28y%
+sfe,all,3,pres,1,%_loadvari28z%
+nsel,all
+esel,all
+
+@end example
+
+@item
+displacements
+
+
+@table @asis
+@item remote displacement
+x,y,z, displacments are for the pilot node NOT
+the entire area!
+@item simply supported
+hinge for beams (rotations are free)
+@item elastic support
+surf154, r(4)=foundation stiffness, default
+thickness=1, damping possible
+@item cylindrical support
+rotation with nmodif,node,x,y,z,thxy,@dots{}
+@item compression only support
+rigid surf2surf contacts
+@end table
+
+@enumerate
+@item
+Frictionless Support
+
+
+Fixing normal displacement with (@code{d}), possibly modifying nodal
+coordinate system (@code{nmodif}), turning into normal direction.
+@example
+/com,********* Frictionless Supports X *********
+CMBLOCK,_FRICSUX,NODE,       48
+(8i10)
+        61        62        63        64        65        66       115       116
+       117       118       119       120       121       122       123       124
+       ....
+       408       409       410       411       412       413       414       415
+       416       417       418       419       420       421       422       423
+cmsel,s,_FRICSUX
+d,all,ux,0
+nsel,all
+nsel,all
+/com,*********** Node Rotations ***********
+nmod,61,,,,-43.6672749853753,0.,0.
+...
+@end example
+@end enumerate
+@end enumerate
+
+@node APDL Reference (1)
+@section APDL Reference
+
+@menu
+* Idiosyncrasies::
+* File types (the whole zoo is in the operations guide) under Gnu/Linux?::
+* Defining parameters::
+* Erasing variables from memory::
+* Variable substitution::
+* Expressions::
+* Arrays::
+* debugging::
+* Multiple runs, probabilistic design: Multiple runs probabilistic design. 
+* Undocumented commands::
+@end menu
+
+@node Idiosyncrasies
+@subsection Idiosyncrasies
+
+@itemize
+@item
+You can only store character variables of 8 characters, strings of
+32 characters and for @strong{only} 248 characters you need to create a
+string array!
+@item
+No function definitions <- write `command' files (suffix: .mac),
+or call a macro (arbitrary suffix) with `*use', something close is
+to fill a "table" arry, interpolating values and possible real
+indexing A(0.3).
+@item
+you can get table array values with real index values but must use
+integers for assigning them the values, the same goes for *vplot:
+it needs the arry indices in integers and is, moreover, only
+capable to plot the columns and not their line values!
+@item
+*vplot does only plot the columns of arrys, it is not possible to
+specify rows
+@item
+No direct array values to file export in GUI mode <- write command
+file for *vwrite, or use a (lookup) table for this purpose
+@item
+*vwread does not work with C format specifiers in contrast to *vwrite
+@item
+Still (v15) no @strong{round} function in sight, but someting like
+nint(max*1e3)/1e3 might do
+@item
+One cannot easily get the variable value, either one must assign
+the variable to another one, or use the `*stat' command
+@item
+Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
+@item
+Inconsistent naming: /@{x,y@}range but /axlab,@{x,y@},
+@item
+The /contour command does not work on device /show,PNG
+@item
+DELETION OF ARRY parameters without warning only possible with an
+undocumented option: *del,Array,,nopr
+@item
+*cfwrite does parameter substituion without %%: *cfwrite, X_points
+= NoN,*cfwrite, the same as X_points = %NoN%????
+@item
+No direct operation on arrays like A=A*3, take a detour with
+*voper or *toper
+@item
+Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
+contrast to the more ralistic ones in /solu
+@item
+You can send only a complete block structure to the solver
+@end itemize
+
+@node File types (the whole zoo is in the operations guide) under Gnu/Linux?
+@subsection File types (the whole zoo is in the operations guide) under Gnu/Linux?
+
+@multitable {aaa} {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa} {aaaaaaaa} {aaaaa} {aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa} {aaaaaaa}
+@headitem No
+@tab Type
+@tab Name
+@tab temp.
+@tab Remark
+@tab Format
+@item 1
+@tab abort
+@tab .abt
+@tab 
+@tab 
+@tab binary
+@item 2
+@tab graphics annotation commands
+@tab .ano
+@tab yes
+@tab 
+@tab ascii
+@item 3
+@tab neutral file format
+@tab .anf
+@tab no
+@tab 
+@tab ascii
+@item 4
+@tab animation
+@tab .anim
+@tab 
+@tab 
+@tab binary
+@item 5
+@tab 
+@tab .ans_log
+@tab 
+@tab 
+@tab ascii
+@item 6
+@tab input data copied from batch input file /batch
+@tab .bat
+@tab yes
+@tab 
+@tab 
+@item 7
+@tab sparce solver
+@tab .bcs
+@tab no
+@tab run time statistics
+@tab ascii
+@item 8
+@tab interpolated body forces (bfint)
+@tab .bfin
+@tab no
+@tab 
+@tab ascii
+@item 9
+@tab 
+@tab .cdb
+@tab 
+@tab 
+@tab 
+@item 10
+@tab sparce solver
+@tab .dsp
+@tab 
+@tab run time statistics
+@tab ascii
+@item 11
+@tab interpolated DOF data (cbdof)
+@tab .cbdo
+@tab no
+@tab 
+@tab ascii
+@item 12
+@tab color map
+@tab .cmap
+@tab no
+@tab 
+@tab ascii
+@item 13
+@tab default command file suffix (*cfopen, *cfwrite)
+@tab .cmd
+@tab no
+@tab 
+@tab ascii
+@item 14
+@tab component mode synthesis
+@tab .cms
+@tab no
+@tab 
+@tab binary
+@item 15
+@tab nonlinear diagnostics file (nldiag)
+@tab .cnd
+@tab no
+@tab 
+@tab ascii
+@item 16
+@tab pcg solver
+@tab .pcs
+@tab 
+@tab run time statistics
+@tab ascii
+@item 17
+@tab workbench solver input
+@tab .dat
+@tab 
+@tab 
+@tab ascii
+@item 18
+@tab database
+@tab .db
+@tab 
+@tab 
+@tab binary
+@item 19
+@tab db backup
+@tab .dbb
+@tab 
+@tab 
+@tab binary
+@item 20
+@tab databas from vmseh failure in batch mode
+@tab .dbe
+@tab no
+@tab 
+@tab binary
+@item 21
+@tab fortran solution information
+@tab .dbg
+@tab no
+@tab 
+@tab ascii
+@item 22
+@tab Do-loop nesting
+@tab .do#
+@tab yes
+@tab 
+@tab 
+@item 23
+@tab scratch file modal analysis
+@tab .dscr
+@tab yes
+@tab 
+@tab binary
+@item 24
+@tab 
+@tab .D#
+@tab 
+@tab 
+@tab 
+@item 25
+@tab perfomance information sparse solver distributed
+@tab .dsp
+@tab no
+@tab 
+@tab ascii
+@item 26
+@tab scratch file distributed sparse solver
+@tab .dsp#
+@tab 
+@tab 
+@tab binary
+@item 27
+@tab Superelement DOF solution from use pass
+@tab .dsub
+@tab no
+@tab 
+@tab binary
+@item 28
+@tab Element definitions (EWRITE)
+@tab .elem
+@tab no
+@tab 
+@tab ascii
+@item 29
+@tab element matrices
+@tab .emat
+@tab 
+@tab 
+@tab binary
+@item 30
+@tab element saved data
+@tab .esav
+@tab 
+@tab 
+@tab 
+@item 31
+@tab errors and warnings
+@tab .err
+@tab 
+@tab 
+@tab ascii
+@item 32
+@tab distributed memory
+@tab #.err
+@tab 
+@tab 
+@tab 
+@item 33
+@tab rotated element matrices
+@tab .erot
+@tab yes
+@tab 
+@tab 
+@item 34
+@tab Element saved data ESAV files created by nonlinear analyses
+@tab .esav
+@tab yes
+@tab 
+@tab binary
+@item 35
+@tab scratch file PCG Lanczos eigensolver
+@tab .evc
+@tab yes
+@tab 
+@tab binary
+@item 36
+@tab scratch file PCG Lanczos eigensolver
+@tab .evl
+@tab yes
+@tab 
+@tab binary
+@item 37
+@tab 
+@tab .ext
+@tab 
+@tab 
+@tab 
+@item 38
+@tab 
+@tab .exti
+@tab 
+@tab 
+@tab 
+@item 39
+@tab local results file distributed memory
+@tab #.ext
+@tab 
+@tab 
+@tab 
+@item 40
+@tab stiffness-mass matrices
+@tab .full
+@tab 
+@tab 
+@tab binary
+@item 41
+@tab Fatigue data [FTWRITE]
+@tab .fatg
+@tab no
+@tab 
+@tab ascii
+@item 42
+@tab neutral graphics file
+@tab .grph
+@tab no
+@tab 
+@tab ascii
+@item 43
+@tab Graphical solution tracking file
+@tab .gst
+@tab no
+@tab 
+@tab binary
+@item 44
+@tab IGES file from Ansys solid model data [IGESOUT]
+@tab .iges
+@tab no
+@tab 
+@tab ascii
+@item 45
+@tab initial state
+@tab .ist
+@tab 
+@tab 
+@tab 
+@item 46
+@tab Loading and bc of load steps (used for multiframe restart)
+@tab .ldhi
+@tab 
+@tab 
+@tab ascii
+@item 47
+@tab Database command log file [LGWRITE]
+@tab .lgw
+@tab no
+@tab 
+@tab ascii
+@item 48
+@tab scratch file for sparse solver
+@tab ???.ln#
+@tab yes
+@tab 
+@tab 
+@item 49
+@tab Load case file (where nn = load case number) [LCWRITE]
+@tab .l#
+@tab no
+@tab 
+@tab binary
+@item 50
+@tab Factorized stiffness matrix
+@tab .ln22
+@tab no
+@tab 
+@tab binary
+@item 51
+@tab Command input history
+@tab .log
+@tab no
+@tab 
+@tab ascii
+@item 52
+@tab lock file
+@tab .lock
+@tab yes
+@tab prevent runs in the same directory
+@tab binary
+@item 53
+@tab scratch file mode superposition
+@tab .lscr
+@tab yes
+@tab 
+@tab 
+@item 54
+@tab scratch file substructure pass w/ more than 1 load vector
+@tab .lv
+@tab yes
+@tab 
+@tab binary
+@item 55
+@tab macro
+@tab .mac
+@tab 
+@tab 
+@tab ascii
+@item 56
+@tab Mapping data [HBMAT]
+@tab .mapping
+@tab no
+@tab 
+@tab ascii
+@item 57
+@tab Mapping data in Harwell-Boeing format [HBMAT]
+@tab .matrix
+@tab no
+@tab 
+@tab asc/bin
+@item 58
+@tab Modal coordinates from harmonic or transient analysis
+@tab .mcf
+@tab no
+@tab 
+@tab ascii
+@item 59
+@tab modal element load vector
+@tab .mlv
+@tab no
+@tab 
+@tab binary
+@item 60
+@tab Nonlinear analysis convergence monitoring
+@tab .mntr
+@tab no
+@tab 
+@tab ascii
+@item 61
+@tab modal analyses
+@tab .mode
+@tab 
+@tab 
+@tab binary
+@item 62
+@tab Material property definitions [MPWRITE]
+@tab .mp
+@tab 
+@tab 
+@tab ascii
+@item 63
+@tab Modal analysis frequencies and mode shapes
+@tab .modesym
+@tab no
+@tab 
+@tab binary
+@item 64
+@tab mode-superposition transient  (multiframe restart)
+@tab .m#
+@tab 
+@tab 
+@tab binary
+@item 65
+@tab Nonlinear diagnostics file tracking contact quantities [NLHIST]
+@tab .nlh
+@tab no
+@tab 
+@tab ascii
+@item 66
+@tab Node definitions [NWRITE]
+@tab .node
+@tab no
+@tab 
+@tab ascii
+@item 67
+@tab Stores Newton-Raphson iteration information [NLDIAG,NRRE,ON]
+@tab .nr
+@tab no
+@tab 
+@tab binary
+@item 68
+@tab old element .esav data from converged solution
+@tab .osav
+@tab 
+@tab 
+@tab 
+@item 69
+@tab Solver messages
+@tab .out
+@tab no
+@tab 
+@tab ascii
+@item 70
+@tab slave output file distributed memory
+@tab #.out
+@tab 
+@tab 
+@tab 
+@item 71
+@tab database virtual memory
+@tab .page
+@tab yes
+@tab if database space unavailable
+@tab 
+@item 72
+@tab Parameter definitions [PARSAV]
+@tab .parm
+@tab no
+@tab 
+@tab ascii
+@item 73
+@tab Stores performance information when running the PCG solver
+@tab .pcs
+@tab no
+@tab 
+@tab ascii
+@item 74
+@tab FLOTRAN printout file
+@tab .pfl
+@tab no
+@tab 
+@tab ascii
+@item 75
+@tab plot file extension for electromagnetic trainsient
+@tab .plt
+@tab 
+@tab 
+@tab 
+@item 76
+@tab Stores pivot information when running the sparse solver
+@tab .pvts
+@tab no
+@tab 
+@tab ascii
+@item 77
+@tab scratch file for PCG solver
+@tab .pc#
+@tab yes
+@tab 
+@tab binary
+@item 78
+@tab scratch file for PCG solver
+@tab .pda
+@tab yes
+@tab 
+@tab binary
+@item 79
+@tab scratch file for PCG solver
+@tab .pma
+@tab yes
+@tab 
+@tab 
+@item 80
+@tab Results file for initial contact state
+@tab .rcn
+@tab no
+@tab 
+@tab binary
+@item 81
+@tab restart database
+@tab .rdb
+@tab no
+@tab 
+@tab 
+@item 82
+@tab FLOTRAN residual file [FLDATA,OUTP]
+@tab .rdf
+@tab 
+@tab 
+@tab 
+@item 83
+@tab Database from structural analyses after # times of rezoning
+@tab .rd#
+@tab no
+@tab 
+@tab binary
+@item 84
+@tab mode-superposition transient reduced displacements
+@tab .rdsp
+@tab no
+@tab 
+@tab binary
+@item 85
+@tab mode-superposition harmonic  reduced complex displacements
+@tab .rfrq
+@tab no
+@tab 
+@tab binary
+@item 86
+@tab flotran res.
+@tab .rfl
+@tab 
+@tab 
+@tab binary
+@item 87
+@tab magnetic res.
+@tab .rmg
+@tab 
+@tab 
+@tab binary
+@item 88
+@tab structural results
+@tab .rst
+@tab 
+@tab 
+@tab binary
+@item 89
+@tab combination of local results file in distributed memory
+@tab #.rst
+@tab 
+@tab 
+@tab 
+@item 90
+@tab linear perturbation results
+@tab .rstp
+@tab 
+@tab 
+@tab 
+@item 91
+@tab FLOTRAN "wall" results file
+@tab .rsw
+@tab no
+@tab 
+@tab ascii
+@item 92
+@tab FLOTRAN run data
+@tab .run
+@tab no
+@tab 
+@tab ascii
+@item 93
+@tab thermal results
+@tab .rth
+@tab 
+@tab 
+@tab binary
+@item 94
+@tab Results file from structural analyses after nn times of rezoning
+@tab .rs#
+@tab no
+@tab 
+@tab binary
+@item 95
+@tab nonlinear static or full transient
+@tab .r#
+@tab 
+@tab 
+@tab 
+@item 96
+@tab load step No #    [LSWRITE]
+@tab .s#
+@tab 
+@tab 
+@tab ascii
+@item 97
+@tab scratch file for Jacobi Conjugate Gradient solver
+@tab .scr
+@tab yes
+@tab 
+@tab binary
+@item 98
+@tab Superelement load vector data from generation pass
+@tab .seld
+@tab 
+@tab 
+@tab 
+@item 99
+@tab scratch file for supernode solver
+@tab .snode#
+@tab yes
+@tab 
+@tab binary
+@item 100
+@tab Superelement name and number from use pass
+@tab .sort
+@tab 
+@tab 
+@tab 
+@item 101
+@tab Status of an Ansys batch run
+@tab .stat
+@tab no
+@tab 
+@tab ascii
+@item 102
+@tab scratch file for substructure generation pass
+@tab .sscr
+@tab yes
+@tab 
+@tab binary
+@item 103
+@tab substructure matrices
+@tab .sub
+@tab 
+@tab 
+@tab 
+@item 104
+@tab Hyperelastic material constants
+@tab .tb
+@tab no
+@tab 
+@tab ascii
+@item 105
+@tab Renamed DSUB File for input to substructure expansion pass
+@tab .usub
+@tab no
+@tab 
+@tab binary
+@item 106
+@tab FLOTRAN boundary condition data (Ansys to FLOTRAN)
+@tab .xbc
+@tab no
+@tab 
+@tab ascii
+@item 107
+@tab FLOTRAN geometry data (Ansys to FLOTRAN)
+@tab .xgm
+@tab no
+@tab 
+@tab ascii
+@item 108
+@tab FLOTRAN initial condition data (Ansys to FLOTRAN)
+@tab .xic
+@tab no
+@tab 
+@tab ascii
+@item 109
+@tab restart
+@tab .x#
+@tab 
+@tab 
+@tab 
+@item 110
+@tab Old (10/11) WorkBench database
+@tab .wbdb
+@tab no
+@tab 
+@tab binary
+@item 111
+@tab 
+@tab .dsdb
+@tab 
+@tab 
+@tab 
+@item 112
+@tab WB archive
+@tab .wbpz
+@tab 
+@tab 
+@tab binary
+@item 113
+@tab FE Modeler
+@tab .fedb
+@tab 
+@tab 
+@tab 
+@item 114
+@tab Engineering Data
+@tab .eddb
+@tab 
+@tab 
+@tab 
+@item 115
+@tab Engineering Data
+@tab .xml
+@tab 
+@tab 
+@tab 
+@item 116
+@tab DesignXplorer
+@tab .dxdb
+@tab 
+@tab 
+@tab 
+@item 117
+@tab 
+@tab .mechdat
+@tab 
+@tab 
+@tab 
+@item 118
+@tab Mesh input file
+@tab .cmdb
+@tab 
+@tab 
+@tab 
+@item 119
+@tab 
+@tab .meshdat
+@tab 
+@tab 
+@tab 
+@item 120
+@tab WorkBench project database
+@tab .wbpj
+@tab 
+@tab 
+@tab 
+@item 121
+@tab design point
+@tab .wbdp
+@tab 
+@tab 
+@tab 
+@item 122
+@tab WB material - AKA "engineering" data
+@tab .engd
+@tab 
+@tab 
+@tab 
+@item 123
+@tab DesignModeler database
+@tab .agdb
+@tab 
+@tab 
+@tab 
+@end multitable
+
+@itemize
+@item
+.mac
+@item
+.db
+@item
+.dbb
+@end itemize
+
+@node Defining parameters
+@subsection Defining parameters
+
+up to 5000
+
+@menu
+* Double, char38, char8, logical, TODO: Double char38 char8 logical TODO. 
+* Variable names::
+* Character strings::
+@end menu
+
+@node Double char38 char8 logical TODO
+@subsubsection Double, char38, char8, logical, TODO
+
+in table only 8 chars?
+
+@node Variable names
+@subsubsection Variable names
+
+(called `parameter' in the Ansys manual)
+All numeric values are stored as double precision values.  Not defined
+variables are assigned a tiny value near zero.  The interpreter is not case sensitve
+:TODO except in strings?
+@itemize
+@item
+Must begin with a letter or an underscore
+@end itemize
+@example
+1ansys = 3                    !is not a valid variable name
+a1nsys = 3                    !a1nsys is a valid variable name
+A1NSys = 4                    !this is the same variable
+A1NSys = Temp                 !`Temp' is not defined
+@end example
+The following text is the respective Ansys solver/interpreter output.
+@example
+BEGIN:
+ 1ansys = 3                    !is not a valid variable name
+PARAMETER 1Ansys =     3.000000000
+*** ERROR ***                           CP =       0.259   TIME= 18:06:41
+Invalid character in parameter name.
+ The setting of parameter= 1Ansys is ignored.
+BEGIN:
+ a1nsys = 3                    !a1nsys is a valid variable name
+PARAMETER A1NSYS =     3.000000000
+BEGIN:
+ A1NSys = 4                    !this is the same variable
+PARAMETER A1NSYS =     4.000000000
+BEGIN:
+ A1NSys = Temp                 !`Temp' is not defined
+*** WARNING ***                         CP =       0.260   TIME= 18:06:56
+Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used.
+PARAMETER A1NSYS =    0.7888609052E-30
+BEGIN:
+@end example
+@itemize
+@item
+Should not begin with an underscore
+This convention is used in nameing variables in Ansys supplied
+macros and the GUI@.
+@end itemize
+
+@example
+_ansys = 3   !`_ansys' represents a reserved variable in Ansys supplied macros
+_ = 3        ! a single underscore definition is valid
+X = _
+_ = 3 !the single underscore represents  also a `variable' in APDL
+@end example
+@itemize
+@item
+Variable names with a trailing underscore
+These are hidden from the `*status' command output and can be
+deleted as a group with `*del'.
+@end itemize
+@example
+ansys_ = 3              !this is a `hidden' variable from *status
+*status                 !does not show `ansys_'
+       ,PRM_            !show variables with trailing underscore
+*del,,PRM_              !delete all variables with trailing underscore
+@end example
+@example
+ BEGIN:
+ansys_ = 3
+ PARAMETER Ansys_ =     3.000000000
+ BEGIN:
+ *status
+ ABBREVIATION STATUS-
+  ABBREV    STRING
+  SAVE_DB   SAVE
+  RESUM_DB  RESUME
+  QUIT      Fnc_/EXIT
+  POWRGRPH  Fnc_/GRAPHICS
+
+ PARAMETER STATUS-           (      5 PARAMETERS DEFINED)
+                  (INCLUDING        4 INTERNAL PARAMETERS)
+
+ NAME                              VALUE                        TYPE  DIMENSIONS
+ X                                 3.00000000                    SCALAR
+ BEGIN:
+,PRM_
+ PARAMETER STATUS- PRM_      (      5 PARAMETERS DEFINED)
+                  (INCLUDING        4 INTERNAL PARAMETERS)
+
+ NAME                              VALUE                        TYPE  DIMENSIONS
+ Ansys_                            3.00000000                    SCALAR
+ BEGIN:
+@end example
+@itemize
+@item
+Must contain only letters, numbers and underscores
+@end itemize
+@example
+!! only letters, numbers and underscores are allowed
+a1n§sys = 3              !this is not a valid variable name
+a1n_sys = 3              !this is a valid variable name
+@end example
+the Ansys interpreter output looks like this:
+@example
+BEGIN:
+ a1n§sys = 3              !this is not a valid variable name
+*** ERROR ***                           CP =       0.256   TIME= 17:35:07
+Invalid character in parameter name.
+ The setting of parameter= A1N§SYS is ignored.
+BEGIN:
+ a1n_sys = 3              !this is a valid variable name
+PARAMETER A1N_SYS =     3.000000000
+BEGIN:
+@end example
+@itemize
+@item
+Must contain no more than 32 characters
+@end itemize
+@example
+!! The following is not a valid variable name
+v23456789_123456789_123456789_123 = 3
+!! The following is a valid variable name
+v23456789_123456789_123456789_12  = 3
+@end example
+@itemize
+@item
+Local Variables
+@end itemize
+@example
+Depth  =  ARG1 !ARG@{1-9@}, AR@{10-19@} = "*use" variables
+AR18 = AR19
+*stat,argx
+@end example
+
+@node Character strings
+@subsubsection Character strings
+
+Must not contain more than 32 characters
+@example
+! character string variables are enclosed with `''
+Yc = '012345678901234567901234567890123' !not a character variable any more
+Symetry = 'yes'
+@end example
+
+@node Erasing variables from memory
+@subsection Erasing variables from memory
+
+@example
+!! defining
+Scalar = 3               !the `=' assignment is a shorthand for `*set'
+*set,Scalar,4            !reassignment
+*set,Vector,1,2,3,4,5,6,7,8,9,10
+Vector = 0,1,2,3,4,5,6,7,8,9,10,11,12 !TODO:
+Vector = 4               !TODO:
+!! deleting
+Scalar =     !this is not a variable any more
+*set,Scalar               !alternative to `Scalar ='
+*del,all                 !delete all variables!
+*del,Vector   !TODO:
+@end example
+
+@node Variable substitution
+@subsection Variable substitution
+
+with `%'
+
+@menu
+* Substitution of Numeric Variables::
+* Substitution of Character Variables::
+* Dynamic Substitution of Numeric or Character Variables::
+@end menu
+
+@node Substitution of Numeric Variables
+@subsubsection Substitution of Numeric Variables
+
+In "string commands" like `/com', where a string follows the command
+name one can force the substitution of a parameter name to its value.
+Other examples are
+@example
+Steel = 1
+/com,Material %Steel% is steel
+!! ATTENTION: in the following situation!
+/com,%Steel% does NOT substitute variable Steel
+/com, %Steel% does substitute variable Steel
+/com,Stuff like %Steel+1% returns 2
+@end example
+
+@node Substitution of Character Variables
+@subsubsection Substitution of Character Variables
+
+It is possible to substitute a command name
+@example
+R='RESUME'
+%R%,MODEL,DB
+@end example
+@example
+!! string, message commands and comment behaviour && %$$% %% :bla: &&&
+
+/com, bla = %bla%
+igesin,'test','%iges%'
+/title,Nothing in %particular%
+!! in "string commands" are no code comments possible
+/com,beam3 %YES% ! this is *really not commented out!!!! &
+c*** *beam3 !otto *otto %neither% here !!!!!!! &
+/com, bearm laskf %otto% !%otto% we are here
+
+@end example
+@itemize
+@item
+In certain `string commands'
+@end itemize
+@code{/title} and @code{/com} are string commands similar to @code{c***}
+@example
+right = 'wrong'
+/title, the value of right is  %right%
+/com, this is %right%: /com does expand parameters as well
+@end example
+@itemize
+@item
+Unfortunately here is no expansion possible
+@end itemize
+neither with @code{c***} nor with @code{/sys}
+@example
+right = 9
+c***,this is %right%: c*** allows no parameter expansion
+/sys,ls "*.mac" %otto% &
+/syp,ls, %otto% !this is not working, no substitution!
+I = 1
+otto = 'file00%I%.eps'
+/syp,ls, otto !this is working as intended
+@end example
+
+@node Dynamic Substitution of Numeric or Character Variables
+@subsubsection Dynamic Substitution of Numeric or Character Variables
+
+or forced substitution (deferred)
+@example
+Case = 'case 1'
+/title,This is  %Case%
+                         !/stitle
+                         !*ask
+                         !/tlabel
+                         !/an3d
+                         !in tables TODO:
+aplot
+Case = 'case 2'
+!! not necessary to reissue /title, "This is case 2"
+!! will appear on subsequent plots
+aplot
+@end example
+
+@node Expressions
+@subsection Expressions
+
+@menu
+* Exponentiation Operator::
+* Multiplication Expression::
+* Operators::
+@end menu
+
+@node Exponentiation Operator
+@subsubsection Exponentiation Operator
+
+is `**'
+
+@node Multiplication Expression
+@subsubsection Multiplication Expression
+
+Beware of the oldstyle Ansys comment!
+@example
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+@end example
+
+@node Operators
+@subsubsection Operators
+
+`<' and  `>' :TODO
+@example
+otto = 1.82
+karl = 1.97
+margret =  otto < karl !margret = otto
+maria = karl < otto    !maria = otto
+*status,karl > otto
+@end example
+
+@node Arrays
+@subsection Arrays
+
+4 types: array, char of 8 characters, table and string 128 chars
+
+@menu
+* Specifiying array element values::
+* APDL Math::
+@end menu
+
+@node Specifiying array element values
+@subsubsection Specifiying array element values
+
+@node APDL Math
+@subsubsection APDL Math
+
+APDL Math works in its own workspace independent of the APDL
+environment!
+@example
+No = 100
+Pi = acos(-1)
+Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
+Dat = 0:2*Pi:2*Pi/No
+*vfun
+*vec,import,apdl,Dat
+*fft,Forw,Dat,OutDat,,,Full !what's the difference?
+*fft,    ,Dat,OutDat,,,Part !what's the difference?
+*export,OutDat,apdl,APDLOutDat
+@end example
+
+@node debugging
+@subsection debugging
+
+@example
+debug                    !TODO: undocumented?
+@end example
+
+@node Multiple runs probabilistic design
+@subsection Multiple runs, probabilistic design
+
+@example
+PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
+in V11: *mrun                    !TODO:
+@end example
+
+@node Undocumented commands
+@subsection Undocumented commands
+
+@example
+!undocumented commands are highlighted differently
+/xml                     !undocumented command /xml
+/xfrm                    !documented command   /xfrm
+@end example
+
+@node APDL-Mode Syntax Highlighting Reference
+@section APDL-Mode Syntax Highlighting Reference
+
+@menu
+* Header::
+* Highlighting APDL specials::
+* Implied (or colon) looping::
+@end menu
+
+@node Header
+@subsection Header
+
+@example
+!! ------------------------------
+!@@ --- header ---
+!! ------------------------------
+!! Time-stamp: <2012-06-22 16:42:24 uidg1626>
+!! NOTE: This is APDL pseudo code, checking
+!!  APDL-Mode's highlighting capabilities and
+!!  certain aspects of the language
+!!  Please see further below.
+@end example
+
+@example
+/units,mpa !indicate mm-t-s unit system
+!@@ --- Preprocessing ---
+/prep7
+!@@@@ -- Elements --
+Steel = 1
+ID = Steel
+real = Steel
+et,ID,solid186 !3d, 20 node
+!@@@@ -- Material --
+mp,nuxy,Steel,0.3 ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+!@@@@ -- Modeling --
+block,0,1,0,1,0,1
+!@@@@ -- Meshing --
+vmesh,all
+!@@@@ -- BCs, Loads --
+nsel,s,loc,x,0
+d,all,all
+nsel,s,loc,x,1
+d,all,uy,-.1
+allsel
+save
+!@@ --- Solving ---
+/solu
+solve
+!@@ --- Postprocessing --
+/post1
+/view,,1,1,1
+plnsol,u,sum,2
+/image,save,test !save XWindow Dump xwd (or bmp on Windows)
+/image,capture                 !TODO: what is this: file0001.xwd?
+/sys,convert test test.png
+/upwind                  !TODO: 2d-graphics library? dated?
+*fft                     !TODO: :-)
+@end example
+
+@example
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!  Please put the the cursor below the next paragraph of emacs lisp
+!!  code and type "C-x C-e" to change the setting of
+!!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
+!!  change the level from 0 to 2 and toggle the flag from `t' to
+!!  `nil'.  Browse the file to check the differences.
+@end example
+
+@lisp
+(progn
+  (when
+      (featurep 'ansys-mode)
+    (unload-feature 'ansys-mode))
+  (setq
+   ansys-highlighting-level 2
+   ansys-dynamic-highlighting-flag t)
+  (load-file "ansys-mode.el")
+  (ansys-mode))
+@end lisp
+
+:TODO
+!! ------------------------------
+/units,mpa !indicate mm-t-s unit system
+c
+@example
+!@@@@ -- Ignored characters and condensed input line ($ operator)
+finishThisNightmare $ /cle !/clear
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+@end example
+
+@node Highlighting APDL specials
+@subsection Highlighting APDL specials
+
+@menu
+* Reserved words and _RETURN statements::
+* _RETURN values of macros::
+* Old style APDL comments::
+* Ignored characters behind commands::
+* The End Of File command::
+* Ignored characters behind commands: Ignored characters behind commands (1). 
+* The End Of File command: The End Of File command (1). 
+* Current element types and deprecated elements::
+@end menu
+
+@node Reserved words and _RETURN statements
+@subsubsection Reserved words and _RETURN statements
+
+@example
+!!
+N      =  _RETURN       !return value of certain commands
+Alpha2 =  +360./(2*N)
+Xc     =  !empty rhs clears variables
+@end example
+
+@node _RETURN values of macros
+@subsubsection _RETURN values of macros
+
+@example
+*return                  !TODO: what is this?
+*status,_RETURN          !0 normal
+                         !1 note
+                         !2 warning
+                         !3 error
+                         !4 fatal
+@end example
+
+@node Old style APDL comments
+@subsubsection Old style APDL comments
+
+@example
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+var2 = sinh(cos(3*5))  ! this is valid code
+fini * comment
+otto = 3 * 4 comment, the value of otto = 3!
+!!
+@end example
+
+@node Ignored characters behind commands
+@subsubsection Ignored characters behind commands
+
+@example
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+!!
+@end example
+
+@node The End Of File command
+@subsubsection The End Of File command
+
+@example
+/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+!!
+@end example
+
+@example
+!@@@@ -- function names --
+Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
+Alpha1 = rotx( 14.5) - 360./ (2*Nn)
+@end example
+
+@node Ignored characters behind commands (1)
+@subsubsection Ignored characters behind commands
+
+@example
+f $ fi $ fin $ fini $ finis  $ finish $ finisher
+a $ al $ all $ alls $ allse $ allsel $ allselllllll
+rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
+!!
+@end example
+
+@node The End Of File command (1)
+@subsubsection The End Of File command
+
+@example
+  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+  /exit,nosave           !default is save the model data
+!!
+@end example
+
+@node Current element types and deprecated elements
+@subsubsection Current element types and deprecated elements
+
+@example
+!! A current element type:
+et,10,solid186
+!! deprecated element types:
+et,Steel,beam3 $ et,Alu,shell91
+!!
+@end example
+Let's change the element types to current ones!
+@example
+!! Complete the following element fragments to current ones!
+!!
+et,Steel,beam $ et,Alu,shell
+
+@end example
+For example select the following elements
+@example
+et,Steel,beam188 $ et,Alu,shell28
+@end example
+and you are getting a diffent element highlighting.
+
+@example
+!@@@@ -- default commands
+nsel,s,loc,y,0
+    ,a,loc,y,1
+    ,r,loc,x,0
+d,all,all
+@end example
+
+@node Implied (or colon) looping
+@subsection Implied (or colon) looping
+
+@example
+!@@@@ ::: implicit : (colon) looping :::::
+!! (n1:n2:dn)
+lfillt,(1:2),(3:4),5
+!! one subscript per array
+bf,(1:10),temp,Tarray(1:10)
+b(1:5) = 10,20,30,40,50 !TODO: creates this an array?
+!! The *get command and get functions are allowed
+*get,Fx(1:10),node,(1:10),f,fz !TODO:
+a(1:5) = nx(1:5)
+!! TODO:
+Fx(1:10) = (1:100:10)    !is this working? :-)
+!! alternative to *vfill
+*vfill,Fx,ramp,1,10
+@end example
+
+@example
+!! looping
+*get,Dim
+*if,Dim,le,1,then
+  *dim,Reaction,array,Ns,1
+*endif
+*do,I,1,Ns
+  set,Ls,I
+  fsum
+  *get,Fx,fsum,,item,fx
+  Reaction(I)=Fx
+*enddo
+@end example
+@example
+!@@@@ -- multiline *msg formatting with the & operator
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+Steel = %G A (electrical angle = %G DEG) %/ &
+_Power factor: %G %/ &
+Inductance = %G %/ &
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+@end example
+
+@node And the rest
+@section And the rest
+
+*taxis only for 3 dimension? table(0,1) = 3 is working as well
+
+@example
+!@@@@ --! multiline message format command this is tricky: use M-o M-o
+*MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
+Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
+Steel = %G A (electrical angle = %G DEG) %/ &
+_Power factor: %G %/ &
+Inductance = %G %/ &
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
+aldk this is not any longer in the *msg format construct
+/com this is not any longer in the *msg format construct
+
+*vwrite,B(1,1),B(2,1),%yes%
+alkd %D &
+%E%/%E
+@end example
+@example
+!! commands which do not allow arguments
+/prep7 $ FINISH !$ means nothing behind
+/prep7 !still nothing behind
+/prep7 * old style comment, this is allowed
+/prep7 this is an error
+@end example
+@example
+nsel,s,loc,x,1
+nsel = 3  !you CAN have variable names clashing with commands
+@end example
+
+@example
+!@@@@ -- Goto branching --
+*go,:branch
+aselsalsdkfjaölsdkfjaölskdjf,all
+:branch
+@end example
+
+@example
+!-----------------------------------------------------------------------
+! mdlbl.mac
+! Puts Modal Info on Plot
+!-----------------------------------------------------------------------
+/post1
+set,last
+*get,nmd,active,,set,sbst
+pfct= $ ffrq= $ adir=
+nsel,s,l
+
+*dim,pfct,,nmd,6
+    ,
+    ,ffrq,,nmd
+    ,adir,char,nmd
+
+
+adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
+*stat,adir
+*do,i,1,nmd
+  *get,ffrq(i),mode,i,freq
+  *do,j,1,6
+    *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
+  *enddo
+*enddo
+/annot,delete
+/plopt,info,0
+/plopt,minm,off
+/triad,off
+/erase
+iadd = arg1
+*if,iadd,eq,0,then
+  iadd = 1
+*endif
+/tspe,15,1,1,0,0
+/TSPE, 15, 1.000,   1,   0,   0
+xx = 1.05
+yy = .9
+!  Change the window settings if you need different
+!  aspect ratios for your geometry
+/win,1,-1,1,.5,1
+    ,2,-1,1,0,.5
+    ,3,-1,1,-.5,0
+    ,4,-1,1,-1,-.5
+!
+/win,2,off
+/win,3,off
+/win,4,off
+
+*get,vx,graph,1,view,x
+*get,vy,graph,1,view,y
+*get,vz,graph,1,view,z
+*get,va,graph,1,angle
+*get,vd,graph,1,dist
+*do,i,2,4
+  /view,i,vx,vy,vz
+  /dist,i,vd
+  /angle,i,va
+*enddo
+
+*do,i,1,4
+  ii = i - 1 + iadd
+  set,1,ii
+  plnsol,u,sum
+  *if,i,eq,1,then
+    /noerase
+  *endif
+  /win,i,off
+  *if,i,ne,4,then
+    /win,i+1,on
+  *endif
+*enddo
+*do,i,1,4
+  ii = i - 1 + iadd
+  /TLAB, xx, yy  ,Mode: %ii%
+  yy = yy - .05
+  /TLAB, xx, yy,Freq: %ffrq(ii)%
+  yy = yy - .05
+  *do,j,1,6
+    /TLAB, xx, yy  ,PF %adir(j)%: %pfct(ii,j)%
+    yy = yy - .05
+  *enddo
+   yy = yy -.11
+*enddo
+/erase
+/annot,delete
+sz = .8
+xloc = 0
+yloc = 0
+
+*dim,data,,5
+data(1) = 12,15,28,10,32
+hsz = sz/2
+
+/pspec,0,1,1
+/poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+         1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+
+x0 = xloc + hsz
+y0 = yloc + .7*hsz
+lof = .05
+
+*vscfun,dsum,sum,data(1)
+/LSPE, 15, 0, 1.000
+/TSPEC, 15, 0.700, 1, 0, 0
+ang1 = 0
+*do,i,1,5
+  ang2 = ang1 + (360*data(i)/dsum)
+  /PSPE, 2*i, 1, 1
+  /PWED, xloc,yloc,sz*.4, ang1,ang2
+  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof
+  pvl = 100*data(i)/dsum
+  /tlab, x0+1.5*lof,y0, %pvl% %
+
+  y0 = y0 - 1.5*lof
+  ang1 = ang2
+*enddo
+/eof
+@end example
+
+@node Invoking sample
+@chapter Invoking sample
+
+@pindex sample
+@cindex invoking @command{sample}
+
+This is a sample manual.  There is no sample program to invoke, but
+if there were, you could see its basic usage and command line
+options here.
+
+@node GNU Free Documentation License
+@appendix GNU Free Documentation License
+
+@example
+                GNU Free Documentation License
+                 Version 1.3, 3 November 2008
+
+
+ Copyright (C) 2000, 2001, 2002, 2007, 2008 Free Software Foundation, Inc.
+     <https://fsf.org/>
+ Everyone is permitted to copy and distribute verbatim copies
+ of this license document, but changing it is not allowed.
+
+0. PREAMBLE
+
+The purpose of this License is to make a manual, textbook, or other
+functional and useful document "free" in the sense of freedom: to
+assure everyone the effective freedom to copy and redistribute it,
+with or without modifying it, either commercially or noncommercially.
+Secondarily, this License preserves for the author and publisher a way
+to get credit for their work, while not being considered responsible
+for modifications made by others.
+
+This License is a kind of "copyleft", which means that derivative
+works of the document must themselves be free in the same sense.  It
+complements the GNU General Public License, which is a copyleft
+license designed for free software.
+
+We have designed this License in order to use it for manuals for free
+software, because free software needs free documentation: a free
+program should come with manuals providing the same freedoms that the
+software does.  But this License is not limited to software manuals;
+it can be used for any textual work, regardless of subject matter or
+whether it is published as a printed book.  We recommend this License
+principally for works whose purpose is instruction or reference.
+
+
+1. APPLICABILITY AND DEFINITIONS
+
+This License applies to any manual or other work, in any medium, that
+contains a notice placed by the copyright holder saying it can be
+distributed under the terms of this License.  Such a notice grants a
+world-wide, royalty-free license, unlimited in duration, to use that
+work under the conditions stated herein.  The "Document", below,
+refers to any such manual or work.  Any member of the public is a
+licensee, and is addressed as "you".  You accept the license if you
+copy, modify or distribute the work in a way requiring permission
+under copyright law.
+
+A "Modified Version" of the Document means any work containing the
+Document or a portion of it, either copied verbatim, or with
+modifications and/or translated into another language.
+
+A "Secondary Section" is a named appendix or a front-matter section of
+the Document that deals exclusively with the relationship of the
+publishers or authors of the Document to the Document's overall
+subject (or to related matters) and contains nothing that could fall
+directly within that overall subject.  (Thus, if the Document is in
+part a textbook of mathematics, a Secondary Section may not explain
+any mathematics.)  The relationship could be a matter of historical
+connection with the subject or with related matters, or of legal,
+commercial, philosophical, ethical or political position regarding
+them.
+
+The "Invariant Sections" are certain Secondary Sections whose titles
+are designated, as being those of Invariant Sections, in the notice
+that says that the Document is released under this License.  If a
+section does not fit the above definition of Secondary then it is not
+allowed to be designated as Invariant.  The Document may contain zero
+Invariant Sections.  If the Document does not identify any Invariant
+Sections then there are none.
+
+The "Cover Texts" are certain short passages of text that are listed,
+as Front-Cover Texts or Back-Cover Texts, in the notice that says that
+the Document is released under this License.  A Front-Cover Text may
+be at most 5 words, and a Back-Cover Text may be at most 25 words.
+
+A "Transparent" copy of the Document means a machine-readable copy,
+represented in a format whose specification is available to the
+general public, that is suitable for revising the document
+straightforwardly with generic text editors or (for images composed of
+pixels) generic paint programs or (for drawings) some widely available
+drawing editor, and that is suitable for input to text formatters or
+for automatic translation to a variety of formats suitable for input
+to text formatters.  A copy made in an otherwise Transparent file
+format whose markup, or absence of markup, has been arranged to thwart
+or discourage subsequent modification by readers is not Transparent.
+An image format is not Transparent if used for any substantial amount
+of text.  A copy that is not "Transparent" is called "Opaque".
+
+Examples of suitable formats for Transparent copies include plain
+ASCII without markup, Texinfo input format, LaTeX input format, SGML
+or XML using a publicly available DTD, and standard-conforming simple
+HTML, PostScript or PDF designed for human modification.  Examples of
+transparent image formats include PNG, XCF and JPG.  Opaque formats
+include proprietary formats that can be read and edited only by
+proprietary word processors, SGML or XML for which the DTD and/or
+processing tools are not generally available, and the
+machine-generated HTML, PostScript or PDF produced by some word
+processors for output purposes only.
+
+The "Title Page" means, for a printed book, the title page itself,
+plus such following pages as are needed to hold, legibly, the material
+this License requires to appear in the title page.  For works in
+formats which do not have any title page as such, "Title Page" means
+the text near the most prominent appearance of the work's title,
+preceding the beginning of the body of the text.
+
+The "publisher" means any person or entity that distributes copies of
+the Document to the public.
+
+A section "Entitled XYZ" means a named subunit of the Document whose
+title either is precisely XYZ or contains XYZ in parentheses following
+text that translates XYZ in another language.  (Here XYZ stands for a
+specific section name mentioned below, such as "Acknowledgements",
+"Dedications", "Endorsements", or "History".)  To "Preserve the Title"
+of such a section when you modify the Document means that it remains a
+section "Entitled XYZ" according to this definition.
+
+The Document may include Warranty Disclaimers next to the notice which
+states that this License applies to the Document.  These Warranty
+Disclaimers are considered to be included by reference in this
+License, but only as regards disclaiming warranties: any other
+implication that these Warranty Disclaimers may have is void and has
+no effect on the meaning of this License.
+
+2. VERBATIM COPYING
+
+You may copy and distribute the Document in any medium, either
+commercially or noncommercially, provided that this License, the
+copyright notices, and the license notice saying this License applies
+to the Document are reproduced in all copies, and that you add no
+other conditions whatsoever to those of this License.  You may not use
+technical measures to obstruct or control the reading or further
+copying of the copies you make or distribute.  However, you may accept
+compensation in exchange for copies.  If you distribute a large enough
+number of copies you must also follow the conditions in section 3.
+
+You may also lend copies, under the same conditions stated above, and
+you may publicly display copies.
+
+
+3. COPYING IN QUANTITY
+
+If you publish printed copies (or copies in media that commonly have
+printed covers) of the Document, numbering more than 100, and the
+Document's license notice requires Cover Texts, you must enclose the
+copies in covers that carry, clearly and legibly, all these Cover
+Texts: Front-Cover Texts on the front cover, and Back-Cover Texts on
+the back cover.  Both covers must also clearly and legibly identify
+you as the publisher of these copies.  The front cover must present
+the full title with all words of the title equally prominent and
+visible.  You may add other material on the covers in addition.
+Copying with changes limited to the covers, as long as they preserve
+the title of the Document and satisfy these conditions, can be treated
+as verbatim copying in other respects.
+
+If the required texts for either cover are too voluminous to fit
+legibly, you should put the first ones listed (as many as fit
+reasonably) on the actual cover, and continue the rest onto adjacent
+pages.
+
+If you publish or distribute Opaque copies of the Document numbering
+more than 100, you must either include a machine-readable Transparent
+copy along with each Opaque copy, or state in or with each Opaque copy
+a computer-network location from which the general network-using
+public has access to download using public-standard network protocols
+a complete Transparent copy of the Document, free of added material.
+If you use the latter option, you must take reasonably prudent steps,
+when you begin distribution of Opaque copies in quantity, to ensure
+that this Transparent copy will remain thus accessible at the stated
+location until at least one year after the last time you distribute an
+Opaque copy (directly or through your agents or retailers) of that
+edition to the public.
+
+It is requested, but not required, that you contact the authors of the
+Document well before redistributing any large number of copies, to
+give them a chance to provide you with an updated version of the
+Document.
+
+
+4. MODIFICATIONS
+
+You may copy and distribute a Modified Version of the Document under
+the conditions of sections 2 and 3 above, provided that you release
+the Modified Version under precisely this License, with the Modified
+Version filling the role of the Document, thus licensing distribution
+and modification of the Modified Version to whoever possesses a copy
+of it.  In addition, you must do these things in the Modified Version:
+
+A. Use in the Title Page (and on the covers, if any) a title distinct
+   from that of the Document, and from those of previous versions
+   (which should, if there were any, be listed in the History section
+   of the Document).  You may use the same title as a previous version
+   if the original publisher of that version gives permission.
+B. List on the Title Page, as authors, one or more persons or entities
+   responsible for authorship of the modifications in the Modified
+   Version, together with at least five of the principal authors of the
+   Document (all of its principal authors, if it has fewer than five),
+   unless they release you from this requirement.
+C. State on the Title page the name of the publisher of the
+   Modified Version, as the publisher.
+D. Preserve all the copyright notices of the Document.
+E. Add an appropriate copyright notice for your modifications
+   adjacent to the other copyright notices.
+F. Include, immediately after the copyright notices, a license notice
+   giving the public permission to use the Modified Version under the
+   terms of this License, in the form shown in the Addendum below.
+G. Preserve in that license notice the full lists of Invariant Sections
+   and required Cover Texts given in the Document's license notice.
+H. Include an unaltered copy of this License.
+I. Preserve the section Entitled "History", Preserve its Title, and add
+   to it an item stating at least the title, year, new authors, and
+   publisher of the Modified Version as given on the Title Page.  If
+   there is no section Entitled "History" in the Document, create one
+   stating the title, year, authors, and publisher of the Document as
+   given on its Title Page, then add an item describing the Modified
+   Version as stated in the previous sentence.
+J. Preserve the network location, if any, given in the Document for
+   public access to a Transparent copy of the Document, and likewise
+   the network locations given in the Document for previous versions
+   it was based on.  These may be placed in the "History" section.
+   You may omit a network location for a work that was published at
+   least four years before the Document itself, or if the original
+   publisher of the version it refers to gives permission.
+K. For any section Entitled "Acknowledgements" or "Dedications",
+   Preserve the Title of the section, and preserve in the section all
+   the substance and tone of each of the contributor acknowledgements
+   and/or dedications given therein.
+L. Preserve all the Invariant Sections of the Document,
+   unaltered in their text and in their titles.  Section numbers
+   or the equivalent are not considered part of the section titles.
+M. Delete any section Entitled "Endorsements".  Such a section
+   may not be included in the Modified Version.
+N. Do not retitle any existing section to be Entitled "Endorsements"
+   or to conflict in title with any Invariant Section.
+O. Preserve any Warranty Disclaimers.
+
+If the Modified Version includes new front-matter sections or
+appendices that qualify as Secondary Sections and contain no material
+copied from the Document, you may at your option designate some or all
+of these sections as invariant.  To do this, add their titles to the
+list of Invariant Sections in the Modified Version's license notice.
+These titles must be distinct from any other section titles.
+
+You may add a section Entitled "Endorsements", provided it contains
+nothing but endorsements of your Modified Version by various
+parties--for example, statements of peer review or that the text has
+been approved by an organization as the authoritative definition of a
+standard.
+
+You may add a passage of up to five words as a Front-Cover Text, and a
+passage of up to 25 words as a Back-Cover Text, to the end of the list
+of Cover Texts in the Modified Version.  Only one passage of
+Front-Cover Text and one of Back-Cover Text may be added by (or
+through arrangements made by) any one entity.  If the Document already
+includes a cover text for the same cover, previously added by you or
+by arrangement made by the same entity you are acting on behalf of,
+you may not add another; but you may replace the old one, on explicit
+permission from the previous publisher that added the old one.
+
+The author(s) and publisher(s) of the Document do not by this License
+give permission to use their names for publicity for or to assert or
+imply endorsement of any Modified Version.
+
+
+5. COMBINING DOCUMENTS
+
+You may combine the Document with other documents released under this
+License, under the terms defined in section 4 above for modified
+versions, provided that you include in the combination all of the
+Invariant Sections of all of the original documents, unmodified, and
+list them all as Invariant Sections of your combined work in its
+license notice, and that you preserve all their Warranty Disclaimers.
+
+The combined work need only contain one copy of this License, and
+multiple identical Invariant Sections may be replaced with a single
+copy.  If there are multiple Invariant Sections with the same name but
+different contents, make the title of each such section unique by
+adding at the end of it, in parentheses, the name of the original
+author or publisher of that section if known, or else a unique number.
+Make the same adjustment to the section titles in the list of
+Invariant Sections in the license notice of the combined work.
+
+In the combination, you must combine any sections Entitled "History"
+in the various original documents, forming one section Entitled
+"History"; likewise combine any sections Entitled "Acknowledgements",
+and any sections Entitled "Dedications".  You must delete all sections
+Entitled "Endorsements".
+
+
+6. COLLECTIONS OF DOCUMENTS
+
+You may make a collection consisting of the Document and other
+documents released under this License, and replace the individual
+copies of this License in the various documents with a single copy
+that is included in the collection, provided that you follow the rules
+of this License for verbatim copying of each of the documents in all
+other respects.
+
+You may extract a single document from such a collection, and
+distribute it individually under this License, provided you insert a
+copy of this License into the extracted document, and follow this
+License in all other respects regarding verbatim copying of that
+document.
+
+
+7. AGGREGATION WITH INDEPENDENT WORKS
+
+A compilation of the Document or its derivatives with other separate
+and independent documents or works, in or on a volume of a storage or
+distribution medium, is called an "aggregate" if the copyright
+resulting from the compilation is not used to limit the legal rights
+of the compilation's users beyond what the individual works permit.
+When the Document is included in an aggregate, this License does not
+apply to the other works in the aggregate which are not themselves
+derivative works of the Document.
+
+If the Cover Text requirement of section 3 is applicable to these
+copies of the Document, then if the Document is less than one half of
+the entire aggregate, the Document's Cover Texts may be placed on
+covers that bracket the Document within the aggregate, or the
+electronic equivalent of covers if the Document is in electronic form.
+Otherwise they must appear on printed covers that bracket the whole
+aggregate.
+
+
+8. TRANSLATION
+
+Translation is considered a kind of modification, so you may
+distribute translations of the Document under the terms of section 4.
+Replacing Invariant Sections with translations requires special
+permission from their copyright holders, but you may include
+translations of some or all Invariant Sections in addition to the
+original versions of these Invariant Sections.  You may include a
+translation of this License, and all the license notices in the
+Document, and any Warranty Disclaimers, provided that you also include
+the original English version of this License and the original versions
+of those notices and disclaimers.  In case of a disagreement between
+the translation and the original version of this License or a notice
+or disclaimer, the original version will prevail.
+
+If a section in the Document is Entitled "Acknowledgements",
+"Dedications", or "History", the requirement (section 4) to Preserve
+its Title (section 1) will typically require changing the actual
+title.
+
+
+9. TERMINATION
+
+You may not copy, modify, sublicense, or distribute the Document
+except as expressly provided under this License.  Any attempt
+otherwise to copy, modify, sublicense, or distribute it is void, and
+will automatically terminate your rights under this License.
+
+However, if you cease all violation of this License, then your license
+from a particular copyright holder is reinstated (a) provisionally,
+unless and until the copyright holder explicitly and finally
+terminates your license, and (b) permanently, if the copyright holder
+fails to notify you of the violation by some reasonable means prior to
+60 days after the cessation.
+
+Moreover, your license from a particular copyright holder is
+reinstated permanently if the copyright holder notifies you of the
+violation by some reasonable means, this is the first time you have
+received notice of violation of this License (for any work) from that
+copyright holder, and you cure the violation prior to 30 days after
+your receipt of the notice.
+
+Termination of your rights under this section does not terminate the
+licenses of parties who have received copies or rights from you under
+this License.  If your rights have been terminated and not permanently
+reinstated, receipt of a copy of some or all of the same material does
+not give you any rights to use it.
+
+
+10. FUTURE REVISIONS OF THIS LICENSE
+
+The Free Software Foundation may publish new, revised versions of the
+GNU Free Documentation License from time to time.  Such new versions
+will be similar in spirit to the present version, but may differ in
+detail to address new problems or concerns.  See
+https://www.gnu.org/licenses/.
+
+Each version of the License is given a distinguishing version number.
+If the Document specifies that a particular numbered version of this
+License "or any later version" applies to it, you have the option of
+following the terms and conditions either of that specified version or
+of any later version that has been published (not as a draft) by the
+Free Software Foundation.  If the Document does not specify a version
+number of this License, you may choose any version ever published (not
+as a draft) by the Free Software Foundation.  If the Document
+specifies that a proxy can decide which future versions of this
+License can be used, that proxy's public statement of acceptance of a
+version permanently authorizes you to choose that version for the
+Document.
+
+11. RELICENSING
+
+"Massive Multiauthor Collaboration Site" (or "MMC Site") means any
+World Wide Web server that publishes copyrightable works and also
+provides prominent facilities for anybody to edit those works.  A
+public wiki that anybody can edit is an example of such a server.  A
+"Massive Multiauthor Collaboration" (or "MMC") contained in the site
+means any set of copyrightable works thus published on the MMC site.
+
+"CC-BY-SA" means the Creative Commons Attribution-Share Alike 3.0 
+license published by Creative Commons Corporation, a not-for-profit 
+corporation with a principal place of business in San Francisco, 
+California, as well as future copyleft versions of that license 
+published by that same organization.
+
+"Incorporate" means to publish or republish a Document, in whole or in 
+part, as part of another Document.
+
+An MMC is "eligible for relicensing" if it is licensed under this 
+License, and if all works that were first published under this License 
+somewhere other than this MMC, and subsequently incorporated in whole or 
+in part into the MMC, (1) had no cover texts or invariant sections, and 
+(2) were thus incorporated prior to November 1, 2008.
+
+The operator of an MMC Site may republish an MMC contained in the site
+under CC-BY-SA on the same site at any time before August 1, 2009,
+provided the MMC is eligible for relicensing.
+
+
+ADDENDUM: How to use this License for your documents
+
+To use this License in a document you have written, include a copy of
+the License in the document and put the following copyright and
+license notices just after the title page:
+
+    Copyright (c)  YEAR  YOUR NAME.
+    Permission is granted to copy, distribute and/or modify this document
+    under the terms of the GNU Free Documentation License, Version 1.3
+    or any later version published by the Free Software Foundation;
+    with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
+    A copy of the license is included in the section entitled "GNU
+    Free Documentation License".
+
+If you have Invariant Sections, Front-Cover Texts and Back-Cover Texts,
+replace the "with...Texts." line with this:
+
+    with the Invariant Sections being LIST THEIR TITLES, with the
+    Front-Cover Texts being LIST, and with the Back-Cover Texts being LIST.
+
+If you have Invariant Sections without Cover Texts, or some other
+combination of the three, merge those two alternatives to suit the
+situation.
+
+If your document contains nontrivial examples of program code, we
+recommend releasing these examples in parallel under your choice of
+free software license, such as the GNU General Public License,
+to permit their use in free software.
+@end example
+
+@node Index
+@chapter Index
+
+@printindex cp
+
+Emacs 26.3 (Org mode 9.3.6)
+@bye

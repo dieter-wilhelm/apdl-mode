@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-24>
+#+DATE: Time-stamp: <2020-03-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE: Guided APDL-Mode hands-on Tutorial
 
@@ -81,7 +81,7 @@
 
 * Introduction
   #+attr_html: :width 600
-  [[./ansys+emacs.png]]
+  [[./ansys+emacs2020-03.png]]
 
    Being an editor mode, we are mainly dealing with text, i. e. APDL
    code.  But *also* many things in this language's context.

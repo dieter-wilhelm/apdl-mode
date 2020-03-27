@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-26>
+;; Time-stamp: <2020-03-27>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -83,8 +83,9 @@
 
 (defcustom apdl-license-occur-regexp
   '("electronics_desktop"
-    "a_spaceclaim_dirmod"
-    "disc"				; disc* -- discovery
+    "a_spaceclaim_dirmod"		; spaceclaim
+;;    "agppi"				; agppi -- Design Modeler
+    "disc"				; disc* -- discovery procucts
     "aim_mp"				; aim_mp -- Discovery Aim
 					; standard
     "stba"				; stba -- structural solver
@@ -93,12 +94,11 @@
     "ane3"				; ane3 -- magnetics
 					; ane3fl -- multiphysics
     "^ansys"				; ansys -- structural
-    "anshpc"				; anshpc -- HPC licenses
+    "anshpc"				; anshpc -- HighPerformanceComputing
     "^preppost"				; preppost -- PrePost
 					; processing
     "mech_"				; mech_1 -- mechanical pro
 					; mech_2 -- mechanical premium
-    "agppi"				; agppi -- Design Modeler
     "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]")	; and time XX:XX:XX of status
 					; request
   "List of strings of interesting licenses.
@@ -916,7 +916,7 @@ burying it."
   (cond
    ((and apdl-lmutil-program apdl-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
-    (message "Retrieving user license (%s) status, this may take some time..." apdl-license)
+    (message "Retrieving user license status, this may take some time...")
     (with-current-buffer (get-buffer-create "*User-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
@@ -966,14 +966,15 @@ burying it."
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")
                             'face 'match))
-        ;; higlight current -license-type
-        (goto-char (point-min))
-        (search-forward-regexp apdl-license nil t)
-        (forward-line)
-        (setq eol (point))
-        (forward-line -1)
-        (setq bol (point))
-        (put-text-property bol eol 'face 'font-lock-warning-face)
+        ;; ;; higlight current -license-type
+        ;; (goto-char (point-min))
+        ;; (search-forward-regexp apdl-license nil t)
+        ;; (forward-line)
+        ;; (setq eol (point))
+        ;; (forward-line -1)
+        ;; (setq bol (point))
+        ;; (put-text-property bol eol 'face 'font-lock-warning-face)
+
         ;;  on Windows the license stat buffer doesn't move to point without:
         (unless apdl-is-unix-system-flag
           (set-window-point (get-buffer-window "*User-licenses*") (point)))))

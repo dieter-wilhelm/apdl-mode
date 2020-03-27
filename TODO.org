@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-25>
+#+DATE: Time-stamp: <2020-03-27>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,11 +19,17 @@
      # (defun superfrobnicator-fetch-image (file)
      #   (expand-file-name file superfrobnicator-base))
 
-* TODO Version 20.4.0, info docu?
+* Version 20.5.0, info docu?
+
+* TODO Version 20.4.0, completion and help updated to 2020R1
+  DEADLINE: <2020-04-27 Mo>
 ** Todos, bugs
+   - Update -config.org with new defcustoms
    - Update and centralise DOCUs, info style?
+*** COMMENT State of documentation
      - C-u info file
      - package with file "dir"
+     - only up to 3 *** levels!?
      - customise system (explain `M-x customize-set-value' as long as
        (debbugs-gnu-bugs 25678) is not solved)
      - do we need a short help, yes for installation + config + first
@@ -48,6 +54,47 @@
        - tutorial
        - bugs
      - find nice style css stuff for html export?
+
+    Focus: Marketing and get it going, then details
+    help + templates
+
+    - Presentations
+      - Präsentation Intro, tutorial
+      - in-dept present.
+      - APDL reference
+
+    - README.org
+      - Intro
+      - Highlights, features
+      - Installation
+      - Short Usage / tutorial
+      - Configuration
+      - Bugs / problems
+      - Resources
+      - GNU GPL License
+      - Acknowledgments
+      - TODOs
+
+    - info (with or without image?)
+      - First steps / tutorial <-> short usage
+      - in-dept usage <-> in-dept presentation?u
+      - [X] copying, do we need it really?
+      - [X] config OK consolidate tangle org
+      - [ ] Usage / applications
+	- templates
+      - [X] APDL reference OK
+      - [X] news OK
+      - [X] Resources OK
+      - [ ] Bugs and Problems
+      - [X] GNU FDL License
+      - [X] todo OK
+      - [ ] index?
+
+    - Mode help, done :-)
+      - short intro general description
+      - reference / link! to info!!!! ;-)
+      - keybindings,  that is special
+
 ** minor bugs
    - fmagsum in -template-post1 not fontified
    - APDL-Mode documentation is only shown in default browswer, not
@@ -71,7 +118,7 @@
     4) Start optionally runbWB2 --aim, Discovery AIM
     5) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
-    6) Melpa README, better wait till emacs-27?
+    6) Melpa README, better wait till emacs-27
 ** Done
 ** Release proceedures
 

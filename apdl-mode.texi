@@ -9,7 +9,7 @@
 
 @dircategory Development
 @direntry
-* (apdl-mode)Top.       Major mode for the scripting language APDL.
+* APDL-Mode: (apdl-mode). Major mode for the scripting language APDL.
 @end direntry
 
 @finalout

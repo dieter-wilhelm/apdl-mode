@@ -19,19 +19,22 @@
      # (defun superfrobnicator-fetch-image (file)
      #   (expand-file-name file superfrobnicator-base))
 
-* Version 20.5.0, info docu?
+* Version 20.5.0?
 
 * TODO Version 20.4.0, completion and help updated to 2020R1
   DEADLINE: <2020-04-27 Mo>
 ** Todos, bugs
-   - user-error: Info file top does not exist
-   - Update -config.org with new defcustoms
-   - Update and centralise DOCUs, info style?
+   - Update -config.org with the new defcustoms
+   - work on the Info index
 *** COMMENT State of documentation
+     - image directory in .info file is not existing in Melpa! Do we
+       need images in the manual?
      - #+include: #+title adds to info title!
      - C-u info file
      - package with file "dir"
-     - only up to 3 *** levels!?
+     - only up to 3 *** levels! configurable?
+     - info doesn't have links, yet
+     - info doesn't know about clickablefunction links
      - customise system (explain `M-x customize-set-value' as long as
        (debbugs-gnu-bugs 25678) is not solved)
      - do we need a short help, yes for installation + config + first

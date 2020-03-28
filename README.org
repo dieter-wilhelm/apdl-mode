@@ -36,44 +36,9 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 [[file:doc/ansys+emacs2020-03.png]]
 
 * Introduction
-  APDL ([[https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language][Ansys Parametric Design Language]]) is the solver scripting
-  language of the mechanical FEA (Finite Element Analysis) suite [[http://www.ansys.com][Ansys]]
-  (ANalysis SYStem, registered TM).
-
-  APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
-  [[https://www.gnu.org/software/emacs/][GNU-Emacs]] editor - an advanced APDL environment with features like,
-  pin-pointing the APDL reference documentation, keyword completion,
-  code templates, dedicated highlighting, solver communication
-  (GNU-Linux only), license reporting, etc.  Over the years it has
-  accumulated lots of features for writing and debugging FEA complete
-  models in APDL code. Please convince yourself with the APDL-Mode
-  in-depth documentation.
-
-  With the advent of the modern Ansys GUIs - like `WorkBench' or
-  `Discovery AIM' - the usage of APDL as a wholesale modelling
-  language has diminished for non automated tasks.  But APDL is here
-  to stay: `WorkBench' and `AIM' operate exclusively the Ansys solver
-  with it!  They are producing and sending APDL input (.dat) files to
-  the solver.  For a true understanding of the GUIs' inner workings a
-  study of their APDL code is prerequisite!  Moreover, the GUIs are
-  not supporting all solver features.  So "Command (APDL)" snippets
-  are used to enhance the GUIs' modelling capabilities.
-
-  Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
-  files which were created by WorkBench.  And, especially, for writing
-  WorkBench `Command' snippets and inspecting longer snippets from
-  other sources.  Accessing swiftly the Ansys APDL reference
-  documentation alone is worth using APDL-Mode!
-
-  When you "Export" (or "Import") such a WorkBench Command (APDL)
-  object it becomes associated with a file and is editable with a
-  third party editor.
+  #+include:./info/introduction.org
 
   [[file:doc/connect_command_snippet_to_file.png]]
-
-  When you have modified the file then the "File Status" in Workbench
-  changes and you can pull-in the updated content with the "Refresh"
-  button.
 
 * Some Highlights
 ** In-built APDL command help with argument counter
@@ -118,76 +83,10 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
    [[file:doc/ansys-mode.jpg]]
 * Installation
-  Please install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] first, you should install at least Emacs
-  version 25.1.  (If you are new to this editor please check the
-  tutorial in its `Help' menu, please really do it ;-)
-** Melpa
-   APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]].
+  #+include: ./info/INSTALLATION.org
 
-   [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
-   [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
-
-   Please add
-   #+begin_src elisp
-   (add-to-list 'package-archives
-	     '("melpa" . "https://melpa.org/packages/") t)
-   #+end_src
-
-   to your initialisation file.  Then type: `M-x list-packages', find
-   `apdl-mode', mark it with `i' and install it with `x'.
-
-   If you prefer the stable package archive instead of development
-   versions exchange above package source with
-   #+begin_src elisp
-      (add-to-list 'package-archives
-      '("melpa-stable" . "https://stable.melpa.org/packages/") t)
-   #+end_src
-
-** Manual installation
-   If you are behind a corporate firewall and you are not able to
-   install APDL-Mode from Emacs' package menu, you can download and
-   install APDL-Mode manually:
-
-   - Download the latest APDL-Mode's tar package from [[https://melpa.org/#/apdl-mode][Melpa]] or - for a
-     released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
-   - Install the package within Emacs: Please type `M-x
-     package-install-file <RET>' and select your downloaded tar file.
-
-   That's it.
-
-   *Hint:* If you are getting an error message "package.el is not yet
-   initialized", you are using Emacs' packaging system for the very
-   first time.  It is necessary to initialise this machinery once,
-   please type: `M-: (package-initialize) <RET>' and then apply `M-x
-   package-install-file <RET>' again.
-
-** Development and source code installation
-   Please clone the APDL-Mode git archive in a directory of your
-   choice:
-   #+begin_src sh
-     git clone https://github.com/dieter-wilhelm/apdl-mode.git
-   #+end_src
-   or download the Github ZIP archive and add the following line
-   #+begin_src elisp
-   (require 'apdl-mode)
-   #+end_src
-   to your initialisation file (the source directory must be set in
-   the `load-path' variable as well).
-* Usage
-  Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
-  inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
-  APDL files please type `M-x apdl-mode' to start this mode or
-  configure Emacs to auto-load it for certain file suffixes, please
-  see the following section.
-
-  For further guidance please select `Describe APDL-Mode' (or type
-  `C-h m'), which will display the mode's help.  You might also check
-  the introductory APDL-Mode [[file:doc/A-M_introductory_tutorial.org][tutorial]].
-
-  APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
-  well as under Emacs-25 and 26 under GNU-Linux and Windows.
-
-  The complete documentation of APDL-Mode is available [[http://dieter-wilhelm.github.io/apdl-mode][online]].
+* First Steps
+  #+include: ./info/first_steps.org
 * Configuration and Customisation
   Most functionality of APDL-Mode is working without additional
   configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -198,74 +97,25 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   APDL-Mode configures GNU-Emacs to open all files with the suffixes
   ".mac", ".dat" and ".inp" under apdl-mode.
 
-  # I recommend configuring GNU-Emacs to autoload APDL-Mode for certain
-  # file endings, especially the `.mac' suffix.
-
-  # #+begin_src elisp
-  #   ;; Traditional APDL file suffixes
-  #   (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
-  #   (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
-  #   ;; Workbench solver file suffixes
-  #   (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
-  #   (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
-  #   ;; Ansys neutral geometry file suffix
-  #   (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
-  # #+end_src
-
   Please read [[file:doc/apdl-config.org][apdl-config.org]], or the accompanying configuration
   example [[file:doc/ansys-config.el][file]] for further details.
 * Bugs and Problems
-  Please write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Trigger a bug report
-  form from the APDL-Mode menu or by calling the function
-  `apdl-submit-bug-report'.  Even if you have not configured Emacs to
-  send emails, please copy the content of the mail template for the
-  maintainer.
-
-  You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]].  And
-  you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
-  [[https://www.emacswiki.org][Emacs Wiki]].
+  #+include: ./info/bugs.org
 * News
   APDL-Mode's completions- and help system is updated to Ansys 2020R1.
-  For further news please have a look into the [[file:NEWS.org][NEWS]] file.
+  For further news please have a look into the [[file:info/NEWS.org][NEWS]] file.
 * Further Resources
-** Ansys and APDL resources
-   - The online Ansys [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
-     the Ansys [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
-   - The [[http://www.ansys.com][Ansys homepage]] with the Ansys Portal and Learning Hub
-   - Xansys, an [[http://www.xansys.org][Ansys online community]] (forum registration is necessary)
-   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.
-   - A general  Ansys repository [[http://www.ansys.net][Ansys.net]]
-   - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
-** Emacs editor resources
-   - The [[https://www.gnu.org/software/emacs/tour/index.html][guided Tour]] of GNU-Emacs
-   - Emacs' [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site for Emacs
-   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for everything Emacs related
-   - The [[mailto:help-gnu-emacs@gnu.org][Emacs help]] mailing list
-** Other APDL editor resources
-   - Since Ansys 2020R1 the Command (APDL) worksheet acquired -
-     finally - syntax highlighting and command completion
-   - The Ansys [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, published in 2017
-     (and not maintained since then?)
-   - Simple APDL syntax highlighting extensions are available for
-     various editors, gvim, nedit, ... to name a few, please have a
-     look at [[https://ansys.net][Ansys.net]]
-   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
-     Windows, project disbanded in 2015
-   - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011
-* License
-  The GNU GPL v3, the GNU General Public license version 3.  There are
-  no costs and no usage restrictions even in commercial application,
-  please read the [[file:LICENSE][LICENSE]] file.
+  If you want to read further details regarding the APDL scripting,
+  GNU-Emacs and other APDL editors please read the [[file:info/resources.org][RESOURCES]] file.
+  #  #+include: ./info/resources.org
+* GNU GPL v3 License
+  The GNU General Public License version 3.  There are no costs and no
+  usage restrictions even in commercial application, please convince
+  yourself with the [[file:info/LICENSE][LICENSE]] file.
 * Acknowledgements
-  Acknowledgements to Tim Read and Geoff Foster for their ansys-mod.el
-  from 1997 which triggered the idea in 2006 to start apdl-mode.
-
-  Parts of APDL-Mode were base on octave-mod.el: Copyright (C) 1997
-  Free Software Foundation, Inc.  Author: [[mailto:Kurt.Hornik@wu-wien.ac.at][Kurt Hornik]]
-  Author: [[mailto:jwe@bevo.che.wisc.edu][John Eaton]]
-
+  #+include: ./info/acknowledgements.org
 * TODOs
-  Please check the [[file:TODO.org][TODO]] file
+  Please check the [[file:info/TODO.org][TODO]] file.
 -----
 
 # The following is for Emacs

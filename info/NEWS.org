@@ -21,7 +21,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - Updated keywords to Ansys 2020R1 (v201)
    - Added documentation in GNU Info format and modified the menu
      entry APDL-Mode Online Documentation to APDL-Mode Documentation
-     which points to the GNU-Emacs internal Info Viewer (C-h i).
+     (C-c C-h) which points to the GNU-Emacs internal Info Viewer.
    - Added a menu entry for displaying the user's taken licenses
    - Files with the suffixes ".mac", ".dat" and ".inp" are openend in
      apdl-mode without further user configuration.

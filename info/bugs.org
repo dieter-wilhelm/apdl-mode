@@ -1,0 +1,29 @@
+Feedback is always welcome.  If you have issues while installing and
+running this mode or simply would like to suggest some improvements
+you have the following options:
+
+1) Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Please trigger a bug report
+   form from the APDL-Mode menu or by calling the function
+   `apdl-submit-bug-report'.  Even if you have not configured Emacs to
+   send emails, please copy the content of the mail template for the
+   maintainer.
+
+2) You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]]
+
+3) And you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
+   [[https://www.emacswiki.org][Emacs Wiki]].
+
+# - Write an email to the mode maintainer, please trigger a bug
+#   report form from the APDL menu or by calling the function
+#   `apdl-submit-bug-report' with \"\\[apdl-submit-bug-report]\".
+#   Even if you are not able to send emails directly via Emacs,
+#   this is, at least, a mail template with possibly valuable
+#   information like mode settings and Emacs internals.
+
+# - You might also issue a bug report at GitHub's APDL-Mode site
+#   https://github.com/dieter-wilhelm/apdl-mode/issues, where you
+#   will also find the latest versions of APDL-Mode.
+
+# - Or you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of Emacs
+#   Wiki.
+

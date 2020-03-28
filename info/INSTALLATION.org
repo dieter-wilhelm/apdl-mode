@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-16>
+#+DATE: Time-stamp: <2020-03-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -13,10 +13,67 @@
 #+LATEX_HEADER:
 
 #+STARTUP: showall
-#+title: INSTALLATION of APDL-Mode
+# #+title: INSTALLATION of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-* Requirements
+
+  Please install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] first, you should install at least Emacs
+  version 25.1.  (If you are new to this editor please check the
+  tutorial in its `Help' menu, please really do it ;-)
+* Melpa
+   APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]].
+
+   [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+   [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
+
+   Please add
+   #+begin_src elisp
+   (add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
+   #+end_src
+
+   to your initialisation file.  Then type: `M-x list-packages', find
+   `apdl-mode', mark it with `i' and install it with `x'.
+
+   If you prefer the stable package archive instead of development
+   versions exchange above package source with
+   #+begin_src elisp
+      (add-to-list 'package-archives
+      '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+   #+end_src
+
+* Manual installation
+   If you are behind a corporate firewall and you are not able to
+   install APDL-Mode from Emacs' package menu, you can download and
+   install APDL-Mode manually:
+
+   - Download the latest APDL-Mode's tar package from [[https://melpa.org/#/apdl-mode][Melpa]] or - for a
+     released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
+   - Install the package within Emacs: Please type `M-x
+     package-install-file <RET>' and select your downloaded tar file.
+
+   That's it.
+
+   *Hint:* If you are getting an error message "package.el is not yet
+   initialized", you are using Emacs' packaging system for the very
+   first time.  It is necessary to initialise this machinery once,
+   please type: `M-: (package-initialize) <RET>' and then apply `M-x
+   package-install-file <RET>' again.
+
+* Development and source code installation
+   Please clone the APDL-Mode git archive in a directory of your
+   choice:
+   #+begin_src sh
+     git clone https://github.com/dieter-wilhelm/apdl-mode.git
+   #+end_src
+   or download the Github ZIP archive and add the following line
+   #+begin_src elisp
+   (require 'apdl-mode)
+   #+end_src
+   to your initialisation file (the source directory must be set in
+   the `load-path' variable as well).
+
+* COMMENT Requirements
 
 This mode was tested with Emacs-26 under Win10 and GNU-Linux64.  It
 was also tested with Emacs-26 and should run with all older versions
@@ -25,7 +82,7 @@ of Emacs down to Emacs-23.
 Some of APDL-Mode's solver control and communication features are not
 yet implemented for Windows systems.
 
-* Installation
+* COMMENT Installation
 The versioning scheme (R20.1.0) is using the Ansys release year
 (2020).
 
@@ -93,7 +150,7 @@ automatically applied for all opened or created files with suffixes
   ;; "/usr/local/src/ansys-mode/ansys-mode-162-1/ansys-config"
 
 #+END_SRC
-* APDL-Mode files
+* COMMENT APDL-Mode files
  *Sources*:
  - ansys-mode.el: Main file
  - ansys-config.el: The configuration file
@@ -193,7 +250,7 @@ your system.
     Graphics support
     - libgif-dev
     - libmagickwand-dev (for imagemagick support)
-* Installing Ansys on Linux
+* COMMENT Installing Ansys on Linux
 ** Ansys 161 on Ubuntu 12.04 64 Bit
     The Ansys Help Viewer is running out of the box
 *** Classics GUI
@@ -268,7 +325,7 @@ your system.
 	apt-file search ld-lsb-x86
 	#+END_SRC
 
-* Changes in Emacs' default behaviour
+* COMMENT Changes in Emacs' default behaviour
 For experienced Emacs users: APDL-Mode changes the default behaviour
 of Emacs
 
@@ -292,7 +349,7 @@ on in the menu as well.
 - Changed `mark-paragraph' (M-h) to move the cursor to the end of the
   region
 
-* Bugs and Problems
+* COMMENT Bugs and Problems
 For an overview of deficiencies and outstanding issues please check
 the beginning of the [[file:TODO][TODO]] file.
 

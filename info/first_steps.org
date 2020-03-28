@@ -1,0 +1,15 @@
+  Please type `M-x apdl' which opens a buffer in APDL-Mode and you can
+  inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
+  APDL files please type `M-x apdl-mode' if the mode is not activated
+  already, please see the following Configuration section for the
+  pre-configured file suffixes.
+
+  For further guidance please select the APDL menu `APDL-Mode
+  Documentation' (or type `C-c C-h') and `Describe APDL-Mode' (or type
+  `C-h m') for the list of its keybindings.  You might also check the
+  introductory APDL-Mode [[file:doc/A-M_introductory_tutorial.org][tutorial]].
+
+  APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
+  well as under Emacs-25 and 26 under GNU-Linux and Windows.
+
+#  The complete documentation of APDL-Mode is available [[http://dieter-wilhelm.github.io/apdl-mode][online]].

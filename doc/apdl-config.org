@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-28 10:41:24 dieter>
+#+DATE: Time-stamp: <2020-03-28 22:11:00 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -25,116 +25,115 @@
 # #+TITLE: Configuration and Customisation of APDL-Mode
 #+text: Copyright (C) 2016 - 2020, H. Dieter Wilhelm, GPL V3
 
-Most functionality of APDL-Mode is working without configurations.
+Most functionality of APDL-Mode is working without additional
+configurations.  APDL-Mode is intelligent enough to figure out Ansys
+installation dependent paths.  For regular Ansys installations, it
+chooses by default the highest installed Ansys version on your system.
 
-For system dependent operations APDL-Mode is trying to guess the
-necessary parameters from default installation paths and / or
-environment variables.  (APDL-Mode is choosing the highest installed
-Ansys version.)
+APDL-Mode configures GNU-Emacs to open all files with the suffixes
+".mac", ".dat" and ".inp" under apdl-mode.
 
 The customisations itself are written in `Emacs-Lisp'.  The comment
 sign in this language is ~;~ (one semi-colon `;').
 
-* Conventions used in /apdl-config.el/
-Textual hints in /apdl-config.el/ are indicated with TWO semi-colons
-~;;~, please uncomment only the code lines with a SINGLE comment sign
-and change them when appropriate.
+* Conventions
+  used in /apdl-config.el/
+  Textual hints in /apdl-config.el/ are indicated with TWO semi-colons
+  ~;;~, please uncomment only the code lines with a SINGLE comment sign
+  and change them when appropriate.
 
-Please add the interesting code lines into your GNU-Emacs init file or
-load this file in the init file with `(load-file
-"PATH/apdl-config.el")'.
+  Please add the interesting code lines into your GNU-Emacs init file or
+  load this file in the init file with `(load-file
+  "PATH/apdl-config.el")'.
 
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
-;;; apdl-config.el --- Customisation example for APDL-Mode
-;; This file was built from the file "apdl-config.org".
+  #+BEGIN_SRC emacs-lisp :tangle yes :exports none
+    ;;; apdl-config.el --- Customisation example for APDL-Mode
+    ;; This file was built from the file "apdl-config.org".
 
-;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3
-;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.4.0
-;; Package-Requires: ((emacs "25.1"))
-;; Keywords: languages, convenience, tools, Ansys, APDL
-;; URL: https://github.com/dieter-wilhelm/apdl-mode
+    ;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3 Author:
+    ;; H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de> Version: 20.4.0
+    ;; Package-Requires: ((emacs "25.1")) Keywords: languages,
+    ;; convenience, tools, Ansys, APDL URL:
+    ;; https://github.com/dieter-wilhelm/apdl-mode
 
-;; Maintainer: H. Dieter Wilhelm
-;; Created: 2006-02
+    ;; Maintainer: H. Dieter Wilhelm
+    ;; Created: 2006-02
 
-;; Parts of this mode were originally base on octave-mod.el: Copyright
-;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
-;; <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
-;; <jwe@bevo.che.wisc.edu>
+    ;; Parts of this mode were originally base on octave-mod.el: Copyright
+    ;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
+    ;; <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
+    ;; <jwe@bevo.che.wisc.edu>
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; This code is free software; you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published
-;; by the Free Software Foundation; either version 3, or (at your
-;; option) any later version.
-;;
-;; This lisp script is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-;;
-;; Permission is granted to distribute copies of this lisp script
-;; provided the copyright notice and this permission are preserved in
-;; all copies.
-;;
-;; You should have received a copy of the GNU General Public License
-;; along with this program; if not, you can either send email to this
-;; program's maintainer or write to: The Free Software Foundation,
-;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+    ;; This code is free software; you can redistribute it and/or modify
+    ;; it under the terms of the GNU General Public License as published
+    ;; by the Free Software Foundation; either version 3, or (at your
+    ;; option) any later version.
+    ;;
+    ;; This lisp script is distributed in the hope that it will be useful,
+    ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+    ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    ;;
+    ;; Permission is granted to distribute copies of this lisp script
+    ;; provided the copyright notice and this permission are preserved in
+    ;; all copies.
+    ;;
+    ;; You should have received a copy of the GNU General Public License
+    ;; along with this program; if not, you can either send email to this
+    ;; program's maintainer or write to: The Free Software Foundation,
+    ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; Commentary:
-;; The customisations itself are written in `Emacs-Lisp'.
-;; The comment is ~;~ (one semi-colon `;').  Textual hints
-;; are indicated with DOUBLE semi-colons `;;', optionally uncomment
-;; the code lines with a SINGLE comment sign.
+    ;;; Commentary:
+    ;; The customisations itself are written in `Emacs-Lisp'.
+    ;; The comment is ~;~ (one semi-colon `;').  Textual hints
+    ;; are indicated with DOUBLE semi-colons `;;', optionally uncomment
+    ;; the code lines with a SINGLE comment sign.
 
-;; Please add the interesting code lines into your GNU-Emacs init file or
-;; load this file in the init file with `(load-file
-;; "PATH/apdl-config.el")'.
+    ;; Please add the interesting code lines into your GNU-Emacs init file or
+    ;; load this file in the init file with `(load-file
+    ;; "PATH/apdl-config.el")'.
 
-;;; CODE:
-#+END_SRC
-
-#+RESULTS:
+    ;;; CODE:
+  #+END_SRC
 
 * Important Prerequisites
 ** COMMENT Finding APDL-Mode
-If the APDL-Mode files (the files with the suffix /.el/) are *not*
-placed in a default Emacs load path.  Please see the variable
-load-path .
+   If the APDL-Mode files (the files with the suffix /.el/) are *not*
+   placed in a default Emacs load path.  Please see the variable
+   load-path .
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (describe-variable 'load-path)
-#+END_SRC
+   #+END_SRC
 
-Or you can read about the load-path in the Emacs manual:
-#+BEGIN_SRC emacs-lisp
+   Or you can read about the load-path in the Emacs manual:
+   #+BEGIN_SRC emacs-lisp
 (info "(emacs)Lisp Libraries")
-#+END_SRC
+   #+END_SRC
 
-Then it is necessary to adjust the following way: Hint: The
-directory site-lisp/ in the Emacs installation tree, for example, is
-in its default load path.
+   Then it is necessary to adjust the following way: Hint: The
+   directory site-lisp/ in the Emacs installation tree, for example,
+   is in its default load path.
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "C:\\DIRECTORY-PATH\\WHERE\\THE\\APDL-MODE\\FILES\\RESIDE")
-#+END_SRC
-for example:
-#+BEGIN_SRC emacs-lisp
+   #+END_SRC
+   for example:
+   #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "c:\\emacs\\apdl-mode")
-#+END_SRC
-for a Windows system or
-#+BEGIN_SRC emacs-lisp
+   #+END_SRC
+   for a Windows system or
+   #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "/usr/local/src/emacs/apdl-mode")
-#+END_SRC
-for a GNU-Linux system.
+   #+END_SRC
+   for a GNU-Linux system.
 ** Ansys Installation path with version information
-If you have a non default installation APDL-Mode might not be able to
-find the Ansys installation.  Please configure your installation path
-up to and including the versioning number.
+   If you have a non default installation APDL-Mode might not be able
+   to find the Ansys installation.  Please configure your installation
+   path up to and including the versioning number.
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
   (cond ((string= window-system "x")
 	  ;; This is an example of an installation directory on GNU-Linux
 	  (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
@@ -144,52 +143,53 @@ up to and including the versioning number.
 	  ;; the backslash "\"!
 	  (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
 	  ;; default: "C:/Program Files/Ansys Inc/v201/"
-#+END_SRC
+   #+END_SRC
 
-If your Ansys installation differs completely from the standard Ansys
-directory structure, or you want to use a mixed version system, then
-please consult the section `INSTALLATION PATHS' further below.
+   If your Ansys installation differs completely from the standard
+   Ansys directory structure, or you want to use a mixed version
+   system, then please consult the section `INSTALLATION PATHS'
+   further below.
 
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
-  ;; conditional for Linux and Windows
+   #+BEGIN_SRC emacs-lisp :tangle yes :exports none
+   ;; conditional for Linux and Windows
 
-  ;(cond ((string= window-system "x")
-  ;        ;; This is an example of an installation directory on GNU-Linux
-  ;        (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
-  ;        ;;default: "/ansys_inc/v201/"
-  ;       (t
-  ;        ;;This an example of an installation dir. on WINDOWS
-  ;        ;; Emacs is using here also forward slashes ans under
-  ;        ;; Unix and not "\"!
-  ;        (setq apdl-ansys-install-directory "D:/Ansys/v210/"))
-  ;        ;; default: "C:/Program Files/Ansys Inc/v201/"
-#+END_SRC
+   ;(cond ((string= window-system "x")
+   ;        ;; This is an example of an installation directory on GNU-Linux
+   ;        (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
+   ;        ;;default: "/ansys_inc/v201/"
+   ;       (t
+   ;        ;;This an example of an installation dir. on WINDOWS
+   ;        ;; Emacs is using here also forward slashes ans under
+   ;        ;; Unix and not "\"!
+   ;        (setq apdl-ansys-install-directory "D:/Ansys/v210/"))
+   ;        ;; default: "C:/Program Files/Ansys Inc/v201/"
+   #+END_SRC
 
-* File suffixes for auto loading APDL-Mode
-Configure your file suffixes for which Ansys mode is automatically
-called for.
+* File suffixes
+  for auto loading APDL-Mode Configure your file suffixes for which
+  Ansys mode is automatically called for.
 ** Macro files
-/.mac/ is the macro suffix of Ansys i. e. these macro files can be
-called in the Ansys command prompt or APDL like a regular Ansys
-function (without the suffix /.mac/).
+   /.mac/ is the macro suffix of Ansys i. e. these macro files can be
+   called in the Ansys command prompt or APDL like a regular Ansys
+   function (without the suffix /.mac/).
 
-APDL-Mode has configured GNU-Emacs to open files with this suffix
-under apdl-mode.
+   APDL-Mode has configured GNU-Emacs to open files with this suffix
+   under apdl-mode.
 
-With the following setting
+   With the following setting
 
-#+BEGIN_SRC emacs-lisp :tangle yes
-  (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
-#+END_SRC
+  #+BEGIN_SRC emacs-lisp :tangle yes
+    (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+  #+END_SRC
 
-files with the suffix /.ans/ will be opended in Emacs under APDL-Mode.
-Please check the /example.mac/ file in the /doc/ folder.
+  files with the suffix /.ans/ will be opended in Emacs under
+  APDL-Mode.  Please check the /example.mac/ file in the /doc/ folder.
 ** WorkBench generated input files
-/.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See the
-file /example.dat/ in the /doc/ folder.
+   /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See
+   the file /example.dat/ in the /doc/ folder.
 
-APDL-Mode has configured GNU-Emacs to open files with these suffixes
-under apdl-mode.
+   APDL-Mode has configured GNU-Emacs to open files with these
+   suffixes under apdl-mode.
 
 # #+BEGIN_SRC emacs-lisp
 #   (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode)) ;
@@ -197,13 +197,13 @@ under apdl-mode.
 # #+END_SRC
 
 ** The Ansys Neutral file format
-/.anf/ is the suffix for "Ansys Neutral" files which include mostly
-gometric data but also some APDL snippets. These files are used for
-imports, see the file /example.anf/ in the /doc/ folder.
+   /.anf/ is the suffix for "Ansys Neutral" files which include mostly
+   gometric data but also some APDL snippets. These files are used for
+   imports, see the file /example.anf/ in the /doc/ folder.
 
-#+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
-#+END_SRC
+   #+BEGIN_SRC emacs-lisp
+   (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+   #+END_SRC
 
 #+BEGIN_SRC emacs-lisp :exports none :tangle yes
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -235,10 +235,10 @@ imports, see the file /example.anf/ in the /doc/ folder.
   (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 #+END_SRC
 
-* Auto insertion of code
-  With the following code block Emacs inserts (after query) an outline
-  of a code structure when creating a new file with any suffix in the
-  ~auto-mode-alist~ for ~apdl-mode~, please see above section).
+* Auto insertion
+  of code With the following code block Emacs inserts (after query) an
+  outline of a code structure when creating a new file with any suffix
+  in the ~auto-mode-alist~ for ~apdl-mode~, please see above section).
 #+BEGIN_SRC emacs-lisp
   (auto-insert-mode 1)         ; insert automatically templates
   (add-hook 'find-file-hook 'auto-insert) ; when opening new files
@@ -343,14 +343,15 @@ imports, see the file /example.anf/ in the /doc/ folder.
 #+END_SRC
 
 * Highlighting (Colourisation)
-** Dynamic highlighting of variables
-The following toggles a dynamics change of the highlighting: While
-you are editing your new variable definitions highlighted and the
-cursor position is shown in the parameter help overlay
+** Dynamic highlighting
+   of variables.  The following toggles a dynamics change of the
+   highlighting: While you are editing your new variable definitions
+   highlighted and the cursor position is shown in the parameter help
+   overlay
 
-Uncommenting the following might slow the editing of large .mac
-files (but only when apdl-highlighting-level is set to 2, see
-below).
+   Uncommenting the following might slow the editing of large .mac
+   files (but only when apdl-highlighting-level is set to 2, see
+   below).
 #+BEGIN_SRC emacs-lisp
 (setq apdl-dynamic-highlighting-flag nil)
 ; (setq apdl-dynamic-highlighting-flag t) ;default: t
@@ -390,10 +391,10 @@ current default is 2
 ; (setq apdl-highlighting-level 1) ; default: 2
 
 #+END_SRC
-* Ansys installation dependent configurations
-Further things you possibly have to configure if your Ansys
-installation is completely differing from a default Ansys installation
-path, or if you want to mix various Ansys versions:
+* Installation dependent configurations
+  Further things you possibly have to configure if your Ansys
+  installation is completely differing from a default Ansys installation
+  path, or if you want to mix various Ansys versions:
 #+BEGIN_SRC emacs-lisp
   (setq apdl-ansys-help-program
       "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
@@ -453,7 +454,8 @@ path, or if you want to mix various Ansys versions:
 #+END_SRC
 
 * Ansys processes
-** License server or license file
+** License server
+   or license file.
 
    The more license servers are specified in ~apdl-license-file~ the
    longer it takes to get the license status.

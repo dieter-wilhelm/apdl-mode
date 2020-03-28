@@ -1,0 +1,34 @@
+APDL ([[https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language][Ansys Parametric Design Language]]) is the solver scripting
+language of the mechanical FEA (Finite Element Analysis) suite [[http://www.ansys.com][Ansys]]
+(ANalysis SYStem, registered TM).
+
+APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
+[[https://www.gnu.org/software/emacs/][GNU-Emacs]] editor - an advanced APDL environment with features like,
+pin-pointing the APDL reference documentation, keyword completion,
+code templates, dedicated highlighting, solver communication
+(GNU-Linux only), license reporting, etc.  Over the years it has
+accumulated lots of features for writing and debugging FEA complete
+models in APDL code. Please convince yourself with the APDL-Mode
+in-depth documentation.
+
+With the advent of the modern Ansys GUIs - like `WorkBench' or
+`Discovery AIM' - the usage of APDL as a wholesale modelling
+language has diminished for non automated tasks.  But APDL is here
+to stay: `WorkBench' and `AIM' operate exclusively the Ansys solver
+with it!  They are producing and sending APDL input (.dat) files to
+the solver.  For a true understanding of the GUIs' inner workings a
+study of their APDL code is prerequisite!  Moreover, the GUIs are
+not supporting all solver features.  So "Command (APDL)" snippets
+are used to enhance the GUIs' modelling capabilities.
+
+Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
+files which were created by WorkBench.  And, especially, for writing
+WorkBench `Command' snippets and inspecting longer snippets from
+other sources.  Accessing swiftly the Ansys APDL reference
+documentation alone is worth using APDL-Mode!
+
+When you "Export" (or "Import") such a WorkBench Command (APDL)
+object it becomes associated with a file and is editable with a
+third party editor.  When you have modified the file then the "File
+Status" in Workbench changes and you can pull-in the updated content
+with the "Refresh" button.

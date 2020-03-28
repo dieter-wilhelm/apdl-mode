@@ -251,7 +251,9 @@ eblock,10,,,94
     contrast to the more ralistic ones in /solu
   - You can send only a complete block structure to the solver
 
-** File types (the whole zoo is in the operations guide) under Gnu/Linux?
+** File types
+   the whole zoo is documented in the operations guide
+
    |  No | Type                                                             | Name     | temp. | Remark                             | Format  |
    |-----+------------------------------------------------------------------+----------+-------+------------------------------------+---------|
    |   1 | abort                                                            | .abt     |       |                                    | binary  |

@@ -1,0 +1,24 @@
+* Ansys and APDL resources
+   - The online Ansys [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
+     the Ansys [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
+   - The [[http://www.ansys.com][Ansys homepage]] with the Ansys Portal and Learning Hub
+   - Xansys, an [[http://www.xansys.org][Ansys online community]] (forum registration is necessary)
+   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.
+   - A general  Ansys repository [[http://www.ansys.net][Ansys.net]]
+   - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
+* Emacs editor resources
+   - The [[https://www.gnu.org/software/emacs/tour/index.html][guided Tour]] of GNU-Emacs
+   - Emacs' [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site for Emacs
+   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for everything Emacs related
+   - The [[mailto:help-gnu-emacs@gnu.org][Emacs help]] mailing list
+* Other APDL editor resources
+   - Since Ansys 2020R1 the Command (APDL) worksheet acquired -
+     finally - syntax highlighting and command completion
+   - The Ansys [[https://catalog.ansys.com/product/5b3bc6857a2f9a5c90d32ddb/apdl-editor][APDL plug-in]] from the Ansys store, published in 2017
+     (and not maintained since then?)
+   - Simple APDL syntax highlighting extensions are available for
+     various editors, gvim, nedit, ... to name a few, please have a
+     look at [[https://ansys.net][Ansys.net]]
+   - A commercial competitor of apdl-mode: The [[http://www.padtinc.com/pedal][Pedal]] script editor for
+     Windows, project disbanded in 2015
+   - A free Windows [[http://apdl.de][APDL editor]], site not maintained since 2011

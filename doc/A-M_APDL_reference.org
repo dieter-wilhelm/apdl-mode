@@ -1,6 +1,6 @@
-#+DATE: Time-stamp: <2020-03-27>
+#+DATE: Time-stamp: <2020-03-28>
 #+bind: org-html-preamble-format (("en" "%d"))
-#+TITLE:  APDL-Mode Highlighting and APDL Reference
+# #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de

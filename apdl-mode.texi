@@ -1,21 +1,21 @@
 \input texinfo    @c -*- texinfo -*-
 @c %**start of header
 @setfilename apdl-mode.info
-@settitle APDL-Mode's Info Documentation Configuration and Customisation of APDL-Mode APDL-Mode Highlighting and APDL Reference
+@settitle APDL-Mode's Info Documentation
 @documentencoding UTF-8
 @documentlanguage en
 @syncodeindex pg cp
 @c %**end of header
 
-@dircategory Emacs
+@dircategory Development
 @direntry
-* APDL Mode: (top).     The major mode for the APDL language.
+* (apdl-mode)Top.       Major mode for the scripting language APDL.
 @end direntry
 
 @finalout
 @titlepage
 @title APDL-Mode's Info Documentation
-@subtitle Version 20.4.0 Time-stamp: "2020-03-27"
+@subtitle Version 20.4.0 Time-stamp: "2020-03-28"
 @author H@. Dieter Wilhelm H@. Dieter Wilhelm H@. Dieter Wilhelm (@email{dieter@@duenenhof-wilhelm.de})
 @end titlepage
 
@@ -23,9 +23,9 @@
 
 @ifnottex
 @node Top
-@top APDL-Mode's Info Documentation Configuration and Customisation of APDL-Mode APDL-Mode Highlighting and APDL Reference
+@top APDL-Mode's Info Documentation
 
-This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-27"
+This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-28"
 
 
 @image{/home/dieter/a-m/doc/ansys+emacs2020-03,5cm,,Alternate @i{APDL-Mode logo},png}
@@ -37,7 +37,6 @@ This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-27"
 * Usage::
 * Configuration and Customisation::
 * APDL Reference::
-* Invoking sample::
 * GNU Free Documentation License::
 * Index::
 
@@ -986,17 +985,17 @@ But the solver/interpreter is checking this server as well!?
 
 Number of cores for the run: 4 does not require HPC licenses
 @lisp
-(setq apdl-no-of-processors 8) ;default: 4
+(setq apdl-no-of-processors 8) ; default: 4
 @end lisp
 
 Which license type to use for the solver
 @lisp
-(setq apdl-license "ansys") ;default: "struct"
+(setq apdl-license "struct") ; default: "ansys"
 @end lisp
 
 Ansys job name
 @lisp
-(setq apdl-job "otto"); default: "file"
+(setq apdl-job "harmonics1"); default: "file"
 @end lisp
 
 @node APDL Reference
@@ -2833,16 +2832,6 @@ ang1 = 0
 *enddo
 /eof
 @end example
-
-@node Invoking sample
-@chapter Invoking sample
-
-@pindex sample
-@cindex invoking @command{sample}
-
-This is a sample manual.  There is no sample program to invoke, but
-if there were, you could see its basic usage and command line
-options here.
 
 @node GNU Free Documentation License
 @appendix GNU Free Documentation License

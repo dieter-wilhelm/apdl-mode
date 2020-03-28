@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-27>
+#+DATE: Time-stamp: <2020-03-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -24,6 +24,8 @@
 * TODO Version 20.4.0, completion and help updated to 2020R1
   DEADLINE: <2020-04-27 Mo>
 ** Todos, bugs
+   - #+include: #+title adds to info title!
+   - user-error: Info file top does not exist
    - Update -config.org with new defcustoms
    - Update and centralise DOCUs, info style?
 *** COMMENT State of documentation

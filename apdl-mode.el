@@ -1,4 +1,4 @@
-;;; apdl-mode.el --- Major mode for the APDL scripting language -*- lexical-binding: t -*-
+;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
 ;; Time-stamp: <2020-03-28>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
@@ -1128,9 +1128,8 @@ headlines and their sublevel contents"]
      "Electric Pair Mode insert corresponding closing delimeters"
      :visible (version< "24" emacs-version)])
    "--"
-   ["APDL-Mode Online Documentation" apdl-mode-browse-online
-    :help "Display the online APDL-Mode Documentation in a
-   browser."]
+   ["APDL-Mode Documentation" apdl-mode-help
+    :help "Display the APDL-Mode Documentation in Emacs' Info Viewer."]
    ["Help on APDL-Mode" describe-mode
     :help "Open an Emacs window describing APDL-Mode's usage"]
    ["Customise APDL-Mode"        (customize-group "APDL")
@@ -1498,6 +1497,11 @@ The cursor is either in a code comment or comment line."
 
 ;; ======================================================================
 ;; --- interactive functions ---
+
+(defun apdl-mode-help ()
+  "Browse the APDL-Mode documentation in the Info Viewer."
+  (interactive)
+  (info "(apdl-mode)Top"))
 
 (defun apdl-mode-browse-online ()
   "Browse the APDL-Mode online documentations."

@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-27>
+;; Time-stamp: <2020-03-28>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -921,13 +921,8 @@ burying it."
       (delete-region (point-min) (point-max)))
     ;; syncronous call
     (call-process apdl-lmutil-program nil "*User-licenses*" nil "lmstat" "-c "  apdl-license-file  "-a")
-    (let (bol eol
-	      (user apdl-username))
+    (let ((user apdl-username))
       (with-current-buffer "*User-licenses*"
-        ;; remove uninteresting licenses
-        ;; (goto-char (point-min))
-        ;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
-
         ;; below key settings are only allowed in fundamental mode
         ;; otherwise it supposedly overwrites major modes keymaps!
         (local-set-key (kbd "Q") 'kill-this-buffer)
@@ -966,14 +961,6 @@ burying it."
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")
                             'face 'match))
-        ;; ;; higlight current -license-type
-        ;; (goto-char (point-min))
-        ;; (search-forward-regexp apdl-license nil t)
-        ;; (forward-line)
-        ;; (setq eol (point))
-        ;; (forward-line -1)
-        ;; (setq bol (point))
-        ;; (put-text-property bol eol 'face 'font-lock-warning-face)
 
         ;;  on Windows the license stat buffer doesn't move to point without:
         (unless apdl-is-unix-system-flag

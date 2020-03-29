@@ -39,6 +39,5 @@ helper/tools*
 *.tar
 misc/
 doc/apdl-config.el
-README.md
 add-directory_to-load-path.el
 ./

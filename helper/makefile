@@ -101,12 +101,12 @@ PACKAGE := apdl-mode-$(VERSION).tar
 # necessary el files
 EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el ../apdl-process.el
-# fontification.el is not included since it is not necessary for running A-M
 
-../doc/apdl-config.el : ../doc/apdl-config.org
+../info/apdl-config.el : ../doc/apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
 	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
+	cp apdl-config.el ../doc
 
 ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 
@@ -114,8 +114,11 @@ ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 .PHONEY : ELC
 ELC : $(ELC_FILES)
 
-FILES := ../LICENSE ../apdl-mode-readme.txt ../README.org ../TODO.org ../NEWS.org ../INSTALLATION.org
-EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat ../doc/apdl-config.el ../doc/apdl-config.org
+# interesting files besides the essential lisp files
+FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org ../info/TODO.org ../info/NEWS.org ../info/INSTALLATION.org ../info/apdl-config.org ../README.md
+
+# example files
+EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat ../doc/apdl-config.el 
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -123,10 +126,9 @@ EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat ../doc
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
 # 	   $< -eval "(require 'ob-tangle)" -eval "(org-babel-tangle nil "APDL_tutorial.ans")"
 
-WORK_FILES := ../LICENSE ../README.org ../TODO.org ../NEWS.org \
-		 example.mac example.anf example.dat # tools/ansys-mode/README.Conti
-
-WORK_EL_FILES := $(EL_FILES)
+# WORK_FILES := ../LICENSE ../README.org ../TODO.org ../NEWS.org \
+# 		 example.mac example.anf example.dat # tools/ansys-mode/README.Conti
+# WORK_EL_FILES := $(EL_FILES)
 
 TUTORIAL_SOURCES := ../doc/A-M_introductory_tutorial.org \
 	            ../doc/A-M_in-depth_tutorial.org     \
@@ -293,12 +295,18 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 
 ../doc/A-M_introductory_tutorial.pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
-	--load "~/ansys-mode/helper/export.el" \
+	--load "./export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
 ../apdl-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt makefile
 	$(EMACS_EXE) --batch --load $<
 	cp apdl-keyword.el ..
+
+../README.md : ../info/README.org makefile
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+	cp ../info/README.md ..
 
 # this is for compiling Elisp files, we need to set the load-path for a pristine Emacs
 # -f means --funcall

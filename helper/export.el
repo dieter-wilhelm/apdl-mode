@@ -1,6 +1,6 @@
-;;; export.el --- for org-latex                      -*- lexical-binding: t; -*-
+;;; export.el --- for org-latex and md export -*- lexical-binding: t -*-
 
-;; Copyright (C) 2015  H. Dieter Wilhelm
+;; Copyright (C) 2015-2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Keywords: convenience
@@ -26,7 +26,8 @@
 
 
 ;; (add-to-list 'load-path "/home/dieter/org/elisp/org-mode/lisp")
-(org-reload)
+;(org-reload)
+(require 'ox-md)
 (require 'ox-beamer)
 (add-to-list 'org-latex-classes '(
                                   "A-M" "\\documentclass{beamer}"

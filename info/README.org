@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-28>
+#+DATE: Time-stamp: <2020-03-29>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -33,12 +33,12 @@ The GNU-Emacs major mode for the scripting language APDL
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-[[file:doc/ansys+emacs2020-03.png]]
+[[file:../doc/ansys+emacs2020-03.png]]
 
 * Introduction
-  #+include:./info/introduction.org
+  #+include:../info/introduction.org
 
-  [[file:doc/connect_command_snippet_to_file.png]]
+  [[file:../doc/connect_command_snippet_to_file.png]]
 
 * Some Highlights
 ** In-built APDL command help with argument counter
@@ -47,7 +47,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    and visualises dynamically at which parameter position your cursor
    currently is.
 
-   [[file:doc/parameter_help2.png]]
+   [[file:../doc/parameter_help2.png]]
 
 ** Pin-pointing the relevant Ansys documentation
    You can trigger (*C-c C-b*) the relevant Ansys manual entry
@@ -63,17 +63,17 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    APDL code.
 
    # #+caption: Browsing the manual in a web browser (here with EWW in GNU-Emacs).
-   [[file:doc/browse_manual.png]]
+   [[file:../doc/browse_manual.png]]
 
 ** Code outlining for inspecting WorkBench solver (.dat) files
    APDL-Mode hides the normally uninteresting but usually very large
    number blocks.
    #+ATTR_LaTeX: :height 7.5cm
-   [[file:doc/hidden_blocks.png]]
+   [[file:../doc/hidden_blocks.png]]
 
    The image below shows the unhidden content.
    #+ATTR_LaTeX: :height 7.5cm
-   [[file:doc/unhidden_blocks.png]]
+   [[file:../doc/unhidden_blocks.png]]
 ** Command Snippet Templates and Code Highlighting Example
    The image shows GNU-Emacs with a ripped off APDL-Mode menu field,
    the APDL variable buffer, the APDL file itself and an APDL template
@@ -81,12 +81,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    Discovery AIM Command snippets and have them all immediately
    available for inspection and inclusion.
 
-   [[file:doc/ansys-mode.jpg]]
+   [[file:../doc/ansys-mode.jpg]]
 * Installation
-  #+include: ./info/INSTALLATION.org
+  #+include: ./INSTALLATION.org
 
 * First Steps
-  #+include: ./info/first_steps.org
+  #+include: ./first_steps.org
 * Configuration and Customisation
   Most functionality of APDL-Mode is working without additional
   configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -97,25 +97,25 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   APDL-Mode configures GNU-Emacs to open all files with the suffixes
   ".mac", ".dat" and ".inp" under apdl-mode.
 
-  Please read [[file:doc/apdl-config.org][apdl-config.org]], or the accompanying configuration
-  example [[file:doc/ansys-config.el][file]] for further details.
+  Please read [[file:apdl-config.org][apdl-config.org]], or the accompanying configuration
+  example [[file:../doc/ansys-config.el][file]] for further details.
 * Bugs and Problems
-  #+include: ./info/bugs.org
+  #+include: ./bugs.org
 * News
   APDL-Mode's completions- and help system is updated to Ansys 2020R1.
-  For further news please have a look into the [[file:info/NEWS.org][NEWS]] file.
+  For further news please have a look into the [[file:NEWS.org][NEWS]] file.
 * Further Resources
   If you want to read further details regarding the APDL scripting,
-  GNU-Emacs and other APDL editors please read the [[file:info/resources.org][RESOURCES]] file.
-  #  #+include: ./info/resources.org
+  GNU-Emacs and other APDL editors please read the [[file:resources.org][RESOURCES]] file.
+  #  #+include: ./resources.org
 * GNU GPL v3 License
   The GNU General Public License version 3.  There are no costs and no
   usage restrictions even in commercial application, please convince
-  yourself with the [[file:info/LICENSE][LICENSE]] file.
+  yourself with the [[file:LICENSE][LICENSE]] file.
 * Acknowledgements
-  #+include: ./info/acknowledgements.org
+  #+include: ./acknowledgements.org
 * TODOs
-  Please check the [[file:info/TODO.org][TODO]] file.
+  Please check the [[file:TODO.org][TODO]] file.
 -----
 
 # The following is for Emacs

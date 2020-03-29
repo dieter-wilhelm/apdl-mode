@@ -157,7 +157,7 @@ X11 := \
 
 
 # PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
-PACKAGE_FILES := $(MD_Files) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
+PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 		$(MATLIB) $(TUTORIAL_SOURCES) 
 # default.el : makefile
 # 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
@@ -229,7 +229,8 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
-	@echo markdown files: $(MD_FILES)
+#	@echo markdown files: $(MD_FILES)
+#	@echo package files: $(PACKAGE_FILES)
 
 # MODE: this is the Ansys mode "installation" package
 # the sources are built from GitHub automatically when tagged

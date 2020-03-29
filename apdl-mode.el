@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-28>
+;; Time-stamp: <2020-03-29>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -3000,42 +3000,50 @@ These constructs appear in WorkBench created solver input files."
        (list
         ;; constants
         'apdl-mode-version
-        'apdl-ansys-version
+	;; variables
+	'apdl-initialised-flag
+	'apdl-current-ansys-version
+        'apdl-is-unix-system-flag
         ;; defcustoms
-        'apdl-hide-region-before-string
-        'apdl-hide-region-after-string
-        'apdl-hide-region-propertize-markers
-        'apdl-highlighting-level
-        'apdl-current-ansys-version
-        'apdl-dynamic-highlighting-flag
-        'apdl-indicate-empty-lines-flag
-        'apdl-blink-region-flag
-        'apdl-comment-padding
-        'apdl-comment-add
-        'apdl-code-comment-column
-        'apdl-auto-indent-flag
-        'apdl-indent-comment-suffix
-        'apdl-ruler-wide-flag
-        'apdl-require-spaces-flag
-        'apdl-blink-matching-block-flag
-        'apdl-blink-matching-delay
-        'apdl-block-offset
-        'apdl-outline-string
-        'apdl-mode-hook
-        'apdl-align-rules-list
+	'apdl-parameter-help-duration
+	'apdl-hide-region-before-string
+	'apdl-hide-region-after-string
+	'apdl-hide-region-propertize-markers
+	'apdl-highlighting-level
+	'apdl-dynamic-highlighting-flag
+	'apdl-indicate-empty-lines-flag
+	'apdl-comment-padding
+	'apdl-comment-add
+	'apdl-code-comment-column
+	'apdl-auto-indent-flag
+	'apdl-indent-comment-suffix
+	'apdl-ruler-wide-flag
+	'apdl-require-spaces-flag
+	'apdl-blink-matching-block-flag
+	'apdl-blink-matching-delay
+	'apdl-block-offset
+	'apdl-outline-string
+	'apdl-mode-hook
+	'apdl-align-rules-list
+	'apdl-license-occur-regexp
+	'apdl-job
+	'apdl-license-categories
+	'apdl-license
+	'apdl-no-of-processors
+	'apdl-blink-delay
+	'apdl-blink-region-flag
+	'apdl-username			; 20.4.0
 	'apdl-ansys-install-directory
-	'apdl-mode-wb-custom-template-directory
-        'apdl-job
-        'apdl-ansys-program
-        'apdl-ansys-help-program
-        'apdl-ansys-help-path
-        'apdl-ansys-help-program-parameters
-        'apdl-lmutil-program
-        'apdl-license-file
-        'apdl-ansysli-servers
-        'apdl-license-categories
-        'apdl-license
-        'apdl-no-of-processors)
+	'apdl-ansys-program
+	'apdl-ansys-launcher
+	'apdl-ansys-wb
+	'apdl-ansys-help-program
+	'apdl-ansys-help-path
+	'apdl-lmutil-program
+	'apdl-license-file
+	'apdl-ansysli-servers
+	'apdl-wb-custom-template-directory ; 20.4.0
+	)
        nil
        nil
        salutation))))

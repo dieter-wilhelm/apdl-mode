@@ -1,10 +1,9 @@
-
-#+DATE: Time-stamp: <2020-03-29 18:57:15 dieter>
+#+DATE: Time-stamp: <2020-03-29 21:47:58 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
-#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:1 todo:t |:t
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
 #+DESCRIPTION:
@@ -43,19 +42,20 @@ sign in this language is ~;~ (one semi-colon `;').
   ~;;~, please uncomment only the code lines with a SINGLE comment sign
   and change them when appropriate.
 
-  Please add the interesting code lines into your GNU-Emacs init file or
-  load this file in the init file with `(load-file
-  "PATH/apdl-config.el")'.
+  Please add the interesting code lines into your GNU-Emacs init file
+  or load your adjustments of this file with `(load-file
+  "PATH/apdl-config.el")' from your init file.
 
-  #+BEGIN_SRC emacs-lisp :tangle yes :exports none
+  #+BEGIN_SRC emacs-lisp :tangle yes
     ;;; apdl-config.el --- Customisation example for APDL-Mode
     ;; This file was built from the file "apdl-config.org".
 
-    ;; Copyright (C) 2016 - 20202 H. Dieter Wilhelm, GPL V3 Author:
-    ;; H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de> Version: 20.4.0
-    ;; Package-Requires: ((emacs "25.1")) Keywords: languages,
-    ;; convenience, tools, Ansys, APDL URL:
-    ;; https://github.com/dieter-wilhelm/apdl-mode
+    ;; Copyright (C) 2016 - 2020 H. Dieter Wilhelm, GPL V3
+    ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
+    ;; Version: 20.4.0
+    ;; Package-Requires: ((emacs "25.1"))
+    ;; Keywords: languages, convenience, tools, Ansys, APDL
+    ;; URL: https://github.com/dieter-wilhelm/apdl-mode
 
     ;; Maintainer: H. Dieter Wilhelm
     ;; Created: 2006-02
@@ -132,9 +132,9 @@ sign in this language is ~;~ (one semi-colon `;').
 ** Ansys Installation path with version information
    If you have a non default installation APDL-Mode might not be able
    to find the Ansys installation.  Please configure your installation
-   path up to and including the versioning number.
+   path up to and including the Ansys versioning number.
 
-   #+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp  :tangle yes
   (cond ((string= window-system "x")
 	  ;; This is an example of an installation directory on GNU-Linux
 	  (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
@@ -150,21 +150,6 @@ sign in this language is ~;~ (one semi-colon `;').
    Ansys directory structure, or you want to use a mixed version
    system, then please consult the section `INSTALLATION PATHS'
    further below.
-
-   #+BEGIN_SRC emacs-lisp :tangle yes :exports none
-   ;; conditional for Linux and Windows
-
-   ;(cond ((string= window-system "x")
-   ;        ;; This is an example of an installation directory on GNU-Linux
-   ;        (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
-   ;        ;;default: "/ansys_inc/v201/"
-   ;       (t
-   ;        ;;This an example of an installation dir. on WINDOWS
-   ;        ;; Emacs is using here also forward slashes ans under
-   ;        ;; Unix and not "\"!
-   ;        (setq apdl-ansys-install-directory "D:/Ansys/v210/"))
-   ;        ;; default: "C:/Program Files/Ansys Inc/v201/"
-   #+END_SRC
 
 * File suffixes
   for auto loading APDL-Mode Configure your file suffixes for which
@@ -206,7 +191,7 @@ sign in this language is ~;~ (one semi-colon `;').
    (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
    #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :exports none :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; file suffixes for autoloading of APDL-Mode, appropriate file
   ;; suffixes for which Ansys mode is automatically called for
@@ -237,30 +222,23 @@ sign in this language is ~;~ (one semi-colon `;').
 #+END_SRC
 
 * Auto insertion
-  of code With the following code block Emacs inserts (after query) an
-  outline of a code structure when creating a new file with any suffix
-  in the ~auto-mode-alist~ for ~apdl-mode~, please see above section).
-#+BEGIN_SRC emacs-lisp
-  (auto-insert-mode 1)         ; insert automatically templates
-  (add-hook 'find-file-hook 'auto-insert) ; when opening new files
-  (setq auto-insert-query t)   ; ask before insertion of an APDL
-                               ; template
-  (add-to-list 'auto-insert-alist
-     '(apdl-mode . [apdl-skeleton-outline-template])) ;which template
-                                                      ;to insert
-#+END_SRC
+  of code.  With the following code block Emacs inserts (after query)
+  an outline of a code structure when creating a new file with any
+  suffix in the ~auto-mode-alist~ for ~apdl-mode~, please see above
+  section).
 
-#+BEGIN_SRC emacs-lisp :exports none :tangle yes
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			  ;; Auto insertion
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto insertion stuff (when creating a new APDL file)
 
-; (auto-insert-mode 1)		        ; insert automatically templates
-; (add-hook 'find-file-hook 'auto-insert) ; when opening new files
-; (setq auto-insert-query t)   ; aks for auto insertion of APDL template
-; (add-to-list 'auto-insert-alist
-;  '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
+ (auto-insert-mode 1)		        ; insert automatically templates
+ (add-hook 'find-file-hook 'auto-insert) ; when opening new files
+ (setq auto-insert-query t)   ; aks for auto insertion of APDL template
+
+ (add-to-list 'auto-insert-alist
+  '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 #+END_SRC
 
@@ -276,9 +254,20 @@ sign in this language is ~;~ (one semi-colon `;').
 
     ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
     ;; might only work for locally installed help documents (1.7 GB
-    ;; package v201) since v191 the online help is the default.
+    ;; package v201) since v191 the online help is the default help system.
 
     ; (setq browse-url-browser-function 'eww-browse-url)
+
+    ;; You might use this variable to create you own templates
+    ;; in `apdl-wb-template.el'.
+
+    (setq apdl-wb-custom-template-directory "c:/my_macros/" ; new in 20.4.0
+
+    ;;  APDL-Mode mode configures the following variable from the
+    ;;  evironment to show your license usage in
+    ;;  `apdl-user-license-status'.
+
+    (setq apdl-username "userID") 		; new in 20.4.0
 
   #+END_SRC
 
@@ -328,11 +317,7 @@ sign in this language is ~;~ (one semi-colon `;').
   Activating outline minor mode for selectively hiding and unhiding
   code sections:
 
-#+BEGIN_SRC emacs-lisp
-  (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			     ;; Outlining
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -363,11 +348,8 @@ Decoration levels 0,1,2 are available.  User variable highlighting is
 only in level 2 available (statical, if above flag is not set), the
 current default is 2
 
-#+BEGIN_SRC emacs-lisp
-(setq apdl-highlighting-level 1) ; default: 2
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
+** Summary
+#+BEGIN_SRC emacs-lisp :tangle yes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		     ;; Highlighting/Colourisation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -380,8 +362,8 @@ current default is 2
 ;; files (but only when apdl-highlighting-level is set to 2, see
 ;; below).
 
-; (setq apdl-dynamic-highlighting-flag nil)
-; (setq apdl-dynamic-highlighting-flag t) ; default
+ (setq apdl-dynamic-highlighting-flag nil)
+ (setq apdl-dynamic-highlighting-flag t) ; default
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) of user variables and decoration
@@ -389,14 +371,22 @@ current default is 2
 ;; in level 2 available (statical, if above flag is not set), the
 ;; default is 2
 
-; (setq apdl-highlighting-level 1) ; default: 2
+ (setq apdl-highlighting-level 1) ; default: 2
 
 #+END_SRC
 * Installation dependent configurations
   Further things you possibly have to configure if your Ansys
   installation is completely differing from a default Ansys installation
   path, or if you want to mix various Ansys versions:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp  :tangle yes
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			   ;; Ansys version and paths
+    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+    ;; Things you might have to configure if your Ansys installation is
+    ;; completely differing from default Ansys installation paths, as in
+    ;; the example below, or you want to use a mixed version system:
+
   (setq apdl-ansys-help-program
       "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
       ;; normally it looks like this:
@@ -408,29 +398,6 @@ current default is 2
   (setq apdl-ansys-wb "/appl/ansys_inc/v201/Framework/bin/Linux64/runwb2")
   (setq apdl-ansys-program "/appl/ansys_inc/19.3.0/ansys/bin/ansys195")
   (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
-
-#+END_SRC
-
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			   ;; Ansys version and paths
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-    ;; Things you might have to configure if your Ansys installation is
-    ;; completely differing from default Ansys installation paths, as in
-    ;; the example below, or you want to use a mixed version system:
-
-    ; (setq apdl-help-program
-    ;   "/appl/ansys_inc/16.2.0/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
-    ; ;; the Ansys path to the help viewer looks normally like this:
-    ; ;; "/INSTALL_DIRECTORY/ansys_inc/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
-    ; (setq apdl-ansys-help-path "d:/Program Files/Ansys Inc/16.2.0/v201/commonfiles/help/en-us/help/")
-
-    ; (setq apdl-ansys-help-path "/appl/ansys_inc/16.2.0/v201/commonfiles/help/en-us/help/")
-    ; (setq apdl-ansys-launcher "/ansys_inc/v201/ansys/bin/launcher162")
-    ; (setq apdl-ansys-wb "/ansys_inc/v201/Framework/bin/Linux64/runwb2")
-    ; (setq apdl-ansys-program "/appl/ansys_inc/16.2.0/v201/ansys/bin/ansys162")
-    ; (setq apdl-lmutil-program "/appl/ansys_inc/16.2.0/shared_files/licensing/linx64/lmutil")
 
 #+END_SRC
 
@@ -499,7 +466,8 @@ current default is 2
      (setq apdl-job "harmonics1"); default: "file"
    #+END_SRC
 
-#+BEGIN_SRC emacs-lisp :tangle yes :exports none
+** Summary   
+#+BEGIN_SRC emacs-lisp :tangle yes
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                          ;; Ansys processes stuff
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -510,33 +478,33 @@ current default is 2
   ;; takes a long time for displaying the license status!!!
 
    ;; for starting the solver & apdl-license-status & Ansys help
-;  (setq                 ;
-;   ;; license servers (or license file name)nn
-;   ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
-;   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
-;   apdl-license-file
-;  "32002@ls_fr_ansyslmd_ww_1.conti.de"
-;   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
+  (setq                 ;
+   ;; license servers (or license file name)nn
+   ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
+   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
+   apdl-license-file
+   "32002@ls_fr_ansyslmd_ww_1.conti.de"
+   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
-;   ;; since Ansys 12.0 there is an intermediate server for
-;   ;; the communication between flexlm and Ansys, 2325 is the default port
-;   apdl-ansysli-servers
-;  "2325@ls_fr_ansyslmd_ww_1.conti.de"
-;  "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
-;   )
+   ;; since Ansys 12.0 there is an intermediate server for
+   ;; the communication between flexlm and Ansys, 2325 is the default port
+   apdl-ansysli-servers
+   "2325@ls_fr_ansyslmd_ww_1.conti.de"
+   "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+   )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                    ;; options when starting the solver
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Number of cores for the run, 4 does not require HPC licenses
-  ; (setq apdl-no-of-processors 8) ; default: 4
+   (setq apdl-no-of-processors 8) ; default: 4
 
   ;;  which license type to use for the solver
-  ; (setq apdl-license "struct") ; default: "ansys"
+   (setq apdl-license "struct") ; default: "ansys"
 
   ;; Ansys job name
-  ; (setq apdl-job "harmonics1"); default: "file"
+   (setq apdl-job "harmonics1"); default: "file"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                               ;; The End
@@ -548,15 +516,12 @@ current default is 2
 
 ;; Local Variables:
 ;; no-byte-compile: t
+;; show-trailing-whitespace: t
+;; indicate-empty-lines: t
+;; time-stamp-active: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:
 #+END_SRC
------
 
-# Local Variables:
-# word-wrap: t
-# show-trailing-whitespace: t
-# indicate-empty-lines: t
-# time-stamp-active: t
-# time-stamp-format: "%:y-%02m-%02d"
-# End:
+-----
 

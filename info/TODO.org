@@ -23,7 +23,6 @@
 * TODO Version 20.4.0, completion and help updated to 2020R1
   DEADLINE: <2020-04-27 Mo>
 ** Todos, bugs
-   - Update -config.org with the new defcustoms
    - work on the Info index
 *** COMMENT State of documentation
      - image directory in .info file is not existing in Melpa! Do we

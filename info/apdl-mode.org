@@ -1,5 +1,5 @@
 #+MACRO: version 20.4.0
-#+MACRO: updated Time-stamp: "2020-03-28"
+#+MACRO: updated Time-stamp: "2020-03-29"
 
 This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 
@@ -25,6 +25,8 @@ This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 # Need to copy the PNG to the Melpa package!
 # #+ATTR_TEXINFO: :width 5cm :alt Alternate @i{APDL-Mode logo}
 # [[file:~/a-m/doc/ansys+emacs2020-03.png]]
+
+# 
 
 * Copying
   :PROPERTIES:
@@ -69,10 +71,21 @@ This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 
   #+include: GNU-FDL.txt
 
-* Index
+
+* Variable Index
+  :PROPERTIES:
+  :INDEX:    vr
+  :END:
+
+  # generate variable index
+
+* Concept Index
   :PROPERTIES:
   :INDEX:    cp
   :END:
+
+  # generate concept index
+
 * COMMENT Invoking sample
   :PROPERTIES:
   :ID:       31f190b5-9704-44bc-ae83-57d5b96df7f6

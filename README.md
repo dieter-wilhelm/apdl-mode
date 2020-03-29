@@ -1,24 +1,24 @@
 
 # Table of Contents
 
-1.  [Introduction](#org33bc6cf)
-2.  [Some Highlights](#org2e14601)
-    1.  [In-built APDL command help with argument counter](#org873df9e)
-    2.  [Pin-pointing the relevant Ansys documentation](#org24a9399)
-    3.  [Code outlining for inspecting WorkBench solver (.dat) files](#org49bd5bd)
-    4.  [Command Snippet Templates and Code Highlighting Example](#org7fa322a)
-3.  [Installation](#org5c1c60e)
-    1.  [Melpa](#orgf8245a8)
-    2.  [Manual installation](#orgb10f245)
-    3.  [Development and source code installation](#orgbbac07e)
-4.  [First Steps](#org66a6420)
-5.  [Configuration and Customisation](#org84aa380)
-6.  [Bugs and Problems](#org333f6c2)
-7.  [News](#org29baf8b)
-8.  [Further Resources](#org6f3e65d)
-9.  [GNU GPL v3 License](#org2959a9d)
-10. [Acknowledgements](#org307872e)
-11. [s](#orgdf380ae)
+1.  [Introduction](#org7cba0a2)
+2.  [Some Highlights](#org567ebf8)
+    1.  [In-built APDL command help with argument counter](#org1e6b2e9)
+    2.  [Pin-pointing the relevant Ansys documentation](#orgfde33f5)
+    3.  [Code outlining for inspecting WorkBench solver (.dat) files](#orga5e40b5)
+    4.  [Command Snippet Templates and Code Highlighting Example](#orgb1a2d10)
+3.  [Installation](#org9cc6449)
+    1.  [Melpa](#org1284556)
+    2.  [Manual installation](#org133a823)
+    3.  [Development and source code installation](#org2e4df3c)
+4.  [First Steps](#org6585d56)
+5.  [Configuration and Customisation](#org518603b)
+6.  [Bugs and Problems](#org6a9ee8f)
+7.  [News](#org2938cc8)
+8.  [Further Resources](#org8a4d273)
+9.  [GNU GPL v3 License](#org2200347)
+10. [Acknowledgements](#org841ee1a)
+11. [s](#org43c75d7)
 
 The GNU-Emacs major mode for the scripting language APDL
 
@@ -27,10 +27,10 @@ The GNU-Emacs major mode for the scripting language APDL
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-![img](../doc/ansys+emacs2020-03.png)
+![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org33bc6cf"></a>
+<a id="org7cba0a2"></a>
 
 # Introduction
 
@@ -69,15 +69,15 @@ third party editor.  When you have modified the file then the "File
 Status" in Workbench changes and you can pull-in the updated content
 with the "Refresh" button.
 
-![img](../doc/connect_command_snippet_to_file.png)
+![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org2e14601"></a>
+<a id="org567ebf8"></a>
 
 # Some Highlights
 
 
-<a id="org873df9e"></a>
+<a id="org1e6b2e9"></a>
 
 ## In-built APDL command help with argument counter
 
@@ -86,10 +86,10 @@ cumbersome to count the arguments, **C-?** facilitates this for you
 and visualises dynamically at which parameter position your cursor
 currently is.
 
-![img](../doc/parameter_help2.png)
+![img](doc/parameter_help2.png)
 
 
-<a id="org24a9399"></a>
+<a id="orgfde33f5"></a>
 
 ## Pin-pointing the relevant Ansys documentation
 
@@ -105,24 +105,24 @@ The image below is showing a manual entry in GNU-Emacs' EWW
 browser. You are able to consult the manual side-by-side with your
 APDL code.
 
-![img](../doc/browse_manual.png)
+![img](doc/browse_manual.png)
 
 
-<a id="org49bd5bd"></a>
+<a id="orga5e40b5"></a>
 
 ## Code outlining for inspecting WorkBench solver (.dat) files
 
 APDL-Mode hides the normally uninteresting but usually very large
 number blocks.
 
-![img](../doc/hidden_blocks.png)
+![img](doc/hidden_blocks.png)
 
 The image below shows the unhidden content.
 
-![img](../doc/unhidden_blocks.png)
+![img](doc/unhidden_blocks.png)
 
 
-<a id="org7fa322a"></a>
+<a id="orgb1a2d10"></a>
 
 ## Command Snippet Templates and Code Highlighting Example
 
@@ -132,10 +132,10 @@ preview.  You are able to compile your most often used WorkBench /
 Discovery AIM Command snippets and have them all immediately
 available for inspection and inclusion.
 
-![img](../doc/ansys-mode.jpg)
+![img](doc/ansys-mode.jpg)
 
 
-<a id="org5c1c60e"></a>
+<a id="org9cc6449"></a>
 
 # Installation
 
@@ -146,7 +146,7 @@ version 25.1.  (If you are new to this editor please check the
 tutorial in its \`Help' menu, please really do it ;-)
 
 
-<a id="orgf8245a8"></a>
+<a id="org1284556"></a>
 
 ## Melpa
 
@@ -170,7 +170,7 @@ versions exchange above package source with
     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 
 
-<a id="orgb10f245"></a>
+<a id="org133a823"></a>
 
 ## Manual installation
 
@@ -192,7 +192,7 @@ please type: \`M-: (package-initialize) <RET>' and then apply \`M-x
 package-install-file <RET>' again.
 
 
-<a id="orgbbac07e"></a>
+<a id="org2e4df3c"></a>
 
 ## Development and source code installation
 
@@ -209,7 +209,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org66a6420"></a>
+<a id="org6585d56"></a>
 
 # First Steps
 
@@ -228,7 +228,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org84aa380"></a>
+<a id="org518603b"></a>
 
 # Configuration and Customisation
 
@@ -241,11 +241,11 @@ system.
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-Please read [apdl-config.org](apdl-config.md), or the accompanying configuration
-example [file](../doc/ansys-config.el) for further details.
+Please read [apdl-config.org](info/apdl-config.md), or the accompanying configuration
+example [file](doc/ansys-config.el) for further details.
 
 
-<a id="org333f6c2"></a>
+<a id="org6a9ee8f"></a>
 
 # Bugs and Problems
 
@@ -265,32 +265,32 @@ you have the following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org29baf8b"></a>
+<a id="org2938cc8"></a>
 
 # News
 
 APDL-Mode's completions- and help system is updated to Ansys 2020R1.
-For further news please have a look into the [NEWS](NEWS.md) file.
+For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org6f3e65d"></a>
+<a id="org8a4d273"></a>
 
 # Further Resources
 
 If you want to read further details regarding the APDL scripting,
-GNU-Emacs and other APDL editors please read the [RESOURCES](resources.md) file.
+GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org2959a9d"></a>
+<a id="org2200347"></a>
 
 # GNU GPL v3 License
 
 The GNU General Public License version 3.  There are no costs and no
 usage restrictions even in commercial application, please convince
-yourself with the [LICENSE](LICENSE) file.
+yourself with the [LICENSE](info/LICENSE) file.
 
 
-<a id="org307872e"></a>
+<a id="org841ee1a"></a>
 
 # Acknowledgements
 
@@ -305,11 +305,11 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="orgdf380ae"></a>
+<a id="org43c75d7"></a>
 
 # TODO s
 
-Please check the [TODO](TODO.md) file.
+Please check the [TODO](info/TODO.md) file.
 
 ---
 

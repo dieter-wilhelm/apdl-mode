@@ -115,7 +115,7 @@ FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
 
 # all org files which are referenced in README.org have to be exported
 # to markdown .md
-MD_FILES :=  ../README.md ../info/TODO.md ../info/resources.md \
+MD_FILES := ../README.md ../info/TODO.md ../info/resources.md \
 		../info/NEWS.md ../info/apdl-config.md
 
 # example files
@@ -157,8 +157,8 @@ X11 := \
 
 
 # PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
-PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOURCES) $(MD_Files)
-
+PACKAGE_FILES := $(MD_Files) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
+		$(MATLIB) $(TUTORIAL_SOURCES) 
 # default.el : makefile
 # 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
 # 	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@
@@ -229,6 +229,7 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"
+	@echo markdown files: $(MD_FILES)
 
 # MODE: this is the Ansys mode "installation" package
 # the sources are built from GitHub automatically when tagged

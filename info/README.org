@@ -4,7 +4,7 @@
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
-#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:t todo:t |:t
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:1 todo:t |:t
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
 #+DESCRIPTION:

@@ -107,6 +107,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   #+include: ./bugs.org
 * News
   APDL-Mode's completions- and help system is updated to Ansys 2020R1.
+
   For further news please have a look into the [[file:info/NEWS.org][NEWS]] file.
 * Further Resources
   If you want to read further details regarding the APDL scripting,
@@ -121,7 +122,6 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * TODOs
   Please check the [[file:info/TODO.org][TODO]] file.
 -----
-
 # The following is for Emacs
 # local variables:
 # word-wrap: t

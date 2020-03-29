@@ -102,12 +102,6 @@ PACKAGE := apdl-mode-$(VERSION).tar
 EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el ../apdl-process.el
 
-../info/apdl-config.el : ../doc/apdl-config.org
-	$(EMACS_EXE) --batch --file $< \
-	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
-	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
-	cp apdl-config.el ../doc
-
 ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 
 # compile Elisp files
@@ -115,10 +109,18 @@ ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
 ELC : $(ELC_FILES)
 
 # interesting files besides the essential lisp files
-FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org ../info/TODO.org ../info/NEWS.org ../info/INSTALLATION.org ../info/apdl-config.org ../README.md
+FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
+	 ../info/TODO.org ../info/NEWS.org ../info/INSTALLATION.org \
+	 ../info/apdl-config.org
+
+# all org files which are referenced in README.org have to be exported
+# to markdown .md
+MD_FILES :=  ../README.md ../info/TODO.md ../info/resources.md \
+		../info/NEWS.md ../info/apdl-config.md
 
 # example files
-EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat ../doc/apdl-config.el 
+EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat \
+	 ../doc/apdl-config.el 
 
 #	 ../doc/APDL_tutorial.ans
 
@@ -155,7 +157,7 @@ X11 := \
 
 
 # PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
-PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOURCES)
+PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOURCES) $(MD_Files)
 
 # default.el : makefile
 # 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
@@ -163,10 +165,37 @@ PACKAGE_FILES :=  $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIAL_SOU
 # 	@echo "       (file (concat dir \"/apdl-mode-$(VERSION)/apdl-config.el\")))" >> $@
 # 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
+
+../README.md : ../info/README.org makefile
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+	cp ../info/README.md ..
+
+../info/TODO.md : ../info/TODO.org makefile
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+
+../info/resources.md : ../info/resources.org makefile
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+
+../info/NEWS.md : ../info/NEWS.org makefile
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+
+../info/apdl-config.md : ../info/apdl-config.org makefile
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+
 P_DIR := apdl-mode-$(VERSION)
 I_DIR := $(P_DIR)/info/
 
-$(PACKAGE) : $(PACKAGE_FILES)  makefile
+$(PACKAGE) : $(PACKAGE_FILES) makefile
 	$(EMACS_EXE) --batch -L $(S_DIR) --eval '(byte-recompile-directory $(S_DIR) 0)'
 	@echo "Packaging GNU-Emacs package $@ ..."
 	@echo
@@ -185,6 +214,7 @@ $(PACKAGE) : $(PACKAGE_FILES)  makefile
 # @test -d P_DIR/X11 || \
 #     mkdir P_DIR/X11
 	@test -d $(I_DIR) || mkdir $(I_DIR)
+	@cp $(MD_FILES) $(I_DIR)
 	@cp ../info/dir $(P_DIR)
 	@cp ../info/apdl-mode.info $(P_DIR)
 	@cp ../info/apdl-mode.texi $(P_DIR)
@@ -302,11 +332,11 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	$(EMACS_EXE) --batch --load $<
 	cp apdl-keyword.el ..
 
-../README.md : ../info/README.org makefile
+../info/apdl-config.el : ../doc/apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
-	--load "$(DIR)/export.el" \
-	--execute  "(org-md-export-to-markdown)"
-	cp ../info/README.md ..
+	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
+	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
+	cp apdl-config.el ../doc
 
 # this is for compiling Elisp files, we need to set the load-path for a pristine Emacs
 # -f means --funcall

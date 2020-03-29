@@ -18,7 +18,6 @@
 
      # (defun superfrobnicator-fetch-image (file)
      #   (expand-file-name file superfrobnicator-base))
-
 * Version 20.5.0?
 
 * TODO Version 20.4.0, completion and help updated to 2020R1
@@ -33,8 +32,8 @@
      - C-u info file
      - package with file "dir"
      - only up to 3 *** levels! configurable?
-     - info doesn't have links, yet
      - info doesn't know about clickablefunction links
+     - info doesn't have links, yet
        - (describe-package 'helpful)
          [1]  https://github.com/wilfred/helpful
 	 > Similarly, help-fns+.el.

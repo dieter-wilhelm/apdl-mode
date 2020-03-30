@@ -86,9 +86,6 @@ X11 : $(X11_FILES)
 
 PACKAGE := apdl-mode-$(VERSION).tar
 
-# necessary el files
-EL_FILES :=  ../apdl-mode.e: $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
-
 .PHONEY : EXE
 EXE : $(EMACS_EXE)
 
@@ -100,9 +97,10 @@ PACKAGE := apdl-mode-$(VERSION).tar
 
 # necessary el files
 EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
-	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el ../apdl-process.el
+	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el \
+	../apdl-process.el
 
-ELC_FILES := $(EL_FILES:.el=.elc) apdl-keyword.el
+ELC_FILES := $(EL_FILES:.el=.elc)
 
 # compile Elisp files
 .PHONEY : ELC
@@ -163,28 +161,28 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 # 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
 
-../README.md : ../info/README.org makefile
+../README.md : ../info/README.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
 	cp ../info/README.md ..
 
-../info/TODO.md : ../info/TODO.org makefile
+../info/TODO.md : ../info/TODO.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
 
-../info/resources.md : ../info/resources.org makefile
+../info/resources.md : ../info/resources.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
 
-../info/NEWS.md : ../info/NEWS.org makefile
+../info/NEWS.md : ../info/NEWS.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
 
-../info/apdl-config.md : ../info/apdl-config.org makefile
+../info/apdl-config.md : ../info/apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
@@ -331,7 +329,7 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	$(EMACS_EXE) --batch --load $<
 	cp apdl-keyword.el ..
 
-../doc/apdl-config.el : ../doc/apdl-config.org
+../info/apdl-config.el : ../info/apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
 	  --load "apdl-mode.el" --execute "(org-babel-tangle)"

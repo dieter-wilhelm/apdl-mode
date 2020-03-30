@@ -1,12 +1,12 @@
 
 # Table of Contents
 
-1.  [Ansys and APDL resources](#org4747289)
-2.  [Emacs editor resources](#org10ee6bf)
-3.  [Other APDL editor resources](#org7087241)
+1.  [Ansys and APDL resources](#org64d7c59)
+2.  [Emacs editor resources](#org238e3dd)
+3.  [Other APDL editor resources](#org632b403)
 
 
-<a id="org4747289"></a>
+<a id="org64d7c59"></a>
 
 # Ansys and APDL resources
 
@@ -19,7 +19,7 @@
 -   [AUC](http://www.auc-ev.de/), the Ansys User Club eV. in Germany
 
 
-<a id="org10ee6bf"></a>
+<a id="org238e3dd"></a>
 
 # Emacs editor resources
 
@@ -29,7 +29,7 @@
 -   The [Emacs help](mailto:help-gnu-emacs@gnu.org) mailing list
 
 
-<a id="org7087241"></a>
+<a id="org632b403"></a>
 
 # Other APDL editor resources
 

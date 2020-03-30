@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org4a06e01)
-2.  [Important Prerequisites](#org19c3d9f)
-3.  [File suffixes](#org6426a30)
-4.  [Auto insertion](#org2ce1b7c)
-5.  [Miscellaneous](#org08c45a6)
-6.  [Outlining](#org281c755)
-7.  [Highlighting (Colourisation)](#org0c4c743)
-8.  [Installation dependent configurations](#orgc3c1691)
-9.  [Ansys processes](#org3adc79a)
+1.  [Conventions](#orgf9c9565)
+2.  [Important Prerequisites](#org0f2f2ae)
+3.  [File suffixes](#org8dbb569)
+4.  [Auto insertion](#orgf588d39)
+5.  [Miscellaneous](#org7c196ca)
+6.  [Outlining](#org09dc233)
+7.  [Highlighting (Colourisation)](#org8678e99)
+8.  [Installation dependent configurations](#org861d597)
+9.  [Ansys processes](#org6ee9bcd)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -23,7 +23,7 @@ The customisations itself are written in \`Emacs-Lisp'.  The comment
 sign in this language is `;` (one semi-colon \`;').
 
 
-<a id="org4a06e01"></a>
+<a id="orgf9c9565"></a>
 
 # Conventions
 
@@ -37,7 +37,7 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="org19c3d9f"></a>
+<a id="org0f2f2ae"></a>
 
 # Important Prerequisites
 
@@ -64,7 +64,7 @@ system, then please consult the section \`INSTALLATION PATHS'
 further below.
 
 
-<a id="org6426a30"></a>
+<a id="org8dbb569"></a>
 
 # File suffixes
 
@@ -135,7 +135,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org2ce1b7c"></a>
+<a id="orgf588d39"></a>
 
 # Auto insertion
 
@@ -157,7 +157,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="org08c45a6"></a>
+<a id="org7c196ca"></a>
 
 # Miscellaneous
 
@@ -191,7 +191,7 @@ section).
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="org281c755"></a>
+<a id="org09dc233"></a>
 
 # Outlining
 
@@ -207,7 +207,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="org0c4c743"></a>
+<a id="org8678e99"></a>
 
 # Highlighting (Colourisation)
 
@@ -260,7 +260,7 @@ current default is 2
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="orgc3c1691"></a>
+<a id="org861d597"></a>
 
 # Installation dependent configurations
 
@@ -289,7 +289,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org3adc79a"></a>
+<a id="org6ee9bcd"></a>
 
 # Ansys processes
 

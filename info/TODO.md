@@ -1,55 +1,55 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0?](#orgf5bbe7a)
-2.  [Version 20.4.0, completion and help updated to 2020R1](#org8517f77)
-    1.  [Todos, bugs](#org7e4a5b1)
-    2.  [minor bugs](#org0d7aaea)
-    3.  [check](#org8d2f7b7)
-    4.  [wishes](#org822313e)
-        1.  [templates](#org2384792)
-        2.  [misc](#orgb76b975)
-    5.  [Done](#orge179fa6)
-    6.  [Release proceedures](#org9a299bf)
-3.  [20.3.0, Melpa](#org9e3bbe5)
-4.  [20.2.0](#org0b8090c)
-5.  [20.1.1](#org24e96e1)
-6.  [162-2:](#org8752a0e)
-    1.  [Bugs](#org38f1e23)
-    2.  [Freeze](#org83313d4)
-    3.  [Wish-list](#orgd9c6709)
-7.  [Deficiencies:](#org1d5f1f3)
-8.  [Procedures](#org6d9334f)
-    1.  [Freeze proceedures](#orgadac86e)
-    2.  [Release](#org981887d)
-9.  [Ideas for further versions](#org7d282cb)
-    1.  [Parameter help and documentation](#org5c2c1c5)
-    2.  [Ansys process and interpreter buffer](#orgef05705)
-    3.  [Skeletons, outline and abbrevs](#org44f9885)
-    4.  [Miscellaneous](#org0462b40)
-    5.  [Ansys syntax restrictions not (yet) accounted for](#org2d27d8e)
-    6.  [Unknown Ansys stuff](#org4df2ba5)
+1.  [Version 20.5.0?](#orgc26e6c6)
+2.  [Version 20.4.0, completion and help updated to 2020R1](#org1211025)
+    1.  [Todos, bugs](#orgdcae744)
+    2.  [minor bugs](#orge63f95b)
+    3.  [check](#orgca2fd31)
+    4.  [wishes](#org1a65247)
+        1.  [templates](#orge0f9c7d)
+        2.  [misc](#orgc447e52)
+    5.  [Done](#org6df72a8)
+    6.  [Release proceedures](#org2bc8da3)
+3.  [20.3.0, Melpa](#orgd3fd988)
+4.  [20.2.0](#org3ba9ed4)
+5.  [20.1.1](#org5ab1687)
+6.  [162-2:](#org53e1032)
+    1.  [Bugs](#org5a0e8dc)
+    2.  [Freeze](#orgf573f14)
+    3.  [Wish-list](#org156a2cb)
+7.  [Deficiencies:](#orgacb0cee)
+8.  [Procedures](#org5878833)
+    1.  [Freeze proceedures](#orgfcbe803)
+    2.  [Release](#org1ac343a)
+9.  [Ideas for further versions](#orgdd506f6)
+    1.  [Parameter help and documentation](#orgaba8f10)
+    2.  [Ansys process and interpreter buffer](#orgcde32df)
+    3.  [Skeletons, outline and abbrevs](#org9527048)
+    4.  [Miscellaneous](#org82e9fbd)
+    5.  [Ansys syntax restrictions not (yet) accounted for](#orgaae2d3c)
+    6.  [Unknown Ansys stuff](#org914317d)
 
 
 
-<a id="orgf5bbe7a"></a>
+<a id="orgc26e6c6"></a>
 
 # Version 20.5.0?
 
 
-<a id="org8517f77"></a>
+<a id="org1211025"></a>
 
 # TODO Version 20.4.0, completion and help updated to 2020R1
 
 
-<a id="org7e4a5b1"></a>
+<a id="orgdcae744"></a>
 
 ## Todos, bugs
 
 -   work on the Info index
 
 
-<a id="org0d7aaea"></a>
+<a id="orge63f95b"></a>
 
 ## minor bugs
 
@@ -61,7 +61,7 @@
 -   1/en, en is variable but fraction not fontified?
 
 
-<a id="org8d2f7b7"></a>
+<a id="orgca2fd31"></a>
 
 ## check
 
@@ -69,12 +69,12 @@
     using?
 
 
-<a id="org822313e"></a>
+<a id="org1a65247"></a>
 
 ## wishes
 
 
-<a id="org2384792"></a>
+<a id="orge0f9c7d"></a>
 
 ### templates
 
@@ -84,7 +84,7 @@
     include ARG[1-9] optionally?
 
 
-<a id="orgb76b975"></a>
+<a id="orgc447e52"></a>
 
 ### misc
 
@@ -97,12 +97,12 @@
 6.  Melpa README, better wait till emacs-27
 
 
-<a id="orge179fa6"></a>
+<a id="org6df72a8"></a>
 
 ## Done
 
 
-<a id="org9a299bf"></a>
+<a id="org2bc8da3"></a>
 
 ## Release proceedures
 
@@ -133,7 +133,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org9e3bbe5"></a>
+<a id="orgd3fd988"></a>
 
 # DONE 20.3.0, Melpa
 
@@ -141,14 +141,14 @@ APDL<sub>PATCH</sub> := 0
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org0b8090c"></a>
+<a id="org3ba9ed4"></a>
 
 # DONE 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org24e96e1"></a>
+<a id="org5ab1687"></a>
 
 # DONE 20.1.1
 
@@ -161,12 +161,12 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org8752a0e"></a>
+<a id="org53e1032"></a>
 
 # 162-2:
 
 
-<a id="org38f1e23"></a>
+<a id="org5a0e8dc"></a>
 
 ## Bugs
 
@@ -189,7 +189,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     Structural)
 
 
-<a id="org83313d4"></a>
+<a id="orgf573f14"></a>
 
 ## Freeze
 
@@ -200,7 +200,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   List of all new functions <- bug-report.sh
 
 
-<a id="orgd9c6709"></a>
+<a id="org156a2cb"></a>
 
 ## Wish-list
 
@@ -321,7 +321,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
         self-documenting help system for a template function
 
 
-<a id="org1d5f1f3"></a>
+<a id="orgacb0cee"></a>
 
 # Deficiencies:
 
@@ -356,7 +356,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     (M-{ does it though))
 
 
-<a id="org6d9334f"></a>
+<a id="org5878833"></a>
 
 # Procedures
 
@@ -370,7 +370,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     GH-wiki is repo with write access for world, separate from the A-M repo!
 
 
-<a id="orgadac86e"></a>
+<a id="orgfcbe803"></a>
 
 ## Freeze proceedures
 
@@ -411,7 +411,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     Emacs cycle)?
 
 
-<a id="org981887d"></a>
+<a id="org1ac343a"></a>
 
 ## Release
 
@@ -432,12 +432,12 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     Dieter
 
 
-<a id="org7d282cb"></a>
+<a id="orgdd506f6"></a>
 
 # Ideas for further versions
 
 
-<a id="org5c2c1c5"></a>
+<a id="orgaba8f10"></a>
 
 ## Parameter help and documentation
 
@@ -481,7 +481,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     their help strings of parameter help.
 
 
-<a id="orgef05705"></a>
+<a id="orgcde32df"></a>
 
 ## Ansys process and interpreter buffer
 
@@ -537,7 +537,7 @@ example: gnuplot-mode
         -display-error-file
 
 
-<a id="org44f9885"></a>
+<a id="org9527048"></a>
 
 ## Skeletons, outline and abbrevs
 
@@ -571,7 +571,7 @@ example: gnuplot-mode
     must \*go:label be unambiguous?
 
 
-<a id="org0462b40"></a>
+<a id="org82e9fbd"></a>
 
 ## Miscellaneous
 
@@ -662,7 +662,7 @@ example: gnuplot-mode
     programming).
 
 
-<a id="org2d27d8e"></a>
+<a id="orgaae2d3c"></a>
 
 ## Ansys syntax restrictions not (yet) accounted for
 
@@ -679,7 +679,7 @@ example: gnuplot-mode
 -   Macro level restriction: 20 macros
 
 
-<a id="org4df2ba5"></a>
+<a id="org914317d"></a>
 
 ## Unknown Ansys stuff
 

@@ -1,26 +1,26 @@
 
 # Table of Contents
 
-1.  [Version 20.4.0: 2020-04, update to Ansys 2020R1](#org17b58cf)
-2.  [Version 20.3.0: 2020-03 Melpa installation](#orga401fde)
-3.  [Version 20.2.0: 2020-03: Updated keywords to Ansys v195](#org08262ce)
-4.  [Version 20.1.1: 2020-02: Bugfix release](#org6f99013)
-5.  [Version 20.1.0: Released  2020-02](#org086ee99)
-6.  [Version 162-1, not yet released, targeted for Sep 2015](#orgb6ace29)
-7.  [Version 16.1.1 July 2015](#org6f5573d)
-8.  [Version 15.0.1 Aug 2014](#org9b9cd3d)
-9.  [Version 14.5.2  Mar 2013](#orga5b9f19)
-10. [Version 14.5.1 Sep 2012](#org628d99a)
-11. [Version 14.0.1 June 2012](#org6ae7589)
-12. [Version 13.0.1 March 2011](#orga625bd0)
-13. [Version 12.0.1 Dec 2010](#org448ead3)
-14. [Version 11.0.2 Nov 2009](#org1982ebd)
-15. [ansys-mode.el 11.0.1 2009 in comparison to ansys-mod.el:](#org2756f8f)
+1.  [Version 20.4.0: 2020-04, update to Ansys 2020R1](#orgc05d5e5)
+2.  [Version 20.3.0: 2020-03 Melpa installation](#org1924e02)
+3.  [Version 20.2.0: 2020-03: Updated keywords to Ansys v195](#org08f1160)
+4.  [Version 20.1.1: 2020-02: Bugfix release](#orgda80ece)
+5.  [Version 20.1.0: Released  2020-02](#org55d1e1e)
+6.  [Version 162-1, not yet released, targeted for Sep 2015](#org4ef1ae4)
+7.  [Version 16.1.1 July 2015](#org4751425)
+8.  [Version 15.0.1 Aug 2014](#orgf8921ce)
+9.  [Version 14.5.2  Mar 2013](#org8a36f35)
+10. [Version 14.5.1 Sep 2012](#org05a67bf)
+11. [Version 14.0.1 June 2012](#org05ba57b)
+12. [Version 13.0.1 March 2011](#org082923a)
+13. [Version 12.0.1 Dec 2010](#org3e72687)
+14. [Version 11.0.2 Nov 2009](#org50184f3)
+15. [ansys-mode.el 11.0.1 2009 in comparison to ansys-mod.el:](#org6461b17)
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 
-<a id="org17b58cf"></a>
+<a id="orgc05d5e5"></a>
 
 # Version 20.4.0: 2020-04, update to Ansys 2020R1
 
@@ -33,7 +33,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     apdl-mode without further user configuration.
 
 
-<a id="orga401fde"></a>
+<a id="org1924e02"></a>
 
 # Version 20.3.0: 2020-03 Melpa installation
 
@@ -49,7 +49,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     parameters
 
 
-<a id="org08262ce"></a>
+<a id="org08f1160"></a>
 
 # Version 20.2.0: 2020-03: Updated keywords to Ansys v195
 
@@ -67,7 +67,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     because of speed reasons.
 
 
-<a id="org6f99013"></a>
+<a id="orgda80ece"></a>
 
 # Version 20.1.1: 2020-02: Bugfix release
 
@@ -76,7 +76,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Enabled EWW (and other browsers) as a "help viewer"
 
 
-<a id="org086ee99"></a>
+<a id="org55d1e1e"></a>
 
 # Version 20.1.0: Released  2020-02
 
@@ -91,7 +91,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Better warning for C-c C-b when A-M is not configured
 
 
-<a id="orgb6ace29"></a>
+<a id="org4ef1ae4"></a>
 
 # Version 162-1, not yet released, targeted for Sep 2015
 
@@ -120,7 +120,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 
-<a id="org6f5573d"></a>
+<a id="org4751425"></a>
 
 # Version 16.1.1 July 2015
 
@@ -150,7 +150,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     example.mac.  Included an example.dat and example.anf
 
 
-<a id="org9b9cd3d"></a>
+<a id="orgf8921ce"></a>
 
 # Version 15.0.1 Aug 2014
 
@@ -167,7 +167,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     e. g. partial solutions with psolve for mass calculations.
 
 
-<a id="orga5b9f19"></a>
+<a id="org8a36f35"></a>
 
 # Version 14.5.2  Mar 2013
 
@@ -197,7 +197,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     added a beam simulation template
 
 
-<a id="org628d99a"></a>
+<a id="org05a67bf"></a>
 
 # Version 14.5.1 Sep 2012
 
@@ -253,7 +253,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     under the nint() entry
 
 
-<a id="org6ae7589"></a>
+<a id="org05ba57b"></a>
 
 # Version 14.0.1 June 2012
 
@@ -280,7 +280,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     additionally the installation directory (ansys-install-directory).
 
 
-<a id="orga625bd0"></a>
+<a id="org082923a"></a>
 
 # Version 13.0.1 March 2011
 
@@ -299,7 +299,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     etc. to release 13.0 of Ansys, as usual.
 
 
-<a id="org448ead3"></a>
+<a id="org3e72687"></a>
 
 # Version 12.0.1 Dec 2010
 
@@ -341,7 +341,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     transition from other editors
 
 
-<a id="org1982ebd"></a>
+<a id="org50184f3"></a>
 
 # Version 11.0.2 Nov 2009
 
@@ -354,7 +354,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     ansys-query-ansys-command (C-c C-q).
 
 
-<a id="org2756f8f"></a>
+<a id="org6461b17"></a>
 
 # ansys-mode.el 11.0.1 2009 in comparison to ansys-mod.el:
 

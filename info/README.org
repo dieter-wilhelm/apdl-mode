@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-29>
+#+DATE: Time-stamp: <2020-03-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -119,7 +119,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   yourself with the [[file:info/LICENSE][LICENSE]] file.
 * Acknowledgements
   #+include: ./acknowledgements.org
-* TODOs
+* Todos
   Please check the [[file:info/TODO.org][TODO]] file.
 -----
 # The following is for Emacs

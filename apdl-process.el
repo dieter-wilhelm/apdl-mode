@@ -911,7 +911,8 @@ Interesting licenses are compiled in the string
 Show the status for the user `apdl-username' in a separate
 buffer, the license type variable `apdl-license' determines a
 highlighting of the license server summary rows.  There are
-additional keybindings for the license buffer:
+additional keybindings for the license buffer *User-licenses*:
+
 - `g' for updating the license status
 - `Q' for killing the Buffer
 - `h' for this help and
@@ -932,7 +933,10 @@ additional keybindings for the license buffer:
         ;; otherwise it supposedly overwrites major modes keymaps!
         (local-set-key (kbd "Q") 'kill-this-buffer)
         (local-set-key (kbd "q") 'bury-buffer)
-        (local-set-key (kbd "h") '(describe-function 'apdl-user-license-status))
+        (local-set-key (kbd "h") (lambda ()
+				   (interactive)
+				   (describe-function
+				    'apdl-user-license-status)))
         (local-set-key (kbd "l") 'apdl-license-status)
         (local-set-key (kbd "g") 'apdl-user-license-status)
 
@@ -982,7 +986,8 @@ additional keybindings for the license buffer:
 Show the status in a separate buffer, the license type variable
 `apdl-license' determines a highlighting of the license server
 summary rows.  There are additional keybindings for the license
-buffer:
+buffer *Licenses*:
+
 - `g' for updating the license status,
 - `o' for showing an occur buffer with the interesting licenses from
       `apdl-license-occur-regexp',
@@ -1013,7 +1018,10 @@ buffer:
         (local-set-key (kbd "q") 'bury-buffer)
         (local-set-key (kbd "g") 'apdl-license-status)
         (local-set-key (kbd "o") 'apdl-occur)
-        (local-set-key (kbd "o") '(describe-function 'apdl-license-status))
+        (local-set-key (kbd "h") (lambda ()
+				   (interactive)
+				   (describe-function
+				    'apdl-license-status)))
         (local-set-key (kbd "u") 'apdl-user-license-status)
 
         ;; ;; remove users

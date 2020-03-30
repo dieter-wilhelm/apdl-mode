@@ -109,7 +109,7 @@ ELC : $(ELC_FILES)
 # interesting files besides the essential lisp files
 FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
 	 ../info/TODO.org ../info/NEWS.org ../info/INSTALLATION.org \
-	 ../info/apdl-config.org
+	 ../info/apdl-config.org ../info/apdl-config.el
 
 # all org files which are referenced in README.org have to be exported
 # to markdown .md
@@ -325,7 +325,9 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	--load "./export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
-../apdl-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt makefile
+../apdl-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt \
+	apdl_parametric_functions.txt apdl_get_functions.txt apdl_keywords.txt \
+	makefile
 	$(EMACS_EXE) --batch --load $<
 	cp apdl-keyword.el ..
 

@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org03f00f4)
-2.  [Important Prerequisites](#orgb923945)
-3.  [File suffixes](#orga19f2ec)
-4.  [Auto insertion](#org83bec3a)
-5.  [Miscellaneous](#orgd32b0f3)
-6.  [Outlining](#orgea6fe1e)
-7.  [Highlighting (Colourisation)](#org9c60a42)
-8.  [Installation dependent configurations](#org7aa8b6e)
-9.  [Ansys processes](#org76b112a)
+1.  [Conventions](#org587558d)
+2.  [Important Prerequisites](#orgfc93a4e)
+3.  [File suffixes](#org77ad6f7)
+4.  [Auto insertion](#org96dc251)
+5.  [Miscellaneous](#orge7c4cbe)
+6.  [Outlining](#orgac2b5d0)
+7.  [Highlighting (Colourisation)](#org61db0b1)
+8.  [Installation dependent configurations](#org061a3c8)
+9.  [Ansys processes](#org126648b)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -23,7 +23,7 @@ The customisations itself are written in \`Emacs-Lisp'.  The comment
 sign in this language is `;` (one semi-colon \`;').
 
 
-<a id="org03f00f4"></a>
+<a id="org587558d"></a>
 
 # Conventions
 
@@ -87,7 +87,7 @@ or load your adjustments of this file with \`(load-file
     ;;; CODE:
 
 
-<a id="orgb923945"></a>
+<a id="orgfc93a4e"></a>
 
 # Important Prerequisites
 
@@ -114,7 +114,7 @@ system, then please consult the section \`INSTALLATION PATHS'
 further below.
 
 
-<a id="orga19f2ec"></a>
+<a id="org77ad6f7"></a>
 
 # File suffixes
 
@@ -185,7 +185,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org83bec3a"></a>
+<a id="org96dc251"></a>
 
 # Auto insertion
 
@@ -207,7 +207,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="orgd32b0f3"></a>
+<a id="orge7c4cbe"></a>
 
 # Miscellaneous
 
@@ -215,14 +215,18 @@ section).
     			  ;; Miscellaneous
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     
-    (setq apdl-parameter-help-duration "2 min")
+    ;; The amount of time the help overlay is shown from
+    ;; (`apdl-show-command-parameters').
+    
+    ; (setq apdl-parameter-help-duration "2 min") ; the default
     (setq apdl-parameter-help-duration 30) ; 30 seconds
     
     ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
-    ;; might only work for locally installed help documents (1.7 GB
-    ;; package v201) since v191 the online help is the default help system.
+    ;; might only work for locally installed help documents (a 1.7 GB
+    ;; package v201) since v191 the online help is the default help
+    ;; system.
     
-    ; (setq browse-url-browser-function 'eww-browse-url)
+    (setq browse-url-browser-function 'eww-browse-url)
     
     ;; You might use this variable to create you own templates
     ;; in `apdl-wb-template.el'.
@@ -231,12 +235,13 @@ section).
     
     ;;  APDL-Mode mode configures the following variable from the
     ;;  evironment to show your license usage in
-    ;;  `apdl-user-license-status'.
+    ;;  `apdl-user-license-status'.  It is the user ID you are registered
+    ;;  for the  license server.
     
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="orgea6fe1e"></a>
+<a id="orgac2b5d0"></a>
 
 # Outlining
 
@@ -252,7 +257,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="org9c60a42"></a>
+<a id="org61db0b1"></a>
 
 # Highlighting (Colourisation)
 
@@ -305,7 +310,7 @@ current default is 2
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org7aa8b6e"></a>
+<a id="org061a3c8"></a>
 
 # Installation dependent configurations
 
@@ -334,7 +339,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org76b112a"></a>
+<a id="org126648b"></a>
 
 # Ansys processes
 

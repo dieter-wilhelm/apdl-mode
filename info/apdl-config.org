@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-29 21:47:58 dieter>
+#+DATE: Time-stamp: <2020-03-30 09:18:40 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -249,14 +249,18 @@ sign in this language is ~;~ (one semi-colon `;').
 			      ;; Miscellaneous
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-    (setq apdl-parameter-help-duration "2 min")
+    ;; The amount of time the help overlay is shown from
+    ;; (`apdl-show-command-parameters').
+
+    ; (setq apdl-parameter-help-duration "2 min") ; the default
     (setq apdl-parameter-help-duration 30) ; 30 seconds
 
     ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
-    ;; might only work for locally installed help documents (1.7 GB
-    ;; package v201) since v191 the online help is the default help system.
+    ;; might only work for locally installed help documents (a 1.7 GB
+    ;; package v201) since v191 the online help is the default help
+    ;; system.
 
-    ; (setq browse-url-browser-function 'eww-browse-url)
+    (setq browse-url-browser-function 'eww-browse-url)
 
     ;; You might use this variable to create you own templates
     ;; in `apdl-wb-template.el'.
@@ -265,7 +269,8 @@ sign in this language is ~;~ (one semi-colon `;').
 
     ;;  APDL-Mode mode configures the following variable from the
     ;;  evironment to show your license usage in
-    ;;  `apdl-user-license-status'.
+    ;;  `apdl-user-license-status'.  It is the user ID you are registered
+    ;;  for the  license server.
 
     (setq apdl-username "userID") 		; new in 20.4.0
 

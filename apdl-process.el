@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-28>
+;; Time-stamp: <2020-03-30>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -82,7 +82,9 @@
   :group 'APDL)
 
 (defcustom apdl-license-occur-regexp
-  '("electronics_desktop"
+  '(
+    "electronics2d_gui"
+    "electronics_desktop"
     "a_spaceclaim_dirmod"		; spaceclaim
 ;;    "agppi"				; agppi -- Design Modeler
     "disc"				; disc* -- discovery procucts
@@ -909,14 +911,17 @@ Interesting licenses are compiled in the string
 Show the status for the user `apdl-username' in a separate
 buffer, the license type variable `apdl-license' determines a
 highlighting of the license server summary rows.  There are
-additional keybindings for the license buffer: `g' for updating
-the license status, `Q' for killing the Buffer and `q' for
-burying it."
+additional keybindings for the license buffer:
+- `g' for updating the license status
+- `Q' for killing the Buffer
+- `h' for this help and
+- `l' for the general license status and
+- `q' for burying the *User-licenses* buffer."
   (interactive)
   (cond
    ((and apdl-lmutil-program apdl-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
-    (message "Retrieving user license status, this may take some time...")
+    (message "Retrieving user licenses, this may take some time...")
     (with-current-buffer (get-buffer-create "*User-licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
@@ -927,6 +932,8 @@ burying it."
         ;; otherwise it supposedly overwrites major modes keymaps!
         (local-set-key (kbd "Q") 'kill-this-buffer)
         (local-set-key (kbd "q") 'bury-buffer)
+        (local-set-key (kbd "h") '(describe-function 'apdl-user-license-status))
+        (local-set-key (kbd "l") 'apdl-license-status)
         (local-set-key (kbd "g") 'apdl-user-license-status)
 
         ;; remove empty lines
@@ -954,9 +961,8 @@ burying it."
         ;; add some comments
         (goto-char (point-min))
         (insert (propertize
-                 (concat " -*- User license status from " apdl-license-file
-                         " -*-\n") 'face 'match))
-
+                 (concat " -*- User license status" ;" from " apdl-license-file
+                         " type h for help -*-\n") 'face 'match))
         (goto-char (point-max))
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")
@@ -976,19 +982,25 @@ burying it."
 Show the status in a separate buffer, the license type variable
 `apdl-license' determines a highlighting of the license server
 summary rows.  There are additional keybindings for the license
-buffer: `g' for updating the license status, `o' for showing an
-occur buffer with the interesting licenses from
-`apdl-license-occur-regexp', `Q' for killing the Buffer and `q'
-for burying it."
+buffer:
+- `g' for updating the license status,
+- `o' for showing an occur buffer with the interesting licenses from
+      `apdl-license-occur-regexp',
+- `u' for displaying all the user license,
+- 'h' for showing this help,
+- `Q' for killing the Buffer and
+- `q' for burying it below another buffer."
   (interactive)
   (cond
    ((and apdl-lmutil-program apdl-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
-    (message "Retrieving license (%s) status, this may take some time..." apdl-license)
-    (with-current-buffer (get-buffer-create "*APDL-licenses*")
+    (message
+     "Retrieving license (%s) status, this may take some time..." apdl-license)
+    (with-current-buffer (get-buffer-create "*Licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
-    (call-process apdl-lmutil-program nil "*Licenses*" nil "lmstat" "-c "  apdl-license-file  "-a")
+    (call-process apdl-lmutil-program nil "*Licenses*" nil "lmstat" "-c "
+		  apdl-license-file  "-a")
     (let (bol eol)
       (with-current-buffer "*Licenses*"
         ;; remove uninteresting licenses
@@ -1001,6 +1013,7 @@ for burying it."
         (local-set-key (kbd "q") 'bury-buffer)
         (local-set-key (kbd "g") 'apdl-license-status)
         (local-set-key (kbd "o") 'apdl-occur)
+        (local-set-key (kbd "o") '(describe-function 'apdl-license-status))
         (local-set-key (kbd "u") 'apdl-user-license-status)
 
         ;; ;; remove users
@@ -1036,9 +1049,8 @@ for burying it."
         ;; add some comments
         (goto-char (point-min))
         (insert (propertize
-                 (concat " -*- License status from " apdl-license-file
-                         " -*-\n") 'face 'match))
-
+                 (concat " -*- License status" ; from " apdl-license-file
+                         ", type h for help -*-\n") 'face 'match))
         (goto-char (point-max))
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")

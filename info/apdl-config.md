@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org038de85)
-2.  [Important Prerequisites](#org6cc86b4)
-3.  [File suffixes](#orgf6d0380)
-4.  [Auto insertion](#org47be09e)
-5.  [Miscellaneous](#orgfbdeef2)
-6.  [Outlining](#orgbffcdf9)
-7.  [Highlighting (Colourisation)](#orgbd16b2c)
-8.  [Installation dependent configurations](#org9397b82)
-9.  [Ansys processes](#org4be051a)
+1.  [Conventions](#org4f331c9)
+2.  [Important Prerequisites](#org9cf3300)
+3.  [File suffixes](#org1d50070)
+4.  [Auto insertion](#orgc358819)
+5.  [Miscellaneous](#orgd7f85fa)
+6.  [Outlining](#org4c340ab)
+7.  [Highlighting (Colourisation)](#org6e81396)
+8.  [Installation dependent configurations](#org60afac1)
+9.  [Ansys processes](#org21d444a)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -23,7 +23,7 @@ The customisations itself are written in \`Emacs-Lisp'.  The comment
 sign in this language is `;` (one semi-colon \`;').
 
 
-<a id="org038de85"></a>
+<a id="org4f331c9"></a>
 
 # Conventions
 
@@ -37,7 +37,7 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="org6cc86b4"></a>
+<a id="org9cf3300"></a>
 
 # Important Prerequisites
 
@@ -55,7 +55,7 @@ path up to and including the Ansys versioning number.
            (t ;This an example of an installation directory on WINDOWS
     	;; Emacs is using here forward slashes as under Unix and not
     	;; the backslash "\"!
-    	(setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
+    	(setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
     	;; default: "C:/Program Files/Ansys Inc/v201/"
 
 If your Ansys installation differs completely from the standard
@@ -64,7 +64,7 @@ system, then please consult the section \`INSTALLATION PATHS'
 further below.
 
 
-<a id="orgf6d0380"></a>
+<a id="org1d50070"></a>
 
 # File suffixes
 
@@ -135,7 +135,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org47be09e"></a>
+<a id="orgc358819"></a>
 
 # Auto insertion
 
@@ -157,7 +157,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="orgfbdeef2"></a>
+<a id="orgd7f85fa"></a>
 
 # Miscellaneous
 
@@ -181,7 +181,7 @@ section).
     ;; You might use this variable to create you own templates
     ;; in `apdl-wb-template.el'.
     
-    (setq apdl-wb-custom-template-directory "c:/my_macros/" ; new in 20.4.0
+    (setq apdl-wb-custom-template-directory "c:/my_macros/") ; new in 20.4.0
     
     ;;  APDL-Mode mode configures the following variable from the
     ;;  evironment to show your license usage in
@@ -191,7 +191,7 @@ section).
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="orgbffcdf9"></a>
+<a id="org4c340ab"></a>
 
 # Outlining
 
@@ -207,7 +207,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="orgbd16b2c"></a>
+<a id="org6e81396"></a>
 
 # Highlighting (Colourisation)
 
@@ -260,7 +260,7 @@ current default is 2
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org9397b82"></a>
+<a id="org60afac1"></a>
 
 # Installation dependent configurations
 
@@ -289,7 +289,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org4be051a"></a>
+<a id="org21d444a"></a>
 
 # Ansys processes
 

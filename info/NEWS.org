@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-28>
+#+DATE: Time-stamp: <2020-03-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,7 +17,7 @@
 #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-** Version 20.4.0: 2020-04, update to Ansys 2020R1
+** Version 20.4.0: 2020-04: Updated for Ansys 2020R1
    - Updated keywords to Ansys 2020R1 (v201)
    - Added documentation in GNU Info format and modified the menu
      entry APDL-Mode Online Documentation to APDL-Mode Documentation
@@ -25,7 +25,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    - Added a menu entry for displaying the user's taken licenses
    - Files with the suffixes ".mac", ".dat" and ".inp" are openend in
      apdl-mode without further user configuration.
-** Version 20.3.0: 2020-03 Melpa installation
+   - Added additional keys for the license status functions
+** Version 20.3.0: 2020-03: Melpa installation
    - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!
    - Added a new menu entry for browsing interactively the
      documentation for keywords

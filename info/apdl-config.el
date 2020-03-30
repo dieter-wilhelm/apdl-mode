@@ -55,7 +55,7 @@
        (t ;This an example of an installation directory on WINDOWS
 	;; Emacs is using here forward slashes as under Unix and not
 	;; the backslash "\"!
-	(setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
+	(setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
 	;; default: "C:/Program Files/Ansys Inc/v201/"
 
 (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
@@ -120,7 +120,7 @@
 ;; You might use this variable to create you own templates
 ;; in `apdl-wb-template.el'.
 
-(setq apdl-wb-custom-template-directory "c:/my_macros/" ; new in 20.4.0
+(setq apdl-wb-custom-template-directory "c:/my_macros/") ; new in 20.4.0
 
 ;;  APDL-Mode mode configures the following variable from the
 ;;  evironment to show your license usage in

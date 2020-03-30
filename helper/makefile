@@ -119,10 +119,7 @@ MD_FILES := ../README.md ../info/TODO.md ../info/resources.md \
 		../info/NEWS.md ../info/apdl-config.md
 
 # example files
-EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat \
-	 ../doc/apdl-config.el 
-
-#	 ../doc/APDL_tutorial.ans
+EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 
 # ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
@@ -334,11 +331,10 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 	$(EMACS_EXE) --batch --load $<
 	cp apdl-keyword.el ..
 
-../info/apdl-config.el : ../doc/apdl-config.org
+../doc/apdl-config.el : ../doc/apdl-config.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"$(S_DIR)\")" \
 	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
-	cp apdl-config.el ../doc
 
 # this is for compiling Elisp files, we need to set the load-path for a pristine Emacs
 # -f means --funcall

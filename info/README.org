@@ -101,8 +101,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   APDL-Mode configures GNU-Emacs to open all files with the suffixes
   ".mac", ".dat" and ".inp" under apdl-mode.
 
-  Please read [[file:info/apdl-config.org][apdl-config]], or the accompanying configuration
-  [[file:doc/apdl-config.el][example-file]] for further details.
+  Please read [[file:info/apdl-config.org][apdl-config]] documentation, or the accompanying
+  configuration [[file:info/apdl-config.el][example-file]] for further details.
 * Bugs and Problems
   #+include: ./bugs.org
 * News

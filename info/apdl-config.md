@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org587558d)
-2.  [Important Prerequisites](#orgfc93a4e)
-3.  [File suffixes](#org77ad6f7)
-4.  [Auto insertion](#org96dc251)
-5.  [Miscellaneous](#orge7c4cbe)
-6.  [Outlining](#orgac2b5d0)
-7.  [Highlighting (Colourisation)](#org61db0b1)
-8.  [Installation dependent configurations](#org061a3c8)
-9.  [Ansys processes](#org126648b)
+1.  [Conventions](#org4a06e01)
+2.  [Important Prerequisites](#org19c3d9f)
+3.  [File suffixes](#org6426a30)
+4.  [Auto insertion](#org2ce1b7c)
+5.  [Miscellaneous](#org08c45a6)
+6.  [Outlining](#org281c755)
+7.  [Highlighting (Colourisation)](#org0c4c743)
+8.  [Installation dependent configurations](#orgc3c1691)
+9.  [Ansys processes](#org3adc79a)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -23,7 +23,7 @@ The customisations itself are written in \`Emacs-Lisp'.  The comment
 sign in this language is `;` (one semi-colon \`;').
 
 
-<a id="org587558d"></a>
+<a id="org4a06e01"></a>
 
 # Conventions
 
@@ -36,58 +36,8 @@ Please add the interesting code lines into your GNU-Emacs init file
 or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
-    ;;; apdl-config.el --- Customisation example for APDL-Mode
-    ;; This file was built from the file "apdl-config.org".
-    
-    ;; Copyright (C) 2016 - 2020 H. Dieter Wilhelm, GPL V3
-    ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-    ;; Version: 20.4.0
-    ;; Package-Requires: ((emacs "25.1"))
-    ;; Keywords: languages, convenience, tools, Ansys, APDL
-    ;; URL: https://github.com/dieter-wilhelm/apdl-mode
-    
-    ;; Maintainer: H. Dieter Wilhelm
-    ;; Created: 2006-02
-    
-    ;; Parts of this mode were originally base on octave-mod.el: Copyright
-    ;; (C) 1997 Free Software Foundation, Inc.  Author: Kurt Hornik
-    ;; <Kurt.Hornik@wu-wien.ac.at> Author: John Eaton
-    ;; <jwe@bevo.che.wisc.edu>
-    
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    ;; This code is free software; you can redistribute it and/or modify
-    ;; it under the terms of the GNU General Public License as published
-    ;; by the Free Software Foundation; either version 3, or (at your
-    ;; option) any later version.
-    ;;
-    ;; This lisp script is distributed in the hope that it will be useful,
-    ;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-    ;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    ;;
-    ;; Permission is granted to distribute copies of this lisp script
-    ;; provided the copyright notice and this permission are preserved in
-    ;; all copies.
-    ;;
-    ;; You should have received a copy of the GNU General Public License
-    ;; along with this program; if not, you can either send email to this
-    ;; program's maintainer or write to: The Free Software Foundation,
-    ;; Inc.; 675 Massachusetts Avenue; Cambridge, MA 02139, USA.
-    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-    
-    ;;; Commentary:
-    ;; The customisations itself are written in `Emacs-Lisp'.
-    ;; The comment is ~;~ (one semi-colon `;').  Textual hints
-    ;; are indicated with DOUBLE semi-colons `;;', optionally uncomment
-    ;; the code lines with a SINGLE comment sign.
-    
-    ;; Please add the interesting code lines into your GNU-Emacs init file or
-    ;; load this file in the init file with `(load-file
-    ;; "PATH/apdl-config.el")'.
-    
-    ;;; CODE:
 
-
-<a id="orgfc93a4e"></a>
+<a id="org19c3d9f"></a>
 
 # Important Prerequisites
 
@@ -114,7 +64,7 @@ system, then please consult the section \`INSTALLATION PATHS'
 further below.
 
 
-<a id="org77ad6f7"></a>
+<a id="org6426a30"></a>
 
 # File suffixes
 
@@ -185,7 +135,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org96dc251"></a>
+<a id="org2ce1b7c"></a>
 
 # Auto insertion
 
@@ -207,7 +157,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="orge7c4cbe"></a>
+<a id="org08c45a6"></a>
 
 # Miscellaneous
 
@@ -241,7 +191,7 @@ section).
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="orgac2b5d0"></a>
+<a id="org281c755"></a>
 
 # Outlining
 
@@ -257,7 +207,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="org61db0b1"></a>
+<a id="org0c4c743"></a>
 
 # Highlighting (Colourisation)
 
@@ -310,7 +260,7 @@ current default is 2
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org061a3c8"></a>
+<a id="orgc3c1691"></a>
 
 # Installation dependent configurations
 
@@ -339,7 +289,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org126648b"></a>
+<a id="org3adc79a"></a>
 
 # Ansys processes
 

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-30 09:18:40 dieter>
+#+DATE: Time-stamp: <2020-03-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -46,7 +46,7 @@ sign in this language is ~;~ (one semi-colon `;').
   or load your adjustments of this file with `(load-file
   "PATH/apdl-config.el")' from your init file.
 
-  #+BEGIN_SRC emacs-lisp :tangle yes
+  #+BEGIN_SRC emacs-lisp :tangle yes :exports none
     ;;; apdl-config.el --- Customisation example for APDL-Mode
     ;; This file was built from the file "apdl-config.org".
 

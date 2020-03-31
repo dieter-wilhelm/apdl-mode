@@ -14,11 +14,12 @@
 #+LATEX_HEADER:
 
 #+STARTUP: showall
-#+title: News and History of APDL-Mode
+# #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
-* Version 20.4.0, 2020-04, Updated for Ansys 2020R1
+* Version 20.4.0
+  2020-04, Updated for Ansys 2020R1
   - Updated keyword- and completion system to Ansys 2020R1 (v201)
   - Added documentation in GNU Info format and modified the menu
     entry APDL-Mode Online Documentation to APDL-Mode Documentation
@@ -27,7 +28,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - Files with the suffixes ".mac", ".dat" and ".inp" are openend in
     apdl-mode without further user configuration.
   - Added additional keys for the license status functions
-* Version 20.3.0, 2020-03, Melpa installation
+* Version 20.3.0
+  2020-03, Melpa installation
   - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!
   - Added a new menu entry for browsing interactively the
     documentation for keywords
@@ -38,7 +40,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - Added customisation section for Worbench / Discover Aim templates
   - Improved initialisation of Ansys installation dependent
     parameters
-* Version 20.2.0, 2020-03, Updated keywords to Ansys v195
+* Version 20.2.0
+  2020-03, Updated keywords to Ansys v195
   - Added a template preview system for Worbench `Command (APDL)'
     objects with the keybinding `C-c C-w' (this keybinding was
     formerly used for starting WorkBench).
@@ -52,12 +55,14 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     to install the local Ansys help package, though it is advisable
     because of speed reasons.
 
-* Version 20.1.1, 2020-02, Bugfix release
+* Version 20.1.1
+  2020-02, Bugfix release
   - Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual
   - Improved configuration docu
   - Enabled EWW (and other browsers) as a "help viewer"
 
-* Version 20.1.0, Released  2020-02
+* Version 20.1.0
+  Released  2020-02
   - Changed the name to APDL-Mode
   - Changed version naming scheme (package.el format)
   - Installation now with Emacs' packageing system
@@ -68,7 +73,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     Q - quit license buffer
   - Better warning for C-c C-b when A-M is not configured
 
-* Version 162-1, not yet released, targeted for Sep 2015
+* Version 162-1
+  not yet released, targeted for Sep 2015
   - Sending code to the ANYSClassics GUI is now possible as well, not
     only to the restricted interactive solver (currently only on
     GNU-Linux and Unix with C-c C-j, C-c C-u, C-c C-c).
@@ -93,7 +99,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     code line.
   - Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
-* Version 16.1.1 July 2015
+* Version 16.1.1
+  July 2015
   - The command `ansys-show-command-parameters' (M-?) does
     additionally count the number of parameters and visualise at
     which parameter position the cursor currently is.  This tool-tip
@@ -119,7 +126,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - Renamed README, NEWS and TODO to *.org, fontification.mac to
     example.mac.  Included an example.dat and example.anf
 
-* Version 15.0.1 Aug 2014
+* Version 15.0.1
+  Aug 2014
   - Added an example of an Ansys material library
   - C-c C-c (ansys-send-to-ansys) doesn't skip to the next code line any
     longer but remains in the code line. The former behaviour borrows
@@ -132,7 +140,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     And as usual: Corrected some bugs, typos and extended the templates,
     e. g. partial solutions with psolve for mass calculations.
 
-* Version 14.5.2  Mar 2013
+* Version 14.5.2
+  Mar 2013
   - The unwieldy and usually uninteresting pure number blocks (the
     nblock, eblocks and cmblocks) in files with the suffix .dat are now
     hidden by default.  WorkBench creates these blocks in input files
@@ -158,8 +167,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - As always: Enhancements and corrections for the APDL templates,
     added a beam simulation template
 
-* Version 14.5.1 Sep 2012
-
+* Version 14.5.1
+  Sep 2012
   - Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
     the detailed Ansys help in your web-browser for an APDL command or
     element name (also the element number is sufficient) around the
@@ -211,7 +220,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - Described a poor man's round() workaround in ansys-template-function
     under the nint() entry
 
-* Version 14.0.1 June 2012
+* Version 14.0.1
+  June 2012
   - Enhanced the documentation, included is now an introductory tutorial
     `ansys-mode_tutorial.pdf' and a hands-on tutorial
     `APDL_tutorial.pdf'
@@ -234,7 +244,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     not 140, see the example configuration file default_el) and maybe
     additionally the installation directory (ansys-install-directory).
 
-* Version 13.0.1 March 2011
+* Version 13.0.1
+  March 2011
   - Added support for aligning whole sections of Ansys variable
     definitions, both in the Ansys menu and as a keyboard shortcut 'C-c
     C-a'
@@ -249,7 +260,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - Updated keyword list, deprecated elements, undocumented commands,
     etc. to release 13.0 of Ansys, as usual.
 
-* Version 12.0.1 Dec 2010
+* Version 12.0.1
+  Dec 2010
   - Some new graphics commands like ansys-zoom-in, -zoom-out,
     -move-left, -right, -up, -down, etc.
   - The lisp code had to be split up for better maintenance, the code
@@ -287,7 +299,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   - Ansys mode changes some Emacs default behaviour to smooth the
     transition from other editors
 
-* Version 11.0.2 Nov 2009
+* Version 11.0.2
+  Nov 2009
   - Enabled the preview of code templates or fragments (called
     skeletons in this mode, please inspect `ansys-display-skeleton').
   - Removed "buffer has no process" bug when killing an ansys-mode
@@ -296,7 +309,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     only as written in a macro file) to the solver process,
     ansys-query-ansys-command (C-c C-q).
 
-* ansys-mode.el 11.0.1 2009 in comparison to ansys-mod.el,
+* ansys-mode.el 11.0.1
+  2009 in comparison to ansys-mod.el,
    - New: Provides Ansys command parameter- and syntax help.
    - New: Offers Ansys process management: Acquiring license server
      information in a buffer Starting and stopping asynchronously

@@ -1,29 +1,111 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0?](#org913cff8)
-2.  [Version 20.4.0, updated to 2020R1](#orgc14c45e)
-3.  [20.3.0, Melpa](#org2a539da)
-4.  [20.2.0](#org03b5ef0)
-5.  [20.1.1](#orgcf6056f)
-6.  [162-2:](#orgffdd12c)
-7.  [Deficiencies:](#orgb5e6396)
-8.  [Procedures](#org881a5c7)
-9.  [Ideas for further versions](#org48b8192)
+1.  [Version 20.5.0 ?](#org4c764d0)
+2.  [Version 20.4.0](#orgb9c7b85)
+3.  [Version 20.3.0](#org0dc2aab)
+4.  [Version 20.2.0](#orgcf7051a)
+5.  [Version 20.1.1](#org361ffca)
+6.  [Version 162-2:](#org1e55ca1)
 
 
 
-<a id="org913cff8"></a>
+<a id="org4c764d0"></a>
 
-# Version 20.5.0?
+# Version 20.5.0 ?
 
 
-<a id="orgc14c45e"></a>
+<a id="orgb9c7b85"></a>
 
-# TODO Version 20.4.0, updated to 2020R1
+# TODO Version 20.4.0
+
+updated to 2020R1
 
 
 ## Todos, bugs
+
+
+### State of documentation
+
+-   work on the Info index
+-   image directory in .info file is not existing in Melpa! Do we
+    need images in the manual? No
+-   \#+include: #+title adds to info title!
+-   Attention ":" in headline gives a texinfo reference!
+-   C-u info file
+-   package with file "dir"
+-   only up to 3 **\*** levels! configurable?
+-   info doesn't know about clickablefunction links
+-   info doesn't have links, yet
+    -   (describe-package 'helpful)
+        [1]  <https://github.com/wilfred/helpful>
+        > Similarly, help-fns+.el.
+        > There you have option \`help-cross-reference-manuals':
+-   customise system (explain \`M-x customize-set-value' as long as
+    (debbugs-gnu-bugs 25678) is not solved)
+-   license buffers in docu
+-   do we need a short help, yes for installation + config + first
+    steps:
+-   add intro to the wb-template system
+-   explain interactive browsing of keywords => menu entry
+-   shift org-files to doc or info, except README.org: Focus:
+    Intro + Features + Installation
+    -   usage
+    -   config
+-   orgs
+    -   install
+    -   news
+    -   todo
+    -   config
+    -   index
+-   tutorials
+    -   -intro-tut
+    -   -apdl-reference
+    -   -in-depth<sub>tutorial</sub>
+-   combine apdl-mode help, tutorial, usage, customisation
+    -   tutorial
+    -   bugs
+-   find nice style css stuff for html export?
+
+Focus: Marketing and get it going, then details
+help + templates
+
+-   Presentations
+    -   Präsentation Intro, tutorial
+    -   in-dept present.
+    -   APDL reference
+
+-   README.org
+    -   Intro
+    -   Highlights, features
+    -   Installation
+    -   Short Usage / tutorial
+    -   Configuration
+    -   Bugs / problems
+    -   Resources
+    -   GNU GPL License
+    -   Acknowledgments
+    -   TODOs
+
+-   info (with or without image?)
+    -   First steps / tutorial <-> short usage
+    -   in-dept usage <-> in-dept presentation?u
+    -   [X] copying, do we need it really?
+    -   [X] config OK consolidate tangle org
+    -   [ ] Usage / applications
+        -   templates
+    -   [X] APDL reference OK
+    -   [X] news OK
+    -   [X] Resources OK
+    -   [ ] Bugs and Problems
+    -   [X] GNU FDL License
+    -   [X] todo OK
+    -   [ ] index?
+
+-   Mode help, done :-)
+    -   short intro general description
+    -   reference / link! to info!!!! ;-)
+    -   keybindings,  that is special
 
 
 ## minor bugs
@@ -94,24 +176,25 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org2a539da"></a>
+<a id="org0dc2aab"></a>
 
-# DONE 20.3.0, Melpa
+# DONE Version 20.3.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Di]</span></span>
-feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
-
-
-<a id="org03b5ef0"></a>
-
-# DONE 20.2.0
-
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Tue]</span></span>
+Melpa
+feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="orgcf6056f"></a>
+<a id="orgcf7051a"></a>
 
-# DONE 20.1.1
+# DONE Version 20.2.0
+
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
+
+
+<a id="org361ffca"></a>
+
+# DONE Version 20.1.1
 
 -   are the material properties documented, matlib?  Matlib is used
     in -template.el, how about document this directory somewhere?
@@ -122,9 +205,9 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgffdd12c"></a>
+<a id="org1e55ca1"></a>
 
-# 162-2:
+# Version 162-2:
 
 
 ## Bugs
@@ -276,9 +359,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
         self-documenting help system for a template function
 
 
-<a id="orgb5e6396"></a>
-
-# Deficiencies:
+## Deficiencies:
 
 -   **Highlighting:** Experimental user variable highlighting
     does not take into account:
@@ -311,9 +392,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     (M-{ does it though))
 
 
-<a id="org881a5c7"></a>
-
-# Procedures
+## Procedures
 
 -   **GNU-Linux:** instead of GNU/Linux as FSF suggesting ;-)
 -   **Mode Help:** keyboard input is quoted in "", emphasizing in \`' and
@@ -383,12 +462,10 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     Dieter
 
 
-<a id="org48b8192"></a>
-
-# Ideas for further versions
+## Ideas for further versions
 
 
-## Parameter help and documentation
+### Parameter help and documentation
 
 -   Enable a mouse button to unhide hidden regions, enable an
     interactive way to unhide regions, when in the region: Return
@@ -430,7 +507,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     their help strings of parameter help.
 
 
-## Ansys process and interpreter buffer
+### Ansys process and interpreter buffer
 
 example: gnuplot-mode
 
@@ -484,7 +561,7 @@ example: gnuplot-mode
         -display-error-file
 
 
-## Skeletons, outline and abbrevs
+### Skeletons, outline and abbrevs
 
 -   show a preview buffer with the outline headlines
 -   -skeleton-select is a bit thin, not yet finished?
@@ -516,7 +593,7 @@ example: gnuplot-mode
     must \*go:label be unambiguous?
 
 
-## Miscellaneous
+### Miscellaneous
 
 -   hash or signature file for packages
 -   show content of matlib/ folder
@@ -605,7 +682,7 @@ example: gnuplot-mode
     programming).
 
 
-## Ansys syntax restrictions not (yet) accounted for
+### Ansys syntax restrictions not (yet) accounted for
 
 -   Parentheses can only be nested 4 levels deep and only up to 9
     operations (+,-,\*,&#x2026;) within these set of parentheses
@@ -620,7 +697,7 @@ example: gnuplot-mode
 -   Macro level restriction: 20 macros
 
 
-## Unknown Ansys stuff
+### Unknown Ansys stuff
 
 -   what the heck is the \*UILIST command?
 -   Is hyper56 a valid element?

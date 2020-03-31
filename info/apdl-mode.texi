@@ -15,8 +15,8 @@
 @finalout
 @titlepage
 @title APDL-Mode's Info Viewer Documentation
-@subtitle Version 20.4.0 Time-stamp: "2020-03-28"
-@author H@. Dieter Wilhelm H@. Dieter Wilhelm H@. Dieter Wilhelm (@email{dieter@@duenenhof-wilhelm.de})
+@subtitle Version 20.4.0 Time-stamp: "2020-03-31"
+@author H. Dieter Wilhelm H. Dieter Wilhelm H. Dieter Wilhelm (@email{dieter@@duenenhof-wilhelm.de})
 @end titlepage
 
 @contents
@@ -25,7 +25,7 @@
 @node Top
 @top APDL-Mode's Info Documentation
 
-This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-28"
+This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-31"
 
 
 @end ifnottex
@@ -37,13 +37,14 @@ This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-28"
 * Introductory Tutorial::
 * Usage and Applications::
 * Configuration and Customisation::
-* APDL Reference::
+* APDL Reference: APDL Reference 1. 
 * Installation and Development::
 * Bugs and Problems::
 * Further Resources::
 * Acknowledgements::
 * GNU Free Documentation License::
-* Index::
+* Variable Index::
+* Concept Index::
 
 @detailmenu
 --- The Detailed Node Listing ---
@@ -79,7 +80,7 @@ Configuration and Customisation
 * File suffixes::
 * Auto insertion::
 * Miscellaneous::
-* Outlining: Outlining (1). 
+* Outlining: Outlining 1. 
 * Highlighting (Colourisation)::
 * Installation dependent configurations::
 * Ansys processes::
@@ -100,18 +101,20 @@ Highlighting (Colourisation)
 
 * Dynamic highlighting::
 * Decoration levels::
+* Summary::
 
 
 Ansys processes
 
 * License server::
 * Solver options::
+* Summary: Summary 1. 
 
 
 APDL Reference
 
 * WorkBench to APDL Translation::
-* APDL Reference: APDL Reference (1). 
+* APDL Reference::
 * APDL-Mode Syntax Highlighting Reference::
 * And the rest::
 
@@ -161,7 +164,7 @@ Further Resources
 @node Copying
 @chapter Copying
 
-Copyright @copyright{} 2020 H@. Dieter Wilhelm
+Copyright @copyright{} 2020 H. Dieter Wilhelm
 
 @quotation
 Permission is granted to copy, distribute and/or modify this
@@ -170,7 +173,6 @@ Version 1.3 or any later version published by the Free Software
 Foundation; with no Invariant Sections, with no Front-Cover Texts,
 and with no Back-Cover Texts.  A copy of the license is included in
 the section entitled @ref{GNU Free Documentation License}.
-
 @end quotation
 
 @node Introduction
@@ -822,7 +824,7 @@ sign in this language is @code{;} (one semi-colon `;').
 * File suffixes::
 * Auto insertion::
 * Miscellaneous::
-* Outlining: Outlining (1). 
+* Outlining: Outlining 1. 
 * Highlighting (Colourisation)::
 * Installation dependent configurations::
 * Ansys processes::
@@ -836,9 +838,9 @@ Textual hints in @emph{apdl-config.el} are indicated with TWO semi-colons
 @code{;;}, please uncomment only the code lines with a SINGLE comment sign
 and change them when appropriate.
 
-Please add the interesting code lines into your GNU-Emacs init file or
-load this file in the init file with `(load-file
-"PATH/apdl-config.el")'.
+Please add the interesting code lines into your GNU-Emacs init file
+or load your adjustments of this file with `(load-file
+"PATH/apdl-config.el")' from your init file.
 
 @node Important Prerequisites
 @section Important Prerequisites
@@ -852,7 +854,7 @@ load this file in the init file with `(load-file
 
 If you have a non default installation APDL-Mode might not be able
 to find the Ansys installation.  Please configure your installation
-path up to and including the versioning number.
+path up to and including the Ansys versioning number.
 
 @lisp
 (cond ((string= window-system "x")
@@ -862,7 +864,7 @@ path up to and including the versioning number.
        (t ;This an example of an installation directory on WINDOWS
         ;; Emacs is using here forward slashes as under Unix and not
         ;; the backslash "\"!
-        (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
+        (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
         ;; default: "C:/Program Files/Ansys Inc/v201/"
 @end lisp
 
@@ -922,20 +924,57 @@ imports, see the file @emph{example.anf} in the @emph{doc} folder.
 (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 @end lisp
 
+@lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; file suffixes for autoloading of APDL-Mode, appropriate file
+;; suffixes for which Ansys mode is automatically called for
+
+;; .mac is the macro suffix of Ansys i. e. these macros can be called
+;; in the Ansys command prompt like a regular Ansys function (without
+;; the suffix .mac).  See the file doc/example.mac
+
+;; APDL-Mode has configured GNU-Emacs to open files with this suffix
+;; under apdl-mode.
+
+;; (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
+(add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+
+;; .dat and .inp are WorkBench's solver input file suffixes
+;; See the file doc/example.dat
+
+;; APDL-Mode has configured GNU-Emacs to open files with these suffixes
+;; under apdl-mode.
+
+;; (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
+;; (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+
+;; .anf is the suffix for "Ansys Neutral" files which include mostly
+;;  gometric data but also some APDL snippets. See the file
+;;  doc/example.anf.
+(add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+@end lisp
+
 @node Auto insertion
 @section Auto insertion
 
-of code With the following code block Emacs inserts (after query) an
-outline of a code structure when creating a new file with any suffix
-in the @code{auto-mode-alist} for @code{apdl-mode}, please see above section).
+of code.  With the following code block Emacs inserts (after query)
+an outline of a code structure when creating a new file with any
+suffix in the @code{auto-mode-alist} for @code{apdl-mode}, please see above
+section).
+
 @lisp
-(auto-insert-mode 1)         ; insert automatically templates
-(add-hook 'find-file-hook 'auto-insert) ; when opening new files
-(setq auto-insert-query t)   ; ask before insertion of an APDL
-                             ; template
-(add-to-list 'auto-insert-alist
-   '(apdl-mode . [apdl-skeleton-outline-template])) ;which template
-                                                    ;to insert
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                          ;; Auto insertion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; auto insertion stuff (when creating a new APDL file)
+
+ (auto-insert-mode 1)                        ; insert automatically templates
+ (add-hook 'find-file-hook 'auto-insert) ; when opening new files
+ (setq auto-insert-query t)   ; aks for auto insertion of APDL template
+
+ (add-to-list 'auto-insert-alist
+  '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
+
 @end lisp
 
 @node Miscellaneous
@@ -946,25 +985,48 @@ in the @code{auto-mode-alist} for @code{apdl-mode}, please see above section).
                           ;; Miscellaneous
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq apdl-parameter-help-duration "2 min")
+;; The amount of time the help overlay is shown from
+;; (`apdl-show-command-parameters').
+
+; (setq apdl-parameter-help-duration "2 min") ; the default
 (setq apdl-parameter-help-duration 30) ; 30 seconds
 
 ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
-;; might only work for locally installed help documents (1.7 GB
-;; package v201) since v191 the online help is the default.
+;; might only work for locally installed help documents (a 1.7 GB
+;; package v201) since v191 the online help is the default help
+;; system.
 
-; (setq browse-url-browser-function 'eww-browse-url)
+(setq browse-url-browser-function 'eww-browse-url)
+
+;; You might use this variable to create you own templates
+;; in `apdl-wb-template.el'.
+
+(setq apdl-wb-custom-template-directory "c:/my_macros/") ; new in 20.4.0
+
+;;  APDL-Mode mode configures the following variable from the
+;;  evironment to show your license usage in
+;;  `apdl-user-license-status'.  It is the user ID you are registered
+;;  for the  license server.
+
+(setq apdl-username "userID")                 ; new in 20.4.0
 
 @end lisp
 
-@node Outlining (1)
+@node Outlining 1
 @section Outlining
 
 Activating outline minor mode for selectively hiding and unhiding
 code sections:
 
 @lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                             ;; Outlining
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; activating outline minor mode for selectively hiding/unhiding
+;; sections
+
 (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
+
 @end lisp
 
 @node Highlighting (Colourisation)
@@ -973,6 +1035,7 @@ code sections:
 @menu
 * Dynamic highlighting::
 * Decoration levels::
+* Summary::
 @end menu
 
 @node Dynamic highlighting
@@ -999,8 +1062,33 @@ Decoration levels 0,1,2 are available.  User variable highlighting is
 only in level 2 available (statical, if above flag is not set), the
 current default is 2
 
+@node Summary
+@subsection Summary
+
 @lisp
-(setq apdl-highlighting-level 1) ; default: 2
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                     ;; Highlighting/Colourisation
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; The following toggles a dynamics change of the highlighting: While
+;; you are editing your new variable definitions highlighted and the
+;; cursor position is shown in the parameter help overlay
+
+;; Uncommenting the following might slow the editing of large .mac
+;; files (but only when apdl-highlighting-level is set to 2, see
+;; below).
+
+ (setq apdl-dynamic-highlighting-flag nil)
+ (setq apdl-dynamic-highlighting-flag t) ; default
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; fontification (highlighting) of user variables and decoration
+;; levels (0,1,2 are available), user variables highlighting is only
+;; in level 2 available (statical, if above flag is not set), the
+;; default is 2
+
+ (setq apdl-highlighting-level 1) ; default: 2
+
 @end lisp
 
 @node Installation dependent configurations
@@ -1010,6 +1098,14 @@ Further things you possibly have to configure if your Ansys
 installation is completely differing from a default Ansys installation
 path, or if you want to mix various Ansys versions:
 @lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; Ansys version and paths
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; Things you might have to configure if your Ansys installation is
+  ;; completely differing from default Ansys installation paths, as in
+  ;; the example below, or you want to use a mixed version system:
+
 (setq apdl-ansys-help-program
     "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
     ;; normally it looks like this:
@@ -1030,6 +1126,7 @@ path, or if you want to mix various Ansys versions:
 @menu
 * License server::
 * Solver options::
+* Summary: Summary 1. 
 @end menu
 
 @node License server
@@ -1080,12 +1177,71 @@ Ansys job name
 (setq apdl-job "harmonics1"); default: "file"
 @end lisp
 
-@node APDL Reference
+@node Summary 1
+@subsection Summary
+
+@lisp
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                         ;; Ansys processes stuff
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; license server configuration
+
+
+  ;; GNU-Linux 64 bit only !!! Warning specifiying many license server
+  ;; takes a long time for displaying the license status!!!
+
+   ;; for starting the solver & apdl-license-status & Ansys help
+  (setq                 ;
+   ;; license servers (or license file name)nn
+   ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
+   ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
+   apdl-license-file
+   "32002@@ls_fr_ansyslmd_ww_1.conti.de"
+   "32002@@ls_fr_ansyslmd_ww_1.conti.de:32002@@ls_fr_ansyslmd_ww_2.conti.de:32002@@ls_fr_ansyslmd_ww_4.conti.de:1055@@frlifl01.auto.contiwan.com:1055@@frlifl02.auto.contiwan.com"
+
+   ;; since Ansys 12.0 there is an intermediate server for
+   ;; the communication between flexlm and Ansys, 2325 is the default port
+   apdl-ansysli-servers
+   "2325@@ls_fr_ansyslmd_ww_1.conti.de"
+   "2325@@ls_fr_ansyslmd_ww_1.conti.de:2325@@ls_fr_ansyslmd_ww_3.conti.de:2325@@ls_fr_ansyslmd_ww_4.conti.de:2325@@frlifl01.auto.contiwan.com:2325@@frlifl02.auto.contiwan.com"
+   )
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                   ;; options when starting the solver
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; Number of cores for the run, 4 does not require HPC licenses
+   (setq apdl-no-of-processors 8) ; default: 4
+
+  ;;  which license type to use for the solver
+   (setq apdl-license "struct") ; default: "ansys"
+
+  ;; Ansys job name
+   (setq apdl-job "harmonics1"); default: "file"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                              ;; The End
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(provide 'apdl-config)
+
+;;; apdl-config.el ends here
+
+;; Local Variables:
+;; no-byte-compile: t
+;; show-trailing-whitespace: t
+;; indicate-empty-lines: t
+;; time-stamp-active: t
+;; time-stamp-format: "%:y-%02m-%02d"
+;; End:
+@end lisp
+
+@node APDL Reference 1
 @chapter APDL Reference
 
 @menu
 * WorkBench to APDL Translation::
-* APDL Reference: APDL Reference (1). 
+* APDL Reference::
 * APDL-Mode Syntax Highlighting Reference::
 * And the rest::
 @end menu
@@ -1319,7 +1475,7 @@ nmod,61,,,,-43.6672749853753,0.,0.
 @end enumerate
 @end enumerate
 
-@node APDL Reference (1)
+@node APDL Reference
 @section APDL Reference
 
 @menu
@@ -2208,7 +2364,7 @@ BEGIN:
 @item
 Should not begin with an underscore
 This convention is used in nameing variables in Ansys supplied
-macros and the GUI@.
+macros and the GUI.
 @end itemize
 
 @example
@@ -2606,8 +2762,8 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
 * Old style APDL comments::
 * Ignored characters behind commands::
 * The End Of File command::
-* Ignored characters behind commands: Ignored characters behind commands (1). 
-* The End Of File command: The End Of File command (1). 
+* Ignored characters behind commands: Ignored characters behind commands 1. 
+* The End Of File command: The End Of File command 1. 
 * Current element types and deprecated elements::
 @end menu
 
@@ -2666,7 +2822,7 @@ Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
 Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 @end example
 
-@node Ignored characters behind commands (1)
+@node Ignored characters behind commands 1
 @subsubsection Ignored characters behind commands
 
 @example
@@ -2676,7 +2832,7 @@ rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
 !!
 @end example
 
-@node The End Of File command (1)
+@node The End Of File command 1
 @subsubsection The End Of File command
 
 @example
@@ -2920,7 +3076,7 @@ ang1 = 0
 @node Installation and Development
 @chapter Installation and Development
 
-Copyright (C) 2006 - 2020  H@. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 Please install @uref{https://www.gnu.org/software/emacs/, GNU-Emacs} first, you should install at least Emacs
 version 25.1.  (If you are new to this editor please check the
@@ -3043,7 +3199,7 @@ The @uref{http://www.padtinc.com/blog/the-focus/, PADT Focus} site.
 @item
 A general  Ansys repository @uref{http://www.ansys.net, Ansys.net}
 @item
-@uref{http://www.auc-ev.de/, AUC}, the Ansys User Club eV@. in Germany
+@uref{http://www.auc-ev.de/, AUC}, the Ansys User Club eV. in Germany
 @end itemize
 
 @node Emacs editor resources
@@ -3550,10 +3706,15 @@ free software license, such as the GNU General Public License,
 to permit their use in free software.
 @end example
 
-@node Index
-@chapter Index
+@node Variable Index
+@unnumbered Variable Index
+
+@printindex vr
+
+@node Concept Index
+@unnumbered Concept Index
 
 @printindex cp
 
-Emacs 26.3 (Org mode 9.3.6)
+Emacs 26.3 (Org mode 9.1.9)
 @bye

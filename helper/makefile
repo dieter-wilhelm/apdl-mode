@@ -109,7 +109,7 @@ ELC : $(ELC_FILES)
 # interesting files besides the essential lisp files
 FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
 	 ../info/TODO.org ../info/NEWS.org ../info/INSTALLATION.org \
-	 ../info/apdl-config.org ../info/apdl-config.el
+	 ../info/apdl-config.org ../info/apdl-config.el ../info/apdl-mode.info
 
 # all org files which are referenced in README.org have to be exported
 # to markdown .md
@@ -118,6 +118,11 @@ MD_FILES := ../README.md ../info/TODO.md ../info/resources.md \
 
 # example files
 EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
+
+INFO_FILES := ../info/introduction.org ../info/first_steps.org ../info/tutorial.org \
+	../info/usage.org ../info/apdl-config.org ../doc/A-M_APDL_reference.org \
+	../info/INSTALLATION.org ../info/bugs.org ../info/resources.org \
+	../info/acknowledgements.org  ../info/GNU-FDL.txt
 
 # ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \
@@ -186,6 +191,10 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
+
+../info/apdl-mode.info : ../info/apdl-mode.org $(INFO_FILES)
+	$(EMACS_EXE) --batch --file $< \
+	--execute  "(org-texinfo-export-to-texinfo)"
 
 P_DIR := apdl-mode-$(VERSION)
 I_DIR := $(P_DIR)/info/

@@ -1,5 +1,5 @@
 #+MACRO: version 20.4.0
-#+MACRO: updated Time-stamp: "2020-03-30"
+#+MACRO: updated Time-stamp: "2020-03-31"
 
 This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 
@@ -51,7 +51,7 @@ This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 * Usage and Applications
   #+include: ./usage.org
 * Configuration and Customisation
-  #+include: ../doc/apdl-config.org
+  #+include: ../info/apdl-config.org
 * APDL Reference
   #+include: ../doc/A-M_APDL_reference.org
 * Installation and Development
@@ -66,9 +66,7 @@ This manual is for APDL-Mode version {{{version}}} {{{updated}}}
   :PROPERTIES:
   :APPENDIX: t
   :END:
-
   #+include: GNU-FDL.txt
-
 
 * Variable Index
   :PROPERTIES:

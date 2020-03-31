@@ -194,13 +194,14 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 
 ../info/apdl-mode.info : ../info/apdl-mode.org $(INFO_FILES)
 	$(EMACS_EXE) --batch --file $< \
-	--execute  "(org-texinfo-export-to-texinfo)"
+	--execute  "(org-texinfo-export-to-info)"
 
 P_DIR := apdl-mode-$(VERSION)
 I_DIR := $(P_DIR)/info/
 
 $(PACKAGE) : $(PACKAGE_FILES) makefile
-	$(EMACS_EXE) --batch -L $(S_DIR) --eval '(byte-recompile-directory $(S_DIR) 0)'
+	$(EMACS_EXE) --batch -L $(S_DIR) --eval \
+		'(byte-recompile-directory $(S_DIR) 0)'
 	@echo "Packaging GNU-Emacs package $@ ..."
 	@echo
 	@test -d $(P_DIR) || \
@@ -384,7 +385,8 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el ../doc/apdl-config.org
+TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el \
+	../info/apdl-config.org
 
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)

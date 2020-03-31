@@ -1,18 +1,13 @@
 This is apdl-mode.info, produced by makeinfo version 6.5 from
 apdl-mode.texi.
 
-INFO-DIR-SECTION Development
-START-INFO-DIR-ENTRY
-* APDL-Mode: (apdl-mode). Major mode for the scripting language APDL.
-END-INFO-DIR-ENTRY
-
 
 File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 
-APDL-Mode’s Info Documentation
-******************************
+APDL-Mode’s Info Viewer Documentation
+*************************************
 
-This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-28"
+This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-31"
 
 * Menu:
 
@@ -22,13 +17,14 @@ This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-28"
 * Introductory Tutorial::
 * Usage and Applications::
 * Configuration and Customisation::
-* APDL Reference::
+* APDL Reference: APDL Reference 1.
 * Installation and Development::
 * Bugs and Problems::
 * Further Resources::
 * Acknowledgements::
 * GNU Free Documentation License::
-* Index::
+* Variable Index::
+* Concept Index::
 
 — The Detailed Node Listing —
 
@@ -63,7 +59,7 @@ Configuration and Customisation
 * File suffixes::
 * Auto insertion::
 * Miscellaneous::
-* Outlining: Outlining (1).
+* Outlining: Outlining 1.
 * Highlighting (Colourisation)::
 * Installation dependent configurations::
 * Ansys processes::
@@ -84,18 +80,20 @@ Highlighting (Colourisation)
 
 * Dynamic highlighting::
 * Decoration levels::
+* Summary::
 
 
 Ansys processes
 
 * License server::
 * Solver options::
+* Summary: Summary 1.
 
 
 APDL Reference
 
 * WorkBench to APDL Translation::
-* APDL Reference: APDL Reference (1).
+* APDL Reference::
 * APDL-Mode Syntax Highlighting Reference::
 * And the rest::
 
@@ -146,7 +144,7 @@ File: apdl-mode.info,  Node: Copying,  Next: Introduction,  Prev: Top,  Up: Top
 1 Copying
 *********
 
-Copyright © 2020 H.  Dieter Wilhelm
+Copyright © 2020 H. Dieter Wilhelm
 
      Permission is granted to copy, distribute and/or modify this
      document under the terms of the GNU Free Documentation License,
@@ -798,7 +796,7 @@ command but must search within the Ansys Help Viewer or better use the
 much faster "C-c C-b".
 
 
-File: apdl-mode.info,  Node: Configuration and Customisation,  Next: APDL Reference,  Prev: Usage and Applications,  Up: Top
+File: apdl-mode.info,  Node: Configuration and Customisation,  Next: APDL Reference 1,  Prev: Usage and Applications,  Up: Top
 
 6 Configuration and Customisation
 *********************************
@@ -821,7 +819,7 @@ sign in this language is ‘;’ (one semi-colon ‘;’).
 * File suffixes::
 * Auto insertion::
 * Miscellaneous::
-* Outlining: Outlining (1).
+* Outlining: Outlining 1.
 * Highlighting (Colourisation)::
 * Installation dependent configurations::
 * Ansys processes::
@@ -837,8 +835,8 @@ with TWO semi-colons ‘;;’, please uncomment only the code lines with a
 SINGLE comment sign and change them when appropriate.
 
    Please add the interesting code lines into your GNU-Emacs init file
-or load this file in the init file with ‘(load-file
-"PATH/apdl-config.el")’.
+or load your adjustments of this file with ‘(load-file
+"PATH/apdl-config.el")’ from your init file.
 
 
 File: apdl-mode.info,  Node: Important Prerequisites,  Next: File suffixes,  Prev: Conventions,  Up: Configuration and Customisation
@@ -858,7 +856,7 @@ File: apdl-mode.info,  Node: Ansys Installation path with version information,  
 
 If you have a non default installation APDL-Mode might not be able to
 find the Ansys installation.  Please configure your installation path up
-to and including the versioning number.
+to and including the Ansys versioning number.
 
      (cond ((string= window-system "x")
              ;; This is an example of an installation directory on GNU-Linux
@@ -867,7 +865,7 @@ to and including the versioning number.
             (t ;This an example of an installation directory on WINDOWS
              ;; Emacs is using here forward slashes as under Unix and not
              ;; the backslash "\"!
-             (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/"))
+             (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
              ;; default: "C:/Program Files/Ansys Inc/v201/"
 
    If your Ansys installation differs completely from the standard Ansys
@@ -933,25 +931,59 @@ imports, see the file _example.anf_ in the _doc_ folder.
 
      (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     ;; file suffixes for autoloading of APDL-Mode, appropriate file
+     ;; suffixes for which Ansys mode is automatically called for
+
+     ;; .mac is the macro suffix of Ansys i. e. these macros can be called
+     ;; in the Ansys command prompt like a regular Ansys function (without
+     ;; the suffix .mac).  See the file doc/example.mac
+
+     ;; APDL-Mode has configured GNU-Emacs to open files with this suffix
+     ;; under apdl-mode.
+
+     ;; (add-to-list 'auto-mode-alist '("\\.mac$" . apdl-mode))
+     (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+
+     ;; .dat and .inp are WorkBench's solver input file suffixes
+     ;; See the file doc/example.dat
+
+     ;; APDL-Mode has configured GNU-Emacs to open files with these suffixes
+     ;; under apdl-mode.
+
+     ;; (add-to-list 'auto-mode-alist '("\\.dat$" . apdl-mode))
+     ;; (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
+
+     ;; .anf is the suffix for "Ansys Neutral" files which include mostly
+     ;;  gometric data but also some APDL snippets. See the file
+     ;;  doc/example.anf.
+     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
+
 
 File: apdl-mode.info,  Node: Auto insertion,  Next: Miscellaneous,  Prev: File suffixes,  Up: Configuration and Customisation
 
 6.4 Auto insertion
 ==================
 
-of code With the following code block Emacs inserts (after query) an
+of code.  With the following code block Emacs inserts (after query) an
 outline of a code structure when creating a new file with any suffix in
 the ‘auto-mode-alist’ for ‘apdl-mode’, please see above section).
-     (auto-insert-mode 1)         ; insert automatically templates
-     (add-hook 'find-file-hook 'auto-insert) ; when opening new files
-     (setq auto-insert-query t)   ; ask before insertion of an APDL
-                                  ; template
-     (add-to-list 'auto-insert-alist
-        '(apdl-mode . [apdl-skeleton-outline-template])) ;which template
-                                                         ;to insert
+
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                               ;; Auto insertion
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     ;; auto insertion stuff (when creating a new APDL file)
+
+      (auto-insert-mode 1)                        ; insert automatically templates
+      (add-hook 'find-file-hook 'auto-insert) ; when opening new files
+      (setq auto-insert-query t)   ; aks for auto insertion of APDL template
+
+      (add-to-list 'auto-insert-alist
+       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
+
 
 
-File: apdl-mode.info,  Node: Miscellaneous,  Next: Outlining (1),  Prev: Auto insertion,  Up: Configuration and Customisation
+File: apdl-mode.info,  Node: Miscellaneous,  Next: Outlining 1,  Prev: Auto insertion,  Up: Configuration and Customisation
 
 6.5 Miscellaneous
 =================
@@ -960,18 +992,34 @@ File: apdl-mode.info,  Node: Miscellaneous,  Next: Outlining (1),  Prev: Auto in
                                ;; Miscellaneous
      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-     (setq apdl-parameter-help-duration "2 min")
+     ;; The amount of time the help overlay is shown from
+     ;; (`apdl-show-command-parameters').
+
+     ; (setq apdl-parameter-help-duration "2 min") ; the default
      (setq apdl-parameter-help-duration 30) ; 30 seconds
 
      ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
-     ;; might only work for locally installed help documents (1.7 GB
-     ;; package v201) since v191 the online help is the default.
+     ;; might only work for locally installed help documents (a 1.7 GB
+     ;; package v201) since v191 the online help is the default help
+     ;; system.
 
-     ; (setq browse-url-browser-function 'eww-browse-url)
+     (setq browse-url-browser-function 'eww-browse-url)
+
+     ;; You might use this variable to create you own templates
+     ;; in `apdl-wb-template.el'.
+
+     (setq apdl-wb-custom-template-directory "c:/my_macros/") ; new in 20.4.0
+
+     ;;  APDL-Mode mode configures the following variable from the
+     ;;  evironment to show your license usage in
+     ;;  `apdl-user-license-status'.  It is the user ID you are registered
+     ;;  for the  license server.
+
+     (setq apdl-username "userID")                 ; new in 20.4.0
 
 
 
-File: apdl-mode.info,  Node: Outlining (1),  Next: Highlighting (Colourisation),  Prev: Miscellaneous,  Up: Configuration and Customisation
+File: apdl-mode.info,  Node: Outlining 1,  Next: Highlighting (Colourisation),  Prev: Miscellaneous,  Up: Configuration and Customisation
 
 6.6 Outlining
 =============
@@ -979,10 +1027,17 @@ File: apdl-mode.info,  Node: Outlining (1),  Next: Highlighting (Colourisation),
 Activating outline minor mode for selectively hiding and unhiding code
 sections:
 
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                  ;; Outlining
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     ;; activating outline minor mode for selectively hiding/unhiding
+     ;; sections
+
      (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
+
 
-File: apdl-mode.info,  Node: Highlighting (Colourisation),  Next: Installation dependent configurations,  Prev: Outlining (1),  Up: Configuration and Customisation
+File: apdl-mode.info,  Node: Highlighting (Colourisation),  Next: Installation dependent configurations,  Prev: Outlining 1,  Up: Configuration and Customisation
 
 6.7 Highlighting (Colourisation)
 ================================
@@ -991,6 +1046,7 @@ File: apdl-mode.info,  Node: Highlighting (Colourisation),  Next: Installation d
 
 * Dynamic highlighting::
 * Decoration levels::
+* Summary::
 
 
 File: apdl-mode.info,  Node: Dynamic highlighting,  Next: Decoration levels,  Up: Highlighting (Colourisation)
@@ -1010,7 +1066,7 @@ overlay
 
 
 
-File: apdl-mode.info,  Node: Decoration levels,  Prev: Dynamic highlighting,  Up: Highlighting (Colourisation)
+File: apdl-mode.info,  Node: Decoration levels,  Next: Summary,  Prev: Dynamic highlighting,  Up: Highlighting (Colourisation)
 
 6.7.2 Decoration levels
 -----------------------
@@ -1019,7 +1075,35 @@ Decoration levels 0,1,2 are available.  User variable highlighting is
 only in level 2 available (statical, if above flag is not set), the
 current default is 2
 
-     (setq apdl-highlighting-level 1) ; default: 2
+
+File: apdl-mode.info,  Node: Summary,  Prev: Decoration levels,  Up: Highlighting (Colourisation)
+
+6.7.3 Summary
+-------------
+
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                          ;; Highlighting/Colourisation
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+     ;; The following toggles a dynamics change of the highlighting: While
+     ;; you are editing your new variable definitions highlighted and the
+     ;; cursor position is shown in the parameter help overlay
+
+     ;; Uncommenting the following might slow the editing of large .mac
+     ;; files (but only when apdl-highlighting-level is set to 2, see
+     ;; below).
+
+      (setq apdl-dynamic-highlighting-flag nil)
+      (setq apdl-dynamic-highlighting-flag t) ; default
+
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+     ;; fontification (highlighting) of user variables and decoration
+     ;; levels (0,1,2 are available), user variables highlighting is only
+     ;; in level 2 available (statical, if above flag is not set), the
+     ;; default is 2
+
+      (setq apdl-highlighting-level 1) ; default: 2
+
 
 
 File: apdl-mode.info,  Node: Installation dependent configurations,  Next: Ansys processes,  Prev: Highlighting (Colourisation),  Up: Configuration and Customisation
@@ -1030,6 +1114,14 @@ File: apdl-mode.info,  Node: Installation dependent configurations,  Next: Ansys
 Further things you possibly have to configure if your Ansys installation
 is completely differing from a default Ansys installation path, or if
 you want to mix various Ansys versions:
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                              ;; Ansys version and paths
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+       ;; Things you might have to configure if your Ansys installation is
+       ;; completely differing from default Ansys installation paths, as in
+       ;; the example below, or you want to use a mixed version system:
+
      (setq apdl-ansys-help-program
          "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
          ;; normally it looks like this:
@@ -1053,6 +1145,7 @@ File: apdl-mode.info,  Node: Ansys processes,  Prev: Installation dependent conf
 
 * License server::
 * Solver options::
+* Summary: Summary 1.
 
 
 File: apdl-mode.info,  Node: License server,  Next: Solver options,  Up: Ansys processes
@@ -1085,7 +1178,7 @@ well!?
         "2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com")
 
 
-File: apdl-mode.info,  Node: Solver options,  Prev: License server,  Up: Ansys processes
+File: apdl-mode.info,  Node: Solver options,  Next: Summary 1,  Prev: License server,  Up: Ansys processes
 
 6.9.2 Solver options
 --------------------
@@ -1100,7 +1193,67 @@ Number of cores for the run: 4 does not require HPC licenses
      (setq apdl-job "harmonics1"); default: "file"
 
 
-File: apdl-mode.info,  Node: APDL Reference,  Next: Installation and Development,  Prev: Configuration and Customisation,  Up: Top
+File: apdl-mode.info,  Node: Summary 1,  Prev: Solver options,  Up: Ansys processes
+
+6.9.3 Summary
+-------------
+
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                              ;; Ansys processes stuff
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+       ;; license server configuration
+
+
+       ;; GNU-Linux 64 bit only !!! Warning specifiying many license server
+       ;; takes a long time for displaying the license status!!!
+
+        ;; for starting the solver & apdl-license-status & Ansys help
+       (setq                 ;
+        ;; license servers (or license file name)nn
+        ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
+        ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
+        apdl-license-file
+        "32002@ls_fr_ansyslmd_ww_1.conti.de"
+        "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
+
+        ;; since Ansys 12.0 there is an intermediate server for
+        ;; the communication between flexlm and Ansys, 2325 is the default port
+        apdl-ansysli-servers
+        "2325@ls_fr_ansyslmd_ww_1.conti.de"
+        "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
+        )
+
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                        ;; options when starting the solver
+       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+       ;; Number of cores for the run, 4 does not require HPC licenses
+        (setq apdl-no-of-processors 8) ; default: 4
+
+       ;;  which license type to use for the solver
+        (setq apdl-license "struct") ; default: "ansys"
+
+       ;; Ansys job name
+        (setq apdl-job "harmonics1"); default: "file"
+
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                                   ;; The End
+     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+     (provide 'apdl-config)
+
+     ;;; apdl-config.el ends here
+
+     ;; Local Variables:
+     ;; no-byte-compile: t
+     ;; show-trailing-whitespace: t
+     ;; indicate-empty-lines: t
+     ;; time-stamp-active: t
+     ;; time-stamp-format: "%:y-%02m-%02d"
+     ;; End:
+
+
+File: apdl-mode.info,  Node: APDL Reference 1,  Next: Installation and Development,  Prev: Configuration and Customisation,  Up: Top
 
 7 APDL Reference
 ****************
@@ -1108,12 +1261,12 @@ File: apdl-mode.info,  Node: APDL Reference,  Next: Installation and Development
 * Menu:
 
 * WorkBench to APDL Translation::
-* APDL Reference: APDL Reference (1).
+* APDL Reference::
 * APDL-Mode Syntax Highlighting Reference::
 * And the rest::
 
 
-File: apdl-mode.info,  Node: WorkBench to APDL Translation,  Next: APDL Reference (1),  Up: APDL Reference
+File: apdl-mode.info,  Node: WorkBench to APDL Translation,  Next: APDL Reference,  Up: APDL Reference 1
 
 7.1 WorkBench to APDL Translation
 =================================
@@ -1332,7 +1485,7 @@ File: apdl-mode.info,  Node: Boundary conditions,  Prev: Material Models,  Up: W
                ...
 
 
-File: apdl-mode.info,  Node: APDL Reference (1),  Next: APDL-Mode Syntax Highlighting Reference,  Prev: WorkBench to APDL Translation,  Up: APDL Reference
+File: apdl-mode.info,  Node: APDL Reference,  Next: APDL-Mode Syntax Highlighting Reference,  Prev: WorkBench to APDL Translation,  Up: APDL Reference 1
 
 7.2 APDL Reference
 ==================
@@ -1351,7 +1504,7 @@ File: apdl-mode.info,  Node: APDL Reference (1),  Next: APDL-Mode Syntax Highlig
 * Undocumented commands::
 
 
-File: apdl-mode.info,  Node: Idiosyncrasies,  Next: File types,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Idiosyncrasies,  Next: File types,  Up: APDL Reference
 
 7.2.1 Idiosyncrasies
 --------------------
@@ -1391,7 +1544,7 @@ File: apdl-mode.info,  Node: Idiosyncrasies,  Next: File types,  Up: APDL Refere
    • You can send only a complete block structure to the solver
 
 
-File: apdl-mode.info,  Node: File types,  Next: Defining parameters,  Prev: Idiosyncrasies,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: File types,  Next: Defining parameters,  Prev: Idiosyncrasies,  Up: APDL Reference
 
 7.2.2 File types
 ----------------
@@ -1529,7 +1682,7 @@ No    Type                                                               Name   
    • .dbb
 
 
-File: apdl-mode.info,  Node: Defining parameters,  Next: Erasing variables from memory,  Prev: File types,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Defining parameters,  Next: Erasing variables from memory,  Prev: File types,  Up: APDL Reference
 
 7.2.3 Defining parameters
 -------------------------
@@ -1658,7 +1811,7 @@ Must not contain more than 32 characters
      Symetry = 'yes'
 
 
-File: apdl-mode.info,  Node: Erasing variables from memory,  Next: Variable substitution,  Prev: Defining parameters,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Erasing variables from memory,  Next: Variable substitution,  Prev: Defining parameters,  Up: APDL Reference
 
 7.2.4 Erasing variables from memory
 -----------------------------------
@@ -1676,7 +1829,7 @@ File: apdl-mode.info,  Node: Erasing variables from memory,  Next: Variable subs
      *del,Vector   !TODO:
 
 
-File: apdl-mode.info,  Node: Variable substitution,  Next: Expressions,  Prev: Erasing variables from memory,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Variable substitution,  Next: Expressions,  Prev: Erasing variables from memory,  Up: APDL Reference
 
 7.2.5 Variable substitution
 ---------------------------
@@ -1760,7 +1913,7 @@ or forced substitution (deferred)
      aplot
 
 
-File: apdl-mode.info,  Node: Expressions,  Next: Arrays,  Prev: Variable substitution,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Expressions,  Next: Arrays,  Prev: Variable substitution,  Up: APDL Reference
 
 7.2.6 Expressions
 -----------------
@@ -1806,7 +1959,7 @@ File: apdl-mode.info,  Node: Operators,  Prev: Multiplication Expression,  Up: E
      *status,karl > otto
 
 
-File: apdl-mode.info,  Node: Arrays,  Next: debugging,  Prev: Expressions,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Arrays,  Next: debugging,  Prev: Expressions,  Up: APDL Reference
 
 7.2.7 Arrays
 ------------
@@ -1843,7 +1996,7 @@ environment!
      *export,OutDat,apdl,APDLOutDat
 
 
-File: apdl-mode.info,  Node: debugging,  Next: Multiple runs probabilistic design,  Prev: Arrays,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: debugging,  Next: Multiple runs probabilistic design,  Prev: Arrays,  Up: APDL Reference
 
 7.2.8 debugging
 ---------------
@@ -1851,7 +2004,7 @@ File: apdl-mode.info,  Node: debugging,  Next: Multiple runs probabilistic desig
      debug                    !TODO: undocumented?
 
 
-File: apdl-mode.info,  Node: Multiple runs probabilistic design,  Next: Undocumented commands,  Prev: debugging,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Multiple runs probabilistic design,  Next: Undocumented commands,  Prev: debugging,  Up: APDL Reference
 
 7.2.9 Multiple runs, probabilistic design
 -----------------------------------------
@@ -1860,7 +2013,7 @@ File: apdl-mode.info,  Node: Multiple runs probabilistic design,  Next: Undocume
      in V11: *mrun                    !TODO:
 
 
-File: apdl-mode.info,  Node: Undocumented commands,  Prev: Multiple runs probabilistic design,  Up: APDL Reference (1)
+File: apdl-mode.info,  Node: Undocumented commands,  Prev: Multiple runs probabilistic design,  Up: APDL Reference
 
 7.2.10 Undocumented commands
 ----------------------------
@@ -1870,7 +2023,7 @@ File: apdl-mode.info,  Node: Undocumented commands,  Prev: Multiple runs probabi
      /xfrm                    !documented command   /xfrm
 
 
-File: apdl-mode.info,  Node: APDL-Mode Syntax Highlighting Reference,  Next: And the rest,  Prev: APDL Reference (1),  Up: APDL Reference
+File: apdl-mode.info,  Node: APDL-Mode Syntax Highlighting Reference,  Next: And the rest,  Prev: APDL Reference,  Up: APDL Reference 1
 
 7.3 APDL-Mode Syntax Highlighting Reference
 ===========================================
@@ -1966,8 +2119,8 @@ File: apdl-mode.info,  Node: Highlighting APDL specials,  Next: Implied (or colo
 * Old style APDL comments::
 * Ignored characters behind commands::
 * The End Of File command::
-* Ignored characters behind commands: Ignored characters behind commands (1).
-* The End Of File command: The End Of File command (1).
+* Ignored characters behind commands: Ignored characters behind commands 1.
+* The End Of File command: The End Of File command 1.
 * Current element types and deprecated elements::
 
 
@@ -2016,7 +2169,7 @@ File: apdl-mode.info,  Node: Ignored characters behind commands,  Next: The End 
      !!
 
 
-File: apdl-mode.info,  Node: The End Of File command,  Next: Ignored characters behind commands (1),  Prev: Ignored characters behind commands,  Up: Highlighting APDL specials
+File: apdl-mode.info,  Node: The End Of File command,  Next: Ignored characters behind commands 1,  Prev: Ignored characters behind commands,  Up: Highlighting APDL specials
 
 7.3.2.5 The End Of File command
 ...............................
@@ -2029,7 +2182,7 @@ File: apdl-mode.info,  Node: The End Of File command,  Next: Ignored characters 
      Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 
 
-File: apdl-mode.info,  Node: Ignored characters behind commands (1),  Next: The End Of File command (1),  Prev: The End Of File command,  Up: Highlighting APDL specials
+File: apdl-mode.info,  Node: Ignored characters behind commands 1,  Next: The End Of File command 1,  Prev: The End Of File command,  Up: Highlighting APDL specials
 
 7.3.2.6 Ignored characters behind commands
 ..........................................
@@ -2040,7 +2193,7 @@ File: apdl-mode.info,  Node: Ignored characters behind commands (1),  Next: The 
      !!
 
 
-File: apdl-mode.info,  Node: The End Of File command (1),  Next: Current element types and deprecated elements,  Prev: Ignored characters behind commands (1),  Up: Highlighting APDL specials
+File: apdl-mode.info,  Node: The End Of File command 1,  Next: Current element types and deprecated elements,  Prev: Ignored characters behind commands 1,  Up: Highlighting APDL specials
 
 7.3.2.7 The End Of File command
 ...............................
@@ -2050,7 +2203,7 @@ File: apdl-mode.info,  Node: The End Of File command (1),  Next: Current element
      !!
 
 
-File: apdl-mode.info,  Node: Current element types and deprecated elements,  Prev: The End Of File command (1),  Up: Highlighting APDL specials
+File: apdl-mode.info,  Node: Current element types and deprecated elements,  Prev: The End Of File command 1,  Up: Highlighting APDL specials
 
 7.3.2.8 Current element types and deprecated elements
 .....................................................
@@ -2115,7 +2268,7 @@ File: apdl-mode.info,  Node: Implied (or colon) looping,  Prev: Highlighting APD
      VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 
 
-File: apdl-mode.info,  Node: And the rest,  Prev: APDL-Mode Syntax Highlighting Reference,  Up: APDL Reference
+File: apdl-mode.info,  Node: And the rest,  Prev: APDL-Mode Syntax Highlighting Reference,  Up: APDL Reference 1
 
 7.4 And the rest
 ================
@@ -2267,12 +2420,12 @@ File: apdl-mode.info,  Node: And the rest,  Prev: APDL-Mode Syntax Highlighting 
      /eof
 
 
-File: apdl-mode.info,  Node: Installation and Development,  Next: Bugs and Problems,  Prev: APDL Reference,  Up: Top
+File: apdl-mode.info,  Node: Installation and Development,  Next: Bugs and Problems,  Prev: APDL Reference 1,  Up: Top
 
 8 Installation and Development
 ******************************
 
-Copyright (C) 2006 - 2020 H.  Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2020 H. Dieter Wilhelm, GPL V3
 
    Please install GNU-Emacs (https://www.gnu.org/software/emacs/) first,
 you should install at least Emacs version 25.1.  (If you are new to this
@@ -2402,7 +2555,7 @@ File: apdl-mode.info,  Node: Ansys and APDL resources,  Next: Emacs editor resou
      registration is necessary)
    • The PADT Focus (http://www.padtinc.com/blog/the-focus/) site.
    • A general Ansys repository Ansys.net (http://www.ansys.net)
-   • AUC (http://www.auc-ev.de/), the Ansys User Club eV.  in Germany
+   • AUC (http://www.auc-ev.de/), the Ansys User Club eV. in Germany
 
 
 File: apdl-mode.info,  Node: Emacs editor resources,  Next: Other APDL editor resources,  Prev: Ansys and APDL resources,  Up: Further Resources
@@ -2456,7 +2609,7 @@ Free Software Foundation, Inc.  Authors: Kurt Hornik
 you very much!
 
 
-File: apdl-mode.info,  Node: GNU Free Documentation License,  Next: Index,  Prev: Acknowledgements,  Up: Top
+File: apdl-mode.info,  Node: GNU Free Documentation License,  Next: Variable Index,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -2913,110 +3066,119 @@ Appendix A GNU Free Documentation License
      to permit their use in free software.
 
 
-File: apdl-mode.info,  Node: Index,  Prev: GNU Free Documentation License,  Up: Top
+File: apdl-mode.info,  Node: Variable Index,  Next: Concept Index,  Prev: GNU Free Documentation License,  Up: Top
 
-B Index
-*******
+Variable Index
+**************
 
-Emacs 26.3 (Org mode 9.3.6)
+
+File: apdl-mode.info,  Node: Concept Index,  Prev: Variable Index,  Up: Top
+
+Concept Index
+*************
+
+Emacs 26.3 (Org mode 9.1.9)
 
 
 Tag Table:
-Node: Top219
-Node: Copying2609
-Node: Introduction3167
-Node: First Steps5280
-Node: Introductory Tutorial6144
-Node: Usage and Applications8512
-Node: Finding Help9024
-Node: Brief Command and Syntax Help9314
-Node: APDL Keyword Documentation10077
-Node: Completion10798
-Node: Code Alignment12269
-Node: Auto-indentation12782
-Node: Closing of control blocks13260
-Node: Code navigation13677
-Node: Sophisticated highlighting16201
-Node: Variable Definitions19906
-Node: Abbreviation Facility20934
-Node: Outlining21689
-Node: Comment Handling22893
-Node: Code Template24048
-Node: Auto-insertion24721
-Node: Process Management25301
-Node: MAPDL Solver27522
-Node: Configuration and Customisation31771
-Node: Conventions32719
-Node: Important Prerequisites33222
-Node: Ansys Installation path with version information33478
-Node: File suffixes34661
-Node: Macro files35040
-Node: WorkBench generated input files35666
-Node: The Ansys Neutral file format36089
-Node: Auto insertion36541
-Node: Miscellaneous37353
-Node: Outlining (1)38094
-Node: Highlighting (Colourisation)38424
-Node: Dynamic highlighting38715
-Node: Decoration levels39333
-Node: Installation dependent configurations39708
-Node: Ansys processes40979
-Node: License server41200
-Node: Solver options42266
-Node: APDL Reference42680
-Node: WorkBench to APDL Translation42992
-Node: Contacts43238
-Node: default 3D thermal contact43411
-Node: Material Models45256
-Node: Plasticity45455
-Node: Boundary conditions45758
-Node: APDL Reference (1)51320
-Node: Idiosyncrasies51787
-Node: File types53848
-Node: Defining parameters68930
-Node: Double char38 char8 logical TODO69254
-Node: Variable names69483
-Node: Character strings73757
-Node: Erasing variables from memory74109
-Node: Variable substitution74795
-Node: Substitution of Numeric Variables75150
-Node: Substitution of Character Variables75778
-Node: Dynamic Substitution of Numeric or Character Variables77133
-Node: Expressions77842
-Node: Exponentiation Operator78075
-Node: Multiplication Expression78261
-Node: Operators78681
-Node: Arrays78984
-Node: Specifiying array element values79240
-Node: APDL Math79419
-Node: debugging79932
-Node: Multiple runs probabilistic design80142
-Node: Undocumented commands80456
-Node: APDL-Mode Syntax Highlighting Reference80809
-Node: Header81122
-Node: Highlighting APDL specials83406
-Node: Reserved words and _RETURN statements83988
-Node: _RETURN values of macros84359
-Node: Old style APDL comments84843
-Node: Ignored characters behind commands85260
-Node: The End Of File command85574
-Node: Ignored characters behind commands (1)86018
-Node: The End Of File command (1)86446
-Node: Current element types and deprecated elements86852
-Node: Implied (or colon) looping87646
-Node: And the rest88887
-Node: Installation and Development92622
-Node: Melpa93176
-Node: Manual installation94041
-Node: Development and source code installation95102
-Node: Bugs and Problems95661
-Node: Further Resources96622
-Node: Ansys and APDL resources96874
-Node: Emacs editor resources97663
-Node: Other APDL editor resources98226
-Node: Acknowledgements99140
-Node: GNU Free Documentation License99722
-Node: Index124739
+Node: Top79
+Node: Copying2540
+Node: Introduction3097
+Node: First Steps5210
+Node: Introductory Tutorial6074
+Node: Usage and Applications8442
+Node: Finding Help8954
+Node: Brief Command and Syntax Help9244
+Node: APDL Keyword Documentation10007
+Node: Completion10728
+Node: Code Alignment12199
+Node: Auto-indentation12712
+Node: Closing of control blocks13190
+Node: Code navigation13607
+Node: Sophisticated highlighting16131
+Node: Variable Definitions19836
+Node: Abbreviation Facility20864
+Node: Outlining21619
+Node: Comment Handling22823
+Node: Code Template23978
+Node: Auto-insertion24651
+Node: Process Management25231
+Node: MAPDL Solver27452
+Node: Configuration and Customisation31701
+Node: Conventions32649
+Node: Important Prerequisites33175
+Node: Ansys Installation path with version information33431
+Node: File suffixes34621
+Node: Macro files35000
+Node: WorkBench generated input files35626
+Node: The Ansys Neutral file format36049
+Node: Auto insertion37710
+Node: Miscellaneous38713
+Node: Outlining 140062
+Node: Highlighting (Colourisation)40678
+Node: Dynamic highlighting40979
+Node: Decoration levels41597
+Node: Summary41936
+Node: Installation dependent configurations43119
+Node: Ansys processes44828
+Node: License server45071
+Node: Solver options46137
+Node: Summary 146569
+Node: APDL Reference 149062
+Node: WorkBench to APDL Translation49357
+Node: Contacts49601
+Node: default 3D thermal contact49774
+Node: Material Models51619
+Node: Plasticity51818
+Node: Boundary conditions52121
+Node: APDL Reference57683
+Node: Idiosyncrasies58148
+Node: File types60205
+Node: Defining parameters75283
+Node: Double char38 char8 logical TODO75603
+Node: Variable names75832
+Node: Character strings80106
+Node: Erasing variables from memory80458
+Node: Variable substitution81140
+Node: Substitution of Numeric Variables81491
+Node: Substitution of Character Variables82119
+Node: Dynamic Substitution of Numeric or Character Variables83474
+Node: Expressions84183
+Node: Exponentiation Operator84412
+Node: Multiplication Expression84598
+Node: Operators85018
+Node: Arrays85321
+Node: Specifiying array element values85573
+Node: APDL Math85752
+Node: debugging86265
+Node: Multiple runs probabilistic design86471
+Node: Undocumented commands86781
+Node: APDL-Mode Syntax Highlighting Reference87130
+Node: Header87441
+Node: Highlighting APDL specials89725
+Node: Reserved words and _RETURN statements90303
+Node: _RETURN values of macros90674
+Node: Old style APDL comments91158
+Node: Ignored characters behind commands91575
+Node: The End Of File command91889
+Node: Ignored characters behind commands 192331
+Node: The End Of File command 192755
+Node: Current element types and deprecated elements93157
+Node: Implied (or colon) looping93949
+Node: And the rest95190
+Node: Installation and Development98927
+Node: Melpa99482
+Node: Manual installation100347
+Node: Development and source code installation101408
+Node: Bugs and Problems101967
+Node: Further Resources102928
+Node: Ansys and APDL resources103180
+Node: Emacs editor resources103968
+Node: Other APDL editor resources104531
+Node: Acknowledgements105445
+Node: GNU Free Documentation License106027
+Node: Variable Index131053
+Node: Concept Index131202
 
 End Tag Table
 

@@ -3,8 +3,7 @@
 
 This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 
-
-#+TITLE: APDL-Mode's Info Documentation
+#+TITLE: APDL-Mode's Info Viewer Documentation
 #+SUBTITLE: Version {{{version}}} {{{updated}}}
 
 #+AUTHOR: H. Dieter Wilhelm
@@ -17,8 +16,10 @@ This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 #+TEXINFO_HEADER: @syncodeindex pg cp
 
 #+TEXINFO_DIR_CATEGORY: Development
-#+TEXINFO_DIR_TITLE: APDL-Mode: (apdl-mode)
-#+TEXINFO_DIR_DESC: Major mode for the scripting language APDL
+
+# the information below is in the dir file
+# #+TEXINFO_DIR_TITLE: APDL-Mode: (apdl-mode)
+# #+TEXINFO_DIR_DESC: Major mode for the scripting language APDL
 
 #+TEXINFO_PRINTED_TITLE: APDL-Mode's Info Viewer Documentation
 

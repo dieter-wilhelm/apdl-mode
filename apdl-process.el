@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-30>
+;; Time-stamp: <2020-03-31>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -602,6 +602,12 @@ initial input."
                                apdl-process-name)) (concat s "\n"))
       (display-buffer (concat "*" apdl-process-name "*") 'other-window)))))
 
+(defun apdl-start-mapdl ()
+  "Start the MAPDL interpreter (Ansys Classics) under Windows."
+  (interactive)
+  (start-process   ; asynchronous process
+   "MAPDL" "*MAPDL*" apdl-ansys-program
+   "-g -p " apdl-license " -j \"" apdl-job "\""))
 
 ;;;###autoload
 (defun apdl-start-ansys ()

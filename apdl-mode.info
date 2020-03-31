@@ -3057,6 +3057,10 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: minor bugs,  Up: Version 2040 1
 12.2.1 Todos, bugs
 ------------------
 
+   • apdl-start-ansys (make-comint) - doesn’t start the launcher under
+     windows
+   • apdl-start-classics (start-process) -
+
 * Menu:
 
 * State of documentation::
@@ -4433,36 +4437,36 @@ Node: Todos125979
 Node: Version 2050 ?126317
 Node: Version 2040 1126444
 Node: Todos bugs126730
-Node: State of documentation126889
-Node: minor bugs129584
-Node: check129951
-Node: wishes130146
-Node: templates130295
-Node: misc130630
-Node: Done131062
-Node: Release proceedures131188
-Node: Version 2030 1131859
-Node: Version 2020 1132079
-Node: Version 2011 1132259
-Node: Version 162-2132731
-Node: Bugs133009
-Node: Freeze133978
-Node: Wish-list134335
-Node: Deficiencies140451
-Node: Procedures142112
-Node: Freeze proceedures142634
-Node: Release144161
-Node: Ideas for further versions144764
-Node: Parameter help and documentation145195
-Node: Ansys process and interpreter buffer147497
-Node: Skeletons outline and abbrevs150360
-Node: Miscellaneous 1152092
-Node: Ansys syntax restrictions not (yet) accounted for157082
-Node: Unknown Ansys stuff157985
-Node: Acknowledgements158268
-Node: GNU Free Documentation License158838
-Node: Variable Index183864
-Node: Concept Index184013
+Node: State of documentation127023
+Node: minor bugs129718
+Node: check130085
+Node: wishes130280
+Node: templates130429
+Node: misc130764
+Node: Done131196
+Node: Release proceedures131322
+Node: Version 2030 1131993
+Node: Version 2020 1132213
+Node: Version 2011 1132393
+Node: Version 162-2132865
+Node: Bugs133143
+Node: Freeze134112
+Node: Wish-list134469
+Node: Deficiencies140585
+Node: Procedures142246
+Node: Freeze proceedures142768
+Node: Release144295
+Node: Ideas for further versions144898
+Node: Parameter help and documentation145329
+Node: Ansys process and interpreter buffer147631
+Node: Skeletons outline and abbrevs150494
+Node: Miscellaneous 1152226
+Node: Ansys syntax restrictions not (yet) accounted for157216
+Node: Unknown Ansys stuff158119
+Node: Acknowledgements158402
+Node: GNU Free Documentation License158972
+Node: Variable Index183998
+Node: Concept Index184147
 
 End Tag Table
 

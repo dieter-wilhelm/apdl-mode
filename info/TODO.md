@@ -1,21 +1,21 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0 ?](#org4c764d0)
-2.  [Version 20.4.0](#orgb9c7b85)
-3.  [Version 20.3.0](#org0dc2aab)
-4.  [Version 20.2.0](#orgcf7051a)
-5.  [Version 20.1.1](#org361ffca)
-6.  [Version 162-2:](#org1e55ca1)
+1.  [Version 20.5.0 ?](#orgd49629d)
+2.  [Version 20.4.0](#org715d40b)
+3.  [Version 20.3.0](#org641137f)
+4.  [Version 20.2.0](#orgdab2f13)
+5.  [Version 20.1.1](#org4a5c4c1)
+6.  [Version 162-2:](#orgd7e5a24)
 
 
 
-<a id="org4c764d0"></a>
+<a id="orgd49629d"></a>
 
 # Version 20.5.0 ?
 
 
-<a id="orgb9c7b85"></a>
+<a id="org715d40b"></a>
 
 # TODO Version 20.4.0
 
@@ -23,6 +23,10 @@ updated to 2020R1
 
 
 ## Todos, bugs
+
+-   apdl-start-ansys (make-comint) - doesn't start the launcher under
+    windows
+-   apdl-start-classics (start-process) -
 
 
 ### State of documentation
@@ -176,7 +180,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org0dc2aab"></a>
+<a id="org641137f"></a>
 
 # DONE Version 20.3.0
 
@@ -185,14 +189,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="orgcf7051a"></a>
+<a id="orgdab2f13"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="org361ffca"></a>
+<a id="org4a5c4c1"></a>
 
 # DONE Version 20.1.1
 
@@ -205,7 +209,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org1e55ca1"></a>
+<a id="orgd7e5a24"></a>
 
 # Version 162-2:
 

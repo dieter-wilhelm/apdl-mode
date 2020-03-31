@@ -240,7 +240,8 @@ Return nil if we can't find an MAPDL GUI."
 (defun apdl-start-classics ()
   "Start the Ansys MAPDL Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
-*Classics*."
+*Classics* under GNU-Linux.  Under Windows it is not possible to
+capture the output."
   (interactive)
   (let ((bname (concat "*"apdl-classics-process"*")))
     (when (file-readable-p (concat default-directory apdl-job ".lock"))
@@ -258,7 +259,7 @@ The output of the solver is captured in an Emacs buffer called
           (if (> apdl-no-of-processors 4)
               (concat ", No of procs: " (number-to-string apdl-no-of-processors))
             "")
-          ", job: " (if (boundp 'apdl-job) apdl-job)
+          ", job: " apdl-job
           " in " default-directory ", lic server: " apdl-license-file " "))
         (message "Starting MAPDL in GUI mode (Ansys Classics) ...")
       (error "Calling MAPDL solver (Ansys Classics) cancelled"))
@@ -274,12 +275,16 @@ The output of the solver is captured in an Emacs buffer called
 		       bname
 		     nil)
                    apdl-ansys-program
-                   (concat " -g"
-			   (concat " -p " apdl-license)
-                           (concat " -np " (number-to-string apdl-no-of-processors))
-                           (concat " -j \"" apdl-job "\"")
-                           " -d 3D" ; 3d device, win32
-                           ))
+                   "-g"
+		   "-p" apdl-license
+		   "-lch"
+		   "-np" (number-to-string apdl-no-of-processors)
+		   "-j" apdl-job
+		   "-s read"
+		   "-l en-us"
+		   "-t"
+		   "-d 3D" ; 3d device, win32
+		   )
     (display-buffer bname 'other-window)))
 
 (defun apdl-start-launcher ()
@@ -602,12 +607,23 @@ initial input."
                                apdl-process-name)) (concat s "\n"))
       (display-buffer (concat "*" apdl-process-name "*") 'other-window)))))
 
+;; from procuct launcher:
+;; "C:\CAx\App\ANSYS Inc\v201\ansys\bin\winx64\MAPDL.exe"  -g -p ansys -lch -dir "H:\" -j "file" -s read -l en-us -t -d 3D
+
+
 (defun apdl-start-mapdl ()
   "Start the MAPDL interpreter (Ansys Classics) under Windows."
   (interactive)
+  ;(setq default-directory "c:/CAx/")
   (start-process   ; asynchronous process
-   "MAPDL" "*MAPDL*" apdl-ansys-program
-   "-g -p " apdl-license " -j \"" apdl-job "\""))
+   "MAPDL" "*MAPDL*" ; "c:/CAx/App/ANSYS Inc/v201/ansys/bin/winx64/MAPDL.exe"
+   apdl-ansys-program
+      "-g" "-p" apdl-license "-lch" (concat "-j " apdl-job) "-s read" "-l en-us" "-t" "-d 3D"
+;;      (concat "-g -p " apdl-license " -j " apdl-job "-d 3D")
+;;      (concat " -g -p " apdl-license )
+      ;; (concat "-dir " default-directory)
+   ))
+
 
 ;;;###autoload
 (defun apdl-start-ansys ()

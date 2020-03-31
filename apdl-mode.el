@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-29>
+;; Time-stamp: <2020-03-31>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1183,13 +1183,13 @@ number vXXX (apdl-ansys-install-directory)"]
 (apdl-license)"]
    ["Change Job Name of Run" apdl-job
     :label (concat "Change Job Name [" apdl-job "]")
-    :visible apdl-is-unix-system-flag
+    ;; :visible apdl-is-unix-system-flag
     :help "Specify the job name for an solver/interpreter
    run (apdl-job)"]
    ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]"
                    apdl-no-of-processors)
-    :visible apdl-is-unix-system-flag
+    ;; :visible apdl-is-unix-system-flag
     :help "Specify the number of processors to use for the Ansys
 run definition (apdl-no-of-processors)"]
    "--"
@@ -1212,7 +1212,7 @@ used (apdl-user-license-status)"
 (apdl-start-launcher)"]
    ["Ansys MAPDL Classics GUI" apdl-start-classics
     :active (and apdl-ansys-program (file-executable-p apdl-ansys-program))
-    :visible apdl-is-unix-system-flag ; -TODO- can't get it to run!
+    ;;    :visible apdl-is-unix-system-flag
     :help "Start the Ansys Classics MAPDL
    GUI (apdl-start-classics)"]
    ["Start Interactive Solver/Interpreter" apdl-start-ansys

@@ -112,6 +112,9 @@
      the respective page section on Chrome and Edge!?
    - 1/en, en is variable but fraction not fontified?
 ** check
+   - apdl-start-ansys (make-comint) - doesn't start the launcher under
+     windows, but is redundant with -start-classics
+   - apdl-start-classics (start-process)
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** wishes

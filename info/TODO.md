@@ -1,24 +1,24 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0?](#org5d4d90e)
-2.  [Version 20.4.0, updated to 2020R1](#orgba33b53)
-3.  [20.3.0, Melpa](#org0832cbc)
-4.  [20.2.0](#org08cd2ee)
-5.  [20.1.1](#orge901d45)
-6.  [162-2:](#orgf663981)
-7.  [Deficiencies:](#orga9e7cbd)
-8.  [Procedures](#orgd37556e)
-9.  [Ideas for further versions](#org40fcfcd)
+1.  [Version 20.5.0?](#org913cff8)
+2.  [Version 20.4.0, updated to 2020R1](#orgc14c45e)
+3.  [20.3.0, Melpa](#org2a539da)
+4.  [20.2.0](#org03b5ef0)
+5.  [20.1.1](#orgcf6056f)
+6.  [162-2:](#orgffdd12c)
+7.  [Deficiencies:](#orgb5e6396)
+8.  [Procedures](#org881a5c7)
+9.  [Ideas for further versions](#org48b8192)
 
 
 
-<a id="org5d4d90e"></a>
+<a id="org913cff8"></a>
 
 # Version 20.5.0?
 
 
-<a id="orgba33b53"></a>
+<a id="orgc14c45e"></a>
 
 # TODO Version 20.4.0, updated to 2020R1
 
@@ -94,7 +94,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org0832cbc"></a>
+<a id="org2a539da"></a>
 
 # DONE 20.3.0, Melpa
 
@@ -102,14 +102,14 @@ APDL<sub>PATCH</sub> := 0
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org08cd2ee"></a>
+<a id="org03b5ef0"></a>
 
 # DONE 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orge901d45"></a>
+<a id="orgcf6056f"></a>
 
 # DONE 20.1.1
 
@@ -122,7 +122,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgf663981"></a>
+<a id="orgffdd12c"></a>
 
 # 162-2:
 
@@ -276,7 +276,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
         self-documenting help system for a template function
 
 
-<a id="orga9e7cbd"></a>
+<a id="orgb5e6396"></a>
 
 # Deficiencies:
 
@@ -311,7 +311,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     (M-{ does it though))
 
 
-<a id="orgd37556e"></a>
+<a id="org881a5c7"></a>
 
 # Procedures
 
@@ -383,7 +383,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     Dieter
 
 
-<a id="org40fcfcd"></a>
+<a id="org48b8192"></a>
 
 # Ideas for further versions
 

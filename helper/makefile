@@ -171,7 +171,7 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"
-	cp ../info/README.md ..
+	cp $@ ..
 
 ../info/TODO.md : ../info/TODO.org
 	$(EMACS_EXE) --batch --file $< \
@@ -196,6 +196,7 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 ../info/apdl-mode.info : ../info/apdl-mode.org $(INFO_FILES)
 	$(EMACS_EXE) --batch --file $< \
 	--execute  "(org-texinfo-export-to-info)"
+	cp $@ ..
 
 P_DIR := apdl-mode-$(VERSION)
 I_DIR := $(P_DIR)/info/
@@ -223,7 +224,7 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@cp $(MD_FILES) $(I_DIR)
 	@cp ../info/dir $(P_DIR)
 	@cp ../info/apdl-mode.info $(P_DIR)
-	@cp ../info/apdl-mode.texi $(P_DIR)
+#	@cp ../info/apdl-mode.texi $(P_DIR)
 #	@cp ../info/APDL-Mode.info $(P_DIR)
 #	@cp ../info/APDL-Mode.texi $(P_DIR)
 	@cp -rf $(MATLIB) $(P_DIR)

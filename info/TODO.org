@@ -24,11 +24,12 @@
 * TODO Version 20.4.0, updated to 2020R1
   DEADLINE: <2020-04-27 Mo>
 ** Todos, bugs
-*** COMMENT State of documentation
+*** State of documentation
      - work on the Info index
      - image directory in .info file is not existing in Melpa! Do we
        need images in the manual? No
      - #+include: #+title adds to info title!
+     - Attention ":" in headline gives a texinfo reference!
      - C-u info file
      - package with file "dir"
      - only up to 3 *** levels! configurable?

@@ -122,7 +122,8 @@ EXAMPLE_FILES := ../doc/example.mac ../doc/example.anf ../doc/example.dat
 INFO_FILES := ../info/introduction.org ../info/first_steps.org ../info/tutorial.org \
 	../info/usage.org ../info/apdl-config.org ../doc/A-M_APDL_reference.org \
 	../info/INSTALLATION.org ../info/bugs.org ../info/resources.org \
-	../info/acknowledgements.org  ../info/GNU-FDL.txt
+	../info/acknowledgements.org  ../info/GNU-FDL.txt ../info/TODO.org \
+	../info/NEWS.org
 
 # ../doc/APDL_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 # 	$(EMACS_EXE) --batch --eval "(add-to-list 'load-path \"..\doc")"  \

@@ -1,7 +1,8 @@
-#+DATE: Time-stamp: <2020-03-30>
+#+DATE: Time-stamp: <2020-03-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:1 todo:t |:t
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
@@ -20,7 +21,7 @@
      #   (expand-file-name file superfrobnicator-base))
 * Version 20.5.0?
 
-* TODO Version 20.4.0, completion and help updated to 2020R1
+* TODO Version 20.4.0, updated to 2020R1
   DEADLINE: <2020-04-27 Mo>
 ** Todos, bugs
 *** COMMENT State of documentation
@@ -39,6 +40,7 @@
          > There you have option `help-cross-reference-manuals':
      - customise system (explain `M-x customize-set-value' as long as
        (debbugs-gnu-bugs 25678) is not solved)
+     - license buffers in docu
      - do we need a short help, yes for installation + config + first
        steps:
      - add intro to the wb-template system

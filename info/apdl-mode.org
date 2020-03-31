@@ -59,8 +59,12 @@ This manual is for APDL-Mode version {{{version}}} {{{updated}}}
   #+include: ./INSTALLATION.org
 * Bugs and Problems
   #+include: ./bugs.org
+* News
+  #+include: ./NEWS.org
 * Further Resources
   #+include: ./resources.org
+* Todos
+  #+include: ./TODO.org
 * Acknowledgements
   #+include: ./acknowledgements.org
 * GNU Free Documentation License

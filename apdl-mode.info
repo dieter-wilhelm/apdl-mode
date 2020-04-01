@@ -3040,7 +3040,7 @@ File: apdl-mode.info,  Node: Version 2040 1,  Next: Version 2030 1,  Prev: Versi
 12.2 *TODO* Version 20.4.0
 ==========================
 
-updated to 2020R1
+updated to 2020R1 freeze: _[2020-04-01 Wed]_
 
 * Menu:
 
@@ -3056,10 +3056,6 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: minor bugs,  Up: Version 2040 1
 
 12.2.1 Todos, bugs
 ------------------
-
-   • apdl-start-ansys (make-comint) - doesn’t start the launcher under
-     windows
-   • apdl-start-classics (start-process) -
 
 * Menu:
 
@@ -3092,63 +3088,13 @@ File: apdl-mode.info,  Node: State of documentation,  Up: Todos bugs
      steps:
    • add intro to the wb-template system
    • explain interactive browsing of keywords => menu entry
-   • shift org-files to doc or info, except README.org: Focus: Intro +
-     Features + Installation
-        • usage
-        • config
-   • orgs
-        • install
-        • news
-        • todo
-        • config
-        • index
-   • tutorials
-        • -intro-tut
-        • -apdl-reference
-        • -in-depth_tutorial
-   • combine apdl-mode help, tutorial, usage, customisation
-        • tutorial
-        • bugs
-   • find nice style css stuff for html export?
-
-   Focus: Marketing and get it going, then details help + templates
-
    • Presentations
         • Präsentation Intro, tutorial
         • in-dept present.
         • APDL reference
 
-   • README.org
-        • Intro
-        • Highlights, features
-        • Installation
-        • Short Usage / tutorial
-        • Configuration
-        • Bugs / problems
-        • Resources
-        • GNU GPL License
-        • Acknowledgments
-        • TODOs
-
-   • info (with or without image?)
-        • First steps / tutorial <-> short usage
-        • in-dept usage <-> in-dept presentation?u
-        • copying, do we need it really?
-        • config OK consolidate tangle org
-        • Usage / applications
-             • templates
-        • APDL reference OK
-        • news OK
-        • Resources OK
-        • Bugs and Problems
-        • GNU FDL License
-        • todo OK
-        • index?
-
    • Mode help, done :-)
         • short intro general description
-        • reference / link!  to info!!!!  ;-)
-        • keybindings, that is special
 
 
 File: apdl-mode.info,  Node: minor bugs,  Next: check,  Prev: Todos bugs,  Up: Version 2040 1
@@ -3167,6 +3113,9 @@ File: apdl-mode.info,  Node: check,  Next: wishes,  Prev: minor bugs,  Up: Versi
 12.2.3 check
 ------------
 
+   • apdl-start-ansys (make-comint) - doesn’t start the launcher under
+     windows, but is redundant with -start-classics
+   • apdl-start-classics (start-process)
    • changed file size without warning to 30 MB what is Emacs-26 using?
 
 
@@ -3219,11 +3168,13 @@ File: apdl-mode.info,  Node: Release proceedures,  Prev: Done,  Up: Version 2040
 
    • NEWS.org
    • README.org News
+   • TODO.org
+   • make PACK!
 
    gca = git commit -a = gau + gc gta = git tag -a 20.4.0
 
-   Attention: in apdl_keywords.txt there are many trailing whitespaces
-(delete-trailing-whitespace)
+   Ansys update: Attention: in apdl_keywords.txt there are many trailing
+whitespaces (delete-trailing-whitespace)
 
    whitespace-mode package-lint checkdoc, flycheck etc.  : from
 makefile?
@@ -4436,37 +4387,37 @@ Node: Other APDL editor resources125065
 Node: Todos125979
 Node: Version 2050 ?126317
 Node: Version 2040 1126444
-Node: Todos bugs126730
-Node: State of documentation127023
-Node: minor bugs129718
-Node: check130085
-Node: wishes130280
-Node: templates130429
-Node: misc130764
-Node: Done131196
-Node: Release proceedures131322
-Node: Version 2030 1131993
-Node: Version 2020 1132213
-Node: Version 2011 1132393
-Node: Version 162-2132865
-Node: Bugs133143
-Node: Freeze134112
-Node: Wish-list134469
-Node: Deficiencies140585
-Node: Procedures142246
-Node: Freeze proceedures142768
-Node: Release144295
-Node: Ideas for further versions144898
-Node: Parameter help and documentation145329
-Node: Ansys process and interpreter buffer147631
-Node: Skeletons outline and abbrevs150494
-Node: Miscellaneous 1152226
-Node: Ansys syntax restrictions not (yet) accounted for157216
-Node: Unknown Ansys stuff158119
-Node: Acknowledgements158402
-Node: GNU Free Documentation License158972
-Node: Variable Index183998
-Node: Concept Index184147
+Node: Todos bugs126757
+Node: State of documentation126916
+Node: minor bugs128219
+Node: check128586
+Node: wishes128951
+Node: templates129100
+Node: misc129435
+Node: Done129867
+Node: Release proceedures129993
+Node: Version 2030 1130712
+Node: Version 2020 1130932
+Node: Version 2011 1131112
+Node: Version 162-2131584
+Node: Bugs131862
+Node: Freeze132831
+Node: Wish-list133188
+Node: Deficiencies139304
+Node: Procedures140965
+Node: Freeze proceedures141487
+Node: Release143014
+Node: Ideas for further versions143617
+Node: Parameter help and documentation144048
+Node: Ansys process and interpreter buffer146350
+Node: Skeletons outline and abbrevs149213
+Node: Miscellaneous 1150945
+Node: Ansys syntax restrictions not (yet) accounted for155935
+Node: Unknown Ansys stuff156838
+Node: Acknowledgements157121
+Node: GNU Free Documentation License157691
+Node: Variable Index182717
+Node: Concept Index182866
 
 End Tag Table
 

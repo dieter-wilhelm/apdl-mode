@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-31>
+;; Time-stamp: <2020-04-01>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1540,8 +1540,20 @@ and P-MAX) otherwise align the current code paragraph."
 
 ;;;###autoload
 (defun apdl-mode ()
-  "Editor support for the APDL language and working with Ansys FEA.
-Help in Info format `apdl-mode-help'.
+  "Editor support for the APDL language and working with Ansys MAPDL.
+
+APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
+GNU-Emacs editor - an advanced APDL environment with features
+like, pin-pointing the APDL reference documentation, keyword
+completion, code templates, dedicated highlighting, solver
+communication (GNU-Linux only), license reporting, etc.  Over the
+years it has accumulated lots of features for writing WorkBench /
+Discovery AIM Command (APDL) objects and debugging complete FEA
+models in APDL code.
+
+The extensive documentation can be accessed from the APDL-Mode
+menu or by calling the function `apdl-mode-help' with
+\\[apdl-mode-help].
 
 \\{apdl-mode-map}"
   (interactive)
@@ -1813,10 +1825,13 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
          (forward-paragraph arg))))
 
 (defun apdl-mode-version ()
-  "Display the APDL-Mode version numbering scheme."
+  "Display the APDL-Mode version numbering scheme.
+Together with the APDL-Mode update date and the Ansys version on
+which the keyword- and completion system is based upon."
   (interactive)
-  (message "APDL-Mode version: %s (based on Ansys %s)"
+  (message "APDL-Mode version: %s (%s) (based on Ansys %s)"
            apdl-mode-version
+	   apdl-mode-update
            apdl-ansys-version))
 
 
@@ -3000,6 +3015,9 @@ These constructs appear in WorkBench created solver input files."
        (list
         ;; constants
         'apdl-mode-version
+	'apdl-mode-update
+	'apdl-mode-install-directory
+	;; 'apdl-ansys-version ; is in -ansys-install-directory included
 	;; variables
 	'apdl-initialised-flag
 	'apdl-current-ansys-version

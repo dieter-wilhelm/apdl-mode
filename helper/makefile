@@ -231,8 +231,11 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@test -d $(P_DIR)/template || \
 	    mkdir $(P_DIR)/template
 	@cp -rf $(TEMPLATE) $(P_DIR)
-	tar -cf $@ $(P_DIR) # ../apdl-mode-readme.txt # default.el
-	rm -r $(P_DIR)
+	@tar -cf $@ $(P_DIR) # ../apdl-mode-readme.txt # default.el
+	@rm -r $(P_DIR)
+#       update time in -initialise.el apdl-mode-update in iso 8601 -I
+	@echo Time of packaging: `date -I`
+	@sed -i "s/(defconst apdl-mode-update \".*\"/(defconst apdl-mode-update \"`date -I`\"/" ../apdl-initialise.el
 	@echo
 	@echo "... $@ done."
 	@echo "------------------------------"

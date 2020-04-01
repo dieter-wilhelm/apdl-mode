@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-26>
+;; Time-stamp: <2020-04-01>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -39,10 +39,16 @@
 (defconst apdl-mode-version "20.4.0"
   "The APDL-Mode version string.")
 
+(defconst apdl-mode-update "2020-04-01"
+  "APDL-Mode packaging date string in yyyy-mm-dd format.
+This is for the APDL-Mode development versions to check the time
+of packaging.")
+
 (defconst apdl-mode-install-directory
   (file-name-directory (locate-library "apdl-mode"))
-  "The installation directory of APDL-Mode.
-A string describing the directory where the Elisp files reside.")
+  "The installation directory string of APDL-Mode.
+The string contains the directory where the APDL-Mode Elisp files
+reside.")
 
 (defconst apdl-ansys-version "v201"
   "Ansys version string on which APDL-Mode is based upon.

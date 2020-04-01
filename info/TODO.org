@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-31>
+#+DATE: Time-stamp: <2020-04-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,11 +19,11 @@
 
      # (defun superfrobnicator-fetch-image (file)
      #   (expand-file-name file superfrobnicator-base))
-* Version 20.5.0 ?
-
-* TODO Version 20.4.0
+* TODO Version 20.5.0
+* WORK Version 20.4.0
   DEADLINE: <2020-04-27 Mo>
   updated to 2020R1
+  freeze: [2020-04-01 Wed]
 ** Todos, bugs
 *** State of documentation
      - work on the Info index
@@ -34,7 +34,7 @@
      - C-u info file
      - package with file "dir"
      - only up to 3 *** levels! configurable?
-     - info doesn't know about clickablefunction links
+     - info doesn't know about clickable function links
      - info doesn't have links, yet
        - (describe-package 'helpful)
          [1]  https://github.com/wilfred/helpful
@@ -42,70 +42,14 @@
          > There you have option `help-cross-reference-manuals':
      - customise system (explain `M-x customize-set-value' as long as
        (debbugs-gnu-bugs 25678) is not solved)
-     - license buffers in docu
-     - do we need a short help, yes for installation + config + first
-       steps:
+     - license status buffers in docu
      - add intro to the wb-template system
      - explain interactive browsing of keywords => menu entry
-     - shift org-files to doc or info, except README.org: Focus:
-       Intro + Features + Installation
-       - usage
-       - config
-     - orgs
-       - install
-       - news
-       - todo
-       - config
-       - index
-     - tutorials
-       - -intro-tut
-       - -apdl-reference
-       - -in-depth_tutorial
-     - combine apdl-mode help, tutorial, usage, customisation
-       - tutorial
-       - bugs
-     - find nice style css stuff for html export?
-
-    Focus: Marketing and get it going, then details
-    help + templates
 
     - Presentations
       - Präsentation Intro, tutorial
       - in-dept present.
-      - APDL reference
-
-    - README.org
-      - Intro
-      - Highlights, features
-      - Installation
-      - Short Usage / tutorial
-      - Configuration
-      - Bugs / problems
-      - Resources
-      - GNU GPL License
-      - Acknowledgments
-      - TODOs
-
-    - info (with or without image?)
-      - First steps / tutorial <-> short usage
-      - in-dept usage <-> in-dept presentation?u
-      - [X] copying, do we need it really?
-      - [X] config OK consolidate tangle org
-      - [ ] Usage / applications
-	- templates
-      - [X] APDL reference OK
-      - [X] news OK
-      - [X] Resources OK
-      - [ ] Bugs and Problems
-      - [X] GNU FDL License
-      - [X] todo OK
-      - [ ] index?
-
-    - Mode help, done :-)
-      - short intro general description
-      - reference / link! to info!!!! ;-)
-      - keybindings,  that is special
-
+      - APDL reference => just Info?
 ** minor bugs
    - fmagsum in -template-post1 not fontified
    - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
@@ -136,10 +80,13 @@
 
    - NEWS.org
    - README.org News
+   - TODO.org
+   - make PACK!
 
    gca = git commit -a = gau + gc
    gta = git tag -a 20.4.0
 
+   Ansys update:
    Attention: in apdl_keywords.txt there are many
    trailing whitespaces (delete-trailing-whitespace)
 

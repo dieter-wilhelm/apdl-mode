@@ -1,32 +1,29 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0 ?](#orgd49629d)
-2.  [Version 20.4.0](#org715d40b)
-3.  [Version 20.3.0](#org641137f)
-4.  [Version 20.2.0](#orgdab2f13)
-5.  [Version 20.1.1](#org4a5c4c1)
-6.  [Version 162-2:](#orgd7e5a24)
+1.  [Version 20.5.0 ?](#orga43b3c4)
+2.  [Version 20.4.0](#org878cfd7)
+3.  [Version 20.3.0](#orgca6f03d)
+4.  [Version 20.2.0](#org1d73903)
+5.  [Version 20.1.1](#org05fc4da)
+6.  [Version 162-2:](#orgdd588c1)
 
 
 
-<a id="orgd49629d"></a>
+<a id="orga43b3c4"></a>
 
 # Version 20.5.0 ?
 
 
-<a id="org715d40b"></a>
+<a id="org878cfd7"></a>
 
 # TODO Version 20.4.0
 
 updated to 2020R1
+freeze: <span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]</span></span>
 
 
 ## Todos, bugs
-
--   apdl-start-ansys (make-comint) - doesn't start the launcher under
-    windows
--   apdl-start-classics (start-process) -
 
 
 ### State of documentation
@@ -52,64 +49,14 @@ updated to 2020R1
     steps:
 -   add intro to the wb-template system
 -   explain interactive browsing of keywords => menu entry
--   shift org-files to doc or info, except README.org: Focus:
-    Intro + Features + Installation
-    -   usage
-    -   config
--   orgs
-    -   install
-    -   news
-    -   todo
-    -   config
-    -   index
--   tutorials
-    -   -intro-tut
-    -   -apdl-reference
-    -   -in-depth<sub>tutorial</sub>
--   combine apdl-mode help, tutorial, usage, customisation
-    -   tutorial
-    -   bugs
--   find nice style css stuff for html export?
-
-Focus: Marketing and get it going, then details
-help + templates
 
 -   Presentations
     -   Präsentation Intro, tutorial
     -   in-dept present.
     -   APDL reference
 
--   README.org
-    -   Intro
-    -   Highlights, features
-    -   Installation
-    -   Short Usage / tutorial
-    -   Configuration
-    -   Bugs / problems
-    -   Resources
-    -   GNU GPL License
-    -   Acknowledgments
-    -   TODOs
-
--   info (with or without image?)
-    -   First steps / tutorial <-> short usage
-    -   in-dept usage <-> in-dept presentation?u
-    -   [X] copying, do we need it really?
-    -   [X] config OK consolidate tangle org
-    -   [ ] Usage / applications
-        -   templates
-    -   [X] APDL reference OK
-    -   [X] news OK
-    -   [X] Resources OK
-    -   [ ] Bugs and Problems
-    -   [X] GNU FDL License
-    -   [X] todo OK
-    -   [ ] index?
-
 -   Mode help, done :-)
     -   short intro general description
-    -   reference / link! to info!!!! ;-)
-    -   keybindings,  that is special
 
 
 ## minor bugs
@@ -122,6 +69,9 @@ help + templates
 
 ## check
 
+-   apdl-start-ansys (make-comint) - doesn't start the launcher under
+    windows, but is redundant with -start-classics
+-   apdl-start-classics (start-process)
 -   changed file size without warning to 30 MB what is Emacs-26
     using?
 
@@ -155,10 +105,13 @@ help + templates
 
 -   NEWS.org
 -   README.org News
+-   TODO.org
+-   make PACK!
 
 gca = git commit -a = gau + gc
 gta = git tag -a 20.4.0
 
+Ansys update:
 Attention: in apdl<sub>keywords.txt</sub> there are many
 trailing whitespaces (delete-trailing-whitespace)
 
@@ -180,7 +133,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org641137f"></a>
+<a id="orgca6f03d"></a>
 
 # DONE Version 20.3.0
 
@@ -189,14 +142,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="orgdab2f13"></a>
+<a id="org1d73903"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="org4a5c4c1"></a>
+<a id="org05fc4da"></a>
 
 # DONE Version 20.1.1
 
@@ -209,7 +162,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgd7e5a24"></a>
+<a id="orgdd588c1"></a>
 
 # Version 162-2:
 

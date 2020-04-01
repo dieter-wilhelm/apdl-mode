@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-30>
+#+DATE: Time-stamp: <2020-04-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -52,7 +52,7 @@ sign in this language is ~;~ (one semi-colon `;').
 
     ;; Copyright (C) 2016 - 2020 H. Dieter Wilhelm, GPL V3
     ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-    ;; Version: 20.4.0
+    ;; Version: 20.5.0
     ;; Package-Requires: ((emacs "25.1"))
     ;; Keywords: languages, convenience, tools, Ansys, APDL
     ;; URL: https://github.com/dieter-wilhelm/apdl-mode

@@ -1,26 +1,18 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0 ?](#orga43b3c4)
-2.  [Version 20.4.0](#org878cfd7)
-3.  [Version 20.3.0](#orgca6f03d)
-4.  [Version 20.2.0](#org1d73903)
-5.  [Version 20.1.1](#org05fc4da)
-6.  [Version 162-2:](#orgdd588c1)
+1.  [Version 20.5.0](#org629a1f3)
+2.  [Version 20.4.0](#org87adeca)
+3.  [Version 20.3.0](#orged03dc0)
+4.  [Version 20.2.0](#orgc1e0d4c)
+5.  [Version 20.1.1](#orgcc57f05)
+6.  [Version 162-2:](#org3127a90)
 
 
 
-<a id="orga43b3c4"></a>
+<a id="org629a1f3"></a>
 
-# Version 20.5.0 ?
-
-
-<a id="org878cfd7"></a>
-
-# TODO Version 20.4.0
-
-updated to 2020R1
-freeze: <span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]</span></span>
+# TODO Version 20.5.0
 
 
 ## Todos, bugs
@@ -36,7 +28,7 @@ freeze: <span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]
 -   C-u info file
 -   package with file "dir"
 -   only up to 3 **\*** levels! configurable?
--   info doesn't know about clickablefunction links
+-   info doesn't know about clickable function links
 -   info doesn't have links, yet
     -   (describe-package 'helpful)
         [1]  <https://github.com/wilfred/helpful>
@@ -44,19 +36,14 @@ freeze: <span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]
         > There you have option \`help-cross-reference-manuals':
 -   customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)
--   license buffers in docu
--   do we need a short help, yes for installation + config + first
-    steps:
+-   license status buffers in docu
 -   add intro to the wb-template system
 -   explain interactive browsing of keywords => menu entry
 
 -   Presentations
     -   Präsentation Intro, tutorial
     -   in-dept present.
-    -   APDL reference
-
--   Mode help, done :-)
-    -   short intro general description
+    -   APDL reference => just Info?
 
 
 ## minor bugs
@@ -109,7 +96,8 @@ freeze: <span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]
 -   make PACK!
 
 gca = git commit -a = gau + gc
-gta = git tag -a 20.4.0
+gta = git tag -a 20.5.0
+g push &#x2013;tags
 
 Ansys update:
 Attention: in apdl<sub>keywords.txt</sub> there are many
@@ -133,23 +121,31 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgca6f03d"></a>
+<a id="org87adeca"></a>
+
+# DONE Version 20.4.0
+
+<span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Mi]</span></span>
+updated to 2020R1
+
+
+<a id="orged03dc0"></a>
 
 # DONE Version 20.3.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Tue]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Di]</span></span>
 Melpa
-feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
+feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org1d73903"></a>
+<a id="orgc1e0d4c"></a>
 
 # DONE Version 20.2.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org05fc4da"></a>
+<a id="orgcc57f05"></a>
 
 # DONE Version 20.1.1
 
@@ -162,7 +158,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgdd588c1"></a>
+<a id="org3127a90"></a>
 
 # Version 162-2:
 

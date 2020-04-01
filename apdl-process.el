@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-03-31>
+;; Time-stamp: <2020-04-01>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -237,16 +237,19 @@ Return nil if we can't find an MAPDL GUI."
       (setq select-enable-clipboard t)                     ; for kill-new necessary
       aID)))
 
-(defun apdl-start-classics ()
+(defun apdl-start-classics ()		; C-c C-x
   "Start the Ansys MAPDL Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
 *Classics* under GNU-Linux.  Under Windows it is not possible to
 capture the output."
   (interactive)
   (let ((bname (concat "*"apdl-classics-process"*")))
+    ;; check against .lock file
     (when (file-readable-p (concat default-directory apdl-job ".lock"))
       (if (yes-or-no-p
-           (concat "Warning: There is a \""apdl-job".lock" "\" in " default-directory ". This might indicate that there is already a solver running.  Do you wish to kill the lock file? "))
+           (concat "Warning: There is a \""apdl-job".lock" "\" in "
+		   default-directory ". This might indicate that there \
+is already a solver running.  Do you wish to kill the lock file? "))
           (delete-file (concat apdl-job ".lock"))
         (error "Starting the MAPDL GUI (Ansys Classics) cancelled")))
     (if (y-or-n-p
@@ -257,10 +260,12 @@ capture the output."
           ;; "Start run?  (license type: " (if (boundp
           ;; 'apdl-license) apdl-license)
           (if (> apdl-no-of-processors 4)
-              (concat ", No of procs: " (number-to-string apdl-no-of-processors))
+              (concat ", No of procs: "
+		      (number-to-string apdl-no-of-processors))
             "")
-          ", job: " apdl-job
-          " in " default-directory ", lic server: " apdl-license-file " "))
+          ", job: " (if (boundp 'apdl-job) apdl-job)
+          " in " default-directory ", lic server: "
+	  apdl-license-file " "))
         (message "Starting MAPDL in GUI mode (Ansys Classics) ...")
       (error "Calling MAPDL solver (Ansys Classics) cancelled"))
     ;; -d : device
@@ -607,26 +612,24 @@ initial input."
                                apdl-process-name)) (concat s "\n"))
       (display-buffer (concat "*" apdl-process-name "*") 'other-window)))))
 
-;; from procuct launcher:
+;; from product launcher: Tools ->
 ;; "C:\CAx\App\ANSYS Inc\v201\ansys\bin\winx64\MAPDL.exe"  -g -p ansys -lch -dir "H:\" -j "file" -s read -l en-us -t -d 3D
-
-
-(defun apdl-start-mapdl ()
-  "Start the MAPDL interpreter (Ansys Classics) under Windows."
-  (interactive)
-  ;(setq default-directory "c:/CAx/")
-  (start-process   ; asynchronous process
-   "MAPDL" "*MAPDL*" ; "c:/CAx/App/ANSYS Inc/v201/ansys/bin/winx64/MAPDL.exe"
-   apdl-ansys-program
-      "-g" "-p" apdl-license "-lch" (concat "-j " apdl-job) "-s read" "-l en-us" "-t" "-d 3D"
-;;      (concat "-g -p " apdl-license " -j " apdl-job "-d 3D")
-;;      (concat " -g -p " apdl-license )
-      ;; (concat "-dir " default-directory)
-   ))
-
+;; Test function
+;; (defun apdl-start-mapdl ()
+;;   "Start the MAPDL interpreter (Ansys Classics) under Windows."
+;;   (interactive)
+;;   ;(setq default-directory "c:/CAx/")
+;;   (start-process   ; asynchronous process
+;;    "MAPDL" "*MAPDL*" ; "c:/CAx/App/ANSYS Inc/v201/ansys/bin/winx64/MAPDL.exe"
+;;    apdl-ansys-program
+;;       "-g" "-p" apdl-license "-lch" (concat "-j " apdl-job) "-s read" "-l en-us" "-t" "-d 3D"
+;; ;;      (concat "-g -p " apdl-license " -j " apdl-job "-d 3D")
+;; ;;      (concat " -g -p " apdl-license )
+;;       ;; (concat "-dir " default-directory)
+;;    ))
 
 ;;;###autoload
-(defun apdl-start-ansys ()
+(defun apdl-start-ansys () 		; C-c C-m
   "Start the MAPDL interpreter under Linux or the launcher under Windows.
 For the interpreter process summarise the run's configuration
 first.  The specified No of cores is not shown if they are chosen

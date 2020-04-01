@@ -20,10 +20,6 @@
      # (defun superfrobnicator-fetch-image (file)
      #   (expand-file-name file superfrobnicator-base))
 * TODO Version 20.5.0
-* WORK Version 20.4.0
-  DEADLINE: <2020-04-27 Mo>
-  updated to 2020R1
-  freeze: [2020-04-01 Wed]
 ** Todos, bugs
 *** State of documentation
      - work on the Info index
@@ -84,7 +80,8 @@
    - make PACK!
 
    gca = git commit -a = gau + gc
-   gta = git tag -a 20.4.0
+   gta = git tag -a 20.5.0
+   g push --tags
 
    Ansys update:
    Attention: in apdl_keywords.txt there are many
@@ -96,10 +93,10 @@
 
     # for makefile
     APDL_MAJOR := 20
-    APDL_MINOR := 5
+    APDL_MINOR := 6
     APDL_PATCH := 0
     # A-M version
-    (tags-query-replace "20\.4\.0" "20.5.0")
+    (tags-query-replace "20\.5\.0" "20.6.0")
     # copyright year
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
@@ -108,6 +105,9 @@
     (tags-query-replace "26\.3" "27.1")
     (tags-search "((emacs \"25.1\"))")
 
+* DONE Version 20.4.0
+  [2020-04-01 Mi]
+  updated to 2020R1
 * DONE Version 20.3.0
   [2020-03-24 Di]
   Melpa

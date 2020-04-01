@@ -16,7 +16,7 @@ help :
 
 # Semantic versioning: MA.Mi.Pa, Ma = year
 APDL_MAJOR := 20
-APDL_MINOR := 4
+APDL_MINOR := 5
 APDL_PATCH := 0
 
 
@@ -113,7 +113,7 @@ FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
 
 # all org files which are referenced in README.org have to be exported
 # to markdown .md
-MD_FILES := ../README.md ../info/TODO.md ../info/resources.md \
+MD_FILES := ../info/README.md ../info/TODO.md ../info/resources.md \
 		../info/NEWS.md ../info/apdl-config.md
 
 # example files
@@ -166,8 +166,7 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 # 	@echo "       (file (concat dir \"/apdl-mode-$(VERSION)/apdl-config.el\")))" >> $@
 # 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
-
-../README.md : ../info/README.org
+../info/README.md : ../info/README.org
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"

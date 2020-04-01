@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-03-30>
+#+DATE: Time-stamp: <2020-04-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -29,7 +29,7 @@
 # The exports are copied to the base directory!!
 # ##############################
 
-#+title: APDL-Mode 20.4.0
+#+title: APDL-Mode 20.5.0
 The GNU-Emacs major mode for the scripting language APDL
 
 [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
@@ -106,7 +106,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Bugs and Problems
   #+include: ./bugs.org
 * News
-  APDL-Mode's completions- and help system is updated to Ansys 2020R1.
+
 
   For further news please have a look into the [[file:info/NEWS.org][NEWS]] file.
 * Further Resources

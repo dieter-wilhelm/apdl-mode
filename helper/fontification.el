@@ -1,10 +1,10 @@
 ;;; fontification.el --- building keywords and completions
-;; Time-stamp: <2020-03-25 08:52:41 dieter>
+;; Time-stamp: <2020-04-01>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.4.0
+;; Version: 20.5.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -909,7 +909,7 @@ By default APDL keywords, get-functions, parametric-function and elements
 ";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm\n"
 "\n"
 ";; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>\n"
-";; Version: 20.4.0\n"
+";; Version: 20.5.0\n"
 ";; Package-Requires: ((emacs \"25\"))\n"
 ";; Keywords: languages, convenience, tools, Ansys, APDL\n"
 ";; URL: https://github.com/dieter-wilhelm/apdl-mode\n"

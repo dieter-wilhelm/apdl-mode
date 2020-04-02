@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org629a1f3)
-2.  [Version 20.4.0](#org87adeca)
-3.  [Version 20.3.0](#orged03dc0)
-4.  [Version 20.2.0](#orgc1e0d4c)
-5.  [Version 20.1.1](#orgcc57f05)
-6.  [Version 162-2:](#org3127a90)
+1.  [Version 20.5.0](#org49830e5)
+2.  [Version 20.4.0](#org757f5d7)
+3.  [Version 20.3.0](#org3231416)
+4.  [Version 20.2.0](#orgec0ec91)
+5.  [Version 20.1.1](#org19f0a4e)
+6.  [Version 162-2:](#org34dece3)
 
 
 
-<a id="org629a1f3"></a>
+<a id="org49830e5"></a>
 
 # TODO Version 20.5.0
 
@@ -20,6 +20,7 @@
 
 ### State of documentation
 
+-   intro presentation
 -   work on the Info index
 -   image directory in .info file is not existing in Melpa! Do we
     need images in the manual? No
@@ -42,7 +43,7 @@
 
 -   Presentations
     -   Präsentation Intro, tutorial
-    -   in-dept present.
+    -   in-dept presentation
     -   APDL reference => just Info?
 
 
@@ -88,7 +89,9 @@
 ## Done
 
 
-## Release proceedures
+## Push and Release Proceedures
+
+-   make PACK for any push!
 
 -   NEWS.org
 -   README.org News
@@ -96,7 +99,7 @@
 -   make PACK!
 
 gca = git commit -a = gau + gc
-gta = git tag -a 20.5.0
+gta = git tag -a 20.6.0
 g push &#x2013;tags
 
 Ansys update:
@@ -108,10 +111,10 @@ package-lint
 checkdoc, flycheck etc. : from makefile?
 
 APDL<sub>MAJOR</sub> := 20
-APDL<sub>MINOR</sub> := 5
+APDL<sub>MINOR</sub> := 6
 APDL<sub>PATCH</sub> := 0
 
-(tags-query-replace "20\\.4\\.0" "20.5.0")
+(tags-query-replace "20\\.5\\.0" "20.6.0")
 
 (tags-query-replace "- 2020" "- 2021")
 
@@ -121,7 +124,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org87adeca"></a>
+<a id="org757f5d7"></a>
 
 # DONE Version 20.4.0
 
@@ -129,7 +132,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orged03dc0"></a>
+<a id="org3231416"></a>
 
 # DONE Version 20.3.0
 
@@ -138,14 +141,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgc1e0d4c"></a>
+<a id="orgec0ec91"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgcc57f05"></a>
+<a id="org19f0a4e"></a>
 
 # DONE Version 20.1.1
 
@@ -158,7 +161,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org3127a90"></a>
+<a id="org34dece3"></a>
 
 # Version 162-2:
 

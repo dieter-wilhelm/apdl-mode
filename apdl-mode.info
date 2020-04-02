@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 APDL-Mode’s Info Viewer Documentation
 *************************************
 
-This manual is for APDL-Mode version 20.4.0 Time-stamp: "2020-03-31"
+This manual is for APDL-Mode version 20.5.0 Time-stamp: "2020-04-02"
 
 * Menu:
 
@@ -3041,7 +3041,7 @@ File: apdl-mode.info,  Node: Version 2050,  Next: Version 2040 1,  Up: Todos
 * check::
 * wishes::
 * Done::
-* Release proceedures::
+* Push and Release Proceedures::
 
 
 File: apdl-mode.info,  Node: Todos bugs,  Next: minor bugs,  Up: Version 2050
@@ -3059,6 +3059,7 @@ File: apdl-mode.info,  Node: State of documentation,  Up: Todos bugs
 12.1.1.1 State of documentation
 ...............................
 
+   • intro presentation
    • work on the Info index
    • image directory in .info file is not existing in Melpa!  Do we need
      images in the manual?  No
@@ -3078,9 +3079,10 @@ File: apdl-mode.info,  Node: State of documentation,  Up: Todos bugs
    • license status buffers in docu
    • add intro to the wb-template system
    • explain interactive browsing of keywords => menu entry
+
    • Presentations
         • Präsentation Intro, tutorial
-        • in-dept present.
+        • in-dept presentation
         • APDL reference => just Info?
 
 
@@ -3142,23 +3144,25 @@ File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: wishes
   6. Melpa README, better wait till emacs-27
 
 
-File: apdl-mode.info,  Node: Done,  Next: Release proceedures,  Prev: wishes,  Up: Version 2050
+File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: wishes,  Up: Version 2050
 
 12.1.5 Done
 -----------
 
 
-File: apdl-mode.info,  Node: Release proceedures,  Prev: Done,  Up: Version 2050
+File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Version 2050
 
-12.1.6 Release proceedures
---------------------------
+12.1.6 Push and Release Proceedures
+-----------------------------------
+
+   • make PACK for any push!
 
    • NEWS.org
    • README.org News
    • TODO.org
    • make PACK!
 
-   gca = git commit -a = gau + gc gta = git tag -a 20.5.0 g push –tags
+   gca = git commit -a = gau + gc gta = git tag -a 20.6.0 g push –tags
 
    Ansys update: Attention: in apdl_keywords.txt there are many trailing
 whitespaces (delete-trailing-whitespace)
@@ -3166,9 +3170,9 @@ whitespaces (delete-trailing-whitespace)
    whitespace-mode package-lint checkdoc, flycheck etc.  : from
 makefile?
 
-   APDL_MAJOR := 20 APDL_MINOR := 5 APDL_PATCH := 0
+   APDL_MAJOR := 20 APDL_MINOR := 6 APDL_PATCH := 0
 
-   (tags-query-replace "20\.4\.0" "20.5.0")
+   (tags-query-replace "20\.5\.0" "20.6.0")
 
    (tags-query-replace "- 2020" "- 2021")
 
@@ -4381,38 +4385,38 @@ Node: Emacs editor resources124457
 Node: Other APDL editor resources125020
 Node: Todos125934
 Node: Version 2050126263
-Node: Todos bugs126504
-Node: State of documentation126661
-Node: minor bugs127832
-Node: check128197
-Node: wishes128560
-Node: templates128707
-Node: misc129042
-Node: Done129474
-Node: Release proceedures129598
-Node: Version 2040 1130330
-Node: Version 2030 1130525
-Node: Version 2020 1130743
-Node: Version 2011 1130922
-Node: Version 162-2131394
-Node: Bugs131672
-Node: Freeze132641
-Node: Wish-list132998
-Node: Deficiencies139114
-Node: Procedures140775
-Node: Freeze proceedures141297
-Node: Release142824
-Node: Ideas for further versions143427
-Node: Parameter help and documentation143856
-Node: Ansys process and interpreter buffer146158
-Node: Skeletons outline and abbrevs149021
-Node: Miscellaneous 1150753
-Node: Ansys syntax restrictions not (yet) accounted for155743
-Node: Unknown Ansys stuff156646
-Node: Acknowledgements156929
-Node: GNU Free Documentation License157499
-Node: Variable Index182525
-Node: Concept Index182674
+Node: Todos bugs126513
+Node: State of documentation126670
+Node: minor bugs127872
+Node: check128237
+Node: wishes128600
+Node: templates128747
+Node: misc129082
+Node: Done129514
+Node: Push and Release Proceedures129647
+Node: Version 2040 1130438
+Node: Version 2030 1130633
+Node: Version 2020 1130851
+Node: Version 2011 1131030
+Node: Version 162-2131502
+Node: Bugs131780
+Node: Freeze132749
+Node: Wish-list133106
+Node: Deficiencies139222
+Node: Procedures140883
+Node: Freeze proceedures141405
+Node: Release142932
+Node: Ideas for further versions143535
+Node: Parameter help and documentation143964
+Node: Ansys process and interpreter buffer146266
+Node: Skeletons outline and abbrevs149129
+Node: Miscellaneous 1150861
+Node: Ansys syntax restrictions not (yet) accounted for155851
+Node: Unknown Ansys stuff156754
+Node: Acknowledgements157037
+Node: GNU Free Documentation License157607
+Node: Variable Index182633
+Node: Concept Index182782
 
 End Tag Table
 

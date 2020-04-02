@@ -39,6 +39,7 @@ helper/tools*
 *.xcf
 *.tar
 info/README.md
+info/apdl-mode.info
 misc/
 add-directory_to-load-path.el
 ./

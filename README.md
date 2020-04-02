@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org78eefdf)
-2.  [Some Highlights](#orgdc559e6)
-3.  [Installation](#orgaf61d4a)
-4.  [First Steps](#org40c3ea6)
-5.  [Configuration and Customisation](#orgc435cda)
-6.  [Bugs and Problems](#org72603f3)
-7.  [News](#orgd4707e7)
-8.  [Further Resources](#org54dba6f)
-9.  [GNU GPL v3 License](#org3d702a0)
-10. [Acknowledgements](#org741e13c)
-11. [Todos](#orged66987)
+1.  [Introduction](#org5dd70bd)
+2.  [Some Highlights](#org5ac4676)
+3.  [Installation](#org2e04cb8)
+4.  [First Steps](#org96b3676)
+5.  [Configuration and Customisation](#org2fc503e)
+6.  [Bugs and Problems](#org1a6ce98)
+7.  [News](#orga31fcce)
+8.  [Further Resources](#org6e6ac98)
+9.  [Acknowledgements](#org0c081d5)
+10. [Todos](#org217752e)
+11. [GNU GPL v3 License](#org6e99002)
 
 The GNU-Emacs major mode for the scripting language APDL
 
@@ -23,7 +23,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org78eefdf"></a>
+<a id="org5dd70bd"></a>
 
 # Introduction
 
@@ -65,7 +65,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgdc559e6"></a>
+<a id="org5ac4676"></a>
 
 # Some Highlights
 
@@ -120,7 +120,7 @@ available for inspection and inclusion.
 ![img](doc/ansys-mode.jpg)
 
 
-<a id="orgaf61d4a"></a>
+<a id="org2e04cb8"></a>
 
 # Installation
 
@@ -188,7 +188,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org40c3ea6"></a>
+<a id="org96b3676"></a>
 
 # First Steps
 
@@ -207,7 +207,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="orgc435cda"></a>
+<a id="org2fc503e"></a>
 
 # Configuration and Customisation
 
@@ -224,7 +224,7 @@ Please read [apdl-config](info/apdl-config.md) documentation, or the accompanyin
 configuration [example-file](info/apdl-config.el) for further details.
 
 
-<a id="org72603f3"></a>
+<a id="org1a6ce98"></a>
 
 # Bugs and Problems
 
@@ -244,16 +244,14 @@ you have the following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orgd4707e7"></a>
+<a id="orga31fcce"></a>
 
 # News
-
-APDL-Mode's completions- and help system is updated to Ansys 2020R1.
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org54dba6f"></a>
+<a id="org6e6ac98"></a>
 
 # Further Resources
 
@@ -261,16 +259,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org3d702a0"></a>
-
-# GNU GPL v3 License
-
-The GNU General Public License version 3.  There are no costs and no
-usage restrictions even in commercial application, please convince
-yourself with the [LICENSE](info/LICENSE) file.
-
-
-<a id="org741e13c"></a>
+<a id="org0c081d5"></a>
 
 # Acknowledgements
 
@@ -285,11 +274,18 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="orged66987"></a>
+<a id="org217752e"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
----
+
+<a id="org6e99002"></a>
+
+# GNU GPL v3 License
+
+The GNU General Public License version 3.  There are no costs and no
+usage restrictions even in commercial application, please convince
+yourself with the [LICENSE](info/LICENSE) file.
 

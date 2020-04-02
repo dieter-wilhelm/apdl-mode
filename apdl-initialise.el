@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-01>
+;; Time-stamp: <2020-04-02>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -39,11 +39,15 @@
 (defconst apdl-mode-version "20.5.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2020-04-01"
+(defconst apdl-mode-update "2020-04-02"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")
 
+;; safer way to get the installation directory? -TODO-
+;; (defconst superfrobnicator-base (file-name-directory load-file-name))
+;; (defun superfrobnicator-fetch-image (file)
+;;  (expand-file-name file superfrobnicator-base))
 (defconst apdl-mode-install-directory
   (file-name-directory (locate-library "apdl-mode"))
   "The installation directory string of APDL-Mode.

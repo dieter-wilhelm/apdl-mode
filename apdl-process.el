@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-01>
+;; Time-stamp: <2020-04-02>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -931,6 +931,7 @@ Interesting licenses are compiled in the string
   (occur
    (mapconcat 'identity apdl-license-occur-regexp "\\|")))
 
+;;;###autoload
 (defun apdl-user-license-status ()
   "Display the Ansys license user status.
 Show the status for the user `apdl-username' in a separate
@@ -1006,6 +1007,7 @@ additional keybindings for the license buffer *User-licenses*:
    (t
     (message "No license information or lmutil program found"))))
 
+;;;###autoload
 (defun apdl-license-status ()
   "Display the Ansys license status or start the license tool.
 Show the status in a separate buffer, the license type variable

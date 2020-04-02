@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-04-01>
+#+DATE: Time-stamp: <2020-04-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -25,9 +25,9 @@
 #+INFOJS_OPT:
 #+LATEX_HEADER:
 
-# #############################
-# The exports are copied to the base directory!!
-# ##############################
+# ###########################################################
+# The info export is copied to the base directory!!
+# ############################################################
 
 #+title: APDL-Mode 20.5.0
 The GNU-Emacs major mode for the scripting language APDL
@@ -113,15 +113,15 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
   If you want to read further details regarding the APDL scripting,
   GNU-Emacs and other APDL editors please read the [[file:info/resources.org][RESOURCES]] file.
   #  #+include: ./resources.org
-* GNU GPL v3 License
-  The GNU General Public License version 3.  There are no costs and no
-  usage restrictions even in commercial application, please convince
-  yourself with the [[file:info/LICENSE][LICENSE]] file.
 * Acknowledgements
   #+include: ./acknowledgements.org
 * Todos
   Please check the [[file:info/TODO.org][TODO]] file.
------
+* GNU GPL v3 License
+  The GNU General Public License version 3.  There are no costs and no
+  usage restrictions even in commercial application, please convince
+  yourself with the [[file:info/LICENSE][LICENSE]] file.
+
 # The following is for Emacs
 # local variables:
 # word-wrap: t

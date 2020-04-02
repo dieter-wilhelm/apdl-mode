@@ -1,5 +1,5 @@
-#+MACRO: version 20.4.0
-#+MACRO: updated Time-stamp: "2020-03-31"
+#+MACRO: version 20.5.0
+#+MACRO: updated Time-stamp: "2020-04-02"
 
 This manual is for APDL-Mode version {{{version}}} {{{updated}}}
 

@@ -873,7 +873,11 @@ elem.
 	(progn
 	  (when (eq browse-url-browser-function 'eww-browse-url)
 	      (switch-to-buffer-other-window nil))
-	  (browse-url-of-file (concat "file:///" path file)))
+	  ;; file:/// is not working with tramp remotely 2020-04-03
+	  ;; (browse-url-of-file (concat "file:///" path file)))
+	  ;; file:/ is now working for EWW
+	  ;; (browse-url-of-file (concat "file:/" path file)))
+	  (browse-url-of-file (concat "file:" path file)))
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
       ;; since v201 changed the path to the online help:

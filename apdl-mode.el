@@ -1829,11 +1829,10 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
 Together with the APDL-Mode update date and the Ansys version on
 which the keyword- and completion system is based upon."
   (interactive)
-  (message "APDL-Mode version: %s (%s) (based on Ansys %s)"
+  (message "APDL-Mode version: %s (%s) based on Ansys %s"
            apdl-mode-version
 	   apdl-mode-update
            apdl-ansys-version))
-
 
 ;;  ATTENTION: reloading seems to be critical, when there are multiple
 ;;  entries in `load-path' for APDL-Mode!

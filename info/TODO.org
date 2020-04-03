@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-02>
+#+DATE: Time-stamp: <2020-04-03>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,6 +18,8 @@
 
 * TODO Version 20.5.0
 ** Todos, bugs
+   - autoloading of most functions not working without calling
+     initialise!
 *** State of documentation
     - intro presentation
     - work on the Info index

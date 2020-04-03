@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-02>
+;; Time-stamp: <2020-04-03>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -55,6 +55,7 @@
 (defvar apdl-is-unix-system-flag)
 (defvar apdl-lmutil-program)
 (defvar apdl-ansys-help-program)
+(defvar apdl-initialised-flag)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; declare-functions
@@ -321,7 +322,6 @@ is already a solver running.  Do you wish to kill the lock file? "))
   (save-buffer)
   (message "Wrote \"%s\" into \"%s\"." filename default-directory))
 
-;;;###autoload
 (defun apdl-abort-file (&optional arg)
   "Writes an Ansys abort file for stopping the current run.
 The abort file does not terminate the current session but
@@ -365,7 +365,6 @@ respective job, you can change it with \"\\[cd]\"."
                    default-directory))
       (message "Writing MAPDL stop file canceled!"))))
 
-;;;###autoload
 (defun apdl-display-error-file ()
   "Open the current interpreter error file in the current working directory.
 You might change the directory with `M-x cd <RET>'.  The error
@@ -628,7 +627,6 @@ initial input."
 ;;       ;; (concat "-dir " default-directory)
 ;;    ))
 
-;;;###autoload
 (defun apdl-start-ansys () 		; C-c C-m
   "Start the MAPDL interpreter under Linux or the launcher under Windows.
 For the interpreter process summarise the run's configuration
@@ -699,7 +697,6 @@ with the APDL /EXIT,all command which saves all model data."
     ;; (force-mode-line-update))
     (error "Exiting of Ansys run canceled")))
 
-;;;###autoload
 (defun apdl-start-ansys-help ()
   "Start the Ansys Help Viewer.
 Alternatively under a GNU-Linux system, one can also use the APDL
@@ -945,6 +942,9 @@ additional keybindings for the license buffer *User-licenses*:
 - `l' for the general license status and
 - `q' for burying the *User-licenses* buffer."
   (interactive)
+  (require 'apdl-mode)
+  (unless apdl-initialised-flag
+    (apdl-initialise))
   (cond
    ((and apdl-lmutil-program apdl-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
@@ -1023,6 +1023,9 @@ buffer *Licenses*:
 - `Q' for killing the Buffer and
 - `q' for burying it below another buffer."
   (interactive)
+  (require 'apdl-mode)
+  (unless apdl-initialised-flag
+    (apdl-initialise))
   (cond
    ((and apdl-lmutil-program apdl-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
@@ -1283,7 +1286,6 @@ Files\\licensing\\win64\\anslic_admin.exe'"
       (message "apdl-lmutil-program is set to \"%s\"." apdl-lmutil-program)
     (error "Cannot find Ansys LM Utility executable \"%s\" on this system" exec)))
 
-;;;###autoload
 (defun apdl-job ()
   "Change the Ansys job name.
 And write it into the variable `apdl-job'."

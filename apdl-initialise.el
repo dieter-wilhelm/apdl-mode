@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-02>
+;; Time-stamp: <2020-04-03>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -39,7 +39,7 @@
 (defconst apdl-mode-version "20.5.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2020-04-02"
+(defconst apdl-mode-update "2020-04-03"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")
@@ -264,10 +264,11 @@ content."
         (message "Environment AWP_ROOTXXX set but value is not readable")
         nil))))
 
+;;;###autoload
 (defun apdl-initialise ( &optional force)
   "Initialise the customisation variables.
-When argument FORCE is non-nil overwrite already set
-customisation variables"
+When argument FORCE is non-nil overwrite some of the already set
+customisation variables."
   (message "Initialising Ansys installation dependent parameters ...")
   ;; 0) -unix-system-flag, system environment
   (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))

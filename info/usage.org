@@ -75,14 +75,14 @@ documentation in a browser.
   menu.  The Emacs customisation facility optionally saves your
   choices automatically in your .emacs file for later sessions.
 
-* Closing of control blocks
+* Closing of Control Blocks
   (*do, *if, ...) with the insertion of appropriate end keywords
 
   Typing "C-c ]" for the function `apdl-close-block’ completes the
   current APDL block with the insertion of a newline and an
   appropriate end keyword.
 
-* Code navigation
+* Code Navigation
   with extended keyboard shortcuts.
   Code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc.
 
@@ -139,7 +139,7 @@ documentation in a browser.
   pair, e. q. ‘C-1’ ‘C-c %’.  Please have a look for ‘insert-pair’
   and see below in the Keybindings section.
 
-* Sophisticated highlighting 
+* Sophisticated Highlighting 
   (optionally: User variables)
 
   The highlighting in the highest decoration level (please refer to
@@ -337,45 +337,56 @@ documentation in a browser.
 
 * Process Management 
 
-  - APDL-Mode writes for you an APDL stop file in the current
-    directory (the file name is compiled from the variable
-    ‘apdl-job’ and the extension ’.abt’).  You can do this with
-    "M-x apdl-write-abort-file" (‘apdl-write-abort-file’, you
-    might previously use the Emacs command ’cd’ ("<ALT> + x
-    M-x cd ") to change the current directory).  This stop file is
-    halting a running calculation in an orderly, re-startable
-    fashion.
+  Even when there is no buffer under APDL-Mode, after starting Emacs,
+  for example, it is possible to run selected APDL-Mode services.  You
+  might run the licsense status from the mini-buffer with M-x
+  `apdl-license-status' instead of calling it from the menu or with
+  C-c C-l in an APDL-Mode buffer.  Here is the list of commands which
+  are available from the mini-buffer without loading a file under
+  APDL-Mode:
 
-  - You are able to view the Ansys APDL error file (a file
-    consisting of the ‘apdl-job’ and the suffix ’.err’ in the
-    current directory) with "C-c C-e" (this
-    calls ‘apdl-display-error-file’).  The error file is opened in
-    read only mode (see ‘read-only-mode’) and with the minor mode
-    ‘auto-revert-tail-mode’, which scrolls the buffer automatically
-    for keeping the current Ansys output visible.
+  # from helper/autoload.sh
+  apdl 
+  apdl-mode
+  apdl-user-license-status
+  apdl-license-status
 
-  - You can start the Ansys Help Viewer directly from Emacs with
-    "M-x apdl-start-ansys-help" (for ‘apdl-start-ansys-help’).
 
-  - You might also start the APDL product launcher from Emacs under
-    windows or the APDL interpeter under GNU-Linux with
-    "C-c RET" (for ‘apdl-start-ansys’).
+ - APDL-Mode writes for you an APDL stop file in the current directory
+   (the file name is compiled from the variable ‘apdl-job’ and the
+   extension ’.abt’).  You can do this with "M-x apdl-write-abort-file"
+   (‘apdl-write-abort-file’, you might previously use the Emacs command
+   ’cd’ ("<ALT> + x M-x cd ") to change the current directory).  This
+   stop file is halting a running calculation in an orderly,
+   re-startable fashion.
 
-  - For displaying the available licenses (in another Emacs window)
-    please use "C-c C-l" (for
-    ‘apdl-license-status’).
+ - You are able to view the Ansys APDL error file (a file consisting of
+   the ‘apdl-job’ and the suffix ’.err’ in the current directory) with
+   "C-c C-e" (this calls ‘apdl-display-error-file’).  The error file is
+   opened in read only mode (see ‘read-only-mode’) and with the minor
+   mode ‘auto-revert-tail-mode’, which scrolls the buffer automatically
+   for keeping the current Ansys output visible.
 
-  If your Ansys installation is not in the default locations
-  APDL-Mode might not be able to find its executables.  Or you want
-  to use mixed Ansys version installations then it is necessary to
-  customise some variables.  Either by calling the Emacs
-  customisation facility ‘apdl-customise-ansys’ or from the menu
-  bar -> ’APDL’ -> ’Customise APDL Mode’ -> ’APDL-process’ and look
-  there for the variables ’Ansys License File’, ’Ansys Util
-  Program’ and ’Ansys Help Program’ as well as ’Ansys Help Program
-  Parameters’) or set the variables directly in your .emacs file.
-  Please have a look in the accompanying README.org and the
-  apdl-config.el customisation example.
+ - You can start the Ansys Help Viewer directly from Emacs with
+   "M-x apdl-start-ansys-help" (for ‘apdl-start-ansys-help’).
+
+ - You might also start the APDL product launcher from Emacs under
+   windows or the APDL interpeter under GNU-Linux with "C-c RET" (for
+   ‘apdl-start-ansys’).
+
+ - For displaying the available licenses (in another Emacs window)
+   please use "C-c C-l" (for ‘apdl-license-status’).
+
+ If your Ansys installation is not in the default locations APDL-Mode
+ might not be able to find its executables.  Or you want to use mixed
+ Ansys version installations then it is necessary to customise some
+ variables.  Either by calling the Emacs customisation facility
+ ‘apdl-customise-ansys’ or from the menu bar -> ’APDL’ -> ’Customise
+ APDL Mode’ -> ’APDL-process’ and look there for the variables ’Ansys
+ License File’, ’Ansys Util Program’ and ’Ansys Help Program’ as well
+ as ’Ansys Help Program Parameters’) or set the variables directly in
+ your .emacs file.  Please have a look in apdl-config.org and the
+ apdl-config.el customisation example.
 
 * MAPDL Solver
   control and communication (mainly restricted to GNU-Linux systems).

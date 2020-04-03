@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-01>
+;; Time-stamp: <2020-04-03>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -381,9 +381,9 @@ The regexp is used for the
 fontification (`apdl-highlight-variable') of these variables.")
 
 (defvar apdl-is-unix-system-flag nil
-  "Non-nil means computer runs a Unix system.
-Any of GNU-Linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
-usg-unix-v")
+  "Non-nil means the computer runs a Unix system.
+Any of GNU-Linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1 or
+usg-unix-v.")
 
 (defvar apdl-previous-major-mode ""
   "The buffer's previous major mode (before APDL-Mode).")

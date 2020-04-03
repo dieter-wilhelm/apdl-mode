@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-01>
+;; Time-stamp: <2020-04-03>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -151,6 +151,16 @@ key and choose with the mouse 2 button."
 ;; 1. Prep (/prep7) items, without geometry objects available, only selections
 ;; 2. Solu (/solu) items, before solve
 ;; 3. Post (/post) items, after solve
+
+(define-skeleton apdl-wbt-post26-output
+  "/post26 workbench output template."
+  nil
+  "/com,==============================================================\n"
+  "/com, Inserted: "(current-time-string)", APDL-Mode: "apdl-mode-version"\n"
+  "/com,==============================================================\n"
+  (insert-file
+   (concat apdl-wb-default-template-directory
+	   "post26_output.mac")))
 
 (define-skeleton apdl-wbt-post-2d-press-fit_calcs
   "Calculate the transmissible torque from contact results.

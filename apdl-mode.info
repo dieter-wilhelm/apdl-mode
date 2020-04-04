@@ -3058,8 +3058,7 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: minor bugs,  Up: Version 2050
 12.1.1 Todos, bugs
 ------------------
 
-   • autoloading of most functions not working without calling
-     initialise!
+   • EWW not working with remote ssh -help-path
 
 * Menu:
 
@@ -3103,9 +3102,8 @@ File: apdl-mode.info,  Node: minor bugs,  Next: check,  Prev: Todos bugs,  Up: V
 12.1.2 minor bugs
 -----------------
 
-   • fmagsum in -template-post1 not fontified
    • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
-     the respective page section on Chrome and Edge!?
+     the respective section on page for Chrome and Edge!?
    • 1/en, en is variable but fraction not fontified?
 
 
@@ -3114,9 +3112,6 @@ File: apdl-mode.info,  Node: check,  Next: wishes,  Prev: minor bugs,  Up: Versi
 12.1.3 check
 ------------
 
-   • apdl-start-ansys (make-comint) - doesn’t start the launcher under
-     windows, but is redundant with -start-classics
-   • apdl-start-classics (start-process)
    • changed file size without warning to 30 MB what is Emacs-26 using?
 
 
@@ -3148,12 +3143,13 @@ File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: wishes
 .............
 
   1. derive A-M from prog-modes => branch derived
-  2. Travis CI continuous integration!
-  3. <https://github.com/marketplace/coveralls>
-  4. Start optionally runbWB2 –aim, Discovery AIM
-  5. Ansys is often used synonymous for Ansys MAPDL solver / interpreter
+  2. More subjects in -browse-apdl-help for example /post26, etc.
+  3. Travis CI continuous integration!
+  4. <https://github.com/marketplace/coveralls>
+  5. Start optionally runbWB2 –aim, Discovery AIM
+  6. Ansys is often used synonymous for Ansys MAPDL solver / interpreter
      or Ansys Classics GUI
-  6. Melpa README, better wait till emacs-27
+  7. Melpa README, better wait till emacs-27..
 
 
 File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: wishes,  Up: Version 2050
@@ -3167,7 +3163,7 @@ File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Ver
 12.1.6 Push and Release Proceedures
 -----------------------------------
 
-   • make PACK for any push!
+   • make PACK now obligatory for any push!
 
    • NEWS.org
    • README.org News
@@ -4398,37 +4394,37 @@ Node: Other APDL editor resources125483
 Node: Todos126397
 Node: Version 2050126726
 Node: Todos bugs126976
-Node: State of documentation127216
-Node: minor bugs128418
-Node: check128783
-Node: wishes129146
-Node: templates129293
-Node: misc129628
-Node: Done130060
-Node: Push and Release Proceedures130193
-Node: Version 2040 1130984
-Node: Version 2030 1131179
-Node: Version 2020 1131397
-Node: Version 2011 1131576
-Node: Version 162-2132048
-Node: Bugs132326
-Node: Freeze133295
-Node: Wish-list133652
-Node: Deficiencies139768
-Node: Procedures141429
-Node: Freeze proceedures141951
-Node: Release143478
-Node: Ideas for further versions144081
-Node: Parameter help and documentation144510
-Node: Ansys process and interpreter buffer146812
-Node: Skeletons outline and abbrevs149675
-Node: Miscellaneous 1151407
-Node: Ansys syntax restrictions not (yet) accounted for156397
-Node: Unknown Ansys stuff157300
-Node: Acknowledgements157583
-Node: GNU Free Documentation License158153
-Node: Variable Index183179
-Node: Concept Index183328
+Node: State of documentation127184
+Node: minor bugs128386
+Node: check128707
+Node: wishes128900
+Node: templates129047
+Node: misc129382
+Node: Done129882
+Node: Push and Release Proceedures130015
+Node: Version 2040 1130821
+Node: Version 2030 1131016
+Node: Version 2020 1131234
+Node: Version 2011 1131413
+Node: Version 162-2131885
+Node: Bugs132163
+Node: Freeze133132
+Node: Wish-list133489
+Node: Deficiencies139605
+Node: Procedures141266
+Node: Freeze proceedures141788
+Node: Release143315
+Node: Ideas for further versions143918
+Node: Parameter help and documentation144347
+Node: Ansys process and interpreter buffer146649
+Node: Skeletons outline and abbrevs149512
+Node: Miscellaneous 1151244
+Node: Ansys syntax restrictions not (yet) accounted for156234
+Node: Unknown Ansys stuff157137
+Node: Acknowledgements157420
+Node: GNU Free Documentation License157990
+Node: Variable Index183016
+Node: Concept Index183165
 
 End Tag Table
 

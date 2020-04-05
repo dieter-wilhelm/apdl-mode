@@ -1,24 +1,23 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org757261f)
-2.  [Version 20.4.0](#org16e62cb)
-3.  [Version 20.3.0](#org5184d20)
-4.  [Version 20.2.0](#orgb07f2f8)
-5.  [Version 20.1.1](#org7ca1f98)
-6.  [Version 162-2:](#orgda95586)
+1.  [Version 20.5.0](#org418cc56)
+2.  [Version 20.4.0](#org0a8f4f5)
+3.  [Version 20.3.0](#orgb1f0194)
+4.  [Version 20.2.0](#org3015185)
+5.  [Version 20.1.1](#org761dddc)
+6.  [Version 162-2:](#org5ec8154)
 
 
 
-<a id="org757261f"></a>
+<a id="org418cc56"></a>
 
 # TODO Version 20.5.0
 
 
 ## Todos, bugs
 
--   autoloading of most functions not working without calling
-    initialise!
+-   EWW not working with remote ssh -help-path
 
 
 ### State of documentation
@@ -52,17 +51,13 @@
 
 ## minor bugs
 
--   fmagsum in -template-post1 not fontified
 -   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-    the respective page section on Chrome and Edge!?
+    the respective section on page for Chrome and Edge!?
 -   1/en, en is variable but fraction not fontified?
 
 
 ## check
 
--   apdl-start-ansys (make-comint) - doesn't start the launcher under
-    windows, but is redundant with -start-classics
--   apdl-start-classics (start-process)
 -   changed file size without warning to 30 MB what is Emacs-26
     using?
 
@@ -81,12 +76,13 @@
 ### misc
 
 1.  derive A-M from prog-modes => branch derived
-2.  Travis CI continuous integration!
-3.  <https://github.com/marketplace/coveralls>
-4.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-5.  Ansys is often used synonymous for Ansys MAPDL solver /
+2.  More subjects in -browse-apdl-help for example /post26, etc.
+3.  Travis CI continuous integration!
+4.  <https://github.com/marketplace/coveralls>
+5.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
+6.  Ansys is often used synonymous for Ansys MAPDL solver /
     interpreter or Ansys Classics GUI
-6.  Melpa README, better wait till emacs-27
+7.  Melpa README, better wait till emacs-27..
 
 
 ## Done
@@ -94,7 +90,7 @@
 
 ## Push and Release Proceedures
 
--   make PACK for any push!
+-   make PACK now obligatory for any push!
 
 -   NEWS.org
 -   README.org News
@@ -127,7 +123,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org16e62cb"></a>
+<a id="org0a8f4f5"></a>
 
 # DONE Version 20.4.0
 
@@ -135,7 +131,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org5184d20"></a>
+<a id="orgb1f0194"></a>
 
 # DONE Version 20.3.0
 
@@ -144,14 +140,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgb07f2f8"></a>
+<a id="org3015185"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org7ca1f98"></a>
+<a id="org761dddc"></a>
 
 # DONE Version 20.1.1
 
@@ -164,7 +160,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgda95586"></a>
+<a id="org5ec8154"></a>
 
 # Version 162-2:
 

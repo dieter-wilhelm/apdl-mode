@@ -1,5 +1,5 @@
 ;;; fontification.el --- building keywords and completions
-;; Time-stamp: <2020-04-01>
+;; Time-stamp: <2020-04-04>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -303,6 +303,7 @@
     "MSCAP"
     "MSTERM"
     "PRSYZ"                             ; endo of v150
+    "FMAGSUM"				; v201
     )
   "APDL commands not documented in the manuals.
 Either from dropped technologies or seen in Workbench output

@@ -1,0 +1,118 @@
+!   Commands inserted into this file will be executed immediately after the ANSYS /POST1 command.
+
+!   Active UNIT system in Workbench when this object was created:  Metric (m, kg, N, s, V, A)
+!   NOTE:  Any data that requires units (such as mass) is assumed to be in the consistent solver unit system.
+!                See Solving Units in the help system for more information.
+
+/com*** Begin of /post26 output macro ***
+
+!! macro calculates the vector sum of node acceleratons of harmonics
+!! Prerequisits
+!! 1.) Named Selection: SensorNode
+
+!! Output:
+!! graph and result file
+
+/post26
+
+resume
+!! we need more than 10 /post26 variables here !!
+numvar,20
+
+nsel,s,,,SensorNode
+NN = Ndnext(0)
+
+Ux = 2 $ Uy = 3 $ Uz = 4
+
+nsol,Ux,NN,U,x, DisplX  		! Get x-deflection data
+nsol,Uy,NN,U,y, DisplY
+nsol,Uz,NN,U,z, DisplZ
+!! above are complex displacements if damping or phase shifted loads
+
+!! acceleration is only valid for transient runs, not harmonics!
+!! NSOL,2,NN,acc,x, Ax  		! Get x-acceleration data
+!! NSOL,3,NN,acc,y, Ay
+!! NSOL,4,NN,acc,z, Az
+
+!! velocity
+Pi=acos(-1)
+!! get velocity
+Vx = 5 $ Vy = 6 $ Vz = 7
+!! complex scaling, needs to be applied after each operation
+cfact,0,2*Pi,1,0
+prod,Vx,1,Ux,,VeloX
+cfact,0,2*Pi,1,0
+prod,Vy,1,Uy,,VeloY
+cfact,0,2*Pi,1,0
+prod,Vz,1,Uz,,VeloZ
+
+Ax = 8 $ Ay = 9 $ Az = 10
+cfact,0,2*Pi,1,0
+prod,Ax,1,Vx,,AcelX
+cfact,0,2*Pi,1,0
+prod,Ay,1,Vy,,AcelY
+cfact,0,2*Pi,1,0
+prod,Az,1,Vz,,AcelZ
+
+!! calculate the vector sum
+
+!! REALVAR,3,2,,,REAL2     ! Variable 3 is real part of variable 2, name = REAL2
+!! IMAGIN,4,2,,,IMAG2      ! Variable 4 is imaginary part
+
+AxAx = 11 $ AyAy = 12 $ AzAz = 13
+prod,AxAx,Ax,Ax
+prod,AyAy,Ay,Ay            
+Prod,AzAz,Az,Az
+AsumAsum = 14
+add,AsumAsum,AxAx,AyAy,AzAz
+Asum = 15
+sqrt,Asum,AsumAsum,,,AccelSum
+
+!! QUOT,5,3,4
+!! ATAN,7,5,,,PHASE2       ! Variable 7 is the phase angle
+
+!! display of result
+!! toggle output of result representation with plcplx
+plcplx,0
+!!   0 — Amplitude, the default.
+!!   1 — Phase angle.
+!!   2 — Real part.
+!!   3 — Imaginary part.
+
+!! invert image background colour
+/RGB,INDEX,100,100,100, 0   
+!! /RGB,INDEX, 80, 80, 80,13   
+!! /RGB,INDEX, 60, 60, 60,14   
+/RGB,INDEX, 0, 0, 0,15  
+
+/grid,1
+/axlab,x,Frequency in Hz
+/axlab,y,Displacement
+/title,Acceleration Vector Sum Amplitude over Frequency
+/show,png
+plvar,Ax,Ay,Az,Asum
+/show,close
+
+!! output of  variables into file
+*GET,Size,VARI,,NSETS 
+*dim,Freq,arry,Size
+*dim,ACC,array,Size   ! Create array parameter 
+vget,Freq(1),1         ! Store freq data of variable into array
+vget,ACC(1),Asum         ! Store freq data of variable into array
+!! overwriting existing file!
+*cfopen,acceleration_sum,txt
+!! The units are dependent of Workbench settings!!!!
+Strg='Freq. in Hz, Acceleration in m/s^2'
+*vwrite,Strg
+%S
+*VWRITE,Freq(1),ACC(1)        ! Write array in given format to file
+%G %G
+*CFCLOSE
+
+store,MERGE
+!! switch back to /post1
+/post1
+allsel
+
+/com*** post 26 output...done ***
+!! ++++++++++++++++++++++++++++++

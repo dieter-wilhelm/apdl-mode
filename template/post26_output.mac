@@ -1,0 +1,39 @@
+!! ******************************
+!! check symmetry variable
+!! 
+/com*** post26 output ***
+/go
+/post26
+
+!! invert background colour
+/RGB,INDEX,100,100,100, 0   
+!! /RGB,INDEX, 80, 80, 80,13   
+!! /RGB,INDEX, 60, 60, 60,14   
+/RGB,INDEX, 0, 0, 0,15  
+
+symmetry=2
+nsol,2,nn,u,z
+rforce,3,nn,f,z
+add,4,2,,,displ,,,-1
+add,5,3,,,force,,,-symmetry
+/gmarker,1,1		 !curve_no,marker_key (1=triangle)
+			 !(2=squares,3=diamonds,4=crosses)
+/grid,1
+/axlab,x,displacement in mm
+/axlab,y,F in N
+!! store,appen
+!! timerange,0,1
+!! /xrange,0,.16
+!! /yrange,0,40
+xvar,4
+spring_thick=0.4
+/title,Spring thickness %spring_thick% mm
+/show,png
+plvar,5
+/show,close		 !or /graphics,off
+
+/post1			 !don't forget this with multiple loadsteps
+
+/nopr
+/com*** post 26 output...done ***
+!! ++++++++++++++++++++++++++++++

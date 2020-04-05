@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-03>
+;; Time-stamp: <2020-04-04>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -151,6 +151,18 @@ key and choose with the mouse 2 button."
 ;; 1. Prep (/prep7) items, without geometry objects available, only selections
 ;; 2. Solu (/solu) items, before solve
 ;; 3. Post (/post) items, after solve
+
+(define-skeleton apdl-wbt-harmonic-acceleration-result
+  "/post26 harmonic acceleration results.
+Visualisation and file output of frequency and vector sum
+aplitude."
+  nil
+  "/com,==============================================================\n"
+  "/com, Inserted: "(current-time-string)", APDL-Mode: "apdl-mode-version"\n"
+  "/com,==============================================================\n"
+  (insert-file
+   (concat apdl-wb-default-template-directory
+	   "harmonic_acceleration_results.mac")))
 
 (define-skeleton apdl-wbt-post26-output
   "/post26 workbench output template."

@@ -3058,8 +3058,6 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: minor bugs,  Up: Version 2050
 12.1.1 Todos, bugs
 ------------------
 
-   • EWW not working with remote ssh -help-path
-
 * Menu:
 
 * State of documentation::
@@ -3112,6 +3110,8 @@ File: apdl-mode.info,  Node: check,  Next: wishes,  Prev: minor bugs,  Up: Versi
 12.1.3 check
 ------------
 
+   • EWW bug: not working with remote ssh -help-path (debbugs-gnu-bugs
+     40425)
    • changed file size without warning to 30 MB what is Emacs-26 using?
 
 
@@ -3142,14 +3142,16 @@ File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: wishes
 12.1.4.2 misc
 .............
 
-  1. derive A-M from prog-modes => branch derived
+  1. functions like NDNEXT is completed but not possible to search in
+     C-c C-b or M-?  => function template or special section?
   2. More subjects in -browse-apdl-help for example /post26, etc.
-  3. Travis CI continuous integration!
-  4. <https://github.com/marketplace/coveralls>
-  5. Start optionally runbWB2 –aim, Discovery AIM
-  6. Ansys is often used synonymous for Ansys MAPDL solver / interpreter
+  3. derive A-M from prog-modes => branch derived
+  4. Travis CI continuous integration!
+  5. <https://github.com/marketplace/coveralls>
+  6. Start optionally runbWB2 –aim, Discovery AIM
+  7. Ansys is often used synonymous for Ansys MAPDL solver / interpreter
      or Ansys Classics GUI
-  7. Melpa README, better wait till emacs-27..
+  8. Melpa README, better wait till emacs-27..
 
 
 File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: wishes,  Up: Version 2050
@@ -4394,37 +4396,37 @@ Node: Other APDL editor resources125524
 Node: Todos126438
 Node: Version 2050126772
 Node: Todos bugs127023
-Node: State of documentation127231
-Node: minor bugs128433
-Node: check128754
-Node: wishes128947
-Node: templates129094
-Node: misc129429
-Node: Done129929
-Node: Push and Release Proceedures130062
-Node: Version 2040 1130868
-Node: Version 2030 1131064
-Node: Version 2020 1131284
-Node: Version 2011 1131464
-Node: Version 162-2131936
-Node: Bugs132214
-Node: Freeze133183
-Node: Wish-list133540
-Node: Deficiencies139656
-Node: Procedures141317
-Node: Freeze proceedures141839
-Node: Release143366
-Node: Ideas for further versions143969
-Node: Parameter help and documentation144400
-Node: Ansys process and interpreter buffer146702
-Node: Skeletons outline and abbrevs149565
-Node: Miscellaneous 1151297
-Node: Ansys syntax restrictions not (yet) accounted for156287
-Node: Unknown Ansys stuff157190
-Node: Acknowledgements157473
-Node: GNU Free Documentation License158043
-Node: Variable Index183069
-Node: Concept Index183218
+Node: State of documentation127180
+Node: minor bugs128382
+Node: check128703
+Node: wishes128981
+Node: templates129128
+Node: misc129463
+Node: Done130095
+Node: Push and Release Proceedures130228
+Node: Version 2040 1131034
+Node: Version 2030 1131230
+Node: Version 2020 1131450
+Node: Version 2011 1131630
+Node: Version 162-2132102
+Node: Bugs132380
+Node: Freeze133349
+Node: Wish-list133706
+Node: Deficiencies139822
+Node: Procedures141483
+Node: Freeze proceedures142005
+Node: Release143532
+Node: Ideas for further versions144135
+Node: Parameter help and documentation144566
+Node: Ansys process and interpreter buffer146868
+Node: Skeletons outline and abbrevs149731
+Node: Miscellaneous 1151463
+Node: Ansys syntax restrictions not (yet) accounted for156453
+Node: Unknown Ansys stuff157356
+Node: Acknowledgements157639
+Node: GNU Free Documentation License158209
+Node: Variable Index183235
+Node: Concept Index183384
 
 End Tag Table
 

@@ -1,23 +1,21 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org418cc56)
-2.  [Version 20.4.0](#org0a8f4f5)
-3.  [Version 20.3.0](#orgb1f0194)
-4.  [Version 20.2.0](#org3015185)
-5.  [Version 20.1.1](#org761dddc)
-6.  [Version 162-2:](#org5ec8154)
+1.  [Version 20.5.0](#org3303031)
+2.  [Version 20.4.0](#org020b03e)
+3.  [Version 20.3.0](#org7f138dd)
+4.  [Version 20.2.0](#org3f9ce59)
+5.  [Version 20.1.1](#orge0ccfa0)
+6.  [Version 162-2:](#org3bcefcb)
 
 
 
-<a id="org418cc56"></a>
+<a id="org3303031"></a>
 
 # TODO Version 20.5.0
 
 
 ## Todos, bugs
-
--   EWW not working with remote ssh -help-path
 
 
 ### State of documentation
@@ -58,6 +56,8 @@
 
 ## check
 
+-   EWW bug: not working with remote ssh -help-path
+    (debbugs-gnu-bugs 40425)
 -   changed file size without warning to 30 MB what is Emacs-26
     using?
 
@@ -75,14 +75,16 @@
 
 ### misc
 
-1.  derive A-M from prog-modes => branch derived
+1.  functions like NDNEXT is completed but not possible to search
+    in C-c C-b or M-? => function template or special section?
 2.  More subjects in -browse-apdl-help for example /post26, etc.
-3.  Travis CI continuous integration!
-4.  <https://github.com/marketplace/coveralls>
-5.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-6.  Ansys is often used synonymous for Ansys MAPDL solver /
+3.  derive A-M from prog-modes => branch derived
+4.  Travis CI continuous integration!
+5.  <https://github.com/marketplace/coveralls>
+6.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
+7.  Ansys is often used synonymous for Ansys MAPDL solver /
     interpreter or Ansys Classics GUI
-7.  Melpa README, better wait till emacs-27..
+8.  Melpa README, better wait till emacs-27..
 
 
 ## Done
@@ -123,31 +125,31 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org0a8f4f5"></a>
+<a id="org020b03e"></a>
 
 # DONE Version 20.4.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Mi]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]</span></span>
 updated to 2020R1
 
 
-<a id="orgb1f0194"></a>
+<a id="org7f138dd"></a>
 
 # DONE Version 20.3.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Di]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Tue]</span></span>
 Melpa
-feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
+feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="org3015185"></a>
+<a id="org3f9ce59"></a>
 
 # DONE Version 20.2.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="org761dddc"></a>
+<a id="orge0ccfa0"></a>
 
 # DONE Version 20.1.1
 
@@ -160,7 +162,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org5ec8154"></a>
+<a id="org3bcefcb"></a>
 
 # Version 162-2:
 

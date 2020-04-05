@@ -64,20 +64,22 @@ prod,AxAx,Ax,Ax
 prod,AyAy,Ay,Ay            
 Prod,AzAz,Az,Az
 AsumAsum = 14
-add,AsumAsum,AxAx,AyAy,AzAz
+add,AsumAsum,AxAx,AyAy,AzAz,Asum2
+!! had to write a name in above add otherwise it was confused with
+!! Asum below! I consider this as a serious bug in apdl!
 Asum = 15
 sqrt,Asum,AsumAsum,,,AccelSum
 
-!! QUOT,5,3,4
+!! QUOT,5,3,4              ! Fractions
 !! ATAN,7,5,,,PHASE2       ! Variable 7 is the phase angle
 
 !! display of result
 !! toggle output of result representation with plcplx
 plcplx,0
-!!   0 â€” Amplitude, the default.
-!!   1 â€” Phase angle.
-!!   2 â€” Real part.
-!!   3 â€” Imaginary part.
+!!   0 — Amplitude, the default.
+!!   1 — Phase angle.
+!!   2 — Real part.
+!!   3 — Imaginary part.
 
 !! invert image background colour
 /RGB,INDEX,100,100,100, 0   
@@ -86,8 +88,28 @@ plcplx,0
 /RGB,INDEX, 0, 0, 0,15  
 
 /grid,1
+
+/title,Displacement Components over Frequency
 /axlab,x,Frequency in Hz
-/axlab,y,Displacement
+/axlab,y,Displacement in m
+/show,png
+plvar,Ux,Uy,uz
+/show,close
+
+/title,Velocity Components over Frequency
+!! /axlab,x,Frequency in Hz
+/axlab,y,Velocity in m/s
+/show,png
+plvar,Vx,Vy,Vz
+/show,close
+
+/title,Acceleration Components over Frequency
+!! /axlab,x,Frequency in Hz
+/axlab,y,Acceleration m/s^2
+/show,png
+plvar,Ax,Ay,Az
+/show,close
+
 /title,Acceleration Vector Sum Amplitude over Frequency
 /show,png
 plvar,Ax,Ay,Az,Asum
@@ -96,8 +118,8 @@ plvar,Ax,Ay,Az,Asum
 !! output of  variables into file
 *GET,Size,VARI,,NSETS 
 *dim,Freq,arry,Size
-*dim,ACC,array,Size   ! Create array parameter 
-vget,Freq(1),1         ! Store freq data of variable into array
+*dim,ACC,array,Size	 ! Create array parameter 
+vget,Freq(1),1		 ! Store freq data of variable into array
 vget,ACC(1),Asum         ! Store freq data of variable into array
 !! overwriting existing file!
 *cfopen,acceleration_sum,txt

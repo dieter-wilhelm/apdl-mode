@@ -374,8 +374,13 @@ documentation in a browser.
    windows or the APDL interpeter under GNU-Linux with "C-c RET" (for
    ‘apdl-start-ansys’).
 
- - For displaying the available licenses (in another Emacs window)
-   please use "C-c C-l" (for ‘apdl-license-status’).
+ - For displaying the available licenses please use "C-c C-l" (for
+   ‘apdl-license-status’).  You will see the status of everything
+   available on the license server in the **License** buffer.  In this
+   buffer you can apply additional keys, for example `o' to show only
+   selected licenses (compiled from the variable
+   `apdl-license-occur-regexp').  Please type `h' for a list of
+   available keys.
 
  If your Ansys installation is not in the default locations APDL-Mode
  might not be able to find its executables.  Or you want to use mixed

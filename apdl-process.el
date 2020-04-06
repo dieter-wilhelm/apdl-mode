@@ -88,6 +88,7 @@
     "electronics_desktop"
     "a_spaceclaim_dirmod"		; spaceclaim
 ;;    "agppi"				; agppi -- Design Modeler
+    "cfd"
     "disc"				; disc* -- discovery procucts
     "aim_mp"				; aim_mp -- Discovery Aim
 					; standard

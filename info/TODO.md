@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org485b06a)
-2.  [Version 20.4.0](#org6e62928)
-3.  [Version 20.3.0](#orgee006e7)
-4.  [Version 20.2.0](#orgb462e06)
-5.  [Version 20.1.1](#orgd960ad9)
-6.  [Version 162-2:](#org95f9e29)
+1.  [Version 20.5.0](#orgaf32cf6)
+2.  [Version 20.4.0](#org461641b)
+3.  [Version 20.3.0](#org7d53900)
+4.  [Version 20.2.0](#org5dd85e0)
+5.  [Version 20.1.1](#org0262855)
+6.  [Version 162-2:](#orgb3a55f8)
 
 
 
-<a id="org485b06a"></a>
+<a id="orgaf32cf6"></a>
 
 # TODO Version 20.5.0
 
@@ -80,13 +80,15 @@
     section?
     -   post26
 2.  More subjects in -browse-apdl-help for example /post26, etc.
-3.  derive A-M from prog-modes => branch derived
-4.  Travis CI continuous integration!
-5.  <https://github.com/marketplace/coveralls>
-6.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-7.  Ansys is often used synonymous for Ansys MAPDL solver /
+3.  The Command (APDL) objects coding system seems to be
+    mule-utf-8-dos aka cp65001-dos, document this
+4.  derive A-M from prog-modes => branch derived
+5.  Travis CI continuous integration!
+6.  <https://github.com/marketplace/coveralls>
+7.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
+8.  Ansys is often used synonymous for Ansys MAPDL solver /
     interpreter or Ansys Classics GUI
-8.  Melpa README, better wait till emacs-27..
+9.  Melpa README, better wait till emacs-27..
 
 
 ## Done
@@ -127,7 +129,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org6e62928"></a>
+<a id="org461641b"></a>
 
 # DONE Version 20.4.0
 
@@ -135,7 +137,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orgee006e7"></a>
+<a id="org7d53900"></a>
 
 # DONE Version 20.3.0
 
@@ -144,14 +146,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="orgb462e06"></a>
+<a id="org5dd85e0"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="orgd960ad9"></a>
+<a id="org0262855"></a>
 
 # DONE Version 20.1.1
 
@@ -164,7 +166,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org95f9e29"></a>
+<a id="orgb3a55f8"></a>
 
 # Version 162-2:
 

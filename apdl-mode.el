@@ -868,7 +868,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 (defconst apdl-mode-menu
   (list
    "APDL"
-   ["Mark Paragraph" mark-paragraph
+   ["Mark Paragraph" apdl-mark-paragraph
     :help "Mark a paragraph, make a region out of it."]
    ["Comment/Un- Region" comment-dwim
     :help "Comment out region or uncomment region, without a

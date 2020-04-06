@@ -65,13 +65,15 @@
        section?
        - post26
     2) More subjects in -browse-apdl-help for example /post26, etc.
-    3) derive A-M from prog-modes => branch derived
-    4) Travis CI continuous integration!
-    5) https://github.com/marketplace/coveralls
-    6) Start optionally runbWB2 --aim, Discovery AIM
-    7) Ansys is often used synonymous for Ansys MAPDL solver /
+    3) The Command (APDL) objects coding system seems to be
+       mule-utf-8-dos aka cp65001-dos, document this
+    4) derive A-M from prog-modes => branch derived
+    5) Travis CI continuous integration!
+    6) https://github.com/marketplace/coveralls
+    7) Start optionally runbWB2 --aim, Discovery AIM
+    8) Ansys is often used synonymous for Ansys MAPDL solver /
        interpreter or Ansys Classics GUI
-    8) Melpa README, better wait till emacs-27..
+    9) Melpa README, better wait till emacs-27..
 ** Done
 ** Push and Release Proceedures
    - make PACK now obligatory for any push!

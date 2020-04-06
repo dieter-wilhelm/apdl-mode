@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-03>
+;; Time-stamp: <2020-04-06>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -880,7 +880,7 @@ elem.
 	  (browse-url-of-file (concat "file:" path file)))
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
-      ;; since v201 changed the path to the online help:
+      ;; since v201: Changed the path to the online help!
       (if (string= apdl-current-ansys-version "v201")
 	  (browse-url
 	   (concat

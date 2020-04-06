@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-05>
+#+DATE: Time-stamp: <2020-04-06>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -60,8 +60,10 @@
     - what is the advantage of ARG1-9? => parameter system, should I
       include ARG[1-9] optionally?
 *** misc
-    1) functions like NDNEXT is completed but not possible to search
-       in C-c C-b or M-? => function template or special section?
+    1) functions - like NDNEXT - is completed but not possible to
+       search in C-c C-b or M-? => function template or special
+       section?
+       - post26
     2) More subjects in -browse-apdl-help for example /post26, etc.
     3) derive A-M from prog-modes => branch derived
     4) Travis CI continuous integration!
@@ -83,7 +85,7 @@
    gta = git tag -a 20.6.0
    g push --tags
 
-   Ansys update:
+   Ansys updates:
    Attention: in apdl_keywords.txt there are many
    trailing whitespaces (delete-trailing-whitespace)
 

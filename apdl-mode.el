@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-03>
+;; Time-stamp: <2020-04-06>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -868,6 +868,8 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 (defconst apdl-mode-menu
   (list
    "APDL"
+   ["Mark Paragraph" mark-paragraph
+    :help "Mark a paragraph, make a region out of it."]
    ["Comment/Un- Region" comment-dwim
     :help "Comment out region or uncomment region, without a
 marked region start or realign a code comment in the current

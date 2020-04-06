@@ -1,5 +1,5 @@
 ;;; fontification.el --- building keywords and completions
-;; Time-stamp: <2020-04-04>
+;; Time-stamp: <2020-04-06>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -57,6 +57,10 @@
 ;; en-us/help/ans_cmd/Hlp_C_CmdTOC.html"
 ;; "/HOME/uidg1626/apdl-mode/trunk")
 ;; (call-process "cp" nil "*tmp*" t "Hlp_C_CmdTOC.html" "apdl_keywords.txt")
+
+;; Attention: in apdl_keywords.txt there are many trailing whitespaces!!!
+;;   (delete-trailing-whitespace)
+
 ;;     cp Hlp_C_CmdTOC.html to ./ -> apdl_keywords.txt
 ;;     done: v13,14,145,150, v162, v201
 

@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org3303031)
-2.  [Version 20.4.0](#org020b03e)
-3.  [Version 20.3.0](#org7f138dd)
-4.  [Version 20.2.0](#org3f9ce59)
-5.  [Version 20.1.1](#orge0ccfa0)
-6.  [Version 162-2:](#org3bcefcb)
+1.  [Version 20.5.0](#org4b4267b)
+2.  [Version 20.4.0](#org4bca0ed)
+3.  [Version 20.3.0](#org4d07d49)
+4.  [Version 20.2.0](#org94a52b2)
+5.  [Version 20.1.1](#orga2a9b61)
+6.  [Version 162-2:](#org8ac620c)
 
 
 
-<a id="org3303031"></a>
+<a id="org4b4267b"></a>
 
 # TODO Version 20.5.0
 
@@ -75,8 +75,10 @@
 
 ### misc
 
-1.  functions like NDNEXT is completed but not possible to search
-    in C-c C-b or M-? => function template or special section?
+1.  functions - like NDNEXT - is completed but not possible to
+    search in C-c C-b or M-? => function template or special
+    section?
+    -   post26
 2.  More subjects in -browse-apdl-help for example /post26, etc.
 3.  derive A-M from prog-modes => branch derived
 4.  Travis CI continuous integration!
@@ -103,7 +105,7 @@ gca = git commit -a = gau + gc
 gta = git tag -a 20.6.0
 g push &#x2013;tags
 
-Ansys update:
+Ansys updates:
 Attention: in apdl<sub>keywords.txt</sub> there are many
 trailing whitespaces (delete-trailing-whitespace)
 
@@ -125,7 +127,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org020b03e"></a>
+<a id="org4bca0ed"></a>
 
 # DONE Version 20.4.0
 
@@ -133,7 +135,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org7f138dd"></a>
+<a id="org4d07d49"></a>
 
 # DONE Version 20.3.0
 
@@ -142,14 +144,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="org3f9ce59"></a>
+<a id="org94a52b2"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="orge0ccfa0"></a>
+<a id="orga2a9b61"></a>
 
 # DONE Version 20.1.1
 
@@ -162,7 +164,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org3bcefcb"></a>
+<a id="org8ac620c"></a>
 
 # Version 162-2:
 

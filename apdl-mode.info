@@ -3142,8 +3142,9 @@ File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: wishes
 12.1.4.2 misc
 .............
 
-  1. functions like NDNEXT is completed but not possible to search in
-     C-c C-b or M-?  => function template or special section?
+  1. functions - like NDNEXT - is completed but not possible to search
+     in C-c C-b or M-?  => function template or special section?
+        • post26
   2. More subjects in -browse-apdl-help for example /post26, etc.
   3. derive A-M from prog-modes => branch derived
   4. Travis CI continuous integration!
@@ -3174,8 +3175,8 @@ File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Ver
 
    gca = git commit -a = gau + gc gta = git tag -a 20.6.0 g push –tags
 
-   Ansys update: Attention: in apdl_keywords.txt there are many trailing
-whitespaces (delete-trailing-whitespace)
+   Ansys updates: Attention: in apdl_keywords.txt there are many
+trailing whitespaces (delete-trailing-whitespace)
 
    whitespace-mode package-lint checkdoc, flycheck etc.  : from
 makefile?
@@ -4402,31 +4403,31 @@ Node: check128703
 Node: wishes128981
 Node: templates129128
 Node: misc129463
-Node: Done130095
-Node: Push and Release Proceedures130228
-Node: Version 2040 1131034
-Node: Version 2030 1131230
-Node: Version 2020 1131450
-Node: Version 2011 1131630
-Node: Version 162-2132102
-Node: Bugs132380
-Node: Freeze133349
-Node: Wish-list133706
-Node: Deficiencies139822
-Node: Procedures141483
-Node: Freeze proceedures142005
-Node: Release143532
-Node: Ideas for further versions144135
-Node: Parameter help and documentation144566
-Node: Ansys process and interpreter buffer146868
-Node: Skeletons outline and abbrevs149731
-Node: Miscellaneous 1151463
-Node: Ansys syntax restrictions not (yet) accounted for156453
-Node: Unknown Ansys stuff157356
-Node: Acknowledgements157639
-Node: GNU Free Documentation License158209
-Node: Variable Index183235
-Node: Concept Index183384
+Node: Done130118
+Node: Push and Release Proceedures130251
+Node: Version 2040 1131058
+Node: Version 2030 1131254
+Node: Version 2020 1131474
+Node: Version 2011 1131654
+Node: Version 162-2132126
+Node: Bugs132404
+Node: Freeze133373
+Node: Wish-list133730
+Node: Deficiencies139846
+Node: Procedures141507
+Node: Freeze proceedures142029
+Node: Release143556
+Node: Ideas for further versions144159
+Node: Parameter help and documentation144590
+Node: Ansys process and interpreter buffer146892
+Node: Skeletons outline and abbrevs149755
+Node: Miscellaneous 1151487
+Node: Ansys syntax restrictions not (yet) accounted for156477
+Node: Unknown Ansys stuff157380
+Node: Acknowledgements157663
+Node: GNU Free Documentation License158233
+Node: Variable Index183259
+Node: Concept Index183408
 
 End Tag Table
 

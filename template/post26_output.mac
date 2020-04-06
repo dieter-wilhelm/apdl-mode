@@ -1,7 +1,7 @@
 !! ******************************
 !! check symmetry variable
 !! 
-/com*** post26 output ***
+/com,*** post26 output ***
 /go
 /post26
 
@@ -35,5 +35,5 @@ plvar,5
 /post1			 !don't forget this with multiple loadsteps
 
 /nopr
-/com*** post 26 output...done ***
+/com,*** post 26 output...done ***
 !! ++++++++++++++++++++++++++++++

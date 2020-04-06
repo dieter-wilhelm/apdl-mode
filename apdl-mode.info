@@ -2472,8 +2472,8 @@ APDL-Mode manually:
    *Hint:* If you are getting an error message "package.el is not yet
 initialized", you are using Emacs’ packaging system for the very first
 time.  It is necessary to initialise this machinery once, please type:
-‘M-: (package-initialize) <RET>’ and then apply ‘M-x
-package-install-file <RET>’ again.
+‘M-: (package-initialize) <RET>’ (it’s an ’ALT + :’!)  and then apply
+‘M-x package-install-file <RET>’ again.
 
 
 File: apdl-mode.info,  Node: Development and source code installation,  Prev: Manual installation,  Up: Installation and Development
@@ -4372,62 +4372,62 @@ Node: And the rest95481
 Node: Installation and Development99218
 Node: Melpa99773
 Node: Manual installation100638
-Node: Development and source code installation101699
-Node: Bugs and Problems102258
-Node: News103206
-Node: Version 2040103876
-Node: Version 2030104556
-Node: Version 2020105274
-Node: Version 2011106126
-Node: Version 2010106455
-Node: Version 162-1107001
-Node: Version 1611108521
-Node: Version 1501110148
-Node: Version 1452110977
-Node: Version 1451112376
-Node: Version 1401115526
-Node: Version 1301116981
-Node: Version 1201117896
-Node: Version 1102120263
-Node: ansys-modeel 1101120821
-Node: Further Resources123945
-Node: Ansys and APDL resources124173
-Node: Emacs editor resources124961
-Node: Other APDL editor resources125524
-Node: Todos126438
-Node: Version 2050126772
-Node: Todos bugs127023
-Node: State of documentation127180
-Node: minor bugs128382
-Node: check128703
-Node: wishes128981
-Node: templates129128
-Node: misc129463
-Node: Done130118
-Node: Push and Release Proceedures130251
-Node: Version 2040 1131058
-Node: Version 2030 1131254
-Node: Version 2020 1131474
-Node: Version 2011 1131654
-Node: Version 162-2132126
-Node: Bugs132404
-Node: Freeze133373
-Node: Wish-list133730
-Node: Deficiencies139846
-Node: Procedures141507
-Node: Freeze proceedures142029
-Node: Release143556
-Node: Ideas for further versions144159
-Node: Parameter help and documentation144590
-Node: Ansys process and interpreter buffer146892
-Node: Skeletons outline and abbrevs149755
-Node: Miscellaneous 1151487
-Node: Ansys syntax restrictions not (yet) accounted for156477
-Node: Unknown Ansys stuff157380
-Node: Acknowledgements157663
-Node: GNU Free Documentation License158233
-Node: Variable Index183259
-Node: Concept Index183408
+Node: Development and source code installation101727
+Node: Bugs and Problems102286
+Node: News103234
+Node: Version 2040103904
+Node: Version 2030104584
+Node: Version 2020105302
+Node: Version 2011106154
+Node: Version 2010106483
+Node: Version 162-1107029
+Node: Version 1611108549
+Node: Version 1501110176
+Node: Version 1452111005
+Node: Version 1451112404
+Node: Version 1401115554
+Node: Version 1301117009
+Node: Version 1201117924
+Node: Version 1102120291
+Node: ansys-modeel 1101120849
+Node: Further Resources123973
+Node: Ansys and APDL resources124201
+Node: Emacs editor resources124989
+Node: Other APDL editor resources125552
+Node: Todos126466
+Node: Version 2050126800
+Node: Todos bugs127051
+Node: State of documentation127208
+Node: minor bugs128410
+Node: check128731
+Node: wishes129009
+Node: templates129156
+Node: misc129491
+Node: Done130146
+Node: Push and Release Proceedures130279
+Node: Version 2040 1131086
+Node: Version 2030 1131282
+Node: Version 2020 1131502
+Node: Version 2011 1131682
+Node: Version 162-2132154
+Node: Bugs132432
+Node: Freeze133401
+Node: Wish-list133758
+Node: Deficiencies139874
+Node: Procedures141535
+Node: Freeze proceedures142057
+Node: Release143584
+Node: Ideas for further versions144187
+Node: Parameter help and documentation144618
+Node: Ansys process and interpreter buffer146920
+Node: Skeletons outline and abbrevs149783
+Node: Miscellaneous 1151515
+Node: Ansys syntax restrictions not (yet) accounted for156505
+Node: Unknown Ansys stuff157408
+Node: Acknowledgements157691
+Node: GNU Free Documentation License158261
+Node: Variable Index183287
+Node: Concept Index183436
 
 End Tag Table
 

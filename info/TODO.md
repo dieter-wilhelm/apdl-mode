@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org4b4267b)
-2.  [Version 20.4.0](#org4bca0ed)
-3.  [Version 20.3.0](#org4d07d49)
-4.  [Version 20.2.0](#org94a52b2)
-5.  [Version 20.1.1](#orga2a9b61)
-6.  [Version 162-2:](#org8ac620c)
+1.  [Version 20.5.0](#org485b06a)
+2.  [Version 20.4.0](#org6e62928)
+3.  [Version 20.3.0](#orgee006e7)
+4.  [Version 20.2.0](#orgb462e06)
+5.  [Version 20.1.1](#orgd960ad9)
+6.  [Version 162-2:](#org95f9e29)
 
 
 
-<a id="org4b4267b"></a>
+<a id="org485b06a"></a>
 
 # TODO Version 20.5.0
 
@@ -127,7 +127,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org4bca0ed"></a>
+<a id="org6e62928"></a>
 
 # DONE Version 20.4.0
 
@@ -135,7 +135,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org4d07d49"></a>
+<a id="orgee006e7"></a>
 
 # DONE Version 20.3.0
 
@@ -144,14 +144,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="org94a52b2"></a>
+<a id="orgb462e06"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="orga2a9b61"></a>
+<a id="orgd960ad9"></a>
 
 # DONE Version 20.1.1
 
@@ -164,7 +164,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org8ac620c"></a>
+<a id="org95f9e29"></a>
 
 # Version 162-2:
 

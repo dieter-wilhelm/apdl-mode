@@ -4,11 +4,13 @@
 !   NOTE:  Any data that requires units (such as mass) is assumed to be in the consistent solver unit system.
 !                See Solving Units in the help system for more information.
 
-/com*** Begin of /post26 output macro ***
+/com,*** Begin of /post26 output macro ***
 
-!! macro calculates the vector sum of node acceleratons of harmonics
-!! Prerequisits
-!! 1.) Named Selection: SensorNode
+!! macro calculates the vector sum of node accelerations of harmonics
+!! Prerequisits:
+!! 1.) Configure: Analysis Settings -> Solution Data Management -> 
+!!     Save MAPDL Database: yes
+!! 2.) Create Named Selection of one mesh node: SensorNode
 
 !! Output:
 !! graph and result file
@@ -136,5 +138,5 @@ store,MERGE
 /post1
 allsel
 
-/com*** post 26 output...done ***
+/com,*** post 26 output...done ***
 !! ++++++++++++++++++++++++++++++

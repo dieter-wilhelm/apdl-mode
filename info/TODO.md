@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#orgaf32cf6)
-2.  [Version 20.4.0](#org461641b)
-3.  [Version 20.3.0](#org7d53900)
-4.  [Version 20.2.0](#org5dd85e0)
-5.  [Version 20.1.1](#org0262855)
-6.  [Version 162-2:](#orgb3a55f8)
+1.  [Version 20.5.0](#org3cee773)
+2.  [Version 20.4.0](#org5b4f237)
+3.  [Version 20.3.0](#orge7bd2bc)
+4.  [Version 20.2.0](#org9d5baa0)
+5.  [Version 20.1.1](#orgb7ac1f2)
+6.  [Version 162-2:](#org1f37848)
 
 
 
-<a id="orgaf32cf6"></a>
+<a id="org3cee773"></a>
 
 # TODO Version 20.5.0
 
@@ -38,7 +38,7 @@
 -   customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)
 -   license status buffers in docu
--   add intro to the wb-template system
+-   add intro help to the wb-template system
 -   explain interactive browsing of keywords => menu entry
 
 -   Presentations
@@ -68,8 +68,9 @@
 ### templates
 
 -   Add more WorkBench/ Discovery AIM templates
--   intelligent template selector with keywords in the line of helm
--   what is the advantage of ARG1-9? => parameter system, should I
+-   Intelligent template selector with keywords in the line of helm
+    or ivy?
+-   What is the advantage of ARG1-9? => parameter system, should I
     include ARG[1-9] optionally?
 
 
@@ -86,9 +87,7 @@
 5.  Travis CI continuous integration!
 6.  <https://github.com/marketplace/coveralls>
 7.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-8.  Ansys is often used synonymous for Ansys MAPDL solver /
-    interpreter or Ansys Classics GUI
-9.  Melpa README, better wait till emacs-27..
+8.  Melpa README, better wait till emacs-27
 
 
 ## Done
@@ -129,7 +128,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org461641b"></a>
+<a id="org5b4f237"></a>
 
 # DONE Version 20.4.0
 
@@ -137,7 +136,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org7d53900"></a>
+<a id="orge7bd2bc"></a>
 
 # DONE Version 20.3.0
 
@@ -146,14 +145,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="org5dd85e0"></a>
+<a id="org9d5baa0"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="org0262855"></a>
+<a id="orgb7ac1f2"></a>
 
 # DONE Version 20.1.1
 
@@ -166,7 +165,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgb3a55f8"></a>
+<a id="org1f37848"></a>
 
 # Version 162-2:
 

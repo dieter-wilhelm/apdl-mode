@@ -1,19 +1,23 @@
 
 # Table of Contents
 
-1.  [Introduction](#org681df30)
-2.  [Some Highlights](#orgb530ef0)
-3.  [Installation](#org4db30b7)
-4.  [First Steps](#org8bc91b6)
-5.  [Configuration and Customisation](#org707cf63)
-6.  [Bugs and Problems](#orgf66abf9)
-7.  [News](#org3a9b347)
-8.  [Further Resources](#org35de65e)
-9.  [Acknowledgements](#orga34c245)
-10. [Todos](#org05e7a06)
-11. [GNU GPL v3 License](#org08389fb)
+1.  [Introduction](#org50bfb92)
+2.  [Some Highlights](#org7658e05)
+3.  [Installation](#org644172c)
+4.  [First Steps](#orgd8eb5d1)
+5.  [Configuration and Customisation](#orge097064)
+6.  [Bugs and Problems](#org33fc50a)
+7.  [News](#org3b87d0f)
+8.  [Further Resources](#org44d801f)
+9.  [Acknowledgements](#org4fa4a8e)
+10. [Todos](#orgaf908a0)
+11. [GNU GPL v3 License](#org0d61302)
 
-The GNU-Emacs major mode for the scripting language APDL
+
+
+## The GNU-Emacs major mode for the scripting language APDL
+
+APDL-Mode version 20.5.0
 
 [![img](https://melpa.org/packages/apdl-mode-badge.svg)](https://melpa.org/#/apdl-mode)
 [![img](https://stable.melpa.org/packages/apdl-mode-badge.svg)](https://stable.melpa.org/#/apdl-mode)
@@ -23,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org681df30"></a>
+<a id="org50bfb92"></a>
 
 # Introduction
 
@@ -65,7 +69,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgb530ef0"></a>
+<a id="org7658e05"></a>
 
 # Some Highlights
 
@@ -120,7 +124,7 @@ available for inspection and inclusion.
 ![img](doc/ansys-mode.jpg)
 
 
-<a id="org4db30b7"></a>
+<a id="org644172c"></a>
 
 # Installation
 
@@ -169,8 +173,8 @@ That's it.
 **Hint:** If you are getting an error message "package.el is not yet
 initialized", you are using Emacs' packaging system for the very
 first time.  It is necessary to initialise this machinery once,
-please type: \`M-: (package-initialize) <RET>' and then apply \`M-x
-package-install-file <RET>' again.
+please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'!)
+and then apply \`M-x package-install-file <RET>' again.
 
 
 ## Development and source code installation
@@ -188,7 +192,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org8bc91b6"></a>
+<a id="orgd8eb5d1"></a>
 
 # First Steps
 
@@ -207,7 +211,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org707cf63"></a>
+<a id="orge097064"></a>
 
 # Configuration and Customisation
 
@@ -224,7 +228,7 @@ Please read [apdl-config](info/apdl-config.md) documentation, or the accompanyin
 configuration [example-file](info/apdl-config.el) for further details.
 
 
-<a id="orgf66abf9"></a>
+<a id="org33fc50a"></a>
 
 # Bugs and Problems
 
@@ -244,14 +248,14 @@ you have the following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org3a9b347"></a>
+<a id="org3b87d0f"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org35de65e"></a>
+<a id="org44d801f"></a>
 
 # Further Resources
 
@@ -259,7 +263,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="orga34c245"></a>
+<a id="org4fa4a8e"></a>
 
 # Acknowledgements
 
@@ -274,14 +278,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org05e7a06"></a>
+<a id="orgaf908a0"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org08389fb"></a>
+<a id="org0d61302"></a>
 
 # GNU GPL v3 License
 

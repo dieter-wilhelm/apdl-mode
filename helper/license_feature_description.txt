@@ -1,11 +1,11 @@
+# v201 2020-04-01
+# had to repair multiline columns!
+
 # Table 1.2: Feature Descriptions for Licensed Products
 # Feature Name | Feature Description
 # single_word | description
 
-# v201
-# had to repair multiline columns!
-
-1spacdes Feature Name Feature Description Geometry Interface for Creo Elements/Direct Modeling
+1spacdes Geometry Interface for Creo Elements/Direct Modeling
 a_catv6_reader ANSYS CATIA V6 Reader
 a_dynamics_4_scdm ANSYS Dynamics for Spaceclaim by Algoryx
 a_geometry ANSYS Geometry Interfaces

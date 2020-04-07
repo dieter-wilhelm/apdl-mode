@@ -37,7 +37,7 @@
     - customise system (explain `M-x customize-set-value' as long as
       (debbugs-gnu-bugs 25678) is not solved)
     - license status buffers in docu
-    - add intro to the wb-template system
+    - add intro help to the wb-template system
     - explain interactive browsing of keywords => menu entry
 
     - Presentations
@@ -56,8 +56,9 @@
 ** wishes
 *** templates
     - Add more WorkBench/ Discovery AIM templates
-    - intelligent template selector with keywords in the line of helm
-    - what is the advantage of ARG1-9? => parameter system, should I
+    - Intelligent template selector with keywords in the line of helm
+      or ivy?
+    - What is the advantage of ARG1-9? => parameter system, should I
       include ARG[1-9] optionally?
 *** misc
     1) functions - like NDNEXT - is completed but not possible to
@@ -71,9 +72,8 @@
     5) Travis CI continuous integration!
     6) https://github.com/marketplace/coveralls
     7) Start optionally runbWB2 --aim, Discovery AIM
-    8) Ansys is often used synonymous for Ansys MAPDL solver /
-       interpreter or Ansys Classics GUI
-    9) Melpa README, better wait till emacs-27..
+    8) Melpa README, better wait till emacs-27
+
 ** Done
 ** Push and Release Proceedures
    - make PACK now obligatory for any push!

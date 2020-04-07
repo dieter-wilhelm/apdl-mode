@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-01>
+#+DATE: Time-stamp: <2020-04-07>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,6 +18,9 @@
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
+* Version 20.5.0
+  - Added license overview with Ansys license feature description to
+    `apdl-license-status`
 * Version 20.4.0
   2020-04, Updated for Ansys 2020R1
   - Updated keyword- and completion system to Ansys 2020R1 (v201)

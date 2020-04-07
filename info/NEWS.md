@@ -1,26 +1,35 @@
 
 # Table of Contents
 
-1.  [Version 20.4.0](#orge1a761f)
-2.  [Version 20.3.0](#org4429b95)
-3.  [Version 20.2.0](#org23733a4)
-4.  [Version 20.1.1](#orgb7e841a)
-5.  [Version 20.1.0](#org72cb7de)
-6.  [Version 162-1](#org8cc77cb)
-7.  [Version 16.1.1](#org6df8836)
-8.  [Version 15.0.1](#orgeafaf42)
-9.  [Version 14.5.2](#org0767342)
-10. [Version 14.5.1](#orga57b453)
-11. [Version 14.0.1](#orgc37f6fe)
-12. [Version 13.0.1](#org76eb19e)
-13. [Version 12.0.1](#org97d81c6)
-14. [Version 11.0.2](#org6b45ce1)
-15. [ansys-mode.el 11.0.1](#org988e8ec)
+1.  [Version 20.5.0](#orgc8b1d74)
+2.  [Version 20.4.0](#orgf7d6647)
+3.  [Version 20.3.0](#org00f8e75)
+4.  [Version 20.2.0](#org090420a)
+5.  [Version 20.1.1](#orgfbeb1a6)
+6.  [Version 20.1.0](#org29b1be2)
+7.  [Version 162-1](#orgd50d9a7)
+8.  [Version 16.1.1](#org6581ae9)
+9.  [Version 15.0.1](#org29fda3f)
+10. [Version 14.5.2](#org1b38b8d)
+11. [Version 14.5.1](#org0ae8115)
+12. [Version 14.0.1](#org7d1d7ee)
+13. [Version 13.0.1](#org5e77d72)
+14. [Version 12.0.1](#orgf4c7705)
+15. [Version 11.0.2](#org28316d3)
+16. [ansys-mode.el 11.0.1](#org2fa0d49)
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 
-<a id="orge1a761f"></a>
+<a id="orgc8b1d74"></a>
+
+# Version 20.5.0
+
+-   Added license overview with Ansys license feature description to
+    \`apdl-license-status\`
+
+
+<a id="orgf7d6647"></a>
 
 # Version 20.4.0
 
@@ -36,7 +45,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Added additional keys for the license status functions
 
 
-<a id="org4429b95"></a>
+<a id="org00f8e75"></a>
 
 # Version 20.3.0
 
@@ -54,7 +63,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     parameters
 
 
-<a id="org23733a4"></a>
+<a id="org090420a"></a>
 
 # Version 20.2.0
 
@@ -74,7 +83,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     because of speed reasons.
 
 
-<a id="orgb7e841a"></a>
+<a id="orgfbeb1a6"></a>
 
 # Version 20.1.1
 
@@ -85,7 +94,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Enabled EWW (and other browsers) as a "help viewer"
 
 
-<a id="org72cb7de"></a>
+<a id="org29b1be2"></a>
 
 # Version 20.1.0
 
@@ -102,7 +111,7 @@ Released  2020-02
 -   Better warning for C-c C-b when A-M is not configured
 
 
-<a id="org8cc77cb"></a>
+<a id="orgd50d9a7"></a>
 
 # Version 162-1
 
@@ -133,7 +142,7 @@ not yet released, targeted for Sep 2015
 -   Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 
-<a id="org6df8836"></a>
+<a id="org6581ae9"></a>
 
 # Version 16.1.1
 
@@ -165,7 +174,7 @@ July 2015
     example.mac.  Included an example.dat and example.anf
 
 
-<a id="orgeafaf42"></a>
+<a id="org29fda3f"></a>
 
 # Version 15.0.1
 
@@ -184,7 +193,7 @@ Aug 2014
     e. g. partial solutions with psolve for mass calculations.
 
 
-<a id="org0767342"></a>
+<a id="org1b38b8d"></a>
 
 # Version 14.5.2
 
@@ -216,7 +225,7 @@ Mar 2013
     added a beam simulation template
 
 
-<a id="orga57b453"></a>
+<a id="org0ae8115"></a>
 
 # Version 14.5.1
 
@@ -274,7 +283,7 @@ Sep 2012
     under the nint() entry
 
 
-<a id="orgc37f6fe"></a>
+<a id="org7d1d7ee"></a>
 
 # Version 14.0.1
 
@@ -303,7 +312,7 @@ June 2012
     additionally the installation directory (ansys-install-directory).
 
 
-<a id="org76eb19e"></a>
+<a id="org5e77d72"></a>
 
 # Version 13.0.1
 
@@ -324,7 +333,7 @@ March 2011
     etc. to release 13.0 of Ansys, as usual.
 
 
-<a id="org97d81c6"></a>
+<a id="orgf4c7705"></a>
 
 # Version 12.0.1
 
@@ -368,7 +377,7 @@ Dec 2010
     transition from other editors
 
 
-<a id="org6b45ce1"></a>
+<a id="org28316d3"></a>
 
 # Version 11.0.2
 
@@ -383,7 +392,7 @@ Nov 2009
     ansys-query-ansys-command (C-c C-q).
 
 
-<a id="org988e8ec"></a>
+<a id="org2fa0d49"></a>
 
 # ansys-mode.el 11.0.1
 

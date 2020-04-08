@@ -83,9 +83,9 @@ key and choose with the mouse 2 button."
             "apdl-skeleton-"))
          (skel
           (if (= arg 1)
-              (completing-read "Preview template: "
+              (completing-read "Preview template [TAB to complete]: "
                                obarray 'commandp t skel-string nil)
-            (completing-read "Insert template: "
+            (completing-read "Insert template [TAB to complete]: "
                              obarray 'commandp t skel-string nil))))
     (setq apdl-last-skeleton skel)
     (cond ((= arg 1)

@@ -940,7 +940,8 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
      :help "Insert interactively the file header template"]
     "--"
     ["Insert Pi" apdl-insert-pi
-     :help "Insert the variable definition \"Pi = 3.1415...\""]
+     :help "Insert the variable definition \"Pi = acos(-1) !
+3.1415...\" at point and indent this line."]
     ["Configuration" apdl-skeleton-configuration
      :help "Configuration code template"]
     ["Get- and Fortran functions" apdl-skeleton-function
@@ -1887,10 +1888,10 @@ Automatic template insertion is enabled"
   (auto-insert-mode 1))
 
 (defun apdl-insert-pi ()
-  "Insert a variable assignment of Pi at point.
-Together with a newline character and indentation of the assigment."
+  "Insert the code \"Pi = acos(-1)\" = 3.141.. at point.
+Indent the current line according to the context."
   (interactive)
-  (insert "Pi=3.14159265359")
+  (insert "Pi = acos(-1) ! 3.14159265359")
   (indent-according-to-mode)
   (newline-and-indent))
 
@@ -2983,7 +2984,7 @@ These constructs appear in WorkBench created solver input files."
       "`p" "*dim,Dir,string,248 ! maximum of 248 characters!\nDir(1) = \
  '/HOME/uidg1626/development/report/ej/95ks91leg0/'\n\
 /syp,ls,Dir(1)\n") ; for path
-    ;;    (define-abbrev apdl-mode-abbrev-table "`p" "" 'apdl-insert-pi)
+    (define-abbrev apdl-mode-abbrev-table "`p" "" 'apdl-insert-pi)
     (define-abbrev apdl-mode-abbrev-table "`if" "" 'apdl-if)
     (define-abbrev apdl-mode-abbrev-table "`ie" "" 'apdl-if-then)
     (define-abbrev apdl-mode-abbrev-table "`do" "" 'apdl-do)

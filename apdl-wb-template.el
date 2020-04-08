@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-04>
+;; Time-stamp: <2020-04-08>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -91,9 +91,9 @@ key and choose with the mouse 2 button."
             "apdl-wbt-"))
          (skel
           (if (= arg 1)
-              (completing-read "Preview template: "
+              (completing-read "Preview template [TAB to complete]: "
                                obarray 'commandp t skel-string nil)
-            (completing-read "Insert template: "
+            (completing-read "Insert template [TAB to complete]: "
                              obarray 'commandp t skel-string nil))))
     (setq apdl-last-skeleton skel)
     (cond ((= arg 1)

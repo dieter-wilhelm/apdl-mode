@@ -1,61 +1,77 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org08ca6e9)
-2.  [Version 20.4.0](#orgaa37d33)
-3.  [Version 20.3.0](#org55f3734)
-4.  [Version 20.2.0](#org68b24a4)
-5.  [Version 20.1.1](#org743b0a8)
-6.  [Version 162-2:](#org4c29473)
+1.  [Version 20.5.0](#org7983d49)
+2.  [Version 20.4.0](#orgf9b025f)
+3.  [Version 20.3.0](#org4d484b7)
+4.  [Version 20.2.0](#orgb860c36)
+5.  [Version 20.1.1](#org7dbd143)
+6.  [Version 162-2:](#orgc744445)
 
 
 
-<a id="org08ca6e9"></a>
+<a id="org7983d49"></a>
 
 # TODO Version 20.5.0
 
 
 ## Todos, bugs
 
+-   colleagues? -> Update intro presentation
+-   wb templates
+-   improve docu -> C-c C-b (get) functions
 
-### State of documentation
 
--   intro presentation
+## State of documentation
+
+1.  functions - like NDNEXT - is completed but not possible to
+    search in C-c C-b or M-? => function template or special
+    section?
+2.  More subjects in -browse-apdl-help for example /post26, (get-)
+    functions, etc.
+3.  Highlight WB code examples in A-M in README.org
+4.  intro presentation
+5.  how can user extend the mode abbrevs? => usage.org
+6.  add intro help to the wb-template system
+7.  explain interactive browsing of keywords => usage.org (+ menu entry)
+8.  license status buffers in docu?
+9.  customise system (explain \`M-x customize-set-value' as long as
+    (debbugs-gnu-bugs 25678) is not solved)?
+
+
+### Info
+
 -   work on the Info index
--   how can user extend the mode abbrevs? => usage.org
 -   image directory in .info file is not existing in Melpa! Do we
     need images in the manual? No
 -   \#+include: #+title adds to info title!
--   Attention ":" in headline gives a texinfo reference!
+-   Attention colon ":" in headline gives a texinfo reference!
 -   C-u info file
 -   package with file "dir"
 -   only up to 3 **\*** levels! configurable?
--   info doesn't know about clickable function links
+-   info doesn't know about clickable function links yet
 -   info doesn't have links, yet
     -   (describe-package 'helpful)
         [1]  <https://github.com/wilfred/helpful>
         > Similarly, help-fns+.el.
         > There you have option \`help-cross-reference-manuals':
--   customise system (explain \`M-x customize-set-value' as long as
-    (debbugs-gnu-bugs 25678) is not solved)
--   license status buffers in docu
--   add intro help to the wb-template system
--   explain interactive browsing of keywords => menu entry
-
--   Presentations
-    -   Präsentation Intro, tutorial
-    -   in-dept presentation
-    -   APDL reference => just Info?
 
 
-## minor bugs
+### Presentations
+
+-   update intro, tutorial
+-   in-depth presentation, tuturial?
+-   APDL reference => just Info?
+
+
+## Minor bugs
 
 -   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
     the respective section on page for Chrome and Edge!?
 -   1/en, en is variable but fraction not fontified?
 
 
-## check
+## Check
 
 -   EWW bug: not working with remote ssh -help-path
     (debbugs-gnu-bugs 40425)
@@ -63,7 +79,7 @@
     using?
 
 
-## wishes
+## Wishes
 
 
 ### templates
@@ -77,18 +93,13 @@
 
 ### misc
 
-1.  functions - like NDNEXT - is completed but not possible to
-    search in C-c C-b or M-? => function template or special
-    section?
-    -   post26
-2.  More subjects in -browse-apdl-help for example /post26, etc.
-3.  The Command (APDL) objects coding system seems to be
+1.  derive A-M from prog-modes => branch derived
+2.  Travis CI continuous integration!
+3.  <https://github.com/marketplace/coveralls>
+4.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
+5.  Melpa README, better wait till emacs-27
+6.  The Command (APDL) objects coding system seems to be
     mule-utf-8-dos aka cp65001-dos, document this
-4.  derive A-M from prog-modes => branch derived
-5.  Travis CI continuous integration!
-6.  <https://github.com/marketplace/coveralls>
-7.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-8.  Melpa README, better wait till emacs-27
 
 
 ## Done
@@ -96,23 +107,21 @@
 
 ## Push and Release Proceedures
 
--   make PACK now obligatory for any push!
+-   make PACK : now obligatory for any push!
 
 -   NEWS.org
--   README.org News
+-   README.org News section
 -   TODO.org
--   make PACK!
 
 gca = git commit -a = gau + gc
 gta = git tag -a 20.6.0
 g push &#x2013;tags
 
 Ansys updates:
-Attention: in apdl<sub>keywords.txt</sub> there are many
+Hint: in apdl<sub>keywords.txt</sub> there are many
 trailing whitespaces (delete-trailing-whitespace)
 
-whitespace-mode
-package-lint
+whitespace-mode, package-lint
 checkdoc, flycheck etc. : from makefile?
 
 APDL<sub>MAJOR</sub> := 20
@@ -129,31 +138,31 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgaa37d33"></a>
+<a id="orgf9b025f"></a>
 
 # DONE Version 20.4.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Wed]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Mi]</span></span>
 updated to 2020R1
 
 
-<a id="org55f3734"></a>
+<a id="org4d484b7"></a>
 
 # DONE Version 20.3.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Tue]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Di]</span></span>
 Melpa
-feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
+feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org68b24a4"></a>
+<a id="orgb860c36"></a>
 
 # DONE Version 20.2.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org743b0a8"></a>
+<a id="org7dbd143"></a>
 
 # DONE Version 20.1.1
 
@@ -166,7 +175,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org4c29473"></a>
+<a id="orgc744445"></a>
 
 # Version 162-2:
 

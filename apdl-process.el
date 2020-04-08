@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-07>
+;; Time-stamp: <2020-04-08>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -51,7 +51,6 @@
 (defvar apdl-current-ansys-version)
 ;; (defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
-(defvar apdl-ansys-help-program-parameters)
 (defvar apdl-is-unix-system-flag)
 (defvar apdl-lmutil-program)
 (defvar apdl-ansys-help-program)
@@ -1047,11 +1046,15 @@ with the APDL /EXIT,all command which saves all model data."
 
 (defun apdl-start-ansys-help ()
   "Start the Ansys Help Viewer.
+If there is no local help installed or there is the online help
+configured you will be redirected to the main Ansys online help
+page.
+
 Alternatively under a GNU-Linux system, one can also use the APDL
-command line \"/SYS, anshelp201\" when running Ansys
-interactively, provided that anshelp162 is found in the search
-paths for executables (these are stored in the PATH environment
-variable)."
+command line \"/SYS, anshelp201\" (AnsysHelpViewer.exe under
+Windows) when running Ansys interactively, provided that
+'anshelp201' is found in the search paths for executables (these
+are stored in the PATH environment variable)."
   (interactive)
   (apdl-ansys-help-program "")          ; checking
   (progn
@@ -1062,8 +1065,7 @@ variable)."
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)
           (w32-shell-execute
-	   "Open" (concat "\"" apdl-ansys-help-program "\"")
-	   apdl-ansys-help-program-parameters)  ; HINT: Eli Z.,M. Dahl
+	   "Open" (concat "\"" apdl-ansys-help-program "\"") )
         (error "Function w32-shell-execute not bound"))
       (message "Started the Ansys Help Viewer..."))
      (t

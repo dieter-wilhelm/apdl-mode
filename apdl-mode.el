@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-06>
+;; Time-stamp: <2020-04-08>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -922,9 +922,6 @@ subjects (apdl-browse-apdl-help)."
 Guide in a browser (apdl-browse-ansys-apdl-manual)"
     ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
     ]
-   ["Start the Ansys Help Viewer" apdl-start-ansys-help
-    :help "Start the Ansys Help Viewer executable (apdl-start-ansys-help)"
-    :active (file-executable-p apdl-ansys-help-program)]
    "--"
    ["Preview Macro Template" apdl-display-skeleton
     :help "Preview an APDL code template in another window"]
@@ -1195,6 +1192,12 @@ number vXXX (apdl-ansys-install-directory)"]
     :help "Specify the number of processors to use for the Ansys
 run definition (apdl-no-of-processors)"]
    "--"
+   ["Start the Ansys Help Viewer" apdl-start-ansys-help
+    :help "Start the Ansys Help Viewer
+(apdl-start-ansys-help).  If there is no local help installed or
+you configured online help you will be directed to the main
+online help page."
+    :active (file-executable-p apdl-ansys-help-program)]
    ["License Server Status" apdl-license-status
     :help "Show the license server status, the number of licenses
 available and used (apdl-license-status)"

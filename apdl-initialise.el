@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-03>
+;; Time-stamp: <2020-04-08>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
@@ -39,7 +39,7 @@
 (defconst apdl-mode-version "20.5.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2020-04-07"
+(defconst apdl-mode-update "2020-04-08"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")
@@ -138,13 +138,6 @@ Windows (Windows 10)."
   "The Ansys help path."
   :type 'directory
   :group 'APDL-initialise)
-
-;; ;; -TODO- erase 2020-03
-;; (defcustom apdl-ansys-help-program-parameters ""
-;;   "Variable stores parameters for the Ansys help program.
-;; Since Ansys150 not longer necessary."
-;;   :type 'string
-;;   :group 'APDL-initialise)
 
 (defcustom apdl-lmutil-program nil
   "A FlexLM license manager executable.
@@ -405,7 +398,7 @@ AWP_ROOTXXX")
               (message "Set apdl-ansys-help-path to %s" path))
           (message "%s" "Couldn't find the apdl-ansys-help-path"))))
 
-    ;; 7) -help-program
+    ;; 7) -help-program, checked v201, linux as well
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-program)
                                                 force))
       (let* ((idir apdl-ansys-install-directory)

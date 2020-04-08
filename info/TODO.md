@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org7983d49)
-2.  [Version 20.4.0](#orgf9b025f)
-3.  [Version 20.3.0](#org4d484b7)
-4.  [Version 20.2.0](#orgb860c36)
-5.  [Version 20.1.1](#org7dbd143)
-6.  [Version 162-2:](#orgc744445)
+1.  [Version 20.5.0](#org454ebb5)
+2.  [Version 20.4.0](#org0becab0)
+3.  [Version 20.3.0](#orgd152f31)
+4.  [Version 20.2.0](#org3f297b1)
+5.  [Version 20.1.1](#org9db9fb2)
+6.  [Version 162-2:](#orgc3dcd1f)
 
 
 
-<a id="org7983d49"></a>
+<a id="org454ebb5"></a>
 
 # TODO Version 20.5.0
 
@@ -112,6 +112,7 @@
 -   NEWS.org
 -   README.org News section
 -   TODO.org
+-   Add new templates to the menu
 
 gca = git commit -a = gau + gc
 gta = git tag -a 20.6.0
@@ -138,7 +139,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgf9b025f"></a>
+<a id="org0becab0"></a>
 
 # DONE Version 20.4.0
 
@@ -146,7 +147,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org4d484b7"></a>
+<a id="orgd152f31"></a>
 
 # DONE Version 20.3.0
 
@@ -155,14 +156,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgb860c36"></a>
+<a id="org3f297b1"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org7dbd143"></a>
+<a id="org9db9fb2"></a>
 
 # DONE Version 20.1.1
 
@@ -175,7 +176,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgc744445"></a>
+<a id="orgc3dcd1f"></a>
 
 # Version 162-2:
 

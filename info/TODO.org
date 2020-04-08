@@ -87,6 +87,7 @@
    - NEWS.org
    - README.org News section
    - TODO.org
+   - Add new templates to the menu
 
    gca = git commit -a = gau + gc
    gta = git tag -a 20.6.0

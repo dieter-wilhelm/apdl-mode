@@ -3212,6 +3212,7 @@ File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Ver
    • NEWS.org
    • README.org News section
    • TODO.org
+   • Add new templates to the menu
 
    gca = git commit -a = gau + gc gta = git tag -a 20.6.0 g push –tags
 
@@ -4448,29 +4449,29 @@ Node: templates130725
 Node: misc131073
 Node: Done131514
 Node: Push and Release Proceedures131649
-Node: Version 2040 1132446
-Node: Version 2030 1132643
-Node: Version 2020 1132861
-Node: Version 2011 1133040
-Node: Version 162-2133512
-Node: Bugs133790
-Node: Freeze134759
-Node: Wish-list135116
-Node: Deficiencies141232
-Node: Procedures142893
-Node: Freeze proceedures143415
-Node: Release144942
-Node: Ideas for further versions145545
-Node: Parameter help and documentation145974
-Node: Ansys process and interpreter buffer148276
-Node: Skeletons outline and abbrevs151139
-Node: Miscellaneous 1152871
-Node: Ansys syntax restrictions not (yet) accounted for157861
-Node: Unknown Ansys stuff158764
-Node: Acknowledgements159047
-Node: GNU Free Documentation License159617
-Node: Variable Index184643
-Node: Concept Index184792
+Node: Version 2040 1132483
+Node: Version 2030 1132680
+Node: Version 2020 1132898
+Node: Version 2011 1133077
+Node: Version 162-2133549
+Node: Bugs133827
+Node: Freeze134796
+Node: Wish-list135153
+Node: Deficiencies141269
+Node: Procedures142930
+Node: Freeze proceedures143452
+Node: Release144979
+Node: Ideas for further versions145582
+Node: Parameter help and documentation146011
+Node: Ansys process and interpreter buffer148313
+Node: Skeletons outline and abbrevs151176
+Node: Miscellaneous 1152908
+Node: Ansys syntax restrictions not (yet) accounted for157898
+Node: Unknown Ansys stuff158801
+Node: Acknowledgements159084
+Node: GNU Free Documentation License159654
+Node: Variable Index184680
+Node: Concept Index184829
 
 End Tag Table
 

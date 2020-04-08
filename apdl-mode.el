@@ -938,10 +938,10 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
      :help "Insert interactively an mp statement."]
     ["Header" apdl-skeleton-header
      :help "Insert interactively the file header template"]
-    "--"
     ["Insert Pi" apdl-insert-pi
      :help "Insert the variable definition \"Pi = acos(-1) !
 3.1415...\" at point and indent this line."]
+    "--"
     ["Configuration" apdl-skeleton-configuration
      :help "Configuration code template"]
     ["Get- and Fortran functions" apdl-skeleton-function
@@ -1043,10 +1043,20 @@ outlineing headers and sections"]
      :help "Insert a do loop."]
     ["Header" apdl-wbt-if
      :help "Insert an if loop."]
+    ["Insert Pi" apdl-insert-pi
+     :help "Insert the variable definition \"Pi = acos(-1) !
+3.1415...\" at point and indent this line."]
     "--"
     ["Post: Press-fit calcs" apdl-wbt-post-2d-press-fit_calcs
      :help "Post: Calculate the maximum torque and other
-parameters from a plane stress press-fit simulation."])
+parameters from a plane stress press-fit simulation."]
+    ["Post: /post26 harmonic results" apdl-wbt-harmonic-acceleration-result
+     :help "Post: /post26 harmonic acceleration results.
+Visualisation and file output of frequency and vector sum
+aplitude."]
+    ["Post: /post26 general results" apdl-wbt-post26-output
+     :help "Post: /post26 output template"]
+    )
    "--"
    (list
     "Navigate Code Lines"

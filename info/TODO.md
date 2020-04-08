@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org3cee773)
-2.  [Version 20.4.0](#org5b4f237)
-3.  [Version 20.3.0](#orge7bd2bc)
-4.  [Version 20.2.0](#org9d5baa0)
-5.  [Version 20.1.1](#orgb7ac1f2)
-6.  [Version 162-2:](#org1f37848)
+1.  [Version 20.5.0](#org08ca6e9)
+2.  [Version 20.4.0](#orgaa37d33)
+3.  [Version 20.3.0](#org55f3734)
+4.  [Version 20.2.0](#org68b24a4)
+5.  [Version 20.1.1](#org743b0a8)
+6.  [Version 162-2:](#org4c29473)
 
 
 
-<a id="org3cee773"></a>
+<a id="org08ca6e9"></a>
 
 # TODO Version 20.5.0
 
@@ -22,6 +22,7 @@
 
 -   intro presentation
 -   work on the Info index
+-   how can user extend the mode abbrevs? => usage.org
 -   image directory in .info file is not existing in Melpa! Do we
     need images in the manual? No
 -   \#+include: #+title adds to info title!
@@ -128,7 +129,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org5b4f237"></a>
+<a id="orgaa37d33"></a>
 
 # DONE Version 20.4.0
 
@@ -136,7 +137,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orge7bd2bc"></a>
+<a id="org55f3734"></a>
 
 # DONE Version 20.3.0
 
@@ -145,14 +146,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fri]</span></span>
 
 
-<a id="org9d5baa0"></a>
+<a id="org68b24a4"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Tue]</span></span>
 
 
-<a id="orgb7ac1f2"></a>
+<a id="org743b0a8"></a>
 
 # DONE Version 20.1.1
 
@@ -165,7 +166,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org1f37848"></a>
+<a id="org4c29473"></a>
 
 # Version 162-2:
 

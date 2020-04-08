@@ -479,7 +479,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\M-?" 'apdl-show-command-parameters)
     (define-key map "\C-\M-i" 'apdl-complete-symbol)
     ;; --- changed standard Emacs keybindings ---
-;;    (define-key map " " 'apdl-electric-space)
+    (define-key map " " 'apdl-electric-space) ; needed for abbrevs
     (define-key map "\M-j" 'apdl-indent-format-line)
     (define-key map "\n" 'apdl-reindent-then-newline-and-indent)
     ;; end block indentation
@@ -1729,7 +1729,7 @@ user variable highlighting? "))))))
   ;; that is not friendly to enforce stuff on users
   ;; (outline-minor-mode t)
   ;; --- hooks ---
-  ;; (run-hooks 'apdl-mode-hook)
+  (run-hooks 'apdl-mode-hook)
   )
 ;;  -- end of apdl-mode --
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2977,8 +2977,8 @@ These constructs appear in WorkBench created solver input files."
     (define-abbrev-table 'apdl-mode-abbrev-table ())
     (define-abbrev apdl-mode-abbrev-table
       "`1" "finish\n/clear\n!y\n"  ) ; the first 1 one
-    (define-abbrev apdl-mode-abbrev-table "`i" ""      'ansys_if)
-    (define-abbrev apdl-mode-abbrev-table "`d" ""      'ansys_do)
+    (define-abbrev apdl-mode-abbrev-table "`i" ""      'apdl_if)
+    (define-abbrev apdl-mode-abbrev-table "`d" ""      'apdl_do)
     (define-abbrev apdl-mode-abbrev-table
       "`p" "*dim,Dir,string,248 ! maximum of 248 characters!\nDir(1) = \
  '/HOME/uidg1626/development/report/ej/95ks91leg0/'\n\

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-06>
+#+DATE: Time-stamp: <2020-04-08>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,6 +21,7 @@
 *** State of documentation
     - intro presentation
     - work on the Info index
+    - how can user extend the mode abbrevs? => usage.org
     - image directory in .info file is not existing in Melpa! Do we
       need images in the manual? No
     - #+include: #+title adds to info title!

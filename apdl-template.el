@@ -110,6 +110,7 @@ key and choose with the mouse 2 button."
           (t
            (funcall (intern-soft skel))))))
 
+;; for abbrevs
 (define-skeleton apdl_do
   "Insert a *do .. *enddo loop."
   nil
@@ -118,6 +119,7 @@ key and choose with the mouse 2 button."
   "*cycle !bypass below commands in *do loop" > \n
   "*enddo" > \n)
 
+;; for abbrevs
 (define-skeleton apdl_if
   "Insert an *if .. *endif construct."
   nil

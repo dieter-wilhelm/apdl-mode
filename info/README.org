@@ -76,7 +76,12 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    Discovery AIM Command snippets and have them all immediately
    available in APDL-Mode for inspection and inclusion.
 
-   #+caption: GNU-Emacs with a ripped off APDL-Mode menu, the APDL variable buffer, the APDL file itself and an APDL template preview.
+   Below image shows GNU-Emacs with a ripped off APDL-Mode menu, the
+   APDL variable buffer, the APDL file itself and an APDL template
+   preview.
+
+   # #+caption: GNU-Emacs with a ripped off APDL-Mode menu, the APDL variable buffer, the APDL file itself and an APDL template preview.
+
    [[file:doc/ansys-mode.jpg]]
 ** Code outlining for inspecting WorkBench solver (.dat) files
    APDL-Mode hides the normally uninteresting but usually very large

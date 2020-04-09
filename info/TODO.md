@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#orgf31a5b9)
-2.  [Version 20.4.0](#orgda13f8b)
-3.  [Version 20.3.0](#orgaf244fd)
-4.  [Version 20.2.0](#org391ba9d)
-5.  [Version 20.1.1](#org214392b)
-6.  [Version 162-2:](#org6c25138)
+1.  [Version 20.5.0](#orgba7e1d0)
+2.  [Version 20.4.0](#org02ea4c1)
+3.  [Version 20.3.0](#org87e2bbb)
+4.  [Version 20.2.0](#orgb2042f2)
+5.  [Version 20.1.1](#org8404b18)
+6.  [Version 162-2:](#org0c56302)
 
 
 
-<a id="orgf31a5b9"></a>
+<a id="orgba7e1d0"></a>
 
 # TODO Version 20.5.0
 
@@ -18,8 +18,9 @@
 ## Todos, bugs
 
 -   update intro presentation <- colleagues
--   improve docu -> C-c C-b (get) functions
--   wb templates, necessity
+-   improve docu, especially -> M-? with (get) functions and more C-c
+    C-b subjects
+-   wb templates, clear, will grow with usage, necessity
 
 
 ## State of documentation
@@ -42,7 +43,7 @@
 
 ### MD
 
--   \#+caption: working?
+-   \#+caption: not working!
 -   \#+title: not working!
 
 
@@ -147,7 +148,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgda13f8b"></a>
+<a id="org02ea4c1"></a>
 
 # DONE Version 20.4.0
 
@@ -155,7 +156,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orgaf244fd"></a>
+<a id="org87e2bbb"></a>
 
 # DONE Version 20.3.0
 
@@ -164,14 +165,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org391ba9d"></a>
+<a id="orgb2042f2"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org214392b"></a>
+<a id="org8404b18"></a>
 
 # DONE Version 20.1.1
 
@@ -184,7 +185,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org6c25138"></a>
+<a id="org0c56302"></a>
 
 # Version 162-2:
 

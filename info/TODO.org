@@ -20,8 +20,9 @@
 * TODO Version 20.5.0
 ** Todos, bugs
    - update intro presentation <- colleagues
-   - improve docu -> C-c C-b (get) functions
-   - wb templates, necessity
+   - improve docu, especially -> M-? with (get) functions and more C-c
+     C-b subjects
+   - wb templates, clear, will grow with usage, necessity
 
 ** State of documentation
    1) functions - like NDNEXT - is completed but not possible to
@@ -39,7 +40,7 @@
    10) customise system (explain `M-x customize-set-value' as long as
       (debbugs-gnu-bugs 25678) is not solved)?
 *** MD
-    - #+caption: working?
+    - #+caption: not working!
     - #+title: not working!
 *** Info
    - links to Emacs info pages?

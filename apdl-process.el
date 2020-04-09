@@ -1285,14 +1285,15 @@ Interesting licenses are compiled in the string
 ;;;###autoload
 (defun apdl-user-license-status ()
   "Display the Ansys license user status.
-Show the status for the user `apdl-username' in a separate
-buffer, the license type variable `apdl-license' determines a
-highlighting of the license server summary rows.  There are
-additional keybindings for the license buffer *User-licenses*:
+Show the status for the user `apdl-username' in a separate buffer
+*User-Licenses*.  The license type variable `apdl-license'
+determines a highlighting of the license server summary rows.
+There are additional keybindings for the license buffer
+*User-licenses*:
 
 - `g' for updating the license status
 - `Q' for killing the Buffer
-- `h' for this help and
+- `?' and `h' for showing this help,
 - `l' for the general license status and
 - `q' for burying the *User-licenses* buffer."
   (interactive)
@@ -1314,6 +1315,10 @@ additional keybindings for the license buffer *User-licenses*:
         (local-set-key (kbd "Q") 'kill-this-buffer)
         (local-set-key (kbd "q") 'bury-buffer)
         (local-set-key (kbd "h") (lambda ()
+				   (interactive)
+				   (describe-function
+				    'apdl-user-license-status)))
+        (local-set-key (kbd "?") (lambda ()
 				   (interactive)
 				   (describe-function
 				    'apdl-user-license-status)))
@@ -1376,7 +1381,7 @@ additional keybindings for the license buffer *Licenses*:
 - `o' for showing an occur buffer with the interesting licenses from
       `apdl-license-occur-regexp',
 - `u' for displaying all the user license,
-- 'h' for showing this help,
+- `?' and `h' for showing this help,
 - `Q' for killing the Buffer and
 - `q' for burying it below another buffer."
   (interactive "P")
@@ -1386,8 +1391,11 @@ additional keybindings for the license buffer *Licenses*:
   (cond
    ((and apdl-lmutil-program apdl-license-file)
     ;; lmutil calls with many license server specified takes loooooonnnnggg
-    (message
-     "Retrieving license (%s) status, this may take some time..." apdl-license)
+    (if features
+	(message
+	 "Retrieving summary license (%s) status, please wait." apdl-license)
+      (message
+       "Retrieving lmutil license (%s) status, please wait..." apdl-license))
     (with-current-buffer (get-buffer-create "*Licenses*")
       (delete-region (point-min) (point-max)))
     ;; syncronous call
@@ -1409,6 +1417,10 @@ additional keybindings for the license buffer *Licenses*:
         (local-set-key (kbd "g") 'apdl-license-status)
         (local-set-key (kbd "o") 'apdl-occur)
         (local-set-key (kbd "h") (lambda ()
+				   (interactive)
+				   (describe-function
+				    'apdl-license-status)))
+        (local-set-key (kbd "?") (lambda ()
 				   (interactive)
 				   (describe-function
 				    'apdl-license-status)))

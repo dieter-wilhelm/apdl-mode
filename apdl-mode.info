@@ -3079,8 +3079,9 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: State of documentation,  Up: Ver
 ------------------
 
    • update intro presentation <- colleagues
-   • improve docu -> C-c C-b (get) functions
-   • wb templates, necessity
+   • improve docu, especially -> M-?  with (get) functions and more C-c
+     C-b subjects
+   • wb templates, clear, will grow with usage, necessity
 
 
 File: apdl-mode.info,  Node: State of documentation,  Next: Minor bugs,  Prev: Todos bugs,  Up: Version 2050 1
@@ -3115,7 +3116,7 @@ File: apdl-mode.info,  Node: MD,  Next: Info,  Up: State of documentation
 12.1.2.1 MD
 ...........
 
-   • #+caption: working?
+   • #+caption: not working!
    • #+title: not working!
 
 
@@ -4451,40 +4452,40 @@ Node: Other APDL editor resources126322
 Node: Todos127236
 Node: Version 2050 1127567
 Node: Todos bugs127846
-Node: State of documentation128106
-Node: MD129019
-Node: Info129178
-Node: Presentations129989
-Node: Minor bugs130231
-Node: Check130566
-Node: Wishes130846
-Node: templates130995
-Node: misc131343
-Node: Done131784
-Node: Push and Release Proceedures131919
-Node: Version 2040 1132753
-Node: Version 2030 1132950
-Node: Version 2020 1133168
-Node: Version 2011 1133347
-Node: Version 162-2133819
-Node: Bugs134097
-Node: Freeze135066
-Node: Wish-list135423
-Node: Deficiencies141539
-Node: Procedures143200
-Node: Freeze proceedures143722
-Node: Release145249
-Node: Ideas for further versions145852
-Node: Parameter help and documentation146281
-Node: Ansys process and interpreter buffer148583
-Node: Skeletons outline and abbrevs151446
-Node: Miscellaneous 1153178
-Node: Ansys syntax restrictions not (yet) accounted for158168
-Node: Unknown Ansys stuff159071
-Node: Acknowledgements159354
-Node: GNU Free Documentation License159924
-Node: Variable Index184950
-Node: Concept Index185099
+Node: State of documentation128180
+Node: MD129093
+Node: Info129256
+Node: Presentations130067
+Node: Minor bugs130309
+Node: Check130644
+Node: Wishes130924
+Node: templates131073
+Node: misc131421
+Node: Done131862
+Node: Push and Release Proceedures131997
+Node: Version 2040 1132831
+Node: Version 2030 1133028
+Node: Version 2020 1133246
+Node: Version 2011 1133425
+Node: Version 162-2133897
+Node: Bugs134175
+Node: Freeze135144
+Node: Wish-list135501
+Node: Deficiencies141617
+Node: Procedures143278
+Node: Freeze proceedures143800
+Node: Release145327
+Node: Ideas for further versions145930
+Node: Parameter help and documentation146359
+Node: Ansys process and interpreter buffer148661
+Node: Skeletons outline and abbrevs151524
+Node: Miscellaneous 1153256
+Node: Ansys syntax restrictions not (yet) accounted for158246
+Node: Unknown Ansys stuff159149
+Node: Acknowledgements159432
+Node: GNU Free Documentation License160002
+Node: Variable Index185028
+Node: Concept Index185177
 
 End Tag Table
 

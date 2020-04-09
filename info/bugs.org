@@ -1,6 +1,6 @@
 Feedback is always welcome.  If you have issues while installing and
-running this mode or simply would like to suggest some improvements
-you have the following options:
+running this mode or want to suggest improvements you have the
+following options:
 
 1) Write an email to the [[mailto:dieter@duenenhof-wilhelm.de][mode maintainer]].  Please trigger a bug report
    form from the APDL-Mode menu or by calling the function
@@ -8,7 +8,8 @@ you have the following options:
    send emails, please copy the content of the mail template for the
    maintainer.
 
-2) You might also issue a bug report at APDL-Mode's [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]]
+2) You might issue bug reports or feature requests at APDL-Mode's
+   [[https://github.com/dieter-wilhelm/apdl-mode/issues][issues site]]
 
 3) And you can leave comments and hints at the [[https://www.emacswiki.org/emacs/APDLMode][APDL-Mode page]] of the
    [[https://www.emacswiki.org][Emacs Wiki]].

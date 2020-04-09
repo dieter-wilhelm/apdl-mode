@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org463f2e0)
-2.  [Some Highlights](#org97edd35)
-3.  [Installation](#org6caf317)
-4.  [First Steps](#org16c86ee)
-5.  [Configuration and Customisation](#orgff4d03d)
-6.  [Bugs and Problems](#org450a065)
-7.  [News](#orgaa99410)
-8.  [Further Resources](#org264a706)
-9.  [Acknowledgements](#org3f16d58)
-10. [Todos](#org8e1af4a)
-11. [GNU GPL v3 License](#orga99c4b3)
+1.  [Introduction](#orgc1d23ca)
+2.  [Some Highlights](#org845f314)
+3.  [Installation](#orgb0b7422)
+4.  [First Steps](#orgde4fbaf)
+5.  [Configuration and Customisation](#org7ac8b72)
+6.  [Bugs and Problems](#org8726661)
+7.  [News](#org6a2dee7)
+8.  [Further Resources](#org2f341b8)
+9.  [Acknowledgements](#orgf7db80b)
+10. [Todos](#org84aa55a)
+11. [GNU GPL v3 License](#org798305f)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org463f2e0"></a>
+<a id="orgc1d23ca"></a>
 
 # Introduction
 
@@ -69,7 +69,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org97edd35"></a>
+<a id="org845f314"></a>
 
 # Some Highlights
 
@@ -101,6 +101,15 @@ APDL code.
 ![img](doc/browse_manual.png)
 
 
+## Command Object Templates and Code Highlighting Example
+
+You are able to compile your most often used WorkBench /
+Discovery AIM Command snippets and have them all immediately
+available in APDL-Mode for inspection and inclusion.
+
+![img](doc/ansys-mode.jpg "GNU-Emacs with a ripped off APDL-Mode menu, the APDL variable buffer, the APDL file itself and an APDL template preview.")
+
+
 ## Code outlining for inspecting WorkBench solver (.dat) files
 
 APDL-Mode hides the normally uninteresting but usually very large
@@ -113,18 +122,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-## Command Snippet Templates and Code Highlighting Example
-
-The image shows GNU-Emacs with a ripped off APDL-Mode menu field,
-the APDL variable buffer, the APDL file itself and an APDL template
-preview.  You are able to compile your most often used WorkBench /
-Discovery AIM Command snippets and have them all immediately
-available for inspection and inclusion.
-
-![img](doc/ansys-mode.jpg)
-
-
-<a id="org6caf317"></a>
+<a id="orgb0b7422"></a>
 
 # Installation
 
@@ -192,7 +190,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org16c86ee"></a>
+<a id="orgde4fbaf"></a>
 
 # First Steps
 
@@ -211,7 +209,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="orgff4d03d"></a>
+<a id="org7ac8b72"></a>
 
 # Configuration and Customisation
 
@@ -228,13 +226,13 @@ Please read [apdl-config](info/apdl-config.md) documentation, or the accompanyin
 configuration [example-file](info/apdl-config.el) for further details.
 
 
-<a id="org450a065"></a>
+<a id="org8726661"></a>
 
 # Bugs and Problems
 
 Feedback is always welcome.  If you have issues while installing and
-running this mode or simply would like to suggest some improvements
-you have the following options:
+running this mode or want to suggest improvements you have the
+following options:
 
 1.  Write an email to the [mode maintainer](mailto:dieter@duenenhof-wilhelm.de).  Please trigger a bug report
     form from the APDL-Mode menu or by calling the function
@@ -242,20 +240,21 @@ you have the following options:
     send emails, please copy the content of the mail template for the
     maintainer.
 
-2.  You might also issue a bug report at APDL-Mode's [issues site](https://github.com/dieter-wilhelm/apdl-mode/issues)
+2.  You might issue bug reports or feature requests at APDL-Mode's
+    [issues site](https://github.com/dieter-wilhelm/apdl-mode/issues)
 
 3.  And you can leave comments and hints at the [APDL-Mode page](https://www.emacswiki.org/emacs/APDLMode) of the
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orgaa99410"></a>
+<a id="org6a2dee7"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org264a706"></a>
+<a id="org2f341b8"></a>
 
 # Further Resources
 
@@ -263,7 +262,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org3f16d58"></a>
+<a id="orgf7db80b"></a>
 
 # Acknowledgements
 
@@ -278,14 +277,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org8e1af4a"></a>
+<a id="org84aa55a"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orga99c4b3"></a>
+<a id="org798305f"></a>
 
 # GNU GPL v3 License
 

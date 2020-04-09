@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-08>
+;; Time-stamp: <2020-04-09>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -193,7 +193,6 @@ And other parameters from a plane stress press-fit simulation."
   "!! *cycle ! bypass below commands in *do loop" > \n
   "*enddo" > \n)
 
-
 (define-skeleton apdl-wbt-if
   "Insert an *if .. *endif construct."
   nil
@@ -202,7 +201,6 @@ And other parameters from a plane stress press-fit simulation."
   "!! *elseif,K,gt,L" > \n
   "!! *else" > \n
   "*endif" >)
-
 
 (provide 'apdl-wb-template)
 

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-08>
+#+DATE: Time-stamp: <2020-04-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,9 +19,9 @@
 
 * TODO Version 20.5.0
 ** Todos, bugs
-   - colleagues? -> Update intro presentation
-   - wb templates
+   - update intro presentation <- colleagues
    - improve docu -> C-c C-b (get) functions
+   - wb templates, necessity
 
 ** State of documentation
    1) functions - like NDNEXT - is completed but not possible to
@@ -29,15 +29,20 @@
       section?
    2) More subjects in -browse-apdl-help for example /post26, (get-)
       functions, etc.
-   3) Highlight WB code examples in A-M in README.org
-   4) intro presentation
-   5) how can user extend the mode abbrevs? => usage.org
-   6) add intro help to the wb-template system
-   7) explain interactive browsing of keywords => usage.org (+ menu entry)
-   8) license status buffers in docu?
-   9) customise system (explain `M-x customize-set-value' as long as
-     (debbugs-gnu-bugs 25678) is not solved)?
+   3) Add Emacs Info links to docu for example regexp
+   4) Highlight WB code examples in A-M in README.org
+   5) intro presentation
+   6) how can user extend the mode abbrevs? => usage.org
+   7) add intro help to the wb-template system
+   8) explain interactive browsing of keywords => usage.org (+ menu entry)
+   9) license status buffers in docu?
+   10) customise system (explain `M-x customize-set-value' as long as
+      (debbugs-gnu-bugs 25678) is not solved)?
+*** MD
+    - #+caption: working?
+    - #+title: not working!
 *** Info
+   - links to Emacs info pages?
    - work on the Info index
    - image directory in .info file is not existing in Melpa! Do we
      need images in the manual? No

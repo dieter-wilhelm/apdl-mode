@@ -2504,8 +2504,8 @@ File: apdl-mode.info,  Node: Bugs and Problems,  Next: News,  Prev: Installation
 *******************
 
 Feedback is always welcome.  If you have issues while installing and
-running this mode or simply would like to suggest some improvements you
-have the following options:
+running this mode or want to suggest improvements you have the following
+options:
 
   1. Write an email to the mode maintainer
      <dieter@duenenhof-wilhelm.de>.  Please trigger a bug report form
@@ -2514,8 +2514,8 @@ have the following options:
      send emails, please copy the content of the mail template for the
      maintainer.
 
-  2. You might also issue a bug report at APDL-Mode’s issues site
-     (https://github.com/dieter-wilhelm/apdl-mode/issues)
+  2. You might issue bug reports or feature requests at APDL-Mode’s
+     issues site (https://github.com/dieter-wilhelm/apdl-mode/issues)
 
   3. And you can leave comments and hints at the APDL-Mode page
      (https://www.emacswiki.org/emacs/APDLMode) of the Emacs Wiki
@@ -3078,9 +3078,9 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: State of documentation,  Up: Ver
 12.1.1 Todos, bugs
 ------------------
 
-   • colleagues?  -> Update intro presentation
-   • wb templates
+   • update intro presentation <- colleagues
    • improve docu -> C-c C-b (get) functions
+   • wb templates, necessity
 
 
 File: apdl-mode.info,  Node: State of documentation,  Next: Minor bugs,  Prev: Todos bugs,  Up: Version 2050 1
@@ -3092,27 +3092,39 @@ File: apdl-mode.info,  Node: State of documentation,  Next: Minor bugs,  Prev: T
      in C-c C-b or M-?  => function template or special section?
   2. More subjects in -browse-apdl-help for example /post26, (get-)
      functions, etc.
-  3. Highlight WB code examples in A-M in README.org
-  4. intro presentation
-  5. how can user extend the mode abbrevs?  => usage.org
-  6. add intro help to the wb-template system
-  7. explain interactive browsing of keywords => usage.org (+ menu
+  3. Add Emacs Info links to docu for example regexp
+  4. Highlight WB code examples in A-M in README.org
+  5. intro presentation
+  6. how can user extend the mode abbrevs?  => usage.org
+  7. add intro help to the wb-template system
+  8. explain interactive browsing of keywords => usage.org (+ menu
      entry)
-  8. license status buffers in docu?
-  9. customise system (explain ‘M-x customize-set-value’ as long as
+  9. license status buffers in docu?
+  10. customise system (explain ‘M-x customize-set-value’ as long as
      (debbugs-gnu-bugs 25678) is not solved)?
 
 * Menu:
 
+* MD::
 * Info::
 * Presentations::
 
 
-File: apdl-mode.info,  Node: Info,  Next: Presentations,  Up: State of documentation
+File: apdl-mode.info,  Node: MD,  Next: Info,  Up: State of documentation
 
-12.1.2.1 Info
+12.1.2.1 MD
+...........
+
+   • #+caption: working?
+   • #+title: not working!
+
+
+File: apdl-mode.info,  Node: Info,  Next: Presentations,  Prev: MD,  Up: State of documentation
+
+12.1.2.2 Info
 .............
 
+   • links to Emacs info pages?
    • work on the Info index
    • image directory in .info file is not existing in Melpa!  Do we need
      images in the manual?  No
@@ -3131,7 +3143,7 @@ File: apdl-mode.info,  Node: Info,  Next: Presentations,  Up: State of documenta
 
 File: apdl-mode.info,  Node: Presentations,  Prev: Info,  Up: State of documentation
 
-12.1.2.2 Presentations
+12.1.2.3 Presentations
 ......................
 
    • update intro, tutorial
@@ -4415,63 +4427,64 @@ Node: Melpa100284
 Node: Manual installation101149
 Node: Development and source code installation102238
 Node: Bugs and Problems102797
-Node: News103745
-Node: Version 2050104433
-Node: Version 2040104655
-Node: Version 2030105356
-Node: Version 2020106074
-Node: Version 2011106926
-Node: Version 2010107255
-Node: Version 162-1107801
-Node: Version 1611109321
-Node: Version 1501110948
-Node: Version 1452111777
-Node: Version 1451113178
-Node: Version 1401116328
-Node: Version 1301117783
-Node: Version 1201118698
-Node: Version 1102121065
-Node: ansys-modeel 1101121623
-Node: Further Resources124747
-Node: Ansys and APDL resources124975
-Node: Emacs editor resources125763
-Node: Other APDL editor resources126326
-Node: Todos127240
-Node: Version 2050 1127571
-Node: Todos bugs127850
-Node: State of documentation128101
-Node: Info128953
-Node: Presentations129719
-Node: Minor bugs129961
-Node: Check130296
-Node: Wishes130576
-Node: templates130725
-Node: misc131073
-Node: Done131514
-Node: Push and Release Proceedures131649
-Node: Version 2040 1132483
-Node: Version 2030 1132680
-Node: Version 2020 1132898
-Node: Version 2011 1133077
-Node: Version 162-2133549
-Node: Bugs133827
-Node: Freeze134796
-Node: Wish-list135153
-Node: Deficiencies141269
-Node: Procedures142930
-Node: Freeze proceedures143452
-Node: Release144979
-Node: Ideas for further versions145582
-Node: Parameter help and documentation146011
-Node: Ansys process and interpreter buffer148313
-Node: Skeletons outline and abbrevs151176
-Node: Miscellaneous 1152908
-Node: Ansys syntax restrictions not (yet) accounted for157898
-Node: Unknown Ansys stuff158801
-Node: Acknowledgements159084
-Node: GNU Free Documentation License159654
-Node: Variable Index184680
-Node: Concept Index184829
+Node: News103741
+Node: Version 2050104429
+Node: Version 2040104651
+Node: Version 2030105352
+Node: Version 2020106070
+Node: Version 2011106922
+Node: Version 2010107251
+Node: Version 162-1107797
+Node: Version 1611109317
+Node: Version 1501110944
+Node: Version 1452111773
+Node: Version 1451113174
+Node: Version 1401116324
+Node: Version 1301117779
+Node: Version 1201118694
+Node: Version 1102121061
+Node: ansys-modeel 1101121619
+Node: Further Resources124743
+Node: Ansys and APDL resources124971
+Node: Emacs editor resources125759
+Node: Other APDL editor resources126322
+Node: Todos127236
+Node: Version 2050 1127567
+Node: Todos bugs127846
+Node: State of documentation128106
+Node: MD129019
+Node: Info129178
+Node: Presentations129989
+Node: Minor bugs130231
+Node: Check130566
+Node: Wishes130846
+Node: templates130995
+Node: misc131343
+Node: Done131784
+Node: Push and Release Proceedures131919
+Node: Version 2040 1132753
+Node: Version 2030 1132950
+Node: Version 2020 1133168
+Node: Version 2011 1133347
+Node: Version 162-2133819
+Node: Bugs134097
+Node: Freeze135066
+Node: Wish-list135423
+Node: Deficiencies141539
+Node: Procedures143200
+Node: Freeze proceedures143722
+Node: Release145249
+Node: Ideas for further versions145852
+Node: Parameter help and documentation146281
+Node: Ansys process and interpreter buffer148583
+Node: Skeletons outline and abbrevs151446
+Node: Miscellaneous 1153178
+Node: Ansys syntax restrictions not (yet) accounted for158168
+Node: Unknown Ansys stuff159071
+Node: Acknowledgements159354
+Node: GNU Free Documentation License159924
+Node: Variable Index184950
+Node: Concept Index185099
 
 End Tag Table
 

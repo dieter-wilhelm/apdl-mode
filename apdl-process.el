@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-08>
+;; Time-stamp: <2020-04-09>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -83,11 +83,11 @@
 
 (defcustom apdl-license-occur-regexp
   '(
-    "electronics2d_gui"
-    "electronics_desktop"
-    "a_spaceclaim_dirmod"		; spaceclaim
+    "granta"				; material stuff
+    "electronics"			; electronics desktop
+    "spaceclaim"			; spaceclaim
 ;;    "agppi"				; agppi -- Design Modeler
-    "cfd"
+    "cfd"			        ; Computational Fluid Mechanics
     "disc"				; disc* -- discovery procucts
     "aim_mp"				; aim_mp -- Discovery Aim
 					; standard
@@ -96,15 +96,15 @@
     "mpba"				; mpba -- multiphysics solver
     "ane3"				; ane3 -- magnetics
 					; ane3fl -- multiphysics
-    "^ansys"				; ansys -- structural
+    "^ansys"				; ansys -- mechanical
     "anshpc"				; anshpc -- HighPerformanceComputing
     "^preppost"				; preppost -- PrePost
-					; processing
+					; processing no solve
     "mech_"				; mech_1 -- mechanical pro
 					; mech_2 -- mechanical premium
     "[0-9][0-9]:[0-9][0-9]:[0-9][0-9]")	; and time XX:XX:XX of status
 					; request
-  "List of strings of interesting licenses.
+  "List of regular expression strings of interesting licenses.
 This list is concatenated to a regexp for the function
 `apdl-occur'."
   :type 'list

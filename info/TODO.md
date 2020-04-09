@@ -1,25 +1,25 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org454ebb5)
-2.  [Version 20.4.0](#org0becab0)
-3.  [Version 20.3.0](#orgd152f31)
-4.  [Version 20.2.0](#org3f297b1)
-5.  [Version 20.1.1](#org9db9fb2)
-6.  [Version 162-2:](#orgc3dcd1f)
+1.  [Version 20.5.0](#orgf31a5b9)
+2.  [Version 20.4.0](#orgda13f8b)
+3.  [Version 20.3.0](#orgaf244fd)
+4.  [Version 20.2.0](#org391ba9d)
+5.  [Version 20.1.1](#org214392b)
+6.  [Version 162-2:](#org6c25138)
 
 
 
-<a id="org454ebb5"></a>
+<a id="orgf31a5b9"></a>
 
 # TODO Version 20.5.0
 
 
 ## Todos, bugs
 
--   colleagues? -> Update intro presentation
--   wb templates
+-   update intro presentation <- colleagues
 -   improve docu -> C-c C-b (get) functions
+-   wb templates, necessity
 
 
 ## State of documentation
@@ -29,18 +29,26 @@
     section?
 2.  More subjects in -browse-apdl-help for example /post26, (get-)
     functions, etc.
-3.  Highlight WB code examples in A-M in README.org
-4.  intro presentation
-5.  how can user extend the mode abbrevs? => usage.org
-6.  add intro help to the wb-template system
-7.  explain interactive browsing of keywords => usage.org (+ menu entry)
-8.  license status buffers in docu?
-9.  customise system (explain \`M-x customize-set-value' as long as
+3.  Add Emacs Info links to docu for example regexp
+4.  Highlight WB code examples in A-M in README.org
+5.  intro presentation
+6.  how can user extend the mode abbrevs? => usage.org
+7.  add intro help to the wb-template system
+8.  explain interactive browsing of keywords => usage.org (+ menu entry)
+9.  license status buffers in docu?
+10. customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)?
+
+
+### MD
+
+-   \#+caption: working?
+-   \#+title: not working!
 
 
 ### Info
 
+-   links to Emacs info pages?
 -   work on the Info index
 -   image directory in .info file is not existing in Melpa! Do we
     need images in the manual? No
@@ -139,7 +147,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org0becab0"></a>
+<a id="orgda13f8b"></a>
 
 # DONE Version 20.4.0
 
@@ -147,7 +155,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orgd152f31"></a>
+<a id="orgaf244fd"></a>
 
 # DONE Version 20.3.0
 
@@ -156,14 +164,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org3f297b1"></a>
+<a id="org391ba9d"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org9db9fb2"></a>
+<a id="org214392b"></a>
 
 # DONE Version 20.1.1
 
@@ -176,7 +184,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgc3dcd1f"></a>
+<a id="org6c25138"></a>
 
 # Version 162-2:
 

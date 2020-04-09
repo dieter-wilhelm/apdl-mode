@@ -22,6 +22,7 @@
    - update intro presentation <- colleagues
    - improve docu, especially -> M-? with (get) functions and more C-c
      C-b subjects
+     - get- and fortran- functions are completed but there's no help
    - wb templates, clear, will grow with usage, necessity
 
 ** State of documentation
@@ -43,17 +44,16 @@
     - #+caption: not working!
     - #+title: not working!
 *** Info
-   - links to Emacs info pages?
+   - #+texinfo: @inforef{node,name,file} links to Emacs info pages, done
    - work on the Info index
    - image directory in .info file is not existing in Melpa! Do we
      need images in the manual? No
    - #+include: #+title adds to info title!
    - Attention colon ":" in headline gives a texinfo reference!
-   - C-u info file
+   - C-u info file :-)
    - package with file "dir"
    - only up to 3 *** levels! configurable?
-   - info doesn't know about clickable function links yet
-   - info doesn't have links, yet
+   - info doesn't have  clickable links to functions, yet
      - (describe-package 'helpful)
        [1]  https://github.com/wilfred/helpful
        > Similarly, help-fns+.el.

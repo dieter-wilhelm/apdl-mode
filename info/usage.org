@@ -1,6 +1,6 @@
 * Finding Help
-In buffer display of short or browsing the complete Ansys
-documentation in a browser.
+  Firstly with an in-buffer display of a short command help and
+  secondly browsing the complete Ansys documentation in a browser.
 ** Brief Command and Syntax Help
 
    Typing "M-?", the <CTRL> key simultaneously with the <c> key and
@@ -380,6 +380,9 @@ documentation in a browser.
    selected licenses (compiled from the variable
    `apdl-license-occur-regexp').  Please type `h' for a list of
    available keys.
+   #+texinfo: @inforef{Regular Expressions,,elisp} for more information.
+
+   # check: (info "(elisp)Regular Expressions")
 
  If your Ansys installation is not in the default locations APDL-Mode
  might not be able to find its executables.  Or you want to use mixed

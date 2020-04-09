@@ -211,10 +211,11 @@ control key <ALT> and the regular key ‘?’ simultaneously.
    GNU-Emacs provides also a third, so called interactive way to access
 this and other functions.  By typing ‘M-x’ (the <ALT> key and the ‘x’
 key at the same time) you are able to access the, so called,
-‘minibuffer’ below the status line.  There you can input the desired
-function by its name.  In above example the function
-‘apdl-show-command-parameters’.  So type ‘M-x’ and in the minibuffer
-type ‘apdl-start-ansys-help’ and starting it with the <RET> key.
+‘minibuffer’ below the status line.  *note (emacs)Minibuffer:: for more
+information.  There you can input the desired function by its name.  In
+above example the function ‘apdl-show-command-parameters’.  So type
+‘M-x’ and in the minibuffer type ‘apdl-start-ansys-help’ and starting it
+with the <RET> key.
 
    Typing long function names can be abbreviated with the
 auto-completion feature.  Just enter the first few characters of a
@@ -223,9 +224,9 @@ is to use the Gnu-Emacs’ fuzzy logic.  Instead of typing
 ‘apdl-show-command-parameter’ it is sufficient to type ‘a-s-c-p’ (and
 run it with <RET>).
 
-   You can always cancel minibuffer commands by typing C-g (the function
-‘keyboard-quit’), i.  e.  pressing the <CTRL> key and the ‘g’ key at the
-same time.
+   You can always cancel minibuffer and other commands by typing C-g
+(the function ‘keyboard-quit’), i.  e.  pressing the <CTRL> key and the
+‘g’ key at the same time.
 
    All functions described in this help, regardless whether possessing a
 keyboard shortcut or not, can be called in this interactive way or they
@@ -240,7 +241,8 @@ will display their respective help strings.
 
    In case something unintended happend to your code you are always able
 to resort to the Emacs ‘undo’ functionality from the "Edit" menu or by
-typing ‘C-x u’.
+typing ‘C-x u’.  *note the complete GNU-Emacs documentation at:
+(emacs)Top.
 
 
 File: apdl-mode.info,  Node: Usage and Applications,  Next: Configuration and Customisation,  Prev: Introductory Tutorial,  Up: Top
@@ -272,8 +274,8 @@ File: apdl-mode.info,  Node: Finding Help,  Next: Completion,  Up: Usage and App
 5.1 Finding Help
 ================
 
-In buffer display of short or browsing the complete Ansys documentation
-in a browser.
+Firstly with an in-buffer display of a short command help and secondly
+browsing the complete Ansys documentation in a browser.
 
 * Menu:
 
@@ -695,7 +697,8 @@ available from the mini-buffer without loading a file under APDL-Mode:
      buffer you can apply additional keys, for example ‘o’ to show only
      selected licenses (compiled from the variable
      ‘apdl-license-occur-regexp’).  Please type ‘h’ for a list of
-     available keys.
+     available keys.  *note (elisp)Regular Expressions:: for more
+     information.
 
    If your Ansys installation is not in the default locations APDL-Mode
 might not be able to find its executables.  Or you want to use mixed
@@ -3081,6 +3084,7 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: State of documentation,  Up: Ver
    • update intro presentation <- colleagues
    • improve docu, especially -> M-?  with (get) functions and more C-c
      C-b subjects
+        • get- and fortran- functions are completed but there’s no help
    • wb templates, clear, will grow with usage, necessity
 
 
@@ -4343,149 +4347,149 @@ Node: Copying2375
 Node: Introduction2932
 Node: First Steps5045
 Node: Introductory Tutorial5909
-Node: Usage and Applications8277
-Node: Finding Help8789
-Node: Brief Command and Syntax Help9079
-Node: APDL Keyword Documentation9842
-Node: Completion10563
-Node: Code Alignment12034
-Node: Auto-indentation12547
-Node: Closing of Control Blocks13025
-Node: Code Navigation13442
-Node: Sophisticated Highlighting15966
-Node: Variable Definitions19671
-Node: Abbreviation Facility20699
-Node: Outlining21481
-Node: Comment Handling22685
-Node: Code Template23840
-Node: Auto-insertion24513
-Node: Process Management25093
-Node: MAPDL Solver28085
-Node: Configuration and Customisation32334
-Node: Conventions33282
-Node: Important Prerequisites33808
-Node: Ansys Installation path with version information34064
-Node: File suffixes35254
-Node: Macro files35633
-Node: WorkBench generated input files36259
-Node: The Ansys Neutral file format36682
-Node: Auto insertion38343
-Node: Miscellaneous39346
-Node: Outlining 140695
-Node: Highlighting (Colourisation)41311
-Node: Dynamic highlighting41612
-Node: Decoration levels42230
-Node: Summary42569
-Node: Installation dependent configurations43752
-Node: Ansys processes45461
-Node: License server45704
-Node: Solver options46770
-Node: Summary 147202
-Node: APDL Reference 149695
-Node: WorkBench to APDL Translation49990
-Node: Contacts50234
-Node: default 3D thermal contact50407
-Node: Material Models52252
-Node: Plasticity52451
-Node: Boundary conditions52754
-Node: APDL Reference58316
-Node: Idiosyncrasies58781
-Node: File types61007
-Node: Defining parameters76085
-Node: Double char38 char8 logical TODO76405
-Node: Variable names76634
-Node: Character strings80908
-Node: Erasing variables from memory81260
-Node: Variable substitution81942
-Node: Substitution of Numeric Variables82293
-Node: Substitution of Character Variables82921
-Node: Dynamic Substitution of Numeric or Character Variables84276
-Node: Expressions84985
-Node: Exponentiation Operator85214
-Node: Multiplication Expression85400
-Node: Operators85820
-Node: Arrays86123
-Node: Specifiying array element values86375
-Node: APDL Math86554
-Node: debugging87067
-Node: Multiple runs probabilistic design87273
-Node: Undocumented commands87583
-Node: APDL-Mode Syntax Highlighting Reference87932
-Node: Header88243
-Node: Highlighting APDL specials90527
-Node: Reserved words and _RETURN statements91105
-Node: _RETURN values of macros91476
-Node: Old style APDL comments91960
-Node: Ignored characters behind commands92377
-Node: The End Of File command92691
-Node: Ignored characters behind commands 193133
-Node: The End Of File command 193557
-Node: Current element types and deprecated elements93959
-Node: Implied (or colon) looping94751
-Node: And the rest95992
-Node: Installation and Development99729
-Node: Melpa100284
-Node: Manual installation101149
-Node: Development and source code installation102238
-Node: Bugs and Problems102797
-Node: News103741
-Node: Version 2050104429
-Node: Version 2040104651
-Node: Version 2030105352
-Node: Version 2020106070
-Node: Version 2011106922
-Node: Version 2010107251
-Node: Version 162-1107797
-Node: Version 1611109317
-Node: Version 1501110944
-Node: Version 1452111773
-Node: Version 1451113174
-Node: Version 1401116324
-Node: Version 1301117779
-Node: Version 1201118694
-Node: Version 1102121061
-Node: ansys-modeel 1101121619
-Node: Further Resources124743
-Node: Ansys and APDL resources124971
-Node: Emacs editor resources125759
-Node: Other APDL editor resources126322
-Node: Todos127236
-Node: Version 2050 1127567
-Node: Todos bugs127846
-Node: State of documentation128180
-Node: MD129093
-Node: Info129256
-Node: Presentations130067
-Node: Minor bugs130309
-Node: Check130644
-Node: Wishes130924
-Node: templates131073
-Node: misc131421
-Node: Done131862
-Node: Push and Release Proceedures131997
-Node: Version 2040 1132831
-Node: Version 2030 1133028
-Node: Version 2020 1133246
-Node: Version 2011 1133425
-Node: Version 162-2133897
-Node: Bugs134175
-Node: Freeze135144
-Node: Wish-list135501
-Node: Deficiencies141617
-Node: Procedures143278
-Node: Freeze proceedures143800
-Node: Release145327
-Node: Ideas for further versions145930
-Node: Parameter help and documentation146359
-Node: Ansys process and interpreter buffer148661
-Node: Skeletons outline and abbrevs151524
-Node: Miscellaneous 1153256
-Node: Ansys syntax restrictions not (yet) accounted for158246
-Node: Unknown Ansys stuff159149
-Node: Acknowledgements159432
-Node: GNU Free Documentation License160002
-Node: Variable Index185028
-Node: Concept Index185177
+Node: Usage and Applications8396
+Node: Finding Help8908
+Node: Brief Command and Syntax Help9239
+Node: APDL Keyword Documentation10002
+Node: Completion10723
+Node: Code Alignment12194
+Node: Auto-indentation12707
+Node: Closing of Control Blocks13185
+Node: Code Navigation13602
+Node: Sophisticated Highlighting16126
+Node: Variable Definitions19831
+Node: Abbreviation Facility20859
+Node: Outlining21641
+Node: Comment Handling22845
+Node: Code Template24000
+Node: Auto-insertion24673
+Node: Process Management25253
+Node: MAPDL Solver28308
+Node: Configuration and Customisation32557
+Node: Conventions33505
+Node: Important Prerequisites34031
+Node: Ansys Installation path with version information34287
+Node: File suffixes35477
+Node: Macro files35856
+Node: WorkBench generated input files36482
+Node: The Ansys Neutral file format36905
+Node: Auto insertion38566
+Node: Miscellaneous39569
+Node: Outlining 140918
+Node: Highlighting (Colourisation)41534
+Node: Dynamic highlighting41835
+Node: Decoration levels42453
+Node: Summary42792
+Node: Installation dependent configurations43975
+Node: Ansys processes45684
+Node: License server45927
+Node: Solver options46993
+Node: Summary 147425
+Node: APDL Reference 149918
+Node: WorkBench to APDL Translation50213
+Node: Contacts50457
+Node: default 3D thermal contact50630
+Node: Material Models52475
+Node: Plasticity52674
+Node: Boundary conditions52977
+Node: APDL Reference58539
+Node: Idiosyncrasies59004
+Node: File types61230
+Node: Defining parameters76308
+Node: Double char38 char8 logical TODO76628
+Node: Variable names76857
+Node: Character strings81131
+Node: Erasing variables from memory81483
+Node: Variable substitution82165
+Node: Substitution of Numeric Variables82516
+Node: Substitution of Character Variables83144
+Node: Dynamic Substitution of Numeric or Character Variables84499
+Node: Expressions85208
+Node: Exponentiation Operator85437
+Node: Multiplication Expression85623
+Node: Operators86043
+Node: Arrays86346
+Node: Specifiying array element values86598
+Node: APDL Math86777
+Node: debugging87290
+Node: Multiple runs probabilistic design87496
+Node: Undocumented commands87806
+Node: APDL-Mode Syntax Highlighting Reference88155
+Node: Header88466
+Node: Highlighting APDL specials90750
+Node: Reserved words and _RETURN statements91328
+Node: _RETURN values of macros91699
+Node: Old style APDL comments92183
+Node: Ignored characters behind commands92600
+Node: The End Of File command92914
+Node: Ignored characters behind commands 193356
+Node: The End Of File command 193780
+Node: Current element types and deprecated elements94182
+Node: Implied (or colon) looping94974
+Node: And the rest96215
+Node: Installation and Development99952
+Node: Melpa100507
+Node: Manual installation101372
+Node: Development and source code installation102461
+Node: Bugs and Problems103020
+Node: News103964
+Node: Version 2050104652
+Node: Version 2040104874
+Node: Version 2030105575
+Node: Version 2020106293
+Node: Version 2011107145
+Node: Version 2010107474
+Node: Version 162-1108020
+Node: Version 1611109540
+Node: Version 1501111167
+Node: Version 1452111996
+Node: Version 1451113397
+Node: Version 1401116547
+Node: Version 1301118002
+Node: Version 1201118917
+Node: Version 1102121284
+Node: ansys-modeel 1101121842
+Node: Further Resources124966
+Node: Ansys and APDL resources125194
+Node: Emacs editor resources125982
+Node: Other APDL editor resources126545
+Node: Todos127459
+Node: Version 2050 1127790
+Node: Todos bugs128069
+Node: State of documentation128479
+Node: MD129392
+Node: Info129555
+Node: Presentations130366
+Node: Minor bugs130608
+Node: Check130943
+Node: Wishes131223
+Node: templates131372
+Node: misc131720
+Node: Done132161
+Node: Push and Release Proceedures132296
+Node: Version 2040 1133130
+Node: Version 2030 1133327
+Node: Version 2020 1133545
+Node: Version 2011 1133724
+Node: Version 162-2134196
+Node: Bugs134474
+Node: Freeze135443
+Node: Wish-list135800
+Node: Deficiencies141916
+Node: Procedures143577
+Node: Freeze proceedures144099
+Node: Release145626
+Node: Ideas for further versions146229
+Node: Parameter help and documentation146658
+Node: Ansys process and interpreter buffer148960
+Node: Skeletons outline and abbrevs151823
+Node: Miscellaneous 1153555
+Node: Ansys syntax restrictions not (yet) accounted for158545
+Node: Unknown Ansys stuff159448
+Node: Acknowledgements159731
+Node: GNU Free Documentation License160301
+Node: Variable Index185327
+Node: Concept Index185476
 
 End Tag Table
 

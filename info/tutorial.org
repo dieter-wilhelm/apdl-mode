@@ -10,7 +10,9 @@ control key <ALT> and the regular key ‘?’ simultaneously.
 GNU-Emacs provides also a third, so called interactive way to access
 this and other functions.  By typing ‘M-x’ (the <ALT> key and the ‘x’
 key at the same time) you are able to access the, so called,
-‘minibuffer’ below the status line.  There you can input the desired
+‘minibuffer’ below the status line.
+#+texinfo: @inforef{Minibuffer,,emacs} for more information.
+There you can input the desired
 function by its name.  In above example the function
 ‘apdl-show-command-parameters’.  So type ‘M-x’ and in the minibuffer
 type ‘apdl-start-ansys-help’ and starting it with the <RET> key.
@@ -22,9 +24,9 @@ Gnu-Emacs’ fuzzy logic.  Instead of typing
 ‘apdl-show-command-parameter’ it is sufficient to type ‘a-s-c-p’ (and
 run it with <RET>).
 
-You can always cancel minibuffer commands by typing C-g (the function
-‘keyboard-quit’), i. e. pressing the <CTRL> key and the ‘g’ key at the
-same time.
+You can always cancel minibuffer and other commands by typing C-g (the
+function ‘keyboard-quit’), i. e. pressing the <CTRL> key and the ‘g’
+key at the same time.
 
 All functions described in this help, regardless whether possessing a
 keyboard shortcut or not, can be called in this interactive way or
@@ -39,4 +41,5 @@ key) will display their respective help strings.
 
 In case something unintended happend to your code you are always able
 to resort to the Emacs ‘undo’ functionality from the "Edit" menu or by
-typing ‘C-x u’.
+typing ‘C-x u’.  
+#+texinfo: @inforef{Top,,emacs} for the complete editor documentation.

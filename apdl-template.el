@@ -1264,10 +1264,10 @@ averaged" \n
   "A = ABS()   ! Absolute value"  \n
   "A = SIGN()  ! sign(x,y) absolute value of x with sign of y" \n
   "A = CXABS() ! cxabs(x,y) absolute value of complex number x+i*y" \n
-  "A = EXP()   ! xponential,exp(x): e^x" \n
-  "A = LOG()   ! atural log"  \n
-  "A = LOG10() ! ommon log, Briggs' log" \n
-  "A = SQRT()  ! quare root" \n
+  "A = EXP()   ! exponential,exp(x): e^x" \n
+  "A = LOG()   ! natural log"  \n
+  "A = LOG10() ! common log, Briggs' log" \n
+  "A = SQRT()  ! square root" \n
   "A = NINT()  ! nearest integer" \n
   "A = nint(x*100)/100 ! poor man's round" \n
   "A = MOD()   ! mod(x,y): modulo x/y" \n

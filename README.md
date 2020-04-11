@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org4d1139e)
-2.  [Some Highlights](#orgef23141)
-3.  [Installation](#org2ebb1cd)
-4.  [First Steps](#org79b65a3)
-5.  [Configuration and Customisation](#org339622e)
-6.  [Bugs and Problems](#orgf2f10cc)
-7.  [News](#orged57caa)
-8.  [Further Resources](#orgb317edd)
-9.  [Acknowledgements](#orgef0b67c)
-10. [Todos](#org7f67922)
-11. [GNU GPL v3 License](#org907df43)
+1.  [Introduction](#orge26242c)
+2.  [Some Highlights](#org869b4d2)
+3.  [Installation](#org8675821)
+4.  [First Steps](#org01eae46)
+5.  [Configuration and Customisation](#org6d250f5)
+6.  [Bugs and Problems](#orgbc9cf80)
+7.  [News](#orge928670)
+8.  [Further Resources](#org3dba466)
+9.  [Acknowledgements](#org4f4f374)
+10. [Todos](#org76bff76)
+11. [GNU GPL v3 License](#org73128ce)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org4d1139e"></a>
+<a id="orge26242c"></a>
 
 # Introduction
 
@@ -69,7 +69,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgef23141"></a>
+<a id="org869b4d2"></a>
 
 # Some Highlights
 
@@ -77,7 +77,7 @@ with the "Refresh" button.
 ## In-built APDL command help with argument counter
 
 Especially for commands with a large number of arguments it is
-cumbersome to count the arguments, **C-?** facilitates this for you
+cumbersome to count the arguments, **M-?** facilitates this for you
 and visualises dynamically at which parameter position your cursor
 currently is.
 
@@ -86,16 +86,19 @@ currently is.
 
 ## Pin-pointing the relevant Ansys documentation
 
-You can trigger (**C-c C-b**) the relevant Ansys manual entry
-directly from your APDL-Mode session without the detour of
-searching in the Ansys online help (default since V19).  This works
-not only for APDL commands but also element names and other manual
-topics. (To that end you must have started / registered the Ansys
-online help once from an Ansys product.  But I recommend installing
-the Ansys documentation locally, loading is much faster.)
+You can browse (with **C-c C-b** on a code line) the relevant Ansys
+manual entry directly without the detour of searching in the Ansys
+online help.  This works not only for all APDL commands but also
+for element names and more general manual topics!
 
-The image below is showing a manual entry in GNU-Emacs' EWW
-browser. You are able to consult the manual side-by-side with your
+Since Ansys v191 the online help is the default.  APDL-Mode is
+using your default browser but to be able to access the online help
+you must register or you must start the online help once from any
+licensed Ansys product.  I recommend installing the local Ansys
+documentation package, access time is much shorter.
+
+The image below is showing a manual entry in GNU-Emacs' eww
+browser.  You are able to consult the manuals side-by-side your
 APDL code.
 
 ![img](doc/browse_manual.png)
@@ -126,7 +129,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org2ebb1cd"></a>
+<a id="org8675821"></a>
 
 # Installation
 
@@ -175,8 +178,8 @@ That's it.
 **Hint:** If you are getting an error message "package.el is not yet
 initialized", you are using Emacs' packaging system for the very
 first time.  It is necessary to initialise this machinery once,
-please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'!)
-and then apply \`M-x package-install-file <RET>' again.
+please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'
+colon!)  and then apply \`M-x package-install-file <RET>' again.
 
 
 ## Development and source code installation
@@ -194,7 +197,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org79b65a3"></a>
+<a id="org01eae46"></a>
 
 # First Steps
 
@@ -213,7 +216,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org339622e"></a>
+<a id="org6d250f5"></a>
 
 # Configuration and Customisation
 
@@ -230,7 +233,7 @@ Please read [apdl-config](info/apdl-config.md) documentation, or the accompanyin
 configuration [example-file](info/apdl-config.el) for further details.
 
 
-<a id="orgf2f10cc"></a>
+<a id="orgbc9cf80"></a>
 
 # Bugs and Problems
 
@@ -251,14 +254,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orged57caa"></a>
+<a id="orge928670"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgb317edd"></a>
+<a id="org3dba466"></a>
 
 # Further Resources
 
@@ -266,7 +269,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="orgef0b67c"></a>
+<a id="org4f4f374"></a>
 
 # Acknowledgements
 
@@ -281,14 +284,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org7f67922"></a>
+<a id="org76bff76"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org907df43"></a>
+<a id="org73128ce"></a>
 
 # GNU GPL v3 License
 

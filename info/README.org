@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-04-09>
+#+DATE: Time-stamp: <2020-04-11>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -49,26 +49,29 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Some Highlights
 ** In-built APDL command help with argument counter
    Especially for commands with a large number of arguments it is
-   cumbersome to count the arguments, *C-?* facilitates this for you
+   cumbersome to count the arguments, *M-?* facilitates this for you
    and visualises dynamically at which parameter position your cursor
    currently is.
 
    [[file:doc/parameter_help2.png]]
 
 ** Pin-pointing the relevant Ansys documentation
-   You can trigger (*C-c C-b*) the relevant Ansys manual entry
-   directly from your APDL-Mode session without the detour of
-   searching in the Ansys online help (default since V19).  This works
-   not only for APDL commands but also element names and other manual
-   topics. (To that end you must have started / registered the Ansys
-   online help once from an Ansys product.  But I recommend installing
-   the Ansys documentation locally, loading is much faster.)
+   You can browse (with *C-c C-b* on a code line) the relevant Ansys
+   manual entry directly without the detour of searching in the Ansys
+   online help.  This works not only for all APDL commands but also
+   for element names and more general manual topics!
 
-   The image below is showing a manual entry in GNU-Emacs' EWW
-   browser. You are able to consult the manual side-by-side with your
+   Since Ansys v191 the online help is the default.  APDL-Mode is
+   using your default browser but to be able to access the online help
+   you must register or you must start the online help once from any
+   licensed Ansys product.  I recommend installing the local Ansys
+   documentation package, access time is much shorter.
+
+   The image below is showing a manual entry in GNU-Emacs' eww
+   browser.  You are able to consult the manuals side-by-side your
    APDL code.
 
-   # #+caption: Browsing the manual in a web browser (here with EWW in GNU-Emacs).
+   # #+caption: Browsing the manual in a web browser (here with eww inside GNU-Emacs).
    [[file:doc/browse_manual.png]]
 
 ** Command Object Templates and Code Highlighting Example

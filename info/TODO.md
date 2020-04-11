@@ -1,44 +1,67 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org0e0150b)
-2.  [Version 20.4.0](#org97c961d)
-3.  [Version 20.3.0](#orga3bac00)
-4.  [Version 20.2.0](#org9010ae9)
-5.  [Version 20.1.1](#orgc603cac)
-6.  [Version 162-2:](#org3decfad)
+1.  [Version 20.5.0, help for get- and fortran functions](#org06ea06e)
+2.  [Version 20.4.0](#org2d4f54c)
+3.  [Version 20.3.0](#orge4f0e07)
+4.  [Version 20.2.0](#orgb812f65)
+5.  [Version 20.1.1](#orgcb9a229)
+6.  [Version 162-2:](#orgc9d0c28)
 
 
 
-<a id="org0e0150b"></a>
+<a id="org06ea06e"></a>
 
-# TODO Version 20.5.0
+# TODO Version 20.5.0, help for get- and fortran functions
 
 
 ## Todos, bugs
 
--   update intro presentation <- colleagues
--   improve docu, especially -> M-? with (get) functions and more C-c
-    C-b subjects
-    -   get- and fortran- functions are completed but there's no help
--   wb templates, clear, will grow with usage, necessity
+-   improve docu, especially -> Neither M-? nor C-c C-b with (get)
+    functions, get- and fortran- functions are completed but there's
+    no help
+    -   parameteric functions <file:///ansys_inc/v201/commonfiles/help/en-us/help/ans_apdl/Hlp_P_APDL3_9.html>
+    -   get <file:///ansys_inc/v201/commonfiles/help/en-us/help/ans_apdl/Hlp_P_APDLget.html>
+-   more C-c C-b subjects
+
+2.1. SESSION Commands
+2.2. DATABASE Commands
+2.3. GRAPHICS Commands
+2.4. APDL Commands
+2.5. PREP7 Commands
+2.6. SOLUTION Commands
+2.7. POST1 Commands
+2.8. POST26 Commands
+2.9. AUX2 Commands
+2.10. AUX3 Commands
+2.11. AUX12 Commands
+2.12. AUX15 Commands
+2.13. Mapping Processor Commands
+2.14. REDUCED Order Modeling Commands
+
+-   wb templates in README.org, clear, will grow with usage, as a
+    matter of fact
+    -   contact pressure evaluation, press-fit
+    -   harmonic, acceleration
+    -   imbalance load
+    -   Rotordynamics
+    -   temperature dependent load
+-   update intro presentation <- colleagues + hands-on presentation
 
 
 ## State of documentation
 
-1.  functions - like NDNEXT - is completed but not possible to
+1.  functions - like NDNEXT - will be completed but not possible to
     search in C-c C-b or M-? => function template or special
     section?
 2.  More subjects in -browse-apdl-help for example /post26, (get-)
     functions, etc.
-3.  Add Emacs Info links to docu for example regexp
-4.  Highlight WB code examples in A-M in README.org
-5.  intro presentation
-6.  how can user extend the mode abbrevs? => usage.org
-7.  add intro help to the wb-template system
-8.  explain interactive browsing of keywords => usage.org (+ menu entry)
-9.  license status buffers in docu?
-10. customise system (explain \`M-x customize-set-value' as long as
+3.  Highlight WB code examples in A-M in README.org
+4.  Intro-presentation
+5.  how can user extend the mode abbrevs? => usage.org
+6.  add intro help to the wb-template system
+7.  license status buffers in docu?
+8.  customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)?
 
 
@@ -50,17 +73,16 @@
 
 ### Info
 
--   links to Emacs info pages?
+-   \#+texinfo: @inforef{node,name,file} links to Emacs info pages, done
 -   work on the Info index
 -   image directory in .info file is not existing in Melpa! Do we
     need images in the manual? No
 -   \#+include: #+title adds to info title!
 -   Attention colon ":" in headline gives a texinfo reference!
--   C-u info file
+-   C-u info file :-)
 -   package with file "dir"
 -   only up to 3 **\*** levels! configurable?
--   info doesn't know about clickable function links yet
--   info doesn't have links, yet
+-   info doesn't have  clickable links to functions, yet
     -   (describe-package 'helpful)
         [1]  <https://github.com/wilfred/helpful>
         > Similarly, help-fns+.el.
@@ -149,7 +171,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org97c961d"></a>
+<a id="org2d4f54c"></a>
 
 # DONE Version 20.4.0
 
@@ -157,7 +179,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orga3bac00"></a>
+<a id="orge4f0e07"></a>
 
 # DONE Version 20.3.0
 
@@ -166,14 +188,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org9010ae9"></a>
+<a id="orgb812f65"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgc603cac"></a>
+<a id="orgcb9a229"></a>
 
 # DONE Version 20.1.1
 
@@ -186,7 +208,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org3decfad"></a>
+<a id="orgc9d0c28"></a>
 
 # Version 162-2:
 

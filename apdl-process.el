@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-09>
+;; Time-stamp: <2020-04-11>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1071,16 +1071,25 @@ are stored in the PATH environment variable)."
      (t
       (error "Can only start the Ansys help on Windows and GNU-Linux systems")))))
 
+;; thing-at-point command, get- or parametric function
+;; ~ and * are symbol components under a-m mode, paren ( is not!
+;; 1. eol, behind get- or parametric function
+;;    duplicate names,distinct with open paren (
+;; 2. on get- or parametric function
+;; 3. on keyword (command or element name)
+;; 4. in indentation
 (defun apdl-search-keyword()
-  "Search the code line for a valid the keyword from `apdl-help-index'."
+  "Search and return a valid keyword string in the current line.
+Signal an error if the cursor is in an empty line or no valid
+keyword from `apdl-help-index' is found."
   (interactive)
   (when (apdl-in-empty-line-p)
     (error "Cannot find a keyword in an empty line"))
   (let* (
          (pt (point))
-         (re "~/*[:word:]")
+         (re "~/*[:word:]") 		; keyword components
          (lbp (line-beginning-position))
-         ;;                      (eolp (save-excursion (end-of-line) (point)))
+         ;; (eolp (save-excursion (end-of-line) (point)))
          (str (upcase (buffer-substring-no-properties
                        (save-excursion
                          (+ pt (skip-chars-backward re lbp)))
@@ -1123,8 +1132,8 @@ are stored in the PATH environment variable)."
 
 ATTENTION: If you are using the Ansys online help - default since
 V19 - then first you need to register at the Ansys help site!
-Please start some help topic with an Ansys application first, the
-you can use APDL-Mode for pin-pointing your topics.  For an even
+Please start some help topic with an Ansys application first,
+then you can use APDL-Mode for pin-pointing your topics.  For
 faster access I recommend installing the local Ansys help.
 
 The function is looking for the next keyword before or at the

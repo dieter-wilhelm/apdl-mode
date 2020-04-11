@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-06>
+#+DATE: Time-stamp: <2020-04-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -57,8 +57,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    *Hint:* If you are getting an error message "package.el is not yet
    initialized", you are using Emacs' packaging system for the very
    first time.  It is necessary to initialise this machinery once,
-   please type: `M-: (package-initialize) <RET>' (it's an 'ALT + :'!)
-   and then apply `M-x package-install-file <RET>' again.
+   please type: `M-: (package-initialize) <RET>' (it's an 'ALT + :'
+   colon!)  and then apply `M-x package-install-file <RET>' again.
 
 * Development and source code installation
    Please clone the APDL-Mode git archive in a directory of your

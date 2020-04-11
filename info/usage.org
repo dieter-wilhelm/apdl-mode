@@ -14,16 +14,17 @@
    tooltip is switched off with an argument of zero (‘0’).
 
 ** APDL Keyword Documentation
-   Browse the detailed APDL command, element and selected topics html
-   help.
+   Browse the detailed APDL command, element and selected topics in
+   the original Ansys HTML help.
 
-   typing "C-c C-b" will display the original Ansys help in your web
+   Typing "C-c C-b" will display the original Ansys help in your web
    browser for an APDL command or element name (stating the element
    number is sufficient) near the cursor or the code line’s first APDL
-   command.  When using a prefix argument it inquires an keyword from
-   you.  Keywords beginning with a quotation mark ‘"’ describing
-   general manual sections, for example typing ‘"SHELLS"’ will call
-   the collection of all shell elements in the Ansys manual.
+   command.  When using a prefix argument (typing C-u before C-c C-b)
+   it inquires the keyword from you.  Keywords beginning with a
+   quotation mark ‘"’ describing general manual sections, for example
+   typing ‘"SHELLS"’ will call the collection of all shell elements in
+   the Ansys manual.  You can complete your input with the <TAB> key.
 
 * Completion
   APDL keyword completion (commands, elements, get- and

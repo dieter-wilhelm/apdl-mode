@@ -1260,29 +1260,29 @@ averaged" \n
   "!! --- Parameteric functions ---" \n
   "!! ==============================" \n
   "X = 2 $ Y = 1/3 ! Base X and (real) exponent Y for the following:" \n
-  "A = X**Y        ! Exponentiation x**y: x^y" \n
-  "A = ABS()   ! Absolute value"  \n
+  "A = X**Y    ! Exponentiation x**y (x^y)" \n
+  "A = ABS()   ! abs(x) absolute value"  \n
   "A = SIGN()  ! sign(x,y) absolute value of x with sign of y" \n
   "A = CXABS() ! cxabs(x,y) absolute value of complex number x+i*y" \n
-  "A = EXP()   ! exponential,exp(x): e^x" \n
-  "A = LOG()   ! natural log"  \n
-  "A = LOG10() ! common log, Briggs' log" \n
-  "A = SQRT()  ! square root" \n
-  "A = NINT()  ! nearest integer" \n
+  "A = EXP()   ! exp(x) exponential (e^x)" \n
+  "A = LOG()   ! log(x) natural log ln(x)"  \n
+  "A = LOG10() ! log10(x) common log, Briggs' log" \n
+  "A = SQRT()  ! sqrt(x) square root" \n
+  "A = NINT()  ! nint(x) nearest integer" \n
   "A = nint(x*100)/100 ! poor man's round" \n
   "A = MOD()   ! mod(x,y): modulo x/y" \n
-  "A = RAND()  ! rand(lower_bound,upper_bound):uniform dist." \n
+  "A = RAND()  ! rand(lower_bound,upper_bound): uniform dist." \n
   "A = GDIS()  ! gdis(mean,stdd): gaussian distribution" \n
   "!! the default for the trig. is radians, change this with *afun" \n
-  "A = SIN()   ! Sine"  \n
-  "A = COS()   ! Cosine"  \n
-  "A = TAN()   ! Tangent"  \n
-  "A = SINH()  ! Hyperbolic sine" \n
-  "A = COSH()  ! Hyperbolic cosine" \n
-  "A = TANH()  ! Hyperbolic tangent" \n
-  "A = ASIN()  ! Arcsine,arg. between -1.0 and +1.0 " \n
-  "A = ACOS()  ! Arccosine,arg. between -1.0 and +1.0 " \n
-  "A = ATAN()  ! Arctangent" \n
+  "A = SIN()   ! sin(x) sine"  \n
+  "A = COS()   ! cos(x) cosine"  \n
+  "A = TAN()   ! tan(x) tangent"  \n
+  "A = SINH()  ! sinh(x) hyperbolic sine" \n
+  "A = COSH()  ! cosh(x) hyperbolic cosine" \n
+  "A = TANH()  ! tanh(x) hyperbolic tangent" \n
+  "A = ASIN()  ! asin(x) arcsine,arg. between -1.0 and +1.0 " \n
+  "A = ACOS()  ! acos(x) arccosine,arg. between -1.0 and +1.0 " \n
+  "A = ATAN()  ! atan(x) arctangent" \n
   "A = ATAN2() ! atan2(x,y): arctangent of y/x with the sign of each \
 component considered" \n
   \n

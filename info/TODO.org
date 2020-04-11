@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-09>
+#+DATE: Time-stamp: <2020-04-11>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,29 +17,50 @@
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
 
-* TODO Version 20.5.0
+* TODO Version 20.5.0, help for get- and fortran functions
+  DEADLINE: <2020-05-10 So>
 ** Todos, bugs
-   - update intro presentation <- colleagues
-   - improve docu, especially -> M-? with (get) functions and more C-c
-     C-b subjects
-     - get- and fortran- functions are completed but there's no help
-   - wb templates, clear, will grow with usage, necessity
-
+   - improve docu, especially -> Neither M-? nor C-c C-b with (get)
+     functions, get- and fortran- functions are completed but there's
+     no help
+     - parameteric functions file:///ansys_inc/v201/commonfiles/help/en-us/help/ans_apdl/Hlp_P_APDL3_9.html
+     - get file:///ansys_inc/v201/commonfiles/help/en-us/help/ans_apdl/Hlp_P_APDLget.html
+   -  more C-c C-b subjects
+ 2.1. SESSION Commands
+ 2.2. DATABASE Commands
+ 2.3. GRAPHICS Commands
+ 2.4. APDL Commands
+ 2.5. PREP7 Commands
+ 2.6. SOLUTION Commands
+ 2.7. POST1 Commands
+ 2.8. POST26 Commands
+ 2.9. AUX2 Commands
+ 2.10. AUX3 Commands
+ 2.11. AUX12 Commands
+ 2.12. AUX15 Commands
+ 2.13. Mapping Processor Commands
+ 2.14. REDUCED Order Modeling Commands
+   - wb templates in README.org, clear, will grow with usage, as a
+     matter of fact
+     - contact pressure evaluation, press-fit
+     - harmonic, acceleration
+     - imbalance load
+     - Rotordynamics
+     - temperature dependent load
+   - update intro presentation <- colleagues + hands-on presentation
 ** State of documentation
-   1) functions - like NDNEXT - is completed but not possible to
+   1) functions - like NDNEXT - will be completed but not possible to
       search in C-c C-b or M-? => function template or special
       section?
    2) More subjects in -browse-apdl-help for example /post26, (get-)
       functions, etc.
-   3) Add Emacs Info links to docu for example regexp
-   4) Highlight WB code examples in A-M in README.org
-   5) intro presentation
-   6) how can user extend the mode abbrevs? => usage.org
-   7) add intro help to the wb-template system
-   8) explain interactive browsing of keywords => usage.org (+ menu entry)
-   9) license status buffers in docu?
-   10) customise system (explain `M-x customize-set-value' as long as
-      (debbugs-gnu-bugs 25678) is not solved)?
+   3) Highlight WB code examples in A-M in README.org
+   4) Intro-presentation
+   5) how can user extend the mode abbrevs? => usage.org
+   6) add intro help to the wb-template system
+   7) license status buffers in docu?
+   8) customise system (explain `M-x customize-set-value' as long as
+     (debbugs-gnu-bugs 25678) is not solved)?
 *** MD
     - #+caption: not working!
     - #+title: not working!

@@ -1,18 +1,20 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0, help for get- and fortran functions](#org06ea06e)
-2.  [Version 20.4.0](#org2d4f54c)
-3.  [Version 20.3.0](#orge4f0e07)
-4.  [Version 20.2.0](#orgb812f65)
-5.  [Version 20.1.1](#orgcb9a229)
-6.  [Version 162-2:](#orgc9d0c28)
+1.  [Version 20.5.0](#org42d6999)
+2.  [Version 20.4.0](#orgdc570ec)
+3.  [Version 20.3.0](#orgbba1ce7)
+4.  [Version 20.2.0](#org960cb08)
+5.  [Version 20.1.1](#orgfae9d45)
+6.  [Version 162-2:](#org41e4c0b)
 
 
 
-<a id="org06ea06e"></a>
+<a id="org42d6999"></a>
 
-# TODO Version 20.5.0, help for get- and fortran functions
+# TODO Version 20.5.0
+
+help for get- and fortran functions
 
 
 ## Todos, bugs
@@ -22,23 +24,21 @@
     no help
     -   parameteric functions <file:///ansys_inc/v201/commonfiles/help/en-us/help/ans_apdl/Hlp_P_APDL3_9.html>
     -   get <file:///ansys_inc/v201/commonfiles/help/en-us/help/ans_apdl/Hlp_P_APDLget.html>
--   more C-c C-b subjects
-
-2.1. SESSION Commands
-2.2. DATABASE Commands
-2.3. GRAPHICS Commands
-2.4. APDL Commands
-2.5. PREP7 Commands
-2.6. SOLUTION Commands
-2.7. POST1 Commands
-2.8. POST26 Commands
-2.9. AUX2 Commands
-2.10. AUX3 Commands
-2.11. AUX12 Commands
-2.12. AUX15 Commands
-2.13. Mapping Processor Commands
-2.14. REDUCED Order Modeling Commands
-
+    -   more C-c C-b subjects
+        2.1. SESSION Commands
+        2.2. DATABASE Commands
+        2.3. GRAPHICS Commands
+        2.4. APDL Commands
+        2.5. PREP7 Commands
+        2.6. SOLUTION Commands
+        2.7. POST1 Commands
+        2.8. POST26 Commands
+        2.9. AUX2 Commands
+        2.10. AUX3 Commands
+        2.11. AUX12 Commands
+        2.12. AUX15 Commands
+        2.13. Mapping Processor Commands
+        2.14. REDUCED Order Modeling Commands
 -   wb templates in README.org, clear, will grow with usage, as a
     matter of fact
     -   contact pressure evaluation, press-fit
@@ -59,9 +59,10 @@
 3.  Highlight WB code examples in A-M in README.org
 4.  Intro-presentation
 5.  how can user extend the mode abbrevs? => usage.org
-6.  add intro help to the wb-template system
-7.  license status buffers in docu?
-8.  customise system (explain \`M-x customize-set-value' as long as
+6.  Create en wiki for APDL
+7.  add intro help to the wb-template system
+8.  license status buffers in docu?
+9.  customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)?
 
 
@@ -144,11 +145,11 @@
 -   NEWS.org
 -   README.org News section
 -   TODO.org
--   Add new templates to the menu
+-   Add all new templates to the menu
 
 gca = git commit -a = gau + gc
 gta = git tag -a 20.6.0
-g push &#x2013;tags
+gph &#x2013;tags
 
 Ansys updates:
 Hint: in apdl<sub>keywords.txt</sub> there are many
@@ -171,7 +172,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org2d4f54c"></a>
+<a id="orgdc570ec"></a>
 
 # DONE Version 20.4.0
 
@@ -179,7 +180,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orge4f0e07"></a>
+<a id="orgbba1ce7"></a>
 
 # DONE Version 20.3.0
 
@@ -188,14 +189,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgb812f65"></a>
+<a id="org960cb08"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgcb9a229"></a>
+<a id="orgfae9d45"></a>
 
 # DONE Version 20.1.1
 
@@ -208,7 +209,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgc9d0c28"></a>
+<a id="org41e4c0b"></a>
 
 # Version 162-2:
 

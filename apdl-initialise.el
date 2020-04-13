@@ -39,7 +39,7 @@
 (defconst apdl-mode-version "20.5.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2020-04-11"
+(defconst apdl-mode-update "2020-04-13"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")

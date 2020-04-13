@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-04-09>
+#+DATE: Time-stamp: <2020-04-13>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -72,9 +72,15 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    [[file:doc/browse_manual.png]]
 
 ** Command Object Templates and Code Highlighting Example
-   You are able to compile your most often used WorkBench /
-   Discovery AIM Command snippets and have them all immediately
+   You are learning and also coding APDL best by example!  APDL-Mode
+   provides coding examples, here called templates, for the most often
+   used subjects.  Moreover you are able to compile your own WorkBench
+   / Discovery AIM Command templates and have them all immediately
    available in APDL-Mode for inspection and inclusion.
+
+   APDL-Mode is helping you with code colourisation to distinguish
+   valid commands, user variables, element names, comments, APDL
+   functions and further subjects.
 
    Below image shows GNU-Emacs with a ripped off APDL-Mode menu, the
    APDL variable buffer, the APDL file itself and an APDL template

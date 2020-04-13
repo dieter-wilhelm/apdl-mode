@@ -26,6 +26,22 @@
    typing ‘"SHELLS"’ will call the collection of all shell elements in
    the Ansys manual.  You can complete your input with the <TAB> key.
 
+* Code Templates
+  You are learning and also coding APDL best by example!  APDL-Mode
+  provides coding examples, here called templates, for the most often
+  used subjects.  Moreover you are able to compile your own WorkBench
+  / Discovery AIM Command templates and have them all immediately
+  available in APDL-Mode for inspection and inclusion.
+
+  You are able to preview the code templates with "C-c C-s" (for
+  ‘apdl-display-skeleton’), while doing this, you might type <TAB> to
+  complete all available skeleton names.
+
+  Check e. g. ‘apdl-skeleton-outline-template’, type "M-x
+  apdl-skeleton-outline-template <RET>" to insert this skeleton of
+  APDL code with outline headings.  Alternatively you can use the
+  binding "<CTRL> + u M-x apdl-skeleton-outline-template" for
+  inserting templates instead of previewing them.
 * Completion
   APDL keyword completion (commands, elements, get- and
   parametric-functions)
@@ -141,8 +157,6 @@
   and see below in the Keybindings section.
 
 * Sophisticated Highlighting 
-  (optionally: User variables)
-
   The highlighting in the highest decoration level (please refer to
   ‘apdl-highlighting-level’) tries to follow the idiosyncratic
   Ansys solver/interpreter logic as closely as possible.  For
@@ -150,17 +164,16 @@
   a valid APDL comment operator (although deprecated, see the Ansys
   manual for the *LET command).
 
-  The fontification distinguishes between APDL commands,
-  undocumented commands, parametric- and get-functions, elements
-  and deprecated elements.  In case of arbitrary characters after
-  the command names, they are still highlighted, since these
-  characters are ignored by the Ansys APDL intepreter.
+  The fontification distinguishes between APDL commands, undocumented
+  commands, parametric- and get-functions, elements (optionally also
+  user variables) and deprecated elements.  In case of arbitrary
+  characters after the command names, they are still highlighted,
+  since these characters are ignored by the Ansys APDL intepreter.
 
   A macro is in the Ansys parlance some file with APDL code. In
   this sense it is used in the following documentation.
   Additionally you can create keyboard macros in Emacs to fasten
   your edinting, please see ‘kmacro-start-macro’.
-
 
   APDL macro variables beginning with an underscore might be APDL
   reserved variables and therefore are higlighted in a warning
@@ -307,20 +320,6 @@
   In an empty line or a line without comment: Just inserts a new
   line.
 
-* Code Template
-  insertion into an APDL file.
-
-  You are able to preview the code templates with
-  "C-c C-s" (for ‘apdl-display-skeleton’),
-  while doing this, you might type <TAB> to complete all available
-  skeleton names.
-
-  Check e. g. ‘apdl-skeleton-outline-template’, type
-  "M-x apdl-skeleton-outline-template <RET>" to insert this
-  skeleton of APDL code with outline headings.  Alternatively you
-  can use the binding "<CTRL> + u M-x apdl-skeleton-outline-template"
-  for inserting templates instead of previewing them.
-
 * Auto-insertion
   of code templates into new APDL files.
 
@@ -396,8 +395,8 @@
  your .emacs file.  Please have a look in apdl-config.org and the
  apdl-config.el customisation example.
 
-* MAPDL Solver
-  control and communication (mainly restricted to GNU-Linux systems).
+* MAPDL Solver Control
+  and communication (mainly restricted to GNU-Linux systems).
 
   With the APDL-Mode keyboard shortcut "C-c RET" (for the command
   ‘apdl-start-ansys’) you can start the APDL solver/interpreter under

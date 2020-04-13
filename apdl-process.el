@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-11>
+;; Time-stamp: <2020-04-13>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1073,20 +1073,20 @@ are stored in the PATH environment variable)."
 
 ;; thing-at-point command, get- or parametric function
 ;; ~ and * are symbol components under a-m mode, paren ( is not!
-;; 1. eol, behind get- or parametric function
-;;    duplicate names,distinct with open paren (
-;; 2. on get- or parametric function
-;; 3. on keyword (command or element name)
-;; 4. in indentation
+
+;; 1. we are on a keyword, first functions, then element or command
+;; 2. we are behind a keyword, first function, then e. or c.
+;; 3. we are before a keyword (for example in indentation)
+;; 4. we are in a default command with only commas
+
+;; defun is used in apdl-browse-apdl-help searching in apdl-help-index
 (defun apdl-search-keyword()
-  "Search and return a valid keyword string in the current line.
+  "Search and return a valid keyword string from the current line.
 Signal an error if the cursor is in an empty line or no valid
 keyword from `apdl-help-index' is found."
-  (interactive)
   (when (apdl-in-empty-line-p)
     (error "Cannot find a keyword in an empty line"))
-  (let* (
-         (pt (point))
+  (let* ((pt (point))
          (re "~/*[:word:]") 		; keyword components
          (lbp (line-beginning-position))
          ;; (eolp (save-excursion (end-of-line) (point)))
@@ -1094,8 +1094,10 @@ keyword from `apdl-help-index' is found."
                        (save-excursion
                          (+ pt (skip-chars-backward re lbp)))
                        (save-excursion
-                         (+ pt (skip-chars-forward re))))))
+                         (+ pt (skip-chars-forward re)
+			    (skip-chars-forward "("))))))
          (cmpl (try-completion str apdl-help-index)))
+    (message "keyword: %s" str)
     (when (or (string= str "") (not cmpl))
       ;; we are surrounded by whities, or not on a valid keyword, try
       ;; the first command (possibly behind an comment char)

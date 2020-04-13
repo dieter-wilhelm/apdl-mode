@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org4d1139e)
-2.  [Some Highlights](#orgef23141)
-3.  [Installation](#org2ebb1cd)
-4.  [First Steps](#org79b65a3)
-5.  [Configuration and Customisation](#org339622e)
-6.  [Bugs and Problems](#orgf2f10cc)
-7.  [News](#orged57caa)
-8.  [Further Resources](#orgb317edd)
-9.  [Acknowledgements](#orgef0b67c)
-10. [Todos](#org7f67922)
-11. [GNU GPL v3 License](#org907df43)
+1.  [Introduction](#org8053da8)
+2.  [Some Highlights](#org8ac9224)
+3.  [Installation](#org8aadb28)
+4.  [First Steps](#org4e75854)
+5.  [Configuration and Customisation](#orgaf0eb33)
+6.  [Bugs and Problems](#org3beb067)
+7.  [News](#orga3ed0a7)
+8.  [Further Resources](#org94ecdea)
+9.  [Acknowledgements](#org8a3e0d2)
+10. [Todos](#org5e1d19f)
+11. [GNU GPL v3 License](#org08c8a61)
 
 
 
@@ -27,11 +27,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org4d1139e"></a>
+<a id="org8053da8"></a>
 
 # Introduction
 
-APDL ([Ansys Parametric Design Language](https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language)) is the solver scripting
+APDL ([Ansys Parametric Design Language](https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language)) is the solver scripting
 language of the mechanical FEA (Finite Element Analysis) suite [Ansys](http://www.ansys.com)
 (ANalysis SYStem, registered TM).
 
@@ -51,17 +51,18 @@ to stay: \`WorkBench' and \`AIM' operate exclusively the Ansys solver
 with it!  They are producing and sending APDL input (.dat) files to
 the solver.  For a true understanding of the GUIs' inner workings a
 study of their APDL code is prerequisite!  Moreover, the GUIs are
-not supporting all solver features.  So "Command (APDL)" snippets
+not supporting all solver features.  So "Command (APDL)" objects
 are used to enhance the GUIs' modelling capabilities.
 
 Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
 files which were created by WorkBench.  And, especially, for writing
-WorkBench \`Command' snippets and inspecting longer snippets from
-other sources.  Accessing swiftly the Ansys APDL reference
-documentation alone is worth using APDL-Mode!
+WorkBench \`Command' objects and inspecting longer command snippets
+from other sources.  Accessing the Ansys APDL reference documentation
+with the detour of searching the keywords alone is worth using
+APDL-Mode!
 
-When you "Export" (or "Import") such a WorkBench Command (APDL)
-object it becomes associated with a file and is editable with a
+When you "Export" (or "Import") such a WorkBench "Command (APDL)"
+object it becomes associated with a file and is then editable with a
 third party editor.  When you have modified the file then the "File
 Status" in Workbench changes and you can pull-in the updated content
 with the "Refresh" button.
@@ -69,7 +70,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgef23141"></a>
+<a id="org8ac9224"></a>
 
 # Some Highlights
 
@@ -103,9 +104,15 @@ APDL code.
 
 ## Command Object Templates and Code Highlighting Example
 
-You are able to compile your most often used WorkBench /
-Discovery AIM Command snippets and have them all immediately
+You are learning and also coding APDL best by example!  APDL-Mode
+provides coding examples, here called templates, for the most often
+used subjects.  Moreover you are able to compile your own WorkBench
+/ Discovery AIM Command templates and have them all immediately
 available in APDL-Mode for inspection and inclusion.
+
+APDL-Mode is helping you with code colourisation to distinguish
+valid commands, user variables, element names, comments, APDL
+functions and further subjects.
 
 Below image shows GNU-Emacs with a ripped off APDL-Mode menu, the
 APDL variable buffer, the APDL file itself and an APDL template
@@ -126,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org2ebb1cd"></a>
+<a id="org8aadb28"></a>
 
 # Installation
 
@@ -175,8 +182,8 @@ That's it.
 **Hint:** If you are getting an error message "package.el is not yet
 initialized", you are using Emacs' packaging system for the very
 first time.  It is necessary to initialise this machinery once,
-please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'!)
-and then apply \`M-x package-install-file <RET>' again.
+please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'
+colon!)  and then apply \`M-x package-install-file <RET>' again.
 
 
 ## Development and source code installation
@@ -194,7 +201,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org79b65a3"></a>
+<a id="org4e75854"></a>
 
 # First Steps
 
@@ -213,7 +220,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org339622e"></a>
+<a id="orgaf0eb33"></a>
 
 # Configuration and Customisation
 
@@ -230,7 +237,7 @@ Please read [apdl-config](info/apdl-config.md) documentation, or the accompanyin
 configuration [example-file](info/apdl-config.el) for further details.
 
 
-<a id="orgf2f10cc"></a>
+<a id="org3beb067"></a>
 
 # Bugs and Problems
 
@@ -251,14 +258,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orged57caa"></a>
+<a id="orga3ed0a7"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgb317edd"></a>
+<a id="org94ecdea"></a>
 
 # Further Resources
 
@@ -266,7 +273,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="orgef0b67c"></a>
+<a id="org8a3e0d2"></a>
 
 # Acknowledgements
 
@@ -281,14 +288,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org7f67922"></a>
+<a id="org5e1d19f"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org907df43"></a>
+<a id="org08c8a61"></a>
 
 # GNU GPL v3 License
 

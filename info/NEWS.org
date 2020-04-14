@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-13>
+#+DATE: Time-stamp: <2020-04-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,10 +21,10 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Version 20.5.0
   2020-05, help on get- and parametric functions
   - Browsing the help on keywords (C-c C-b) is now also working for
-    get- and parametric functions - besides APDL commands and element
-    names.
+    get- and parametric functions - additionally to all APDL commands
+    and element names.
   - Added license overview with Ansys license feature descriptions to
-    `apdl-license-status` (C-c C-l).
+    `apdl-license-status' (C-c C-l).
 * Version 20.4.0
   2020-04, Updated for Ansys 2020R1
   - Updated keyword- and completion system to Ansys 2020R1 (v201)

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-13>
+#+DATE: Time-stamp: <2020-04-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,12 +21,9 @@
   DEADLINE: <2020-05-01 Fr>
   help for get- and fortran functions
 ** Todos, bugs
-   - C-c C-b is able to provide help for functions but only on such a
-     symbol yet
-   - improve docu, especially -> M-? nor C-c C-b with (get)
-     functions, get- and fortran- functions are completed but there's
-     no help
-     - more C-c C-b subjects
+   - improve docu, especially -> M-? get- and fortran- functions are
+     completed but there's no help
+   - more C-c C-b subjects
        2.1. SESSION Commands
        2.2. DATABASE Commands
        2.3. GRAPHICS Commands
@@ -50,41 +47,40 @@
      - temperature dependent load
    - update intro presentation <- colleagues + hands-on presentation
 ** State of documentation
-   1) functions - like NDNEXT - will be completed but not possible to
+   1) Functions - like NDNEXT - will be completed but not possible to
       search in C-c C-b or M-? => function template or special
       section?
    2) More subjects in -browse-apdl-help for example /post26, (get-)
       functions, etc.
-   3) Highlight WB code examples in A-M in README.org
-   4) Intro-presentation
-   5) how can user extend the mode abbrevs? => usage.org
-   6) Create en wiki for APDL
-   7) add intro help to the wb-template system
-   8) license status buffers in docu?
-   9) customise system (explain `M-x customize-set-value' as long as
-     (debbugs-gnu-bugs 25678) is not solved)?
+   3) Intro-presentation
+   4) How can user extend the mode abbrevs? => usage.org
+   5) Create en wiki for APDL
+   6) Add intro help to the wb-template system
+   7) License status buffers in docu?
+   8) customise system (explain `M-x customize-set-value' as long as
+      (debbugs-gnu-bugs 25678) is not solved)?
 *** MD
     - #+caption: not working!
     - #+title: not working!
 *** Info
-   - #+texinfo: @inforef{node,name,file} links to Emacs info pages, done
-   - work on the Info index
-   - image directory in .info file is not existing in Melpa! Do we
-     need images in the manual? No
-   - #+include: #+title adds to info title!
-   - Attention colon ":" in headline gives a texinfo reference!
-   - C-u info file :-)
-   - package with file "dir"
-   - only up to 3 *** levels! configurable?
-   - info doesn't have  clickable links to functions, yet
-     - (describe-package 'helpful)
-       [1]  https://github.com/wilfred/helpful
-       > Similarly, help-fns+.el.
-       > There you have option `help-cross-reference-manuals':
+    - work on the Info index
+    - image directory in .info file is not existing in Melpa! Do we
+      need images in the manual? No
+    - #+include: #+title adds to info title!
+    - #+texinfo: @inforef{node,name,file} links to Emacs info pages, done
+    - Attention colon ":" in headline gives a texinfo reference!
+    - C-u info file :-)
+    - package with file "dir"
+    - only up to 3 *** levels! configurable?
+    - info doesn't have  clickable links to functions, yet
+      - (describe-package 'helpful)
+	[1]  https://github.com/wilfred/helpful
+	> Similarly, help-fns+.el.
+	> There you have option `help-cross-reference-manuals':
 *** Presentations
-     - update intro, tutorial
-     - in-depth presentation, tuturial?
-     - APDL reference => just Info?
+    - update intro, tutorial
+    - in-depth presentation, tuturial?
+    - APDL reference => just Info?
 ** Minor bugs
    - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
      the respective section on page for Chrome and Edge!?

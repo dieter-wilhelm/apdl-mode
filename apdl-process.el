@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-13>
+;; Time-stamp: <2020-04-14>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1090,6 +1090,7 @@ keyword from `apdl-help-index' is found."
          (re "~/*[:word:]") 		; keyword components
          (lbp (line-beginning-position))
          ;; (eolp (save-excursion (end-of-line) (point)))
+	 ;; 1. we are on a keyword
          (str (upcase (buffer-substring-no-properties
                        (save-excursion
                          (+ pt (skip-chars-backward re lbp)))
@@ -1097,7 +1098,21 @@ keyword from `apdl-help-index' is found."
                          (+ pt (skip-chars-forward re)
 			    (skip-chars-forward "("))))))
          (cmpl (try-completion str apdl-help-index)))
-    (message "keyword: %s" str)
+    ;; (message "keyword: %s" str)
+
+    ;; 2. possibly behind a function keyword
+    (when (or (string= str "") (not cmpl))
+      (save-excursion
+	(skip-chars-backward "^(")
+	(setq pt (point)
+	      str (upcase
+		   (buffer-substring-no-properties
+		    (+ pt (skip-chars-backward "(" lbp)
+		       (skip-chars-backward re lbp))
+		    pt))
+	      cmpl (try-completion str apdl-help-index))))
+
+    ;; 3. try command keyword at indentation
     (when (or (string= str "") (not cmpl))
       ;; we are surrounded by whities, or not on a valid keyword, try
       ;; the first command (possibly behind an comment char)
@@ -1109,6 +1124,8 @@ keyword from `apdl-help-index' is found."
                    (buffer-substring-no-properties pt
                                                    (+ pt (skip-chars-forward re))))))
       (setq cmpl (try-completion str apdl-help-index)))
+
+    ;; output
     (cond ((stringp cmpl)               ; not unique
            cmpl)
           ((not cmpl)

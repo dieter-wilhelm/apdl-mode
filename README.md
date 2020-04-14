@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#orge26242c)
-2.  [Some Highlights](#org869b4d2)
-3.  [Installation](#org8675821)
-4.  [First Steps](#org01eae46)
-5.  [Configuration and Customisation](#org6d250f5)
-6.  [Bugs and Problems](#orgbc9cf80)
-7.  [News](#orge928670)
-8.  [Further Resources](#org3dba466)
-9.  [Acknowledgements](#org4f4f374)
-10. [Todos](#org76bff76)
-11. [GNU GPL v3 License](#org73128ce)
+1.  [Introduction](#org4fe561a)
+2.  [Some Highlights](#orgec35af4)
+3.  [Installation](#org2bcb90e)
+4.  [First Steps](#org439be1e)
+5.  [Configuration and Customisation](#org61941b1)
+6.  [Bugs and Problems](#org4bb7d15)
+7.  [News](#orga6c2fa0)
+8.  [Further Resources](#orgf926205)
+9.  [Acknowledgements](#org89badee)
+10. [Todos](#org7fcdace)
+11. [GNU GPL v3 License](#org85a4b53)
 
 
 
@@ -27,11 +27,11 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="orge26242c"></a>
+<a id="org4fe561a"></a>
 
 # Introduction
 
-APDL ([Ansys Parametric Design Language](https://de.wikipedia.org/wiki/Ansys_Parametric_Design_Language)) is the solver scripting
+APDL ([Ansys Parametric Design Language](https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language)) is the solver scripting
 language of the mechanical FEA (Finite Element Analysis) suite [Ansys](http://www.ansys.com)
 (ANalysis SYStem, registered TM).
 
@@ -51,17 +51,18 @@ to stay: \`WorkBench' and \`AIM' operate exclusively the Ansys solver
 with it!  They are producing and sending APDL input (.dat) files to
 the solver.  For a true understanding of the GUIs' inner workings a
 study of their APDL code is prerequisite!  Moreover, the GUIs are
-not supporting all solver features.  So "Command (APDL)" snippets
+not supporting all solver features.  So "Command (APDL)" objects
 are used to enhance the GUIs' modelling capabilities.
 
 Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
 files which were created by WorkBench.  And, especially, for writing
-WorkBench \`Command' snippets and inspecting longer snippets from
-other sources.  Accessing swiftly the Ansys APDL reference
-documentation alone is worth using APDL-Mode!
+WorkBench \`Command' objects and inspecting longer command snippets
+from other sources.  Accessing the Ansys APDL reference documentation
+with the detour of searching the keywords alone is worth using
+APDL-Mode!
 
-When you "Export" (or "Import") such a WorkBench Command (APDL)
-object it becomes associated with a file and is editable with a
+When you "Export" (or "Import") such a WorkBench "Command (APDL)"
+object it becomes associated with a file and is then editable with a
 third party editor.  When you have modified the file then the "File
 Status" in Workbench changes and you can pull-in the updated content
 with the "Refresh" button.
@@ -69,7 +70,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org869b4d2"></a>
+<a id="orgec35af4"></a>
 
 # Some Highlights
 
@@ -106,9 +107,15 @@ APDL code.
 
 ## Command Object Templates and Code Highlighting Example
 
-You are able to compile your most often used WorkBench /
-Discovery AIM Command snippets and have them all immediately
+You are learning and also coding APDL best by example!  APDL-Mode
+provides coding examples, here called templates, for the most often
+used subjects.  Moreover you are able to compile your own WorkBench
+/ Discovery AIM Command templates and have them all immediately
 available in APDL-Mode for inspection and inclusion.
+
+APDL-Mode is helping you with code colourisation to distinguish
+valid commands, user variables, element names, comments, APDL
+functions and further subjects.
 
 Below image shows GNU-Emacs with a ripped off APDL-Mode menu, the
 APDL variable buffer, the APDL file itself and an APDL template
@@ -129,7 +136,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org8675821"></a>
+<a id="org2bcb90e"></a>
 
 # Installation
 
@@ -197,7 +204,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org01eae46"></a>
+<a id="org439be1e"></a>
 
 # First Steps
 
@@ -216,7 +223,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org6d250f5"></a>
+<a id="org61941b1"></a>
 
 # Configuration and Customisation
 
@@ -233,7 +240,7 @@ Please read [apdl-config](info/apdl-config.md) documentation, or the accompanyin
 configuration [example-file](info/apdl-config.el) for further details.
 
 
-<a id="orgbc9cf80"></a>
+<a id="org4bb7d15"></a>
 
 # Bugs and Problems
 
@@ -254,14 +261,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orge928670"></a>
+<a id="orga6c2fa0"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org3dba466"></a>
+<a id="orgf926205"></a>
 
 # Further Resources
 
@@ -269,7 +276,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org4f4f374"></a>
+<a id="org89badee"></a>
 
 # Acknowledgements
 
@@ -284,14 +291,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org76bff76"></a>
+<a id="org7fcdace"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org73128ce"></a>
+<a id="org85a4b53"></a>
 
 # GNU GPL v3 License
 

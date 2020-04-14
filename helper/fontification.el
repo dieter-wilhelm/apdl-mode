@@ -1,5 +1,5 @@
 ;;; fontification.el --- building keywords and completions
-;; Time-stamp: <2020-04-06>
+;; Time-stamp: <2020-04-13>
 
 ;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
 
@@ -430,13 +430,14 @@ And the solver won't allow characters appended to.")
 	'keep))
    list))
 
-(defun APDL-parametric-functions (list)
-  (mapcar
-   #'(lambda (name)
-       (list
-	(concat "\\(" name "\\)\\s-*(")
-	'(1 font-lock-function-name-face keep)))
-   list))
+;; -TODO- redundant?
+;; (defun APDL-parametric-functions (list)
+;;   (mapcar
+;;    #'(lambda (name)
+;;        (list
+;; 	(concat "\\(" name "\\)\\s-*(")
+;; 	'(1 font-lock-function-name-face keep)))
+;;    list))
 
 (defun double_entry_p(strg commands)
   "Returns t if STRG occurs twice in COMMANDS."
@@ -545,7 +546,7 @@ the length of the original string STRG."
     (dotimes (i (1+ (- n1 l)) lisy)
       (setq lisy (cons (substring strg 0 (- n1 i)) lisy)))))
 
-;; TODO: we are still neglecting commands without parameters!
+;; -TODO-: we are still neglecting commands without parameters!
 (defun Prepare_list_2 (List)
   "Return a list of 3 lists for level 2.
 Written out commands and 2 lists of commands which the solver
@@ -559,7 +560,7 @@ allows characters appended behind."
 	(setq list_a (cons M list_a)))
        ((< l 4)               ; short stuff
 	(setq list_a (cons M list_a)))
-;; variable ending stuff
+       ;; variable ending stuff
        ((= l 4)
 	(setq tmp_list (cons M tmp_list)))
        (t ;; the rest, longer command names
@@ -575,16 +576,17 @@ allows characters appended behind."
 	     (length list_a) (length list_b) (length list_c) )
     (list list_a list_b list_c)))
 
-(defun APDL-initialize-completions ()
-  "Create a list for APDL completions.
-Function names are distinguished by `()'."
-  (append
-   Apdl_elements
-   Apdl_commands
-   (mapcar #'(lambda (str) (concat str "()"))
-	   Apdl_get_functions)
-   (mapcar #'(lambda (str) (concat str "()"))
-	   Apdl_parametric_functions)))
+;; 2020-04-12 -TODO- redundant?
+;; (defun APDL-initialize-completions ()
+;;   "Create a list for APDL completions.
+;; Function names are distinguished by `()'."
+;;   (append
+;;    Apdl_elements
+;;    Apdl_commands
+;;    (mapcar #'(lambda (str) (concat str "()"))
+;; 	   Apdl_get_functions)
+;;    (mapcar #'(lambda (str) (concat str "()"))
+;; 	   Apdl_parametric_functions)))
 
 ;; ------------------------------------------------------------
 
@@ -632,16 +634,17 @@ Seen mainly in Workbench output files and Ansys verification models.\")\n\n")
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (setq sort-fold-case t)
     (sort-lines nil (point-min) (point-max))
-					; (write-file "keyw+promt.txt")
+    ;; (write-file "keyw+promt.txt")
     (goto-char (point-min))
     (while (re-search-forward "^\\(.\\w*\\>\\).*\n\\1.*" nil t)
       (add-to-list 'list (match-string 0) 'append)))
-;; now include the undocumented commands
-  (setq list (append list
-		     (mapcar #'(lambda (m) (concat m
-" - APDL undocumented command\n" m))
-			     Apdl_undocumented_commands)))
-;;  (sort list 'string<)
+  ;; now include the undocumented commands
+  (setq list
+	(append list
+		(mapcar #'(lambda (m)
+			    (concat m " - APDL undocumented command\n" m))
+			Apdl_undocumented_commands)))
+  ;;  (sort list 'string<)
   (set-buffer buffer)
   (goto-char (point-min))
   (insert "(defconst apdl-dynamic-prompt\n'")
@@ -762,13 +765,17 @@ Together with their proposed replacements.\")\n\n")
   (setq list ())               ; initialise list
   (with-temp-buffer
     (insert-file-contents "apdl_get_functions.txt")
-;;    (setq sort-fold-case t)
-;;    (sort-lines nil (point-min) (point-max))
+    ;;    (setq sort-fold-case t)
+    ;;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (goto-char (point-min))
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
   (setq get-functions list)     ; we need this variable for the completions!
+  (setq apdl--get-functions
+	(mapcar
+	 (lambda (s) (list (concat s "(") "ans_apdl/Hlp_P_APDLget.html"))
+	 list))
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
@@ -780,18 +787,23 @@ Together with their proposed replacements.\")\n\n")
   (fill-paragraph 0)
   (message "get-functions...done")
 
-;; ---------- parametric functions ----------
+  ;; ---------- parametric functions ----------
 
   (setq list ())               ; initialise list
   (with-temp-buffer
     (insert-file-contents "apdl_parametric_functions.txt")
-;;    (setq sort-fold-case t)
-;;    (sort-lines nil (point-min) (point-max))
+    ;;    (setq sort-fold-case t)
+    ;;    (sort-lines nil (point-min) (point-max))
     (delete-matching-lines "^#.*" (point-min) (point-max))
     (goto-char (point-min))
     (while (re-search-forward "^\\(\\w+\\)(" nil t)
       (add-to-list 'list (match-string 1) 'append)))
   (setq parametric-functions list) ; we need this later for completions!
+  ;; that is for -browse-help
+  (setq apdl--parametric-functions
+	(mapcar
+	 (lambda (s) (list (concat s "(") "ans_apdl/Hlp_P_APDL3_9.html"))
+	 list))
   (set-buffer buffer)
   (goto-char (point-min))
   (insert (concat
@@ -803,12 +815,12 @@ Together with their proposed replacements.\")\n\n")
   (fill-paragraph 0)
   (message "parametric functions...done")
 
-;; ---------- completions ----------
+  ;; ---------- completions ----------
 
   (goto-char (point-min))
-;; (setq functions
-;;      (map 'list '(lambda (s) (concat s "()"))
-;;           parametric-functions get-functions))
+  ;; (setq functions
+  ;;      (map 'list '(lambda (s) (concat s "()"))
+  ;;           parametric-functions get-functions))
 
   (setq get-functions
 	(mapcar #'(lambda (s) (concat s "()")) get-functions))
@@ -824,13 +836,13 @@ Together with their proposed replacements.\")\n\n")
 	  commands
 	  undocumented-commands
 	  ) buffer)
-;; (prin1 commands buffer)
-;;  buffer)
+  ;; (prin1 commands buffer)
+  ;;  buffer)
   (insert "\n\"APDL symbols for completion in APDL-Mode.
 By default APDL keywords, get-functions, parametric-function and elements
 - deprecated as well - are completed.\")\n\n")
-;; (beginning-of-defun)
-;; (fill-paragraph nil)
+  ;; (beginning-of-defun)
+  ;; (fill-paragraph nil)
   (message "completions...done")
 
 ;; ---------- help index ----------
@@ -839,21 +851,21 @@ By default APDL keywords, get-functions, parametric-function and elements
   (with-temp-buffer
     (setq list ())               ; initialise list
     (insert-file-contents "ansys_Index.hlp")
-;; clean up redundant keywords
+    ;; clean up redundant keywords
     (delete-matching-lines "^Hlp")
-;; (goto-char (point-min))
-;; (delete-matching-lines "^Hlp_E_")
-;; (goto-char (point-min))
-;; ;; shorten keywords
-;; (while (re-search-forward "^Hlp_UI" nil t)
-;;   (replace-match "UI" nil nil))
-;; (goto-char (point-min))
-;; (while (re-search-forward "^Hlp_G" nil t)
-;;   (replace-match "G" nil nil))
-;; (goto-char (point-min))
-;; (while (re-search-forward "^Hlp_R" nil t) ; release notes
-;;   (replace-match "R" nil nil))
-;; (goto-char (point-min))
+    ;; (goto-char (point-min))
+    ;; (delete-matching-lines "^Hlp_E_")
+    ;; (goto-char (point-min))
+    ;; ;; shorten keywords
+    ;; (while (re-search-forward "^Hlp_UI" nil t)
+    ;;   (replace-match "UI" nil nil))
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward "^Hlp_G" nil t)
+    ;;   (replace-match "G" nil nil))
+    ;; (goto-char (point-min))
+    ;; (while (re-search-forward "^Hlp_R" nil t) ; release notes
+    ;;   (replace-match "R" nil nil))
+    ;; (goto-char (point-min))
 
     (while (re-search-forward "^SHELLS" nil t)
       (replace-match "\"SHELLS\"" nil nil)) ; unique v201
@@ -864,27 +876,27 @@ By default APDL keywords, get-functions, parametric-function and elements
     (while (re-search-forward "^SOLID " nil t) ; uniqe v201
       (replace-match "\"SOLIDS\"" nil nil))
     (goto-char (point-min))
-;; Replace suffix ALL with "ALL"
+    ;; Replace suffix ALL with "ALL"
     (while (re-search-forward "^ALL" nil t)
       (replace-match "\"all\"" nil nil))
     (goto-char (point-min))
-
-;; skip the first line
-    (next-line)
-;; (dotimes (i 10) (re-search-forward
+    ;; skip the first line
+    (forward-line)
+    ;; (dotimes (i 10) (re-search-forward
     (while (re-search-forward
 	    "^\\([^[:space:]]+\\)[[:space:]]+\\([^[:space:]]+\\)$" nil t)
       (add-to-list 'list (list (match-string 1) (match-string 2)) 'append)))
-  (add-to-list
-'list (list "\"RELEASE NOTES\"" "ai_rn/global_releasenotes.html") 'append)
-  (add-to-list
-   'list (list "\"CONTACT TECHNOLOGY GUIDE\"" "ans_ctec/ctectoc.html") 'append)
+  (add-to-list 'list
+	       (list "\"RELEASE NOTES\"" "ai_rn/global_releasenotes.html") 'append)
+  (add-to-list 'list
+	       (list "\"CONTACT TECHNOLOGY GUIDE\"" "ans_ctec/ctectoc.html") 'append)
   (add-to-list
    'list (list
 	  "\"PARAMETRIC DESIGN LANGUAGE GUIDE\""
 	  "ans_apdl/Hlp_P_APDLTOC.html") 'append)
   (add-to-list 'list
-(list "\"STRUCTURAL ANALYSIS GUIDE\"" "ans_str/Hlp_G_StrTOC.html") 'append)
+	       (list "\"STRUCTURAL ANALYSIS GUIDE\"" "ans_str/Hlp_G_StrTOC.html")
+	       'append)
   (add-to-list 'list
 	       (list "\"ADVANCED ANALYSIS TECHNIQUES GUIDE\""
 		     "ans_str/Hlp_G_AdvTOC.html") 'append)
@@ -893,6 +905,11 @@ By default APDL keywords, get-functions, parametric-function and elements
   (add-to-list 'list
 	       (list "\"THEORY REFERENCE\""
 		     "ans_thry/ansys.theory.html") 'append)
+
+  ;; add the functions to the apdl-help-index
+  (mapc (lambda (l) (add-to-list 'list l 'append)) apdl--parametric-functions)
+  (mapc (lambda (l) (add-to-list 'list l 'append)) apdl--get-functions)
+
   (message "adding help index...")
   (set-buffer buffer)
   (goto-char (point-min))
@@ -902,7 +919,7 @@ By default APDL keywords, get-functions, parametric-function and elements
   (prin1 list buffer)
   (insert "\n\"Ansys help index alist.\")\n\n")
   (beginning-of-defun)
-;;  (fill-paragraph 0)
+  ;;  (fill-paragraph 0)
   (message "help index...done.")
 
 ;; ---------- header ----------

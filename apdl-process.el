@@ -1319,11 +1319,12 @@ determines a highlighting of the license server summary rows.
 There are additional keybindings for the license buffer
 *User-licenses*:
 
+- `d' for a license description of all available features
 - `g' for updating the license status
-- `Q' for killing the Buffer
 - `?' and `h' for showing this help,
 - `l' for the general license status and
-- `q' for burying the *User-licenses* buffer."
+- `q' for burying the *User-licenses* buffer
+- `Q' for killing the Buffer"
   (interactive)
   (require 'apdl-mode)
   (unless apdl-initialised-flag
@@ -1342,6 +1343,9 @@ There are additional keybindings for the license buffer
         ;; otherwise it supposedly overwrites major modes keymaps!
         (local-set-key (kbd "Q") 'kill-this-buffer)
         (local-set-key (kbd "q") 'bury-buffer)
+        (local-set-key (kbd "d") (lambda ()
+				   (interactive)
+				   (apdl-license-status 1)))
         (local-set-key (kbd "h") (lambda ()
 				   (interactive)
 				   (describe-function
@@ -1379,7 +1383,7 @@ There are additional keybindings for the license buffer
         (goto-char (point-min))
         (insert (propertize
                  (concat " -*- User license status" ;" from " apdl-license-file
-                         " type h for help -*-\n") 'face 'match))
+                         " type h or ? for help -*-\n") 'face 'match))
         (goto-char (point-max))
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")
@@ -1405,7 +1409,7 @@ highlighting of the license server summary rows.  There are
 additional keybindings for the license buffer *Licenses*:
 
 - `g' for updating the license status,
-- `d' license overview with license feature description
+- `d' for a license description of all available features
 - `o' for showing an occur buffer with the interesting licenses from
       `apdl-license-occur-regexp',
 - `u' for displaying all the user license,
@@ -1508,7 +1512,7 @@ additional keybindings for the license buffer *Licenses*:
         (goto-char (point-min))
         (insert (propertize
                  (concat " -*- License status" ; from " apdl-license-file
-                         ", type h for help -*-\n") 'face 'match))
+                         ", type h or ? for help -*-\n") 'face 'match))
         (goto-char (point-max))
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")

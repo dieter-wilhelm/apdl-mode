@@ -3091,8 +3091,13 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: State of documentation,  Up: Ver
 12.1.1 Todos, bugs
 ------------------
 
+   • include -mode-version in autoload list
+   • Things like C-c C-jjj are not documented in manual!
+   • M-?  parameter counter is not working for commands where functions
+     with multiple arguments are in the argument list!  f,node(x,y,z),,,
    • improve docu, especially -> M-?  get- and fortran- functions are
      completed but there’s no help
+        • apdl-dynamic-prompt
    • more C-c C-b subjects 2.1.  SESSION Commands 2.2.  DATABASE
      Commands 2.3.  GRAPHICS Commands 2.4.  APDL Commands 2.5.  PREP7
      Commands 2.6.  SOLUTION Commands 2.7.  POST1 Commands 2.8.  POST26
@@ -3188,6 +3193,7 @@ File: apdl-mode.info,  Node: Check,  Next: Wishes,  Prev: Minor bugs,  Up: Versi
 12.1.4 Check
 ------------
 
+   • -mode-version working with autoload?
    • EWW bug: not working with remote ssh -help-path (debbugs-gnu-bugs
      40425)
    • changed file size without warning to 30 MB what is Emacs-26 using?
@@ -4473,40 +4479,40 @@ Node: Other APDL editor resources127259
 Node: Todos128173
 Node: Version 2050 1128504
 Node: Todos bugs128820
-Node: State of documentation129793
-Node: MD130554
-Node: Info130717
-Node: Presentations131534
-Node: Minor bugs131776
-Node: Check132111
-Node: Wishes132391
-Node: templates132540
-Node: misc132888
-Node: Done133329
-Node: Push and Release Proceedures133464
-Node: Version 2040 1134299
-Node: Version 2030 1134496
-Node: Version 2020 1134714
-Node: Version 2011 1134893
-Node: Version 162-2135365
-Node: Bugs135643
-Node: Freeze136612
-Node: Wish-list136969
-Node: Deficiencies143085
-Node: Procedures144746
-Node: Freeze proceedures145268
-Node: Release146795
-Node: Ideas for further versions147398
-Node: Parameter help and documentation147827
-Node: Ansys process and interpreter buffer150129
-Node: Skeletons outline and abbrevs152992
-Node: Miscellaneous 1154724
-Node: Ansys syntax restrictions not (yet) accounted for159714
-Node: Unknown Ansys stuff160617
-Node: Acknowledgements160900
-Node: GNU Free Documentation License161470
-Node: Variable Index186496
-Node: Concept Index186645
+Node: State of documentation130077
+Node: MD130838
+Node: Info131001
+Node: Presentations131818
+Node: Minor bugs132060
+Node: Check132395
+Node: Wishes132719
+Node: templates132868
+Node: misc133216
+Node: Done133657
+Node: Push and Release Proceedures133792
+Node: Version 2040 1134627
+Node: Version 2030 1134824
+Node: Version 2020 1135042
+Node: Version 2011 1135221
+Node: Version 162-2135693
+Node: Bugs135971
+Node: Freeze136940
+Node: Wish-list137297
+Node: Deficiencies143413
+Node: Procedures145074
+Node: Freeze proceedures145596
+Node: Release147123
+Node: Ideas for further versions147726
+Node: Parameter help and documentation148155
+Node: Ansys process and interpreter buffer150457
+Node: Skeletons outline and abbrevs153320
+Node: Miscellaneous 1155052
+Node: Ansys syntax restrictions not (yet) accounted for160042
+Node: Unknown Ansys stuff160945
+Node: Acknowledgements161228
+Node: GNU Free Documentation License161798
+Node: Variable Index186824
+Node: Concept Index186973
 
 End Tag Table
 

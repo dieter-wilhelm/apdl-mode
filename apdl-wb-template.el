@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-09>
+;; Time-stamp: <2020-04-16>
 
 ;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
 
@@ -57,9 +57,9 @@
 
 (defcustom apdl-wb-custom-template-directory
   apdl-mode-install-directory
-  "Directory where your Worbench / Aim templates are residing.
-You should customise this variable and use it for your own
-templates."
+  "Directory where your Worbench / Discovery Aim templates are residing.
+You should customise this variable to your needs and apply it for
+your own templates."
   :type '(directory)
   :group 'APDL-template)
 

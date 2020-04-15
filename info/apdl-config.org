@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-01>
+#+DATE: Time-stamp: <2020-04-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -33,8 +33,31 @@ chooses by default the highest installed Ansys version on your system.
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-The customisations itself are written in `Emacs-Lisp'.  The comment
-sign in this language is ~;~ (one semi-colon `;').
+You can change the APDL-Mode confgurations permanently by 1. using the
+Emacs customistation system -
+#+texinfo: @inforef{Easy Customization,,emacs}
+or 2. by directly manipulating the Emacs configuration file -
+#+texinfo: @inforef{Init File,,emacs}.
+
+
+  1. For an overview of available APDL-Mode customisations variables
+     it’s easiest to open the APDL-Mode’s customisation buffer either
+     with the command ‘M-x apdl-customise-apdl’ or from the menu bar
+     -> ’APDL’ -> ’Customise APDL Mode’ and search for interesting
+     options.  Another way of using the customisation facility is to
+     open the help of respective variables.  Let’s change for example
+     the highlighting level which is stored in the customisation
+     variable ‘apdl-highlighting-level’: Open its documentation with
+     "C-h v" `apdl-highlighting-level'.  In its help buffer you can
+     click on the hyperlink `customize’ at the bottom.  You might set
+     a value for this particular variable only for the current session
+     or you might add your choices automatically in the Emacs
+     configuration file for future sessions.
+
+  2. The following describes editing the Emacs configuration file (for
+     example ~/.emacs or ~/.emacs.d/init.el).  These customisations
+     are written in `Emacs-Lisp'.  The comment sign in this language
+     is ~;~ (one semi-colon `;').
 
 * Conventions
   used in /apdl-config.el/
@@ -98,7 +121,33 @@ sign in this language is ~;~ (one semi-colon `;').
     ;;; CODE:
   #+END_SRC
 
-* Important Prerequisites
+* Important Prerequisite
+  For using Ansys processes, like getting license informations,
+  the Ansys Installation path with version information is necessary.
+  If you have a non default installation APDL-Mode might not be able
+  to find your Ansys installation.  Please configure your installation
+  path up to and including the Ansys versioning number.
+
+  You can change the installation path for the current session with
+  the MAPDL menu entry "Change Installation Directory".
+
+   #+BEGIN_SRC emacs-lisp  :tangle yes
+  (cond ((string= window-system "x")
+	  ;; This is an example of an installation directory on GNU-Linux
+	  (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
+	  ;; the default might look like "/ansys_inc/v201/"
+	 (t ;This an example of an installation directory on WINDOWS
+	  ;; Emacs is using here forward slashes as under Unix and not
+	  ;; the backslash "\"!
+	  (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
+	  ;; default: "C:/Program Files/Ansys Inc/v201/"
+   #+END_SRC
+
+   If your Ansys installation differs completely from the standard
+   Ansys directory structure, or you want to use multiple versions of
+   Ansys, then please consult the section [[*Installation dependent configurations][Installation dependent configurations]]
+   below.
+
 ** COMMENT Finding APDL-Mode
    If the APDL-Mode files (the files with the suffix /.el/) are *not*
    placed in a default Emacs load path.  Please see the variable
@@ -129,47 +178,25 @@ sign in this language is ~;~ (one semi-colon `;').
    (add-to-list 'load-path "/usr/local/src/emacs/apdl-mode")
    #+END_SRC
    for a GNU-Linux system.
-** Ansys Installation path with version information
-   If you have a non default installation APDL-Mode might not be able
-   to find the Ansys installation.  Please configure your installation
-   path up to and including the Ansys versioning number.
-
-   #+BEGIN_SRC emacs-lisp  :tangle yes
-  (cond ((string= window-system "x")
-	  ;; This is an example of an installation directory on GNU-Linux
-	  (setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
-	  ;; the default might look like "/ansys_inc/v201/"
-	 (t ;This an example of an installation directory on WINDOWS
-	  ;; Emacs is using here forward slashes as under Unix and not
-	  ;; the backslash "\"!
-	  (setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
-	  ;; default: "C:/Program Files/Ansys Inc/v201/"
-   #+END_SRC
-
-   If your Ansys installation differs completely from the standard
-   Ansys directory structure, or you want to use a mixed version
-   system, then please consult the section `INSTALLATION PATHS'
-   further below.
-
 * File suffixes
-  for auto loading APDL-Mode Configure your file suffixes for which
-  Ansys mode is automatically called for.
+  For auto loading APDL-Mode please customise your file suffixes for
+  which Ansys mode is automatically called for.
 ** Macro files
    /.mac/ is the macro suffix of Ansys i. e. these macro files can be
    called in the Ansys command prompt or APDL like a regular Ansys
    function (without the suffix /.mac/).
 
    APDL-Mode has configured GNU-Emacs to open files with this suffix
-   under apdl-mode.
+   under apdl-mode.  Please check the /example.mac/ file in the /doc/
+   folder.
 
    With the following setting
 
   #+BEGIN_SRC emacs-lisp :tangle yes
-    (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+    (add-to-list 'auto-mode-alist '("\\.apdl$" . apdl-mode))
   #+END_SRC
 
-  files with the suffix /.ans/ will be opended in Emacs under
-  APDL-Mode.  Please check the /example.mac/ file in the /doc/ folder.
+  files with the suffix /.apdl/ will be opended under APDL-Mode.
 ** WorkBench generated input files
    /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See
    the file /example.dat/ in the /doc/ folder.
@@ -283,7 +310,7 @@ sign in this language is ~;~ (one semi-colon `;').
   #+BEGIN_SRC emacs-lisp
 (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
 (autoload 'apdl-mode "apdl-mode" nil t)
-(autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
+(autoload 'apdl-customise-apdl "apdl-mode" "Activate the function for
  calling a special Ansys customisation buffer." 'interactive)
 (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting Ansys runs." 'interactive)
 (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
@@ -305,7 +332,7 @@ sign in this language is ~;~ (one semi-colon `;').
 
   (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
   (autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
-  (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
+  (autoload 'apdl-customise-apdl "apdl-mode" "Activate the function for
   calling a special Ansys customisation buffer." 'interactive)
   (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting Ansys runs." 'interactive)
   (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
@@ -346,12 +373,12 @@ sign in this language is ~;~ (one semi-colon `;').
 #+BEGIN_SRC emacs-lisp
 (setq apdl-dynamic-highlighting-flag nil)
 ; (setq apdl-dynamic-highlighting-flag t) ;default: t
-
 #+END_SRC
+
 ** Decoration levels
-Decoration levels 0,1,2 are available.  User variable highlighting is
-only in level 2 available (statical, if above flag is not set), the
-current default is 2
+   Decoration levels 0,1,2 are available.  User variable highlighting
+   is only in level 2 available (statical, if above flag is not set),
+   the current default is 2.
 
 ** Summary
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -390,7 +417,8 @@ current default is 2
 
     ;; Things you might have to configure if your Ansys installation is
     ;; completely differing from default Ansys installation paths, as in
-    ;; the example below, or you want to use a mixed version system:
+    ;; the example below, especially if you want to use mixed version
+    ;; installations of Ansys:
 
   (setq apdl-ansys-help-program
       "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
@@ -466,12 +494,12 @@ current default is 2
      (setq apdl-license "struct") ; default: "ansys"
    #+END_SRC
 
-   Ansys job name
+   The Ansys job name
    #+BEGIN_SRC emacs-lisp
-     (setq apdl-job "harmonics1"); default: "file"
+     (setq apdl-job "harmonics1") ; default: "file"
    #+END_SRC
 
-** Summary   
+** Summary
 #+BEGIN_SRC emacs-lisp :tangle yes
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
                          ;; Ansys processes stuff
@@ -484,18 +512,16 @@ current default is 2
 
    ;; for starting the solver & apdl-license-status & Ansys help
   (setq                 ;
-   ;; license servers (or license file name)nn
+   ;; license servers (or license file name)
    ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
    ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
    apdl-license-file
    "32002@ls_fr_ansyslmd_ww_1.conti.de"
-   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
    ;; since Ansys 12.0 there is an intermediate server for
    ;; the communication between flexlm and Ansys, 2325 is the default port
    apdl-ansysli-servers
    "2325@ls_fr_ansyslmd_ww_1.conti.de"
-   "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

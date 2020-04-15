@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-14>
+;; Time-stamp: <2020-04-15>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -3225,12 +3225,56 @@ Use variable `apdl-user-variable-regexp'."
         (setq eol (point))
         (buffer-substring bol eol)))))
 
+
+(when nil
+;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+This is a normal text with a button :D
+
+(require 'button)
+
+(defvar help-xref-following)
+
+(define-button-type 'apdl-xref
+  'follow-link t
+  'action #'apdl-button-action)
+
+(defun apdl-button-action (button)
+  "Call BUTTON's help function."
+  (apdl-do-xref nil
+		(button-get button 'help-function)
+		(button-get button 'help-args)))
+
+(define-button-type 'help-func
+  :supertype 'apdl-xref
+  'help-function 'describe-function
+  'help-echo (purecopy "mouse-2, RET: describe this function in help"))
+
+(defun apdl-do-xref (_pos function args)
+  "Call the help cross-reference function FUNCTION with args ARGS.
+Things are set up properly so that the resulting help-buffer has
+a proper [back] button."
+  ;; There is a reference at point.  Follow it.
+  (let ((help-xref-following nil))	;follow help buffer
+    (apply
+     function (if (eq function 'describe-bla)
+		  (append args (list (generate-new-buffer-name "*Help*"))) args))))
+
+(make-text-button 127833 127840 'type 'help-func
+		  'help-args '(apdl-display-variables))
+
+(describe-function 'apdl-display-variables)
+
+) ; end of (when nil
+
 (defun apdl-display-variables (arg)
   "Displays APDL variable assignments in the current buffer.
 Together with the corresponding line number N (type \\[goto-line]
 N for skipping to line N or place the cursor over the number and
-`C-u' \\[goto-line] takes the number automatically).  With a prefix
-argument ARG, the function evaluates the variable at point."
+`C-u' \\[goto-line] takes the number automatically).  With a
+prefix argument ARG, the function evaluates the variable at
+point.  The result is shown in the command process buffer, if an
+MAPDL process is running under Emacs."
   (interactive "P")
   (cond
    (arg
@@ -3286,8 +3330,8 @@ argument ARG, the function evaluates the variable at point."
       (set-buffer current-buffer)
       (display-buffer buffer-name 'other-window)))))
 
-(defun apdl-customise-ansys ()
-  "Call the Emacs customisation facility for APDL-Mode."
+(defun apdl-customise-apdl ()
+  "Call the GNU-Emacs customisation facility for APDL-Mode."
   (interactive)
   (customize-group "APDL"))
 

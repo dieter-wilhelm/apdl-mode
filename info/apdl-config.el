@@ -58,7 +58,7 @@
 	(setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
 	;; default: "C:/Program Files/Ansys Inc/v201/"
 
-(add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+(add-to-list 'auto-mode-alist '("\\.apdl$" . apdl-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; file suffixes for autoloading of APDL-Mode, appropriate file
@@ -166,7 +166,8 @@
 
   ;; Things you might have to configure if your Ansys installation is
   ;; completely differing from default Ansys installation paths, as in
-  ;; the example below, or you want to use a mixed version system:
+  ;; the example below, especially if you want to use mixed version
+  ;; installations of Ansys:
 
 (setq apdl-ansys-help-program
     "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
@@ -191,18 +192,16 @@
 
    ;; for starting the solver & apdl-license-status & Ansys help
   (setq                 ;
-   ;; license servers (or license file name)nn
+   ;; license servers (or license file name)
    ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
    ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
    apdl-license-file
    "32002@ls_fr_ansyslmd_ww_1.conti.de"
-   "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
    ;; since Ansys 12.0 there is an intermediate server for
    ;; the communication between flexlm and Ansys, 2325 is the default port
    apdl-ansysli-servers
    "2325@ls_fr_ansyslmd_ww_1.conti.de"
-   "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

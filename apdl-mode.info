@@ -52,7 +52,7 @@ Usage and Applications
 Configuration and Customisation
 
 * Conventions::
-* Important Prerequisites::
+* Important Prerequisite::
 * File suffixes::
 * Auto insertion::
 * Miscellaneous::
@@ -815,7 +815,7 @@ sign in this language is ‘;’ (one semi-colon ‘;’).
 * Menu:
 
 * Conventions::
-* Important Prerequisites::
+* Important Prerequisite::
 * File suffixes::
 * Auto insertion::
 * Miscellaneous::
@@ -825,7 +825,7 @@ sign in this language is ‘;’ (one semi-colon ‘;’).
 * Ansys processes::
 
 
-File: apdl-mode.info,  Node: Conventions,  Next: Important Prerequisites,  Up: Configuration and Customisation
+File: apdl-mode.info,  Node: Conventions,  Next: Important Prerequisite,  Up: Configuration and Customisation
 
 6.1 Conventions
 ===============
@@ -839,24 +839,16 @@ or load your adjustments of this file with ‘(load-file
 "PATH/apdl-config.el")’ from your init file.
 
 
-File: apdl-mode.info,  Node: Important Prerequisites,  Next: File suffixes,  Prev: Conventions,  Up: Configuration and Customisation
+File: apdl-mode.info,  Node: Important Prerequisite,  Next: File suffixes,  Prev: Conventions,  Up: Configuration and Customisation
 
-6.2 Important Prerequisites
-===========================
+6.2 Important Prerequisite
+==========================
 
-* Menu:
-
-* Ansys Installation path with version information::
-
-
-File: apdl-mode.info,  Node: Ansys Installation path with version information,  Up: Important Prerequisites
-
-6.2.1 Ansys Installation path with version information
-------------------------------------------------------
-
-If you have a non default installation APDL-Mode might not be able to
-find the Ansys installation.  Please configure your installation path up
-to and including the Ansys versioning number.
+For using Ansys processes, like getting license informations, the Ansys
+Installation path with version information is necessary.  If you have a
+non default installation APDL-Mode might not be able to find your Ansys
+installation.  Please configure your installation path up to and
+including the Ansys versioning number.
 
      (cond ((string= window-system "x")
              ;; This is an example of an installation directory on GNU-Linux
@@ -869,17 +861,18 @@ to and including the Ansys versioning number.
              ;; default: "C:/Program Files/Ansys Inc/v201/"
 
    If your Ansys installation differs completely from the standard Ansys
-directory structure, or you want to use a mixed version system, then
-please consult the section ‘INSTALLATION PATHS’ further below.
+directory structure, or you want to use multiple versions of Ansys, then
+please consult the section *note Installation dependent configurations::
+below.
 
 
-File: apdl-mode.info,  Node: File suffixes,  Next: Auto insertion,  Prev: Important Prerequisites,  Up: Configuration and Customisation
+File: apdl-mode.info,  Node: File suffixes,  Next: Auto insertion,  Prev: Important Prerequisite,  Up: Configuration and Customisation
 
 6.3 File suffixes
 =================
 
-for auto loading APDL-Mode Configure your file suffixes for which Ansys
-mode is automatically called for.
+For auto loading APDL-Mode please customise your file suffixes for which
+Ansys mode is automatically called for.
 
 * Menu:
 
@@ -898,14 +891,14 @@ called in the Ansys command prompt or APDL like a regular Ansys function
 (without the suffix _.mac_).
 
    APDL-Mode has configured GNU-Emacs to open files with this suffix
-under apdl-mode.
+under apdl-mode.  Please check the _example.mac_ file in the _doc_
+folder.
 
    With the following setting
 
-     (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+     (add-to-list 'auto-mode-alist '("\\.apdl$" . apdl-mode))
 
-   files with the suffix _.ans_ will be opended in Emacs under
-APDL-Mode.  Please check the _example.mac_ file in the _doc_ folder.
+   files with the suffix _.apdl_ will be opended under APDL-Mode.
 
 
 File: apdl-mode.info,  Node: WorkBench generated input files,  Next: The Ansys Neutral file format,  Prev: Macro files,  Up: File suffixes
@@ -1064,7 +1057,6 @@ overlay
      (setq apdl-dynamic-highlighting-flag nil)
      ; (setq apdl-dynamic-highlighting-flag t) ;default: t
 
-
 
 File: apdl-mode.info,  Node: Decoration levels,  Next: Summary,  Prev: Dynamic highlighting,  Up: Highlighting (Colourisation)
 
@@ -1073,7 +1065,7 @@ File: apdl-mode.info,  Node: Decoration levels,  Next: Summary,  Prev: Dynamic h
 
 Decoration levels 0,1,2 are available.  User variable highlighting is
 only in level 2 available (statical, if above flag is not set), the
-current default is 2
+current default is 2.
 
 
 File: apdl-mode.info,  Node: Summary,  Prev: Decoration levels,  Up: Highlighting (Colourisation)
@@ -1120,7 +1112,8 @@ you want to mix various Ansys versions:
 
        ;; Things you might have to configure if your Ansys installation is
        ;; completely differing from default Ansys installation paths, as in
-       ;; the example below, or you want to use a mixed version system:
+       ;; the example below, especially if you want to use mixed version
+       ;; installations of Ansys:
 
      (setq apdl-ansys-help-program
          "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
@@ -1189,8 +1182,8 @@ Number of cores for the run: 4 does not require HPC licenses
    Which license type to use for the solver
      (setq apdl-license "struct") ; default: "ansys"
 
-   Ansys job name
-     (setq apdl-job "harmonics1"); default: "file"
+   The Ansys job name
+     (setq apdl-job "harmonics1") ; default: "file"
 
 
 File: apdl-mode.info,  Node: Summary 1,  Prev: Solver options,  Up: Ansys processes
@@ -1209,18 +1202,16 @@ File: apdl-mode.info,  Node: Summary 1,  Prev: Solver options,  Up: Ansys proces
 
         ;; for starting the solver & apdl-license-status & Ansys help
        (setq                 ;
-        ;; license servers (or license file name)nn
+        ;; license servers (or license file name)
         ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
         ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
         apdl-license-file
         "32002@ls_fr_ansyslmd_ww_1.conti.de"
-        "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
 
         ;; since Ansys 12.0 there is an intermediate server for
         ;; the communication between flexlm and Ansys, 2325 is the default port
         apdl-ansysli-servers
         "2325@ls_fr_ansyslmd_ww_1.conti.de"
-        "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
         )
 
        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -4370,153 +4361,152 @@ Emacs 26.3 (Org mode 9.1.9)
 
 Tag Table:
 Node: Top79
-Node: Copying2384
-Node: Introduction2941
-Node: First Steps5101
-Node: Introductory Tutorial5965
-Node: Usage and Applications8451
-Node: Finding Help8972
-Node: Command Help with Argument Counter9304
-Node: APDL Keyword Documentation10145
-Node: Code Templates11002
-Node: Completion11958
-Node: Code Alignment13431
-Node: Auto-indentation13944
-Node: Closing of Control Blocks14422
-Node: Code Navigation14839
-Node: Sophisticated Highlighting17363
-Node: Variable Definitions21068
-Node: Abbreviation Facility22096
-Node: Outlining22880
-Node: Comment Handling24084
-Node: Auto-insertion25240
-Node: Process Management25823
-Node: MAPDL Solver Control28886
-Node: Configuration and Customisation33151
-Node: Conventions34099
-Node: Important Prerequisites34625
-Node: Ansys Installation path with version information34881
-Node: File suffixes36071
-Node: Macro files36450
-Node: WorkBench generated input files37076
-Node: The Ansys Neutral file format37499
-Node: Auto insertion39160
-Node: Miscellaneous40163
-Node: Outlining 141512
-Node: Highlighting (Colourisation)42128
-Node: Dynamic highlighting42429
-Node: Decoration levels43047
-Node: Summary43386
-Node: Installation dependent configurations44569
-Node: Ansys processes46278
-Node: License server46521
-Node: Solver options47587
-Node: Summary 148019
-Node: APDL Reference 150512
-Node: WorkBench to APDL Translation50807
-Node: Contacts51051
-Node: default 3D thermal contact51224
-Node: Material Models53069
-Node: Plasticity53268
-Node: Boundary conditions53571
-Node: APDL Reference59133
-Node: Idiosyncrasies59598
-Node: File types61824
-Node: Defining parameters76902
-Node: Double char38 char8 logical TODO77222
-Node: Variable names77451
-Node: Character strings81725
-Node: Erasing variables from memory82077
-Node: Variable substitution82759
-Node: Substitution of Numeric Variables83110
-Node: Substitution of Character Variables83738
-Node: Dynamic Substitution of Numeric or Character Variables85093
-Node: Expressions85802
-Node: Exponentiation Operator86031
-Node: Multiplication Expression86217
-Node: Operators86637
-Node: Arrays86940
-Node: Specifiying array element values87192
-Node: APDL Math87371
-Node: debugging87884
-Node: Multiple runs probabilistic design88090
-Node: Undocumented commands88400
-Node: APDL-Mode Syntax Highlighting Reference88749
-Node: Header89060
-Node: Highlighting APDL specials91344
-Node: Reserved words and _RETURN statements91922
-Node: _RETURN values of macros92293
-Node: Old style APDL comments92777
-Node: Ignored characters behind commands93194
-Node: The End Of File command93508
-Node: Ignored characters behind commands 193950
-Node: The End Of File command 194374
-Node: Current element types and deprecated elements94776
-Node: Implied (or colon) looping95568
-Node: And the rest96809
-Node: Installation and Development100546
-Node: Melpa101101
-Node: Manual installation101966
-Node: Development and source code installation103061
-Node: Bugs and Problems103620
-Node: News104564
-Node: Version 2050105252
-Node: Version 2040105699
-Node: Version 2030106400
-Node: Version 2020107118
-Node: Version 2011107970
-Node: Version 2010108299
-Node: Version 162-1108845
-Node: Version 1611110365
-Node: Version 1501111992
-Node: Version 1452112821
-Node: Version 1451114222
-Node: Version 1401117372
-Node: Version 1301118827
-Node: Version 1201119742
-Node: Version 1102122109
-Node: ansys-modeel 1101122667
-Node: Further Resources125791
-Node: Ansys and APDL resources126019
-Node: Emacs editor resources126807
-Node: Other APDL editor resources127370
-Node: Todos128284
-Node: Version 2050 1128615
-Node: Todos bugs128931
-Node: State of documentation130188
-Node: MD130949
-Node: Info131112
-Node: Presentations131929
-Node: Minor bugs132171
-Node: Check132506
-Node: Wishes132830
-Node: templates133020
-Node: misc133368
-Node: Done133809
-Node: Push and Release Proceedures133944
-Node: Version 2040 1134779
-Node: Version 2030 1134976
-Node: Version 2020 1135194
-Node: Version 2011 1135373
-Node: Version 162-2135845
-Node: Bugs136123
-Node: Freeze137092
-Node: Wish-list137449
-Node: Deficiencies143565
-Node: Procedures145226
-Node: Freeze proceedures145748
-Node: Release147275
-Node: Ideas for further versions147878
-Node: Parameter help and documentation148307
-Node: Ansys process and interpreter buffer150609
-Node: Skeletons outline and abbrevs153472
-Node: Miscellaneous 1155204
-Node: Ansys syntax restrictions not (yet) accounted for160194
-Node: Unknown Ansys stuff161097
-Node: Acknowledgements161380
-Node: GNU Free Documentation License161950
-Node: Variable Index186976
-Node: Concept Index187125
+Node: Copying2383
+Node: Introduction2940
+Node: First Steps5100
+Node: Introductory Tutorial5964
+Node: Usage and Applications8450
+Node: Finding Help8971
+Node: Command Help with Argument Counter9303
+Node: APDL Keyword Documentation10144
+Node: Code Templates11001
+Node: Completion11957
+Node: Code Alignment13430
+Node: Auto-indentation13943
+Node: Closing of Control Blocks14421
+Node: Code Navigation14838
+Node: Sophisticated Highlighting17362
+Node: Variable Definitions21067
+Node: Abbreviation Facility22095
+Node: Outlining22879
+Node: Comment Handling24083
+Node: Auto-insertion25239
+Node: Process Management25822
+Node: MAPDL Solver Control28885
+Node: Configuration and Customisation33150
+Node: Conventions34097
+Node: Important Prerequisite34622
+Node: File suffixes35928
+Node: Macro files36313
+Node: WorkBench generated input files36932
+Node: The Ansys Neutral file format37355
+Node: Auto insertion39016
+Node: Miscellaneous40019
+Node: Outlining 141368
+Node: Highlighting (Colourisation)41984
+Node: Dynamic highlighting42285
+Node: Decoration levels42902
+Node: Summary43242
+Node: Installation dependent configurations44425
+Node: Ansys processes46169
+Node: License server46412
+Node: Solver options47478
+Node: Summary 147915
+Node: APDL Reference 150051
+Node: WorkBench to APDL Translation50346
+Node: Contacts50590
+Node: default 3D thermal contact50763
+Node: Material Models52608
+Node: Plasticity52807
+Node: Boundary conditions53110
+Node: APDL Reference58672
+Node: Idiosyncrasies59137
+Node: File types61363
+Node: Defining parameters76441
+Node: Double char38 char8 logical TODO76761
+Node: Variable names76990
+Node: Character strings81264
+Node: Erasing variables from memory81616
+Node: Variable substitution82298
+Node: Substitution of Numeric Variables82649
+Node: Substitution of Character Variables83277
+Node: Dynamic Substitution of Numeric or Character Variables84632
+Node: Expressions85341
+Node: Exponentiation Operator85570
+Node: Multiplication Expression85756
+Node: Operators86176
+Node: Arrays86479
+Node: Specifiying array element values86731
+Node: APDL Math86910
+Node: debugging87423
+Node: Multiple runs probabilistic design87629
+Node: Undocumented commands87939
+Node: APDL-Mode Syntax Highlighting Reference88288
+Node: Header88599
+Node: Highlighting APDL specials90883
+Node: Reserved words and _RETURN statements91461
+Node: _RETURN values of macros91832
+Node: Old style APDL comments92316
+Node: Ignored characters behind commands92733
+Node: The End Of File command93047
+Node: Ignored characters behind commands 193489
+Node: The End Of File command 193913
+Node: Current element types and deprecated elements94315
+Node: Implied (or colon) looping95107
+Node: And the rest96348
+Node: Installation and Development100085
+Node: Melpa100640
+Node: Manual installation101505
+Node: Development and source code installation102600
+Node: Bugs and Problems103159
+Node: News104103
+Node: Version 2050104791
+Node: Version 2040105238
+Node: Version 2030105939
+Node: Version 2020106657
+Node: Version 2011107509
+Node: Version 2010107838
+Node: Version 162-1108384
+Node: Version 1611109904
+Node: Version 1501111531
+Node: Version 1452112360
+Node: Version 1451113761
+Node: Version 1401116911
+Node: Version 1301118366
+Node: Version 1201119281
+Node: Version 1102121648
+Node: ansys-modeel 1101122206
+Node: Further Resources125330
+Node: Ansys and APDL resources125558
+Node: Emacs editor resources126346
+Node: Other APDL editor resources126909
+Node: Todos127823
+Node: Version 2050 1128154
+Node: Todos bugs128470
+Node: State of documentation129727
+Node: MD130488
+Node: Info130651
+Node: Presentations131468
+Node: Minor bugs131710
+Node: Check132045
+Node: Wishes132369
+Node: templates132559
+Node: misc132907
+Node: Done133348
+Node: Push and Release Proceedures133483
+Node: Version 2040 1134318
+Node: Version 2030 1134515
+Node: Version 2020 1134733
+Node: Version 2011 1134912
+Node: Version 162-2135384
+Node: Bugs135662
+Node: Freeze136631
+Node: Wish-list136988
+Node: Deficiencies143104
+Node: Procedures144765
+Node: Freeze proceedures145287
+Node: Release146814
+Node: Ideas for further versions147417
+Node: Parameter help and documentation147846
+Node: Ansys process and interpreter buffer150148
+Node: Skeletons outline and abbrevs153011
+Node: Miscellaneous 1154743
+Node: Ansys syntax restrictions not (yet) accounted for159733
+Node: Unknown Ansys stuff160636
+Node: Acknowledgements160919
+Node: GNU Free Documentation License161489
+Node: Variable Index186515
+Node: Concept Index186664
 
 End Tag Table
 

@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org8a5b26b)
-2.  [Important Prerequisites](#org0bb57d2)
-3.  [File suffixes](#org20718b5)
-4.  [Auto insertion](#org4269e53)
-5.  [Miscellaneous](#orgcf7f873)
-6.  [Outlining](#orgc55ee85)
-7.  [Highlighting (Colourisation)](#orgc43f965)
-8.  [Installation dependent configurations](#org91fb6d9)
-9.  [Ansys processes](#org910054e)
+1.  [Conventions](#org431c4c9)
+2.  [Important Prerequisite](#org70c5928)
+3.  [File suffixes](#orgeed37c7)
+4.  [Auto insertion](#org3b58c97)
+5.  [Miscellaneous](#org3674bdb)
+6.  [Outlining](#org00c24f4)
+7.  [Highlighting (Colourisation)](#orge27bb13)
+8.  [Installation dependent configurations](#org204e604)
+9.  [Ansys processes](#org75545f9)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -23,7 +23,7 @@ The customisations itself are written in \`Emacs-Lisp'.  The comment
 sign in this language is `;` (one semi-colon \`;').
 
 
-<a id="org8a5b26b"></a>
+<a id="org431c4c9"></a>
 
 # Conventions
 
@@ -37,15 +37,14 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="org0bb57d2"></a>
+<a id="org70c5928"></a>
 
-# Important Prerequisites
+# Important Prerequisite
 
-
-## Ansys Installation path with version information
-
+For using Ansys processes, like getting license informations,
+the Ansys Installation path with version information is necessary.
 If you have a non default installation APDL-Mode might not be able
-to find the Ansys installation.  Please configure your installation
+to find your Ansys installation.  Please configure your installation
 path up to and including the Ansys versioning number.
 
     (cond ((string= window-system "x")
@@ -59,17 +58,17 @@ path up to and including the Ansys versioning number.
     	;; default: "C:/Program Files/Ansys Inc/v201/"
 
 If your Ansys installation differs completely from the standard
-Ansys directory structure, or you want to use a mixed version
-system, then please consult the section \`INSTALLATION PATHS'
-further below.
+Ansys directory structure, or you want to use multiple versions of
+Ansys, then please consult the section [Installation dependent configurations](#org204e604)
+below.
 
 
-<a id="org20718b5"></a>
+<a id="orgeed37c7"></a>
 
 # File suffixes
 
-for auto loading APDL-Mode Configure your file suffixes for which
-Ansys mode is automatically called for.
+For auto loading APDL-Mode please customise your file suffixes for
+which Ansys mode is automatically called for.
 
 
 ## Macro files
@@ -79,14 +78,14 @@ called in the Ansys command prompt or APDL like a regular Ansys
 function (without the suffix *.mac*).
 
 APDL-Mode has configured GNU-Emacs to open files with this suffix
-under apdl-mode.
+under apdl-mode.  Please check the *example.mac* file in the *doc*
+folder.
 
 With the following setting
 
-    (add-to-list 'auto-mode-alist '("\\.ans$" . apdl-mode))
+    (add-to-list 'auto-mode-alist '("\\.apdl$" . apdl-mode))
 
-files with the suffix *.ans* will be opended in Emacs under
-APDL-Mode.  Please check the *example.mac* file in the *doc* folder.
+files with the suffix *.apdl* will be opended under APDL-Mode.
 
 
 ## WorkBench generated input files
@@ -135,7 +134,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org4269e53"></a>
+<a id="org3b58c97"></a>
 
 # Auto insertion
 
@@ -157,7 +156,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="orgcf7f873"></a>
+<a id="org3674bdb"></a>
 
 # Miscellaneous
 
@@ -191,7 +190,7 @@ section).
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="orgc55ee85"></a>
+<a id="org00c24f4"></a>
 
 # Outlining
 
@@ -207,7 +206,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="orgc43f965"></a>
+<a id="orge27bb13"></a>
 
 # Highlighting (Colourisation)
 
@@ -229,9 +228,9 @@ below).
 
 ## Decoration levels
 
-Decoration levels 0,1,2 are available.  User variable highlighting is
-only in level 2 available (statical, if above flag is not set), the
-current default is 2
+Decoration levels 0,1,2 are available.  User variable highlighting
+is only in level 2 available (statical, if above flag is not set),
+the current default is 2.
 
 
 ## Summary
@@ -260,7 +259,7 @@ current default is 2
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org91fb6d9"></a>
+<a id="org204e604"></a>
 
 # Installation dependent configurations
 
@@ -274,7 +273,8 @@ path, or if you want to mix various Ansys versions:
     
       ;; Things you might have to configure if your Ansys installation is
       ;; completely differing from default Ansys installation paths, as in
-      ;; the example below, or you want to use a mixed version system:
+      ;; the example below, especially if you want to use mixed version
+      ;; installations of Ansys:
     
     (setq apdl-ansys-help-program
         "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
@@ -289,7 +289,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org910054e"></a>
+<a id="org75545f9"></a>
 
 # Ansys processes
 
@@ -330,9 +330,9 @@ Which license type to use for the solver
 
     (setq apdl-license "struct") ; default: "ansys"
 
-Ansys job name
+The Ansys job name
 
-    (setq apdl-job "harmonics1"); default: "file"
+    (setq apdl-job "harmonics1") ; default: "file"
 
 
 ## Summary
@@ -348,18 +348,16 @@ Ansys job name
     
        ;; for starting the solver & apdl-license-status & Ansys help
       (setq                 ;
-       ;; license servers (or license file name)nn
+       ;; license servers (or license file name)
        ;; specify even the default port for lmutil (since Ansys V 12.0) on GNU-Linux
        ;; GNU-Linux: License servers separated by colons (":"), 1055 is the default port
        apdl-license-file
        "32002@ls_fr_ansyslmd_ww_1.conti.de"
-       "32002@ls_fr_ansyslmd_ww_1.conti.de:32002@ls_fr_ansyslmd_ww_2.conti.de:32002@ls_fr_ansyslmd_ww_4.conti.de:1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com"
     
        ;; since Ansys 12.0 there is an intermediate server for
        ;; the communication between flexlm and Ansys, 2325 is the default port
        apdl-ansysli-servers
        "2325@ls_fr_ansyslmd_ww_1.conti.de"
-       "2325@ls_fr_ansyslmd_ww_1.conti.de:2325@ls_fr_ansyslmd_ww_3.conti.de:2325@ls_fr_ansyslmd_ww_4.conti.de:2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com"
        )
     
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

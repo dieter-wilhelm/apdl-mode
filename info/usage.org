@@ -227,8 +227,8 @@
   correctly everywhere not only at the place of its definition.
 
   For this to occur ‘apdl-highlighting-level’ must be set to 2 (the
-  maximum, which is also the default), please have a look at the ==
-  customisation == section on how to change settings.
+  maximum, which is also the default), please have a look at the
+  [[file:apdl-config.org][apdl-config.org]] file on how to change settings.
 
   Newly edited variable definitions are taken into account only
   when the variable ‘apdl-dynamic-highlighting-flag’ is set (for
@@ -239,7 +239,8 @@
   highlighting level (2).
 
 * Variable Definitions
-  definition and component names (*GET, *DIM, *SET, = and DO, ...).
+  Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...)
+  and component names (CM).
 
   Typing "C-c C-v" (for ‘apdl-display-variables’) shows all
   definitions in your APDL file in a separate window.
@@ -248,7 +249,7 @@
   (‘apdl-delete-other-window’).
 
   When you place the cursor on the respective line number and type
-  ‘C-u’ ‘M-g g’, where ‘C-u’ is a ’prefix’ argument to ‘M-g g’
+  "C-u M-g g", where "C-u" is a ’prefix’ argument for "M-g g"
   (‘goto-line’)).  Emacs will then skip to the corresponding
   definition line in the macro file.
 
@@ -256,19 +257,20 @@
   receive the current value of your variables at the cursor position.
   For this functionality it is necessary to have a running Ansys
   process (GNU-Linux systems only, please see below the chapter about
-  the solver communication).
+  the [[*MAPDL Solver Control][MAPDL Solver Control]]).
 
 * Abbreviation Facility
-  for block templates.
-
-  E.g. typing "‘do" (the backquote ’‘’ then ’do’) and the space key
-  <SPC> under APDL-Mode triggers an interactive code template which
-  inserts a *DO loop (‘apdl-do’).  "‘d" (then <SPC>) is a more
-  immediate version of it without requesting user input (‘ansys_do’).
+  Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
+  triggers an interactive code template which inserts a *DO loop
+  (‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate
+  version of a do loop without requesting user input (‘ansys_do’).
   You can see all the predefined abbreviations with "‘?", i. e. a
-  question mark ’?’  after the backquote ’‘’.  Alternatively you might
+  question mark "?"  after the backquote "‘".  Alternatively you might
   use the menu entry "List Mode Abbbreviations" or the command ‘M-x
-  ‘list-abbrevs’ <RET>’ to inspect all definitions which are defined.
+  list-abbrevs <RET>’ to inspect all definitions.
+
+  You can define your own abbreviations, please
+  #+texinfo: @inforef{Abbrev Concepts,,emacs}.
 
 * Outlining
   (hiding and expanding) code sections.
@@ -340,16 +342,17 @@
 
   Even when there is no buffer under APDL-Mode, after starting Emacs,
   for example, it is possible to run selected APDL-Mode services.  You
-  might run the licsense status from the mini-buffer with M-x
+  might run the licsense status from the mini-buffer with "M-x"
   `apdl-license-status' instead of calling it from the menu or with
   C-c C-l in an APDL-Mode buffer.  Here is the list of commands which
   are available from the mini-buffer without loading a file under
   APDL-Mode:
 
   # from helper/autoload.sh
-  apdl 
-  apdl-mode
-  apdl-user-license-status
+  apdl, 
+  apdl-mode,
+  apdl-mode-version,
+  apdl-user-license-status and
   apdl-license-status
 
 
@@ -378,13 +381,19 @@
  - For displaying the available licenses please use "C-c C-l" (for
    ‘apdl-license-status’).  You will see the status of everything
    available on the license server in the **License** buffer.  In this
-   buffer you can apply additional keys, for example `o' to show only
+   buffer you can apply additional keys, for example "o" to show only
    selected licenses (compiled from the variable
-   `apdl-license-occur-regexp').  Please type `h' for a list of
-   available keys.
+   `apdl-license-occur-regexp'). 
    #+texinfo: @inforef{Regular Expressions,,elisp} for more information.
 
-   # check: (info "(elisp)Regular Expressions")
+      # check: (info "(elisp)Regular Expressions")
+
+   Please type "h" or "?" in the license buffer for a list of
+   available keys.
+
+- For displaying the licenses you are using type "C-c C-z"
+  (`apdl-user-license-status').  Please type "h" or "?" in this
+  license buffer for the list of available keys.
 
  If your Ansys installation is not in the default locations APDL-Mode
  might not be able to find its executables.  Or you want to use mixed
@@ -398,7 +407,8 @@
  apdl-config.el customisation example.
 
 * MAPDL Solver Control
-  and communication (mainly restricted to GNU-Linux systems).
+  MAPDL interpreter and communication (mainly restricted to GNU-Linux
+  systems).
 
   With the APDL-Mode keyboard shortcut "C-c RET" (for the command
   ‘apdl-start-ansys’) you can start the APDL solver/interpreter under

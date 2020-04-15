@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-04-13>
+#+DATE: Time-stamp: <2020-04-15>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -104,17 +104,16 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * First Steps
   #+include: ./first_steps.org
 * Configuration and Customisation
-  Most functionality of APDL-Mode is working without additional
-  configurations.  APDL-Mode is intelligent enough to figure out Ansys
-  installation dependent paths.  For regular Ansys installations, it
-  chooses by default the highest installed Ansys version on your
-  system.
+  Most functionality is working without additional configurations.
+  APDL-Mode is intelligent enough to figure out Ansys installation
+  dependent paths.  For regular Ansys installations, it chooses by
+  default the highest installed Ansys version on your system.
 
   APDL-Mode configures GNU-Emacs to open all files with the suffixes
   ".mac", ".dat" and ".inp" under apdl-mode.
 
-  Please read [[file:info/apdl-config.org][apdl-config]] documentation, or the accompanying
-  configuration [[file:info/apdl-config.el][example-file]] for further details.
+  Please read the [[file:info/apdl-config.org][apdl-config]] documentation for further options or
+  open the accompanying configuration [[file:info/apdl-config.el][example-file]].
 * Bugs and Problems
   #+include: ./bugs.org
 * News

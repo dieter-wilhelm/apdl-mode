@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-14>
+;; Time-stamp: <2020-04-15>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -718,7 +718,7 @@ You might change the directory with `M-x cd <RET>'.  The error
 file name consists of the current job name and the suffix '.err'.
 For the job name the variable `apdl-job' is used.  You can change
 the job name interactively either with the \"\\[apdl-job]\" or in
-the customisation facility (by calling `apdl-customise-ansys')."
+the customisation facility (by calling `apdl-customise-apdl')."
   (interactive)
   (let ((file (concat apdl-job ".err")))
     (if (not (file-readable-p file))

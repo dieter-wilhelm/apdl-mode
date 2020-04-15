@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org54fa8e9)
-2.  [Version 20.4.0](#orgceb8d14)
-3.  [Version 20.3.0](#org14ccd20)
-4.  [Version 20.2.0](#orgacd638c)
-5.  [Version 20.1.1](#org391c496)
-6.  [Version 162-2:](#orgee4965a)
+1.  [Version 20.5.0](#org632def5)
+2.  [Version 20.4.0](#org5a243df)
+3.  [Version 20.3.0](#orgd863fa9)
+4.  [Version 20.2.0](#org9142f63)
+5.  [Version 20.1.1](#orgf2ac690)
+6.  [Version 162-2:](#org2a324cc)
 
 
 
-<a id="org54fa8e9"></a>
+<a id="org632def5"></a>
 
 # TODO Version 20.5.0
 
@@ -19,14 +19,38 @@ help for get- and fortran functions
 
 ## Todos, bugs
 
--   include -mode-version in autoload list
--   Things like C-c C-jjj are not documented in manual!
+-   Templates: Add intro help to the -wb-template system, complete
+    usage.org -> Code Templates, apdl-wb-custom-template-directory
+
+
+## Minor bugs
+
 -   M-? parameter counter is not working for commands where functions
     with multiple arguments are in the argument list! f,node(x,y,z),,,
--   improve docu, especially -> M-? get- and fortran- functions are
-    completed but there's no help
-    -   apdl-dynamic-prompt
--   more C-c C-b subjects
+-   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
+    the respective section on page for Chrome and Edge!?
+-   1/en, en is variable but fraction not fontified?
+
+
+## Checks
+
+-   EWW bug: not working with remote ssh -help-path
+    (debbugs-gnu-bugs 40425)
+-   Changed file size without warning to 30 MB what is Emacs-26
+    using?
+
+
+## Wishes
+
+-   WB-templates, more of them
+-   Presentation(s) and EN Wiki, youtube?
+-   Help system and docu, rather complete, except online docu
+
+
+### Docu
+
+-   Things like C-c C-jjj (more?) are not documented in manual!
+-   more C-c C-b subjects?
     2.1. SESSION Commands
     2.2. DATABASE Commands
     2.3. GRAPHICS Commands
@@ -41,105 +65,74 @@ help for get- and fortran functions
     2.12. AUX15 Commands
     2.13. Mapping Processor Commands
     2.14. REDUCED Order Modeling Commands
--   wb templates in README.org, clear, will grow with usage, as a
-    matter of fact
-    -   contact pressure evaluation, press-fit
-    -   harmonic, acceleration
-    -   imbalance load
-    -   Rotordynamics
-    -   temperature dependent load
--   update intro presentation <- colleagues + hands-on presentation
-
-
-## State of documentation
-
-1.  Functions - like NDNEXT - will be completed but not possible to
-    search in C-c C-b or M-? => function template or special
-    section?
-2.  More subjects in -browse-apdl-help for example /post26, (get-)
-    functions, etc.
-3.  Intro-presentation
-4.  How can user extend the mode abbrevs? => usage.org
-5.  Create en wiki for APDL
-6.  Add intro help to the wb-template system
-7.  License status buffers in docu?
-8.  customise system (explain \`M-x customize-set-value' as long as
+-   document apdl-username
+-   Create English Wiki for APDL
+-   M-? get- and parameter-functions are completed but there's no
+    parameter help - see: apdl-dynamic-prompt
+-   The Command (APDL) objects coding system seems to be
+    mule-utf-8-dos aka cp65001-dos, document this
+-   Customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)?
 
+Info documentation:
 
-### MD
+-   work on the Info index
+-   \#+include: #+title adds to info title!
+-   \#+texinfo: @inforef{node,name,file} links to Emacs info pages,
+    done
+-   Attention colon ":" in headline gives a texinfo reference!
+-   C-u C-h i: info file :-)
+-   package with file "dir"
+-   only up to 3 **\*** levels! configurable?
+-   info doesn't have clickable links to function, customisation
+    buffers, yet, hmm urls, internal links?
+-   image directory in .info file is not existing in Melpa! Do we
+    need images in the manual? No
+
+Presentations
+
+-   update intro, first steps tutorial
+-   in-depth presentation, tutorial?
+-   APDL reference => just Info?
+
+MD
 
 -   \#+caption: not working!
 -   \#+title: not working!
 
 
-### Info
-
--   work on the Info index
--   image directory in .info file is not existing in Melpa! Do we
-    need images in the manual? No
--   \#+include: #+title adds to info title!
--   \#+texinfo: @inforef{node,name,file} links to Emacs info pages, done
--   Attention colon ":" in headline gives a texinfo reference!
--   C-u info file :-)
--   package with file "dir"
--   only up to 3 **\*** levels! configurable?
--   info doesn't have  clickable links to functions, yet
-    -   (describe-package 'helpful)
-        [1]  <https://github.com/wilfred/helpful>
-        > Similarly, help-fns+.el.
-        > There you have option \`help-cross-reference-manuals':
-
-
-### Presentations
-
--   update intro, tutorial
--   in-depth presentation, tuturial?
--   APDL reference => just Info?
-
-
-## Minor bugs
-
--   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-    the respective section on page for Chrome and Edge!?
--   1/en, en is variable but fraction not fontified?
-
-
-## Check
-
--   -mode-version working with autoload?
--   EWW bug: not working with remote ssh -help-path
-    (debbugs-gnu-bugs 40425)
--   changed file size without warning to 30 MB what is Emacs-26
-    using?
-
-
-## Wishes
-
--   make **License** buffers read-only
-
-
 ### templates
 
--   Add more WorkBench/ Discovery AIM templates
--   Intelligent template selector with keywords in the line of helm
-    or ivy?
--   What is the advantage of ARG1-9? => parameter system, should I
-    include ARG[1-9] optionally?
+-   wb templates in README.org, clear, will grow with usage, as a
+    matter of fact
+    
+    -   contact pressure evaluation, press-fit
+    -   harmonic, acceleration
+    -   imbalance load
+    -   Rotordynamics
+    -   temperature dependent load
+    
+    -   Intelligent template selector with keywords in the line of helm
+        or ivy?
+    -   What is the advantage of ARG1-9? => parameter system, should I
+        include ARG[1-9] optionally?
 
 
 ### misc
 
-1.  derive A-M from prog-modes => branch derived
-2.  Travis CI continuous integration!
-3.  <https://github.com/marketplace/coveralls>
-4.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-5.  Melpa README, better wait till emacs-27
-6.  The Command (APDL) objects coding system seems to be
-    mule-utf-8-dos aka cp65001-dos, document this
+1.  make **License** buffers read-only
+2.  Add a quit key for variable buffers
+3.  derive A-M from prog-modes => branch derived
+4.  Travis CI continuous integration!
+5.  <https://github.com/marketplace/coveralls>
+6.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
+7.  Melpa README, better wait till emacs-27
 
 
 ## Done
+
+-   -mode-version working with autoload cookie: works
+-   include -mode-version in autoload list
 
 
 ## Push and Release Proceedures
@@ -171,12 +164,15 @@ APDL<sub>PATCH</sub> := 0
 (tags-query-replace "- 2020" "- 2021")
 
 (tags-query-replace "v201" "v211")
+(tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
+
+apdl-customise-ansys
 
 (tags-query-replace "26\\.3" "27.1")
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgceb8d14"></a>
+<a id="org5a243df"></a>
 
 # DONE Version 20.4.0
 
@@ -184,7 +180,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org14ccd20"></a>
+<a id="orgd863fa9"></a>
 
 # DONE Version 20.3.0
 
@@ -193,14 +189,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgacd638c"></a>
+<a id="org9142f63"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org391c496"></a>
+<a id="orgf2ac690"></a>
 
 # DONE Version 20.1.1
 
@@ -213,7 +209,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgee4965a"></a>
+<a id="org2a324cc"></a>
 
 # Version 162-2:
 

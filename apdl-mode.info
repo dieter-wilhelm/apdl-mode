@@ -532,8 +532,8 @@ visual hint whether variable names are spelled and used correctly
 everywhere not only at the place of its definition.
 
    For this to occur ‘apdl-highlighting-level’ must be set to 2 (the
-maximum, which is also the default), please have a look at the ‘=
-customisation =’ section on how to change settings.
+maximum, which is also the default), please have a look at the
+apdl-config.org (apdl-config.org) file on how to change settings.
 
    Newly edited variable definitions are taken into account only when
 the variable ‘apdl-dynamic-highlighting-flag’ is set (for very large
@@ -548,7 +548,8 @@ File: apdl-mode.info,  Node: Variable Definitions,  Next: Abbreviation Facility,
 5.9 Variable Definitions
 ========================
 
-definition and component names (*GET, *DIM, *SET, = and DO, ...).
+Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...) and
+component names (CM).
 
    Typing "C-c C-v" (for ‘apdl-display-variables’) shows all definitions
 in your APDL file in a separate window.
@@ -556,16 +557,16 @@ in your APDL file in a separate window.
    You might remove ’*APDL-variables*’ window with "C-x 4 k"
 (‘apdl-delete-other-window’).
 
-   When you place the cursor on the respective line number and type
-‘C-u’ ‘M-g g’, where ‘C-u’ is a ’prefix’ argument to ‘M-g g’
-(‘goto-line’)).  Emacs will then skip to the corresponding definition
-line in the macro file.
+   When you place the cursor on the respective line number and type "C-u
+M-g g", where "C-u" is a ’prefix’ argument for "M-g g" (‘goto-line’)).
+Emacs will then skip to the corresponding definition line in the macro
+file.
 
    Additionally you are able with a prefix argument for "C-c C-v" to
 receive the current value of your variables at the cursor position.  For
 this functionality it is necessary to have a running Ansys process
-(GNU-Linux systems only, please see below the chapter about the solver
-communication).
+(GNU-Linux systems only, please see below the chapter about the *note
+MAPDL Solver Control::).
 
 
 File: apdl-mode.info,  Node: Abbreviation Facility,  Next: Outlining,  Prev: Variable Definitions,  Up: Usage and Applications
@@ -573,16 +574,17 @@ File: apdl-mode.info,  Node: Abbreviation Facility,  Next: Outlining,  Prev: Var
 5.10 Abbreviation Facility
 ==========================
 
-for block templates.
+Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
+triggers an interactive code template which inserts a *DO loop
+(‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate version of
+a do loop without requesting user input (‘ansys_do’).  You can see all
+the predefined abbreviations with "‘?", i.  e.  a question mark "?"
+after the backquote "‘".  Alternatively you might use the menu entry
+"List Mode Abbbreviations" or the command ‘M-x list-abbrevs <RET>’ to
+inspect all definitions.
 
-   E.g.  typing "‘do" (the backquote ’‘’ then ’do’) and the space key
-<SPC> under APDL-Mode triggers an interactive code template which
-inserts a *DO loop (‘apdl-do’).  "‘d" (then <SPC>) is a more immediate
-version of it without requesting user input (‘ansys_do’).  You can see
-all the predefined abbreviations with "‘?", i.  e.  a question mark ’?’
-after the backquote ’‘’.  Alternatively you might use the menu entry
-"List Mode Abbbreviations" or the command ‘M-x ‘list-abbrevs’ <RET>’ to
-inspect all definitions which are defined.
+   You can define your own abbreviations, please *note (emacs)Abbrev
+Concepts::.
 
 
 File: apdl-mode.info,  Node: Outlining,  Next: Comment Handling,  Prev: Abbreviation Facility,  Up: Usage and Applications
@@ -668,12 +670,13 @@ File: apdl-mode.info,  Node: Process Management,  Next: MAPDL Solver Control,  P
 
 Even when there is no buffer under APDL-Mode, after starting Emacs, for
 example, it is possible to run selected APDL-Mode services.  You might
-run the licsense status from the mini-buffer with M-x
+run the licsense status from the mini-buffer with "M-x"
 ‘apdl-license-status’ instead of calling it from the menu or with C-c
 C-l in an APDL-Mode buffer.  Here is the list of commands which are
 available from the mini-buffer without loading a file under APDL-Mode:
 
-   apdl apdl-mode apdl-user-license-status apdl-license-status
+   apdl, apdl-mode, apdl-mode-version, apdl-user-license-status and
+apdl-license-status
 
    • APDL-Mode writes for you an APDL stop file in the current directory
      (the file name is compiled from the variable ‘apdl-job’ and the
@@ -700,22 +703,27 @@ available from the mini-buffer without loading a file under APDL-Mode:
    • For displaying the available licenses please use "C-c C-l" (for
      ‘apdl-license-status’).  You will see the status of everything
      available on the license server in the **License** buffer.  In this
-     buffer you can apply additional keys, for example ‘o’ to show only
+     buffer you can apply additional keys, for example "o" to show only
      selected licenses (compiled from the variable
-     ‘apdl-license-occur-regexp’).  Please type ‘h’ for a list of
-     available keys.  *note (elisp)Regular Expressions:: for more
-     information.
+     ‘apdl-license-occur-regexp’).  *note (elisp)Regular Expressions::
+     for more information.
 
-   If your Ansys installation is not in the default locations APDL-Mode
-might not be able to find its executables.  Or you want to use mixed
-Ansys version installations then it is necessary to customise some
-variables.  Either by calling the Emacs customisation facility
-‘apdl-customise-ansys’ or from the menu bar -> ’APDL’ -> ’Customise APDL
-Mode’ -> ’APDL-process’ and look there for the variables ’Ansys License
-File’, ’Ansys Util Program’ and ’Ansys Help Program’ as well as ’Ansys
-Help Program Parameters’) or set the variables directly in your .emacs
-file.  Please have a look in apdl-config.org and the apdl-config.el
-customisation example.
+     Please type "h" or "?"  in the license buffer for a list of
+     available keys.
+   • For displaying the licenses you are using type "C-c C-z"
+     (‘apdl-user-license-status’).  Please type "h" or "?"  in this
+     license buffer for the list of available keys.
+
+     If your Ansys installation is not in the default locations
+     APDL-Mode might not be able to find its executables.  Or you want
+     to use mixed Ansys version installations then it is necessary to
+     customise some variables.  Either by calling the Emacs
+     customisation facility ‘apdl-customise-ansys’ or from the menu bar
+     -> ’APDL’ -> ’Customise APDL Mode’ -> ’APDL-process’ and look there
+     for the variables ’Ansys License File’, ’Ansys Util Program’ and
+     ’Ansys Help Program’ as well as ’Ansys Help Program Parameters’) or
+     set the variables directly in your .emacs file.  Please have a look
+     in apdl-config.org and the apdl-config.el customisation example.
 
 
 File: apdl-mode.info,  Node: MAPDL Solver Control,  Prev: Process Management,  Up: Usage and Applications
@@ -723,7 +731,8 @@ File: apdl-mode.info,  Node: MAPDL Solver Control,  Prev: Process Management,  U
 5.15 MAPDL Solver Control
 =========================
 
-and communication (mainly restricted to GNU-Linux systems).
+MAPDL interpreter and communication (mainly restricted to GNU-Linux
+systems).
 
    With the APDL-Mode keyboard shortcut "C-c RET" (for the command
 ‘apdl-start-ansys’) you can start the APDL solver/interpreter under
@@ -809,8 +818,29 @@ chooses by default the highest installed Ansys version on your system.
    APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-   The customisations itself are written in ‘Emacs-Lisp’.  The comment
-sign in this language is ‘;’ (one semi-colon ‘;’).
+   You can change the APDL-Mode confgurations permanently by 1.  using
+the Emacs customistation system - *note (emacs)Easy Customization:: or
+2.  by directly manipulating the Emacs configuration file - *note
+(emacs)Init File::.
+
+  1. For an overview of available APDL-Mode customisations variables
+     it’s easiest to open the APDL-Mode’s customisation buffer either
+     with the command ‘M-x apdl-customise-apdl’ or from the menu bar ->
+     ’APDL’ -> ’Customise APDL Mode’ and search for interesting options.
+     Another way of using the customisation facility is to open the help
+     of respective variables.  Let’s change for example the highlighting
+     level which is stored in the customisation variable
+     ‘apdl-highlighting-level’: Open its documentation with "C-h v"
+     ‘apdl-highlighting-level’.  In its help buffer you can click on the
+     hyperlink ‘customize’ at the bottom.  You might set a value for
+     this particular variable only for the current session or you might
+     add your choices automatically in the Emacs configuration file for
+     future sessions.
+
+  2. The following describes editing the Emacs configuration file (for
+     example ~/.emacs or ~/.emacs.d/init.el).  These customisations are
+     written in ‘Emacs-Lisp’.  The comment sign in this language is ‘;’
+     (one semi-colon ‘;’).
 
 * Menu:
 
@@ -849,6 +879,9 @@ Installation path with version information is necessary.  If you have a
 non default installation APDL-Mode might not be able to find your Ansys
 installation.  Please configure your installation path up to and
 including the Ansys versioning number.
+
+   You can change the installation path for the current session with the
+MAPDL menu entry "Change Installation Directory".
 
      (cond ((string= window-system "x")
              ;; This is an example of an installation directory on GNU-Linux
@@ -3071,32 +3104,112 @@ help for get- and fortran functions
 * Menu:
 
 * Todos, bugs: Todos bugs.
-* State of documentation::
 * Minor bugs::
-* Check::
+* Checks::
 * Wishes::
 * Done::
 * Push and Release Proceedures::
 
 
-File: apdl-mode.info,  Node: Todos bugs,  Next: State of documentation,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Todos bugs,  Next: Minor bugs,  Up: Version 2050 1
 
 12.1.1 Todos, bugs
 ------------------
 
-   • include -mode-version in autoload list
-   • Things like C-c C-jjj are not documented in manual!
+   • Templates: Add intro help to the -wb-template system, complete
+     usage.org -> Code Templates, apdl-wb-custom-template-directory
+
+
+File: apdl-mode.info,  Node: Minor bugs,  Next: Checks,  Prev: Todos bugs,  Up: Version 2050 1
+
+12.1.2 Minor bugs
+-----------------
+
    • M-?  parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!  f,node(x,y,z),,,
-   • improve docu, especially -> M-?  get- and fortran- functions are
-     completed but there’s no help
-        • apdl-dynamic-prompt
-   • more C-c C-b subjects 2.1.  SESSION Commands 2.2.  DATABASE
+   • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
+     the respective section on page for Chrome and Edge!?
+   • 1/en, en is variable but fraction not fontified?
+
+
+File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Minor bugs,  Up: Version 2050 1
+
+12.1.3 Checks
+-------------
+
+   • EWW bug: not working with remote ssh -help-path (debbugs-gnu-bugs
+     40425)
+   • Changed file size without warning to 30 MB what is Emacs-26 using?
+
+
+File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 2050 1
+
+12.1.4 Wishes
+-------------
+
+   • WB-templates, more of them
+   • Presentation(s) and EN Wiki, youtube?
+   • Help system and docu, rather complete, except online docu
+
+* Menu:
+
+* Docu::
+* templates::
+* misc::
+
+
+File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
+
+12.1.4.1 Docu
+.............
+
+   • Things like C-c C-jjj (more?)  are not documented in manual!
+   • more C-c C-b subjects?  2.1.  SESSION Commands 2.2.  DATABASE
      Commands 2.3.  GRAPHICS Commands 2.4.  APDL Commands 2.5.  PREP7
      Commands 2.6.  SOLUTION Commands 2.7.  POST1 Commands 2.8.  POST26
      Commands 2.9.  AUX2 Commands 2.10.  AUX3 Commands 2.11.  AUX12
      Commands 2.12.  AUX15 Commands 2.13.  Mapping Processor Commands
      2.14.  REDUCED Order Modeling Commands
+   • document apdl-username
+   • Create English Wiki for APDL
+   • M-?  get- and parameter-functions are completed but there’s no
+     parameter help - see: apdl-dynamic-prompt
+   • The Command (APDL) objects coding system seems to be mule-utf-8-dos
+     aka cp65001-dos, document this
+   • Customise system (explain ‘M-x customize-set-value’ as long as
+     (debbugs-gnu-bugs 25678) is not solved)?
+
+   Info documentation:
+
+   • work on the Info index
+   • #+include: #+title adds to info title!
+   • #+texinfo: @inforef{node,name,file} links to Emacs info pages, done
+   • Attention colon ":" in headline gives a texinfo reference!
+   • C-u C-h i: info file :-)
+   • package with file "dir"
+   • only up to 3 *** levels!  configurable?
+   • info doesn’t have clickable links to function, customisation
+     buffers, yet, hmm urls, internal links?
+   • image directory in .info file is not existing in Melpa!  Do we need
+     images in the manual?  No
+
+   Presentations
+
+   • update intro, first steps tutorial
+   • in-depth presentation, tutorial?
+   • APDL reference => just Info?
+
+   MD
+
+   • #+caption: not working!
+   • #+title: not working!
+
+
+File: apdl-mode.info,  Node: templates,  Next: misc,  Prev: Docu,  Up: Wishes
+
+12.1.4.2 templates
+..................
+
    • wb templates in README.org, clear, will grow with usage, as a
      matter of fact
         • contact pressure evaluation, press-fit
@@ -3104,142 +3217,38 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: State of documentation,  Up: Ver
         • imbalance load
         • Rotordynamics
         • temperature dependent load
-   • update intro presentation <- colleagues + hands-on presentation
-
-
-File: apdl-mode.info,  Node: State of documentation,  Next: Minor bugs,  Prev: Todos bugs,  Up: Version 2050 1
-
-12.1.2 State of documentation
------------------------------
-
-  1. Functions - like NDNEXT - will be completed but not possible to
-     search in C-c C-b or M-?  => function template or special section?
-  2. More subjects in -browse-apdl-help for example /post26, (get-)
-     functions, etc.
-  3. Intro-presentation
-  4. How can user extend the mode abbrevs?  => usage.org
-  5. Create en wiki for APDL
-  6. Add intro help to the wb-template system
-  7. License status buffers in docu?
-  8. customise system (explain ‘M-x customize-set-value’ as long as
-     (debbugs-gnu-bugs 25678) is not solved)?
-
-* Menu:
-
-* MD::
-* Info::
-* Presentations::
-
-
-File: apdl-mode.info,  Node: MD,  Next: Info,  Up: State of documentation
-
-12.1.2.1 MD
-...........
-
-   • #+caption: not working!
-   • #+title: not working!
-
-
-File: apdl-mode.info,  Node: Info,  Next: Presentations,  Prev: MD,  Up: State of documentation
-
-12.1.2.2 Info
-.............
-
-   • work on the Info index
-   • image directory in .info file is not existing in Melpa!  Do we need
-     images in the manual?  No
-   • #+include: #+title adds to info title!
-   • #+texinfo: @inforef{node,name,file} links to Emacs info pages, done
-   • Attention colon ":" in headline gives a texinfo reference!
-   • C-u info file :-)
-   • package with file "dir"
-   • only up to 3 *** levels!  configurable?
-   • info doesn’t have clickable links to functions, yet
-        • (describe-package ’helpful) [1]
-          <https://github.com/wilfred/helpful> > Similarly,
-          help-fns+.el.  > There you have option
-          ‘help-cross-reference-manuals’:
-
-
-File: apdl-mode.info,  Node: Presentations,  Prev: Info,  Up: State of documentation
-
-12.1.2.3 Presentations
-......................
-
-   • update intro, tutorial
-   • in-depth presentation, tuturial?
-   • APDL reference => just Info?
-
-
-File: apdl-mode.info,  Node: Minor bugs,  Next: Check,  Prev: State of documentation,  Up: Version 2050 1
-
-12.1.3 Minor bugs
------------------
-
-   • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
-     the respective section on page for Chrome and Edge!?
-   • 1/en, en is variable but fraction not fontified?
-
-
-File: apdl-mode.info,  Node: Check,  Next: Wishes,  Prev: Minor bugs,  Up: Version 2050 1
-
-12.1.4 Check
-------------
-
-   • -mode-version working with autoload?
-   • EWW bug: not working with remote ssh -help-path (debbugs-gnu-bugs
-     40425)
-   • changed file size without warning to 30 MB what is Emacs-26 using?
-
-
-File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Check,  Up: Version 2050 1
-
-12.1.5 Wishes
--------------
-
-   • make *License* buffers read-only
-
-* Menu:
-
-* templates::
-* misc::
-
-
-File: apdl-mode.info,  Node: templates,  Next: misc,  Up: Wishes
-
-12.1.5.1 templates
-..................
-
-   • Add more WorkBench/ Discovery AIM templates
-   • Intelligent template selector with keywords in the line of helm or
-     ivy?
-   • What is the advantage of ARG1-9?  => parameter system, should I
-     include ARG[1-9] optionally?
+        • Intelligent template selector with keywords in the line of
+          helm or ivy?
+        • What is the advantage of ARG1-9?  => parameter system, should
+          I include ARG[1-9] optionally?
 
 
 File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: Wishes
 
-12.1.5.2 misc
+12.1.4.3 misc
 .............
 
-  1. derive A-M from prog-modes => branch derived
-  2. Travis CI continuous integration!
-  3. <https://github.com/marketplace/coveralls>
-  4. Start optionally runbWB2 –aim, Discovery AIM
-  5. Melpa README, better wait till emacs-27
-  6. The Command (APDL) objects coding system seems to be mule-utf-8-dos
-     aka cp65001-dos, document this
+  1. make *License* buffers read-only
+  2. Add a quit key for variable buffers
+  3. derive A-M from prog-modes => branch derived
+  4. Travis CI continuous integration!
+  5. <https://github.com/marketplace/coveralls>
+  6. Start optionally runbWB2 –aim, Discovery AIM
+  7. Melpa README, better wait till emacs-27
 
 
 File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: Wishes,  Up: Version 2050 1
 
-12.1.6 Done
+12.1.5 Done
 -----------
+
+   • -mode-version working with autoload cookie: works
+   • include -mode-version in autoload list
 
 
 File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Version 2050 1
 
-12.1.7 Push and Release Proceedures
+12.1.6 Push and Release Proceedures
 -----------------------------------
 
    • make PACK : now obligatory for any push!
@@ -3263,7 +3272,10 @@ makefile?
 
    (tags-query-replace "- 2020" "- 2021")
 
-   (tags-query-replace "v201" "v211")
+   (tags-query-replace "v201" "v211") (tags-query-replace
+"apdl-customise-ansys" "apdl-customise-apdl")
+
+   apdl-customise-ansys
 
    (tags-query-replace "26\.3" "27.1") (tags-search "((emacs
 \"25.1\"))")
@@ -4376,137 +4388,134 @@ Node: Auto-indentation13943
 Node: Closing of Control Blocks14421
 Node: Code Navigation14838
 Node: Sophisticated Highlighting17362
-Node: Variable Definitions21067
-Node: Abbreviation Facility22095
-Node: Outlining22879
-Node: Comment Handling24083
-Node: Auto-insertion25239
-Node: Process Management25822
-Node: MAPDL Solver Control28885
-Node: Configuration and Customisation33150
-Node: Conventions34097
-Node: Important Prerequisite34622
-Node: File suffixes35928
-Node: Macro files36313
-Node: WorkBench generated input files36932
-Node: The Ansys Neutral file format37355
-Node: Auto insertion39016
-Node: Miscellaneous40019
-Node: Outlining 141368
-Node: Highlighting (Colourisation)41984
-Node: Dynamic highlighting42285
-Node: Decoration levels42902
-Node: Summary43242
-Node: Installation dependent configurations44425
-Node: Ansys processes46169
-Node: License server46412
-Node: Solver options47478
-Node: Summary 147915
-Node: APDL Reference 150051
-Node: WorkBench to APDL Translation50346
-Node: Contacts50590
-Node: default 3D thermal contact50763
-Node: Material Models52608
-Node: Plasticity52807
-Node: Boundary conditions53110
-Node: APDL Reference58672
-Node: Idiosyncrasies59137
-Node: File types61363
-Node: Defining parameters76441
-Node: Double char38 char8 logical TODO76761
-Node: Variable names76990
-Node: Character strings81264
-Node: Erasing variables from memory81616
-Node: Variable substitution82298
-Node: Substitution of Numeric Variables82649
-Node: Substitution of Character Variables83277
-Node: Dynamic Substitution of Numeric or Character Variables84632
-Node: Expressions85341
-Node: Exponentiation Operator85570
-Node: Multiplication Expression85756
-Node: Operators86176
-Node: Arrays86479
-Node: Specifiying array element values86731
-Node: APDL Math86910
-Node: debugging87423
-Node: Multiple runs probabilistic design87629
-Node: Undocumented commands87939
-Node: APDL-Mode Syntax Highlighting Reference88288
-Node: Header88599
-Node: Highlighting APDL specials90883
-Node: Reserved words and _RETURN statements91461
-Node: _RETURN values of macros91832
-Node: Old style APDL comments92316
-Node: Ignored characters behind commands92733
-Node: The End Of File command93047
-Node: Ignored characters behind commands 193489
-Node: The End Of File command 193913
-Node: Current element types and deprecated elements94315
-Node: Implied (or colon) looping95107
-Node: And the rest96348
-Node: Installation and Development100085
-Node: Melpa100640
-Node: Manual installation101505
-Node: Development and source code installation102600
-Node: Bugs and Problems103159
-Node: News104103
-Node: Version 2050104791
-Node: Version 2040105238
-Node: Version 2030105939
-Node: Version 2020106657
-Node: Version 2011107509
-Node: Version 2010107838
-Node: Version 162-1108384
-Node: Version 1611109904
-Node: Version 1501111531
-Node: Version 1452112360
-Node: Version 1451113761
-Node: Version 1401116911
-Node: Version 1301118366
-Node: Version 1201119281
-Node: Version 1102121648
-Node: ansys-modeel 1101122206
-Node: Further Resources125330
-Node: Ansys and APDL resources125558
-Node: Emacs editor resources126346
-Node: Other APDL editor resources126909
-Node: Todos127823
-Node: Version 2050 1128154
-Node: Todos bugs128470
-Node: State of documentation129727
-Node: MD130488
-Node: Info130651
-Node: Presentations131468
-Node: Minor bugs131710
-Node: Check132045
-Node: Wishes132369
-Node: templates132559
-Node: misc132907
-Node: Done133348
-Node: Push and Release Proceedures133483
-Node: Version 2040 1134318
-Node: Version 2030 1134515
-Node: Version 2020 1134733
-Node: Version 2011 1134912
-Node: Version 162-2135384
-Node: Bugs135662
-Node: Freeze136631
-Node: Wish-list136988
-Node: Deficiencies143104
-Node: Procedures144765
-Node: Freeze proceedures145287
-Node: Release146814
-Node: Ideas for further versions147417
-Node: Parameter help and documentation147846
-Node: Ansys process and interpreter buffer150148
-Node: Skeletons outline and abbrevs153011
-Node: Miscellaneous 1154743
-Node: Ansys syntax restrictions not (yet) accounted for159733
-Node: Unknown Ansys stuff160636
-Node: Acknowledgements160919
-Node: GNU Free Documentation License161489
-Node: Variable Index186515
-Node: Concept Index186664
+Node: Variable Definitions21074
+Node: Abbreviation Facility22120
+Node: Outlining22916
+Node: Comment Handling24120
+Node: Auto-insertion25276
+Node: Process Management25859
+Node: MAPDL Solver Control29211
+Node: Configuration and Customisation33494
+Node: Conventions35684
+Node: Important Prerequisite36209
+Node: File suffixes37639
+Node: Macro files38024
+Node: WorkBench generated input files38643
+Node: The Ansys Neutral file format39066
+Node: Auto insertion40727
+Node: Miscellaneous41730
+Node: Outlining 143079
+Node: Highlighting (Colourisation)43695
+Node: Dynamic highlighting43996
+Node: Decoration levels44613
+Node: Summary44953
+Node: Installation dependent configurations46136
+Node: Ansys processes47880
+Node: License server48123
+Node: Solver options49189
+Node: Summary 149626
+Node: APDL Reference 151762
+Node: WorkBench to APDL Translation52057
+Node: Contacts52301
+Node: default 3D thermal contact52474
+Node: Material Models54319
+Node: Plasticity54518
+Node: Boundary conditions54821
+Node: APDL Reference60383
+Node: Idiosyncrasies60848
+Node: File types63074
+Node: Defining parameters78152
+Node: Double char38 char8 logical TODO78472
+Node: Variable names78701
+Node: Character strings82975
+Node: Erasing variables from memory83327
+Node: Variable substitution84009
+Node: Substitution of Numeric Variables84360
+Node: Substitution of Character Variables84988
+Node: Dynamic Substitution of Numeric or Character Variables86343
+Node: Expressions87052
+Node: Exponentiation Operator87281
+Node: Multiplication Expression87467
+Node: Operators87887
+Node: Arrays88190
+Node: Specifiying array element values88442
+Node: APDL Math88621
+Node: debugging89134
+Node: Multiple runs probabilistic design89340
+Node: Undocumented commands89650
+Node: APDL-Mode Syntax Highlighting Reference89999
+Node: Header90310
+Node: Highlighting APDL specials92594
+Node: Reserved words and _RETURN statements93172
+Node: _RETURN values of macros93543
+Node: Old style APDL comments94027
+Node: Ignored characters behind commands94444
+Node: The End Of File command94758
+Node: Ignored characters behind commands 195200
+Node: The End Of File command 195624
+Node: Current element types and deprecated elements96026
+Node: Implied (or colon) looping96818
+Node: And the rest98059
+Node: Installation and Development101796
+Node: Melpa102351
+Node: Manual installation103216
+Node: Development and source code installation104311
+Node: Bugs and Problems104870
+Node: News105814
+Node: Version 2050106502
+Node: Version 2040106949
+Node: Version 2030107650
+Node: Version 2020108368
+Node: Version 2011109220
+Node: Version 2010109549
+Node: Version 162-1110095
+Node: Version 1611111615
+Node: Version 1501113242
+Node: Version 1452114071
+Node: Version 1451115472
+Node: Version 1401118622
+Node: Version 1301120077
+Node: Version 1201120992
+Node: Version 1102123359
+Node: ansys-modeel 1101123917
+Node: Further Resources127041
+Node: Ansys and APDL resources127269
+Node: Emacs editor resources128057
+Node: Other APDL editor resources128620
+Node: Todos129534
+Node: Version 2050 1129865
+Node: Todos bugs130155
+Node: Minor bugs130416
+Node: Checks130887
+Node: Wishes131170
+Node: Docu131474
+Node: templates133227
+Node: misc133824
+Node: Done134235
+Node: Push and Release Proceedures134474
+Node: Version 2040 1135400
+Node: Version 2030 1135597
+Node: Version 2020 1135815
+Node: Version 2011 1135994
+Node: Version 162-2136466
+Node: Bugs136744
+Node: Freeze137713
+Node: Wish-list138070
+Node: Deficiencies144186
+Node: Procedures145847
+Node: Freeze proceedures146369
+Node: Release147896
+Node: Ideas for further versions148499
+Node: Parameter help and documentation148928
+Node: Ansys process and interpreter buffer151230
+Node: Skeletons outline and abbrevs154093
+Node: Miscellaneous 1155825
+Node: Ansys syntax restrictions not (yet) accounted for160815
+Node: Unknown Ansys stuff161718
+Node: Acknowledgements162001
+Node: GNU Free Documentation License162571
+Node: Variable Index187597
+Node: Concept Index187746
 
 End Tag Table
 

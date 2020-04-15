@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org0186499)
-2.  [Some Highlights](#org168dbb7)
-3.  [Installation](#org78a7449)
-4.  [First Steps](#orgd4ffbc2)
-5.  [Configuration and Customisation](#org45fa92d)
-6.  [Bugs and Problems](#org6f34634)
-7.  [News](#org48ec504)
-8.  [Further Resources](#orgd4b93c6)
-9.  [Acknowledgements](#org7226625)
-10. [Todos](#org412182a)
-11. [GNU GPL v3 License](#orgb094607)
+1.  [Introduction](#orga4c6b6d)
+2.  [Some Highlights](#org796c64c)
+3.  [Installation](#orgc33dd35)
+4.  [First Steps](#org23911c8)
+5.  [Configuration and Customisation](#orgd29281a)
+6.  [Bugs and Problems](#org509ce57)
+7.  [News](#org2608b02)
+8.  [Further Resources](#org08cde38)
+9.  [Acknowledgements](#org7919692)
+10. [Todos](#org265bc65)
+11. [GNU GPL v3 License](#orgac02ec1)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org0186499"></a>
+<a id="orga4c6b6d"></a>
 
 # Introduction
 
@@ -70,7 +70,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org168dbb7"></a>
+<a id="org796c64c"></a>
 
 # Some Highlights
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org78a7449"></a>
+<a id="orgc33dd35"></a>
 
 # Installation
 
@@ -201,7 +201,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="orgd4ffbc2"></a>
+<a id="org23911c8"></a>
 
 # First Steps
 
@@ -220,24 +220,23 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org45fa92d"></a>
+<a id="orgd29281a"></a>
 
 # Configuration and Customisation
 
-Most functionality of APDL-Mode is working without additional
-configurations.  APDL-Mode is intelligent enough to figure out Ansys
-installation dependent paths.  For regular Ansys installations, it
-chooses by default the highest installed Ansys version on your
-system.
+Most functionality is working without additional configurations.
+APDL-Mode is intelligent enough to figure out Ansys installation
+dependent paths.  For regular Ansys installations, it chooses by
+default the highest installed Ansys version on your system.
 
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-Please read [apdl-config](info/apdl-config.md) documentation, or the accompanying
-configuration [example-file](info/apdl-config.el) for further details.
+Please read the [apdl-config](info/apdl-config.md) documentation for further options or
+open the accompanying configuration [example-file](info/apdl-config.el).
 
 
-<a id="org6f34634"></a>
+<a id="org509ce57"></a>
 
 # Bugs and Problems
 
@@ -258,14 +257,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org48ec504"></a>
+<a id="org2608b02"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgd4b93c6"></a>
+<a id="org08cde38"></a>
 
 # Further Resources
 
@@ -273,7 +272,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org7226625"></a>
+<a id="org7919692"></a>
 
 # Acknowledgements
 
@@ -288,14 +287,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org412182a"></a>
+<a id="org265bc65"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orgb094607"></a>
+<a id="orgac02ec1"></a>
 
 # GNU GPL v3 License
 

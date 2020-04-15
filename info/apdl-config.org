@@ -33,8 +33,31 @@ chooses by default the highest installed Ansys version on your system.
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-The customisations itself are written in `Emacs-Lisp'.  The comment
-sign in this language is ~;~ (one semi-colon `;').
+You can change the APDL-Mode confgurations permanently by 1. using the
+Emacs customistation system -
+#+texinfo: @inforef{Easy Customization,,emacs}
+or 2. by directly manipulating the Emacs configuration file -
+#+texinfo: @inforef{Init File,,emacs}.
+
+
+  1. For an overview of available APDL-Mode customisations variables
+     it’s easiest to open the APDL-Mode’s customisation buffer either
+     with the command ‘M-x apdl-customise-apdl’ or from the menu bar
+     -> ’APDL’ -> ’Customise APDL Mode’ and search for interesting
+     options.  Another way of using the customisation facility is to
+     open the help of respective variables.  Let’s change for example
+     the highlighting level which is stored in the customisation
+     variable ‘apdl-highlighting-level’: Open its documentation with
+     "C-h v" `apdl-highlighting-level'.  In its help buffer you can
+     click on the hyperlink `customize’ at the bottom.  You might set
+     a value for this particular variable only for the current session
+     or you might add your choices automatically in the Emacs
+     configuration file for future sessions.
+
+  2. The following describes editing the Emacs configuration file (for
+     example ~/.emacs or ~/.emacs.d/init.el).  These customisations
+     are written in `Emacs-Lisp'.  The comment sign in this language
+     is ~;~ (one semi-colon `;').
 
 * Conventions
   used in /apdl-config.el/
@@ -104,6 +127,9 @@ sign in this language is ~;~ (one semi-colon `;').
   If you have a non default installation APDL-Mode might not be able
   to find your Ansys installation.  Please configure your installation
   path up to and including the Ansys versioning number.
+
+  You can change the installation path for the current session with
+  the MAPDL menu entry "Change Installation Directory".
 
    #+BEGIN_SRC emacs-lisp  :tangle yes
   (cond ((string= window-system "x")
@@ -284,7 +310,7 @@ sign in this language is ~;~ (one semi-colon `;').
   #+BEGIN_SRC emacs-lisp
 (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
 (autoload 'apdl-mode "apdl-mode" nil t)
-(autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
+(autoload 'apdl-customise-apdl "apdl-mode" "Activate the function for
  calling a special Ansys customisation buffer." 'interactive)
 (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting Ansys runs." 'interactive)
 (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the Ansys error file." 'interactive)
@@ -306,7 +332,7 @@ sign in this language is ~;~ (one semi-colon `;').
 
   (autoload 'apdl "apdl-mode" "Opening an empty buffer in APDL-Mode" 'interactive)
   (autoload 'apdl-mode "apdl-mode" "Switch to APDL-Mode" 'interactive)
-  (autoload 'apdl-customise-ansys "apdl-mode" "Activate the function for
+  (autoload 'apdl-customise-apdl "apdl-mode" "Activate the function for
   calling a special Ansys customisation buffer." 'interactive)
   (autoload 'apdl-abort-file "apdl-mode" "Activate the function for  aborting Ansys runs." 'interactive)
   (autoload 'apdl-display-error-file "apdl-mode" "Activate the function for inspecting the Ansys error file." 'interactive)

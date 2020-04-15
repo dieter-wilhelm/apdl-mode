@@ -21,8 +21,13 @@
   DEADLINE: <2020-05-01 Fr>
   help for get- and fortran functions
 ** Todos, bugs
+   - include -mode-version in autoload list
+   - Things like C-c C-jjj are not documented in manual!
+   - M-? parameter counter is not working for commands where functions
+     with multiple arguments are in the argument list! f,node(x,y,z),,,
    - improve docu, especially -> M-? get- and fortran- functions are
      completed but there's no help
+     - apdl-dynamic-prompt
    - more C-c C-b subjects
        2.1. SESSION Commands
        2.2. DATABASE Commands
@@ -86,11 +91,13 @@
      the respective section on page for Chrome and Edge!?
    - 1/en, en is variable but fraction not fontified?
 ** Check
+   - -mode-version working with autoload?
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** Wishes
+   - make *License* buffers read-only
 *** templates
     - Add more WorkBench/ Discovery AIM templates
     - Intelligent template selector with keywords in the line of helm

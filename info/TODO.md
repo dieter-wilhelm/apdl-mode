@@ -1,6 +1,7 @@
 
 # Table of Contents
 
+<<<<<<< HEAD
 1.  [Version 20.5.0](#org3df21cb)
 2.  [Version 20.4.0](#org039ae50)
 3.  [Version 20.3.0](#org78a8bca)
@@ -11,6 +12,18 @@
 
 
 <a id="org3df21cb"></a>
+=======
+1.  [Version 20.5.0](#org54fa8e9)
+2.  [Version 20.4.0](#orgceb8d14)
+3.  [Version 20.3.0](#org14ccd20)
+4.  [Version 20.2.0](#orgacd638c)
+5.  [Version 20.1.1](#org391c496)
+6.  [Version 162-2:](#orgee4965a)
+
+
+
+<a id="org54fa8e9"></a>
+>>>>>>> help
 
 # TODO Version 20.5.0
 
@@ -19,8 +32,13 @@ help for get- and fortran functions
 
 ## Todos, bugs
 
+-   include -mode-version in autoload list
+-   Things like C-c C-jjj are not documented in manual!
+-   M-? parameter counter is not working for commands where functions
+    with multiple arguments are in the argument list! f,node(x,y,z),,,
 -   improve docu, especially -> M-? get- and fortran- functions are
     completed but there's no help
+    -   apdl-dynamic-prompt
 -   more C-c C-b subjects
     2.1. SESSION Commands
     2.2. DATABASE Commands
@@ -102,6 +120,7 @@ help for get- and fortran functions
 
 ## Check
 
+-   -mode-version working with autoload?
 -   EWW bug: not working with remote ssh -help-path
     (debbugs-gnu-bugs 40425)
 -   changed file size without warning to 30 MB what is Emacs-26
@@ -109,6 +128,8 @@ help for get- and fortran functions
 
 
 ## Wishes
+
+-   make **License** buffers read-only
 
 
 ### templates
@@ -168,7 +189,11 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
+<<<<<<< HEAD
 <a id="org039ae50"></a>
+=======
+<a id="orgceb8d14"></a>
+>>>>>>> help
 
 # DONE Version 20.4.0
 
@@ -176,7 +201,11 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
+<<<<<<< HEAD
 <a id="org78a8bca"></a>
+=======
+<a id="org14ccd20"></a>
+>>>>>>> help
 
 # DONE Version 20.3.0
 
@@ -185,14 +214,22 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
+<<<<<<< HEAD
 <a id="org5f5d385"></a>
+=======
+<a id="orgacd638c"></a>
+>>>>>>> help
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
+<<<<<<< HEAD
 <a id="org746523c"></a>
+=======
+<a id="org391c496"></a>
+>>>>>>> help
 
 # DONE Version 20.1.1
 
@@ -205,7 +242,11 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
+<<<<<<< HEAD
 <a id="org13c0fcc"></a>
+=======
+<a id="orgee4965a"></a>
+>>>>>>> help
 
 # Version 162-2:
 

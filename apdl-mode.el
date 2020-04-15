@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-08>
+;; Time-stamp: <2020-04-14>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1840,6 +1840,7 @@ Arg ALLOW-EXTEND is in interactive calls the same as ARG."
          (push-mark nil t t)
          (forward-paragraph arg))))
 
+;;;###autoload
 (defun apdl-mode-version ()
   "Display the APDL-Mode version numbering scheme.
 Together with the APDL-Mode update date and the Ansys version on

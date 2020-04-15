@@ -1,30 +1,32 @@
 * Finding Help
-  Firstly with an in-buffer display of a short command help and
-  secondly browsing the complete Ansys documentation in a browser.
-** Brief Command and Syntax Help
+  Firstly with an in-buffer display of a brief command help and
+  secondly browsing the complete Ansys html documentation.
+** Command Help with Argument Counter
 
-   Typing "M-?", the <CTRL> key simultaneously with the <c> key and
-   then <?>, the question mark (for the command
-   ‘apdl-show-command-parameters’) displays above a code line a brief
-   description of the APDL command and its syntax.  This command
-   counts also the number of parameters and visualises at which
-   parameter position the cursor currently is.  The command is looking
-   for the next valid command near the cursor or when using a prefix
-   argument (‘C-u’ or ‘4’) it inquires an APDL command from you.  The
-   tooltip is switched off with an argument of zero (‘0’).
+   Typing "M-?", the <ALT> key simultaneously with the "?" the
+   question mark (for the command ‘apdl-show-command-parameters’)
+   displays above the respective code line a brief description of the
+   APDL command and its arguments.  This command counts also the
+   number of arguments and visualises at which argument position the
+   cursor is.  The command is looking for the next valid command near
+   the cursor or when using a prefix argument ("C-u" or "M-4") it
+   inquires an APDL command from you.  The tooltip vanishes after a
+   certain time (depending on `apdl-parameter-help-duration') or it is
+   switched off with an argument of zero ("M-0").
 
 ** APDL Keyword Documentation
    Browse the detailed APDL command, element and selected topics in
    the original Ansys HTML help.
 
    Typing "C-c C-b" will display the original Ansys help in your web
-   browser for an APDL command or element name (stating the element
-   number is sufficient) near the cursor or the code line’s first APDL
-   command.  When using a prefix argument (typing C-u before C-c C-b)
-   it inquires the keyword from you.  Keywords beginning with a
-   quotation mark ‘"’ describing general manual sections, for example
-   typing ‘"SHELLS"’ will call the collection of all shell elements in
-   the Ansys manual.  You can complete your input with the <TAB> key.
+   browser for all APDL commands, element names (stating the element
+   number is sufficient), get- or parametric-functions near the cursor
+   or the code line’s first APDL command.  When using a prefix
+   argument (typing C-u before C-c C-b) it inquires a keyword from
+   you.  Keywords beginning with a quotation mark ‘"’ describing
+   general manual sections, for example typing ‘"SHELLS"’ will call
+   the collection of all shell elements in the Ansys manual.  You must
+   complete your input with the <TAB> key.
 
 * Code Templates
   You are learning and also coding APDL best by example!  APDL-Mode

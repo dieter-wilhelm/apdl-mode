@@ -97,6 +97,7 @@
    - changed file size without warning to 30 MB what is Emacs-26
      using?
 ** Wishes
+   - make *License* buffers read-only
 *** templates
     - Add more WorkBench/ Discovery AIM templates
     - Intelligent template selector with keywords in the line of helm

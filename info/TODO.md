@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org088334a)
-2.  [Version 20.4.0](#orgdc1d435)
-3.  [Version 20.3.0](#orgfb0b690)
-4.  [Version 20.2.0](#org223a950)
-5.  [Version 20.1.1](#org5e0cdaa)
-6.  [Version 162-2:](#org380ff8c)
+1.  [Version 20.5.0](#org54fa8e9)
+2.  [Version 20.4.0](#orgceb8d14)
+3.  [Version 20.3.0](#org14ccd20)
+4.  [Version 20.2.0](#orgacd638c)
+5.  [Version 20.1.1](#org391c496)
+6.  [Version 162-2:](#orgee4965a)
 
 
 
-<a id="org088334a"></a>
+<a id="org54fa8e9"></a>
 
 # TODO Version 20.5.0
 
@@ -116,6 +116,8 @@ help for get- and fortran functions
 
 ## Wishes
 
+-   make **License** buffers read-only
+
 
 ### templates
 
@@ -174,7 +176,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgdc1d435"></a>
+<a id="orgceb8d14"></a>
 
 # DONE Version 20.4.0
 
@@ -182,7 +184,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="orgfb0b690"></a>
+<a id="org14ccd20"></a>
 
 # DONE Version 20.3.0
 
@@ -191,14 +193,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org223a950"></a>
+<a id="orgacd638c"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org5e0cdaa"></a>
+<a id="org391c496"></a>
 
 # DONE Version 20.1.1
 
@@ -211,7 +213,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org380ff8c"></a>
+<a id="orgee4965a"></a>
 
 # Version 162-2:
 

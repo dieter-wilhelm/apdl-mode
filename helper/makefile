@@ -193,6 +193,8 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 	--execute  "(org-md-export-to-markdown)"
 
 ../info/apdl-mode.info : ../info/apdl-mode.org $(INFO_FILES)
+#       update time in info/apdl-mode.org iso 8601 -I
+	sed -i "s/Time-stamp: \".*\"/Time-stamp: \"`date -I`\"/" $<
 	$(EMACS_EXE) --batch --file $< \
 	--execute  "(org-texinfo-export-to-info)"
 	cp $@ ..
@@ -232,8 +234,8 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 	@cp -rf $(TEMPLATE) $(P_DIR)
 	@tar -cf $@ $(P_DIR) # ../apdl-mode-readme.txt # default.el
 	@rm -r $(P_DIR)
-#       update time in -initialise.el apdl-mode-update in iso 8601 -I
 	@echo Time of packaging: `date -I`
+#       update time in -initialise.el apdl-mode-update in iso 8601 -I
 	@sed -i "s/(defconst apdl-mode-update \".*\"/(defconst apdl-mode-update \"`date -I`\"/" ../apdl-initialise.el
 	@echo
 	@echo "... $@ done."

@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-16 11:39:59 dieter>
+;; Time-stamp: <2020-04-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1045,19 +1045,24 @@ with the APDL /EXIT,all command which saves all model data."
     ;; (force-mode-line-update))
     (error "Exiting of Ansys run canceled")))
 
-;; Unfortunately there's not TOC for the locally installed help pages
-;; yet (v201) so it remains only the online help
+;; Unfortunately there's no html TOC for the locally installed help
+;; pages yet (v201) so it remains only the online help
+;; https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/main_page.html?lang=en
 (defun apdl-start-ansys-help-page ()
   "Start the Ansys main online help page."
   (interactive)
   (let ((file "main_page.html"))
-    (if (string> apdl-current-ansys-version "v200")
-	(browse-url (concat "https://ansyshelp.ansys.com/"
-			    "account/secured?returnurl=/Views/Secured/corp/"
-			    apdl-current-ansys-version "/en/" file))
-      (browse-url (concat "https://ansyshelp.ansys.com"
-			  "/account/secured?returnurl=/Views/Secured/corp/"
-			  apdl-current-ansys-version "/" file)))))
+    (browse-url (concat "https://ansyshelp.ansys.com/"
+     			    "account/secured?returnurl=/Views/Secured/"
+     			     file))
+    ;; (if (string> apdl-current-ansys-version "v200")
+    ;; 	(browse-url (concat "https://ansyshelp.ansys.com/"
+    ;; 			    "account/secured?returnurl=/Views/Secured/corp/"
+    ;; 			    apdl-current-ansys-version "/en/" file))
+    ;;   (browse-url (concat "https://ansyshelp.ansys.com"
+    ;; 			  "/account/secured?returnurl=/Views/Secured/corp/"
+    ;; 			  apdl-current-ansys-version "/" file)))
+    ))
 
 (defun apdl-start-ansys-help ()
   "Start the Ansys Help Viewer.

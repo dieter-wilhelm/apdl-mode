@@ -492,16 +492,16 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\M-h" 'apdl-mark-paragraph)
     ;; --- command movement --- (like defuns), skip comments and empty
     ;; --- lines
-    (define-key map "\M-p" 'apdl-previous-code-line)
     (define-key map "\M-n" 'apdl-next-code-line)
+    (define-key map "\M-p" 'apdl-previous-code-line)
     ;; --- block movements ---
-    (define-key map "\C-\M-f" 'apdl-next-block-end)
     (define-key map "\C-\M-b" 'apdl-previous-block-start-and-conditional)
+    (define-key map "\C-\M-d" 'apdl-down-block)
+    (define-key map "\C-\M-f" 'apdl-next-block-end)
+    (define-key map "\C-\M-h" 'apdl-mark-block) ; formerly mark defun
     (define-key map "\C-\M-n" 'apdl-skip-block-forward)
     (define-key map "\C-\M-p" 'apdl-skip-block-backwards)
-    (define-key map "\C-\M-d" 'apdl-down-block)
     (define-key map "\C-\M-u" 'apdl-up-block)
-    (define-key map "\C-\M-h" 'apdl-mark-block) ; formerly mark defun
     ;; --- further block keys ---
     (define-key map "\C-c]" 'apdl-close-block)
     (define-key map "\C-c}" 'apdl-number-block-end)
@@ -530,7 +530,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-e" 'apdl-display-error-file)
     (define-key map "\C-c\C-f" 'apdl-fit)
     ;;    (define-key map "\C-c\C-g" 'apdl-start-graphics) ; reserved
-    (define-key map "\C-c\C-h" 'apdl-mode-help) ; reserved?
+    (define-key map "\C-c\C-h" 'apdl-mode-help) ; reserved, C-h no
     ;;    (define-key map "\C-c\C-i" 'apdl-iso-view) ; reserved: C-tab
     ;;    (define-key map "\C-c\C-i" 'apdl-if)
     (define-key map "\C-c\C-j" 'apdl-send-to-apdl-and-proceed) ; same as ESS
@@ -538,7 +538,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-k" 'apdl-kill-ansys)
     (define-key map "\C-c\C-l" 'apdl-license-status)
     (define-key map "\C-c\C-m" 'apdl-start-ansys) ; interactively this
-    ;; C-c C-n is also C-c RET
+    ;; -------------- C-c C-n is also C-c RET !
     (define-key map "\C-c\C-o" 'apdl-process-status)
     (define-key map "\C-c\C-p" 'apdl-start-pzr-box) ; pan-zoom-rotate
     (define-key map "\C-c\C-q" 'apdl-query-apdl-command)

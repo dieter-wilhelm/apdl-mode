@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org632def5)
-2.  [Version 20.4.0](#org5a243df)
-3.  [Version 20.3.0](#orgd863fa9)
-4.  [Version 20.2.0](#org9142f63)
-5.  [Version 20.1.1](#orgf2ac690)
-6.  [Version 162-2:](#org2a324cc)
+1.  [Version 20.5.0](#orgb281c00)
+2.  [Version 20.4.0](#orgaeea8dd)
+3.  [Version 20.3.0](#orgb4c0776)
+4.  [Version 20.2.0](#orgaf7d9ae)
+5.  [Version 20.1.1](#org5956c77)
+6.  [Version 162-2](#org96f3479)
 
 
 
-<a id="org632def5"></a>
+<a id="orgb281c00"></a>
 
 # TODO Version 20.5.0
 
@@ -49,6 +49,7 @@ help for get- and fortran functions
 
 ### Docu
 
+-   Link to Ansys Youtube channel in menu?
 -   Things like C-c C-jjj (more?) are not documented in manual!
 -   more C-c C-b subjects?
     2.1. SESSION Commands
@@ -172,7 +173,7 @@ apdl-customise-ansys
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="org5a243df"></a>
+<a id="orgaeea8dd"></a>
 
 # DONE Version 20.4.0
 
@@ -180,7 +181,7 @@ apdl-customise-ansys
 updated to 2020R1
 
 
-<a id="orgd863fa9"></a>
+<a id="orgb4c0776"></a>
 
 # DONE Version 20.3.0
 
@@ -189,14 +190,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org9142f63"></a>
+<a id="orgaf7d9ae"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgf2ac690"></a>
+<a id="org5956c77"></a>
 
 # DONE Version 20.1.1
 
@@ -209,9 +210,9 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org2a324cc"></a>
+<a id="org96f3479"></a>
 
-# Version 162-2:
+# Version 162-2
 
 
 ## Bugs

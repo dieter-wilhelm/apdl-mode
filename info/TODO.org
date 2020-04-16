@@ -39,6 +39,7 @@
    - Presentation(s) and EN Wiki, youtube?
    - Help system and docu, rather complete, except online docu
 *** Docu
+    - Link to Ansys Youtube channel in menu?
     - Things like C-c C-jjj (more?) are not documented in manual!
     - more C-c C-b subjects?
        2.1. SESSION Commands
@@ -165,7 +166,7 @@
   - document the APDL Parameter Help Duration in M-?: Done in
     -config.org!
   - bug-report about package.el "NAME-readme.txt", done
-* Version 162-2:
+* Version 162-2
 ** Bugs
    - C-c C-s first time visit: User variables file-name-extension:
      Wrong type argument: stringp, nilError during redisplay:

@@ -3228,59 +3228,31 @@ Use variable `apdl-user-variable-regexp'."
         (setq eol (point))
         (buffer-substring bol eol)))))
 
-
-(when nil
-;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-This is a normal text with a button :D
+(defun apdl-buffer-line-marker (buffer line-no)
+  "Return from buffer BUFFER a marker at the beginning of the
+LINE-NO line."
+    (with-current-buffer buffer
+      (goto-char (point-min))
+      (forward-line (1- line-no))
+      (point-marker)))
 
 (require 'button)
-
-(defvar help-xref-following)
-
-(define-button-type 'apdl-xref
-  'follow-link t
-  'action #'apdl-button-action)
-
-(defun apdl-button-action (button)
-  "Call BUTTON's help function."
-  (apdl-do-xref nil
-		(button-get button 'help-function)
-		(button-get button 'help-args)))
-
-(define-button-type 'help-func
-  :supertype 'apdl-xref
-  'help-function 'describe-function
-  'help-echo (purecopy "mouse-2, RET: describe this function in help"))
-
-(defun apdl-do-xref (_pos function args)
-  "Call the help cross-reference function FUNCTION with args ARGS.
-Things are set up properly so that the resulting help-buffer has
-a proper [back] button."
-  ;; There is a reference at point.  Follow it.
-  (let ((help-xref-following nil))	;follow help buffer
-    (apply
-     function (if (eq function 'describe-bla)
-		  (append args (list (generate-new-buffer-name "*Help*"))) args))))
-
-(make-text-button 127833 127840 'type 'help-func
-		  'help-args '(apdl-display-variables))
-
-(describe-function 'apdl-display-variables)
-
-) ; end of (when nil
+(define-button-type 'apdl-marker
+  'help-echo (purecopy "mouse-2 or <RET>: Skip to variable defintion."))
 
 (defun apdl-display-variables (arg)
   "Displays APDL variable assignments in the current buffer.
-Together with the corresponding line number N (type \\[goto-line]
-N for skipping to line N or place the cursor over the number and
-`C-u' \\[goto-line] takes the number automatically).  With a
-prefix argument ARG, the function evaluates the variable at
-point.  The result is shown in the command process buffer, if an
-MAPDL process is running under Emacs."
+Together with the corresponding line number.  These numbers are
+links to the respective APDL buffer.  Clicking with the middle
+mouse button (button-2) on these numbers is skipping the cursor
+to the corresponding line number.
+
+With a prefix argument ARG, the function evaluates the variable
+at point.  The result is shown in the command process buffer, if
+an MAPDL process is running under Emacs."
   (interactive "P")
   (cond
-   (arg
+   (arg  ; --- enquire value of variable
     (unless (or (apdl-process-running-p) apdl-classics-flag)
       (error "No MAPDL process running"))
     (let* (
@@ -3296,14 +3268,16 @@ MAPDL process is running under Emacs."
             (apdl-send-to-classics))
         (comint-send-string (get-process apdl-process-name)
                             (concat "*status," str "\n"))
-        (display-buffer (concat "*" apdl-process-name "*") 'other-window))
+        (display-buffer (concat "*" apdl-process-name "*")
+			'other-window))
       (message  (concat "Enquiring status for variable: " str))))
-   (t
-    (apdl-find-user-variables)
+   (t      ; ---- display variable definitions
+    (apdl-find-user-variables)		; set apdl-user-variables
     (let* ((current-buffer (buffer-name))
            (buffer-name "*APDL-variables*")
            (variable-buffer (get-buffer-create buffer-name))
-           str old-num com
+           str old-num com p1 p2
+	   (markr (make-marker))
            (num 0))
       (set-buffer variable-buffer)
       ;; make buffer writable
@@ -3312,21 +3286,35 @@ MAPDL process is running under Emacs."
       ;; insert header
       (insert
        (propertize
-        (concat "-*- APDL variables of buffer " current-buffer " -*-\n")
+        (concat "-*- APDL variables of " current-buffer
+		" click with mouse-2 -*-\n")
         'face 'match))
-      (insert (propertize "Line  | Definition\n" 'mouse-face
-                          'highlight 'face 'bold))
+      (insert (propertize " Line | Definition\n"
+			  ;; 'mouse-face 'highlight
+			  'face 'bold))
       ;; insert variable lines
       (dolist (command apdl-user-variables)
         (setq old-num num
               num (cadr command)                 ; cadr same as nth 1
               com (apdl-copy-buffer-line current-buffer num)
+	      markr (apdl-buffer-line-marker current-buffer num)
               str (concat
-                   (propertize (format "%5d | " num)
-                               'mouse-face 'highlight 'face 'bold)
+		   (format "%5d " num)
+                   (propertize "| "
+                               ;;'mouse-face 'highlight
+			       'face 'bold)
                    com "\n"))
         (unless (= num old-num)
-          (insert str)))
+          (insert str)
+	  (save-excursion
+	    (forward-line -1)
+	    (skip-chars-forward " ")
+	    (setq p1 (point))
+	    (skip-chars-forward "[:digit:]")
+	    (setq p2 (point)))
+	  (make-text-button p1 p2
+	   'type 'apdl-marker
+	   'action markr)))
       (goto-char (point-min))
       ;; make buffer read-only
       (read-only-mode 1)

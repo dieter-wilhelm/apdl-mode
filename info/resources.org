@@ -1,6 +1,6 @@
 * Ansys and APDL resources
    - The online Ansys [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
-     the Ansys [[https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA][online videos]] on YouTube
+     the Ansys [[https://www.youtube.com/user/ansysinc/playlists][video playlist]] on YouTube
    - The [[http://www.ansys.com][Ansys homepage]] with the Ansys Portal and Learning Hub
    - Xansys, an [[http://www.xansys.org][Ansys online community]] (forum registration is necessary)
    - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.

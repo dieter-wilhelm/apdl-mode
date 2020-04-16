@@ -2,7 +2,6 @@
   Firstly with an in-buffer display of a brief command help and
   secondly browsing the complete Ansys html documentation.
 ** Command Help with Argument Counter
-
    Typing "M-?", the <ALT> key simultaneously with the "?" the
    question mark (for the command ‘apdl-show-command-parameters’)
    displays above the respective code line a brief description of the
@@ -15,27 +14,31 @@
    switched off with an argument of zero ("M-0").
 
 ** APDL Keyword Documentation
-   Browse the detailed APDL command, element and selected topics in
-   the original Ansys HTML help.
+   Browse the detailed APDL commands, elements, functions and selected
+   topics in the original Ansys HTML help.
 
    Typing "C-c C-b" will display the original Ansys help in your web
    browser for all APDL commands, element names (stating the element
-   number is sufficient), get- or parametric-functions near the cursor
-   or the code line’s first APDL command.  When using a prefix
-   argument (typing C-u before C-c C-b) it inquires a keyword from
-   you.  Keywords beginning with a quotation mark ‘"’ describing
-   general manual sections, for example typing ‘"SHELLS"’ will call
-   the collection of all shell elements in the Ansys manual.  You must
-   complete your input with the <TAB> key.
+   number is sufficient), get- or parametric-functions.  "C-c C-b" is
+   locking for keywords on and before the cursor or - if this fails -
+   for APDL command at the line beginning.  This is also working for
+   commented out code lines.
+
+   When using a prefix argument (typing C-u before C-c C-b) it
+   inquires a keyword from you.  Keywords beginning with a quotation
+   mark ‘"’ describing general manual sections, for example typing
+   ‘"SHELLS"’ will call the collection of all shell elements in the
+   Ansys manual.  You must complete your input with the <TAB> key.
 
 * Code Templates
   You are learning and also coding APDL best by example!  APDL-Mode
   provides coding examples, here called templates, for the most often
-  used subjects.  Moreover you are able to compile your own WorkBench
-  / Discovery AIM Command templates and have them all immediately
-  available in APDL-Mode for inspection and inclusion.
-
-  You are able to preview the code templates with "C-c C-s" (for
+  used modelling subjects.  Moreover you are able to compile your own
+  WorkBench / Discovery AIM Command templates and have them all
+  immediately available in any macro file or WorkBench command object
+  for inspection and inclusion.
+** Model Templates
+  You are able to preview the model templates with "C-c C-s" (for
   ‘apdl-display-skeleton’), while doing this, you might type <TAB> to
   complete all available skeleton names.
 
@@ -44,66 +47,140 @@
   APDL code with outline headings.  Alternatively you can use the
   binding "<CTRL> + u M-x apdl-skeleton-outline-template" for
   inserting templates instead of previewing them.
-* Completion
-  APDL keyword completion (commands, elements, get- and
-  parametric-functions)
+** WorkBench / Discover Aim Templates
+   -TODO-
 
-  Type the first letter or letters of an APDL command, function or
-  element name and use the key binding "C-M-i" to let the function
-  ‘apdl-complete-symbol’ do the (case sensitve) completion for you.
-  Depending on the case of your letter or letters to be completed, you
-  will get a downcased, upcased or capitalised completion.
+* Editing Code
+** Completions
+   APDL keyword completion (commands, elements, get- and
+   parametric-functions)
 
-  There are around 2000 APDL symbols available for completion.
-  Undocumented APDL commands and deprecated element types are also
-  completed.  The former are identified as such with a different
-  highlighting and in their ’command syntax help’.  Please see also
-  the variable ‘apdl-deprecated-element-alist’ it’s a list with the
-  deprecated elements and their respective replacements (for
-  inspecting its content please click on above hyperlink or type
-  ‘C-hv’ and then type above variable name).
+   Type the first letter or letters of an APDL command, function or
+   element name and use the key binding "C-M-i" to let the function
+   ‘apdl-complete-symbol’ do the (case sensitve) completion for you.
+   Depending on the case of your letter or letters to be completed, you
+   will get a downcased, upcased or capitalised completion.
 
-  Doing this using the <TAB> key might save you some typing in
-  auto-completing the name.  When the characters before the cursor are
-  not unambiguous a completion list is shown, select the suitable word
-  from the list, either by navigation the cursor over the symbol and
-  typing <RET> or clicking with the left (or middle) mouse button is
-  completing the symbol.  Hitting the <SPACE> key removes the listing
-  window.
+   There are around 2000 APDL symbols available for completion.
+   Undocumented APDL commands and deprecated element types are also
+   completed.  The former are identified as such with a different
+   highlighting and in their ’command syntax help’.  Please see also
+   the variable ‘apdl-deprecated-element-alist’ it’s a list with the
+   deprecated elements and their respective replacements (for
+   inspecting its content please click on above hyperlink or type
+   "C-h v" and then type above variable name).
 
-* Code Alignment
-  Formatting of variable definitions:
+   Doing this using the <TAB> key might save you some typing in
+   auto-completing the name.  When the characters before the cursor are
+   not unambiguous a completion list is shown, select the suitable word
+   from the list, either by navigation the cursor over the symbol and
+   typing <RET> or clicking with the left (or middle) mouse button is
+   completing the symbol.  Hitting the <SPACE> key removes the listing
+   window.
 
-  Typing "C-c C-a" to call the function ‘apdl-align’ will
-  align marked sections or a paragraph of variable definitions like
-  the following lines
+** Comment Handling
+    commenting/un- of whole paragraphs.
 
-  xyz=30.381      !this is a variable
-  x = 0.4!this is another variable
+  - "M-;" calls ‘comment-dwim’ (Do What I Mean ;-):
 
-  they will be aligned to
+  In a code line: This command inserts comment char
+  ‘apdl-indent-comment-string’ at ‘apdl-code-comment-column’ (if
+  feasible, i. e. the code line is not too long).  With a prefix
+  argument: Kill existing code comment.
 
-  xyz = 30.381 !this is a variable
-  x   =  0.4   !this is another variable
+  With an highlighted region: Commenting out (‘comment-region’) or
+  Uncommenting (‘uncomment-region’) that region.
 
-* Auto-indentation 
-  of looping and conditional blocks.
+  In an empty line: Inserts ’!! ’ with the right indentation.
 
-  You can customise the indentation depth (APDL Block Offset), please
-  have a look for the entry ’Customise APDL Mode’ in the APDL-Mode
-  menu.  The Emacs customisation facility optionally saves your
-  choices automatically in your .emacs file for later sessions.
+  - "C-M-j" (or "M-j", calls
+    ‘indent-new-comment-line’).
 
-* Closing of Control Blocks
-  (*do, *if, ...) with the insertion of appropriate end keywords
+  Breaks a code comment and inserts a single exclamation mark
+  ’!’ (‘apdl-comment-char’) at column
+  ‘apdl-code-comment-column’ (if possible).
 
-  Typing "C-c ]" for the function `apdl-close-block’ completes the
-  current APDL block with the insertion of a newline and an
-  appropriate end keyword.
+  In comment lines ’!! ’ with two comment
+  characters (‘apdl-indent-comment-string’) breaks the comment and
+  begins a the same comment style at the the current indentation.
 
-* Code Navigation
-  with extended keyboard shortcuts.
-  Code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE blocks etc.
+  In an empty line or a line without comment: Just inserts a new
+  line.
+
+** Inserting Pairs
+   Moreover there are keyboard shortcuts with which you are able to
+   input pairs of corresponding characters, like ‘C-c %’ for ’%%’, the
+   APDL substitution operators.  The advantage is that the cursor is
+   placed between the pair and you might specify a region before this
+   command to include the whole region.
+
+   Alternatively you might provide numerical arguments to the call and
+   you are able to enclose already existing words within the pair,
+   e. q. "C-2 C-c %" enclosing the next two words inside the pair
+   "%%".
+
+   Please have a look for ‘insert-pair’ and check the menu entry of
+   APDL-Mode's keybindings.
+** Abbreviation Facility
+   Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
+   triggers an interactive code template which inserts a *DO loop
+   (‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate
+   version of a do loop without requesting user input (‘ansys_do’).
+   You can see all the predefined abbreviations with "‘?", i. e. a
+   question mark "?"  after the backquote "‘".  Alternatively you might
+   use the menu entry "List Mode Abbbreviations" or the command ‘M-x
+   list-abbrevs <RET>’ to inspect all definitions.
+
+   You can define your own abbreviations, please
+   #+texinfo: @inforef{Abbrev Concepts,,emacs}.
+
+** Auto-indentation
+   of looping and conditional blocks.
+
+   You can customise the indentation depth (APDL Block Offset), please
+   have a look for the entry ’Customise APDL Mode’ in the APDL-Mode
+   menu.  The Emacs customisation facility optionally saves your
+   choices automatically in your .emacs file for later sessions.
+
+** Closing of Control Blocks
+   (*do, *if, ...) with the insertion of appropriate end keywords
+
+   Typing "C-c ]" for the function `apdl-close-block’ completes the
+   current APDL block with the insertion of a newline and an
+   appropriate end keyword.
+
+** Code Alignment
+   Formatting of variable definitions:
+
+   Typing "C-c C-a" to call the function ‘apdl-align’ will
+   align marked sections or a paragraph of variable definitions like
+   the following lines
+
+   xyz=30.381      !this is a variable
+   x = 0.4!this is another variable
+
+   they will be aligned to
+
+   xyz = 30.381 !this is a variable
+   x   =  0.4   !this is another variable
+
+** Auto-insertion
+   of code templates into new APDL files.
+
+   Put the following section in your .emacs file, in case you want
+   to to include above skeleton (optionally) for every APDL file.
+
+   (auto-insert-mode 1)
+   (add-hook ’find-file-hook ’auto-insert)
+   (setq auto-insert-query t)
+   (add-to-list ’auto-insert-alist ’(apdl-mode .
+   [apdl-skeleton-outline-template]))
+
+   Please refere the configuration example ‘default.el’.
+
+* Code Navigation and Hiding
+  Navigating code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE
+  blocks, etc.
 
   "M-n" -- ‘apdl-next-code-line’ and
   "M-p" -- ‘apdl-previous-code-line’
@@ -143,22 +220,63 @@
   Are searching for and skipping over ’pure’ number blocks (the
   nblock, eblocks and cmblocks), these are common (and often quite
   large) in WorkBench solver input files (*.inp, *.dat).
+** Hiding Number Blocks
+  You can also hide and unhide these - usually uninteresting - blocks
+  with M-x `apdl-hide-number-blocks' and M-x `apdl-show-number-blocks'
+  respectively or even a region of your (un)liking with M-x
+  `apdl-hide-region'.  In files with the suffix ‘.dat’ number blocks
+  are hidden by default.
 
-  You can also hide and unhide these - usually uninteresting -
-  blocks with M-x apdl-hide-number-blocks and
-  M-x apdl-show-number-blocks respectively or even a region of
-  your (un)liking with M-x apdl-hide-region.  In files with the
-  suffix ‘.dat’ number blocks are hidden by default.
+** Outlining
+   (hiding and expanding) code sections.
 
-  Moreover there are keyboard shortcuts with which you are able to
-  input pairs of corresponding characters, like ‘C-c %’ for ’%%’,
-  the APDL substitution operators.  The advantage is that the
-  cursor is placed between the pair and you might give a numerical
-  argument to the call and enclose already existing words with the
-  pair, e. q. ‘C-1’ ‘C-c %’.  Please have a look for ‘insert-pair’
-  and see below in the Keybindings section.
+   If you are using the pre-configured APDL-Mode then function
+   ‘outline-minor-mode’ is switched on by default.
 
-* Sophisticated Highlighting 
+   With this mode you can hide certain sections of your code or
+   navigate to customisable outline headings.  Certain characters
+   --by default ’!@’ (see the variable ‘ansys_outline_string’)-- at
+   the beginning of a line in your code represent such headings.
+   ’!@@’ specifies a subheading and so on (please call the function
+   ‘apdl-skeleton-outline-template’ to insert a skeleton of outline
+   sections in your current file).  Check out the Outline menu
+   entries.
+
+   In case outlining is not activate you might call Outline Minor
+   Mode with "M-x outline-minor-mode" or you can enable this mode
+   for the current session by ticking on the respective option in
+   the menu or permanently by setting ‘apdl-outline-minor-mode’ for
+   the ‘apdl-mode-hook’ variable.  Please type
+   "M-x apdl-customise-ansys <RET>" or use the customisaton system
+   from the menu: ->APDL ->Customise APDL Mode.
+
+* Variable Definitions
+  Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...)
+  and component names (CM).
+
+  Typing "C-c C-v" (for ‘apdl-display-variables’) shows all
+  definitions in your APDL file in a separate window.  Together with
+  the corresponding line numbers.  These numbers are links to the
+  variable definition in the APDL buffer.  Clicking with the middle
+  mouse button (button-2) on these numbers is showing the definition
+  in its APDL context.
+
+  You can remove the ’*APDL-variables*’ window with "C-x 4 k"
+  (‘apdl-delete-other-window’).
+
+  # When you place the cursor on the respective line number and type
+  # "C-u M-g g", where "C-u" is a ’prefix’ argument for "M-g g"
+  # (‘goto-line’)).  Emacs will then skip to the corresponding
+  # definition line in the macro file.
+
+  With a prefix argument for "C-c C-v" you are receiving the current
+  value of the variable at the current cursor position.  For this to
+  work it is necessary to have a running Ansys process under Emacs
+  (GNU-Linux systems only, please see below the chapter about the
+  [[*MAPDL Solver
+   Control][MAPDL Solver Control]]).
+
+* Sophisticated Highlighting
   The highlighting in the highest decoration level (please refer to
   ‘apdl-highlighting-level’) tries to follow the idiosyncratic
   Ansys solver/interpreter logic as closely as possible.  For
@@ -238,107 +356,7 @@
   "C-c C-v", see below) in the maximum
   highlighting level (2).
 
-* Variable Definitions
-  Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...)
-  and component names (CM).
-
-  Typing "C-c C-v" (for ‘apdl-display-variables’) shows all
-  definitions in your APDL file in a separate window.
-
-  You might remove ’*APDL-variables*’ window with "C-x 4 k"
-  (‘apdl-delete-other-window’).
-
-  When you place the cursor on the respective line number and type
-  "C-u M-g g", where "C-u" is a ’prefix’ argument for "M-g g"
-  (‘goto-line’)).  Emacs will then skip to the corresponding
-  definition line in the macro file.
-
-  Additionally you are able with a prefix argument for "C-c C-v" to
-  receive the current value of your variables at the cursor position.
-  For this functionality it is necessary to have a running Ansys
-  process (GNU-Linux systems only, please see below the chapter about
-  the [[*MAPDL Solver Control][MAPDL Solver Control]]).
-
-* Abbreviation Facility
-  Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
-  triggers an interactive code template which inserts a *DO loop
-  (‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate
-  version of a do loop without requesting user input (‘ansys_do’).
-  You can see all the predefined abbreviations with "‘?", i. e. a
-  question mark "?"  after the backquote "‘".  Alternatively you might
-  use the menu entry "List Mode Abbbreviations" or the command ‘M-x
-  list-abbrevs <RET>’ to inspect all definitions.
-
-  You can define your own abbreviations, please
-  #+texinfo: @inforef{Abbrev Concepts,,emacs}.
-
-* Outlining
-  (hiding and expanding) code sections.
-
-  If you are using the pre-configured APDL-Mode then function
-  ‘outline-minor-mode’ is switched on by default.
-
-  With this mode you can hide certain sections of your code or
-  navigate to customisable outline headings.  Certain characters
-  --by default ’!@’ (see the variable ‘ansys_outline_string’)-- at
-  the beginning of a line in your code represent such headings.
-  ’!@@’ specifies a subheading and so on (please call the function
-  ‘apdl-skeleton-outline-template’ to insert a skeleton of outline
-  sections in your current file).  Check out the Outline menu
-  entries.
-
-  In case outlining is not activate you might call Outline Minor
-  Mode with "M-x outline-minor-mode" or you can enable this mode
-  for the current session by ticking on the respective option in
-  the menu or permanently by setting ‘apdl-outline-minor-mode’ for
-  the ‘apdl-mode-hook’ variable.  Please type
-  "M-x apdl-customise-ansys <RET>" or use the customisaton system
-  from the menu: ->APDL ->Customise APDL Mode.
-
-* Comment Handling
-  commenting/un- of whole paragraphs.
-
-  - "M-;" calls ‘comment-dwim’ (Do What I Mean ;-):
-
-  In a code line: This command inserts comment char
-  ‘apdl-indent-comment-string’ at ‘apdl-code-comment-column’ (if
-  feasible, i. e. the code line is not too long).  With a prefix
-  argument: Kill existing code comment.
-
-  With an highlighted region: Commenting out (‘comment-region’) or
-  Uncommenting (‘uncomment-region’) that region.
-
-  In an empty line: Inserts ’!! ’ with the right indentation.
-
-  - "C-M-j" (or "M-j", calls
-    ‘indent-new-comment-line’).
-
-  Breaks a code comment and inserts a single exclamation mark
-  ’!’ (‘apdl-comment-char’) at column
-  ‘apdl-code-comment-column’ (if possible).
-
-  In comment lines ’!! ’ with two comment
-  characters (‘apdl-indent-comment-string’) breaks the comment and
-  begins a the same comment style at the the current indentation.
-
-  In an empty line or a line without comment: Just inserts a new
-  line.
-
-* Auto-insertion
-  of code templates into new APDL files.
-
-  Put the following section in your .emacs file, in case you want
-  to to include above skeleton (optionally) for every APDL file.
-
-  (auto-insert-mode 1)
-  (add-hook ’find-file-hook ’auto-insert)
-  (setq auto-insert-query t)
-  (add-to-list ’auto-insert-alist ’(apdl-mode .
-  [apdl-skeleton-outline-template]))
-
-  Please refere the configuration example ‘default.el’.
-
-* Process Management 
+* Process Management
 
   Even when there is no buffer under APDL-Mode, after starting Emacs,
   for example, it is possible to run selected APDL-Mode services.  You
@@ -349,7 +367,7 @@
   APDL-Mode:
 
   # from helper/autoload.sh
-  apdl, 
+  apdl,
   apdl-mode,
   apdl-mode-version,
   apdl-user-license-status and
@@ -383,7 +401,7 @@
    available on the license server in the **License** buffer.  In this
    buffer you can apply additional keys, for example "o" to show only
    selected licenses (compiled from the variable
-   `apdl-license-occur-regexp'). 
+   `apdl-license-occur-regexp').
    #+texinfo: @inforef{Regular Expressions,,elisp} for more information.
 
       # check: (info "(elisp)Regular Expressions")
@@ -484,3 +502,9 @@
   command but must search within the Ansys Help Viewer or better use
   the much faster "C-c C-b".
 
+# Local Variables:
+# indicate-empty-lines: t
+# show-trailing-whitespace: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
+# End:

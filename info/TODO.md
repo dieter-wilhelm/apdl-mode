@@ -1,35 +1,41 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#orgb281c00)
-2.  [Version 20.4.0](#orgaeea8dd)
-3.  [Version 20.3.0](#orgb4c0776)
-4.  [Version 20.2.0](#orgaf7d9ae)
-5.  [Version 20.1.1](#org5956c77)
-6.  [Version 162-2](#org96f3479)
+1.  [Version 20.5.0](#orgdf0bced)
+2.  [Version 20.4.0](#org2d07b8c)
+3.  [Version 20.3.0](#org083439d)
+4.  [Version 20.2.0](#org14c8024)
+5.  [Version 20.1.1](#org5dd5c92)
+6.  [Version 162-2](#orgc3434cc)
 
 
 
-<a id="orgb281c00"></a>
+<a id="orgdf0bced"></a>
 
 # TODO Version 20.5.0
 
-help for get- and fortran functions
+<span class="timestamp-wrapper"><span class="timestamp">[2020-04-16 Do] </span></span> feature freeze
+help for all get- and parametric-functions
 
 
 ## Todos, bugs
 
 -   Templates: Add intro help to the -wb-template system, complete
-    usage.org -> Code Templates, apdl-wb-custom-template-directory
+    usage.org
+    -   Code Templates, apdl-wb-custom-template-directory
+    -   Export of WB command objects to file on disc
 
 
 ## Minor bugs
 
+-   C-c C-v doesn't preserve point of macro file
 -   M-? parameter counter is not working for commands where functions
-    with multiple arguments are in the argument list! f,node(x,y,z),,,
+    with multiple arguments are in the argument list!
+    f,node(x,y,z),,,
 -   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
     the respective section on page for Chrome and Edge!?
--   1/en, en is variable but fraction not fontified?
+-   \`1/en', en is variable but this fraction is not fontified, though
+    \`1/ en' is fontified!
 
 
 ## Checks
@@ -49,7 +55,6 @@ help for get- and fortran functions
 
 ### Docu
 
--   Link to Ansys Youtube channel in menu?
 -   Things like C-c C-jjj (more?) are not documented in manual!
 -   more C-c C-b subjects?
     2.1. SESSION Commands
@@ -70,6 +75,8 @@ help for get- and fortran functions
 -   Create English Wiki for APDL
 -   M-? get- and parameter-functions are completed but there's no
     parameter help - see: apdl-dynamic-prompt
+-   Link to Ansys Youtube channel in menu? (It's already in Ansys
+    resources!)
 -   The Command (APDL) objects coding system seems to be
     mule-utf-8-dos aka cp65001-dos, document this
 -   Customise system (explain \`M-x customize-set-value' as long as
@@ -173,7 +180,7 @@ apdl-customise-ansys
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<a id="orgaeea8dd"></a>
+<a id="org2d07b8c"></a>
 
 # DONE Version 20.4.0
 
@@ -181,7 +188,7 @@ apdl-customise-ansys
 updated to 2020R1
 
 
-<a id="orgb4c0776"></a>
+<a id="org083439d"></a>
 
 # DONE Version 20.3.0
 
@@ -190,14 +197,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgaf7d9ae"></a>
+<a id="org14c8024"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org5956c77"></a>
+<a id="org5dd5c92"></a>
 
 # DONE Version 20.1.1
 
@@ -210,7 +217,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org96f3479"></a>
+<a id="orgc3434cc"></a>
 
 # Version 162-2
 

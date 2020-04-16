@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Ansys and APDL resources](#orgbba51b3)
-2.  [Emacs editor resources](#orgfa2c5f2)
-3.  [Other APDL editor resources](#orgdf50f90)
+1.  [Ansys and APDL resources](#orgdbe734a)
+2.  [Emacs editor resources](#org41d4d76)
+3.  [Other APDL editor resources](#orgcdaa64d)
 
 
-<a id="orgbba51b3"></a>
+<a id="orgdbe734a"></a>
 
 # Ansys and APDL resources
 
 -   The online Ansys [reference manuals](https://ansyshelp.ansys.com/) (registration required) and
-    the Ansys [online videos](https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA) on YouTube
+    the Ansys [video playlist](https://www.youtube.com/user/ansysinc/playlists) on YouTube
 -   The [Ansys homepage](http://www.ansys.com) with the Ansys Portal and Learning Hub
 -   Xansys, an [Ansys online community](http://www.xansys.org) (forum registration is necessary)
 -   The [PADT Focus](http://www.padtinc.com/blog/the-focus/) site.
@@ -19,7 +19,7 @@
 -   [AUC](http://www.auc-ev.de/), the Ansys User Club eV. in Germany
 
 
-<a id="orgfa2c5f2"></a>
+<a id="org41d4d76"></a>
 
 # Emacs editor resources
 
@@ -29,7 +29,7 @@
 -   The [Emacs help](mailto:help-gnu-emacs@gnu.org) mailing list
 
 
-<a id="orgdf50f90"></a>
+<a id="orgcdaa64d"></a>
 
 # Other APDL editor resources
 

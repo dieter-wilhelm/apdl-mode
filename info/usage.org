@@ -259,7 +259,8 @@
   the corresponding line numbers.  These numbers are links to the
   variable definition in the APDL buffer.  Clicking with the middle
   mouse button (button-2) on these numbers is showing the definition
-  in its APDL context.
+  in its APDL context. You can also use the <TAB> key and Shift <TAB>
+  to skip between the links and type <RET> to activate the links.
 
   You can remove the ’*APDL-variables*’ window with "C-x 4 k"
   (‘apdl-delete-other-window’).

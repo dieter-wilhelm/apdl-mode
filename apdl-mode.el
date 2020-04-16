@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-16>
+;; Time-stamp: <2020-04-17>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -3245,11 +3245,13 @@ LINE-NO line."
 Together with the corresponding line number.  These numbers are
 links to the respective APDL buffer.  Clicking with the middle
 mouse button (button-2) on these numbers is skipping the cursor
-to the corresponding line number.
+to the corresponding line number.  You can also use the <TAB> key
+and Shift <TAB> to skip between the links and type <RET> to
+activate the links.
 
 With a prefix argument ARG, the function evaluates the variable
 at point.  The result is shown in the command process buffer, if
-an MAPDL process is running under Emacs."
+an MAPDL process is running under Emacs (GNU-Linux only)."
   (interactive "P")
   (cond
    (arg  ; --- enquire value of variable
@@ -3280,6 +3282,7 @@ an MAPDL process is running under Emacs."
 	   (markr (make-marker))
            (num 0))
       (set-buffer variable-buffer)
+      (use-local-map button-buffer-map)
       ;; make buffer writable
       (read-only-mode -1)
       (kill-region (point-min) (point-max))

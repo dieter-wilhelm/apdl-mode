@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-15>
+;; Time-stamp: <2020-04-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -922,6 +922,9 @@ subjects (apdl-browse-apdl-help)."
 Guide in a browser (apdl-browse-ansys-apdl-manual)"
     ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
     ]
+   ["Browse Ansys Main Help Page" apdl-start-ansys-help-page
+    :help "Start the Ansys main help page
+(apdl-start-ansys-help-page)."]
    "--"
    ["Preview Macro Template" apdl-display-skeleton
     :help "Preview an APDL code template in another window"]

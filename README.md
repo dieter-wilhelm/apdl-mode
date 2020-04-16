@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#orga4c6b6d)
-2.  [Some Highlights](#org796c64c)
-3.  [Installation](#orgc33dd35)
-4.  [First Steps](#org23911c8)
-5.  [Configuration and Customisation](#orgd29281a)
-6.  [Bugs and Problems](#org509ce57)
-7.  [News](#org2608b02)
-8.  [Further Resources](#org08cde38)
-9.  [Acknowledgements](#org7919692)
-10. [Todos](#org265bc65)
-11. [GNU GPL v3 License](#orgac02ec1)
+1.  [Introduction](#org9e93aa8)
+2.  [Some Highlights](#org047867d)
+3.  [Installation](#org88855f8)
+4.  [First Steps](#org47f16ee)
+5.  [Configuration and Customisation](#org915e577)
+6.  [Bugs and Problems](#orga371ea5)
+7.  [News](#orgeadc7b4)
+8.  [Further Resources](#orgb82c701)
+9.  [Acknowledgements](#org003adde)
+10. [Todos](#org4742f78)
+11. [GNU GPL v3 License](#org8a4f7e9)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="orga4c6b6d"></a>
+<a id="org9e93aa8"></a>
 
 # Introduction
 
@@ -70,7 +70,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org796c64c"></a>
+<a id="org047867d"></a>
 
 # Some Highlights
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="orgc33dd35"></a>
+<a id="org88855f8"></a>
 
 # Installation
 
@@ -201,7 +201,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org23911c8"></a>
+<a id="org47f16ee"></a>
 
 # First Steps
 
@@ -220,7 +220,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="orgd29281a"></a>
+<a id="org915e577"></a>
 
 # Configuration and Customisation
 
@@ -236,7 +236,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](info/apdl-config.el).
 
 
-<a id="org509ce57"></a>
+<a id="orga371ea5"></a>
 
 # Bugs and Problems
 
@@ -257,14 +257,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org2608b02"></a>
+<a id="orgeadc7b4"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org08cde38"></a>
+<a id="orgb82c701"></a>
 
 # Further Resources
 
@@ -272,7 +272,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org7919692"></a>
+<a id="org003adde"></a>
 
 # Acknowledgements
 
@@ -287,14 +287,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="org265bc65"></a>
+<a id="org4742f78"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orgac02ec1"></a>
+<a id="org8a4f7e9"></a>
 
 # GNU GPL v3 License
 

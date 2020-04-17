@@ -109,7 +109,10 @@ ELC : $(ELC_FILES)
 # interesting files besides the essential lisp files
 FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
 	 ../info/TODO.org ../info/NEWS.org ../info/INSTALLATION.org \
-	 ../info/apdl-config.org ../info/apdl-config.el ../info/apdl-mode.info
+	 ../info/apdl-config.org ../info/apdl-mode.org \
+	 ../info/acknowledgements.org ../info/bugs.org ../info/first_steps.org \
+	 ../info/introduction.org ../info/resources.org ../info/tutorial.org \
+	 ../info/usage.org
 
 # all org files which are referenced in README.org have to be exported
 # to markdown .md

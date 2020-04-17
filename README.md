@@ -1,23 +1,18 @@
 
 # Table of Contents
 
-1.  [Introduction](#orgbd9565b)
-2.  [Some Highlights](#orgf16524e)
-3.  [Installation](#orge3a00cd)
-4.  [First Steps](#org659e9c6)
-5.  [Configuration and Customisation](#org45ecbff)
-6.  [Bugs and Problems](#org9cb11c3)
-7.  [News](#org9d695a5)
-8.  [Further Resources](#orgbd11703)
-9.  [Acknowledgements](#org7655699)
-10. [Todos](#orgf92af26)
-11. [GNU GPL v3 License](#org2f6d750)
+1.  [Introduction](#org0a6416f)
+2.  [Some Highlights](#org3fde12c)
+3.  [Installation](#org2947558)
+4.  [First Steps](#org4020323)
+5.  [Configuration and Customisation](#orgc049613)
+6.  [Bugs and Problems](#org3cbb95d)
+7.  [News](#org79e866e)
+8.  [Further Resources](#org05c3c52)
+9.  [Acknowledgements](#orgbf65e9b)
+10. [Todos](#org02e166b)
+11. [GNU GPL v3 License](#org2431fc1)
 
-<<<<<<< HEAD
-
-`=====`
-
->>>>>>> help
 
 
 ## The GNU-Emacs major mode for the scripting language APDL
@@ -32,7 +27,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="orgbd9565b"></a>
+<a id="org0a6416f"></a>
 
 # Introduction
 
@@ -75,7 +70,7 @@ with the "Refresh" button.
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgf16524e"></a>
+<a id="org3fde12c"></a>
 
 # Some Highlights
 
@@ -141,7 +136,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="orge3a00cd"></a>
+<a id="org2947558"></a>
 
 # Installation
 
@@ -209,7 +204,7 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org659e9c6"></a>
+<a id="org4020323"></a>
 
 # First Steps
 
@@ -228,7 +223,7 @@ APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
 well as under Emacs-25 and 26 under GNU-Linux and Windows.
 
 
-<a id="org45ecbff"></a>
+<a id="orgc049613"></a>
 
 # Configuration and Customisation
 
@@ -244,7 +239,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](info/apdl-config.el).
 
 
-<a id="org9cb11c3"></a>
+<a id="org3cbb95d"></a>
 
 # Bugs and Problems
 
@@ -265,14 +260,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org9d695a5"></a>
+<a id="org79e866e"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgbd11703"></a>
+<a id="org05c3c52"></a>
 
 # Further Resources
 
@@ -280,7 +275,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org7655699"></a>
+<a id="orgbf65e9b"></a>
 
 # Acknowledgements
 
@@ -295,14 +290,14 @@ I received moreover support and feedback from many individuals, thank
 you very much!
 
 
-<a id="orgf92af26"></a>
+<a id="org02e166b"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org2f6d750"></a>
+<a id="org2431fc1"></a>
 
 # GNU GPL v3 License
 

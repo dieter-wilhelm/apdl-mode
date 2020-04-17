@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#orgff05838)
-2.  [Important Prerequisite](#org0fbd87f)
-3.  [File suffixes](#org836cdc8)
-4.  [Auto insertion](#org5334f3d)
-5.  [Miscellaneous](#org8e9b5c5)
-6.  [Outlining](#org5ab58d0)
-7.  [Highlighting (Colourisation)](#org2ef7597)
-8.  [Installation dependent configurations](#org09e938e)
-9.  [Ansys processes](#org0b1b0c9)
+1.  [Conventions](#org341c737)
+2.  [Important Prerequisite](#org6c90aac)
+3.  [File suffixes](#org41bf3fc)
+4.  [Auto insertion](#org8f66033)
+5.  [Miscellaneous](#org5e9059c)
+6.  [Outlining](#orgfc56750)
+7.  [Highlighting (Colourisation)](#orgae87da2)
+8.  [Installation dependent configurations](#org5465fa6)
+9.  [Ansys processes](#org1817f92)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -20,9 +20,9 @@ APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
 You can change the APDL-Mode confgurations permanently by 1. using the
-Emacs customistation system -
+Emacs customistation system
 
-or 2. by directly manipulating the Emacs configuration file -
+or 2. by directly manipulating the Emacs configuration file
 
 1.  For an overview of available APDL-Mode customisations variables
     it’s easiest to open the APDL-Mode’s customisation buffer either
@@ -44,7 +44,7 @@ or 2. by directly manipulating the Emacs configuration file -
     is `;` (one semi-colon \`;').
 
 
-<a id="orgff05838"></a>
+<a id="org341c737"></a>
 
 # Conventions
 
@@ -58,7 +58,7 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="org0fbd87f"></a>
+<a id="org6c90aac"></a>
 
 # Important Prerequisite
 
@@ -83,11 +83,11 @@ the MAPDL menu entry "Change Installation Directory".
 
 If your Ansys installation differs completely from the standard
 Ansys directory structure, or you want to use multiple versions of
-Ansys, then please consult the section [Installation dependent configurations](#org09e938e)
+Ansys, then please consult the section [Installation dependent configurations](#org5465fa6)
 below.
 
 
-<a id="org836cdc8"></a>
+<a id="org41bf3fc"></a>
 
 # File suffixes
 
@@ -158,7 +158,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org5334f3d"></a>
+<a id="org8f66033"></a>
 
 # Auto insertion
 
@@ -180,7 +180,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="org8e9b5c5"></a>
+<a id="org5e9059c"></a>
 
 # Miscellaneous
 
@@ -214,7 +214,7 @@ section).
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="org5ab58d0"></a>
+<a id="orgfc56750"></a>
 
 # Outlining
 
@@ -230,7 +230,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="org2ef7597"></a>
+<a id="orgae87da2"></a>
 
 # Highlighting (Colourisation)
 
@@ -283,7 +283,7 @@ the current default is 2.
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org09e938e"></a>
+<a id="org5465fa6"></a>
 
 # Installation dependent configurations
 
@@ -313,7 +313,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org0b1b0c9"></a>
+<a id="org1817f92"></a>
 
 # Ansys processes
 

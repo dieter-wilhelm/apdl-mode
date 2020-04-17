@@ -1,9 +1,5 @@
 #+STARTUP: all
-<<<<<<< HEAD
-#+DATE: Time-stamp: <2020-04-14>
-=======
-#+DATE: Time-stamp: <2020-04-15>
->>>>>>> help
+#+DATE: Time-stamp: <2020-04-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t

@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#org1750184)
-2.  [Version 20.4.0](#org8271fec)
-3.  [Version 20.3.0](#orgb02a203)
-4.  [Version 20.2.0](#org2183efc)
-5.  [Version 20.1.1](#org3206a09)
-6.  [Version 162-2](#org05c64f8)
+1.  [Version 20.5.0](#orgc7e6dfb)
+2.  [Version 20.4.0](#org0568e68)
+3.  [Version 20.3.0](#org7f7b1e7)
+4.  [Version 20.2.0](#orgf14e810)
+5.  [Version 20.1.1](#orgda94e20)
+6.  [Version 162-2](#org9332efd)
 
 
 
-<a id="org1750184"></a>
+<a id="orgc7e6dfb"></a>
 
 # TODO Version 20.5.0
 
@@ -20,6 +20,7 @@ help for all get- and parametric-functions
 
 ## Todos, bugs
 
+-   Make text around #+texinfo: lines self sustained!
 -   Templates: Add intro help to the -wb-template system, complete
     usage.org
     -   Code Templates, apdl-wb-custom-template-directory
@@ -28,14 +29,14 @@ help for all get- and parametric-functions
 
 ## Minor bugs
 
--   C-c C-v doesn't preserve point of macro file
+-   C-c C-v doesn't preserve point of the APDL file
 -   M-? parameter counter is not working for commands where functions
     with multiple arguments are in the argument list!
     f,node(x,y,z),,,
--   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-    the respective section on page for Chrome and Edge!?
 -   \`1/en', en is variable but this fraction is not fontified, though
     \`1/ en' is fontified!
+-   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
+    the respective section on page for Chrome and Edge!?
 
 
 ## Checks
@@ -87,7 +88,7 @@ Info documentation:
 -   work on the Info index
 -   \#+include: #+title adds to info title!
 -   \#+texinfo: @inforef{node,name,file} links to Emacs info pages,
-    done
+    done, make contex self sustained!!
 -   Attention colon ":" in headline gives a texinfo reference!
 -   C-u C-h i: info file :-)
 -   package with file "dir"
@@ -177,10 +178,10 @@ APDL<sub>PATCH</sub> := 0
 apdl-customise-ansys
 
 (tags-query-replace "26\\.3" "27.1")
-(tags-search "((emacs \\"25.1\\"))")
+(tags-search "texinfo:")
 
 
-<a id="org8271fec"></a>
+<a id="org0568e68"></a>
 
 # DONE Version 20.4.0
 
@@ -188,7 +189,7 @@ apdl-customise-ansys
 updated to 2020R1
 
 
-<a id="orgb02a203"></a>
+<a id="org7f7b1e7"></a>
 
 # DONE Version 20.3.0
 
@@ -197,14 +198,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org2183efc"></a>
+<a id="orgf14e810"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org3206a09"></a>
+<a id="orgda94e20"></a>
 
 # DONE Version 20.1.1
 
@@ -217,7 +218,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org05c64f8"></a>
+<a id="org9332efd"></a>
 
 # Version 162-2
 

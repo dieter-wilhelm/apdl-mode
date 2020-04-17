@@ -131,7 +131,7 @@
    use the menu entry "List Mode Abbbreviations" or the command ‘M-x
    list-abbrevs <RET>’ to inspect all definitions.
 
-   You can define your own abbreviations, please
+   In Emacs you can define your own abbreviations.
    #+texinfo: @inforef{Abbrev Concepts,,emacs}.
 
 ** Auto-indentation

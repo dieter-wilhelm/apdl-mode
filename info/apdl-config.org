@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-15>
+#+DATE: Time-stamp: <2020-04-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -34,11 +34,10 @@ APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
 You can change the APDL-Mode confgurations permanently by 1. using the
-Emacs customistation system -
+Emacs customistation system
 #+texinfo: @inforef{Easy Customization,,emacs}
-or 2. by directly manipulating the Emacs configuration file -
+or 2. by directly manipulating the Emacs configuration file
 #+texinfo: @inforef{Init File,,emacs}.
-
 
   1. For an overview of available APDL-Mode customisations variables
      it’s easiest to open the APDL-Mode’s customisation buffer either

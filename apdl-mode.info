@@ -3169,6 +3169,7 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: Minor bugs,  Up: Version 2050 1
 12.1.1 Todos, bugs
 ------------------
 
+   • Make text around #+texinfo: lines self sustained!
    • Templates: Add intro help to the -wb-template system, complete
      usage.org
         • Code Templates, apdl-wb-custom-template-directory
@@ -3180,13 +3181,13 @@ File: apdl-mode.info,  Node: Minor bugs,  Next: Checks,  Prev: Todos bugs,  Up: 
 12.1.2 Minor bugs
 -----------------
 
-   • C-c C-v doesn’t preserve point of macro file
+   • C-c C-v doesn’t preserve point of the APDL file
    • M-?  parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!  f,node(x,y,z),,,
-   • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
-     the respective section on page for Chrome and Edge!?
    • ‘1/en’, en is variable but this fraction is not fontified, though
      ‘1/ en’ is fontified!
+   • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
+     the respective section on page for Chrome and Edge!?
 
 
 File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Minor bugs,  Up: Version 2050 1
@@ -3242,7 +3243,8 @@ File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
 
    • work on the Info index
    • #+include: #+title adds to info title!
-   • #+texinfo: @inforef{node,name,file} links to Emacs info pages, done
+   • #+texinfo: @inforef{node,name,file} links to Emacs info pages,
+     done, make contex self sustained!!
    • Attention colon ":" in headline gives a texinfo reference!
    • C-u C-h i: info file :-)
    • package with file "dir"
@@ -3336,8 +3338,7 @@ makefile?
 
    apdl-customise-ansys
 
-   (tags-query-replace "26\.3" "27.1") (tags-search "((emacs
-\"25.1\"))")
+   (tags-query-replace "26\.3" "27.1") (tags-search "texinfo:")
 
 
 File: apdl-mode.info,  Node: Version 2040 1,  Next: Version 2030 1,  Prev: Version 2050 1,  Up: Todos
@@ -4549,37 +4550,37 @@ Node: Other APDL editor resources130072
 Node: Todos130986
 Node: Version 2050 1131302
 Node: Todos bugs131633
-Node: Minor bugs131960
-Node: Checks132537
-Node: Wishes132820
-Node: Docu133124
-Node: templates134966
-Node: misc135563
-Node: Done135974
-Node: Push and Release Proceedures136213
-Node: Version 2040 1137139
-Node: Version 2030 1137336
-Node: Version 2020 1137554
-Node: Version 2011 1137733
-Node: Version 162-2138205
-Node: Bugs138481
-Node: Freeze139450
-Node: Wish-list139807
-Node: Deficiencies145923
-Node: Procedures147584
-Node: Freeze proceedures148106
-Node: Release149633
-Node: Ideas for further versions150236
-Node: Parameter help and documentation150665
-Node: Ansys process and interpreter buffer152967
-Node: Skeletons outline and abbrevs155830
-Node: Miscellaneous 1157562
-Node: Ansys syntax restrictions not (yet) accounted for162552
-Node: Unknown Ansys stuff163455
-Node: Acknowledgements163738
-Node: GNU Free Documentation License164308
-Node: Variable Index189334
-Node: Concept Index189483
+Node: Minor bugs132017
+Node: Checks132597
+Node: Wishes132880
+Node: Docu133184
+Node: templates135061
+Node: misc135658
+Node: Done136069
+Node: Push and Release Proceedures136308
+Node: Version 2040 1137224
+Node: Version 2030 1137421
+Node: Version 2020 1137639
+Node: Version 2011 1137818
+Node: Version 162-2138290
+Node: Bugs138566
+Node: Freeze139535
+Node: Wish-list139892
+Node: Deficiencies146008
+Node: Procedures147669
+Node: Freeze proceedures148191
+Node: Release149718
+Node: Ideas for further versions150321
+Node: Parameter help and documentation150750
+Node: Ansys process and interpreter buffer153052
+Node: Skeletons outline and abbrevs155915
+Node: Miscellaneous 1157647
+Node: Ansys syntax restrictions not (yet) accounted for162637
+Node: Unknown Ansys stuff163540
+Node: Acknowledgements163823
+Node: GNU Free Documentation License164393
+Node: Variable Index189419
+Node: Concept Index189568
 
 End Tag Table
 

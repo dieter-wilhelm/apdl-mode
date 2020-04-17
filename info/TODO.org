@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-16>
+#+DATE: Time-stamp: <2020-04-17>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -22,19 +22,20 @@
   [2020-04-16 Do] feature freeze
   help for all get- and parametric-functions
 ** Todos, bugs
+   - Make text around #+texinfo: lines self sustained!
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc
 ** Minor bugs
-   - C-c C-v doesn't preserve point of macro file
+   - C-c C-v doesn't preserve point of the APDL file
    - M-? parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!
      f,node(x,y,z),,,
-   - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-     the respective section on page for Chrome and Edge!?
    - `1/en', en is variable but this fraction is not fontified, though
      `1/ en' is fontified!
+   - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
+     the respective section on page for Chrome and Edge!?
 ** Checks
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
@@ -77,7 +78,7 @@
      - work on the Info index
      - #+include: #+title adds to info title!
      - #+texinfo: @inforef{node,name,file} links to Emacs info pages,
-       done
+       done, make contex self sustained!!
      - Attention colon ":" in headline gives a texinfo reference!
      - C-u C-h i: info file :-)
      - package with file "dir"
@@ -154,7 +155,7 @@
     apdl-customise-ansys
     # emacs
     (tags-query-replace "26\.3" "27.1")
-    (tags-search "((emacs \"25.1\"))")
+    (tags-search "texinfo:")
 
 * DONE Version 20.4.0
   [2020-04-01 Mi]

@@ -1,61 +1,41 @@
 
 # Table of Contents
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-1.  [Version 20.5.0](#org3df21cb)
-2.  [Version 20.4.0](#org039ae50)
-3.  [Version 20.3.0](#org78a8bca)
-4.  [Version 20.2.0](#org5f5d385)
-5.  [Version 20.1.1](#org746523c)
-6.  [Version 162-2:](#org13c0fcc)
+1.  [Version 20.5.0](#org1750184)
+2.  [Version 20.4.0](#org8271fec)
+3.  [Version 20.3.0](#orgb02a203)
+4.  [Version 20.2.0](#org2183efc)
+5.  [Version 20.1.1](#org3206a09)
+6.  [Version 162-2](#org05c64f8)
 
 
 
-<a id="org3df21cb"></a>
-=======
-1.  [Version 20.5.0](#org54fa8e9)
-2.  [Version 20.4.0](#orgceb8d14)
-3.  [Version 20.3.0](#org14ccd20)
-4.  [Version 20.2.0](#orgacd638c)
-5.  [Version 20.1.1](#org391c496)
-6.  [Version 162-2:](#orgee4965a)
-
-
-
-<a id="org54fa8e9"></a>
->>>>>>> help
-=======
-1.  [Version 20.5.0](#org632def5)
-2.  [Version 20.4.0](#org5a243df)
-3.  [Version 20.3.0](#orgd863fa9)
-4.  [Version 20.2.0](#org9142f63)
-5.  [Version 20.1.1](#orgf2ac690)
-6.  [Version 162-2:](#org2a324cc)
-
-
-
-<a id="org632def5"></a>
->>>>>>> help
+<a id="org1750184"></a>
 
 # TODO Version 20.5.0
 
-help for get- and fortran functions
+<span class="timestamp-wrapper"><span class="timestamp">[2020-04-16 Do] </span></span> feature freeze
+help for all get- and parametric-functions
 
 
 ## Todos, bugs
 
 -   Templates: Add intro help to the -wb-template system, complete
-    usage.org -> Code Templates, apdl-wb-custom-template-directory
+    usage.org
+    -   Code Templates, apdl-wb-custom-template-directory
+    -   Export of WB command objects to file on disc
 
 
 ## Minor bugs
 
+-   C-c C-v doesn't preserve point of macro file
 -   M-? parameter counter is not working for commands where functions
-    with multiple arguments are in the argument list! f,node(x,y,z),,,
+    with multiple arguments are in the argument list!
+    f,node(x,y,z),,,
 -   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
     the respective section on page for Chrome and Edge!?
--   1/en, en is variable but fraction not fontified?
+-   \`1/en', en is variable but this fraction is not fontified, though
+    \`1/ en' is fontified!
 
 
 ## Checks
@@ -95,6 +75,8 @@ help for get- and fortran functions
 -   Create English Wiki for APDL
 -   M-? get- and parameter-functions are completed but there's no
     parameter help - see: apdl-dynamic-prompt
+-   Link to Ansys Youtube channel in menu? (It's already in Ansys
+    resources!)
 -   The Command (APDL) objects coding system seems to be
     mule-utf-8-dos aka cp65001-dos, document this
 -   Customise system (explain \`M-x customize-set-value' as long as
@@ -198,15 +180,7 @@ apdl-customise-ansys
 (tags-search "((emacs \\"25.1\\"))")
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<a id="org039ae50"></a>
-=======
-<a id="orgceb8d14"></a>
->>>>>>> help
-=======
-<a id="org5a243df"></a>
->>>>>>> help
+<a id="org8271fec"></a>
 
 # DONE Version 20.4.0
 
@@ -214,15 +188,7 @@ apdl-customise-ansys
 updated to 2020R1
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<a id="org78a8bca"></a>
-=======
-<a id="org14ccd20"></a>
->>>>>>> help
-=======
-<a id="orgd863fa9"></a>
->>>>>>> help
+<a id="orgb02a203"></a>
 
 # DONE Version 20.3.0
 
@@ -231,30 +197,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<a id="org5f5d385"></a>
-=======
-<a id="orgacd638c"></a>
->>>>>>> help
-=======
-<a id="org9142f63"></a>
->>>>>>> help
+<a id="org2183efc"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<a id="org746523c"></a>
-=======
-<a id="org391c496"></a>
->>>>>>> help
-=======
-<a id="orgf2ac690"></a>
->>>>>>> help
+<a id="org3206a09"></a>
 
 # DONE Version 20.1.1
 
@@ -267,17 +217,9 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<a id="org13c0fcc"></a>
-=======
-<a id="orgee4965a"></a>
->>>>>>> help
-=======
-<a id="org2a324cc"></a>
->>>>>>> help
+<a id="org05c64f8"></a>
 
-# Version 162-2:
+# Version 162-2
 
 
 ## Bugs
@@ -773,3 +715,4 @@ example: gnuplot-mode
 -   Is hyper56 a valid element?
 
 ---
+

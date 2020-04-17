@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-15>
+;; Time-stamp: <2020-04-16>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -1039,24 +1039,46 @@ with the APDL /EXIT,all command which saves all model data."
        "Do you want to exit the Ansys run?")
       (progn
         (message "Trying to exit run ...")
-        (process-send-string (get-process apdl-process-name) "finish $ /exit,all\n"))
+        (process-send-string (get-process apdl-process-name)
+			     "finish $ /exit,all\n"))
     ;; (setq mode-line-process (format ":%s" (process-status apdl-process)))
     ;; (force-mode-line-update))
     (error "Exiting of Ansys run canceled")))
 
+;; Unfortunately there's no html TOC for the locally installed help
+;; pages yet (v201) so it remains only the online help
+;; https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/main_page.html?lang=en
+(defun apdl-start-ansys-help-page ()
+  "Start the Ansys main online help page."
+  (interactive)
+  (let ((file "main_page.html"))
+    (browse-url (concat "https://ansyshelp.ansys.com/"
+     			    "account/secured?returnurl=/Views/Secured/"
+     			     file))
+    ;; (if (string> apdl-current-ansys-version "v200")
+    ;; 	(browse-url (concat "https://ansyshelp.ansys.com/"
+    ;; 			    "account/secured?returnurl=/Views/Secured/corp/"
+    ;; 			    apdl-current-ansys-version "/en/" file))
+    ;;   (browse-url (concat "https://ansyshelp.ansys.com"
+    ;; 			  "/account/secured?returnurl=/Views/Secured/corp/"
+    ;; 			  apdl-current-ansys-version "/" file)))
+    ))
+
 (defun apdl-start-ansys-help ()
   "Start the Ansys Help Viewer.
-If there is no local help installed or there is the online help
+When there is no local help installed or online help is
 configured you will be redirected to the main Ansys online help
 page.
 
-Alternatively under a GNU-Linux system, one can also use the APDL
-command line \"/SYS, anshelp201\" (AnsysHelpViewer.exe under
-Windows) when running Ansys interactively, provided that
-'anshelp201' is found in the search paths for executables (these
-are stored in the PATH environment variable)."
+Alternatively, you can use the APDL command line \"/SYS,
+anshelp201\" for a Unix system (AnsysHelpViewer.exe for a Windows
+operating system) when running Ansys MAPDL interactively.
+Provided that 'anshelp201' is found in the search paths for
+executables (these are stored in the PATH environment variable on
+both systems)."
   (interactive)
-  (apdl-ansys-help-program "")          ; checking
+  (unless apdl-ansys-help-program
+    (error "Help executable `apdl-ansys-help-program' not set"))
   (progn
     (cond
      (apdl-is-unix-system-flag
@@ -1142,9 +1164,14 @@ keyword from `apdl-help-index' is found."
         (path apdl-ansys-help-path))
     (if path
         (browse-url-of-file (concat "file://" path file))
-      (if (string= apdl-current-ansys-version "v201")
-          (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))
-        (browse-url (concat "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/" apdl-current-ansys-version "/" file))))))
+      (if (string> apdl-current-ansys-version "v200")
+          (browse-url
+	   (concat "https://ansyshelp.ansys.com/"
+		   "account/secured?returnurl=/Views/Secured/corp/"
+		   apdl-current-ansys-version "/en/" file))
+        (browse-url (concat "https://ansyshelp.ansys.com/"
+			    "account/secured?returnurl=/Views/Secured/corp/"
+			    apdl-current-ansys-version "/" file))))))
 
 (defun apdl-browse-apdl-help (&optional arg)
   "Browse the Ansys help for APDL commands, elements and other topics.
@@ -1259,14 +1286,16 @@ elem.
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
       ;; since v201: Changed the path to the online help!
-      (if (string= apdl-current-ansys-version "v201")
+      (if (string> apdl-current-ansys-version "v200")
 	  (browse-url
 	   (concat
-	    "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/"
+	    "https://ansyshelp.ansys.com/"
+	    "account/secured?returnurl=/Views/Secured/corp/"
 	    apdl-current-ansys-version "/en/" file))
         (browse-url
 	 (concat
-	  "https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/"
+	  "https://ansyshelp.ansys.com/"
+	  "account/secured?returnurl=/Views/Secured/corp/"
 	  apdl-current-ansys-version "/" file))))))
 
 (defun apdl-process-status ()

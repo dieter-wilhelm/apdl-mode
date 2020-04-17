@@ -19,16 +19,22 @@
 
 * TODO Version 20.5.0
   SCHEDULED: <2020-05-01 Fr>
-  help for get- and fortran functions
+  [2020-04-16 Do] feature freeze
+  help for all get- and parametric-functions
 ** Todos, bugs
    - Templates: Add intro help to the -wb-template system, complete
-     usage.org -> Code Templates, apdl-wb-custom-template-directory
+     usage.org
+     - Code Templates, apdl-wb-custom-template-directory
+     - Export of WB command objects to file on disc
 ** Minor bugs
+   - C-c C-v doesn't preserve point of macro file
    - M-? parameter counter is not working for commands where functions
-     with multiple arguments are in the argument list! f,node(x,y,z),,,
+     with multiple arguments are in the argument list!
+     f,node(x,y,z),,,
    - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
      the respective section on page for Chrome and Edge!?
-   - 1/en, en is variable but fraction not fontified?
+   - `1/en', en is variable but this fraction is not fontified, though
+     `1/ en' is fontified!
 ** Checks
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
@@ -59,6 +65,8 @@
     - Create English Wiki for APDL
     - M-? get- and parameter-functions are completed but there's no
       parameter help - see: apdl-dynamic-prompt
+    - Link to Ansys Youtube channel in menu? (It's already in Ansys
+      resources!)
     - The Command (APDL) objects coding system seems to be
       mule-utf-8-dos aka cp65001-dos, document this
     - Customise system (explain `M-x customize-set-value' as long as
@@ -165,7 +173,7 @@
   - document the APDL Parameter Help Duration in M-?: Done in
     -config.org!
   - bug-report about package.el "NAME-readme.txt", done
-* Version 162-2:
+* Version 162-2
 ** Bugs
    - C-c C-s first time visit: User variables file-name-extension:
      Wrong type argument: stringp, nilError during redisplay:

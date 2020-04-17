@@ -1,40 +1,44 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#orgc5c8c33)
-2.  [Version 20.4.0](#orgabb0adb)
-3.  [Version 20.3.0](#org55d0ff1)
-4.  [Version 20.2.0](#org31ce48e)
-5.  [Version 20.1.1](#orgfa968d1)
-6.  [Version 20.1.0](#orgf8bf16c)
-7.  [Version 162-1](#orgdab6b5f)
-8.  [Version 16.1.1](#org688959c)
-9.  [Version 15.0.1](#org38da9cb)
-10. [Version 14.5.2](#org146cec6)
-11. [Version 14.5.1](#org80e1b26)
-12. [Version 14.0.1](#org6cacef8)
-13. [Version 13.0.1](#orgeb31365)
-14. [Version 12.0.1](#org7b081f6)
-15. [Version 11.0.2](#org8966abe)
-16. [ansys-mode.el 11.0.1](#org69cb36d)
+1.  [Version 20.5.0](#orga18cbcf)
+2.  [Version 20.4.0](#orge3515c8)
+3.  [Version 20.3.0](#org275e50d)
+4.  [Version 20.2.0](#org0830732)
+5.  [Version 20.1.1](#orgd73a7f2)
+6.  [Version 20.1.0](#org1f120f4)
+7.  [Version 162-1](#org9fc3085)
+8.  [Version 16.1.1](#orgd613238)
+9.  [Version 15.0.1](#org0434487)
+10. [Version 14.5.2](#org8093e08)
+11. [Version 14.5.1](#orgccf05b8)
+12. [Version 14.0.1](#org8d9b53c)
+13. [Version 13.0.1](#orga888e2a)
+14. [Version 12.0.1](#orga4408b2)
+15. [Version 11.0.2](#org571825d)
+16. [ansys-mode.el 11.0.1](#org30f1841)
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 
 
-<a id="orgc5c8c33"></a>
+<a id="orga18cbcf"></a>
 
 # Version 20.5.0
 
-2020-05, help on get- and parametric functions
+2020-05, help for get- and parametric functions
 
--   Browsing the help on keywords (C-c C-b) is now also working for
-    get- and parametric functions - additionally to all APDL commands
-    and element names.
+-   Browsing the help on keywords (C-c C-b) is now working for get-
+    and parametric functions (additionally to all APDL commands and
+    element names).
+-   Line numbers in the Variable Buffer (C-c C-v) are now links to the
+    respective position in its APDL Buffer.  Clicking with mouse-2 on
+    the numbers is displaying the definition in the APDL Buffer.
 -   Added license overview with Ansys license feature descriptions to
     \`apdl-license-status' (C-c C-l).
+-   Added a menu entry for browsing the main Ansys online help page.
 
 
-<a id="orgabb0adb"></a>
+<a id="orge3515c8"></a>
 
 # Version 20.4.0
 
@@ -50,7 +54,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Added additional keys for the license status functions
 
 
-<a id="org55d0ff1"></a>
+<a id="org275e50d"></a>
 
 # Version 20.3.0
 
@@ -68,7 +72,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     parameters
 
 
-<a id="org31ce48e"></a>
+<a id="org0830732"></a>
 
 # Version 20.2.0
 
@@ -88,7 +92,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
     because of speed reasons.
 
 
-<a id="orgfa968d1"></a>
+<a id="orgd73a7f2"></a>
 
 # Version 20.1.1
 
@@ -99,7 +103,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 -   Enabled EWW (and other browsers) as a "help viewer"
 
 
-<a id="orgf8bf16c"></a>
+<a id="org1f120f4"></a>
 
 # Version 20.1.0
 
@@ -116,7 +120,7 @@ Released  2020-02
 -   Better warning for C-c C-b when A-M is not configured
 
 
-<a id="orgdab6b5f"></a>
+<a id="org9fc3085"></a>
 
 # Version 162-1
 
@@ -147,7 +151,7 @@ not yet released, targeted for Sep 2015
 -   Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 
-<a id="org688959c"></a>
+<a id="orgd613238"></a>
 
 # Version 16.1.1
 
@@ -179,7 +183,7 @@ July 2015
     example.mac.  Included an example.dat and example.anf
 
 
-<a id="org38da9cb"></a>
+<a id="org0434487"></a>
 
 # Version 15.0.1
 
@@ -198,7 +202,7 @@ Aug 2014
     e. g. partial solutions with psolve for mass calculations.
 
 
-<a id="org146cec6"></a>
+<a id="org8093e08"></a>
 
 # Version 14.5.2
 
@@ -230,7 +234,7 @@ Mar 2013
     added a beam simulation template
 
 
-<a id="org80e1b26"></a>
+<a id="orgccf05b8"></a>
 
 # Version 14.5.1
 
@@ -288,7 +292,7 @@ Sep 2012
     under the nint() entry
 
 
-<a id="org6cacef8"></a>
+<a id="org8d9b53c"></a>
 
 # Version 14.0.1
 
@@ -317,7 +321,7 @@ June 2012
     additionally the installation directory (ansys-install-directory).
 
 
-<a id="orgeb31365"></a>
+<a id="orga888e2a"></a>
 
 # Version 13.0.1
 
@@ -338,7 +342,7 @@ March 2011
     etc. to release 13.0 of Ansys, as usual.
 
 
-<a id="org7b081f6"></a>
+<a id="orga4408b2"></a>
 
 # Version 12.0.1
 
@@ -382,7 +386,7 @@ Dec 2010
     transition from other editors
 
 
-<a id="org8966abe"></a>
+<a id="org571825d"></a>
 
 # Version 11.0.2
 
@@ -397,7 +401,7 @@ Nov 2009
     ansys-query-ansys-command (C-c C-q).
 
 
-<a id="org69cb36d"></a>
+<a id="org30f1841"></a>
 
 # ansys-mode.el 11.0.1
 

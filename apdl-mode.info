@@ -4,10 +4,10 @@ apdl-mode.texi.
 
 File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 
-APDL-Mode’s Info Viewer Documentation
-*************************************
+The Manual of APDL-Mode
+***********************
 
-This manual is for APDL-Mode version 20.5.0 Time-stamp: "2020-04-02"
+Version 20.5.0 Time-stamp: "2020-04-17"
 
 * Menu:
 
@@ -34,17 +34,10 @@ Usage and Applications
 
 * Finding Help::
 * Code Templates::
-* Completion::
-* Code Alignment::
-* Auto-indentation::
-* Closing of Control Blocks::
-* Code Navigation::
-* Sophisticated Highlighting::
+* Editing Code::
+* Code Navigation and Hiding::
 * Variable Definitions::
-* Abbreviation Facility::
-* Outlining::
-* Comment Handling::
-* Auto-insertion::
+* Sophisticated Highlighting::
 * Process Management::
 * MAPDL Solver Control::
 
@@ -111,7 +104,7 @@ Todos
 * Version 20.3.0: Version 2030 1.
 * Version 20.2.0: Version 2020 1.
 * Version 20.1.1: Version 2011 1.
-* Version 162-2:: Version 162-2.
+* Version 162-2::
 
 
 
@@ -254,17 +247,10 @@ File: apdl-mode.info,  Node: Usage and Applications,  Next: Configuration and Cu
 
 * Finding Help::
 * Code Templates::
-* Completion::
-* Code Alignment::
-* Auto-indentation::
-* Closing of Control Blocks::
-* Code Navigation::
-* Sophisticated Highlighting::
+* Editing Code::
+* Code Navigation and Hiding::
 * Variable Definitions::
-* Abbreviation Facility::
-* Outlining::
-* Comment Handling::
-* Auto-insertion::
+* Sophisticated Highlighting::
 * Process Management::
 * MAPDL Solver Control::
 
@@ -305,31 +291,47 @@ File: apdl-mode.info,  Node: APDL Keyword Documentation,  Prev: Command Help wit
 5.1.2 APDL Keyword Documentation
 --------------------------------
 
-Browse the detailed APDL command, element and selected topics in the
-original Ansys HTML help.
+Browse the detailed APDL commands, elements, functions and selected
+topics in the original Ansys HTML help.
 
    Typing "C-c C-b" will display the original Ansys help in your web
 browser for all APDL commands, element names (stating the element number
-is sufficient), get- or parametric-functions near the cursor or the code
-line’s first APDL command.  When using a prefix argument (typing C-u
-before C-c C-b) it inquires a keyword from you.  Keywords beginning with
-a quotation mark ‘"’ describing general manual sections, for example
-typing ‘"SHELLS"’ will call the collection of all shell elements in the
-Ansys manual.  You must complete your input with the <TAB> key.
+is sufficient), get- or parametric-functions.  "C-c C-b" is locking for
+keywords on and before the cursor or - if this fails - for APDL command
+at the line beginning.  This is also working for commented out code
+lines.
+
+   When using a prefix argument (typing C-u before C-c C-b) it inquires
+a keyword from you.  Keywords beginning with a quotation mark ‘"’
+describing general manual sections, for example typing ‘"SHELLS"’ will
+call the collection of all shell elements in the Ansys manual.  You must
+complete your input with the <TAB> key.
 
 
-File: apdl-mode.info,  Node: Code Templates,  Next: Completion,  Prev: Finding Help,  Up: Usage and Applications
+File: apdl-mode.info,  Node: Code Templates,  Next: Editing Code,  Prev: Finding Help,  Up: Usage and Applications
 
 5.2 Code Templates
 ==================
 
 You are learning and also coding APDL best by example!  APDL-Mode
 provides coding examples, here called templates, for the most often used
-subjects.  Moreover you are able to compile your own WorkBench /
-Discovery AIM Command templates and have them all immediately available
-in APDL-Mode for inspection and inclusion.
+modelling subjects.  Moreover you are able to compile your own WorkBench
+/ Discovery AIM Command templates and have them all immediately
+available in any macro file or WorkBench command object for inspection
+and inclusion.
 
-   You are able to preview the code templates with "C-c C-s" (for
+* Menu:
+
+* Model Templates::
+* WorkBench / Discover Aim Templates::
+
+
+File: apdl-mode.info,  Node: Model Templates,  Next: WorkBench / Discover Aim Templates,  Up: Code Templates
+
+5.2.1 Model Templates
+---------------------
+
+You are able to preview the model templates with "C-c C-s" (for
 ‘apdl-display-skeleton’), while doing this, you might type <TAB> to
 complete all available skeleton names.
 
@@ -340,10 +342,35 @@ code with outline headings.  Alternatively you can use the binding
 instead of previewing them.
 
 
-File: apdl-mode.info,  Node: Completion,  Next: Code Alignment,  Prev: Code Templates,  Up: Usage and Applications
+File: apdl-mode.info,  Node: WorkBench / Discover Aim Templates,  Prev: Model Templates,  Up: Code Templates
 
-5.3 Completion
-==============
+5.2.2 WorkBench / Discover Aim Templates
+----------------------------------------
+
+-TODO-
+
+
+File: apdl-mode.info,  Node: Editing Code,  Next: Code Navigation and Hiding,  Prev: Code Templates,  Up: Usage and Applications
+
+5.3 Editing Code
+================
+
+* Menu:
+
+* Completions::
+* Comment Handling::
+* Inserting Pairs::
+* Abbreviation Facility::
+* Auto-indentation::
+* Closing of Control Blocks::
+* Code Alignment::
+* Auto-insertion::
+
+
+File: apdl-mode.info,  Node: Completions,  Next: Comment Handling,  Up: Editing Code
+
+5.3.1 Completions
+-----------------
 
 APDL keyword completion (commands, elements, get- and
 parametric-functions)
@@ -360,7 +387,7 @@ completed.  The former are identified as such with a different
 highlighting and in their ’command syntax help’.  Please see also the
 variable ‘apdl-deprecated-element-alist’ it’s a list with the deprecated
 elements and their respective replacements (for inspecting its content
-please click on above hyperlink or type ‘C-hv’ and then type above
+please click on above hyperlink or type "C-h v" and then type above
 variable name).
 
    Doing this using the <TAB> key might save you some typing in
@@ -371,10 +398,104 @@ the list, either by navigation the cursor over the symbol and typing
 the symbol.  Hitting the <SPACE> key removes the listing window.
 
 
-File: apdl-mode.info,  Node: Code Alignment,  Next: Auto-indentation,  Prev: Completion,  Up: Usage and Applications
+File: apdl-mode.info,  Node: Comment Handling,  Next: Inserting Pairs,  Prev: Completions,  Up: Editing Code
 
-5.4 Code Alignment
-==================
+5.3.2 Comment Handling
+----------------------
+
+commenting/un- of whole paragraphs.
+
+   • "M-;" calls ‘comment-dwim’ (Do What I Mean ;-):
+
+   In a code line: This command inserts comment char
+‘apdl-indent-comment-string’ at ‘apdl-code-comment-column’ (if feasible,
+i.  e.  the code line is not too long).  With a prefix argument: Kill
+existing code comment.
+
+   With an highlighted region: Commenting out (‘comment-region’) or
+Uncommenting (‘uncomment-region’) that region.
+
+   In an empty line: Inserts ’!!  ’ with the right indentation.
+
+   • "C-M-j" (or "M-j", calls ‘indent-new-comment-line’).
+
+   Breaks a code comment and inserts a single exclamation mark ’!’
+(‘apdl-comment-char’) at column ‘apdl-code-comment-column’ (if
+possible).
+
+   In comment lines ’!!  ’ with two comment characters
+(‘apdl-indent-comment-string’) breaks the comment and begins a the same
+comment style at the the current indentation.
+
+   In an empty line or a line without comment: Just inserts a new line.
+
+
+File: apdl-mode.info,  Node: Inserting Pairs,  Next: Abbreviation Facility,  Prev: Comment Handling,  Up: Editing Code
+
+5.3.3 Inserting Pairs
+---------------------
+
+Moreover there are keyboard shortcuts with which you are able to input
+pairs of corresponding characters, like ‘C-c %’ for ’%%’, the APDL
+substitution operators.  The advantage is that the cursor is placed
+between the pair and you might specify a region before this command to
+include the whole region.
+
+   Alternatively you might provide numerical arguments to the call and
+you are able to enclose already existing words within the pair, e.  q.
+"C-2 C-c %" enclosing the next two words inside the pair "%%".
+
+   Please have a look for ‘insert-pair’ and check the menu entry of
+APDL-Mode’s keybindings.
+
+
+File: apdl-mode.info,  Node: Abbreviation Facility,  Next: Auto-indentation,  Prev: Inserting Pairs,  Up: Editing Code
+
+5.3.4 Abbreviation Facility
+---------------------------
+
+Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
+triggers an interactive code template which inserts a *DO loop
+(‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate version of
+a do loop without requesting user input (‘ansys_do’).  You can see all
+the predefined abbreviations with "‘?", i.  e.  a question mark "?"
+after the backquote "‘".  Alternatively you might use the menu entry
+"List Mode Abbbreviations" or the command ‘M-x list-abbrevs <RET>’ to
+inspect all definitions.
+
+   You can define your own abbreviations, please *note (emacs)Abbrev
+Concepts::.
+
+
+File: apdl-mode.info,  Node: Auto-indentation,  Next: Closing of Control Blocks,  Prev: Abbreviation Facility,  Up: Editing Code
+
+5.3.5 Auto-indentation
+----------------------
+
+of looping and conditional blocks.
+
+   You can customise the indentation depth (APDL Block Offset), please
+have a look for the entry ’Customise APDL Mode’ in the APDL-Mode menu.
+The Emacs customisation facility optionally saves your choices
+automatically in your .emacs file for later sessions.
+
+
+File: apdl-mode.info,  Node: Closing of Control Blocks,  Next: Code Alignment,  Prev: Auto-indentation,  Up: Editing Code
+
+5.3.6 Closing of Control Blocks
+-------------------------------
+
+(*do, *if, ...) with the insertion of appropriate end keywords
+
+   Typing "C-c ]" for the function ‘apdl-close-block’ completes the
+current APDL block with the insertion of a newline and an appropriate
+end keyword.
+
+
+File: apdl-mode.info,  Node: Code Alignment,  Next: Auto-insertion,  Prev: Closing of Control Blocks,  Up: Editing Code
+
+5.3.7 Code Alignment
+--------------------
 
 Formatting of variable definitions:
 
@@ -388,38 +509,30 @@ sections or a paragraph of variable definitions like the following lines
    xyz = 30.381 !this is a variable x = 0.4 !this is another variable
 
 
-File: apdl-mode.info,  Node: Auto-indentation,  Next: Closing of Control Blocks,  Prev: Code Alignment,  Up: Usage and Applications
+File: apdl-mode.info,  Node: Auto-insertion,  Prev: Code Alignment,  Up: Editing Code
 
-5.5 Auto-indentation
-====================
+5.3.8 Auto-insertion
+--------------------
 
-of looping and conditional blocks.
+of code templates into new APDL files.
 
-   You can customise the indentation depth (APDL Block Offset), please
-have a look for the entry ’Customise APDL Mode’ in the APDL-Mode menu.
-The Emacs customisation facility optionally saves your choices
-automatically in your .emacs file for later sessions.
+   Put the following section in your .emacs file, in case you want to to
+include above skeleton (optionally) for every APDL file.
 
-
-File: apdl-mode.info,  Node: Closing of Control Blocks,  Next: Code Navigation,  Prev: Auto-indentation,  Up: Usage and Applications
+   (auto-insert-mode 1) (add-hook ’find-file-hook ’auto-insert) (setq
+auto-insert-query t) (add-to-list ’auto-insert-alist ’(apdl-mode .
+[apdl-skeleton-outline-template]))
 
-5.6 Closing of Control Blocks
-=============================
-
-(*do, *if, ...) with the insertion of appropriate end keywords
-
-   Typing "C-c ]" for the function ‘apdl-close-block’ completes the
-current APDL block with the insertion of a newline and an appropriate
-end keyword.
+   Please refere the configuration example ‘default.el’.
 
 
-File: apdl-mode.info,  Node: Code Navigation,  Next: Sophisticated Highlighting,  Prev: Closing of Control Blocks,  Up: Usage and Applications
+File: apdl-mode.info,  Node: Code Navigation and Hiding,  Next: Variable Definitions,  Prev: Editing Code,  Up: Usage and Applications
 
-5.7 Code Navigation
-===================
+5.4 Code Navigation and Hiding
+==============================
 
-with extended keyboard shortcuts.  Code lines, number blocks, and
-*DO,*IF, DOWHILE, *CREATE blocks etc.
+Navigating code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE
+blocks, etc.
 
    "M-n" – ‘apdl-next-code-line’ and "M-p" – ‘apdl-previous-code-line’
 are going to the next/previous code line, skipping intermediate comments
@@ -455,24 +568,80 @@ current block level.
 eblocks and cmblocks), these are common (and often quite large) in
 WorkBench solver input files (*.inp, *.dat).
 
-   You can also hide and unhide these - usually uninteresting - blocks
-with M-x apdl-hide-number-blocks and M-x apdl-show-number-blocks
-respectively or even a region of your (un)liking with M-x
-apdl-hide-region.  In files with the suffix ‘.dat’ number blocks are
-hidden by default.
+* Menu:
 
-   Moreover there are keyboard shortcuts with which you are able to
-input pairs of corresponding characters, like ‘C-c %’ for ’%%’, the APDL
-substitution operators.  The advantage is that the cursor is placed
-between the pair and you might give a numerical argument to the call and
-enclose already existing words with the pair, e.  q.  ‘C-1’ ‘C-c %’.
-Please have a look for ‘insert-pair’ and see below in the Keybindings
-section.
+* Hiding Number Blocks::
+* Outlining::
 
 
-File: apdl-mode.info,  Node: Sophisticated Highlighting,  Next: Variable Definitions,  Prev: Code Navigation,  Up: Usage and Applications
+File: apdl-mode.info,  Node: Hiding Number Blocks,  Next: Outlining,  Up: Code Navigation and Hiding
 
-5.8 Sophisticated Highlighting
+5.4.1 Hiding Number Blocks
+--------------------------
+
+You can also hide and unhide these - usually uninteresting - blocks with
+M-x ‘apdl-hide-number-blocks’ and M-x ‘apdl-show-number-blocks’
+respectively or even a region of your (un)liking with M-x
+‘apdl-hide-region’.  In files with the suffix ‘.dat’ number blocks are
+hidden by default.
+
+
+File: apdl-mode.info,  Node: Outlining,  Prev: Hiding Number Blocks,  Up: Code Navigation and Hiding
+
+5.4.2 Outlining
+---------------
+
+(hiding and expanding) code sections.
+
+   If you are using the pre-configured APDL-Mode then function
+‘outline-minor-mode’ is switched on by default.
+
+   With this mode you can hide certain sections of your code or navigate
+to customisable outline headings.  Certain characters –by default ’!@’
+(see the variable ‘ansys_outline_string’)– at the beginning of a line in
+your code represent such headings.  ’!@@’ specifies a subheading and so
+on (please call the function ‘apdl-skeleton-outline-template’ to insert
+a skeleton of outline sections in your current file).  Check out the
+Outline menu entries.
+
+   In case outlining is not activate you might call Outline Minor Mode
+with "M-x outline-minor-mode" or you can enable this mode for the
+current session by ticking on the respective option in the menu or
+permanently by setting ‘apdl-outline-minor-mode’ for the
+‘apdl-mode-hook’ variable.  Please type "M-x apdl-customise-ansys <RET>"
+or use the customisaton system from the menu: ->APDL ->Customise APDL
+Mode.
+
+
+File: apdl-mode.info,  Node: Variable Definitions,  Next: Sophisticated Highlighting,  Prev: Code Navigation and Hiding,  Up: Usage and Applications
+
+5.5 Variable Definitions
+========================
+
+Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...) and
+component names (CM).
+
+   Typing "C-c C-v" (for ‘apdl-display-variables’) shows all definitions
+in your APDL file in a separate window.  Together with the corresponding
+line numbers.  These numbers are links to the variable definition in the
+APDL buffer.  Clicking with the middle mouse button (button-2) on these
+numbers is showing the definition in its APDL context.  You can also use
+the <TAB> key and Shift <TAB> to skip between the links and type <RET>
+to activate the links.
+
+   You can remove the ’*APDL-variables*’ window with "C-x 4 k"
+(‘apdl-delete-other-window’).
+
+   With a prefix argument for "C-c C-v" you are receiving the current
+value of the variable at the current cursor position.  For this to work
+it is necessary to have a running Ansys process under Emacs (GNU-Linux
+systems only, please see below the chapter about the *note MAPDL Solver
+Control::).
+
+
+File: apdl-mode.info,  Node: Sophisticated Highlighting,  Next: Process Management,  Prev: Variable Definitions,  Up: Usage and Applications
+
+5.6 Sophisticated Highlighting
 ==============================
 
 The highlighting in the highest decoration level (please refer to
@@ -543,130 +712,10 @@ display (with "C-c C-v", see below) in the maximum highlighting level
 (2).
 
 
-File: apdl-mode.info,  Node: Variable Definitions,  Next: Abbreviation Facility,  Prev: Sophisticated Highlighting,  Up: Usage and Applications
+File: apdl-mode.info,  Node: Process Management,  Next: MAPDL Solver Control,  Prev: Sophisticated Highlighting,  Up: Usage and Applications
 
-5.9 Variable Definitions
-========================
-
-Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...) and
-component names (CM).
-
-   Typing "C-c C-v" (for ‘apdl-display-variables’) shows all definitions
-in your APDL file in a separate window.
-
-   You might remove ’*APDL-variables*’ window with "C-x 4 k"
-(‘apdl-delete-other-window’).
-
-   When you place the cursor on the respective line number and type "C-u
-M-g g", where "C-u" is a ’prefix’ argument for "M-g g" (‘goto-line’)).
-Emacs will then skip to the corresponding definition line in the macro
-file.
-
-   Additionally you are able with a prefix argument for "C-c C-v" to
-receive the current value of your variables at the cursor position.  For
-this functionality it is necessary to have a running Ansys process
-(GNU-Linux systems only, please see below the chapter about the *note
-MAPDL Solver Control::).
-
-
-File: apdl-mode.info,  Node: Abbreviation Facility,  Next: Outlining,  Prev: Variable Definitions,  Up: Usage and Applications
-
-5.10 Abbreviation Facility
-==========================
-
-Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
-triggers an interactive code template which inserts a *DO loop
-(‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate version of
-a do loop without requesting user input (‘ansys_do’).  You can see all
-the predefined abbreviations with "‘?", i.  e.  a question mark "?"
-after the backquote "‘".  Alternatively you might use the menu entry
-"List Mode Abbbreviations" or the command ‘M-x list-abbrevs <RET>’ to
-inspect all definitions.
-
-   You can define your own abbreviations, please *note (emacs)Abbrev
-Concepts::.
-
-
-File: apdl-mode.info,  Node: Outlining,  Next: Comment Handling,  Prev: Abbreviation Facility,  Up: Usage and Applications
-
-5.11 Outlining
-==============
-
-(hiding and expanding) code sections.
-
-   If you are using the pre-configured APDL-Mode then function
-‘outline-minor-mode’ is switched on by default.
-
-   With this mode you can hide certain sections of your code or navigate
-to customisable outline headings.  Certain characters –by default ’!@’
-(see the variable ‘ansys_outline_string’)– at the beginning of a line in
-your code represent such headings.  ’!@@’ specifies a subheading and so
-on (please call the function ‘apdl-skeleton-outline-template’ to insert
-a skeleton of outline sections in your current file).  Check out the
-Outline menu entries.
-
-   In case outlining is not activate you might call Outline Minor Mode
-with "M-x outline-minor-mode" or you can enable this mode for the
-current session by ticking on the respective option in the menu or
-permanently by setting ‘apdl-outline-minor-mode’ for the
-‘apdl-mode-hook’ variable.  Please type "M-x apdl-customise-ansys <RET>"
-or use the customisaton system from the menu: ->APDL ->Customise APDL
-Mode.
-
-
-File: apdl-mode.info,  Node: Comment Handling,  Next: Auto-insertion,  Prev: Outlining,  Up: Usage and Applications
-
-5.12 Comment Handling
-=====================
-
-commenting/un- of whole paragraphs.
-
-   • "M-;" calls ‘comment-dwim’ (Do What I Mean ;-):
-
-   In a code line: This command inserts comment char
-‘apdl-indent-comment-string’ at ‘apdl-code-comment-column’ (if feasible,
-i.  e.  the code line is not too long).  With a prefix argument: Kill
-existing code comment.
-
-   With an highlighted region: Commenting out (‘comment-region’) or
-Uncommenting (‘uncomment-region’) that region.
-
-   In an empty line: Inserts ’!!  ’ with the right indentation.
-
-   • "C-M-j" (or "M-j", calls ‘indent-new-comment-line’).
-
-   Breaks a code comment and inserts a single exclamation mark ’!’
-(‘apdl-comment-char’) at column ‘apdl-code-comment-column’ (if
-possible).
-
-   In comment lines ’!!  ’ with two comment characters
-(‘apdl-indent-comment-string’) breaks the comment and begins a the same
-comment style at the the current indentation.
-
-   In an empty line or a line without comment: Just inserts a new line.
-
-
-File: apdl-mode.info,  Node: Auto-insertion,  Next: Process Management,  Prev: Comment Handling,  Up: Usage and Applications
-
-5.13 Auto-insertion
-===================
-
-of code templates into new APDL files.
-
-   Put the following section in your .emacs file, in case you want to to
-include above skeleton (optionally) for every APDL file.
-
-   (auto-insert-mode 1) (add-hook ’find-file-hook ’auto-insert) (setq
-auto-insert-query t) (add-to-list ’auto-insert-alist ’(apdl-mode .
-[apdl-skeleton-outline-template]))
-
-   Please refere the configuration example ‘default.el’.
-
-
-File: apdl-mode.info,  Node: Process Management,  Next: MAPDL Solver Control,  Prev: Auto-insertion,  Up: Usage and Applications
-
-5.14 Process Management
-=======================
+5.7 Process Management
+======================
 
 Even when there is no buffer under APDL-Mode, after starting Emacs, for
 example, it is possible to run selected APDL-Mode services.  You might
@@ -728,8 +777,8 @@ apdl-license-status
 
 File: apdl-mode.info,  Node: MAPDL Solver Control,  Prev: Process Management,  Up: Usage and Applications
 
-5.15 MAPDL Solver Control
-=========================
+5.8 MAPDL Solver Control
+========================
 
 MAPDL interpreter and communication (mainly restricted to GNU-Linux
 systems).
@@ -2587,12 +2636,16 @@ File: apdl-mode.info,  Node: Version 2050,  Next: Version 2040,  Up: News
 10.1 Version 20.5.0
 ===================
 
-2020-05, help on get- and parametric functions
-   • Browsing the help on keywords (C-c C-b) is now also working for
-     get- and parametric functions - additionally to all APDL commands
-     and element names.
+2020-05, help for get- and parametric functions
+   • Browsing the help on keywords (C-c C-b) is now working for get- and
+     parametric functions (additionally to all APDL commands and element
+     names).
+   • Line numbers in the Variable Buffer (C-c C-v) are now links to the
+     respective position in its APDL Buffer.  Clicking with mouse-2 on
+     the numbers is displaying the definition in the APDL Buffer.
    • Added license overview with Ansys license feature descriptions to
      ‘apdl-license-status’ (C-c C-l).
+   • Added a menu entry for browsing the main Ansys online help page.
 
 
 File: apdl-mode.info,  Node: Version 2040,  Next: Version 2030,  Prev: Version 2050,  Up: News
@@ -3032,9 +3085,8 @@ File: apdl-mode.info,  Node: Ansys and APDL resources,  Next: Emacs editor resou
 =============================
 
    • The online Ansys reference manuals (https://ansyshelp.ansys.com/)
-     (registration required) and the Ansys online videos
-     (https://www.youtube.com/channel/UCdymxOTZSP8RzRgFT8kpYpA) on
-     YouTube
+     (registration required) and the Ansys video playlist
+     (https://www.youtube.com/user/ansysinc/playlists) on YouTube
    • The Ansys homepage (http://www.ansys.com) with the Ansys Portal and
      Learning Hub
    • Xansys, an Ansys online community (http://www.xansys.org) (forum
@@ -3091,7 +3143,7 @@ File: apdl-mode.info,  Node: Todos,  Next: Acknowledgements,  Prev: Further Reso
 * Version 20.3.0: Version 2030 1.
 * Version 20.2.0: Version 2020 1.
 * Version 20.1.1: Version 2011 1.
-* Version 162-2:: Version 162-2.
+* Version 162-2::
 
 
 File: apdl-mode.info,  Node: Version 2050 1,  Next: Version 2040 1,  Up: Todos
@@ -3099,7 +3151,8 @@ File: apdl-mode.info,  Node: Version 2050 1,  Next: Version 2040 1,  Up: Todos
 12.1 *TODO* Version 20.5.0
 ==========================
 
-help for get- and fortran functions
+_[2020-04-16 Do] _ feature freeze help for all get- and
+parametric-functions
 
 * Menu:
 
@@ -3117,7 +3170,9 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: Minor bugs,  Up: Version 2050 1
 ------------------
 
    • Templates: Add intro help to the -wb-template system, complete
-     usage.org -> Code Templates, apdl-wb-custom-template-directory
+     usage.org
+        • Code Templates, apdl-wb-custom-template-directory
+        • Export of WB command objects to file on disc
 
 
 File: apdl-mode.info,  Node: Minor bugs,  Next: Checks,  Prev: Todos bugs,  Up: Version 2050 1
@@ -3125,11 +3180,13 @@ File: apdl-mode.info,  Node: Minor bugs,  Next: Checks,  Prev: Todos bugs,  Up: 
 12.1.2 Minor bugs
 -----------------
 
+   • C-c C-v doesn’t preserve point of macro file
    • M-?  parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!  f,node(x,y,z),,,
    • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
      the respective section on page for Chrome and Edge!?
-   • 1/en, en is variable but fraction not fontified?
+   • ‘1/en’, en is variable but this fraction is not fontified, though
+     ‘1/ en’ is fontified!
 
 
 File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Minor bugs,  Up: Version 2050 1
@@ -3174,6 +3231,8 @@ File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
    • Create English Wiki for APDL
    • M-?  get- and parameter-functions are completed but there’s no
      parameter help - see: apdl-dynamic-prompt
+   • Link to Ansys Youtube channel in menu?  (It’s already in Ansys
+     resources!)
    • The Command (APDL) objects coding system seems to be mule-utf-8-dos
      aka cp65001-dos, document this
    • Customise system (explain ‘M-x customize-set-value’ as long as
@@ -3320,8 +3379,8 @@ File: apdl-mode.info,  Node: Version 2011 1,  Next: Version 162-2,  Prev: Versio
 
 File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 1,  Up: Todos
 
-12.6 Version 162-2:
-===================
+12.6 Version 162-2
+==================
 
 * Menu:
 
@@ -4373,149 +4432,154 @@ Emacs 26.3 (Org mode 9.1.9)
 
 Tag Table:
 Node: Top79
-Node: Copying2383
-Node: Introduction2940
-Node: First Steps5100
-Node: Introductory Tutorial5964
-Node: Usage and Applications8450
-Node: Finding Help8971
-Node: Command Help with Argument Counter9303
-Node: APDL Keyword Documentation10144
-Node: Code Templates11001
-Node: Completion11957
-Node: Code Alignment13430
-Node: Auto-indentation13943
-Node: Closing of Control Blocks14421
-Node: Code Navigation14838
-Node: Sophisticated Highlighting17362
-Node: Variable Definitions21074
-Node: Abbreviation Facility22120
-Node: Outlining22916
-Node: Comment Handling24120
-Node: Auto-insertion25276
-Node: Process Management25859
-Node: MAPDL Solver Control29211
-Node: Configuration and Customisation33494
-Node: Conventions35684
-Node: Important Prerequisite36209
-Node: File suffixes37639
-Node: Macro files38024
-Node: WorkBench generated input files38643
-Node: The Ansys Neutral file format39066
-Node: Auto insertion40727
-Node: Miscellaneous41730
-Node: Outlining 143079
-Node: Highlighting (Colourisation)43695
-Node: Dynamic highlighting43996
-Node: Decoration levels44613
-Node: Summary44953
-Node: Installation dependent configurations46136
-Node: Ansys processes47880
-Node: License server48123
-Node: Solver options49189
-Node: Summary 149626
-Node: APDL Reference 151762
-Node: WorkBench to APDL Translation52057
-Node: Contacts52301
-Node: default 3D thermal contact52474
-Node: Material Models54319
-Node: Plasticity54518
-Node: Boundary conditions54821
-Node: APDL Reference60383
-Node: Idiosyncrasies60848
-Node: File types63074
-Node: Defining parameters78152
-Node: Double char38 char8 logical TODO78472
-Node: Variable names78701
-Node: Character strings82975
-Node: Erasing variables from memory83327
-Node: Variable substitution84009
-Node: Substitution of Numeric Variables84360
-Node: Substitution of Character Variables84988
-Node: Dynamic Substitution of Numeric or Character Variables86343
-Node: Expressions87052
-Node: Exponentiation Operator87281
-Node: Multiplication Expression87467
-Node: Operators87887
-Node: Arrays88190
-Node: Specifiying array element values88442
-Node: APDL Math88621
-Node: debugging89134
-Node: Multiple runs probabilistic design89340
-Node: Undocumented commands89650
-Node: APDL-Mode Syntax Highlighting Reference89999
-Node: Header90310
-Node: Highlighting APDL specials92594
-Node: Reserved words and _RETURN statements93172
-Node: _RETURN values of macros93543
-Node: Old style APDL comments94027
-Node: Ignored characters behind commands94444
-Node: The End Of File command94758
-Node: Ignored characters behind commands 195200
-Node: The End Of File command 195624
-Node: Current element types and deprecated elements96026
-Node: Implied (or colon) looping96818
-Node: And the rest98059
-Node: Installation and Development101796
-Node: Melpa102351
-Node: Manual installation103216
-Node: Development and source code installation104311
-Node: Bugs and Problems104870
-Node: News105814
-Node: Version 2050106502
-Node: Version 2040106949
-Node: Version 2030107650
-Node: Version 2020108368
-Node: Version 2011109220
-Node: Version 2010109549
-Node: Version 162-1110095
-Node: Version 1611111615
-Node: Version 1501113242
-Node: Version 1452114071
-Node: Version 1451115472
-Node: Version 1401118622
-Node: Version 1301120077
-Node: Version 1201120992
-Node: Version 1102123359
-Node: ansys-modeel 1101123917
-Node: Further Resources127041
-Node: Ansys and APDL resources127269
-Node: Emacs editor resources128057
-Node: Other APDL editor resources128620
-Node: Todos129534
-Node: Version 2050 1129865
-Node: Todos bugs130155
-Node: Minor bugs130416
-Node: Checks130887
-Node: Wishes131170
-Node: Docu131474
-Node: templates133227
-Node: misc133824
-Node: Done134235
-Node: Push and Release Proceedures134474
-Node: Version 2040 1135400
-Node: Version 2030 1135597
-Node: Version 2020 1135815
-Node: Version 2011 1135994
-Node: Version 162-2136466
-Node: Bugs136744
-Node: Freeze137713
-Node: Wish-list138070
-Node: Deficiencies144186
-Node: Procedures145847
-Node: Freeze proceedures146369
-Node: Release147896
-Node: Ideas for further versions148499
-Node: Parameter help and documentation148928
-Node: Ansys process and interpreter buffer151230
-Node: Skeletons outline and abbrevs154093
-Node: Miscellaneous 1155825
-Node: Ansys syntax restrictions not (yet) accounted for160815
-Node: Unknown Ansys stuff161718
-Node: Acknowledgements162001
-Node: GNU Free Documentation License162571
-Node: Variable Index187597
-Node: Concept Index187746
+Node: Copying2172
+Node: Introduction2729
+Node: First Steps4889
+Node: Introductory Tutorial5753
+Node: Usage and Applications8239
+Node: Finding Help8623
+Node: Command Help with Argument Counter8955
+Node: APDL Keyword Documentation9796
+Node: Code Templates10786
+Node: Model Templates11375
+Node: WorkBench / Discover Aim Templates12011
+Node: Editing Code12214
+Node: Completions12563
+Node: Comment Handling14009
+Node: Inserting Pairs15160
+Node: Abbreviation Facility15945
+Node: Auto-indentation16735
+Node: Closing of Control Blocks17214
+Node: Code Alignment17624
+Node: Auto-insertion18144
+Node: Code Navigation and Hiding18690
+Node: Hiding Number Blocks20516
+Node: Outlining20977
+Node: Variable Definitions22161
+Node: Sophisticated Highlighting23322
+Node: Process Management27037
+Node: MAPDL Solver Control30399
+Node: Configuration and Customisation34680
+Node: Conventions36870
+Node: Important Prerequisite37395
+Node: File suffixes38825
+Node: Macro files39210
+Node: WorkBench generated input files39829
+Node: The Ansys Neutral file format40252
+Node: Auto insertion41913
+Node: Miscellaneous42916
+Node: Outlining 144265
+Node: Highlighting (Colourisation)44881
+Node: Dynamic highlighting45182
+Node: Decoration levels45799
+Node: Summary46139
+Node: Installation dependent configurations47322
+Node: Ansys processes49066
+Node: License server49309
+Node: Solver options50375
+Node: Summary 150812
+Node: APDL Reference 152948
+Node: WorkBench to APDL Translation53243
+Node: Contacts53487
+Node: default 3D thermal contact53660
+Node: Material Models55505
+Node: Plasticity55704
+Node: Boundary conditions56007
+Node: APDL Reference61569
+Node: Idiosyncrasies62034
+Node: File types64260
+Node: Defining parameters79338
+Node: Double char38 char8 logical TODO79658
+Node: Variable names79887
+Node: Character strings84161
+Node: Erasing variables from memory84513
+Node: Variable substitution85195
+Node: Substitution of Numeric Variables85546
+Node: Substitution of Character Variables86174
+Node: Dynamic Substitution of Numeric or Character Variables87529
+Node: Expressions88238
+Node: Exponentiation Operator88467
+Node: Multiplication Expression88653
+Node: Operators89073
+Node: Arrays89376
+Node: Specifiying array element values89628
+Node: APDL Math89807
+Node: debugging90320
+Node: Multiple runs probabilistic design90526
+Node: Undocumented commands90836
+Node: APDL-Mode Syntax Highlighting Reference91185
+Node: Header91496
+Node: Highlighting APDL specials93780
+Node: Reserved words and _RETURN statements94358
+Node: _RETURN values of macros94729
+Node: Old style APDL comments95213
+Node: Ignored characters behind commands95630
+Node: The End Of File command95944
+Node: Ignored characters behind commands 196386
+Node: The End Of File command 196810
+Node: Current element types and deprecated elements97212
+Node: Implied (or colon) looping98004
+Node: And the rest99245
+Node: Installation and Development102982
+Node: Melpa103537
+Node: Manual installation104402
+Node: Development and source code installation105497
+Node: Bugs and Problems106056
+Node: News107000
+Node: Version 2050107688
+Node: Version 2040108414
+Node: Version 2030109115
+Node: Version 2020109833
+Node: Version 2011110685
+Node: Version 2010111014
+Node: Version 162-1111560
+Node: Version 1611113080
+Node: Version 1501114707
+Node: Version 1452115536
+Node: Version 1451116937
+Node: Version 1401120087
+Node: Version 1301121542
+Node: Version 1201122457
+Node: Version 1102124824
+Node: ansys-modeel 1101125382
+Node: Further Resources128506
+Node: Ansys and APDL resources128734
+Node: Emacs editor resources129509
+Node: Other APDL editor resources130072
+Node: Todos130986
+Node: Version 2050 1131302
+Node: Todos bugs131633
+Node: Minor bugs131960
+Node: Checks132537
+Node: Wishes132820
+Node: Docu133124
+Node: templates134966
+Node: misc135563
+Node: Done135974
+Node: Push and Release Proceedures136213
+Node: Version 2040 1137139
+Node: Version 2030 1137336
+Node: Version 2020 1137554
+Node: Version 2011 1137733
+Node: Version 162-2138205
+Node: Bugs138481
+Node: Freeze139450
+Node: Wish-list139807
+Node: Deficiencies145923
+Node: Procedures147584
+Node: Freeze proceedures148106
+Node: Release149633
+Node: Ideas for further versions150236
+Node: Parameter help and documentation150665
+Node: Ansys process and interpreter buffer152967
+Node: Skeletons outline and abbrevs155830
+Node: Miscellaneous 1157562
+Node: Ansys syntax restrictions not (yet) accounted for162552
+Node: Unknown Ansys stuff163455
+Node: Acknowledgements163738
+Node: GNU Free Documentation License164308
+Node: Variable Index189334
+Node: Concept Index189483
 
 End Tag Table
 

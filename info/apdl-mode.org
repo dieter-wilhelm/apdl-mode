@@ -1,10 +1,10 @@
 #+MACRO: version 20.5.0
-#+MACRO: updated Time-stamp: "2020-04-02"
+#+MACRO: updated Time-stamp: "2020-04-17"
 
-This manual is for APDL-Mode version {{{version}}} {{{updated}}}
-
-#+TITLE: APDL-Mode's Info Viewer Documentation
+#+TITLE: The Manual of APDL-Mode
 #+SUBTITLE: Version {{{version}}} {{{updated}}}
+
+Version {{{version}}} {{{updated}}}
 
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de

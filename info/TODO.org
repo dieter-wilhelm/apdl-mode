@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-17>
+#+DATE: Time-stamp: <2020-05-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -22,13 +22,17 @@
   [2020-04-16 Do] feature freeze
   help for all get- and parametric-functions
 ** Todos, bugs
-   - Make text around #+texinfo: lines self sustained!
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
      - Code Templates, apdl-wb-custom-template-directory
-     - Export of WB command objects to file on disc
-** Minor bugs
-   - C-c C-v doesn't preserve point of the APDL file
+     - Export of WB command objects to file on disc in the manual
+** Issues
+   - Cygwin emacs-w32 ugly ^M line endings for C-c C-l
+   - Cygwin terminal initialisation not working, /cydrive/c:?
+     - setting -ansys-installation-path should do
+       - ugly ^M line endings -license-status
+       - w32-shell-execute not working for -start-help-program
+   - C-c C-v doesn't preserve "point" of the APDL file
    - M-? parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!
      f,node(x,y,z),,,
@@ -78,7 +82,7 @@
      - work on the Info index
      - #+include: #+title adds to info title!
      - #+texinfo: @inforef{node,name,file} links to Emacs info pages,
-       done, make contex self sustained!!
+       done, make contex SELF SUSTAINED!!
      - Attention colon ":" in headline gives a texinfo reference!
      - C-u C-h i: info file :-)
      - package with file "dir"
@@ -119,6 +123,7 @@
     6) Start optionally runbWB2 --aim, Discovery AIM
     7) Melpa README, better wait till emacs-27
 ** Done
+   - Make text around #+texinfo: lines self sustained!
    - -mode-version working with autoload cookie: works
    - include -mode-version in autoload list
 ** Push and Release Proceedures
@@ -151,8 +156,6 @@
     # ansys version
     (tags-query-replace "v201" "v211")
     (tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
-
-    apdl-customise-ansys
     # emacs
     (tags-query-replace "26\.3" "27.1")
     (tags-search "texinfo:")

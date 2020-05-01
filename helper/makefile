@@ -162,7 +162,7 @@ X11 := \
 
 # PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
 PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
-		$(MATLIB) $(TUTORIAL_SOURCES) 
+		$(MATLIB) $(TUTORIAL_SOURCES) ../info/apdl-mode.info
 # default.el : makefile
 # 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
 # 	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@

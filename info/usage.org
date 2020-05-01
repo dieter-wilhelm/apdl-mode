@@ -247,7 +247,7 @@
    for the current session by ticking on the respective option in
    the menu or permanently by setting ‘apdl-outline-minor-mode’ for
    the ‘apdl-mode-hook’ variable.  Please type
-   "M-x apdl-customise-ansys <RET>" or use the customisaton system
+   "M-x apdl-customise-apdl <RET>" or use the customisaton system
    from the menu: ->APDL ->Customise APDL Mode.
 
 * Variable Definitions
@@ -418,7 +418,7 @@
  might not be able to find its executables.  Or you want to use mixed
  Ansys version installations then it is necessary to customise some
  variables.  Either by calling the Emacs customisation facility
- ‘apdl-customise-ansys’ or from the menu bar -> ’APDL’ -> ’Customise
+ ‘apdl-customise-apdl’ or from the menu bar -> ’APDL’ -> ’Customise
  APDL Mode’ -> ’APDL-process’ and look there for the variables ’Ansys
  License File’, ’Ansys Util Program’ and ’Ansys Help Program’ as well
  as ’Ansys Help Program Parameters’) or set the variables directly in

@@ -1,16 +1,16 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#orgc7e6dfb)
-2.  [Version 20.4.0](#org0568e68)
-3.  [Version 20.3.0](#org7f7b1e7)
-4.  [Version 20.2.0](#orgf14e810)
-5.  [Version 20.1.1](#orgda94e20)
-6.  [Version 162-2](#org9332efd)
+1.  [Version 20.5.0](#orgae0e185)
+2.  [Version 20.4.0](#org336e7fa)
+3.  [Version 20.3.0](#org3fe1117)
+4.  [Version 20.2.0](#org15d6ade)
+5.  [Version 20.1.1](#org317c828)
+6.  [Version 162-2](#org7d10e75)
 
 
 
-<a id="orgc7e6dfb"></a>
+<a id="orgae0e185"></a>
 
 # TODO Version 20.5.0
 
@@ -20,16 +20,20 @@ help for all get- and parametric-functions
 
 ## Todos, bugs
 
--   Make text around #+texinfo: lines self sustained!
 -   Templates: Add intro help to the -wb-template system, complete
     usage.org
     -   Code Templates, apdl-wb-custom-template-directory
-    -   Export of WB command objects to file on disc
+    -   Export of WB command objects to file on disc in the manual
 
 
-## Minor bugs
+## Issues
 
--   C-c C-v doesn't preserve point of the APDL file
+-   Cygwin emacs-w32 ugly ^M line endings for C-c C-l
+-   Cygwin terminal initialisation not working, /cydrive/c:?
+    -   setting -ansys-installation-path should do
+        -   ugly ^M line endings -license-status
+        -   w32-shell-execute not working for -start-help-program
+-   C-c C-v doesn't preserve "point" of the APDL file
 -   M-? parameter counter is not working for commands where functions
     with multiple arguments are in the argument list!
     f,node(x,y,z),,,
@@ -88,7 +92,7 @@ Info documentation:
 -   work on the Info index
 -   \#+include: #+title adds to info title!
 -   \#+texinfo: @inforef{node,name,file} links to Emacs info pages,
-    done, make contex self sustained!!
+    done, make contex SELF SUSTAINED!!
 -   Attention colon ":" in headline gives a texinfo reference!
 -   C-u C-h i: info file :-)
 -   package with file "dir"
@@ -140,6 +144,7 @@ MD
 
 ## Done
 
+-   Make text around #+texinfo: lines self sustained!
 -   -mode-version working with autoload cookie: works
 -   include -mode-version in autoload list
 
@@ -175,13 +180,11 @@ APDL<sub>PATCH</sub> := 0
 (tags-query-replace "v201" "v211")
 (tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
 
-apdl-customise-ansys
-
 (tags-query-replace "26\\.3" "27.1")
 (tags-search "texinfo:")
 
 
-<a id="org0568e68"></a>
+<a id="org336e7fa"></a>
 
 # DONE Version 20.4.0
 
@@ -189,7 +192,7 @@ apdl-customise-ansys
 updated to 2020R1
 
 
-<a id="org7f7b1e7"></a>
+<a id="org3fe1117"></a>
 
 # DONE Version 20.3.0
 
@@ -198,14 +201,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgf14e810"></a>
+<a id="org15d6ade"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgda94e20"></a>
+<a id="org317c828"></a>
 
 # DONE Version 20.1.1
 
@@ -218,7 +221,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org9332efd"></a>
+<a id="org7d10e75"></a>
 
 # Version 162-2
 

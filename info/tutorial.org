@@ -21,7 +21,7 @@ Typing long function names can be abbreviated with the auto-completion
 feature.  Just enter the first few characters of a command and then
 press the <TAB> key.  Another way of saving keystrokes is to use the
 Gnu-Emacs’ fuzzy logic.  Instead of typing
-‘apdl-show-command-parameter’ it is sufficient to type ‘a-s-c-p’ (and
+‘apdl-show-command-parameters’ it is sufficient to type ‘a-s-c-p’ (and
 run it with <RET>).
 
 You can always cancel minibuffer and other commands by typing C-g (the

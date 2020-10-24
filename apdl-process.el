@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-05-01>
+;; Time-stamp: <2020-10-24>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
@@ -123,6 +123,7 @@ the respective error file."
 (defcustom apdl-license-categories
   '("ansys"
     "struct"
+    "motorcad"
     "ane3"
     "ansysds"
     "ane3fl"
@@ -135,6 +136,7 @@ terminology.
 
 \"ansys\" - Mechanical U (without thermal capability)
 \"struct\" - Structural U (with thermal capability)
+\"motorcad\" - MotorCAD
 \"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
 \"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics

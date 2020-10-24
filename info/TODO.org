@@ -17,10 +17,7 @@
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
 
-* TODO Version 20.5.0
-  SCHEDULED: <2020-05-01 Fr>
-  [2020-04-16 Do] feature freeze
-  help for all get- and parametric-functions
+* TODO Version 20.6.0
 ** Todos, bugs
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
@@ -147,10 +144,10 @@
 
     # for makefile
     APDL_MAJOR := 20
-    APDL_MINOR := 6
+    APDL_MINOR := 7
     APDL_PATCH := 0
     # A-M version
-    (tags-query-replace "20\.5\.0" "20.6.0")
+    (tags-query-replace "20\.6\.0" "20.7.0")
     # copyright year
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
@@ -160,6 +157,9 @@
     (tags-query-replace "26\.3" "27.1")
     (tags-search "texinfo:")
 
+* DONE Version 20.5.0
+  [2020-05-01 Fr]
+  help for all get- and parametric-functions
 * DONE Version 20.4.0
   [2020-04-01 Mi]
   updated to 2020R1

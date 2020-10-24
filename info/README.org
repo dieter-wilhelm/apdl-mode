@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-04-17>
+#+DATE: Time-stamp: <2020-05-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -30,9 +30,9 @@
 # ############################################################
 
 # #+title: is not recognised in MD export
-#+title: APDL-Mode 20.5.0
+#+title: APDL-Mode 20.6.0
 ** The GNU-Emacs major mode for the scripting language APDL
-APDL-Mode version 20.5.0
+APDL-Mode version 20.6.0
 
 [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
 [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]

@@ -1,10 +1,10 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-16>
+;; Time-stamp: <2020-05-01>
 
 ;; Copyright (C) 2016 - 2020  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.5.0
+;; Version: 20.6.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, extensions
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -36,10 +36,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; constants
 
-(defconst apdl-mode-version "20.5.0"
+(defconst apdl-mode-version "20.6.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2020-04-17"
+(defconst apdl-mode-update "2020-05-01"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")
@@ -406,7 +406,9 @@ AWP_ROOTXXX")
              (exe
               (if apdl-is-unix-system-flag
                   (concat idir "ansys/bin/anshelp" version1)
-                (concat idir "commonfiles/help/HelpViewer/AnsysHelpViewer.exe"))))
+		;; cygwin distincts capitalisation of execs (v201:
+		;; ANSYSHelpViewer)
+                (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))
         (if (file-executable-p exe)
             (progn
               (message "apdl-ansys-help-program = %s" exe)

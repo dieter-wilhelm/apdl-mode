@@ -1,11 +1,11 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-16>
+;; Time-stamp: <2020-05-01>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 20.5.0
+;; Version: 20.6.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -1083,6 +1083,13 @@ both systems)."
     (cond
      (apdl-is-unix-system-flag
       (start-process "apdl-ansys-help-program" nil apdl-ansys-help-program)
+      (message "Started the Ansys Help Viewer..."))
+     ((string= system-type "cygwin")
+      (if (fboundp 'w32-shell-execute)
+          (w32-shell-execute
+	   "Open" (concat "\"" (cygwin-convert-file-name-to-windows
+				apdl-ansys-help-program) "\"") )
+        (error "Function w32-shell-execute not bound, please install the w32 build"))
       (message "Started the Ansys Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)

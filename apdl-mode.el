@@ -1,10 +1,10 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-04-17>
+;; Time-stamp: <2020-05-01>
 
 ;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.5.0
+;; Version: 20.6.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -164,7 +164,7 @@ Used for the variable `comment-start-skip'.")
 
 (defgroup APDL nil
   "Customisation group for the APDL-Mode."
-  :version "20.5.0"
+  :version "20.6.0"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link :tag "Online documentation"
                    "https://dieter-wilhelm.github.io/apdl-mode ")

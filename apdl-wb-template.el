@@ -1,7 +1,7 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-05-01>
+;; Time-stamp: <2021-04-23>
 
-;; Copyright (C) 2020  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2020 - 2021  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -184,6 +184,17 @@ And other parameters from a plane stress press-fit simulation."
   (insert-file
    (concat apdl-wb-default-template-directory
 	   "plane_stress_press-fit_torque_calculations.mac")))
+
+(define-skeleton apdl-wbt-post-3d-press-fit_calcs
+  "Calculate the transmissible torque from contact results.
+And other parameters from a 3d stress press-fit simulation."
+  nil
+  "/com,==============================================================\n"
+  "/com, Inserted: "(current-time-string)", APDL-Mode: "apdl-mode-version"\n"
+  "/com,==============================================================\n"
+  (insert-file
+   (concat apdl-wb-default-template-directory
+	   "3d_stress-press-fit_torque_calculations.mac")))
 
 (define-skeleton apdl-wbt-do
   "Insert a *do .. *enddo loop."

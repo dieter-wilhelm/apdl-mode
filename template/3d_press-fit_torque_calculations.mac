@@ -1,0 +1,26 @@
+
+!prerequisits
+!1. local cylindrical coordinate system 12
+!2. correct symmetry factor
+!3. friction factor
+!4. 3d ASYMMETRICAL contacts
+
+frict=0.1 ! friction co-efficient
+symm=6 ! symmetry factor
+
+set,last
+esel,s,ename,,conta174 ! 174: 3d asymetrical contact!
+csys,12 ! local cylindrical co-ordinate system
+*get,en,elem,,count
+etable,r,cent,x
+csys
+etable,cp,cont,pres
+etable,a,volu!contact element areas
+smult,tang,cp,a,frict*symm !  tangential forces over the whole circumference
+smult,res,tang,r ! moment
+!smult,cpres,cp,,1/en
+ssum
+*get,my_torque,ssum,,item,res
+*get,my_force,ssum,,item,tang
+*get,my_carea,ssum,,item,a
+alls

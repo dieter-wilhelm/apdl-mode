@@ -1,7 +1,7 @@
 ;;; apdl-mode-pkg.el --- Defining the APDL-Mode package -*-lexical-binding:t -*-
-;; Time-stamp: <2020-05-01>
+;; Time-stamp: <2021-04-23>
 
-;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2021 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.6.0

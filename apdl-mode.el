@@ -1,7 +1,7 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2020-05-01>
+;; Time-stamp: <2021-04-23>
 
-;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.6.0

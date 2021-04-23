@@ -1,7 +1,7 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2020-10-24>
+;; Time-stamp: <2021-04-23>
 
-;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm

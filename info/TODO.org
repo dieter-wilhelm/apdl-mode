@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-05-01>
+#+DATE: Time-stamp: <2021-04-23>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,6 +18,8 @@
 # #+title: The TODO file of APDL-Mode
 
 * TODO Version 20.6.0
+Melpa: [2021-04-23 Fr] 436 downloads
+Melpa: [2020-10-24 Sa] 396 downloads
 ** Todos, bugs
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
@@ -96,7 +98,6 @@
      - APDL reference => just Info?
 
      MD
-
      - #+caption: not working!
      - #+title: not working!
 *** templates
@@ -386,6 +387,7 @@
     (tags-query-replace "\"1.1\"" "\"1.2\"")
     # copyright
     (tags-query-replace "- 2020" "- 2021")
+    (tags-query-replace "- 2021" "- 2022")
     # (tags-query-replace "fontification.mac" "example.mac")
 
     checkdoc then dry run: Emacs

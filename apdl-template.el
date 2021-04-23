@@ -1,6 +1,6 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2006 - 2020  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm

@@ -1,7 +1,7 @@
 ;;; fontification.el --- building keywords and completions
-;; Time-stamp: <2020-05-01>
+;; Time-stamp: <2021-04-23>
 
-;; Copyright (C) 2006 - 2020 H. Dieter Wilhelm
+;; Copyright (C) 2006 - 2021 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.6.0
@@ -928,7 +928,7 @@ By default APDL keywords, get-functions, parametric-function and elements
   (insert
 ";;; apdl-keyword.el --- APDL-Mode completion and highlighting variables -*- lexical-binding:t -*-\n"
 "\n"
-";; Copyright (C) 2006 - 2020 H. Dieter Wilhelm\n"
+";; Copyright (C) 2006 - 2021 H. Dieter Wilhelm\n"
 "\n"
 ";; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>\n"
 ";; Version: 20.6.0\n"

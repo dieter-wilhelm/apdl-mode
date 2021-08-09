@@ -997,10 +997,6 @@ averaged" \n
   "Minimal example of a modal analysis with beams"
   nil
   '(apdl-skeleton-header)
-  "!! fini" \n
-  "!! /clear" \n
-  "!! y" \n
-  "/units,mpa !indicate mm-t-s unit system" \n
   "!@ ==============================" \n
   "!@ ------- Preprocessing --------" \n
   "!@ ==============================" \n
@@ -1008,7 +1004,8 @@ averaged" \n
   "!@@ -- Elements --" \n
   "Steel = 1" \n
   "ID = Steel" \n
-  "et,ID,beam189 ! 189 3d 3node, 188 3d, 2 node beam" \n
+  "et,ID,beam188 ! 189 3d 3node, 188 3d, 2 node beam" \n
+  "!! keyopt, ID, 1 ! 1 deformation only in xy plane" \n
   "" \n
   "!! real = ID+1" \n
   "!! et,ID+1,mass21,,,2 ! no rotary intertia" \n
@@ -1022,13 +1019,13 @@ averaged" \n
   "" \n
   "!@@ -- Modeling --" \n
   "sectype,1,beam,rect" \n
-  "secdata,1,1" \n
+  "secdata,1,1 ! width, height, number of cells width (2)" \n
   "slist, 1, 1 ! list section properties" \n
   "secplot,1   ! show beam section" \n
-  "" \n
+  "!! nodes" \n
   "n,1,0" \n
   "*repeat,11,1,1" \n
-  "" \n
+  "!! meshing" \n
   "type,1" \n
   "mat,Steel" \n
   "e,1,2" \n

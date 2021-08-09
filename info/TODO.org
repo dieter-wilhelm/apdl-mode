@@ -132,6 +132,8 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - TODO.org
    - Add all new templates to the menu
 
+     Magit: s stage, c commit, P push
+
    gca = git commit -a = gau + gc
    gta = git tag -a 20.6.0
    gph --tags
@@ -150,6 +152,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
     # A-M version
     (tags-query-replace "20\.6\.0" "20.7.0")
     # copyright year
+    (tags-query-replace "- 2021" "- 2022")
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
     (tags-query-replace "v201" "v211")

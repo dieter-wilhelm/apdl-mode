@@ -1,5 +1,5 @@
 #+MACRO: version 20.6.0
-#+MACRO: updated Time-stamp: "2020-05-01 21:19:25 dieter"
+#+MACRO: updated Time-stamp: "2021-08-10"
 
 #+TITLE: The Manual of APDL-Mode
 #+SUBTITLE: Version {{{version}}} {{{updated}}}

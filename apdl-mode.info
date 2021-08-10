@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.5.0 Time-stamp: "2020-05-01"
+Version 20.6.0 Time-stamp: "2021-08-10"
 
 * Menu:
 
@@ -72,6 +72,7 @@ Installation and Development
 
 News
 
+* Version 20.6.0: Version 2060.
 * Version 20.5.0: Version 2050.
 * Version 20.4.0: Version 2040.
 * Version 20.3.0: Version 2030.
@@ -99,6 +100,7 @@ Further Resources
 
 Todos
 
+* Version 20.6.0: Version 2060 1.
 * Version 20.5.0: Version 2050 1.
 * Version 20.4.0: Version 2040 1.
 * Version 20.3.0: Version 2030 1.
@@ -2613,6 +2615,7 @@ Copyright (C) 2006 - 2020 H. Dieter Wilhelm, GPL V3
 
 * Menu:
 
+* Version 20.6.0: Version 2060.
 * Version 20.5.0: Version 2050.
 * Version 20.4.0: Version 2040.
 * Version 20.3.0: Version 2030.
@@ -2631,9 +2634,15 @@ Copyright (C) 2006 - 2020 H. Dieter Wilhelm, GPL V3
 * ansys-mode.el 11.0.1: ansys-modeel 1101.
 
 
-File: apdl-mode.info,  Node: Version 2050,  Next: Version 2040,  Up: News
+File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050,  Up: News
 
-10.1 Version 20.5.0
+10.1 Version 20.6.0
+===================
+
+
+File: apdl-mode.info,  Node: Version 2050,  Next: Version 2040,  Prev: Version 2060,  Up: News
+
+10.2 Version 20.5.0
 ===================
 
 2020-05, help for get- and parametric functions
@@ -2650,7 +2659,7 @@ File: apdl-mode.info,  Node: Version 2050,  Next: Version 2040,  Up: News
 
 File: apdl-mode.info,  Node: Version 2040,  Next: Version 2030,  Prev: Version 2050,  Up: News
 
-10.2 Version 20.4.0
+10.3 Version 20.4.0
 ===================
 
 2020-04, Updated for Ansys 2020R1
@@ -2666,7 +2675,7 @@ File: apdl-mode.info,  Node: Version 2040,  Next: Version 2030,  Prev: Version 2
 
 File: apdl-mode.info,  Node: Version 2030,  Next: Version 2020,  Prev: Version 2040,  Up: News
 
-10.3 Version 20.3.0
+10.4 Version 20.3.0
 ===================
 
 2020-03, Melpa installation
@@ -2684,7 +2693,7 @@ File: apdl-mode.info,  Node: Version 2030,  Next: Version 2020,  Prev: Version 2
 
 File: apdl-mode.info,  Node: Version 2020,  Next: Version 2011,  Prev: Version 2030,  Up: News
 
-10.4 Version 20.2.0
+10.5 Version 20.2.0
 ===================
 
 2020-03, Updated keywords to Ansys v195
@@ -2704,7 +2713,7 @@ File: apdl-mode.info,  Node: Version 2020,  Next: Version 2011,  Prev: Version 2
 
 File: apdl-mode.info,  Node: Version 2011,  Next: Version 2010,  Prev: Version 2020,  Up: News
 
-10.5 Version 20.1.1
+10.6 Version 20.1.1
 ===================
 
 2020-02, Bugfix release
@@ -2715,7 +2724,7 @@ File: apdl-mode.info,  Node: Version 2011,  Next: Version 2010,  Prev: Version 2
 
 File: apdl-mode.info,  Node: Version 2010,  Next: Version 162-1,  Prev: Version 2011,  Up: News
 
-10.6 Version 20.1.0
+10.7 Version 20.1.0
 ===================
 
 Released 2020-02
@@ -2730,7 +2739,7 @@ Released 2020-02
 
 File: apdl-mode.info,  Node: Version 162-1,  Next: Version 1611,  Prev: Version 2010,  Up: News
 
-10.7 Version 162-1
+10.8 Version 162-1
 ==================
 
 not yet released, targeted for Sep 2015
@@ -2760,7 +2769,7 @@ not yet released, targeted for Sep 2015
 
 File: apdl-mode.info,  Node: Version 1611,  Next: Version 1501,  Prev: Version 162-1,  Up: News
 
-10.8 Version 16.1.1
+10.9 Version 16.1.1
 ===================
 
 July 2015
@@ -2792,8 +2801,8 @@ July 2015
 
 File: apdl-mode.info,  Node: Version 1501,  Next: Version 1452,  Prev: Version 1611,  Up: News
 
-10.9 Version 15.0.1
-===================
+10.10 Version 15.0.1
+====================
 
 Aug 2014
    • Added an example of an Ansys material library
@@ -2812,7 +2821,7 @@ Aug 2014
 
 File: apdl-mode.info,  Node: Version 1452,  Next: Version 1451,  Prev: Version 1501,  Up: News
 
-10.10 Version 14.5.2
+10.11 Version 14.5.2
 ====================
 
 Mar 2013
@@ -2844,7 +2853,7 @@ Mar 2013
 
 File: apdl-mode.info,  Node: Version 1451,  Next: Version 1401,  Prev: Version 1452,  Up: News
 
-10.11 Version 14.5.1
+10.12 Version 14.5.1
 ====================
 
 Sep 2012
@@ -2903,7 +2912,7 @@ Sep 2012
 
 File: apdl-mode.info,  Node: Version 1401,  Next: Version 1301,  Prev: Version 1451,  Up: News
 
-10.12 Version 14.0.1
+10.13 Version 14.0.1
 ====================
 
 June 2012
@@ -2933,7 +2942,7 @@ June 2012
 
 File: apdl-mode.info,  Node: Version 1301,  Next: Version 1201,  Prev: Version 1401,  Up: News
 
-10.13 Version 13.0.1
+10.14 Version 13.0.1
 ====================
 
 March 2011
@@ -2954,7 +2963,7 @@ March 2011
 
 File: apdl-mode.info,  Node: Version 1201,  Next: Version 1102,  Prev: Version 1301,  Up: News
 
-10.14 Version 12.0.1
+10.15 Version 12.0.1
 ====================
 
 Dec 2010
@@ -2998,7 +3007,7 @@ Dec 2010
 
 File: apdl-mode.info,  Node: Version 1102,  Next: ansys-modeel 1101,  Prev: Version 1201,  Up: News
 
-10.15 Version 11.0.2
+10.16 Version 11.0.2
 ====================
 
 Nov 2009
@@ -3013,7 +3022,7 @@ Nov 2009
 
 File: apdl-mode.info,  Node: ansys-modeel 1101,  Prev: Version 1102,  Up: News
 
-10.16 ansys-mode.el 11.0.1
+10.17 ansys-mode.el 11.0.1
 ==========================
 
 2009 in comparison to ansys-mod.el,
@@ -3138,6 +3147,7 @@ File: apdl-mode.info,  Node: Todos,  Next: Acknowledgements,  Prev: Further Reso
 
 * Menu:
 
+* Version 20.6.0: Version 2060 1.
 * Version 20.5.0: Version 2050 1.
 * Version 20.4.0: Version 2040 1.
 * Version 20.3.0: Version 2030 1.
@@ -3146,13 +3156,13 @@ File: apdl-mode.info,  Node: Todos,  Next: Acknowledgements,  Prev: Further Reso
 * Version 162-2::
 
 
-File: apdl-mode.info,  Node: Version 2050 1,  Next: Version 2040 1,  Up: Todos
+File: apdl-mode.info,  Node: Version 2060 1,  Next: Version 2050 1,  Up: Todos
 
-12.1 *TODO* Version 20.5.0
+12.1 *TODO* Version 20.6.0
 ==========================
 
-_[2020-04-16 Do] _ feature freeze help for all get- and
-parametric-functions
+Melpa: _[2021-08-09 Mo] _ 481 Melpa: _[2021-04-23 Fr] _ 436 downloads
+Melpa: _[2020-10-24 Sa] _ 396 downloads
 
 * Menu:
 
@@ -3164,7 +3174,7 @@ parametric-functions
 * Push and Release Proceedures::
 
 
-File: apdl-mode.info,  Node: Todos bugs,  Next: Issues,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Todos bugs,  Next: Issues,  Up: Version 2060 1
 
 12.1.1 Todos, bugs
 ------------------
@@ -3175,7 +3185,7 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: Issues,  Up: Version 2050 1
         • Export of WB command objects to file on disc in the manual
 
 
-File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Version 2060 1
 
 12.1.2 Issues
 -------------
@@ -3194,7 +3204,7 @@ File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Vers
      the respective section on page for Chrome and Edge!?
 
 
-File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Issues,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Issues,  Up: Version 2060 1
 
 12.1.3 Checks
 -------------
@@ -3204,7 +3214,7 @@ File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Issues,  Up: Version 
    • Changed file size without warning to 30 MB what is Emacs-26 using?
 
 
-File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 2060 1
 
 12.1.4 Wishes
 -------------
@@ -3265,7 +3275,6 @@ File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
    • APDL reference => just Info?
 
    MD
-
    • #+caption: not working!
    • #+title: not working!
 
@@ -3302,7 +3311,7 @@ File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: Wishes
   7. Melpa README, better wait till emacs-27
 
 
-File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: Wishes,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: Wishes,  Up: Version 2060 1
 
 12.1.5 Done
 -----------
@@ -3312,7 +3321,7 @@ File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: W
    • include -mode-version in autoload list
 
 
-File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Version 2050 1
+File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Version 2060 1
 
 12.1.6 Push and Release Proceedures
 -----------------------------------
@@ -3324,6 +3333,8 @@ File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Ver
    • TODO.org
    • Add all new templates to the menu
 
+     Magit: s stage, c commit, P push
+
    gca = git commit -a = gau + gc gta = git tag -a 20.6.0 gph –tags
 
    Ansys updates: Hint: in apdl_keywords.txt there are many trailing
@@ -3332,11 +3343,12 @@ whitespaces (delete-trailing-whitespace)
    whitespace-mode, package-lint checkdoc, flycheck etc.  : from
 makefile?
 
-   APDL_MAJOR := 20 APDL_MINOR := 6 APDL_PATCH := 0
+   APDL_MAJOR := 20 APDL_MINOR := 7 APDL_PATCH := 0
 
-   (tags-query-replace "20\.5\.0" "20.6.0")
+   (tags-query-replace "20\.6\.0" "20.7.0")
 
-   (tags-query-replace "- 2020" "- 2021")
+   (tags-query-replace "- 2021" "- 2022") (tags-query-replace "- 2020"
+"- 2021")
 
    (tags-query-replace "v201" "v211") (tags-query-replace
 "apdl-customise-ansys" "apdl-customise-apdl")
@@ -3344,9 +3356,17 @@ makefile?
    (tags-query-replace "26\.3" "27.1") (tags-search "texinfo:")
 
 
+File: apdl-mode.info,  Node: Version 2050 1,  Next: Version 2040 1,  Prev: Version 2060 1,  Up: Todos
+
+12.2 *DONE* Version 20.5.0
+==========================
+
+_[2020-05-01 Fr]_ help for all get- and parametric-functions
+
+
 File: apdl-mode.info,  Node: Version 2040 1,  Next: Version 2030 1,  Prev: Version 2050 1,  Up: Todos
 
-12.2 *DONE* Version 20.4.0
+12.3 *DONE* Version 20.4.0
 ==========================
 
 _[2020-04-01 Mi]_ updated to 2020R1
@@ -3354,7 +3374,7 @@ _[2020-04-01 Mi]_ updated to 2020R1
 
 File: apdl-mode.info,  Node: Version 2030 1,  Next: Version 2020 1,  Prev: Version 2040 1,  Up: Todos
 
-12.3 *DONE* Version 20.3.0
+12.4 *DONE* Version 20.3.0
 ==========================
 
 _[2020-03-24 Di]_ Melpa feature freeze _[2020-03-20 Fr]_
@@ -3362,7 +3382,7 @@ _[2020-03-24 Di]_ Melpa feature freeze _[2020-03-20 Fr]_
 
 File: apdl-mode.info,  Node: Version 2020 1,  Next: Version 2011 1,  Prev: Version 2030 1,  Up: Todos
 
-12.4 *DONE* Version 20.2.0
+12.5 *DONE* Version 20.2.0
 ==========================
 
 _[2020-03-10 Di]_
@@ -3370,7 +3390,7 @@ _[2020-03-10 Di]_
 
 File: apdl-mode.info,  Node: Version 2011 1,  Next: Version 162-2,  Prev: Version 2020 1,  Up: Todos
 
-12.5 *DONE* Version 20.1.1
+12.6 *DONE* Version 20.1.1
 ==========================
 
    • are the material properties documented, matlib?  Matlib is used in
@@ -3383,7 +3403,7 @@ File: apdl-mode.info,  Node: Version 2011 1,  Next: Version 162-2,  Prev: Versio
 
 File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 1,  Up: Todos
 
-12.6 Version 162-2
+12.7 Version 162-2
 ==================
 
 * Menu:
@@ -3400,7 +3420,7 @@ File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 1,  Up: Todos
 
 File: apdl-mode.info,  Node: Bugs,  Next: Freeze,  Up: Version 162-2
 
-12.6.1 Bugs
+12.7.1 Bugs
 -----------
 
    • C-c C-s first time visit: User variables file-name-extension: Wrong
@@ -3424,7 +3444,7 @@ File: apdl-mode.info,  Node: Bugs,  Next: Freeze,  Up: Version 162-2
 
 File: apdl-mode.info,  Node: Freeze,  Next: Wish-list,  Prev: Bugs,  Up: Version 162-2
 
-12.6.2 Freeze
+12.7.2 Freeze
 -------------
 
    • Documentation of installation, usage and configuration!
@@ -3436,7 +3456,7 @@ File: apdl-mode.info,  Node: Freeze,  Next: Wish-list,  Prev: Bugs,  Up: Version
 
 File: apdl-mode.info,  Node: Wish-list,  Next: Deficiencies,  Prev: Freeze,  Up: Version 162-2
 
-12.6.3 Wish-list
+12.7.3 Wish-list
 ----------------
 
    • C-c C-v show only the latest most current variable, if in a
@@ -3558,7 +3578,7 @@ File: apdl-mode.info,  Node: Wish-list,  Next: Deficiencies,  Prev: Freeze,  Up:
 
 File: apdl-mode.info,  Node: Deficiencies,  Next: Procedures,  Prev: Wish-list,  Up: Version 162-2
 
-12.6.4 Deficiencies:
+12.7.4 Deficiencies:
 --------------------
 
 Highlighting
@@ -3600,7 +3620,7 @@ Navigation
 
 File: apdl-mode.info,  Node: Procedures,  Next: Freeze proceedures,  Prev: Deficiencies,  Up: Version 162-2
 
-12.6.5 Procedures
+12.7.5 Procedures
 -----------------
 
 GNU-Linux
@@ -3620,7 +3640,7 @@ M-x compile
 
 File: apdl-mode.info,  Node: Freeze proceedures,  Next: Release,  Prev: Procedures,  Up: Version 162-2
 
-12.6.6 Freeze proceedures
+12.7.6 Freeze proceedures
 -------------------------
 
    • check whether all undocumented commands <(find-tag
@@ -3647,7 +3667,8 @@ File: apdl-mode.info,  Node: Freeze proceedures,  Next: Release,  Prev: Procedur
      (tags-query-replace "20\.1\.0" "20.1.1") (tags-query-replace
      "\"1.1\"" "\"1.2\"")
 
-     (tags-query-replace "- 2020" "- 2021")
+     (tags-query-replace "- 2020" "- 2021") (tags-query-replace "- 2021"
+     "- 2022")
 
      checkdoc then dry run: Emacs 24.5 -Q testing: example.mac
      /*commands and default command lines, every menu entry.
@@ -3660,7 +3681,7 @@ File: apdl-mode.info,  Node: Freeze proceedures,  Next: Release,  Prev: Procedur
 
 File: apdl-mode.info,  Node: Release,  Next: Ideas for further versions,  Prev: Freeze proceedures,  Up: Version 162-2
 
-12.6.7 Release
+12.7.7 Release
 --------------
 
    • Add the latest news from NEWS.org to the README.org
@@ -3682,7 +3703,7 @@ File: apdl-mode.info,  Node: Release,  Next: Ideas for further versions,  Prev: 
 
 File: apdl-mode.info,  Node: Ideas for further versions,  Prev: Release,  Up: Version 162-2
 
-12.6.8 Ideas for further versions
+12.7.8 Ideas for further versions
 ---------------------------------
 
 * Menu:
@@ -3697,7 +3718,7 @@ File: apdl-mode.info,  Node: Ideas for further versions,  Prev: Release,  Up: Ve
 
 File: apdl-mode.info,  Node: Parameter help and documentation,  Next: Ansys process and interpreter buffer,  Up: Ideas for further versions
 
-12.6.8.1 Parameter help and documentation
+12.7.8.1 Parameter help and documentation
 .........................................
 
    • Enable a mouse button to unhide hidden regions, enable an
@@ -3741,7 +3762,7 @@ File: apdl-mode.info,  Node: Parameter help and documentation,  Next: Ansys proc
 
 File: apdl-mode.info,  Node: Ansys process and interpreter buffer,  Next: Skeletons outline and abbrevs,  Prev: Parameter help and documentation,  Up: Ideas for further versions
 
-12.6.8.2 Ansys process and interpreter buffer
+12.7.8.2 Ansys process and interpreter buffer
 .............................................
 
 example: gnuplot-mode
@@ -3798,7 +3819,7 @@ example: gnuplot-mode
 
 File: apdl-mode.info,  Node: Skeletons outline and abbrevs,  Next: Miscellaneous 1,  Prev: Ansys process and interpreter buffer,  Up: Ideas for further versions
 
-12.6.8.3 Skeletons, outline and abbrevs
+12.7.8.3 Skeletons, outline and abbrevs
 .......................................
 
    • show a preview buffer with the outline headlines
@@ -3832,7 +3853,7 @@ File: apdl-mode.info,  Node: Skeletons outline and abbrevs,  Next: Miscellaneous
 
 File: apdl-mode.info,  Node: Miscellaneous 1,  Next: Ansys syntax restrictions not (yet) accounted for,  Prev: Skeletons outline and abbrevs,  Up: Ideas for further versions
 
-12.6.8.4 Miscellaneous
+12.7.8.4 Miscellaneous
 ......................
 
    • hash or signature file for packages
@@ -3922,7 +3943,7 @@ File: apdl-mode.info,  Node: Miscellaneous 1,  Next: Ansys syntax restrictions n
 
 File: apdl-mode.info,  Node: Ansys syntax restrictions not (yet) accounted for,  Next: Unknown Ansys stuff,  Prev: Miscellaneous 1,  Up: Ideas for further versions
 
-12.6.8.5 Ansys syntax restrictions not (yet) accounted for
+12.7.8.5 Ansys syntax restrictions not (yet) accounted for
 ..........................................................
 
    • Parentheses can only be nested 4 levels deep and only up to 9
@@ -3940,7 +3961,7 @@ File: apdl-mode.info,  Node: Ansys syntax restrictions not (yet) accounted for, 
 
 File: apdl-mode.info,  Node: Unknown Ansys stuff,  Prev: Ansys syntax restrictions not (yet) accounted for,  Up: Ideas for further versions
 
-12.6.8.6 Unknown Ansys stuff
+12.7.8.6 Unknown Ansys stuff
 ............................
 
    • what the heck is the *UILIST command?
@@ -4436,154 +4457,156 @@ Emacs 26.3 (Org mode 9.1.9)
 
 Tag Table:
 Node: Top79
-Node: Copying2172
-Node: Introduction2729
-Node: First Steps4889
-Node: Introductory Tutorial5753
-Node: Usage and Applications8240
-Node: Finding Help8624
-Node: Command Help with Argument Counter8956
-Node: APDL Keyword Documentation9797
-Node: Code Templates10787
-Node: Model Templates11376
-Node: WorkBench / Discover Aim Templates12012
-Node: Editing Code12215
-Node: Completions12564
-Node: Comment Handling14010
-Node: Inserting Pairs15161
-Node: Abbreviation Facility15946
-Node: Auto-indentation16739
-Node: Closing of Control Blocks17218
-Node: Code Alignment17628
-Node: Auto-insertion18148
-Node: Code Navigation and Hiding18694
-Node: Hiding Number Blocks20520
-Node: Outlining20981
-Node: Variable Definitions22164
-Node: Sophisticated Highlighting23325
-Node: Process Management27040
-Node: MAPDL Solver Control30401
-Node: Configuration and Customisation34682
-Node: Conventions36867
-Node: Important Prerequisite37392
-Node: File suffixes38822
-Node: Macro files39207
-Node: WorkBench generated input files39826
-Node: The Ansys Neutral file format40249
-Node: Auto insertion41910
-Node: Miscellaneous42913
-Node: Outlining 144262
-Node: Highlighting (Colourisation)44878
-Node: Dynamic highlighting45179
-Node: Decoration levels45796
-Node: Summary46136
-Node: Installation dependent configurations47319
-Node: Ansys processes49063
-Node: License server49306
-Node: Solver options50372
-Node: Summary 150809
-Node: APDL Reference 152945
-Node: WorkBench to APDL Translation53240
-Node: Contacts53484
-Node: default 3D thermal contact53657
-Node: Material Models55502
-Node: Plasticity55701
-Node: Boundary conditions56004
-Node: APDL Reference61566
-Node: Idiosyncrasies62031
-Node: File types64257
-Node: Defining parameters79335
-Node: Double char38 char8 logical TODO79655
-Node: Variable names79884
-Node: Character strings84158
-Node: Erasing variables from memory84510
-Node: Variable substitution85192
-Node: Substitution of Numeric Variables85543
-Node: Substitution of Character Variables86171
-Node: Dynamic Substitution of Numeric or Character Variables87526
-Node: Expressions88235
-Node: Exponentiation Operator88464
-Node: Multiplication Expression88650
-Node: Operators89070
-Node: Arrays89373
-Node: Specifiying array element values89625
-Node: APDL Math89804
-Node: debugging90317
-Node: Multiple runs probabilistic design90523
-Node: Undocumented commands90833
-Node: APDL-Mode Syntax Highlighting Reference91182
-Node: Header91493
-Node: Highlighting APDL specials93777
-Node: Reserved words and _RETURN statements94355
-Node: _RETURN values of macros94726
-Node: Old style APDL comments95210
-Node: Ignored characters behind commands95627
-Node: The End Of File command95941
-Node: Ignored characters behind commands 196383
-Node: The End Of File command 196807
-Node: Current element types and deprecated elements97209
-Node: Implied (or colon) looping98001
-Node: And the rest99242
-Node: Installation and Development102979
-Node: Melpa103534
-Node: Manual installation104399
-Node: Development and source code installation105494
-Node: Bugs and Problems106053
-Node: News106997
-Node: Version 2050107685
-Node: Version 2040108411
-Node: Version 2030109112
-Node: Version 2020109830
-Node: Version 2011110682
-Node: Version 2010111011
-Node: Version 162-1111557
-Node: Version 1611113077
-Node: Version 1501114704
-Node: Version 1452115533
-Node: Version 1451116934
-Node: Version 1401120084
-Node: Version 1301121539
-Node: Version 1201122454
-Node: Version 1102124821
-Node: ansys-modeel 1101125379
-Node: Further Resources128503
-Node: Ansys and APDL resources128731
-Node: Emacs editor resources129506
-Node: Other APDL editor resources130069
-Node: Todos130983
-Node: Version 2050 1131299
-Node: Todos bugs131626
-Node: Issues131963
-Node: Checks132834
-Node: Wishes133113
-Node: Docu133417
-Node: templates135294
-Node: misc135891
-Node: Done136302
-Node: Push and Release Proceedures136598
-Node: Version 2040 1137489
-Node: Version 2030 1137686
-Node: Version 2020 1137904
-Node: Version 2011 1138083
-Node: Version 162-2138555
-Node: Bugs138831
-Node: Freeze139800
-Node: Wish-list140157
-Node: Deficiencies146273
-Node: Procedures147934
-Node: Freeze proceedures148456
-Node: Release149983
-Node: Ideas for further versions150586
-Node: Parameter help and documentation151015
-Node: Ansys process and interpreter buffer153317
-Node: Skeletons outline and abbrevs156180
-Node: Miscellaneous 1157912
-Node: Ansys syntax restrictions not (yet) accounted for162902
-Node: Unknown Ansys stuff163805
-Node: Acknowledgements164088
-Node: GNU Free Documentation License164658
-Node: Variable Index189684
-Node: Concept Index189833
+Node: Copying2238
+Node: Introduction2795
+Node: First Steps4955
+Node: Introductory Tutorial5819
+Node: Usage and Applications8306
+Node: Finding Help8690
+Node: Command Help with Argument Counter9022
+Node: APDL Keyword Documentation9863
+Node: Code Templates10853
+Node: Model Templates11442
+Node: WorkBench / Discover Aim Templates12078
+Node: Editing Code12281
+Node: Completions12630
+Node: Comment Handling14076
+Node: Inserting Pairs15227
+Node: Abbreviation Facility16012
+Node: Auto-indentation16805
+Node: Closing of Control Blocks17284
+Node: Code Alignment17694
+Node: Auto-insertion18214
+Node: Code Navigation and Hiding18760
+Node: Hiding Number Blocks20586
+Node: Outlining21047
+Node: Variable Definitions22230
+Node: Sophisticated Highlighting23391
+Node: Process Management27106
+Node: MAPDL Solver Control30467
+Node: Configuration and Customisation34748
+Node: Conventions36933
+Node: Important Prerequisite37458
+Node: File suffixes38888
+Node: Macro files39273
+Node: WorkBench generated input files39892
+Node: The Ansys Neutral file format40315
+Node: Auto insertion41976
+Node: Miscellaneous42979
+Node: Outlining 144328
+Node: Highlighting (Colourisation)44944
+Node: Dynamic highlighting45245
+Node: Decoration levels45862
+Node: Summary46202
+Node: Installation dependent configurations47385
+Node: Ansys processes49129
+Node: License server49372
+Node: Solver options50438
+Node: Summary 150875
+Node: APDL Reference 153011
+Node: WorkBench to APDL Translation53306
+Node: Contacts53550
+Node: default 3D thermal contact53723
+Node: Material Models55568
+Node: Plasticity55767
+Node: Boundary conditions56070
+Node: APDL Reference61632
+Node: Idiosyncrasies62097
+Node: File types64323
+Node: Defining parameters79401
+Node: Double char38 char8 logical TODO79721
+Node: Variable names79950
+Node: Character strings84224
+Node: Erasing variables from memory84576
+Node: Variable substitution85258
+Node: Substitution of Numeric Variables85609
+Node: Substitution of Character Variables86237
+Node: Dynamic Substitution of Numeric or Character Variables87592
+Node: Expressions88301
+Node: Exponentiation Operator88530
+Node: Multiplication Expression88716
+Node: Operators89136
+Node: Arrays89439
+Node: Specifiying array element values89691
+Node: APDL Math89870
+Node: debugging90383
+Node: Multiple runs probabilistic design90589
+Node: Undocumented commands90899
+Node: APDL-Mode Syntax Highlighting Reference91248
+Node: Header91559
+Node: Highlighting APDL specials93843
+Node: Reserved words and _RETURN statements94421
+Node: _RETURN values of macros94792
+Node: Old style APDL comments95276
+Node: Ignored characters behind commands95693
+Node: The End Of File command96007
+Node: Ignored characters behind commands 196449
+Node: The End Of File command 196873
+Node: Current element types and deprecated elements97275
+Node: Implied (or colon) looping98067
+Node: And the rest99308
+Node: Installation and Development103045
+Node: Melpa103600
+Node: Manual installation104465
+Node: Development and source code installation105560
+Node: Bugs and Problems106119
+Node: News107063
+Node: Version 2060107783
+Node: Version 2050107901
+Node: Version 2040108648
+Node: Version 2030109349
+Node: Version 2020110067
+Node: Version 2011110919
+Node: Version 2010111248
+Node: Version 162-1111794
+Node: Version 1611113314
+Node: Version 1501114941
+Node: Version 1452115772
+Node: Version 1451117173
+Node: Version 1401120323
+Node: Version 1301121778
+Node: Version 1201122693
+Node: Version 1102125060
+Node: ansys-modeel 1101125618
+Node: Further Resources128742
+Node: Ansys and APDL resources128970
+Node: Emacs editor resources129745
+Node: Other APDL editor resources130308
+Node: Todos131222
+Node: Version 2060 1131572
+Node: Todos bugs131932
+Node: Issues132269
+Node: Checks133140
+Node: Wishes133419
+Node: Docu133723
+Node: templates135599
+Node: misc136196
+Node: Done136607
+Node: Push and Release Proceedures136903
+Node: Version 2050 1137872
+Node: Version 2040 1138094
+Node: Version 2030 1138291
+Node: Version 2020 1138509
+Node: Version 2011 1138688
+Node: Version 162-2139160
+Node: Bugs139436
+Node: Freeze140405
+Node: Wish-list140762
+Node: Deficiencies146878
+Node: Procedures148539
+Node: Freeze proceedures149061
+Node: Release150632
+Node: Ideas for further versions151235
+Node: Parameter help and documentation151664
+Node: Ansys process and interpreter buffer153966
+Node: Skeletons outline and abbrevs156829
+Node: Miscellaneous 1158561
+Node: Ansys syntax restrictions not (yet) accounted for163551
+Node: Unknown Ansys stuff164454
+Node: Acknowledgements164737
+Node: GNU Free Documentation License165307
+Node: Variable Index190333
+Node: Concept Index190482
 
 End Tag Table
 

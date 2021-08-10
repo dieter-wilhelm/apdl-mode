@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-05-01>
+#+DATE: Time-stamp: <2021-08-10>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -37,7 +37,7 @@ APDL-Mode version 20.6.0
 [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
 [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 
-Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
 [[file:doc/ansys+emacs2020-03.png]]
 

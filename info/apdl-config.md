@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org341c737)
-2.  [Important Prerequisite](#org6c90aac)
-3.  [File suffixes](#org41bf3fc)
-4.  [Auto insertion](#org8f66033)
-5.  [Miscellaneous](#org5e9059c)
-6.  [Outlining](#orgfc56750)
-7.  [Highlighting (Colourisation)](#orgae87da2)
-8.  [Installation dependent configurations](#org5465fa6)
-9.  [Ansys processes](#org1817f92)
+1.  [Conventions](#orgb437895)
+2.  [Important Prerequisite](#org141045d)
+3.  [File suffixes](#org4ef1401)
+4.  [Auto insertion](#org96c067b)
+5.  [Miscellaneous](#orgeb76c94)
+6.  [Outlining](#orgb23fb0d)
+7.  [Highlighting (Colourisation)](#org667202d)
+8.  [Installation dependent configurations](#org93832eb)
+9.  [Ansys processes](#org8063806)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -44,7 +44,7 @@ or 2. by directly manipulating the Emacs configuration file
     is `;` (one semi-colon \`;').
 
 
-<a id="org341c737"></a>
+<a id="orgb437895"></a>
 
 # Conventions
 
@@ -58,7 +58,7 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="org6c90aac"></a>
+<a id="org141045d"></a>
 
 # Important Prerequisite
 
@@ -83,11 +83,11 @@ the MAPDL menu entry "Change Installation Directory".
 
 If your Ansys installation differs completely from the standard
 Ansys directory structure, or you want to use multiple versions of
-Ansys, then please consult the section [Installation dependent configurations](#org5465fa6)
+Ansys, then please consult the section [Installation dependent configurations](#org93832eb)
 below.
 
 
-<a id="org41bf3fc"></a>
+<a id="org4ef1401"></a>
 
 # File suffixes
 
@@ -158,7 +158,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org8f66033"></a>
+<a id="org96c067b"></a>
 
 # Auto insertion
 
@@ -180,7 +180,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="org5e9059c"></a>
+<a id="orgeb76c94"></a>
 
 # Miscellaneous
 
@@ -214,7 +214,7 @@ section).
     (setq apdl-username "userID") 		; new in 20.4.0
 
 
-<a id="orgfc56750"></a>
+<a id="orgb23fb0d"></a>
 
 # Outlining
 
@@ -230,7 +230,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="orgae87da2"></a>
+<a id="org667202d"></a>
 
 # Highlighting (Colourisation)
 
@@ -283,7 +283,7 @@ the current default is 2.
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org5465fa6"></a>
+<a id="org93832eb"></a>
 
 # Installation dependent configurations
 
@@ -313,7 +313,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org1817f92"></a>
+<a id="org8063806"></a>
 
 # Ansys processes
 

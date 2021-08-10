@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-10 18:44:18 dieter>
+;; Time-stamp: <2021-08-10 19:15:40 dieter>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1006,7 +1006,7 @@ averaged" \n
   "Steel = 1" \n
   "ID = Steel" \n
   "et,ID,beam188 ! 189 3d 3node, 188 3d, 2 node beam" \n
-  "!!keyopt, ID, 1 ! 1 deformation only in xy plane" \n
+  "keyopt, ID, 1 ! 1 deformation only in xy plane" \n
   "" \n
   "!! real = ID+1" \n
   "!! et,ID+1,mass21,,,2 ! no rotary intertia" \n
@@ -1251,7 +1251,7 @@ averaged" \n
   "/pnum,mat,1 $ eplot" \n
   \n)
 
-(define-skeleton apdl-skeleton-function
+(define-skeleton apdl-skeleton-get-and-fortran-function
   "Standard FORTRAN and get functions."
   nil
   "!! ==============================" \n
@@ -1804,7 +1804,7 @@ reflection normal to X,y,z"
   ",r,loc,x,0" > \n
   "d,all,ux,0,,,,uy,uz,rotx,roty,rotz ! apply to other labels" \n
   "!! After second load step fix current displacment" \n
-  "d,all,ux,%_FIX% \n
+  "d,all,ux,%_FIX%" \n
   "d,all,all!dk,dl,da" \n
   "/pbc,u,,on !plot translational constraints" \n
   "/pbc,rot,,on !plot rotational constraints" \n

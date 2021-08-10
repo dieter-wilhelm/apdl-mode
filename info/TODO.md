@@ -1,21 +1,23 @@
 
 # Table of Contents
 
-1.  [Version 20.5.0](#orgae0e185)
-2.  [Version 20.4.0](#org336e7fa)
-3.  [Version 20.3.0](#org3fe1117)
-4.  [Version 20.2.0](#org15d6ade)
-5.  [Version 20.1.1](#org317c828)
-6.  [Version 162-2](#org7d10e75)
+1.  [Version 20.6.0](#org6a2db98)
+2.  [Version 20.5.0](#org8aa002d)
+3.  [Version 20.4.0](#org4bb9578)
+4.  [Version 20.3.0](#org20c69d1)
+5.  [Version 20.2.0](#org211cbcd)
+6.  [Version 20.1.1](#org9e2cd4d)
+7.  [Version 162-2](#org0a3cea4)
 
 
 
-<a id="orgae0e185"></a>
+<a id="org6a2db98"></a>
 
-# TODO Version 20.5.0
+# TODO Version 20.6.0
 
-<span class="timestamp-wrapper"><span class="timestamp">[2020-04-16 Do] </span></span> feature freeze
-help for all get- and parametric-functions
+Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-09 Mo] </span></span> 481
+Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2021-04-23 Fr] </span></span> 436 downloads
+Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] </span></span> 396 downloads
 
 
 ## Todos, bugs
@@ -157,6 +159,8 @@ MD
 -   README.org News section
 -   TODO.org
 -   Add all new templates to the menu
+    
+    Magit: s stage, c commit, P push
 
 gca = git commit -a = gau + gc
 gta = git tag -a 20.6.0
@@ -170,11 +174,12 @@ whitespace-mode, package-lint
 checkdoc, flycheck etc. : from makefile?
 
 APDL<sub>MAJOR</sub> := 20
-APDL<sub>MINOR</sub> := 6
+APDL<sub>MINOR</sub> := 7
 APDL<sub>PATCH</sub> := 0
 
-(tags-query-replace "20\\.5\\.0" "20.6.0")
+(tags-query-replace "20\\.6\\.0" "20.7.0")
 
+(tags-query-replace "- 2021" "- 2022")
 (tags-query-replace "- 2020" "- 2021")
 
 (tags-query-replace "v201" "v211")
@@ -184,7 +189,15 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org336e7fa"></a>
+<a id="org8aa002d"></a>
+
+# DONE Version 20.5.0
+
+<span class="timestamp-wrapper"><span class="timestamp">[2020-05-01 Fr]</span></span>
+help for all get- and parametric-functions
+
+
+<a id="org4bb9578"></a>
 
 # DONE Version 20.4.0
 
@@ -192,7 +205,7 @@ APDL<sub>PATCH</sub> := 0
 updated to 2020R1
 
 
-<a id="org3fe1117"></a>
+<a id="org20c69d1"></a>
 
 # DONE Version 20.3.0
 
@@ -201,14 +214,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org15d6ade"></a>
+<a id="org211cbcd"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org317c828"></a>
+<a id="org9e2cd4d"></a>
 
 # DONE Version 20.1.1
 
@@ -221,7 +234,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org7d10e75"></a>
+<a id="org0a3cea4"></a>
 
 # Version 162-2
 
@@ -449,6 +462,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     (tags-query-replace "\\"1.1\\"" "\\"1.2\\"")
     
     (tags-query-replace "- 2020" "- 2021")
+    (tags-query-replace "- 2021" "- 2022")
     
     checkdoc then dry run: Emacs
     24.5 -Q testing: example.mac /\*commands and default command

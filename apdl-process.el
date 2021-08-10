@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-04-23>
+;; Time-stamp: <2021-08-10>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -123,7 +123,6 @@ the respective error file."
 (defcustom apdl-license-categories
   '("ansys"
     "struct"
-    "motorcad"
     "ane3"
     "ansysds"
     "ane3fl"
@@ -136,7 +135,6 @@ terminology.
 
 \"ansys\" - Mechanical U (without thermal capability)
 \"struct\" - Structural U (with thermal capability)
-\"motorcad\" - MotorCAD
 \"ane3\" - Mechanical/Emag (Structural U with electromagnetics)
 \"ansysds\" - Mechanical/LS-Dyna (Mechanical U with Ansys LS-Dyna inter-phase)
 \"ane3fl\" - Multiphysics
@@ -591,7 +589,7 @@ Return nil if we can't find an MAPDL GUI."
   "Start the Ansys MAPDL Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
 *Classics* under GNU-Linux.  Under Windows it is not possible to
-capture the output."
+capture the output, but we are displaying  opening "
   (interactive)
   (let ((bname (concat "*"apdl-classics-process"*")))
     ;; check against .lock file
@@ -601,7 +599,7 @@ capture the output."
 		   default-directory ". This might indicate that there \
 is already a solver running.  Do you wish to kill the lock file? "))
           (delete-file (concat apdl-job ".lock"))
-        (error "Starting the MAPDL GUI (Ansys Classics) cancelled")))
+        (error "Starting the MAPDL GUI (Ansys Classics) canceled")))
     (if (y-or-n-p
          (concat
           "Start run of: "
@@ -617,7 +615,7 @@ is already a solver running.  Do you wish to kill the lock file? "))
           " in " default-directory ", lic server: "
 	  apdl-license-file " "))
         (message "Starting MAPDL in GUI mode (Ansys Classics) ...")
-      (error "Calling MAPDL solver (Ansys Classics) cancelled"))
+      (error "Starting MAPDL GUI (Ansys Classics) canceled"))
     ;; -d : device
     ;; -g : graphics mode
     ;; -p : license
@@ -628,7 +626,8 @@ is already a solver running.  Do you wish to kill the lock file? "))
     (start-process apdl-classics-process
 		   (if apdl-is-unix-system-flag
 		       bname
-		     nil)
+		     nil)		;nil process not associated with a
+					;buffer
                    apdl-ansys-program
                    "-g"
 		   "-p" apdl-license
@@ -640,7 +639,9 @@ is already a solver running.  Do you wish to kill the lock file? "))
 		   "-t"
 		   "-d 3D" ; 3d device, win32
 		   )
-    (display-buffer bname 'other-window)))
+    (if apdl-is-unix-system-flag
+	(display-buffer bname 'other-window)
+      )))
 
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
@@ -1085,13 +1086,6 @@ both systems)."
     (cond
      (apdl-is-unix-system-flag
       (start-process "apdl-ansys-help-program" nil apdl-ansys-help-program)
-      (message "Started the Ansys Help Viewer..."))
-     ((string= system-type "cygwin")
-      (if (fboundp 'w32-shell-execute)
-          (w32-shell-execute
-	   "Open" (concat "\"" (cygwin-convert-file-name-to-windows
-				apdl-ansys-help-program) "\"") )
-        (error "Function w32-shell-execute not bound, please install the w32 build"))
       (message "Started the Ansys Help Viewer..."))
      ((string= system-type "windows-nt")
       (if (fboundp 'w32-shell-execute)

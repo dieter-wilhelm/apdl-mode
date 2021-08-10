@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-04-23>
+;; Time-stamp: <2021-08-10>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -164,7 +164,7 @@ Used for the variable `comment-start-skip'.")
 
 (defgroup APDL nil
   "Customisation group for the APDL-Mode."
-  :version "20.6.0"
+  :version "20.5.0"
   :link '(custom-group-link :tag "Font Lock Faces group" font-lock-faces)
   :link '(url-link :tag "Online documentation"
                    "https://dieter-wilhelm.github.io/apdl-mode ")
@@ -947,7 +947,7 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
     "--"
     ["Configuration" apdl-skeleton-configuration
      :help "Configuration code template"]
-    ["Get- and Fortran functions" apdl-skeleton-function
+    ["Get- and Fortran functions" apdl-skeleton-get-and-fortran-function
      :help "Get- and Fortran functions template"]
     ["View Settings" apdl-skeleton-view-settings
      :help "View settings like focus point, magnification, ..."]

@@ -597,6 +597,7 @@ Return nil if we can't find an MAPDL GUI."
       (setq select-enable-clipboard t)                     ; for kill-new necessary
       aID)))
 
+;;;###autoload
 (defun apdl-start-classics ()		; C-c C-x
   "Start the Ansys MAPDL Classics graphical user interface.
 The output of the solver is captured in an Emacs buffer called
@@ -717,6 +718,7 @@ is already a solver running.  Do you wish to kill the lock file? "))
 	;; )
 	))
 
+;;;###autoload
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
   (interactive)
@@ -765,7 +767,7 @@ respective job, you can change it with \"\\[cd]\"."
   (interactive "p")
   (let ((job apdl-job)
         file
-        lfile
+        ;;lfile ; lock file mechanism, might be switched off
         name)
     (cond
      ((< arg 0)                         ; ask for job-name
@@ -778,9 +780,11 @@ respective job, you can change it with \"\\[cd]\"."
         (if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
             (setq name (match-string 1))
           (setq name job)))))
-    ;; we might have circumvented the locking with env: ANSYS_LOCK=OFF
-    ;; more over below condition was already interceped already in the
-    ;; apdl-mode menu
+    ;; we might have circumvented the locking with environment
+    ;; variable ANSYS_LOCK=OFF, this is interesting if you are using
+    ;; Classics as a "viewer" with prepost license (on Windows
+    ;; removing the .lock file would be blocked), moreover below
+    ;; condition was already interceped already in the apdl-mode menu,
 
     ;; (setq lfile (concat name ".lock"))
     ;; (unless (file-readable-p lfile)

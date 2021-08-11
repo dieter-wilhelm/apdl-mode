@@ -364,8 +364,7 @@
   might run the licsense status from the mini-buffer with "M-x"
   `apdl-license-status' instead of calling it from the menu or with
   C-c C-l in an APDL-Mode buffer.  Here is the list of commands which
-  are available from the mini-buffer without loading a file under
-  APDL-Mode:
+  are available from the mini-buffer without activating APDL-Mode:
 
   # from helper/autoload.sh
   apdl,
@@ -373,7 +372,29 @@
   apdl-mode-version,
   apdl-user-license-status and
   apdl-license-status
+  apdl-start-classics
+  apdl-start-launcher
 
+
+ - With the `apdl' command you can start a new file in APDL-Mode.
+   With `apdl-mode' you switch to this mode for any file.
+
+ - With `apdl-license-status' you can display available licenses.
+   Under APDL-Mode you can use the keys "C-c C-l".  You will see the
+   status of the license server in the **License** buffer.  In this
+   buffer you can apply additional keys, for example "o" to show only
+   selected licenses (compiled from the variable
+   `apdl-license-occur-regexp').
+   #+texinfo: @inforef{Regular Expressions,,elisp} for more information.
+
+      # check: (info "(elisp)Regular Expressions")
+
+   Please type "h" or "?" in the license buffer for a list of
+   available keys.
+
+ - You can start Ansys in interactive mode (`apdl-start-classics'),
+   the Product launcher (`apdl-start-launcher') or initiate a batch
+   run for the current script.
 
  - APDL-Mode writes for you an APDL stop file in the current directory
    (the file name is compiled from the variable ‘apdl-job’ and the
@@ -390,25 +411,15 @@
    mode ‘auto-revert-tail-mode’, which scrolls the buffer automatically
    for keeping the current Ansys output visible.
 
- - You can start the Ansys Help Viewer directly from Emacs with
-   "M-x apdl-start-ansys-help" (for ‘apdl-start-ansys-help’).
+ - You can start the Ansys Help Viewer from Emacs with "M-x
+   apdl-start-ansys-help" (for ‘apdl-start-ansys-help’).  For this
+   functionality you must have the help system installed otherwise you
+   will be redirected to the online help in a browser, this is the
+   default since Ansys 19.
 
  - You might also start the APDL product launcher from Emacs under
    windows or the APDL interpeter under GNU-Linux with "C-c RET" (for
    ‘apdl-start-ansys’).
-
- - For displaying the available licenses please use "C-c C-l" (for
-   ‘apdl-license-status’).  You will see the status of everything
-   available on the license server in the **License** buffer.  In this
-   buffer you can apply additional keys, for example "o" to show only
-   selected licenses (compiled from the variable
-   `apdl-license-occur-regexp').
-   #+texinfo: @inforef{Regular Expressions,,elisp} for more information.
-
-      # check: (info "(elisp)Regular Expressions")
-
-   Please type "h" or "?" in the license buffer for a list of
-   available keys.
 
 - For displaying the licenses you are using type "C-c C-z"
   (`apdl-user-license-status').  Please type "h" or "?" in this

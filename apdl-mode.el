@@ -550,7 +550,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-w" 'apdl-display-wb-skeleton) ; or aim:
 							  ; runwb2--aim?
     (define-key map "\C-c\C-x" 'apdl-start-classics)
-    (define-key map "\C-c\C-y" 'apdl-start-launcher)
+    (define-key map "\C-c\C-y" 'apdl-start-batch-run)
     ;; (define-key map "\C-c\C-z" 'apdl-start-anslic_admin)
     ;; redundant with C-c C-l
     (define-key map "\C-c\C-z" 'apdl-user-license-status)

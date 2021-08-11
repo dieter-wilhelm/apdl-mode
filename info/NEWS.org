@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-05-01>
+#+DATE: Time-stamp: <2021-08-11>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,6 +18,7 @@
 
 Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
 * Version 20.6.0
+  - Implemented batch runs (now C-c C-y) and .out file inspection
 * Version 20.5.0
   2020-05, help for get- and parametric functions
   - Browsing the help on keywords (C-c C-b) is now working for get-

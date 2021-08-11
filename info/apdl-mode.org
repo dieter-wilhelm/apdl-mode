@@ -1,5 +1,5 @@
 #+MACRO: version 20.6.0
-#+MACRO: updated Time-stamp: "2021-08-10"
+#+MACRO: updated Time-stamp: "2021-08-11"
 
 #+TITLE: The Manual of APDL-Mode
 #+SUBTITLE: Version {{{version}}} {{{updated}}}
@@ -32,7 +32,7 @@ Version {{{version}}} {{{updated}}}
   :END:
 #  :COPYING:  t
 
-  Copyright \copy 2020 H. Dieter Wilhelm
+  Copyright \copy 2020 - 2021 H. Dieter Wilhelm
 
   #+BEGIN_QUOTE
   Permission is granted to copy, distribute and/or modify this

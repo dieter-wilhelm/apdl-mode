@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-10>
+;; Time-stamp: <2021-08-11>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1164,6 +1164,8 @@ restarting apdl-mode"]
     :label (concat "Exit APDL-Mode Version: " apdl-mode-version)])
   "APDL menu items for APDL-Mode.")
 
+;; ------------------------------ MAPDL ------------------------------
+
 (defconst apdl-task-menu
   (list
    "MAPDL"
@@ -1229,6 +1231,10 @@ used (apdl-user-license-status)"
     :active (and apdl-ansys-launcher (file-executable-p apdl-ansys-launcher))
     :help "Start the Ansys Mechanical APDL Product Launcher
 (apdl-start-launcher)"]
+   ["Ansys MAPDL Batch Run" apdl-start-batch-run
+    :active (and apdl-ansys-program (file-executable-p apdl-ansys-program))
+    :help "Start an Ansys Mechanical APDL batch run
+(apdl-start-batch-run)"]
    ["Ansys MAPDL Classics GUI" apdl-start-classics
     :active (and apdl-ansys-program (file-executable-p apdl-ansys-program))
     ;;    :visible apdl-is-unix-system-flag
@@ -1320,17 +1326,29 @@ solver interpreter process (apdl-query-apdl-command)"
     :help "Display the status of the Ansys MAPDL
     solver/interpreter run (apdl-process-status)"
     :active (apdl-process-running-p)]
+   ["Display MAPDL Batch Status" apdl-batch-process-status
+    :help "Display the status of the Ansys MAPDL
+    solver/interpreter batch run (apdl-batch-process-status)"
+    ;;:active (apdl-process-running-p)
+    ]
    ["Exit MAPDL Run" apdl-exit-ansys
     :help "Exit the active MAPDL solver/interpreter
     run (apdl-exit-ansys)"
     :visible (apdl-process-running-p)]
+   ["Display MAPDL Out File" apdl-display-out-file
+    :help "Display in another window in auto-revert-tail-mode the
+MAPDL out file (job.out) in the current working
+directory (apdl-display-out-file)"
+    :active (file-readable-p (concat default-directory apdl-job ".out"))]
    ["Display MAPDL Error File" apdl-display-error-file
     :help "Display in another window in auto-revert-tail-mode the
 MAPDL error file (job.err) in the current working
 directory (apdl-display-error-file)"
     :active (file-readable-p (concat default-directory apdl-job ".err"))]
    ["Write MAPDL Stop File" apdl-abort-file
-    :active  (file-readable-p (concat default-directory apdl-job ".lock"))
+    ;; we can deactivate the locking mechanism with the env variable
+    ;;ANSYS_LOCK=OFF :active (file-readable-p (concat
+    ;;default-directory apdl-job ".lock"))
     :help "Write a file: JOB.abt containing the word
 \"nonlinear\" for orderly stopping the solver in the current
 working directory (apdl-abort-file)"]

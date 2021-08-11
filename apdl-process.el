@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-10>
+;; Time-stamp: <2021-08-11>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -149,6 +149,14 @@ It is also used for displaying the current license usage in
 `apdl-license-categories' for often used Ansys license types."
   ;;  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "preppost")
   :options apdl-license-categories
+  ;; options not available for strings (only hooks, alists, plists E22)
+  :type 'string
+  :group 'APDL-process)
+
+(defcustom apdl-batch-license "meba"
+  "The License type for an MAPDL batch run."
+  :options '("ansys" "struct" "ane3" "ane3fl" "ansysds" "meba" "mech_1" "mech_2")
+  ;; :options apdl-license-categories
   ;; options not available for strings (only hooks, alists, plists E22)
   :type 'string
   :group 'APDL-process)
@@ -542,11 +550,15 @@ Status: Ansys v201 from about the beginning of 2020.")
   "Regexp containing the APDL begin keywords.")
 
 (defconst apdl-process-name "MAPDL"
-  "Variable containing the name of a possible MAPDL interactive process.
+  "Variable containing the name of an MAPDL interactive process.
 Variable is used internally only.")
 
 (defconst apdl-classics-process "Classics"
-  "Variable containing the name of a possible MAPDL GUI process.
+  "Variable containing the name of an MAPDL GUI process.
+Variable is used internally only.")
+
+(defconst apdl-batch-process "MAPDL-Batch"
+  "Variable containing the name of an MAPDL batch process.
 Variable is used internally only.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -643,6 +655,68 @@ is already a solver running.  Do you wish to kill the lock file? "))
 	(display-buffer bname 'other-window)
       )))
 
+(defun apdl-start-batch-run ()
+  "Start an Ansys MAPDL batch run locally with the current script.
+The output of the process status is captured in an Emacs buffer
+called *APDL-Batch*."
+  (interactive)
+  (let ((bname (concat "*"apdl-batch-process"*")))
+    ;; check against .lock file
+    (when (file-readable-p (concat default-directory apdl-job ".lock"))
+      (if (yes-or-no-p
+           (concat "Warning: There is a \""apdl-job".lock" "\" in "
+		   default-directory ". This might indicate that there \
+is already a solver running.  Do you wish to kill the lock file? "))
+          (delete-file (concat apdl-job ".lock"))
+        (error "MAPDL batch run canceled")))
+    (if (y-or-n-p
+         (concat
+          "Start batch run: "
+          apdl-ansys-program
+          ", license: " apdl-batch-license
+          ;; "Start run?  (license type: " (if (boundp
+          ;; 'apdl-license) apdl-license)
+          (if (> apdl-no-of-processors 4)
+              (concat ", No of procs: "
+		      (number-to-string apdl-no-of-processors))
+            "")
+          ", job: " (if (boundp 'apdl-job) apdl-job)
+          " in " default-directory ", lic server: "
+	  apdl-license-file " "))
+        (message "Starting MAPDL batch run ...")
+      (error "MAPDL batch run canceled"))
+    ;; -d : device
+    ;; -g : graphics mode
+    ;; -p : license
+    ;; -np: no of PROCs
+    ;; -j : job
+    ;; v195 new params?: -t -lch
+    ;; -g -p ansys -np 2 -j "file" -d 3D
+    (start-process apdl-batch-process bname
+		   ;; (if apdl-is-unix-system-flag
+		   ;;     bname
+		   ;;   nil)		;nil process not associated with a
+		   ;; 			;buffer
+                   apdl-ansys-program
+                   ;;"-g"
+		   "-p" apdl-batch-license
+		   "-lch" default-directory
+		   "-smp"		;smp: shared memory run
+		   "-np" (number-to-string apdl-no-of-processors)
+		   "-j" apdl-job	;job name
+		   "-s" "noread"	;don't read startup script
+		   "-l en-us"		;language
+		   "-b"			;batch
+		   "-i" (buffer-file-name)
+		   "-o" (concat apdl-job ".out")
+		   ;; "-t"
+		   ;;"-d 3D" ; 3d device, win32
+		   )
+    ;;(if apdl-is-unix-system-flag
+	(display-buffer bname 'other-window)
+	;; )
+	))
+
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
   (interactive)
@@ -704,11 +778,15 @@ respective job, you can change it with \"\\[cd]\"."
         (if (re-search-forward "/filn.*,\\(\\w+\\)" nil 'noerror)
             (setq name (match-string 1))
           (setq name job)))))
-    (setq lfile (concat name ".lock"))
-    (unless (file-readable-p lfile)
-      (error "No \"%s\" in %s" lfile default-directory))
+    ;; we might have circumvented the locking with env: ANSYS_LOCK=OFF
+    ;; more over below condition was already interceped already in the
+    ;; apdl-mode menu
+
+    ;; (setq lfile (concat name ".lock"))
+    ;; (unless (file-readable-p lfile)
+    ;;   (error "No \"%s\" in %s" lfile default-directory))
     (setq file (concat name ".abt"))
-    (if (yes-or-no-p (concat "Write \"" default-directory file "\"? "))
+    (if (yes-or-no-p (concat "Write stop file \"" default-directory file "\"? "))
         (progn
           (apdl-write-abort-file file)
           (message "Wrote MAPDL stop file %s in %s." file
@@ -726,6 +804,25 @@ the customisation facility (by calling `apdl-customise-apdl')."
   (let ((file (concat apdl-job ".err")))
     (if (not (file-readable-p file))
         (error "Ansys error file \"%s\" doesn't exist in %s" file (pwd))
+      (find-file-read-only-other-window file)
+      (goto-char (point-max))
+      (auto-revert-tail-mode 1))))
+
+(defun apdl-display-out-file ()
+  "Open the interpreter's .out file in the current working directory.
+You might change the directory with `M-x cd <RET>'.  This file
+will be opened in \"auto-revert-mode\" so that the current output
+at the end of the file is always visible.
+
+The out file name consists of the current job name and the suffix
+'.out'.  For the job name the variable `apdl-job' is used.  You
+can change the job name interactively either with the
+\"\\[apdl-job]\" or in the customisation facility (by calling
+`apdl-customise-apdl')."
+  (interactive)
+  (let ((file (concat apdl-job ".out")))
+    (if (not (file-readable-p file))
+        (error "Ansys out file \"%s\" doesn't exist in %s" file (pwd))
       (find-file-read-only-other-window file)
       (goto-char (point-max))
       (auto-revert-tail-mode 1))))
@@ -1332,6 +1429,39 @@ elem.
         (message "Ansys process is in state \"%s\"" ; process identification No: %d"
                  (symbol-name status))
       (message "No Ansys interpreter process is running."))))
+
+(defun apdl-batch-process-status ()
+  "Show the process status in the Emacs command line (minibuffer).
+
+    'run'
+          for a process that is running.
+    'stop'
+          for a process that is stopped but continuable.
+    'exit'
+          for a process that has exited.
+    'signal'
+          for a process that has received a fatal signal.
+    'open'
+          for a network connection that is open.
+    'closed'
+          for a network connection that is closed.  Once a connection
+          is closed, you cannot reopen it, though you might be able to
+          open a new connection to the same place.
+    'connect'
+          for a non-blocking connection that is waiting to complete.
+    'failed'
+          for a non-blocking connection that has failed to complete.
+    'listen'
+          for a network server that is listening.
+    'nil'
+          if PROCESS-NAME is not the name of an existing process."
+  (interactive)
+  (let ((status (process-status apdl-batch-process)))
+    (if status
+        (message "Ansys batch process is in state \"%s\"" ; process identification No: %d"
+                 (symbol-name status))
+      (message "No Ansys batch process is running."))))
+
 
 (defun apdl-occur ()
   "Show selected licenses in an occur buffer.

@@ -394,15 +394,18 @@
 
  - You can start Ansys in interactive mode (`apdl-start-classics'),
    the Product launcher (`apdl-start-launcher') or initiate a batch
-   run for the current script.
+   run for the current script. You might suppress the locking feature
+   of the solver with the environment variable ANSYS_LOCK=Off.  So you
+   can run short batch jobs while using the Classics GUI with preppost
+   as "viewer".
 
  - APDL-Mode writes for you an APDL stop file in the current directory
    (the file name is compiled from the variable ‘apdl-job’ and the
-   extension ’.abt’).  You can do this with "M-x apdl-write-abort-file"
-   (‘apdl-write-abort-file’, you might previously use the Emacs command
-   ’cd’ ("<ALT> + x M-x cd ") to change the current directory).  This
-   stop file is halting a running calculation in an orderly,
-   re-startable fashion.
+   extension ’.abt’).  You can do this with "M-x (<ALT> + x)
+   apdl-write-abort-file" (‘apdl-write-abort-file’, you might
+   previously use the Emacs command ’M-x cd’ to change the current
+   directory).  This stop file is halting a running calculation in an
+   orderly, restart enabled way.
 
  - You are able to view the Ansys APDL error file (a file consisting of
    the ‘apdl-job’ and the suffix ’.err’ in the current directory) with

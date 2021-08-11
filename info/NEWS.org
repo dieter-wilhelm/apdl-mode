@@ -16,9 +16,11 @@
 #+STARTUP: showall
 # #+title: News and History of APDL-Mode
 
-Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
-* Version 20.6.0
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
+* Version 20.6.0, 15 years of APDL-Mode! :-)
   - Implemented batch runs (now C-c C-y) and .out file inspection
+  - Added apdl-start-classic and -start-launcher to the auto-loaded
+    commands
 * Version 20.5.0
   2020-05, help for get- and parametric functions
   - Browsing the help on keywords (C-c C-b) is now working for get-

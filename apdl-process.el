@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-11>
+;; Time-stamp: <2021-08-12>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -34,9 +34,34 @@
 
 ;; Managing runs and processes for APDL-Mode
 
+;; Ansys MAPDL error codes:
+;; Code Explanation
+;; 0	Normal Exit
+;; 1	Stack Error
+;; 2	Stack Error
+;; 3	Stack Error
+;; 4	Stack Error
+;; 5	Command Line Argument Error
+;; 6	Accounting File Error
+;; 7	Auth File Verification Error
+;; 8	Error in Mechanical APDL or End-of-run
+;; 11	User Routine Error
+;; 12	Macro STOP Command
+;; 14	XOX Error
+;; 15	Fatal Error
+;; 16	Possible Full Disk
+;; 17	Possible Corrupted or Missing File
+;; 18	Possible Corrupted DB File
+;; 21	Authorized Code Section Entered
+;; 25	Unable to Open X11 Server
+;; 30	Quit Signal
+;; 31	Failure to Get Signal
+;; >32	System-dependent Error
+
 ;;; Code:
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; external defvars
 
 (defvar apdl-username)
@@ -72,6 +97,8 @@
 
 (require 'comint)
 (require 'url)
+(require 'apdl-mode)
+(require 'apdl-initialise)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- customisation ---
@@ -604,6 +631,11 @@ The output of the solver is captured in an Emacs buffer called
 *Classics* under GNU-Linux.  Under Windows it is not possible to
 capture the output, but we are displaying  opening "
   (interactive)
+  ;; initialise system dependent stuff in case this command was
+  ;; invoked before APDL-Mode.
+  (unless apdl-initialised-flag
+    (apdl-initialise))
+
   (let ((bname (concat "*"apdl-classics-process"*")))
     ;; check against .lock file
     (when (file-readable-p (concat default-directory apdl-job ".lock"))
@@ -657,10 +689,40 @@ is already a solver running.  Do you wish to kill the lock file? "))
       )))
 
 (defun apdl-start-batch-run ()
-  "Start an Ansys MAPDL batch run locally with the current script.
-The output of the process status is captured in an Emacs buffer
-called *APDL-Batch*."
+  "Start an Ansys MAPDL batch run locally on the current script.
+The output of the process is captured in an Emacs buffer called
+*APDL-Batch*. Here are the Ansys MAPDL error codes:
+
+Code    Explanation
+-------------------
+0	Normal Exit
+1	Stack Error
+2	Stack Error
+3	Stack Error
+4	Stack Error
+5	Command Line Argument Error
+6	Accounting File Error
+7	Auth File Verification Error
+8	Error in Mechanical APDL or End-of-run
+11	User Routine Error
+12	Macro STOP Command
+14	XOX Error
+15	Fatal Error
+16	Possible Full Disk
+17	Possible Corrupted or Missing File
+18	Possible Corrupted DB File
+21	Authorized Code Section Entered
+25	Unable to Open X11 Server
+30	Quit Signal
+31	Failure to Get Signal
+>32	System-dependent Error
+"
   (interactive)
+  ;; initialise system dependent stuff in case this command was
+  ;; invoked before APDL-Mode.
+  (unless apdl-initialised-flag
+    (apdl-initialise))
+
   (let ((bname (concat "*"apdl-batch-process"*")))
     ;; check against .lock file
     (when (file-readable-p (concat default-directory apdl-job ".lock"))
@@ -722,20 +784,21 @@ is already a solver running.  Do you wish to kill the lock file? "))
 (defun apdl-start-launcher ()
   "Start the Ansys Launcher."
   (interactive)
-  ;;    (apdl-ansys-program "")  ; take exec from -program var.
-  ;;    (apdl-license-file "")
-  ;;    (apdl-ansysli-servers "")
-  ;; (apdl-license "")
+  ;; initialise system dependent stuff in case this command was
+  ;; invoked before APDL-Mode.
+  (unless apdl-initialised-flag
+    (apdl-initialise))
+
   (start-process "Launcher" nil apdl-ansys-launcher)
   (message "Started the Ansys Launcher..."))
 
 (defun apdl-start-wb ()
   "Start the Ansys WorkBench."
   (interactive)
-  ;;    (apdl-ansys-program "") ; take exec from -program var.
-  ;;    (apdl-license-file "")
-  ;;    (apdl-ansysli-servers "")
-  ;; (apdl-license "")
+  ;; initialise system dependent stuff in case this command was
+  ;; invoked before APDL-Mode.
+  (unless apdl-initialised-flag
+    (apdl-initialise))
   (start-process "WorkBench" nil apdl-ansys-wb)
   (message "Started the Ansys WorkBench..."))
 
@@ -1574,8 +1637,8 @@ the license type variable `apdl-license' determines a
 highlighting of the license server summary rows.  There are
 additional keybindings for the license buffer *Licenses*:
 
-- `g' for updating the license status,
-- `d' for a license description of all available features
+- `g' updating the license status,
+- `d' updating the license status with feature descriptions
 - `o' for showing an occur buffer with the interesting licenses from
       `apdl-license-occur-regexp',
 - `u' for displaying all the user license,
@@ -1601,6 +1664,7 @@ additional keybindings for the license buffer *Licenses*:
 		  apdl-license-file  "-a")
     (let (bol eol match desc)
       (with-current-buffer "*Licenses*"
+	(setq-local truncate-lines t)
         ;; remove uninteresting licenses
         ;; (goto-char (point-min))
         ;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")

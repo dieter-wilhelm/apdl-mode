@@ -1,0 +1,102 @@
+fini
+/clear
+!! y
+/units,mpa ! indicate mm-t-s unit system
+!@ ==============================
+!@ --- Preprocessing ---
+!@ ==============================
+/prep7
+
+Thick = 10.5 !element thickness, spring depth in mm
+W =  0.1 !spring thickness in mm
+Rad = 1.5      !Spring radius
+
+!@@ -- Elements --
+
+Steel = 1
+ID = Steel
+real = Steel
+!!et,ID,solid186 !3d, 20 node
+!! plane stress with thickness
+et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane
+			 !strain, 3:plane stress with thickness real
+			 !constant
+
+r,ID,Thick	 ! element thickness
+/eshape,1	 ! 1:use real constant def. for element shapes
+/graphics, power ! for post1 results
+
+!@@ -- Material --
+mp,nuxy,Steel,0.3  ! Poisson No
+mp,ex,Steel,200000 ! Elastic modulus
+
+!@@ -- Modeling --
+
+k,1,0,.25
+k,2,0,.25 + W
+k,3,.25
+k,4,.25, W
+a,1,3,4,2
+
+k,5,2.5 - Rad
+k,6,2.5 - Rad,W
+a,3,5,6,4
+
+!!*get,LN,
+
+k,7,2.5,-Rad
+k,8,2.5+W,-Rad
+!! centre kp for radius
+k,9,2.5-Rad,-Rad
+larc,5,7,9,Rad
+l,7,8
+larc,8,6,9,Rad+W
+l,6,5
+!!/pnum,lines,on
+!!lplot
+al,6,8,9,10
+!!aplot,all
+
+!@@ -- Meshing --
+mshkey,1 ! 1: mapped meshing,2: mapped if possible
+esize,W/4
+amesh,all
+
+!@@ -- BCs, Loads --
+!! symmetry
+nsel,s,loc,x,0
+d,all,ux
+
+!! displacement
+nsel,r,loc,y,.25
+d,all,uy,.5
+
+!! fixation
+nsel,s,loc,y,-Rad
+d,all,all
+
+allsel
+
+!@ ==============================
+!@ --- Solving ---
+!@ ==============================
+
+/solu
+nlgeom,on
+!!outres,all,all ! ,item,freq,cname
+solve
+save
+
+!@ ==============================
+!@ --- Postprocessing ---
+!@ ==============================
+
+/post1
+set,last       !for fsum
+/view,,.1,.1,1
+!!plnsol,u,sum,2
+/expand,2,rect,half,-1e-6
+/dscale,,1
+plnsol,s,1,2
+nsel,s,loc,y,-Rad
+fsum ! sum nodal forces/moments of selected elements

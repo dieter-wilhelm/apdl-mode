@@ -172,7 +172,7 @@ Used for the variable `comment-start-skip'.")
                    "https://github.com/dieter-wilhelm/apdl-mode")
   :group 'Languages)
 
-;; two minute was rather long in the teeth 2021-08-12
+;; two minutes was rather long in the teeth 2021-08-12
 (defcustom apdl-parameter-help-duration "30"
   "Duration for showing the `apdl-show-command-parameters' overlay.
 The value is a string expressing a relative time span like \"2

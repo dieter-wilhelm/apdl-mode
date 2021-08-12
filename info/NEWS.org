@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-11>
+#+DATE: Time-stamp: <2021-08-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,6 +19,7 @@
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 * Version 20.6.0, 15 years of APDL-Mode! :-)
   - Implemented batch runs (now C-c C-y) and .out file inspection
+  - Added customisation section for user templates
   - Added apdl-start-classic and -start-launcher to the auto-loaded
     commands
 * Version 20.5.0
@@ -47,7 +48,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
   - You can now install APDL-Mode from the [[https://melpa.org/][Melpa]] package archive!
   - Added a new menu entry for browsing interactively the
     documentation for keywords
-  - Added new function template the menu
+  - Added new function templates in the menu
   - EWW browser for the local help is now opening in a different
     "Window" and is not hiding the APDL buffer any longer
   - Added Ruler Mode to the helper modes

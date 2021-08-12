@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-12>
+;; Time-stamp: <2021-08-12 21:26:42 dieter>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -49,11 +49,36 @@
 ;;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+(defcustom apdl-custom-template-directory
+  apdl-mode-install-directory
+  "Directory where your APDL template macros reside.
+Collect your APDL macro files into this directory and define your
+own templates with these in apdl-templates.el:
+
+(define-skeleton apdl-skeleton-your-example-template
+  \"Your documentation for your example template.\"
+  nil
+  (insert-file
+   (concat apdl-custom-template-directory
+	   \"your-example-template.mac\")))
+
+Then you can preview or include it with C-c C-s, as the others.
+"
+  :type '(directory)
+  :group 'APDL-template)
+
+
 (defvar apdl-skeleton-overlay)
 (make-local-variable 'apdl-skeleton-overlay)
 
 (defvar apdl-last-skeleton nil
   "Variable containing the last previewed skeleton.")
+
+(defconst apdl-default-template-directory
+  (concat apdl-mode-install-directory "template/")
+  "Directory where the APDL-Mode template macro files reside.")
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- functions ---
@@ -129,6 +154,23 @@ key and choose with the mouse 2 button."
   "!! *elseif,K,gt,L" > \n
   "!! *else" > \n
   "*endif" >)
+
+;; switched strategy to include APDL files into template
+;; definitions. This is way easier for users to setup their own
+;; example templates!
+
+(define-skeleton apdl-skeleton-2d-structural
+  "Short but complete plane stress structural APDL template."
+  nil
+  "/com,==============================================================\n"
+  "/com, Inserted: "(current-time-string)", APDL-Mode: "apdl-mode-version"\n"
+  "/com,==============================================================\n"
+  (insert-file
+   (concat apdl-wb-default-template-directory
+	   "plane-stress_structural_example.mac")))
+
+
+;; ------------- "old" skeleton descriptions -------
 
 (define-skeleton apdl-skeleton-looping
   "Control constructs"
@@ -648,8 +690,8 @@ Hans(0,1) and Hans(1,0)!" \n
   "*vplot,Hans(1,0),Hans(1,1),2,3" \n
   \n)
 
-(define-skeleton apdl-skeleton-expand
-  "Symmetry expansion."
+(define-skeleton apdl-skeleton-symmetry-expansion
+  "Graphical expansion of models utilising symmetry conditions."
   nil
   "!! ------------------------------" \n
   "!@@@ - symmetry expansion -" \n

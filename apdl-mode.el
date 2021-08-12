@@ -1026,6 +1026,8 @@ outlineing headers and sections"]
      :help "Insert a minimal template for a beam simulation"]
     ["Structural template" apdl-skeleton-structural
      :help "Insert a minimal template for a structural simulation"]
+    ["2D structural template" apdl-skeleton-2d-structural
+     :help "Insert a minimal template for a 2D structural simulation"]
     ["Contact template" apdl-skeleton-contact
      :help "Insert a minimal template for a structural contact
     simulation"]

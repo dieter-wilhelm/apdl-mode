@@ -2,9 +2,9 @@
 !@ --- header ---
 !! ------------------------------
 !! example APDL code, checking the influence of
-!! ansys-highlighting-level.  Please put the
-!! the cursor below the next paragraph and type
-!! C-x C-e to check settings
+!! ansys-highlighting-level, indentation and alignments.
+!! You might put the the cursor below the next paragraph
+!! and type C-x C-e to check changes in highlighting.
 
 !! (progn (when (featurep 'ansys-mode) (unload-feature 'ansys-mode))(setq ansys-highlighting-level 2 ansys-dynamic-highlighting-flag t)(load-file "../ansys-mode.el")(ansys-mode))
 
@@ -133,7 +133,7 @@ fini $ /eof
 
 cgomga,x,y,z, ! rotational velocity about globla coord. sys.
 dcgomg,x,y,z ! rotational acceleration about global coord. sys.
- 
+
 !@@@ - coupling -
 nsel,s,loc,x,1
 cp,next,uy,all ! couple dofs
@@ -271,295 +271,302 @@ lfillt,(1:2),(3:4),5
 aselsalsdkfjaÃ¶lsdkfjaÃ¶lskdjf,all
 :branch
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
-a $ al $ all $ alls $ allse $ allsel $ allselllllll
+!!  it ends the file for the solver in batch mode and the solver
+!!  returns with exit code 8.  Maybe it is cleaner to use *dowhile,1
+!!  to make code "inactive".
+*dowhile,1
 
-nsel,s,loc,x,1
-    ,s,loc,x,1
-cp,next,uy,all ! couple dofs
-f,1,fx,1
-!! flist ! list force nodes
-alls
-/pbc,all,on
-!! gplot
-/eof
+  a $ al $ all $ alls $ allse $ allsel $ allselllllll
 
-!-----------------------------------------------------------------------
-! mdlbl.mac
-! Puts Modal Info on Plot
-!-----------------------------------------------------------------------
-/post1
-set,last
-*get,nmd,active,,set,sbst
-pfct= $ ffrq= $ adir=
-nsel,s,l
+  nsel,s,loc,x,1
+      ,s,loc,x,1
+  cp,next,uy,all ! couple dofs
+  f,1,fx,1
+  !! flist ! list force nodes
+  alls
+  /pbc,all,on
+  !! gplot
+  /eof
 
-*dim,pfct,,nmd,6
-    ,
-    ,ffrq,,nmd
-    ,adir,char,nmd
+  !-----------------------------------------------------------------------
+  ! mdlbl.mac
+  ! Puts Modal Info on Plot
+  !-----------------------------------------------------------------------
+  /post1
+  set,last
+  *get,nmd,active,,set,sbst
+  pfct= $ ffrq= $ adir=
+  nsel,s,l
+
+  *dim,pfct,,nmd,6
+      ,
+      ,ffrq,,nmd
+      ,adir,char,nmd
 
 
-adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
-*stat,adir
-*do,i,1,nmd
-  *get,ffrq(i),mode,i,freq
-  *do,j,1,6
-    *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
+  adir(1) = 'X','Y','Z','ROTX','ROTY','ROTZ'
+  *stat,adir
+  *do,i,1,nmd
+    *get,ffrq(i),mode,i,freq
+    *do,j,1,6
+      *get,pfct(i,j),mode,i,pfact,,direc,adir(j)
+    *enddo
   *enddo
-*enddo
-/annot,delete
-/plopt,info,0
-/plopt,minm,off
-/triad,off
-/erase
-iadd = arg1
-*if,iadd,eq,0,then
-  iadd = 1
-*endif
-/tspe,15,1,1,0,0
-/TSPE, 15, 1.000,   1,   0,   0
-xx = 1.05
-yy = .9
-!!  Change the window settings if you need different 
-!!  aspect ratios for your geometry
-/win,1,-1,1,.5,1
-    ,2,-1,1,0,.5
-    ,3,-1,1,-.5,0
-    ,4,-1,1,-1,-.5
-!!
-/win,2,off
-/win,3,off
-/win,4,off
-
-*get,vx,graph,1,view,x
-*get,vy,graph,1,view,y
-*get,vz,graph,1,view,z
-*get,va,graph,1,angle
-*get,vd,graph,1,dist
-*do,i,2,4
-  /view,i,vx,vy,vz
-  /dist,i,vd
-  /angle,i,va
-*enddo
-
-*do,i,1,4
-  ii = i - 1 + iadd 
-  set,1,ii
-  plnsol,u,sum
-  *if,i,eq,1,then
-    /noerase
+  /annot,delete
+  /plopt,info,0
+  /plopt,minm,off
+  /triad,off
+  /erase
+  iadd = arg1
+  *if,iadd,eq,0,then
+    iadd = 1
   *endif
-  /win,i,off
-  *if,i,ne,4,then
-    /win,i+1,on
-  *endif
-*enddo
-*do,i,1,4
-  ii = i - 1 + iadd
-  /TLAB, xx, yy  ,Mode: %ii%
-  yy = yy - .05
-  /TLAB, xx, yy,Freq: %ffrq(ii)%
-  yy = yy - .05
-  *do,j,1,6
-    /TLAB, xx, yy  ,PF %adir(j)%: %pfct(ii,j)%
+  /tspe,15,1,1,0,0
+  /TSPE, 15, 1.000,   1,   0,   0
+  xx = 1.05
+  yy = .9
+  !!  Change the window settings if you need different 
+  !!  aspect ratios for your geometry
+  /win,1,-1,1,.5,1
+      ,2,-1,1,0,.5
+      ,3,-1,1,-.5,0
+      ,4,-1,1,-1,-.5
+  !!
+  /win,2,off
+  /win,3,off
+  /win,4,off
+
+  *get,vx,graph,1,view,x
+  *get,vy,graph,1,view,y
+  *get,vz,graph,1,view,z
+  *get,va,graph,1,angle
+  *get,vd,graph,1,dist
+  *do,i,2,4
+    /view,i,vx,vy,vz
+    /dist,i,vd
+    /angle,i,va
+  *enddo
+
+  *do,i,1,4
+    ii = i - 1 + iadd 
+    set,1,ii
+    plnsol,u,sum
+    *if,i,eq,1,then
+      /noerase
+    *endif
+    /win,i,off
+    *if,i,ne,4,then
+      /win,i+1,on
+    *endif
+  *enddo
+  *do,i,1,4
+    ii = i - 1 + iadd
+    /TLAB, xx, yy  ,Mode: %ii%
     yy = yy - .05
+    /TLAB, xx, yy,Freq: %ffrq(ii)%
+    yy = yy - .05
+    *do,j,1,6
+      /TLAB, xx, yy  ,PF %adir(j)%: %pfct(ii,j)%
+      yy = yy - .05
+    *enddo
+    yy = yy -.11
   *enddo
-   yy = yy -.11
+  /erase
+  /annot,delete
+  sz = .8
+  xloc = 0
+  yloc = 0
+
+  *dim,data,,5
+  data(1) = 12,15,28,10,32
+  hsz = sz/2
+
+  /pspec,0,1,1
+  /poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
+  1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
+
+  x0 = xloc + hsz
+  y0 = yloc + .7*hsz
+  lof = .05
+
+  *vscfun,dsum,sum,data(1)
+  /LSPE, 15, 0, 1.000
+  /TSPEC, 15, 0.700, 1, 0, 0
+  ang1 = 0
+  *do,i,1,5
+    ang2 = ang1 + (360*data(i)/dsum) 
+    /PSPE, 2*i, 1, 1 
+    /PWED, xloc,yloc,sz*.4, ang1,ang2 
+    /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
+    pvl = 100*data(i)/dsum 
+    /tlab, x0+1.5*lof,y0, %pvl% % 
+
+    y0 = y0 - 1.5*lof 
+    ang1 = ang2
+  *enddo
+
+  !! alignment C-c C-a
+  x=0.4 ! laskd
+  y= 33.0	    ! alskdl
+  xzv= 9999990.3	    !
+  llk = 0.333333333 ! bla
+  al_=  00.40
+  aslfoeas = 304
+  ka= .4	    ! salkd
+  i = 4.		    ! as
+  kasd=.3/0.4
+  kasd =3./0.4
+  xxx =asin(3.0)
+  y = cos(i)
+
+  block,X1,X2,Y1,Y2,Z1,Z2 ! 3d hexahedron (working plane)
+  !@ ==============================
+  !@ ---  Header ---
+  !@ ==============================
+  !! Time-stamp: <Sun Jun 24 02:05:32 2012>
+  !! ANSYS VERSION: 140
+  !! NOTE: alskd
+  !! ------------------------------
+
+  !! fini
+  !! /clear
+  !! y
+  /units,mpa ! indicate mm-t-s unit system
+  !@ ==============================
+  !@ --- Preprocessing ---
+  !@ ==============================
+  /prep7
+  !@@ -- Elements --
+  Steel = 1
+  ID = Steel
+  real = Steel
+  et,ID,solid186 ! 3d, 20 nodes
+  !@@ -- Material --
+  mp,nuxy,Steel,0.3  ! Poisson No
+  mp,ex,Steel,200000 ! Elastic modulus
+  !@@ -- Modeling --
+  block,0,1,0,1,0,1
+  !@@ -- Meshing --
+  vmesh,all
+  !@@ -- BCs, Loads --
+  nsel,s,loc,x,0
+  d,all,all
+  nsel,s,loc,x,1
+  d,all,uy,-.1
+  allsel
+  save
+  !@ ==============================
+  !@ --- Solving ---
+  !@ ==============================
+  /solu
+  solve
+  !@ ==============================
+  !@ --- Postprocessing ---
+  !@ ==============================
+  /post1
+  plnsol,u,sum,2
+  !@ ==============================
+  !@ --- Header ---
+  !@ ==============================
+
+
+  !@ ==============================
+  !@ --- Setup ---
+  !@ ==============================
+
+  finish 
+
+  !@ ==============================
+  !@ --- Preprocessing --- 
+  !@ ==============================
+
+  !@ ------------------------------
+  !@@ -- Cad Import -- 
+  !! ------------------------------
+
+  !! /aux15
+
+  !@ ------------------------------
+  !@@ -- General Preprocessing -- 
+  !! ------------------------------
+
+  /prep7
+
+  !! ..............................
+  !@@@ - Materials and element types -
+  !! ..............................
+
+  !! --- Solids ---
+
+  !! --- Contacts ---
+
+  !! ..............................
+  !@@@ - Geometry -
+  !! ..............................
+
+  !! ..............................
+  !@@@ - Meshing -
+  !! ..............................
+
+  !! ..............................
+  !@@@ - Boundary conditions -
+  !! ..............................
+
+  !@ ==============================
+  !@ --- Solution --- 
+  !@ ==============================
+
+  /solu
+  allsel
+
+  !@ ------------------------------
+  !@@ --  Solution controls -- 
+  !! ------------------------------
+
+  !@ ==============================
+  !@ --- Postprocessing ---
+  !@ ==============================
+
+  !@ ------------------------------
+  !@@ -- General Postprocessing -- 
+  !! ------------------------------
+
+  /post1
+
+  !@ ------------------------------
+  !@@ -- Time-History Postprocessing --
+  !! ------------------------------
+
+  !! /post26
+  !! lsln,
+  !! asln
+  !! nsll
+
+  *if,I,eq,J,then
+  *endif()()
+
+  bla =  4
+  b3  = 90.4
+  !! ========================================
+  MP,,,,,,,
+  Pi=3.14159265359
+
+  *do,I,1,10,1
+    
+  *cycle ! bypass below commands in *do loop
+  *enddo
+
+  psolve			 !
+  *MFUNsg,
+  *if,I,eq,J,then
+  *endif
+  *mwrite
+  *cfclos
+  /zoom
+
+  !! set,,,,,
+  !! *mwrite,,,,
+  !! blall
+  !! *cfclos
+
 *enddo
-/erase
-/annot,delete
-sz = .8
-xloc = 0
-yloc = 0
-
-*dim,data,,5
-data(1) = 12,15,28,10,32
-hsz = sz/2
-
-/pspec,0,1,1
-/poly,4,xloc-hsz,yloc-hsz,1.8*(xloc+hsz),yloc-hsz,
-     	 1.8*(xloc+hsz),yloc+hsz,xloc-hsz,yloc+hsz
-
-x0 = xloc + hsz
-y0 = yloc + .7*hsz
-lof = .05
-
-*vscfun,dsum,sum,data(1)
-/LSPE, 15, 0, 1.000
-/TSPEC, 15, 0.700, 1, 0, 0
-ang1 = 0
-*do,i,1,5
-  ang2 = ang1 + (360*data(i)/dsum) 
-  /PSPE, 2*i, 1, 1 
-  /PWED, xloc,yloc,sz*.4, ang1,ang2 
-  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
-  pvl = 100*data(i)/dsum 
-  /tlab, x0+1.5*lof,y0, %pvl% % 
-
-  y0 = y0 - 1.5*lof 
-  ang1 = ang2
-*enddo
-
-!! alignment C-c C-a
-x=0.4 ! laskd
-y= 33.0	    ! alskdl
-xzv= 9999990.3	    !
-llk = 0.333333333 ! bla
-al_=  00.40
-aslfoeas = 304
-ka= .4	    ! salkd
-i = 4.		    ! as
-kasd=.3/0.4
-kasd =3./0.4
-xxx =asin(3.0)
-y = cos(i)
-
-block,X1,X2,Y1,Y2,Z1,Z2 ! 3d hexahedron (working plane)
-!@ ==============================
-!@ ---  Header ---
-!@ ==============================
-!! Time-stamp: <Sun Jun 24 02:05:32 2012>
-!! ANSYS VERSION: 140
-!! NOTE: alskd
-!! ------------------------------
-
-!! fini
-!! /clear
-!! y
-/units,mpa ! indicate mm-t-s unit system
-!@ ==============================
-!@ --- Preprocessing ---
-!@ ==============================
-/prep7
-!@@ -- Elements --
-Steel = 1
-ID = Steel
-real = Steel
-et,ID,solid186 ! 3d, 20 nodes
-!@@ -- Material --
-mp,nuxy,Steel,0.3  ! Poisson No
-mp,ex,Steel,200000 ! Elastic modulus
-!@@ -- Modeling --
-block,0,1,0,1,0,1
-!@@ -- Meshing --
-vmesh,all
-!@@ -- BCs, Loads --
-nsel,s,loc,x,0
-d,all,all
-nsel,s,loc,x,1
-d,all,uy,-.1
-allsel
-save
-!@ ==============================
-!@ --- Solving ---
-!@ ==============================
-/solu
-solve
-!@ ==============================
-!@ --- Postprocessing ---
-!@ ==============================
-/post1
-plnsol,u,sum,2
-!@ ==============================
-!@ --- Header ---
-!@ ==============================
-
-
-!@ ==============================
-!@ --- Setup ---
-!@ ==============================
-
-finish 
-
-!@ ==============================
-!@ --- Preprocessing --- 
-!@ ==============================
-
-!@ ------------------------------
-!@@ -- Cad Import -- 
-!! ------------------------------
-
-!! /aux15
-
-!@ ------------------------------
-!@@ -- General Preprocessing -- 
-!! ------------------------------
-
-/prep7
-
-!! ..............................
-!@@@ - Materials and element types -
-!! ..............................
-
-!! --- Solids ---
-
-!! --- Contacts ---
-
-!! ..............................
-!@@@ - Geometry -
-!! ..............................
-
-!! ..............................
-!@@@ - Meshing -
-!! ..............................
-
-!! ..............................
-!@@@ - Boundary conditions -
-!! ..............................
-
-!@ ==============================
-!@ --- Solution --- 
-!@ ==============================
-
-/solu
-allsel
-
-!@ ------------------------------
-!@@ --  Solution controls -- 
-!! ------------------------------
-
-!@ ==============================
-!@ --- Postprocessing ---
-!@ ==============================
-
-!@ ------------------------------
-!@@ -- General Postprocessing -- 
-!! ------------------------------
-
-/post1
-
-!@ ------------------------------
-!@@ -- Time-History Postprocessing --
-!! ------------------------------
-
-!! /post26
-!! lsln,
-!! asln
-!! nsll
-
-*if,I,eq,J,then
-*endif()()
-
-bla =  4
-b3  = 90.4
-!! ========================================
-MP,,,,,,,
-Pi=3.14159265359
-
-*do,I,1,10,1
-   
-*cycle ! bypass below commands in *do loop
-*enddo
-
-psolve			 !
-*MFUNsg,
-*if,I,eq,J,then
-*endif
-*mwrite
-*cfclos
-/zoom
-
-!! set,,,,,
-!! *mwrite,,,,
-!! blall
-!! *cfclos

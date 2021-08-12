@@ -1,5 +1,5 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-04-23>
+;; Time-stamp: <2021-08-12>
 
 ;; Copyright (C) 2020 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -49,7 +49,7 @@
 
 (defconst apdl-wb-default-template-directory
   (concat apdl-mode-install-directory "template/")
-  "Directory where the APDL-Mode Workbench templates residing.")
+  "Directory where the APDL-Mode Workbench template macro files reside.")
 
 (defgroup APDL-template nil
   "Customisation 'template' subgroup"

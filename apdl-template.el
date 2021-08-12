@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-10 19:15:40 dieter>
+;; Time-stamp: <2021-08-12>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -39,7 +39,6 @@
 ;; and empty lines
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 ;;; Commentary:
 ;; Collection of APDL templates
@@ -117,7 +116,8 @@ key and choose with the mouse 2 button."
   nil
   "*do,I,1,10,1" > \n
   - \n
-  "*cycle !bypass below commands in *do loop" > \n
+  "*cycle ! continue loop but bypass below commands" > \n
+  "nplot ! this command is not executed *cycle" \n
   "*enddo" > \n)
 
 ;; for abbrevs
@@ -147,23 +147,25 @@ key and choose with the mouse 2 button."
   "!! oper: eq,ne,lt,gt,le,ge,ablt,abgt," \n
   "!! base: stop,exit,cycle,and,or,xor" \n
   \n
+  "!! do loops" \n
+  "*do,I,1,6,2" \n
+  "!!*exit ! exit loop" > \n
+  "*cycle" > \n
+  "nplot ! this command is not executed *cycle" \n
+  "*enddo" > \n
+  \n
+  "*dowhile,PAR ! do until PAR == 0" \n
+  "!!*exit ! stop do loop" > \n
+  "*cycle" > \n
+  "nplot ! this command is not executed *cycle" \n
+  "*enddo" > \n
+  \n
   "!! implicit looping" \n
   "lfillt,(1:2),(3:4),5" \n
   \n
   "!! command repetition" \n
   "e,1,2" \n
   "*repeat,5,0,1" \n
-  \n
-  "!! do loops" \n
-  "*do,I,1,6,2" \n
-  "*cycle" > \n
-  "*exit" > \n
-  "*enddo" > \n
-  \n
-  "*dowhile,PAR" \n
-  "*cycle" > \n
-  "*exit" > \n
-  "*enddo" > \n
   \n
   "!! goto branching" \n
   "*go,:BRANCH" \n
@@ -3084,5 +3086,6 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 ;; mode: outline-minor
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
+;; time-stamp-format: "%:y-%02m-%02d"
 ;; word-wrap: t
 ;; End:

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-11>
+;; Time-stamp: <2021-08-12>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -172,11 +172,12 @@ Used for the variable `comment-start-skip'.")
                    "https://github.com/dieter-wilhelm/apdl-mode")
   :group 'Languages)
 
-(defcustom apdl-parameter-help-duration "2 min"
+;; two minute was rather long in the teeth 2021-08-12
+(defcustom apdl-parameter-help-duration "30"
   "Duration for showing the `apdl-show-command-parameters' overlay.
 The value is a string expressing a relative time span like \"2
-hours 35 minutes\" or a number of seconds from now (the
-acceptable time formats are those recognised by the function
+hours 35 minutes\" or a number of seconds (\"30\") from now.
+Acceptable time formats are those recognised by the function
 `timer-duration'."
   :type '(string number)
   :group 'APDL)

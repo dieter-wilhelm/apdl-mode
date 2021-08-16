@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-08-12"
+Version 20.6.0 Time-stamp: "2021-08-16"
 
 * Menu:
 
@@ -3208,18 +3208,17 @@ File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Vers
 12.1.2 Issues
 -------------
 
-   • Cygwin emacs-w32 ugly ^M line endings for C-c C-l
-   • Cygwin terminal initialisation not working, /cydrive/c:?
-        • setting -ansys-installation-path should do
-             • ugly ^M line endings -license-status
-             • w32-shell-execute not working for -start-help-program
-   • C-c C-v doesn’t preserve "point" of the APDL file
    • M-?  parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!  f,node(x,y,z),,,
    • ‘1/en’, en is variable but this fraction is not fontified, though
      ‘1/ en’ is fontified!
    • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
      the respective section on page for Chrome and Edge!?
+   • Cygwin terminal initialisation not working, /cydrive/c:?
+        • setting -ansys-installation-path should do
+             • ugly ^M line endings -license-status
+             • w32-shell-execute not working for -start-help-program
+   • Cygwin emacs-w32 ugly ^M line endings for C-c C-l
 
 
 File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Issues,  Up: Version 2060
@@ -3227,9 +3226,9 @@ File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Issues,  Up: Version 
 12.1.3 Checks
 -------------
 
+   • Changed file size without warning to 30 MB what is Emacs-26 using?
    • EWW bug: not working with remote ssh -help-path (debbugs-gnu-bugs
      40425)
-   • Changed file size without warning to 30 MB what is Emacs-26 using?
 
 
 File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 2060
@@ -3237,7 +3236,7 @@ File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 20
 12.1.4 Wishes
 -------------
 
-   • WB-templates, more of them
+   • Templates, WB-templates, more of them
    • Presentation(s) and EN Wiki, youtube?
    • Help system and docu, rather complete, except online docu
 
@@ -4594,37 +4593,37 @@ Node: Todos132373
 Node: Version 2060132721
 Node: Todos bugs133079
 Node: Issues133414
-Node: Checks134283
-Node: Wishes134560
-Node: Docu134862
-Node: templates136738
-Node: misc137335
-Node: Done137746
-Node: Push and Release Proceedures138040
-Node: Version 2050 1139007
-Node: Version 2040 1139227
-Node: Version 2030 1139424
-Node: Version 2020 1139642
-Node: Version 2011 1139821
-Node: Version 162-2140293
-Node: Bugs140569
-Node: Freeze141538
-Node: Wish-list141895
-Node: Deficiencies148011
-Node: Procedures149672
-Node: Freeze proceedures150194
-Node: Release151765
-Node: Ideas for further versions152368
-Node: Parameter help and documentation152797
-Node: Ansys process and interpreter buffer155099
-Node: Skeletons outline and abbrevs157962
-Node: Miscellaneous 1159694
-Node: Ansys syntax restrictions not (yet) accounted for164684
-Node: Unknown Ansys stuff165587
-Node: Acknowledgements165870
-Node: GNU Free Documentation License166440
-Node: Variable Index191466
-Node: Concept Index191615
+Node: Checks134224
+Node: Wishes134501
+Node: Docu134814
+Node: templates136690
+Node: misc137287
+Node: Done137698
+Node: Push and Release Proceedures137992
+Node: Version 2050 1138959
+Node: Version 2040 1139179
+Node: Version 2030 1139376
+Node: Version 2020 1139594
+Node: Version 2011 1139773
+Node: Version 162-2140245
+Node: Bugs140521
+Node: Freeze141490
+Node: Wish-list141847
+Node: Deficiencies147963
+Node: Procedures149624
+Node: Freeze proceedures150146
+Node: Release151717
+Node: Ideas for further versions152320
+Node: Parameter help and documentation152749
+Node: Ansys process and interpreter buffer155051
+Node: Skeletons outline and abbrevs157914
+Node: Miscellaneous 1159646
+Node: Ansys syntax restrictions not (yet) accounted for164636
+Node: Unknown Ansys stuff165539
+Node: Acknowledgements165822
+Node: GNU Free Documentation License166392
+Node: Variable Index191418
+Node: Concept Index191567
 
 End Tag Table
 

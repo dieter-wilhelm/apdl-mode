@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org6a2db98)
-2.  [Version 20.5.0](#org8aa002d)
-3.  [Version 20.4.0](#org4bb9578)
-4.  [Version 20.3.0](#org20c69d1)
-5.  [Version 20.2.0](#org211cbcd)
-6.  [Version 20.1.1](#org9e2cd4d)
-7.  [Version 162-2](#org0a3cea4)
+1.  [Version 20.6.0](#org2dfd1ea)
+2.  [Version 20.5.0](#org0b204c1)
+3.  [Version 20.4.0](#org0df19e4)
+4.  [Version 20.3.0](#orgdf527e4)
+5.  [Version 20.2.0](#orgd0c8040)
+6.  [Version 20.1.1](#org508d450)
+7.  [Version 162-2](#orgc020012)
 
 
 
-<a id="org6a2db98"></a>
+<a id="org2dfd1ea"></a>
 
 # TODO Version 20.6.0
 
@@ -30,12 +30,6 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Issues
 
--   Cygwin emacs-w32 ugly ^M line endings for C-c C-l
--   Cygwin terminal initialisation not working, /cydrive/c:?
-    -   setting -ansys-installation-path should do
-        -   ugly ^M line endings -license-status
-        -   w32-shell-execute not working for -start-help-program
--   C-c C-v doesn't preserve "point" of the APDL file
 -   M-? parameter counter is not working for commands where functions
     with multiple arguments are in the argument list!
     f,node(x,y,z),,,
@@ -43,19 +37,24 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
     \`1/ en' is fontified!
 -   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
     the respective section on page for Chrome and Edge!?
+-   Cygwin terminal initialisation not working, /cydrive/c:?
+    -   setting -ansys-installation-path should do
+        -   ugly ^M line endings -license-status
+        -   w32-shell-execute not working for -start-help-program
+-   Cygwin emacs-w32 ugly ^M line endings for C-c C-l
 
 
 ## Checks
 
--   EWW bug: not working with remote ssh -help-path
-    (debbugs-gnu-bugs 40425)
 -   Changed file size without warning to 30 MB what is Emacs-26
     using?
+-   EWW bug: not working with remote ssh -help-path
+    (debbugs-gnu-bugs 40425)
 
 
 ## Wishes
 
--   WB-templates, more of them
+-   Templates, WB-templates, more of them
 -   Presentation(s) and EN Wiki, youtube?
 -   Help system and docu, rather complete, except online docu
 
@@ -189,7 +188,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org8aa002d"></a>
+<a id="org0b204c1"></a>
 
 # DONE Version 20.5.0
 
@@ -197,7 +196,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org4bb9578"></a>
+<a id="org0df19e4"></a>
 
 # DONE Version 20.4.0
 
@@ -205,7 +204,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org20c69d1"></a>
+<a id="orgdf527e4"></a>
 
 # DONE Version 20.3.0
 
@@ -214,14 +213,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org211cbcd"></a>
+<a id="orgd0c8040"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org9e2cd4d"></a>
+<a id="org508d450"></a>
 
 # DONE Version 20.1.1
 
@@ -234,7 +233,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org0a3cea4"></a>
+<a id="orgc020012"></a>
 
 # Version 162-2
 

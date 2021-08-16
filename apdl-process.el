@@ -653,9 +653,10 @@ capture the output here, only the exit code.  Please
 see `apdl-start-batch-run' for the documentation of these codes.
 
 MAPDL command line options:
--aas implies -b
+-aas : implies -b
 -b : implies -i and -o
--lch : undocumented
+
+-lch : undocumented: Command line built from the Ansys Launcher
 -t : undocumented
 
 V2020R2:

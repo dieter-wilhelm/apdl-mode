@@ -261,7 +261,8 @@ regions are commented with two semi-colons."
   :type 'integer
   :group 'APDL)
 
-(defcustom apdl-code-comment-column 25
+;; nowadays (2021-08-16) 25 seems ugly and disconnected to the code
+(defcustom apdl-code-comment-column 15
   "Column where APDL code comments (behind code) are placed."
   :type 'integer
   :group 'APDL)

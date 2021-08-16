@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-13>
+;; Time-stamp: <2021-08-16>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -3237,25 +3237,26 @@ Use variable `apdl-user-variable-regexp'."
 
 (defun apdl-copy-buffer-line (buffer line-no)
   "Return from buffer BUFFER the line with LINE-NO as a string."
-  (save-excursion
-    (let (bol eol)
-      (set-buffer buffer)
+  (let (bol eol)
+    ;; (set-buffer buffer)
+    (with-current-buffer buffer
       (save-excursion
-        (goto-char (point-min))
-        (forward-line (- line-no 1))
-        (back-to-indentation)
-        (setq bol (point))
-        (end-of-line)
-        (setq eol (point))
-        (buffer-substring bol eol)))))
+	(goto-char (point-min))
+	(forward-line (- line-no 1))
+	(back-to-indentation)
+	(setq bol (point))
+	(end-of-line)
+	(setq eol (point))
+	(buffer-substring bol eol)))))
 
 (defun apdl-buffer-line-marker (buffer line-no)
   "Return from buffer BUFFER a marker at the beginning of the
 LINE-NO line."
     (with-current-buffer buffer
-      (goto-char (point-min))
-      (forward-line (1- line-no))
-      (point-marker)))
+      (save-excursion
+	(goto-char (point-min))
+	(forward-line (1- line-no))
+	(point-marker))))
 
 (require 'button)
 (define-button-type 'apdl-marker
@@ -3302,46 +3303,47 @@ an MAPDL process is running under Emacs (GNU-Linux only)."
            str old-num com p1 p2
 	   (markr (make-marker))
            (num 0))
-      (set-buffer variable-buffer)
-      (use-local-map button-buffer-map)
-      ;; make buffer writable
-      (read-only-mode -1)
-      (kill-region (point-min) (point-max))
-      ;; insert header
-      (insert
-       (propertize
-        (concat "-*- APDL variables of " current-buffer
-		" click with mouse-2 -*-\n")
-        'face 'match))
-      (insert (propertize " Line | Definition\n"
-			  ;; 'mouse-face 'highlight
-			  'face 'bold))
-      ;; insert variable lines
-      (dolist (command apdl-user-variables)
-        (setq old-num num
-              num (cadr command)                 ; cadr same as nth 1
-              com (apdl-copy-buffer-line current-buffer num)
-	      markr (apdl-buffer-line-marker current-buffer num)
-              str (concat
-		   (format "%5d " num)
-                   (propertize "| "
-                               ;;'mouse-face 'highlight
-			       'face 'bold)
-                   com "\n"))
-        (unless (= num old-num)
-          (insert str)
-	  (save-excursion
-	    (forward-line -1)
-	    (skip-chars-forward " ")
-	    (setq p1 (point))
-	    (skip-chars-forward "[:digit:]")
-	    (setq p2 (point)))
-	  (make-text-button p1 p2
-	   'type 'apdl-marker
-	   'action markr)))
-      (goto-char (point-min))
+      ;;(set-buffer variable-buffer)
+      (with-current-buffer variable-buffer
+	(use-local-map button-buffer-map)
+	;; make buffer writable
+	(read-only-mode -1)
+	(kill-region (point-min) (point-max))
+	;; insert header
+	(insert
+	 (propertize
+          (concat "-*- APDL variables of " current-buffer
+		  " click with mouse-2 -*-\n")
+          'face 'match))
+	(insert (propertize " Line | Definition\n"
+			    ;; 'mouse-face 'highlight
+			    'face 'bold))
+	;; insert variable lines
+	(dolist (command apdl-user-variables)
+          (setq old-num num
+		num (cadr command)                 ; cadr same as nth 1
+		com (apdl-copy-buffer-line current-buffer num)
+		markr (apdl-buffer-line-marker current-buffer num)
+		str (concat
+		     (format "%5d " num)
+                     (propertize "| "
+				 ;;'mouse-face 'highlight
+				 'face 'bold)
+                     com "\n"))
+          (unless (= num old-num)
+            (insert str)
+	    (save-excursion
+	      (forward-line -1)
+	      (skip-chars-forward " ")
+	      (setq p1 (point))
+	      (skip-chars-forward "[:digit:]")
+	      (setq p2 (point)))
+	    (make-text-button p1 p2
+			      'type 'apdl-marker
+			      'action markr)))
+	(goto-char (point-min))
       ;; make buffer read-only
-      (read-only-mode 1)
+	(read-only-mode 1))
       (set-buffer current-buffer)
       (display-buffer buffer-name 'other-window)))))
 

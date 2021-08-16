@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-14>
+;; Time-stamp: <2021-08-16>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -76,7 +76,7 @@
 (defvar apdl-current-ansys-version)
 ;; (defvar apdl-ansys-install-directory)
 (defvar apdl-ansysli-servers)
-(defvar apdl-is-unix-system-flag)
+;;(defvar apdl-is-unix-system-flag)
 (defvar apdl-lmutil-program)
 (defvar apdl-ansys-help-program)
 (defvar apdl-initialised-flag)
@@ -97,7 +97,7 @@
 
 (require 'comint)
 (require 'url)
-(require 'apdl-mode)
+;;(require 'apdl-mode) recursive loading error!
 (require 'apdl-initialise)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -207,6 +207,11 @@ licenses.  4 is the Ansys default."
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- variables ---
+
+(defvar apdl-is-unix-system-flag nil
+  "Non-nil means the computer runs a Unix system.
+Any of GNU-Linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1 or
+usg-unix-v.")
 
 (defvar apdl-emacs-window-id nil
   "Editing buffer's X11 window id.")
@@ -592,6 +597,21 @@ Variable is used internally only.")
 ;;; --- functions ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defun apdl-is-unix-system-p ()
+  "Return t when we are on a Unix system.
+gnu/linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
+usg-unix-v.  Ansys supports only GNU-Linux 64 and Windows 64 for
+the entire Ansys platform with some support of legacy Unices (AIX
+IBM, HP-UX HP, SGI, Solaris SUN) for standalone apps will be
+provided so I won't restrict some aspects of APDL-Mode to
+GNU-Linux."
+  (not
+   (or (string= system-type "gnu")      ; gnu with the hurd kernel
+       (string= system-type "darwin")   ; mac
+       (string= system-type "ms-dos")
+       (string= system-type "windows-nt")
+       (string= system-type "cygwin"))))
+
 (defun apdl-toggle-classics ()
   "Toogle sending output to Ansys Classics.
 Try to locate an Ansys Classics GUI or the command dialog box and
@@ -863,7 +883,10 @@ is already a solver running.  Do you wish to kill the lock file? "))
 (defun apdl-start-batch-run ()
   "Start an Ansys MAPDL batch run locally on the current script.
 The output of the process is captured in an Emacs buffer called
-*APDL-Batch*. Here are the Ansys MAPDL error codes:
+*APDL-Batch*. You should finish your script with a \"finish\"
+command, otherwise you get an error code 8.
+
+Here are the Ansys MAPDL error codes:
 
 Code    Explanation
 -------------------
@@ -897,9 +920,16 @@ Code    Explanation
 
   (let ((bname (concat "*"apdl-batch-process"*")))
     ;; check against .lock file
+    (when (buffer-modified-p (current-buffer))
+      (if (y-or-n-p
+	   (concat "Warning: Buffer \""
+		   (file-name-nondirectory buffer-file-name)
+		   "\" is modified, do you want to save it?"))
+	  (save-buffer)
+	(message "APDL file not saved")))
     (when (file-readable-p (concat default-directory apdl-job ".lock"))
       (if (yes-or-no-p
-           (concat "Warning: There is a \""apdl-job".lock" "\" in "
+           (concat "Warning: There is a \"" apdl-job ".lock" "\" in "
 		   default-directory ". This might indicate that there \
 is already a solver running.  Do you wish to kill the lock file? "))
           (delete-file (concat apdl-job ".lock"))
@@ -2193,6 +2223,7 @@ server names are separated by a colon, for example
 ;;     AnsysLMD_LICENSE_FILE or LM-LICENSE-FILE environment
 ;;     variable")
 
+;;;###autoload
 (defun apdl-license ()
   "Change the Ansys license type.
 And store it in the variable `apdl-license'."
@@ -2201,10 +2232,12 @@ And store it in the variable `apdl-license'."
                  apdl-license
                "struct")))
     (setq apdl-license
-          (completing-read (concat "License type [" lic "] (TAB for completion): ")
+          (completing-read
+	   (concat "License type [" lic "] (TAB for completion): ")
                            apdl-license-categories
                            nil nil nil nil lic))
-    (message (concat "Ansys license type is now set to \"" apdl-license "\"."))))
+    (message
+     (concat "Ansys license type is now set to \"" apdl-license "\"."))))
 
 (provide 'apdl-process)
 

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-12>
+;; Time-stamp: <2021-08-13>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -46,7 +46,7 @@
 ;; GNU-Linux systems.  It defines 'APDL-Mode', a major mode for
 ;; viewing, writing and navigating in APDL (Ansys Parametric Design
 ;; Language) files as well as providing managing and communication
-;; capabilities for an associated Ansys solver process.
+;; capabilities for an associated Ansys MAPDL solver process.
 
 ;; The mode's capabilities are sophisticated but the documentation is
 ;; targeted for Ansys users with little Emacs experience.  An online
@@ -56,11 +56,11 @@
 ;;  The code is available on
 ;;  https://github.com/dieter-wilhelm/apdl-mode/.  Regarding
 ;;  installation and further information please consult the
-;;  accompanying README.org file.
+;;  accompanying README.org.
 
 ;;; History:
 
-;; Please consult the accompanying NEWS.org file.
+;; Please check the accompanying NEWS.org.
 
 ;;; Code:
 
@@ -172,7 +172,7 @@ Used for the variable `comment-start-skip'.")
                    "https://github.com/dieter-wilhelm/apdl-mode")
   :group 'Languages)
 
-;; two minutes was rather long in the teeth 2021-08-12
+;; two minutes was too long, 2021-08-12
 (defcustom apdl-parameter-help-duration "30"
   "Duration for showing the `apdl-show-command-parameters' overlay.
 The value is a string expressing a relative time span like \"2

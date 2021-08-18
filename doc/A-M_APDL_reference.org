@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-05-01>
+#+DATE: Time-stamp: <2021-08-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -229,13 +229,13 @@ eblock,10,,,94
     integers for assigning them the values, the same goes for *vplot:
     it needs the arry indices in integers and is, moreover, only
     capable to plot the columns and not their line values!
-  - *vplot does only plot the columns of arrys, it is not possible to
+  - *vplot does only plot the columns of arrays, it is not possible to
     specify rows
   - No direct array values to file export in GUI mode <- write command
     file for *vwrite, or use a (lookup) table for this purpose
   - *vwread does not work with C format specifiers in contrast to *vwrite
   - Still (v15) no *round* function in sight, but someting like
-    nint(max*1e3)/1e3 might do
+    nint(max*1e3)/1e3 might do for you
   - One cannot directly get the variable value, either one must assign
     the variable to another one, or use the `*stat' command
   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
@@ -244,11 +244,11 @@ eblock,10,,,94
     without a subsequent comma (/com without a comma is eating one
     character)
   - The /contour command does not work on device /show,PNG
-  - Deletion of arry parameters without warning only possible with an
-    undocumented option: *del,Array,,nopr
+  - Deletion of arry parameters without warning is only possible with
+    an undocumented option: *del,Array,,nopr
   - *cfwrite does parameter substitution without %%: *cfwrite, X_points
     = NoN,*cfwrite, the same as X_points = %NoN%????
-  - No direct operation on arrays like A=A*3, takes a detour with
+  - No direct operations on arrays, like A=A*3, takes a detour with
     *voper or *toper
   - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
     contrast to the more ralistic ones in /solu
@@ -388,7 +388,7 @@ eblock,10,,,94
    - .mac
    - .db
    - .dbb
-   
+
 
 #+begin_src ansys :exports none
   c***,**************************************************
@@ -398,16 +398,16 @@ eblock,10,,,94
   !! APDL peculiarities, which are not documented!
 #+end_src
 ** Defining parameters
-up to 5000
+   up to 5000
 *** Double, char38, char8, logical, TODO
     in table only 8 chars?
 
 *** Variable names
-(called `parameter' in the Ansys manual)
-All numeric values are stored as double precision values.  Not defined
-variables are assigned a tiny value near zero.  The interpreter is not case sensitve
-:TODO except in strings?
-- Must begin with a letter or an underscore
+    Called `parameter' in the Ansys manual.  All numeric values are
+    stored as double precision values.  Not defined variables are
+    assigned a tiny value near zero.  The interpreter is not case
+    sensitive :TODO except in strings?
+    - Parameters must begin with a letter or an underscore
 #+begin_src ansys :exports none
   !@ --- Defining parameters ---
   !@@ -- Variable names --
@@ -419,7 +419,7 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   1ansys = 3                    !is not a valid variable name
   a1nsys = 3                    !a1nsys is a valid variable name
   A1NSys = 4                    !this is the same variable
-  A1NSys = Temp                 !`Temp' is not defined
+  A1NSys = Temp                 !`Temp' is not defined, near zero
 #+end_src
     The following text is the respective Ansys solver/interpreter output.
 #+begin_src ansys-solver :tangle no
@@ -442,9 +442,8 @@ variables are assigned a tiny value near zero.  The interpreter is not case sens
   PARAMETER A1NSYS =    0.7888609052E-30
   BEGIN:
 #+end_src
-- Should not begin with an underscore
-    This convention is used in nameing variables in Ansys supplied
-    macros and the GUI.
+    Should not begin with an underscore This convention is used in
+    nameing variables in Ansys supplied macros and the GUI.
 
 #+begin_src ansys :exports none
    !! Should not begin with an underscore
@@ -654,15 +653,15 @@ neither with ~c***~ nor with ~/sys~
    !! Exponentiation Operator is `**'
 #+end_src
 *** Multiplication Expression
-    Beware of the oldstyle Ansys comment!
+    Beware of the oldstyle Ansys asterisk comment!
 #+begin_src ansys :exports none
-  !! Beware of the oldstyle Ansys comment!
+  !! Beware of the oldstyle Ansys asterisk comment sign!
 #+end_src
 #+begin_src  ansys
+otto = 3 * 4 COMMENT! The value of otto is actually 3!
 var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
 var2 = sinh(cos(3*5))  ! this is valid code
 fini * comment
-otto = 3 * 4 comment, the value of otto = 3!
 !!
 #+end_src
 *** Operators

@@ -81,10 +81,12 @@ R1   = 4 $ R2=20
 N=1.0
 Alpha1=sin( 14.5) - 360./ (2*N)
 Alpha2=+360./(2*N)
+Alpha3 = Alpha2/N
 Steel=1 ! Steel
 Depth=ARG1 ! ARG{1-9}, AR{10-19} = "*use" variables
 Xc= ! = empty rhs clears variables
 
+bla, /*
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 /prep7
 cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
@@ -186,9 +188,13 @@ nsel,s,ext   ! select exterior nodes
 dsym,asym    ! flux parallel to lines
 /prep7 $ /title,ototo
 
+!! Ansys "*" comment sign ! oh dear!
 /prep7 * comment!
-fini * comment
+otto * comment
 otto = 3 * 4 ! comment
+otto = 3* 4 ! no comment
+otto = 3*otto ! no comment
+otto = 3* otto ! no comment
 
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 Alu = 1 $ Steel = 3
@@ -414,7 +420,8 @@ aselsalsdkfjaÃ¶lsdkfjaÃ¶lskdjf,all
   aslfoeas = 304
   ka= .4	    ! salkd
   i = 4.		    ! as
-  kasd=.3/0.4
+  kasd=.3/ka
+  kasd=.3*ka
   kasd =3./0.4
   xxx =asin(3.0)
   y = cos(i)

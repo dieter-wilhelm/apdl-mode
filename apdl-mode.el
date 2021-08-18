@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-16>
+;; Time-stamp: <2021-08-18>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -730,7 +730,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
       ;; deprecated ansys * comment with 12.1 fini * bla : returns "* no
       ;; longer valid as comment character - please use !"  * bla :
-      ;; returns a warning *bla is not a command bla = 3 * 4 : returns
+      ;; returns a warning *bla is not a command bla = 3 *4 : returns
       ;; still 3!
       ("[[:alnum:]_]+\\s-+\\(\\*.*$\\)" 1 font-lock-comment-face prepend)
       ;; ^[:alnum:] to avoid spurious
@@ -852,9 +852,11 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; not an operator but "word".
     (modify-syntax-entry ?_ "_"  table) ; in APDL symbol component
     (modify-syntax-entry ?: "_"  table) ; APDL label specifier, not an operator
-    (modify-syntax-entry ?* "_"  table) ; APDL asterisk commands syntax clashing
+    ;; * and ** are operators! But we also want completion of * and / commands
+    ;; took care about this in -complete-symbol
+    (modify-syntax-entry ?* "."  table) 
     ;; with algebraic operators but blink-matching- needs this
-    ;; (modify-syntax-entry ?/ "w" table) ; APDL slash commands
+    (modify-syntax-entry ?/ "." table) ; APDL slash commands
     (modify-syntax-entry ?\! "<" table) ; APDL comment character
     (modify-syntax-entry ?\n ">" table)
     (modify-syntax-entry ?\" "w" table) ; `"' is *not* a string
@@ -2211,8 +2213,13 @@ buffer with the SPACE key."
               (scroll-up)))))
     ;; Do completion.
     (let* ((end (progn (skip-chars-backward " \t") (point)))
-           (beg (save-excursion (skip-chars-backward "()")
-                                (backward-sexp 1) (point)))
+           (beg (save-excursion
+		  (skip-chars-backward "()")
+		  ;; we need to check * and / in operator syntax
+		  (if (looking-back "[*/]" (- (point) 1))
+		      (skip-chars-backward "*/" (- (point) 1))
+		    (backward-sexp 1))
+		  (point)))
            (completion-string (buffer-substring-no-properties beg end))
            (completion (try-completion
                         completion-string apdl-completions))
@@ -2223,7 +2230,7 @@ buffer with the SPACE key."
       (cond
        ;; completion not possible
        ((null completion)
-        (message "\"%s\" can't be completed to an APDL symbol"
+        (message "\"%s\" cannot be completed to an APDL symbol"
                  completion-string)
         (if completion-window                 ; bury completion buffer
             (save-selected-window

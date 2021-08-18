@@ -27,6 +27,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc in the manual
 ** Issues
+   - 2*VARIABLE is not fontifying VARIABLE! 2* VARIABLE is!
    - M-? parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!
      f,node(x,y,z),,,
@@ -128,7 +129,13 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - -mode-version working with autoload cookie: works
    - include -mode-version in autoload list
 ** Push and Release Proceedures
-   - make PACK : now obligatory for any push!
+   - make PACK : now obligatory for any push!!
+
+   Ansys updates:
+   Hint: in apdl_keywords.txt there are many
+   trailing whitespaces (delete-trailing-whitespace)
+   - for updated Ansys_keyword.txt check outres command in 202 was a
+     typo!
 
    - NEWS.org
    - README.org News section
@@ -141,9 +148,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
    gta = git tag -a 20.6.0
    gph --tags
 
-   Ansys updates:
-   Hint: in apdl_keywords.txt there are many
-   trailing whitespaces (delete-trailing-whitespace)
 
    whitespace-mode, package-lint
    checkdoc, flycheck etc. : from makefile?

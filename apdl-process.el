@@ -885,7 +885,7 @@ is already a solver running.  Do you wish to kill the lock file? "))
   "Start an Ansys MAPDL batch run locally on the current script.
 The output of the process is captured in an Emacs buffer called
 *APDL-Batch*. You should finish your script with a \"finish\"
-command, otherwise you get an error code 8.
+command, otherwise you'll get an error code 8.
 
 Here are the Ansys MAPDL error codes:
 
@@ -939,6 +939,7 @@ is already a solver running.  Do you wish to kill the lock file? "))
          (concat
           "Start batch run: "
           apdl-ansys-program
+	  ", input file: " (buffer-file-name)
           ", license: " apdl-batch-license
           ;; "Start run?  (license type: " (if (boundp
           ;; 'apdl-license) apdl-license)
@@ -1652,7 +1653,7 @@ elem.
 	  ;; (browse-url-of-file (concat "file:///" path file)))
 	  ;; file:/ is now working for EWW
 	  ;; (browse-url-of-file (concat "file:/" path file)))
-	  (browse-url-of-file (concat "file:" path file)))
+	  (browse-url-of-file (concat "file:/" path file)))
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
       ;; since v201: Changed the path to the online help!

@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-12 21:26:42 dieter>
+;; Time-stamp: <2021-08-18>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1563,7 +1563,7 @@ full (360 degree) area." \n
   "l,KP1,KP2, NDIV, SPACE, slope vector XV1, YV1, ZV1, XV2, YV2, \
   ZV2 ! line in the respective CS with opt. slope" \n
   "lstr,KP1,KP2 ! straight line irrespective of current CS" \n
-  "larc,Kp1,Kp2,Kpc,rad ! if rad is blank, fit throught KPs" \n
+  "larc,Kp1,Kp2,Kpc,rad ! if rad is blank, fit throught KPs, no 180° arcs!" \n
   "circle,centreKp,radiusKp," \n
   \n
   "!! .............................." \n
@@ -3000,6 +3000,8 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!" apdl-outline-string apdl-outline-string
   " -- Solution controls -- " \n
   "!! ------------------------------" \n
+  \n
+  "!!/eof --- for batch runs only------------" \n
   \n
   "!@ ==============================" \n
   "!" apdl-outline-string " --- Postprocessing ---" \n

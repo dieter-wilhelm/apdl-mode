@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-08-16"
+Version 20.6.0 Time-stamp: "2021-08-18"
 
 * Menu:
 
@@ -3236,6 +3236,8 @@ File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 20
 12.1.4 Wishes
 -------------
 
+   • Mouse completion is working with *middle* mouse button (mouse-2)
+     but only on the second LMB or, in the case of C-c C-s, not at all.
    • Templates, WB-templates, more of them
    • Presentation(s) and EN Wiki, youtube?
    • Help system and docu, rather complete, except online docu
@@ -3426,8 +3428,8 @@ File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 1,  Up: Todos
 * Menu:
 
 * Bugs::
-* Freeze::
 * Wish-list::
+* Freeze::
 * Deficiencies:: Deficiencies.
 * Procedures::
 * Freeze proceedures::
@@ -3435,47 +3437,37 @@ File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 1,  Up: Todos
 * Ideas for further versions::
 
 
-File: apdl-mode.info,  Node: Bugs,  Next: Freeze,  Up: Version 162-2
+File: apdl-mode.info,  Node: Bugs,  Next: Wish-list,  Up: Version 162-2
 
 12.7.1 Bugs
 -----------
 
-   • C-c C-s first time visit: User variables file-name-extension: Wrong
-     type argument: stringp, nilError during redisplay:
-     (jit-lock-function 1) signaled (wrong-type-argument stringp nil)
-   • /sho is not not font-locked
-   • c*** without argument is not font-locked
-   • jit-lock-function errors
-   • RESCOMBINE is not fontified
-   • M-?  on an empty buffer returns *abbr* help instead of a warning
-   • C-c C-j tries to send a next line in the LAST line and after an
-     /exit command
-   • -send-to-ansys, -send-above copy empty regions or only comments
+   • Hmm, it’s gone?  C-c C-s first time visit: User variables
+     file-name-extension: Wrong type argument: stringp, nilError during
+     redisplay: (jit-lock-function 1) signaled (wrong-type-argument
+     stringp nil)
    • importing template-header into empty file doesn’t change file
      status to changed!
+   • C-c C-j tries to send a next line in the LAST line and after an
+     /exit command
    • error for -skeleton-outline-template when called ansys-mode for an
      unnamed file without extension.
-   • APDL + WB -> Window Name is ... - Mechanical APDL (Ansys
+   • Fontification errors
+        • jit-lock-function errors
+        • RESCOMBINE is not fontified
+        • /sho is not not font-locked
+        • c*** without argument is not font-locked
+   • What?  APDL + WB -> Window Name is ... - Mechanical APDL (Ansys
      Structural)
 
 
-File: apdl-mode.info,  Node: Freeze,  Next: Wish-list,  Prev: Bugs,  Up: Version 162-2
+File: apdl-mode.info,  Node: Wish-list,  Next: Freeze,  Prev: Bugs,  Up: Version 162-2
 
-12.7.2 Freeze
--------------
-
-   • Documentation of installation, usage and configuration!
-        • C-c C-{w,y,x}
-        • sending to classics
-   • Menu for checking availablity for the X11 helper functions
-   • List of all new functions <- bug-report.sh
-
-
-File: apdl-mode.info,  Node: Wish-list,  Next: Deficiencies,  Prev: Freeze,  Up: Version 162-2
-
-12.7.3 Wish-list
+12.7.2 Wish-list
 ----------------
 
+   • -send-to-ansys, -send-above copy empty regions or only comments
+   • M-?  on an empty buffer returns *abbr* help instead of a warning
    • C-c C-v show only the latest most current variable, if in a
      variable block
    • remove spurious defcustoms which are calculated, or leave them as
@@ -3496,8 +3488,6 @@ File: apdl-mode.info,  Node: Wish-list,  Next: Deficiencies,  Prev: Freeze,  Up:
    • Targeting Ansys Aim
    • customisation :version attribute is not clear and not defined for
      new stuff
-   • Mouse completion is working with *middle* mouse button (mouse-2)
-     but only on the second LMB or, in the case of C-c C-s, not at all.
    • *mwrite *cfclos M-?  shows help for *mwrite, when cursor behind
      *cfclos and in the last line without
    • Make a usage.org, splice into a-mode.el
@@ -3593,7 +3583,19 @@ File: apdl-mode.info,  Node: Wish-list,  Next: Deficiencies,  Prev: Freeze,  Up:
           self-documenting help system for a template function
 
 
-File: apdl-mode.info,  Node: Deficiencies,  Next: Procedures,  Prev: Wish-list,  Up: Version 162-2
+File: apdl-mode.info,  Node: Freeze,  Next: Deficiencies,  Prev: Wish-list,  Up: Version 162-2
+
+12.7.3 Freeze
+-------------
+
+   • Documentation of installation, usage and configuration!
+        • C-c C-{w,y,x}
+        • sending to classics
+   • Menu for checking availablity for the X11 helper functions
+   • List of all new functions <- bug-report.sh
+
+
+File: apdl-mode.info,  Node: Deficiencies,  Next: Procedures,  Prev: Freeze,  Up: Version 162-2
 
 12.7.4 Deficiencies:
 --------------------
@@ -3617,8 +3619,6 @@ Highlighting
 Keybinding
      M-j: When there is already a ‘&’ in a format command (like *msg,
      *vwrite, *mwrite) ansys-indent-format-line inserts a redundant one
-Keybinding
-     C-c C-j jjj not working with Emacs version < Emacs-24
 Completion
      Of parametric function parentheses completes redundant closing
      parentheses
@@ -3633,6 +3633,8 @@ Skeleton
 Navigation
      C-c { does not skip an overlay in a number-block (M-{ does it
      though))
+Keybinding
+     C-c C-j jjj not working with Emacs version < Emacs-24
 
 
 File: apdl-mode.info,  Node: Procedures,  Next: Freeze proceedures,  Prev: Deficiencies,  Up: Version 162-2
@@ -4595,35 +4597,35 @@ Node: Todos bugs133079
 Node: Issues133414
 Node: Checks134224
 Node: Wishes134501
-Node: Docu134814
-Node: templates136690
-Node: misc137287
-Node: Done137698
-Node: Push and Release Proceedures137992
-Node: Version 2050 1138959
-Node: Version 2040 1139179
-Node: Version 2030 1139376
-Node: Version 2020 1139594
-Node: Version 2011 1139773
-Node: Version 162-2140245
-Node: Bugs140521
-Node: Freeze141490
-Node: Wish-list141847
-Node: Deficiencies147963
-Node: Procedures149624
-Node: Freeze proceedures150146
-Node: Release151717
-Node: Ideas for further versions152320
-Node: Parameter help and documentation152749
-Node: Ansys process and interpreter buffer155051
-Node: Skeletons outline and abbrevs157914
-Node: Miscellaneous 1159646
-Node: Ansys syntax restrictions not (yet) accounted for164636
-Node: Unknown Ansys stuff165539
-Node: Acknowledgements165822
-Node: GNU Free Documentation License166392
-Node: Variable Index191418
-Node: Concept Index191567
+Node: Docu134958
+Node: templates136834
+Node: misc137431
+Node: Done137842
+Node: Push and Release Proceedures138136
+Node: Version 2050 1139103
+Node: Version 2040 1139323
+Node: Version 2030 1139520
+Node: Version 2020 1139738
+Node: Version 2011 1139917
+Node: Version 162-2140389
+Node: Bugs140665
+Node: Wish-list141573
+Node: Freeze147680
+Node: Deficiencies148045
+Node: Procedures149703
+Node: Freeze proceedures150225
+Node: Release151796
+Node: Ideas for further versions152399
+Node: Parameter help and documentation152828
+Node: Ansys process and interpreter buffer155130
+Node: Skeletons outline and abbrevs157993
+Node: Miscellaneous 1159725
+Node: Ansys syntax restrictions not (yet) accounted for164715
+Node: Unknown Ansys stuff165618
+Node: Acknowledgements165901
+Node: GNU Free Documentation License166471
+Node: Variable Index191497
+Node: Concept Index191646
 
 End Tag Table
 

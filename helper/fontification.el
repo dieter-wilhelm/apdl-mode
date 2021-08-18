@@ -1,5 +1,5 @@
 ;;; fontification.el --- building keywords and completions
-;; Time-stamp: <2021-04-23>
+;; Time-stamp: <2021-08-18>
 
 ;; Copyright (C) 2006 - 2021 H. Dieter Wilhelm
 

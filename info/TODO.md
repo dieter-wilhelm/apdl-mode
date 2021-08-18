@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org2dfd1ea)
-2.  [Version 20.5.0](#org0b204c1)
-3.  [Version 20.4.0](#org0df19e4)
-4.  [Version 20.3.0](#orgdf527e4)
-5.  [Version 20.2.0](#orgd0c8040)
-6.  [Version 20.1.1](#org508d450)
-7.  [Version 162-2](#orgc020012)
+1.  [Version 20.6.0](#orgcfb2278)
+2.  [Version 20.5.0](#org913b6c9)
+3.  [Version 20.4.0](#org1822a52)
+4.  [Version 20.3.0](#orgf335e62)
+5.  [Version 20.2.0](#org5ee2cc6)
+6.  [Version 20.1.1](#orgae7dced)
+7.  [Version 162-2](#orgd8c9b26)
 
 
 
-<a id="org2dfd1ea"></a>
+<a id="orgcfb2278"></a>
 
 # TODO Version 20.6.0
 
@@ -54,6 +54,9 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Wishes
 
+-   Mouse completion is working with **middle** mouse button (mouse-2)
+    but only on the second LMB or, in the case of C-c C-s, not at
+    all.
 -   Templates, WB-templates, more of them
 -   Presentation(s) and EN Wiki, youtube?
 -   Help system and docu, rather complete, except online docu
@@ -188,7 +191,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org0b204c1"></a>
+<a id="org913b6c9"></a>
 
 # DONE Version 20.5.0
 
@@ -196,7 +199,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org0df19e4"></a>
+<a id="org1822a52"></a>
 
 # DONE Version 20.4.0
 
@@ -204,7 +207,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orgdf527e4"></a>
+<a id="orgf335e62"></a>
 
 # DONE Version 20.3.0
 
@@ -213,14 +216,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgd0c8040"></a>
+<a id="org5ee2cc6"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org508d450"></a>
+<a id="orgae7dced"></a>
 
 # DONE Version 20.1.1
 
@@ -233,43 +236,36 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgc020012"></a>
+<a id="orgd8c9b26"></a>
 
 # Version 162-2
 
 
 ## Bugs
 
--   C-c C-s first time visit: User variables file-name-extension:
-    Wrong type argument: stringp, nilError during redisplay:
-    (jit-lock-function 1) signaled (wrong-type-argument stringp nil)
--   /sho is not not font-locked
--   c\*\*\* without argument is not font-locked
--   jit-lock-function errors
--   RESCOMBINE is not fontified
--   M-? on an empty buffer returns **abbr** help instead of a warning
--   C-c C-j tries to send a next line in the LAST line and after an
-    /exit command
--   -send-to-ansys, -send-above copy empty regions or only comments
+-   Hmm, it's gone?  C-c C-s first time visit: User variables
+    file-name-extension: Wrong type argument: stringp, nilError
+    during redisplay: (jit-lock-function 1) signaled
+    (wrong-type-argument stringp nil)
 -   importing template-header into empty file doesn't change file
     status to changed!
+-   C-c C-j tries to send a next line in the LAST line and after an
+    /exit command
 -   error for -skeleton-outline-template when called ansys-mode
     for an unnamed file without extension.
--   APDL + WB -> Window Name is &#x2026; - Mechanical APDL (Ansys
+-   Fontification errors
+    -   jit-lock-function errors
+    -   RESCOMBINE is not fontified
+    -   /sho is not not font-locked
+    -   c\*\*\* without argument is not font-locked
+-   What? APDL + WB -> Window Name is &#x2026; - Mechanical APDL (Ansys
     Structural)
-
-
-## Freeze
-
--   Documentation of installation, usage and configuration!
-    -   C-c C-{w,y,x}
-    -   sending to classics
--   Menu for checking availablity for the X11 helper functions
--   List of all new functions <- bug-report.sh
 
 
 ## Wish-list
 
+-   -send-to-ansys, -send-above copy empty regions or only comments
+-   M-? on an empty buffer returns **abbr** help instead of a warning
 -   C-c C-v show only the latest most current variable, if in a
     variable block
 -   remove spurious defcustoms which are calculated, or leave them as
@@ -291,8 +287,6 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   Targeting Ansys Aim
 -   customisation :version attribute is not clear and not defined for
     new stuff
--   Mouse completion is working with **middle** mouse button (mouse-2) but only
-    on the second LMB or, in the case of C-c C-s, not at all.
 -   \*mwrite
     \*cfclos
     M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
@@ -387,6 +381,15 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
         self-documenting help system for a template function
 
 
+## Freeze
+
+-   Documentation of installation, usage and configuration!
+    -   C-c C-{w,y,x}
+    -   sending to classics
+-   Menu for checking availablity for the X11 helper functions
+-   List of all new functions <- bug-report.sh
+
+
 ## Deficiencies:
 
 -   **Highlighting:** Experimental user variable highlighting
@@ -408,7 +411,6 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   **Keybinding:** M-j: When there is already a \`&' in a format command
     (like \*msg, \*vwrite, \*mwrite)
     ansys-indent-format-line inserts a redundant one
--   **Keybinding:** C-c C-j jjj not working with Emacs version < Emacs-24
 -   **Completion:** Of parametric function parentheses
     completes redundant closing parentheses
 -   **Completion:** A mouse selection from the **Ansys-completion** buffer
@@ -418,6 +420,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     (because of stipulated user text input from this skeleton)
 -   **Navigation:** C-c { does not skip an overlay in a number-block
     (M-{ does it though))
+-   **Keybinding:** C-c C-j jjj not working with Emacs version < Emacs-24
 
 
 ## Procedures

@@ -3332,7 +3332,7 @@ OUTAERO  ans_cmd/OUTAERO.html
 OUTGEOM  ans_cmd/Hlp_C_OUTGEOM.html
 OUTOPT  ans_cmd/Hlp_C_OUTOPT.html
 OUTPR  ans_cmd/Hlp_C_OUTPR.html
-OUTRES  ans_cmd/Hlp_C_OUTturRES.html
+OUTRES  ans_cmd/Hlp_C_OUTRES.html
 OVCHECK  ans_cmd/Hlp_C_OVCHECK.html
 PADELE  ans_cmd/Hlp_C_PADELE.html
 PAGET  ans_cmd/Hlp_C_PAGET.html

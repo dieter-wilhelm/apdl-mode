@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-16>
+;; Time-stamp: <2021-08-18>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -656,8 +656,8 @@ MAPDL command line options:
 -aas : implies -b
 -b : implies -i and -o
 
--lch : undocumented: Command line built from the Ansys Launcher
--t : undocumented
+-lch : undocumented, command line built from the Ansys Launcher
+-t : undocumented, maximum solver time -t 10:30:00
 
 V2020R2:
 
@@ -1868,7 +1868,9 @@ additional keybindings for the license buffer *Licenses*:
     (let (bol eol match desc)
       (with-current-buffer "*Licenses*"
 	(setq-local truncate-lines t)
+
         ;; remove uninteresting licenses
+
         ;; (goto-char (point-min))
         ;; (delete-matching-lines "\\<acfx\\|\\<ai\\|\\<wbunix\\|\\<rdacis\\>")
 
@@ -1891,7 +1893,6 @@ additional keybindings for the license buffer *Licenses*:
 				    'apdl-license-status)))
         (local-set-key (kbd "u") 'apdl-user-license-status)
 
-
         ;; remove empty lines
         (goto-char (point-min))
         (delete-matching-lines "^$")
@@ -1902,7 +1903,6 @@ additional keybindings for the license buffer *Licenses*:
 
         ;; ;; sorting
         ;; (sort-lines nil (point-min) (point-max))
-
 	(when features
 	  ;; remove user parts
 	  (goto-char (point-min))
@@ -1940,7 +1940,6 @@ additional keybindings for the license buffer *Licenses*:
         (while (re-search-forward "Total of \\|Users of " nil t)
           (replace-match ""))
 
-
         ;; add some comments
         (goto-char (point-min))
         (insert (propertize
@@ -1950,12 +1949,14 @@ additional keybindings for the license buffer *Licenses*:
         (insert "\n")
         (insert (propertize (concat (current-time-string) "\n")
                             'face 'match))
+
         ;; higlight current -license-type
         (goto-char (point-min))
 	;; issue with the apdl-license-categories "ansys" and the
-	;; apdl-license-file server name.  lmutil puts a colon after
-	;; the license types, used to make the search unique:
-        (search-forward-regexp (concat apdl-license ":") nil t)
+	;; apdl-license-file server name.  LMUTIL puts a colon after
+	;; the license types, used to make the search unique and "^"
+	;; suppresses composed license names e.g. "cfdpreppost"
+        (search-forward-regexp (concat "^" apdl-license ":") nil t)
         (forward-line)
         (setq eol (point))
         (forward-line -1)

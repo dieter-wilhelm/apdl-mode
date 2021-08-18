@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-16>
+#+DATE: Time-stamp: <2021-08-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -45,6 +45,9 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
 ** Wishes
+   - Mouse completion is working with *middle* mouse button (mouse-2)
+     but only on the second LMB or, in the case of C-c C-s, not at
+     all.
    - Templates, WB-templates, more of them
    - Presentation(s) and EN Wiki, youtube?
    - Help system and docu, rather complete, except online docu
@@ -183,30 +186,26 @@ Melpa: [2020-10-24 Sa] 396 downloads
   - bug-report about package.el "NAME-readme.txt", done
 * Version 162-2
 ** Bugs
-   - C-c C-s first time visit: User variables file-name-extension:
-     Wrong type argument: stringp, nilError during redisplay:
-     (jit-lock-function 1) signaled (wrong-type-argument stringp nil)
-   - /sho is not not font-locked
-   - c*** without argument is not font-locked
-   - jit-lock-function errors
-   - RESCOMBINE is not fontified
-   - M-? on an empty buffer returns *abbr* help instead of a warning
-   - C-c C-j tries to send a next line in the LAST line and after an
-     /exit command
-   - -send-to-ansys, -send-above copy empty regions or only comments
+   - Hmm, it's gone?  C-c C-s first time visit: User variables
+     file-name-extension: Wrong type argument: stringp, nilError
+     during redisplay: (jit-lock-function 1) signaled
+     (wrong-type-argument stringp nil)
    - importing template-header into empty file doesn't change file
      status to changed!
+   - C-c C-j tries to send a next line in the LAST line and after an
+     /exit command
    - error for -skeleton-outline-template when called ansys-mode
      for an unnamed file without extension.
-   - APDL + WB -> Window Name is ... - Mechanical APDL (Ansys
+   - Fontification errors
+     - jit-lock-function errors
+     - RESCOMBINE is not fontified
+     - /sho is not not font-locked
+     - c*** without argument is not font-locked
+   - What? APDL + WB -> Window Name is ... - Mechanical APDL (Ansys
      Structural)
-** Freeze
-   - Documentation of installation, usage and configuration!
-     + C-c C-{w,y,x}
-     + sending to classics
-   - Menu for checking availablity for the X11 helper functions
-   - List of all new functions <- bug-report.sh
 ** Wish-list
+   - -send-to-ansys, -send-above copy empty regions or only comments
+   - M-? on an empty buffer returns *abbr* help instead of a warning
    - C-c C-v show only the latest most current variable, if in a
      variable block
    - remove spurious defcustoms which are calculated, or leave them as
@@ -226,8 +225,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - Targeting Ansys Aim
    - customisation :version attribute is not clear and not defined for
      new stuff
-   - Mouse completion is working with *middle* mouse button (mouse-2) but only
-     on the second LMB or, in the case of C-c C-s, not at all.
    - *mwrite
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
@@ -320,6 +317,12 @@ Melpa: [2020-10-24 Sa] 396 downloads
      - change sequence of alignment.png first not aligned, second aligned
      - Too difficult: slide of extensibility, showing Emacs
        self-documenting help system for a template function
+** Freeze
+   - Documentation of installation, usage and configuration!
+     + C-c C-{w,y,x}
+     + sending to classics
+   - Menu for checking availablity for the X11 helper functions
+   - List of all new functions <- bug-report.sh
 ** Deficiencies:
    - Highlighting :: Experimental user variable highlighting
 		     does not take into account:
@@ -340,7 +343,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - Keybinding :: M-j: When there is already a `&' in a format command
                    (like *msg, *vwrite, *mwrite)
                    ansys-indent-format-line inserts a redundant one
-   - Keybinding :: C-c C-j jjj not working with Emacs version < Emacs-24
    - Completion :: Of parametric function parentheses
 		   completes redundant closing parentheses
    - Completion :: A mouse selection from the *Ansys-completion* buffer
@@ -350,6 +352,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
                  (because of stipulated user text input from this skeleton)
    - Navigation ::  C-c { does not skip an overlay in a number-block
                    (M-{ does it though))
+   - Keybinding :: C-c C-j jjj not working with Emacs version < Emacs-24
 
 ** Procedures
    - GNU-Linux :: instead of GNU/Linux as FSF suggesting ;-)

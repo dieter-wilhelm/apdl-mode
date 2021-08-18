@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#orgcfb2278)
-2.  [Version 20.5.0](#org913b6c9)
-3.  [Version 20.4.0](#org1822a52)
-4.  [Version 20.3.0](#orgf335e62)
-5.  [Version 20.2.0](#org5ee2cc6)
-6.  [Version 20.1.1](#orgae7dced)
-7.  [Version 162-2](#orgd8c9b26)
+1.  [Version 20.6.0](#org5d42148)
+2.  [Version 20.5.0](#orgcaeb5d2)
+3.  [Version 20.4.0](#org7e0662c)
+4.  [Version 20.3.0](#org8ee9c12)
+5.  [Version 20.2.0](#orgac0b0ca)
+6.  [Version 20.1.1](#org712be3e)
+7.  [Version 162-2](#org24c92ad)
 
 
 
-<a id="orgcfb2278"></a>
+<a id="org5d42148"></a>
 
 # TODO Version 20.6.0
 
@@ -30,6 +30,7 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Issues
 
+-   2\*VARIABLE is not fontifying VARIABLE! 2\* VARIABLE is!
 -   M-? parameter counter is not working for commands where functions
     with multiple arguments are in the argument list!
     f,node(x,y,z),,,
@@ -155,7 +156,14 @@ MD
 
 ## Push and Release Proceedures
 
--   make PACK : now obligatory for any push!
+-   make PACK : now obligatory for any push!!
+
+Ansys updates:
+Hint: in apdl<sub>keywords.txt</sub> there are many
+trailing whitespaces (delete-trailing-whitespace)
+
+-   for updated Ansys<sub>keyword.txt</sub> check outres command in 202 was a
+    typo!
 
 -   NEWS.org
 -   README.org News section
@@ -167,10 +175,6 @@ MD
 gca = git commit -a = gau + gc
 gta = git tag -a 20.6.0
 gph &#x2013;tags
-
-Ansys updates:
-Hint: in apdl<sub>keywords.txt</sub> there are many
-trailing whitespaces (delete-trailing-whitespace)
 
 whitespace-mode, package-lint
 checkdoc, flycheck etc. : from makefile?
@@ -191,7 +195,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org913b6c9"></a>
+<a id="orgcaeb5d2"></a>
 
 # DONE Version 20.5.0
 
@@ -199,7 +203,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org1822a52"></a>
+<a id="org7e0662c"></a>
 
 # DONE Version 20.4.0
 
@@ -207,7 +211,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orgf335e62"></a>
+<a id="org8ee9c12"></a>
 
 # DONE Version 20.3.0
 
@@ -216,14 +220,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org5ee2cc6"></a>
+<a id="orgac0b0ca"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgae7dced"></a>
+<a id="org712be3e"></a>
 
 # DONE Version 20.1.1
 
@@ -236,7 +240,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgd8c9b26"></a>
+<a id="org24c92ad"></a>
 
 # Version 162-2
 

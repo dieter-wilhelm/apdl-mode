@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-18>
+;; Time-stamp: <2021-08-19>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -50,7 +50,7 @@
 
 ;; The mode's capabilities are sophisticated but the documentation is
 ;; targeted for Ansys users with little Emacs experience.  An online
-;; version of its documention can be found at
+;; version of its document ion can be found at
 ;; https://dieter-wilhelm.github.io/apdl-mode/.
 
 ;;  The code is available on
@@ -202,7 +202,7 @@ This string is not really placed in the text, it is just shown in an overlay"
 
 (defcustom apdl-highlighting-level 2
   "This variable sets the level of highlighting.
-There are three levels available, 0 a minimalistic level
+There are three levels available, 0 a minimalist level
 optimised for speed and working with very large files (like
 solver input files from WorkBench), 1 and 2.  Level 0 highlights
 only the minimum (unambiguous) length of APDL command names and
@@ -271,7 +271,7 @@ regions are commented with two semi-colons."
   "Non-nil means indent line when typing the SPC key.
 The space character is also inserted."
   :type 'boolean
-  ;;  :options '(t nil) ; not necessary with booleans in Customise
+  ;;  :options '(t nil) ; not necessary with boolean in Customise
   :group 'APDL)
 
 (defcustom apdl-indent-comment-suffix ""
@@ -362,7 +362,7 @@ A hook is a variable which holds a collection of functions."
   "Variable to store the regions we put an overlay on.")
 
 (defvar apdl-help-overlay nil
-  "Overlay for displaying the ansys parameter help.")
+  "Overlay for displaying the Ansys parameter help.")
 
 (defvar apdl-timer nil
   "Timer variable to set up a timer for overlay clearing.
@@ -373,7 +373,7 @@ Please have a look at the function `apdl-manage-overlay'.")
   "String to insert when creating an APDL code comment.")
 
 (defvar apdl-user-variables nil
-  "Variable containing the user variables and line No of first occurance.
+  "Variable containing the user variables and line No of first occurrence.
 The list is used for the display of these
  variables (`apdl-display-variables').")
 
@@ -568,7 +568,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   (if (or (string= apdl-previous-major-mode "apdl-mode")
           (string= apdl-previous-major-mode ""))
       (error "There was no previous major mode except \"APDL-Mode\"")
-    ;; buffers opended with auto-mode
+    ;; buffers opened with auto-mode
     (funcall apdl-previous-major-mode)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -606,7 +606,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   "Face name to use for local vars AR(G), _return, ...")
 
 (let (;; = variable defs + reserved _names
-      ;; wie need something behind the = otherwise it's a cleanup
+      ;; we need something behind the = otherwise it's a cleanup
       ;; variables + reserved _names (max. 32 chars long)
       (variable_r
        "^\\s-*\\([[:alpha:]_][[:alnum:]_]\\{0,31\\}\\)\\s-*=")
@@ -617,7 +617,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   ;; font-lock-keyword-face is the default face
   (defconst apdl-font-lock-keywords
     `(
-      (,variable_r 1 font-lock-variable-name-face); overwritting commands
+      (,variable_r 1 font-lock-variable-name-face); overwriting commands
       (,(concat "\\(?:^\\|\\$\\)\\s-*\\("
                 apdl-command-regexp
                 "\\)") 1 font-lock-keyword-face)))
@@ -643,7 +643,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;; highlight message of comment command /COM (no comment (!)
       ;; is possible behind /COM), no separating comma necessary
 
-      (apdl-higlight-procent-and-ampersand (0 'font-lock-type-face t))
+      (apdl-higlight-percent-and-ampersand (0 'font-lock-type-face t))
 
       ;; /SYS command sends string to OP,no parameter substitution!
       ("^\\s-*/[sS][yY][sS]\\s-*,\\(.\\{1,75\\}\\)$" 1
@@ -664,7 +664,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
       ("_RETURN" 0 apdl-arg-face append)
 
-      ;; = variable defs (with reserved _names), overwritting commands
+      ;; = variable defs (with reserved _names), overwriting commands
       (,variable_r 1
                    font-lock-variable-name-face) ; variables (max. 32 chars long)
 
@@ -697,9 +697,9 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   ;; C-u C-x = -- describe char
   ;; order of execution
 
-  ;; syntactic overwritting nothing fontification
+  ;; syntactic overwriting nothing fontification
 
-  ;; strings and /eof overwritting syntactic fonts and command face
+  ;; strings and /eof overwriting syntactic fonts and command face
   ;; respectively
 
   ;; /eof warning: overwriting keyword face
@@ -716,7 +716,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   ;; keep previous stuff
 
   ;; *use variables in warning face
-  ;; = defs (overwritting commands)
+  ;; = defs (overwriting commands)
   ;; : $ operators
   ;; elements
   ;; commands
@@ -743,7 +743,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;; highlight message of comment command /COM (no comment (!)
       ;; is possible behind /COM), no separating comma necessary
 
-      ;; multiline format constructs
+      ;; multi line format constructs
       ("^\\s-*\\(?:\\*[mM][sS][gG]\\|\\*[vV][rR][eE]\\|\
   \\*[vV][wW][rR]\\|\\*[mM][wW][rR]\\).*\n\\(\\(?:.*&\\s-*\n\\)+.*\\)" ; format
                                         ; constructs
@@ -753,7 +753,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
       ;; ("&\\s-*$" 0 font-lock-type-face t) ; format continuation char
       ;; ("%" 0 font-lock-type-face prepend) ; single % acts as a format
       ;; specifier and pair %.% is a parameter substitution
-      (apdl-higlight-procent-and-ampersand (0 'font-lock-type-face t))
+      (apdl-higlight-percent-and-ampersand (0 'font-lock-type-face t))
       ;; ("%\\|&\\s-*$" (0 'font-lock-type-face t))
 
       ;; /SYS command sends string to OP,no parameter substitution!
@@ -777,7 +777,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
       ("_RETURN" 0 apdl-arg-face append)
 
-      ;; = variable defs (with reserved _names), overwritting commands
+      ;; = variable defs (with reserved _names), overwriting commands
       (,variable_r 1
                    font-lock-variable-name-face) ; variables (max. 32 chars long)
 
@@ -860,7 +860,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (modify-syntax-entry ?\! "<" table) ; APDL comment character
     (modify-syntax-entry ?\n ">" table)
     (modify-syntax-entry ?\" "w" table) ; `"' is *not* a string
-                                        ; delimeter for APDL
+                                        ; delimiter for APDL
     (modify-syntax-entry ?'  "\"" table); (modify-syntax-entry ?'  "." table)
     ;; Normally APDL string delimiter, but might clash
     ;; with usages of genitives etc.!
@@ -922,7 +922,7 @@ a command, element name or other
 subjects (apdl-browse-apdl-help)."
     :active apdl-current-ansys-version]
    ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
-    :help "Read the original Ansys Paramtetric Design Language
+    :help "Read the original Ansys Parametric Design Language
 Guide in a browser (apdl-browse-ansys-apdl-manual)"
     ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
     ]
@@ -962,7 +962,7 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
     apdl-skeleton-working-plane
      :help "Template for creating and handling the working
     plane"]
-    ["Multiplot Commands" apdl-skeleton-multi-plot
+    ["Multi plot Commands" apdl-skeleton-multi-plot
      :help "Graphic commands which show multiple entities
     simultaneously"]
     ["Numbering Controls"
@@ -971,21 +971,21 @@ Guide in a browser (apdl-browse-ansys-apdl-manual)"
     ["Symbol Controls" apdl-skeleton-symbols
      :help "Graphic commands which show boundary conditions,
 surface loads and other symbols"]
-    ["Geometry Import"
-apdl-skeleton-import
-     :help "Command for importing IGES models"]
+    ["Geometry/Data Import/Export"
+     apdl-skeleton-import-export
+     :help "Commands for importing and exporting data and models (e.g. IGES)"]
     ["Control flow constructs" apdl-skeleton-looping
      :help "Commands for controlling loops (*do) and the program
     flow (*if)"]
-    ["Symmetry Expansions" apdl-skeleton-expand
+    ["Symmetry Expansions" apdl-skeleton-symmetry-expansion
      :help "Commands for expanding the view of symmetric models
 to their full view"]
     ["Element Definitions" apdl-skeleton-element-definition
-     :help "2D, 3D, Element defintions and their keyoptions"]
-    ["Material Definitions" apdl-skeleton-material-defintion
+     :help "2D, 3D, Element definitions and their keyoptions"]
+    ["Material Definitions" apdl-skeleton-material-definition
      :help "Various material definitions: Steel, alu, rubber, ..."]
-    ["Modeling" apdl-skeleton-geometry
-     :help "Operations for geometric modeling"]
+    ["Modelling" apdl-skeleton-geometry
+     :help "Operations for geometric modelling"]
     ["Meshing Controls" apdl-skeleton-meshing
      :help "Meshing control commands: Shapes, sizes, ..."]
     ["Contact Pair Definition" apdl-skeleton-contact-definition
@@ -1023,8 +1023,8 @@ information, run statistics"]
      :help "How to select stuff template"]
     "--"
     ["Outline template" apdl-skeleton-outline-template
-     :help "Empty skeleton of the structur of an APDL simulation,
-outlineing headers and sections"]
+     :help "Empty skeleton of the structure of an APDL simulation,
+outlining headers and sections"]
     ["Beam template" apdl-skeleton-beam-template
      :help "Insert a minimal template for a beam simulation"]
     ["Structural template" apdl-skeleton-structural
@@ -1056,13 +1056,13 @@ outlineing headers and sections"]
      :help "Insert the variable definition \"Pi = acos(-1) !
 3.1415...\" at point and indent this line."]
     "--"
-    ["Post: Press-fit calcs" apdl-wbt-post-2d-press-fit_calcs
+    ["Post: Press-fit calclationss" apdl-wbt-post-2d-press-fit_calcs
      :help "Post: Calculate the maximum torque and other
 parameters from a plane stress press-fit simulation."]
     ["Post: /post26 harmonic results" apdl-wbt-harmonic-acceleration-result
      :help "Post: /post26 harmonic acceleration results.
 Visualisation and file output of frequency and vector sum
-aplitude."]
+amplitude."]
     ["Post: /post26 general results" apdl-wbt-post26-output
      :help "Post: /post26 output template"]
     )
@@ -1132,7 +1132,7 @@ respective closing command"]
     ["Outline Minor Mode" outline-minor-mode
      :style toggle :selected outline-minor-mode
      :help "Outline Mode is for hiding and selectively displaying
-headlines and their sublevel contents"]
+headlines and their sub level contents"]
     ["Show Paren Mode" show-paren-mode :style toggle
      :selected show-paren-mode
      :help "Show Paren Mode highlights matching parenthesis"]
@@ -1144,7 +1144,7 @@ headlines and their sublevel contents"]
     ["Electric Pair Mode" electric-pair-mode
      :style toggle :selected electric-pair-mode
      :help
-     "Electric Pair Mode insert corresponding closing delimeters"
+     "Electric Pair Mode insert corresponding closing delimiters"
      :visible (version< "24" emacs-version)])
    "--"
    ["APDL-Mode Documentation" apdl-mode-help
@@ -1259,7 +1259,7 @@ used (apdl-user-license-status)"
 ;;                "Switch off sending to Classics MAPDL"
 ;;              "Switch on sending to Classics MAPDL")
 ;;     :active (and apdl-is-unix-system-flag (not (apdl-process-running-p)))
-;;     :help "Check whether an Ansys Classic is running and toogle sending output
+;;     :help "Check whether an Ansys Classic is running and toggle sending output
 ;; to it (apdl-toggle-classics)"]
    ["Send/Copy Region or Paragraph" apdl-send-to-ansys
     :label (if
@@ -1424,7 +1424,7 @@ beginning with a comma."
     (eobp)))
 
 (defun apdl-continuation-line-p ()
-  "Return t if in a continutation line of certain commands."
+  "Return t if in a continuation line of certain commands."
   (save-excursion
     (beginning-of-line)
     (if (looking-at apdl-continuation-line-regexp) t nil)))
@@ -1477,7 +1477,7 @@ A code line is the complementary to the regexp
     (looking-at apdl-non-code-line-regexp)))
 
 (defun apdl-at-end-of-text-p ()
-  "Return t if the cusor is at the end of text in a line."
+  "Return t if the cursor is at the end of text in a line."
   (if (looking-at "\\s-*$") t nil))
 
 (defun apdl-at-end-of-code-p ()
@@ -1490,7 +1490,7 @@ comment."
   "Return t when we are on a Unix system.
 gnu/linux, aix, berkeley-unix, hpux, irix, lynxos 3.0.1,
 usg-unix-v.  Ansys supports only GNU-Linux 64 and Windows 64 for
-the entire Ansys platform with some support of legacy Unices (AIX
+the entire Ansys platform with some support of legacy Unixes (AIX
 IBM, HP-UX HP, SGI, Solaris SUN) for standalone apps will be
 provided so I won't restrict some aspects of APDL-Mode to
 GNU-Linux."
@@ -1683,7 +1683,7 @@ menu or by calling the function `apdl-mode-help' with
 					; it's toggled
 
   ;; It is impolite to enforce below behaviour over possible user
-  ;; customisations
+  ;; customisation
 
   ;; ; (delete-selection-mode t)
   ;; ; (toggle-truncate-lines 1)
@@ -1960,7 +1960,7 @@ inserted or evaluated unless it is the SPC key."
 
 (defun apdl-close-block () ; FIXME: choices for *IF
   "Complete an APDL block command with the appropriate end keyword.
-Insert the end keyword on a separate line.  An error is signaled
+Insert the end keyword on a separate line.  An error is signalled
 if no block to close is found.  For example the *IF command
 represents only a proper block command when it is followed by a
 THEN action label."
@@ -1981,7 +1981,7 @@ THEN action label."
                      (buffer-substring-no-properties
                       (match-beginning 1) (match-end 1)) 0 3))))
           ;; prepare insertion of keyword
-          (setq str (car (reverse                 ; FIXME: uncomplete, why?
+          (setq str (car (reverse                 ; FIXME: incomplete, why?
                           ;; RESTRICTED: asssoc-string Emacs 21.4
                           (assoc-string bb-keyword
                                         apdl-block-match-alist 1))))
@@ -2036,7 +2036,7 @@ THEN action label."
 
 (defun apdl-manage-overlay ( str)
   "Display or remove the command help overlay string STR.
-Appying this function in the same line erases the help overlay.
+Applying this function in the same line erases the help overlay.
 The help overlay will be automatically removed after some time
 interval."
   (interactive)
@@ -2056,7 +2056,7 @@ interval."
 	       (delete-overlay apdl-help-overlay)))))))
 
 (defun apdl-search-comma (str count)
-  "Return the index of the COUNT's occurance of a comma in STR.
+  "Return the index of the COUNT's occurrence of a comma in STR.
 Return nil otherwise."
   (let ((index 0)
         (c 0))
@@ -2215,10 +2215,16 @@ buffer with the SPACE key."
     (let* ((end (progn (skip-chars-backward " \t") (point)))
            (beg (save-excursion
 		  (skip-chars-backward "()")
-		  ;; we need to check * and / in operator syntax
+		  ;; we need to check if we are before * or / in
+		  ;; operator syntax
 		  (if (looking-back "[*/]" (- (point) 1))
-		      (skip-chars-backward "*/" (- (point) 1))
+		      (skip-chars-backward "*/" (- (point) 1)))
+		  ;; are we at a code beginning?
+		  (unless (apdl-in-indentation-p)
 		    (backward-sexp 1))
+		  ;; we need to check if we are in a * or / command
+		  (if (looking-back "[*/]" (- (point) 1))
+		      (skip-chars-backward "*/" (- (point) 1)))
 		  (point)))
            (completion-string (buffer-substring-no-properties beg end))
            (completion (try-completion
@@ -2245,7 +2251,7 @@ buffer with the SPACE key."
         (kill-buffer completion-buffer))
 
        ;; unique or uniquely completable, case independent
-       ((= (length completion-list) 1) ; uniqe
+       ((= (length completion-list) 1) ; unique
         (setq completion (funcall cc completion))
         (unless (string= completion completion-string)
           (setq completion (funcall cc completion))
@@ -2510,10 +2516,10 @@ The new line is properly indented."
 
 (defun apdl-search-number-line (&optional dir)
   "Search forward for a line existing purely of numbers.
-If not If direction DIR is negativ search backwards.  The default
+If not If direction DIR is negative search backwards.  The default
 for DIR is 1. When already in a number line just go to the line
 beginning when DIR is < 1 and when DIR is > to the end.  When no
-futher number line is in the file signal an error."
+further number line is in the file signal an error."
   (interactive "p")
   (unless dir (setq dir 1))
   (let ((re apdl-number-line-regexp))
@@ -2528,7 +2534,7 @@ futher number line is in the file signal an error."
      (t
       (while (progn
                (unless (re-search-forward re nil t)
-                 (error "Cant't find subsequent number line"))
+                 (error "Can't find subsequent number line"))
                (apdl-in-format-construct-p)))))))
 
 (defun apdl-number-block-start ()
@@ -2709,7 +2715,7 @@ there.  When on a condensed input line, go to the end of the next
 `$' statement or to the line's end.  Otherwise, when in a format
 command string move forward to the end of the (possibly)
 multi-line format string.  In a code comment skip back to the end
-of the uncommented code, except when at the end of the code text,
+of uncommenteded code, except when at the end of the code text,
 then skip to the next code line's end."
   (interactive "p")
   (unless num (setq num 1))
@@ -2828,8 +2834,8 @@ Negative ARG means move forward across |ARG| blocks."
 
 (defun apdl-next-block-end (&optional count)
   "Move forwards behind the next block end.
-With arguement COUNT do that COUNT times.  With negative argument
-move backards to the beginning of the |COUNT| previous block
+With argument COUNT do that COUNT times.  With negative argument
+move backwards to the beginning of the |COUNT| previous block
 end."
   (interactive "p")
   (unless count (setq count 1))
@@ -3130,7 +3136,7 @@ These constructs appear in WorkBench created solver input files."
 ;; 6.) (A<B) returns the value of A when A is less than B, B otherwise!
 
 (defun apdl-asterisk-regexp(string)
-  "Regexp STRING representing an asterix."
+  "Regexp STRING representing an asterisk."
   (when (= (elt string 0) ?*)
     (setq string (concat "\\" string)))
   string)
@@ -3155,7 +3161,7 @@ These constructs appear in WorkBench created solver input files."
   ;; fontification is not working!? -TODO-
   "Find all user variables in the current buffer.
 Pre-process the findings into the variables `apdl-user-variables'
-and `apdl-user-variable-regexp' for subsequent fontifications.
+and `apdl-user-variable-regexp' for subsequent fontification.
 Added pseudo arguments _A _B _C."
   ;; RESTRICTED: line-number-at-pos was introduced after Emacs 21.4
   (interactive)
@@ -3197,7 +3203,7 @@ Added pseudo arguments _A _B _C."
                   (apdl-find-duplicate-p var apdl-user-variables))
             (add-to-list 'apdl-user-variables
                          (list var (line-number-at-pos)))))
-        ;; we must sort the variables according to their occurance
+        ;; we must sort the variables according to their occurrence
         ;; for the display
         (setq apdl-user-variables
               (sort apdl-user-variables
@@ -3212,7 +3218,7 @@ Added pseudo arguments _A _B _C."
 					; ending in _!
               apdl-user-variable-regexp res)))))
 
-;; in comments: ok
+;; in comments: OK
 ;; in * comments: apdl-in-asterisk-comment-p
 ;; clashes with command names
 ;; in format strings without % chars
@@ -3233,8 +3239,8 @@ Use variable `apdl-user-variable-regexp'."
   (let ((r apdl-user-variable-regexp))
     (re-search-forward r limit t)))
 
-(defun apdl-higlight-procent-and-ampersand (limit)
-  "Find procent and ampersand up to position LIMIT for highlighting."
+(defun apdl-higlight-percent-and-ampersand (limit)
+  "Find percent and ampersand up to position LIMIT for highlighting."
   (let (res )
     (while
         (progn
@@ -3268,7 +3274,7 @@ LINE-NO line."
 
 (require 'button)
 (define-button-type 'apdl-marker
-  'help-echo (purecopy "mouse-2 or <RET>: Skip to variable defintion."))
+  'help-echo (purecopy "mouse-2 or <RET>: Skip to variable definition."))
 
 (defun apdl-display-variables (arg)
   "Displays APDL variable assignments in the current buffer.

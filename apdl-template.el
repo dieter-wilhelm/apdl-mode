@@ -45,6 +45,8 @@
 
 ;;; Code:
 
+(require 'apdl-initialise)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- variables ---
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2906,7 +2908,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   (goto-char (point-max))
   (apdl-skeleton-configuration)
   (goto-char (point-max))
-  (apdl-skeleton-import)
+  (apdl-skeleton-import-export)
   (goto-char (point-max))
   (apdl-skeleton-geometry)
   (goto-char (point-max))

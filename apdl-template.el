@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-18>
+;; Time-stamp: <2021-08-19>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -197,9 +197,10 @@ key and choose with the mouse 2 button."
   "*enddo" > \n
   \n
   "*dowhile,PAR ! do until PAR == 0" \n
+  "PAR = 0" \n
   "!!*exit ! stop do loop" > \n
   "*cycle" > \n
-  "nplot ! this command is not executed *cycle" \n
+  "nplot ! this command is not executed <- *cycle" \n
   "*enddo" > \n
   \n
   "!! implicit looping" \n
@@ -209,8 +210,8 @@ key and choose with the mouse 2 button."
   "e,1,2" \n
   "*repeat,5,0,1" \n
   \n
-  "!! goto branching" \n
-  "*go,:BRANCH" \n
+  "!! goto branching, not in interactive sessions possible!" \n
+  "*go,:BRANCH ! or with label STOP like /eof" \n
   ":BRANCH" \n)
 
 (define-skeleton apdl-skeleton-header
@@ -653,7 +654,7 @@ absolut" \n
   "/triad,off" \n
   \n)
 
-(define-skeleton apdl-skeleton-import
+(define-skeleton apdl-skeleton-import-export
   "Import commands."
   nil
   "!! ------------------------------" \n
@@ -666,6 +667,9 @@ absolut" \n
   "ioptn,small,yes" \n
   "ioptn,gtoler,defa" \n
   "igesin,'test','iges'" \n
+  "!! IGES Export" \n
+  "igesout,bla,iges" \n
+  "finish" \n
   \n
   "/input,filename,anf ! for APDL based input" \n
   "/facet,fine" \n

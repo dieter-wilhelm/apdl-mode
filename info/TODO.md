@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org5d42148)
-2.  [Version 20.5.0](#orgcaeb5d2)
-3.  [Version 20.4.0](#org7e0662c)
-4.  [Version 20.3.0](#org8ee9c12)
-5.  [Version 20.2.0](#orgac0b0ca)
-6.  [Version 20.1.1](#org712be3e)
-7.  [Version 162-2](#org24c92ad)
+1.  [Version 20.6.0](#orgfdfd24d)
+2.  [Version 20.5.0](#orga5ef487)
+3.  [Version 20.4.0](#org954c27d)
+4.  [Version 20.3.0](#orgd9b9a50)
+5.  [Version 20.2.0](#orga161629)
+6.  [Version 20.1.1](#orgf8849ed)
+7.  [Version 162-2](#orgd8ceb76)
 
 
 
-<a id="org5d42148"></a>
+<a id="orgfdfd24d"></a>
 
 # TODO Version 20.6.0
 
@@ -30,14 +30,16 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Issues
 
--   2\*VARIABLE is not fontifying VARIABLE! 2\* VARIABLE is!
+-   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
+    the respective section on page for Chrome and Edge!?
+-   c\*\*\* won't be completed
+-   \*mwrite
+    \*cfclos
+    M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
+    last line without \n
 -   M-? parameter counter is not working for commands where functions
     with multiple arguments are in the argument list!
     f,node(x,y,z),,,
--   \`1/en', en is variable but this fraction is not fontified, though
-    \`1/ en' is fontified!
--   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-    the respective section on page for Chrome and Edge!?
 -   Cygwin terminal initialisation not working, /cydrive/c:?
     -   setting -ansys-installation-path should do
         -   ugly ^M line endings -license-status
@@ -195,7 +197,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="orgcaeb5d2"></a>
+<a id="orga5ef487"></a>
 
 # DONE Version 20.5.0
 
@@ -203,7 +205,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org7e0662c"></a>
+<a id="org954c27d"></a>
 
 # DONE Version 20.4.0
 
@@ -211,7 +213,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org8ee9c12"></a>
+<a id="orgd9b9a50"></a>
 
 # DONE Version 20.3.0
 
@@ -220,14 +222,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgac0b0ca"></a>
+<a id="orga161629"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org712be3e"></a>
+<a id="orgf8849ed"></a>
 
 # DONE Version 20.1.1
 
@@ -240,7 +242,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org24c92ad"></a>
+<a id="orgd8ceb76"></a>
 
 # Version 162-2
 
@@ -279,7 +281,6 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     buffer was/is an unavailable network drive .
 -   add bbdb files to emacs packages
 -   -help-program-parameters obsolete
--   option to make eww default help browser
 -   MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
     
     -   ActivateWin: SetFocus()  + SendKeys? SendKeys
@@ -288,13 +289,9 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     <https://msdn.microsoft.com/en-us/library/aa383749.aspx>
 
 -   C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account
--   Targeting Ansys Aim
+-   Targeting Ansys Aim (Aim obsolete?)
 -   customisation :version attribute is not clear and not defined for
     new stuff
--   \*mwrite
-    \*cfclos
-    M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
-    last line without \n
 -   Make a usage.org, splice into a-mode.el
 -   -wb function (doesn't adjust along the decimal point)? -> align-rules-list
 -   Changing license type on the fly (with C-u) for -display-license-status
@@ -312,12 +309,9 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   color scheme of \*msg command is only readable on terminals
 -   abreviated input method for all graphics functions zoom, etc.
 -   defaults for template MP
--   add adwords to gh-pages
 -   -show-command-parameters is not dynamically updated in the first line
 -   Correct the creep data together with young's modulus and total
     strain to creep strain!
--   variables behind / and \* without whitespace in between are not
-    highlighted! try changing the character syntax???
 -   implement -hide-region also for rotated nodes in WB .dat files
     (frictionless support)
 -   started and commented out highlighting of solver output
@@ -327,16 +321,8 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   ansys-template.el:85:13:Warning: reference to free variable
     \`ansys-skeleton-overlay'
 -   mouse-choose-completion is obsolete since E23.2
--   add timer customisation for -command-parameter-help variable 1
-    min, 2 min, etc.
 -   check \*vwrite with gui mode and interactive mode (graphics window?)
--   add element numbers to the general completion list, yes or no?
--   WikEmacs, Melpa, GNU ELPA and/or marmalade, Ansys-Mode debian
-    .deb package
--   HTML APDL documentation
-    here is the tanslation of names to html files:
-    -   link to Ansys-Mode APDL reference:
-    -   Chapters of structural APDL documentation:
+-   WikEmacs, Ansys-Mode debian .deb package?
 -   TODOS: in fontification.org
     -   deletion of vectors \*del,Vector without request? ,,nopr?
     -   check character variables 32 Chars. and highlight accordingly
@@ -358,8 +344,6 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     -   activate -license-file function :TODO:
 -   document Lagrange contact behaviour for contact/press-fit
     skeleton, critical to element differences!
--   -dynamic-highlighting is sluggish, highlighting somehow
-    retarded!!! Still??
 -   constraint equations in -ansys-template.el and get functions
 -   enable hiding of geometry items in .anf files
 -   fontification.el
@@ -401,7 +385,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
     -   clearing of variables and
     -   usage of variables before their definitions (uninitialised
         variables)
-    -   the variable fontification might clash with Ansys specifiers
+    -   the variable fontification clashes with Ansys specifiers
     -   string substitution of %variables% in strings does not highlight
         them in the proper variable face
 -   **Highlighting:** A label :LABEL may appear behind the /input

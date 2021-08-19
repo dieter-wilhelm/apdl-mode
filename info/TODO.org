@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-18>
+#+DATE: Time-stamp: <2021-08-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -27,14 +27,16 @@ Melpa: [2020-10-24 Sa] 396 downloads
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc in the manual
 ** Issues
-   - 2*VARIABLE is not fontifying VARIABLE! 2* VARIABLE is!
+   - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
+     the respective section on page for Chrome and Edge!?
+   - c*** won't be completed
+   - *mwrite
+     *cfclos
+     M-? shows help for *mwrite, when cursor behind *cfclos and in the
+     last line without \n
    - M-? parameter counter is not working for commands where functions
      with multiple arguments are in the argument list!
      f,node(x,y,z),,,
-   - `1/en', en is variable but this fraction is not fontified, though
-     `1/ en' is fontified!
-   - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-     the respective section on page for Chrome and Edge!?
    - Cygwin terminal initialisation not working, /cydrive/c:?
      - setting -ansys-installation-path should do
        - ugly ^M line endings -license-status
@@ -219,20 +221,15 @@ Melpa: [2020-10-24 Sa] 396 downloads
      buffer was/is an unavailable network drive .
    - add bbdb files to emacs packages
    - -help-program-parameters obsolete
-   - option to make eww default help browser
    - MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
      + ActivateWin: SetFocus()  + SendKeys? SendKeys
      https://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/
      https://msdn.microsoft.com/en-us/library/aa383749.aspx
    # - switch off advising of M-w, yeah, yeah
    - C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account
-   - Targeting Ansys Aim
+   - Targeting Ansys Aim (Aim obsolete?)
    - customisation :version attribute is not clear and not defined for
      new stuff
-   - *mwrite
-     *cfclos
-     M-? shows help for *mwrite, when cursor behind *cfclos and in the
-     last line without \n
    - Make a usage.org, splice into a-mode.el
    - -wb function (doesn't adjust along the decimal point)? -> align-rules-list
    - Changing license type on the fly (with C-u) for -display-license-status
@@ -250,12 +247,9 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - color scheme of *msg command is only readable on terminals
    - abreviated input method for all graphics functions zoom, etc.
    - defaults for template MP
-   - add adwords to gh-pages
    - -show-command-parameters is not dynamically updated in the first line
    - Correct the creep data together with young's modulus and total
      strain to creep strain!
-   - variables behind / and * without whitespace in between are not
-     highlighted! try changing the character syntax???
    - implement -hide-region also for rotated nodes in WB .dat files
      (frictionless support)
    - started and commented out highlighting of solver output
@@ -265,16 +259,8 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - ansys-template.el:85:13:Warning: reference to free variable
      `ansys-skeleton-overlay'
    - mouse-choose-completion is obsolete since E23.2
-   - add timer customisation for -command-parameter-help variable 1
-     min, 2 min, etc.
    - check *vwrite with gui mode and interactive mode (graphics window?)
-   - add element numbers to the general completion list, yes or no?
-   - WikEmacs, Melpa, GNU ELPA and/or marmalade, Ansys-Mode debian
-     .deb package
-   - HTML APDL documentation
-     here is the tanslation of names to html files:
-     - link to Ansys-Mode APDL reference:
-     - Chapters of structural APDL documentation:
+   - WikEmacs, Ansys-Mode debian .deb package?
    - TODOS: in fontification.org
      - deletion of vectors *del,Vector without request? ,,nopr?
      - check character variables 32 Chars. and highlight accordingly
@@ -296,8 +282,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
      - activate -license-file function :TODO:
    - document Lagrange contact behaviour for contact/press-fit
      skeleton, critical to element differences!
-   - -dynamic-highlighting is sluggish, highlighting somehow
-     retarded!!! Still??
    - constraint equations in -ansys-template.el and get functions
    - enable hiding of geometry items in .anf files
    - fontification.el
@@ -333,7 +317,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
      + clearing of variables and
      + usage of variables before their definitions (uninitialised
        variables)
-     + the variable fontification might clash with Ansys specifiers
+     + the variable fontification clashes with Ansys specifiers
      + string substitution of %variables% in strings does not highlight
 	them in the proper variable face
    - Highlighting :: A label :LABEL may appear behind the /input

@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-04-23>
+;; Time-stamp: <2021-08-28>
 
 ;; Copyright (C) 2016 - 2021  H. Dieter Wilhelm
 
@@ -67,7 +67,9 @@ elements, command names, etc.")
   :group 'APDL)
 
 (defcustom apdl-username nil
-  "String containing the user name."
+  "String containing the user name or user ID.
+This variable is used to display only the user's license entries
+with the function `apdl-user-license-status'."
   :type 'string
   :group 'APDL-initialise)
 

@@ -1749,7 +1749,7 @@ Interesting licenses are compiled in the string
 
 ;;;###autoload
 (defun apdl-user-license-status ()
-  "Display the Ansys license user status.
+  "Display only licenses which are used by the user.
 Show the status for the user `apdl-username' in a separate buffer
 *User-Licenses*.  The license type variable `apdl-license'
 determines a highlighting of the license server summary rows.

@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-19>
+;; Time-stamp: <2021-08-28>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -662,6 +662,12 @@ absolut" \n
   "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string " -- cad import -- " \n
   \n
+  "~cat5in" \n
+  "~catiain" \n
+  "~parain" \n
+  "~proein" \n
+  "~satin" \n
+  "~ugin" \n
   "/aux15" \n
   "ioptn,iges,nodefeat" \n
   "ioptn,merge,yes" \n

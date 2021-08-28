@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-18>
+;; Time-stamp: <2021-08-28>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -877,6 +877,8 @@ is already a solver running.  Do you wish to kill the lock file? "))
 		   "-t"
 		   "-d 3D" ; 3d device, win32
 		   )
+    ;; (with-temp-message "bla bla for 10 s"
+    ;;   (run-with-timer 10 nil '(lambda())))
     (if apdl-is-unix-system-flag
 	(display-buffer bname 'other-window)
       )))
@@ -1651,9 +1653,11 @@ elem.
 	      (switch-to-buffer-other-window nil))
 	  ;; file:/// is not working with tramp remotely 2020-04-03
 	  ;; (browse-url-of-file (concat "file:///" path file)))
-	  ;; file:/ is now working for EWW
+	  ;; file:/ is now working for EWW on windows only!
 	  ;; (browse-url-of-file (concat "file:/" path file)))
-	  (browse-url-of-file (concat "file:/" path file)))
+	  (if apdl-is-unix-system-flag
+	      (browse-url-of-file (concat "file://" path file))
+	    (browse-url-of-file (concat "file:/" path file))))
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
       ;; since v201: Changed the path to the online help!

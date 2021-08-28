@@ -1652,12 +1652,12 @@ elem.
 	  (when (eq browse-url-browser-function 'eww-browse-url)
 	      (switch-to-buffer-other-window nil))
 	  ;; file:/// is not working with tramp remotely 2020-04-03
-	  ;; (browse-url-of-file (concat "file:///" path file)))
-	  ;; file:/ is now working for EWW on windows only!
 	  ;; (browse-url-of-file (concat "file:/" path file)))
-	  (if apdl-is-unix-system-flag
-	      (browse-url-of-file (concat "file://" path file))
-	    (browse-url-of-file (concat "file:/" path file))))
+
+	  ;; Emacs 27.1. file:/ is working on windows, but not for eww
+	  ;; with svg images!  And file:/ is not working under linux
+	  ;; for eww, reverting to file:/// 2021-08-28
+	  (browse-url-of-file (concat "file:///" path file)))
       (unless apdl-current-ansys-version
         (error "Please set `apdl-current-ansys-version'"))
       ;; since v201: Changed the path to the online help!

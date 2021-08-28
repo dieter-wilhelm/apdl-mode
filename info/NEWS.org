@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-19>
+#+DATE: Time-stamp: <2021-08-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,14 +17,15 @@
 # #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
+
 * Version 20.6.0, 15 years of APDL-Mode!
-  - Implemented start of batch runs (now C-c C-y) and job-name.out
-    file inspection
+  - Implemented batch runs (now C-c C-y) and jobname.out inspection
+  - Improved highlighting of user variables
   - Added customisation section for user templates
   - apdl-start-classic and -start-launcher are now auto-loaded
     commands (They can be run from the mini buffer (M-x), without
-    having a file in apdl-mode)
-  - Improved highlighting of user variables
+    having a file under `apdl-mode')
+  - Fixed help for `outres' command
 * Version 20.5.0
   2020-05, help for get- and parametric functions
   - Browsing the help on keywords (C-c C-b) is now working for get-

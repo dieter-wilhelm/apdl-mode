@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-08-19"
+Version 20.6.0 Time-stamp: "2021-08-28"
 
 * Menu:
 
@@ -2652,13 +2652,13 @@ File: apdl-mode.info,  Node: Version 2060 15 years of APDL-Mode!,  Next: Version
 10.1 Version 20.6.0, 15 years of APDL-Mode!
 ===========================================
 
-   • Implemented start of batch runs (now C-c C-y) and job-name.out file
-     inspection
+   • Implemented batch runs (now C-c C-y) and jobname.out inspection
+   • Improved highlighting of user variables
    • Added customisation section for user templates
    • apdl-start-classic and -start-launcher are now auto-loaded commands
      (They can be run from the mini buffer (M-x), without having a file
-     in apdl-mode)
-   • Improved highlighting of user variables
+     under ‘apdl-mode’)
+   • Fixed help for ‘outres’ command
 
 
 File: apdl-mode.info,  Node: Version 2050,  Next: Version 2040,  Prev: Version 2060 15 years of APDL-Mode!,  Up: News
@@ -3182,8 +3182,9 @@ File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 1,  Up: Todos
 12.1 *TODO* Version 20.6.0
 ==========================
 
-Melpa: _[2021-08-09 Mo] _ 481 Melpa: _[2021-04-23 Fr] _ 436 downloads
-Melpa: _[2020-10-24 Sa] _ 396 downloads
+Melpa: _[2021-08-09 Mo] _ 481
+
+   Melpa: _[2020-10-24 Sa] _ 396 downloads
 
 * Menu:
 
@@ -3211,9 +3212,10 @@ File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Vers
 12.1.2 Issues
 -------------
 
+   • Discovery Aim is obsolete
    • C-u C-c C-b in browser on Win10 for "All"stuff isn’t skipping to
      the respective section on page for Chrome and Edge!?
-   • c*** won’t be completed
+   • c*** isn’t completed
    • *mwrite *cfclos M-?  shows help for *mwrite, when cursor behind
      *cfclos and in the last line without
    • M-?  parameter counter is not working for commands where functions
@@ -3240,6 +3242,7 @@ File: apdl-mode.info,  Node: Wishes,  Next: Done,  Prev: Checks,  Up: Version 20
 12.1.4 Wishes
 -------------
 
+   • An Info index
    • Mouse completion is working with *middle* mouse button (mouse-2)
      but only on the second LMB or, in the case of C-c C-s, not at all.
    • Templates, WB-templates, more of them
@@ -3265,7 +3268,6 @@ File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
      Commands 2.9.  AUX2 Commands 2.10.  AUX3 Commands 2.11.  AUX12
      Commands 2.12.  AUX15 Commands 2.13.  Mapping Processor Commands
      2.14.  REDUCED Order Modeling Commands
-   • document apdl-username
    • Create English Wiki for APDL
    • M-?  get- and parameter-functions are completed but there’s no
      parameter help - see: apdl-dynamic-prompt
@@ -3287,7 +3289,7 @@ File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
    • package with file "dir"
    • only up to 3 *** levels!  configurable?
    • info doesn’t have clickable links to function, customisation
-     buffers, yet, hmm urls, internal links?
+     buffers, yet, hmm urls, internal links?  <- inform package
    • image directory in .info file is not existing in Melpa!  Do we need
      images in the manual?  No
 
@@ -3331,7 +3333,6 @@ File: apdl-mode.info,  Node: misc,  Prev: templates,  Up: Wishes
   4. Travis CI continuous integration!
   5. <https://github.com/marketplace/coveralls>
   6. Start optionally runbWB2 –aim, Discovery AIM
-  7. Melpa README, better wait till emacs-27
 
 
 File: apdl-mode.info,  Node: Done,  Next: Push and Release Proceedures,  Prev: Wishes,  Up: Version 2060
@@ -3353,7 +3354,7 @@ File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Ver
 
    Ansys updates: Hint: in apdl_keywords.txt there are many trailing
 whitespaces (delete-trailing-whitespace)
-   • for updated Ansys_keyword.txt check outres command in 202 was a
+   • for updated Ansys_keyword.txt check ‘outres’ command in 202 was a
      typo!
 
    • NEWS.org
@@ -4561,61 +4562,61 @@ Node: Development and source code installation106380
 Node: Bugs and Problems106939
 Node: News107883
 Node: Version 2060 15 years of APDL-Mode!108650
-Node: Version 2050109198
-Node: Version 2040109967
-Node: Version 2030110668
-Node: Version 2020111390
-Node: Version 2011112242
-Node: Version 2010112571
-Node: Version 162-1113117
-Node: Version 1611114637
-Node: Version 1501116264
-Node: Version 1452117095
-Node: Version 1451118496
-Node: Version 1401121646
-Node: Version 1301123101
-Node: Version 1201124016
-Node: Version 1102126383
-Node: ansys-modeel 1101126941
-Node: Further Resources130065
-Node: Ansys and APDL resources130293
-Node: Emacs editor resources131068
-Node: Other APDL editor resources131631
-Node: Todos132545
-Node: Version 2060132893
-Node: Todos bugs133251
-Node: Issues133586
-Node: Checks134434
-Node: Wishes134711
-Node: Docu135168
-Node: templates137044
-Node: misc137641
-Node: Done138052
-Node: Push and Release Proceedures138346
-Node: Version 2050 1139396
-Node: Version 2040 1139616
-Node: Version 2030 1139813
-Node: Version 2020 1140031
-Node: Version 2011 1140210
-Node: Version 162-2140682
-Node: Bugs140958
-Node: Wish-list141866
-Node: Freeze147199
-Node: Deficiencies147564
-Node: Procedures149218
-Node: Freeze proceedures149740
-Node: Release151311
-Node: Ideas for further versions151914
-Node: Parameter help and documentation152343
-Node: Ansys process and interpreter buffer154645
-Node: Skeletons outline and abbrevs157508
-Node: Miscellaneous 1159240
-Node: Ansys syntax restrictions not (yet) accounted for164230
-Node: Unknown Ansys stuff165133
-Node: Acknowledgements165416
-Node: GNU Free Documentation License165986
-Node: Variable Index191012
-Node: Concept Index191161
+Node: Version 2050109230
+Node: Version 2040109999
+Node: Version 2030110700
+Node: Version 2020111422
+Node: Version 2011112274
+Node: Version 2010112603
+Node: Version 162-1113149
+Node: Version 1611114669
+Node: Version 1501116296
+Node: Version 1452117127
+Node: Version 1451118528
+Node: Version 1401121678
+Node: Version 1301123133
+Node: Version 1201124048
+Node: Version 1102126415
+Node: ansys-modeel 1101126973
+Node: Further Resources130097
+Node: Ansys and APDL resources130325
+Node: Emacs editor resources131100
+Node: Other APDL editor resources131663
+Node: Todos132577
+Node: Version 2060132925
+Node: Todos bugs133247
+Node: Issues133582
+Node: Checks134460
+Node: Wishes134737
+Node: Docu135215
+Node: templates137080
+Node: misc137677
+Node: Done138043
+Node: Push and Release Proceedures138337
+Node: Version 2050 1139393
+Node: Version 2040 1139613
+Node: Version 2030 1139810
+Node: Version 2020 1140028
+Node: Version 2011 1140207
+Node: Version 162-2140679
+Node: Bugs140955
+Node: Wish-list141863
+Node: Freeze147196
+Node: Deficiencies147561
+Node: Procedures149215
+Node: Freeze proceedures149737
+Node: Release151308
+Node: Ideas for further versions151911
+Node: Parameter help and documentation152340
+Node: Ansys process and interpreter buffer154642
+Node: Skeletons outline and abbrevs157505
+Node: Miscellaneous 1159237
+Node: Ansys syntax restrictions not (yet) accounted for164227
+Node: Unknown Ansys stuff165130
+Node: Acknowledgements165413
+Node: GNU Free Documentation License165983
+Node: Variable Index191009
+Node: Concept Index191158
 
 End Tag Table
 

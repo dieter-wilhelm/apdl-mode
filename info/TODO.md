@@ -1,22 +1,22 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#orgfdfd24d)
-2.  [Version 20.5.0](#orga5ef487)
-3.  [Version 20.4.0](#org954c27d)
-4.  [Version 20.3.0](#orgd9b9a50)
-5.  [Version 20.2.0](#orga161629)
-6.  [Version 20.1.1](#orgf8849ed)
-7.  [Version 162-2](#orgd8ceb76)
+1.  [Version 20.6.0](#org8564462)
+2.  [Version 20.5.0](#orgb819cd3)
+3.  [Version 20.4.0](#orgb13e447)
+4.  [Version 20.3.0](#orge10d14e)
+5.  [Version 20.2.0](#orga17bb99)
+6.  [Version 20.1.1](#orgd1505e4)
+7.  [Version 162-2](#orgc83bd33)
 
 
 
-<a id="orgfdfd24d"></a>
+<a id="org8564462"></a>
 
 # TODO Version 20.6.0
 
 Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-09 Mo] </span></span> 481
-Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2021-04-23 Fr] </span></span> 436 downloads
+
 Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] </span></span> 396 downloads
 
 
@@ -30,9 +30,10 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Issues
 
+-   Discovery Aim is obsolete
 -   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
     the respective section on page for Chrome and Edge!?
--   c\*\*\* won't be completed
+-   c\*\*\* isn't completed
 -   \*mwrite
     \*cfclos
     M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
@@ -57,6 +58,7 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Wishes
 
+-   An Info index
 -   Mouse completion is working with **middle** mouse button (mouse-2)
     but only on the second LMB or, in the case of C-c C-s, not at
     all.
@@ -83,7 +85,6 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
     2.12. AUX15 Commands
     2.13. Mapping Processor Commands
     2.14. REDUCED Order Modeling Commands
--   document apdl-username
 -   Create English Wiki for APDL
 -   M-? get- and parameter-functions are completed but there's no
     parameter help - see: apdl-dynamic-prompt
@@ -105,7 +106,7 @@ Info documentation:
 -   package with file "dir"
 -   only up to 3 **\*** levels! configurable?
 -   info doesn't have clickable links to function, customisation
-    buffers, yet, hmm urls, internal links?
+    buffers, yet, hmm urls, internal links? <- inform package
 -   image directory in .info file is not existing in Melpa! Do we
     need images in the manual? No
 
@@ -146,7 +147,6 @@ MD
 4.  Travis CI continuous integration!
 5.  <https://github.com/marketplace/coveralls>
 6.  Start optionally runbWB2 &#x2013;aim, Discovery AIM
-7.  Melpa README, better wait till emacs-27
 
 
 ## Done
@@ -164,7 +164,7 @@ Ansys updates:
 Hint: in apdl<sub>keywords.txt</sub> there are many
 trailing whitespaces (delete-trailing-whitespace)
 
--   for updated Ansys<sub>keyword.txt</sub> check outres command in 202 was a
+-   for updated Ansys<sub>keyword.txt</sub> check \`outres' command in 202 was a
     typo!
 
 -   NEWS.org
@@ -197,7 +197,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="orga5ef487"></a>
+<a id="orgb819cd3"></a>
 
 # DONE Version 20.5.0
 
@@ -205,7 +205,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org954c27d"></a>
+<a id="orgb13e447"></a>
 
 # DONE Version 20.4.0
 
@@ -213,7 +213,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orgd9b9a50"></a>
+<a id="orge10d14e"></a>
 
 # DONE Version 20.3.0
 
@@ -222,14 +222,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orga161629"></a>
+<a id="orga17bb99"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgf8849ed"></a>
+<a id="orgd1505e4"></a>
 
 # DONE Version 20.1.1
 
@@ -242,7 +242,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgd8ceb76"></a>
+<a id="orgc83bd33"></a>
 
 # Version 162-2
 

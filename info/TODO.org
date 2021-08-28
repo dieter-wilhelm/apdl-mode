@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-19>
+#+DATE: Time-stamp: <2021-08-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,7 +19,7 @@
 
 * TODO Version 20.6.0
 Melpa: [2021-08-09 Mo] 481
-Melpa: [2021-04-23 Fr] 436 downloads
+# Melpa: [2021-04-23 Fr] 436 downloads
 Melpa: [2020-10-24 Sa] 396 downloads
 ** Todos, bugs
    - Templates: Add intro help to the -wb-template system, complete
@@ -27,9 +27,10 @@ Melpa: [2020-10-24 Sa] 396 downloads
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc in the manual
 ** Issues
+   - Discovery Aim is obsolete
    - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
      the respective section on page for Chrome and Edge!?
-   - c*** won't be completed
+   - c*** isn't completed
    - *mwrite
      *cfclos
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
@@ -48,6 +49,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
 ** Wishes
+   - An Info index
    - Mouse completion is working with *middle* mouse button (mouse-2)
      but only on the second LMB or, in the case of C-c C-s, not at
      all.
@@ -71,7 +73,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
        2.12. AUX15 Commands
        2.13. Mapping Processor Commands
        2.14. REDUCED Order Modeling Commands
-    - document apdl-username
     - Create English Wiki for APDL
     - M-? get- and parameter-functions are completed but there's no
       parameter help - see: apdl-dynamic-prompt
@@ -93,7 +94,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
      - package with file "dir"
      - only up to 3 *** levels! configurable?
      - info doesn't have clickable links to function, customisation
-       buffers, yet, hmm urls, internal links?
+       buffers, yet, hmm urls, internal links? <- inform package
      - image directory in .info file is not existing in Melpa! Do we
        need images in the manual? No
 
@@ -125,7 +126,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
     4) Travis CI continuous integration!
     5) https://github.com/marketplace/coveralls
     6) Start optionally runbWB2 --aim, Discovery AIM
-    7) Melpa README, better wait till emacs-27
+
 ** Done
    - Make text around #+texinfo: lines self sustained!
    - -mode-version working with autoload cookie: works
@@ -136,7 +137,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
    Ansys updates:
    Hint: in apdl_keywords.txt there are many
    trailing whitespaces (delete-trailing-whitespace)
-   - for updated Ansys_keyword.txt check outres command in 202 was a
+   - for updated Ansys_keyword.txt check `outres' command in 202 was a
      typo!
 
    - NEWS.org
@@ -149,7 +150,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
    gca = git commit -a = gau + gc
    gta = git tag -a 20.6.0
    gph --tags
-
 
    whitespace-mode, package-lint
    checkdoc, flycheck etc. : from makefile?

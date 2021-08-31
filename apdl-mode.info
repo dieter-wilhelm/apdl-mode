@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-08-30"
+Version 20.6.0 Time-stamp: "2021-08-31"
 
 * Menu:
 
@@ -176,14 +176,14 @@ File: apdl-mode.info,  Node: First Step with APDL-Mode,  Next: Introductory Tuto
 Please type ‘M-x apdl’ which opens a buffer in APDL-Mode where you can
 inspect the menu bar’s ‘APDL’ and ‘MAPDL’ entries.  For existing APDL
 files please type ‘M-x apdl-mode’ if the mode is not activated already,
-please see *note Configuration and Customisation::,
-
-   the section regarding pre-configured file suffixes.
+please see in *note Configuration and Customisation::, the section
+regarding pre-configured file suffixes.
 
    For further guidance please select the APDL menu ‘APDL-Mode
 Documentation’ (or type ‘C-c C-h’) and ‘Describe APDL-Mode’ (or type
 ‘C-h m’) for the list of its keybindings.  You might also check the
-introductory APDL-Mode tutorial (doc/A-M_introductory_tutorial.org).
+introductory APDL-Mode tutorial
+(file:///home/dieter/a-m/doc/A-M_introductory_tutorial.org).
 
    APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
 Emacs-27 under GNU-Linux and Windows.
@@ -3299,7 +3299,9 @@ File: apdl-mode.info,  Node: Docu,  Next: templates,  Up: Wishes
 12.1.4.1 Docu
 .............
 
-Rework the messy documentation system of files and applications
+Outdated menus in A-M-introductory_tutorial.org
+
+   Rework the messy documentation system of files and applications
   1. INFO -> info/apdl-mode.org <- flat file
   2. MD for github -> info/README.org <- uses folder structure
   3. Melpa packaging -> apdl-mode
@@ -4527,153 +4529,153 @@ Node: Top79
 Node: Copyright and Copying2343
 Node: Foreword2895
 Node: First Step with APDL-Mode5045
-Node: Introductory Tutorial for Emacs Concepts5971
-Node: APDL-Mode Usage8522
-Node: Finding Help to APDL keywords8921
-Node: Command Help with Argument Counter9297
-Node: APDL Keyword Documentation10155
-Node: Code Templates11664
-Node: Model Templates12263
-Node: WorkBench Command Object Templates12899
-Node: Editing Code13296
-Node: Completions13638
-Node: Comment Handling15084
-Node: Inserting Pairs16235
-Node: Abbreviation Facility17020
-Node: Auto-indentation17813
-Node: Closing of Control Blocks18292
-Node: Code Alignment18702
-Node: Auto-insertion19242
-Node: Code Navigation and Hiding19816
-Node: Hiding Number Blocks21635
-Node: Outlining22096
-Node: Variable Definitions23279
-Node: Sophisticated Highlighting24433
-Node: Process Management28141
-Node: MAPDL Solver Control32216
-Node: Configuration and Customisation36490
-Node: Conventions38668
-Node: Important Prerequisite39236
-Node: File suffixes40777
-Node: Macro files41162
-Node: WorkBench generated input files41781
-Node: The Ansys Neutral file format42204
-Node: Auto insertion43865
-Node: Miscellaneous44868
-Node: Outlining 147060
-Node: Highlighting (Colourisation)47676
-Node: Dynamic highlighting47977
-Node: Decoration levels48595
-Node: Summary48935
-Node: Installation dependent configurations50118
-Node: Ansys processes51879
-Node: License server52122
-Node: Solver options53188
-Node: Summary 153630
-Node: APDL Reference 155798
-Node: WorkBench to APDL Translation56093
-Node: Contacts56337
-Node: default 3D thermal contact56510
-Node: Material Models58355
-Node: Plasticity58554
-Node: Boundary conditions58857
-Node: APDL Reference64419
-Node: Idiosyncrasies64884
-Node: File types67124
-Node: Defining parameters82202
-Node: Double char38 char8 logical TODO82522
-Node: Variable names82751
-Node: Character strings87039
-Node: Erasing variables from memory87391
-Node: Variable substitution88073
-Node: Substitution of Numeric Variables88424
-Node: Substitution of Character Variables89052
-Node: Dynamic Substitution of Numeric or Character Variables90407
-Node: Expressions91000
-Node: Exponentiation Operator91229
-Node: Multiplication Expression91415
-Node: Operators91854
-Node: Arrays92157
-Node: Specifiying array element values92409
-Node: APDL Math92588
-Node: debugging93101
-Node: Multiple runs probabilistic design93307
-Node: Undocumented commands93617
-Node: APDL-Mode Syntax Highlighting Reference93966
-Node: Header94277
-Node: Highlighting APDL specials96561
-Node: Reserved words and _RETURN statements97139
-Node: _RETURN values of macros97510
-Node: Old style APDL comments97994
-Node: Ignored characters behind commands98411
-Node: The End Of File command98725
-Node: Ignored characters behind commands 199167
-Node: The End Of File command 199591
-Node: Current element types and deprecated elements100071
-Node: Implied (or colon) looping100863
-Node: And the rest102104
-Node: Installation and Development105841
-Node: Melpa106454
-Node: Manual installation107320
-Node: Development and source code installation108415
-Node: Bugs and Problems108974
-Node: News109918
-Node: Version 2060 15 years of APDL-Mode!110685
-Node: Version 2050111301
-Node: Version 2040112070
-Node: Version 2030112771
-Node: Version 2020113493
-Node: Version 2011114345
-Node: Version 2010114674
-Node: Version 162-1115220
-Node: Version 1611116740
-Node: Version 1501118367
-Node: Version 1452119198
-Node: Version 1451120599
-Node: Version 1401123749
-Node: Version 1301125204
-Node: Version 1201126119
-Node: Version 1102128486
-Node: ansys-modeel 1101129044
-Node: Further Resources132168
-Node: Ansys and APDL resources132396
-Node: Emacs editor resources133171
-Node: Other APDL editor resources133734
-Node: Todos134648
-Node: Version 2060134996
-Node: Todos bugs135318
-Node: Issues135689
-Node: Checks136435
-Node: Wishes136712
-Node: Docu137196
-Node: templates139372
-Node: misc139969
-Node: Done140335
-Node: Push and Release Proceedures140629
-Node: Version 2050 1141685
-Node: Version 2040 1141905
-Node: Version 2030 1142102
-Node: Version 2020 1142320
-Node: Version 2011 1142499
-Node: Version 162-2142971
-Node: Bugs143247
-Node: Wish-list144155
-Node: Freeze149488
-Node: Deficiencies149853
-Node: Procedures151507
-Node: Freeze proceedures152029
-Node: Release153600
-Node: Ideas for further versions154203
-Node: Parameter help and documentation154632
-Node: Ansys process and interpreter buffer156934
-Node: Skeletons outline and abbrevs159797
-Node: Miscellaneous 1161529
-Node: Ansys syntax restrictions not (yet) accounted for166519
-Node: Unknown Ansys stuff167422
-Node: Acknowledgements167705
-Node: GNU Free Documentation License168277
-Node: Variable Index193303
-Node: Concept Index193452
+Node: Introductory Tutorial for Emacs Concepts5994
+Node: APDL-Mode Usage8545
+Node: Finding Help to APDL keywords8944
+Node: Command Help with Argument Counter9320
+Node: APDL Keyword Documentation10178
+Node: Code Templates11687
+Node: Model Templates12286
+Node: WorkBench Command Object Templates12922
+Node: Editing Code13319
+Node: Completions13661
+Node: Comment Handling15107
+Node: Inserting Pairs16258
+Node: Abbreviation Facility17043
+Node: Auto-indentation17836
+Node: Closing of Control Blocks18315
+Node: Code Alignment18725
+Node: Auto-insertion19265
+Node: Code Navigation and Hiding19839
+Node: Hiding Number Blocks21658
+Node: Outlining22119
+Node: Variable Definitions23302
+Node: Sophisticated Highlighting24456
+Node: Process Management28164
+Node: MAPDL Solver Control32239
+Node: Configuration and Customisation36513
+Node: Conventions38691
+Node: Important Prerequisite39259
+Node: File suffixes40800
+Node: Macro files41185
+Node: WorkBench generated input files41804
+Node: The Ansys Neutral file format42227
+Node: Auto insertion43888
+Node: Miscellaneous44891
+Node: Outlining 147083
+Node: Highlighting (Colourisation)47699
+Node: Dynamic highlighting48000
+Node: Decoration levels48618
+Node: Summary48958
+Node: Installation dependent configurations50141
+Node: Ansys processes51902
+Node: License server52145
+Node: Solver options53211
+Node: Summary 153653
+Node: APDL Reference 155821
+Node: WorkBench to APDL Translation56116
+Node: Contacts56360
+Node: default 3D thermal contact56533
+Node: Material Models58378
+Node: Plasticity58577
+Node: Boundary conditions58880
+Node: APDL Reference64442
+Node: Idiosyncrasies64907
+Node: File types67147
+Node: Defining parameters82225
+Node: Double char38 char8 logical TODO82545
+Node: Variable names82774
+Node: Character strings87062
+Node: Erasing variables from memory87414
+Node: Variable substitution88096
+Node: Substitution of Numeric Variables88447
+Node: Substitution of Character Variables89075
+Node: Dynamic Substitution of Numeric or Character Variables90430
+Node: Expressions91023
+Node: Exponentiation Operator91252
+Node: Multiplication Expression91438
+Node: Operators91877
+Node: Arrays92180
+Node: Specifiying array element values92432
+Node: APDL Math92611
+Node: debugging93124
+Node: Multiple runs probabilistic design93330
+Node: Undocumented commands93640
+Node: APDL-Mode Syntax Highlighting Reference93989
+Node: Header94300
+Node: Highlighting APDL specials96584
+Node: Reserved words and _RETURN statements97162
+Node: _RETURN values of macros97533
+Node: Old style APDL comments98017
+Node: Ignored characters behind commands98434
+Node: The End Of File command98748
+Node: Ignored characters behind commands 199190
+Node: The End Of File command 199614
+Node: Current element types and deprecated elements100094
+Node: Implied (or colon) looping100886
+Node: And the rest102127
+Node: Installation and Development105864
+Node: Melpa106477
+Node: Manual installation107343
+Node: Development and source code installation108438
+Node: Bugs and Problems108997
+Node: News109941
+Node: Version 2060 15 years of APDL-Mode!110708
+Node: Version 2050111324
+Node: Version 2040112093
+Node: Version 2030112794
+Node: Version 2020113516
+Node: Version 2011114368
+Node: Version 2010114697
+Node: Version 162-1115243
+Node: Version 1611116763
+Node: Version 1501118390
+Node: Version 1452119221
+Node: Version 1451120622
+Node: Version 1401123772
+Node: Version 1301125227
+Node: Version 1201126142
+Node: Version 1102128509
+Node: ansys-modeel 1101129067
+Node: Further Resources132191
+Node: Ansys and APDL resources132419
+Node: Emacs editor resources133194
+Node: Other APDL editor resources133757
+Node: Todos134671
+Node: Version 2060135019
+Node: Todos bugs135341
+Node: Issues135712
+Node: Checks136458
+Node: Wishes136735
+Node: Docu137219
+Node: templates139447
+Node: misc140044
+Node: Done140410
+Node: Push and Release Proceedures140704
+Node: Version 2050 1141760
+Node: Version 2040 1141980
+Node: Version 2030 1142177
+Node: Version 2020 1142395
+Node: Version 2011 1142574
+Node: Version 162-2143046
+Node: Bugs143322
+Node: Wish-list144230
+Node: Freeze149563
+Node: Deficiencies149928
+Node: Procedures151582
+Node: Freeze proceedures152104
+Node: Release153675
+Node: Ideas for further versions154278
+Node: Parameter help and documentation154707
+Node: Ansys process and interpreter buffer157009
+Node: Skeletons outline and abbrevs159872
+Node: Miscellaneous 1161604
+Node: Ansys syntax restrictions not (yet) accounted for166594
+Node: Unknown Ansys stuff167497
+Node: Acknowledgements167780
+Node: GNU Free Documentation License168352
+Node: Variable Index193378
+Node: Concept Index193527
 
 End Tag Table
 

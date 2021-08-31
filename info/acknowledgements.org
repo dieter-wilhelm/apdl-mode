@@ -5,5 +5,5 @@ APDL-Mode.
 Parts of APDL-Mode were based on octave-mod.el: Copyright (C) 1997
 Free Software Foundation, Inc.  Authors: [[mailto:Kurt.Hornik@wu-wien.ac.at][Kurt Hornik]] and [[mailto:jwe@bevo.che.wisc.edu][John Eaton]].
 
-I received moreover support and feedback from many individuals, thank
-you very much!
+I received, moreover, support and feedback from many individuals.
+Thank you very much!

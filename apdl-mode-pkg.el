@@ -1,5 +1,5 @@
 ;;; apdl-mode-pkg.el --- Defining the APDL-Mode package -*-lexical-binding:t -*-
-;; Time-stamp: <2021-04-23>
+;; Time-stamp: <2021-08-30>
 
 ;; Copyright (C) 2006 - 2021 H. Dieter Wilhelm
 
@@ -44,7 +44,8 @@
 ;; investigate the menu entries `APDL' and `Ansys'.
 
 ;; For the APDL-Mode help with a brief tutorial and further guidance
-;; please type `C-h m'."
+;; please type `C-h m' or type `C-h i' to read its documentation with
+;; the Info reader."
 
 ;;; Code:
 

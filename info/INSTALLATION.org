@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-04-10>
+#+DATE: Time-stamp: <2021-08-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -15,11 +15,12 @@
 #+STARTUP: showall
 # #+title: INSTALLATION of APDL-Mode
 
-Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
-  Please install [[https://www.gnu.org/software/emacs/][GNU-Emacs]] first, you should install at least Emacs
-  version 25.1.  (If you are new to this editor please check the
-  tutorial in its `Help' menu, please really do it ;-)
+  Please install the [[https://www.gnu.org/software/emacs/][GNU-Emacs]] Editor first, For all functionality
+  APDL-Mode needs version 25.1 (from 2016) or newer.  (If you are new
+  to this editor please check its tutorial in the `Help' menu, or read
+  at least the APDL-Mode introduction.)
 * Melpa
    APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]].
 
@@ -27,7 +28,7 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 
    Please add
-   #+begin_src elisp
+   #+begin_src emacs-lisp
    (add-to-list 'package-archives
 	     '("melpa" . "https://melpa.org/packages/") t)
    #+end_src
@@ -36,8 +37,8 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    `apdl-mode', mark it with `i' and install it with `x'.
 
    If you prefer the stable package archive instead of development
-   versions exchange above package source with
-   #+begin_src elisp
+   versions, exchange above package source with
+   #+begin_src emacs-lisp
       (add-to-list 'package-archives
       '("melpa-stable" . "https://stable.melpa.org/packages/") t)
    #+end_src
@@ -72,325 +73,3 @@ Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
    #+end_src
    to your initialisation file (the source directory must be set in
    the `load-path' variable as well).
-
-* COMMENT Requirements
-
-This mode was tested with Emacs-26 under Win10 and GNU-Linux64.  It
-was also tested with Emacs-26 and should run with all older versions
-of Emacs down to Emacs-23.
-
-Some of APDL-Mode's solver control and communication features are not
-yet implemented for Windows systems.
-
-* COMMENT Installation
-The versioning scheme (R20.1.0) is using the Ansys release year
-(2020).
-
-** For Windows systems without the Emacs editor
-Download the latest package of APDL-Mode
-~ansys-mode-162-1.emacs-24.5-bin-i686-mingw32.zip~ bundled with the
-binaries of Emacs-24.5 at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]] and unpack it anywhere on your system
-(you do not need administrator rights).
-
-You might subsequently run the program addpm.exe (located in the
-~bin\~ directory) to add an Emacs entry to the Windows start menu
-(please refer to the README.W32 file) otherwise start the Emacs
-executable ~runemacs.exe~ from there.
-
-APDL-Mode is automatically available for all files with suffixes
-`.mac', `.ans', `.dat' and `.inp'.  For further guidance please read
-the tutorial ~doc/A-M_introductory_tutorial.pdf~.
-** GNU-Linux/Unix systems without the Emacs editor
-Download the latest package of APDL-Mode
-~ansys-mode-162-1.emacs-24.5.tar.xs~ bundled with the sources of
-Emacs-24.5 at [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it anywhere on your system and go to the
-usual ~./configure~, ~make~ routine, as described below.  APDL-Mode
-will then be automatically available for all files with suffixes
-`.mac', `.ans', `.dat' and `.inp'.  For further guidance please read
-the tutorial ~doc/A-M_introductory_tutorial.pdf~.
-** For existing Emacs installations on either Windows and GNU-Linux/Unix
-Download the latest APDL-Mode archive ~ansys-mode-162-1.tar.xz~ from
-above GitHub releases page.
-*** Direct way, no file configuration necessary
-The easiest way is to extract above archive in a "default load path"
-of Emacs, I recommend the directory ~site-lisp/~ in Emacs' file tree.
-Then APDL-Mode's functionality is available when you restart Emacs.
-For the next steps please read ~doc/A-M_introductory_tutorial.pdf~ .
-*** More general way; file loading or configuration necessary
-**** Manual loading
-Unpack the archive anywhere on your system but then you have to make
-APDL-Mode known to Emacs by loading the configuration file
-~ansys-config.el~ manually, Start Emacs then do:
-
-~M-x load-file  YOUR/INSTALLATION/DIRECTORY/ansys-config.el~
-
-The above means: Hold the <Alt> key and type the <x> key - then you'll
-end up in the so called minibuffer prompt, now type "load-file" (you
-might apply the <TAB> key for Emacs' auto-completion feature at any
-stage) and conclude this input with the <RET> key.  Emacs will then
-prompt you for a file name, type in the directory where you have
-extracted the code and "ansys-config.el" and press RET to load
-APDL-Mode's definitions.  You might open an unnamed file under
-APDL-Mode with ~M-x ansys~.
-**** File configuration
-Extract the archive files anywhere and put the following paragraph
-into your `~/.emacs' (or `~/.emacs.el' or `~/.emacs.d/init.el')
-initialisation file (`~' is your home directory, which is determined
-by the environment variable HOME on both Windows and Unix), *adjust*
-the elisp code below in capital letters, restart Emacs or type "C-x
-C-e" behinde the closing bracket.  And APDL-Mode will from then on be
-automatically applied for all opened or created files with suffixes
-`.mac', `.ans', `.dat' and `.inp'.
-
-#+BEGIN_SRC emacs-lisp
-  (load "/DIRECTORY-PATH/WHERE/THE/ANSYS-MODE/EL_FILES/RESIDE/ansys-config")
-  ;;  Windows example: Assuming you extracted the files on drive "c:":
-  ;; "c:/ansys-mode/ansys-mode-162-1/ansys-config"
-  ;; GNU-Linux/Unix example:
-  ;; "/usr/local/src/ansys-mode/ansys-mode-162-1/ansys-config"
-
-#+END_SRC
-* COMMENT APDL-Mode files
- *Sources*:
- - ansys-mode.el: Main file
- - ansys-config.el: The configuration file
- - ansys-initialise.el: The initialisation of system dependent stuff
- - ansys-keyword.el: Highlighting variables (built from
-   helper/fontification.el)
- - ansys-template.el: Template definitions of APDL code, a mixture of
-   documentation and insertable snippets
- - ansys-process.el: Variables and functions related to solver processes
-
- (and possibly their compiled versions with the suffix '.elc'.  In case
- you are using the mode with an older version of Emacs than 24.5 please
- remove the compiled .elc files, if any.)
-
- *Auxiliaries and Documentation*:
- - README.org -- This file
- - NEWS.org -- News and history
- - TODO.org -- Todos and deficiencies
- - INSTALLATION.org -- The installation notes
- - LICENSE.org -- The GPL (Gnu Public License) Version 3
- - doc/example.dat -- WorkBench example APDL solver input file
- - doc/example.anf -- Ansys geometry neutral file example
- - doc/example.mac -- APDL user macro and highlighting example
- - doc/A-M_introductory_tutorial.pdf -- Your first look at APDL-Mode?
- - doc/A-M_in-depth_tutorial.pdf -- A hands-on APDL-Mode tutorial
- - doc/A-M_in-depth_tutorial.ans -- Hands-on tutorial's supplementary APDL code
- - doc/A-M_APDL_reference.pdf -- APDL and APDL-Mode syntax highlighting reference guide
- - doc/Ansys.Parametric.Design.Language.Guide.pdf -- The original APDL Guide
- - matlib/ -- a directory with examples of APDL material definitions
-
- You can actually read the PDFs in Emacs as well!
-
-* COMMENT Compiling Emacs under GNU-Linux/Unix
-
-   #+BEGIN_SRC sh
-   cd emacs-24.5/
-   ./configure
-   make
-   #+END_SRC
-after this you will find the Emacs executable ~emacs~ in the ~src/~
-directory.
-
-optionally, if you have administrator rights you might install Emacs in
-your system.
-   #+BEGIN_SRC sh
-   make install
-   #+END_SRC
-** For a GNU-Linux system without Emacs
-
-You might install Emacs with your system's packaged manager or compile
-it yourself with the source archive
-~ansys-mode-162-1.emacs-24.5.tar.xz~ from [[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub]], unpack it somewhere
-and type in an terminal:
-
-   #+BEGIN_SRC sh
-   tar -xJvf ansys-mode-162-1.emacs-24.5.tar.xz
-   cd emacs-24.5/
-   ./configure
-   make
-   #+END_SRC
-
-after this you will find the Emacs executable ~emacs~ in the ~src/~
-directory.
-
-optionally, if you have administrator rights you can install Emacs on
-your system.
-   #+BEGIN_SRC sh
-   make install
-   #+END_SRC
-
-** RHEL 6
-*** Required libraries
-    - ncurses-devel.x86_64
-    - gtk2-devel.x86_64 (libgtk under Debian)
-    #+BEGIN_SRC sh
-    sudo yum install ncurses-devel.x86_64
-    ...
-    #+END_SRC
-*** Optional libraries
-    Graphics support
-    - libjpeg-devel.x86_64
-    - giflib-devel.x86_64 (libgif-dev under Debian)
-    - libtiff-devel.x86_64
-    - libpng-devel.x86_64
-    - libxpm-devel.x86_64
-    - libMagickWand.x86_64 (for imagemagick support)
-
-** Debian 8 and derivatives
-*** Required libraries
-    Build dependencies with
-    #+BEGIN_SRC sh
-    sudo aptitude install build-dep emacs25
-    #+END_SRC
-   libtiff5-dev -> libtiff-dev
-   libpng12-dev
-*** Optional libraries
-    Graphics support
-    - libgif-dev
-    - libmagickwand-dev (for imagemagick support)
-* COMMENT Installing Ansys on Linux
-** Ansys 161 on Ubuntu 12.04 64 Bit
-    The Ansys Help Viewer is running out of the box
-*** Classics GUI
-   - Shared library libXm.so.4 is missing
-     /usr/ansys_inc/v161/ansys/bin/linx64/ansys.e161: error while
-     loading shared libraries: libXp.so.4: cannot open shared object
-     file: No such file or directory
-
-    then go to the directory /usr/lib/x86_64-linux-gnu/ and
-    #+BEGIN_SRC sh :dir /sudo::/usr/lib/x86_64-linux-gnu/
-    l -s libXp.so.4 ../libXp.so.4
-    #+END_SRC
-
-** Installing Ansys 150.7 on Debian 8 Jessie 64 Bit
-   Only the mechanical stuff needs already 20 Gig installation space!
-   There is a lot of WorkBench stuff aisol/, Framework/, etc.
-
-   There are two libraries missing: Motif and a printing extension.
-*** libmotif-dev libaries necessary
-   /usr/ansys_inc/v150/ansys/bin/linx64/ansys.e150: error while
-   loading shared libraries: libXm.so.4: cannot open shared object
-   file: No such file or directory
-
-    #+BEGIN_SRC sh :dir /sudo::
-    aptitude install libmotif-dev
-    #+END_SRC
-
-    then go to the directory /usr/lib/x86_64-linux-gnu/ and
-    #+BEGIN_SRC sh :dir /sudo::/usr/lib/x86_64-linux-gnu/
-    ln -s libXm.so ../libXm.so.4
-    #+END_SRC
-
-    #+RESULTS:
-
-*** X Printing Extension (Xprint) client library
-    /usr/ansys_inc/v150/ansys/bin/linx64/ansys.e150: error while
-    loading shared libraries: libXp.so.6: cannot open shared object
-    file: No such file or directory
-
-    #+BEGIN_SRC sh :dir /sudo::
-     aptitude install libxp6
-    #+END_SRC
-
-    then go to the directory /usr/lib/x86_64-linux-gnu/ and
-    #+BEGIN_SRC sh :dir /sudo::/usr/lib/x86_64-linux-gnu/
-    ln -s libXp.so.6 ../libXp.so.6
-    #+END_SRC
-
-***** gnutls
-      for smtp authentication  ~/.authinfo.gpg (info:auth)
-     #+BEGIN_SRC sh :dir /sudo:: :results raw
-      aptitude install -y libgnutls-dev gnutls-bin
-     #+END_SRC
-
-**** Documentation of Emacs in Debian 8
-     The documentation is in the Debian non-free repository.  Because
-     of a general Resolution: Why the GNU Free Documentation License
-     is not suitable for Debian main
-     [[https://www.debian.org/vote/2006/vote_001]]hi
-
-*** lmutil needs additional libaries
-    ldd ./lmutil shows
-    	linux-vdso.so.1 (0x00007ffcf43ed000)
-	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f8095e4e000)
-	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f8095b4d000)
-	libgcc_s.so.1 => /lib/x86_64-linux-gnu/libgcc_s.so.1 (0x00007f8095937000)
-	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f809558e000)
-	libdl.so.2 => /lib/x86_64-linux-gnu/libdl.so.2 (0x00007f809538a000)
-	/lib64/ld-lsb-x86-64.so.3 => /lib64/ld-linux-x86-64.so.2 (0x00007f809606b000)
-
-	#+BEGIN_SRC sh
-	apt-file search ld-lsb-x86
-	#+END_SRC
-
-* COMMENT Changes in Emacs' default behaviour
-For experienced Emacs users: APDL-Mode changes the default behaviour
-of Emacs
-
-** Globally
-- Switches on font-lock-mode if toggled off, e.g when calling Emacs
-  with the -D (basic display) option
-- Show Parentheses Mode is activated ~(show-paren-mode t)~
-# - Advised M-w (kill-ring-save) without active region to copy the whole
-#   line
-
-Delete Selection Mode, a behaviour similar on Windows platforms can
-be switched on in the APDL-Mode menu.
-
-Electric Pair Mode, a minor mode which inputs automatically
-corresponding APDL delimeter pairs ~()~, ~''~ and ~%%~ can be switched
-on in the menu as well.
-
-** Locally (mode dependent)
-- ~(setq scroll-preserve-screen-position t)~
-- ~(toggle-truncate-lines 1)~ truncate long lines, don't wrap them
-- Changed `mark-paragraph' (M-h) to move the cursor to the end of the
-  region
-
-* COMMENT Bugs and Problems
-For an overview of deficiencies and outstanding issues please check
-the beginning of the [[file:TODO][TODO]] file.
-
-The `user variable' highlighting is still experimental, newly edited
-variable definitions are taken into account only when the variable
-ansys-dynamic-highlighting-flag is set (for very large files this
-slows Emacs and this flag is only implemented for `.mac' files) or any
-times when you activate the variable display (with C-c C-v) and the
-maximum highlighting level.  If not already the case try to use the
-code in compiled form, please have a look at the documentation of the
-Emacs function `byte-recompile-directory'.
-
-Ansys `format line' (multi-line highlighting) and `user variable'
-highlighting (when the mentioned flag above is not set) are somewhat
-brittle, please use "M-o M-o" to update the highlighting in case the
-format line and all variables are not highlighted correctly.
-
-** Getting help
-
-If you experience problems installing or running this mode you have
-the following options:
-
-- Write an email to the mode [[mailto:dieter@duenenhof-wilhelm.de][maintainer]] (you can trigger a bug report
-  from the menu or directly calling the function
-  `ansys-submit-bug-report'.  Even when you are not in the position of
-  sending emails from Emacs this will give at least a useful mail
-  template with valuable information about internal mode settings).
-
-- When you have already a (cost free) GitHub account you are able to
-  issue a bug report at the [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub issues list]].  From this site you
-  might also download the latest development version.
-
-- At the [[https://www.emacswiki.org/emacs/AnsysMode][Emacs Wiki]] you might add comments or wishes for this mode
-  without registration.
-
------
-# The following is for Emacs
-# local variables:
-# word-wrap: t
-# show-trailing-whitespace: t
-# indicate-empty-lines: t
-# time-stamp-active: t
-# time-stamp-format: "%:y-%02m-%02d"
-# end:

@@ -1,4 +1,4 @@
-* Finding Help
+* Finding Help to APDL keywords
   Firstly with an in-buffer display of a brief command help and
   secondly browsing the complete Ansys html documentation.
 ** Command Help with Argument Counter
@@ -20,15 +20,27 @@
    Typing "C-c C-b" will display the original Ansys help in your web
    browser for all APDL commands, element names (stating the element
    number is sufficient), get- or parametric-functions.  "C-c C-b" is
-   locking for keywords on and before the cursor or - if this fails -
+   looking for keywords on and before the cursor or - if this fails -
    for APDL command at the line beginning.  This is also working for
    commented out code lines.
 
-   When using a prefix argument (typing C-u before C-c C-b) it
-   inquires a keyword from you.  Keywords beginning with a quotation
-   mark ‘"’ describing general manual sections, for example typing
-   ‘"SHELLS"’ will call the collection of all shell elements in the
-   Ansys manual.  You must complete your input with the <TAB> key.
+   When using a prefix argument (typing C-u before C-c C-b) the
+   command inquires a keyword from you.  Keywords beginning with a
+   quotation mark ‘"’ describing general manual sections, for example
+   typing ‘"SHELLS"’ will call the collection of all shell elements
+   from the Ansys manual.  You should complete your input with the
+   <TAB> key to make it unique.
+
+   Above quotation mark mechanism is implemented with "#" anchors for
+   the Ansys help files. This mechanism is not working for locally
+   installed help files on Windows systems when the default browser is
+   called from Emacs.  In this case you can either use EWW as the
+   default browser or specify your favourite browser directly.
+ # Please see the [[../info/apdl-config.org][configuration example]] on how to do this.
+#   #+texinfo:  Please see the @inforef{ on how to do this.
+   Please see [[file:apdl-config.org::*Miscellaneous][Miscellaneous]] on how to do this.  Please see section
+   @@texinfo:@ref{Configuration and Customisation}@@ on how to do
+   this.
 
 * Code Templates
   You are learning and also coding APDL best by example!  APDL-Mode
@@ -47,9 +59,11 @@
   APDL code with outline headings.  Alternatively you can use the
   binding "<CTRL> + u M-x apdl-skeleton-outline-template" for
   inserting templates instead of previewing them.
-** WorkBench / Discover Aim Templates
-   -TODO-
-
+** WorkBench Command Object Templates
+   APDL-Mode has also a small collection of code snippets for
+   WorkBench command objects.  You can preview these templates with
+   "C-c C-w" (for `apdl-display-wb-skeleton') or choose them from the
+   menu.
 * Editing Code
 ** Completions
    APDL keyword completion (commands, elements, get- and
@@ -153,16 +167,20 @@
    Formatting of variable definitions:
 
    Typing "C-c C-a" to call the function ‘apdl-align’ will
-   align marked sections or a paragraph of variable definitions like
-   the following lines
+   align a paragraphs or marked sections of variable definitions like
+   the following
 
+   #+begin_src apdl
    xyz=30.381      !this is a variable
    x = 0.4!this is another variable
+   #+end_src
 
-   they will be aligned to
+   which will be aligned to
 
+   #+begin_src apdl
    xyz = 30.381 !this is a variable
    x   =  0.4   !this is another variable
+   #+end_src
 
 ** Auto-insertion
    of code templates into new APDL files.
@@ -170,13 +188,15 @@
    Put the following section in your .emacs file, in case you want
    to to include above skeleton (optionally) for every APDL file.
 
+   #+begin_src emacs-lisp
    (auto-insert-mode 1)
    (add-hook ’find-file-hook ’auto-insert)
    (setq auto-insert-query t)
    (add-to-list ’auto-insert-alist ’(apdl-mode .
    [apdl-skeleton-outline-template]))
+   #+end_src
 
-   Please refere the configuration example ‘default.el’.
+   Please refer to the configuration example ‘apdl-config.el’.
 
 * Code Navigation and Hiding
   Navigating code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE

@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org1457a48)
-2.  [Some Highlights](#org952d117)
-3.  [Installation](#orged248d6)
-4.  [First Steps](#org744e6a5)
-5.  [Configuration and Customisation](#orge1ac101)
-6.  [Bugs and Problems](#org803b921)
-7.  [News](#orge819d18)
-8.  [Further Resources](#org7b477eb)
-9.  [Acknowledgements](#org3981b11)
-10. [Todos](#orgd2adab8)
-11. [GNU GPL v3 License](#orge7e3a00)
+1.  [Introduction](#org92c63ec)
+2.  [Some Highlights](#orgcae8326)
+3.  [Installation](#org62c3429)
+4.  [First Step](#orgbd9c3a8)
+5.  [Configuration and Customisation](#orgd8fd2e1)
+6.  [Bugs and Problems](#org873b927)
+7.  [News](#org936d4db)
+8.  [Further Resources](#orge498e9a)
+9.  [Acknowledgements](#orgbed1ef1)
+10. [Todos](#org82b4976)
+11. [GNU GPL v3 License](#org159087e)
 
 
 
@@ -27,50 +27,48 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org1457a48"></a>
+<a id="org92c63ec"></a>
 
 # Introduction
 
-APDL ([Ansys Parametric Design Language](https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language)) is the solver scripting
-language of the mechanical FEA (Finite Element Analysis) suite [Ansys](http://www.ansys.com)
-(ANalysis SYStem, registered TM).
+APDL, [Ansys Parametric Design Language](https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language) is the solver scripting
+language of the mechanical FEA, Finite Element Analysis suite [Ansys](http://www.ansys.com),
+ANalysis SYStem, registered TM.
 
-APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
-[GNU-Emacs](https://www.gnu.org/software/emacs/) editor - an advanced APDL environment with features like,
-pin-pointing the APDL reference documentation, keyword completion,
-code templates, dedicated highlighting, solver communication
-(GNU-Linux only), license reporting, etc.  Over the years it has
-accumulated lots of features for writing and debugging FEA complete
-models in APDL code. Please convince yourself with the APDL-Mode
-in-depth documentation.
+APDL-Mode, formerly Ansys-Mode, is - in conjunction with the [GNU-Emacs](https://www.gnu.org/software/emacs/)
+editor - an advanced APDL environment with features like, pin-pointing
+the APDL reference documentation, keyword completion, code templates,
+dedicated highlighting, solver communication (GNU-Linux only), license
+reporting, etc.  Over the years it has accumulated lots of features
+for writing and debugging complete FEA models in APDL code. Please
+convince yourself with the APDL-Mode in-depth documentation.
 
 With the advent of the modern Ansys GUIs - like \`WorkBench' or
-\`Discovery AIM' - the usage of APDL as a wholesale modelling
-language has diminished for non automated tasks.  But APDL is here
-to stay: \`WorkBench' and \`AIM' operate exclusively the Ansys solver
-with it!  They are producing and sending APDL input (.dat) files to
-the solver.  For a true understanding of the GUIs' inner workings a
-study of their APDL code is prerequisite!  Moreover, the GUIs are
-not supporting all solver features.  So "Command (APDL)" objects
-are used to enhance the GUIs' modelling capabilities.
+\`Discovery' - the usage of APDL as a wholesale modelling language has
+vaned for highly variable tasks which are hard to script.  But,
+nevertheless, APDL is here to stay: \`WorkBench' operates exclusively
+the Ansys solver with it!  It assembles and sends APDL input (.dat)
+files to the solver.  For a true understanding of the GUI's inner
+workings a study of their APDL code is prerequisite!  Moreover,
+WorkBench is not supporting all MAPDL solver features.  So "Command
+(APDL)" objects are used to enhance the GUI's modelling capabilities.
 
-Nowadays I find APDL-Mode mostly useful for studying solver (.dat)
-files which were created by WorkBench.  And, especially, for writing
-WorkBench \`Command' objects and inspecting longer command snippets
-from other sources.  Accessing the Ansys APDL reference documentation
-with the detour of searching the keywords alone is worth using
-APDL-Mode!
+APDL-Mode is very useful for studying solver (.dat) files which were
+created by WorkBench.  And, especially, for writing WorkBench
+\`Command' objects and inspecting longer command snippets from other
+sources.  Accessing the Ansys APDL reference documentation without
+detour - this alone - is worth using APDL-Mode!
 
 When you "Export" (or "Import") such a WorkBench "Command (APDL)"
-object it becomes associated with a file and is then editable with a
-third party editor.  When you have modified the file then the "File
-Status" in Workbench changes and you can pull-in the updated content
-with the "Refresh" button.
+object, it becomes associated with a file on disk and is accessible
+for any kind of editor.  If you modify this file, the "File Status" in
+Workbench changes and you can pull-in the updated content with the
+"Refresh" button.
 
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org952d117"></a>
+<a id="orgcae8326"></a>
 
 # Some Highlights
 
@@ -136,15 +134,16 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="orged248d6"></a>
+<a id="org62c3429"></a>
 
 # Installation
 
-Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
-Please install [GNU-Emacs](https://www.gnu.org/software/emacs/) first, you should install at least Emacs
-version 25.1.  (If you are new to this editor please check the
-tutorial in its \`Help' menu, please really do it ;-)
+Please install the [GNU-Emacs](https://www.gnu.org/software/emacs/) Editor first, For all functionality
+APDL-Mode needs version 25.1 (from 2016) or newer.  (If you are new
+to this editor please check its tutorial in the \`Help' menu, or read
+at least the APDL-Mode introduction.)
 
 
 ## Melpa
@@ -163,7 +162,7 @@ to your initialisation file.  Then type: \`M-x list-packages', find
 \`apdl-mode', mark it with \`i' and install it with \`x'.
 
 If you prefer the stable package archive instead of development
-versions exchange above package source with
+versions, exchange above package source with
 
     (add-to-list 'package-archives
     '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -204,26 +203,27 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org744e6a5"></a>
+<a id="orgbd9c3a8"></a>
 
-# First Steps
+# First Step
 
-Please type \`M-x apdl' which opens a buffer in APDL-Mode and you can
-inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
+Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
+can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see the following Configuration section for the
-pre-configured file suffixes.
+already, please see [5](#orgd8fd2e1),
+
+the section regarding pre-configured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
 Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 \`C-h m') for the list of its keybindings.  You might also check the
 introductory APDL-Mode [tutorial](doc/A-M_introductory_tutorial.md).
 
-APDL-Mode is tested with Ansys v193 and v201 under Windows 10, as
-well as under Emacs-25 and 26 under GNU-Linux and Windows.
+APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
+Emacs-27 under GNU-Linux and Windows.
 
 
-<a id="orge1ac101"></a>
+<a id="orgd8fd2e1"></a>
 
 # Configuration and Customisation
 
@@ -236,10 +236,10 @@ APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
 Please read the [apdl-config](info/apdl-config.md) documentation for further options or
-open the accompanying configuration [example-file](info/apdl-config.el).
+open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org803b921"></a>
+<a id="org873b927"></a>
 
 # Bugs and Problems
 
@@ -260,14 +260,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orge819d18"></a>
+<a id="org936d4db"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org7b477eb"></a>
+<a id="orge498e9a"></a>
 
 # Further Resources
 
@@ -275,7 +275,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org3981b11"></a>
+<a id="orgbed1ef1"></a>
 
 # Acknowledgements
 
@@ -286,18 +286,18 @@ APDL-Mode.
 Parts of APDL-Mode were based on octave-mod.el: Copyright (C) 1997
 Free Software Foundation, Inc.  Authors: [Kurt Hornik](mailto:Kurt.Hornik@wu-wien.ac.at) and [John Eaton](mailto:jwe@bevo.che.wisc.edu).
 
-I received moreover support and feedback from many individuals, thank
-you very much!
+I received, moreover, support and feedback from many individuals.
+Thank you very much!
 
 
-<a id="orgd2adab8"></a>
+<a id="org82b4976"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orge7e3a00"></a>
+<a id="org159087e"></a>
 
 # GNU GPL v3 License
 

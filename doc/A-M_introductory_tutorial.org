@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2020-05-01>
+#+DATE: Time-stamp: <2021-08-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+OPTIONS: H:1 texht:t
 # #+BEAMER_COLOR_THEME:
@@ -40,7 +40,7 @@
 #+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/>
 #+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/>
 #+XSLT:
-# #+TEXT: Copyright (C) 2006 - 2020  H. Dieter Wilhelm, GPL V3
+# #+TEXT: Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
 #+HTML: <img src="ansys+emacs2020.png" height=150 alt="image">
 
@@ -48,7 +48,7 @@
 # okular and acroread support PDF annotations, xpdf, Chrome and Evince not
 
 * Introduction
-** Introducing APDL-Mode -- an APDL environment
+** Introducing APDL-Mode -- an APDL Environment
    [[https://github.com/dieter-wilhelm/apdl-mode][This project]] supports your APDL workflows with the FEA suite [[http://www.ansys.com][Ansys]].
 # #+BEGIN_export LaTeX
 # \pdfannot % generic annotation
@@ -146,15 +146,15 @@
 # }%\hspace{.4cm}%
 # \quad
 # #+END_export
-  [[https://www.gnu.org/home.en.html][GNU]]-Emacs is an modern, powerful and extensible - yet free -
+  [[https://www.gnu.org/home.en.html][GNU]]-Emacs is a modern, powerful and extensible - yet free -
   editor. High quality software available for every operating system
   where Ansys is running.
 
 * Download and Installation
-** Download GNU-Emacs and the APDL-Mode Tar Package
-   There are no costs and no usage restrictions even in commercial
-   application.  Please download [[https://www.gnu.org/software/emacs/][GNU Emacs]] and the latest APDL-Mode
-   tar file from the [[https://github.com/dieter-wilhelm/apdl-mode/releases][APDL-Mode's releases page]].
+** Download GNU-Emacs and APDL-Mode
+   There are no costs and restrictions even in commercial application.
+   Please download [[https://www.gnu.org/software/emacs/][GNU Emacs]] and the latest APDL-Mode from [[https://melpa.org][Melpa]] or an
+   archive from the [[https://github.com/dieter-wilhelm/apdl-mode/releases][APDL-Mode's releases page]].
    #+latex: \\[.25cm]
 
 # #+ATTR_HTML: width="900"
@@ -171,40 +171,34 @@ package-install-file <RET>~ and select the downloaded tar archive.
 * COMMENT Installation
 ** Install APDL-Mode in GNU Emacs
 
-
 # #+ATTR_LaTeX: :width 11cm
 #   [[./emacs_bin_folder.png]]
 
 #  In this list /runemacs.exe/ is the actual editor executable.
 
 * Usage
-** Open an Emacs buffer under APDL-Mode
-  # Start the editor and open /doc/example.mac/ or any other APDL file
-  # (with the extensions /mac/, /ans/, /inp/, /dat/ or /anf/, otherwise
-  # type *M-x apdl* and <RET>).
-
-  Please type: ~M-x apdl <RET>~
+** Open an Emacs Buffer under APDL-Mode
+   Start the editor and open /doc/example.mac/ or any other APDL file
+   (with the extensions /mac/, /ans/, /inp/, /dat/ or /anf/, otherwise
+   type ~M-x apdl~ and <RET>).
 
 #+LaTeX: \\[.4cm]
 #+HTML: <br>
-   In the following *C-c* or e. g. *M-c* means typing the <CTRL> or <ALT>
-   key together with the `c' key.
+   In the following *M-x* or *C-c* means typing <ALT> or <CTRL> key
+   together with the `x' or `c' key.
 
+ #+ATTR_LaTeX: :height 7.5cm
+  [[./find_file_dialog.png]]
 
-# #+ATTR_LaTeX: :height 7.5cm
-#   [[./find_file_dialog.png]]
-
-** Explore the APDL-Mode menus
-  If Ansys is installed in its default folders, also system dependent
-  functions, like browsing the APDL help with *C-c C-b*, are working.
-  Otherwise, you can easily configure this. The former is *much*
-  faster as searching with the original Ansys Help Viewer.
+** Explore the APDL-Mode Menus
+   Browsing the APDL help with *C-c C-b* is much faster than searching
+   with the Ansys Help Viewer or online.
 
 #+ATTR_LaTeX: :height 7.5cm
  [[./ansys_menu.png]]
 
 * Selected APDL-Mode Features
-** Easily inspect WorkBench solver files (/doc/example.dat/)
+** Easily Inspect WorkBench Solver Files (/doc/example.dat/)
    APDL-Mode hides the normally uninteresting but usually very large
    number blocks.  On the right hand side is the unhidden content.  If
    APDL-Mode is not yet configured for /.dat/ files please type:
@@ -233,15 +227,15 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_LaTeX: :height 7.5cm
 [[./parameter_help.png]]
 
-** Check your cursor position in the parameter list
+** Check Your Cursor Position in the Argument List
   For commands with a large number of arguments it is cumbersome to
-  count the arguments, *C-?* facilitates this for you and visualises
-  dynamically at which parameter position the cursor currently is.
+  count the arguments, *M-h* facilitates this for you and visualises
+  dynamically at which argument position the cursor is.
 
 #+ATTR_LaTeX: :height 7.5cm
 [[./parameter_help2.png]]
 
-** Select and insert templates from the menu into your code
+** Select and Insert Templates from the Menu into Your Code
    Screenshot with the Ansys Classics GUI on the left and Emacs on the
    right on Win64
 
@@ -249,7 +243,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_HTML: :width "1200"
    [[./template_menu.png]]
 
-** Preview the extensible APDL code templates
+** Preview the Extensible APDL Code Templates
    Before inserting an entire template you are able to inspect its
    content in a preview window (*C-c C-s*) and might just copy the
    most relevant snippets, please see below and next slide.
@@ -257,26 +251,25 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_LaTeX: :height 7.5cm
    [[./template.png]]
 
-** Select an interesting template from a completion window
+** Select an Interesting Template from a Completion Window
    Type *C-c C-s* to choose a template name, use the <TAB> key to
    complete or to open the completion window of available items.
 
 #+ATTR_LaTeX: :height 7.5cm
    [[./template_selection.png]]
 
-** Check auto-insertion and outline your code (tree view)
-  Create a new APDL file with the suffix
-#+BEGIN_LaTeX
-`{\sl .mac}'
-#+END_LaTeX
-  and let Emacs auto-insert
-  a skeleton with `outline' headings.  Collapse the content to a tree
-  view with *C-c @ C-t* and open all (*C-c @ C-a*) again.
-
+** Check Auto-Insertion and Outline Your Code (Tree View)
+   Create a new APDL file with the suffix /.mac/ and let Emacs
+   auto-insert a skeleton with `outline' headings.  Collapse the
+   content to a tree view with *C-c @ C-t* and open all (*C-c @ C-a*)
+   again.
+# #+BEGIN_LaTeX
+# `{\sl .mac}'
+# #+END_LaTeX
 #+ATTR_LaTeX: :height 7.5cm
   [[./outline.png]]
 
-** Utilise completions of all -- around 2000 -- APDL symbols
+** Utilise completions of all (~2000) APDL symbols
   Move the cursor behind a character - here `c' - or word fragment and
   type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
   element- and function names.
@@ -284,15 +277,26 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_LaTeX: :height 7.5cm
   [[./completion.png]]
 
-** Open a summary window of your APDL variables
+** Open a Summary Window of Your APDL Variables
   Type *C-c C-v* to receive a summary window of all your variable
   definitions. With an argument (*C-u C-c C-v*) you will get the
   current value of your variable at the cursor (Linux only, right).
 
-#+ATTR_LaTeX: :height 7cm
+*** bla
+	  :PROPERTIES:
+	  :BEAMER_env: column
+	  :BEAMER_col: 0.5
+	  :END:
+#+ATTR_LaTeX: :height 6cm
   [[./variable_buffer.png]]
-#+ATTR_LaTeX: :height 7cm
+*** blabla
+	  :PROPERTIES:
+	  :BEAMER_env: column
+	  :BEAMER_col: 0.5
+	  :END:
+#+ATTR_LaTeX: :height 6cm
   [[file:variable_status.png]]
+
 # #+BEGIN_LaTeX
 # \href{https://www.gnu.org/software/emacs/tour/}{%
 #   \includegraphics[width=5cm]{./tour_of_Emacs.png}%
@@ -300,19 +304,19 @@ package-install-file <RET>~ and select the downloaded tar archive.
 # #+END_LaTeX
 # #+HTML: <img src="./tour_of_Emacs.png" alt="download page from Google Code">
 
-** Structure your variable assignments
+** Structure Your Variable Assignments
   Move the cursor to a variable definition paragraph or mark, here in
   yellow, some definitions and type *C-c C-a* to align them.
 
 #+ATTR_LaTeX: :height 7.5cm
   [[./alignment.png]]
 
-** Use the Emacs integrated, programmable RPN calculator
+** Use the Emacs Integrated, Programmable RPN Calculator
    Type ~C-x * *~ to open the calculator, type ~y~ for pasting results
    directly into the APDL file.  And ~q~ to quit the `Calc' windows.
 #+ATTR_LaTeX: :height 7cm
   [[./calculator.png]]
-** Display the license status and preview images
+** Display the License Status and Preview Images
    In Emacs' lower-half you see the license status (*C-c C-l*).  All
    described features can be executed through the APDL-Mode menu or
    with keyboard shortcuts.
@@ -321,7 +325,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_HTML: :width "1200"
    [[./license.png]]
 
-** Debug your code interactively with the solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU-Linux]])
+** Debug Your Code Interactively with the Solver ([[http://www.gnu.org/gnu/why-gnu-linux.html][GNU-Linux]])
    You can run the Ansys solver under Emacs and send code lines from
    above APDL window with *C-c C-j* (*C-c C-c* for whole regions)
    directly to this process. Below you see the *interactive* solver
@@ -331,8 +335,10 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_LaTeX: :height 6.5cm
   [[./process.png]]
 
-** Arrange the APDL-Mode windows to your needs
-   The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU-Linux) with a ripped off APDL-Mode menu field
+** Arrange the APDL-Mode Windows to Your Needs
+   The image shows an Emacs 23.2 frame (in reversed colour mode and
+   compiled with the GTK+ toolkit under GNU-Linux) with a ripped off
+   APDL-Mode menu field
 
 # The
 # APDL file is in the right window with the (experimental) user variable
@@ -344,10 +350,10 @@ package-install-file <RET>~ and select the downloaded tar archive.
    file:ansys-mode.jpg
 
 * Configuration
-** Configure system dependent aspects and user options
+** Configure User Options and System Dependent Aspects
 #   \\Mainly the Ansys version and its installation directory
-   Please check the mode settings with Emacs'
-    customisation system (no programming necessary) use the menu and
+   Please check the mode settings with Emacs' customisation system (no
+    programming necessary) use the menu and
 *** modify settings with Emacs' customisation system
 	  :PROPERTIES:
 	  :BEAMER_env: block
@@ -359,7 +365,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
     [[./customisation_system.png]]
 
   ... and reload APDL-Mode.
-*** or check the well commented file /ansys-config.el/
+*** or check the well commented file /apdl-config.el/
 	  :PROPERTIES:
 	  :BEAMER_env: block
 	  :BEAMER_envargs: C[T]
@@ -370,7 +376,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 
   ... and restart Emacs.
 * Documentation and Licensing
-** Get to know Emacs and its excellent documentation
+** Get to Know Emacs and Its Excellent Documentation
   Newcomers to Emacs should take the [[http://www.gnu.org/software/emacs/tour/][guided online tour]] to
   get a background of its capabilities and fire up the interactive
   tutorial (*C-h t*) which is translated to various languages.
@@ -385,28 +391,27 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+END_LaTeX
 #+HTML: <img src="./tour_of_Emacs.png" alt="download page from Google Code">
 
-** Use the APDL-Mode built-in help
-   Please type *C-h m* to open the mode help, especially for
-   APDL-Mode's usage and keybindings.  At the beginning is also a
-   brief introduction of basic Emacs concepts.
+** Use the APDL-Mode Built-in Help
+   Please type *C-c C-h* for the mode manual (there is also a brief
+   introduction of basic Emacs concepts) and *C-h m*, especially for
+   APDL-Mode's keybindings.
 
 #+ATTR_LaTeX: :height 7.5cm
    [[./mode_help.png]]
 
-** You might read further APDL-Mode documentation
+** You Might Read Further APDL-Mode Documentation
 
 # *** Licensing and costs:
    - Licensing and costs: :: This is free and open software, there are
 	*no costs* and effectively *no restrictions* for you using
-	Emacs and APDL-Mode even commerically.  Both are under the
+	Emacs and APDL-Mode - even - commerically.  Both are under the
 	[[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] copied in the /LICENSE.org/ file.
 # # ATTENTION: \pdfannot does not work in this environment!!!!
 # *** Installation:
-   - Installation: :: More detailed instructions are necessary if you
-                      are not using the mode bundled with Emacs.
-                      Please have a look in the /INSTALLATION.org/
-                      file.  The online documentation is at
-                      [[http://dieter-wilhelm.github.io/ansys-mode/][APDL-Modes's documentation site]].
+   - Configuration: :: More detailed instructions might be necessary if
+     you are not using default /Ansys/ installations.  Please have a
+     look in the /INSTALLATION.org/ file.  The online documentation is
+     at [[http://dieter-wilhelm.github.io/ansys-mode/][APDL-Modes's documentation site]].
 # *** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find these
 	in-depth documentation included in the mode's archives on
@@ -416,7 +421,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 	accompanying /NEWS.org/ file
 
 * Help and Bugs
-** Search for help, report bugs and issues
+** Search for Help, Report Bugs and Issues
   Besides the documentation, have a look in the [[https://github.com/dieter-wilhelm/ansys-mode/issues][GitHub's issues site]]
   or send an [[mailto:dieter@duenenhof-wilhelm.de][email to the maintainer]].  Please use the APDL-Mode bug
   report functionality, which might provide helpful status
@@ -426,7 +431,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
   [[./bug_report.png]]
 
 * Summary
-** Use APDL-Mode appropriate to your needs
+** Use APDL-Mode Appropriate to Your Needs
 **** The relevance of APDL remains: `WorkBench' and `AIM' operate *exclusively* the Ansys solver with it!  For a *true understanding* the study of APDL is *prerequisite*.   Furthermore, code APDL only for *repetitive* tasks or WB/AIM snippets.
 *** Basic APDL *Viewer*
 	 :PROPERTIES:
@@ -455,7 +460,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
     Solver communication/feedback - hybrid between coding and
     debugging (GNU-Linux only), retrieving license states, error file
     viewing, abort file handling, extending APDL templates, ...
-** Last slide of the APDL-Mode tutorial
+** Last Slide of the APDL-Mode Tutorial
 ***  Hint for the curious:
 	 :PROPERTIES:
 	 :BEAMER_env: block
@@ -466,11 +471,12 @@ package-install-file <RET>~ and select the downloaded tar archive.
 
 # #+ATTR_LaTeX: width=5.5cm
 # #   ,angle=90
-#+BEGIN_LaTeX
+#+begin_export latex
+\vspace{.3cm}
 \href{https://shop.oreilly.com/product/9780596006488.do}{%
   \includegraphics[width=5.5cm]{./gnu_emacs.png}%
 }
-#+END_LaTeX
+#+end_export
 #+HTML: <img src="./gnu_emacs.png" alt="download page from Google Code">
 
 *** Thank you for your time getting acquainted with APDL-Mode and Emacs!

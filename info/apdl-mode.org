@@ -1,5 +1,5 @@
 #+MACRO: version 20.6.0
-#+MACRO: updated Time-stamp: "2021-08-28"
+#+MACRO: updated Time-stamp: "2021-08-30"
 
 #+TITLE: The Manual of APDL-Mode
 #+SUBTITLE: Version {{{version}}} {{{updated}}}
@@ -27,32 +27,30 @@ Version {{{version}}} {{{updated}}}
 # #+ATTR_TEXINFO: :width 5cm :alt Alternate @i{APDL-Mode logo}
 # [[file:~/a-m/doc/ansys+emacs2020-03.png]]
 
-* Copying
+* Copyright and Copying
   :PROPERTIES:
   :END:
 #  :COPYING:  t
 
   Copyright \copy 2020 - 2021 H. Dieter Wilhelm
 
-  #+BEGIN_QUOTE
   Permission is granted to copy, distribute and/or modify this
   document under the terms of the GNU Free Documentation License,
   Version 1.3 or any later version published by the Free Software
   Foundation; with no Invariant Sections, with no Front-Cover Texts,
-  and with no Back-Cover Texts.  A copy of the license is included in
-  the section entitled [[GNU Free Documentation License]].
-  #+END_QUOTE
+  and with no Back-Cover Texts.  A copy of the license is included,
+  [[GNU Free Documentation License]].
 
-* Introduction
+* Foreword
   #+include: ./introduction.org
-* First Steps
+* First Step with APDL-Mode
   #+include: ./first_steps.org
-* Introductory Tutorial
+* Introductory Tutorial for Emacs Concepts
   #+include: ./tutorial.org
-* Usage and Applications
+* APDL-Mode Usage
   #+include: ./usage.org
 * Configuration and Customisation
-  #+include: ../info/apdl-config.org
+  #+include: ./apdl-config.org
 * APDL Reference
   #+include: ../doc/A-M_APDL_reference.org
 * Installation and Development

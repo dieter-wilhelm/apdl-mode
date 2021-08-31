@@ -10,12 +10,13 @@ control key <ALT> and the regular key ‘?’ simultaneously.
 GNU-Emacs provides also a third, so called interactive way to access
 this and other functions.  By typing ‘M-x’ (the <ALT> key and the ‘x’
 key at the same time) you are able to access the, so called,
-‘minibuffer’ below the status line.
-#+texinfo: @inforef{Minibuffer,,emacs} for more information.
-There you can input the desired
-function by its name.  In above example the function
-‘apdl-show-command-parameters’.  So type ‘M-x’ and in the minibuffer
-type ‘apdl-start-ansys-help’ and starting it with the <RET> key.
+‘minibuffer’ below the status line. @@texinfo:@inforef{Minibuffer,,emacs}@@
+for more information.  There you can input the desired function by its
+name.  In above example the function ‘apdl-show-command-parameters’.
+So type ‘M-x’ and in the minibuffer type ‘apdl-start-ansys-help’ and
+starting it with the <RET> key.
+
+# #+texinfo: @inforef{Minibuffer,,emacs}
 
 Typing long function names can be abbreviated with the auto-completion
 feature.  Just enter the first few characters of a command and then
@@ -41,5 +42,7 @@ key) will display their respective help strings.
 
 In case something unintended happend to your code you are always able
 to resort to the Emacs ‘undo’ functionality from the "Edit" menu or by
-typing ‘C-x u’.  
-#+texinfo: @inforef{Top,,emacs} for the complete editor documentation.
+typing ‘C-x u’. @@texinfo:@inforef{Top,,emacs}@@ for the complete
+editor documentation.
+
+# #+texinfo: @inforef{Top,,emacs} for the complete editor documentation.

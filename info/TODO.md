@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org8564462)
-2.  [Version 20.5.0](#orgb819cd3)
-3.  [Version 20.4.0](#orgb13e447)
-4.  [Version 20.3.0](#orge10d14e)
-5.  [Version 20.2.0](#orga17bb99)
-6.  [Version 20.1.1](#orgd1505e4)
-7.  [Version 162-2](#orgc83bd33)
+1.  [Version 20.6.0](#org1149f81)
+2.  [Version 20.5.0](#orgd0d5d43)
+3.  [Version 20.4.0](#org6a4a172)
+4.  [Version 20.3.0](#orga8a076a)
+5.  [Version 20.2.0](#org5df5b21)
+6.  [Version 20.1.1](#orge975cb5)
+7.  [Version 162-2](#org88798ea)
 
 
 
-<a id="org8564462"></a>
+<a id="org1149f81"></a>
 
 # TODO Version 20.6.0
 
@@ -22,6 +22,7 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Todos, bugs
 
+-   APDL reference is incomplete
 -   Templates: Add intro help to the -wb-template system, complete
     usage.org
     -   Code Templates, apdl-wb-custom-template-directory
@@ -31,8 +32,6 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 ## Issues
 
 -   Discovery Aim is obsolete
--   C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-    the respective section on page for Chrome and Edge!?
 -   c\*\*\* isn't completed
 -   \*mwrite
     \*cfclos
@@ -58,7 +57,7 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ## Wishes
 
--   An Info index
+-   A better Info index
 -   Mouse completion is working with **middle** mouse button (mouse-2)
     but only on the second LMB or, in the case of C-c C-s, not at
     all.
@@ -68,6 +67,12 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 
 ### Docu
+
+Rework the messy documentation system of files and applications
+
+1.  INFO -> info/apdl-mode.org <- flat file
+2.  MD for github -> info/README.org <- uses folder structure
+3.  Melpa packaging -> apdl-mode
 
 -   Things like C-c C-jjj (more?) are not documented in manual!
 -   more C-c C-b subjects?
@@ -97,10 +102,14 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 Info documentation:
 
--   work on the Info index
+-   don't line break ref{references}!
+
+-   work on the Info index #+cindex:
 -   \#+include: #+title adds to info title!
+-   inline
 -   \#+texinfo: @inforef{node,name,file} links to Emacs info pages,
-    done, make contex SELF SUSTAINED!!
+    done, make contex SELF SUSTAINED!! Is adding "See" in the text!
+    ;-)
 -   Attention colon ":" in headline gives a texinfo reference!
 -   C-u C-h i: info file :-)
 -   package with file "dir"
@@ -197,7 +206,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="orgb819cd3"></a>
+<a id="orgd0d5d43"></a>
 
 # DONE Version 20.5.0
 
@@ -205,7 +214,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orgb13e447"></a>
+<a id="org6a4a172"></a>
 
 # DONE Version 20.4.0
 
@@ -213,7 +222,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orge10d14e"></a>
+<a id="orga8a076a"></a>
 
 # DONE Version 20.3.0
 
@@ -222,14 +231,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orga17bb99"></a>
+<a id="org5df5b21"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgd1505e4"></a>
+<a id="orge975cb5"></a>
 
 # DONE Version 20.1.1
 
@@ -242,7 +251,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgc83bd33"></a>
+<a id="org88798ea"></a>
 
 # Version 162-2
 

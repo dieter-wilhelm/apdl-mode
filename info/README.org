@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2021-08-10>
+#+DATE: Time-stamp: <2021-08-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -104,7 +104,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 * Installation
   #+include: ./INSTALLATION.org
 
-* First Steps
+* First Step
   #+include: ./first_steps.org
 * Configuration and Customisation
   Most functionality is working without additional configurations.
@@ -116,12 +116,10 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
   ".mac", ".dat" and ".inp" under apdl-mode.
 
   Please read the [[file:info/apdl-config.org][apdl-config]] documentation for further options or
-  open the accompanying configuration [[file:info/apdl-config.el][example-file]].
+  open the accompanying configuration [[file:apdl-config.el][example-file]].
 * Bugs and Problems
   #+include: ./bugs.org
 * News
-
-
   For further news please have a look into the [[file:info/NEWS.org][NEWS]] file.
 * Further Resources
   If you want to read further details regarding the APDL scripting,

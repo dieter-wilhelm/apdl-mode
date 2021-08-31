@@ -18,8 +18,10 @@ home directory) for futur sessions as well.
 
 Alternatively you might include the following Elisp code snippet
 
+#+texinfo: @lisp
      (setq apdl-highlighting-level 2)
      (setq apdl-dynamic-highlighting-flag t)
+#+texinfo: @end lisp
 
 directly into your .emacs file.  (Semicolon `;' is the comment
 character.  Please check the configuration example `default.el'.)

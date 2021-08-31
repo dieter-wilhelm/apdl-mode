@@ -98,7 +98,7 @@ PACKAGE := apdl-mode-$(VERSION).tar
 # necessary el files
 EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el \
-	../apdl-process.el
+	../apdl-process.el ../info/apdl-config.el
 
 ELC_FILES := $(EL_FILES:.el=.elc)
 

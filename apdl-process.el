@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-28>
+;; Time-stamp: <2021-08-30>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-28>
+#+DATE: Time-stamp: <2021-08-31>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -22,14 +22,13 @@ Melpa: [2021-08-09 Mo] 481
 # Melpa: [2021-04-23 Fr] 436 downloads
 Melpa: [2020-10-24 Sa] 396 downloads
 ** Todos, bugs
+   - APDL reference is incomplete
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc in the manual
 ** Issues
    - Discovery Aim is obsolete
-   - C-u C-c C-b in browser on Win10 for "All"stuff isn't skipping to
-     the respective section on page for Chrome and Edge!?
    - c*** isn't completed
    - *mwrite
      *cfclos
@@ -49,7 +48,7 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
 ** Wishes
-   - An Info index
+   - A better Info index
    - Mouse completion is working with *middle* mouse button (mouse-2)
      but only on the second LMB or, in the case of C-c C-s, not at
      all.
@@ -57,6 +56,14 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - Presentation(s) and EN Wiki, youtube?
    - Help system and docu, rather complete, except online docu
 *** Docu
+    Outdated menus in A-M-introductory_tutorial.org
+
+    Rework the messy documentation system of files and applications
+    1) INFO -> info/apdl-mode.org <- flat file
+    2) MD for github -> info/README.org <- uses folder structure
+    3) Melpa packaging -> apdl-mode
+
+
     - Things like C-c C-jjj (more?) are not documented in manual!
     - more C-c C-b subjects?
        2.1. SESSION Commands
@@ -84,11 +91,14 @@ Melpa: [2020-10-24 Sa] 396 downloads
       (debbugs-gnu-bugs 25678) is not solved)?
 
    Info documentation:
+      - don't line break ref{references}!
 
-     - work on the Info index
+     - work on the Info index #+cindex:
      - #+include: #+title adds to info title!
+     - inline @@texinfo: @@
      - #+texinfo: @inforef{node,name,file} links to Emacs info pages,
-       done, make contex SELF SUSTAINED!!
+       done, make contex SELF SUSTAINED!! Is adding "See" in the text!
+       ;-)
      - Attention colon ":" in headline gives a texinfo reference!
      - C-u C-h i: info file :-)
      - package with file "dir"

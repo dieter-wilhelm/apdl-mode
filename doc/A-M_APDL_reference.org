@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-18>
+#+DATE: Time-stamp: <2021-08-30>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -50,7 +50,7 @@
       :PROPERTIES:
       :Version:  17.0
       :END:
-    #+BEGIN_SRC ansys
+    #+BEGIN_SRC apdl
      2333        6        5        6        0     6458     6457     6422     6421     8356     8306     8303     8304
 -1
 keyo,cid,8,2               ! auto create asymmetric contact (from Program Controlled setting)
@@ -92,7 +92,7 @@ eblock,10,,,94
 *** Plasticity
     Multilinear Kinematic Hardening (MISO)
     Implementation:
-    #+BEGIN_SRC ansys
+    #+BEGIN_SRC apdl
     TB,PLAS,1,1,2,MISO
     #+END_SRC
     This means that one must input the curve in plastic strains and
@@ -124,7 +124,7 @@ eblock,10,,,94
 
 **** Pressure
      Surface elements ~surf154~ and surface loads on elements (~sfe~)
-      #+BEGIN_SRC ansys
+      #+BEGIN_SRC apdl
        /com,*********** Define Pressure Vector Using Surface Effect Elements ***********
        local,12,0,0.,0.,0.,0.,0.,0.
        csys,0
@@ -198,7 +198,7 @@ eblock,10,,,94
       :END:
       Fixing normal displacement with (~d~), possibly modifying nodal
       coordinate system (~nmodif~), turning into normal direction.
-      #+BEGIN_SRC ansys
+      #+BEGIN_SRC apdl
         /com,********* Frictionless Supports X *********
         CMBLOCK,_FRICSUX,NODE,       48
         (8i10)
@@ -390,7 +390,7 @@ eblock,10,,,94
    - .dbb
 
 
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   c***,**************************************************
   !@ --- APDL Reference ---
   c******************************************************
@@ -408,21 +408,21 @@ eblock,10,,,94
     assigned a tiny value near zero.  The interpreter is not case
     sensitive :TODO except in strings?
     - Parameters must begin with a letter or an underscore
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !@ --- Defining parameters ---
   !@@ -- Variable names --
 
   !! Must begin with a letter or an underscore The interpreter is not
   !! case sensitive for expressions only for strings
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   1ansys = 3                    !is not a valid variable name
   a1nsys = 3                    !a1nsys is a valid variable name
   A1NSys = 4                    !this is the same variable
   A1NSys = Temp                 !`Temp' is not defined, near zero
 #+end_src
     The following text is the respective Ansys solver/interpreter output.
-#+begin_src ansys-solver :tangle no
+#+begin_src apdl-solver :tangle no
   BEGIN:
    1ansys = 3                    !is not a valid variable name
   PARAMETER 1Ansys =     3.000000000
@@ -445,11 +445,11 @@ eblock,10,,,94
     Should not begin with an underscore This convention is used in
     nameing variables in Ansys supplied macros and the GUI.
 
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
    !! Should not begin with an underscore
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   _ansys = 3   !`_ansys' represents a reserved variable in Ansys supplied macros
   _ = 3        ! a single underscore definition is valid
   X = _
@@ -458,17 +458,17 @@ eblock,10,,,94
 - Variable names with a trailing underscore
     These are hidden from the `*status' command output and can be
     deleted as a group with `*del'.
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Variable names with a trailing underscore
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   ansys_ = 3              !this is a `hidden' variable from *status
   *status                 !does not show `ansys_'
          ,PRM_            !show variables with trailing underscore
   *del,,PRM_              !delete all variables with trailing underscore
 #+end_src
-#+begin_src ansys-solver :tangle no
+#+begin_src apdl-solver :tangle no
      BEGIN:
     ansys_ = 3
      PARAMETER Ansys_ =     3.000000000
@@ -496,16 +496,16 @@ eblock,10,,,94
      BEGIN:
 #+end_src
 - Must contain only letters, numbers and underscores
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Must contain only letters, numbers and underscores
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !! only letters, numbers and underscores are allowed
   a1n§sys = 3              !this is not a valid variable name
   a1n_sys = 3              !this is a valid variable name
 #+end_src
 the Ansys interpreter output looks like this:
-#+begin_src ansys-solver :tangle no
+#+begin_src apdl-solver :tangle no
   BEGIN:
    a1n§sys = 3              !this is not a valid variable name
   ,*** ERROR ***                           CP =       0.256   TIME= 17:35:07
@@ -517,20 +517,20 @@ the Ansys interpreter output looks like this:
   BEGIN:
 #+end_src
 - Must contain no more than 32 characters
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Must contain no more than 32 characters
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !! The following is not a valid variable name
   v23456789_123456789_123456789_123 = 3
   !! The following is a valid variable name
   v23456789_123456789_123456789_12  = 3
 #+end_src
 - Local Variables
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Local Variables
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
   AR18 = AR19
   *stat,argx
@@ -538,20 +538,20 @@ the Ansys interpreter output looks like this:
 
 *** Character strings
     Must not contain more than 32 characters
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !@@ -- Character strings --
   !! Must not contain more than 32 characters
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   ! character string variables are enclosed with `''
   Yc = '012345678901234567901234567890123' !not a character variable any more
   Symetry = 'yes'
 #+end_src
 ** Erasing variables from memory
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !@@ -- Erasing variables from memory --
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !! defining
   Scalar = 3               !the `=' assignment is a shorthand for `*set'
   *set,Scalar,4            !reassignment
@@ -567,17 +567,17 @@ the Ansys interpreter output looks like this:
 
 ** Variable substitution
    with `%'
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !@@ -- Variable substitution with `%' --
 #+end_src
 *** Substitution of Numeric Variables
 In "string commands" like `/com', where a string follows the command
 name one can force the substitution of a parameter name to its value.
 Other examples are
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Substitution of Numeric Variables
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   Steel = 1
   /com,Material %Steel% is steel
   !! ATTENTION: in the following situation!
@@ -587,14 +587,14 @@ Other examples are
 #+end_src
 *** Substitution of Character Variables
 It is possible to substitute a command name
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
    !! Substitution of Character Variables
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   R='RESUME'
   %R%,MODEL,DB
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !! string, message commands and comment behaviour && %$$% %% :bla: &&&
 
   /com, bla = %bla%
@@ -608,14 +608,14 @@ It is possible to substitute a command name
 #+end_src
 - In certain `string commands'
 ~/title~ and ~/com~ are string commands similar to ~c***~
-#+begin_src ansys
+#+begin_src apdl
   right = 'wrong'
   /title, the value of right is  %right%
   /com, this is %right%: /com does expand parameters as well
 #+end_src
 - Unfortunately here is no expansion possible
 neither with ~c***~ nor with ~/sys~
-#+begin_src ansys
+#+begin_src apdl
   right = 9
   c***,this is %right%: c*** allows no parameter expansion
   /sys,ls "*.mac" %otto% &
@@ -627,18 +627,18 @@ neither with ~c***~ nor with ~/sys~
 
 *** Dynamic Substitution of Numeric or Character Variables
  or forced substitution (deferred)
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Dynamic Substitution of Numeric or Character Variables
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   Case = 'case 1'
-  /title,This is  %Case%
-                           !/stitle
-                           !*ask
-                           !/tlabel
-                           !/an3d
-                           !in tables TODO:
+  /title,This is %Case%
+  !! /stitle
+  !! *ask
+  !! /tlabel
+  !! /an3d
+  !! in tables TODO:
   aplot
   Case = 'case 2'
   !! not necessary to reissue /title, "This is case 2"
@@ -649,14 +649,15 @@ neither with ~c***~ nor with ~/sys~
 ** Expressions
 *** Exponentiation Operator
     is `**'
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
    !! Exponentiation Operator is `**'
 #+end_src
 *** Multiplication Expression
     Beware of the oldstyle Ansys asterisk comment!
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !! Beware of the oldstyle Ansys asterisk comment sign!
 #+end_src
+
 #+begin_src  ansys
 otto = 3 * 4 COMMENT! The value of otto is actually 3!
 var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
@@ -666,10 +667,10 @@ fini * comment
 #+end_src
 *** Operators
     `<' and  `>' :TODO
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
    !! Operators: `<' and  `>' :TODO
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   otto = 1.82
   karl = 1.97
   margret =  otto < karl !margret = otto
@@ -678,20 +679,20 @@ fini * comment
 #+end_src
 ** Arrays
    4 types: array, char of 8 characters, table and string 128 chars
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !@@ -- Arrays --
 #+end_src
 *** Specifiying array element values
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
    !! Specifiying array element values
 #+end_src
 *** APDL Math
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
    !! APDL Math
 #+end_src
 APDL Math works in its own workspace independent of the APDL
 environment!
-#+begin_src ansys
+#+begin_src apdl
   No = 100
   Pi = acos(-1)
   Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
@@ -704,16 +705,16 @@ environment!
 #+end_src
 
 ** debugging
-#+begin_src ansys
+#+begin_src apdl
   debug                    !TODO: undocumented?
 #+end_src
 ** Multiple runs, probabilistic design
-#+begin_src ansys
+#+begin_src apdl
   PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
   in V11: *mrun                    !TODO:
 #+end_src
 ** Undocumented commands
-#+begin_src ansys
+#+begin_src apdl
   !undocumented commands are highlighted differently
   /xml                     !undocumented command /xml
   /xfrm                    !documented command   /xfrm
@@ -757,7 +758,7 @@ environment!
 # #+END_LaTeX
 
 ** Header
-#+begin_src ansys
+#+begin_src apdl
     !! ------------------------------
     !@ --- header ---
     !! ------------------------------
@@ -768,7 +769,7 @@ environment!
     !!  Please see further below.
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   /units,mpa !indicate mm-t-s unit system
   !@ --- Preprocessing ---
   /prep7
@@ -805,7 +806,7 @@ environment!
   *fft                     !TODO: :-)
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   !!  Please put the the cursor below the next paragraph of emacs lisp
   !!  code and type "C-x C-e" to change the setting of
@@ -828,7 +829,7 @@ environment!
 #+end_src
 
 # and this is for the APDL file
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
 ! this is the lisp code
   (progn
     (when
@@ -845,7 +846,7 @@ environment!
 !! ------------------------------
 /units,mpa !indicate mm-t-s unit system
 c
-#+begin_src ansys
+#+begin_src apdl
   !@@ -- Ignored characters and condensed input line ($ operator)
   finishThisNightmare $ /cle !/clear
   f $ fi $ fin $ fini $ finis  $ finish $ finisher
@@ -856,17 +857,17 @@ c
 !@ --- APDL-Mode is highlighting APDL specials ---
 #+end_src
 *** Reserved words and _RETURN statements
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
 !@@ -- Reserved words and _RETURN statements --
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !!
   N      =  _RETURN       !return value of certain commands
   Alpha2 =  +360./(2*N)
   Xc     =  !empty rhs clears variables
 #+end_src
 *** _RETURN values of macros
-#+begin_src ansys
+#+begin_src apdl
   *return                  !TODO: what is this?
   *status,_RETURN          !0 normal
                            !1 note
@@ -875,7 +876,7 @@ c
                            !4 fatal
 #+end_src
 ***  Old style APDL comments
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
 !@@ -- Old style APDL comments --
 #+end_src
 #+begin_src  ansys
@@ -886,7 +887,7 @@ otto = 3 * 4 comment, the value of otto = 3!
 !!
 #+end_src
 *** Ignored characters behind commands
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
 !@@ -- Ignored characters behind commands --
 #+end_src
 #+begin_src  ansys
@@ -902,17 +903,17 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !!
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   !@@ -- function names --
   Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
   Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 #+end_src
 
 *** Ignored characters behind commands
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
 !@@ -- Ignored characters behind commands --
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   f $ fi $ fin $ fini $ finis  $ finish $ finisher
   a $ al $ all $ alls $ allse $ allsel $ allselllllll
   rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
@@ -922,16 +923,17 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
 #+begin_src  ansys :exports none
   !@@ -- End Of File command --
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
     /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+    !! /eof stops input for batch runs and the solver returns error code 8
     /exit,nosave           !default is save the model data
   !!
 #+end_src
 *** Current element types and deprecated elements
-#+begin_src ansys :exports none
+#+begin_src apdl :exports none
   !@@ -- Current element types & deprecated elements
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !! A current element type:
   et,10,solid186
   !! deprecated element types:
@@ -939,19 +941,19 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
   !!
 #+end_src
 Let's change the element types to current ones!
-#+begin_src ansys :tangle yes
+#+begin_src apdl :tangle yes
   !! Complete the following element fragments to current ones!
   !!
   et,Steel,beam $ et,Alu,shell
 
 #+end_src
 For example select the following elements
-#+begin_src ansys :tangle no
+#+begin_src apdl :tangle no
   et,Steel,beam188 $ et,Alu,shell28
 #+end_src
 and you are getting a diffent element highlighting.
 
-#+begin_src ansys
+#+begin_src apdl
   !@@ -- default commands
   nsel,s,loc,y,0
       ,a,loc,y,1
@@ -959,7 +961,7 @@ and you are getting a diffent element highlighting.
   d,all,all
 #+end_src
 ** Implied (or colon) looping
-#+begin_src ansys
+#+begin_src apdl
   !@@ ::: implicit : (colon) looping :::::
   !! (n1:n2:dn)
   lfillt,(1:2),(3:4),5
@@ -975,7 +977,7 @@ and you are getting a diffent element highlighting.
   *vfill,Fx,ramp,1,10
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   !! looping
   ,*get,Dim
   ,*if,Dim,le,1,then
@@ -988,7 +990,7 @@ and you are getting a diffent element highlighting.
     Reaction(I)=Fx
   ,*enddo
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !@@ -- multiline *msg formatting with the & operator
   *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
   Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
@@ -1002,7 +1004,7 @@ and you are getting a diffent element highlighting.
 
   *taxis only for 3 dimension? table(0,1) = 3 is working as well
 
-#+begin_src ansys
+#+begin_src apdl
   !@@ --! multiline message format command this is tricky: use M-o M-o
   *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
   Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
@@ -1017,26 +1019,26 @@ and you are getting a diffent element highlighting.
   alkd %D &
   %E%/%E
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   !! commands which do not allow arguments
   /prep7 $ FINISH !$ means nothing behind
   /prep7 !still nothing behind
   /prep7 * old style comment, this is allowed
   /prep7 this is an error
 #+end_src
-#+begin_src ansys
+#+begin_src apdl
   nsel,s,loc,x,1
   nsel = 3  !you CAN have variable names clashing with commands
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   !@@ -- Goto branching --
   *go,:branch
   aselsalsdkfjaölsdkfjaölskdjf,all
   :branch
 #+end_src
 
-#+begin_src ansys
+#+begin_src apdl
   !-----------------------------------------------------------------------
   ! mdlbl.mac
   ! Puts Modal Info on Plot

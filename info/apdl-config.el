@@ -1,9 +1,9 @@
 ;;; apdl-config.el --- Customisation example for APDL-Mode
 ;; This file was built from the file "apdl-config.org".
 
-;; Copyright (C) 2016 - 2020 H. Dieter Wilhelm, GPL V3
+;; Copyright (C) 2016 - 2021 H. Dieter Wilhelm, GPL V3
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.5.0
+;; Version: 20.6.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode
@@ -49,12 +49,11 @@
 ;;; CODE:
 
 (cond ((string= window-system "x")
-	;; This is an example of an installation directory on GNU-Linux
+	;; This condition is an example of an installation directory on GNU-Linux
 	(setq apdl-ansys-install-directory "/appl/ansys_inc/v201/"))
 	;; the default might look like "/ansys_inc/v201/"
-       (t ;This an example of an installation directory on WINDOWS
-	;; Emacs is using here forward slashes as under Unix and not
-	;; the backslash "\"!
+       (t ;; The default condition is an example of an installation directory on WINDOWS
+	;; Emacs is using here forward slashes as under Unix and not the backslash "\"!
 	(setq apdl-ansys-install-directory "D:/Ansys Inc/v201/")))
 	;; default: "C:/Program Files/Ansys Inc/v201/"
 
@@ -101,21 +100,37 @@
   '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-			  ;; Miscellaneous
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+			   ;; Miscellaneous
+ ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; use Emacs' EWW browser for locally installed help
+(setq browse-url-browser-function 'eww-browse-url)
+;; use the default system browser
+; (setq browse-url-browser-function 'browse-url-default-browser)
+
+;; Some element collections, like "SHELLS" are implemented with `#'
+;; anchors which are not standard URLs.  This leads to an error on
+;; Windows with w32-shell-execute for locally installed help files.
+;; Browsers don't mind the anchors, so in this case use either EWW
+;; (see above) or specify an installed browser in your init file, see
+;; below example for MS Edge:
+
+  (defun browse-url-edge (url &optional new-window)
+  (shell-command
+   (concat "start msedge " url)))
+
+  ; (setq browse-url-browser-function 'browse-url-edge)
 
 ;; The amount of time the help overlay is shown from
 ;; (`apdl-show-command-parameters').
 
-; (setq apdl-parameter-help-duration "2 min") ; the default
-(setq apdl-parameter-help-duration 30) ; 30 seconds
+; (setq apdl-parameter-help-duration 30) ; 30 seconds, the default
+(setq apdl-parameter-help-duration "2 min")
 
 ;; If you want to read the manual in GNU-Emacs' EWW browser.  This
 ;; might only work for locally installed help documents (a 1.7 GB
 ;; package v201) since v191 the online help is the default help
 ;; system.
-
-(setq browse-url-browser-function 'eww-browse-url)
 
 ;; You might use this variable to create you own templates
 ;; in `apdl-wb-template.el'.
@@ -125,9 +140,10 @@
 ;;  APDL-Mode mode configures the following variable from the
 ;;  evironment to show your license usage in
 ;;  `apdl-user-license-status'.  It is the user ID you are registered
-;;  for the  license server.
+;;  for the license server.  This is only necessary if APDL-Mode can't
+;;  find the environment variable USERNAME.
 
-(setq apdl-username "userID") 		; new in 20.4.0
+(setq apdl-username "myUserID") 		; new in 20.4.0
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 			     ;; Outlining
@@ -171,7 +187,7 @@
 
 (setq apdl-ansys-help-program
     "/appl/ansys_inc/20.0.1/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe")
-    ;; normally it looks like this:
+    ;; the default under GNU-Linux looks like this:
     ;; "/ansys_inc/v201/commonfiles/help/HelpViewer/AnsysHelpViewer.exe"
 ;; On WINDOWS: slash before /d: is unnecessary, but possible?
 (setq apdl-ansys-help-path "d:/Program Files/Ansys Inc/16.2.0/v201/commonfiles/help/en-us/help/")
@@ -212,7 +228,7 @@
    (setq apdl-no-of-processors 8) ; default: 4
 
   ;;  which license type to use for the solver
-   (setq apdl-license "struct") ; default: "ansys"
+   (setq apdl-license "preppost") ; default: "ansys"
 
   ;; Ansys job name
    (setq apdl-job "harmonics1"); default: "file"
@@ -223,7 +239,7 @@
 
 (provide 'apdl-config)
 
-;;; apdl-config.el ends here
+;;; apdl-config.el ends here, the rest are Emacs variables
 
 ;; Local Variables:
 ;; no-byte-compile: t

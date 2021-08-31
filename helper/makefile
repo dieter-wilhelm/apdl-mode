@@ -57,7 +57,7 @@ EMACS_PACKAGE := $(EMACS_VERSION)-bin-i686-mingw32.zip
 KEYRING := http://ftp.gnu.org/gnu/gnu-keyring.gpg
 EMACS_PACKAGE_SIG := $(EMACS_PACKAGE).sig
 EMACS_SOURCE_PACKAGE := $(EMACS_VERSION).tar.xz
-A-M_EMACS_SOURCE_PACKAGE := ansys-mode-$(VERSION).$(EMACS_VERSION).tar.xz
+A-M_EMACS_SOURCE_PACKAGE := apdl-mode-$(VERSION).$(EMACS_VERSION).tar.xz
 EMACS_SOURCE_PACKAGE_SIG := $(EMACS_SOURCE_PACKAGE).sig
 ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE)
 SIG_ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
@@ -162,7 +162,7 @@ X11 := \
 
 # PACKAGE_FILES :=  $(X11) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) $(MATLIB) $(TUTORIALS) default.el
 PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
-		$(MATLIB) $(TUTORIAL_SOURCES) ../info/apdl-mode.info
+		$(MATLIB) $(TUTORIAL_SOURCES) ../info/apdl-mode.info $(TUTORIALS)
 # default.el : makefile
 # 	@echo ";;; Automatically created from APDL-Mode-$(VERSION)" > $@
 # 	@echo "(let* ((dir (file-name-directory load-file-name))" >> $@
@@ -282,10 +282,10 @@ tools/bin/A-M-$(VERSION).sh : makefile
 EMACS_SRC : $(A-M_EMACS_SOURCE_PACKAGE)
 
 $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile
-	test -d $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION) || \
-	    mkdir -p $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
+	test -d $(EMACS_VERSION)/site-lisp/apdl-mode-$(VERSION) || \
+	    mkdir -p $(EMACS_VERSION)/site-lisp/apdl-mode-$(VERSION)
 	cp $(EMACS_SOURCE_PACKAGE) $(A-M_EMACS_SOURCE_PACKAGE)
-	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/ansys-mode-$(VERSION)
+	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/apdl-mode-$(VERSION)
 	tar --append -Jvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
 
 HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
@@ -296,7 +296,7 @@ HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
 ORG_FILES := $(HTMLs:.html=.org)
 
 %.html : %.org
-	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l ansys-mode.el -l htmlize.el $< -eval "(require 'ox-html)" -eval "(setq org-export-htmlize-output-type 'css)" -eval "(org-html-export-to-html)"
+	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l apdl-mode.el -l htmlize.el $< -eval "(require 'ox-html)" -eval "(setq org-export-htmlize-output-type 'css)" -eval "(org-html-export-to-html)"
 
 .PHONEY : HTML
 HTML : html.tar.xz
@@ -326,22 +326,22 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 ../doc/A-M_APDL_reference.pdf : ../doc/A-M_APDL_reference.org
 	$(EMACS_EXE) --batch --file $< \
           --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el"  --execute "(org-latex-export-to-pdf)"
+	  --load "apdl-mode.el"  --execute "(org-latex-export-to-pdf)"
 
 ../doc/A-M_in-depth_tutorial.ans : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-babel-tangle)"
+	  --load "apdl-mode.el" --execute "(org-babel-tangle)"
 	mv ../doc/A-M_in-depth_tutorial.ansys ../doc/A-M_in-depth_tutorial.ans
 
 ../doc/A-M_in-depth_tutorial.pdf : ../doc/A-M_in-depth_tutorial.org
 	$(EMACS_EXE) --batch  --file $< \
 	  --execute "(add-to-list 'load-path \"~/a-m\")" \
-	  --load "ansys-mode.el" --execute "(org-latex-export-to-pdf)"
+	  --load "apdl-mode.el" --execute "(org-latex-export-to-pdf)"
 
 ../doc/A-M_introductory_tutorial.pdf : ../doc/A-M_introductory_tutorial.org
 	$(EMACS_EXE) --batch --file $< \
-	--load "./export.el" \
+	--load "$(DIR)/export.el" \
 	--execute  "(org-beamer-export-to-pdf)"
 
 ../apdl-keyword.el : fontification.el apdl_dynprompt.txt apdl_elements.txt \
@@ -364,19 +364,19 @@ $(EMACS_EXE) : $(EMACS_SOURCE)
 # This is Emacs for Windows packaged with Ansys mode
 .PHONEY : EMACS
 EMACS : $(EMACS_PACKAGE) $(PACKAGE)
-	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION) || \
-	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
-	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
-	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
-	 cp -rf $(MATLIB) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)
-	 test -d share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc || \
-	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
-	 cp -uv $(TUTORIALS) share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/doc
+	 test -d share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION) || \
+	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)
+	 cp -uv $(FILES) share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)
+	 cp -uv $(EL_FILES) share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)
+	 cp -rf $(MATLIB) share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)
+	 test -d share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)/doc || \
+	    mkdir -p share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)/doc
+	 cp -uv $(TUTORIALS) share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)/doc
 	 cp -uv share/emacs/$(EMACS_VER)/site-lisp
-	 cp -uv $(EMACS_PACKAGE) ansys-mode-$(VERSION).$(EMACS_PACKAGE)
-	 zip -urv ansys-mode-$(VERSION).$(EMACS_PACKAGE) \
-	   share/emacs/$(EMACS_VER)/site-lisp/ansys-mode-$(VERSION)/*
-	 zip -uv ansys-mode-$(VERSION).$(EMACS_PACKAGE) 
+	 cp -uv $(EMACS_PACKAGE) apdl-mode-$(VERSION).$(EMACS_PACKAGE)
+	 zip -urv apdl-mode-$(VERSION).$(EMACS_PACKAGE) \
+	   share/emacs/$(EMACS_VER)/site-lisp/apdl-mode-$(VERSION)/*
+	 zip -uv apdl-mode-$(VERSION).$(EMACS_PACKAGE) 
 
 ##################################################
 # getting the emacs source

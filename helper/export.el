@@ -1,6 +1,6 @@
 ;;; export.el --- for org-latex and md export -*- lexical-binding: t -*-
 
-;; Copyright (C) 2015-2020  H. Dieter Wilhelm
+;; Copyright (C) 2015-2021  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Keywords: convenience
@@ -20,7 +20,7 @@
 
 ;;; Commentary:
 
-;;
+;; stuff for compiling latex to pdf
 
 ;;; Code:
 

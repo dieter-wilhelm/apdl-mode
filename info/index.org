@@ -39,20 +39,9 @@
 # 	 )))
 
 * Introduction
-  HTML: [[file:info/README.org][README]]
-  # - Features
-  # - Installation
-  # - Usage
-  # - Configuration
-  # - Customisation
-  # - News
-  # - License
-  # - Acknowledgements
-  # - Further Resources
-  # - TODOs
+  HTML: [[file:README.html][README]]
 * Tutorials
 ** Introductory
-   APDL-Mode introductory tutorial
   - PDF: [[file:doc/A-M_introductory_tutorial.pdf][Tutorial]]
   - HTML: [[file:doc/A-M_introductory_tutorial.org][Tutorial]]
 ** In-depth

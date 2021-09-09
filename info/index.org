@@ -2,7 +2,7 @@
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
 #+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
-#+DATE: Time-stamp: <2020-03-08>
+#+DATE: Time-stamp: <2021-09-09>
 #+TITLE: The Comprehensive APDL-Mode Documentation
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
@@ -24,43 +24,42 @@
 
 
 # ##############################
-# project definition for exporting to gh-pages
+# project definition
 
-#+begin_src elisp :exports none
-(setq org-publish-project-alist
-      '(("apdl"
-	 :base-directory "~/a-m/"
-	 :publishing-directory "~/a-m/"
-	 :section-numbers nil
-	 :exclude "helper\\|alwin\\|misc"
-	 :base-extension "org"
-	 :recursive t
-	 :table-of-contents nil
-         :publishing-function org-html-publish-to-html
-	 ;; :style "<link rel=\"stylesheet\"
-         ;;             href=\"../other/mystyle.css\"
-         ;;             type=\"text/css\"/>"
-	 )))
-#+end_src
+# (setq org-publish-project-alist
+#       '(("apdl"
+# 	 :base-directory "/mnt/hgfs/D/apdl-mode/"
+# 	 :publishing-directory "/mnt/hgfs/D/apdl-mode/"
+# 	 :section-numbers nil
+# 	 :table-of-contents nil
+#          :publishing-function org-html-publish-to-html
+# 	 ;; :style "<link rel=\"stylesheet\"
+#          ;;             href=\"../other/mystyle.css\"
+#          ;;             type=\"text/css\"/>"
+# 	 )))
 
 * Introduction
-  You'll find in [[file:README.org][README.org]] the following topics:
-  - Features
-  - Installation
-  - Usage
-  - Configuration
-  - Customisation
-  - News
-  - License
-  - Acknowledgements
-  - Further Resources
-  - TODOs
+  HTML: [[file:README.org][README.org]]
+  # - Features
+  # - Installation
+  # - Usage
+  # - Configuration
+  # - Customisation
+  # - News
+  # - License
+  # - Acknowledgements
+  # - Further Resources
+  # - TODOs
 * Tutorials
-  - [[file:doc/A-M_introductory_tutorial.org][Introductory Tutorial]]
-  - [[file:doc/A-M_in-depth_tutorial.org][In-depth Tutorial]]
+** Introductory
+   APDL-Mode introductory tutorial
+  - PDF: [[file:doc/A-M_introductory_tutorial.pdf][Tutorial]]
+  - HTML: [[file:doc/A-M_introductory_tutorial.org][Tutorial]]
+** In-depth
+  - HTML: [[file:doc/A-M_in-depth_tutorial.org][In-depth Tutorial]]
 * Reference Manuals
-  - The Apdl-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
-  - The [[file:matlib/README.org][APDL-Mode material library]].
+  - HTML: The Apdl-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
+  - HTML: [[file:matlib/README.org][APDL-Mode material library]].
 -----
 
 # The following is for Emacs

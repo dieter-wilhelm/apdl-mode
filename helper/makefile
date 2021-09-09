@@ -1,5 +1,9 @@
 help : 
 	@echo "This is the makefile of APDL-Mode $(VERSION) using $(EMACS_VERSION)"
+	@echo "make PACK = Emacs tar package"
+	@echo "make GH = for gh-pages updates"
+	@echo "make [help]  = this help"
+	@echo "older stuff"
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
 	@echo "make EMACS = Windoze version of emacs with pre-configured APDL-Mode"
@@ -10,8 +14,6 @@ help :
 	@echo "make ALL = MODE + EMACS + EMACS_SRC + TAGS"
 	@echo "make CLEAN = clean the elc files"
 #	@echo "make TAG_RELEASE = "
-	@echo "make PACK = Emacs tar package"
-	@echo "make [help]  = this help"
 	@echo "make -k = --keep-going, even if some targets can't be made.."
 
 # Semantic versioning: MA.Mi.Pa, Ma = year
@@ -21,7 +23,7 @@ APDL_PATCH := 0
 
 
 # EMACS_VER needed for Emacs' windows installaion tree
-EMACS_VER := 26.3
+EMACS_VER := 27.1
 EMACS_VERSION := emacs-$(EMACS_VER)
 
 # complete package names are comprised of
@@ -288,18 +290,23 @@ $(A-M_EMACS_SOURCE_PACKAGE) : $(PACKAGE_FILES) $(EMACS_SOURCE_PACKAGE) makefile
 	cp -uvr $(PACKAGE_FILES) $(EMACS_VERSION)/site-lisp/apdl-mode-$(VERSION)
 	tar --append -Jvf $(A-M_EMACS_SOURCE_PACKAGE) $(EMACS_VERSION)
 
-HTMLs := ../index.html ../README.html ../NEWS.html ../TODO.html \
-	../LICENSE.html ../A-M.html ../doc/A-M_APDL_reference.html \
+HTMLs := ../info/index.html ../info/README.html ../info/NEWS.html ../info/TODO.html \
+	../doc/A-M_APDL_reference.html \
 	../doc/A-M_in-depth_tutorial.html ../doc/A-M_introductory_tutorial.html \
-	../matlib/README.html ../INSTALLATION.html
+	../matlib/README.html ../info/INSTALLATION.html
 
 ORG_FILES := $(HTMLs:.html=.org)
 
 %.html : %.org
-	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l apdl-mode.el -l htmlize.el $< -eval "(require 'ox-html)" -eval "(setq org-export-htmlize-output-type 'css)" -eval "(org-html-export-to-html)"
+	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l apdl-mode.el $< -eval "(require 'ox-html)" -eval "(setq org-export-htmlize-output-type 'css)" -eval "(org-html-export-to-html)"
 
 .PHONEY : HTML
 HTML : html.tar.xz
+
+# for gh-pages documentation
+.PHONEY : GH
+GH : $(HTMLs) $(TUTORIALS)
+	cp ../info/index.html ..
 
 # only archive members which are newer than the existingp archive
 html.tar.xz : $(HTMLs) makefile

@@ -320,6 +320,7 @@ ALL : MODE EMACS EMACS_SRC HTML TAGS
 CLEAN :
 	rm -f $(ELC_FILES)
 	rm -f $(HTMLs)
+	rm -f ../index.html
 
 $(EMACS_SOURCE_PACKAGE_SIG) :
 	wget $(SIG_SOURCE_ADDRESS)

@@ -3,6 +3,7 @@ help :
 	@echo "make PACK = Emacs tar package"
 	@echo "make GH = for gh-pages updates"
 	@echo "make [help]  = this help"
+	@echo "make CLEAN = clean the elc and html files"
 	@echo "older stuff"
 	@echo "make MODE = A-M package files + tutorials"
 	@echo "make EMACS_SRC = Emacs sources + A-M package files + tutorials"
@@ -12,7 +13,6 @@ help :
 	@echo "make TAGS = make the etags"
 	@echo "make ELC = compile the el files"
 	@echo "make ALL = MODE + EMACS + EMACS_SRC + TAGS"
-	@echo "make CLEAN = clean the elc files"
 #	@echo "make TAG_RELEASE = "
 	@echo "make -k = --keep-going, even if some targets can't be made.."
 
@@ -318,7 +318,8 @@ ALL : MODE EMACS EMACS_SRC HTML TAGS
 
 .PHONEY : CLEAN
 CLEAN :
-	rm $(ELC_FILES)
+	rm -f $(ELC_FILES)
+	rm -f $(HTMLs)
 
 $(EMACS_SOURCE_PACKAGE_SIG) :
 	wget $(SIG_SOURCE_ADDRESS)

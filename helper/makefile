@@ -318,9 +318,10 @@ ALL : MODE EMACS EMACS_SRC HTML TAGS
 
 .PHONEY : CLEAN
 CLEAN :
-	rm -f $(ELC_FILES)
-	rm -f $(HTMLs)
-	rm -f ../index.html
+	@rm -f $(ELC_FILES)
+	@rm -f $(HTMLs)
+	@rm -f ../index.html
+	@echo cleansed ELCs and HTMLs.
 
 $(EMACS_SOURCE_PACKAGE_SIG) :
 	wget $(SIG_SOURCE_ADDRESS)

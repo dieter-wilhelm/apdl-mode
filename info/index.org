@@ -39,7 +39,7 @@
 # 	 )))
 
 * Introduction
-  HTML: [[file:README.org][README.org]]
+  HTML: [[file:info/README.org][README]]
   # - Features
   # - Installation
   # - Usage

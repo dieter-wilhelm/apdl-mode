@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2021-08-31>
+#+DATE: Time-stamp: <2021-09-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+OPTIONS: H:1 texht:t
 # #+BEAMER_COLOR_THEME:
@@ -35,7 +35,7 @@
 #+BEAMER_FRAME_LEVEL: 2
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
-#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
 #+HTML_LINK_UP: ../index.html
 #+STYLE: <link rel="icon" href="../../gnu.ico" type="image/x-icon"/>
 #+STYLE: <link rel="shortcut icon" href="../../gnu.ico" type="image/x-icon"/>
@@ -150,10 +150,10 @@
   editor. High quality software available for every operating system
   where Ansys is running.
 
-* Download and Installation
-** Download GNU-Emacs and APDL-Mode
+* Installation
+** Install GNU-Emacs and APDL-Mode
    There are no costs and restrictions even in commercial application.
-   Please download [[https://www.gnu.org/software/emacs/][GNU Emacs]] and the latest APDL-Mode from [[https://melpa.org][Melpa]] or an
+   Please install [[https://www.gnu.org/software/emacs/][GNU Emacs]] then APDL-Mode from [[https://melpa.org][Melpa]] or download an
    archive from the [[https://github.com/dieter-wilhelm/apdl-mode/releases][APDL-Mode's releases page]].
    #+latex: \\[.25cm]
 
@@ -164,7 +164,7 @@
 }\\[.25cm]
 #+END_EXPORT
 #+HTML: <img src="./github.png" alt="Download page from GitHub">
-Install APDL-Mode from Emacs: Please type: ~M-x
+Install APDL-Mode in Emacs: Please type: ~M-x
 package-install-file <RET>~ and select the downloaded tar archive.
 #   #+latex: \\[.5cm]
 
@@ -260,12 +260,9 @@ package-install-file <RET>~ and select the downloaded tar archive.
 
 ** Check Auto-Insertion and Outline Your Code (Tree View)
    Create a new APDL file with the suffix /.mac/ and let Emacs
-   auto-insert a skeleton with `outline' headings.  Collapse the
-   content to a tree view with *C-c @ C-t* and open all (*C-c @ C-a*)
-   again.
-# #+BEGIN_LaTeX
-# `{\sl .mac}'
-# #+END_LaTeX
+   auto-insert a skeleton with `outline' headings.  Collapse and cycle
+   through "tree views" with <SHIFT>+<TAB> (Emacs 28).
+# #+BEGIN_LaTeX # `{\sl .mac}' +END_LaTeX
 #+ATTR_LaTeX: :height 7.5cm
   [[./outline.png]]
 
@@ -411,11 +408,11 @@ package-install-file <RET>~ and select the downloaded tar archive.
    - Configuration: :: More detailed instructions might be necessary if
      you are not using default /Ansys/ installations.  Please have a
      look in the /INSTALLATION.org/ file.  The online documentation is
-     at [[http://dieter-wilhelm.github.io/ansys-mode/][APDL-Modes's documentation site]].
+     at [[http://dieter-wilhelm.github.io/apdl-mode/][APDL-Modes's documentation site]].
 # *** Hands-on tutorial and reference:
    - Hands-on tutorial and reference: :: You will find these
 	in-depth documentation included in the mode's archives on
-	[[https://github.com/dieter-wilhelm/ansys-mode/releases][GitHub's releases page]] or read [[http://dieter-wilhelm.github.io/ansys-mode/][online]].
+	[[https://github.com/dieter-wilhelm/apdl-mode/releases][GitHub's releases page]] or read [[http://dieter-wilhelm.github.io/apdl-mode/][online]].
 # *** News and project history:
    - News and project history: :: They are placed in the mode's
 	accompanying /NEWS.org/ file

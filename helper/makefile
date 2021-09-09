@@ -298,7 +298,11 @@ HTMLs := ../info/index.html ../info/README.html ../info/NEWS.html ../info/TODO.h
 ORG_FILES := $(HTMLs:.html=.org)
 
 %.html : %.org
-	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" -l apdl-mode.el $< -eval "(require 'ox-html)" -eval "(setq org-export-htmlize-output-type 'css)" -eval "(org-html-export-to-html)"
+	$(EMACS_EXE) --batch -eval "(add-to-list 'load-path \"..\")" \
+  -load "/home/dieter/.emacs.d/elpa/htmlize-20210825.2150/htmlize-autoloads.el" \
+	-l apdl-mode.el $< -eval "(require 'htmlize)" -eval "(require 'ox-html)" \
+	-eval "(setq org-export-htmlize-output-type 'css)" \
+	-eval "(org-html-export-to-html)"
 
 .PHONEY : HTML
 HTML : html.tar.xz
@@ -307,6 +311,7 @@ HTML : html.tar.xz
 .PHONEY : GH
 GH : $(HTMLs) $(TUTORIALS)
 	cp ../info/index.html ..
+	cp ../info/README.html ..
 
 # only archive members which are newer than the existingp archive
 html.tar.xz : $(HTMLs) makefile

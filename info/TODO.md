@@ -1,28 +1,27 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org1149f81)
-2.  [Version 20.5.0](#orgd0d5d43)
-3.  [Version 20.4.0](#org6a4a172)
-4.  [Version 20.3.0](#orga8a076a)
-5.  [Version 20.2.0](#org5df5b21)
-6.  [Version 20.1.1](#orge975cb5)
-7.  [Version 162-2](#org88798ea)
+1.  [Version 20.6.0](#org9eae422)
+2.  [Version 20.5.0](#org208ea9f)
+3.  [Version 20.4.0](#org709a606)
+4.  [Version 20.3.0](#org68e91d1)
+5.  [Version 20.2.0](#orga621f03)
+6.  [Version 20.1.1](#orgc397e4a)
+7.  [Version 162-2](#org17f8a53)
 
 
 
-<a id="org1149f81"></a>
+<a id="org9eae422"></a>
 
 # TODO Version 20.6.0
 
-Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-09 Mo] </span></span> 481
-
-Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] </span></span> 396 downloads
+Release end of October
 
 
 ## Todos, bugs
 
 -   APDL reference is incomplete
+-   HTML docu is bad
 -   Templates: Add intro help to the -wb-template system, complete
     usage.org
     -   Code Templates, apdl-wb-custom-template-directory
@@ -68,14 +67,16 @@ Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] <
 
 ### Docu
 
+Outdated menus in A-M-introductory<sub>tutorial.org</sub>
+
 Rework the messy documentation system of files and applications
 
 1.  INFO -> info/apdl-mode.org <- flat file
 2.  MD for github -> info/README.org <- uses folder structure
 3.  Melpa packaging -> apdl-mode
 
--   Things like C-c C-jjj (more?) are not documented in manual!
--   more C-c C-b subjects?
+4.  Things like C-c C-jjj (more?) are not documented in manual!
+5.  more C-c C-b subjects?
     2.1. SESSION Commands
     2.2. DATABASE Commands
     2.3. GRAPHICS Commands
@@ -90,14 +91,14 @@ Rework the messy documentation system of files and applications
     2.12. AUX15 Commands
     2.13. Mapping Processor Commands
     2.14. REDUCED Order Modeling Commands
--   Create English Wiki for APDL
--   M-? get- and parameter-functions are completed but there's no
+6.  Create English Wiki for APDL
+7.  M-? get- and parameter-functions are completed but there's no
     parameter help - see: apdl-dynamic-prompt
--   Link to Ansys Youtube channel in menu? (It's already in Ansys
+8.  Link to Ansys Youtube channel in menu? (It's already in Ansys
     resources!)
--   The Command (APDL) objects coding system seems to be
+9.  The Command (APDL) objects coding system seems to be
     mule-utf-8-dos aka cp65001-dos, document this
--   Customise system (explain \`M-x customize-set-value' as long as
+10. Customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)?
 
 Info documentation:
@@ -121,7 +122,6 @@ Info documentation:
 
 Presentations
 
--   update intro, first steps tutorial
 -   in-depth presentation, tutorial?
 -   APDL reference => just Info?
 
@@ -167,7 +167,14 @@ MD
 
 ## Push and Release Proceedures
 
--   make PACK : now obligatory for any push!!
+-   gh-pages : everything is in master! just copy index.html and
+    README.html to root dir (in makefile)
+    -   In branch gh-pages: git checkout master .
+    -   make GH
+    -   git clean -f -d
+    -   git checkout master
+
+-   make PACK : now obligatory for any push to Melpa!!
 
 Ansys updates:
 Hint: in apdl<sub>keywords.txt</sub> there are many
@@ -206,7 +213,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="orgd0d5d43"></a>
+<a id="org208ea9f"></a>
 
 # DONE Version 20.5.0
 
@@ -214,7 +221,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org6a4a172"></a>
+<a id="org709a606"></a>
 
 # DONE Version 20.4.0
 
@@ -222,7 +229,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orga8a076a"></a>
+<a id="org68e91d1"></a>
 
 # DONE Version 20.3.0
 
@@ -231,14 +238,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org5df5b21"></a>
+<a id="orga621f03"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orge975cb5"></a>
+<a id="orgc397e4a"></a>
 
 # DONE Version 20.1.1
 
@@ -251,7 +258,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org88798ea"></a>
+<a id="org17f8a53"></a>
 
 # Version 162-2
 

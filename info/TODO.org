@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-31>
+#+DATE: Time-stamp: <2021-09-09>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,11 +18,10 @@
 # #+title: The TODO file of APDL-Mode
 
 * TODO Version 20.6.0
-Melpa: [2021-08-09 Mo] 481
-# Melpa: [2021-04-23 Fr] 436 downloads
-Melpa: [2020-10-24 Sa] 396 downloads
+  Release end of October
 ** Todos, bugs
    - APDL reference is incomplete
+   - HTML docu is bad
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
      - Code Templates, apdl-wb-custom-template-directory
@@ -62,7 +61,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
     1) INFO -> info/apdl-mode.org <- flat file
     2) MD for github -> info/README.org <- uses folder structure
     3) Melpa packaging -> apdl-mode
-
 
     - Things like C-c C-jjj (more?) are not documented in manual!
     - more C-c C-b subjects?
@@ -110,7 +108,6 @@ Melpa: [2020-10-24 Sa] 396 downloads
 
      Presentations
 
-     - update intro, first steps tutorial
      - in-depth presentation, tutorial?
      - APDL reference => just Info?
 
@@ -142,7 +139,15 @@ Melpa: [2020-10-24 Sa] 396 downloads
    - -mode-version working with autoload cookie: works
    - include -mode-version in autoload list
 ** Push and Release Proceedures
-   - make PACK : now obligatory for any push!!
+   - gh-pages : everything is in master! just copy index.html and
+     README.html to root dir (in makefile)
+     - In branch gh-pages: git checkout master .
+     - make GH
+     - git clean -f -d
+     - git checkout master
+
+
+   - make PACK : now obligatory for any push to Melpa!!
 
    Ansys updates:
    Hint: in apdl_keywords.txt there are many

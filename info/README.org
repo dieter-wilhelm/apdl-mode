@@ -1,9 +1,10 @@
-#+OPTIONS: ':nil *:t -:t ::t <:t H:2 \n:nil ^:t arch:headline
-#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+STARTUP: all
+#+DATE: Time-stamp: <2021-08-30>
+#+bind: org-html-preamble-format (("en" "%d"))
+#+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
 #+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
-#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
-#+DATE: Time-stamp: <2020-02-29>
-#+TITLE: The Comprehensive APDL-Mode Documentation
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:1 todo:t |:t
 #+AUTHOR: H. Dieter Wilhelm
 #+EMAIL: dieter@duenenhof-wilhelm.de
 #+DESCRIPTION:
@@ -11,54 +12,127 @@
 #+LANGUAGE: en
 #+SELECT_TAGS: export
 #+EXCLUDE_TAGS: noexport
+
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
 #+HTML_DOCTYPE: xhtml-strict
 #+HTML_CONTAINER: div
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
+#+HTML_LINK_UP: index.html
 #+HTML_HEAD:
 #+HTML_HEAD_EXTRA:
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
 #+LATEX_HEADER:
 
+# ###########################################################
+# The MD export is copied to the base directory!!
+# ############################################################
 
-# ##############################
-# project definition
+# #+title: is not recognised in MD export
+#+title: APDL-Mode 20.6.0
+** The GNU-Emacs major mode for the scripting language APDL
+APDL-Mode version 20.6.0
 
-# (setq org-publish-project-alist
-#       '(("apdl"
-# 	 :base-directory "/mnt/hgfs/D/apdl-mode/"
-# 	 :publishing-directory "/mnt/hgfs/D/apdl-mode/"
-# 	 :section-numbers nil
-# 	 :table-of-contents nil
-#          :publishing-function org-html-publish-to-html
-# 	 ;; :style "<link rel=\"stylesheet\"
-#          ;;             href=\"../other/mystyle.css\"
-#          ;;             type=\"text/css\"/>"
-# 	 )))
+[[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+[[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
+[[file:doc/ansys+emacs2020-03.png]]
 
 * Introduction
-  You'll find in [[file:README.org][README.org]] the following topics:
-  - Features
-  - Installation
-  - Usage
-  - Configuration
-  - Customisation
-  - News
-  - License
-  - Acknowledgements
-  - Further Resources
-  - TODOs
-* Tutorials
-  - [[file:doc/A-M_introductory_tutorial.org][Introductory Tutorial]]
-  - [[file:doc/A-M_in-depth_tutorial.org][In-depth Tutorial]]
-* Reference Manuals
-  - The Apdl-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
-  - The [[file:matlib/README.org][APDL-Mode material library]].
------
+  #+include:../info/introduction.org
+
+  [[file:doc/connect_command_snippet_to_file.png]]
+
+* Some Highlights
+** In-built APDL command help with argument counter
+   Especially for commands with a large number of arguments it is
+   cumbersome to count the arguments, *M-?* facilitates this for you
+   and visualises dynamically at which parameter position your cursor
+   currently is.
+
+   [[file:doc/parameter_help2.png]]
+
+** Pin-pointing the relevant Ansys documentation
+   You can browse (with *C-c C-b* on a code line) the relevant Ansys
+   manual entry directly without the detour of searching in the Ansys
+   online help.  This works not only for all APDL commands but also
+   for element names and more general manual topics!
+
+   Since Ansys v191 the online help is the default.  APDL-Mode is
+   using your default browser but to be able to access the online help
+   you must register or you must start the online help once from any
+   licensed Ansys product.  I recommend installing the local Ansys
+   documentation package, access time is much shorter.
+
+   The image below is showing a manual entry in GNU-Emacs' eww
+   browser.  You are able to consult the manuals side-by-side your
+   APDL code.
+
+   # #+caption: Browsing the manual in a web browser (here with eww inside GNU-Emacs).
+   [[file:doc/browse_manual.png]]
+
+** Command Object Templates and Code Highlighting Example
+   You are learning and also coding APDL best by example!  APDL-Mode
+   provides coding examples, here called templates, for the most often
+   used subjects.  Moreover you are able to compile your own WorkBench
+   / Discovery AIM Command templates and have them all immediately
+   available in APDL-Mode for inspection and inclusion.
+
+   APDL-Mode is helping you with code colourisation to distinguish
+   valid commands, user variables, element names, comments, APDL
+   functions and further subjects.
+
+   Below image shows GNU-Emacs with a ripped off APDL-Mode menu, the
+   APDL variable buffer, the APDL file itself and an APDL template
+   preview.
+
+   # #+caption: GNU-Emacs with a ripped off APDL-Mode menu, the APDL variable buffer, the APDL file itself and an APDL template preview.
+
+   [[file:doc/ansys-mode.jpg]]
+** Code outlining for inspecting WorkBench solver (.dat) files
+   APDL-Mode hides the normally uninteresting but usually very large
+   number blocks.
+   #+ATTR_LaTeX: :height 7.5cm
+   [[file:doc/hidden_blocks.png]]
+
+   The image below shows the unhidden content.
+   #+ATTR_LaTeX: :height 7.5cm
+   [[file:doc/unhidden_blocks.png]]
+* Installation
+  #+include: ./INSTALLATION.org
+
+* First Step
+  #+include: ./first_steps.org
+* Configuration and Customisation
+  Most functionality is working without additional configurations.
+  APDL-Mode is intelligent enough to figure out Ansys installation
+  dependent paths.  For regular Ansys installations, it chooses by
+  default the highest installed Ansys version on your system.
+
+  APDL-Mode configures GNU-Emacs to open all files with the suffixes
+  ".mac", ".dat" and ".inp" under apdl-mode.
+
+  Please read the [[file:info/apdl-config.org][apdl-config]] documentation for further options or
+  open the accompanying configuration [[file:apdl-config.el][example-file]].
+* Bugs and Problems
+  #+include: ./bugs.org
+* News
+  For further news please have a look into the [[file:info/NEWS.org][NEWS]] file.
+* Further Resources
+  If you want to read further details regarding the APDL scripting,
+  GNU-Emacs and other APDL editors please read the [[file:info/resources.org][RESOURCES]] file.
+  #  #+include: ./resources.org
+* Acknowledgements
+  #+include: ./acknowledgements.org
+* Todos
+  Please check the [[file:info/TODO.org][TODO]] file.
+* GNU GPL v3 License
+  The GNU General Public License version 3.  There are no costs and no
+  usage restrictions even in commercial application, please convince
+  yourself with the [[file:info/LICENSE][LICENSE]] file.
 
 # The following is for Emacs
 # local variables:
@@ -68,3 +142,4 @@
 # time-stamp-active: t
 # time-stamp-format: "%:y-%02m-%02d"
 # end:
+

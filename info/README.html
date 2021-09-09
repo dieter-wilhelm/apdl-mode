@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-03-07 Sa 21:10 -->
+<!-- 2021-09-09 Do 15:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>The Comprehensive APDL-Mode Documentation</title>
+<title>APDL-Mode 20.6.0</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="H. Dieter Wilhelm" />
 <style type="text/css">
@@ -242,58 +242,457 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="org-div-home-and-up">
- <a accesskey="h" href=""> UP </a>
+ <a accesskey="h" href="index.html"> UP </a>
  |
  <a accesskey="H" href="https://github.com/dieter-wilhelm/apdl-mode"> HOME </a>
 </div><div id="content">
-<h1 class="title">The Comprehensive APDL-Mode Documentation</h1>
+<h1 class="title">APDL-Mode 20.6.0</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgae4561f">1. Introduction</a></li>
+<li><a href="#org7b901d1">2. Some Highlights</a></li>
+<li><a href="#orgcc5514a">3. Installation</a></li>
+<li><a href="#org47ceb48">4. First Step</a></li>
+<li><a href="#org9cf5a99">5. Configuration and Customisation</a></li>
+<li><a href="#orgfeda21f">6. Bugs and Problems</a></li>
+<li><a href="#org37f1fe3">7. News</a></li>
+<li><a href="#org8976cd0">8. Further Resources</a></li>
+<li><a href="#org520c9d8">9. Acknowledgements</a></li>
+<li><a href="#org17ce924">10. Todos</a></li>
+<li><a href="#org81fd7bd">11. GNU GPL v3 License</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org6ebf518" class="outline-3">
+<h3 id="org6ebf518"><span class="section-number-3">0.1</span> The GNU-Emacs major mode for the scripting language APDL</h3>
+<div class="outline-text-3" id="text-0-1">
+<p>
+APDL-Mode version 20.6.0
+</p>
+
+<p>
+<a href="https://melpa.org/#/apdl-mode"><object type="image/svg+xml" data="https://melpa.org/packages/apdl-mode-badge.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object></a>
+<a href="https://stable.melpa.org/#/apdl-mode"><object type="image/svg+xml" data="https://stable.melpa.org/packages/apdl-mode-badge.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object></a>
+</p>
+
+<p>
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
+</p>
 
 
+<div class="figure">
+<p><img src="doc/ansys+emacs2020-03.png" alt="ansys+emacs2020-03.png" />
+</p>
+</div>
+</div>
+</div>
 
-<div id="outline-container-org558f3e0" class="outline-2">
-<h2 id="org558f3e0"><span class="section-number-2">1</span> Introduction</h2>
+<div id="outline-container-orgae4561f" class="outline-2">
+<h2 id="orgae4561f"><span class="section-number-2">1</span> Introduction</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-You'll find in <a href="README.html">README.org</a> the following topics:
+APDL, <a href="https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language">Ansys Parametric Design Language</a> is the solver scripting
+language of the mechanical FEA, Finite Element Analysis suite <a href="http://www.ansys.com">Ansys</a>,
+ANalysis SYStem, registered TM.
 </p>
-<ul class="org-ul">
-<li>Features</li>
-<li>Installation</li>
-<li>Usage</li>
-<li>Configuration</li>
-<li>Customisation</li>
-<li>News</li>
-<li>License</li>
-<li>Acknowledgements</li>
-<li>Further Resources</li>
-<li>TODOs</li>
-</ul>
+
+<p>
+APDL-Mode, formerly Ansys-Mode, is - in conjunction with the <a href="https://www.gnu.org/software/emacs/">GNU-Emacs</a>
+editor - an advanced APDL environment with features like, pin-pointing
+the APDL reference documentation, keyword completion, code templates,
+dedicated highlighting, solver communication (GNU-Linux only), license
+reporting, etc.  Over the years it has accumulated lots of features
+for writing and debugging complete FEA models in APDL code. Please
+convince yourself with the APDL-Mode in-depth documentation.
+</p>
+
+<p>
+With the advent of the modern Ansys GUIs - like `WorkBench' or
+`Discovery' - the usage of APDL as a wholesale modelling language has
+vaned for highly variable tasks which are hard to script.  But,
+nevertheless, APDL is here to stay: `WorkBench' operates exclusively
+the Ansys solver with it!  It assembles and sends APDL input (.dat)
+files to the solver.  For a true understanding of the GUI's inner
+workings a study of their APDL code is prerequisite!  Moreover,
+WorkBench is not supporting all MAPDL solver features.  So "Command
+(APDL)" objects are used to enhance the GUI's modelling capabilities.
+</p>
+
+<p>
+APDL-Mode is very useful for studying solver (.dat) files which were
+created by WorkBench.  And, especially, for writing WorkBench
+`Command' objects and inspecting longer command snippets from other
+sources.  Accessing the Ansys APDL reference documentation without
+detour - this alone - is worth using APDL-Mode!
+</p>
+
+<p>
+When you "Export" (or "Import") such a WorkBench "Command (APDL)"
+object, it becomes associated with a file on disk and is accessible
+for any kind of editor.  If you modify this file, the "File Status" in
+Workbench changes and you can pull-in the updated content with the
+"Refresh" button.
+</p>
+
+
+<div class="figure">
+<p><img src="doc/connect_command_snippet_to_file.png" alt="connect_command_snippet_to_file.png" />
+</p>
 </div>
 </div>
-<div id="outline-container-org75ac0b9" class="outline-2">
-<h2 id="org75ac0b9"><span class="section-number-2">2</span> Tutorials</h2>
+</div>
+
+<div id="outline-container-org7b901d1" class="outline-2">
+<h2 id="org7b901d1"><span class="section-number-2">2</span> Some Highlights</h2>
 <div class="outline-text-2" id="text-2">
-<ul class="org-ul">
-<li><a href="doc/A-M_introductory_tutorial.html">Introductory Tutorial</a></li>
-<li><a href="doc/A-M_in-depth_tutorial.html">In-depth Tutorial</a></li>
-</ul>
+</div>
+<div id="outline-container-orgfa71561" class="outline-3">
+<h3 id="orgfa71561"><span class="section-number-3">2.1</span> In-built APDL command help with argument counter</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+Especially for commands with a large number of arguments it is
+cumbersome to count the arguments, <b>M-?</b> facilitates this for you
+and visualises dynamically at which parameter position your cursor
+currently is.
+</p>
+
+
+<div class="figure">
+<p><img src="doc/parameter_help2.png" alt="parameter_help2.png" />
+</p>
 </div>
 </div>
-<div id="outline-container-org857066a" class="outline-2">
-<h2 id="org857066a"><span class="section-number-2">3</span> Reference Manuals</h2>
+</div>
+
+<div id="outline-container-org0a997e7" class="outline-3">
+<h3 id="org0a997e7"><span class="section-number-3">2.2</span> Pin-pointing the relevant Ansys documentation</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+You can browse (with <b>C-c C-b</b> on a code line) the relevant Ansys
+manual entry directly without the detour of searching in the Ansys
+online help.  This works not only for all APDL commands but also
+for element names and more general manual topics!
+</p>
+
+<p>
+Since Ansys v191 the online help is the default.  APDL-Mode is
+using your default browser but to be able to access the online help
+you must register or you must start the online help once from any
+licensed Ansys product.  I recommend installing the local Ansys
+documentation package, access time is much shorter.
+</p>
+
+<p>
+The image below is showing a manual entry in GNU-Emacs' eww
+browser.  You are able to consult the manuals side-by-side your
+APDL code.
+</p>
+
+
+<div class="figure">
+<p><img src="doc/browse_manual.png" alt="browse_manual.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org29a24c7" class="outline-3">
+<h3 id="org29a24c7"><span class="section-number-3">2.3</span> Command Object Templates and Code Highlighting Example</h3>
+<div class="outline-text-3" id="text-2-3">
+<p>
+You are learning and also coding APDL best by example!  APDL-Mode
+provides coding examples, here called templates, for the most often
+used subjects.  Moreover you are able to compile your own WorkBench
+/ Discovery AIM Command templates and have them all immediately
+available in APDL-Mode for inspection and inclusion.
+</p>
+
+<p>
+APDL-Mode is helping you with code colourisation to distinguish
+valid commands, user variables, element names, comments, APDL
+functions and further subjects.
+</p>
+
+<p>
+Below image shows GNU-Emacs with a ripped off APDL-Mode menu, the
+APDL variable buffer, the APDL file itself and an APDL template
+preview.
+</p>
+
+
+<div class="figure">
+<p><img src="doc/ansys-mode.jpg" alt="ansys-mode.jpg" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org62bdc3f" class="outline-3">
+<h3 id="org62bdc3f"><span class="section-number-3">2.4</span> Code outlining for inspecting WorkBench solver (.dat) files</h3>
+<div class="outline-text-3" id="text-2-4">
+<p>
+APDL-Mode hides the normally uninteresting but usually very large
+number blocks.
+</p>
+
+<div class="figure">
+<p><img src="doc/hidden_blocks.png" alt="hidden_blocks.png" />
+</p>
+</div>
+
+<p>
+The image below shows the unhidden content.
+</p>
+
+<div class="figure">
+<p><img src="doc/unhidden_blocks.png" alt="unhidden_blocks.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgcc5514a" class="outline-2">
+<h2 id="orgcc5514a"><span class="section-number-2">3</span> Installation</h2>
 <div class="outline-text-2" id="text-3">
+<p>
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
+</p>
+
+<p>
+Please install the <a href="https://www.gnu.org/software/emacs/">GNU-Emacs</a> Editor first, For all functionality
+APDL-Mode needs version 25.1 (from 2016) or newer.  (If you are new
+to this editor please check its tutorial in the `Help' menu, or read
+at least the APDL-Mode introduction.)
+</p>
+</div>
+<div id="outline-container-org40255e8" class="outline-3">
+<h3 id="org40255e8"><span class="section-number-3">3.1</span> Melpa</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+APDL-Mode is now available on the GNU-Emacs packages archive <a href="https://melpa.org/">Melpa</a>.
+</p>
+
+<p>
+<a href="https://melpa.org/#/apdl-mode"><object type="image/svg+xml" data="https://melpa.org/packages/apdl-mode-badge.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object></a>
+<a href="https://stable.melpa.org/#/apdl-mode"><object type="image/svg+xml" data="https://stable.melpa.org/packages/apdl-mode-badge.svg" class="org-svg">
+Sorry, your browser does not support SVG.</object></a>
+</p>
+
+<p>
+Please add
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-to-list 'package-archives
+	  '("melpa" . "https://melpa.org/packages/") t)
+</pre>
+</div>
+
+<p>
+to your initialisation file.  Then type: `M-x list-packages', find
+`apdl-mode', mark it with `i' and install it with `x'.
+</p>
+
+<p>
+If you prefer the stable package archive instead of development
+versions, exchange above package source with
+</p>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp">(add-to-list 'package-archives
+'("melpa-stable" . "https://stable.melpa.org/packages/") t)
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbf8da04" class="outline-3">
+<h3 id="orgbf8da04"><span class="section-number-3">3.2</span> Manual installation</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+If you are behind a corporate firewall and you are not able to
+install APDL-Mode from Emacs' package menu, you can download and
+install APDL-Mode manually:
+</p>
+
 <ul class="org-ul">
-<li>The Apdl-Mode <a href="doc/A-M_APDL_reference.html">Highlighting and APDL reference</a>.</li>
-<li>The <a href="matlib/README.html">APDL-Mode material library</a>.</li>
+<li>Download the latest APDL-Mode's tar package from <a href="https://melpa.org/#/apdl-mode">Melpa</a> or - for a
+released package - from the <a href="https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0">Github</a> release page.</li>
+<li>Install the package within Emacs: Please type `M-x
+package-install-file &lt;RET&gt;' and select your downloaded tar file.</li>
 </ul>
-<hr />
+
+<p>
+That's it.
+</p>
+
+<p>
+<b>Hint:</b> If you are getting an error message "package.el is not yet
+initialized", you are using Emacs' packaging system for the very
+first time.  It is necessary to initialise this machinery once,
+please type: `M-: (package-initialize) &lt;RET&gt;' (it's an 'ALT + :'
+colon!)  and then apply `M-x package-install-file &lt;RET&gt;' again.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0e1e336" class="outline-3">
+<h3 id="org0e1e336"><span class="section-number-3">3.3</span> Development and source code installation</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+Please clone the APDL-Mode git archive in a directory of your
+choice:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">git clone https://github.com/dieter-wilhelm/apdl-mode.git
+</pre>
+</div>
+<p>
+or download the Github ZIP archive and add the following line
+</p>
+<div class="org-src-container">
+<pre class="src src-elisp">(require 'apdl-mode)
+</pre>
+</div>
+<p>
+to your initialisation file (the source directory must be set in
+the `load-path' variable as well).
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org47ceb48" class="outline-2">
+<h2 id="org47ceb48"><span class="section-number-2">4</span> First Step</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Please type `M-x apdl' which opens a buffer in APDL-Mode where you
+can inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
+APDL files please type `M-x apdl-mode' if the mode is not activated
+already, please see in <a href="#org9cf5a99">5</a>,
+the section regarding pre-configured file suffixes.
+</p>
+
+<p>
+For further guidance please select the APDL menu `APDL-Mode
+Documentation' (or type `C-c C-h') and `Describe APDL-Mode' (or type
+`C-h m') for the list of its keybindings.  You might also check the
+introductory APDL-Mode <a href="file:///home/dieter/a-m/doc/A-M_introductory_tutorial.html">tutorial</a>.
+</p>
+
+<p>
+APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
+Emacs-27 under GNU-Linux and Windows.
+</p>
+</div>
+</div>
+<div id="outline-container-org9cf5a99" class="outline-2">
+<h2 id="org9cf5a99"><span class="section-number-2">5</span> Configuration and Customisation</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Most functionality is working without additional configurations.
+APDL-Mode is intelligent enough to figure out Ansys installation
+dependent paths.  For regular Ansys installations, it chooses by
+default the highest installed Ansys version on your system.
+</p>
+
+<p>
+APDL-Mode configures GNU-Emacs to open all files with the suffixes
+".mac", ".dat" and ".inp" under apdl-mode.
+</p>
+
+<p>
+Please read the <a href="info/apdl-config.html">apdl-config</a> documentation for further options or
+open the accompanying configuration <a href="apdl-config.el">example-file</a>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgfeda21f" class="outline-2">
+<h2 id="orgfeda21f"><span class="section-number-2">6</span> Bugs and Problems</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Feedback is always welcome.  If you have issues while installing and
+running this mode or want to suggest improvements you have the
+following options:
+</p>
+
+<ol class="org-ol">
+<li>Write an email to the <a href="mailto:dieter@duenenhof-wilhelm.de">mode maintainer</a>.  Please trigger a bug report
+form from the APDL-Mode menu or by calling the function
+`apdl-submit-bug-report'.  Even if you have not configured Emacs to
+send emails, please copy the content of the mail template for the
+maintainer.</li>
+
+<li>You might issue bug reports or feature requests at APDL-Mode's
+<a href="https://github.com/dieter-wilhelm/apdl-mode/issues">issues site</a></li>
+
+<li>And you can leave comments and hints at the <a href="https://www.emacswiki.org/emacs/APDLMode">APDL-Mode page</a> of the
+<a href="https://www.emacswiki.org">Emacs Wiki</a>.</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-org37f1fe3" class="outline-2">
+<h2 id="org37f1fe3"><span class="section-number-2">7</span> News</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+For further news please have a look into the <a href="info/NEWS.html">NEWS</a> file.
+</p>
+</div>
+</div>
+<div id="outline-container-org8976cd0" class="outline-2">
+<h2 id="org8976cd0"><span class="section-number-2">8</span> Further Resources</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+If you want to read further details regarding the APDL scripting,
+GNU-Emacs and other APDL editors please read the <a href="info/resources.html">RESOURCES</a> file.
+</p>
+</div>
+</div>
+<div id="outline-container-org520c9d8" class="outline-2">
+<h2 id="org520c9d8"><span class="section-number-2">9</span> Acknowledgements</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+My acknowledgements to Tim Read and Geoff Foster for their
+ansys-mod.el from 1997 which triggered the idea in 2006 to start
+APDL-Mode.
+</p>
+
+<p>
+Parts of APDL-Mode were based on octave-mod.el: Copyright (C) 1997
+Free Software Foundation, Inc.  Authors: <a href="mailto:Kurt.Hornik@wu-wien.ac.at">Kurt Hornik</a> and <a href="mailto:jwe@bevo.che.wisc.edu">John Eaton</a>.
+</p>
+
+<p>
+I received, moreover, support and feedback from many individuals.
+Thank you very much!
+</p>
+</div>
+</div>
+<div id="outline-container-org17ce924" class="outline-2">
+<h2 id="org17ce924"><span class="section-number-2">10</span> Todos</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Please check the <a href="info/TODO.html">TODO</a> file.
+</p>
+</div>
+</div>
+<div id="outline-container-org81fd7bd" class="outline-2">
+<h2 id="org81fd7bd"><span class="section-number-2">11</span> GNU GPL v3 License</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+The GNU General Public License version 3.  There are no costs and no
+usage restrictions even in commercial application, please convince
+yourself with the <a href="info/LICENSE">LICENSE</a> file.
+</p>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
-<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2020-02-29 Sa&gt;</span></span></p>
-<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 26.3 (<a href="https://orgmode.org">Org</a> mode 9.3.6)</p>
+<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-08-30 Mo&gt;</span></span> Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-08-30 Mo&gt;</span></span></p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

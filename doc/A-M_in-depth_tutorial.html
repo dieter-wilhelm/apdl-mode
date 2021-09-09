@@ -3,15 +3,15 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-03-07 Sa 21:09 -->
+<!-- 2021-09-09 Do 15:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Guided APDL-Mode hands-on Tutorial</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="H. Dieter Wilhelm" />
-<meta name="description" content="Guided APDL-Mode hands-on APDL Tutorial"
+<meta name="description" content="Guided APDL-Mode hands-on APDL Tutorial, Version 20.6.0"
  />
-<meta name="keywords" content="Emacs ANSYS FEA APDL MAPDL" />
+<meta name="keywords" content="Emacs Ansys FEA APDL MAPDL" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -276,12 +276,12 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgde36776">Introduction</a></li>
-<li><a href="#org2319e6c">APDL viewing</a></li>
-<li><a href="#org5cdb99b">APDL editing</a></li>
-<li><a href="#org5929b8c">APDL environment</a></li>
-<li><a href="#org278ef78">Appendix</a></li>
-<li><a href="#orged24c33">Summary and Acknowledgements</a></li>
+<li><a href="#orgd32ec70">Introduction</a></li>
+<li><a href="#orgc4e3771">APDL viewing</a></li>
+<li><a href="#org9194a59">APDL editing</a></li>
+<li><a href="#orgddfa9fb">APDL environment</a></li>
+<li><a href="#org0370647">Appendix</a></li>
+<li><a href="#orgbf3ecee">Summary and Acknowledgements</a></li>
 </ul>
 </div>
 </div>
@@ -325,12 +325,12 @@ for the JavaScript code in this tag.
 
 </div>
 
-<div id="outline-container-orgde36776" class="outline-2">
-<h2 id="orgde36776">Introduction</h2>
-<div class="outline-text-2" id="text-orgde36776">
+<div id="outline-container-orgd32ec70" class="outline-2">
+<h2 id="orgd32ec70">Introduction</h2>
+<div class="outline-text-2" id="text-orgd32ec70">
 
 <div class="figure">
-<p><img src="./ansys+emacs.png" alt="ansys+emacs.png" width="600" />
+<p><img src="./ansys+emacs2020-03.png" alt="ansys+emacs2020-03.png" width="600" />
 </p>
 </div>
 
@@ -341,16 +341,16 @@ code.  But <b>also</b> many things in this language's context.
 
 <p>
 Since the relevance of APDL remains tall: `WorkBench' operates
-<b>exclusively</b> the ANSYS solver with it!  While for many
+<b>exclusively</b> the Ansys solver with it!  While for many
 applications WorkBench is taking over the "code authoring" part
 from the user, use APDL for <b>repetitive</b> tasks and command
 snippets, <b>extending</b> WB.
 </p>
 </div>
 
-<div id="outline-container-org3ea13fb" class="outline-3">
-<h3 id="org3ea13fb">Target audience</h3>
-<div class="outline-text-3" id="text-org3ea13fb">
+<div id="outline-container-orge0fd5ce" class="outline-3">
+<h3 id="orge0fd5ce">Target audience</h3>
+<div class="outline-text-3" id="text-orge0fd5ce">
 <dl class="org-dl">
 <dt>APDL coders</dt><dd>You have repetitive tasks and write APDL</dd>
 <dt>Users of WorkBench using command snippets</dt><dd>extending WorkBench</dd>
@@ -363,16 +363,16 @@ command reference.</dd>
 </dl>
 </div>
 </div>
-<div id="outline-container-orga52d878" class="outline-3">
-<h3 id="orga52d878">Using this tutorial</h3>
-<div class="outline-text-3" id="text-orga52d878">
+<div id="outline-container-org4ce97ca" class="outline-3">
+<h3 id="org4ce97ca">Using this tutorial</h3>
+<div class="outline-text-3" id="text-org4ce97ca">
 </div>
-<div id="outline-container-orgf8150ac" class="outline-4">
-<h4 id="orgf8150ac">Please read the <b>introductory</b> APDL-Mode tutorial first</h4>
-<div class="outline-text-4" id="text-orgf8150ac">
+<div id="outline-container-orge83a79b" class="outline-4">
+<h4 id="orge83a79b">Please read the <b>introductory</b> APDL-Mode tutorial first</h4>
+<div class="outline-text-4" id="text-orge83a79b">
 <p>
 This is the file `A-M_introductory_tutorial-162-1.pdf' in the
-mode's archive or use its <a href="http://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html">online</a> version.
+mode's archive or use its <a href="https://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html">online</a> version.
 </p>
 
 <p>
@@ -397,9 +397,9 @@ together with the &lt;c&gt; key.
 </p>
 </div>
 </div>
-<div id="outline-container-org23c6fbe" class="outline-4">
-<h4 id="org23c6fbe">Please, please work through this tutorial side by side <b>with</b> Emacs</h4>
-<div class="outline-text-4" id="text-org23c6fbe">
+<div id="outline-container-org20f3d14" class="outline-4">
+<h4 id="org20f3d14">Please, please work through this tutorial side by side <b>with</b> Emacs</h4>
+<div class="outline-text-4" id="text-org20f3d14">
 <p>
 Especially for the APDL examples, which look like the following
 code line.
@@ -419,17 +419,17 @@ further down.
 </div>
 </div>
 
-<div id="outline-container-org2319e6c" class="outline-2">
-<h2 id="org2319e6c">APDL viewing</h2>
-<div class="outline-text-2" id="text-org2319e6c">
+<div id="outline-container-orgc4e3771" class="outline-2">
+<h2 id="orgc4e3771">APDL viewing</h2>
+<div class="outline-text-2" id="text-orgc4e3771">
 <p>
 You can achieve all actions in this section from the menu <b>or</b> with
 keyboard shortcuts.
 </p>
 </div>
-<div id="outline-container-org2b6ce14" class="outline-3">
-<h3 id="org2b6ce14">Open some WorkBench solver input file</h3>
-<div class="outline-text-3" id="text-org2b6ce14">
+<div id="outline-container-orgfba69cf" class="outline-3">
+<h3 id="orgfba69cf">Open some WorkBench solver input file</h3>
+<div class="outline-text-3" id="text-orgfba69cf">
 <p>
 Drag and drop it on Emacs or use the `File' menu:
 </p>
@@ -445,9 +445,9 @@ Drag and drop it on Emacs or use the `File' menu:
 </p>
 </div>
 </div>
-<div id="outline-container-orgd07a6eb" class="outline-3">
-<h3 id="orgd07a6eb">Use APDL-Mode's `command help'</h3>
-<div class="outline-text-3" id="text-orgd07a6eb">
+<div id="outline-container-org2008bbb" class="outline-3">
+<h3 id="org2008bbb">Use APDL-Mode's `command help'</h3>
+<div class="outline-text-3" id="text-org2008bbb">
 
 <div class="figure">
 <p><img src="./parameter_help.png" alt="parameter_help.png" />
@@ -459,35 +459,35 @@ Drag and drop it on Emacs or use the `File' menu:
 </p>
 </div>
 </div>
-<div id="outline-container-org000e31a" class="outline-3">
-<h3 id="org000e31a">Open the `ANSYS help browser'</h3>
-<div class="outline-text-3" id="text-org000e31a">
+<div id="outline-container-org5a5a628" class="outline-3">
+<h3 id="org5a5a628">Open the `Ansys help browser'</h3>
+<div class="outline-text-3" id="text-org5a5a628">
 <p>
 for further assistence. (Keybinding <b>C-c C-h</b>)
 </p>
 </div>
 </div>
-<div id="outline-container-orgd2fdf30" class="outline-3">
-<h3 id="orgd2fdf30">Navigate through the `number blocks' in .dat files</h3>
-<div class="outline-text-3" id="text-orgd2fdf30">
+<div id="outline-container-org86ec39e" class="outline-3">
+<h3 id="org86ec39e">Navigate through the `number blocks' in .dat files</h3>
+<div class="outline-text-3" id="text-org86ec39e">
 <p>
-Skip the node- and element blocks with the menu entry ANSYS:
+Skip the node- and element blocks with the menu entry Ansys:
 Work_with_locical_blocks: End_of_number_block etc. (Keybinding <b>C-c
 {</b>)
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-org5cdb99b" class="outline-2">
-<h2 id="org5cdb99b">APDL editing</h2>
-<div class="outline-text-2" id="text-org5cdb99b">
+<div id="outline-container-org9194a59" class="outline-2">
+<h2 id="org9194a59">APDL editing</h2>
+<div class="outline-text-2" id="text-org9194a59">
 </div>
-<div id="outline-container-orge1af56b" class="outline-3">
-<h3 id="orge1af56b">Use the log file from ANSYS Classics to get APDL</h3>
+<div id="outline-container-org5053959" class="outline-3">
+<h3 id="org5053959">Use the log file from Ansys Classics to get APDL</h3>
 </div>
-<div id="outline-container-orga7094f1" class="outline-3">
-<h3 id="orga7094f1">Extensible APDL templates</h3>
-<div class="outline-text-3" id="text-orga7094f1">
+<div id="outline-container-org1c32c8c" class="outline-3">
+<h3 id="org1c32c8c">Extensible APDL templates</h3>
+<div class="outline-text-3" id="text-org1c32c8c">
 <p>
 Some of the existing templates are collections of (all) available
 commands to certain subjects.  They are more intended to be
@@ -503,9 +503,9 @@ Emacs and APDL-Mode, not only the APDL templates!
 </p>
 </div>
 
-<div id="outline-container-org415a288" class="outline-4">
-<h4 id="org415a288">Open this tutorial's APDL source file</h4>
-<div class="outline-text-4" id="text-org415a288">
+<div id="outline-container-orgffc094f" class="outline-4">
+<h4 id="orgffc094f">Open this tutorial's APDL source file</h4>
+<div class="outline-text-4" id="text-orgffc094f">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Open `APDL_tutorial.ans' with "C-x C-f"!  You can take this
 !! file from the latest mode's archives.
@@ -513,11 +513,11 @@ Emacs and APDL-Mode, not only the APDL templates!
 </div>
 </div>
 </div>
-<div id="outline-container-org2e9f202" class="outline-4">
-<h4 id="org2e9f202">Inspect available code templates</h4>
-<div class="outline-text-4" id="text-org2e9f202">
+<div id="outline-container-org0f15ba3" class="outline-4">
+<h4 id="org0f15ba3">Inspect available code templates</h4>
+<div class="outline-text-4" id="text-org0f15ba3">
 <p>
-Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64
+Screenshot with the Ansys Classics GUI (left) and Emacs (right) on Win64
 </p>
 
 
@@ -541,9 +541,9 @@ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64
 </div>
 </div>
 
-<div id="outline-container-org8e87dc0" class="outline-5">
-<h5 id="org8e87dc0">Preview the APDL `function' template of parametric- and *get functions</h5>
-<div class="outline-text-5" id="text-org8e87dc0">
+<div id="outline-container-org3c07cd7" class="outline-5">
+<h5 id="org3c07cd7">Preview the APDL `function' template of parametric- and *get functions</h5>
+<div class="outline-text-5" id="text-org3c07cd7">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Write now "ansys-skeleton-function"!  Let Emacs complete
 !! your input (use the &lt;TAB&gt; key).  Conclude it with &lt;RET&gt;.
@@ -553,9 +553,9 @@ Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64
 </div>
 </div>
 </div>
-<div id="outline-container-orgfeb32e7" class="outline-4">
-<h4 id="orgfeb32e7">Add a certain code template to your APDL code</h4>
-<div class="outline-text-4" id="text-orgfeb32e7">
+<div id="outline-container-org1618e64" class="outline-4">
+<h4 id="org1618e64">Add a certain code template to your APDL code</h4>
+<div class="outline-text-4" id="text-org1618e64">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Insert below the following line the structural template!  Type
 !! "M-x ansys-skeleton-structural-template" for insertion instead of
@@ -573,7 +573,7 @@ After giving a short description, it should look like this:
 !@ --- file header ---
 !! ------------------------------
 !! Time-stamp: &lt;Sat Jun 23 02:47:11 2012&gt;
-!! ANSYS VERSION: 140
+!! Ansys VERSION: 140
 !! UNITS: mm-t-s
 !! NOTE: template example
 !! ------------------------------
@@ -627,7 +627,7 @@ The idea is to have a skeleton for starting a new APDL project.
 
 !! FILENAME: APDL_tutorial.ans
 !! CREATION DATE: Tue Jun 26 01:02:07 2012
-!! ANSYS VERSION: 140
+!! Ansys VERSION: 140
 !! DESCRIPTION: outline example
 
 !@ ==============================
@@ -703,9 +703,9 @@ allsel
 </div>
 </div>
 
-<div id="outline-container-org3244b45" class="outline-4">
-<h4 id="org3244b45">Extend or create a template</h4>
-<div class="outline-text-4" id="text-org3244b45">
+<div id="outline-container-org3961a91" class="outline-4">
+<h4 id="org3961a91">Extend or create a template</h4>
+<div class="outline-text-4" id="text-org3961a91">
 <p>
 Check out the code for a template, the Emacs self-documenting help
 principle will guide you to its definition file.
@@ -730,9 +730,9 @@ You can modify, extend or create new code to your hearts content.
 </div>
 </div>
 </div>
-<div id="outline-container-org4749fac" class="outline-3">
-<h3 id="org4749fac">Outline and folding your code</h3>
-<div class="outline-text-3" id="text-org4749fac">
+<div id="outline-container-orgaaebf40" class="outline-3">
+<h3 id="orgaaebf40">Outline and folding your code</h3>
+<div class="outline-text-3" id="text-orgaaebf40">
 <p>
 !@, !@@, !@@@ are the heading indicators
 </p>
@@ -823,13 +823,13 @@ In above example it was the entry below the `Solution' heading.
 </p>
 </div>
 </div>
-<div id="outline-container-orgc053591" class="outline-3">
-<h3 id="orgc053591">Comments</h3>
-<div class="outline-text-3" id="text-orgc053591">
+<div id="outline-container-orga778e6a" class="outline-3">
+<h3 id="orga778e6a">Comments</h3>
+<div class="outline-text-3" id="text-orga778e6a">
 </div>
-<div id="outline-container-org0537af4" class="outline-4">
-<h4 id="org0537af4">Place comments</h4>
-<div class="outline-text-4" id="text-org0537af4">
+<div id="outline-container-orgfc65359" class="outline-4">
+<h4 id="orgfc65359">Place comments</h4>
+<div class="outline-text-4" id="text-orgfc65359">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "M-;" in the empty line below the code
 !!
@@ -850,9 +850,9 @@ right indentation
 </div>
 </div>
 </div>
-<div id="outline-container-org4f9fccc" class="outline-4">
-<h4 id="org4f9fccc">Commenting out</h4>
-<div class="outline-text-4" id="text-org4f9fccc">
+<div id="outline-container-orgca85dac" class="outline-4">
+<h4 id="orgca85dac">Commenting out</h4>
+<div class="outline-text-4" id="text-orgca85dac">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Mark some text above (e. g. dragging the mouse with LMB or you
 !! can mark the section with "M-h") and then type "M-;"
@@ -872,9 +872,9 @@ code should look like the following
 </div>
 </div>
 </div>
-<div id="outline-container-org2b44b61" class="outline-4">
-<h4 id="org2b44b61">Uncomment the code</h4>
-<div class="outline-text-4" id="text-org2b44b61">
+<div id="outline-container-org3b0085c" class="outline-4">
+<h4 id="org3b0085c">Uncomment the code</h4>
+<div class="outline-text-4" id="text-org3b0085c">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Mark above commented out code and retype "M-;"
 !!
@@ -891,9 +891,9 @@ Here we are again
 </div>
 </div>
 </div>
-<div id="outline-container-org85f24b4" class="outline-4">
-<h4 id="org85f24b4">Place inline comments</h4>
-<div class="outline-text-4" id="text-org85f24b4">
+<div id="outline-container-org33c9fc4" class="outline-4">
+<h4 id="org33c9fc4">Place inline comments</h4>
+<div class="outline-text-4" id="text-org33c9fc4">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "M-;" somewhere in the following code line
 !!
@@ -932,13 +932,13 @@ Is this not nicely thought out from Emacs' developers, is it?
 </p>
 </div>
 </div>
-<div id="outline-container-orge61e9a3" class="outline-4">
-<h4 id="orge61e9a3">Continue and indent your comments</h4>
-<div class="outline-text-4" id="text-orge61e9a3">
+<div id="outline-container-org8d80b93" class="outline-4">
+<h4 id="org8d80b93">Continue and indent your comments</h4>
+<div class="outline-text-4" id="text-org8d80b93">
 </div>
-<div id="outline-container-orgb1de1e3" class="outline-5">
-<h5 id="orgb1de1e3">In inline comments</h5>
-<div class="outline-text-5" id="text-orgb1de1e3">
+<div id="outline-container-orgf3dfffc" class="outline-5">
+<h5 id="orgf3dfffc">In inline comments</h5>
+<div class="outline-text-5" id="text-orgf3dfffc">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "M-j" behind the inline comment
 !!
@@ -955,9 +955,9 @@ nsel,s,loc,x,0,1         ! this is an `inline comment'
 </div>
 </div>
 </div>
-<div id="outline-container-org99938e6" class="outline-5">
-<h5 id="org99938e6">In regular comments</h5>
-<div class="outline-text-5" id="text-org99938e6">
+<div id="outline-container-org0ab326b" class="outline-5">
+<h5 id="org0ab326b">In regular comments</h5>
+<div class="outline-text-5" id="text-org0ab326b">
 <div class="org-src-container">
 <pre class="src src-ansys">*if,I,eq,1,then
   !! Type "M-j" behind this line
@@ -980,9 +980,9 @@ within logical block structures.
 </div>
 </div>
 </div>
-<div id="outline-container-orgff4c810" class="outline-3">
-<h3 id="orgff4c810">Check out APDL-Mode's built-in documentation</h3>
-<div class="outline-text-3" id="text-orgff4c810">
+<div id="outline-container-org00ae3d3" class="outline-3">
+<h3 id="org00ae3d3">Check out APDL-Mode's built-in documentation</h3>
+<div class="outline-text-3" id="text-org00ae3d3">
 <p>
 It is allways with you.
 </p>
@@ -994,9 +994,9 @@ It is allways with you.
 </div>
 </div>
 </div>
-<div id="outline-container-orgbe8a2c4" class="outline-3">
-<h3 id="orgbe8a2c4">APDL variable listing</h3>
-<div class="outline-text-3" id="text-orgbe8a2c4">
+<div id="outline-container-orgfdd4bfe" class="outline-3">
+<h3 id="orgfdd4bfe">APDL variable listing</h3>
+<div class="outline-text-3" id="text-orgfdd4bfe">
 <p>
 The listing is an alternative to the `*status' command and includes
 also implicit definitions (*vget, etc.) and component names and the
@@ -1017,9 +1017,9 @@ respective line No.
 </div>
 </div>
 </div>
-<div id="outline-container-orgb9945b7" class="outline-3">
-<h3 id="orgb9945b7">Align your variable definitions</h3>
-<div class="outline-text-3" id="text-orgb9945b7">
+<div id="outline-container-org20e9787" class="outline-3">
+<h3 id="org20e9787">Align your variable definitions</h3>
+<div class="outline-text-3" id="text-org20e9787">
 
 <div class="figure">
 <p><img src="./alignment.png" alt="alignment.png" />
@@ -1111,14 +1111,14 @@ y = cos(i)
 </div>
 </div>
 
-<div id="outline-container-org52bb6b1" class="outline-3">
-<h3 id="org52bb6b1">Completions (around 2000 ANSYS symbols)</h3>
-<div class="outline-text-3" id="text-org52bb6b1">
+<div id="outline-container-orgc4ae17a" class="outline-3">
+<h3 id="orgc4ae17a">Completions (around 2000 Ansys symbols)</h3>
+<div class="outline-text-3" id="text-orgc4ae17a">
 <p>
 Case sensitive completions except for mouse completion
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">!! Check out all APDL symbols, up to date with the latest ANSYS version
+<pre class="src src-ansys">!! Check out all APDL symbols, up to date with the latest Ansys version
 !! Place the cursor behind the 'c' character below and type "&lt;ESC&gt; &lt;TAB&gt;"
 !!
 c
@@ -1150,9 +1150,9 @@ cmlist
 </pre>
 </div>
 </div>
-<div id="outline-container-org0416094" class="outline-4">
-<h4 id="org0416094">Completion of functions</h4>
-<div class="outline-text-4" id="text-org0416094">
+<div id="outline-container-org6efee67" class="outline-4">
+<h4 id="org6efee67">Completion of functions</h4>
+<div class="outline-text-4" id="text-org6efee67">
 <p>
 Completed function names have parentheses appended
 </p>
@@ -1177,11 +1177,11 @@ Completed function names have parentheses appended
 </div>
 </div>
 </div>
-<div id="outline-container-org788f285" class="outline-4">
-<h4 id="org788f285">Completion of elements</h4>
-<div class="outline-text-4" id="text-org788f285">
+<div id="outline-container-org9f2f827" class="outline-4">
+<h4 id="org9f2f827">Completion of elements</h4>
+<div class="outline-text-4" id="text-org9f2f827">
 <p>
-APDL-Mode also complets ANSYS deprecated element names but warns you
+APDL-Mode also complets Ansys deprecated element names but warns you
 with a distinct highlighting!
 </p>
 <div class="org-src-container">
@@ -1192,9 +1192,9 @@ shell
 </div>
 </div>
 </div>
-<div id="outline-container-org8c10cf2" class="outline-4">
-<h4 id="org8c10cf2">Completion of commands</h4>
-<div class="outline-text-4" id="text-org8c10cf2">
+<div id="outline-container-orgc0929e4" class="outline-4">
+<h4 id="orgc0929e4">Completion of commands</h4>
+<div class="outline-text-4" id="text-orgc0929e4">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Completion of command names: type "&lt;ESC&gt; &lt;TAB&gt;" behind `a'
 !!
@@ -1202,15 +1202,15 @@ a
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ansys">!! Note Emacs' message that `a' is already a valid ANSYS symbol!
+<pre class="src src-ansys">!! Note Emacs' message that `a' is already a valid Ansys symbol!
 !! It is highlighted already as a command, but it is further completable.
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org61e1cf6" class="outline-4">
-<h4 id="org61e1cf6">Dynamic completion</h4>
-<div class="outline-text-4" id="text-org61e1cf6">
+<div id="outline-container-orgecb1cd5" class="outline-4">
+<h4 id="orgecb1cd5">Dynamic completion</h4>
+<div class="outline-text-4" id="text-orgecb1cd5">
 <p>
 Is a completion on the basis of the window's content, the
 following example will demonstrate what this means.
@@ -1251,13 +1251,13 @@ very_long_Variable
 </div>
 </div>
 </div>
-<div id="outline-container-org3ba2162" class="outline-3">
-<h3 id="org3ba2162">Abbreviations facility</h3>
-<div class="outline-text-3" id="text-org3ba2162">
+<div id="outline-container-orgece309d" class="outline-3">
+<h3 id="orgece309d">Abbreviations facility</h3>
+<div class="outline-text-3" id="text-orgece309d">
 </div>
-<div id="outline-container-org9649d10" class="outline-4">
-<h4 id="org9649d10">Use the APDL-Mode defined abbreviations</h4>
-<div class="outline-text-4" id="text-org9649d10">
+<div id="outline-container-org690a09b" class="outline-4">
+<h4 id="org690a09b">Use the APDL-Mode defined abbreviations</h4>
+<div class="outline-text-4" id="text-org690a09b">
 <div class="org-src-container">
 <pre class="src src-ansys">!! type a &lt;SPACE&gt; behind the special character ``' and abbreviation characters
 !!
@@ -1299,16 +1299,16 @@ all (locally) defined abbreviations with <b>C-u M-x list-abbrevs</b>
 </div>
 </div>
 </div>
-<div id="outline-container-orgb6ab4e2" class="outline-3">
-<h3 id="orgb6ab4e2">Logical blocks</h3>
-<div class="outline-text-3" id="text-orgb6ab4e2">
+<div id="outline-container-orgbe2d0fc" class="outline-3">
+<h3 id="orgbe2d0fc">Logical blocks</h3>
+<div class="outline-text-3" id="text-orgbe2d0fc">
 <p>
 or control statements in "lesser" programming languages ;-)
 </p>
 </div>
-<div id="outline-container-orga4a63e3" class="outline-4">
-<h4 id="orga4a63e3">Closing of logical blocks</h4>
-<div class="outline-text-4" id="text-orga4a63e3">
+<div id="outline-container-orgec6f88a" class="outline-4">
+<h4 id="orgec6f88a">Closing of logical blocks</h4>
+<div class="outline-text-4" id="text-orgec6f88a">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Place the cursor below or behind the block statements and type "C-c ]"!
 !!
@@ -1339,9 +1339,9 @@ Voila for every logical block type the proper closing statements:
 </div>
 </div>
 </div>
-<div id="outline-container-orgd5903f3" class="outline-4">
-<h4 id="orgd5903f3">Auto-indentation</h4>
-<div class="outline-text-4" id="text-orgd5903f3">
+<div id="outline-container-orgbf5f7ca" class="outline-4">
+<h4 id="orgbf5f7ca">Auto-indentation</h4>
+<div class="outline-text-4" id="text-orgbf5f7ca">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Insert in between the following block e. g. a `*do' statement!
 !! Conclude the line(s) with "C-j" to receive an automatic indentation.
@@ -1371,9 +1371,9 @@ The line is indented too (don't forget to apply the shortcut <b>C-c
 </div>
 </div>
 </div>
-<div id="outline-container-org4d1ce2e" class="outline-3">
-<h3 id="org4d1ce2e">Use the Emacs integrated RPN Calculator</h3>
-<div class="outline-text-3" id="text-org4d1ce2e">
+<div id="outline-container-orge0a8c2d" class="outline-3">
+<h3 id="orge0a8c2d">Use the Emacs integrated RPN Calculator</h3>
+<div class="outline-text-3" id="text-orge0a8c2d">
 <p>
 RPN means Reversed Polish Notation, HP calculators are using this
 arguably superior input convention.  Please read the `Calc'
@@ -1439,16 +1439,16 @@ Pi = acos(-1)
 </div>
 </div>
 </div>
-<div id="outline-container-org5cde815" class="outline-3">
-<h3 id="org5cde815">Highlighting APDL specials</h3>
-<div class="outline-text-3" id="text-org5cde815">
+<div id="outline-container-orgc6b7cf2" class="outline-3">
+<h3 id="orgc6b7cf2">Highlighting APDL specials</h3>
+<div class="outline-text-3" id="text-orgc6b7cf2">
 <p>
 TODO! for this tutorial: Colour the code snippets.
 </p>
 </div>
-<div id="outline-container-orga35c0d1" class="outline-4">
-<h4 id="orga35c0d1">Reserved words and _RETURN statements</h4>
-<div class="outline-text-4" id="text-orga35c0d1">
+<div id="outline-container-org8cadf63" class="outline-4">
+<h4 id="org8cadf63">Reserved words and _RETURN statements</h4>
+<div class="outline-text-4" id="text-org8cadf63">
 <div class="org-src-container">
 <pre class="src src-ansys">!!
 N = _RETURN	      ! return value of certain commands
@@ -1459,9 +1459,9 @@ Depth  = ARG1         ! ARG{1-9}, AR{10-19} = "*use" variables
 </div>
 </div>
 </div>
-<div id="outline-container-org74b850b" class="outline-4">
-<h4 id="org74b850b">Old style APDL comments</h4>
-<div class="outline-text-4" id="text-org74b850b">
+<div id="outline-container-orgfffbc6c" class="outline-4">
+<h4 id="orgfffbc6c">Old style APDL comments</h4>
+<div class="outline-text-4" id="text-orgfffbc6c">
 <div class="org-src-container">
 <pre class="src src-ansys">var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
 var2 = sinh(cos(3*5))  ! this is valid code
@@ -1470,9 +1470,9 @@ var2 = sinh(cos(3*5))  ! this is valid code
 </div>
 </div>
 </div>
-<div id="outline-container-orgf765aec" class="outline-4">
-<h4 id="orgf765aec">Ignored characters behind commands</h4>
-<div class="outline-text-4" id="text-orgf765aec">
+<div id="outline-container-orge7c0632" class="outline-4">
+<h4 id="orge7c0632">Ignored characters behind commands</h4>
+<div class="outline-text-4" id="text-orge7c0632">
 <div class="org-src-container">
 <pre class="src src-ansys">f $ fi $ fin $ fini $ finis  $ finish $ finisher
 !!
@@ -1480,9 +1480,9 @@ var2 = sinh(cos(3*5))  ! this is valid code
 </div>
 </div>
 </div>
-<div id="outline-container-org61c1169" class="outline-4">
-<h4 id="org61c1169">The End Of File command</h4>
-<div class="outline-text-4" id="text-org61c1169">
+<div id="outline-container-org3962bbc" class="outline-4">
+<h4 id="org3962bbc">The End Of File command</h4>
+<div class="outline-text-4" id="text-org3962bbc">
 <div class="org-src-container">
 <pre class="src src-ansys">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
 !!
@@ -1490,9 +1490,9 @@ var2 = sinh(cos(3*5))  ! this is valid code
 </div>
 </div>
 </div>
-<div id="outline-container-orgd8428a4" class="outline-4">
-<h4 id="orgd8428a4">Current element types and deprecated elements</h4>
-<div class="outline-text-4" id="text-orgd8428a4">
+<div id="outline-container-orgcdc7164" class="outline-4">
+<h4 id="orgcdc7164">Current element types and deprecated elements</h4>
+<div class="outline-text-4" id="text-orgcdc7164">
 <div class="org-src-container">
 <pre class="src src-ansys">!! A current element type:
 et,10,solid186
@@ -1526,9 +1526,9 @@ and you are getting a diffent element highlighting.
 </div>
 </div>
 
-<div id="outline-container-org5929b8c" class="outline-2">
-<h2 id="org5929b8c">APDL environment</h2>
-<div class="outline-text-2" id="text-org5929b8c">
+<div id="outline-container-orgddfa9fb" class="outline-2">
+<h2 id="orgddfa9fb">APDL environment</h2>
+<div class="outline-text-2" id="text-orgddfa9fb">
 <p>
 The APDL processing and debugging environment
   Finally switch off unnecessay stuff: Emacs' menu-, tool- and
@@ -1541,9 +1541,9 @@ The APDL processing and debugging environment
 </pre>
 </div>
 </div>
-<div id="outline-container-org7b951fe" class="outline-3">
-<h3 id="org7b951fe">Choose the license type for a run</h3>
-<div class="outline-text-3" id="text-org7b951fe">
+<div id="outline-container-orga4a39a0" class="outline-3">
+<h3 id="orga4a39a0">Choose the license type for a run</h3>
+<div class="outline-text-3" id="text-orga4a39a0">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "C-c C-t"!  And select the required license type Use the
 !! &lt;TAB&gt; key to see the predefined types
@@ -1551,9 +1551,9 @@ The APDL processing and debugging environment
 </div>
 </div>
 </div>
-<div id="outline-container-orgcbb580a" class="outline-3">
-<h3 id="orgcbb580a">Display the license status</h3>
-<div class="outline-text-3" id="text-orgcbb580a">
+<div id="outline-container-org971db2b" class="outline-3">
+<h3 id="org971db2b">Display the license status</h3>
+<div class="outline-text-3" id="text-org971db2b">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "C-c C-l"!  Checking which licenses are free, in particular
 !! your chosen license
@@ -1576,9 +1576,9 @@ thumbnail view of images from a folder.
 </div>
 </div>
 
-<div id="outline-container-org455e8ae" class="outline-3">
-<h3 id="org455e8ae">Start the ANSYS `solver/interpreter'</h3>
-<div class="outline-text-3" id="text-org455e8ae">
+<div id="outline-container-orgcddb5f7" class="outline-3">
+<h3 id="orgcddb5f7">Start the Ansys `solver/interpreter'</h3>
+<div class="outline-text-3" id="text-orgcddb5f7">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "C-c RET"!
 !!
@@ -1586,13 +1586,13 @@ thumbnail view of images from a folder.
 </div>
 </div>
 </div>
-<div id="outline-container-orge920674" class="outline-3">
-<h3 id="orge920674">Communication with the interpreter</h3>
-<div class="outline-text-3" id="text-orge920674">
+<div id="outline-container-orge71d37b" class="outline-3">
+<h3 id="orge71d37b">Communication with the interpreter</h3>
+<div class="outline-text-3" id="text-orge71d37b">
 </div>
-<div id="outline-container-org9844615" class="outline-4">
-<h4 id="org9844615">Sending window (APDL file) contents</h4>
-<div class="outline-text-4" id="text-org9844615">
+<div id="outline-container-org04f11e6" class="outline-4">
+<h4 id="org04f11e6">Sending window (APDL file) contents</h4>
+<div class="outline-text-4" id="text-org04f11e6">
 <p>
 The window is called a buffer in Emacs terminology, when you are
 saveing the buffer content then it represents the file content.
@@ -1604,12 +1604,12 @@ To make everything unclear. ;-)
 </pre>
 </div>
 </div>
-<div id="outline-container-orgd66e550" class="outline-5">
-<h5 id="orgd66e550">Send a code line or region</h5>
-<div class="outline-text-5" id="text-orgd66e550">
+<div id="outline-container-org11b0bb9" class="outline-5">
+<h5 id="org11b0bb9">Send a code line or region</h5>
+<div class="outline-text-5" id="text-org11b0bb9">
 <p>
 Any time you communicate with the interpreter its output is shown in
-the <code>*ANSYS*</code> interactive window.
+the <code>*Ansys*</code> interactive window.
 </p>
 <div class="org-src-container">
 <pre class="src src-ansys">!! Go to the beginning of above code and
@@ -1619,9 +1619,9 @@ the <code>*ANSYS*</code> interactive window.
 </div>
 </div>
 </div>
-<div id="outline-container-org5f46706" class="outline-5">
-<h5 id="org5f46706">Send above code (from the cursor up to the beginning)</h5>
-<div class="outline-text-5" id="text-org5f46706">
+<div id="outline-container-org6387fe1" class="outline-5">
+<h5 id="org6387fe1">Send above code (from the cursor up to the beginning)</h5>
+<div class="outline-text-5" id="text-org6387fe1">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Place the cursor below the `solve' command and
 !! type "C-c C-u" sending all code up to the beginning!
@@ -1630,7 +1630,7 @@ the <code>*ANSYS*</code> interactive window.
 </div>
 <p>
 <b>C-c C-u</b>, <b>C-c C-c</b> have changed their behaviour with the running
-interpreter.  Without a running ANSYS process they are sending the
+interpreter.  Without a running Ansys process they are sending the
 code to the system clipboard instead.
 </p>
 <div class="org-src-container">
@@ -1641,18 +1641,18 @@ code to the system clipboard instead.
 </div>
 </div>
 </div>
-<div id="outline-container-org3bafbc8" class="outline-3">
-<h3 id="org3bafbc8">Graphical feedback and graphics interaction</h3>
-<div class="outline-text-3" id="text-org3bafbc8">
+<div id="outline-container-org2b82fbe" class="outline-3">
+<h3 id="org2b82fbe">Graphical feedback and graphics interaction</h3>
+<div class="outline-text-3" id="text-org2b82fbe">
 <p>
 Receive graphical feedback from the interpreter
 </p>
 </div>
-<div id="outline-container-org64f9f7a" class="outline-4">
-<h4 id="org64f9f7a">Open the `interactive graphics' window of ANSYS</h4>
-<div class="outline-text-4" id="text-org64f9f7a">
+<div id="outline-container-orgd8ad443" class="outline-4">
+<h4 id="orgd8ad443">Open the `interactive graphics' window of Ansys</h4>
+<div class="outline-text-4" id="text-orgd8ad443">
 <div class="org-src-container">
-<pre class="src src-ansys">!! Type "C-c C-g" to open the ANSYS `interactive' graphics frame.
+<pre class="src src-ansys">!! Type "C-c C-g" to open the Ansys `interactive' graphics frame.
 !! Then send the following line with "C-c C-c".
 !!
 eplot
@@ -1676,11 +1676,11 @@ time the graphics frame was hidden by other graphics (Desktop
 switching, etc.)!
 </p>
 </div>
-<div id="outline-container-org291ba74" class="outline-5">
-<h5 id="org291ba74">Open the ANSYS Pan/Zoom/Rotate dialog</h5>
-<div class="outline-text-5" id="text-org291ba74">
+<div id="outline-container-org255b6a6" class="outline-5">
+<h5 id="org255b6a6">Open the Ansys Pan/Zoom/Rotate dialog</h5>
+<div class="outline-text-5" id="text-org255b6a6">
 <div class="org-src-container">
-<pre class="src src-ansys">!! Type "C-c C-p" to open the ANSYS Pan/Zoom/Rotate dialog!
+<pre class="src src-ansys">!! Type "C-c C-p" to open the Ansys Pan/Zoom/Rotate dialog!
 !!
 </pre>
 </div>
@@ -1691,9 +1691,9 @@ for replotting, zooming, fitting and moving graphical objects.
 </p>
 </div>
 </div>
-<div id="outline-container-org999dcee" class="outline-5">
-<h5 id="org999dcee">Use the keybindings for zooming</h5>
-<div class="outline-text-5" id="text-org999dcee">
+<div id="outline-container-org530d0d6" class="outline-5">
+<h5 id="org530d0d6">Use the keybindings for zooming</h5>
+<div class="outline-text-5" id="text-org530d0d6">
 <div class="org-src-container">
 <pre class="src src-ansys">!! "C-c C-+" Enlarge it
 !! "C-c C-f" Fit the graphics
@@ -1703,9 +1703,9 @@ for replotting, zooming, fitting and moving graphical objects.
 </div>
 </div>
 </div>
-<div id="outline-container-orga78c5b5" class="outline-5">
-<h5 id="orga78c5b5">Use the keybindings for moving</h5>
-<div class="outline-text-5" id="text-orga78c5b5">
+<div id="outline-container-org0da70f0" class="outline-5">
+<h5 id="org0da70f0">Use the keybindings for moving</h5>
+<div class="outline-text-5" id="text-org0da70f0">
 <div class="org-src-container">
 <pre class="src src-ansys">!! "C-c C-&gt;" Move right
 !! "C-c C-_" Move down
@@ -1726,9 +1726,9 @@ Hint: Use Emacs `repeat' command <b>C-x z</b>, after its use already the
 </div>
 </div>
 </div>
-<div id="outline-container-org960bab3" class="outline-5">
-<h5 id="org960bab3">Use the keybindings for replotting and iso-view</h5>
-<div class="outline-text-5" id="text-org960bab3">
+<div id="outline-container-org65c114b" class="outline-5">
+<h5 id="org65c114b">Use the keybindings for replotting and iso-view</h5>
+<div class="outline-text-5" id="text-org65c114b">
 <div class="org-src-container">
 <pre class="src src-ansys">!! "C-c C-i" Show in Iso-view
 !! "C-c C-r" Replot the graphics
@@ -1739,13 +1739,13 @@ Hint: Use Emacs `repeat' command <b>C-x z</b>, after its use already the
 </div>
 </div>
 
-<div id="outline-container-orgeb9f97c" class="outline-4">
-<h4 id="orgeb9f97c">Sending directly to the interpeter</h4>
-<div class="outline-text-4" id="text-orgeb9f97c">
+<div id="outline-container-org4ea7c1a" class="outline-4">
+<h4 id="org4ea7c1a">Sending directly to the interpeter</h4>
+<div class="outline-text-4" id="text-org4ea7c1a">
 </div>
-<div id="outline-container-org5e71ed1" class="outline-5">
-<h5 id="org5e71ed1">Direct communication from the APDL window</h5>
-<div class="outline-text-5" id="text-org5e71ed1">
+<div id="outline-container-org4cf6c35" class="outline-5">
+<h5 id="org4cf6c35">Direct communication from the APDL window</h5>
+<div class="outline-text-5" id="text-org4cf6c35">
 <div class="org-src-container">
 <pre class="src src-ansys">!! Type "C-c C-q" and send your input directly to the interpreter!
 !! You are getting `queried' for input by Emacs.
@@ -1755,11 +1755,11 @@ Hint: Use Emacs `repeat' command <b>C-x z</b>, after its use already the
 </div>
 </div>
 </div>
-<div id="outline-container-org14981e2" class="outline-5">
-<h5 id="org14981e2">Direct communication from the <code>*ANSYS*</code> interactive window</h5>
-<div class="outline-text-5" id="text-org14981e2">
+<div id="outline-container-org0c09a4f" class="outline-5">
+<h5 id="org0c09a4f">Direct communication from the <code>*Ansys*</code> interactive window</h5>
+<div class="outline-text-5" id="text-org0c09a4f">
 <div class="org-src-container">
-<pre class="src src-ansys">!! Place the cursor in the *ANSYS* interactive window and write
+<pre class="src src-ansys">!! Place the cursor in the *Ansys* interactive window and write
 !! "plnsol,u,sum", conclude the input with &lt;RET&gt;.
 !!
 </pre>
@@ -1769,9 +1769,9 @@ Hint: Use Emacs `repeat' command <b>C-x z</b>, after its use already the
 </div>
 </div>
 
-<div id="outline-container-org942c92c" class="outline-3">
-<h3 id="org942c92c">Visiting the ANSYS error file</h3>
-<div class="outline-text-3" id="text-org942c92c">
+<div id="outline-container-org5bb1dfd" class="outline-3">
+<h3 id="org5bb1dfd">Visiting the Ansys error file</h3>
+<div class="outline-text-3" id="text-org5bb1dfd">
 <p>
 The solver error file (\*.err) is opened in tail-follow mode,
 i. e. you are seeing always the latest contend. (<b>C-c C-e</b>)
@@ -1785,13 +1785,13 @@ i. e. you are seeing always the latest contend. (<b>C-c C-e</b>)
 </div>
 </div>
 </div>
-<div id="outline-container-org278ef78" class="outline-2">
-<h2 id="org278ef78">Appendix</h2>
-<div class="outline-text-2" id="text-org278ef78">
+<div id="outline-container-org0370647" class="outline-2">
+<h2 id="org0370647">Appendix</h2>
+<div class="outline-text-2" id="text-org0370647">
 </div>
-<div id="outline-container-org75f72fa" class="outline-3">
-<h3 id="org75f72fa">Regarding Emacs' keybindings</h3>
-<div class="outline-text-3" id="text-org75f72fa">
+<div id="outline-container-orgbe329ae" class="outline-3">
+<h3 id="orgbe329ae">Regarding Emacs' keybindings</h3>
+<div class="outline-text-3" id="text-orgbe329ae">
 <p>
 Even when these keybindings at first seem foreign and unhandy, an
 additional advantage getting used to them is the fact that the
@@ -1801,9 +1801,9 @@ additional advantage getting used to them is the fact that the
 </div>
 </div>
 
-<div id="outline-container-orged24c33" class="outline-2">
-<h2 id="orged24c33">Summary and Acknowledgements</h2>
-<div class="outline-text-2" id="text-orged24c33">
+<div id="outline-container-orgbf3ecee" class="outline-2">
+<h2 id="orgbf3ecee">Summary and Acknowledgements</h2>
+<div class="outline-text-2" id="text-orgbf3ecee">
 <p>
 Thank you for your time, have fun with Emacs&#x2026;
 </p>
@@ -1815,11 +1815,11 @@ Thank you for your time, have fun with Emacs&#x2026;
 </div>
 </div>
 
-<div id="outline-container-org68b97e3" class="outline-3">
-<h3 id="org68b97e3">Acknowledgements</h3>
-<div class="outline-text-3" id="text-org68b97e3">
+<div id="outline-container-orgc0bf2b2" class="outline-3">
+<h3 id="orgc0bf2b2">Acknowledgements</h3>
+<div class="outline-text-3" id="text-orgc0bf2b2">
 <dl class="org-dl">
-<dt>Carsten Dominik</dt><dd>Ingenious <a href="http://orgmode.org/">Org-mode</a> for Emacs</dd>
+<dt>Carsten Dominik</dt><dd>Ingenious <a href="https://orgmode.org/">Org-mode</a> for Emacs</dd>
 <dt><a href="http://stallman.org/">RMS</a></dt><dd><a href="http://www.gnu.org/software/emacs/">GNU Emacs</a> and many other great ideas and programs</dd>
 </dl>
 
@@ -1830,9 +1830,9 @@ Thank you for your time, have fun with Emacs&#x2026;
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2020-02-23 So&gt;</span></span></p>
+<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2020-05-01 Fr&gt;</span></span></p>
 <p class="author">Author: H. Dieter Wilhelm</p>
-<p class="date">Created: 2020-03-07 Sa 21:09</p>
+<p class="date">Created: 2021-09-09 Do 15:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

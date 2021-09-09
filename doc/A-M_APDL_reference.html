@@ -3,12 +3,14 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-03-07 Sa 21:10 -->
+<!-- 2021-09-09 Do 15:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>APDL-Mode Highlighting and APDL Reference</title>
+<title>&lrm;</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="H. Dieter Wilhelm" />
+<meta name="description" content="Version 20.6.0"
+ />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -239,86 +241,63 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-        displayAlign: "center",
-        displayIndent: "0em",
-
-        "HTML-CSS": { scale: 100,
-                        linebreaks: { automatic: "false" },
-                        webFont: "TeX"
-                       },
-        SVG: {scale: 100,
-              linebreaks: { automatic: "false" },
-              font: "TeX"},
-        NativeMML: {scale: 100},
-        TeX: { equationNumbers: {autoNumber: "AMS"},
-               MultLineWidth: "85%",
-               TagSide: "right",
-               TagIndent: ".8em"
-             }
-});
-</script>
-<script type="text/javascript"
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
  <a accesskey="h" href="../index.html"> UP </a>
  |
- <a accesskey="H" href="https://github.com/dieter-wilhelm/ansys-mode"> HOME </a>
+ <a accesskey="H" href="https://github.com/dieter-wilhelm/apdl-mode"> HOME </a>
 </div><div id="content">
-<h1 class="title">APDL-Mode Highlighting and APDL Reference</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org6f22ba5">1. WorkBench to APDL Translation</a>
+<li><a href="#org4adac9a">1. WorkBench to APDL Translation</a>
 <ul>
-<li><a href="#orgece75ec">1.1. Contacts</a></li>
-<li><a href="#org2a9817f">1.2. Material Models</a></li>
-<li><a href="#org040a1e9">1.3. Boundary conditions</a></li>
+<li><a href="#org8314647">1.1. Contacts</a></li>
+<li><a href="#org7774aa6">1.2. Material Models</a></li>
+<li><a href="#orgdf414dc">1.3. Boundary conditions</a></li>
 </ul>
 </li>
-<li><a href="#org11479b1">2. APDL Reference</a>
+<li><a href="#org8dd3c7b">2. APDL Reference</a>
 <ul>
-<li><a href="#orgd9d2ecf">2.1. Idiosyncrasies</a></li>
-<li><a href="#org4285ce9">2.2. File types (the whole zoo is in the operations guide) under Gnu/Linux?</a></li>
-<li><a href="#org18619f0">2.3. Defining parameters</a></li>
-<li><a href="#org10266ab">2.4. Erasing variables from memory</a></li>
-<li><a href="#org8b4647c">2.5. Variable substitution with `%'</a></li>
-<li><a href="#org89414ad">2.6. Expressions</a></li>
-<li><a href="#org2f9871c">2.7. Arrays</a></li>
-<li><a href="#org2c8b50c">2.8. debugging</a></li>
-<li><a href="#orga0bca85">2.9. Multiple runs, probabilistic design</a></li>
-<li><a href="#org154d368">2.10. Undocumented commands</a></li>
+<li><a href="#org3a36b32">2.1. Idiosyncrasies</a></li>
+<li><a href="#org838d313">2.2. File types</a></li>
+<li><a href="#org8de2e30">2.3. Defining parameters</a></li>
+<li><a href="#org478b61b">2.4. Erasing variables from memory</a></li>
+<li><a href="#org76b2f17">2.5. Variable substitution</a></li>
+<li><a href="#org62dd26c">2.6. Expressions</a></li>
+<li><a href="#org83ff90f">2.7. Arrays</a></li>
+<li><a href="#orgc252828">2.8. debugging</a></li>
+<li><a href="#orgf74aa56">2.9. Multiple runs, probabilistic design</a></li>
+<li><a href="#orga370034">2.10. Undocumented commands</a></li>
 </ul>
 </li>
-<li><a href="#org8784560">3. APDL-Mode Syntax Highlighting Reference</a>
+<li><a href="#orgeb8b3b0">3. APDL-Mode Syntax Highlighting Reference</a>
 <ul>
-<li><a href="#orgdbed448">3.1. Header</a></li>
-<li><a href="#orgcc89141">3.2. Highlighting APDL specials</a></li>
-<li><a href="#orgd34b685">3.3. Implied (or colon) looping</a></li>
+<li><a href="#orgcff7495">3.1. Header</a></li>
+<li><a href="#orgd33ace2">3.2. Highlighting APDL specials</a></li>
+<li><a href="#org62902ac">3.3. Implied (or colon) looping</a></li>
 </ul>
 </li>
-<li><a href="#org277b7fd">4. And the rest</a></li>
+<li><a href="#org1567887">4. And the rest</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org6f22ba5" class="outline-2">
-<h2 id="org6f22ba5"><span class="section-number-2">1</span> WorkBench to APDL Translation</h2>
+<div id="outline-container-org4adac9a" class="outline-2">
+<h2 id="org4adac9a"><span class="section-number-2">1</span> WorkBench to APDL Translation</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-orgece75ec" class="outline-3">
-<h3 id="orgece75ec"><span class="section-number-3">1.1</span> Contacts</h3>
+<div id="outline-container-org8314647" class="outline-3">
+<h3 id="org8314647"><span class="section-number-3">1.1</span> Contacts</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-orge28e517" class="outline-4">
-<h4 id="orge28e517"><span class="section-number-4">1.1.1</span> default 3D thermal contact</h4>
+<div id="outline-container-org9a9b4b8" class="outline-4">
+<h4 id="org9a9b4b8"><span class="section-number-4">1.1.1</span> default 3D thermal contact</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <div class="org-src-container">
-<pre class="src src-ansys">     2333        6        5        6        0     6458     6457     6422     6421     8356     8306     8303     8304
+<pre class="src src-apdl">     2333        6        5        6        0     6458     6457     6422     6421     8356     8306     8303     8304
 -1
 keyo,cid,8,2               ! auto create asymmetric contact (from Program Controlled setting)
 keyo,cid,10,2              ! adjust contact stiffness each NR iteration (from Program Controlled setting)
@@ -359,38 +338,34 @@ eblock,10,,,94
 </div>
 </div>
 </div>
-<div id="outline-container-org2a9817f" class="outline-3">
-<h3 id="org2a9817f"><span class="section-number-3">1.2</span> Material Models</h3>
+<div id="outline-container-org7774aa6" class="outline-3">
+<h3 id="org7774aa6"><span class="section-number-3">1.2</span> Material Models</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-orgedbe7dc" class="outline-4">
-<h4 id="orgedbe7dc"><span class="section-number-4">1.2.1</span> Plasticity</h4>
+<div id="outline-container-orgae436e8" class="outline-4">
+<h4 id="orgae436e8"><span class="section-number-4">1.2.1</span> Plasticity</h4>
 <div class="outline-text-4" id="text-1-2-1">
-</div>
-<div id="outline-container-org0a81966" class="outline-5">
-<h5 id="org0a81966"><span class="section-number-5">1.2.1.1</span> Multilinear Kinematic Hardening (MISO)</h5>
-<div class="outline-text-5" id="text-1-2-1-1">
 <p>
+Multilinear Kinematic Hardening (MISO)
 Implementation:
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">TB,PLAS,1,1,2,MISO
+<pre class="src src-apdl">TB,PLAS,1,1,2,MISO
 </pre>
 </div>
 <p>
 This means that one must input the curve in plastic strains and
-<b>not</b> engineering strains!
+true stresses, <b>not</b> in the engineering quantities!
 </p>
 </div>
 </div>
 </div>
-</div>
-<div id="outline-container-org040a1e9" class="outline-3">
-<h3 id="org040a1e9"><span class="section-number-3">1.3</span> Boundary conditions</h3>
+<div id="outline-container-orgdf414dc" class="outline-3">
+<h3 id="orgdf414dc"><span class="section-number-3">1.3</span> Boundary conditions</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-orgc63e93d" class="outline-5">
-<h5 id="orgc63e93d"><span class="section-number-5">1.3.0.1</span> forces</h5>
+<div id="outline-container-org6251074" class="outline-5">
+<h5 id="org6251074"><span class="section-number-5">1.3.0.1</span> forces</h5>
 <div class="outline-text-5" id="text-1-3-0-1">
 <p>
 it is possible to apply time and spatially varying loads either
@@ -421,14 +396,14 @@ faces of a cylinder!)</dd>
 </div>
 </div>
 
-<div id="outline-container-org7dee4d0" class="outline-5">
-<h5 id="org7dee4d0"><span class="section-number-5">1.3.0.2</span> Pressure</h5>
+<div id="outline-container-orgf41358f" class="outline-5">
+<h5 id="orgf41358f"><span class="section-number-5">1.3.0.2</span> Pressure</h5>
 <div class="outline-text-5" id="text-1-3-0-2">
 <p>
 Surface elements <code>surf154</code> and surface loads on elements (<code>sfe</code>)
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">  /com,*********** Define Pressure Vector Using Surface Effect Elements ***********
+<pre class="src src-apdl">  /com,*********** Define Pressure Vector Using Surface Effect Elements ***********
   local,12,0,0.,0.,0.,0.,0.,0.
   csys,0
   et,2,154
@@ -490,8 +465,8 @@ esel,all
 </div>
 </div>
 </div>
-<div id="outline-container-org238e78f" class="outline-5">
-<h5 id="org238e78f"><span class="section-number-5">1.3.0.3</span> displacements</h5>
+<div id="outline-container-org6dc5df0" class="outline-5">
+<h5 id="org6dc5df0"><span class="section-number-5">1.3.0.3</span> displacements</h5>
 <div class="outline-text-5" id="text-1-3-0-3">
 <dl class="org-dl">
 <dt>remote displacement</dt><dd>x,y,z, displacments are for the pilot node NOT
@@ -503,15 +478,15 @@ thickness=1, damping possible</dd>
 <dt>compression only support</dt><dd>rigid surf2surf contacts</dd>
 </dl>
 </div>
-<div id="outline-container-orgc497170" class="outline-6">
-<h6 id="orgc497170"><span class="section-number-6">1.3.0.3.1</span> Frictionless Support</h6>
+<div id="outline-container-org934498e" class="outline-6">
+<h6 id="org934498e"><span class="section-number-6">1.3.0.3.1</span> Frictionless Support</h6>
 <div class="outline-text-6" id="text-1-3-0-3-1">
 <p>
 Fixing normal displacement with (<code>d</code>), possibly modifying nodal
 coordinate system (<code>nmodif</code>), turning into normal direction.
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">/com,********* Frictionless Supports X *********
+<pre class="src src-apdl">/com,********* Frictionless Supports X *********
 CMBLOCK,_FRICSUX,NODE,       48
 (8i10)
 	61        62        63        64        65        66       115       116
@@ -534,42 +509,45 @@ nmod,61,,,,-43.6672749853753,0.,0.
 </div>
 </div>
 
-<div id="outline-container-org11479b1" class="outline-2">
-<h2 id="org11479b1"><span class="section-number-2">2</span> APDL Reference</h2>
+<div id="outline-container-org8dd3c7b" class="outline-2">
+<h2 id="org8dd3c7b"><span class="section-number-2">2</span> APDL Reference</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-orgd9d2ecf" class="outline-3">
-<h3 id="orgd9d2ecf"><span class="section-number-3">2.1</span> Idiosyncrasies</h3>
+<div id="outline-container-org3a36b32" class="outline-3">
+<h3 id="org3a36b32"><span class="section-number-3">2.1</span> Idiosyncrasies</h3>
 <div class="outline-text-3" id="text-2-1">
 <ul class="org-ul">
 <li>You can only store character variables of 8 characters, strings of
-32 characters and for <b>only</b> 248 characters you need to create a
-string array!</li>
-<li>No function definitions &lt;- write `command' files (suffix: .mac),
-or call a macro (arbitrary suffix) with `*use', something close is
-to fill a "table" arry, interpolating values and possible real
-indexing A(0.3).</li>
+32 characters and for a maximum of 248 characters you need to
+create a string array!</li>
+<li>No proper function definitions &lt;- write `command' files (suffix:
+.mac), or call a macro (arbitrary suffix) with `*use', something
+close is to fill a "table" arry, interpolating values and possible
+real indexing A(0.3).</li>
 <li>you can get table array values with real index values but must use
 integers for assigning them the values, the same goes for *vplot:
 it needs the arry indices in integers and is, moreover, only
 capable to plot the columns and not their line values!</li>
-<li>*vplot does only plot the columns of arrys, it is not possible to
+<li>*vplot does only plot the columns of arrays, it is not possible to
 specify rows</li>
 <li>No direct array values to file export in GUI mode &lt;- write command
 file for *vwrite, or use a (lookup) table for this purpose</li>
 <li>*vwread does not work with C format specifiers in contrast to *vwrite</li>
 <li>Still (v15) no <b>round</b> function in sight, but someting like
-nint(max*1e3)/1e3 might do</li>
-<li>One cannot easily get the variable value, either one must assign
+nint(max*1e3)/1e3 might do for you</li>
+<li>One cannot directly get the variable value, either one must assign
 the variable to another one, or use the `*stat' command</li>
 <li>Operators &gt; and &lt;: 1 &lt; 2 = 1; 2 &lt; 1 = 1; 2 &gt; 1 = 2 :TODO check</li>
 <li>Inconsistent naming: /{x,y}range but /axlab,{x,y},</li>
+<li>Inconsistent comma usage: /com and c*** are working with and
+without a subsequent comma (/com without a comma is eating one
+character)</li>
 <li>The /contour command does not work on device /show,PNG</li>
-<li>DELETION OF ARRY parameters without warning only possible with an
-undocumented option: *del,Array,,nopr</li>
-<li>*cfwrite does parameter substituion without %%: *cfwrite, X_points
+<li>Deletion of arry parameters without warning is only possible with
+an undocumented option: *del,Array,,nopr</li>
+<li>*cfwrite does parameter substitution without %%: *cfwrite, X_points
 = NoN,*cfwrite, the same as X_points = %NoN%????</li>
-<li>No direct operation on arrays like A=A*3, take a detour with
+<li>No direct operations on arrays, like A=A*3, takes a detour with
 *voper or *toper</li>
 <li>Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
 contrast to the more ralistic ones in /solu</li>
@@ -578,9 +556,13 @@ contrast to the more ralistic ones in /solu</li>
 </div>
 </div>
 
-<div id="outline-container-org4285ce9" class="outline-3">
-<h3 id="org4285ce9"><span class="section-number-3">2.2</span> File types (the whole zoo is in the operations guide) under Gnu/Linux?</h3>
+<div id="outline-container-org838d313" class="outline-3">
+<h3 id="org838d313"><span class="section-number-3">2.2</span> File types</h3>
 <div class="outline-text-3" id="text-2-2">
+<p>
+the whole zoo is documented in the operations guide
+</p>
+
 <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
 
 
@@ -997,7 +979,7 @@ contrast to the more ralistic ones in /solu</li>
 
 <tr>
 <td class="org-right">44</td>
-<td class="org-left">IGES file from ANSYS solid model data [IGESOUT]</td>
+<td class="org-left">IGES file from Ansys solid model data [IGESOUT]</td>
 <td class="org-left">.iges</td>
 <td class="org-left">no</td>
 <td class="org-left">&#xa0;</td>
@@ -1510,7 +1492,7 @@ contrast to the more ralistic ones in /solu</li>
 
 <tr>
 <td class="org-right">101</td>
-<td class="org-left">Status of an ANSYS batch run</td>
+<td class="org-left">Status of an Ansys batch run</td>
 <td class="org-left">.stat</td>
 <td class="org-left">no</td>
 <td class="org-left">&#xa0;</td>
@@ -1555,7 +1537,7 @@ contrast to the more ralistic ones in /solu</li>
 
 <tr>
 <td class="org-right">106</td>
-<td class="org-left">FLOTRAN boundary condition data (ANSYS to FLOTRAN)</td>
+<td class="org-left">FLOTRAN boundary condition data (Ansys to FLOTRAN)</td>
 <td class="org-left">.xbc</td>
 <td class="org-left">no</td>
 <td class="org-left">&#xa0;</td>
@@ -1564,7 +1546,7 @@ contrast to the more ralistic ones in /solu</li>
 
 <tr>
 <td class="org-right">107</td>
-<td class="org-left">FLOTRAN geometry data (ANSYS to FLOTRAN)</td>
+<td class="org-left">FLOTRAN geometry data (Ansys to FLOTRAN)</td>
 <td class="org-left">.xgm</td>
 <td class="org-left">no</td>
 <td class="org-left">&#xa0;</td>
@@ -1573,7 +1555,7 @@ contrast to the more ralistic ones in /solu</li>
 
 <tr>
 <td class="org-right">108</td>
-<td class="org-left">FLOTRAN initial condition data (ANSYS to FLOTRAN)</td>
+<td class="org-left">FLOTRAN initial condition data (Ansys to FLOTRAN)</td>
 <td class="org-left">.xic</td>
 <td class="org-left">no</td>
 <td class="org-left">&#xa0;</td>
@@ -1727,15 +1709,15 @@ contrast to the more ralistic ones in /solu</li>
 </div>
 
 
-<div id="outline-container-org18619f0" class="outline-3">
-<h3 id="org18619f0"><span class="section-number-3">2.3</span> Defining parameters</h3>
+<div id="outline-container-org8de2e30" class="outline-3">
+<h3 id="org8de2e30"><span class="section-number-3">2.3</span> Defining parameters</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 up to 5000
 </p>
 </div>
-<div id="outline-container-orgcd1421c" class="outline-4">
-<h4 id="orgcd1421c"><span class="section-number-4">2.3.1</span> Double, char38, char8?, logical? TODO:</h4>
+<div id="outline-container-orgc4bbc0c" class="outline-4">
+<h4 id="orgc4bbc0c"><span class="section-number-4">2.3.1</span> Double, char38, char8, logical, TODO</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <p>
 in table only 8 chars?
@@ -1743,86 +1725,77 @@ in table only 8 chars?
 </div>
 </div>
 
-<div id="outline-container-orgdfcb9f4" class="outline-4">
-<h4 id="orgdfcb9f4"><span class="section-number-4">2.3.2</span> Variable names (called `parameter' in the ANSYS manual)</h4>
+<div id="outline-container-org4e8deb5" class="outline-4">
+<h4 id="org4e8deb5"><span class="section-number-4">2.3.2</span> Variable names</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <p>
-All numeric values are stored as double precision values.  Not defined
-variables are assigned a tiny value near zero.  The interpreter is not case sensitve
-:TODO except in strings?
+Called `parameter' in the Ansys manual.  All numeric values are
+stored as double precision values.  Not defined variables are
+assigned a tiny value near zero.  The interpreter is not case
+sensitive :TODO except in strings?
 </p>
-</div>
-<div id="outline-container-orgbe3c45c" class="outline-5">
-<h5 id="orgbe3c45c"><span class="section-number-5">2.3.2.1</span> Must begin with a letter or an underscore</h5>
-<div class="outline-text-5" id="text-2-3-2-1">
+<ul class="org-ul">
+<li>Parameters must begin with a letter or an underscore</li>
+</ul>
 <div class="org-src-container">
-<pre class="src src-ansys">1ansys = 3                    !is not a valid variable name
+<pre class="src src-apdl">1ansys = 3                    !is not a valid variable name
 a1nsys = 3                    !a1nsys is a valid variable name
 A1NSys = 4                    !this is the same variable
-A1NSys = Temp                 !`Temp' is not defined
+A1NSys = Temp                 !`Temp' is not defined, near zero
 </pre>
 </div>
 <p>
-The following text is the respective ANSYS solver/interpreter output.
+The following text is the respective Ansys solver/interpreter output.
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys-solver">BEGIN:
+<pre class="src src-apdl-solver">BEGIN:
  1ansys = 3                    !is not a valid variable name
-PARAMETER 1ANSYS =     3.000000000    
+PARAMETER 1Ansys =     3.000000000
 *** ERROR ***                           CP =       0.259   TIME= 18:06:41
-Invalid character in parameter name.                                    
- The setting of parameter= 1ANSYS is ignored.                           
+Invalid character in parameter name.
+ The setting of parameter= 1Ansys is ignored.
 BEGIN:
  a1nsys = 3                    !a1nsys is a valid variable name
-PARAMETER A1NSYS =     3.000000000    
+PARAMETER A1NSYS =     3.000000000
 BEGIN:
  A1NSys = 4                    !this is the same variable
-PARAMETER A1NSYS =     4.000000000    
+PARAMETER A1NSYS =     4.000000000
 BEGIN:
  A1NSys = Temp                 !`Temp' is not defined
 *** WARNING ***                         CP =       0.260   TIME= 18:06:56
-Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used. 
+Unknown parameter name= TEMP.  A value of 7.888609052E-31 will be used.
 PARAMETER A1NSYS =    0.7888609052E-30
 BEGIN:
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-orga6bd52e" class="outline-5">
-<h5 id="orga6bd52e"><span class="section-number-5">2.3.2.2</span> Should not begin with an underscore</h5>
-<div class="outline-text-5" id="text-2-3-2-2">
 <p>
-This convention is used in nameing variables in ANSYS supplied
-macros and the GUI.
+Should not begin with an underscore This convention is used in
+nameing variables in Ansys supplied macros and the GUI.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ansys">_ansys = 3   !`_ansys' represents a reserved variable in ANSYS supplied macros
+<pre class="src src-apdl">_ansys = 3   !`_ansys' represents a reserved variable in Ansys supplied macros
 _ = 3        ! a single underscore definition is valid
 X = _
 _ = 3 !the single underscore represents  also a `variable' in APDL
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-orgb706274" class="outline-5">
-<h5 id="orgb706274"><span class="section-number-5">2.3.2.3</span> Variable names with a trailing underscore</h5>
-<div class="outline-text-5" id="text-2-3-2-3">
-<p>
+<ul class="org-ul">
+<li>Variable names with a trailing underscore
 These are hidden from the `*status' command output and can be
-deleted as a group with `*del'.
-</p>
+deleted as a group with `*del'.</li>
+</ul>
 <div class="org-src-container">
-<pre class="src src-ansys">ansys_ = 3              !this is a `hidden' variable from *status
+<pre class="src src-apdl">ansys_ = 3              !this is a `hidden' variable from *status
 *status                 !does not show `ansys_'
        ,PRM_            !show variables with trailing underscore
 *del,,PRM_              !delete all variables with trailing underscore
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ansys-solver"> BEGIN:
+<pre class="src src-apdl-solver"> BEGIN:
 ansys_ = 3
- PARAMETER ANSYS_ =     3.000000000    
+ PARAMETER Ansys_ =     3.000000000
  BEGIN:
  *status
  ABBREVIATION STATUS-
@@ -1843,71 +1816,64 @@ ansys_ = 3
 		  (INCLUDING        4 INTERNAL PARAMETERS)
 
  NAME                              VALUE                        TYPE  DIMENSIONS
- ANSYS_                            3.00000000                    SCALAR
+ Ansys_                            3.00000000                    SCALAR
  BEGIN:
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-org19eaec4" class="outline-5">
-<h5 id="org19eaec4"><span class="section-number-5">2.3.2.4</span> Must contain only letters, numbers and underscores</h5>
-<div class="outline-text-5" id="text-2-3-2-4">
+<ul class="org-ul">
+<li>Must contain only letters, numbers and underscores</li>
+</ul>
 <div class="org-src-container">
-<pre class="src src-ansys">!! only letters, numbers and underscores are allowed
+<pre class="src src-apdl">!! only letters, numbers and underscores are allowed
 a1n§sys = 3              !this is not a valid variable name
 a1n_sys = 3              !this is a valid variable name
 </pre>
 </div>
 <p>
-the ANSYS interpreter output looks like this:
+the Ansys interpreter output looks like this:
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys-solver">BEGIN:
+<pre class="src src-apdl-solver">BEGIN:
  a1n§sys = 3              !this is not a valid variable name
 *** ERROR ***                           CP =       0.256   TIME= 17:35:07
-Invalid character in parameter name.                                    
- The setting of parameter= A1N§SYS is ignored.                         
+Invalid character in parameter name.
+ The setting of parameter= A1N§SYS is ignored.
 BEGIN:
  a1n_sys = 3              !this is a valid variable name
-PARAMETER A1N_SYS =     3.000000000    
+PARAMETER A1N_SYS =     3.000000000
 BEGIN:
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-orgc86049f" class="outline-5">
-<h5 id="orgc86049f"><span class="section-number-5">2.3.2.5</span> Must contain no more than 32 characters</h5>
-<div class="outline-text-5" id="text-2-3-2-5">
+<ul class="org-ul">
+<li>Must contain no more than 32 characters</li>
+</ul>
 <div class="org-src-container">
-<pre class="src src-ansys">!! The following is not a valid variable name
+<pre class="src src-apdl">!! The following is not a valid variable name
 v23456789_123456789_123456789_123 = 3
 !! The following is a valid variable name
 v23456789_123456789_123456789_12  = 3
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-org1eaa932" class="outline-5">
-<h5 id="org1eaa932"><span class="section-number-5">2.3.2.6</span> Local Variables</h5>
-<div class="outline-text-5" id="text-2-3-2-6">
+<ul class="org-ul">
+<li>Local Variables</li>
+</ul>
 <div class="org-src-container">
-<pre class="src src-ansys">Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
+<pre class="src src-apdl">Depth  =  ARG1 !ARG{1-9}, AR{10-19} = "*use" variables
 AR18 = AR19
 *stat,argx
 </pre>
 </div>
 </div>
 </div>
-</div>
 
-<div id="outline-container-org54bd0f4" class="outline-4">
-<h4 id="org54bd0f4"><span class="section-number-4">2.3.3</span> Character strings</h4>
+<div id="outline-container-orgad0c46d" class="outline-4">
+<h4 id="orgad0c46d"><span class="section-number-4">2.3.3</span> Character strings</h4>
 <div class="outline-text-4" id="text-2-3-3">
 <p>
 Must not contain more than 32 characters
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">! character string variables are enclosed with `''
+<pre class="src src-apdl">! character string variables are enclosed with `''
 Yc = '012345678901234567901234567890123' !not a character variable any more
 Symetry = 'yes'
 </pre>
@@ -1915,11 +1881,11 @@ Symetry = 'yes'
 </div>
 </div>
 </div>
-<div id="outline-container-org10266ab" class="outline-3">
-<h3 id="org10266ab"><span class="section-number-3">2.4</span> Erasing variables from memory</h3>
+<div id="outline-container-org478b61b" class="outline-3">
+<h3 id="org478b61b"><span class="section-number-3">2.4</span> Erasing variables from memory</h3>
 <div class="outline-text-3" id="text-2-4">
 <div class="org-src-container">
-<pre class="src src-ansys">!! defining
+<pre class="src src-apdl">!! defining
 Scalar = 3               !the `=' assignment is a shorthand for `*set'
 *set,Scalar,4            !reassignment
 *set,Vector,1,2,3,4,5,6,7,8,9,10
@@ -1935,12 +1901,15 @@ Scalar =     !this is not a variable any more
 </div>
 </div>
 
-<div id="outline-container-org8b4647c" class="outline-3">
-<h3 id="org8b4647c"><span class="section-number-3">2.5</span> Variable substitution with `%'</h3>
+<div id="outline-container-org76b2f17" class="outline-3">
+<h3 id="org76b2f17"><span class="section-number-3">2.5</span> Variable substitution</h3>
 <div class="outline-text-3" id="text-2-5">
+<p>
+with `%'
+</p>
 </div>
-<div id="outline-container-org4f390f3" class="outline-4">
-<h4 id="org4f390f3"><span class="section-number-4">2.5.1</span> Substitution of Numeric Variables</h4>
+<div id="outline-container-org6513778" class="outline-4">
+<h4 id="org6513778"><span class="section-number-4">2.5.1</span> Substitution of Numeric Variables</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <p>
 In "string commands" like `/com', where a string follows the command
@@ -1948,7 +1917,7 @@ name one can force the substitution of a parameter name to its value.
 Other examples are
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">Steel = 1
+<pre class="src src-apdl">Steel = 1
 /com,Material %Steel% is steel
 !! ATTENTION: in the following situation!
 /com,%Steel% does NOT substitute variable Steel
@@ -1958,19 +1927,19 @@ Other examples are
 </div>
 </div>
 </div>
-<div id="outline-container-org1eb7540" class="outline-4">
-<h4 id="org1eb7540"><span class="section-number-4">2.5.2</span> Substitution of Character Variables</h4>
+<div id="outline-container-orgfff9cae" class="outline-4">
+<h4 id="orgfff9cae"><span class="section-number-4">2.5.2</span> Substitution of Character Variables</h4>
 <div class="outline-text-4" id="text-2-5-2">
 <p>
 It is possible to substitute a command name
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">R='RESUME'
+<pre class="src src-apdl">R='RESUME'
 %R%,MODEL,DB
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ansys">!! string, message commands and comment behaviour &amp;&amp; %$$% %% :bla: &amp;&amp;&amp;
+<pre class="src src-apdl">!! string, message commands and comment behaviour &amp;&amp; %$$% %% :bla: &amp;&amp;&amp;
 
 /com, bla = %bla%
 igesin,'test','%iges%'
@@ -1978,33 +1947,30 @@ igesin,'test','%iges%'
 !! in "string commands" are no code comments possible
 /com,beam3 %YES% ! this is *really not commented out!!!! &amp;
 c*** *beam3 !otto *otto %neither% here !!!!!!! &amp;
-/com, bearm laskf %otto% !%otto% we are here 
+/com, bearm laskf %otto% !%otto% we are here
 
 </pre>
 </div>
-</div>
-<div id="outline-container-orga32e17e" class="outline-5">
-<h5 id="orga32e17e"><span class="section-number-5">2.5.2.1</span> In certain `string commands'</h5>
-<div class="outline-text-5" id="text-2-5-2-1">
+<ul class="org-ul">
+<li>In certain `string commands'</li>
+</ul>
 <p>
-<code>/title</code> and <code>/com</code> are string commands similar to <code>c***</code> 
+<code>/title</code> and <code>/com</code> are string commands similar to <code>c***</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">right = 'wrong'
+<pre class="src src-apdl">right = 'wrong'
 /title, the value of right is  %right%
 /com, this is %right%: /com does expand parameters as well
 </pre>
 </div>
-</div>
-</div>
-<div id="outline-container-orgc55f956" class="outline-5">
-<h5 id="orgc55f956"><span class="section-number-5">2.5.2.2</span> Unfortunately here is no expansion possible</h5>
-<div class="outline-text-5" id="text-2-5-2-2">
+<ul class="org-ul">
+<li>Unfortunately here is no expansion possible</li>
+</ul>
 <p>
 neither with <code>c***</code> nor with <code>/sys</code>
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">right = 9
+<pre class="src src-apdl">right = 9
 c***,this is %right%: c*** allows no parameter expansion
 /sys,ls "*.mac" %otto% &amp;
 /syp,ls, %otto% !this is not working, no substitution!
@@ -2015,22 +1981,21 @@ otto = 'file00%I%.eps'
 </div>
 </div>
 </div>
-</div>
 
-<div id="outline-container-orgb2bfb3b" class="outline-4">
-<h4 id="orgb2bfb3b"><span class="section-number-4">2.5.3</span> Dynamic Substitution of Numeric or Character Variables</h4>
+<div id="outline-container-org45541d9" class="outline-4">
+<h4 id="org45541d9"><span class="section-number-4">2.5.3</span> Dynamic Substitution of Numeric or Character Variables</h4>
 <div class="outline-text-4" id="text-2-5-3">
 <p>
 or forced substitution (deferred)
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">Case = 'case 1'
-/title,This is  %Case%
-			 !/stitle
-			 !*ask
-			 !/tlabel
-			 !/an3d
-			 !in tables TODO:
+<pre class="src src-apdl">Case = 'case 1'
+/title,This is %Case%
+!! /stitle
+!! *ask
+!! /tlabel
+!! /an3d
+!! in tables TODO:
 aplot
 Case = 'case 2'
 !! not necessary to reissue /title, "This is case 2"
@@ -2042,34 +2007,42 @@ aplot
 </div>
 </div>
 
-<div id="outline-container-org89414ad" class="outline-3">
-<h3 id="org89414ad"><span class="section-number-3">2.6</span> Expressions</h3>
+<div id="outline-container-org62dd26c" class="outline-3">
+<h3 id="org62dd26c"><span class="section-number-3">2.6</span> Expressions</h3>
 <div class="outline-text-3" id="text-2-6">
 </div>
-<div id="outline-container-orgac7c328" class="outline-4">
-<h4 id="orgac7c328"><span class="section-number-4">2.6.1</span> Exponentiation Operator is `**'</h4>
+<div id="outline-container-org9e832e6" class="outline-4">
+<h4 id="org9e832e6"><span class="section-number-4">2.6.1</span> Exponentiation Operator</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<p>
+is `**'
+</p>
 </div>
-<div id="outline-container-org3361c63" class="outline-4">
-<h4 id="org3361c63"><span class="section-number-4">2.6.2</span> Multiplication Expression</h4>
+</div>
+<div id="outline-container-org07cd923" class="outline-4">
+<h4 id="org07cd923"><span class="section-number-4">2.6.2</span> Multiplication Expression</h4>
 <div class="outline-text-4" id="text-2-6-2">
 <p>
-Beware of the oldstyle ANSYS comment!
+Beware of the oldstyle Ansys asterisk comment!
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
+<pre class="src src-ansys">otto = 3 * 4 COMMENT! The value of otto is actually 3!
+var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
 var2 = sinh(cos(3*5))  ! this is valid code
 fini * comment
-otto = 3 * 4 comment, the value of otto = 3!
 !!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org84d63f3" class="outline-4">
-<h4 id="org84d63f3"><span class="section-number-4">2.6.3</span> Operators: `&lt;' and  `&gt;' :TODO</h4>
+<div id="outline-container-org0b13875" class="outline-4">
+<h4 id="org0b13875"><span class="section-number-4">2.6.3</span> Operators</h4>
 <div class="outline-text-4" id="text-2-6-3">
+<p>
+`&lt;' and  `&gt;' :TODO
+</p>
 <div class="org-src-container">
-<pre class="src src-ansys">otto = 1.82
+<pre class="src src-apdl">otto = 1.82
 karl = 1.97
 margret =  otto &lt; karl !margret = otto
 maria = karl &lt; otto    !maria = otto
@@ -2079,25 +2052,25 @@ maria = karl &lt; otto    !maria = otto
 </div>
 </div>
 </div>
-<div id="outline-container-org2f9871c" class="outline-3">
-<h3 id="org2f9871c"><span class="section-number-3">2.7</span> Arrays</h3>
+<div id="outline-container-org83ff90f" class="outline-3">
+<h3 id="org83ff90f"><span class="section-number-3">2.7</span> Arrays</h3>
 <div class="outline-text-3" id="text-2-7">
 <p>
 4 types: array, char of 8 characters, table and string 128 chars
 </p>
 </div>
-<div id="outline-container-orgeeca1b5" class="outline-4">
-<h4 id="orgeeca1b5"><span class="section-number-4">2.7.1</span> Specifiying array element values</h4>
+<div id="outline-container-orgbf7b8f2" class="outline-4">
+<h4 id="orgbf7b8f2"><span class="section-number-4">2.7.1</span> Specifiying array element values</h4>
 </div>
-<div id="outline-container-org3e8ee34" class="outline-4">
-<h4 id="org3e8ee34"><span class="section-number-4">2.7.2</span> APDL Math</h4>
+<div id="outline-container-org6cdd4ca" class="outline-4">
+<h4 id="org6cdd4ca"><span class="section-number-4">2.7.2</span> APDL Math</h4>
 <div class="outline-text-4" id="text-2-7-2">
 <p>
 APDL Math works in its own workspace independent of the APDL
 environment!
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">No = 100
+<pre class="src src-apdl">No = 100
 Pi = acos(-1)
 Dat = cos(0:2*Pi:(2*Pi/No))+ cos(0:2*Pi*10:(2*Pi/No))
 Dat = 0:2*Pi:2*Pi/No
@@ -2112,30 +2085,30 @@ Dat = 0:2*Pi:2*Pi/No
 </div>
 </div>
 
-<div id="outline-container-org2c8b50c" class="outline-3">
-<h3 id="org2c8b50c"><span class="section-number-3">2.8</span> debugging</h3>
+<div id="outline-container-orgc252828" class="outline-3">
+<h3 id="orgc252828"><span class="section-number-3">2.8</span> debugging</h3>
 <div class="outline-text-3" id="text-2-8">
 <div class="org-src-container">
-<pre class="src src-ansys">debug                    !TODO: undocumented?
+<pre class="src src-apdl">debug                    !TODO: undocumented?
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orga0bca85" class="outline-3">
-<h3 id="orga0bca85"><span class="section-number-3">2.9</span> Multiple runs, probabilistic design</h3>
+<div id="outline-container-orgf74aa56" class="outline-3">
+<h3 id="orgf74aa56"><span class="section-number-3">2.9</span> Multiple runs, probabilistic design</h3>
 <div class="outline-text-3" id="text-2-9">
 <div class="org-src-container">
-<pre class="src src-ansys">PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
-in V11: *mrun                    !TODO: 
+<pre class="src src-apdl">PDEXE, Slab, MRUN, NFAIL, FOPT, Fname
+in V11: *mrun                    !TODO:
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-org154d368" class="outline-3">
-<h3 id="org154d368"><span class="section-number-3">2.10</span> Undocumented commands</h3>
+<div id="outline-container-orga370034" class="outline-3">
+<h3 id="orga370034"><span class="section-number-3">2.10</span> Undocumented commands</h3>
 <div class="outline-text-3" id="text-2-10">
 <div class="org-src-container">
-<pre class="src src-ansys">!undocumented commands are highlighted differently
+<pre class="src src-apdl">!undocumented commands are highlighted differently
 /xml                     !undocumented command /xml
 /xfrm                    !documented command   /xfrm
 </pre>
@@ -2143,57 +2116,16 @@ in V11: *mrun                    !TODO:
 </div>
 </div>
 </div>
-<div id="outline-container-org8784560" class="outline-2">
-<h2 id="org8784560"><span class="section-number-2">3</span> APDL-Mode Syntax Highlighting Reference</h2>
+<div id="outline-container-orgeb8b3b0" class="outline-2">
+<h2 id="orgeb8b3b0"><span class="section-number-2">3</span> APDL-Mode Syntax Highlighting Reference</h2>
 <div class="outline-text-2" id="text-3">
-<div class="LaTeX">
-<p>
-  \definecolor{dkgreen}{rgb}{0,0.5,0}
-  \definecolor{dkred}{rgb}{0.5,0,0}
-  \definecolor{gray}{rgb}{0.5,0.5,0.5}
-  \lstset{frame=none, %leftline
-    basicstyle=\ttfamily\bfseries\footnotesize,
-    morekeywords={virtualinvoke},
-    keywordstyle=\color{dkgreen},
-    ndkeywordstyle=\color{red},
-    commentstyle=\color{dkred},
-    stringstyle=\color{orange},
-%   numbers=left,
-%    numberstyle=\ttfamily\tiny\color{gray},
-%    stepnumber=1,
-%    numbersep=10pt,
-    backgroundcolor=\color{white},
-    tabsize=4,
- %   showspaces=false,
-%    showstringspaces=false,
-    xleftmargin=.23in
-  }
-</p>
-
-<p>
-\lstdefinelanguage{ansys}
-  {
-  morecomment=[l]{!},
-  morecomment=[l]{\ *}, % olds style comments
-  morestring=[b]',
-  sensitive=false,
-  morekeywords={nsel,et,mp,block,d,vmesh,allsel,save,solve,plnsol,finish,
-     aplot,eplot,igesin,set,lfillt},
-  otherkeywords={<b>MSG,*if,*do,*enddo,*dowhile,*create,*end,*endif,/title,/com,
-    /units,/prep7,/solu,/post1,/post26,/eof,/image,/sys,*afun,/view,c**</b>,*get,
-   *msg,/xfr,*vwrite,*go,*dim,*stat,/annot,/plopt,/triad,/erase,/tspe,/win,
-   /tlab,/erase,/annot,/pspe,/pwed,/poly,*vscfun,/tlab},
-}
-</p>
-
-</div>
 </div>
 
-<div id="outline-container-orgdbed448" class="outline-3">
-<h3 id="orgdbed448"><span class="section-number-3">3.1</span> Header</h3>
+<div id="outline-container-orgcff7495" class="outline-3">
+<h3 id="orgcff7495"><span class="section-number-3">3.1</span> Header</h3>
 <div class="outline-text-3" id="text-3-1">
 <div class="org-src-container">
-<pre class="src src-ansys">!! ------------------------------
+<pre class="src src-apdl">!! ------------------------------
 !@ --- header ---
 !! ------------------------------
 !! Time-stamp: &lt;2012-06-22 16:42:24 uidg1626&gt;
@@ -2205,7 +2137,7 @@ in V11: *mrun                    !TODO:
 </div>
 
 <div class="org-src-container">
-<pre class="src src-ansys">/units,mpa !indicate mm-t-s unit system
+<pre class="src src-apdl">/units,mpa !indicate mm-t-s unit system
 !@ --- Preprocessing ---
 /prep7
 !@@ -- Elements --
@@ -2243,7 +2175,7 @@ plnsol,u,sum,2
 </div>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+<pre class="src src-apdl">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !!  Please put the the cursor below the next paragraph of emacs lisp
 !!  code and type "C-x C-e" to change the setting of
 !!  `ansys-highlighting-level' and `ansys-dynamic-highlighting-flag'
@@ -2253,14 +2185,14 @@ plnsol,u,sum,2
 </div>
 
 <div class="org-src-container">
-<pre class="src src-lisp">(<span style="color: #00ffff;">progn</span>
-  (<span style="color: #00ffff;">when</span>
+<pre class="src src-lisp">(progn
+  (when
       (featurep 'ansys-mode)
     (unload-feature 'ansys-mode))
   (setq
    ansys-highlighting-level 2
    ansys-dynamic-highlighting-flag t)
-  (load-file <span style="color: #ffa07a;">"ansys-mode.el"</span>)
+  (load-file "ansys-mode.el")
   (ansys-mode))
 </pre>
 </div>
@@ -2272,7 +2204,7 @@ plnsol,u,sum,2
 c
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ -- Ignored characters and condensed input line ($ operator)
+<pre class="src src-apdl">!@@ -- Ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle !/clear
 f $ fi $ fin $ fini $ finis  $ finish $ finisher
 </pre>
@@ -2280,15 +2212,15 @@ f $ fi $ fin $ fini $ finis  $ finish $ finisher
 </div>
 </div>
 
-<div id="outline-container-orgcc89141" class="outline-3">
-<h3 id="orgcc89141"><span class="section-number-3">3.2</span> Highlighting APDL specials</h3>
+<div id="outline-container-orgd33ace2" class="outline-3">
+<h3 id="orgd33ace2"><span class="section-number-3">3.2</span> Highlighting APDL specials</h3>
 <div class="outline-text-3" id="text-3-2">
 </div>
-<div id="outline-container-orgae48eb7" class="outline-4">
-<h4 id="orgae48eb7"><span class="section-number-4">3.2.1</span> Reserved words and _RETURN statements</h4>
+<div id="outline-container-orgc8e3ad9" class="outline-4">
+<h4 id="orgc8e3ad9"><span class="section-number-4">3.2.1</span> Reserved words and _RETURN statements</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <div class="org-src-container">
-<pre class="src src-ansys">!!
+<pre class="src src-apdl">!!
 N      =  _RETURN       !return value of certain commands
 Alpha2 =  +360./(2*N)
 Xc     =  !empty rhs clears variables
@@ -2296,11 +2228,11 @@ Xc     =  !empty rhs clears variables
 </div>
 </div>
 </div>
-<div id="outline-container-orgcbab1cd" class="outline-4">
-<h4 id="orgcbab1cd"><span class="section-number-4">3.2.2</span> _RETURN values of macros</h4>
+<div id="outline-container-org009f7e0" class="outline-4">
+<h4 id="org009f7e0"><span class="section-number-4">3.2.2</span> _RETURN values of macros</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <div class="org-src-container">
-<pre class="src src-ansys">*return                  !TODO: what is this?
+<pre class="src src-apdl">*return                  !TODO: what is this?
 *status,_RETURN          !0 normal
 			 !1 note
 			 !2 warning
@@ -2310,8 +2242,8 @@ Xc     =  !empty rhs clears variables
 </div>
 </div>
 </div>
-<div id="outline-container-orge30fd54" class="outline-4">
-<h4 id="orge30fd54"><span class="section-number-4">3.2.3</span> Old style APDL comments</h4>
+<div id="outline-container-org8c55d3e" class="outline-4">
+<h4 id="org8c55d3e"><span class="section-number-4">3.2.3</span> Old style APDL comments</h4>
 <div class="outline-text-4" id="text-3-2-3">
 <div class="org-src-container">
 <pre class="src src-ansys">var1 = sinh(cos(3 *5)) ! old style Ansys comment!!!!!
@@ -2323,8 +2255,8 @@ otto = 3 * 4 comment, the value of otto = 3!
 </div>
 </div>
 </div>
-<div id="outline-container-orgf5b0ccf" class="outline-4">
-<h4 id="orgf5b0ccf"><span class="section-number-4">3.2.4</span> Ignored characters behind commands</h4>
+<div id="outline-container-orge6c80e6" class="outline-4">
+<h4 id="orge6c80e6"><span class="section-number-4">3.2.4</span> Ignored characters behind commands</h4>
 <div class="outline-text-4" id="text-3-2-4">
 <div class="org-src-container">
 <pre class="src src-ansys">f $ fi $ fin $ fini $ finis  $ finish $ finisher
@@ -2333,8 +2265,8 @@ otto = 3 * 4 comment, the value of otto = 3!
 </div>
 </div>
 </div>
-<div id="outline-container-org3ba59db" class="outline-4">
-<h4 id="org3ba59db"><span class="section-number-4">3.2.5</span> The End Of File command</h4>
+<div id="outline-container-org7471c42" class="outline-4">
+<h4 id="org7471c42"><span class="section-number-4">3.2.5</span> The End Of File command</h4>
 <div class="outline-text-4" id="text-3-2-5">
 <div class="org-src-container">
 <pre class="src src-ansys">/eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
@@ -2343,7 +2275,7 @@ otto = 3 * 4 comment, the value of otto = 3!
 </div>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ -- function names --
+<pre class="src src-apdl">!@@ -- function names --
 Pi=acos(-1) $ True=1 $ False=0 $ Nn=3.1
 Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 </pre>
@@ -2351,11 +2283,11 @@ Alpha1 = rotx( 14.5) - 360./ (2*Nn)
 </div>
 </div>
 
-<div id="outline-container-org59b3128" class="outline-4">
-<h4 id="org59b3128"><span class="section-number-4">3.2.6</span> Ignored characters behind commands</h4>
+<div id="outline-container-orgc3bb989" class="outline-4">
+<h4 id="orgc3bb989"><span class="section-number-4">3.2.6</span> Ignored characters behind commands</h4>
 <div class="outline-text-4" id="text-3-2-6">
 <div class="org-src-container">
-<pre class="src src-ansys">f $ fi $ fin $ fini $ finis  $ finish $ finisher
+<pre class="src src-apdl">f $ fi $ fin $ fini $ finis  $ finish $ finisher
 a $ al $ all $ alls $ allse $ allsel $ allselllllll
 rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
 !!
@@ -2363,22 +2295,23 @@ rectngaaaaa,var1,_X2,var2,X2 ! 2d rectangle
 </div>
 </div>
 </div>
-<div id="outline-container-orgda8dace" class="outline-4">
-<h4 id="orgda8dace"><span class="section-number-4">3.2.7</span> The End Of File command</h4>
+<div id="outline-container-orgb79033f" class="outline-4">
+<h4 id="orgb79033f"><span class="section-number-4">3.2.7</span> The End Of File command</h4>
 <div class="outline-text-4" id="text-3-2-7">
 <div class="org-src-container">
-<pre class="src src-ansys">  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+<pre class="src src-apdl">  /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
+  !! /eof stops input for batch runs and the solver returns error code 8
   /exit,nosave           !default is save the model data
 !!
 </pre>
 </div>
 </div>
 </div>
-<div id="outline-container-orgf8f610c" class="outline-4">
-<h4 id="orgf8f610c"><span class="section-number-4">3.2.8</span> Current element types and deprecated elements</h4>
+<div id="outline-container-org69a6002" class="outline-4">
+<h4 id="org69a6002"><span class="section-number-4">3.2.8</span> Current element types and deprecated elements</h4>
 <div class="outline-text-4" id="text-3-2-8">
 <div class="org-src-container">
-<pre class="src src-ansys">!! A current element type:
+<pre class="src src-apdl">!! A current element type:
 et,10,solid186
 !! deprecated element types:
 et,Steel,beam3 $ et,Alu,shell91
@@ -2389,7 +2322,7 @@ et,Steel,beam3 $ et,Alu,shell91
 Let's change the element types to current ones!
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">!! Complete the following element fragments to current ones!
+<pre class="src src-apdl">!! Complete the following element fragments to current ones!
 !!
 et,Steel,beam $ et,Alu,shell
 
@@ -2399,7 +2332,7 @@ et,Steel,beam $ et,Alu,shell
 For example select the following elements
 </p>
 <div class="org-src-container">
-<pre class="src src-ansys">et,Steel,beam188 $ et,Alu,shell28
+<pre class="src src-apdl">et,Steel,beam188 $ et,Alu,shell28
 </pre>
 </div>
 <p>
@@ -2407,7 +2340,7 @@ and you are getting a diffent element highlighting.
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ -- default commands
+<pre class="src src-apdl">!@@ -- default commands
 nsel,s,loc,y,0
     ,a,loc,y,1
     ,r,loc,x,0
@@ -2417,11 +2350,11 @@ d,all,all
 </div>
 </div>
 </div>
-<div id="outline-container-orgd34b685" class="outline-3">
-<h3 id="orgd34b685"><span class="section-number-3">3.3</span> Implied (or colon) looping</h3>
+<div id="outline-container-org62902ac" class="outline-3">
+<h3 id="org62902ac"><span class="section-number-3">3.3</span> Implied (or colon) looping</h3>
 <div class="outline-text-3" id="text-3-3">
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ ::: implicit : (colon) looping :::::
+<pre class="src src-apdl">!@@ ::: implicit : (colon) looping :::::
 !! (n1:n2:dn)
 lfillt,(1:2),(3:4),5
 !! one subscript per array
@@ -2438,7 +2371,7 @@ Fx(1:10) = (1:100:10)    !is this working? :-)
 </div>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!! looping
+<pre class="src src-apdl">!! looping
 *get,Dim
 *if,Dim,le,1,then
   *dim,Reaction,array,Ns,1
@@ -2452,28 +2385,28 @@ Fx(1:10) = (1:100:10)    !is this working? :-)
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ -- multiline *msg formatting with the &amp; operator
+<pre class="src src-apdl">!@@ -- multiline *msg formatting with the &amp; operator
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &amp;
 Steel = %G A (electrical angle = %G DEG) %/ &amp;
 _Power factor: %G %/ &amp;
 Inductance = %G %/ &amp;
-VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
+VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR)
 </pre>
 </div>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org277b7fd" class="outline-2">
-<h2 id="org277b7fd"><span class="section-number-2">4</span> And the rest</h2>
+<div id="outline-container-org1567887" class="outline-2">
+<h2 id="org1567887"><span class="section-number-2">4</span> And the rest</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 *taxis only for 3 dimension? table(0,1) = 3 is working as well
 </p>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ --! multiline message format command this is tricky: use M-o M-o
+<pre class="src src-apdl">!@@ --! multiline message format command this is tricky: use M-o M-o
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &amp;
 Steel = %G A (electrical angle = %G DEG) %/ &amp;
@@ -2489,21 +2422,21 @@ alkd %D &amp;
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ansys">!! commands which do not allow arguments
+<pre class="src src-apdl">!! commands which do not allow arguments
 /prep7 $ FINISH !$ means nothing behind
 /prep7 !still nothing behind
 /prep7 * old style comment, this is allowed
-/prep7 this is an error  
+/prep7 this is an error
 </pre>
 </div>
 <div class="org-src-container">
-<pre class="src src-ansys">nsel,s,loc,x,1
+<pre class="src src-apdl">nsel,s,loc,x,1
 nsel = 3  !you CAN have variable names clashing with commands
 </pre>
 </div>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!@@ -- Goto branching --
+<pre class="src src-apdl">!@@ -- Goto branching --
 *go,:branch
 aselsalsdkfjaölsdkfjaölskdjf,all
 :branch
@@ -2511,7 +2444,7 @@ aselsalsdkfjaölsdkfjaölskdjf,all
 </div>
 
 <div class="org-src-container">
-<pre class="src src-ansys">!-----------------------------------------------------------------------
+<pre class="src src-apdl">!-----------------------------------------------------------------------
 ! mdlbl.mac
 ! Puts Modal Info on Plot
 !-----------------------------------------------------------------------
@@ -2548,7 +2481,7 @@ iadd = arg1
 /TSPE, 15, 1.000,   1,   0,   0
 xx = 1.05
 yy = .9
-!  Change the window settings if you need different 
+!  Change the window settings if you need different
 !  aspect ratios for your geometry
 /win,1,-1,1,.5,1
     ,2,-1,1,0,.5
@@ -2571,7 +2504,7 @@ yy = .9
 *enddo
 
 *do,i,1,4
-  ii = i - 1 + iadd 
+  ii = i - 1 + iadd
   set,1,ii
   plnsol,u,sum
   *if,i,eq,1,then
@@ -2617,14 +2550,14 @@ lof = .05
 /TSPEC, 15, 0.700, 1, 0, 0
 ang1 = 0
 *do,i,1,5
-  ang2 = ang1 + (360*data(i)/dsum) 
-  /PSPE, 2*i, 1, 1 
-  /PWED, xloc,yloc,sz*.4, ang1,ang2 
-  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof 
-  pvl = 100*data(i)/dsum 
-  /tlab, x0+1.5*lof,y0, %pvl% % 
+  ang2 = ang1 + (360*data(i)/dsum)
+  /PSPE, 2*i, 1, 1
+  /PWED, xloc,yloc,sz*.4, ang1,ang2
+  /poly,4,x0,y0,x0+lof,y0,x0+lof,y0+lof,x0,y0+lof
+  pvl = 100*data(i)/dsum
+  /tlab, x0+1.5*lof,y0, %pvl% %
 
-  y0 = y0 - 1.5*lof 
+  y0 = y0 - 1.5*lof
   ang1 = ang2
 *enddo
 /eof
@@ -2637,8 +2570,8 @@ ang1 = 0
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a>)</p>
-<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2020-02-23 So&gt;</span></span></p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-08-30 Mo&gt;</span></span></p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

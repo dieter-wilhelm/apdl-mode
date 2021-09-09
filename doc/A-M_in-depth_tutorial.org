@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-02-23>
+#+DATE: Time-stamp: <2020-05-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+TITLE: Guided APDL-Mode hands-on Tutorial
 
@@ -21,12 +21,12 @@
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
-#+DESCRIPTION: Guided APDL-Mode hands-on APDL Tutorial
-#+KEYWORDS: Emacs ANSYS FEA APDL MAPDL
+#+DESCRIPTION: Guided APDL-Mode hands-on APDL Tutorial, Version 20.6.0
+#+KEYWORDS: Emacs Ansys FEA APDL MAPDL
 #+LANGUAGE:  en
 #+OPTIONS:   H:5 num:nil toc:1 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+#+INFOJS_OPT: view:nil toc:t ltoc:t mouse:underline buttons:0 path:https://orgmode.org/org-info.js
 #+EXPORT_SELECT_TAGS: export
 #+EXPORT_EXCLUDE_TAGS: noexport
 #+HTML_LINK_HOME: https://github.com/dieter-wilhelm/ansys-mode
@@ -81,13 +81,13 @@
 
 * Introduction
   #+attr_html: :width 600
-  [[./ansys+emacs.png]]
+  [[./ansys+emacs2020-03.png]]
 
    Being an editor mode, we are mainly dealing with text, i. e. APDL
    code.  But *also* many things in this language's context.
 
    Since the relevance of APDL remains tall: `WorkBench' operates
-   *exclusively* the ANSYS solver with it!  While for many
+   *exclusively* the Ansys solver with it!  While for many
    applications WorkBench is taking over the "code authoring" part
    from the user, use APDL for *repetitive* tasks and command
    snippets, *extending* WB.
@@ -105,7 +105,7 @@
 
 *** Please read the *introductory* APDL-Mode tutorial first
     This is the file `A-M_introductory_tutorial-162-1.pdf' in the
-    mode's archive or use its [[http://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
+    mode's archive or use its [[https://dieter-wilhelm.github.io/ansys-mode/doc/A-M_in-depth_tutorial.html][online]] version.
 
     Ah yes, you are in a hurry (I thought so). *In summary:* You
     will get an illustrated overiew how APDL-Mode can improve your
@@ -151,10 +151,10 @@
     [[./parameter_help.png]]
 
     (keybinding *M-?*, it is working in comment lines as well)
-** Open the `ANSYS help browser'
+** Open the `Ansys help browser'
    for further assistence. (Keybinding *C-c C-h*)
 ** Navigate through the `number blocks' in .dat files
-   Skip the node- and element blocks with the menu entry ANSYS:
+   Skip the node- and element blocks with the menu entry Ansys:
    Work_with_locical_blocks: End_of_number_block etc. (Keybinding *C-c
    {*)
 * APDL editing
@@ -167,7 +167,7 @@
   !! --- APDL editing ---
   !! ==============================
 #+end_src
-** Use the log file from ANSYS Classics to get APDL
+** Use the log file from Ansys Classics to get APDL
 ** Extensible APDL templates
 
    Some of the existing templates are collections of (all) available
@@ -189,7 +189,7 @@
   !! file from the latest mode's archives.
 #+end_src
 *** Inspect available code templates
-    Screenshot with the ANSYS Classics GUI (left) and Emacs (right) on Win64
+    Screenshot with the Ansys Classics GUI (left) and Emacs (right) on Win64
 
 #+ATTR_HTML: :width 1000
    [[./template_menu.png]]
@@ -234,7 +234,7 @@ After giving a short description, it should look like this:
   !@ --- file header ---
   !! ------------------------------
   !! Time-stamp: <Sat Jun 23 02:47:11 2012>
-  !! ANSYS VERSION: 140
+  !! Ansys VERSION: 140
   !! UNITS: mm-t-s
   !! NOTE: template example
   !! ------------------------------
@@ -284,7 +284,7 @@ The idea is to have a skeleton for starting a new APDL project.
 
   !! FILENAME: APDL_tutorial.ans
   !! CREATION DATE: Tue Jun 26 01:02:07 2012
-  !! ANSYS VERSION: 140
+  !! Ansys VERSION: 140
   !! DESCRIPTION: outline example
 
   !@ ==============================
@@ -591,7 +591,7 @@ respective line No.
 #+begin_src ansys :exports none
   !@ --- List all variable definitions ---
 #+end_src
-#    rather not with very big, say: 60 MB ANSYS input files
+#    rather not with very big, say: 60 MB Ansys input files
 #+begin_src ansys
   !! Type "C-c C-v" for a summary window of variable definitions
   !! This includes also implicit definitions and component names
@@ -678,13 +678,13 @@ The result might look like this:
   y = cos(i)
 #+end_src
 
-** Completions (around 2000 ANSYS symbols)
+** Completions (around 2000 Ansys symbols)
     Case sensitive completions except for mouse completion
 #+begin_src ansys  :exports none
   !@ --- Completions ---
 #+end_src
 #+begin_src ansys
-  !! Check out all APDL symbols, up to date with the latest ANSYS version
+  !! Check out all APDL symbols, up to date with the latest Ansys version
   !! Place the cursor behind the 'c' character below and type "<ESC> <TAB>"
   !!
   c
@@ -734,7 +734,7 @@ Gives you the `cmlist' command
 #+begin_src ansys  :exports none
   !@@ -- Element completions --
 #+end_src
-APDL-Mode also complets ANSYS deprecated element names but warns you
+APDL-Mode also complets Ansys deprecated element names but warns you
 with a distinct highlighting!
 #+begin_src ansys
   !! Completion of element names: type "<ESC> <TAB>" behind `shell'
@@ -751,7 +751,7 @@ with a distinct highlighting!
   a
 #+end_src
 #+begin_src ansys
-  !! Note Emacs' message that `a' is already a valid ANSYS symbol!
+  !! Note Emacs' message that `a' is already a valid Ansys symbol!
   !! It is highlighted already as a command, but it is further completable.
 #+end_src
 *** Dynamic completion
@@ -1038,9 +1038,9 @@ The APDL processing and debugging environment
 #+ATTR_HTML: :width 1000
    [[./license.png]]
 
-** Start the ANSYS `solver/interpreter'
+** Start the Ansys `solver/interpreter'
 #+begin_src ansys :exports none
-   !@ --- Start an ANSYS interpreter process ---
+   !@ --- Start an Ansys interpreter process ---
 #+end_src
 #+begin_src ansys
    !! Type "C-c RET"!
@@ -1063,7 +1063,7 @@ The APDL processing and debugging environment
 #+end_src
 **** Send a code line or region
 Any time you communicate with the interpreter its output is shown in
-the ~*ANSYS*~ interactive window.
+the ~*Ansys*~ interactive window.
 #+begin_src ansys :exports none
   !@@@ - Send a code line or region to the interpreter  -
 #+end_src
@@ -1082,7 +1082,7 @@ the ~*ANSYS*~ interactive window.
   !!
 #+end_src
     *C-c C-u*, *C-c C-c* have changed their behaviour with the running
-    interpreter.  Without a running ANSYS process they are sending the
+    interpreter.  Without a running Ansys process they are sending the
     code to the system clipboard instead.
 #+begin_src ansys
   !! We have got now data and results to work with
@@ -1092,12 +1092,12 @@ Receive graphical feedback from the interpreter
 #+begin_src ansys :exports none
   !@ --- Graphical feedback ---
 #+end_src
-*** Open the `interactive graphics' window of ANSYS
+*** Open the `interactive graphics' window of Ansys
 #+begin_src ansys :exports none
-  !@@ -- Open the ANSYS `interactive graphics' frame  --
+  !@@ -- Open the Ansys `interactive graphics' frame  --
 #+end_src
 #+begin_src ansys
-  !! Type "C-c C-g" to open the ANSYS `interactive' graphics frame.
+  !! Type "C-c C-g" to open the Ansys `interactive' graphics frame.
   !! Then send the following line with "C-c C-c".
   !!
   eplot
@@ -1115,12 +1115,12 @@ the dialog is open *no* other communication is possible! And thirdly:
 The size of the graphics is fixed. And fourthly: You must replot every
 time the graphics frame was hidden by other graphics (Desktop
 switching, etc.)!
-**** Open the ANSYS Pan/Zoom/Rotate dialog
+**** Open the Ansys Pan/Zoom/Rotate dialog
 #+begin_src ansys :exports none
   !@@ -- The Pan/Zoom/Rotate dialog --
 #+end_src
 #+begin_src ansys
-  !! Type "C-c C-p" to open the ANSYS Pan/Zoom/Rotate dialog!
+  !! Type "C-c C-p" to open the Ansys Pan/Zoom/Rotate dialog!
   !!
 #+end_src
 
@@ -1179,21 +1179,21 @@ Hint: Use Emacs `repeat' command *C-x z*, after its use already the
   !! Input here: "/post1 <RET>" and then "C-c C-q set,list"
   !!
 #+end_src
-**** Direct communication from the ~*ANSYS*~ interactive window
+**** Direct communication from the ~*Ansys*~ interactive window
 #+begin_src ansys :exports none
-  !@@@ - Communicating within the *ANSYS* interactive window  -
+  !@@@ - Communicating within the *Ansys* interactive window  -
 #+end_src
 #+begin_src ansys
-  !! Place the cursor in the *ANSYS* interactive window and write
+  !! Place the cursor in the *Ansys* interactive window and write
   !! "plnsol,u,sum", conclude the input with <RET>.
   !!
 #+end_src
 
-** Visiting the ANSYS error file
+** Visiting the Ansys error file
    The solver error file (\*.err) is opened in tail-follow mode,
    i. e. you are seeing always the latest contend. (*C-c C-e*)
 #+begin_src ansys :exports none
-  !@@ -- Visiting the ANSYS error file --
+  !@@ -- Visiting the Ansys error file --
 #+end_src
 #+begin_src ansys
   !! Type "C-c C-e" to open the run's error file in `tail-follow mode'!
@@ -1214,7 +1214,7 @@ Thank you for your time, have fun with Emacs...
     [[./editor_learning_curves.jpg]]
 
 **  Acknowledgements
-    - Carsten Dominik :: Ingenious [[http://orgmode.org/][Org-mode]] for Emacs
+    - Carsten Dominik :: Ingenious [[https://orgmode.org/][Org-mode]] for Emacs
     - [[http://stallman.org/][RMS]] :: [[http://www.gnu.org/software/emacs/][GNU Emacs]] and many other great ideas and programs
 
 # ** writing an abort file

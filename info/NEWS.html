@@ -3,23 +3,32 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>News and History of ANSYS-Mode</title>
-<!-- 2015-07-07 Tue 08:06 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="H. Dieter Wilhelm" />
+<!-- 2021-09-09 Do 15:48 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="H. Dieter Wilhelm" />
+<meta name="description" content="Version 20.6.0"
+ />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
   .todo   { font-family: monospace; color: red; }
-  .done   { color: green; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
   .tag    { background-color: #eee; font-family: monospace;
             padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
   .underline { text-decoration: underline; }
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
@@ -46,30 +55,127 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
   caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
-  th.right  { text-align: center;  }
-  th.left   { text-align: center;   }
-  th.center { text-align: center; }
-  td.right  { text-align: right;  }
-  td.left   { text-align: left;   }
-  td.center { text-align: center; }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
   dt { font-weight: bold; }
-  .footpara:nth-child(2) { display: inline; }
-  .footpara { display: block; }
+  .footpara { display: inline; }
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -86,6 +192,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <script type="text/javascript">
@@ -93,7 +200,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -141,111 +248,268 @@ for the JavaScript code in this tag.
  |
  <a accesskey="H" href="https://github.com/dieter-wilhelm/ansys-mode"> HOME </a>
 </div><div id="content">
-<h1 class="title">News and History of ANSYS-Mode</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. Version 16.1.1 July 2015</a></li>
-<li><a href="#sec-2">2. Version 15.0.1 Aug 2014</a></li>
-<li><a href="#sec-3">3. Version 14.5.2  Mar 2013</a></li>
-<li><a href="#sec-4">4. Version 14.5.1 Sep 2012</a></li>
-<li><a href="#sec-5">5. Version 14.0.1 June 2012</a></li>
-<li><a href="#sec-6">6. Version 13.0.1 March 2011</a></li>
-<li><a href="#sec-7">7. Version 12.0.1 Dec 2010</a></li>
-<li><a href="#sec-8">8. Version 11.0.2 Nov 2009</a></li>
-<li><a href="#sec-9">9. ansys-mode.el 11.0.1 in comparison to ansys-mod.el:</a></li>
+<li><a href="#org6080199">1. Version 20.6.0, 15 years of APDL-Mode!</a></li>
+<li><a href="#orgcc13b48">2. Version 20.5.0</a></li>
+<li><a href="#org018a7bb">3. Version 20.4.0</a></li>
+<li><a href="#org769cbbb">4. Version 20.3.0</a></li>
+<li><a href="#orgbfd4d21">5. Version 20.2.0</a></li>
+<li><a href="#orgead9858">6. Version 20.1.1</a></li>
+<li><a href="#org7c09022">7. Version 20.1.0</a></li>
+<li><a href="#orgc26d8aa">8. Version 162-1</a></li>
+<li><a href="#orgcdb13bc">9. Version 16.1.1</a></li>
+<li><a href="#org66c6c40">10. Version 15.0.1</a></li>
+<li><a href="#org2576326">11. Version 14.5.2</a></li>
+<li><a href="#org4e4f946">12. Version 14.5.1</a></li>
+<li><a href="#org99b8e5d">13. Version 14.0.1</a></li>
+<li><a href="#org893a1f7">14. Version 13.0.1</a></li>
+<li><a href="#org3f97a1e">15. Version 12.0.1</a></li>
+<li><a href="#org1a77859">16. Version 11.0.2</a></li>
+<li><a href="#org5c088f7">17. ansys-mode.el 11.0.1</a></li>
 </ul>
 </div>
 </div>
 <p>
-Copyright (C) 2006 - 2015  H. Dieter Wilhelm, GPL V3
+Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 </p>
 
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> Version 16.1.1 July 2015</h2>
+<div id="outline-container-org6080199" class="outline-2">
+<h2 id="org6080199"><span class="section-number-2">1</span> Version 20.6.0, 15 years of APDL-Mode!</h2>
 <div class="outline-text-2" id="text-1">
 <ul class="org-ul">
-<li>The command `ansys-show-command-parameters' (M-?) does
-additionally count the number of parameters and visualise at which
-parameter position the cursor currently is.  This tool-tip can now
-be switched off with a prefix argument of zero.
-</li>
-
-<li>The command `ansys-send-to-ansys-and-proceed' (C-c C-j) is now
-interactive, i. e. after invoking this command with its
-key-sequence "C-c C-j" it can be repeated by typing just the
-final character "j" (or "C-j").  (This works from Emacs-24.4)
-</li>
-
-<li>The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
-paragraph, when there is no region marked.  And the cursor doesn't
-skip to the next code line without a prefix argument "C-u".
-</li>
-
-<li>The output buffer <b>ANSYS</b> of the interpreter commands might now
-reside on a another Emacs frame.
-</li>
-
-<li>switched on truncation of lines for ANSYS-Mode buffers, e. g. it is
-easier to read when there are many parameters in the
-ansys-show-parameter-help.
-</li>
-
-<li>Extended the APDL material library which includes now creep and
-multi-linear plasticity data in matlib/ as well.
-</li>
-
-<li>Is packaged with the current stable version Emacs-24.5 and updated
-for ANSYS 16.  Besides the Windows version there is also now a
-source package available for compiling Emacs-24.5 together with
-ANSYS-Mode.
-</li>
-
-<li>Renamed README, NEWS and TODO to *.org, fontification.mac to
-example.mac.  Included an example.dat and example.anf
-</li>
+<li>Implemented batch runs (now C-c C-y) and jobname.out inspection</li>
+<li>Improved highlighting of user variables</li>
+<li>Fixed help for the APDL `outres' command and improved
+documentation</li>
+<li>Added customisation section for user templates</li>
+<li>apdl-start-classic and -start-launcher are now auto-loaded
+commands (They can be run from the mini buffer (M-x), without
+having a file under `apdl-mode')</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgcc13b48" class="outline-2">
+<h2 id="orgcc13b48"><span class="section-number-2">2</span> Version 20.5.0</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+2020-05, help for get- and parametric functions
+</p>
+<ul class="org-ul">
+<li>Browsing the help on keywords (C-c C-b) is now working for get-
+and parametric functions (additionally to all APDL commands and
+element names).</li>
+<li>Line numbers in the Variable Buffer (C-c C-v) are now links to the
+respective position in its APDL Buffer.  Clicking with mouse-2 on
+the numbers is displaying the definition in the APDL Buffer.</li>
+<li>Added license overview with Ansys license feature descriptions to
+`apdl-license-status' (C-c C-l).</li>
+<li>Added a menu entry for opening the main Ansys online help page.</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org018a7bb" class="outline-2">
+<h2 id="org018a7bb"><span class="section-number-2">3</span> Version 20.4.0</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+2020-04, Updated for Ansys 2020R1
+</p>
+<ul class="org-ul">
+<li>Updated keyword- and completion system to Ansys 2020R1 (v201)</li>
+<li>Added documentation in GNU Info format and modified the menu
+entry APDL-Mode Online Documentation to APDL-Mode Documentation
+(C-c C-h) which points to the GNU-Emacs internal Info Viewer.</li>
+<li>Added a menu entry for displaying the user's taken licenses</li>
+<li>Files with the suffixes ".mac", ".dat" and ".inp" are openend in
+apdl-mode without further user configuration.</li>
+<li>Added additional keys for the license status functions</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org769cbbb" class="outline-2">
+<h2 id="org769cbbb"><span class="section-number-2">4</span> Version 20.3.0</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+2020-03, Melpa installation
+</p>
+<ul class="org-ul">
+<li>You can now install APDL-Mode from the <a href="https://melpa.org/">Melpa</a> package archive!</li>
+<li>Added a new menu entry for browsing interactively the
+documentation for keywords</li>
+<li>Added new function templates in the menu</li>
+<li>EWW browser for the local help is now opening in a different
+"Window" and is not hiding the APDL buffer any longer</li>
+<li>Added Ruler Mode to the helper modes</li>
+<li>Added customisation section for Worbench / Discover Aim templates</li>
+<li>Improved initialisation of Ansys installation dependent
+parameters</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgbfd4d21" class="outline-2">
+<h2 id="orgbfd4d21"><span class="section-number-2">5</span> Version 20.2.0</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+2020-03, Updated keywords to Ansys v195
+</p>
+<ul class="org-ul">
+<li>Added a template preview system for Worbench `Command (APDL)'
+objects with the keybinding `C-c C-w' (this keybinding was
+formerly used for starting WorkBench).</li>
+<li>Improved the automated configuration of Ansys installation
+dependent components</li>
+<li>Made M-? (the parameter help) robuster, command names can now be
+changed when the help overlay is visible</li>
+<li>Updated documentation and completions for keywords, elements,
+etc. to v195 (some to v201)</li>
+<li>A-M can call a browser for the Ansys online-help (you don't have
+to install the local Ansys help package, though it is advisable
+because of speed reasons.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> Version 15.0.1 Aug 2014</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-orgead9858" class="outline-2">
+<h2 id="orgead9858"><span class="section-number-2">6</span> Version 20.1.1</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+2020-02, Bugfix release
+</p>
 <ul class="org-ul">
-<li>Added an example of an ANSYS material library
-</li>
+<li>Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual</li>
+<li>Improved configuration docu</li>
+<li>Enabled EWW (and other browsers) as a "help viewer"</li>
+</ul>
+</div>
+</div>
 
+<div id="outline-container-org7c09022" class="outline-2">
+<h2 id="org7c09022"><span class="section-number-2">7</span> Version 20.1.0</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+Released  2020-02
+</p>
+<ul class="org-ul">
+<li>Changed the name to APDL-Mode</li>
+<li>Changed version naming scheme (package.el format)</li>
+<li>Installation now with Emacs' packageing system</li>
+<li>Added key-bindings to the license buffer <b><b>Licenses</b></b> (C-c C-l)
+o - occur search
+g - refresh license status
+q - bury the license buffer
+Q - quit license buffer</li>
+<li>Better warning for C-c C-b when A-M is not configured</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc26d8aa" class="outline-2">
+<h2 id="orgc26d8aa"><span class="section-number-2">8</span> Version 162-1</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+not yet released, targeted for Sep 2015
+</p>
+<ul class="org-ul">
+<li>Sending code to the ANYSClassics GUI is now possible as well, not
+only to the restricted interactive solver (currently only on
+GNU-Linux and Unix with C-c C-j, C-c C-u, C-c C-c).</li>
+<li>Checking available licenses - in a fast and simple way - is now
+also available on Windows platforms with "C-c C-l".</li>
+<li>Reorganised and simplified the installation and configuration.
+Made the initialisation defaults more intelligent,
+i. e. searching for installation paths with environment
+variables, etc.</li>
+<li>New customisation variable `ansys-parameter-help-duration' for
+adjusting the display duration of the
+`ansys-show-command-parameters' overlay.</li>
+<li>Reorganised and improved the menu items, separated general Ansys
+tasks from APDL coding with two main menu Entries: A-Mode and
+Ansys.</li>
+<li>New functions: Reading the original APDL guide and Ansys-Mode's
+documentation in a Browser, opening an empty buffer in
+Ansys-Mode, ansys-start-launcher, ansys-start-classics, &#x2026;</li>
+<li>The command `C-c C-j' does now recognise blocks (APDL loops and
+control structures), which is to say it copies or sends complete
+logical blocks to the interpreter instead of only the current
+code line.</li>
+<li>Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgcdb13bc" class="outline-2">
+<h2 id="orgcdb13bc"><span class="section-number-2">9</span> Version 16.1.1</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+July 2015
+</p>
+<ul class="org-ul">
+<li>The command `ansys-show-command-parameters' (M-?) does
+additionally count the number of parameters and visualise at
+which parameter position the cursor currently is.  This tool-tip
+can now be switched off with a prefix argument of zero.</li>
+<li>The command `ansys-send-to-ansys-and-proceed' (C-c C-j) is now
+interactive, i. e. after invoking this command with its key-sequence
+"C-c C-j" it can be repeated by typing just the final character "j"
+(or "C-j").</li>
+<li>The command `ansys-send-to-ansys' (C-c C-c) grabs now the current
+paragraph, when there is no region marked.  And the cursor doesn't
+skip to the next code line without a prefix argument "C-u".</li>
+<li>The output buffer <b>Ansys</b> of the interpreter commands might now
+reside on a another Emacs frame.</li>
+<li>switched on truncation of lines for Ansys-Mode buffers, e. g. it is
+easier to read when there are many parameters in the
+ansys-show-parameter-help.</li>
+<li>Extended the APDL material library which includes now creep and
+multi-linear plasticity data in matlib/ as well.</li>
+<li>Is packaged with the current stable version Emacs-24.5 and updated
+for Ansys 16.  Besides the Windows version there is also now a
+source package available for compiling Emacs-24.5 together with
+Ansys-Mode.</li>
+<li>Renamed README, NEWS and TODO to *.org, fontification.mac to
+example.mac.  Included an example.dat and example.anf</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org66c6c40" class="outline-2">
+<h2 id="org66c6c40"><span class="section-number-2">10</span> Version 15.0.1</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Aug 2014
+</p>
+<ul class="org-ul">
+<li>Added an example of an Ansys material library</li>
 <li>C-c C-c (ansys-send-to-ansys) doesn't skip to the next code line any
 longer but remains in the code line. The former behaviour borrows
 the new function C-c C-j (ansys-send-to-ansys-and-proceed),
-executing and then skipping to the next code.
-</li>
-
-<li>Improved the `ansys-show-blabla&#x2026;
-</li>
-
+executing and then skipping to the next code.</li>
+<li>Improved the `ansys-show-blabla&#x2026;</li>
 <li>Highlighted now the parametric function CXABS(), which was already
-introduced in V14.
-</li>
-
+introduced in V14.</li>
 <li>Updated the help, completion and highlighting functionality to V15
 And as usual: Corrected some bugs, typos and extended the templates,
-e. g. partial solutions with psolve for mass calculations.
-</li>
+e. g. partial solutions with psolve for mass calculations.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> Version 14.5.2  Mar 2013</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org2576326" class="outline-2">
+<h2 id="org2576326"><span class="section-number-2">11</span> Version 14.5.2</h2>
+<div class="outline-text-2" id="text-11">
+<p>
+Mar 2013
+</p>
 <ul class="org-ul">
-<li>The unwieldy and usually uninteresting pure number blocks (the
+<li><p>
+The unwieldy and usually uninteresting pure number blocks (the
 nblock, eblocks and cmblocks) in files with the suffix .dat are now
 hidden by default.  WorkBench creates these blocks in input files
 for the solver.  You can, off course, unhide these blocks and
 inspect them as well.
+</p>
 
 <p>
 Functions: `ansys-hide-number-blocks', `ansys-show-number-blocks',
@@ -256,40 +520,39 @@ Functions: `ansys-hide-number-blocks', `ansys-show-number-blocks',
 Customising variables: `ansys-hide-region-before-string',
 `ansys-hide-region-after-string' and
 `ansys-hide-region-propertize-markers'
-</p>
-</li>
+</p></li>
 
 <li>Added a way for showing the current value and status of a user
 variable at point, overcoming the drawback of C-c C-v
 `ansys-display-variables' that it is showing only the variable
 definitions and definitions coming from external files are not
 shown. You can activate this functionality (Linux only) with a
-prefix argument: C-u C-c C-v.
-</li>
-
+prefix argument: C-u C-c C-v.</li>
 <li>Fixed the completion and highlighting of command keywords and their
 help entries, in the previous release were unfortunately many
-keywords missing or entries incomplete.
-</li>
-
+keywords missing or entries incomplete.</li>
 <li>As always: Enhancements and corrections for the APDL templates,
-added a beam simulation template
-</li>
+added a beam simulation template</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> Version 14.5.1 Sep 2012</h2>
-<div class="outline-text-2" id="text-4">
+<div id="outline-container-org4e4f946" class="outline-2">
+<h2 id="org4e4f946"><span class="section-number-2">12</span> Version 14.5.1</h2>
+<div class="outline-text-2" id="text-12">
+<p>
+Sep 2012
+</p>
 <ul class="org-ul">
-<li>Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
-the detailed ANSYS help in your web-browser for an APDL command or
+<li><p>
+Added a function (C-c C-b or "M-x ansys-browse-ansys-help") showing
+the detailed Ansys help in your web-browser for an APDL command or
 element name (also the element number is sufficient) around the
 cursor (or if that fails at the line beginning).
+</p>
 
 <p>
-Are you also tired of the ANSYS help browser?  For example try
+Are you also tired of the Ansys help browser?  For example try
 searching for the `F' APDL command, it is impossible! (update 2014:
 This has improved with the new help viewer in V15.) You have to pick
 it up from the alphabetical command list. Likewise when you are
@@ -300,276 +563,199 @@ cumbersome and too slow.
 
 <p>
 As a highlight of this release you can now read immediately the
-detailed ANSYS help in your web browser for <b>all</b> APDL command AND
+detailed Ansys help in your web browser for <b>all</b> APDL command AND
 element names around the cursor (or for the first command in the
 current line if that fails to be valid keyword).  You may input your
-search string also interactively, including its completion to ANSYS
+search string also interactively, including its completion to Ansys
 help keywords and of certain help categories, like `Release Notes'
-and such. This is an ideal complement to ANSYS-Mode's in-built
+and such. This is an ideal complement to Ansys-Mode's in-built
 `command syntax help'.
-</p>
-</li>
+</p></li>
 
 <li>The function `ansys-start-ansys' is now available under Windows as well
-and starts the APDL product launcher under this platform.
-</li>
-
+and starts the APDL product launcher under this platform.</li>
 <li>When calling `ansys-browse-ansys-help' and
 `ansys-show-command-parameters' (M-? - the in-built `command syntax
 help') with a prefix argument for interactively entering a command
 name, the name is now completable.  And in the non-interactive mode
 both functions working also for APDL commands which are commented
 out as well (only for the first command in case of
-`ansys-show-command-parameters').
-</li>
-
+`ansys-show-command-parameters').</li>
 <li>Also the input of `ansys-query-ansys-command' (C-c C-q) is now
-completable to all current ANSYS commands and with an optional
+completable to all current Ansys commands and with an optional
 prefix argument the current code line is copied as the initial
-input.
-</li>
-
+input.</li>
 <li>Improved the introductory and the in-depth tutorial and extended the
 documentation with an APDL and syntax highlighting reference in HTML
 and PDF. (To some degree syntax highlighted in the PDF version as
-well)
-</li>
-
-<li>Values of the `<sub>RETURN'</sub> variable are now documented in the function
-`ansys-skeleton-information'
-</li>
-
+well)</li>
+<li>Values of the `<sub>RETURN</sub>' variable are now documented in the function
+`ansys-skeleton-information'</li>
 <li>`ansys-next-code-line' and `ansys-previous-code-line' (M-n, M-p) are
 now skipping over node and elements blocks, which are only pure
 number blocks.  They are now alternatives to
-`ansys-number-block-start' C-c { and C-c } respectively
-</li>
-
-<li>Removed bug in customisation system and dropped 32 bit ANSYS support
-in line with the ANSYS OS
-[<a href="http://www.ansys.com/Support/Platform+Support">http://www.ansys.com/Support/Platform+Support</a> strategy] for 2013.
-</li>
-
+`ansys-number-block-start' C-c { and C-c } respectively</li>
+<li>Removed bug in customisation system and dropped 32 bit Ansys support
+in line with the Ansys OS
+[<a href="https://www.ansys.com/Support/Platform+Support">https://www.ansys.com/Support/Platform+Support</a> strategy] for 2013.</li>
 <li>Described a poor man's round() workaround in ansys-template-function
-under the nint() entry
-</li>
+under the nint() entry</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-5" class="outline-2">
-<h2 id="sec-5"><span class="section-number-2">5</span> Version 14.0.1 June 2012</h2>
-<div class="outline-text-2" id="text-5">
+<div id="outline-container-org99b8e5d" class="outline-2">
+<h2 id="org99b8e5d"><span class="section-number-2">13</span> Version 14.0.1</h2>
+<div class="outline-text-2" id="text-13">
+<p>
+June 2012
+</p>
 <ul class="org-ul">
 <li>Enhanced the documentation, included is now an introductory tutorial
-`ansys-mode<sub>tutorial</sub>.pdf' and a hands-on tutorial
-`APDL<sub>tutorial</sub>.pdf'
-</li>
-
+`ansys-mode<sub>tutorial.pdf</sub>' and a hands-on tutorial
+`APDL<sub>tutorial.pdf</sub>'</li>
 <li>Added a timer for getting rid of the parameter help overlays after
-some time interval (1 min) without reusing the parameter help
-</li>
-
+some time interval (1 min) without reusing the parameter help</li>
 <li>Added a (customisable) variable `ansys-no-of-processors' and
 function with the same name for specifying the number of processors
-for an Ansys multiprocessor run
-</li>
-
-<li>Activated outline-minor-mode and auto-insertion (in default<sub>el</sub>)
-</li>
-
+for an Ansys multiprocessor run</li>
+<li>Activated outline-minor-mode and auto-insertion (in default<sub>el</sub>)</li>
 <li>Extended mode commands, templates and removed typos mainly in
 ansys-template.el. For example added all *get functions in the
-ansys-skeleton-function template
-</li>
-
+ansys-skeleton-function template</li>
 <li>Added a custom variable the corresponding function
 ansys-ansysli-servers for specifying the ansys interconnect license
-servers
-</li>
-
-<li>Added a new shortcut and menu entry isometric view
-</li>
-
+servers</li>
+<li>Added a new shortcut and menu entry isometric view</li>
 <li>Applied sensible defaults to ansys-lmutil-program, ansys-program and
 ansys-help-program, for most needs it should now be enough just to
 set the used ansys version (ansys-current-ansys-version, if it is
 not 140, see the example configuration file default<sub>el</sub>) and maybe
-additionally the installation directory (ansys-install-directory).
-</li>
+additionally the installation directory (ansys-install-directory).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-6" class="outline-2">
-<h2 id="sec-6"><span class="section-number-2">6</span> Version 13.0.1 March 2011</h2>
-<div class="outline-text-2" id="text-6">
+<div id="outline-container-org893a1f7" class="outline-2">
+<h2 id="org893a1f7"><span class="section-number-2">14</span> Version 13.0.1</h2>
+<div class="outline-text-2" id="text-14">
+<p>
+March 2011
+</p>
 <ul class="org-ul">
 <li>Added support for aligning whole sections of Ansys variable
 definitions, both in the Ansys menu and as a keyboard shortcut 'C-c
-C-a'
-</li>
-
+C-a'</li>
 <li>Enhanced ansys-display-skeleton with an optional argument for
-inserting the respective skeleton in the APDL buffer.
-</li>
-
+inserting the respective skeleton in the APDL buffer.</li>
 <li>Enhanced some "interactive" code templates with lists for completing
-the input and sensible defaults
-</li>
-
+the input and sensible defaults</li>
 <li>Refined some abbreviation definitions and focused the display of
-abbreviations to the mode specific ones
-</li>
-
-<li>Fixed insert pair functions, like 'C-c %'
-</li>
-
-<li>Changed keyboard shortcut for calling the Ansys help to 'C-c C-h'
-</li>
-
+abbreviations to the mode specific ones</li>
+<li>Fixed insert pair functions, like 'C-c %'</li>
+<li>Changed keyboard shortcut for calling the Ansys help to 'C-c C-h'</li>
 <li>Updated keyword list, deprecated elements, undocumented commands,
-etc. to release 13.0 of Ansys, as usual.
-</li>
+etc. to release 13.0 of Ansys, as usual.</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-7" class="outline-2">
-<h2 id="sec-7"><span class="section-number-2">7</span> Version 12.0.1 Dec 2010</h2>
-<div class="outline-text-2" id="text-7">
+<div id="outline-container-org3f97a1e" class="outline-2">
+<h2 id="org3f97a1e"><span class="section-number-2">15</span> Version 12.0.1</h2>
+<div class="outline-text-2" id="text-15">
+<p>
+Dec 2010
+</p>
 <ul class="org-ul">
 <li>Some new graphics commands like ansys-zoom-in, -zoom-out,
--move-left, -right, -up, -down, etc.
-</li>
-
+-move-left, -right, -up, -down, etc.</li>
 <li>The lisp code had to be split up for better maintenance, the code
 files for are now provided in an archive together with their
-compiled state for speed reasons.
-</li>
-
-<li>Reworked the highlighting mainly for the sake of speed.  There are
-now highlighting levels to choose from, offering e. g. highlighting
-of deprecated element types in a warning-face, deprecated Ansys *
-comments and so on
-</li>
-
+compiled state for speed reasons.</li>
+<li>Reworked the highlighting mainly for the sake of speed.  There
+are now highlighting levels to choose from, offering
+e. g. highlighting of deprecated element types in a warning-face,
+deprecated Ansys * comments and so on</li>
 <li>Updated and improved the readability of the mode's help and the
-README file
-</li>
-
+README file</li>
 <li>The output from the LMUtil license status tool (C-c C-l) is now
-filtered on UNIX to be more concise.
-</li>
-
+filtered on UNIX to be more concise.</li>
 <li>The `ansys-send-to-ansys' (C-c C-c) and the ansys-copy-or-send-above
 (C-c C-u) commands are now generalised so that they are also doing
 some useful stuff without a running Ansys interpreter process (they
 copy in that case the cursor line/the chosen region and copy from
 the file beginning to the cursor line, respectively, to the
 clipboard).  Given a prefix argument to these commands, the cursor
-won't move to the next code line.
-</li>
-
+won't move to the next code line.</li>
 <li>The completion of Ansys keywords is reworked and has improved.  Ansys
 symbols are now completed in 3 ways: Up-case, down-case and
-capitalise.
-</li>
-
+capitalise.</li>
 <li>New: Added tool-tips to all Ansys menu entries.  Activated or
-deactivated menu entries according to the context
-</li>
-
+deactivated menu entries according to the context</li>
 <li>Ansys mode tries to gather information from the OS environment when
 the variable `ansys-license-file' is not set by the user and uses
-now Ansys standard names as default values for some more variables.
-</li>
-
+now Ansys standard names as default values for some more variables.</li>
 <li>The variables in the variable summary are now sorted according to
 their first occurrence and not any longer in "definition types".  Now
-component names are included with the variable highlighting.
-</li>
-
+component names are included with the variable highlighting.</li>
 <li>Added menu entry for reloading Ansys Mode for the case when certain
 customisation options in the code files itself are changed and
-require a code reloading to take effect.
-</li>
-
+require a code reloading to take effect.</li>
 <li>Ansys mode changes some Emacs default behaviour to smooth the
-transition from other editors
-</li>
+transition from other editors</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-8" class="outline-2">
-<h2 id="sec-8"><span class="section-number-2">8</span> Version 11.0.2 Nov 2009</h2>
-<div class="outline-text-2" id="text-8">
+<div id="outline-container-org1a77859" class="outline-2">
+<h2 id="org1a77859"><span class="section-number-2">16</span> Version 11.0.2</h2>
+<div class="outline-text-2" id="text-16">
+<p>
+Nov 2009
+</p>
 <ul class="org-ul">
 <li>Enabled the preview of code templates or fragments (called
-skeletons in this mode, please inspect `ansys-display-skeleton').
-</li>
-
+skeletons in this mode, please inspect `ansys-display-skeleton').</li>
 <li>Removed "buffer has no process" bug when killing an ansys-mode
-buffer.
-</li>
-
-<li>Submitting interactively Ansys commands (via minibuffer query, not
+buffer.</li>
+<li>Submitting interactively Ansys commands (via mini-buffer query, not
 only as written in a macro file) to the solver process,
-ansys-query-ansys-command (C-c C-q).
-</li>
+ansys-query-ansys-command (C-c C-q).</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-9" class="outline-2">
-<h2 id="sec-9"><span class="section-number-2">9</span> ansys-mode.el 11.0.1 in comparison to ansys-mod.el:</h2>
-<div class="outline-text-2" id="text-9">
+<div id="outline-container-org5c088f7" class="outline-2">
+<h2 id="org5c088f7"><span class="section-number-2">17</span> ansys-mode.el 11.0.1</h2>
+<div class="outline-text-2" id="text-17">
+<p>
+2009 in comparison to ansys-mod.el,
+</p>
 <ul class="org-ul">
-<li>New: Provides Ansys command parameter- and syntax help.
-</li>
-
+<li>New: Provides Ansys command parameter- and syntax help.</li>
 <li>New: Offers Ansys process management: Acquiring license server
 information in a buffer Starting and stopping asynchronously
 Ansys runs.  Sending code lines to running Ansys process (sort of
-code debugging facility) and getting the output into a buffer.
-</li>
-
+code debugging facility) and getting the output into a buffer.</li>
 <li>New: Experimental highlighting of user defined variables.
 Redefinition and clearing of variables is not yet taken into
-account.
-</li>
-
+account.</li>
 <li>New: Emacs customisation facility is available for the new Ansys
-mode group.
-</li>
-
+mode group.</li>
 <li>New: Emacs outline-minor-mode is readily available in conjunction
-with this mode.
-</li>
-
+with this mode.</li>
 <li>Completions of Ansys commands are now case-sensitive, with
-additional completion of function and element names.
-</li>
-
+additional completion of function and element names.</li>
 <li>Previously defined skeletons are fully functional now, new ones
 are added and enabled with the abbreviation and auto-load
-facilities of Emacs 22.
-</li>
-
+facilities of Emacs 22.</li>
 <li>Ansys' interpreter's disregard of any capitalisation is now fully
-taken into account in the highlighting.
-</li>
-
+taken into account in the highlighting.</li>
 <li>The apostrophe "'" is now assigned as the Ansys string and the
 value of character parameters delimiter and not wrongly """;
-the strings are highlighted accordingly.
-</li>
-
+the strings are highlighted accordingly.</li>
 <li>The dollar sign "$" is now emphasised as the Ansys condensed
-input character (multiple Ansys commands in one line).
-</li>
-
+input character (multiple Ansys commands in one line).</li>
 <li>The colon ":" is now emphasised as the Ansys colon do loop
 character ("(x:y:z)" means from x to y, in z steps, z is equal to
 one as default).  For example: "n,(1:6),(2:18:2)" runs 6 loops.
@@ -578,42 +764,31 @@ with array parameters: k,,A(1:100), but the latter is an
 undocumented feature. Since ansys 11.0 the colon looping is also
 working with *GET functions (example: A(1:5)=NX(1:5))). A ":"
 indicates also a beginning of a label for the *GO and *IF
-command.
-</li>
-
+command.</li>
 <li>"%" is now distinguished as the Ansys parameter substitution
-and format specifier character.
-</li>
-
+and format specifier character.</li>
 <li>The ampersand "&amp;" is now correctly highlighted as the only
 available Ansys continuation character applicable to the format
 commands (*MSG, *MWRITE, *VREAD and *VWRITE) command and the
-subsequent format strings of the command are highlighted.
-</li>
-
-<li>New: " *" (&lt;SPC&gt; before `*') is indicated as an (Ansys deprecated)
+subsequent format strings of the command are highlighted.</li>
+<li>New: " <b>" (&lt;SPC&gt; before `</b>') is indicated as an (Ansys deprecated)
 comment sign e. g.: %% a = 3 **4 %% results in "a" having the value
-3, whereas %% a = 3**4 %% sets "a" to 81!
-</li>
-
+3, whereas %% a = 3**4 %% sets "a" to 81!</li>
 <li>New: A line beginning with a comma is indented to the length of the
 last non slash or asterisk command as a reminder that the Ansys
 solver interprets this as a space holder for the last command
-keyword (the Ansys default command concept).
-</li>
-
+keyword (the Ansys default command concept).</li>
 <li>Extended documentation, code cleaning and simplification of commands
 (e.g. comment handling) with the application of standard Emacs 22
-facilities among other things.
-</li>
+facilities among other things.</li>
 </ul>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@urmel">dieter@urmel</a>)</p>
-<p class="date">Date: </p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@ping">dieter@ping</a>)</p>
+<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-08-30 Mo&gt;</span></span></p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

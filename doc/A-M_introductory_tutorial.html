@@ -3,15 +3,15 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-03-07 Sa 21:09 -->
+<!-- 2021-09-09 Do 15:48 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Introductory Tutorial for APDL-Mode</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="H. Dieter Wilhelm" />
-<meta name="description" content="*APDL-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with ANSYS FEA."
+<meta name="description" content="*APDL-Mode* for GNU Emacs, an introductory *Tutorial* GNU Emacs Editor support for working with Ansys FEA."
  />
-<meta name="keywords" content="Emacs ANSYS FEA APDL" />
+<meta name="keywords" content="Emacs Ansys FEA APDL" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
   .title  { text-align: center;
@@ -274,50 +274,50 @@ for the JavaScript code in this tag.
 <h1 class="title">Introductory Tutorial for APDL-Mode</h1>
 <img src="ansys+emacs2020.png" height=150 alt="image">
 
-<div id="outline-container-org7cb4cc9" class="outline-2">
-<h2 id="org7cb4cc9">Introduction</h2>
-<div class="outline-text-2" id="text-org7cb4cc9">
+<div id="outline-container-orgf07b06e" class="outline-2">
+<h2 id="orgf07b06e">Introduction</h2>
+<div class="outline-text-2" id="text-orgf07b06e">
 </div>
-<div id="outline-container-org9adfdb7" class="outline-3">
-<h3 id="org9adfdb7">Introducing APDL-Mode &#x2013; an APDL environment</h3>
-<div class="outline-text-3" id="text-org9adfdb7">
+<div id="outline-container-orgb8a4193" class="outline-3">
+<h3 id="orgb8a4193">Introducing APDL-Mode &#x2013; an APDL Environment</h3>
+<div class="outline-text-3" id="text-orgb8a4193">
 <p>
-<a href="https://github.com/dieter-wilhelm/apdl-mode">This project</a> supports your APDL workflows with the FEA suite <a href="http://www.ansys.com">ANSYS</a>.
+<a href="https://github.com/dieter-wilhelm/apdl-mode">This project</a> supports your APDL workflows with the FEA suite <a href="http://www.ansys.com">Ansys</a>.
 </p>
 
 <br>
 <p>
-It provides an editor mode for <a href="http://www.gnu.org/software/emacs/">GNU Emacs</a> for investigating and
+It provides an editor mode for <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> for investigating and
 coding APDL.  The mode offers also managing and communication
-capabilities for various ANSYS processes, like interactive code
+capabilities for various Ansys processes, like interactive code
 debugging with the solver or inquiring the license manager status,
 etc.  Some features are quite sophisticated but its documentation
-is accessible for ANSYS users with little APDL and <a href="http://en.wikipedia.org/wiki/Emacs">Emacs</a>
+is accessible for Ansys users with little APDL and <a href="http://en.wikipedia.org/wiki/Emacs">Emacs</a>
 experience.
 </p>
 
 <br>
 
 <p>
-<a href="http://www.gnu.org/home.en.html">GNU</a>-Emacs is an modern, powerful and extensible - yet free -
+<a href="https://www.gnu.org/home.en.html">GNU</a>-Emacs is a modern, powerful and extensible - yet free -
 editor. High quality software available for every operating system
-where ANSYS is running.
+where Ansys is running.
 </p>
 </div>
 </div>
 </div>
 
-<div id="outline-container-org78ddefc" class="outline-2">
-<h2 id="org78ddefc">Download and Installation</h2>
-<div class="outline-text-2" id="text-org78ddefc">
+<div id="outline-container-orgc3eec6e" class="outline-2">
+<h2 id="orgc3eec6e">Download and Installation</h2>
+<div class="outline-text-2" id="text-orgc3eec6e">
 </div>
-<div id="outline-container-orgc67791f" class="outline-3">
-<h3 id="orgc67791f">Download GNU-Emacs and the APDL-Mode Tar Package</h3>
-<div class="outline-text-3" id="text-orgc67791f">
+<div id="outline-container-org16245a5" class="outline-3">
+<h3 id="org16245a5">Download GNU-Emacs and APDL-Mode</h3>
+<div class="outline-text-3" id="text-org16245a5">
 <p>
-There are no costs and no usage restrictions even in commercial
-application.  Please download <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> and the latest APDL-Mode
-tar file from the <a href="https://github.com/dieter-wilhelm/apdl-mode/releases">APDL-Mode's releases page</a>.
+There are no costs and restrictions even in commercial application.
+Please download <a href="https://www.gnu.org/software/emacs/">GNU Emacs</a> and the latest APDL-Mode from <a href="https://melpa.org">Melpa</a> or an
+archive from the <a href="https://github.com/dieter-wilhelm/apdl-mode/releases">APDL-Mode's releases page</a>.
 </p>
 <img src="./github.png" alt="Download page from GitHub">
 <p>
@@ -328,33 +328,39 @@ package-install-file &lt;RET&gt;</code> and select the downloaded tar archive.
 </div>
 </div>
 
-<div id="outline-container-orga8a0fa0" class="outline-2">
-<h2 id="orga8a0fa0">Usage</h2>
-<div class="outline-text-2" id="text-orga8a0fa0">
+<div id="outline-container-org6b48724" class="outline-2">
+<h2 id="org6b48724">Usage</h2>
+<div class="outline-text-2" id="text-org6b48724">
 </div>
-<div id="outline-container-orgeb849b4" class="outline-3">
-<h3 id="orgeb849b4">Open an Emacs buffer under APDL-Mode</h3>
-<div class="outline-text-3" id="text-orgeb849b4">
+<div id="outline-container-org0754e4a" class="outline-3">
+<h3 id="org0754e4a">Open an Emacs Buffer under APDL-Mode</h3>
+<div class="outline-text-3" id="text-org0754e4a">
 <p>
-Please type: <code>M-x apdl &lt;RET&gt;</code>
+Start the editor and open <i>doc/example.mac</i> or any other APDL file
+(with the extensions <i>mac</i>, <i>ans</i>, <i>inp</i>, <i>dat</i> or <i>anf</i>, otherwise
+type <code>M-x apdl</code> and &lt;RET&gt;).
 </p>
 
 <br>
 <p>
-In the following <b>C-c</b> or e. g. <b>M-c</b> means typing the &lt;CTRL&gt; or &lt;ALT&gt;
-key together with the `c' key.
+In the following <b>M-x</b> or <b>C-c</b> means typing &lt;ALT&gt; or &lt;CTRL&gt; key
+together with the `x' or `c' key.
+</p>
+
+
+<div class="figure">
+<p><img src="./find_file_dialog.png" alt="find_file_dialog.png" />
 </p>
 </div>
 </div>
+</div>
 
-<div id="outline-container-org41a065f" class="outline-3">
-<h3 id="org41a065f">Explore the APDL-Mode menus</h3>
-<div class="outline-text-3" id="text-org41a065f">
+<div id="outline-container-org21c99f9" class="outline-3">
+<h3 id="org21c99f9">Explore the APDL-Mode Menus</h3>
+<div class="outline-text-3" id="text-org21c99f9">
 <p>
-If ANSYS is installed in its default folders, also system dependent
-functions, like browsing the APDL help with <b>C-c C-b</b>, are working.
-Otherwise, you can easily configure this. The former is <b>much</b>
-faster as searching with the original ANSYS Help Viewer.
+Browsing the APDL help with <b>C-c C-b</b> is much faster than searching
+with the Ansys Help Viewer or online.
 </p>
 
 
@@ -366,13 +372,13 @@ faster as searching with the original ANSYS Help Viewer.
 </div>
 </div>
 
-<div id="outline-container-org7df6e2c" class="outline-2">
-<h2 id="org7df6e2c">Selected APDL-Mode Features</h2>
-<div class="outline-text-2" id="text-org7df6e2c">
+<div id="outline-container-orgf5d8bad" class="outline-2">
+<h2 id="orgf5d8bad">Selected APDL-Mode Features</h2>
+<div class="outline-text-2" id="text-orgf5d8bad">
 </div>
-<div id="outline-container-org59dd76e" class="outline-3">
-<h3 id="org59dd76e">Easily inspect WorkBench solver files (<i>doc/example.dat</i>)</h3>
-<div class="outline-text-3" id="text-org59dd76e">
+<div id="outline-container-org89a7af7" class="outline-3">
+<h3 id="org89a7af7">Easily Inspect WorkBench Solver Files (<i>doc/example.dat</i>)</h3>
+<div class="outline-text-3" id="text-org89a7af7">
 <p>
 APDL-Mode hides the normally uninteresting but usually very large
 number blocks.  On the right hand side is the unhidden content.  If
@@ -384,8 +390,8 @@ APDL-Mode is not yet configured for <i>.dat</i> files please type:
 </div>
 </div>
 <ul class="org-ul">
-<li><a id="org6f3e7a9"></a>Col left&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
-<div class="outline-text-4" id="text-org6f3e7a9">
+<li><a id="org3bff480"></a>Col left&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<div class="outline-text-4" id="text-org3bff480">
 
 <div class="figure">
 <p><img src="./hidden_blocks.png" alt="hidden_blocks.png" />
@@ -393,8 +399,8 @@ APDL-Mode is not yet configured for <i>.dat</i> files please type:
 </div>
 </div>
 </li>
-<li><a id="org4b3c98e"></a>Col right&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
-<div class="outline-text-4" id="text-org4b3c98e">
+<li><a id="org4ded961"></a>Col right&#xa0;&#xa0;&#xa0;<span class="tag"><span class="BMCOL">BMCOL</span></span><br />
+<div class="outline-text-4" id="text-org4ded961">
 
 <div class="figure">
 <p><img src="./unhidden_blocks.png" alt="unhidden_blocks.png" />
@@ -405,13 +411,13 @@ APDL-Mode is not yet configured for <i>.dat</i> files please type:
 </ul>
 </div>
 
-<div id="outline-container-org0b129a8" class="outline-3">
-<h3 id="org0b129a8">Check your cursor position in the parameter list</h3>
-<div class="outline-text-3" id="text-org0b129a8">
+<div id="outline-container-org551d511" class="outline-3">
+<h3 id="org551d511">Check Your Cursor Position in the Argument List</h3>
+<div class="outline-text-3" id="text-org551d511">
 <p>
 For commands with a large number of arguments it is cumbersome to
-count the arguments, <b>C-?</b> facilitates this for you and visualises
-dynamically at which parameter position the cursor currently is.
+count the arguments, <b>M-h</b> facilitates this for you and visualises
+dynamically at which argument position the cursor is.
 </p>
 
 
@@ -422,11 +428,11 @@ dynamically at which parameter position the cursor currently is.
 </div>
 </div>
 
-<div id="outline-container-orgb521818" class="outline-3">
-<h3 id="orgb521818">Select and insert templates from the menu into your code</h3>
-<div class="outline-text-3" id="text-orgb521818">
+<div id="outline-container-org98cecc3" class="outline-3">
+<h3 id="org98cecc3">Select and Insert Templates from the Menu into Your Code</h3>
+<div class="outline-text-3" id="text-org98cecc3">
 <p>
-Screenshot with the ANSYS Classics GUI on the left and Emacs on the
+Screenshot with the Ansys Classics GUI on the left and Emacs on the
 right on Win64
 </p>
 
@@ -438,9 +444,9 @@ right on Win64
 </div>
 </div>
 
-<div id="outline-container-org21bb1dc" class="outline-3">
-<h3 id="org21bb1dc">Preview the extensible APDL code templates</h3>
-<div class="outline-text-3" id="text-org21bb1dc">
+<div id="outline-container-orgea8fd5c" class="outline-3">
+<h3 id="orgea8fd5c">Preview the Extensible APDL Code Templates</h3>
+<div class="outline-text-3" id="text-orgea8fd5c">
 <p>
 Before inserting an entire template you are able to inspect its
 content in a preview window (<b>C-c C-s</b>) and might just copy the
@@ -455,9 +461,9 @@ most relevant snippets, please see below and next slide.
 </div>
 </div>
 
-<div id="outline-container-orga66c8df" class="outline-3">
-<h3 id="orga66c8df">Select an interesting template from a completion window</h3>
-<div class="outline-text-3" id="text-orga66c8df">
+<div id="outline-container-org89af7b3" class="outline-3">
+<h3 id="org89af7b3">Select an Interesting Template from a Completion Window</h3>
+<div class="outline-text-3" id="text-org89af7b3">
 <p>
 Type <b>C-c C-s</b> to choose a template name, use the &lt;TAB&gt; key to
 complete or to open the completion window of available items.
@@ -471,22 +477,14 @@ complete or to open the completion window of available items.
 </div>
 </div>
 
-<div id="outline-container-org5ef38d8" class="outline-3">
-<h3 id="org5ef38d8">Check auto-insertion and outline your code (tree view)</h3>
-<div class="outline-text-3" id="text-org5ef38d8">
+<div id="outline-container-org62c2fc7" class="outline-3">
+<h3 id="org62c2fc7">Check Auto-Insertion and Outline Your Code (Tree View)</h3>
+<div class="outline-text-3" id="text-org62c2fc7">
 <p>
-Create a new APDL file with the suffix
-</p>
-<div class="LaTeX">
-<p>
-`{\sl .mac}'
-</p>
-
-</div>
-<p>
-and let Emacs auto-insert
-a skeleton with `outline' headings.  Collapse the content to a tree
-view with <b>C-c @ C-t</b> and open all (<b>C-c @ C-a</b>) again.
+Create a new APDL file with the suffix <i>.mac</i> and let Emacs
+auto-insert a skeleton with `outline' headings.  Collapse the
+content to a tree view with <b>C-c @ C-t</b> and open all (<b>C-c @ C-a</b>)
+again.
 </p>
 
 
@@ -497,9 +495,9 @@ view with <b>C-c @ C-t</b> and open all (<b>C-c @ C-a</b>) again.
 </div>
 </div>
 
-<div id="outline-container-orga48ebab" class="outline-3">
-<h3 id="orga48ebab">Utilise completions of all &#x2013; around 2000 &#x2013; APDL symbols</h3>
-<div class="outline-text-3" id="text-orga48ebab">
+<div id="outline-container-orgc444695" class="outline-3">
+<h3 id="orgc444695">Utilise completions of all (~2000) APDL symbols</h3>
+<div class="outline-text-3" id="text-orgc444695">
 <p>
 Move the cursor behind a character - here `c' - or word fragment and
 type &lt;ESC&gt; &lt;TAB&gt; or <b>C-M-i</b> for completing up to date APDL command-,
@@ -514,31 +512,41 @@ element- and function names.
 </div>
 </div>
 
-<div id="outline-container-org1e85089" class="outline-3">
-<h3 id="org1e85089">Open a summary window of your APDL variables</h3>
-<div class="outline-text-3" id="text-org1e85089">
+<div id="outline-container-orgb7f9962" class="outline-3">
+<h3 id="orgb7f9962">Open a Summary Window of Your APDL Variables</h3>
+<div class="outline-text-3" id="text-orgb7f9962">
 <p>
 Type <b>C-c C-v</b> to receive a summary window of all your variable
 definitions. With an argument (<b>C-u C-c C-v</b>) you will get the
 current value of your variable at the cursor (Linux only, right).
 </p>
+</div>
 
+<ul class="org-ul">
+<li><a id="org9db4268"></a>bla<br />
+<div class="outline-text-4" id="text-org9db4268">
 
 <div class="figure">
 <p><img src="./variable_buffer.png" alt="variable_buffer.png" />
 </p>
 </div>
+</div>
+</li>
+<li><a id="org4d9b1ab"></a>blabla<br />
+<div class="outline-text-4" id="text-org4d9b1ab">
 
 <div class="figure">
 <p><img src="variable_status.png" alt="variable_status.png" />
 </p>
 </div>
 </div>
+</li>
+</ul>
 </div>
 
-<div id="outline-container-org2b0bcda" class="outline-3">
-<h3 id="org2b0bcda">Structure your variable assignments</h3>
-<div class="outline-text-3" id="text-org2b0bcda">
+<div id="outline-container-org763dc70" class="outline-3">
+<h3 id="org763dc70">Structure Your Variable Assignments</h3>
+<div class="outline-text-3" id="text-org763dc70">
 <p>
 Move the cursor to a variable definition paragraph or mark, here in
 yellow, some definitions and type <b>C-c C-a</b> to align them.
@@ -552,9 +560,9 @@ yellow, some definitions and type <b>C-c C-a</b> to align them.
 </div>
 </div>
 
-<div id="outline-container-org209e844" class="outline-3">
-<h3 id="org209e844">Use the Emacs integrated, programmable RPN calculator</h3>
-<div class="outline-text-3" id="text-org209e844">
+<div id="outline-container-org02723f2" class="outline-3">
+<h3 id="org02723f2">Use the Emacs Integrated, Programmable RPN Calculator</h3>
+<div class="outline-text-3" id="text-org02723f2">
 <p>
 Type <code>C-x * *</code> to open the calculator, type <code>y</code> for pasting results
 directly into the APDL file.  And <code>q</code> to quit the `Calc' windows.
@@ -566,9 +574,9 @@ directly into the APDL file.  And <code>q</code> to quit the `Calc' windows.
 </div>
 </div>
 </div>
-<div id="outline-container-orge865ba9" class="outline-3">
-<h3 id="orge865ba9">Display the license status and preview images</h3>
-<div class="outline-text-3" id="text-orge865ba9">
+<div id="outline-container-org8197c35" class="outline-3">
+<h3 id="org8197c35">Display the License Status and Preview Images</h3>
+<div class="outline-text-3" id="text-org8197c35">
 <p>
 In Emacs' lower-half you see the license status (<b>C-c C-l</b>).  All
 described features can be executed through the APDL-Mode menu or
@@ -583,14 +591,14 @@ with keyboard shortcuts.
 </div>
 </div>
 
-<div id="outline-container-org3d4dfe6" class="outline-3">
-<h3 id="org3d4dfe6">Debug your code interactively with the solver (<a href="http://www.gnu.org/gnu/why-gnu-linux.html">GNU-Linux</a>)</h3>
-<div class="outline-text-3" id="text-org3d4dfe6">
+<div id="outline-container-org6ed4e45" class="outline-3">
+<h3 id="org6ed4e45">Debug Your Code Interactively with the Solver (<a href="http://www.gnu.org/gnu/why-gnu-linux.html">GNU-Linux</a>)</h3>
+<div class="outline-text-3" id="text-org6ed4e45">
 <p>
-You can run the ANSYS solver under Emacs and send code lines from
+You can run the Ansys solver under Emacs and send code lines from
 above APDL window with <b>C-c C-j</b> (<b>C-c C-c</b> for whole regions)
 directly to this process. Below you see the <b>interactive</b> solver
-output and on the left hand side the corresponding ANSYS images.
+output and on the left hand side the corresponding Ansys images.
 </p>
 
 
@@ -601,11 +609,13 @@ output and on the left hand side the corresponding ANSYS images.
 </div>
 </div>
 
-<div id="outline-container-org351bb8f" class="outline-3">
-<h3 id="org351bb8f">Arrange the APDL-Mode windows to your needs</h3>
-<div class="outline-text-3" id="text-org351bb8f">
+<div id="outline-container-org77c7b09" class="outline-3">
+<h3 id="org77c7b09">Arrange the APDL-Mode Windows to Your Needs</h3>
+<div class="outline-text-3" id="text-org77c7b09">
 <p>
-The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with the GTK+ toolkit under GNU-Linux) with a ripped off APDL-Mode menu field
+The image shows an Emacs 23.2 frame (in reversed colour mode and
+compiled with the GTK+ toolkit under GNU-Linux) with a ripped off
+APDL-Mode menu field
 </p>
 
 
@@ -617,21 +627,21 @@ The image shows an Emacs 23.2 frame (in reversed colour mode and compiled with t
 </div>
 </div>
 
-<div id="outline-container-orgbee0beb" class="outline-2">
-<h2 id="orgbee0beb">Configuration</h2>
-<div class="outline-text-2" id="text-orgbee0beb">
+<div id="outline-container-org5c0d948" class="outline-2">
+<h2 id="org5c0d948">Configuration</h2>
+<div class="outline-text-2" id="text-org5c0d948">
 </div>
-<div id="outline-container-orgb38617b" class="outline-3">
-<h3 id="orgb38617b">Configure system dependent aspects and user options</h3>
-<div class="outline-text-3" id="text-orgb38617b">
+<div id="outline-container-orgd6d2350" class="outline-3">
+<h3 id="orgd6d2350">Configure User Options and System Dependent Aspects</h3>
+<div class="outline-text-3" id="text-orgd6d2350">
 <p>
-Please check the mode settings with Emacs'
- customisation system (no programming necessary) use the menu and
+Please check the mode settings with Emacs' customisation system (no
+ programming necessary) use the menu and
 </p>
 </div>
 <ul class="org-ul">
-<li><a id="orgd16f410"></a>modify settings with Emacs' customisation system<br />
-<div class="outline-text-4" id="text-orgd16f410">
+<li><a id="org6dbae90"></a>modify settings with Emacs' customisation system<br />
+<div class="outline-text-4" id="text-org6dbae90">
 
 <div class="figure">
 <p><img src="./customisation_system.png" alt="customisation_system.png" />
@@ -643,8 +653,8 @@ Please check the mode settings with Emacs'
 </p>
 </div>
 </li>
-<li><a id="org7445c56"></a>or check the well commented file <i>ansys-config.el</i><br />
-<div class="outline-text-4" id="text-org7445c56">
+<li><a id="orgffa1771"></a>or check the well commented file <i>apdl-config.el</i><br />
+<div class="outline-text-4" id="text-orgffa1771">
 
 <div class="figure">
 <p><img src="./ansys-config.png" alt="ansys-config.png" />
@@ -659,13 +669,13 @@ Please check the mode settings with Emacs'
 </ul>
 </div>
 </div>
-<div id="outline-container-orgaff4809" class="outline-2">
-<h2 id="orgaff4809">Documentation and Licensing</h2>
-<div class="outline-text-2" id="text-orgaff4809">
+<div id="outline-container-org0af0f3d" class="outline-2">
+<h2 id="org0af0f3d">Documentation and Licensing</h2>
+<div class="outline-text-2" id="text-org0af0f3d">
 </div>
-<div id="outline-container-orgc62d5c8" class="outline-3">
-<h3 id="orgc62d5c8">Get to know Emacs and its excellent documentation</h3>
-<div class="outline-text-3" id="text-orgc62d5c8">
+<div id="outline-container-org17149fc" class="outline-3">
+<h3 id="org17149fc">Get to Know Emacs and Its Excellent Documentation</h3>
+<div class="outline-text-3" id="text-org17149fc">
 <p>
 Newcomers to Emacs should take the <a href="http://www.gnu.org/software/emacs/tour/">guided online tour</a> to
 get a background of its capabilities and fire up the interactive
@@ -680,7 +690,7 @@ tutorial (<b>C-h t</b>) which is translated to various languages.
 
 <div class="LaTeX">
 <p>
-\href{http://www.gnu.org/software/emacs/tour/}{%
+\href{https://www.gnu.org/software/emacs/tour/}{%
   \includegraphics[width=5cm]{./tour_of_Emacs.png}%
 }
 </p>
@@ -690,13 +700,13 @@ tutorial (<b>C-h t</b>) which is translated to various languages.
 </div>
 </div>
 
-<div id="outline-container-org398ab06" class="outline-3">
-<h3 id="org398ab06">Use the APDL-Mode built-in help</h3>
-<div class="outline-text-3" id="text-org398ab06">
+<div id="outline-container-orge8224fa" class="outline-3">
+<h3 id="orge8224fa">Use the APDL-Mode Built-in Help</h3>
+<div class="outline-text-3" id="text-orge8224fa">
 <p>
-Please type <b>C-h m</b> to open the mode help, especially for
-APDL-Mode's usage and keybindings.  At the beginning is also a
-brief introduction of basic Emacs concepts.
+Please type <b>C-c C-h</b> for the mode manual (there is also a brief
+introduction of basic Emacs concepts) and <b>C-h m</b>, especially for
+APDL-Mode's keybindings.
 </p>
 
 
@@ -707,22 +717,21 @@ brief introduction of basic Emacs concepts.
 </div>
 </div>
 
-<div id="outline-container-orgbc5e26e" class="outline-3">
-<h3 id="orgbc5e26e">You might read further APDL-Mode documentation</h3>
-<div class="outline-text-3" id="text-orgbc5e26e">
+<div id="outline-container-orge25213b" class="outline-3">
+<h3 id="orge25213b">You Might Read Further APDL-Mode Documentation</h3>
+<div class="outline-text-3" id="text-orge25213b">
 <dl class="org-dl">
 <dt>Licensing and costs:</dt><dd>This is free and open software, there are
 <b>no costs</b> and effectively <b>no restrictions</b> for you using
-Emacs and APDL-Mode even commerically.  Both are under the
+Emacs and APDL-Mode - even - commerically.  Both are under the
 <a href="http://www.gnu.org/licenses/gpl-3.0.en.html">GPL, the Gnu Puplic License</a> copied in the <i>LICENSE.org</i> file.</dd>
 </dl>
 
 <dl class="org-dl">
-<dt>Installation:</dt><dd>More detailed instructions are necessary if you
-are not using the mode bundled with Emacs.
-Please have a look in the <i>INSTALLATION.org</i>
-file.  The online documentation is at
-<a href="http://dieter-wilhelm.github.io/ansys-mode/">APDL-Modes's documentation site</a>.</dd>
+<dt>Configuration:</dt><dd>More detailed instructions might be necessary if
+you are not using default <i>Ansys</i> installations.  Please have a
+look in the <i>INSTALLATION.org</i> file.  The online documentation is
+at <a href="http://dieter-wilhelm.github.io/ansys-mode/">APDL-Modes's documentation site</a>.</dd>
 </dl>
 
 <dl class="org-dl">
@@ -739,13 +748,13 @@ accompanying <i>NEWS.org</i> file</dd>
 </div>
 </div>
 
-<div id="outline-container-org23eccd4" class="outline-2">
-<h2 id="org23eccd4">Help and Bugs</h2>
-<div class="outline-text-2" id="text-org23eccd4">
+<div id="outline-container-org162031d" class="outline-2">
+<h2 id="org162031d">Help and Bugs</h2>
+<div class="outline-text-2" id="text-org162031d">
 </div>
-<div id="outline-container-org1e9df0f" class="outline-3">
-<h3 id="org1e9df0f">Search for help, report bugs and issues</h3>
-<div class="outline-text-3" id="text-org1e9df0f">
+<div id="outline-container-org4f535e9" class="outline-3">
+<h3 id="org4f535e9">Search for Help, Report Bugs and Issues</h3>
+<div class="outline-text-3" id="text-org4f535e9">
 <p>
 Besides the documentation, have a look in the <a href="https://github.com/dieter-wilhelm/ansys-mode/issues">GitHub's issues site</a>
 or send an <a href="mailto:dieter@duenenhof-wilhelm.de">email to the maintainer</a>.  Please use the APDL-Mode bug
@@ -762,19 +771,19 @@ information.
 </div>
 </div>
 
-<div id="outline-container-org380e850" class="outline-2">
-<h2 id="org380e850">Summary</h2>
-<div class="outline-text-2" id="text-org380e850">
+<div id="outline-container-org71b6c81" class="outline-2">
+<h2 id="org71b6c81">Summary</h2>
+<div class="outline-text-2" id="text-org71b6c81">
 </div>
-<div id="outline-container-orgbd0292f" class="outline-3">
-<h3 id="orgbd0292f">Use APDL-Mode appropriate to your needs</h3>
-<div class="outline-text-3" id="text-orgbd0292f">
+<div id="outline-container-org5273578" class="outline-3">
+<h3 id="org5273578">Use APDL-Mode Appropriate to Your Needs</h3>
+<div class="outline-text-3" id="text-org5273578">
 </div>
 <ul class="org-ul">
-<li><a id="org8a8a034"></a>The relevance of APDL remains: `WorkBench' and `AIM' operate <b>exclusively</b> the ANSYS solver with it!  For a <b>true understanding</b> the study of APDL is <b>prerequisite</b>.   Furthermore, code APDL only for <b>repetitive</b> tasks or WB/AIM snippets.<br /></li>
+<li><a id="orgf4f5a1f"></a>The relevance of APDL remains: `WorkBench' and `AIM' operate <b>exclusively</b> the Ansys solver with it!  For a <b>true understanding</b> the study of APDL is <b>prerequisite</b>.   Furthermore, code APDL only for <b>repetitive</b> tasks or WB/AIM snippets.<br /></li>
 </ul>
-<li><a id="org8b1bc51"></a>Basic APDL <b>Viewer</b><br />
-<div class="outline-text-4" id="text-org8b1bc51">
+<li><a id="orgbed5c37"></a>Basic APDL <b>Viewer</b><br />
+<div class="outline-text-4" id="text-orgbed5c37">
 <p>
 Navigating in WB solver input files, discerning relevant
 information through highlighting, quickly analysing APDL commands
@@ -783,16 +792,16 @@ browser.
 </p>
 </div>
 </li>
-<li><a id="org8654283"></a>Earnest APDL <b>Editor</b><br />
-<div class="outline-text-4" id="text-org8654283">
+<li><a id="orgf98c45e"></a>Earnest APDL <b>Editor</b><br />
+<div class="outline-text-4" id="text-orgf98c45e">
 <p>
 Specific shortcut keybindings, outlining, code templates,
 completions, auto-indentation, abbreviations, auto-insertion.
 </p>
 </div>
 </li>
-<li><a id="org9635311"></a>Advanced APDL <b>Environment</b><br />
-<div class="outline-text-4" id="text-org9635311">
+<li><a id="org7e7ddfb"></a>Advanced APDL <b>Environment</b><br />
+<div class="outline-text-4" id="text-org7e7ddfb">
 <p>
 Solver communication/feedback - hybrid between coding and
 debugging (GNU-Linux only), retrieving license states, error file
@@ -802,27 +811,19 @@ viewing, abort file handling, extending APDL templates, &#x2026;
 </li>
 </ul>
 </div>
-<div id="outline-container-orgc17bff9" class="outline-3">
-<h3 id="orgc17bff9">Last slide of the APDL-Mode tutorial</h3>
-<div class="outline-text-3" id="text-orgc17bff9">
+<div id="outline-container-org70cde95" class="outline-3">
+<h3 id="org70cde95">Last Slide of the APDL-Mode Tutorial</h3>
+<div class="outline-text-3" id="text-org70cde95">
 </div>
 <ul class="org-ul">
-<li><a id="orgadcc8db"></a>Hint for the curious:<br />
-<div class="outline-text-4" id="text-orgadcc8db">
-<div class="LaTeX">
-<p>
-\href{http://shop.oreilly.com/product/9780596006488.do}{%
-  \includegraphics[width=5.5cm]{./gnu_emacs.png}%
-}
-</p>
-
-</div>
+<li><a id="orgbfef539"></a>Hint for the curious:<br />
+<div class="outline-text-4" id="text-orgbfef539">
 <img src="./gnu_emacs.png" alt="download page from Google Code">
 </div>
 </li>
 
-<li><a id="orga458361"></a>Thank you for your time getting acquainted with APDL-Mode and Emacs!<br />
-<div class="outline-text-4" id="text-orga458361">
+<li><a id="org3e6af8d"></a>Thank you for your time getting acquainted with APDL-Mode and Emacs!<br />
+<div class="outline-text-4" id="text-org3e6af8d">
 <div class="LaTeX">
 <p>
 \vspace{.2cm}
@@ -852,10 +853,10 @@ viewing, abort file handling, extending APDL templates, &#x2026;
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2020-02-24 Mo&gt;</span></span></p>
+<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-08-31 Di&gt;</span></span></p>
 <p class="author">Author: H. Dieter Wilhelm</p>
 <p class="email">Email: <a href="mailto:dieter@duenenhof-wilhelm.de">dieter@duenenhof-wilhelm.de</a></p>
-<p class="date">Created: 2020-03-07 Sa 21:09</p>
+<p class="date">Created: 2021-09-09 Do 15:48</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

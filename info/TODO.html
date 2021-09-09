@@ -3,23 +3,30 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>The Todo file of ANSYS-Mode</title>
-<!-- 2015-07-07 Tue 08:06 -->
-<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
-<meta  name="generator" content="Org-mode" />
-<meta  name="author" content="H. Dieter Wilhelm" />
+<!-- 2021-09-09 Do 15:48 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>&lrm;</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="H. Dieter Wilhelm" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  .title  { text-align: center; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
   .todo   { font-family: monospace; color: red; }
-  .done   { color: green; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
   .tag    { background-color: #eee; font-family: monospace;
             padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
-  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
-  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
   .underline { text-decoration: underline; }
   #postamble p, #preamble p { font-size: 90%; margin: .2em; }
   p.verse { margin-left: 3%; }
@@ -46,30 +53,127 @@
     border: 1px solid black;
   }
   pre.src:hover:before { display: inline;}
-  pre.src-sh:before    { content: 'sh'; }
-  pre.src-bash:before  { content: 'sh'; }
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
   pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
-  pre.src-R:before     { content: 'R'; }
-  pre.src-perl:before  { content: 'Perl'; }
-  pre.src-java:before  { content: 'Java'; }
-  pre.src-sql:before   { content: 'SQL'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
 
   table { border-collapse:collapse; }
   caption.t-above { caption-side: top; }
   caption.t-bottom { caption-side: bottom; }
   td, th { vertical-align:top;  }
-  th.right  { text-align: center;  }
-  th.left   { text-align: center;   }
-  th.center { text-align: center; }
-  td.right  { text-align: right;  }
-  td.left   { text-align: left;   }
-  td.center { text-align: center; }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
   dt { font-weight: bold; }
-  .footpara:nth-child(2) { display: inline; }
-  .footpara { display: block; }
+  .footpara { display: inline; }
   .footdef  { margin-bottom: 1em; }
   .figure { padding: 1em; }
   .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
   .inlinetask {
     padding: 10px;
     border: 2px solid gray;
@@ -86,6 +190,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
   /*]]>*/-->
 </style>
 <script type="text/javascript">
@@ -93,7 +198,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2013 Free Software Foundation, Inc.
+Copyright (C) 2012-2020 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -134,381 +239,644 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-<script type="text/javascript" src="http://orgmode.org/mathjax/MathJax.js"></script>
-<script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
+<script type="text/x-mathjax-config">
     MathJax.Hub.Config({
-        // Only one of the two following lines, depending on user settings
-        // First allows browser-native MathML display, second forces HTML/CSS
-        //  config: ["MMLorHTML.js"], jax: ["input/TeX"],
-            jax: ["input/TeX", "output/HTML-CSS"],
-        extensions: ["tex2jax.js","TeX/AMSmath.js","TeX/AMSsymbols.js",
-                     "TeX/noUndefined.js"],
-        tex2jax: {
-            inlineMath: [ ["\\(","\\)"] ],
-            displayMath: [ ['$$','$$'], ["\\[","\\]"], ["\\begin{displaymath}","\\end{displaymath}"] ],
-            skipTags: ["script","noscript","style","textarea","pre","code"],
-            ignoreClass: "tex2jax_ignore",
-            processEscapes: false,
-            processEnvironments: true,
-            preview: "TeX"
-        },
-        showProcessingMessages: true,
         displayAlign: "center",
-        displayIndent: "2em",
+        displayIndent: "0em",
 
-        "HTML-CSS": {
-             scale: 100,
-             availableFonts: ["STIX","TeX"],
-             preferredFont: "TeX",
-             webFont: "TeX",
-             imageFont: "TeX",
-             showMathMenu: true,
-        },
-        MMLorHTML: {
-             prefer: {
-                 MSIE:    "MML",
-                 Firefox: "MML",
-                 Opera:   "HTML",
-                 other:   "HTML"
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
              }
-        }
-    });
-/*]]>*///-->
+});
 </script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
 </head>
 <body>
 <div id="org-div-home-and-up">
  <a accesskey="h" href="index.html"> UP </a>
  |
- <a accesskey="H" href="https://github.com/dieter-wilhelm/ansys-mode"> HOME </a>
+ <a accesskey="H" href="https://github.com/dieter-wilhelm/apdl-mode"> HOME </a>
 </div><div id="content">
-<h1 class="title">The Todo file of ANSYS-Mode</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1. Deficiencies:</a></li>
-<li><a href="#sec-2">2. 16.1.2:</a>
-<ul>
-<li><a href="#sec-2-1">2.1. Bugs</a></li>
-<li><a href="#sec-2-2">2.2. Wish-list</a></li>
-</ul>
-</li>
-<li><a href="#sec-3">3. Procedures</a>
-<ul>
-<li><a href="#sec-3-1">3.1. Freeze proceedures</a></li>
-<li><a href="#sec-3-2">3.2. Release</a></li>
-</ul>
-</li>
-<li><a href="#sec-4">4. Ideas for further versions</a>
-<ul>
-<li><a href="#sec-4-1">4.1. Parameter help and documentation</a></li>
-<li><a href="#sec-4-2">4.2. ANSYS process and interpreter buffer</a></li>
-<li><a href="#sec-4-3">4.3. Skeletons, outline and abbrevs</a></li>
-<li><a href="#sec-4-4">4.4. Miscellaneous</a></li>
-<li><a href="#sec-4-5">4.5. ANSYS syntax restrictions not (yet) accounted for</a></li>
-<li><a href="#sec-4-6">4.6. Unknown ANSYS stuff</a></li>
-<li><a href="#sec-4-7">4.7. Additional APDL macro resources</a></li>
-</ul>
-</li>
+<li><a href="#org06503eb">1. <span class="todo TODO">TODO</span> Version 20.6.0</a></li>
+<li><a href="#orgeae9ced">2. <span class="done DONE">DONE</span> Version 20.5.0</a></li>
+<li><a href="#org168bda9">3. <span class="done DONE">DONE</span> Version 20.4.0</a></li>
+<li><a href="#orgbf0ad65">4. <span class="done DONE">DONE</span> Version 20.3.0</a></li>
+<li><a href="#org225d04c">5. <span class="done DONE">DONE</span> Version 20.2.0</a></li>
+<li><a href="#orga289ef5">6. <span class="done DONE">DONE</span> Version 20.1.1</a></li>
+<li><a href="#org76793ec">7. Version 162-2</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-1" class="outline-2">
-<h2 id="sec-1"><span class="section-number-2">1</span> Deficiencies:</h2>
+
+<div id="outline-container-org06503eb" class="outline-2">
+<h2 id="org06503eb"><span class="section-number-2">1</span> <span class="todo TODO">TODO</span> Version 20.6.0</h2>
 <div class="outline-text-2" id="text-1">
-<dl class="org-dl">
-<dt> Highlighting </dt><dd>Experimental user variable highlighting
-does not take into account:
+<p>
+Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2021-08-09 Mo] </span></span> 481
+</p>
+
+<p>
+Melpa: <span class="timestamp-wrapper"><span class="timestamp">[2020-10-24 Sa] </span></span> 396 downloads
+</p>
+</div>
+<div id="outline-container-org0d77679" class="outline-3">
+<h3 id="org0d77679"><span class="section-number-3">1.1</span> Todos, bugs</h3>
+<div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
-<li>clearing of variables and
-</li>
-<li>usage of variables before their definitions (uninitialised
-variables)
-</li>
-<li>the variable fontification might clash with ANSYS specifiers
-</li>
-<li>string substitution of %variables% in strings does not highlight
-them in the proper variable face
-</li>
+<li>APDL reference is incomplete</li>
+<li>Templates: Add intro help to the -wb-template system, complete
+usage.org
+<ul class="org-ul">
+<li>Code Templates, apdl-wb-custom-template-directory</li>
+<li>Export of WB command objects to file on disc in the manual</li>
+</ul></li>
 </ul>
-</dd>
-<dt> Highlighting </dt><dd>A label :LABEL may appear behind the /input
-command and is not highlighted as label
-</dd>
-<dt> Highlighting </dt><dd>An apostrophy clashes with the ANSYS "char"
-specifier Keybinding: M-Tab is captured under
-Windows and some GNU-Linux desktops Workaround: Press
-instead of M-Tab (ALT + TAB) the ESC key and then
-the Tab key (ESC, TAB) or apply the command from
-the menu bar
-</dd>
-<dt> Highlighting </dt><dd>The parameter help overlay is only removed after 2
-min if the respective ANSYS-Mode buffer is the
-current buffer at that time span!
-</dd>
-<dt> Keybinding </dt><dd>M-j: When there is already a `&amp;' in a format command
-(like *msg, *vwrite, *mwrite)
-ansys-indent-format-line inserts a redundant one
-</dd>
-<dt> Completion </dt><dd>Of parametric function parentheses
-completes redundant closing parentheses
-</dd>
-<dt> Completion </dt><dd>A mouse selection from the <b>ANSYS-completion</b> buffer
-is only inserted upcased.
-</dd>
-<dt> Completion </dt><dd>ANSYS command 'C***' will not be completed
-</dd>
-<dt> Skeleton </dt><dd>Mouse selection of -structural-template does not work
-(because of stipulated user text input from this skeleton)
-</dd>
-<dt> Navigation </dt><dd>C-c { does not skip an overlay in a number-block
-(M-{ does it though))
-</dd>
-</dl>
 </div>
 </div>
-<div id="outline-container-sec-2" class="outline-2">
-<h2 id="sec-2"><span class="section-number-2">2</span> 16.1.2:</h2>
-<div class="outline-text-2" id="text-2">
-</div><div id="outline-container-sec-2-1" class="outline-3">
-<h3 id="sec-2-1"><span class="section-number-3">2.1</span> Bugs</h3>
-<div class="outline-text-3" id="text-2-1">
+<div id="outline-container-org188fcb7" class="outline-3">
+<h3 id="org188fcb7"><span class="section-number-3">1.2</span> Issues</h3>
+<div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
-<li>C-c C-j jjj not working with Emacs 23.1
-</li>
-<li>Mouse completion is working with <b>middle</b> mouse button (mouse-2) but only
-on the second LMB or, in the case of C-c C-s, not at all.
-</li>
+<li>Discovery Aim is obsolete</li>
+<li>c*** isn't completed</li>
 <li>*mwrite
 *cfclos
 M-? shows help for *mwrite, when cursor behind *cfclos and in the
-last line without \n
-</li>
-<li>path construction in -mode.el for help program is not working, if
-ansys-mode is not activated!? &lt;- autoloaded functions, should
-work they are calling -mode.el!
-</li>
+last line without \n</li>
+<li>M-? parameter counter is not working for commands where functions
+with multiple arguments are in the argument list!
+f,node(x,y,z),,,</li>
+<li>Cygwin terminal initialisation not working, /cydrive/c:?
+<ul class="org-ul">
+<li>setting -ansys-installation-path should do
+<ul class="org-ul">
+<li>ugly ^M line endings -license-status</li>
+<li>w32-shell-execute not working for -start-help-program</li>
+</ul></li>
+</ul></li>
+<li>Cygwin emacs-w32 ugly ^M line endings for C-c C-l</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-2-2" class="outline-3">
-<h3 id="sec-2-2"><span class="section-number-3">2.2</span> Wish-list</h3>
-<div class="outline-text-3" id="text-2-2">
+<div id="outline-container-org233bbf4" class="outline-3">
+<h3 id="org233bbf4"><span class="section-number-3">1.3</span> Checks</h3>
+<div class="outline-text-3" id="text-1-3">
 <ul class="org-ul">
-<li>color scheme of *msg command is only readable on terminals
-</li>
-<li>add adwords to gh-pages
-</li>
-<li>abreviated input method for all graphics functions zoom, etc.
-</li>
-<li>defaults for template MP
-</li>
-<li>Add WorkBench (Aim) concepts to APDL translation in A-M<sub>APDL</sub><sub>reference</sub>
-</li>
-<li>-show-command-parameters is not dynamically updated in the first line
-</li>
+<li>Changed file size without warning to 30 MB what is Emacs-26
+using?</li>
+<li>EWW bug: not working with remote ssh -help-path
+(debbugs-gnu-bugs 40425)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org4aad140" class="outline-3">
+<h3 id="org4aad140"><span class="section-number-3">1.4</span> Wishes</h3>
+<div class="outline-text-3" id="text-1-4">
+<ul class="org-ul">
+<li>A better Info index</li>
+<li>Mouse completion is working with <b>middle</b> mouse button (mouse-2)
+but only on the second LMB or, in the case of C-c C-s, not at
+all.</li>
+<li>Templates, WB-templates, more of them</li>
+<li>Presentation(s) and EN Wiki, youtube?</li>
+<li>Help system and docu, rather complete, except online docu</li>
+</ul>
+</div>
+<div id="outline-container-org78973cc" class="outline-4">
+<h4 id="org78973cc"><span class="section-number-4">1.4.1</span> Docu</h4>
+<div class="outline-text-4" id="text-1-4-1">
+<p>
+Outdated menus in A-M-introductory<sub>tutorial.org</sub>
+</p>
+
+<p>
+Rework the messy documentation system of files and applications
+</p>
+<ol class="org-ol">
+<li>INFO -&gt; info/apdl-mode.org &lt;- flat file</li>
+<li>MD for github -&gt; info/README.org &lt;- uses folder structure</li>
+<li>Melpa packaging -&gt; apdl-mode</li>
+</ol>
+
+
+<ul class="org-ul">
+<li>Things like C-c C-jjj (more?) are not documented in manual!</li>
+<li>more C-c C-b subjects?
+2.1. SESSION Commands
+2.2. DATABASE Commands
+2.3. GRAPHICS Commands
+2.4. APDL Commands
+2.5. PREP7 Commands
+2.6. SOLUTION Commands
+2.7. POST1 Commands
+2.8. POST26 Commands
+2.9. AUX2 Commands
+2.10. AUX3 Commands
+2.11. AUX12 Commands
+2.12. AUX15 Commands
+2.13. Mapping Processor Commands
+2.14. REDUCED Order Modeling Commands</li>
+<li>Create English Wiki for APDL</li>
+<li>M-? get- and parameter-functions are completed but there's no
+parameter help - see: apdl-dynamic-prompt</li>
+<li>Link to Ansys Youtube channel in menu? (It's already in Ansys
+resources!)</li>
+<li>The Command (APDL) objects coding system seems to be
+mule-utf-8-dos aka cp65001-dos, document this</li>
+<li>Customise system (explain `M-x customize-set-value' as long as
+(debbugs-gnu-bugs 25678) is not solved)?</li>
+</ul>
+
+<p>
+Info documentation:
+</p>
+<ul class="org-ul">
+<li>don't line break ref{references}!</li>
+</ul>
+<ul class="org-ul">
+<li>work on the Info index #+cindex:</li>
+<li>#+include: #+title adds to info title!</li>
+<li>inline</li>
+<li>#+texinfo: @inforef{node,name,file} links to Emacs info pages,
+done, make contex SELF SUSTAINED!! Is adding "See" in the text!
+;-)</li>
+<li>Attention colon ":" in headline gives a texinfo reference!</li>
+<li>C-u C-h i: info file :-)</li>
+<li>package with file "dir"</li>
+<li>only up to 3 <b>*</b> levels! configurable?</li>
+<li>info doesn't have clickable links to function, customisation
+buffers, yet, hmm urls, internal links? &lt;- inform package</li>
+<li>image directory in .info file is not existing in Melpa! Do we
+need images in the manual? No</li>
+</ul>
+
+<p>
+Presentations
+</p>
+
+<ul class="org-ul">
+<li>update intro, first steps tutorial</li>
+<li>in-depth presentation, tutorial?</li>
+<li>APDL reference =&gt; just Info?</li>
+</ul>
+
+<p>
+MD
+</p>
+<ul class="org-ul">
+<li>#+caption: not working!</li>
+<li>#+title: not working!</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orgc4a0b73" class="outline-4">
+<h4 id="orgc4a0b73"><span class="section-number-4">1.4.2</span> templates</h4>
+<div class="outline-text-4" id="text-1-4-2">
+<ul class="org-ul">
+<li><p>
+wb templates in README.org, clear, will grow with usage, as a
+matter of fact
+</p>
+<ul class="org-ul">
+<li>contact pressure evaluation, press-fit</li>
+<li>harmonic, acceleration</li>
+<li>imbalance load</li>
+<li>Rotordynamics</li>
+<li>temperature dependent load</li>
+</ul>
+<ul class="org-ul">
+<li>Intelligent template selector with keywords in the line of helm
+or ivy?</li>
+<li>What is the advantage of ARG1-9? =&gt; parameter system, should I
+include ARG[1-9] optionally?</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-orga7a3540" class="outline-4">
+<h4 id="orga7a3540"><span class="section-number-4">1.4.3</span> misc</h4>
+<div class="outline-text-4" id="text-1-4-3">
+<ol class="org-ol">
+<li>make <b>License</b> buffers read-only</li>
+<li>Add a quit key for variable buffers</li>
+<li>derive A-M from prog-modes =&gt; branch derived</li>
+<li>Travis CI continuous integration!</li>
+<li><a href="https://github.com/marketplace/coveralls">https://github.com/marketplace/coveralls</a></li>
+<li>Start optionally runbWB2 &#x2013;aim, Discovery AIM</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4ea9076" class="outline-3">
+<h3 id="org4ea9076"><span class="section-number-3">1.5</span> Done</h3>
+<div class="outline-text-3" id="text-1-5">
+<ul class="org-ul">
+<li>Make text around #+texinfo: lines self sustained!</li>
+<li>-mode-version working with autoload cookie: works</li>
+<li>include -mode-version in autoload list</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org39795a2" class="outline-3">
+<h3 id="org39795a2"><span class="section-number-3">1.6</span> Push and Release Proceedures</h3>
+<div class="outline-text-3" id="text-1-6">
+<ul class="org-ul">
+<li>make PACK : now obligatory for any push!!</li>
+</ul>
+
+<p>
+Ansys updates:
+Hint: in apdl<sub>keywords.txt</sub> there are many
+trailing whitespaces (delete-trailing-whitespace)
+</p>
+<ul class="org-ul">
+<li>for updated Ansys<sub>keyword.txt</sub> check `outres' command in 202 was a
+typo!</li>
+
+<li>NEWS.org</li>
+<li>README.org News section</li>
+<li>TODO.org</li>
+<li><p>
+Add all new templates to the menu
+</p>
+
+<p>
+Magit: s stage, c commit, P push
+</p></li>
+</ul>
+
+<p>
+gca = git commit -a = gau + gc
+gta = git tag -a 20.6.0
+gph &#x2013;tags
+</p>
+
+<p>
+whitespace-mode, package-lint
+checkdoc, flycheck etc. : from makefile?
+</p>
+
+<p>
+APDL<sub>MAJOR</sub> := 20
+APDL<sub>MINOR</sub> := 7
+APDL<sub>PATCH</sub> := 0
+</p>
+
+<p>
+(tags-query-replace "20\.6\.0" "20.7.0")
+</p>
+
+<p>
+(tags-query-replace "- 2021" "- 2022")
+(tags-query-replace "- 2020" "- 2021")
+</p>
+
+<p>
+(tags-query-replace "v201" "v211")
+(tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
+</p>
+
+<p>
+(tags-query-replace "26\.3" "27.1")
+(tags-search "texinfo:")
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgeae9ced" class="outline-2">
+<h2 id="orgeae9ced"><span class="section-number-2">2</span> <span class="done DONE">DONE</span> Version 20.5.0</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-05-01 Fr]</span></span>
+help for all get- and parametric-functions
+</p>
+</div>
+</div>
+<div id="outline-container-org168bda9" class="outline-2">
+<h2 id="org168bda9"><span class="section-number-2">3</span> <span class="done DONE">DONE</span> Version 20.4.0</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-04-01 Mi]</span></span>
+updated to 2020R1
+</p>
+</div>
+</div>
+<div id="outline-container-orgbf0ad65" class="outline-2">
+<h2 id="orgbf0ad65"><span class="section-number-2">4</span> <span class="done DONE">DONE</span> Version 20.3.0</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-24 Di]</span></span>
+Melpa
+feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
+</p>
+</div>
+</div>
+<div id="outline-container-org225d04c" class="outline-2">
+<h2 id="org225d04c"><span class="section-number-2">5</span> <span class="done DONE">DONE</span> Version 20.2.0</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+<span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
+</p>
+</div>
+</div>
+<div id="outline-container-orga289ef5" class="outline-2">
+<h2 id="orga289ef5"><span class="section-number-2">6</span> <span class="done DONE">DONE</span> Version 20.1.1</h2>
+<div class="outline-text-2" id="text-6">
+<ul class="org-ul">
+<li>are the material properties documented, matlib?  Matlib is used
+in -template.el, how about document this directory somewhere?
+Done in matlib/README.org</li>
+</ul>
+<ul class="org-ul">
+<li>document the APDL Parameter Help Duration in M-?: Done in
+-config.org!</li>
+<li>bug-report about package.el "NAME-readme.txt", done</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org76793ec" class="outline-2">
+<h2 id="org76793ec"><span class="section-number-2">7</span> Version 162-2</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-org4381150" class="outline-3">
+<h3 id="org4381150"><span class="section-number-3">7.1</span> Bugs</h3>
+<div class="outline-text-3" id="text-7-1">
+<ul class="org-ul">
+<li>Hmm, it's gone?  C-c C-s first time visit: User variables
+file-name-extension: Wrong type argument: stringp, nilError
+during redisplay: (jit-lock-function 1) signaled
+(wrong-type-argument stringp nil)</li>
+<li>importing template-header into empty file doesn't change file
+status to changed!</li>
+<li>C-c C-j tries to send a next line in the LAST line and after an
+/exit command</li>
+<li>error for -skeleton-outline-template when called ansys-mode
+for an unnamed file without extension.</li>
+<li>Fontification errors
+<ul class="org-ul">
+<li>jit-lock-function errors</li>
+<li>RESCOMBINE is not fontified</li>
+<li>/sho is not not font-locked</li>
+<li>c*** without argument is not font-locked</li>
+</ul></li>
+<li>What? APDL + WB -&gt; Window Name is &#x2026; - Mechanical APDL (Ansys
+Structural)</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org1e59fac" class="outline-3">
+<h3 id="org1e59fac"><span class="section-number-3">7.2</span> Wish-list</h3>
+<div class="outline-text-3" id="text-7-2">
+<ul class="org-ul">
+<li>-send-to-ansys, -send-above copy empty regions or only comments</li>
+<li>M-? on an empty buffer returns <b>abbr</b> help instead of a warning</li>
+<li>C-c C-v show only the latest most current variable, if in a
+variable block</li>
+<li>remove spurious defcustoms which are calculated, or leave them as
+last resort?</li>
+<li>a-start-wb: start-process seemingly uses the current working
+directory, there might be a problem, when "pwd" of the current
+buffer was/is an unavailable network drive .</li>
+<li>add bbdb files to emacs packages</li>
+<li>-help-program-parameters obsolete</li>
+<li><p>
+MinGWin: FindWindowFindWindow(CLASSNAME, WINDOWNAME)
+</p>
+<ul class="org-ul">
+<li>ActivateWin: SetFocus()  + SendKeys? SendKeys</li>
+</ul>
+<p>
+<a href="https://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/">https://www.transmissionzero.co.uk/computing/win32-apps-with-mingw/</a>
+<a href="https://msdn.microsoft.com/en-us/library/aa383749.aspx">https://msdn.microsoft.com/en-us/library/aa383749.aspx</a>
+</p></li>
+</ul>
+
+<ul class="org-ul">
+<li>C-c C-a does not take signs (e.g. +13.0, -8.3) befor numbers into account</li>
+<li>Targeting Ansys Aim (Aim obsolete?)</li>
+<li>customisation :version attribute is not clear and not defined for
+new stuff</li>
+<li>Make a usage.org, splice into a-mode.el</li>
+<li>-wb function (doesn't adjust along the decimal point)? -&gt; align-rules-list</li>
+<li>Changing license type on the fly (with C-u) for -display-license-status</li>
+<li>tool tip help-echo properties for keywords!</li>
+<li>permanent saving option for -license-file, -lmutil, -program, &#x2026;?</li>
+<li>Check for valid license types for the solver</li>
+<li>license and template status line always in the first visible line
+of buffer (in-place-annotations?)</li>
+<li>splash screen?</li>
+<li>-license-status optional filters for output</li>
+<li>C-c C-c checking blocks</li>
+<li>include ../ansys/apdl macros?</li>
+<li>../apdl/start162.ans valuable?</li>
+<li>add screw thread capability to WB translation</li>
+<li>color scheme of *msg command is only readable on terminals</li>
+<li>abreviated input method for all graphics functions zoom, etc.</li>
+<li>defaults for template MP</li>
+<li>-show-command-parameters is not dynamically updated in the first line</li>
 <li>Correct the creep data together with young's modulus and total
-strain to creep strain!
-</li>
-<li>add bbdb files to emacs packages?
-</li>
-<li>variables behind / and * without whitespace in between are not
-highlighted! try changing the character syntax???
-</li>
-<li>C-c C-a does not take signs (e.g. +13, -8) befor numbers into account
-</li>
+strain to creep strain!</li>
 <li>implement -hide-region also for rotated nodes in WB .dat files
-(frictionless support)
-</li>
-<li>Targeting AnsysClassics (-send-to-ansys) AND ANSYS Aim
-</li>
-<li>show defaults for -license-file, license-utility and -ansysli-servers
-</li>
-<li>*msg command's format string is not higlighted (-template-element-table)
-</li>
+(frictionless support)</li>
+<li>started and commented out highlighting of solver output</li>
 <li>Variables are not highlighted in -skeletons, it is specified in
 -mode only for files with .mac suffix; *create file tmp,mac:
-macro call: tmp, is not highlighted
-</li>
-<li>started and commented out highlighting of solver output
-</li>
-<li>makefile errors when doing -fontification.el?
-</li>
+macro call: tmp, is not highlighted</li>
 <li>ansys-template.el:85:13:Warning: reference to free variable
-`ansys-skeleton-overlay'
-</li>
-<li>mouse-choose-completion is obsolete since E23.2
-</li>
-<li>example of an ansyslmd.ini?
-</li>
-<li>add timer customisation for -command-parameter-help variable 1
-min, 2 min, etc.
-</li>
-<li>example.mac: make it solver compatible
-</li>
-<li>check *vwrite with gui mode and interactive mode (graphics window?)
-</li>
-<li>add element numbers to the general completion list, yes or no?
-</li>
-<li>WikEmacs, Melpa, GNU ELPA and/or marmalade, ANSYS-Mode debian
-.deb package
-</li>
-<li>HTML APDL documentation
-here is the tanslation of names to html files:
-<ul class="org-ul">
-<li>link to ANSYS-Mode APDL reference:
-</li>
-<li>Chapters of structural APDL documentation:
-</li>
-</ul>
-</li>
+`ansys-skeleton-overlay'</li>
+<li>mouse-choose-completion is obsolete since E23.2</li>
+<li>check *vwrite with gui mode and interactive mode (graphics window?)</li>
+<li>WikEmacs, Ansys-Mode debian .deb package?</li>
 <li>TODOS: in fontification.org
 <ul class="org-ul">
-<li>deletion of vectors *del,Vector without request? ,,nopr?
-</li>
+<li>deletion of vectors *del,Vector without request? ,,nopr?</li>
 <li>check character variables 32 Chars. and highlight accordingly
-string 128, char 8
-</li>
-<li>*vscfun: mean, stdev, &#x2026;
-</li>
-</ul>
-</li>
-<li>-dynamic-highlighting is sluggish, highlighting somehow
-retarded!!! Still??
-</li>
-<li>_RETURN (-mode) somewhat milder red, clashes with reseved vars!
-</li>
+string 128, char 8</li>
+<li>*vscfun: mean, stdev, &#x2026;</li>
+</ul></li>
+<li>_RETURN (-mode) somewhat milder red, clashes with reseved vars!</li>
 <li>test server specifications (menu!) make interconnect
-conditional of the ANSYS version &gt;= 120
-</li>
+conditional of the Ansys version &gt;= 120</li>
 <li>explain fill/*vfill under the "looping" commands: Generates a line
-of nodes between two existing nodes.
-</li>
-<li>switch automatically to read only mode for *.dat files?
-</li>
+of nodes between two existing nodes.</li>
+<li>switch automatically to read only mode for *.dat files?</li>
 <li>force harmonic table (*vfill) example in -skeleton-bc, make a
-ansys&#x2026;-template out of two-mass-harmonics.mac
-</li>
+ansys&#x2026;-template out of two-mass-harmonics.mac</li>
 <li>-program, -license-file and -ansysli-servers should show the
-current selections
-</li>
+current selections</li>
 <li>check -license-file var with -license-file-check
 <ul class="org-ul">
-<li>Emacs var  :DONE:
-</li>
-<li>env vars  :DONE:
-</li>
-<li>activate -license-file function :TODO:
-</li>
-</ul>
-</li>
+<li>Emacs var  :DONE:</li>
+<li>env vars  :DONE:</li>
+<li>activate -license-file function :TODO:</li>
+</ul></li>
 <li>document Lagrange contact behaviour for contact/press-fit
-skeleton, critical to element differences!
-</li>
-<li>constraint equations in -template.el and get functions
-</li>
+skeleton, critical to element differences!</li>
+<li>constraint equations in -ansys-template.el and get functions</li>
+<li>enable hiding of geometry items in .anf files</li>
 <li>fontification.el
 <ul class="org-ul">
-<li>add the 4 ANSYS neutral file (aux15) functions to the parameter-help,
+<li>add the 4 Ansys neutral file (aux15) functions to the parameter-help,
 .anf files from DM anf export
   kpt &#x2013; Write keypoints or vertices into the database
   lcurv &#x2013; Write lines or edges into the database
   asurf &#x2013; Write the area or face information into the database
-  vbody &#x2013; Define a B-rep solid.
-</li>
-<li>add Hlp<sub>G</sub><sub>OPE6</sub><sub>NeutralFile</sub>.html (aux15 utility functions)
+  vbody &#x2013; Define a B-rep solid.</li>
+<li>add Hlp<sub>G</sub><sub>OPE6</sub><sub>NeutralFile.html</sub> (aux15 utility functions)
 commands to the fontification and help stuff: KPT, LCURV,
 ASURF, VBODY. (functions in ANF files) from the operations
-guide `ans<sub>ope</sub>.pdf'
-</li>
+guide `ans<sub>ope.pdf</sub>'</li>
 <li>some functions in -skeleton-function are not highlighted and
 completable, whitespace problem befor paren&#x2026;
-and: "nele" undocumented command and function nelem()
-</li>
-</ul>
-</li>
-<li>inconsistencies in A-M<sub>introductory</sub><sub>tutorial</sub>.org
+and: "nele" undocumented command and function nelem()</li>
+</ul></li>
+<li>inconsistencies in A-M<sub>introductory</sub><sub>tutorial.org</sub>
 <ul class="org-ul">
-<li>the parameter help overlay is dated
-</li>
+<li>the parameter help overlay is dated</li>
 <li>in variable.png symbols Ns and Ls are not highlighted as
-variables
-</li>
-<li>change sequence of alignment.png first not aligned, second aligned
-</li>
+variables</li>
+<li>change sequence of alignment.png first not aligned, second aligned</li>
 <li>Too difficult: slide of extensibility, showing Emacs
-self-documenting help system for a template function
-</li>
-</ul>
-</li>
+self-documenting help system for a template function</li>
+</ul></li>
 </ul>
 </div>
 </div>
+<div id="outline-container-org2a92abb" class="outline-3">
+<h3 id="org2a92abb"><span class="section-number-3">7.3</span> Freeze</h3>
+<div class="outline-text-3" id="text-7-3">
+<ul class="org-ul">
+<li>Documentation of installation, usage and configuration!
+<ul class="org-ul">
+<li>C-c C-{w,y,x}</li>
+<li>sending to classics</li>
+</ul></li>
+<li>Menu for checking availablity for the X11 helper functions</li>
+<li>List of all new functions &lt;- bug-report.sh</li>
+</ul>
 </div>
-<div id="outline-container-sec-3" class="outline-2">
-<h2 id="sec-3"><span class="section-number-2">3</span> Procedures</h2>
-<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-org696cb5b" class="outline-3">
+<h3 id="org696cb5b"><span class="section-number-3">7.4</span> Deficiencies:</h3>
+<div class="outline-text-3" id="text-7-4">
 <dl class="org-dl">
-<dt> GNU-Linux </dt><dd>;-)
-</dd>
-<dt> Mode Help </dt><dd>keyboard input is quoted in "", emphasizing in `' and
-keys in &lt;&gt;
-</dd>
-<dt> APDL templates </dt><dd>minimal working examples ending with -template
-</dd>
-<dt> Menu </dt><dd>-&gt; indicates the following sub menu entry -&gt;
-</dd>
-<dt> M-x compile </dt><dd>ALL ;-)
+<dt>Highlighting</dt><dd>Experimental user variable highlighting
+does not take into account:
+<ul class="org-ul">
+<li>clearing of variables and</li>
+<li>usage of variables before their definitions (uninitialised
+variables)</li>
+<li>the variable fontification clashes with Ansys specifiers</li>
+<li>string substitution of %variables% in strings does not highlight
+them in the proper variable face</li>
+</ul></dd>
+<dt>Highlighting</dt><dd>A label :LABEL may appear behind the /input
+command and is not highlighted as label</dd>
+<dt>Highlighting</dt><dd>An apostrophy clashes with the Ansys "char"
+specifier Keybinding: M-Tab is captured under
+Windows and some GNU-Linux desktops Workaround: Press
+instead of M-Tab (ALT + TAB) the ESC key and then
+the Tab key (ESC, TAB) or apply the command from
+the menu bar</dd>
+<dt>Keybinding</dt><dd>M-j: When there is already a `&amp;' in a format command
+(like *msg, *vwrite, *mwrite)
+ansys-indent-format-line inserts a redundant one</dd>
+<dt>Completion</dt><dd>Of parametric function parentheses
+completes redundant closing parentheses</dd>
+<dt>Completion</dt><dd>A mouse selection from the <b>Ansys-completion</b> buffer
+is only inserted upcased.</dd>
+<dt>Completion</dt><dd>Ansys command 'C***' will not be completed</dd>
+<dt>Skeleton</dt><dd>Mouse selection of -structural-template does not work
+(because of stipulated user text input from this skeleton)</dd>
+<dt>Navigation</dt><dd>C-c { does not skip an overlay in a number-block
+(M-{ does it though))</dd>
+<dt>Keybinding</dt><dd>C-c C-j jjj not working with Emacs version &lt; Emacs-24</dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgb33ccd8" class="outline-3">
+<h3 id="orgb33ccd8"><span class="section-number-3">7.5</span> Procedures</h3>
+<div class="outline-text-3" id="text-7-5">
+<dl class="org-dl">
+<dt>GNU-Linux</dt><dd>instead of GNU/Linux as FSF suggesting ;-)</dd>
+<dt>Mode Help</dt><dd>keyboard input is quoted in "", emphasizing in `' and
+keys in &lt;&gt;</dd>
+<dt>APDL templates</dt><dd>minimal working examples ending with -template</dd>
+<dt>Menu</dt><dd>-&gt; indicates the following sub menu entry -&gt;</dd>
+<dt>M-x compile</dt><dd><p>
+ALL ;-)
+</p>
 
 <p>
 GH-wiki is repo with write access for world, separate from the A-M repo!
-</p>
-</dd>
+</p></dd>
 </dl>
 </div>
+</div>
 
-<div id="outline-container-sec-3-1" class="outline-3">
-<h3 id="sec-3-1"><span class="section-number-3">3.1</span> Freeze proceedures</h3>
-<div class="outline-text-3" id="text-3-1">
+<div id="outline-container-orgc65d93e" class="outline-3">
+<h3 id="orgc65d93e"><span class="section-number-3">7.6</span> Freeze proceedures</h3>
+<div class="outline-text-3" id="text-7-6">
 <ul class="org-ul">
 <li>check whether all undocumented commands
 <a href="(find-tag "Ansys_undocumented_commands")">(find-tag "Ansys_undocumented_commands")</a>
-are still working in V 16.2
-</li>
-<li>(tags-search "TODO")
-</li>
-<li>(tags-search "FIXME")
-</li>
-<li>checkdoc, -template.el, -process.el, -mode.el done except
-\\&lt;keymap&gt; &amp; \\[function]
-</li>
+are still working in V 162</li>
+<li>(tags-search "-TODO-")</li>
+<li>(tags-search "-FIXME-")</li>
+<li>checkdoc, -ansys-template.el, -ansys-process.el, -mode.el done except
+\\&lt;keymap&gt; &amp; \\[function]</li>
 <li>README &#x2013; installation (Emacs Wiki format) and accompanying files,
-features, news, history
-</li>
-<li>update the mode help, update version numbers, default specifiers
-</li>
-<li>update defcustom list in ./bug-report.sh -&gt; ansys-submit-bug-report
-</li>
-<li>update/complete skeletons menu
+features, news, history</li>
+<li>update the mode help, update version numbers, default specifiers</li>
+<li>update defcustom list in ./bug-report.sh -&gt; ansys-submit-bug-report</li>
+<li><p>
+update/complete skeletons menu
+</p>
 
 <p>
-(tags-query-replace "16.1" "16.2")
-(tags-query-replace "ANSYS 16" "ANSYS 17")
+(tags-query-replace "161-2" "162-1")
 </p>
+
 <p>
-(tags-query-replace "24.5" "24.6")
+(tags-query-replace "16.2.0" "17.1.0")
+(tags-query-replace "16.1.0" "16.2.0")
+(tags-query-replace "Ansys 16" "Ansys 17")
 </p>
+
 <p>
-(tags-query-replace "161" "170")
+(tags-query-replace "24\.5" "25.1")
 </p>
+
 <p>
-(tags-query-replace "\".1\"" "\".2\"")
+(tags-query-replace "161" "162")
 </p>
+
 <p>
-(tags-query-replace "- 2015" "- 2016")
-(tags-query-replace "fontification.mac" "example.mac")
+(tags-query-replace "20\.1\.0" "20.1.1")
+(tags-query-replace "\"1.1\"" "\"1.2\"")
+</p>
+
+<p>
+(tags-query-replace "- 2020" "- 2021")
+(tags-query-replace "- 2021" "- 2022")
 </p>
 
 <p>
@@ -516,33 +884,30 @@ checkdoc then dry run: Emacs
 24.5 -Q testing: example.mac /*commands and default command
 lines, every menu entry.  byte-compile-file then dry run
 profiling, major mode conventions: multiple loading of this mode?.
-</p>
-</li>
+</p></li>
 <li>check Emacs versions on longterm OS systems compile with 24.X,
 then pretests, emacs-snapshots, clash with Emacs releases (yearly
-Emacs cycle)?
-</li>
+Emacs cycle)?</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-sec-3-2" class="outline-3">
-<h3 id="sec-3-2"><span class="section-number-3">3.2</span> Release</h3>
-<div class="outline-text-3" id="text-3-2">
+<div id="outline-container-org14a0a36" class="outline-3">
+<h3 id="org14a0a36"><span class="section-number-3">7.7</span> Release</h3>
+<div class="outline-text-3" id="text-7-7">
 <ul class="org-ul">
-<li>Add the latest news from NEWS.org to the README.org
-</li>
-<li>update Emacs wiki (README), home page, GitHub, Google drive with
-download, documentation page
-</li>
-<li>publication emails (with tutorial and news):
+<li>Add the latest news from NEWS.org to the README.org</li>
+<li>update Emacs wiki (README), home page, GitHub</li>
+<li><p>
+publication emails (with tutorial and news):
+</p>
 
 <p>
 The project is hosted on
 </p>
 
 <p>
-<a href="https://github.com/dieter-wilhelm/ansys-mode">https://github.com/dieter-wilhelm/ansys-mode</a>
+<a href="https://github.com/dieter-wilhelm/apdl-mode">https://github.com/dieter-wilhelm/apdl-mode</a>
 </p>
 
 <p>
@@ -554,467 +919,289 @@ Stable versions and prebuild packages are on the releases page:
 </p>
 
 <p>
-<a href="https://github.com/dieter-wilhelm/ansys-mode/releases">https://github.com/dieter-wilhelm/ansys-mode/releases</a>
-</p>
-
-<p>
-An alternative releases archive is hosted at Google Drive:
-</p>
-
-<p>
-<a href="https://drive.google.com/?tab=mo&authuser=0#folders/0Bxnk08BGWfexUThqbWxLX1NyeTg">https://drive.google.com/?tab=mo&authuser=0#folders/0Bxnk08BGWfexUThqbWxLX1NyeTg</a>
-</p>
-
-<p>
-If you don't have access to above archives please email me.
+<a href="https://github.com/dieter-wilhelm/apdl-mode/releases">https://github.com/dieter-wilhelm/apdl-mode/releases</a>
 </p>
 
 <p>
 Dieter
-</p>
-</li>
+</p></li>
 </ul>
-
-
-<p>
-makgul@gmail.com,
-yangdawei.hit@qq.com
-weizhuo.du@peraglobal.com,
-info@auc-ev.de,
-afoleite@gmail.com,
-iivvgg@gmail.com,
-Michaelk@vipac.com.au,
-sparr@mfkrs1.mw.tu-dresden.de,
-mhanke@cadfem.de,
-tnelson@cadfem.de,
-lkrueger@cadfem.de,
-sheldonimaoka@yahoo.com,
-kschoenborn@cadfem.de
-</p>
-
-<p>
-eyk.heinemann@continental-corporation.com,
-jens.2.missun@continental-corporation.com,
-joerg.menke@continental-corporation.com,
-marius.tarnovetchi@continental-corporation.com,
-razvan.ionel.curtean@continental-corporation.com,
-Steffen.Kernbach@continental-corporation.com,
-Johann.Massinger@continental-corporation.com,
-Marco.Mechi@continental-corporation.com,
-Marco.Betti@continental-corporation.com,
-Antonio.Zangaro@continental-corporation.com,
-martin.bruehl@continental-corporation.com,
-zlatko.penzar@continental-corporation.com,
-saravana.kumar@continental-corporation.com,
-alwin.perras@continental-corporation.com,
-</p>
-</div>
 </div>
 </div>
 
-<div id="outline-container-sec-4" class="outline-2">
-<h2 id="sec-4"><span class="section-number-2">4</span> Ideas for further versions</h2>
-<div class="outline-text-2" id="text-4">
-</div><div id="outline-container-sec-4-1" class="outline-3">
-<h3 id="sec-4-1"><span class="section-number-3">4.1</span> Parameter help and documentation</h3>
-<div class="outline-text-3" id="text-4-1">
+<div id="outline-container-orga5400a8" class="outline-3">
+<h3 id="orga5400a8"><span class="section-number-3">7.8</span> Ideas for further versions</h3>
+<div class="outline-text-3" id="text-7-8">
+</div>
+<div id="outline-container-org47ba0ca" class="outline-4">
+<h4 id="org47ba0ca"><span class="section-number-4">7.8.1</span> Parameter help and documentation</h4>
+<div class="outline-text-4" id="text-7-8-1">
 <ul class="org-ul">
 <li>Enable a mouse button to unhide hidden regions, enable an
 interactive way to unhide regions, when in the region: Return
-opens hidden region, &#x2026;
-</li>
+opens hidden region, &#x2026;</li>
 <li>dynamic completion and help of parameter options, depending on
-the contex like the one in bash
-</li>
-<li>makeinfo documentation with org-mode ox exporter
-</li>
+the contex like the one in bash</li>
+<li>makeinfo documentation with org-mode ox exporter</li>
 <li>make completion of templates with &lt;mouse 1&gt; button additionally
-to &lt;mouse 2&gt; as in -complete-symbol.
-</li>
+to &lt;mouse 2&gt; as in -complete-symbol.</li>
 <li>create a function showing deprecated elements and their
 replacement.  Inspirations from eldoc-mode, show replacements of
-deprecated elements?
-</li>
-<li>create a reference card
-</li>
+deprecated elements?</li>
+<li>create a reference card</li>
 <li>show list of license products and their license feature names or
 translate it in the license status from the licensing guide
-(product variable table)
-</li>
+(product variable table)</li>
 <li>C-c C-v show (optionally) only variables defined up to current
 cursor line.  Make the line number display in
 `ansys-display-variables' (hyper-)links to the corresponding code
 line in the respective APDL file.  (See `occur' function.)  Or
 use the imenu mechanism for this and display the variables in the
-speedbar. Count the number of user variables when displaying them
-</li>
+speedbar. Count the number of user variables when displaying them</li>
 <li>refcard, etc; Emacs help guidelines
-GNU programming guideline: More requires?,
-</li>
-<li>display alternatives to/swap deprecated element types
-</li>
+GNU programming guideline: More requires?,</li>
+<li>display alternatives to/swap deprecated element types</li>
 <li>M-? Help: parametric functions are not explained with the help
-command
-</li>
+command</li>
 <li>M-? Help: if there are ignored characters behind the keyword, the
-keyword is not found
-</li>
+keyword is not found</li>
 <li>M-? the command help does not work when there are solver ignored
-characters behind the unique command name, example: *VWROOOOM.
-</li>
-<li>M-?: following a variable allocation with `='
-</li>
+characters behind the unique command name, example: *VWROOOOM.</li>
+<li>M-?: following a variable allocation with `='</li>
 <li>M-?: In the last empty line displays overlay below command
-instead above
-</li>
-<li>Provide ANSYS command completion and command-help in comint
-buffer
-</li>
-<li>Include all inquiry functions (see UPF documentation)
-</li>
+instead above</li>
+<li>Provide Ansys command completion and command-help in comint
+buffer</li>
+<li>Include all inquiry functions (see UPF documentation)</li>
 <li>Include the _RETURN value of the solid modelling commands into
-their help strings of parameter help.
-</li>
+their help strings of parameter help.</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-4-2" class="outline-3">
-<h3 id="sec-4-2"><span class="section-number-3">4.2</span> ANSYS process and interpreter buffer</h3>
-<div class="outline-text-3" id="text-4-2">
+<div id="outline-container-org3ca847f" class="outline-4">
+<h4 id="org3ca847f"><span class="section-number-4">7.8.2</span> Ansys process and interpreter buffer</h4>
+<div class="outline-text-4" id="text-7-8-2">
 <p>
 example: gnuplot-mode
 </p>
 <ul class="org-ul">
-<li>call to start the ANSYS solution results tracker for .nlh (xml
+<li>call to start the Ansys solution results tracker for .nlh (xml
 see <a href="file.nlh">file.nlh</a>, contact forces) and convergence .gst (binary?,
-coded? <a href="file.gst">file.gst</a>)
-</li>
+coded? <a href="file.gst">file.gst</a>)</li>
 <li>implement something like <a href="nlhist.sh">nlhist.sh</a> for .cnd files (xml see
-<a href="file.cnd">file.cnd</a>) or use the new libxml parser ;-)
-</li>
-<li>make display-buffer "<b>ANSYS</b>" optional when sending commands to
-the ANSYS process
-</li>
-<li>use ANSYS <b>env variables</b> like AWP<sub>ROOT140</sub> for checking
-installation directories
-</li>
+<a href="file.cnd">file.cnd</a>) or use the new libxml parser ;-)</li>
+<li>make display-buffer "<b>Ansys</b>" optional when sending commands to
+the Ansys process</li>
+<li>use Ansys <b>env variables</b> like AWP<sub>ROOT140</sub> for checking
+installation directories</li>
 <li>check also the license status for hpc licenses if
--no-of-processors is greater then 3
-</li>
-<li>implement ANSWAIT variable
-</li>
-<li>autoloading of: -license-file, -license-program functions
-</li>
-<li>dbus support of workbench or integrating emacs in workbench?
-</li>
-<li>insert skeleton with C-c C-s i, send line C-c C-c ccc
-</li>
+-no-of-processors is greater then 3</li>
+<li>implement ANSWAIT variable</li>
+<li>autoloading of: -license-file, -license-program functions</li>
+<li>dbus support of workbench or integrating emacs in workbench?</li>
+<li>insert skeleton with C-c C-s i, send line C-c C-c ccc</li>
 <li>warn when C-c C-c tries to send a block command (complete to full
-block?)
-</li>
-<li>take care when region isn't complete in -send-to-ansys (send whole line)
-</li>
+block?)</li>
+<li>take care when region isn't complete in -send-to-ansys (send whole line)</li>
 <li>C-c C-c skips empty lines and comments this is not always desirable
--&gt; make this optional -&gt; filter process input?
-</li>
+-&gt; make this optional -&gt; filter process input?</li>
 <li>C-c C-q, C-c C-u and C-c C-c sequences are not shown (and stored)
-in the comint buffer
-</li>
-<li>make filter of -license-status optional
-</li>
+in the comint buffer</li>
+<li>make filter of -license-status optional</li>
 <li>optimise -start-run with query of y (start immediately),n
-(exit),e (change params),C-h (help)
-</li>
-<li>Splice any input line behind the BEGIN: symbol in the <b>ANSYS</b>
-     buffer
-</li>
-<li>Enable one solver run for every ANSYS macro buffer
-</li>
+(exit),e (change params),C-h (help)</li>
+<li>Splice any input line behind the BEGIN: symbol in the <b>Ansys</b>
+buffer</li>
+<li>Enable one solver run for every Ansys macro buffer</li>
 <li>indicate with activation/inactivation of menu items that an
-asynchronous job is already running or not.
-</li>
+asynchronous job is already running or not.</li>
 <li>show/mark sent lines in apdl file C-c C-u, C-c C-c,
 <ul class="org-ul">
-<li>with fringes
-</li>
-<li>with background
-</li>
-<li>maximum line
-</li>
-<li>reset highlighting, when?
-</li>
-</ul>
-</li>
-<li>provide ANSYS `y' request and carriage return? superflouous?  a
-single `y' does the trick
-</li>
+<li>with fringes</li>
+<li>with background</li>
+<li>maximum line</li>
+<li>reset highlighting, when?</li>
+</ul></li>
+<li>provide Ansys `y' request and carriage return? superflouous?  a
+single `y' does the trick</li>
 <li>Killing a buffer with a running process now asks a confirmation.
 You can remove this query in two ways: either removing
 `process-kill-buffer-query-function' from
 `kill-buffer-query-functions' or setting the appropriate process
 flag with `set-process-query-on-exit-flag'.
 <ul class="org-ul">
-<li>finding an ANSYS /filnam command in current macro file and
+<li>finding an Ansys /filnam command in current macro file and
 suggesting this as current job-name optionally kill old job when
 called again with working run warn and optionally remove the
-ansys lock file before starting a run
-</li>
+ansys lock file before starting a run</li>
 <li>search in -job for /filn arguments as default job name like in
--display-error-file
-</li>
-</ul>
-</li>
+-display-error-file</li>
+</ul></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-4-3" class="outline-3">
-<h3 id="sec-4-3"><span class="section-number-3">4.3</span> Skeletons, outline and abbrevs</h3>
-<div class="outline-text-3" id="text-4-3">
+<div id="outline-container-org8253d43" class="outline-4">
+<h4 id="org8253d43"><span class="section-number-4">7.8.3</span> Skeletons, outline and abbrevs</h4>
+<div class="outline-text-4" id="text-7-8-3">
 <ul class="org-ul">
-<li>show a preview buffer with the outline headlines
-</li>
-<li>-skeleton-select is a bit thin, not yet finished?
-</li>
+<li>show a preview buffer with the outline headlines</li>
+<li>-skeleton-select is a bit thin, not yet finished?</li>
 <li>add a preview mode, with its own keymap for faster editing and
-copying, like dired
-</li>
-<li>enhance abbrev definitions for *create, *dowhile logics:
-</li>
-<li>use the ANSYS sample input listing for template-examples
-</li>
+copying, like dired</li>
+<li>enhance abbrev definitions for *create, *dowhile logics:</li>
+<li>use the Ansys sample input listing for template-examples</li>
 <li>additional dialog boxes with:
-/ui,anno,ksel&#x2026;,wpse,help,query,copy
-</li>
-<li>make outline string in skeletons configurable
-</li>
-<li>spider beams, _bolt.mac, screw.mac, Mohr-Coulomb criterion
-</li>
-<li>rework concept with respect to the ANSYS menu structure sort
-skeletons in menu. Concept: 1.) ANSYS Workflow 2.) specialised
-macro library
-</li>
-<li>Make skeleton-header properly working (info "(autotype)")
-</li>
-<li>Optimise templates: completing-read, read-from-minibuffer
-</li>
-<li>abbrev `d does not indent properly in another block level
-</li>
+/ui,anno,ksel&#x2026;,wpse,help,query,copy</li>
+<li>make outline string in skeletons configurable</li>
+<li>spider beams, _bolt.mac, screw.mac, Mohr-Coulomb criterion</li>
+<li>rework concept with respect to the Ansys menu structure sort
+skeletons in menu. Concept: 1.) Ansys Workflow 2.) specialised
+macro library</li>
+<li>Make skeleton-header properly working (info "(autotype)")</li>
+<li>Optimise templates: completing-read, read-from-minibuffer</li>
+<li>abbrev `d does not indent properly in another block level</li>
 <li>Implement choice when completing *IF commands (*ELSEIF or *ENDIF
-?THEN?).
-</li>
-<li>Warn when including skeleton in read only file.
-</li>
+?THEN?).</li>
+<li>Warn when including skeleton in read only file.</li>
 <li>skeleton for numbering ansys-skeleton-numbering-controls
-(skeleton-insert docu)
-</li>
+(skeleton-insert docu)</li>
 <li>suggestions with auto-completion of
-kp,line,area,volu,node,elem,tabn,sval
-</li>
-<li>negation, what negation? TODO:
-</li>
+kp,line,area,volu,node,elem,tabn,sval</li>
+<li>negation, what negation? TODO:</li>
 <li>skeleton for skipping code *if,then *else*endif if selection:
 wrap around and indenting *go/*if label is not fontified at the
 command line (restriction of 7 characters with out the colon.)
-must *go:label be unambiguous?
-</li>
+must *go:label be unambiguous?</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-4-4" class="outline-3">
-<h3 id="sec-4-4"><span class="section-number-3">4.4</span> Miscellaneous</h3>
-<div class="outline-text-3" id="text-4-4">
+<div id="outline-container-orgbb1654f" class="outline-4">
+<h4 id="orgbb1654f"><span class="section-number-4">7.8.4</span> Miscellaneous</h4>
+<div class="outline-text-4" id="text-7-8-4">
 <ul class="org-ul">
-<li>hash or signature file for packages
-</li>
-<li>show content of matlib/ folder
-</li>
+<li>hash or signature file for packages</li>
+<li>show content of matlib/ folder</li>
 <li>add to -display-variables a prefix argument for showing the value
-of the variable around point, or center the variables window&#x2026;
-</li>
-<li>customisation option for a the web browser of -browse-ansys-help
-</li>
-<li>ideas for preview also of a/the macro directory?
-</li>
-<li>put graphics dlls in windows package
-</li>
-<li>LSDYN support, see lsdyna.el
-</li>
-<li id="embedded calc">include in hacking.mac
-</li>
+of the variable around point, or center the variables window&#x2026;</li>
+<li>customisation option for a the web browser of -browse-ansys-help</li>
+<li>ideas for preview also of a/the macro directory?</li>
+<li>put graphics dlls in windows package</li>
+<li>LSDYN support, see lsdyna.el</li>
+<li id="embedded calc">include in hacking.mac</li>
 <li id="Alignment">alignment "section" is not clearly defined in function
--align
-</li>
+-align</li>
 <li id="alignment">extend to vector definitions
 t(1,0) = 20,300,3094,
-t(1,1) =  3,  4,   9,
-</li>
-<li>Utility for clearing files like .rst, &#x2026; or using dired, clear<sub>files</sub>.sh?
-with listing listing of file types
-</li>
-<li>Configure the highlighting colours with black on white background
-</li>
+t(1,1) =  3,  4,   9,</li>
+<li>Utility for clearing files like .rst, &#x2026; or using dired, clear<sub>files.sh</sub>?
+with listing listing of file types</li>
+<li>Configure the highlighting colours with black on white background</li>
 <li>C-j, M-j are not skipping to `,' whith default command (from second
-line onwards)!
-</li>
+line onwards)!</li>
 <li>supply command for clearing recursively not important process files:
-.rst, .log, &#x2026;, supply a customisaton variable
-</li>
-<li>narrow, outline, transparent-font: eblocks, nblocks by default?
-</li>
-<li>add notes for parameter help of undocumented commands (alist)
-</li>
+.rst, .log, &#x2026;, supply a customisaton variable</li>
+<li>narrow, outline, transparent-font: eblocks, nblocks by default?</li>
+<li>add notes for parameter help of undocumented commands (alist)</li>
 <li>create filter variable for hiding not installed license types
-("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"
-</li>
+("aiiges" "aihexa") or better regexp filter "ai.*\\|acf.*"</li>
 <li>commands shorter than 4 chars are not allowed with additional chars
-adjust this to -highlighting-level 0
-</li>
-<li>Make ANSYS-Mode also working solely with ansys-mode.el??
-</li>
-<li>make M-C-h more intelligent like M-h (if mark&#x2026;)
-</li>
+adjust this to -highlighting-level 0</li>
+<li>Make Ansys-Mode also working solely with ansys-mode.el??</li>
+<li>make M-C-h more intelligent like M-h (if mark&#x2026;)</li>
 <li>speed concern: replace -find-duplicate-p with function argument to
-add-to-list
-</li>
-<li>For non-comint-mode usage: display .log file with tail mode
-</li>
-<li>is outline-mode enabled? no! make default?, outline
-</li>
+add-to-list</li>
+<li>For non-comint-mode usage: display .log file with tail mode</li>
+<li>is outline-mode enabled? no! make default?, outline</li>
 <li>take care of setup procedure: v110/ansys/apdl/start110.ans
-/MPLIB,READ,/ansys<sub>inc</sub>/v110/ansys/matlib
-</li>
-<li>removing/renaming/checking abort file?
-</li>
+/MPLIB,READ,/ansys<sub>inc</sub>/v110/ansys/matlib</li>
+<li>removing/renaming/checking abort file?</li>
 <li>Are characters behind unique commands shorter than 4 characters
 possible? No /sol(u) sufficient? Yes condensed input line ($)
 behind commands without arguments possible? Yes have a look in
 -variable-defining-commands!  Warn when - unintentionally -
-arguments are used for ANSYS commands which do not allow
+arguments are used for Ansys commands which do not allow
 arguments.  Or implement some auto-newline feature?  But
 problematic in condensed command lines or when applying code
-comments!
-</li>
-<li>undocumented ask parameter
-</li>
-<li>mode-line-format nil);no mode line for this buffer Unambiguous
-</li>
-<li>Emacs: old-style backquotes?  used in the old template macro system
-</li>
-<li>completion of function names: cursor should end within parentheses
-</li>
-<li>better hints for auto-insertion features
-</li>
+comments!</li>
+<li>undocumented ask parameter</li>
+<li>mode-line-format nil);no mode line for this buffer Unambiguous</li>
+<li>Emacs: old-style backquotes?  used in the old template macro system</li>
+<li>completion of function names: cursor should end within parentheses</li>
+<li>better hints for auto-insertion features</li>
 <li>up/down-block when we are over a begin-keyword and in a block-end
-line
-</li>
-<li>component names are fontified as variables! separate them cmlist?
-</li>
+line</li>
+<li>component names are fontified as variables! separate them cmlist?</li>
 <li>format string for *VWRITE: line(s) below, in parens, when FORTRAN
 format specifiers are used, keyword SEQU povides row numbers, up
-to 19 parameters are allowed
-</li>
+to 19 parameters are allowed</li>
 <li>remove vestiges of ansys-mod.el for making ansys-mode.el GPL
 proof.  Check whether octave-mod.el really is GPL compliant, use
 -ctave-mod.el from 1997, kill octave-mod.el afterwards in
-makefile read every symbol docu string -&gt;NEW<sub>C</sub> or _C or OCTAVE<sub>C</sub>
-</li>
+makefile read every symbol docu string -&gt;NEW<sub>C</sub> or _C or OCTAVE<sub>C</sub></li>
 <li>replace/extend column-ruler with ruler-mode or ruler implemented as
-overlay in buffer
-</li>
+overlay in buffer</li>
 <li>make everything completely customisable, eg auto-insert stuff
-customisable enable, Emacs customisation of auto-insert-query
-</li>
+customisable enable, Emacs customisation of auto-insert-query</li>
 <li>Fontify <b>completion list</b> distinguishing elements: commands,
-functions and keywords.
-</li>
+functions and keywords.</li>
 <li>provide a list of options for the -license function, set this
-function in the defcustom lmstat -a etc.
-</li>
-<li>auto-indent-switch as defcustom?
-</li>
+function in the defcustom lmstat -a etc.</li>
+<li>auto-indent-switch as defcustom?</li>
 <li>inhibit the unnecessary blink-matching-block display when closing a
-block behind a block-end keyword
-</li>
+block behind a block-end keyword</li>
 <li>highlight matching block keywords (similar to show-paren-mode) when
-point is at keyword
-</li>
+point is at keyword</li>
 <li>Implement highlighting of bracket pairs with the correct level in
-ANSYS GET- and parametric- functions.
-</li>
-<li>highlighting of plot commands inside the /GCMD command
-</li>
-<li>DEFSUBSTs with DEFUNs inside aren't particularly helpful?
-</li>
+Ansys GET- and parametric- functions.</li>
+<li>highlighting of plot commands inside the /GCMD command</li>
+<li>DEFSUBSTs with DEFUNs inside aren't particularly helpful?</li>
 <li>Emphasise better implied (colon) loops n,(1:6),(2:12:2) =&gt; n,1,2
 $ n,2,4 $&#x2026; (little used, I know, but any ideas going beyond the
-colon?).
-</li>
-<li>startup screen for ANSYS mode: Mode help, ANSYS version,
+colon?).</li>
+<li>startup screen for Ansys mode: Mode help, Ansys version,
 supressing the startup screen 'ansys-mode-startup-message maybe
-as advice when sluggish -&gt; compiliation
-</li>
-<li>Enable choice for /show,3d or x11 (-start-graphics)
-</li>
-<li>Provide a way to send commands to the tcl-tk ANSYS gui (x11
-programming).
-</li>
+as advice when sluggish -&gt; compiliation</li>
+<li>Enable choice for /show,3d or x11 (-start-graphics)</li>
+<li>Provide a way to send commands to the tcl-tk Ansys gui (x11
+programming).</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-4-5" class="outline-3">
-<h3 id="sec-4-5"><span class="section-number-3">4.5</span> ANSYS syntax restrictions not (yet) accounted for</h3>
-<div class="outline-text-3" id="text-4-5">
+<div id="outline-container-org596e240" class="outline-4">
+<h4 id="org596e240"><span class="section-number-4">7.8.5</span> Ansys syntax restrictions not (yet) accounted for</h4>
+<div class="outline-text-4" id="text-7-8-5">
 <ul class="org-ul">
 <li>Parentheses can only be nested 4 levels deep and only up to 9
-operations (+,-,*,&#x2026;) within these set of parentheses
-</li>
-<li>PATH name is restricted to 8 chars
-</li>
-<li>*SET parameter strings may only be 32 character long!
-</li>
-<li>Character parameters are restricted to only 8 characters.
-</li>
-<li>*MSG command can only have 9 additional continuation lines
-</li>
-<li>Code line restriction of 640 characters
-</li>
+operations (+,-,*,&#x2026;) within these set of parentheses</li>
+<li>PATH name is restricted to 8 chars</li>
+<li>*SET parameter strings may only be 32 character long!</li>
+<li>Character parameters are restricted to only 8 characters.</li>
+<li>*MSG command can only have 9 additional continuation lines</li>
+<li>Code line restriction of 640 characters</li>
 <li>Block level restriction of 20 levels of nested *DO loops (except
-with /INPUT and *USE)
-</li>
-<li>Block level restriction of 10 levels of nested *IF blocks
-</li>
-<li>Macro level restriction: 20 macros
-</li>
+with /INPUT and *USE)</li>
+<li>Block level restriction of 10 levels of nested *IF blocks</li>
+<li>Macro level restriction: 20 macros</li>
 </ul>
 </div>
 </div>
-<div id="outline-container-sec-4-6" class="outline-3">
-<h3 id="sec-4-6"><span class="section-number-3">4.6</span> Unknown ANSYS stuff</h3>
-<div class="outline-text-3" id="text-4-6">
+<div id="outline-container-org62421b3" class="outline-4">
+<h4 id="org62421b3"><span class="section-number-4">7.8.6</span> Unknown Ansys stuff</h4>
+<div class="outline-text-4" id="text-7-8-6">
 <ul class="org-ul">
-<li>what the heck is the *UILIST command?
-</li>
-<li>Is hyper56 a valid element?
-</li>
+<li>what the heck is the *UILIST command?</li>
+<li>Is hyper56 a valid element?</li>
 </ul>
+<hr />
 </div>
-</div>
-<div id="outline-container-sec-4-7" class="outline-3">
-<h3 id="sec-4-7"><span class="section-number-3">4.7</span> Additional APDL macro resources</h3>
-<div class="outline-text-3" id="text-4-7">
-<p>
-see <a href="http://www.apdl.de">http://www.apdl.de</a> for further ideas and extensions or
-  <a href="http://www.padtinc.com/">http://www.padtinc.com/</a>.
-</p>
-<hr  />
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
-<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@urmel">dieter@urmel</a>)</p>
-<p class="date">Date: </p>
-<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="author">Author: H. Dieter Wilhelm (<a href="mailto:dieter@ping">dieter@ping</a>)</p>
+<p class="date">Date: Time-stamp: <span class="timestamp-wrapper"><span class="timestamp">&lt;2021-08-31 Di&gt;</span></span></p>
+<p class="creator"><a href="https://www.gnu.org/software/emacs/">Emacs</a> 27.1 (<a href="https://orgmode.org">Org</a> mode 9.3)</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

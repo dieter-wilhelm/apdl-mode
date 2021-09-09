@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2020-03-07>
+#+DATE: Time-stamp: <2020-02-28>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -25,11 +25,12 @@
 
 #+STARTUP: showall
 #+TITLE: This Apdl-Mode's README.org for the matlib/ directory
+  Its text is best read in Emacs' Org mode.
 
   Copyright (C) 2015 - 2020  H. Dieter Wilhelm, GPL V3
 
   If not indicated otherwise in the file name, material properties are
-  linear and for room temperature only.
+  linear and for room temperature.
 
 * Usage in an APDL file
   Specify the material library to read from:

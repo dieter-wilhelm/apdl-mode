@@ -1,0 +1,72 @@
+#+OPTIONS: ':nil *:t -:t ::t <:t H:2 \n:nil ^:t arch:headline
+#+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
+#+OPTIONS: e:t email:t f:t inline:t num:t p:nil pri:nil prop:nil
+#+OPTIONS: stat:t tags:t tasks:t tex:t timestamp:t toc:nil todo:t |:t
+#+DATE: Time-stamp: <2021-09-09>
+#+TITLE: The Comprehensive APDL-Mode Documentation
+#+AUTHOR: H. Dieter Wilhelm
+#+EMAIL: dieter@duenenhof-wilhelm.de
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE: en
+#+SELECT_TAGS: export
+#+EXCLUDE_TAGS: noexport
+#+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
+#+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
+#+HTML_DOCTYPE: xhtml-strict
+#+HTML_CONTAINER: div
+#+HTML_LINK_HOME: https://github.com/dieter-wilhelm/apdl-mode
+#+HTML_HEAD:
+#+HTML_HEAD_EXTRA:
+#+HTML_MATHJAX:
+#+INFOJS_OPT:
+#+LATEX_HEADER:
+
+
+# ##############################
+# project definition
+
+# (setq org-publish-project-alist
+#       '(("apdl"
+# 	 :base-directory "/mnt/hgfs/D/apdl-mode/"
+# 	 :publishing-directory "/mnt/hgfs/D/apdl-mode/"
+# 	 :section-numbers nil
+# 	 :table-of-contents nil
+#          :publishing-function org-html-publish-to-html
+# 	 ;; :style "<link rel=\"stylesheet\"
+#          ;;             href=\"../other/mystyle.css\"
+#          ;;             type=\"text/css\"/>"
+# 	 )))
+
+* Introduction
+  HTML: [[file:info/README.org][README]]
+  # - Features
+  # - Installation
+  # - Usage
+  # - Configuration
+  # - Customisation
+  # - News
+  # - License
+  # - Acknowledgements
+  # - Further Resources
+  # - TODOs
+* Tutorials
+** Introductory
+   APDL-Mode introductory tutorial
+  - PDF: [[file:doc/A-M_introductory_tutorial.pdf][Tutorial]]
+  - HTML: [[file:doc/A-M_introductory_tutorial.org][Tutorial]]
+** In-depth
+  - HTML: [[file:doc/A-M_in-depth_tutorial.org][In-depth Tutorial]]
+* Reference Manuals
+  - HTML: The Apdl-Mode [[file:doc/A-M_APDL_reference.org][Highlighting and APDL reference]].
+  - HTML: [[file:matlib/README.org][APDL-Mode material library]].
+-----
+
+# The following is for Emacs
+# local variables:
+# word-wrap: t
+# show-trailing-whitespace: t
+# indicate-empty-lines: t
+# time-stamp-active: t
+# time-stamp-format: "%:y-%02m-%02d"
+# end:

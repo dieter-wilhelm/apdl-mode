@@ -171,7 +171,7 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 # 	@echo "       (file (concat dir \"/apdl-mode-$(VERSION)/apdl-config.el\")))" >> $@
 # 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
-../info/README.md : ../info/README.org
+../info/README.md : ../info/README.org $(FILES)
 	$(EMACS_EXE) --batch --file $< \
 	--load "$(DIR)/export.el" \
 	--execute  "(org-md-export-to-markdown)"

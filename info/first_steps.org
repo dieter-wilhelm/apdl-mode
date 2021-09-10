@@ -1,16 +1,16 @@
-  Please type `M-x apdl' which opens a buffer in APDL-Mode where you
-  can inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
-  APDL files please type `M-x apdl-mode' if the mode is not activated
-  already, please see in [[Configuration and Customisation]],
-  the section regarding pre-configured file suffixes.
-  # @@texinfo:@ref{Configuration and Customisation}@@,
+Please type `M-x apdl' which opens a buffer in APDL-Mode where you
+can inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
+APDL files please type `M-x apdl-mode' if the mode is not activated
+already, please see in [[Configuration and Customisation]],
+the section regarding pre-configured file suffixes.
+# @@texinfo:@ref{Configuration and Customisation}@@,
 
-  For further guidance please select the APDL menu `APDL-Mode
-  Documentation' (or type `C-c C-h') and `Describe APDL-Mode' (or type
-  `C-h m') for the list of its keybindings.  You might also check the
-  introductory APDL-Mode [[file:~/a-m/doc/A-M_introductory_tutorial.org][tutorial]].
+For further guidance please select the APDL menu `APDL-Mode
+Documentation' (or type `C-c C-h') and `Describe APDL-Mode' (or type
+`C-h m') for the list of its keybindings.  You might also check the
+introductory APDL-Mode [[https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf][tutorial]].
 
-  APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
-  Emacs-27 under GNU-Linux and Windows.
+APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
+Emacs-27 under GNU-Linux and Windows.
 
 #  The complete documentation of APDL-Mode is available [[http://dieter-wilhelm.github.io/apdl-mode][online]].

@@ -1166,8 +1166,10 @@ variables"]
    ["Submit Bug Report" apdl-submit-bug-report
     :help "Open a mail template for an APDL-Mode bug report"]
    ["Reload APDL-Mode" apdl-reload-apdl-mode
-    :help "Loading the mode definitions anew from files and
-restarting apdl-mode"]
+    :help "Loading the mode definitions for testing purposes and
+restarting apdl-mode (apdl-reload-apdl-mode), this is only
+possible if the files are in the load-path!"
+    :visible (file-exists-p "apdl-mode.el")]
    "--"
    ["Exit APDL-Mode" apdl-toggle-mode
     :help "Switch to the previous major mode of the file"
@@ -1886,20 +1888,22 @@ which the keyword- and completion system is based upon."
 ;;  ATTENTION: reloading seems to be critical, when there are multiple
 ;;  entries in `load-path' for APDL-Mode!
 (defun apdl-reload-apdl-mode ()
-  "Reload APDL mayor mode for debugging purposes.
+  "Reload APDL-Mode for debugging or testing purposes.
 Clear (unload) all mode definitions, if apdl-mode is active, load
-the necessary code and call `apdl-mode'."
+the necessary code and call `apdl-mode'.  In general, this is
+only possible if apdl-mode.el is in the load-path of Emacs."
   (interactive)
   (progn
     (when (featurep 'apdl-mode)
       (unload-feature 'apdl-mode)
-      (unload-feature 'apdl-initialise)
       (unload-feature 'apdl-keyword)
       (unload-feature 'apdl-process)
       (unload-feature 'apdl-template)
-      (unload-feature 'apdl-wb-template))
+      (unload-feature 'apdl-wb-template)
+      ;; the others rely on -initialise !!
+      (unload-feature 'apdl-initialise))
 ;;    (load "apdl-config") ; don't rely on apdl-config!
-    (load "apdl-mode") ; either load .elc or .el
+    (load "apdl-mode.el") ; load apdl-mode.el
     (apdl-mode)
     (message "APDL-Mode %s based on Ansys %s reloaded"
              apdl-mode-version apdl-ansys-version)))

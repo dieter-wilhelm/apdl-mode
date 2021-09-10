@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-19>
+;; Time-stamp: <2021-09-10>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -913,14 +913,13 @@ file in another window (apdl-display-variables)"]
 cursor with its parameters (apdl-show-command-parameters)"]
    ["Browse the APDL Keyword Help" apdl-browse-apdl-help
     :help "Open the original APDL documentation for a command or
-element name near the cursor in the default
-browser (apdl-browse-apdl-help)"
-    :active apdl-current-ansys-version]
+element name near the cursor (apdl-browse-apdl-help)"
+    :active (or apdl-current-ansys-version apdl-ansys-help-path)]
    ["Interactively Browse Keywords" (apdl-browse-apdl-help t)
-    :help "Choose and browse the original APDL documentation for
-a command, element name or other
-subjects (apdl-browse-apdl-help)."
-    :active apdl-current-ansys-version]
+    :help "Complete a command, element name or other subjects and
+browse its original APDL documentation
+ (apdl-browse-apdl-help)."
+    :active (or apdl-current-ansys-version apdl-ansys-help-path)]
    ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
     :help "Read the original Ansys Parametric Design Language
 Guide in a browser (apdl-browse-ansys-apdl-manual)"

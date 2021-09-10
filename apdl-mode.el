@@ -317,7 +317,7 @@ See also the variable `apdl-blink-matching-block-flag'."
   :type 'string
   :group 'APDL)
 
-(defcustom apdl-mode-hook nil
+(defcustom apdl-mode-hook '(apdl-outline-minor-mode)
   "Normal hook run before entering APDL-Mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
@@ -517,7 +517,12 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; (define-key map [?\C-c?\C-%] 'insert-pair)
     ;; (define-key map [?\C-c?\C-[] 'insert-pair)
     ;; (define-key map [?\C-c?\C-'] 'insert-pair)
+
     ;; --- miscellaneous ---
+
+    ;; outline-minor-mode must be defined to work for the following!
+    (unless (version< emacs-version "28")
+      (define-key map [backtab] 'outline-cycle))
     (define-key map [?\C-c?\C-+] 'apdl-zoom-in)
     (define-key map [?\C-c?\C--] 'apdl-zoom-out)
     (define-key map [?\C-c?\C-<] 'apdl-move-left)
@@ -1763,8 +1768,9 @@ user variable highlighting? "))))))
   ;; initialise system dependent stuff
   (unless apdl-initialised-flag
     (apdl-initialise))
-  ;; that is not friendly to enforce stuff on users
+  ;; that's not friendly to enforce stuff on users :-/ but then this is so helpful!
   ;; (outline-minor-mode t)
+  
   ;; --- hooks ---
   (run-hooks 'apdl-mode-hook)
   )

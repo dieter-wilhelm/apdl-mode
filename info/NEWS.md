@@ -1,42 +1,44 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0, 15 years of APDL-Mode!](#org7c68cc9)
-2.  [Version 20.5.0](#orgbcfc404)
-3.  [Version 20.4.0](#org7bf4dfe)
-4.  [Version 20.3.0](#orge46721d)
-5.  [Version 20.2.0](#org1443142)
-6.  [Version 20.1.1](#org55f9f47)
-7.  [Version 20.1.0](#orgd20f62a)
-8.  [Version 162-1](#orgd18c484)
-9.  [Version 16.1.1](#org36cfd60)
-10. [Version 15.0.1](#orga6b10d0)
-11. [Version 14.5.2](#orgeba7ea5)
-12. [Version 14.5.1](#orgea5bc14)
-13. [Version 14.0.1](#orga18a431)
-14. [Version 13.0.1](#orge76fe7b)
-15. [Version 12.0.1](#org1898923)
-16. [Version 11.0.2](#orgb1548e4)
-17. [ansys-mode.el 11.0.1](#orge33e6c2)
+1.  [Version 20.6.0, 15 years of APDL-Mode!](#org09e3c08)
+2.  [Version 20.5.0](#orge49fe71)
+3.  [Version 20.4.0](#org78ec11d)
+4.  [Version 20.3.0](#org94284c8)
+5.  [Version 20.2.0](#org377a35f)
+6.  [Version 20.1.1](#org9282bf3)
+7.  [Version 20.1.0](#orgaad0dd7)
+8.  [Version 162-1](#org620685c)
+9.  [Version 16.1.1](#org768a256)
+10. [Version 15.0.1](#org4001f93)
+11. [Version 14.5.2](#orgcfe52bd)
+12. [Version 14.5.1](#org3775ff8)
+13. [Version 14.0.1](#org3d7fa3c)
+14. [Version 13.0.1](#orgaec2512)
+15. [Version 12.0.1](#orge6eb107)
+16. [Version 11.0.2](#org8e63301)
+17. [ansys-mode.el 11.0.1](#orgf11dd10)
 
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
 
-<a id="org7c68cc9"></a>
+<a id="org09e3c08"></a>
 
 # Version 20.6.0, 15 years of APDL-Mode!
 
 -   Implemented batch runs (now C-c C-y) and jobname.out inspection
 -   Improved highlighting of user variables
--   Fixed help for the APDL \`outres' command and improved
-    documentation
+-   Fixed help for the APDL \`outres' command
+-   Improved and updated documentation
+-   Outline-minor-mode is now activated by default, with <SHIFT> +
+    <TAB> (Emacs 28.1) this feature became even more essential
 -   Added customisation section for user templates
 -   apdl-start-classic and -start-launcher are now auto-loaded
     commands (They can be run from the mini buffer (M-x), without
     having a file under \`apdl-mode')
 
 
-<a id="orgbcfc404"></a>
+<a id="orge49fe71"></a>
 
 # Version 20.5.0
 
@@ -53,7 +55,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 -   Added a menu entry for opening the main Ansys online help page.
 
 
-<a id="org7bf4dfe"></a>
+<a id="org78ec11d"></a>
 
 # Version 20.4.0
 
@@ -69,7 +71,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 -   Added additional keys for the license status functions
 
 
-<a id="orge46721d"></a>
+<a id="org94284c8"></a>
 
 # Version 20.3.0
 
@@ -87,7 +89,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     parameters
 
 
-<a id="org1443142"></a>
+<a id="org377a35f"></a>
 
 # Version 20.2.0
 
@@ -107,7 +109,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     because of speed reasons.
 
 
-<a id="org55f9f47"></a>
+<a id="org9282bf3"></a>
 
 # Version 20.1.1
 
@@ -118,7 +120,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 -   Enabled EWW (and other browsers) as a "help viewer"
 
 
-<a id="orgd20f62a"></a>
+<a id="orgaad0dd7"></a>
 
 # Version 20.1.0
 
@@ -135,7 +137,7 @@ Released  2020-02
 -   Better warning for C-c C-b when A-M is not configured
 
 
-<a id="orgd18c484"></a>
+<a id="org620685c"></a>
 
 # Version 162-1
 
@@ -166,7 +168,7 @@ not yet released, targeted for Sep 2015
 -   Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 
-<a id="org36cfd60"></a>
+<a id="org768a256"></a>
 
 # Version 16.1.1
 
@@ -198,7 +200,7 @@ July 2015
     example.mac.  Included an example.dat and example.anf
 
 
-<a id="orga6b10d0"></a>
+<a id="org4001f93"></a>
 
 # Version 15.0.1
 
@@ -217,7 +219,7 @@ Aug 2014
     e. g. partial solutions with psolve for mass calculations.
 
 
-<a id="orgeba7ea5"></a>
+<a id="orgcfe52bd"></a>
 
 # Version 14.5.2
 
@@ -249,7 +251,7 @@ Mar 2013
     added a beam simulation template
 
 
-<a id="orgea5bc14"></a>
+<a id="org3775ff8"></a>
 
 # Version 14.5.1
 
@@ -307,7 +309,7 @@ Sep 2012
     under the nint() entry
 
 
-<a id="orga18a431"></a>
+<a id="org3d7fa3c"></a>
 
 # Version 14.0.1
 
@@ -336,7 +338,7 @@ June 2012
     additionally the installation directory (ansys-install-directory).
 
 
-<a id="orge76fe7b"></a>
+<a id="orgaec2512"></a>
 
 # Version 13.0.1
 
@@ -357,7 +359,7 @@ March 2011
     etc. to release 13.0 of Ansys, as usual.
 
 
-<a id="org1898923"></a>
+<a id="orge6eb107"></a>
 
 # Version 12.0.1
 
@@ -401,7 +403,7 @@ Dec 2010
     transition from other editors
 
 
-<a id="orgb1548e4"></a>
+<a id="org8e63301"></a>
 
 # Version 11.0.2
 
@@ -416,7 +418,7 @@ Nov 2009
     ansys-query-ansys-command (C-c C-q).
 
 
-<a id="orge33e6c2"></a>
+<a id="orgf11dd10"></a>
 
 # ansys-mode.el 11.0.1
 

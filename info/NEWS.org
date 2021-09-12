@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-30>
+#+DATE: Time-stamp: <2021-09-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,8 +21,10 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 * Version 20.6.0, 15 years of APDL-Mode!
   - Implemented batch runs (now C-c C-y) and jobname.out inspection
   - Improved highlighting of user variables
-  - Fixed help for the APDL `outres' command and improved
-    documentation
+  - Fixed help for the APDL `outres' command
+  - Improved and updated documentation
+  - Outline-minor-mode is now activated by default, with <SHIFT> +
+    <TAB> (Emacs 28.1) this feature became even more essential
   - Added customisation section for user templates
   - apdl-start-classic and -start-launcher are now auto-loaded
     commands (They can be run from the mini buffer (M-x), without

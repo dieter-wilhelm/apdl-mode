@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-10>
+;; Time-stamp: <2021-09-11>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -313,7 +313,10 @@ See also the variable `apdl-blink-matching-block-flag'."
   :group 'APDL)
 
 (defcustom apdl-outline-string "@"
-  "String specifying outline headings (see `outline-regexp')."
+  "String specifying outline headings (see `outline-regexp').
+Together with the Ansys comment sign '!' at a line beginning.
+Per default, the outline heading looks like '!@', subheadings
+'!@@' and so forth."
   :type 'string
   :group 'APDL)
 
@@ -521,8 +524,10 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; --- miscellaneous ---
 
     ;; outline-minor-mode must be defined to work for the following!
-    (unless (version< emacs-version "28")
-      (define-key map [backtab] 'outline-cycle))
+    ;; (unless (version< emacs-version "28")
+    ;;   (define-key map [backtab] 'outline-cycle-buffer))
+    ;; it is better to leave this to outline-minor-mode!!
+
     (define-key map [?\C-c?\C-+] 'apdl-zoom-in)
     (define-key map [?\C-c?\C--] 'apdl-zoom-out)
     (define-key map [?\C-c?\C-<] 'apdl-move-left)
@@ -1681,8 +1686,8 @@ menu or by calling the function `apdl-mode-help' with
 
   (make-local-variable 'outline-regexp)
   (make-local-variable 'apdl-hide-region-overlays)
-  ;;  outline searches only at the line beginning
-  (setq outline-regexp (concat "!\\(" apdl-outline-string "\\)+"))
+  ;;  outline-minor-mode searches only at the line beginning
+  (setq outline-regexp (concat "![" apdl-outline-string "]+"))
 
   ;; discrepancies from Emacs defaults
   (apdl-font-lock-mode)                 ; switch on font-lock when

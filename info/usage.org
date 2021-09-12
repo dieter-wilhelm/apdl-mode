@@ -198,7 +198,7 @@
 
    Please refer to the configuration example ‘apdl-config.el’.
 
-* Code Navigation and Hiding
+* Code Navigation, Outlining and Hiding
   Navigating code lines, number blocks, and *DO,*IF, DOWHILE, *CREATE
   blocks, etc.
 
@@ -248,27 +248,30 @@
   are hidden by default.
 
 ** Outlining
-   (hiding and expanding) code sections.
+   (folding and expanding) code sections.
 
    If you are using the pre-configured APDL-Mode then function
    ‘outline-minor-mode’ is switched on by default.
 
    With this mode you can hide certain sections of your code or
-   navigate to customisable outline headings.  Certain characters
-   --by default ’!@’ (see the variable ‘ansys_outline_string’)-- at
-   the beginning of a line in your code represent such headings.
-   ’!@@’ specifies a subheading and so on (please call the function
-   ‘apdl-skeleton-outline-template’ to insert a skeleton of outline
-   sections in your current file).  Check out the Outline menu
-   entries.
+   navigate to customisable outline headings.  Certain characters --by
+   default '!@' (see the variable ‘apdl-outline-string’)-- at the
+   beginning of a line in your code represent such headings.  ’!@@’
+   specifies a subheading and so on.  Check out the Outline menu
+   entries.  Since Emacs 28.1 you are able to fold with <SHIFT>+<TAB>
+   - and cycle outline states - all outline headings and on a header
+   line the respective header with the <TAB> key.
 
-   In case outlining is not activate you might call Outline Minor
-   Mode with "M-x outline-minor-mode" or you can enable this mode
-   for the current session by ticking on the respective option in
-   the menu or permanently by setting ‘apdl-outline-minor-mode’ for
-   the ‘apdl-mode-hook’ variable.  Please type
-   "M-x apdl-customise-apdl <RET>" or use the customisaton system
-   from the menu: ->APDL ->Customise APDL Mode.
+   Please call the function ‘apdl-skeleton-outline-template’ to insert
+   a skeleton of outline sections in your current file.
+
+   In case outlining is not activate you might call Outline Minor Mode
+   with "M-x outline-minor-mode" or you can enable this mode for the
+   current session by ticking on the respective option in the menu or
+   permanently by setting ‘apdl-outline-minor-mode’ for the
+   ‘apdl-mode-hook’ variable.  Please type "M-x apdl-customise-apdl
+   <RET>" or use the customisaton system from the menu: ->APDL
+   ->Customise APDL Mode.
 
 * Variable Definitions
   Checking all variable definitions (*GET, *DIM, *SET, = and DO, ...)

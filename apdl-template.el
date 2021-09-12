@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-08-28>
+;; Time-stamp: <2021-09-11>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -221,9 +221,9 @@ key and choose with the mouse 2 button."
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
-  "!@ ==============================" \n
+  "! ==============================" \n
   "!" apdl-outline-string " ---  Header ---" \n
-  "!@ ==============================" \n
+  "! ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; (buffer-file-name)
   ;; (buffer-name))) \n
@@ -242,7 +242,7 @@ time stamp with the Emacs command M-x `time-stamp'."
 (define-skeleton apdl-skeleton-information
   "Information gathering with APDL commands."
   nil
-  ;; "!@ ------------------------------" \n
+  ;; "!! ------------------------------" \n
   ;; "!@@ -- informations --" \n
   ;; "!! ------------------------------" \n
   "!! ------------------------------" \n
@@ -275,7 +275,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! mass, centroids, moments of inertia, length, area, volumen, ..." \n
   "*get,bla,area,0,imc,y ! moment of inertia about y w.r.t. mass centroid" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@@ - job items -" \n
   "!! ------------------------------" \n
   \n
@@ -475,7 +475,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
 (define-skeleton apdl-skeleton-configuration
   "Configuration skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- configurations --" \n
   "!! ------------------------------" \n
   \n
@@ -513,7 +513,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
 (define-skeleton apdl-skeleton-view-settings
   "View settings skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- view settings --" \n
   "!! ------------------------------" \n
   \n
@@ -728,7 +728,7 @@ half:mirror" \n
 (define-skeleton apdl-skeleton-contact-definition
   "Contact definitons skeleton."
   nil
-  "!@ -------------------------------" \n
+  "!! -------------------------------" \n
   "!@@ -- General contact definitions (since Ansys 16) --" \n
   "!! -------------------------------" \n
   \n
@@ -751,7 +751,7 @@ contact definitons!" \n
   "elist !get sectionID and typeID" \n
   "/pnum,sect,on !display section type" \n
   \n
-  "!@ -------------------------------" \n
+  "!! -------------------------------" \n
   "!@@ -- Contact pair definitions --" \n
   "!! -------------------------------" \n
   \n
@@ -831,7 +831,7 @@ must be neg." \n
   "mp,mu,Contact,Mu" \n
   "mat,Contact" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- contact generation --" \n
   "!! ------------------------------" \n
   \n
@@ -884,7 +884,7 @@ must be neg." \n
 (define-skeleton apdl-skeleton-contact-rigid
   "Rigid contacts skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- rigid target creation --- " \n
   "!! ------------------------------" \n
   \n
@@ -1019,7 +1019,7 @@ type cylindrical" \n
 (define-skeleton apdl-skeleton-element-table
   "Element tables."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- Etables, element tables --" \n
   "!! ------------------------------" \n
   \n
@@ -1054,9 +1054,9 @@ averaged" \n
   "Minimal example of a modal analysis with beams"
   nil
   '(apdl-skeleton-header)
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ ------- Preprocessing --------" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/prep7" \n
   "!@@ -- Elements --" \n
   "Steel = 1" \n
@@ -1100,9 +1100,9 @@ averaged" \n
   "!! d,all,uy,-.1" \n
   "!! allsel" \n
   "!! save" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Solving ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/solu" \n
   "allsel" \n
   "antype,modal" \n
@@ -1114,9 +1114,9 @@ averaged" \n
   "" \n
   "/solu" \n
   "solve" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Postprocessing ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/post1" \n
   "/graphics,power ! for 3d result views" \n
   "set,list" \n
@@ -1134,7 +1134,7 @@ averaged" \n
 (define-skeleton apdl-skeleton-element-definition
   "Element definitions skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- element definitions --" \n
   "!! ------------------------------" \n
   \n
@@ -1164,7 +1164,7 @@ averaged" \n
   "keyopt,ID,1,0   ! (1)=0:reduced integr.2:enhanced strain for bending" \n
   "!! for most elements the radial direction is the x-axis" \n
   \n
-  "!@ -------------------------------" \n
+  "!! -------------------------------" \n
   "!@@ -- contact pair definitions --" \n
   "!! -------------------------------" \n
   \n
@@ -1250,7 +1250,7 @@ averaged" \n
 (define-skeleton apdl-skeleton-meshing
   "Meshing skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- meshing --" \n
   "!! ------------------------------" \n
   "shpp,off !switch off shape checking" \n
@@ -1532,7 +1532,7 @@ full (360 degree) area." \n
 (define-skeleton apdl-skeleton-geometry
   "Geometry definitons skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- geometry --" \n
   "!! ------------------------------" \n
   \n
@@ -1637,7 +1637,7 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-material-definition
   "Material definitons skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- material definitions --" \n
   "!! ------------------------------" \n
   \n
@@ -1828,7 +1828,7 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-component
   "Component (Named Selections in WorkBench) skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ --------- components --------" \n
   "!! ------------------------------" \n
   \n
@@ -1843,7 +1843,7 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-bc
   "Boundary conditions skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- boundary conditions --" \n
   "!! ------------------------------" \n
   \n
@@ -1959,7 +1959,7 @@ reflection normal to X,y,z"
   "nsel,s,ext ! select exterior nodes" \n
   "dsym,asym ! flux parallel to lines" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- plot BCs --" \n
   "!! ------------------------------" \n
   \n
@@ -1974,7 +1974,7 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-buckling
   "Buckling skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ - buckling -" \n
   "!! ------------------------------" \n
   \n
@@ -2000,7 +2000,7 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-solve
   "Solving /solu skeleton."
   nil
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- solution --- " \n
   "!! ==============================" \n
   \n
@@ -2064,13 +2064,13 @@ reflection normal to X,y,z"
   "antyp,,rest,1,last" \n
   "time,1.2 ! time at the end of load step" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- inertia --" \n
   "!! ------------------------------" \n
   \n
   "omega,,,2*Pi*Rpm/60 ! rotational ANGULAR velocity" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- modal --" \n
   "!! ------------------------------" \n
   \n
@@ -2078,7 +2078,7 @@ reflection normal to X,y,z"
   "modopt,lanb,10,10,1e10 ! method,No of modes,freqB,freqE" \n
   "mxpand" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- harmonic --" \n
   "!! ------------------------------" \n
   \n
@@ -2091,7 +2091,7 @@ reflection normal to X,y,z"
   "harfrq,,7.5               ! Frequency range from 0 to 7.5 HZ" \n
   "kbc,1                     ! Step boundary condition" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- linear buckling --" \n
   "!! ------------------------------" \n
   \n
@@ -2116,14 +2116,14 @@ reflection normal to X,y,z"
   "eplot" \n
   "!! nwrite,nodes,dat" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- magnetics --" \n
   "!! ------------------------------" \n
   \n
   "magsolv" \n
   \n
   "solve" \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- cyclic symmetry --" \n
   "!! ------------------------------" \n
   \n
@@ -2133,9 +2133,9 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-post1
   "Postprocessing /postXX skeleton."
   nil
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- post 1 ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   \n
   "/post1" \n
   "!! --- theory reference: Nodal and centroidal data evaluation ---" \n
@@ -2227,7 +2227,7 @@ reflection normal to X,y,z"
   "/show,close" \n
   "/erase" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- plot BCs --" \n
   "!! ------------------------------" \n
   \n
@@ -2236,7 +2236,7 @@ reflection normal to X,y,z"
   "/pbc,rfor,,1 ![0],1:show reaction forces" \n
   "/pbc,defa !reset /pbc" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- acoustics --" \n
   "!! ------------------------------" \n
   \n
@@ -2266,7 +2266,7 @@ reflection normal to X,y,z"
   "/window,2,on" \n
   "/erase" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- magnetics --" \n
   "!! ------------------------------" \n
   \n
@@ -2279,14 +2279,14 @@ reflection normal to X,y,z"
   "plvect,b,! induction vector plot" \n
   "fmagsum,'component_name'" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- modal --" \n
   "!! ------------------------------" \n
   \n
   "*get,Freq1,mode,1,freq! first eigenfrequency" \n
   "pldisp,2 !show deformed shape and undefomed (2) contours" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- harmonics --" \n
   "!! ------------------------------" \n
   \n
@@ -2321,7 +2321,7 @@ reflection normal to X,y,z"
   "!! anim,5,1" \n
   "/show,close" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- contact status --" \n
   "!! ------------------------------" \n
   \n
@@ -2339,9 +2339,9 @@ reflection normal to X,y,z"
   "set,last!first,next,previous" \n
   "set,2,last ! set,last,last does not work!" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ ---------- animations -------" \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   \n
   "plnsol,s,1" \n
   "/anfile,save !save/resume animation to/from jobname.anim" \n
@@ -2373,7 +2373,7 @@ reflection normal to X,y,z"
 (define-skeleton apdl-skeleton-output-to-file
   "In/Output to file skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- output to file --" \n
   "!! ------------------------------" \n
   "parsav,all ! [file.parm] write all scalar and array parameters to file " \n
@@ -2600,7 +2600,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 (define-skeleton apdl-skeleton-path-plot
   "Path plot skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- path plot --" \n
   "!! ------------------------------" \n
   \n
@@ -2627,7 +2627,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 (define-skeleton apdl-skeleton-post26
   "Time postprocessing /post26 skeleton."
   nil
-  "!@ -----------------------------------" \n
+  "!! -----------------------------------" \n
   "!@ --- time-history postprocessing ---" \n
   "!! -----------------------------------" \n
   \n
@@ -2698,7 +2698,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 (define-skeleton apdl-skeleton-array
   "Fields and arrays skeleton."
   nil
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- \"table\" arrays --" \n
   "!! ------------------------------" \n
   \n
@@ -2733,12 +2733,12 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*vstat ! list current values" \n
   "*vfun,mytab,copy,mytab" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@ -- arrays --" \n
   "!! ------------------------------" \n
   \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@@ -- string arrays --" \n
   "!! ------------------------------" \n
   \n
@@ -2751,7 +2751,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "File = 'eptoeqv_at_shaft_press-fit'" \n
   "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!@@@ -- Fortran arrays --" \n
   "!! ------------------------------" \n
   \n
@@ -2798,9 +2798,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Minimal running structural APDL template."
   nil ; no interactor needed
   '(apdl-skeleton-header)
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Preprocessing ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/prep7" \n
   "!@@ -- Elements --" \n
   "Steel = 1" \n
@@ -2821,14 +2821,14 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "d,all,uy,-.1" \n
   "allsel" \n
   "save" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Solving ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/solu" \n
   "solve" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Postprocessing ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/post1" \n
   "/view,,1,1,1" \n
   "plnsol,u,sum,2" \n
@@ -2840,9 +2840,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Minimum working structural contact APDL template."
   nil        ; no interactor needed
   '(apdl-skeleton-header)
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Preprocessing ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/prep7" \n
   "!@@ -- Elements --" \n
   "Steel = 1" \n
@@ -2894,15 +2894,15 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "sf,all,pres,1e3" \n
   "allsel" \n
   "save"  \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Solving ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/solu" \n
   "nsubst,10" \n
   "solve" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!@ --- Postprocessing ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "/post1" \n
   "plnsol,u,sum" \n
   \n)
@@ -2933,18 +2933,18 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 (define-skeleton apdl-skeleton-outline-template
   "Insert outline framework into an Ansys APDL file."
   "Insert brief purpose of file: "
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!" apdl-outline-string " --- Header ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   \n
   "!! FILENAME: " (buffer-file-name) \n
   "!! CREATION DATE: " (current-time-string) \n
   "!! Ansys VERSION: " apdl-current-ansys-version \n
   "!! DESCRIPTION: " str \n
   \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!" apdl-outline-string " --- Setup ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   \n
   "finish " \n
   "!/clear" \n
@@ -2954,11 +2954,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*afun,deg !Use degrees [rad] for input and output angular functions" \n
   "/title," \n
   \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!" apdl-outline-string " --- Preprocessing --- " \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string " -- Cad Import -- " \n
   "!! ------------------------------" \n
   \n
@@ -2969,7 +2969,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/title,new title" \n
   "!!otherwise the title is defined with the iges import" \n
   \n
-  "!@ ----------------------------------------" \n
+  "!! ----------------------------------------" \n
   "!" apdl-outline-string apdl-outline-string " -- General Preprocessing -- " \n
   "!! ----------------------------------------" \n
   \n
@@ -3001,32 +3001,32 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   apdl-outline-string " - Boundary conditions -" \n
   "!! .............................." \n
   \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!" apdl-outline-string " --- Solution --- " \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   \n
   "/solu" \n
   "allsel" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string
   " -- Solution controls -- " \n
   "!! ------------------------------" \n
   \n
   "!!/eof --- for batch runs only------------" \n
   \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   "!" apdl-outline-string " --- Postprocessing ---" \n
-  "!@ ==============================" \n
+  "!! ==============================" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string
   " -- General Postprocessing -- " \n
   "!! ------------------------------" \n
   \n
   "/post1" \n
   \n
-  "!@ ------------------------------" \n
+  "!! ------------------------------" \n
   "!" apdl-outline-string
   apdl-outline-string " -- Time-History Postprocessing --" \n
   "!! ------------------------------" \n

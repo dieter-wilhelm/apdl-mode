@@ -2,17 +2,16 @@ APDL, [[https://de.wikipedia.org/wiki/ANSYS_Parametric_Design_Language][Ansys Pa
 language of the mechanical FEA, Finite Element Analysis suite [[http://www.ansys.com][Ansys]],
 ANalysis SYStem, registered TM.
 
-APDL-Mode, formerly Ansys-Mode, is - in conjunction with the [[https://www.gnu.org/software/emacs/][GNU-Emacs]]
-editor - an advanced APDL environment with features like, pin-pointing
-the APDL reference documentation, keyword completion, code templates,
-dedicated highlighting, solver communication (GNU-Linux only), license
-reporting, etc.  Over the years it has accumulated lots of features
-for writing and debugging complete FEA models in APDL code. Please
-convince yourself with the APDL-Mode in-depth documentation.
+APDL-Mode, is - in conjunction with the [[https://www.gnu.org/software/emacs/][GNU-Emacs]] editor - an advanced
+APDL environment with features like, pin-pointing the APDL reference
+documentation, keyword completion, code templates and code outlining /
+folding, dedicated highlighting, solver communication (GNU-Linux
+only), license reporting, etc.  Please convince yourself with the
+APDL-Mode in-depth documentation.
 
 With the advent of the modern Ansys GUIs - like `WorkBench' or
 `Discovery' - the usage of APDL as a wholesale modelling language has
-vaned for highly variable tasks which are hard to script.  But,
+vaned for highly variable tasks which are expensive to script.  But,
 nevertheless, APDL is here to stay: `WorkBench' operates exclusively
 the Ansys solver with it!  It assembles and sends APDL input (.dat)
 files to the solver.  For a true understanding of the GUI's inner
@@ -20,11 +19,11 @@ workings a study of their APDL code is prerequisite!  Moreover,
 WorkBench is not supporting all MAPDL solver features.  So "Command
 (APDL)" objects are used to enhance the GUI's modelling capabilities.
 
-APDL-Mode is very useful for studying solver (.dat) files which were
-created by WorkBench.  And, especially, for writing WorkBench
+APDL-Mode is equally useful for studying solver (.dat) files which
+were created by WorkBench.  And, especially, for writing WorkBench
 `Command' objects and inspecting longer command snippets from other
 sources.  Accessing the Ansys APDL reference documentation without
-detour - this alone - is worth using APDL-Mode!
+detour - this alone - is worth using APDL-Mode.
 
 When you "Export" (or "Import") such a WorkBench "Command (APDL)"
 object, it becomes associated with a file on disk and is accessible

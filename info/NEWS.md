@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0, 15 years of APDL-Mode!](#org09e3c08)
-2.  [Version 20.5.0](#orge49fe71)
-3.  [Version 20.4.0](#org78ec11d)
-4.  [Version 20.3.0](#org94284c8)
-5.  [Version 20.2.0](#org377a35f)
-6.  [Version 20.1.1](#org9282bf3)
-7.  [Version 20.1.0](#orgaad0dd7)
-8.  [Version 162-1](#org620685c)
-9.  [Version 16.1.1](#org768a256)
-10. [Version 15.0.1](#org4001f93)
-11. [Version 14.5.2](#orgcfe52bd)
-12. [Version 14.5.1](#org3775ff8)
-13. [Version 14.0.1](#org3d7fa3c)
-14. [Version 13.0.1](#orgaec2512)
-15. [Version 12.0.1](#orge6eb107)
-16. [Version 11.0.2](#org8e63301)
-17. [ansys-mode.el 11.0.1](#orgf11dd10)
+1.  [Version 20.6.0, 15 years of APDL-Mode!](#orgf3e3298)
+2.  [Version 20.5.0](#orgd5089d7)
+3.  [Version 20.4.0](#org094c0b5)
+4.  [Version 20.3.0](#orga43e472)
+5.  [Version 20.2.0](#orga1ac009)
+6.  [Version 20.1.1](#org3e066b8)
+7.  [Version 20.1.0](#org893ae94)
+8.  [Version 162-1](#orgdf4688a)
+9.  [Version 16.1.1](#org9d4e60f)
+10. [Version 15.0.1](#org2f08fbd)
+11. [Version 14.5.2](#org0580b99)
+12. [Version 14.5.1](#org8990f67)
+13. [Version 14.0.1](#org11ee366)
+14. [Version 13.0.1](#orga4dbee3)
+15. [Version 12.0.1](#org6c30290)
+16. [Version 11.0.2](#org141dfb3)
+17. [ansys-mode.el 11.0.1](#org95a9200)
 
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
 
-<a id="org09e3c08"></a>
+<a id="orgf3e3298"></a>
 
 # Version 20.6.0, 15 years of APDL-Mode!
 
@@ -38,7 +38,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     having a file under \`apdl-mode')
 
 
-<a id="orge49fe71"></a>
+<a id="orgd5089d7"></a>
 
 # Version 20.5.0
 
@@ -55,7 +55,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 -   Added a menu entry for opening the main Ansys online help page.
 
 
-<a id="org78ec11d"></a>
+<a id="org094c0b5"></a>
 
 # Version 20.4.0
 
@@ -66,12 +66,12 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     entry APDL-Mode Online Documentation to APDL-Mode Documentation
     (C-c C-h) which points to the GNU-Emacs internal Info Viewer.
 -   Added a menu entry for displaying the user's taken licenses
--   Files with the suffixes ".mac", ".dat" and ".inp" are openend in
+-   Files with the suffixes ".mac", ".dat" and ".inp" are opened in
     apdl-mode without further user configuration.
 -   Added additional keys for the license status functions
 
 
-<a id="org94284c8"></a>
+<a id="orga43e472"></a>
 
 # Version 20.3.0
 
@@ -84,18 +84,18 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 -   EWW browser for the local help is now opening in a different
     "Window" and is not hiding the APDL buffer any longer
 -   Added Ruler Mode to the helper modes
--   Added customisation section for Worbench / Discover Aim templates
+-   Added customisation section for Workbench / Discover Aim templates
 -   Improved initialisation of Ansys installation dependent
     parameters
 
 
-<a id="org377a35f"></a>
+<a id="orga1ac009"></a>
 
 # Version 20.2.0
 
 2020-03, Updated keywords to Ansys v195
 
--   Added a template preview system for Worbench \`Command (APDL)'
+-   Added a template preview system for Workbench \`Command (APDL)'
     objects with the keybinding \`C-c C-w' (this keybinding was
     formerly used for starting WorkBench).
 -   Improved the automated configuration of Ansys installation
@@ -109,18 +109,18 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     because of speed reasons.
 
 
-<a id="org9282bf3"></a>
+<a id="org3e066b8"></a>
 
 # Version 20.1.1
 
-2020-02, Bugfix release
+2020-02, Bug-fix release
 
 -   Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual
--   Improved configuration docu
+-   Improved configuration documentation
 -   Enabled EWW (and other browsers) as a "help viewer"
 
 
-<a id="orgaad0dd7"></a>
+<a id="org893ae94"></a>
 
 # Version 20.1.0
 
@@ -128,7 +128,7 @@ Released  2020-02
 
 -   Changed the name to APDL-Mode
 -   Changed version naming scheme (package.el format)
--   Installation now with Emacs' packageing system
+-   Installation now with Emacs' packaging system
 -   Added key-bindings to the license buffer ****Licenses**** (C-c C-l)
     o - occur search
     g - refresh license status
@@ -137,7 +137,7 @@ Released  2020-02
 -   Better warning for C-c C-b when A-M is not configured
 
 
-<a id="org620685c"></a>
+<a id="orgdf4688a"></a>
 
 # Version 162-1
 
@@ -168,7 +168,7 @@ not yet released, targeted for Sep 2015
 -   Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 
-<a id="org768a256"></a>
+<a id="org9d4e60f"></a>
 
 # Version 16.1.1
 
@@ -200,7 +200,7 @@ July 2015
     example.mac.  Included an example.dat and example.anf
 
 
-<a id="org4001f93"></a>
+<a id="org2f08fbd"></a>
 
 # Version 15.0.1
 
@@ -219,7 +219,7 @@ Aug 2014
     e. g. partial solutions with psolve for mass calculations.
 
 
-<a id="orgcfe52bd"></a>
+<a id="org0580b99"></a>
 
 # Version 14.5.2
 
@@ -251,7 +251,7 @@ Mar 2013
     added a beam simulation template
 
 
-<a id="org3775ff8"></a>
+<a id="org8990f67"></a>
 
 # Version 14.5.1
 
@@ -309,7 +309,7 @@ Sep 2012
     under the nint() entry
 
 
-<a id="org3d7fa3c"></a>
+<a id="org11ee366"></a>
 
 # Version 14.0.1
 
@@ -338,7 +338,7 @@ June 2012
     additionally the installation directory (ansys-install-directory).
 
 
-<a id="orgaec2512"></a>
+<a id="orga4dbee3"></a>
 
 # Version 13.0.1
 
@@ -359,7 +359,7 @@ March 2011
     etc. to release 13.0 of Ansys, as usual.
 
 
-<a id="orge6eb107"></a>
+<a id="org6c30290"></a>
 
 # Version 12.0.1
 
@@ -403,7 +403,7 @@ Dec 2010
     transition from other editors
 
 
-<a id="org8e63301"></a>
+<a id="org141dfb3"></a>
 
 # Version 11.0.2
 
@@ -418,7 +418,7 @@ Nov 2009
     ansys-query-ansys-command (C-c C-q).
 
 
-<a id="orgf11dd10"></a>
+<a id="org95a9200"></a>
 
 # ansys-mode.el 11.0.1
 

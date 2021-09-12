@@ -11,7 +11,7 @@ APDL-Mode in-depth documentation.
 
 With the advent of the modern Ansys GUIs - like `WorkBench' or
 `Discovery' - the usage of APDL as a wholesale modelling language has
-vaned for highly variable tasks which are expensive to script.  But,
+waned for highly variable tasks which are expensive to script.  But,
 nevertheless, APDL is here to stay: `WorkBench' operates exclusively
 the Ansys solver with it!  It assembles and sends APDL input (.dat)
 files to the solver.  For a true understanding of the GUI's inner

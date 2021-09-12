@@ -2,7 +2,7 @@ Please type `M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's `APDL' and `MAPDL' entries.  For existing
 APDL files please type `M-x apdl-mode' if the mode is not activated
 already, please see in [[Configuration and Customisation]],
-the section regarding pre-configured file suffixes.
+the section regarding preconfigured file suffixes.
 # @@texinfo:@ref{Configuration and Customisation}@@,
 
 For further guidance please select the APDL menu `APDL-Mode

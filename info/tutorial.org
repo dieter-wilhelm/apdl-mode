@@ -4,7 +4,7 @@ Let’s assume you wrote some APDL command and want to check its
 parameters.  In the menu bar use the "APDL" pull-down menu with the
 entry "Show APDL Command Help".  The menu shows also the keyboard
 shortcut for accessing this command ‘M-?’.  You need to know that
-Gnu-Emacs is abreviating certain key sequences M-? means typing the
+Gnu-Emacs is abbreviating certain key sequences M-? means typing the
 control key <ALT> and the regular key ‘?’ simultaneously.
 
 GNU-Emacs provides also a third, so called interactive way to access
@@ -40,7 +40,7 @@ hyperlinks to further help, a mouse click or typing the <RET> key,
 when the cursor is on them (you can skip to these links with the <TAB>
 key) will display their respective help strings.
 
-In case something unintended happend to your code you are always able
+In case something unintended happened to your code you are always able
 to resort to the Emacs ‘undo’ functionality from the "Edit" menu or by
 typing ‘C-x u’. @@texinfo:@inforef{Top,,emacs}@@ for the complete
 editor documentation.

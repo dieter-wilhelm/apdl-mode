@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2021-09-09>
+#+DATE: Time-stamp: <2021-09-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+OPTIONS: H:1 texht:t
 # #+BEAMER_COLOR_THEME:
@@ -401,7 +401,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 # *** Licensing and costs:
    - Licensing and costs: :: This is free and open software, there are
 	*no costs* and effectively *no restrictions* for you using
-	Emacs and APDL-Mode - even - commerically.  Both are under the
+	Emacs and APDL-Mode - even - commercially.  Both are under the
 	[[http://www.gnu.org/licenses/gpl-3.0.en.html][GPL, the Gnu Puplic License]] copied in the /LICENSE.org/ file.
 # # ATTENTION: \pdfannot does not work in this environment!!!!
 # *** Installation:

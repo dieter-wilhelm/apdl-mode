@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2021-08-30>
+#+DATE: Time-stamp: <2021-09-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -67,7 +67,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    licensed Ansys product.  I recommend installing the local Ansys
    documentation package, access time is much shorter.
 
-   The image below is showing a manual entry in GNU-Emacs' eww
+   The image below is showing a manual entry in GNU-Emacs' EWW
    browser.  You are able to consult the manuals side-by-side your
    APDL code.
 

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-30>
+#+DATE: Time-stamp: <2021-09-12 12:35:17 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -56,7 +56,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    That's it.
 
    *Hint:* If you are getting an error message "package.el is not yet
-   initialized", you are using Emacs' packaging system for the very
+   initialised", you are using Emacs' packaging system for the very
    first time.  It is necessary to initialise this machinery once,
    please type: `M-: (package-initialize) <RET>' (it's an 'ALT + :'
    colon!)  and then apply `M-x package-install-file <RET>' again.
@@ -67,7 +67,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    #+begin_src sh
      git clone https://github.com/dieter-wilhelm/apdl-mode.git
    #+end_src
-   or download the Github ZIP archive and add the following line
+   or download the GitHub ZIP archive and add the following line
    #+begin_src elisp
    (require 'apdl-mode)
    #+end_src

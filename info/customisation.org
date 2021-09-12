@@ -1,20 +1,18 @@
 For a compilation (and respective documentation) of available
-APDL-Mode customisations it's best to open the mode's
-customisation buffer either with the command
-`apdl-customise-ansys' or from the menu bar -> 'APDL' ->
-'Customise APDL Mode' and check interesting options.
+APDL-Mode customisation it's best to open the mode's customisation
+buffer either with the command `apdl-customise-ansys' or from the menu
+bar -> 'APDL' -> 'Customise APDL Mode' and check interesting options.
 
 Another way getting to the customisation facility is to open the
 specific documentation of respective variables.  Let's change for
-example the highlighting level which is stored in the
-customisation variable `apdl-highlighting-level'.  Click on the
-hyperlink and you will be presented with its help buffer in which
-you should click on the underlined word 'customize' at the
-bottom.  Then you have the convenient customisation
-functionalities for this particular variable at hand.  You can
-set the value for the current session or add your choices
-automatically in a .emacs file (the configuration file in your
-home directory) for futur sessions as well.
+example the highlighting level which is stored in the customisation
+variable `apdl-highlighting-level'.  Click on the hyperlink and you
+will be presented with its help buffer in which you should click on
+the underlined word 'customize' at the bottom.  Then you have the
+convenient customisation functionalities for this particular variable
+at hand.  You can set the value for the current session or add your
+choices automatically in your initialisation file (often .emacs, the
+emacs-lisp file in your home directory) for future sessions as well.
 
 Alternatively you might include the following Elisp code snippet
 

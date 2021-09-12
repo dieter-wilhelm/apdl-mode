@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org671ca9d)
-2.  [Important Prerequisite](#orgb2bc4d7)
-3.  [File suffixes](#orgc889dfa)
-4.  [Auto insertion](#org0691936)
-5.  [Miscellaneous](#orgdd2686d)
-6.  [Outlining](#org381fa1c)
-7.  [Highlighting (Colourisation)](#org1232b00)
-8.  [Installation dependent configurations](#org3790f7a)
-9.  [Ansys processes](#org4881cfe)
+1.  [Conventions](#orgf494c47)
+2.  [Important Prerequisite](#orgb94edff)
+3.  [File suffixes](#org90442bc)
+4.  [Auto insertion](#org6009fb8)
+5.  [Miscellaneous](#orga0ce52d)
+6.  [Outlining](#orge3684af)
+7.  [Highlighting (Colourisation)](#org7e62e81)
+8.  [Installation dependent configurations](#org6c2a1b7)
+9.  [Ansys processes](#org114756e)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -19,12 +19,12 @@ chooses by default the highest installed Ansys version on your system.
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-You can change the APDL-Mode confgurations permanently by 1. using the
-Emacs customistation system
+You can change the APDL-Mode configurations permanently by 1. using
+the Emacs customisation system
 
 or 2. by directly manipulating the Emacs configuration file
 
-1.  For an overview of available APDL-Mode customisations variables
+1.  For an overview of available APDL-Mode customisation's variables
     it’s easiest to open the APDL-Mode’s customisation buffer either
     with the command ‘M-x apdl-customise-apdl’ or from the menu bar
     -> ’APDL’ -> ’Customise APDL Mode’ and search for interesting
@@ -44,7 +44,7 @@ or 2. by directly manipulating the Emacs configuration file
     is `;` (one semi-colon \`;').
 
 
-<a id="org671ca9d"></a>
+<a id="orgf494c47"></a>
 
 # Conventions
 
@@ -58,14 +58,14 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="orgb2bc4d7"></a>
+<a id="orgb94edff"></a>
 
 # Important Prerequisite
 
-For using Ansys processes, like getting license informations, the
+For using Ansys processes, like getting license information, the
 Ansys Installation path with version information is necessary.
 APDL-Mode is looking in different places and is using environment
-variables to detect your Asys installation but if you have a non
+variables to detect your Ansys installation but if you have a non
 default installation it might not be able to find it.  In that case
 please configure your installation path up to and including the
 Ansys versioning number.
@@ -84,10 +84,10 @@ the MAPDL menu entry "Change Installation Directory".
 
 If your Ansys installation differs completely from the standard
 Ansys directory structure, or if you want to use multiple versions of
-Ansys, then please consult the section [Installation dependent configurations](#org3790f7a).
+Ansys, then please consult the section [Installation dependent configurations](#org6c2a1b7).
 
 
-<a id="orgc889dfa"></a>
+<a id="org90442bc"></a>
 
 # File suffixes
 
@@ -109,7 +109,7 @@ With the following setting
 
     (add-to-list 'auto-mode-alist '("\\.apdl$" . apdl-mode))
 
-files with the suffix *.apdl* will be opended under APDL-Mode.
+files with the suffix *.apdl* will be opened under APDL-Mode.
 
 
 ## WorkBench generated input files
@@ -124,8 +124,8 @@ suffixes under apdl-mode.
 ## The Ansys Neutral file format
 
 *.anf* is the suffix for "Ansys Neutral" files which include mostly
-gometric data but also some APDL snippets. These files are used for
-imports, see the file *example.anf* in the *doc* folder.
+geometric data but also some APDL snippets. These files are used
+for imports, see the file *example.anf* in the *doc* folder.
 
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
@@ -158,7 +158,7 @@ imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="org0691936"></a>
+<a id="org6009fb8"></a>
 
 # Auto insertion
 
@@ -180,7 +180,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="orgdd2686d"></a>
+<a id="orga0ce52d"></a>
 
 # Miscellaneous
 
@@ -231,11 +231,11 @@ section).
     (setq apdl-username "myUserID") 		; new in 20.4.0
 
 
-<a id="org381fa1c"></a>
+<a id="orge3684af"></a>
 
 # Outlining
 
-Activating outline minor mode for selectively hiding and unhiding
+Activating outline minor mode for selectively hiding and revealing
 code sections:
 
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -247,7 +247,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="org1232b00"></a>
+<a id="org7e62e81"></a>
 
 # Highlighting (Colourisation)
 
@@ -270,8 +270,8 @@ below).
 ## Decoration levels
 
 Decoration levels 0,1,2 are available.  User variable highlighting
-is only in level 2 available (statical, if above flag is not set),
-the current default is 2.
+is only in level 2 available (statically, if above flag is not
+set), the current default is 2.
 
 
 ## Summary
@@ -300,7 +300,7 @@ the current default is 2.
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org3790f7a"></a>
+<a id="org6c2a1b7"></a>
 
 # Installation dependent configurations
 
@@ -330,7 +330,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org4881cfe"></a>
+<a id="org114756e"></a>
 
 # Ansys processes
 

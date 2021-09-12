@@ -1,5 +1,5 @@
 
-#+DATE: Time-stamp: <2021-08-30>
+#+DATE: Time-stamp: <2021-09-12>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -39,14 +39,14 @@ chooses by default the highest installed Ansys version on your system.
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
 ".mac", ".dat" and ".inp" under apdl-mode.
 
-You can change the APDL-Mode confgurations permanently by 1. using the
-Emacs customistation system
+You can change the APDL-Mode configurations permanently by 1. using
+the Emacs customisation system
 #+texinfo: @inforef{Easy Customization,,emacs}
 or 2. by directly manipulating the Emacs configuration file
 #+texinfo: @inforef{Init File,,emacs}.
 
 
-  1. For an overview of available APDL-Mode customisations variables
+  1. For an overview of available APDL-Mode customisation's variables
      it’s easiest to open the APDL-Mode’s customisation buffer either
      with the command ‘M-x apdl-customise-apdl’ or from the menu bar
      -> ’APDL’ -> ’Customise APDL Mode’ and search for interesting
@@ -128,10 +128,10 @@ or 2. by directly manipulating the Emacs configuration file
   #+END_SRC
 
 * Important Prerequisite
-  For using Ansys processes, like getting license informations, the
+  For using Ansys processes, like getting license information, the
   Ansys Installation path with version information is necessary.
   APDL-Mode is looking in different places and is using environment
-  variables to detect your Asys installation but if you have a non
+  variables to detect your Ansys installation but if you have a non
   default installation it might not be able to find it.  In that case
   please configure your installation path up to and including the
   Ansys versioning number.
@@ -203,7 +203,7 @@ or 2. by directly manipulating the Emacs configuration file
     (add-to-list 'auto-mode-alist '("\\.apdl$" . apdl-mode))
   #+END_SRC
 
-  files with the suffix /.apdl/ will be opended under APDL-Mode.
+  files with the suffix /.apdl/ will be opened under APDL-Mode.
 ** WorkBench generated input files
    /.dat/ and /.inp/ are WorkBench's solver input file suffixes.  See
    the file /example.dat/ in the /doc/ folder.
@@ -218,8 +218,8 @@ or 2. by directly manipulating the Emacs configuration file
 
 ** The Ansys Neutral file format
    /.anf/ is the suffix for "Ansys Neutral" files which include mostly
-   gometric data but also some APDL snippets. These files are used for
-   imports, see the file /example.anf/ in the /doc/ folder.
+   geometric data but also some APDL snippets. These files are used
+   for imports, see the file /example.anf/ in the /doc/ folder.
 
    #+BEGIN_SRC emacs-lisp
    (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
@@ -372,7 +372,7 @@ or 2. by directly manipulating the Emacs configuration file
 #+END_SRC
 
 * Outlining
-  Activating outline minor mode for selectively hiding and unhiding
+  Activating outline minor mode for selectively hiding and revealing
   code sections:
 
 #+BEGIN_SRC emacs-lisp :tangle yes
@@ -404,8 +404,8 @@ or 2. by directly manipulating the Emacs configuration file
 
 ** Decoration levels
    Decoration levels 0,1,2 are available.  User variable highlighting
-   is only in level 2 available (statical, if above flag is not set),
-   the current default is 2.
+   is only in level 2 available (statically, if above flag is not
+   set), the current default is 2.
 
 ** Summary
 #+BEGIN_SRC emacs-lisp :tangle yes

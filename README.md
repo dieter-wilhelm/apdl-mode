@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#orge275383)
-2.  [Some Highlights](#org202bcc1)
-3.  [Installation](#org404d2fe)
-4.  [First Step](#org453af5c)
-5.  [Configuration and Customisation](#orgfdcd4fa)
-6.  [Bugs and Problems](#org0dcf318)
-7.  [News](#orgf918a24)
-8.  [Further Resources](#orgc17cd6e)
-9.  [Acknowledgements](#org029ee7a)
-10. [Todos](#org049269e)
-11. [GNU GPL v3 License](#org116910c)
+1.  [Introduction](#org9dc145c)
+2.  [Some Highlights](#orge5aad33)
+3.  [Installation](#org55d6875)
+4.  [First Step](#org26e7cb8)
+5.  [Configuration and Customisation](#org51b42a9)
+6.  [Bugs and Problems](#org060affd)
+7.  [News](#org4297cf3)
+8.  [Further Resources](#orgada3251)
+9.  [Acknowledgements](#org3b2f1c7)
+10. [Todos](#orga4baf7d)
+11. [GNU GPL v3 License](#org03c4be0)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="orge275383"></a>
+<a id="org9dc145c"></a>
 
 # Introduction
 
@@ -44,7 +44,7 @@ APDL-Mode in-depth documentation.
 
 With the advent of the modern Ansys GUIs - like \`WorkBench' or
 \`Discovery' - the usage of APDL as a wholesale modelling language has
-vaned for highly variable tasks which are expensive to script.  But,
+waned for highly variable tasks which are expensive to script.  But,
 nevertheless, APDL is here to stay: \`WorkBench' operates exclusively
 the Ansys solver with it!  It assembles and sends APDL input (.dat)
 files to the solver.  For a true understanding of the GUI's inner
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org202bcc1"></a>
+<a id="orge5aad33"></a>
 
 # Some Highlights
 
@@ -95,7 +95,7 @@ you must register or you must start the online help once from any
 licensed Ansys product.  I recommend installing the local Ansys
 documentation package, access time is much shorter.
 
-The image below is showing a manual entry in GNU-Emacs' eww
+The image below is showing a manual entry in GNU-Emacs' EWW
 browser.  You are able to consult the manuals side-by-side your
 APDL code.
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org404d2fe"></a>
+<a id="org55d6875"></a>
 
 # Installation
 
@@ -181,7 +181,7 @@ install APDL-Mode manually:
 That's it.
 
 **Hint:** If you are getting an error message "package.el is not yet
-initialized", you are using Emacs' packaging system for the very
+initialised", you are using Emacs' packaging system for the very
 first time.  It is necessary to initialise this machinery once,
 please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'
 colon!)  and then apply \`M-x package-install-file <RET>' again.
@@ -194,7 +194,7 @@ choice:
 
     git clone https://github.com/dieter-wilhelm/apdl-mode.git
 
-or download the Github ZIP archive and add the following line
+or download the GitHub ZIP archive and add the following line
 
     (require 'apdl-mode)
 
@@ -202,15 +202,15 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org453af5c"></a>
+<a id="org26e7cb8"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#orgfdcd4fa),
-the section regarding pre-configured file suffixes.
+already, please see in [5](#org51b42a9),
+the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
 Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
@@ -221,7 +221,7 @@ APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
 Emacs-27 under GNU-Linux and Windows.
 
 
-<a id="orgfdcd4fa"></a>
+<a id="org51b42a9"></a>
 
 # Configuration and Customisation
 
@@ -237,7 +237,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org0dcf318"></a>
+<a id="org060affd"></a>
 
 # Bugs and Problems
 
@@ -258,14 +258,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orgf918a24"></a>
+<a id="org4297cf3"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgc17cd6e"></a>
+<a id="orgada3251"></a>
 
 # Further Resources
 
@@ -273,7 +273,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org029ee7a"></a>
+<a id="org3b2f1c7"></a>
 
 # Acknowledgements
 
@@ -288,14 +288,14 @@ I received, moreover, support and feedback from many individuals.
 Thank you very much!
 
 
-<a id="org049269e"></a>
+<a id="orga4baf7d"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org116910c"></a>
+<a id="org03c4be0"></a>
 
 # GNU GPL v3 License
 

@@ -1,6 +1,6 @@
 * Finding Help to APDL keywords
   Firstly with an in-buffer display of a brief command help and
-  secondly browsing the complete Ansys html documentation.
+  secondly browsing the complete Ansys HTML documentation.
 ** Command Help with Argument Counter
    Typing "M-?", the <ALT> key simultaneously with the "?" the
    question mark (for the command ‘apdl-show-command-parameters’)
@@ -71,9 +71,9 @@
 
    Type the first letter or letters of an APDL command, function or
    element name and use the key binding "C-M-i" to let the function
-   ‘apdl-complete-symbol’ do the (case sensitve) completion for you.
+   ‘apdl-complete-symbol’ do the (case sensitive) completion for you.
    Depending on the case of your letter or letters to be completed, you
-   will get a downcased, upcased or capitalised completion.
+   will get a down-cased, up-cased or capitalised completion.
 
    There are around 2000 APDL symbols available for completion.
    Undocumented APDL commands and deprecated element types are also
@@ -93,7 +93,7 @@
    window.
 
 ** Comment Handling
-    commenting/un- of whole paragraphs.
+    commenting/un- for example of whole paragraphs.
 
   - "M-;" calls ‘comment-dwim’ (Do What I Mean ;-):
 
@@ -114,9 +114,9 @@
   ’!’ (‘apdl-comment-char’) at column
   ‘apdl-code-comment-column’ (if possible).
 
-  In comment lines ’!! ’ with two comment
-  characters (‘apdl-indent-comment-string’) breaks the comment and
-  begins a the same comment style at the the current indentation.
+  In comment lines ’!! ’ with two comment characters
+  (‘apdl-indent-comment-string’) breaks the comment and begins a the
+  same comment style at the current indentation.
 
   In an empty line or a line without comment: Just inserts a new
   line.
@@ -142,7 +142,7 @@
    version of a do loop without requesting user input (‘ansys_do’).
    You can see all the predefined abbreviations with "‘?", i. e. a
    question mark "?"  after the backquote "‘".  Alternatively you might
-   use the menu entry "List Mode Abbbreviations" or the command ‘M-x
+   use the menu entry "List Mode Abbreviations" or the command ‘M-x
    list-abbrevs <RET>’ to inspect all definitions.
 
    In Emacs you can define your own abbreviations.
@@ -154,7 +154,7 @@
    You can customise the indentation depth (APDL Block Offset), please
    have a look for the entry ’Customise APDL Mode’ in the APDL-Mode
    menu.  The Emacs customisation facility optionally saves your
-   choices automatically in your .emacs file for later sessions.
+   choices automatically in your init (.emacs) file for later sessions.
 
 ** Closing of Control Blocks
    (*do, *if, ...) with the insertion of appropriate end keywords
@@ -185,8 +185,8 @@
 ** Auto-insertion
    of code templates into new APDL files.
 
-   Put the following section in your .emacs file, in case you want
-   to to include above skeleton (optionally) for every APDL file.
+   Put the following section in your init (.emacs) file, in case you
+   want to to include above skeleton (optionally) for every APDL file.
 
    #+begin_src emacs-lisp
    (auto-insert-mode 1)
@@ -204,22 +204,24 @@
 
   "M-n" -- ‘apdl-next-code-line’ and
   "M-p" -- ‘apdl-previous-code-line’
-  are going to the next/previous code line, skipping intermediate
+
+  Are going to the next/previous code line, skipping intermediate
   comments and empty lines.
 
   The following block navigation commands are analogous to Emacs’
-  inbuilt list/sexp navigiation.
+  inbuilt list/sexp (expressions in parentheses / balanced expression)
+  navigation.
 
   "C-M-f" -- ‘apdl-next-block-end’
-  "C-M-b" --‘apdl-previous-block-start-and-conditional’ Above commands are
-  skipping to the next/previous block end/start keyword regardless
-  where you are already in the block structure.
-  "C-M-b" for the
-  function ‘apdl-previous-block-start-and-conditional’ finds also
-  *IF commands without bases of the keyword ’THEN’; furthermore
-  *CYCLE and *EXIT looping controls.  These provide APDL constructs
-  but represent no block depth and therefore are not considered
-  when applying the following navigation commands.
+  "C-M-b" --‘apdl-previous-block-start-and-conditional’
+
+  Above commands are skipping to the next/previous block end/start
+  keyword regardless where you are already in the block structure.
+  "C-M-b" for the function ‘apdl-previous-block-start-and-conditional’
+  finds also *IF commands without bases of the keyword ’THEN’;
+  furthermore *CYCLE and *EXIT looping controls.  These provide APDL
+  constructs but represent no block depth and therefore are not
+  considered when applying the following navigation commands.
 
   "C-M-n" -- ‘apdl-skip-block-forward’
   "C-M-p" -- ‘apdl-skip-block-backwards’
@@ -243,14 +245,14 @@
 ** Hiding Number Blocks
   You can also hide and unhide these - usually uninteresting - blocks
   with M-x `apdl-hide-number-blocks' and M-x `apdl-show-number-blocks'
-  respectively or even a region of your (un)liking with M-x
+  respectively or even a region of your (dis)liking with M-x
   `apdl-hide-region'.  In files with the suffix ‘.dat’ number blocks
   are hidden by default.
 
 ** Outlining
    (folding and expanding) code sections.
 
-   If you are using the pre-configured APDL-Mode then function
+   If you are using the preconfigured APDL-Mode then function
    ‘outline-minor-mode’ is switched on by default.
 
    With this mode you can hide certain sections of your code or
@@ -270,7 +272,7 @@
    current session by ticking on the respective option in the menu or
    permanently by setting ‘apdl-outline-minor-mode’ for the
    ‘apdl-mode-hook’ variable.  Please type "M-x apdl-customise-apdl
-   <RET>" or use the customisaton system from the menu: ->APDL
+   <RET>" or use the customisation system from the menu: ->APDL
    ->Customise APDL Mode.
 
 * Variable Definitions
@@ -304,40 +306,40 @@
   The highlighting in the highest decoration level (please refer to
   ‘apdl-highlighting-level’) tries to follow the idiosyncratic
   Ansys solver/interpreter logic as closely as possible.  For
-  example: ’* ’, an asterisk with following whitespace(s), is still
+  example: ’* ’, an asterisk with following white-space(s), is still
   a valid APDL comment operator (although deprecated, see the Ansys
   manual for the *LET command).
 
-  The fontification distinguishes between APDL commands, undocumented
-  commands, parametric- and get-functions, elements (optionally also
-  user variables) and deprecated elements.  In case of arbitrary
-  characters after the command names, they are still highlighted,
-  since these characters are ignored by the Ansys APDL intepreter.
+  The font colourisation distinguishes between APDL commands,
+  undocumented commands, parametric- and get-functions, elements
+  (optionally also user variables) and deprecated elements.  In case
+  of arbitrary characters after the command names, they are still
+  highlighted, since these characters are ignored by the Ansys APDL
+  interpreter.
 
   A macro is in the Ansys parlance some file with APDL code. In
   this sense it is used in the following documentation.
   Additionally you can create keyboard macros in Emacs to fasten
-  your edinting, please see ‘kmacro-start-macro’.
+  your editing, please see ‘kmacro-start-macro’.
 
   APDL macro variables beginning with an underscore might be APDL
-  reserved variables and therefore are higlighted in a warning
-  face.  Another example is the percent sign, its highlighting
-  reminds you that the use of such a pair around a parameter name
-  might force a parameter substitution, e. g. with the assignment
-  ’I=5’ and ’/com,TEST%I%’, the /com command outputs TEST5.
+  reserved variables and therefore are highlighted in a warning face.
+  Another example is the percent sign, its highlighting reminds you
+  that the use of such a pair around a parameter name might force a
+  parameter substitution, e. g. with the assignment ’I=5’ and
+  ’/com,TEST%I%’, the /com command outputs TEST5.
 
   In the context of pairs of ’%’ characters, you can also input
-  various pairs with keyboard shortcuts, e. g. apostrophies for
-  APDL character parameters with ‘C-c’, please have a look which
-  bindings are available with "C-h b" (for
-  ‘describe-bindings’).
+  various pairs with keyboard shortcuts, e. g. apostrophes for APDL
+  character parameters with ‘C-c’, please have a look which bindings
+  are available with "C-h b" (for ‘describe-bindings’).
 
   The format strings of *MSG, *MWRITE, *VWRITE and *VREAD are also
   highlighted (in decoration levels 2, again please refer to
   ‘apdl-highlighting-level’).  Below is a summary of the C-format
   descriptors which can be used for above commands.  (with these
   format descriptors there are no parentheses needed in contrast to
-  less general fortran ones):
+  less general FORTRAN ones):
 
   %I                 Integer data
   %F                 Floating point format
@@ -384,7 +386,7 @@
 
   Even when there is no buffer under APDL-Mode, after starting Emacs,
   for example, it is possible to run selected APDL-Mode services.  You
-  might run the licsense status from the mini-buffer with "M-x"
+  might run the license status from the mini-buffer with "M-x"
   `apdl-license-status' instead of calling it from the menu or with
   C-c C-l in an APDL-Mode buffer.  Here is the list of commands which
   are available from the mini-buffer without activating APDL-Mode:
@@ -444,7 +446,7 @@
    default since Ansys 19.
 
  - You might also start the APDL product launcher from Emacs under
-   windows or the APDL interpeter under GNU-Linux with "C-c RET" (for
+   windows or the APDL interpreter under GNU-Linux with "C-c RET" (for
    ‘apdl-start-ansys’).
 
 - For displaying the licenses you are using type "C-c C-z"
@@ -452,15 +454,15 @@
   license buffer for the list of available keys.
 
  If your Ansys installation is not in the default locations APDL-Mode
- might not be able to find its executables.  Or you want to use mixed
- Ansys version installations then it is necessary to customise some
- variables.  Either by calling the Emacs customisation facility
- ‘apdl-customise-apdl’ or from the menu bar -> ’APDL’ -> ’Customise
- APDL Mode’ -> ’APDL-process’ and look there for the variables ’Ansys
- License File’, ’Ansys Util Program’ and ’Ansys Help Program’ as well
- as ’Ansys Help Program Parameters’) or set the variables directly in
- your .emacs file.  Please have a look in apdl-config.org and the
- apdl-config.el customisation example.
+  might not be able to find its executables.  Or you want to use mixed
+  Ansys version installations then it is necessary to customise some
+  variables.  Either by calling the Emacs customisation facility
+  ‘apdl-customise-apdl’ or from the menu bar -> ’APDL’ -> ’Customise
+  APDL Mode’ -> ’APDL-process’ and look there for the variables ’Ansys
+  License File’, ’Ansys Util Program’ and ’Ansys Help Program’ as well
+  as ’Ansys Help Program Parameters’) or set the variables directly in
+  your .emacs file.  Please have a look in apdl-config.org and the
+  apdl-config.el customisation example.
 
 * MAPDL Solver Control
   MAPDL interpreter and communication (mainly restricted to GNU-Linux
@@ -481,7 +483,7 @@
   (‘apdl-query-apdl-command’) without switching to the ’*APDL*’
   window.  If you would like to send your current code line in a
   slightly modified form, then give a prefix argument to
-  ‘apdl-query-apdl-command’ and the line will be the intial input for
+  ‘apdl-query-apdl-command’ and the line will be the initial input for
   sending it to the interpreter.
 
   Another very useful function in this context is "C-c C-u"
@@ -503,7 +505,7 @@
   (‘apdl-mark-block’) marks a whole block level, "M-x mark-paragraph
   (‘mark-paragraph’) marks the current paragraph, the last command can
   not only be used to initialise a new selection but also to extend an
-  existing one when repeting the command.  Please check the code
+  existing one when repeating the command.  Please check the code
   navigation commands which APDL-Mode provides (type "C-h b"
   (‘describe-bindings’) to see which are available).
 
@@ -519,7 +521,7 @@
   you are able to send further commands to the solver, you first have
   to close the PZR dialog box.  There is also a family of interactive
   commands to reposition the graphics, like C-c C-+ (‘apdl-zoom-in’),
-  replotting works with C-c C-r (‘apdl-replot’) and a fit to the
+  re-plotting works with C-c C-r (‘apdl-replot’) and a fit to the
   screen with C-c C-f (‘apdl-fit’), of course, they are available from
   the menu as well.
 

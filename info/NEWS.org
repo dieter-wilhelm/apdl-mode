@@ -47,7 +47,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     entry APDL-Mode Online Documentation to APDL-Mode Documentation
     (C-c C-h) which points to the GNU-Emacs internal Info Viewer.
   - Added a menu entry for displaying the user's taken licenses
-  - Files with the suffixes ".mac", ".dat" and ".inp" are openend in
+  - Files with the suffixes ".mac", ".dat" and ".inp" are opened in
     apdl-mode without further user configuration.
   - Added additional keys for the license status functions
 * Version 20.3.0
@@ -59,12 +59,12 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
   - EWW browser for the local help is now opening in a different
     "Window" and is not hiding the APDL buffer any longer
   - Added Ruler Mode to the helper modes
-  - Added customisation section for Worbench / Discover Aim templates
+  - Added customisation section for Workbench / Discover Aim templates
   - Improved initialisation of Ansys installation dependent
     parameters
 * Version 20.2.0
   2020-03, Updated keywords to Ansys v195
-  - Added a template preview system for Worbench `Command (APDL)'
+  - Added a template preview system for Workbench `Command (APDL)'
     objects with the keybinding `C-c C-w' (this keybinding was
     formerly used for starting WorkBench).
   - Improved the automated configuration of Ansys installation
@@ -78,16 +78,16 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     because of speed reasons.
 
 * Version 20.1.1
-  2020-02, Bugfix release
+  2020-02, Bug-fix release
   - Renamed apdl-browse-apdl-guide to apdl-browse-ansys-apdl-manual
-  - Improved configuration docu
+  - Improved configuration documentation
   - Enabled EWW (and other browsers) as a "help viewer"
 
 * Version 20.1.0
   Released  2020-02
   - Changed the name to APDL-Mode
   - Changed version naming scheme (package.el format)
-  - Installation now with Emacs' packageing system
+  - Installation now with Emacs' packaging system
   - Added key-bindings to the license buffer **Licenses** (C-c C-l)
     o - occur search
     g - refresh license status

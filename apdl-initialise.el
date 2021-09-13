@@ -39,7 +39,7 @@
 (defconst apdl-mode-version "20.6.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2021-09-12"
+(defconst apdl-mode-update "2021-09-13"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")
@@ -285,7 +285,7 @@ customisation variables."
           (file-name-nondirectory
 	   (directory-file-name apdl-ansys-install-directory))))
       (setq apdl-current-ansys-version subdir) ; (remove ?v subdir))
-      (message "Current Ansys version: %s" apdl-current-ansys-version))))
+      (message "Current Ansys version: %s" apdl-current-ansys-version)))
 
   (unless apdl-ansys-install-directory
     (let* ((cdir "/appl/ansys_inc/")	; this is a corporate path

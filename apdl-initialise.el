@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-10>
+;; Time-stamp: <2021-09-13>
 
 ;; Copyright (C) 2016 - 2021  H. Dieter Wilhelm
 
@@ -277,6 +277,16 @@ customisation variables."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;;            !!!! with Ansys version information!!!!
   ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; if apdl-ansys-install-directory is set we need a way to get
+  ;; apdl-current-ansys-version!
+
+  (when apdl-ansys-install-directory	;set by user
+    (let((subdir
+          (file-name-nondirectory
+	   (directory-file-name apdl-ansys-install-directory))))
+      (setq apdl-current-ansys-version subdir) ; (remove ?v subdir))
+      (message "Current Ansys version: %s" apdl-current-ansys-version))))
+
   (unless apdl-ansys-install-directory
     (let* ((cdir "/appl/ansys_inc/")	; this is a corporate path
 	   ;; from environment variable below, I think only under

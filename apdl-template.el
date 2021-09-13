@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-11>
+;; Time-stamp: <2021-09-13>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -222,7 +222,7 @@ Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
   "! ==============================" \n
-  "!" apdl-outline-string " ---  Header ---" \n
+  "!" apdl-outline-string " --- Header ---" \n
   "! ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; (buffer-file-name)

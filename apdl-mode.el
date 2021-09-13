@@ -524,9 +524,17 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; --- miscellaneous ---
 
     ;; outline-minor-mode must be defined to work for the following!
-    ;; (unless (version< emacs-version "28")
-    ;;   (define-key map [backtab] 'outline-cycle-buffer))
-    ;; it is better to leave this to outline-minor-mode!!
+    ;;(require 'outline), we call this minor mode before creating this
+    ;; mode-map
+    (when (and ; outline-minor-mode
+	       (version< "28" emacs-version))
+      (define-key map (kbd "TAB")
+	`(menu-item "" outline-cycle
+                    :filter ,(lambda (cmd)
+                               (when (apdl-on-heading-p) cmd))))
+      (define-key map (kbd "<backtab>") #'outline-cycle-buffer))
+    ;; above is not set by outline-minor-mode!! Borrowed from
+    ;; outline.el emacs-28.1
 
     (define-key map [?\C-c?\C-+] 'apdl-zoom-in)
     (define-key map [?\C-c?\C--] 'apdl-zoom-out)
@@ -570,6 +578,15 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; (define-key map [f1] 'describe-mode) ; [f1] reserved for user
     map)
   "Keymap for the APDL-Mode.")
+
+;; borrowed from outline.el 2021-09
+(defun apdl-on-heading-p (&optional invisible-ok)
+  "Return t if point is on a (visible) heading line.
+If INVISIBLE-OK is non-nil, an invisible heading line is ok too."
+  (save-excursion
+    (beginning-of-line)
+    (and (bolp) (or invisible-ok (not (outline-invisible-p)))
+	 (looking-at outline-regexp))))
 
 (defun apdl-toggle-mode nil ; -FIXME- this toggles also all ansys
 			    ; minor-hooks?
@@ -864,7 +881,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (modify-syntax-entry ?: "_"  table) ; APDL label specifier, not an operator
     ;; * and ** are operators! But we also want completion of * and / commands
     ;; took care about this in -complete-symbol
-    (modify-syntax-entry ?* "."  table) 
+    (modify-syntax-entry ?* "."  table)
     ;; with algebraic operators but blink-matching- needs this
     (modify-syntax-entry ?/ "." table) ; APDL slash commands
     (modify-syntax-entry ?\! "<" table) ; APDL comment character
@@ -1171,10 +1188,11 @@ variables"]
    ["Submit Bug Report" apdl-submit-bug-report
     :help "Open a mail template for an APDL-Mode bug report"]
    ["Reload APDL-Mode" apdl-reload-apdl-mode
-    :help "Loading the mode definitions for testing purposes and
-restarting apdl-mode (apdl-reload-apdl-mode), this is only
-possible if the files are in the load-path!"
-    :visible (file-exists-p "apdl-mode.el")]
+    :help "Unloading and reloading the mode definitions for
+testing purposes and restarting
+apdl-mode (apdl-reload-apdl-mode), this is only active if
+'apdl-mode.el' is found in Emacs' load-path!"
+    :active (file-exists-p "apdl-mode.el")]
    "--"
    ["Exit APDL-Mode" apdl-toggle-mode
     :help "Switch to the previous major mode of the file"
@@ -1631,6 +1649,11 @@ menu or by calling the function `apdl-mode-help' with
 
   (setq completion-ignore-case t) ; keyword completion regardless of cases
 
+  ;; --- hooks ---
+  (run-hooks 'apdl-mode-hook)
+  ;; we needs this before the -mode-map, which reacts on
+  ;; outline-minor-mode
+
   (use-local-map apdl-mode-map)
   (set-syntax-table apdl-mode-syntax-table)
   (setq local-abbrev-table apdl-mode-abbrev-table)
@@ -1777,11 +1800,6 @@ user variable highlighting? "))))))
   ;; initialise system dependent stuff
   (unless apdl-initialised-flag
     (apdl-initialise))
-  ;; that's not friendly to enforce stuff on users :-/ but then this is so helpful!
-  ;; (outline-minor-mode t)
-  
-  ;; --- hooks ---
-  (run-hooks 'apdl-mode-hook)
   )
 ;;  -- end of apdl-mode --
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

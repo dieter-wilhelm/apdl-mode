@@ -3,11 +3,11 @@ language of the mechanical FEA, Finite Element Analysis suite [[http://www.ansys
 ANalysis SYStem, registered TM.
 
 APDL-Mode, is - in conjunction with the [[https://www.gnu.org/software/emacs/][GNU-Emacs]] editor - an advanced
-APDL environment with features like, pin-pointing the APDL reference
-documentation, keyword completion, code templates and code outlining /
-folding, dedicated highlighting, solver communication (GNU-Linux
-only), license reporting, etc.  Please convince yourself with the
-APDL-Mode in-depth documentation.
+APDL environment with features like, browsing the APDL reference
+documentation, keyword completion and abbreviations, code templates
+and code outlining / folding, dedicated highlighting, solver
+communication (GNU-Linux only), license reporting, etc.  Please
+convince yourself in the APDL-Mode in-depth documentation.
 
 With the advent of the modern Ansys GUIs - like `WorkBench' or
 `Discovery' - the usage of APDL as a wholesale modelling language has

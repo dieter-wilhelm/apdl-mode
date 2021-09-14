@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-13>
+;; Time-stamp: <2021-09-14>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -216,13 +216,59 @@ key and choose with the mouse 2 button."
   "*go,:BRANCH ! or with label STOP like /eof" \n
   ":BRANCH" \n)
 
+;; str must occur before it can be used internally (setq str
+;; read-skeleton...)
+(define-skeleton apdl-skeleton-section-separator
+  "Insert comment section strings to distinguish topics."
+  "Which section type? section type 1, subsect.: 2, or subsubsect.: [3] "
+  "!!" str
+  (cond ((string= str "1")
+	 (insert   "=============================="))
+	((string= str "2")
+	 (insert   "------------------------------"))
+	((string= str "3")
+	 (insert   ".............................."))
+	(t
+	 (insert   "3..............................")))
+  \n
+  (cond ((string= str "1")
+	 (insert (concat "!" apdl-outline-string " ===== ")))
+	((string= str "2")
+	 (insert (concat "!" apdl-outline-string apdl-outline-string " ---- ")))
+	(t
+	 (insert (concat "!" apdl-outline-string apdl-outline-string
+		   apdl-outline-string " ... "))))
+  (skeleton-read "Brief description of the section: ")
+  (cond ((string= str "1")
+	 (insert   " ====="))
+	((string= str "2")
+	 (insert   " ----"))
+	(t
+	 (insert   " ...")))
+  \n
+  (cond ((string= str "1")
+	 (insert   "!! =============================="))
+	((string= str "2")
+	 (insert   "!! ------------------------------"))
+	(t
+	 (insert   "!! ..............................")))
+  \n
+  \n)
+;; str must occur somewhere outside cond otherwise an error!!
+
+(define-skeleton apdl-skeleton-separator-line
+  "Insert one comment line to separate topics."
+  nil
+  "!! --------------------" \n
+  \n)
+
 (define-skeleton apdl-skeleton-header
   "Insert a file header for an APDL script.
 Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
   "! ==============================" \n
-  "!" apdl-outline-string " --- Header ---" \n
+  "!" apdl-outline-string " ===== Header =====" \n
   "! ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; (buffer-file-name)
@@ -245,9 +291,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   ;; "!! ------------------------------" \n
   ;; "!@@ -- informations --" \n
   ;; "!! ------------------------------" \n
-  "!! ------------------------------" \n
-  "!@@@ --- measurements ---" \n
-  "!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ ... measurements ..." \n
+  "!! .............................." \n
   \n
   "nx(NodeNo)|y|z ! x|y|z-coordinate of node NodeNo " \n
   "kx(KPoint)|y|z ! x|y|z-coordinate of KP KeyPoint " \n
@@ -255,9 +301,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "distkp(k1,k2)  ! distance between keypoints" \n
   "disten(e,n)    ! distance between element centroid and node" \n
   \n
-  "! -------------------------------" \n
-  "!@@@ - Center of mass, mass, and mass moments of inertia -" \n
-  "!! ------------------------------" \n
+  "! .............................." \n
+  "!@@@ ... Center of mass, mass, and mass moments of inertia ..." \n
+  "!! .............................." \n
   \n
   "!! --- partial solution for mass calculation ---" \n
   "/solu ! for psolve" \n
@@ -275,9 +321,9 @@ time stamp with the Emacs command M-x `time-stamp'."
   "!! mass, centroids, moments of inertia, length, area, volumen, ..." \n
   "*get,bla,area,0,imc,y ! moment of inertia about y w.r.t. mass centroid" \n
   \n
-  "!! ------------------------------" \n
-  "!@@@ - job items -" \n
-  "!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ ... job items ..." \n
+  "!! .............................." \n
   \n
   "/inquire,Job_name,jobname ! get string array jobname|directory|user|psearch" \n
   "*stat,Job_name(1)" \n
@@ -287,7 +333,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/inquire,param,date,file,ext ! get date(size,lines) of file.ext" \n
   \n
   "!! .............................." \n
-  "!@@@ - statuses -" \n
+  "!@@@ ... stati ..." \n
   "!! .............................." \n
   \n
   "/status ! [all],capabilities: title,units,mem,db,config,global,solu,prod" \n
@@ -479,7 +525,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "!@@ -- configurations --" \n
   "!! ------------------------------" \n
   \n
-  "*afun,rad ! [rad],deg" \n
+  "*afun,deg ! [rad],deg" \n
   "Pi = acos(-1)" \n
   "*afun,deg ! deg: trig. functions accept and return angle arguments" \n
   "True = 1"  \n
@@ -855,9 +901,9 @@ must be neg." \n
   "!@@@ - check contact status -" \n
   "!! .............................." \n
   \n
-  "cncheck !list contact pari properties" \n
+  "!!cncheck !list contact pair properties" \n
   "cncheck,summary !list only open/closed status" \n
-  "cncheck,adjust !adjust physically the elements!" \n
+  "!!cncheck,adjust !adjust physically the elements!" \n
   "/solu" \n
   "cncheck,post !write contact config to jobname.rcn" \n
   \n
@@ -892,7 +938,8 @@ must be neg." \n
   "Target=Contact+1" \n
   "real,Contact" \n
   "type,Target" \n
-  "tshap,line ! 2d/3d" \n
+  "tshap,line ! 2d/3d, automatically fixed" \n
+  "cncheck,summary" \n
   "!! tshap,para !parabola 2d/3d" \n
   "!! tshap,arc !clockwise arc 2d (targe169)" \n
   "!! tshap,carc !counterclockwise arc 2d (targe169)" \n
@@ -912,6 +959,33 @@ must be neg." \n
   "e,Nmax+1,Nmax+2" \n
   "tshap,pilo ! 2d/3d" \n
   "e,Nmax+1" \n
+  "!! .............................." \n
+  "!@@@ .... 3D line to line beams ... " \n
+  "!! .............................." \n
+  "Contact = 10" \n
+  "ID = Contact" \n
+  "real = ID" \n
+  "et,ID, conta177 ! 177 3D line to line, 175 node to surface contact element" \n
+  "r,ID,R1,R2	!R1, R2 of line elements" \n
+  "Target = 20" \n
+  "ID = Target" \n
+  "real = Contact ! must be the same as for the contact elements" \n
+  "et,ID,targe170 !170 3D line segments" \n
+  "keyopt,ID,9,0  !external contact should, be default!" \n
+  "!! targets tshap,line     !staight line" \n
+  "tshap,para     !parabola not circle" \n
+  "type,Target" \n
+  "real,Contact" \n
+  "!!lsel,s,,,LNo" \n
+  "e,1,2,3" \n
+  ";; contacts" \n
+  "esel,s,type,,Steel" \n
+  "lsel,u,,,1,LNo" \n
+  "nsll,s" \n
+  "esln,s" \n
+  "type,Contact" \n
+  "real,Contact" \n
+  "esurf" \n
   \n)
 
 (define-skeleton apdl-skeleton-coordinates
@@ -2311,7 +2385,7 @@ reflection normal to X,y,z"
   "*endif" > \n
   "lcase,1" \n
   "lcoper,add,2" \n
-  "/title" \n
+  "/title, New title" \n
   "/replot                ! replot currently stored plot item" \n
   "File='-o=eigenmodes/anim%I%.pdf'" \n
   "I = I+1" \n
@@ -2528,6 +2602,7 @@ reflection normal to X,y,z"
   "/plopts,wp,1 ! display working plane" \n
   "/plopts,wp,off ! switch off wp" \n
   "/plopts,frame,off ! switch off graphics frame" \n
+  "!! title below plot" \n
   "/title" \n
   "/sys,rm file*.eps" \n
   "/show,pscr,,,8! 8 colour planes" \n
@@ -2567,7 +2642,7 @@ reflection normal to X,y,z"
 Select or deselect various elements: Geometry, elements, nodes,
   ..."  nil
   "!! .............................." \n
-  "!@@@ - select stuff -" \n
+  "!@@@ ... select stuff ..." \n
   "!! .............................." \n
   \n
   "asel,,item,comp,vmin,vmax,vinc,kswp ![s] select new set" \n
@@ -2581,6 +2656,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)| \
 live|layer|sec|stra|sfe|bfe|path|etab"\n
   "esel,a,ename,172 !select additionally conta172 elements" \n
+  "nsle,s ! select all nodes belonging to selected elements" \n
   \n
   "!! lowest face No of element E from selected nodes" \n
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
@@ -2601,7 +2677,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Path plot skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- path plot --" \n
+  "!@@ ---- path plot ----" \n
   "!! ------------------------------" \n
   \n
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
@@ -2628,11 +2704,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Time postprocessing /post26 skeleton."
   nil
   "!! -----------------------------------" \n
-  "!@ --- time-history postprocessing ---" \n
+  "!@ ---- (time)-history postprocessing ----" \n
   "!! -----------------------------------" \n
   \n
   "/post26" \n
-  "numvar,200 !maximum No of variables, 1 is always time"
+  "numvar,200 !200 maximum variables, default 10, nv = 1 is always time!" \n
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
   "deriv,3,2,1,,vz !time derivative of uz" \n
@@ -2643,23 +2719,28 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*get,Maxi,vari,4,itime,2230 !imag part at freq 2230" \n
   "rforce,3,1,f,z ! reaction force" \n
   "filldata,7,1,10,,20 !fill a variable by a ramp or constant" \n
-  "add,4,2,,,displ,,,-1 !sum variables" \n
-  "prod,3,2,,,,,,-N*2 !product of variables" \n
+  "add,4,2,3,,Name,,,-1 !sum variables with Naming" \n
+  "prod,3,2,3,,Name,,,-N*2 !product of variables" \n
+  "quot,3,2,,,,,,-N*2 !Divides variables" \n
+  "!! Operations: abs,add,atan,clog,conjug,deriv,exp,filldata,imagin,large," \n
+  "!! prod,quot,realvar,small,sqrt" \n
   "/grid,1" \n
   "/gmarker,1,1 !curve marking: 1: triangles,2: squares" \n
   "xvar,2 !specify the variable for the x-axis" \n
   "/xrange,0,1" \n
   "/xrange,default" \n
   "/yrange,0,1" \n
-  "/axlab,x,x" \n
-  "/axlab,y,y" \n
+  "/axlab,x,x-axis" \n
+  "/axlab,y,y-axis" \n
   "/gthk,curve,3!set line thickness" \n
-  "timerange,0,1" \n
-  "/title,bla" \n
+  "!!store,append ! otherwise timerange might erase data" \n
+  "timerange,1,2" \n
+  "!! title below plot" \n
+  "/title,blabla" \n
   "/stitle,,blabla !subtitle line 1 (not shown in plot)" \n
   "/stitle,2,blabla !subtitle line 2" \n
   "/tlabel,x,y,bla !annotation at (x,y)" \n
-  "!! --- graphical output --- " \n
+  "!@@@ ... graphical output ... " \n
   "/color,wbak,whit !white background" \n
   "!! invert background colour" \n
   "/color,wbak,whit !white background" \n
@@ -2668,11 +2749,13 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
   "/show,close" \n
-  "!! -- listing of vars ---" \n
-  "nprint,5 !whicht time points are to be listed" \n
+  "!! ------------------------------" \n
+  "!@@@ -- listing of vars ---" \n
+  "!! ------------------------------" \n
+  "nprint,5 !which time points are to be listed" \n
   "prtime,min,max !time range to be listed"  \n
   "prvar,3" \n
-  "!! --- data output --- " \n
+  "!@@@ --- data output --- " \n
   "*get,Size,VARI,,NSETS !No of sets" \n
   "*dim,Accx,array,Size" \n
   "*dim,Tim,array,Size" \n
@@ -2699,7 +2782,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Fields and arrays skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- \"table\" arrays --" \n
+  "!@@ ---- \"table\" arrays ----" \n
   "!! ------------------------------" \n
   \n
   "!! table arrays interpolate linearly between their values" \n
@@ -2734,12 +2817,12 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*vfun,mytab,copy,mytab" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- arrays --" \n
+  "!@@ ---- arrays ----" \n
   "!! ------------------------------" \n
   \n
   \n
   "!! ------------------------------" \n
-  "!@@@ -- string arrays --" \n
+  "!@@@ ---- string arrays ----" \n
   "!! ------------------------------" \n
   \n
   "*dim,Dir,string,248 ! maximum of 248 characters!" \n
@@ -2799,7 +2882,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   nil ; no interactor needed
   '(apdl-skeleton-header)
   "!! ==============================" \n
-  "!@ --- Preprocessing ---" \n
+  "!@ ===== Preprocessing =====" \n
   "!! ==============================" \n
   "/prep7" \n
   "!@@ -- Elements --" \n
@@ -2822,12 +2905,12 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "allsel" \n
   "save" \n
   "!! ==============================" \n
-  "!@ --- Solving ---" \n
+  "!@ ===== Solving =====" \n
   "!! ==============================" \n
   "/solu" \n
   "solve" \n
   "!! ==============================" \n
-  "!@ --- Postprocessing ---" \n
+  "!@ ===== Postprocessing =====" \n
   "!! ==============================" \n
   "/post1" \n
   "/view,,1,1,1" \n
@@ -2841,10 +2924,12 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   nil        ; no interactor needed
   '(apdl-skeleton-header)
   "!! ==============================" \n
-  "!@ --- Preprocessing ---" \n
+  "!@ ===== Preprocessing =====" \n
   "!! ==============================" \n
   "/prep7" \n
-  "!@@ -- Elements --" \n
+  "!! ------------------------------" \n
+  "!@@ ---- Elements ----" \n
+  "!! ------------------------------" \n
   "Steel = 1" \n
   "ID = Steel" \n
   "real = Steel" \n
@@ -2854,7 +2939,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "r,cid" \n
   "et,tid,170" \n
   "et,cid,174" \n
-  "!@@ -- Material --" \n
+  "!! ------------------------------" \n
+  "!@@ ---- Material ----" \n
+  "!! ------------------------------" \n
   "mp,nuxy,Steel,0.3  ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
   "!@@ -- Modeling --" \n
@@ -2895,13 +2982,13 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "allsel" \n
   "save"  \n
   "!! ==============================" \n
-  "!@ --- Solving ---" \n
+  "!@ ===== Solving =====" \n
   "!! ==============================" \n
   "/solu" \n
   "nsubst,10" \n
   "solve" \n
   "!! ==============================" \n
-  "!@ --- Postprocessing ---" \n
+  "!@ ===== Postprocessing =====" \n
   "!! ==============================" \n
   "/post1" \n
   "plnsol,u,sum" \n
@@ -2934,7 +3021,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Insert outline framework into an Ansys APDL file."
   "Insert brief purpose of file: "
   "!! ==============================" \n
-  "!" apdl-outline-string " --- Header ---" \n
+  "!" apdl-outline-string " ===== Header =====" \n
   "!! ==============================" \n
   \n
   "!! FILENAME: " (buffer-file-name) \n
@@ -2943,7 +3030,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!! DESCRIPTION: " str \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " --- Setup ---" \n
+  "!" apdl-outline-string " ===== Setup =====" \n
   "!! ==============================" \n
   \n
   "finish " \n
@@ -2955,11 +3042,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/title," \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " --- Preprocessing --- " \n
+  "!" apdl-outline-string " ===== Preprocessing ===== " \n
   "!! ==============================" \n
   \n
   "!! ------------------------------" \n
-  "!" apdl-outline-string apdl-outline-string " -- Cad Import -- " \n
+  "!" apdl-outline-string apdl-outline-string " ---- Cad Import ---- " \n
   "!! ------------------------------" \n
   \n
   "/aux15 !Enter the IGES file transfer processor" \n
@@ -2970,39 +3057,40 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!!otherwise the title is defined with the iges import" \n
   \n
   "!! ----------------------------------------" \n
-  "!" apdl-outline-string apdl-outline-string " -- General Preprocessing -- " \n
+  "!" apdl-outline-string apdl-outline-string
+  " ---- General Preprocessing ---- " \n
   "!! ----------------------------------------" \n
   \n
   "/prep7" \n
   \n
   "!! .............................." \n
   "!" apdl-outline-string apdl-outline-string
-  apdl-outline-string " - Materials and element types -" \n
+  apdl-outline-string " ... Materials and element types ..." \n
   "!! .............................." \n
   \n
-  "!@@@ --- Materials ---" \n
+  "!@@@ ... Materials ..." \n
   \n
-  "!@@@ --- Solid elements ---" \n
-  \n
-  "!@@@ --- Contact elements ---" \n
-  \n
-  "!! .............................." \n
-  "!" apdl-outline-string apdl-outline-string
-  apdl-outline-string " - Geometry -" \n
-  "!! .............................." \n
+  "!@@@ ... Solid elements ..." \n
+  \nn
+  "!@@@ ... Contact elements ..." \n
   \n
   "!! .............................." \n
   "!" apdl-outline-string apdl-outline-string
-  apdl-outline-string " - Meshing -" \n
+  apdl-outline-string " ... Geometry ..." \n
   "!! .............................." \n
   \n
   "!! .............................." \n
   "!" apdl-outline-string apdl-outline-string
-  apdl-outline-string " - Boundary conditions -" \n
+  apdl-outline-string " ... Meshing ..." \n
+  "!! .............................." \n
+  \n
+  "!! .............................." \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " ... Boundary conditions ..." \n
   "!! .............................." \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " --- Solution --- " \n
+  "!" apdl-outline-string " ===== Solution ===== " \n
   "!! ==============================" \n
   \n
   "/solu" \n
@@ -3010,25 +3098,25 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string
-  " -- Solution controls -- " \n
+  " ---- Solution controls ---- " \n
   "!! ------------------------------" \n
   \n
   "!!/eof --- for batch runs only------------" \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " --- Postprocessing ---" \n
+  "!" apdl-outline-string " ===== Postprocessing =====" \n
   "!! ==============================" \n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string
-  " -- General Postprocessing -- " \n
+  " ---- General Postprocessing ---- " \n
   "!! ------------------------------" \n
   \n
   "/post1" \n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string
-  apdl-outline-string " -- Time-History Postprocessing --" \n
+  apdl-outline-string " ---- Time-History Postprocessing ----" \n
   "!! ------------------------------" \n
   \n
   "/post26" \n

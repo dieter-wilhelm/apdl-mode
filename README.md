@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org733f8e8)
-2.  [Some Highlights](#orgc33bf44)
-3.  [Installation](#org618b646)
-4.  [First Step](#org2e72171)
-5.  [Configuration and Customisation](#orga98414b)
-6.  [Bugs and Problems](#org1bfde62)
-7.  [News](#orgf8bba62)
-8.  [Further Resources](#org393b9a4)
-9.  [Acknowledgements](#org54bae24)
-10. [Todos](#org5c562cf)
-11. [GNU GPL v3 License](#org8f671b1)
+1.  [Introduction](#orge5ba062)
+2.  [Some Highlights](#org8c46b9a)
+3.  [Installation](#orgd8d0f70)
+4.  [First Step](#org907b1af)
+5.  [Configuration and Customisation](#org797e632)
+6.  [Bugs and Problems](#orgdda055c)
+7.  [News](#org1474bc6)
+8.  [Further Resources](#org171a395)
+9.  [Acknowledgements](#org9292475)
+10. [Todos](#org87e3b0c)
+11. [GNU GPL v3 License](#org1559654)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org733f8e8"></a>
+<a id="orge5ba062"></a>
 
 # Introduction
 
@@ -36,11 +36,11 @@ language of the mechanical FEA, Finite Element Analysis suite [Ansys](http://www
 ANalysis SYStem, registered TM.
 
 APDL-Mode, is - in conjunction with the [GNU-Emacs](https://www.gnu.org/software/emacs/) editor - an advanced
-APDL environment with features like, pin-pointing the APDL reference
-documentation, keyword completion, code templates and code outlining /
-folding, dedicated highlighting, solver communication (GNU-Linux
-only), license reporting, etc.  Please convince yourself with the
-APDL-Mode in-depth documentation.
+APDL environment with features like, browsing the APDL reference
+documentation, keyword completion and abbreviations, code templates
+and code outlining / folding, dedicated highlighting, solver
+communication (GNU-Linux only), license reporting, etc.  Please
+convince yourself in the APDL-Mode in-depth documentation.
 
 With the advent of the modern Ansys GUIs - like \`WorkBench' or
 \`Discovery' - the usage of APDL as a wholesale modelling language has
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgc33bf44"></a>
+<a id="org8c46b9a"></a>
 
 # Some Highlights
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org618b646"></a>
+<a id="orgd8d0f70"></a>
 
 # Installation
 
@@ -202,14 +202,14 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org2e72171"></a>
+<a id="org907b1af"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#orga98414b),
+already, please see in [5](#org797e632),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -221,7 +221,7 @@ APDL-Mode was tested with Ansys v201 and v202 under Windows 10 for
 Emacs-27 under GNU-Linux and Windows.
 
 
-<a id="orga98414b"></a>
+<a id="org797e632"></a>
 
 # Configuration and Customisation
 
@@ -237,7 +237,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org1bfde62"></a>
+<a id="orgdda055c"></a>
 
 # Bugs and Problems
 
@@ -258,14 +258,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orgf8bba62"></a>
+<a id="org1474bc6"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org393b9a4"></a>
+<a id="org171a395"></a>
 
 # Further Resources
 
@@ -273,7 +273,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org54bae24"></a>
+<a id="org9292475"></a>
 
 # Acknowledgements
 
@@ -288,14 +288,14 @@ I received, moreover, support and feedback from many individuals.
 Thank you very much!
 
 
-<a id="org5c562cf"></a>
+<a id="org87e3b0c"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org8f671b1"></a>
+<a id="org1559654"></a>
 
 # GNU GPL v3 License
 

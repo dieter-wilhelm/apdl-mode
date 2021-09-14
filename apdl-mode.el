@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-13>
+;; Time-stamp: <2021-09-14>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -3061,6 +3061,10 @@ These constructs appear in WorkBench created solver input files."
     (define-abbrev-table 'apdl-mode-abbrev-table ())
     (define-abbrev apdl-mode-abbrev-table
       "`1" "finish\n/clear\n!y\n"  ) ; the first 1 one
+    (define-abbrev apdl-mode-abbrev-table
+      "`2" "*afun,deg\n"  ) ; the second 2 one ;-)
+    (define-abbrev apdl-mode-abbrev-table "`s" "" 'apdl-skeleton-separator-line)
+    (define-abbrev apdl-mode-abbrev-table "`ss" "" 'apdl-skeleton-section-separator)
     (define-abbrev apdl-mode-abbrev-table "`i" ""      'apdl_if)
     (define-abbrev apdl-mode-abbrev-table "`d" ""      'apdl_do)
     (define-abbrev apdl-mode-abbrev-table

@@ -65,7 +65,7 @@
    "C-c C-w" (for `apdl-display-wb-skeleton') or choose them from the
    menu.
 * Editing Code
-** Completions
+** Completions and Abbreviations
    APDL keyword completion (commands, elements, get- and
    parametric-functions)
 
@@ -92,6 +92,21 @@
    completing the symbol.  Hitting the <SPACE> key removes the listing
    window.
 
+   An example of an abbreviation is typing "‘do" (the backquote "‘"
+   then "do") and the space key <SPC> triggers an interactive code
+   template which inserts a *DO loop (‘apdl-do’).  Whereas typing "‘d"
+   (and <SPC>) is an immediate version of a do loop without requesting
+   user input (‘ansys_do’).  You can see all the predefined
+   abbreviations with "‘?", i. e. a question mark "?"  after the
+   backquote "‘".  Alternatively you might use the menu entry "List
+   Mode Abbreviations" or the command ‘M-x list-abbrevs <RET>’ to
+   inspect all definitions.
+
+   Off course, in Emacs you can define your own abbreviations.
+   #+texinfo: @inforef{Abbrev Concepts,,emacs}.
+   But there is also the "dynamic" abbreviation facility. Please type
+   the beginning of a word which is already present in the text and
+   type `M-/`.
 ** Comment Handling
     commenting/un- for example of whole paragraphs.
 
@@ -135,18 +150,6 @@
 
    Please have a look for ‘insert-pair’ and check the menu entry of
    APDL-Mode's keybindings.
-** Abbreviation Facility
-   Typing "‘do" (the backquote "‘" then "do") and the space key <SPC>
-   triggers an interactive code template which inserts a *DO loop
-   (‘apdl-do’).  Whereas typing "‘d" (and <SPC>) is an immediate
-   version of a do loop without requesting user input (‘ansys_do’).
-   You can see all the predefined abbreviations with "‘?", i. e. a
-   question mark "?"  after the backquote "‘".  Alternatively you might
-   use the menu entry "List Mode Abbreviations" or the command ‘M-x
-   list-abbrevs <RET>’ to inspect all definitions.
-
-   In Emacs you can define your own abbreviations.
-   #+texinfo: @inforef{Abbrev Concepts,,emacs}.
 
 ** Auto-indentation
    of looping and conditional blocks.

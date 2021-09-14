@@ -3039,7 +3039,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*afun,rad ![rad],deg" \n
   "Pi = acos(-1)" \n
   "*afun,deg !Use degrees [rad] for input and output angular functions" \n
-  "/title," \n
+  "/title," - \n
   \n
   "!! ==============================" \n
   "!" apdl-outline-string " ===== Preprocessing ===== " \n
@@ -3053,7 +3053,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!ioptn, Lab, VAL1 !Control options relating to importing" \n
   "!igesin, Fname, Ext," \n
   "!/facet,fine" \n
-  "/title,new title" \n
+  "/title," \n
   "!!otherwise the title is defined with the iges import" \n
   \n
   "!! ----------------------------------------" \n
@@ -3071,7 +3071,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!@@@ ... Materials ..." \n
   \n
   "!@@@ ... Solid elements ..." \n
-  \nn
+  \n
   "!@@@ ... Contact elements ..." \n
   \n
   "!! .............................." \n

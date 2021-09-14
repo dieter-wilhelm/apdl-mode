@@ -478,7 +478,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
   (add-to-list 'insert-pair-alist '(?\$ ?\$))
   (add-to-list 'insert-pair-alist '(?\% ?\%)))
 
-(defconst apdl-mode-map
+(defconst apdl-mode-map 		;keybindings, keyboard shortcuts
   (let ((map (make-sparse-keymap)))
     (define-key map "`" 'apdl-abbrev-start) ; ``?' lists abbrevs
     (define-key map "\M-?" 'apdl-show-command-parameters)
@@ -559,7 +559,7 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     (define-key map "\C-c\C-l" 'apdl-license-status)
     (define-key map "\C-c\C-m" 'apdl-start-ansys) ; interactively this
     ;; -------------- C-c C-n is also C-c RET !
-    (define-key map "\C-c\C-o" 'apdl-process-status)
+    (define-key map "\C-c\C-o" 'apdl-display-out-file)
     (define-key map "\C-c\C-p" 'apdl-start-pzr-box) ; pan-zoom-rotate
     (define-key map "\C-c\C-q" 'apdl-query-apdl-command)
     (define-key map "\C-c\C-r" 'apdl-replot)
@@ -1200,7 +1200,7 @@ apdl-mode (apdl-reload-apdl-mode), this is only active if
   "APDL menu items for APDL-Mode.")
 
 ;;
-;; ------------------------------ MAPDL ------------------------------
+;; -------------------------- MAPDL Menu--------------------------
 ;;
 
 (defconst apdl-task-menu
@@ -1366,7 +1366,7 @@ solver interpreter process (apdl-query-apdl-command)"
    ["Display MAPDL Batch Status" apdl-batch-process-status
     :help "Display the status of the Ansys MAPDL
     solver/interpreter batch run (apdl-batch-process-status)"
-    ;;:active (apdl-process-running-p)
+    :active (process-status apdl-batch-process)
     ]
    ["Exit MAPDL Run" apdl-exit-ansys
     :help "Exit the active MAPDL solver/interpreter

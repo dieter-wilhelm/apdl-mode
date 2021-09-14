@@ -421,11 +421,11 @@
    available keys.
 
  - You can start Ansys in interactive mode (`apdl-start-classics'),
-   the Product launcher (`apdl-start-launcher') or initiate a batch
-   run for the current script. You might suppress the locking feature
-   of the solver with the environment variable ANSYS_LOCK=Off.  So you
-   can run short batch jobs while using the Classics GUI with preppost
-   as "viewer".
+   the Product Launcher (`apdl-start-launcher') or initiate a batch
+   run for the current script (C-c C-y). You might suppress the
+   locking feature of the solver with the environment variable
+   ANSYS_LOCK=Off.  So you can run short batch jobs while using the
+   Classics GUI with preppost as "viewer".
 
  - APDL-Mode writes for you an APDL stop file in the current directory
    (the file name is compiled from the variable ‘apdl-job’ and the
@@ -435,12 +435,16 @@
    directory).  This stop file is halting a running calculation in an
    orderly, restart enabled way.
 
- - You are able to view the Ansys APDL error file (a file consisting of
-   the ‘apdl-job’ and the suffix ’.err’ in the current directory) with
-   "C-c C-e" (this calls ‘apdl-display-error-file’).  The error file is
-   opened in read only mode (see ‘read-only-mode’) and with the minor
-   mode ‘auto-revert-tail-mode’, which scrolls the buffer automatically
-   for keeping the current Ansys output visible.
+ - You are able to view the Ansys APDL error file (a file consisting
+   of the ‘apdl-job’ and the suffix ’.err’ in the current directory)
+   with "C-c C-e" (this calls ‘apdl-display-error-file’).  The error
+   file is opened in read only mode (see ‘read-only-mode’) and with
+   the minor mode ‘auto-revert-tail-mode’ the buffer scrolls
+   automatically to the end to keep the current output visible.
+
+   The same is working for '.out' files with "C-c C-o" (for
+   apdl-display-out-file) to monitor the convergence of your (batch)
+   run.
 
  - You can start the Ansys Help Viewer from Emacs with "M-x
    apdl-start-ansys-help" (for ‘apdl-start-ansys-help’).  For this

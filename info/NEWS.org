@@ -19,14 +19,18 @@
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
 * Version 20.6.0, 15 years of APDL-Mode!
-  - Implemented batch runs (now C-c C-y) and jobname.out inspection
+  2021-10, Improvements, extensions and bug fixes
+  - Implemented batch runs with the current script (now C-c C-y) and
+    jobname.out inspection (now C-c C-o).
   - Improved highlighting of user variables
-  - Improved and updated documentation
-  - Outline-minor-mode is now activated by default, with <SHIFT> +
-    <TAB> (Emacs 28.1) this feature became even more essential
   - Enhanced abbreviations, for example "`ss" (interactive
     section-separator).
+  - Improved and updated documentation, for example see the pdf
+    version of the introductory tutorial
   - Added customisation section for user templates
+  - Outline-minor-mode is now activated by default, with <SHIFT> +
+    <TAB> (Emacs 28.1) its folding features became even more essential
+    for larger macro files
   - apdl-start-classic and -start-launcher are now auto-loaded
     commands (They can be run from the mini buffer (M-x), without
     having a file under `apdl-mode')

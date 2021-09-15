@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-30>
+;; Time-stamp: <2021-09-15>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -840,7 +840,7 @@ is already a solver running.  Do you wish to kill the lock file? "))
         (error "Starting the MAPDL GUI (Ansys Classics) canceled")))
     (if (y-or-n-p
          (concat
-          "Start run of: "
+          "Start MAPDL GUI with: "
           apdl-ansys-program
           ", license: " apdl-license
           ;; "Start run?  (license type: " (if (boundp

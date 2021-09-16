@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-15>
+;; Time-stamp: <2021-09-16>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -188,10 +188,12 @@ It is also used for displaying the current license usage in
   :type 'string
   :group 'APDL-process)
 
-(defcustom apdl-no-of-processors 4
-  "No of processors to use for an Ansys solver run.
-If smaller then 4 the run does not require additonal HPC
-licenses.  4 is the Ansys default."
+(defcustom apdl-no-of-processors 3
+  "No of processors to use for an Ansys MAPDL run.
+This value is reccomended to N - 1, with N the total number of
+cores in the computer.  If smaller then 5 the run does not
+require additonal HPC licenses.  2 is the Ansys default for SMP
+parallelisation."
   :type 'integer
   :group 'APDL-process)
 
@@ -840,7 +842,7 @@ is already a solver running.  Do you wish to kill the lock file? "))
         (error "Starting the MAPDL GUI (Ansys Classics) canceled")))
     (if (y-or-n-p
          (concat
-          "Start MAPDL GUI with: "
+          "Start MAPDL GUI: "
           apdl-ansys-program
           ", license: " apdl-license
           ;; "Start run?  (license type: " (if (boundp
@@ -857,8 +859,8 @@ is already a solver running.  Do you wish to kill the lock file? "))
     ;; -d : device
     ;; -g : graphics mode
     ;; -p : license
-    ;; -np: no of PROCs
-    ;; -j : job
+    ;; -np: no of PROCs, Ansys default 2, >4 HPC licenses req.
+    ;; -j : jobname
     ;; v195 new params?: -t -lch
     ;; -g -p ansys -np 2 -j "file" -d 3D
     (start-process apdl-classics-process
@@ -1536,7 +1538,9 @@ keyword from `apdl-help-index' is found."
   (let ((file "ans_apdl/Hlp_P_APDLTOC.html")
         (path apdl-ansys-help-path))
     (if path
-        (browse-url-of-file (concat "file://" path file))
+	;; file:/// is working since at least Emacs-27 (windows and
+	;; linux) 2021-08, see -browse-apdl-help!!!
+        (browse-url-of-file (concat "file:///" path file))
       (if (string> apdl-current-ansys-version "v200")
           (browse-url
 	   (concat "https://ansyshelp.ansys.com/"

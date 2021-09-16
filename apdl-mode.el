@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-14>
+;; Time-stamp: <2021-09-16>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -557,8 +557,8 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; was:   (define-key map "\C-c\C-j" (if (boundp 'apdl-job) 'apdl-job))
     (define-key map "\C-c\C-k" 'apdl-kill-ansys)
     (define-key map "\C-c\C-l" 'apdl-license-status)
-    (define-key map "\C-c\C-m" 'apdl-start-ansys) ; interactively this
-    ;; -------------- C-c C-n is also C-c RET !
+    (define-key map "\C-c\C-m" 'apdl-start-ansys) ; == C-c RET!!
+    (define-key map "\C-c\C-n" 'apdl-no-of-processors)
     (define-key map "\C-c\C-o" 'apdl-display-out-file)
     (define-key map "\C-c\C-p" 'apdl-start-pzr-box) ; pan-zoom-rotate
     (define-key map "\C-c\C-q" 'apdl-query-apdl-command)
@@ -1928,7 +1928,9 @@ only possible if apdl-mode.el is in the load-path of Emacs."
       ;; the others rely on -initialise !!
       (unload-feature 'apdl-initialise))
 ;;    (load "apdl-config") ; don't rely on apdl-config!
-    (load "apdl-mode.el") ; load apdl-mode.el
+    (if (file-exists-p "apdl-mode.el")
+	(load "apdl-mode.el")
+      (error "There is no apdl-mode.el in load-path")) ; load apdl-mode.el
     (apdl-mode)
     (message "APDL-Mode %s based on Ansys %s reloaded"
              apdl-mode-version apdl-ansys-version)))

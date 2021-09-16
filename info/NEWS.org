@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-09-14>
+#+DATE: Time-stamp: <2021-09-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -22,6 +22,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
   2021-10, Improvements, extensions and bug fixes
   - Implemented batch runs with the current script (now C-c C-y) and
     jobname.out inspection (now C-c C-o).
+  - Add new keyinding C-c C-n for apdl-no-of-processors
   - Improved highlighting of user variables
   - Enhanced abbreviations, for example "`ss" (interactive
     section-separator).

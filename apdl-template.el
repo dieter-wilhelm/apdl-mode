@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-14>
+;; Time-stamp: <2021-09-16>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -2733,8 +2733,8 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/axlab,x,x-axis" \n
   "/axlab,y,y-axis" \n
   "/gthk,curve,3!set line thickness" \n
-  "!!store,append ! otherwise timerange might erase data" \n
-  "timerange,1,2" \n
+  "!!store, new! store post26 data" \n
+  "!!timerange,1,2 ! timerange to store" \n
   "!! title below plot" \n
   "/title,blabla" \n
   "/stitle,,blabla !subtitle line 1 (not shown in plot)" \n

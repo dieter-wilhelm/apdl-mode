@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-09-16>
+#+DATE: Time-stamp: <2021-09-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -30,7 +30,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     version of the introductory tutorial
   - Added customisation section for user templates
   - Outline-minor-mode is now activated by default, with <SHIFT> +
-    <TAB> (Emacs 28.1) its folding features became even more essential
+    <TAB> (Emacs 28.1) its folding features became even more helpful
     for larger macro files
   - apdl-start-classic and -start-launcher are now auto-loaded
     commands (They can be run from the mini buffer (M-x), without
@@ -49,7 +49,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     `apdl-license-status' (C-c C-l).
   - Added a menu entry for opening the main Ansys online help page.
 * Version 20.4.0
-  2020-04, Updated for Ansys 2020R1
+  2020-04, Updated keywords with Ansys 2020R1
   - Updated keyword- and completion system to Ansys 2020R1 (v201)
   - Added documentation in GNU Info format and modified the menu
     entry APDL-Mode Online Documentation to APDL-Mode Documentation

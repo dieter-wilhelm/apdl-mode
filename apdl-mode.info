@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-09-16"
+Version 20.6.0 Time-stamp: "2021-09-18"
 
 * Menu:
 
@@ -2708,7 +2708,7 @@ File: apdl-mode.info,  Node: Version 2060 15 years of APDL-Mode!,  Next: Version
      of the introductory tutorial
    • Added customisation section for user templates
    • Outline-minor-mode is now activated by default, with <SHIFT> +
-     <TAB> (Emacs 28.1) its folding features became even more essential
+     <TAB> (Emacs 28.1) its folding features became even more helpful
      for larger macro files
    • apdl-start-classic and -start-launcher are now auto-loaded commands
      (They can be run from the mini buffer (M-x), without having a file
@@ -2737,7 +2737,7 @@ File: apdl-mode.info,  Node: Version 2040,  Next: Version 2030,  Prev: Version 2
 10.3 Version 20.4.0
 ===================
 
-2020-04, Updated for Ansys 2020R1
+2020-04, Updated keywords with Ansys 2020R1
    • Updated keyword- and completion system to Ansys 2020R1 (v201)
    • Added documentation in GNU Info format and modified the menu entry
      APDL-Mode Online Documentation to APDL-Mode Documentation (C-c C-h)
@@ -4640,61 +4640,61 @@ Node: Development and source code installation109150
 Node: Bugs and Problems109709
 Node: News110653
 Node: Version 2060 15 years of APDL-Mode!111421
-Node: Version 2050112477
-Node: Version 2040113246
-Node: Version 2030113946
-Node: Version 2020114669
-Node: Version 2011115522
-Node: Version 2010115861
-Node: Version 162-1116406
-Node: Version 1611117926
-Node: Version 1501119553
-Node: Version 1452120384
-Node: Version 1451121785
-Node: Version 1401124936
-Node: Version 1301126391
-Node: Version 1201127306
-Node: Version 1102129673
-Node: ansys-modeel 1101130231
-Node: Further Resources133355
-Node: Ansys and APDL resources133583
-Node: Emacs editor resources134359
-Node: Other APDL editor resources134922
-Node: Todos135836
-Node: Version 2060136194
-Node: Todos bugs136467
-Node: Issues136862
-Node: Checks137608
-Node: Wishes137885
-Node: Docu138369
-Node: templates140542
-Node: misc141139
-Node: Done141505
-Node: Push and Release Proceedures141799
-Node: Version 2050 (1)143111
-Node: Version 2040 (1)143335
-Node: Version 2030 (1)143538
-Node: Version 2020 (1)143762
-Node: Version 2011 (1)143947
-Node: Version 162-2144423
-Node: Bugs144701
-Node: Wish-list145609
-Node: Freeze150943
-Node: Deficiencies151308
-Node: Procedures152962
-Node: Freeze proceedures153484
-Node: Release155055
-Node: Ideas for further versions155658
-Node: Parameter help and documentation156089
-Node: Ansys process and interpreter buffer158391
-Node: Skeletons outline and abbrevs161254
-Node: Miscellaneous (1)162988
-Node: Ansys syntax restrictions not (yet) accounted for167980
-Node: Unknown Ansys stuff168885
-Node: Acknowledgements169168
-Node: GNU Free Documentation License169740
-Node: Variable Index194766
-Node: Concept Index194919
+Node: Version 2050112475
+Node: Version 2040113244
+Node: Version 2030113954
+Node: Version 2020114677
+Node: Version 2011115530
+Node: Version 2010115869
+Node: Version 162-1116414
+Node: Version 1611117934
+Node: Version 1501119561
+Node: Version 1452120392
+Node: Version 1451121793
+Node: Version 1401124944
+Node: Version 1301126399
+Node: Version 1201127314
+Node: Version 1102129681
+Node: ansys-modeel 1101130239
+Node: Further Resources133363
+Node: Ansys and APDL resources133591
+Node: Emacs editor resources134367
+Node: Other APDL editor resources134930
+Node: Todos135844
+Node: Version 2060136202
+Node: Todos bugs136475
+Node: Issues136870
+Node: Checks137616
+Node: Wishes137893
+Node: Docu138377
+Node: templates140550
+Node: misc141147
+Node: Done141513
+Node: Push and Release Proceedures141807
+Node: Version 2050 (1)143119
+Node: Version 2040 (1)143343
+Node: Version 2030 (1)143546
+Node: Version 2020 (1)143770
+Node: Version 2011 (1)143955
+Node: Version 162-2144431
+Node: Bugs144709
+Node: Wish-list145617
+Node: Freeze150951
+Node: Deficiencies151316
+Node: Procedures152970
+Node: Freeze proceedures153492
+Node: Release155063
+Node: Ideas for further versions155666
+Node: Parameter help and documentation156097
+Node: Ansys process and interpreter buffer158399
+Node: Skeletons outline and abbrevs161262
+Node: Miscellaneous (1)162996
+Node: Ansys syntax restrictions not (yet) accounted for167988
+Node: Unknown Ansys stuff168893
+Node: Acknowledgements169176
+Node: GNU Free Documentation License169748
+Node: Variable Index194774
+Node: Concept Index194927
 
 End Tag Table
 

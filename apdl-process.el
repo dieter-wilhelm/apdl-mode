@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-16>
+;; Time-stamp: <2021-09-18>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1068,41 +1068,81 @@ respective job, you can change it with \"\\[cd]\"."
                    default-directory))
       (message "Writing MAPDL stop file canceled!"))))
 
-(defun apdl-display-error-file ()
-  "Open the current interpreter error file in the current working directory.
-You might change the directory with `M-x cd <RET>'.  The error
-file name consists of the current job name and the suffix '.err'.
-For the job name the variable `apdl-job' is used.  You can change
-the job name interactively either with the \"\\[apdl-job]\" or in
-the customisation facility (by calling `apdl-customise-apdl')."
-  (interactive)
-  (let ((file (concat apdl-job ".err")))
-    (if (not (file-readable-p file))
-        (error "Ansys error file \"%s\" doesn't exist in %s" file (pwd))
-      (find-file-read-only-other-window file)
-      (goto-char (point-max))
-      (auto-revert-tail-mode 1))))
+(defun apdl-file-list( regex)
+  "List of files matching REGEX in current working directory.
+The list is sorted according to their modification times."
+;  (interactive)
+  (let* ((File-name buffer-file-name)
+	 (CWD (if File-name ;in buffer with filename?
+		  (file-name-directory File-name)
+		default-directory))
+	 (File-list (directory-files CWD nil regex))
+	 (Latest-file-list (sort File-list #'file-newer-than-file-p)))
+    (when (null File-list)
+      (error "No file is matching \"%s\" in the current directory" regex))
+    Latest-file-list))
 
-(defun apdl-display-out-file ()
-  "Open the interpreter's .out file in the current working directory.
-You might change the directory with `M-x cd <RET>'.  This file
-will be opened in \"auto-revert-mode\" so that the current output
-at the end of the file is always visible.
+(defun apdl-display-error-file (&optional arg)
+  "Open the latest \"*.err\" file in the current working directory.
+There might be multiple error files when using multiple
+processors.   With a prefix argument you can choose between the
+list of all \"*.err\" files.
 
-The out file name consists of the current job name and the suffix
-'.out'.  For the job name the variable `apdl-job' is used.  You
-can change the job name interactively either with the
+This file will be opened in \"auto-revert-mode\" so that the
+current output at the end of the file is always visible.
+
+The error file names consists of the current job name and the
+suffix '.out'.  For the job name the variable `apdl-job' is used.
+You can change the job name interactively either with the
 \"\\[apdl-job]\" or in the customisation facility (by calling
-`apdl-customise-apdl')."
-  (interactive)
-  (let ((file (concat apdl-job ".out")))
-    (if (not (file-readable-p file))
-        (error "Ansys out file \"%s\" doesn't exist in %s" file (pwd))
-      (find-file-read-only-other-window file)
-      (goto-char (point-max))
-      (auto-revert-tail-mode 1))))
+`apdl-customise-apdl').
 
-(defun apdl-copy-or-send-above                     ()
+You might also change the working directory with `M-x cd <RET>'."
+  (interactive "P")
+  (let* ((Out-file-list (apdl-file-list "\\.err$"))
+	(Latest-out-file (car Out-file-list))
+	(Out-file))
+    (if arg
+	(setq Out-file
+	      (completing-read
+	       "Choose an \".err\" file (<TAB> to complete): " Out-file-list))
+      (setq Out-file Latest-out-file))
+    (find-file-read-only-other-window Out-file)
+    (goto-char (point-max))
+    (auto-revert-tail-mode 1)))
+
+(defun apdl-display-out-file (&optional arg)
+  "Open the latest \".out\" file in the current working directory.
+There might be multiple out files when using multiple processors.
+With a prefix argument you can choose between the list of all
+\".out\" files.
+
+This file will be opened in \"auto-revert-mode\" so that the
+current output at the end of the file is always visible.
+
+The regular out file name consists of the current job name and
+the suffix '.out'. For the job name the variable
+`apdl-job' is used.  You can change the job name interactively
+either with the \"\\[apdl-job]\" or in the customisation
+facility (by calling `apdl-customise-apdl').
+
+But you might specify your own output file with the MAPDL
+\"/out\" command.  And you might change Emacs' working directory
+with `M-x cd <RET>'."
+  (interactive "P")
+  (let* ((Out-file-list (apdl-file-list "\\.out$"))
+	(Latest-out-file (car Out-file-list))
+	(Out-file))
+    (if arg
+	(setq Out-file
+	      (completing-read
+	       "Choose an \".out\" file (<TAB> to complete): " Out-file-list))
+      (setq Out-file Latest-out-file))
+    (find-file-read-only-other-window Out-file)
+    (goto-char (point-max))
+    (auto-revert-tail-mode 1)))
+
+(defun apdl-copy-or-send-above()
   "Copy or send above file content to the current cursor position."
   (interactive)
   (let ((process (get-process

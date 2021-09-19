@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-18>
+;; Time-stamp: <2021-09-19>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1070,7 +1070,8 @@ respective job, you can change it with \"\\[cd]\"."
 
 (defun apdl-file-list( regex)
   "List of files matching REGEX in current working directory.
-The list is sorted according to their modification times."
+The list is sorted according to their modification times and
+might be nil if there is no file matching."
 ;  (interactive)
   (let* ((File-name buffer-file-name)
 	 (CWD (if File-name ;in buffer with filename?
@@ -1078,8 +1079,6 @@ The list is sorted according to their modification times."
 		default-directory))
 	 (File-list (directory-files CWD nil regex))
 	 (Latest-file-list (sort File-list #'file-newer-than-file-p)))
-    (when (null File-list)
-      (error "No file is matching \"%s\" in the current directory" regex))
     Latest-file-list))
 
 (defun apdl-display-error-file (&optional arg)
@@ -1099,15 +1098,18 @@ You can change the job name interactively either with the
 
 You might also change the working directory with `M-x cd <RET>'."
   (interactive "P")
-  (let* ((Out-file-list (apdl-file-list "\\.err$"))
-	(Latest-out-file (car Out-file-list))
-	(Out-file))
+  (let* ((Regex "\\.err$")
+	 (File-list (apdl-file-list Regex))
+	 (Latest-file (car File-list))
+	 (File))
     (if arg
-	(setq Out-file
+	(setq File
 	      (completing-read
-	       "Choose an \".err\" file (<TAB> to complete): " Out-file-list))
-      (setq Out-file Latest-out-file))
-    (find-file-read-only-other-window Out-file)
+	       "Choose an \".err\" file (<TAB> to complete): " File-list))
+      (setq File Latest-file))
+    (when (null File)
+      (error "No file is matching \"%s\" in the current directory" Regex))
+    (find-file-read-only-other-window File)
     (goto-char (point-max))
     (auto-revert-tail-mode 1)))
 
@@ -1130,15 +1132,18 @@ But you might specify your own output file with the MAPDL
 \"/out\" command.  And you might change Emacs' working directory
 with `M-x cd <RET>'."
   (interactive "P")
-  (let* ((Out-file-list (apdl-file-list "\\.out$"))
-	(Latest-out-file (car Out-file-list))
-	(Out-file))
+  (let* ((Regex "\\.out$")
+	 (File-list (apdl-file-list Regex))
+	 (Latest-file (car File-list))
+	 (File))
     (if arg
-	(setq Out-file
+	(setq File
 	      (completing-read
-	       "Choose an \".out\" file (<TAB> to complete): " Out-file-list))
-      (setq Out-file Latest-out-file))
-    (find-file-read-only-other-window Out-file)
+	       "Choose an \".out\" file (<TAB> to complete): " File-list))
+      (setq File Latest-file))
+    (when (null File)
+      (error "No file is matching \"%s\" in the current directory" Regex))
+    (find-file-read-only-other-window File)
     (goto-char (point-max))
     (auto-revert-tail-mode 1)))
 

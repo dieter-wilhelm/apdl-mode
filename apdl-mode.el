@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-16>
+;; Time-stamp: <2021-09-19>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1374,14 +1374,14 @@ solver interpreter process (apdl-query-apdl-command)"
     :visible (apdl-process-running-p)]
    ["Display MAPDL Out File" apdl-display-out-file
     :help "Display in another window in auto-revert-tail-mode the
-MAPDL out file (job.out) in the current working
+MAPDL out file (*.out) in the current working
 directory (apdl-display-out-file)"
-    :active (file-readable-p (concat default-directory apdl-job ".out"))]
+    :active (file-readable-p  (car (apdl-file-list "\\.out$")))]
    ["Display MAPDL Error File" apdl-display-error-file
     :help "Display in another window in auto-revert-tail-mode the
-MAPDL error file (job.err) in the current working
+MAPDL error file (*.err) in the current working
 directory (apdl-display-error-file)"
-    :active (file-readable-p (concat default-directory apdl-job ".err"))]
+    :active (file-readable-p (car (apdl-file-list "\\.err$")))]
    ["Write MAPDL Stop File" apdl-abort-file
     ;; we can deactivate the locking mechanism with the env variable
     ;;ANSYS_LOCK=OFF :active (file-readable-p (concat

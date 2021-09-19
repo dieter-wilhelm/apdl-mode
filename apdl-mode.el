@@ -69,6 +69,7 @@
 (require 'apdl-process)
 (require 'apdl-template)
 (require 'apdl-wb-template)
+(require 'outline)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; --- constants ---
@@ -523,16 +524,15 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
     ;; --- miscellaneous ---
 
-    ;; outline-minor-mode must be defined to work for the following!
-    ;;(require 'outline), we call this minor mode before creating this
-    ;; mode-map
+    ;; for emacs < 28
     (when (and ; outline-minor-mode
-	       (version< "28" emacs-version))
+	   (version< "28" emacs-version))
       (define-key map (kbd "TAB")
 	`(menu-item "" outline-cycle
                     :filter ,(lambda (cmd)
                                (when (apdl-on-heading-p) cmd))))
-      (define-key map (kbd "<backtab>") #'outline-cycle-buffer))
+      (with-no-warnings		   ; sooth compiler version < emacs-28
+	(define-key map (kbd "<backtab>") #'outline-cycle-buffer)))
     ;; above is not set by outline-minor-mode!! Borrowed from
     ;; outline.el emacs-28.1
 

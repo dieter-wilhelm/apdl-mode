@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2021-09-12>
+#+DATE: Time-stamp: <2021-09-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+OPTIONS: H:1 texht:t
 # #+BEAMER_COLOR_THEME:
@@ -185,14 +185,14 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+LaTeX: \\[.4cm]
 #+HTML: <br>
    In the following *M-x* or *C-c* means typing <ALT> or <CTRL> key
-   together with the `x' or `c' key.
+   together with the `x' or `c' key, respectively.
 
  #+ATTR_LaTeX: :height 7.5cm
   [[./find_file_dialog.png]]
 
 ** Explore the APDL-Mode Menus
    Browsing the APDL help with *C-c C-b* is much faster than searching
-   with the Ansys Help Viewer or online.
+   with the Ansys Help Viewer or searching online.
 
 #+ATTR_LaTeX: :height 7.5cm
  [[./ansys_menu.png]]
@@ -229,7 +229,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 
 ** Check Your Cursor Position in the Argument List
   For commands with a large number of arguments it is cumbersome to
-  count the arguments, *M-h* facilitates this for you and visualises
+  count the arguments, *M-h* shows a short explanation and visualises
   dynamically at which argument position the cursor is.
 
 #+ATTR_LaTeX: :height 7.5cm
@@ -266,7 +266,7 @@ package-install-file <RET>~ and select the downloaded tar archive.
 #+ATTR_LaTeX: :height 7.5cm
   [[./outline.png]]
 
-** Utilise completions of all (~2000) APDL symbols
+** Utilise completions of all (\approx 2000) APDL symbols
   Move the cursor behind a character - here `c' - or word fragment and
   type <ESC> <TAB> or *C-M-i* for completing up to date APDL command-,
   element- and function names.

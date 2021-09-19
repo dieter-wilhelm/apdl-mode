@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-09-09>
+#+DATE: Time-stamp: <2021-09-18>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -21,13 +21,14 @@
   Release end of October
 ** Todos, bugs
    - APDL reference is incomplete
+   - Tutorial pictures are often outdated (ansys -> apdl)
    - HTML docu is bad
    - Templates: Add intro help to the -wb-template system, complete
      usage.org
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc in the manual
 ** Issues
-   - Discovery Aim is obsolete
+   - Discovery Aim is obsolete?
    - c*** isn't completed
    - *mwrite
      *cfclos
@@ -115,12 +116,11 @@
      - #+caption: not working!
      - #+title: not working!
 *** templates
-   - wb templates in README.org, clear, will grow with usage, as a
-     matter of fact
+   - wb templates in README.org, clear, will grow with usage
      - contact pressure evaluation, press-fit
      - harmonic, acceleration
      - imbalance load
-     - Rotordynamics
+     - rotordynamics
      - temperature dependent load
     - Intelligent template selector with keywords in the line of helm
       or ivy?

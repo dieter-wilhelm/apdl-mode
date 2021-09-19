@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org9eae422)
-2.  [Version 20.5.0](#org208ea9f)
-3.  [Version 20.4.0](#org709a606)
-4.  [Version 20.3.0](#org68e91d1)
-5.  [Version 20.2.0](#orga621f03)
-6.  [Version 20.1.1](#orgc397e4a)
-7.  [Version 162-2](#org17f8a53)
+1.  [Version 20.6.0](#orgca2946e)
+2.  [Version 20.5.0](#org535cbe4)
+3.  [Version 20.4.0](#orgb0d5179)
+4.  [Version 20.3.0](#org8c79e55)
+5.  [Version 20.2.0](#orge7a2ee6)
+6.  [Version 20.1.1](#org087bf8a)
+7.  [Version 162-2](#orga095cc4)
 
 
 
-<a id="org9eae422"></a>
+<a id="orgca2946e"></a>
 
 # TODO Version 20.6.0
 
@@ -21,6 +21,7 @@ Release end of October
 ## Todos, bugs
 
 -   APDL reference is incomplete
+-   Tutorial pictures are often outdated (ansys -> apdl)
 -   HTML docu is bad
 -   Templates: Add intro help to the -wb-template system, complete
     usage.org
@@ -30,7 +31,7 @@ Release end of October
 
 ## Issues
 
--   Discovery Aim is obsolete
+-   Discovery Aim is obsolete?
 -   c\*\*\* isn't completed
 -   \*mwrite
     \*cfclos
@@ -133,13 +134,12 @@ MD
 
 ### templates
 
--   wb templates in README.org, clear, will grow with usage, as a
-    matter of fact
+-   wb templates in README.org, clear, will grow with usage
     
     -   contact pressure evaluation, press-fit
     -   harmonic, acceleration
     -   imbalance load
-    -   Rotordynamics
+    -   rotordynamics
     -   temperature dependent load
     
     -   Intelligent template selector with keywords in the line of helm
@@ -213,7 +213,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org208ea9f"></a>
+<a id="org535cbe4"></a>
 
 # DONE Version 20.5.0
 
@@ -221,7 +221,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org709a606"></a>
+<a id="orgb0d5179"></a>
 
 # DONE Version 20.4.0
 
@@ -229,7 +229,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org68e91d1"></a>
+<a id="org8c79e55"></a>
 
 # DONE Version 20.3.0
 
@@ -238,14 +238,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orga621f03"></a>
+<a id="orge7a2ee6"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgc397e4a"></a>
+<a id="org087bf8a"></a>
 
 # DONE Version 20.1.1
 
@@ -258,7 +258,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org17f8a53"></a>
+<a id="orga095cc4"></a>
 
 # Version 162-2
 

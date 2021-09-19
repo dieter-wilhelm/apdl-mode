@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-09-18"
+Version 20.6.0 Time-stamp: "2021-09-19"
 
 * Menu:
 
@@ -3254,6 +3254,7 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: Issues,  Up: Version 2060
 ------------------
 
    • APDL reference is incomplete
+   • Tutorial pictures are often outdated (ansys -> apdl)
    • HTML docu is bad
    • Templates: Add intro help to the -wb-template system, complete
      usage.org
@@ -3266,7 +3267,7 @@ File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Vers
 12.1.2 Issues
 -------------
 
-   • Discovery Aim is obsolete
+   • Discovery Aim is obsolete?
    • c*** isn’t completed
    • *mwrite *cfclos M-?  shows help for *mwrite, when cursor behind
      *cfclos and in the last line without
@@ -3369,12 +3370,11 @@ File: apdl-mode.info,  Node: templates,  Next: misc,  Prev: Docu,  Up: Wishes
 12.1.4.2 templates
 ..................
 
-   • wb templates in README.org, clear, will grow with usage, as a
-     matter of fact
+   • wb templates in README.org, clear, will grow with usage
         • contact pressure evaluation, press-fit
         • harmonic, acceleration
         • imbalance load
-        • Rotordynamics
+        • rotordynamics
         • temperature dependent load
         • Intelligent template selector with keywords in the line of
           helm or ivy?
@@ -4663,38 +4663,38 @@ Node: Other APDL editor resources134930
 Node: Todos135844
 Node: Version 2060136202
 Node: Todos bugs136475
-Node: Issues136870
-Node: Checks137616
-Node: Wishes137893
-Node: Docu138377
-Node: templates140550
-Node: misc141147
-Node: Done141513
-Node: Push and Release Proceedures141807
-Node: Version 2050 (1)143119
-Node: Version 2040 (1)143343
-Node: Version 2030 (1)143546
-Node: Version 2020 (1)143770
-Node: Version 2011 (1)143955
-Node: Version 162-2144431
-Node: Bugs144709
-Node: Wish-list145617
-Node: Freeze150951
-Node: Deficiencies151316
-Node: Procedures152970
-Node: Freeze proceedures153492
-Node: Release155063
-Node: Ideas for further versions155666
-Node: Parameter help and documentation156097
-Node: Ansys process and interpreter buffer158399
-Node: Skeletons outline and abbrevs161262
-Node: Miscellaneous (1)162996
-Node: Ansys syntax restrictions not (yet) accounted for167988
-Node: Unknown Ansys stuff168893
-Node: Acknowledgements169176
-Node: GNU Free Documentation License169748
-Node: Variable Index194774
-Node: Concept Index194927
+Node: Issues136930
+Node: Checks137677
+Node: Wishes137954
+Node: Docu138438
+Node: templates140611
+Node: misc141182
+Node: Done141548
+Node: Push and Release Proceedures141842
+Node: Version 2050 (1)143154
+Node: Version 2040 (1)143378
+Node: Version 2030 (1)143581
+Node: Version 2020 (1)143805
+Node: Version 2011 (1)143990
+Node: Version 162-2144466
+Node: Bugs144744
+Node: Wish-list145652
+Node: Freeze150986
+Node: Deficiencies151351
+Node: Procedures153005
+Node: Freeze proceedures153527
+Node: Release155098
+Node: Ideas for further versions155701
+Node: Parameter help and documentation156132
+Node: Ansys process and interpreter buffer158434
+Node: Skeletons outline and abbrevs161297
+Node: Miscellaneous (1)163031
+Node: Ansys syntax restrictions not (yet) accounted for168023
+Node: Unknown Ansys stuff168928
+Node: Acknowledgements169211
+Node: GNU Free Documentation License169783
+Node: Variable Index194809
+Node: Concept Index194962
 
 End Tag Table
 

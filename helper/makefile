@@ -95,8 +95,6 @@ X11_FILES := ../X11/xGetClassicsWindow.cpp ../X11/xPasteToWin.cpp ../X11/xGetFoc
 
 X11_EXE := $(X11_FILES:.cpp=)
 
-PACKAGE := apdl-mode-$(VERSION).tar
-
 # necessary el files
 EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el \
@@ -251,7 +249,7 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 # MODE: this is the Ansys mode "installation" package
 # the sources are built from GitHub automatically when tagged
 .PHONEY : PACK
-PACK : $(PACKAGE) makefile
+PACK : CLEAN $(PACKAGE) makefile
 
 .PHONEY : CONTI
 CONTI : A-M-$(VERSION).tar.xz

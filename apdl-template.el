@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-16>
+;; Time-stamp: <2021-09-21>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -259,7 +259,7 @@ key and choose with the mouse 2 button."
 (define-skeleton apdl-skeleton-separator-line
   "Insert one comment line to separate topics."
   nil
-  "!! --------------------" \n
+  "!! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" \n
   \n)
 
 (define-skeleton apdl-skeleton-header

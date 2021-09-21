@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#orgca2946e)
-2.  [Version 20.5.0](#org535cbe4)
-3.  [Version 20.4.0](#orgb0d5179)
-4.  [Version 20.3.0](#org8c79e55)
-5.  [Version 20.2.0](#orge7a2ee6)
-6.  [Version 20.1.1](#org087bf8a)
-7.  [Version 162-2](#orga095cc4)
+1.  [Version 20.6.0](#org055702f)
+2.  [Version 20.5.0](#org3a2bee5)
+3.  [Version 20.4.0](#orge60f083)
+4.  [Version 20.3.0](#orgad7c6ef)
+5.  [Version 20.2.0](#org132b762)
+6.  [Version 20.1.1](#org0c09291)
+7.  [Version 162-2](#org60b2e04)
 
 
 
-<a id="orgca2946e"></a>
+<a id="org055702f"></a>
 
 # TODO Version 20.6.0
 
@@ -31,6 +31,11 @@ Release end of October
 
 ## Issues
 
+-   Do we really need to specify the license interconnect server?
+-   Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
+    -replot, -q -query-apdl-command, -k -kill-anys, -p
+    -start-pzr-box: are for interactive server use, -d -do <-
+    abbrevs!?
 -   Discovery Aim is obsolete?
 -   c\*\*\* isn't completed
 -   \*mwrite
@@ -213,7 +218,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org535cbe4"></a>
+<a id="org3a2bee5"></a>
 
 # DONE Version 20.5.0
 
@@ -221,7 +226,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orgb0d5179"></a>
+<a id="orge60f083"></a>
 
 # DONE Version 20.4.0
 
@@ -229,7 +234,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org8c79e55"></a>
+<a id="orgad7c6ef"></a>
 
 # DONE Version 20.3.0
 
@@ -238,14 +243,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orge7a2ee6"></a>
+<a id="org132b762"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org087bf8a"></a>
+<a id="org0c09291"></a>
 
 # DONE Version 20.1.1
 
@@ -258,7 +263,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orga095cc4"></a>
+<a id="org60b2e04"></a>
 
 # Version 162-2
 

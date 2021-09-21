@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-09-19"
+Version 20.6.0 Time-stamp: "2021-09-21"
 
 * Menu:
 
@@ -3267,6 +3267,10 @@ File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Vers
 12.1.2 Issues
 -------------
 
+   • Do we really need to specify the license interconnect server?
+   • Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
+     -replot, -q -query-apdl-command, -k -kill-anys, -p -start-pzr-box:
+     are for interactive server use, -d -do <- abbrevs!?
    • Discovery Aim is obsolete?
    • c*** isn’t completed
    • *mwrite *cfclos M-?  shows help for *mwrite, when cursor behind
@@ -4664,37 +4668,37 @@ Node: Todos135844
 Node: Version 2060136202
 Node: Todos bugs136475
 Node: Issues136930
-Node: Checks137677
-Node: Wishes137954
-Node: Docu138438
-Node: templates140611
-Node: misc141182
-Node: Done141548
-Node: Push and Release Proceedures141842
-Node: Version 2050 (1)143154
-Node: Version 2040 (1)143378
-Node: Version 2030 (1)143581
-Node: Version 2020 (1)143805
-Node: Version 2011 (1)143990
-Node: Version 162-2144466
-Node: Bugs144744
-Node: Wish-list145652
-Node: Freeze150986
-Node: Deficiencies151351
-Node: Procedures153005
-Node: Freeze proceedures153527
-Node: Release155098
-Node: Ideas for further versions155701
-Node: Parameter help and documentation156132
-Node: Ansys process and interpreter buffer158434
-Node: Skeletons outline and abbrevs161297
-Node: Miscellaneous (1)163031
-Node: Ansys syntax restrictions not (yet) accounted for168023
-Node: Unknown Ansys stuff168928
-Node: Acknowledgements169211
-Node: GNU Free Documentation License169783
-Node: Variable Index194809
-Node: Concept Index194962
+Node: Checks137948
+Node: Wishes138225
+Node: Docu138709
+Node: templates140882
+Node: misc141453
+Node: Done141819
+Node: Push and Release Proceedures142113
+Node: Version 2050 (1)143425
+Node: Version 2040 (1)143649
+Node: Version 2030 (1)143852
+Node: Version 2020 (1)144076
+Node: Version 2011 (1)144261
+Node: Version 162-2144737
+Node: Bugs145015
+Node: Wish-list145923
+Node: Freeze151257
+Node: Deficiencies151622
+Node: Procedures153276
+Node: Freeze proceedures153798
+Node: Release155369
+Node: Ideas for further versions155972
+Node: Parameter help and documentation156403
+Node: Ansys process and interpreter buffer158705
+Node: Skeletons outline and abbrevs161568
+Node: Miscellaneous (1)163302
+Node: Ansys syntax restrictions not (yet) accounted for168294
+Node: Unknown Ansys stuff169199
+Node: Acknowledgements169482
+Node: GNU Free Documentation License170054
+Node: Variable Index195080
+Node: Concept Index195233
 
 End Tag Table
 

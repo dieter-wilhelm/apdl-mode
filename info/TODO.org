@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-09-18>
+#+DATE: Time-stamp: <2021-09-19>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -28,6 +28,11 @@
      - Code Templates, apdl-wb-custom-template-directory
      - Export of WB command objects to file on disc in the manual
 ** Issues
+   - Do we really need to specify the license interconnect server?
+   - Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
+     -replot, -q -query-apdl-command, -k -kill-anys, -p
+     -start-pzr-box: are for interactive server use, -d -do <-
+     abbrevs!?
    - Discovery Aim is obsolete?
    - c*** isn't completed
    - *mwrite

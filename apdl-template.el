@@ -3056,23 +3056,32 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/title," \n
   "!!otherwise the title is defined with the iges import" \n
   \n
-  "!! ----------------------------------------" \n
-  "!" apdl-outline-string apdl-outline-string
-  " ---- General Preprocessing ---- " \n
-  "!! ----------------------------------------" \n
-  \n
+  ;; "!! ----------------------------------------" \n
+  ;; "!" apdl-outline-string apdl-outline-string
+  ;; " ---- General Preprocessing ---- " \n
+  ;; "!! ----------------------------------------" \n
+  ;;  \n
   "/prep7" \n
   \n
+  "!! ------------------------------" \n
+  "!" apdl-outline-string
+  apdl-outline-string " ---- Materials and element types ----" \n
+  "!! ------------------------------" \n
+  \n
   "!! .............................." \n
   "!" apdl-outline-string apdl-outline-string
-  apdl-outline-string " ... Materials and element types ..." \n
+  apdl-outline-string " ... Materials ..." \n
   "!! .............................." \n
   \n
-  "!@@@ ... Materials ..." \n
+  "!! .............................." \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " ... Solid elements ..." \n
+  "!! .............................." \n
   \n
-  "!@@@ ... Solid elements ..." \n
-  \n
-  "!@@@ ... Contact elements ..." \n
+  "!! .............................." \n
+  "!" apdl-outline-string apdl-outline-string
+  apdl-outline-string " ... Contact elements ..." \n
+  "!! .............................." \n
   \n
   "!! .............................." \n
   "!" apdl-outline-string apdl-outline-string
@@ -3121,7 +3130,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   \n
   "/post26" \n
   \n
-  "/eof ------------------------------" \n)
+  "!! --------------------- eof ------------------------------" \n)
 
 (define-skeleton apdl-if
   "Insert interactively an *if .. *endif construct."

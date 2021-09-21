@@ -416,12 +416,10 @@ AWP_ROOTXXX")
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-program)
                                                 force))
       (let* ((idir apdl-ansys-install-directory)
-             (version1 apdl-current-ansys-version)
+	     (version1 (remove ?v apdl-current-ansys-version))
              (exe
               (if apdl-is-unix-system-flag
-                  ;; (concat idir "ansys/bin/anshelp" version1)
-		  ;; version1 is v201 but anshelp201 NOT anshelpv201!
-                  (concat idir "ansys/bin/anshelp")
+                  (concat idir "ansys/bin/anshelp" version1)
 		;; cygwin distincts capitalisation of execs (v201:
 		;; ANSYSHelpViewer)
                 (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))

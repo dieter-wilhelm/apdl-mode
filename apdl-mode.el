@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-19>
+;; Time-stamp: <2021-09-20>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -525,13 +525,12 @@ Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
     ;; --- miscellaneous ---
 
     ;; for emacs < 28
-    (when (and ; outline-minor-mode
-	   (version< "28" emacs-version))
+    (when (version< "28" emacs-version)
       (define-key map (kbd "TAB")
 	`(menu-item "" outline-cycle
                     :filter ,(lambda (cmd)
                                (when (apdl-on-heading-p) cmd))))
-      (with-no-warnings		   ; sooth compiler version < emacs-28
+      (when (fboundp 'outline-cycle-buffer) ; sooth compiler version < emacs-28
 	(define-key map (kbd "<backtab>") #'outline-cycle-buffer)))
     ;; above is not set by outline-minor-mode!! Borrowed from
     ;; outline.el emacs-28.1
@@ -1209,7 +1208,7 @@ apdl-mode (apdl-reload-apdl-mode), this is only active if
    ["Specify License Server or - File" apdl-license-file
     :label (if apdl-license-file
                "Change License Server or - File"
-             "Specify License Server or - File")
+             "Specify License Server or - File [not set]")
     ;; :visible apdl-is-unix-system-flag
     :help "Change the license server specification (for an
 solver/interpreter run or the license status), either naming the
@@ -1229,21 +1228,36 @@ solver/ interpreter run)"]
     :help "For certain functionality you need to set the
 installation directory of Ansys, the path up to the version
 number vXXX (apdl-ansys-install-directory)"]
+   ;; -lmutil-program or -ansys-program
    ["Change MAPDL License Type" apdl-license
     :label (concat "Change License Type [" apdl-license "]")
     :help "Specify the license type for an solver/interpreter run
-(apdl-license)"]
-   ["Change Job Name of Run" apdl-job
+(apdl-license)"
+    :active (or (and apdl-lmutil-program
+		     (file-executable-p apdl-lmutil-program)
+		     apdl-license-file)
+		(and apdl-ansys-program
+		     (file-executable-p apdl-ansys-program)
+		     apdl-license-file))
+    ]
+    ["Change Job Name of Run" apdl-job
     :label (concat "Change Job Name [" apdl-job "]")
     ;; :visible apdl-is-unix-system-flag
     :help "Specify the job name for an solver/interpreter
-   run (apdl-job)"]
+   run (apdl-job)"
+    :active (and apdl-ansys-program
+		 (file-executable-p apdl-ansys-program)
+		 apdl-license-file)
+    ]
    ["Change the No of Processors" apdl-no-of-processors
     :label (format "Change the Number of Processors [%d]"
                    apdl-no-of-processors)
     ;; :visible apdl-is-unix-system-flag
     :help "Specify the number of processors to use for the Ansys
-run definition (apdl-no-of-processors)"]
+run definition (apdl-no-of-processors)"
+    :active (and apdl-ansys-program
+		 (file-executable-p apdl-ansys-program)
+		 apdl-license-file)]
    "--"
    ["Start the Ansys Help Viewer" apdl-start-ansys-help
     :help "Start the Ansys Help Viewer
@@ -1254,26 +1268,33 @@ online help page."
    ["License Server Status" apdl-license-status
     :help "Show the license server status, the number of licenses
 available and used (apdl-license-status)"
-    :active (and apdl-lmutil-program (file-executable-p apdl-lmutil-program)
-		 apdl-license-file apdl-username)]
+    :active (and apdl-lmutil-program
+		 (file-executable-p apdl-lmutil-program)
+		 apdl-license-file)]
    ["License User Status" apdl-user-license-status
     :help "Show the license user status, the licenses
 used (apdl-user-license-status)"
-    :active (and apdl-lmutil-program (file-executable-p apdl-lmutil-program)
-		 apdl-license-file)]
+    :active (and apdl-lmutil-program
+		 (file-executable-p apdl-lmutil-program)
+		 apdl-license-file
+		 apdl-username)]
    ["Start Ansys WorkBench" apdl-start-wb
-    :active (and apdl-ansys-wb (file-executable-p apdl-ansys-wb))
+    :active (and apdl-ansys-wb
+		 (file-executable-p apdl-ansys-wb))
     :help "Start the Ansys WorkBench (apdl-start-wb)"]
    ["Ansys MAPDL Product Launcher" apdl-start-launcher
-    :active (and apdl-ansys-launcher (file-executable-p apdl-ansys-launcher))
+    :active (and apdl-ansys-launcher
+		 (file-executable-p apdl-ansys-launcher))
     :help "Start the Ansys Mechanical APDL Product Launcher
 (apdl-start-launcher)"]
    ["Ansys MAPDL Batch Run" apdl-start-batch-run
-    :active (and apdl-ansys-program (file-executable-p apdl-ansys-program))
+    :active (and apdl-ansys-program
+		 (file-executable-p apdl-ansys-program))
     :help "Start an Ansys Mechanical APDL batch run
 (apdl-start-batch-run)"]
    ["Ansys MAPDL Classics GUI" apdl-start-classics
-    :active (and apdl-ansys-program (file-executable-p apdl-ansys-program))
+    :active (and apdl-ansys-program
+		 (file-executable-p apdl-ansys-program))
     ;;    :visible apdl-is-unix-system-flag
     :help "Start the Ansys Classics MAPDL
    GUI (apdl-start-classics)"]
@@ -2392,8 +2413,12 @@ Reindent the line if `apdl-auto-indent-flag' is non-nil."
     "Menu keymap for APDL Tasks." apdl-task-menu)
   (easy-menu-define apdl-mode-menu-map apdl-mode-map
     "Menu keymap for APDL-Mode." apdl-mode-menu)
-  (easy-menu-add apdl-task-menu-map apdl-mode-map)
-  (easy-menu-add apdl-mode-menu-map apdl-mode-map))
+
+  ;; redundant for emacs > 28
+  (when (version< "28" emacs-version)
+    (with-no-warnings
+      (easy-menu-add apdl-task-menu-map apdl-mode-map)
+      (easy-menu-add apdl-mode-menu-map apdl-mode-map))))
 
 (defun apdl-calculate-indent ()   ; FIXME: comment, fixed goal column,
   "Return appropriate indentation for the current APDL code line.
@@ -3064,7 +3089,9 @@ These constructs appear in WorkBench created solver input files."
     (define-abbrev apdl-mode-abbrev-table
       "`1" "finish\n/clear\n!y\n"  ) ; the first 1 one
     (define-abbrev apdl-mode-abbrev-table
-      "`2" "*afun,deg\n"  ) ; the second 2 one ;-)
+      "`2" "*afun,deg\n"  ) ; the 2nd one ;-)
+    (define-abbrev apdl-mode-abbrev-table
+      "`3" "sqrt(3)/2"  ) ; the 3rd
     (define-abbrev apdl-mode-abbrev-table "`s" "" 'apdl-skeleton-separator-line)
     (define-abbrev apdl-mode-abbrev-table "`ss" "" 'apdl-skeleton-section-separator)
     (define-abbrev apdl-mode-abbrev-table "`i" ""      'apdl_if)

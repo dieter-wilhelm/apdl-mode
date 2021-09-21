@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-13>
+;; Time-stamp: <2021-09-21>
 
 ;; Copyright (C) 2016 - 2021  H. Dieter Wilhelm
 
@@ -117,7 +117,7 @@ this for the current session only."
 (defcustom apdl-ansys-wb nil
   "This string variable stores the Ansys WorkBench executable.
 When the respective executable is not in your search path, you
-have to specify the full qualified file name and not only
+have to specify the full qualified file name, not only
 executable's name.  For example:
 \"/ansys_inc/v201/Framework/bin/Linux64/runwb2\".  You might
 customise this variable permanently or use the function
@@ -419,7 +419,9 @@ AWP_ROOTXXX")
              (version1 apdl-current-ansys-version)
              (exe
               (if apdl-is-unix-system-flag
-                  (concat idir "ansys/bin/anshelp" version1)
+                  ;; (concat idir "ansys/bin/anshelp" version1)
+		  ;; version1 is v201 but anshelp201 NOT anshelpv201!
+                  (concat idir "ansys/bin/anshelp")
 		;; cygwin distincts capitalisation of execs (v201:
 		;; ANSYSHelpViewer)
                 (concat idir "commonfiles/help/HelpViewer/ANSYSHelpViewer.exe"))))

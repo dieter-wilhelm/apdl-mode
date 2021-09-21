@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-20>
+;; Time-stamp: <2021-09-21>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1213,13 +1213,14 @@ apdl-mode (apdl-reload-apdl-mode), this is only active if
     :help "Change the license server specification (for an
 solver/interpreter run or the license status), either naming the
 license server machine (with port) or the actual license file"]
-   ["Specify the License Interconnect Servers" apdl-ansysli-servers
-    :label (if apdl-ansysli-servers
-               "Change the License Interconnect Servers"
-             "Specify the License Interconnect Servers")
-    :visible apdl-is-unix-system-flag
-    :help "Change the interconnect server specification (for an
-solver/ interpreter run)"]
+;; We do not need this anywhere, any longer 2021-09!
+;;    ["Specify the License Interconnect Servers" apdl-ansysli-servers
+;;     :label (if apdl-ansysli-servers
+;;                "Change License Interconnect Servers"
+;;              "Specify License Interconnect Servers [not set]")
+;;     :visible apdl-is-unix-system-flag
+;;     :help "Change the interconnect server specification (for an
+;; solver/ interpreter run)"]
    ["Installation Directory" apdl-ansys-install-directory
     :label (if apdl-ansys-install-directory
                (concat "Change the Installation Directory ["
@@ -1281,7 +1282,7 @@ used (apdl-user-license-status)"
    ["Start Ansys WorkBench" apdl-start-wb
     :active (and apdl-ansys-wb
 		 (file-executable-p apdl-ansys-wb))
-    :help "Start the Ansys WorkBench (apdl-start-wb)"]
+    :help "Start Ansys WorkBench (apdl-start-wb)"]
    ["Ansys MAPDL Product Launcher" apdl-start-launcher
     :active (and apdl-ansys-launcher
 		 (file-executable-p apdl-ansys-launcher))
@@ -1289,12 +1290,14 @@ used (apdl-user-license-status)"
 (apdl-start-launcher)"]
    ["Ansys MAPDL Batch Run" apdl-start-batch-run
     :active (and apdl-ansys-program
-		 (file-executable-p apdl-ansys-program))
+		 (file-executable-p apdl-ansys-program)
+		 apdl-license-file)
     :help "Start an Ansys Mechanical APDL batch run
 (apdl-start-batch-run)"]
    ["Ansys MAPDL Classics GUI" apdl-start-classics
     :active (and apdl-ansys-program
-		 (file-executable-p apdl-ansys-program))
+		 (file-executable-p apdl-ansys-program)
+		 apdl-license-file)
     ;;    :visible apdl-is-unix-system-flag
     :help "Start the Ansys Classics MAPDL
    GUI (apdl-start-classics)"]
@@ -1303,6 +1306,7 @@ used (apdl-user-license-status)"
     under Linux (apdl-start-ansys)"
     :active (and apdl-is-unix-system-flag
                  (file-executable-p apdl-ansys-program)
+		 apdl-license-file
                  (not (apdl-process-running-p)))]
    "--"
 ;;   ;; not supported any longer 2020-03
@@ -1339,6 +1343,7 @@ when a run is active, send it to the
 solver/interpreter (apdl-copy-or-send-above)"]
    (list
     "Send Graphics Command"
+    :active (apdl-process-running-p)
     ["Start Graphics Screen" apdl-start-graphics
      :help "Open the graphics screen for the interactive MAPDL
      mode (apdl-start-graphics)"

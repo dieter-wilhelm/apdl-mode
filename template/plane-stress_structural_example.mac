@@ -16,13 +16,16 @@ Rad = 1.5      !Spring radius
 Steel = 1
 ID = Steel
 real = Steel
-!!et,ID,solid186 !3d, 20 node
+
 !! plane stress with thickness
+!! et,ID,plane182 !2d, 4 node 
 et,ID,plane183,,,3 !2d, 8 node (3)0:plane stress, 1:axissymmetric, 2:plane
 			 !strain, 3:plane stress with thickness real
 			 !constant
-
 r,ID,Thick	 ! element thickness
+
+!! contacts: targe169 - conta172
+
 /eshape,1	 ! 1:use real constant def. for element shapes
 /graphics, power ! for post1 results
 

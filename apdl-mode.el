@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-21>
+;; Time-stamp: <2021-09-22>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1265,6 +1265,8 @@ run definition (apdl-no-of-processors)"
 (apdl-start-ansys-help).  If there is no local help installed or
 you configured online help you will be directed to the main
 online help page."
+    ;; we can start the help viewer without -license-file, v211
+    ;; 2021-09
     :active (file-executable-p apdl-ansys-help-program)]
    ["License Server Status" apdl-license-status
     :help "Show the license server status, the number of licenses

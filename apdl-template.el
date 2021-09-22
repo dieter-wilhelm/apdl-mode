@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-21>
+;; Time-stamp: <2021-09-22>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -785,7 +785,7 @@ half:mirror" \n
   "gcdef, Option, SECT1, SECT2, MATID, REALID" \n
   "tb,inter,MatID,,,bonded !contact interaction" \n
   "mp,mu,MatID,.1 !friction " \n
-  "!! rigid targets without real constants are allowed with general
+  "!! rigid targets without real constants are allowed with general \
 contact definitons!" \n
   "ET,100,170,,1" \n
   "TYPE,100" \n
@@ -817,39 +817,38 @@ contact definitons!" \n
   "et,Target,targe169  !2d" \n
   \n
   "!! --- contact options --" \n
-  "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure
-Lagrange" \n
+  "keyo,Contact,2,1 !ALGORITHM [0]:augm. Lagrange,1:penalty,2:MPC,4:pure Lagrange" \n
   "!! " \n
-  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat.
+  "Fkn = .1 !contact stiffness (default 1, divided by 100 if plastic mat. \
 ONLY Ansys version < 12.0!)" \n
   "rmodif,Contact,3,Fkn !FKN:normal penalty stiffness factor (default:1)
-smaller: bigger penetration, easier convergence" \n
+!! smaller: bigger penetration, easier convergence" \n
   "!rmod,Contact,12,0. !FKT:tangent stiffness factor,0:means 1 for Ansys!!!" \n
   \n
-  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering
+  "!Ftoln = .1 !penetration tolerance [.1] for lagr. mult. & chattering \
 control" \n
-  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1)
+  "!rmod,Contact,4,Ftoln !FTOLN penetration tolerance (augm. Lagrance! default:0.1) \
 bigger: less chattering" \n
   \n
   "!Pinb = -0.1 !search radius, neg: absolut value ( > CNOF!!!!)" \n
-  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute
+  "!rmod,Contact,6,Pinb !PINB:pinball radius (negative: no scaling:absolute \
 distance)" \n
   \n
   "!move open contact points to onto target surface" \n
-  "!ICONT = -0.05 !initial contact closure [0] relative band size
+  "!ICONT = -0.05 !initial contact closure [0] relative band size \
 (neg. absolut)" \n
-  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure
+  "!rmod,Contact,5,Icont !ICONT:amount of initial contact closure \
 (positiv:penetration)" \n
   \n
   "!shift complete open contact surface to target surf. " \n
   "!CNOF = 0 !contact surface offset (complete shift) ([0], neg.: penetr.)" \n
-  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset
+  "!rmod,Contact,10,Cnof !CNOF (thickness effects):contact normal offset \
 (e.g. beams)" \n
   \n
   "!keyo,Contact,4,0 !keyo(4): location of contact detection" \n
   "    !! [0]:Gauss points, 3(V13):surface projection method" \n
-  "!keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICON
- (node movement in a band)" \n
+  "!keyo,Contact,5,4 !EFFEKT of CNOF (surface offset) or ICON \
+(node movement in a band)" \n
   "    !! 0: no adjustm." \n
   "    !! 1: close gap with auto CNOF" \n
   "    !! 2: reduce penetr. w. auto CNOF" \n
@@ -862,14 +861,14 @@ distance)" \n
   "    !! 2: include everyth. ramped" \n
   "    !! 3: include offset only" \n
   "    !! 4: incl. offset only, ramped" \n
-  "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration,
+  "keyo,Contact,10,2 !Stiffness UPDATE,[0]:each LS,2:each NR iteration, \
 1:each substep" \n
   "!keyo,Contact,11,1 !SHELL thickness effect" \n
-  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation,
+  "keyo,Contact,12,0 !BEHAVIOUR,[0]:frictional/-less,1:rough,2:no separation, \
 3:bonded" \n
   "real,Contact" \n
   \n
-  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping,
+  "!rmod,Contact,11,-1 !FKOP contact opening stiffness & contact damping, \
 must be neg." \n
   \n
   "Mu = 0.1 !Mu is the friction factor" \n
@@ -1024,7 +1023,7 @@ type cylindrical" \n
   "/plopts,wp,1 ! display working plane" \n
   "/repl" \n
   "wpcsys,1,0    ! align wp in WIN with specified c-sys" \n
-  "wpoffs,,-100  ! x,y,z offset" \n
+  "wpoffs,,-100  ! x,y,z offset from current wp position" \n
   "wprota,0,90,0 ! z,x,y axis of rotation!" \n
   "/plopts,wp,off ! switch off wp" \n
   "/triad,off     ! off: switch off co-ordinate triad, rbot, ltop, ..." \n

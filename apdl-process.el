@@ -169,7 +169,10 @@ terminology.
   :type 'list
   :group 'APDL-process)
 
-(defcustom apdl-license "ansys"
+;; under a "prepost" license - propably since V19 - you can issue a
+;; solve command, and MAPDL is solving while catching a "meba" license
+;; :-)
+(defcustom apdl-license "preppost" 	; changed from "ansys" 2021-09
   "The License cagegory with which the MAPDL interpreter will be started.
 It is also used for displaying the current license usage in
 `apdl-license-status'.  See the custom variable
@@ -2004,7 +2007,7 @@ additional keybindings for the license buffer *Licenses*:
         (insert (propertize (concat (current-time-string) "\n")
                             'face 'match))
 
-        ;; higlight current -license-type
+        ;; higlight current -license
         (goto-char (point-min))
 	;; issue with the apdl-license-categories "ansys" and the
 	;; apdl-license-file server name.  LMUTIL puts a colon after

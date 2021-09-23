@@ -223,7 +223,9 @@ return nil."
     (if (file-readable-p ini)
         (with-temp-buffer
           (insert-file-contents ini)
-          (if type
+          (if type 			;ansli_server or not
+	      ;; I think word search doesn't distinct capitalisation
+	      ;; word search is not working with "=" for Emacs-24!!
               (word-search-forward "AnsysLI_SERVERS=" nil t)
             (word-search-forward "SERVER=" nil t))
           (search-forward-regexp ".*" nil t)
@@ -271,7 +273,9 @@ customisation variables."
   (setq apdl-is-unix-system-flag (apdl-is-unix-system-p))
 
   (unless apdl-username
-    (setq apdl-username (getenv "USERNAME")))
+      (setq apdl-username (or (getenv "USERNAME")
+      ;; centos 7.9
+      (getenv "USER")))
 
   ;; 1) -install-directory
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

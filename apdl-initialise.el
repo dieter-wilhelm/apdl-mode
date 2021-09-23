@@ -1,5 +1,5 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-21>
+;; Time-stamp: <2021-09-23>
 
 ;; Copyright (C) 2016 - 2021  H. Dieter Wilhelm
 
@@ -39,7 +39,7 @@
 (defconst apdl-mode-version "20.6.0"
   "The APDL-Mode version string.")
 
-(defconst apdl-mode-update "2021-09-21"
+(defconst apdl-mode-update "2021-09-23"
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")
@@ -275,7 +275,7 @@ customisation variables."
   (unless apdl-username
       (setq apdl-username (or (getenv "USERNAME")
       ;; centos 7.9
-      (getenv "USER")))
+      (getenv "USER"))))
 
   ;; 1) -install-directory
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

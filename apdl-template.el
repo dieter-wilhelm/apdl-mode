@@ -761,14 +761,24 @@ Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3" \n
 increments between patterns" \n
   "! full: no tranlation<-small nonzero value, half: mirroring, \
 increment is doubled" \n
-  "/expand,2,(l)rect,half,,-1e-6,,2,rect,half,-1e-6 !(local) cartesian,\
+  "/expand,2,rect,half,,-1e-6,,2,rect,half,-1e-6 ! cartesian,\
 half:mirror" \n
-  "/expand,8,(l)polar,half,,45 !(local) polar expansion, full:normal exp." \n
+  "/repl" \n
+  "!! /expand,2,lrect,half,,-1e-6,,2,rect,half,-1e-6 !local cartesian,\
+half:mirror" \n
+  "!! -- polar expansion --" \n
+  "/expand,8,polar,half,,45 ! polar expansion, full:normal exp." \n
+  "!! /expand,8,lpolar,half,,45 ! local polar expansion, full:normal exp." \n
+  "!! -- axissymmtric expansion --" \n
   "/expand,18,axis,,,10 !axisymmetric (180 ° rot. around y-axis)" \n
   "/expand !switch off expansion" \n
   "!! -- cyclic expansion --" \n
-  "cyclic,status" \n
-  "/cycexpand ! expand graphics rep." \n
+  "/prep7" \n
+  "cyclic,status ! status of cyclic analysis (/prep7)" \n
+  "/post1" \n
+  "/cycexpand,,amount,nrepeat,6 ! expand graphics rep." \n
+  "!!/cycexpand,,off ! deactivate cyclic expansion" \n
+  "/cycexpand ! deactivate cyclic expansion" \n
   \n)
 
 (define-skeleton apdl-skeleton-contact-definition

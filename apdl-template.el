@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-22>
+;; Time-stamp: <2021-09-23>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1035,6 +1035,8 @@ type cylindrical" \n
   "wpcsys,1,0    ! align wp in WIN with specified c-sys" \n
   "wpoffs,,-100  ! x,y,z offset from current wp position" \n
   "wprota,0,90,0 ! z,x,y axis of rotation!" \n
+  "wpave,x1,y1,z1,x2,y2,z2,x3,y3,z3 !move origin to (average of) point(s) !" \n
+  "wplane,wn,0,0,0,1,... ! defines a wp" \n
   "/plopts,wp,off ! switch off wp" \n
   "/triad,off     ! off: switch off co-ordinate triad, rbot, ltop, ..." \n
   "/plopts,frame,off ! switch off graphics frame" \n
@@ -2660,7 +2662,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "asel,u, !unselect new set" \n
   "asel,all, !select all entities" \n
   "asel,inve, !invert current set" \n
-  "N1= ! clear N1"
+  "nsll,s,1 !select nodes associated with lines, 1: all, 0: no corner nodes"
   \n
   "esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)| \
 live|layer|sec|stra|sfe|bfe|path|etab"\n

@@ -1613,10 +1613,10 @@ full (360 degree) area." \n
   the file extension from the pathstring." \n)
 
 (define-skeleton apdl-skeleton-geometry
-  "Geometry definitons skeleton."
+  "Geometry definitions skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- geometry --" \n
+  "!@@ --- Geometry ---" \n
   "!! ------------------------------" \n
   \n
   "/prep7" \n
@@ -1626,14 +1626,14 @@ full (360 degree) area." \n
   "Y2 = X2" \n
   "Z1 = 0" \n
   "Z2 = 1" \n
-  "!! --- volumes ---" \n
+  "!@@@ ... Volumes ..." \n
   "block,X1,X2,Y1,Y2,Z1,Z2    ! 3d hexahedron (wp)" \n
   "sphere,Rad1,Rad2,Th1,Th2   ! spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 ! cylinder V>0! " \n
   "!!arsym,y,all ! reflection of areas "
   "Xc  = 0 !centre x-coord." \n
   "Yc  = 0 !centre y-coord." \n
-  "!! --- AREAS ---" \n
+  "!@@@ ... AREAS ..." \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
   "wpcsys" \n
   "R1  = 4" \n
@@ -1651,10 +1651,11 @@ full (360 degree) area." \n
   "r,ID,Length" \n
   "!! --- VOLUMES  (or AREAS) -- "\n
   "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth=>0 !circular area or cylindrical volume" \n
-  "!! --- KeyPoints ---"  \n
+  "pcirc,Diam/2,Diam/2+Thic,90-22.5,90" \n
+  "!@@@ ... KeyPoints ..."  \n
   "source,X,Y,Z     ! default undefined kp and node location" \n
   "kl,L1,Ratio,KPNo ! keypoint on line" \n
-  "!! --- LINES ---" \n
+  "!@@@ ... LINES ..." \n
   "l,KP1,KP2, NDIV, SPACE, slope vector XV1, YV1, ZV1, XV2, YV2, \
   ZV2 ! line in the respective CS with opt. slope" \n
   "lstr,KP1,KP2 ! straight line irrespective of current CS" \n
@@ -1662,7 +1663,7 @@ full (360 degree) area." \n
   "circle,centreKp,radiusKp," \n
   \n
   "!! .............................." \n
-  "!@@@ - checks -" \n
+  "!@@ ---- checks ----" \n
   "!! .............................." \n
   \n
   "/prep7" \n
@@ -1672,9 +1673,8 @@ full (360 degree) area." \n
   "*get,Par,volu,,volu ! get volume from last vsum" \n
   \n
   "!! .............................." \n
-  "!@@@ - operations -" \n
+  "!@@ ---- operations ----" \n
   "!! .............................." \n
-  "pcirc,Diam/2,Diam/2+Thic,90-22.5,90" \n
   "Y=Diam/2+Thic"\n
   "source,Thic,Y-Interf,0 ! make location unambiguous for kmove!!"\n
   "Interf = 0.01"\n
@@ -1684,7 +1684,9 @@ full (360 degree) area." \n
   "nummrg,all ! merge coincident items" \n
   "vglue      ! a-,l- glue items together" \n
   "boptn,stat ! boolean operation options" \n
-  "!! --- line ---" \n
+  "!! --- lines ---" \n
+  "ldrag,kp1,kp2,,,,,line1,line2,,,, !drag KPs on lines -> lines"  \n
+  "lfillt,l1,l2,rad ! fillet between intersecting lines" \n
   "lglue,all ! glue lines, retaining area attributes" \n
   "ldiv,1,.5 ! divide line 1 in ratio .5" \n
   "!! --- areas ---" \n
@@ -1694,9 +1696,11 @@ reflection normal to X,y,z"
   areas from a pattern of areas" \n
   "atran  ! Transfers a pattern of areas to another coord.-system." \n
   "arotat ! areas from rotated lines" \n
+  "adrag,to-be-dragged-l1,l2,,,,,path1,path2,, ! areas from dragged \
+lines over path lines" \n
   "!! --- volume ---" \n
-  "vdele,all,,,1 ! delete everything below" \n
-  "vrotat        ! volumes from areas !" \n
+  "vdele,all,,,1 ! delete volumes and everything below" \n
+  "vrotat,A1,A2,,,,,axis1,axis2,arc  ! volumes from areas around axis" \n
   \n
   "!! .............................." \n
   "!@@@ - booleans -" \n

@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-19>
+;; Time-stamp: <2021-09-26>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -113,7 +113,7 @@
     "granta"				; material stuff
     "electronics"			; electronics desktop
     "spaceclaim"			; spaceclaim
-;;    "agppi"				; agppi -- Design Modeler
+    ;;    "agppi"				; agppi -- Design Modeler
     "cfd"			        ; Computational Fluid Mechanics
     "disc"				; disc* -- discovery procucts
     "aim_mp"				; aim_mp -- Discovery Aim
@@ -987,9 +987,9 @@ is already a solver running.  Do you wish to kill the lock file? "))
 		   ;;"-d 3D" ; 3d device, win32
 		   )
     ;;(if apdl-is-unix-system-flag
-	(display-buffer bname 'other-window)
-	;; )
-	))
+    (display-buffer bname 'other-window)
+    ;; )
+    ))
 
 ;;;###autoload
 (defun apdl-start-launcher ()
@@ -1075,7 +1075,7 @@ respective job, you can change it with \"\\[cd]\"."
   "List of files matching REGEX in current working directory.
 The list is sorted according to their modification times and
 might be nil if there is no file matching."
-;  (interactive)
+					;  (interactive)
   (let* ((File-name buffer-file-name)
 	 (CWD (if File-name ;in buffer with filename?
 		  (file-name-directory File-name)
@@ -1476,8 +1476,8 @@ with the APDL /EXIT,all command which saves all model data."
   (interactive)
   (let ((file "main_page.html"))
     (browse-url (concat "https://ansyshelp.ansys.com/"
-     			    "account/secured?returnurl=/Views/Secured/"
-     			     file))
+     			"account/secured?returnurl=/Views/Secured/"
+     			file))
     ;; (if (string> apdl-current-ansys-version "v200")
     ;; 	(browse-url (concat "https://ansyshelp.ansys.com/"
     ;; 			    "account/secured?returnurl=/Views/Secured/corp/"
@@ -1702,7 +1702,7 @@ elem.
     (if path
 	(progn
 	  (when (eq browse-url-browser-function 'eww-browse-url)
-	      (switch-to-buffer-other-window nil))
+	    (switch-to-buffer-other-window nil))
 	  ;; file:/// is not working with tramp remotely 2020-04-03
 	  ;; (browse-url-of-file (concat "file:/" path file)))
 
@@ -1890,12 +1890,12 @@ There are additional keybindings for the license buffer
 ;;;###autoload
 (defun apdl-license-status (&optional features)
   "Display the lmutil license status.
-With the optional argument FEATURES non nil the function
-summarises all license features with the Ansys license feature
-description.  Show the status and summary in a separate buffer,
-the license type variable `apdl-license' determines a
-highlighting of the license server summary rows.  There are
-additional keybindings for the license buffer *Licenses*:
+With the optional argument FEATURES non nil summarise all license
+features with the Ansys license feature description.  Show the
+status and summary in a separate buffer, the license type
+variable `apdl-license' determines a highlighting of the license
+server summary rows.  There are additional keybindings for the
+license buffer *APDL-licenses*:
 
 - `g' updating the license status,
 - `d' updating the license status with feature descriptions
@@ -1907,23 +1907,22 @@ additional keybindings for the license buffer *Licenses*:
 - `q' for burying it below another buffer."
   (interactive "P")
   (require 'apdl-mode)
-  (unless apdl-initialised-flag
-    (apdl-initialise))
-  (cond
-   ((and apdl-lmutil-program apdl-license-file)
-    ;; lmutil calls with many license server specified takes loooooonnnnggg
-    (if features
+  (let (bol eol match desc (lic-buffer "*APDL-licenses*"))
+    (unless apdl-initialised-flag (apdl-initialise))
+    (cond
+     ((and apdl-lmutil-program apdl-license-file)
+      ;; lmutil calls with many license servers specified takes loooooonnnnggg
+      (if features
+	  (message
+	   "Retrieving summary license (%s) status, please wait." apdl-license)
 	(message
-	 "Retrieving summary license (%s) status, please wait." apdl-license)
-      (message
-       "Retrieving lmutil license (%s) status, please wait..." apdl-license))
-    (with-current-buffer (get-buffer-create "*Licenses*")
-      (delete-region (point-min) (point-max)))
-    ;; syncronous call
-    (call-process apdl-lmutil-program nil "*Licenses*" nil "lmstat" "-c "
-		  apdl-license-file  "-a")
-    (let (bol eol match desc)
-      (with-current-buffer "*Licenses*"
+	 "Retrieving lmutil license (%s) status, please wait..." apdl-license))
+      (with-current-buffer (get-buffer-create lic-buffer)
+	(delete-region (point-min) (point-max)))
+      ;; syncronous call
+      (call-process apdl-lmutil-program nil lic-buffer nil "lmstat" "-c "
+		    apdl-license-file  "-a")
+      (with-current-buffer lic-buffer
 	(setq-local truncate-lines t)
 
         ;; remove uninteresting licenses
@@ -2021,12 +2020,12 @@ additional keybindings for the license buffer *Licenses*:
         (put-text-property bol eol 'face 'font-lock-warning-face)
         ;;  on Windows the license stat buffer doesn't move to point without:
         (unless apdl-is-unix-system-flag
-          (set-window-point (get-buffer-window "*Licenses*") (point)))))
-    (unless (equal (current-buffer) (get-buffer "*Licenses*"))
-      (display-buffer "*Licenses*" 'otherwindow))
-    (message "Updated license status: %s." (current-time-string)))
-   (t
-    (message "No license information or lmutil program found"))))
+          (set-window-point (get-buffer-window lic-buffer) (point))))
+      (unless (equal (current-buffer) (get-buffer lic-buffer))
+	(display-buffer lic-buffer 'otherwindow))
+      (message "Updated license status: %s." (current-time-string)))
+     (t
+      (message "No license information or lmutil program found")))))
 
 ;; starting in GUI mode (/menu,on) does inhibit the process intercommunication
 ;; => /menu,graph
@@ -2293,8 +2292,8 @@ And store it in the variable `apdl-license'."
     (setq apdl-license
           (completing-read
 	   (concat "License type [" lic "] (TAB for completion): ")
-                           apdl-license-categories
-                           nil nil nil nil lic))
+           apdl-license-categories
+           nil nil nil nil lic))
     (message
      (concat "Ansys license type is now set to \"" apdl-license "\"."))))
 

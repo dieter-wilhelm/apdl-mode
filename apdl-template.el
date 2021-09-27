@@ -1033,8 +1033,10 @@ type cylindrical" \n
   "/plopts,wp,1 ! display working plane" \n
   "/repl" \n
   "wpcsys,1,0    ! align wp in WIN with specified c-sys" \n
+  "csys,wp !activate wp (=csys,4)" \n
   "wpoffs,,-100  ! x,y,z offset from current wp position" \n
   "wprota,0,90,0 ! z,x,y axis of rotation!" \n
+  "kwplan,wn,orig,xax,normal ! working plane from keypoints" \n
   "wpave,x1,y1,z1,x2,y2,z2,x3,y3,z3 !move origin to (average of) point(s) !" \n
   "wplane,wn,0,0,0,1,... ! defines a wp" \n
   "/plopts,wp,off ! switch off wp" \n
@@ -1680,8 +1682,11 @@ full (360 degree) area." \n
   "Y=Diam/2+Thic"\n
   "source,Thic,Y-Interf,0 ! make location unambiguous for kmove!!"\n
   "Interf = 0.01"\n
-  "kmove,10,0,U,Y-Interf,0,1,Y,U,0 ! move KP"\n
-  "move,10,0,U,Y-Interf,0,1,Y,U,0  ! move node"\n
+  "!! transfering entities to coordinate system" \n
+  "ktran,to_coord-sys,kp1,kp2,ninc,kinc,noelem,imove !imove=1: only move" \n
+  "!![k,l,a,v]tran" \n
+  "kmove,10,0,U,Y-Interf,0,1,Y,U,0 ! move KP to intersection"\n
+  "move,10,0,U,Y-Interf,0,1,Y,U,0  ! move node to intersection"\n
   \n
   "nummrg,all ! merge coincident items" \n
   "vglue      ! a-,l- glue items together" \n

@@ -2170,18 +2170,20 @@ buffer, the beginning command characters can be completed with
         end
         length
         str)
-    ;; enquire or search for a valid command name
+    ;; enquire a command or search for a valid command name
     (cond ((= ask-or-toggle 0))		; do nothing
           ((= ask-or-toggle 4)
            (setq str (completing-read
                       "Type APDL keyword to get its short help: "
                       apdl-help-index)))
+	  ;; ------------------------------
           ((apdl-in-comment-line-p)
            (save-excursion
              (back-to-indentation)
              (skip-chars-forward " !")
              (re-search-forward "[^[:space:]]\\w*\\>" nil t))
            (setq str (match-string-no-properties 0)))
+	  ;; ------------------------------
           ((apdl-in-indentation-p)  ; we are possibly before a command
            ;; -TODO- strange bug, when cursor is in a line with only
            ;; -commas and no command follows in lines below, then
@@ -2189,9 +2191,13 @@ buffer, the beginning command characters can be completed with
            (save-excursion
              (re-search-forward "[^[:space:]]\\w*\\>" nil t)
              (setq str (match-string-no-properties 0))))
+	  ;; ------------------------------
           ((unless (apdl-in-indentation-p)
+	     ;; we need to follow -command-start otherwise the overlay
+	     ;; is hanging in the "air"
+	     (apdl-command-start)
              (save-excursion
-               (apdl-command-start)
+               ;; (apdl-command-start)
                (re-search-forward "[^[:space:]]\\w*\\>" nil t)
                (setq str (match-string-no-properties 0))))))
     ;; search, amend and display help string in overlay

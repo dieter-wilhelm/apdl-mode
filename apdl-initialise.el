@@ -69,9 +69,10 @@ elements, command names, etc.")
   :group 'APDL)
 
 (defcustom apdl-username nil
-  "String containing the user name or user ID.
-This variable is used to display only the user's license entries
-with the function `apdl-user-license-status'."
+  "Regex string representing the user name or user ID.
+This variable is a regular expression used to display only the
+user's license(s) from the license pool. Please see the function
+`apdl-user-license-status'."
   :type 'string
   :group 'APDL-initialise)
 

@@ -52,7 +52,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    install APDL-Mode manually:
 
    - Download the latest APDL-Mode's tar package from [[https://melpa.org/#/apdl-mode][Melpa]] or - for a
-     released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/tag/20.1.0][Github]] release page.
+     released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/][Github release page]] under Assets.
    - Install the package within Emacs: Please type `M-x
      package-install-file <RET>' and select your downloaded tar file.
 

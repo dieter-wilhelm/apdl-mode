@@ -2140,9 +2140,9 @@ changed.  Then call `apdl-show-command-parameters'."
                          (1- (line-beginning-position)))))
     (when (and (not (equal p apdl-parameter-help-position))
                (not (equal 1 p))    ; -TODO- not working in the first line
-               (memq apdl-help-overlay lo))
+               (memq apdl-help-overlay lo)) ;there's an overlay above line
       (setq apdl-parameter-help-position (point))
-      (apdl-show-command-parameters 1))))
+      (apdl-show-command-parameters -1))))
 
 ;; spec: preserve post-command-hook! => no errors
 ;; edit command while help overlay!
@@ -2171,7 +2171,13 @@ buffer, the beginning command characters can be completed with
         length
         str)
     ;; enquire a command or search for a valid command name
-    (cond ((= ask-or-toggle 0))		; do nothing
+    (cond ((= ask-or-toggle 0))		; do nothing here (but below)
+	  ((= ask-or-toggle -1) ; apdl-update-parameter-help is calling
+	   ;; and thus there's an overlay above us, so stay put
+	   (save-excursion
+	     (beginning-of-line)
+	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	     (setq str (match-string-no-properties 0))))
           ((= ask-or-toggle 4)
            (setq str (completing-read
                       "Type APDL keyword to get its short help: "

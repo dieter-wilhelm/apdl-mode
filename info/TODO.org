@@ -22,8 +22,8 @@
 ** Todos, bugs
    - -show-parameter-help in an empty comment line is often not really
      working
-   - if there are too many argument commas the overlay vanishes
-     without warning!
+   - if there are too many argument commas (MAPDL just ignores them)
+     the overlay vanishes without warning!
    - M-? with !ioptn, !igesin in comments is not working!?
    - *mwrite
      *cfclos or any asterisk command

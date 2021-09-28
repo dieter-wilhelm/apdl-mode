@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-09-27"
+Version 20.6.0 Time-stamp: "2021-09-28"
 
 * Menu:
 
@@ -2643,7 +2643,8 @@ File: apdl-mode.info,  Node: Bugs and Problems,  Next: News,  Prev: Installation
 *******************
 
 APDL-Mode was tested using Ansys v201 and v211 under Windows 10 with
-Emacs-27.  Under GNU-Linux it was used with Emacs-24 and Emacs-28
+Emacs-27.1.  Under GNU-Linux the mode was developed and checked under
+both Emacs-24.3 and Emacs-28.1
 
    Feedback is always welcome.  If you have issues while installing and
 running this mode or want to suggest improvements you have the following
@@ -3253,6 +3254,13 @@ File: apdl-mode.info,  Node: Todos bugs,  Next: Issues,  Up: Version 2060
 12.1.1 Todos, bugs
 ------------------
 
+   • -show-parameter-help in an empty comment line is often not really
+     working
+   • if there are too many argument commas the overlay vanishes without
+     warning!
+   • M-?  with !ioptn, !igesin in comments is not working!?
+   • *mwrite *cfclos or any asterisk command M-?  shows help for
+     *mwrite, when cursor behind *cfclos and in the last line without
    • APDL reference is incomplete
    • Tutorial pictures are often outdated (ansys -> apdl)
    • HTML docu is bad
@@ -3268,15 +3276,13 @@ File: apdl-mode.info,  Node: Issues,  Next: Checks,  Prev: Todos bugs,  Up: Vers
 -------------
 
    • Do we really need to specify the license interconnect server?
+   • M-?  parameter counter is not working for commands where functions
+     with multiple arguments are in the argument list!  f,node(x,y,z),,,
    • Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
      -replot, -q -query-apdl-command, -k -kill-anys, -p -start-pzr-box:
      are for interactive server use, -d -do <- abbrevs!?
    • Discovery Aim is obsolete?
    • c*** isn’t completed
-   • *mwrite *cfclos M-?  shows help for *mwrite, when cursor behind
-     *cfclos and in the last line without
-   • M-?  parameter counter is not working for commands where functions
-     with multiple arguments are in the argument list!  f,node(x,y,z),,,
    • Cygwin terminal initialisation not working, /cydrive/c:?
         • setting -ansys-installation-path should do
              • ugly ^M line endings -license-status
@@ -4642,63 +4648,63 @@ Node: Melpa Installation107164
 Node: Manual Installation108101
 Node: Development and Source Code Installation109212
 Node: Bugs and Problems109771
-Node: News110854
-Node: Version 2060 15 years of APDL-Mode!111622
-Node: Version 2050112683
-Node: Version 2040113452
-Node: Version 2030114162
-Node: Version 2020114885
-Node: Version 2011115738
-Node: Version 2010116077
-Node: Version 162-1116622
-Node: Version 1611118142
-Node: Version 1501119769
-Node: Version 1452120600
-Node: Version 1451122001
-Node: Version 1401125152
-Node: Version 1301126607
-Node: Version 1201127522
-Node: Version 1102129889
-Node: ansys-modeel 1101130447
-Node: Further Resources133571
-Node: Ansys and APDL resources133799
-Node: Emacs editor resources134575
-Node: Other APDL editor resources135138
-Node: Todos136052
-Node: Version 2060136410
-Node: Todos bugs136683
-Node: Issues137138
-Node: Checks138156
-Node: Wishes138433
-Node: Docu138917
-Node: templates141090
-Node: misc141661
-Node: Done142027
-Node: Push and Release Proceedures142321
-Node: Version 2050 (1)143633
-Node: Version 2040 (1)143857
-Node: Version 2030 (1)144060
-Node: Version 2020 (1)144284
-Node: Version 2011 (1)144469
-Node: Version 162-2144945
-Node: Bugs145223
-Node: Wish-list146131
-Node: Freeze151465
-Node: Deficiencies151830
-Node: Procedures153484
-Node: Freeze proceedures154006
-Node: Release155577
-Node: Ideas for further versions156180
-Node: Parameter help and documentation156611
-Node: Ansys process and interpreter buffer158913
-Node: Skeletons outline and abbrevs161776
-Node: Miscellaneous (1)163510
-Node: Ansys syntax restrictions not (yet) accounted for168502
-Node: Unknown Ansys stuff169407
-Node: Acknowledgements169690
-Node: GNU Free Documentation License170262
-Node: Variable Index195288
-Node: Concept Index195441
+Node: News110889
+Node: Version 2060 15 years of APDL-Mode!111657
+Node: Version 2050112718
+Node: Version 2040113487
+Node: Version 2030114197
+Node: Version 2020114920
+Node: Version 2011115773
+Node: Version 2010116112
+Node: Version 162-1116657
+Node: Version 1611118177
+Node: Version 1501119804
+Node: Version 1452120635
+Node: Version 1451122036
+Node: Version 1401125187
+Node: Version 1301126642
+Node: Version 1201127557
+Node: Version 1102129924
+Node: ansys-modeel 1101130482
+Node: Further Resources133606
+Node: Ansys and APDL resources133834
+Node: Emacs editor resources134610
+Node: Other APDL editor resources135173
+Node: Todos136087
+Node: Version 2060136445
+Node: Todos bugs136718
+Node: Issues137546
+Node: Checks138451
+Node: Wishes138728
+Node: Docu139212
+Node: templates141385
+Node: misc141956
+Node: Done142322
+Node: Push and Release Proceedures142616
+Node: Version 2050 (1)143928
+Node: Version 2040 (1)144152
+Node: Version 2030 (1)144355
+Node: Version 2020 (1)144579
+Node: Version 2011 (1)144764
+Node: Version 162-2145240
+Node: Bugs145518
+Node: Wish-list146426
+Node: Freeze151760
+Node: Deficiencies152125
+Node: Procedures153779
+Node: Freeze proceedures154301
+Node: Release155872
+Node: Ideas for further versions156475
+Node: Parameter help and documentation156906
+Node: Ansys process and interpreter buffer159208
+Node: Skeletons outline and abbrevs162071
+Node: Miscellaneous (1)163805
+Node: Ansys syntax restrictions not (yet) accounted for168797
+Node: Unknown Ansys stuff169702
+Node: Acknowledgements169985
+Node: GNU Free Documentation License170557
+Node: Variable Index195583
+Node: Concept Index195736
 
 End Tag Table
 

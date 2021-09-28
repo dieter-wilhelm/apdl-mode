@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org055702f)
-2.  [Version 20.5.0](#org3a2bee5)
-3.  [Version 20.4.0](#orge60f083)
-4.  [Version 20.3.0](#orgad7c6ef)
-5.  [Version 20.2.0](#org132b762)
-6.  [Version 20.1.1](#org0c09291)
-7.  [Version 162-2](#org60b2e04)
+1.  [Version 20.6.0](#org6dbad37)
+2.  [Version 20.5.0](#org87c6d43)
+3.  [Version 20.4.0](#org246ad76)
+4.  [Version 20.3.0](#org4547d40)
+5.  [Version 20.2.0](#orgc809632)
+6.  [Version 20.1.1](#orga90ac41)
+7.  [Version 162-2](#org3dad77e)
 
 
 
-<a id="org055702f"></a>
+<a id="org6dbad37"></a>
 
 # TODO Version 20.6.0
 
@@ -20,6 +20,15 @@ Release end of October
 
 ## Todos, bugs
 
+-   -show-parameter-help in an empty comment line is often not really
+    working
+-   if there are too many argument commas the overlay vanishes
+    without warning!
+-   M-? with !ioptn, !igesin in comments is not working!?
+-   \*mwrite
+    \*cfclos or any asterisk command
+    M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
+    last line without \n
 -   APDL reference is incomplete
 -   Tutorial pictures are often outdated (ansys -> apdl)
 -   HTML docu is bad
@@ -32,19 +41,15 @@ Release end of October
 ## Issues
 
 -   Do we really need to specify the license interconnect server?
+-   M-? parameter counter is not working for commands where functions
+    with multiple arguments are in the argument list!
+    f,node(x,y,z),,,
 -   Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
     -replot, -q -query-apdl-command, -k -kill-anys, -p
     -start-pzr-box: are for interactive server use, -d -do <-
     abbrevs!?
 -   Discovery Aim is obsolete?
 -   c\*\*\* isn't completed
--   \*mwrite
-    \*cfclos
-    M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
-    last line without \n
--   M-? parameter counter is not working for commands where functions
-    with multiple arguments are in the argument list!
-    f,node(x,y,z),,,
 -   Cygwin terminal initialisation not working, /cydrive/c:?
     -   setting -ansys-installation-path should do
         -   ugly ^M line endings -license-status
@@ -218,7 +223,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org3a2bee5"></a>
+<a id="org87c6d43"></a>
 
 # DONE Version 20.5.0
 
@@ -226,7 +231,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orge60f083"></a>
+<a id="org246ad76"></a>
 
 # DONE Version 20.4.0
 
@@ -234,7 +239,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orgad7c6ef"></a>
+<a id="org4547d40"></a>
 
 # DONE Version 20.3.0
 
@@ -243,14 +248,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org132b762"></a>
+<a id="orgc809632"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org0c09291"></a>
+<a id="orga90ac41"></a>
 
 # DONE Version 20.1.1
 
@@ -263,7 +268,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org60b2e04"></a>
+<a id="org3dad77e"></a>
 
 # Version 162-2
 

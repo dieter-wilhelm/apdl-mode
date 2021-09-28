@@ -20,6 +20,15 @@
 * TODO Version 20.6.0
   Release end of October
 ** Todos, bugs
+   - -show-parameter-help in an empty comment line is often not really
+     working
+   - if there are too many argument commas the overlay vanishes
+     without warning!
+   - M-? with !ioptn, !igesin in comments is not working!?
+   - *mwrite
+     *cfclos or any asterisk command
+     M-? shows help for *mwrite, when cursor behind *cfclos and in the
+     last line without \n
    - APDL reference is incomplete
    - Tutorial pictures are often outdated (ansys -> apdl)
    - HTML docu is bad
@@ -29,19 +38,15 @@
      - Export of WB command objects to file on disc in the manual
 ** Issues
    - Do we really need to specify the license interconnect server?
+   - M-? parameter counter is not working for commands where functions
+     with multiple arguments are in the argument list!
+     f,node(x,y,z),,,
    - Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
      -replot, -q -query-apdl-command, -k -kill-anys, -p
      -start-pzr-box: are for interactive server use, -d -do <-
      abbrevs!?
    - Discovery Aim is obsolete?
    - c*** isn't completed
-   - *mwrite
-     *cfclos
-     M-? shows help for *mwrite, when cursor behind *cfclos and in the
-     last line without \n
-   - M-? parameter counter is not working for commands where functions
-     with multiple arguments are in the argument list!
-     f,node(x,y,z),,,
    - Cygwin terminal initialisation not working, /cydrive/c:?
      - setting -ansys-installation-path should do
        - ugly ^M line endings -license-status
@@ -150,7 +155,6 @@
      - make GH
      - git clean -f -d
      - git checkout master
-
 
    - make PACK : now obligatory for any push to Melpa!!
 

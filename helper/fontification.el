@@ -89,6 +89,9 @@
 ;;     done v145, v150, v162, v201
 ;;     cp ansys_Index.hlp??? and check variable apdl-help-index
 
+;; be carefull with "all" stuff like "all"beams, otherwise allsel
+;; becomes "all"sel!
+
 ;; _RETURN values are now documented in the -skeleton-information.
 ;; _RETURN values from APDL guide chapter 4.6 (Ansys 11) 5.6 (Ansys 13)
 
@@ -876,8 +879,8 @@ By default APDL keywords, get-functions, parametric-function and elements
     (while (re-search-forward "^SOLID " nil t) ; uniqe v201
       (replace-match "\"SOLIDS\"" nil nil))
     (goto-char (point-min))
-    ;; Replace suffix ALL with "ALL"
-    (while (re-search-forward "^ALL" nil t)
+    ;;!!! Replace suffix ALL with "ALL", EXCEPT for "allsel" off course!!!
+    (while (re-search-forward "^ALL[^S][^E][^L]" nil t)
       (replace-match "\"all\"" nil nil))
     (goto-char (point-min))
     ;; skip the first line

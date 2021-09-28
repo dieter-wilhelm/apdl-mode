@@ -664,16 +664,16 @@ absolut" \n
   "/erase" \n
   \n
   "!! .............................." \n
-  "!@@@ - countours in legend -" \n
+  "!@@@ ... Legend range and contours ..." \n
   "!! .............................." \n
-  "!! X11 or WIN32 and to 128 for X11c or WIN32C " \n
-  "/contour,, ! wn,ncont[9],vmin,vinc,vmax" \n
+  "!! 9 X11 or WIN32 and up to 128 for X11c or WIN32C " \n
+  "/contour,,10,0,,2000 ! wn,ncont[9],vmin,vinc,vmax" \n
   "!! 3-D device" \n
   "/dv3d,contr,off ! [on]" \n
   "/contour,, ! wn,ncont[128],vmin,vinc,vmax" \n
   \n
   "!! .............................." \n
-  "!@@@ - cutting planes and power graphics -" \n
+  "!@@@ ... Cutting planes and power graphics ..." \n
   "!! .............................." \n
   \n
   "/graphics,power ! power (surface) graphics" \n
@@ -683,7 +683,7 @@ absolut" \n
   "/gline,,1   ! elem outlines [0] solid, 1 dashed, -1 no outl." \n
   \n
   "!! .............................." \n
-  "!@@@ - mesh line display -" \n
+  "!@@@ ... Mesh line display ..." \n
   "!! .............................." \n
   \n
   "/edge,,1 ! 1:display elements in contour plots" \n
@@ -2673,10 +2673,11 @@ Select or deselect various elements: Geometry, elements, nodes,
   "asel,inve, !invert current set" \n
   "nsll,s,1 !select nodes associated with lines, 1: all, 0: no corner nodes"
   \n
-  "esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)| \
+  "!!esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)| \
 live|layer|sec|stra|sfe|bfe|path|etab"\n
   "esel,a,ename,172 !select additionally conta172 elements" \n
-  "nsle,s ! select all nodes belonging to selected elements" \n
+  "nsle,s,all ! s,all|corner|mid| select all nodes belonging to selected elements" \n
+  "nslk,s ! s|r|u|a select all nodes belonging to selected keypoints" \n
   \n
   "!! lowest face No of element E from selected nodes" \n
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
@@ -2728,7 +2729,8 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!! -----------------------------------" \n
   \n
   "/post26" \n
-  "numvar,200 !200 maximum variables, default 10, nv = 1 is always time!" \n
+  "numvar,200 !200 maximum variables, default 10" \n
+  "nv = 1 is always time!" \n
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
   "deriv,3,2,1,,vz !time derivative of uz" \n

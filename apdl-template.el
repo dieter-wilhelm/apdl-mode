@@ -33,10 +33,16 @@
 
 ;;; Comment:
 ;; Convention used for outlining
-;; !@ is surrounded by 30 equal signs  ==============================
-;; !@@ by 30 dashes ------------------------------
-;; !@@@ by 30 dots ..............................
-;; and empty lines
+;; !@ is surrounded by 30 equal signs  !! ==============================
+;; !@ === Title
+;; !@@ by 30 dashes !! ------------------------------
+;; !@@ --- Subtitle
+;; !@@@ by 30 dots !! ..............................
+;; !@@@ ... Subsubtitle
+
+;; Separator lines with `s [SPACE]
+;; !! !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -178,7 +184,7 @@ key and choose with the mouse 2 button."
   "Control constructs"
   nil
   "!! .............................." \n
-  "!@@@ - branching, looping and control structures -" \n
+  "!@@@ ... Branching, looping and control structures ..." \n
   "!! .............................." \n
   \n
   "!! if controls" \n
@@ -292,7 +298,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   ;; "!@@ -- informations --" \n
   ;; "!! ------------------------------" \n
   "!! .............................." \n
-  "!@@@ ... measurements ..." \n
+  "!@@@ ... Measurements ..." \n
   "!! .............................." \n
   \n
   "nx(NodeNo)|y|z ! x|y|z-coordinate of node NodeNo " \n
@@ -301,7 +307,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "distkp(k1,k2)  ! distance between keypoints" \n
   "disten(e,n)    ! distance between element centroid and node" \n
   \n
-  "! .............................." \n
+  "!! .............................." \n
   "!@@@ ... Center of mass, mass, and mass moments of inertia ..." \n
   "!! .............................." \n
   \n
@@ -322,7 +328,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "*get,bla,area,0,imc,y ! moment of inertia about y w.r.t. mass centroid" \n
   \n
   "!! .............................." \n
-  "!@@@ ... job items ..." \n
+  "!@@@ ... Job items ..." \n
   "!! .............................." \n
   \n
   "/inquire,Job_name,jobname ! get string array jobname|directory|user|psearch" \n
@@ -333,7 +339,7 @@ time stamp with the Emacs command M-x `time-stamp'."
   "/inquire,param,date,file,ext ! get date(size,lines) of file.ext" \n
   \n
   "!! .............................." \n
-  "!@@@ ... stati ..." \n
+  "!@@@ ... Stati ..." \n
   "!! .............................." \n
   \n
   "/status ! [all],capabilities: title,units,mem,db,config,global,solu,prod" \n
@@ -351,7 +357,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "*vstat ! status on arry operations" \n
   \n
   "!! .............................." \n
-  "!@@@ - material info" \n
+  "!@@@ ... Material info ..." \n
   "!! .............................." \n
   \n
   "*get,Density,dens,ID,temperature ! get the properties of material ID" \n
@@ -360,7 +366,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "tbplot,biso,1" \n
   \n
   "!! .............................." \n
-  "!@@@ - geom info" \n
+  "!@@@ ... Geom info ..." \n
   "!! .............................." \n
   \n
   "/prep7" \n
@@ -372,7 +378,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "*get,Volume,volu,,volu ! combined volume of all selected volumes" \n
   \n
   "!! .............................." \n
-  "!@@@ - solution info -" \n
+  "!@@@ ... Solution info ..." \n
   "!! .............................." \n
   \n
   "set,list    ! list a summary of each load step" \n
@@ -380,14 +386,14 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "status,solu" \n
   \n
   "!! .............................." \n
-  "!@@@ - postproc info -" \n
+  "!@@@ ... Postproc info ..." \n
   "!! .............................." \n
   \n
   "*get,NS,active,,set,nset ! No of load steps" \n
   "*get,T,active,,set,time  ! Time of current set" \n
   \n
   "!! .............................." \n
-  "!@@@ - \"stat\" database settings - " \n
+  "!@@@ ... \"stat\" database settings ... " \n
   "!! .............................." \n
   \n
   "/prep7" \n
@@ -465,13 +471,13 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "PLOTTING $ stat ! - Plotting settings" \n
   \n
   "!! .............................." \n
-  "!@@@ - aux3 result file edit routine -" \n
+  "!@@@ ... aux3 result file edit routine ..." \n
   "!! .............................." \n
   \n
   "/aux3" \n
   "list ! result statistics" \n
   "!! .............................." \n
-  "!@@@ - *get -" \n
+  "!@@@ ... *get ..." \n
   "!! .............................." \n
   \n
   "*get,bla,active,,mat ! [|csys|type|real|esys]" \n
@@ -522,7 +528,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "Configuration skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- configurations --" \n
+  "!@@ --- Configurations ----" \n
   "!! ------------------------------" \n
   \n
   "*afun,deg ! [rad],deg" \n
@@ -560,7 +566,7 @@ bfa-,bfe-,bfk-,bfl-,bfv-,ic-,r-,tb-,s-,m-,sw-" \n
   "View settings skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- view settings --" \n
+  "!@@ --- View settings ----" \n
   "!! ------------------------------" \n
   \n
   "/color,wbak,whit ! white background on plot window" \n
@@ -614,13 +620,13 @@ absolut" \n
   "/triad,off" \n
   \n
   "!! .............................." \n
-  "!@@@ - translucency/transparency -" \n
+  "!@@@ ... Translucency / transparency ..." \n
   "!! .............................." \n
   \n
   "/trlcy,elem,.5,all ! make all selected elements translucent" \n
   \n
   "!! .............................." \n
-  "!@@@ - material display -" \n
+  "!@@@ ... material display ..." \n
   "!! .............................." \n
   \n
   "/number,1   ! 0:colours & numbers,1:colours,2:numbers" \n
@@ -630,7 +636,7 @@ absolut" \n
   "/pnum,defa  ! 1: turn off any numbering" \n
   \n
   "!! .............................." \n
-  "!@@@ - element shape display -" \n
+  "!@@@ ... Element shape display ..." \n
   "!! .............................." \n
   \n
   "/efacet,2 ! display 2 element facets (curvature) with power graphics" \n
@@ -638,7 +644,7 @@ absolut" \n
   "/graphics,power ! for post1 results" \n
   \n
   "!! .............................." \n
-  "!@@@ - shrunk display -" \n
+  "!@@@ ... Shrink display ..." \n
   "!! .............................." \n
   \n
   "/graphics,full ! /shrink doesn't work with power graphics" \n
@@ -647,7 +653,7 @@ absolut" \n
   "vplot" \n
   \n
   "!! .............................." \n
-  "!@@@ - multi window plots -" \n
+  "!@@@ ... Multi window plots ..." \n
   "!! .............................." \n
   "/window,2,dele" \n
   "/window,1,dele" \n
@@ -690,7 +696,7 @@ absolut" \n
   "/edge,,0 ! 0:switch off display of elements in contour plots" \n
   \n
   "!! .............................." \n
-  "!@@@ - coordinate system display -" \n
+  "!@@@ ... Coordinate system display ..." \n
   "!! .............................." \n
   \n
   "csys ! [0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
@@ -751,9 +757,9 @@ Hans(0,1) and Hans(1,0)!" \n
 (define-skeleton apdl-skeleton-symmetry-expansion
   "Graphical expansion of models utilising symmetry conditions."
   nil
-  "!! ------------------------------" \n
-  "!@@@ - symmetry expansion -" \n
-  "!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ ... Symmetry expansion ..." \n
+  "!! .............................." \n
   \n
   "!/EXPAND, Nrepeat1, Type1, Method1, DX1, DY1, DZ1, Nrepeat2, Type2, \
 Method2, DX2, DY2, DZ2, Nrepeat3, Type3, Method3, DX3, DY3, DZ3" \n
@@ -785,7 +791,7 @@ half:mirror" \n
   "Contact definitons skeleton."
   nil
   "!! -------------------------------" \n
-  "!@@ -- General contact definitions (since Ansys 16) --" \n
+  "!@@ --- General contact definitions (since Ansys 16) ----" \n
   "!! -------------------------------" \n
   \n
   "!! 2D and 3D elements are automatically selected!" \n
@@ -808,7 +814,7 @@ contact definitons!" \n
   "/pnum,sect,on !display section type" \n
   \n
   "!! -------------------------------" \n
-  "!@@ -- Contact pair definitions --" \n
+  "!@@ --- Contact pair definitions ----" \n
   "!! -------------------------------" \n
   \n
   "Contact=10"_ \n
@@ -887,7 +893,7 @@ must be neg." \n
   "mat,Contact" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- contact generation --" \n
+  "!@@ -- Contact generation --" \n
   "!! ------------------------------" \n
   \n
   "type,Contact" \n
@@ -907,7 +913,7 @@ must be neg." \n
   "enorm ! change the underlying elem." \n
   \n
   "!! .............................." \n
-  "!@@@ - check contact status -" \n
+  "!@@@ ... Check contact status ..." \n
   "!! .............................." \n
   \n
   "!!cncheck !list contact pair properties" \n
@@ -940,7 +946,7 @@ must be neg." \n
   "Rigid contacts skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- rigid target creation --- " \n
+  "!@@ --- Rigid target creation ----" \n
   "!! ------------------------------" \n
   \n
   "Contact="_ \n
@@ -1001,7 +1007,7 @@ must be neg." \n
   "Co-ordinate systems skeleton."
   nil
   "!! .............................." \n
-  "!@@@ - coordinate system creations and modifications -" \n
+  "!@@@ ... Coordinate system creations and modifications ..." \n
   "!! .............................." \n
   \n
   "csys,4 ! [0]:cartesian, 1:cylindrical, 2:spherical, 3:toroidal, 4:wp" \n
@@ -1012,7 +1018,14 @@ type cylindrical" \n
   "wpstyl,SNAP,GRSPAC,GRMIN,GRMAX,WPTOL,WPCTYP,GRTYPE,WPVIS,SNAPANG \
 ! styles of wp" \n
   "!! ..............................." \n
-  "!@@@ - coordinate system display -" \n
+  "!@@@ ... Display / print in coordinate system ..." \n
+  "!! ..............................." \n
+  "dsys,1 ! display coordinate system" \n
+  "rsys,1 ! activate coordinate system" \n
+  "fsum,rsys ! results in rsys coordinates" \n
+  \n
+  "!! ..............................." \n
+  "!@@@ ... Coordinate system display ..." \n
   "!! ..............................." \n
   \n
   "/psymb,cs,1    ! display local coord." \n
@@ -1027,7 +1040,7 @@ type cylindrical" \n
   "Settings for the working plane and related stuff."
   nil
   "!! .............................." \n
-  "!@@@ - working plane setup -" \n
+  "!@@@ ... Working plane setup ..." \n
   "!! .............................." \n
   \n
   "/plopts,wp,1 ! display working plane" \n
@@ -1054,7 +1067,7 @@ type cylindrical" \n
   "Multi-plot skeleton"
   nil
   "!! .............................." \n
-  "!@@@ - multiplot controls -" \n
+  "!@@@ ... Multiplot controls ..." \n
   "!! .............................." \n
   \n
   "/gcmd,1,u,sum" \n
@@ -1068,7 +1081,7 @@ type cylindrical" \n
   "Numbering controls skeleton."
   nil
   "!! .............................." \n
-  "!@@@ - numbering controls -" \n
+  "!@@@ ... Numbering controls ..." \n
   "!! .............................." \n
   \n
   "/pnum,kp,1 ! line;area;volu;node;elem;mat;type;tabn;sval,on" \n
@@ -1082,7 +1095,7 @@ type cylindrical" \n
   "Symbols skeleton."
   nil
   "!! .............................." \n
-  "!@@@ - symbol display -" \n
+  "!@@@ ... Symbol display ..." \n
   "!! .............................." \n
   \n
   "/vscale,,10 ! scale displayed vectors" \n
@@ -1107,7 +1120,7 @@ type cylindrical" \n
   "Element tables."
   nil
   "!! ------------------------------" \n
-  "!@@ -- Etables, element tables --" \n
+  "!@@ --- Etables, element tables ----" \n
   "!! ------------------------------" \n
   \n
   "!! etables don't take into account higher element order!" \n
@@ -1142,10 +1155,12 @@ averaged" \n
   nil
   '(apdl-skeleton-header)
   "!! ==============================" \n
-  "!@ ------- Preprocessing --------" \n
+  "!@ === Preprocessing =====" \n
   "!! ==============================" \n
   "/prep7" \n
-  "!@@ -- Elements --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Elements ----" \n
+  "!! ------------------------------" \n
   "Steel = 1" \n
   "ID = Steel" \n
   "et,ID,beam188 ! 189 3d 3node, 188 3d, 2 node beam" \n
@@ -1156,12 +1171,16 @@ averaged" \n
   "!! R,ID+1,100*7850e-12" \n
   "!! ! keyopt,ID+1,3,2" \n
   "" \n
-  "!@@ -- Material --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Material ----" \n
+  "!! ------------------------------" \n
   "mp,nuxy,Steel,0.3      ! Poisson No" \n
   "mp,ex,Steel,200000     ! Elastic modulus" \n
   "mp,dens,Steel,7850e-12 ! density in t/mm³" \n
   "" \n
-  "!@@ -- Modeling --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Modeling ----" \n
+  "!! ------------------------------" \n
   "sectype,1,beam,rect" \n
   "secdata,1,1 ! width, height, number of cells width (2)" \n
   "slist, 1, 1 ! list section properties" \n
@@ -1179,7 +1198,9 @@ averaged" \n
   "!! real,ID+1" \n
   "!! e,11" \n
   "" \n
-  "!@@ -- BCs, Loads --" \n
+  "!! ------------------------------" \n
+  "!@@ --- BCs, Loads ----" \n
+  "!! ------------------------------" \n
   "nsel,s,loc,x,0" \n
   "d,all,all" \n
   "" \n
@@ -1188,7 +1209,7 @@ averaged" \n
   "!! allsel" \n
   "!! save" \n
   "!! ==============================" \n
-  "!@ --- Solving ---" \n
+  "!@ === Solving =====" \n
   "!! ==============================" \n
   "/solu" \n
   "allsel" \n
@@ -1202,7 +1223,7 @@ averaged" \n
   "/solu" \n
   "solve" \n
   "!! ==============================" \n
-  "!@ --- Postprocessing ---" \n
+  "!@ === Postprocessing =====" \n
   "!! ==============================" \n
   "/post1" \n
   "/graphics,power ! for 3d result views" \n
@@ -1222,7 +1243,7 @@ averaged" \n
   "Element definitions skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- element definitions --" \n
+  "!@@ --- Element definitions ----" \n
   "!! ------------------------------" \n
   \n
   "!! --- Solid elements ---" \n
@@ -1252,7 +1273,7 @@ averaged" \n
   "!! for most elements the radial direction is the x-axis" \n
   \n
   "!! -------------------------------" \n
-  "!@@ -- contact pair definitions --" \n
+  "!@@ --- Contact pair definitions ----" \n
   "!! -------------------------------" \n
   \n
   "*get,ET,etyp,,num,max ! get maximum element type" \n
@@ -1275,7 +1296,7 @@ averaged" \n
   \n
 
   "!! .............................." \n
-  "!@@@ - structural shells, beams, masses and planes -" \n
+  "!@@@ ... Structural shells, beams, masses and planes ..." \n
   "!! .............................." \n
   \n
   "et,ID,shell181 ! 3d 4/3-node structural shell" \n
@@ -1305,7 +1326,7 @@ averaged" \n
   "et,ID,plane183 ! 2d 8/6-node structural solid" \n
   \n
   "!! .............................." \n
-  "!@@@ - thermal -" \n
+  "!@@@ ... Thermal ..." \n
   "!! .............................." \n
   \n
   "et,ID,plane35     ! 2d 6-node triangular thermal solid" \n
@@ -1314,7 +1335,7 @@ averaged" \n
   "et,ID,solid90     ! 3D 20 nodes thermal solid" \n
   \n
   "!! .............................." \n
-  "!@@@ - magnetics -" \n
+  "!@@@ ... Magnetics ..." \n
   "!! .............................." \n
   \n
   "et,ID,plane13 ! 2d, legacy 4-node coupled-field ->plane233 8-node" \n
@@ -1326,7 +1347,7 @@ averaged" \n
   "keyopt,ID,2,1 ! (2)=0:4-node,1:8-n" \n
   \n
   "!! .............................." \n
-  "!@@@ - assign attributes -" \n
+  "!@@@ ... Assign attributes ..." \n
   "!! .............................." \n
   \n
   "aatt,MAT,REAL,TYPE ! associate prop. with selected areas" \n
@@ -1338,7 +1359,7 @@ averaged" \n
   "Meshing skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- meshing --" \n
+  "!@@ --- Meshing ----" \n
   "!! ------------------------------" \n
   "shpp,off !switch off shape checking" \n
   \n
@@ -1398,7 +1419,7 @@ averaged" \n
   "Standard FORTRAN and get functions."
   nil
   "!! ==============================" \n
-  "!! --- Parameteric functions ---" \n
+  "!@ === Parameteric functions =====" \n
   "!! ==============================" \n
   "X = 2 $ Y = 1/3 ! Base X and (real) exponent Y for the following:" \n
   "A = X**Y    ! Exponentiation x**y (x^y)" \n
@@ -1428,7 +1449,7 @@ averaged" \n
 component considered" \n
   \n
   "!! ==============================" \n
-  "!! --- get functions ---" \n
+  "!@ === \"get\" functions =====" \n
   "!! ==============================" \n
   "!! -- selections -- " \n
   "NSEL(N) ! Status of node N: -1=unselected, 0=undefined, 1=selected." \n
@@ -1620,7 +1641,7 @@ full (360 degree) area." \n
   "Geometry definitions skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ --- Geometry ---" \n
+  "!@@ --- Geometry ----" \n
   "!! ------------------------------" \n
   \n
   "/prep7" \n
@@ -1630,14 +1651,18 @@ full (360 degree) area." \n
   "Y2 = X2" \n
   "Z1 = 0" \n
   "Z2 = 1" \n
+  "!! .............................." \n
   "!@@@ ... Volumes ..." \n
+  "!! .............................." \n
   "block,X1,X2,Y1,Y2,Z1,Z2    ! 3d hexahedron (wp)" \n
   "sphere,Rad1,Rad2,Th1,Th2   ! spherical volume" \n
   "cylind,R1,R2,Z1,Z2,Th1,Th2 ! cylinder V>0! " \n
   "!!arsym,y,all ! reflection of areas "
   "Xc  = 0 !centre x-coord." \n
   "Yc  = 0 !centre y-coord." \n
+  "!! .............................." \n
   "!@@@ ... AREAS ..." \n
+  "!! .............................." \n
   "rectng,X1,X2,Y1,Y2 ! 2d rectangle" \n
   "wpcsys" \n
   "R1  = 4" \n
@@ -1656,10 +1681,14 @@ full (360 degree) area." \n
   "!! --- VOLUMES  (or AREAS) -- "\n
   "cyl4,Xc,Yc,R1,Th1,R2,Th2,Depth=>0 !circular area or cylindrical volume" \n
   "pcirc,Diam/2,Diam/2+Thic,90-22.5,90" \n
+  "!! .............................." \n
   "!@@@ ... KeyPoints ..."  \n
+  "!! .............................." \n
   "source,X,Y,Z     ! default undefined kp and node location" \n
   "kl,L1,Ratio,KPNo ! keypoint on line" \n
+  "!! .............................." \n
   "!@@@ ... LINES ..." \n
+  "!! .............................." \n
   "l,KP1,KP2, NDIV, SPACE, slope vector XV1, YV1, ZV1, XV2, YV2, \
   ZV2 ! line in the respective CS with opt. slope" \n
   "lstr,KP1,KP2 ! straight line irrespective of current CS" \n
@@ -1667,7 +1696,7 @@ full (360 degree) area." \n
   "circle,centreKp,radiusKp," \n
   \n
   "!! .............................." \n
-  "!@@ ---- checks ----" \n
+  "!@@@ ... Checks ..." \n
   "!! .............................." \n
   \n
   "/prep7" \n
@@ -1677,7 +1706,7 @@ full (360 degree) area." \n
   "*get,Par,volu,,volu ! get volume from last vsum" \n
   \n
   "!! .............................." \n
-  "!@@ ---- operations ----" \n
+  "!@@@ ... Operations ..." \n
   "!! .............................." \n
   "Y=Diam/2+Thic"\n
   "source,Thic,Y-Interf,0 ! make location unambiguous for kmove!!"\n
@@ -1710,7 +1739,7 @@ lines over path lines" \n
   "vrotat,A1,A2,,,,,axis1,axis2,arc  ! volumes from areas around axis" \n
   \n
   "!! .............................." \n
-  "!@@@ - booleans -" \n
+  "!@@@ ... Booleans ..." \n
   "!! .............................." \n
   \n
   "!! area" \n
@@ -1732,7 +1761,7 @@ lines over path lines" \n
   "Material definitons skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- material definitions --" \n
+  "!@@ --- Material definitions ----" \n
   "!! ------------------------------" \n
   \n
   "!! --- material library ---" \n
@@ -1923,7 +1952,7 @@ lines over path lines" \n
   "Component (Named Selections in WorkBench) skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ --------- components --------" \n
+  "!@@ --- Components ----" \n
   "!! ------------------------------" \n
   \n
   "cm,cmName,volu ! ,,area;line;kp;elem;node" \n
@@ -1938,7 +1967,7 @@ lines over path lines" \n
   "Boundary conditions skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- boundary conditions --" \n
+  "!@@ --- Boundary conditions ----" \n
   "!! ------------------------------" \n
   \n
   "/prep7" \n
@@ -1946,7 +1975,7 @@ lines over path lines" \n
   "kbc,1 ![0](antype,static):ramped, 1:stepped loading" \n
   \n
   "!! .............................." \n
-  "!@@@ - DOF constraints -" \n
+  "!@@@ ... DOF constraints ..." \n
   "!! .............................." \n
   \n
   "nsel,s,loc,y,0" \n
@@ -1961,7 +1990,7 @@ lines over path lines" \n
   "dlist,all" \n
   \n
   "!! .............................." \n
-  "!@@@ - concentrated loads -" \n
+  "!@@@ ... Concentrated loads ..." \n
   "!! .............................." \n
   \n
   "f,all,fx,1,1 !@nodes:real,imag" \n
@@ -1973,7 +2002,7 @@ lines over path lines" \n
   "flist,all !fklist" \n
   \n
   "!! .............................." \n
-  "!@@@ - surface loads -" \n
+  "!@@@ ... Surface loads ..." \n
   "!! .............................." \n
   \n
   "sf,all,pres,1 !surface loads on nodes" \n
@@ -1986,7 +2015,7 @@ lines over path lines" \n
   "sfalist,all" \n
   \n
   "!! .............................." \n
-  "!@@@ - body loads -" \n
+  "!@@@ ... Body loads ..." \n
   "!! .............................." \n
   \n
   "tref,23 ![0] degree reference temperature" \n
@@ -2000,7 +2029,7 @@ lines over path lines" \n
   "acel,%mytab%,, !acceleration in global coordinates" \n
   \n
   "!! .............................." \n
-  "!@@@ - inertia relief and mass summary -" \n
+  "!@@@ ... Inertia relief and mass summary ..." \n
   "!! .............................." \n
   \n
   "!! LOADS: nonlinearities aren't supported, fix all DOFs!" \n
@@ -2018,21 +2047,21 @@ lines over path lines" \n
   "irlist ! print masses and load summaries" \n
   \n
   "!! .............................." \n
-  "!@@@ - corriolis effects -" \n
+  "!@@@ ... Corriolis effects ..." \n
   "!! .............................." \n
   \n
   "cgomga,x,y,z, ! rotational velocity about globla coord. sys." \n
   "dcgomg,x,y,z ! rotational acceleration about global coord. sys." \n
   \n
   "!! .............................." \n
-  "!@@@ - node coupling -" \n
+  "!@@@ ... Node coupling ..." \n
   "!! .............................." \n
   \n
   "nsel,s,loc,x,1" \n
   "cp,next,uy,all !couple dofs" \n
   \n
   "!! .............................." \n
-  "!@@@ - constraint equations -" \n
+  "!@@@ ... Constraint equations ..." \n
   "!! .............................." \n
   \n
   "nsel,s,loc,x,1" \n
@@ -2043,7 +2072,7 @@ lines over path lines" \n
   "gplot" \n
   \n
   "!! .............................." \n
-  "!@@@ - magnetics -" \n
+  "!@@@ ... Magnetics ..." \n
   "!! .............................." \n
   \n
   "!! fmagbc,'Component' ! flag force calculation" \n
@@ -2054,7 +2083,7 @@ lines over path lines" \n
   "dsym,asym ! flux parallel to lines" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- plot BCs --" \n
+  "!@@ --- Plot BCs ----" \n
   "!! ------------------------------" \n
   \n
   "/psf,conv,hcoef ! plot surface loads" \n
@@ -2069,7 +2098,7 @@ lines over path lines" \n
   "Buckling skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ - buckling -" \n
+  "!@@ --- Buckling ----" \n
   "!! ------------------------------" \n
   \n
   "!! -- static --"
@@ -2095,7 +2124,7 @@ lines over path lines" \n
   "Solving /solu skeleton."
   nil
   "!! ==============================" \n
-  "!@ --- solution --- " \n
+  "!@ === Solution =====" \n
   "!! ==============================" \n
   \n
   "/solu" \n
@@ -2159,13 +2188,13 @@ lines over path lines" \n
   "time,1.2 ! time at the end of load step" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- inertia --" \n
+  "!@@ --- Inertia ----" \n
   "!! ------------------------------" \n
   \n
   "omega,,,2*Pi*Rpm/60 ! rotational ANGULAR velocity" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- modal --" \n
+  "!@@ --- Modal ----" \n
   "!! ------------------------------" \n
   \n
   "antype,modal" \n
@@ -2173,7 +2202,7 @@ lines over path lines" \n
   "mxpand" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- harmonic --" \n
+  "!@@ --- Harmonics ----" \n
   "!! ------------------------------" \n
   \n
   "antype,harmic" \n
@@ -2186,7 +2215,7 @@ lines over path lines" \n
   "kbc,1                     ! Step boundary condition" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- linear buckling --" \n
+  "!@@ --- Linear buckling ----" \n
   "!! ------------------------------" \n
   \n
   "!! static pstres solu" \n
@@ -2211,14 +2240,14 @@ lines over path lines" \n
   "!! nwrite,nodes,dat" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- magnetics --" \n
+  "!@@ --- Magnetics ----" \n
   "!! ------------------------------" \n
   \n
   "magsolv" \n
   \n
   "solve" \n
   "!! ------------------------------" \n
-  "!@@ -- cyclic symmetry --" \n
+  "!@@ --- Cyclic symmetry ----" \n
   "!! ------------------------------" \n
   \n
   "cycopt,status" \n
@@ -2228,7 +2257,7 @@ lines over path lines" \n
   "Postprocessing /postXX skeleton."
   nil
   "!! ==============================" \n
-  "!@ --- post 1 ---" \n
+  "!@ === Post1 =====" \n
   "!! ==============================" \n
   \n
   "/post1" \n
@@ -2266,12 +2295,12 @@ lines over path lines" \n
   "plvect,s" \n
   \n
   "!! .............................." \n
-  "!@@@ - temperature -" \n
+  "!@@@ ... Temperature ..." \n
   "!! .............................." \n
   \n
   "plnsol,temp" \n
   "!! .............................." \n
-  "!@@@ - reactions -" \n
+  "!@@@ ... Reactions ..." \n
   "!! .............................." \n
   \n
   "fsum !force sum from all selected elements" \n
@@ -2322,7 +2351,7 @@ lines over path lines" \n
   "/erase" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- plot BCs --" \n
+  "!@@ --- Plot BCs ----" \n
   "!! ------------------------------" \n
   \n
   "/pbc,f,,1 !1:show applied force symbols" \n
@@ -2331,7 +2360,7 @@ lines over path lines" \n
   "/pbc,defa !reset /pbc" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- acoustics --" \n
+  "!@@ --- Acoustics ----" \n
   "!! ------------------------------" \n
   \n
   "/view,,1,1,1" \n
@@ -2344,7 +2373,7 @@ lines over path lines" \n
   "!! SPL in nodal display" \n
   \n
   "!! .............................." \n
-  "!@@@ - multi window plots -" \n
+  "!@@@ ... Multi window plots ..." \n
   "!! .............................." \n
   "/window,2,dele" \n
   "/window,1,dele" \n
@@ -2361,7 +2390,7 @@ lines over path lines" \n
   "/erase" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- magnetics --" \n
+  "!@@ --- Magnetics ----" \n
   "!! ------------------------------" \n
   \n
   "/efacet,2" \n
@@ -2374,14 +2403,14 @@ lines over path lines" \n
   "fmagsum,'component_name'" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- modal --" \n
+  "!@@ --- Modal ----" \n
   "!! ------------------------------" \n
   \n
   "*get,Freq1,mode,1,freq! first eigenfrequency" \n
   "pldisp,2 !show deformed shape and undefomed (2) contours" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- harmonics --" \n
+  "!@@ --- Harmonics ----" \n
   "!! ------------------------------" \n
   \n
   "!! animation" \n
@@ -2416,7 +2445,7 @@ lines over path lines" \n
   "/show,close" \n
   \n
   "!! ------------------------------" \n
-  "!@@ -- contact status --" \n
+  "!@@ --- Contact status ----" \n
   "!! ------------------------------" \n
   \n
   "nldpost,nrre,stat !element information nonlinear" \n
@@ -2434,7 +2463,7 @@ lines over path lines" \n
   "set,2,last ! set,last,last does not work!" \n
   \n
   "!! ------------------------------" \n
-  "!@@ ---------- animations -------" \n
+  "!@@ --- Animations ----" \n
   "!! ------------------------------" \n
   \n
   "plnsol,s,1" \n
@@ -2468,7 +2497,7 @@ lines over path lines" \n
   "In/Output to file skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ -- output to file --" \n
+  "!@@ --- Output to file ----" \n
   "!! ------------------------------" \n
   "parsav,all ! [file.parm] write all scalar and array parameters to file " \n
   \n
@@ -2662,22 +2691,25 @@ lines over path lines" \n
 Select or deselect various elements: Geometry, elements, nodes,
   ..."  nil
   "!! .............................." \n
-  "!@@@ ... select stuff ..." \n
+  "!@@@ ... Select stuff ..." \n
   "!! .............................." \n
   \n
+  "allsel !(re)select everything"\n
+  "!!allsel,below,area  !select everything below areas"\n
   "asel,,item,comp,vmin,vmax,vinc,kswp ![s] select new set" \n
   "asel,r, !reselect new set" \n
   "asel,a, !additionally select new set" \n
   "asel,u, !unselect new set" \n
   "asel,all, !select all entities" \n
   "asel,inve, !invert current set" \n
+  "!! --- nodes --- " \n
   "nsll,s,1 !select nodes associated with lines, 1: all, 0: no corner nodes"
-  \n
+  "nsle,s,all ! s,all|corner|mid| select all nodes belonging to selected elements" \n
+  "nslk,s ! s|r|u|a select all nodes belonging to selected keypoints" \n
+  "!! --- elements --- " \n
   "!!esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)| \
 live|layer|sec|stra|sfe|bfe|path|etab"\n
   "esel,a,ename,172 !select additionally conta172 elements" \n
-  "nsle,s,all ! s,all|corner|mid| select all nodes belonging to selected elements" \n
-  "nslk,s ! s|r|u|a select all nodes belonging to selected keypoints" \n
   \n
   "!! lowest face No of element E from selected nodes" \n
   "!! a=nmface(E) !plane elements:faces =^= el. sides" \n
@@ -2698,7 +2730,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Path plot skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ ---- path plot ----" \n
+  "!@@ --- Path plot ----" \n
   "!! ------------------------------" \n
   \n
   "!! avoid element borders for inaccuracies of the rounding algorithm." \n
@@ -2724,9 +2756,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 (define-skeleton apdl-skeleton-post26
   "Time postprocessing /post26 skeleton."
   nil
-  "!! -----------------------------------" \n
-  "!@ ---- (time)-history postprocessing ----" \n
-  "!! -----------------------------------" \n
+  "!! ==============================" \n
+  "!@ === (Time)-history postprocessing =====" \n
+  "!! ==============================" \n
   \n
   "/post26" \n
   "numvar,200 !200 maximum variables, default 10" \n
@@ -2762,7 +2794,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/stitle,,blabla !subtitle line 1 (not shown in plot)" \n
   "/stitle,2,blabla !subtitle line 2" \n
   "/tlabel,x,y,bla !annotation at (x,y)" \n
-  "!@@@ ... graphical output ... " \n
+  "!! .............................." \n
+  "!@@@ ... Graphical output ..." \n
+  "!! .............................." \n
   "/color,wbak,whit !white background" \n
   "!! invert background colour" \n
   "/color,wbak,whit !white background" \n
@@ -2771,13 +2805,15 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/show,png !creates jobnameXXX.png files" \n
   "plvar,3" \n
   "/show,close" \n
-  "!! ------------------------------" \n
-  "!@@@ -- listing of vars ---" \n
-  "!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ ... Listing of vars ..." \n
+  "!! .............................." \n
   "nprint,5 !which time points are to be listed" \n
   "prtime,min,max !time range to be listed"  \n
   "prvar,3" \n
-  "!@@@ --- data output --- " \n
+  "!! .............................." \n
+  "!@@@ ... Data output ..." \n
+  "!! .............................." \n
   "*get,Size,VARI,,NSETS !No of sets" \n
   "*dim,Accx,array,Size" \n
   "*dim,Tim,array,Size" \n
@@ -2804,7 +2840,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Fields and arrays skeleton."
   nil
   "!! ------------------------------" \n
-  "!@@ ---- \"table\" arrays ----" \n
+  "!@@ --- \"table\" arrays ----" \n
   "!! ------------------------------" \n
   \n
   "!! table arrays interpolate linearly between their values" \n
@@ -2839,13 +2875,13 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "*vfun,mytab,copy,mytab" \n
   \n
   "!! ------------------------------" \n
-  "!@@ ---- arrays ----" \n
+  "!@@ --- Arrays ----" \n
   "!! ------------------------------" \n
   \n
   \n
-  "!! ------------------------------" \n
-  "!@@@ ---- string arrays ----" \n
-  "!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ ... String arrays ..." \n
+  "!! .............................." \n
   \n
   "*dim,Dir,string,248 ! maximum of 248 characters!" \n
   "Dir(1) = '/HOME/uidg1626/development/report/ej/95ks91leg0/'" \n
@@ -2856,9 +2892,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "File = 'eptoeqv_at_shaft_press-fit'" \n
   "/syp,mv file000.png, '%Dir(1)%%File%.png'" \n
   \n
-  "!! ------------------------------" \n
-  "!@@@ -- Fortran arrays --" \n
-  "!! ------------------------------" \n
+  "!! .............................." \n
+  "!@@@ ... Fortran arrays ..." \n
+  "!! .............................." \n
   \n
   "*dim,A,,10,1 ! type array is default, No of rows, No of columns" \n
   "*del,B,,nopr !undocumented feature: deleting without warning" \n
@@ -2904,22 +2940,32 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   nil ; no interactor needed
   '(apdl-skeleton-header)
   "!! ==============================" \n
-  "!@ ===== Preprocessing =====" \n
+  "!@ === Preprocessing =====" \n
   "!! ==============================" \n
   "/prep7" \n
-  "!@@ -- Elements --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Elements ----" \n
+  "!! ------------------------------" \n
   "Steel = 1" \n
   "ID = Steel" \n
   "real = Steel" \n
   "et,ID,solid186 !3d, 20 node" \n
-  "!@@ -- Material --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Material ----" \n
+  "!! ------------------------------" \n
   "mp,nuxy,Steel,0.3  ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
-  "!@@ -- Modeling --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Modeling ----" \n
+  "!! ------------------------------" \n
   "block,0,1,0,1,0,1" \n
-  "!@@ -- Meshing --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Meshing ----" \n
+  "!! ------------------------------" \n
   "vmesh,all" \n
-  "!@@ -- BCs, Loads --" \n
+  "!! ------------------------------" \n
+  "!@@ --- BCs, Loads ----" \n
+  "!! ------------------------------" \n
   "nsel,s,loc,x,0" \n
   "d,all,all" \n
   "nsel,s,loc,x,1" \n
@@ -2927,12 +2973,12 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "allsel" \n
   "save" \n
   "!! ==============================" \n
-  "!@ ===== Solving =====" \n
+  "!@ === Solving =====" \n
   "!! ==============================" \n
   "/solu" \n
   "solve" \n
   "!! ==============================" \n
-  "!@ ===== Postprocessing =====" \n
+  "!@ === Postprocessing =====" \n
   "!! ==============================" \n
   "/post1" \n
   "/view,,1,1,1" \n
@@ -2946,11 +2992,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   nil        ; no interactor needed
   '(apdl-skeleton-header)
   "!! ==============================" \n
-  "!@ ===== Preprocessing =====" \n
+  "!@ === Preprocessing =====" \n
   "!! ==============================" \n
   "/prep7" \n
   "!! ------------------------------" \n
-  "!@@ ---- Elements ----" \n
+  "!@@ --- Elements ----" \n
   "!! ------------------------------" \n
   "Steel = 1" \n
   "ID = Steel" \n
@@ -2962,14 +3008,18 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "et,tid,170" \n
   "et,cid,174" \n
   "!! ------------------------------" \n
-  "!@@ ---- Material ----" \n
+  "!@@ --- Material ----" \n
   "!! ------------------------------" \n
   "mp,nuxy,Steel,0.3  ! Poisson No" \n
   "mp,ex,Steel,200000 ! Elastic modulus" \n
+  "!! ------------------------------" \n
   "!@@ -- Modeling --" \n
+  "!! ------------------------------" \n
   "block,0,1,0,1,0,1" \n
   "block,1,2,0,1,0,1" \n
-  "!@@ -- Meshing --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Meshing ----" \n
+  "!! ------------------------------" \n
   "vmesh,all" \n
   "vsel,s,,,1" \n
   "eslv,s" \n
@@ -2995,7 +3045,9 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "rmod,cid,6,0.                          ! PINB" \n
   "rmod,cid,10,0.                         ! CNOF" \n
   "rmod,cid,12,0.                         ! FKT" \n
-  "!@@ -- Loads --" \n
+  "!! ------------------------------" \n
+  "!@@ --- Loads ----" \n
+  "!! ------------------------------" \n
   "nsel,s,loc,x,0" \n
   "d,all,all" \n
   "nsel,s,loc,y,1" \n
@@ -3004,13 +3056,13 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "allsel" \n
   "save"  \n
   "!! ==============================" \n
-  "!@ ===== Solving =====" \n
+  "!@ === Solving =====" \n
   "!! ==============================" \n
   "/solu" \n
   "nsubst,10" \n
   "solve" \n
   "!! ==============================" \n
-  "!@ ===== Postprocessing =====" \n
+  "!@ === Postprocessing =====" \n
   "!! ==============================" \n
   "/post1" \n
   "plnsol,u,sum" \n

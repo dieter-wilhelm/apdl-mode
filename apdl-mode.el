@@ -2148,19 +2148,20 @@ changed.  Then call `apdl-show-command-parameters'."
 ;; edit command while help overlay!
 ;; remove overlay and warn when too many commas!
 (defun apdl-show-command-parameters (&optional ask-or-toggle)
-  "Display an APDL command parameters help for the command near the cursor.
-Show the command name and its parameters (if any) and in a
-further line a brief description.  Count the number of parameters
-and visualise at which parameter position the cursor currently
-is.  This is done for the previous APDL command beginning, except
-when point is at the command beginning at the indentation.  See
-also the function `apdl-command-start' how the previous command
-is found.  It displays also the parameters for commands in a
-comment line.  With a prefix argument ASK-OR-TOGGLE of zero
+  "Display the APDL  parameters help for the command near the cursor.
+Show the command name and a brief description.  In a second line
+its parameters (if any) and in a further line the number of
+parameters and highlighting the parameter position (if any) of
+the cursor.  The command is chosen for the current cursor line,
+and for the previous APDL command in an empty line (see the
+function `apdl-command-start').
+
+This function displays also the parameter help for commands which
+are commented out.  With a prefix argument ASK-OR-TOGGLE of zero
 switch off the command parameters highlighting, with an prefix
 `C-u' or argument `4' (four) enquire a command name from the mini
-buffer, the beginning command characters can be completed with
-<TAB>."
+buffer.  Here, the beginning command characters can be completed
+with <TAB>."
   (interactive "p" )
   (let ((case-fold-search t) ; in case customised to nil
         (count 0)
@@ -2198,12 +2199,18 @@ buffer, the beginning command characters can be completed with
              (re-search-forward "[^[:space:]]\\w*\\>" nil t)
              (setq str (match-string-no-properties 0))))
 	  ;; ------------------------------
-          ((unless (apdl-in-indentation-p)
+          ((apdl-in-empty-line-p)
 	     ;; we need to follow -command-start otherwise the overlay
 	     ;; is hanging in the "air"
 	     (apdl-command-start)
              (save-excursion
                ;; (apdl-command-start)
+               (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+               (setq str (match-string-no-properties 0))))
+	  ;; ------------------------------
+	  ((unless (apdl-in-indentation-p)
+             (save-excursion
+	       (apdl-command-start)
                (re-search-forward "[^[:space:]]\\w*\\>" nil t)
                (setq str (match-string-no-properties 0))))))
     ;; search, amend and display help string in overlay
@@ -2211,12 +2218,15 @@ buffer, the beginning command characters can be completed with
         (delete-overlay apdl-help-overlay)
       (catch 'foo
         (dolist (s apdl-dynamic-prompt)
-          (when (and (string-match (concat "^" str) s) (not (string= "" s)))
+	  ;; 2 line documentation strings in -dynamic-prompt
+          (when (and (string-match (concat "^" str) s)
+		     (not (string= "" s)))
             (setq length (length s))
             ;; creating additional row with comma counts
-            (setq start (string-match "\n" s)) ; looking for the first line break
-            (setq substr (substring s (1+ start)))
-            (setq tmpstr (mapconcat
+            (setq start (string-match "\n" s)) ; looking for the first
+					       ; line break
+            (setq substr (substring s (1+ start))) ;second line
+            (setq tmpstr (mapconcat		   ;create third line
                           (lambda (str)
                             (cond ((string-match "," (string str))
                                    (setq count (1+ count))
@@ -2231,17 +2241,24 @@ buffer, the beginning command characters can be completed with
             ;; show different face for current argument
             (setq count (apdl-count-commas))
             (setq start (apdl-search-comma s count))
+	    ;; highlight redundant argument commas
             (cond ((null start)
+		   (setq start (length s))
+		   ;; (setq s (propertize (concat s "Redundant argument") 'face 'highlight))
                    ;; (skip-chars-backward "[^,]")
-                   (delete-overlay apdl-help-overlay)
-                   (message "Too many commas, command has fewer arguments")
-                   (throw 'foo nil))
+                   ;;(delete-overlay apdl-help-overlay)
+		   (unless (apdl-in-string-command-line-p)
+                     (message "Redundant comma, command has fewer arguments!")
+		     (beep)
+		     ;;(throw 'foo nil))
+		     ))
                   ((= 0 start)
                    (setq start  (1+ (string-match "\n" s)))))
             (setq end (apdl-search-comma s (1+ count)))
             (unless end
               (setq end length))
-            (add-text-properties start end '(face isearch-fail) s)
+	    (unless (>= start end)
+              (add-text-properties start end '(face isearch-fail) s))
             (apdl-manage-overlay s)
             ;; break dolist when str is found and skip over error
             (throw 'foo nil)))

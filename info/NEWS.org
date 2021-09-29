@@ -24,6 +24,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
     jobname.out inspection (now C-c C-o).
   - Add new keyinding C-c C-n for apdl-no-of-processors
   - Improved highlighting of user variables
+  - Improved borderline cases of M-?, the command parameter help
   - Enhanced abbreviations, for example "`ss" (interactive
     section-separator).
   - Improved and updated documentation, for example see the pdf

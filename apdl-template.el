@@ -238,9 +238,9 @@ key and choose with the mouse 2 button."
 	 (insert   "3..............................")))
   \n
   (cond ((string= str "1")
-	 (insert (concat "!" apdl-outline-string " ===== ")))
+	 (insert (concat "!" apdl-outline-string " === ")))
 	((string= str "2")
-	 (insert (concat "!" apdl-outline-string apdl-outline-string " ---- ")))
+	 (insert (concat "!" apdl-outline-string apdl-outline-string " --- ")))
 	(t
 	 (insert (concat "!" apdl-outline-string apdl-outline-string
 		   apdl-outline-string " ... "))))
@@ -274,7 +274,7 @@ Together with an Emacs Time-stamp string.  You might update the
 time stamp with the Emacs command M-x `time-stamp'."
   "Brief description of the file: "
   "! ==============================" \n
-  "!" apdl-outline-string " ===== Header =====" \n
+  "!" apdl-outline-string " === Header =====" \n
   "! ==============================" \n
   ;; "!! FILENAME: " (file-name-nondirectory (if (buffer-file-name)
   ;; (buffer-file-name)
@@ -712,7 +712,8 @@ absolut" \n
   "Import commands."
   nil
   "!! ------------------------------" \n
-  "!" apdl-outline-string apdl-outline-string " -- cad import -- " \n
+  "!" apdl-outline-string apdl-outline-string " --- cad import ---- " \n
+  "!! ------------------------------" \n
   \n
   "~cat5in" \n
   "~catiain" \n
@@ -3095,7 +3096,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "Insert outline framework into an Ansys APDL file."
   "Insert brief purpose of file: "
   "!! ==============================" \n
-  "!" apdl-outline-string " ===== Header =====" \n
+  "!" apdl-outline-string " === Header =====" \n
   "!! ==============================" \n
   \n
   "!! FILENAME: " (buffer-file-name) \n
@@ -3104,7 +3105,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!! DESCRIPTION: " str \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " ===== Setup =====" \n
+  "!" apdl-outline-string " === Setup =====" \n
   "!! ==============================" \n
   \n
   "finish " \n
@@ -3116,11 +3117,11 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "/title," - \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " ===== Preprocessing ===== " \n
+  "!" apdl-outline-string " === Preprocessing ===== " \n
   "!! ==============================" \n
   \n
   "!! ------------------------------" \n
-  "!" apdl-outline-string apdl-outline-string " ---- Cad Import ---- " \n
+  "!" apdl-outline-string apdl-outline-string " --- Cad Import ---- " \n
   "!! ------------------------------" \n
   \n
   "/aux15 !Enter the IGES file transfer processor" \n
@@ -3139,7 +3140,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string
-  apdl-outline-string " ---- Materials and element types ----" \n
+  apdl-outline-string " --- Materials and element types ----" \n
   "!! ------------------------------" \n
   \n
   "!! .............................." \n
@@ -3173,7 +3174,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "!! .............................." \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " ===== Solution ===== " \n
+  "!" apdl-outline-string " === Solution ===== " \n
   "!! ==============================" \n
   \n
   "/solu" \n
@@ -3181,25 +3182,25 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string
-  " ---- Solution controls ---- " \n
+  " --- Solution controls ---- " \n
   "!! ------------------------------" \n
   \n
   "!!/eof --- for batch runs only------------" \n
   \n
   "!! ==============================" \n
-  "!" apdl-outline-string " ===== Postprocessing =====" \n
+  "!" apdl-outline-string " === Postprocessing =====" \n
   "!! ==============================" \n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string apdl-outline-string
-  " ---- General Postprocessing ---- " \n
+  " --- General Postprocessing ---- " \n
   "!! ------------------------------" \n
   \n
   "/post1" \n
   \n
   "!! ------------------------------" \n
   "!" apdl-outline-string
-  apdl-outline-string " ---- Time-History Postprocessing ----" \n
+  apdl-outline-string " --- Time-History Postprocessing ----" \n
   "!! ------------------------------" \n
   \n
   "/post26" \n

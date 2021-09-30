@@ -2156,12 +2156,15 @@ the cursor.  The command is chosen for the current cursor line,
 and for the previous APDL command in an empty line (see the
 function `apdl-command-start').
 
-This function displays also the parameter help for commands which
-are commented out.  With a prefix argument ASK-OR-TOGGLE of zero
-switch off the command parameters highlighting, with an prefix
-`C-u' or argument `4' (four) enquire a command name from the mini
-buffer.  Here, the beginning command characters can be completed
-with <TAB>."
+In a comment line this function is also looking for an Ansys
+keyword.  When no word characters are in the line this function
+is showing a help for the previous APDL command - which is not
+commented out.
+
+With a prefix argument ASK-OR-TOGGLE of zero switch off the
+command parameters highlighting, with an prefix `C-u' or argument
+`4' (four) enquire a command name from the mini buffer.  Here,
+the beginning command characters can be completed with <TAB>."
   (interactive "p" )
   (let ((case-fold-search t) ; in case customised to nil
         (count 0)
@@ -2173,12 +2176,15 @@ with <TAB>."
         str)
     ;; enquire a command or search for a valid command name
     (cond ((= ask-or-toggle 0))		; do nothing here (but below)
+	  ;; ------------------------------
 	  ((= ask-or-toggle -1) ; apdl-update-parameter-help is calling
 	   ;; and thus there's an overlay above us, so stay put
 	   (save-excursion
-	     (beginning-of-line)
+	     (back-to-indentation)
+             (skip-chars-forward "!")	;we might be in a comment line
 	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
 	     (setq str (match-string-no-properties 0))))
+	  ;; ------------------------------
           ((= ask-or-toggle 4)
            (setq str (completing-read
                       "Type APDL keyword to get its short help: "
@@ -2187,9 +2193,15 @@ with <TAB>."
           ((apdl-in-comment-line-p)
            (save-excursion
              (back-to-indentation)
-             (skip-chars-forward " !")
-             (re-search-forward "[^[:space:]]\\w*\\>" nil t))
-           (setq str (match-string-no-properties 0)))
+             (skip-chars-forward "!")
+             (re-search-forward "[^[:space:]]\\w*\\>" (line-end-position) t)
+	     (setq str (match-string-no-properties 0))
+	     (message "keyword1 = %s" str)
+	     )
+	   (when (string= str "!")	;from skip-chars-forward?
+	     (apdl-command-start)
+	     (re-search-forward "[^[:space:]]\\w*\\>" nil t)
+	     (setq str (match-string-no-properties 0))))
 	  ;; ------------------------------
           ((apdl-in-indentation-p)  ; we are possibly before a command
            ;; -TODO- strange bug, when cursor is in a line with only
@@ -2213,6 +2225,7 @@ with <TAB>."
 	       (apdl-command-start)
                (re-search-forward "[^[:space:]]\\w*\\>" nil t)
                (setq str (match-string-no-properties 0))))))
+    ;;(message "keyword after cond: %s" str)
     ;; search, amend and display help string in overlay
     (if (= ask-or-toggle 0)
         (delete-overlay apdl-help-overlay)

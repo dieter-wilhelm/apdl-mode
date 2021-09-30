@@ -1420,6 +1420,14 @@ averaged" \n
   "Standard FORTRAN and get functions."
   nil
   "!! ==============================" \n
+  "!@ === \"*get\" function =====" \n
+  "!! ==============================" \n
+  "!! selected /post1 applications" \n
+  "*get,SS,active,,set,nset,last !number of SubSteps in current load step" \n
+  "*get,Rfy,node,1,rf,fy !reaction y-force of node 1" \n
+  "*get,Uy,node,1,u,y ! y-displacement of node 1" \n
+  \n
+  "!! ==============================" \n
   "!@ === Parameteric functions =====" \n
   "!! ==============================" \n
   "X = 2 $ Y = 1/3 ! Base X and (real) exponent Y for the following:" \n
@@ -2705,7 +2713,7 @@ Select or deselect various elements: Geometry, elements, nodes,
   "asel,inve, !invert current set" \n
   "!! --- nodes --- " \n
   "nsll,s,1 !select nodes associated with lines, 1: all, 0: no corner nodes"
-  "nsle,s,all ! s,all|corner|mid| select all nodes belonging to selected elements" \n
+  "nsle,s,all ! s,[all]|corner|mid| select all nodes belonging to selected elements" \n
   "nslk,s ! s|r|u|a select all nodes belonging to selected keypoints" \n
   "!! --- elements --- " \n
   "!!esel,s,adj|elem|cent|type|ename|mat|real|esys|part(ls-dyna)| \

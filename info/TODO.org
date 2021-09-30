@@ -18,7 +18,7 @@
 # #+title: The TODO file of APDL-Mode
 
 * TODO Version 20.6.0
-  Release end of October
+  Release with Emacs 28.1
 ** Todos, bugs
    - APDL reference is incomplete
    - Tutorial pictures are often outdated (ansys -> apdl)

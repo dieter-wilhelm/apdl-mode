@@ -18,7 +18,7 @@
 # #+title: The TODO file of APDL-Mode
 
 * TODO Version 20.6.0
-  Release end of October
+  Release with Emacs 28.1
 ** Todos, bugs
    - -show-parameter-help in an empty comment line is often not really
      working

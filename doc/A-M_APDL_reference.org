@@ -239,7 +239,9 @@ eblock,10,,,94
   - One cannot directly get the variable value, either one must assign
     the variable to another one, or use the `*stat' command
   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
-  - Inconsistent naming: /{x,y}range but /axlab,{x,y},
+  - Inconsistent command naming: /{x,y}range but /axlab,{x,y},
+  - Inconsistent optional command arguments: "csys,wp" or "csys,4" but
+    it must be ltrans,4 (not possible: ltrans,wp)
   - Inconsistent comma usage: /com and c*** are working with and
     without a subsequent comma (/com without a comma is eating one
     character)
@@ -252,7 +254,8 @@ eblock,10,,,94
     *voper or *toper
   - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
     contrast to the more ralistic ones in /solu
-  - You can send only a complete block structure to the solver
+  - The solver recognises only complete block structure, sending it
+    line by line is not working
 
 ** File types
    the whole zoo is documented in the operations guide

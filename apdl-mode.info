@@ -3457,15 +3457,14 @@ makefile?
 
    APDL_MAJOR := 20 APDL_MINOR := 7 APDL_PATCH := 0
 
-   (tags-query-replace "20\.6\.0" "20.7.0")
+   (tags-query-replace "20\.7\.0" "20.8.0")
 
    (tags-query-replace "- 2021" "- 2022") (tags-query-replace "- 2020"
 "- 2021")
 
-   (tags-query-replace "v201" "v211") (tags-query-replace
-"apdl-customise-ansys" "apdl-customise-apdl")
+   (tags-query-replace "v201" "v211")
 
-   (tags-query-replace "26\.3" "27.1") (tags-search "texinfo:")
+   (tags-search "texinfo:")
 
 
 File: apdl-mode.info,  Node: Version 2050 (1),  Next: Version 2040 (1),  Prev: Version 2060,  Up: Todos
@@ -4691,30 +4690,30 @@ Node: templates141633
 Node: misc142204
 Node: Done142570
 Node: Push and Release Proceedures142864
-Node: Version 2050 (1)144176
-Node: Version 2040 (1)144400
-Node: Version 2030 (1)144603
-Node: Version 2020 (1)144827
-Node: Version 2011 (1)145012
-Node: Version 162-2145488
-Node: Bugs145766
-Node: Wish-list146674
-Node: Freeze152008
-Node: Deficiencies152373
-Node: Procedures154027
-Node: Freeze proceedures154549
-Node: Release156120
-Node: Ideas for further versions156723
-Node: Parameter help and documentation157154
-Node: Ansys process and interpreter buffer159456
-Node: Skeletons outline and abbrevs162319
-Node: Miscellaneous (1)164053
-Node: Ansys syntax restrictions not (yet) accounted for169045
-Node: Unknown Ansys stuff169950
-Node: Acknowledgements170233
-Node: GNU Free Documentation License170805
-Node: Variable Index195831
-Node: Concept Index195984
+Node: Version 2050 (1)144074
+Node: Version 2040 (1)144298
+Node: Version 2030 (1)144501
+Node: Version 2020 (1)144725
+Node: Version 2011 (1)144910
+Node: Version 162-2145386
+Node: Bugs145664
+Node: Wish-list146572
+Node: Freeze151906
+Node: Deficiencies152271
+Node: Procedures153925
+Node: Freeze proceedures154447
+Node: Release156018
+Node: Ideas for further versions156621
+Node: Parameter help and documentation157052
+Node: Ansys process and interpreter buffer159354
+Node: Skeletons outline and abbrevs162217
+Node: Miscellaneous (1)163951
+Node: Ansys syntax restrictions not (yet) accounted for168943
+Node: Unknown Ansys stuff169848
+Node: Acknowledgements170131
+Node: GNU Free Documentation License170703
+Node: Variable Index195729
+Node: Concept Index195882
 
 End Tag Table
 

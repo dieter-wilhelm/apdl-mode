@@ -1,11 +1,11 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-23>
+;; Time-stamp: <2021-10-01 22:58:02 dieter>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 20.6.0
+;; Version: 20.7.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, Ansys, tools, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode

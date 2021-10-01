@@ -3,7 +3,7 @@
 ;; Copyright (C) 2006 - 2021 H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
-;; Version: 20.6.0
+;; Version: 20.7.0
 ;; Package-Requires: ((emacs "25"))
 ;; Keywords: languages, convenience, tools, Ansys, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode

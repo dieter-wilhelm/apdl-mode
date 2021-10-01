@@ -180,15 +180,15 @@
     APDL_MINOR := 7
     APDL_PATCH := 0
     # A-M version
-    (tags-query-replace "20\.6\.0" "20.7.0")
+    (tags-query-replace "20\.7\.0" "20.8.0")
     # copyright year
     (tags-query-replace "- 2021" "- 2022")
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
     (tags-query-replace "v201" "v211")
-    (tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
+    # (tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
     # emacs
-    (tags-query-replace "26\.3" "27.1")
+    # (tags-query-replace "26\.3" "27.1")
     (tags-search "texinfo:")
 
 * DONE Version 20.5.0

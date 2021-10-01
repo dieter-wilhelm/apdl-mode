@@ -1,11 +1,11 @@
 ;;; apdl-wb-template.el --- APDL WorkBench/AIM templates for the APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-08-12>
+;; Time-stamp: <2021-10-01>
 
 ;; Copyright (C) 2020 - 2021  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
-;; Version: 20.6.0
+;; Version: 20.7.0
 ;; Package-Requires: ((emacs "25.1"))
 ;; Keywords: languages, convenience, Ansys, tools, APDL
 ;; URL: https://github.com/dieter-wilhelm/apdl-mode

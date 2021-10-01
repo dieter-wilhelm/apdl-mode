@@ -1,25 +1,25 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#org081b9a9)
-2.  [Version 20.6.0](#org5af7f8c)
-3.  [Version 20.5.0](#org61b0952)
-4.  [Version 20.4.0](#org03aa754)
-5.  [Version 20.3.0](#orgfda4a5d)
-6.  [Version 20.2.0](#org506e06e)
-7.  [Version 20.1.1](#org858abae)
-8.  [Version 162-2](#orga198573)
+1.  [V 20.7.0](#orgf3d702c)
+2.  [Version 20.6.0](#org512a484)
+3.  [Version 20.5.0](#orgf6bb1a9)
+4.  [Version 20.4.0](#orgcbb5360)
+5.  [Version 20.3.0](#org5353fb0)
+6.  [Version 20.2.0](#org87c97b2)
+7.  [Version 20.1.1](#org75eae7c)
+8.  [Version 162-2](#orga5180ae)
 
 
 
-<a id="org081b9a9"></a>
+<a id="orgf3d702c"></a>
 
 # TODO V 20.7.0
 
 -   Linux: C-c C-o -> **APDL Classics** Buffer when process running
 
 
-<a id="org5af7f8c"></a>
+<a id="org512a484"></a>
 
 # Version 20.6.0
 
@@ -215,19 +215,17 @@ APDL<sub>MAJOR</sub> := 20
 APDL<sub>MINOR</sub> := 7
 APDL<sub>PATCH</sub> := 0
 
-(tags-query-replace "20\\.6\\.0" "20.7.0")
+(tags-query-replace "20\\.7\\.0" "20.8.0")
 
 (tags-query-replace "- 2021" "- 2022")
 (tags-query-replace "- 2020" "- 2021")
 
 (tags-query-replace "v201" "v211")
-(tags-query-replace "apdl-customise-ansys" "apdl-customise-apdl")
 
-(tags-query-replace "26\\.3" "27.1")
 (tags-search "texinfo:")
 
 
-<a id="org61b0952"></a>
+<a id="orgf6bb1a9"></a>
 
 # DONE Version 20.5.0
 
@@ -235,7 +233,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org03aa754"></a>
+<a id="orgcbb5360"></a>
 
 # DONE Version 20.4.0
 
@@ -243,7 +241,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orgfda4a5d"></a>
+<a id="org5353fb0"></a>
 
 # DONE Version 20.3.0
 
@@ -252,14 +250,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org506e06e"></a>
+<a id="org87c97b2"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org858abae"></a>
+<a id="org75eae7c"></a>
 
 # DONE Version 20.1.1
 
@@ -272,7 +270,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orga198573"></a>
+<a id="orga5180ae"></a>
 
 # Version 162-2
 

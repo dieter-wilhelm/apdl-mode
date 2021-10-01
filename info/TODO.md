@@ -1,30 +1,36 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org6dbad37)
-2.  [Version 20.5.0](#org87c6d43)
-3.  [Version 20.4.0](#org246ad76)
-4.  [Version 20.3.0](#org4547d40)
-5.  [Version 20.2.0](#orgc809632)
-6.  [Version 20.1.1](#orga90ac41)
-7.  [Version 162-2](#org3dad77e)
+1.  [V 20.7.0](#org081b9a9)
+2.  [Version 20.6.0](#org5af7f8c)
+3.  [Version 20.5.0](#org61b0952)
+4.  [Version 20.4.0](#org03aa754)
+5.  [Version 20.3.0](#orgfda4a5d)
+6.  [Version 20.2.0](#org506e06e)
+7.  [Version 20.1.1](#org858abae)
+8.  [Version 162-2](#orga198573)
 
 
 
-<a id="org6dbad37"></a>
+<a id="org081b9a9"></a>
 
-# TODO Version 20.6.0
+# TODO V 20.7.0
 
-Release end of October
+-   Linux: C-c C-o -> **APDL Classics** Buffer when process running
+
+
+<a id="org5af7f8c"></a>
+
+# Version 20.6.0
+
+Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
 
 
 ## Todos, bugs
 
--   -show-parameter-help in an empty comment line is often not really
-    working
--   if there are too many argument commas the overlay vanishes
-    without warning!
--   M-? with !ioptn, !igesin in comments is not working!?
+-   M-? get- and parameter-functions are completed but there's no
+    parameter help - see: apdl-dynamic-prompt
+
 -   \*mwrite
     \*cfclos or any asterisk command
     M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
@@ -78,7 +84,7 @@ Release end of October
 
 ### Docu
 
-Outdated menus in A-M-introductory<sub>tutorial.org</sub>
+Outdated menus in images : A-M-introductory<sub>tutorial.org</sub>
 
 Rework the messy documentation system of files and applications
 
@@ -103,13 +109,11 @@ Rework the messy documentation system of files and applications
     2.13. Mapping Processor Commands
     2.14. REDUCED Order Modeling Commands
 6.  Create English Wiki for APDL
-7.  M-? get- and parameter-functions are completed but there's no
-    parameter help - see: apdl-dynamic-prompt
-8.  Link to Ansys Youtube channel in menu? (It's already in Ansys
+7.  Link to Ansys Youtube channel in menu? (It's already in Ansys
     resources!)
-9.  The Command (APDL) objects coding system seems to be
+8.  The Command (APDL) objects coding system seems to be
     mule-utf-8-dos aka cp65001-dos, document this
-10. Customise system (explain \`M-x customize-set-value' as long as
+9.  Customise system (explain \`M-x customize-set-value' as long as
     (debbugs-gnu-bugs 25678) is not solved)?
 
 Info documentation:
@@ -223,7 +227,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org87c6d43"></a>
+<a id="org61b0952"></a>
 
 # DONE Version 20.5.0
 
@@ -231,7 +235,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org246ad76"></a>
+<a id="org03aa754"></a>
 
 # DONE Version 20.4.0
 
@@ -239,7 +243,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org4547d40"></a>
+<a id="orgfda4a5d"></a>
 
 # DONE Version 20.3.0
 
@@ -248,14 +252,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgc809632"></a>
+<a id="org506e06e"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orga90ac41"></a>
+<a id="org858abae"></a>
 
 # DONE Version 20.1.1
 
@@ -268,7 +272,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org3dad77e"></a>
+<a id="orga198573"></a>
 
 # Version 162-2
 

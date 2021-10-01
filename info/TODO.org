@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-09-19>
+#+DATE: Time-stamp: <2021-10-01>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,14 +17,13 @@
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
 
-* TODO Version 20.6.0
-  Release with Emacs 28.1
+* TODO V 20.7.0
+  - Linux: C-c C-o -> *APDL Classics* Buffer when process running
+* Version 20.6.0
+  Branch 20.6.0 [2021-10-01 Fr]
 ** Todos, bugs
-   - -show-parameter-help in an empty comment line is often not really
-     working
-   - if there are too many argument commas (MAPDL just ignores them)
-     the overlay vanishes without warning!
-   - M-? with !ioptn, !igesin in comments is not working!?
+    - M-? get- and parameter-functions are completed but there's no
+      parameter help - see: apdl-dynamic-prompt
    - *mwrite
      *cfclos or any asterisk command
      M-? shows help for *mwrite, when cursor behind *cfclos and in the
@@ -66,7 +65,7 @@
    - Presentation(s) and EN Wiki, youtube?
    - Help system and docu, rather complete, except online docu
 *** Docu
-    Outdated menus in A-M-introductory_tutorial.org
+    Outdated menus in images : A-M-introductory_tutorial.org
 
     Rework the messy documentation system of files and applications
     1) INFO -> info/apdl-mode.org <- flat file
@@ -90,8 +89,6 @@
        2.13. Mapping Processor Commands
        2.14. REDUCED Order Modeling Commands
     - Create English Wiki for APDL
-    - M-? get- and parameter-functions are completed but there's no
-      parameter help - see: apdl-dynamic-prompt
     - Link to Ansys Youtube channel in menu? (It's already in Ansys
       resources!)
     - The Command (APDL) objects coding system seems to be

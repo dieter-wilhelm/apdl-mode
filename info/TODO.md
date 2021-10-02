@@ -1,21 +1,38 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0](#org055702f)
-2.  [Version 20.5.0](#org3a2bee5)
-3.  [Version 20.4.0](#orge60f083)
-4.  [Version 20.3.0](#orgad7c6ef)
-5.  [Version 20.2.0](#org132b762)
-6.  [Version 20.1.1](#org0c09291)
-7.  [Version 162-2](#org60b2e04)
+1.  [V 20.7.0](#org5db01dc)
+2.  [Version 20.6.0](#org607040e)
+3.  [Version 20.5.0](#org0d51986)
+4.  [Version 20.4.0](#org889556c)
+5.  [Version 20.3.0](#org2befc02)
+6.  [Version 20.2.0](#orgf536c86)
+7.  [Version 20.1.1](#org4da5ba7)
+8.  [Version 162-2](#orgbd6d8ed)
 
 
 
-<a id="org055702f"></a>
+<a id="org5db01dc"></a>
 
-# TODO Version 20.6.0
+# TODO V 20.7.0
 
-Release end of October
+
+## Bugs
+
+-   C-c C-b isn't working!
+
+
+## Misc
+
+-   Linux: C-c C-o -> **APDL Classics** Buffer when process running
+
+
+<a id="org607040e"></a>
+
+# Version 20.6.0
+
+-   Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
+-   Feature freeze: Only bugs or template changes
 
 
 ## Todos, bugs
@@ -218,7 +235,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org3a2bee5"></a>
+<a id="org0d51986"></a>
 
 # DONE Version 20.5.0
 
@@ -226,7 +243,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orge60f083"></a>
+<a id="org889556c"></a>
 
 # DONE Version 20.4.0
 
@@ -234,7 +251,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orgad7c6ef"></a>
+<a id="org2befc02"></a>
 
 # DONE Version 20.3.0
 
@@ -243,14 +260,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org132b762"></a>
+<a id="orgf536c86"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org0c09291"></a>
+<a id="org4da5ba7"></a>
 
 # DONE Version 20.1.1
 
@@ -263,7 +280,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org60b2e04"></a>
+<a id="orgbd6d8ed"></a>
 
 # Version 162-2
 

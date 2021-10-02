@@ -1,5 +1,5 @@
 !! ------------------------------
-!@ --- header ---
+!@ --- Header ---
 !! ------------------------------
 !! example APDL code, checking the influence of
 !! ansys-highlighting-level, indentation and alignments.
@@ -18,24 +18,24 @@ finish
 !! /units
 !@ --- Preprocessing ---
 /prep7
-!@@ -- Elements --
+!@@ --- Elements --
 Steel = 1
 ID = Steel
 real = Steel
 et,ID,solid186     ! 3d, 20 node
-!@@ -- Material --
+!@@ --- Material --
 mp,nuxy,Steel,0.3  ! Poisson No
 mp,ex,Steel,200000 ! Elastic modulus
-!@@ -- Modeling --
+!@@ --- Modeling --
 block,0,1,0,1,0,1
 
-!@@ -- Meshing --
+!@@ --- Meshing --
 vmesh,all
 
 /view,1,1,1,1
 /replot
 
-!@@ -- BCs, Loads --
+!@@ --- BCs, Loads --
 nsel,s,loc,x,0
 d,all,all
 nsel,s,loc,x,1
@@ -58,9 +58,9 @@ plnsol,u,sum,2
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
-!@@ -- ignored characters and condensed input line ($ operator)
+!@@ --- Ignored characters and condensed input line ($ operator)
 finishThisNightmare $ /cle ! /clear
-y ! answer query
+y ! answer query of GUI
 /prep7
 otto = 9
 right = 'wrong'
@@ -68,7 +68,7 @@ c***, this is %right% ! no % parameter expansion of %otto%
 /com, this is %right% ,  parameter expansion of otto=%otto%
 /title, this is a %otto% string command similar to /com and c***
 
-!@@ -- variable definitions and functions
+!@@ --- Variable definitions and functions
 k ! keypoint at (0,0,0)
 N    =	_RETURN !_RETURN value of k command, No of keypoints
 _aaa = 9 ! reserved underscore "_" variables
@@ -92,18 +92,18 @@ bla, /*
 cyl4,Xc,Yc,R1,Alpha1,R2,Alpha2,Depth
 mp, nuxy,Steel,0.3  ! Poisson No
 mp, ex,Steel,200000 ! Elastic modulus
-!@@@ - parameter substitution
+!@@@ --- Parameter substitution
 /com, === Material %Steel% is steel. ===
 !! element types & deprecated element types
 et,Steel,beam3 $ et,Alu,shell91
 
-!@@ -- default commands
+!@@ --- Default commands
 nsel,s,loc,y,0
     ,a,loc,y,1
     ,r,loc,x,0
 d,all,all
 
-!@@ ::: implicit : (colon) looping :::::
+!@@ --- Implicit : (colon) looping :::::
 lfillt,(1:2),(3:4),5
 
 *get,Dim
@@ -117,7 +117,7 @@ lfillt,(1:2),(3:4),5
   Reaction(I)=Fx
 *enddo
 
-!@@ -- multiline *msg formatting with the & operator
+!@@ --- Multiline *msg formatting with the & operator
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
 Steel = %G A (electrical angle = %G DEG) %/ &
@@ -125,28 +125,28 @@ _Power factor: %G %/ &
 Inductance = %G %/ &
 VALUES ARE FOR ENTIRE COIL (NOT JUST THE MODELED SECTOR) 
 
-!@@@ - loads -
+!@@@ --- Loads -
 f,all,fx,1
 flist,all
 fini $ /eof
 /eof --- WARNING: /eof crashes the Ansys GUI in interactive mode ---
 
-!@@@ - inertia relief -
+!@@@ --- Inertia relief -
 
 cgomga,x,y,z, ! rotational velocity about globla coord. sys.
 dcgomg,x,y,z ! rotational acceleration about global coord. sys.
 
-!@@@ - coupling -
+!@@@ --- Coupling -
 nsel,s,loc,x,1
 cp,next,uy,all ! couple dofs
 
-!@@ -- boundary conditions --
+!@@ --- Boundary conditions --
 
 /prep7
 
 !! kbc,1 ! [0] (antype,static): ramped 1:stepped loading
 
-!@@@ - displacements -
+!@@@ --- Displacements -
 
 nsel,s,loc,y,0
     ,a,loc,y,1
@@ -154,23 +154,23 @@ nsel,s,loc,y,0
 d,all,all
 dlist,all
 
-!@@@ - loads -
+!@@@ --- Loads -
 
 f,all,fx,1
 flist,all
 
-!@@@ - inertia relief -
+!@@@ --- Inertia relief -
 
 !! LOADS: nonlinearities aren't supported, fix all DOFs!
 irlf,1 ! 0: none,1:ir on,-1:printout masses
 nsel,s,loc,x,1
 
-!@@@ - corriolis effects -
+!@@@ --- Corriolis effects -
 
 cgmga,x,y,z, ! rotational velocity about globla coord. sys.
 dcgomg,x,y,z ! rotational acceleration about global coord. sys.
 
-!@@@ - coupling -
+!@@@ --- Coupling -
 nsel,s,loc,x,1
 cp,next,uy,all ! couple dofs
 
@@ -178,7 +178,7 @@ allsel
 /pbc,all,on
 gplot
 
-!@@@ - magnetics -
+!@@@ --- Magnetics -
 
 !! fmagbc,'Component' ! flag force calculation
 bfa,all,js,  ! js current density
@@ -206,21 +206,21 @@ False = 0$True =1 $ Yes = 'no' bla otto bla
 *endif
 
 
-vall,1,2
-_bla = 3		 ! _vars: macro reserved words
-otto =			 ! `=' without rhs: variable clean up
-bla =
+allsel,1,2
+_bla   = 3 ! _vars: macro reserved words
+otto   =  ! `=' without rhs: variable clean up
+bla    =  
 Alpha3 = 4
 
 
 nsel,s,_hans,otto,'_otto'
 !! APDL get/parametricfunctions & old style (deprecated) Ansys comments
-var1=sinh(cos(.3 *5)) ! old style Ansys comments!!!!!
-var2 = tan(nx(.3*5))  ! not an old style Ansys comment
+var1 = sinh(cos(.3 *5)) ! old style Ansys comments!!!!!
+var2 = tan(nx(.3*5))	! not an old style Ansys comment
 var3 = %Yes% $ *if    ! this is not a valid % string substition
 /xml		      ! undocumented command /xml
 *afun,rad
-/fil $ /filname%bla% 
+/fil $ /filname,%bla% 
 !! string, message commands and comment behaviour && %$$% %% :bla: &&&
 
 /com, bla = %bla%
@@ -234,7 +234,7 @@ c*** *beam3 !otto *otto %neither% here !!!!!!! &
 
 nsel,s,%bla%
 
-!@@ --! multiline message format command this is tricky: use M-o M-o
+!@@ --- Multiline message format command this is tricky: use M-o M-o
 *MSG,UI,Vcoilrms,THTAv,Icoilrms,THTAi,Papprnt,Pelec,PF,indctnc
 Coil RMS voltage, RMS current, apparent pwr, actual pwr, pwr factor: %/ &
 Steel = %G A (electrical angle = %G DEG) %/ &

@@ -1,29 +1,31 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#orgf3d702c)
-2.  [Version 20.6.0](#org512a484)
-3.  [Version 20.5.0](#orgf6bb1a9)
-4.  [Version 20.4.0](#orgcbb5360)
-5.  [Version 20.3.0](#org5353fb0)
-6.  [Version 20.2.0](#org87c97b2)
-7.  [Version 20.1.1](#org75eae7c)
-8.  [Version 162-2](#orga5180ae)
+1.  [V 20.7.0](#orge0adca4)
+2.  [Version 20.6.0](#orgb5a1990)
+3.  [Version 20.5.0](#org093819c)
+4.  [Version 20.4.0](#org6245b43)
+5.  [Version 20.3.0](#org9d81980)
+6.  [Version 20.2.0](#org6211e90)
+7.  [Version 20.1.1](#orgb1fdef9)
+8.  [Version 162-2](#org4276854)
 
 
 
-<a id="orgf3d702c"></a>
+<a id="orge0adca4"></a>
 
 # TODO V 20.7.0
 
 -   Linux: C-c C-o -> **APDL Classics** Buffer when process running
+-   Look into derived branch: prog-modes
 
 
-<a id="org512a484"></a>
+<a id="orgb5a1990"></a>
 
 # Version 20.6.0
 
-Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
+-   Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
+-   Feature freeze: Only bugs or template changes
 
 
 ## Todos, bugs
@@ -215,6 +217,7 @@ APDL<sub>MAJOR</sub> := 20
 APDL<sub>MINOR</sub> := 7
 APDL<sub>PATCH</sub> := 0
 
+(tags-query-replace "20\\.6\\.0" "20.7.0")
 (tags-query-replace "20\\.7\\.0" "20.8.0")
 
 (tags-query-replace "- 2021" "- 2022")
@@ -225,7 +228,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="orgf6bb1a9"></a>
+<a id="org093819c"></a>
 
 # DONE Version 20.5.0
 
@@ -233,7 +236,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orgcbb5360"></a>
+<a id="org6245b43"></a>
 
 # DONE Version 20.4.0
 
@@ -241,7 +244,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org5353fb0"></a>
+<a id="org9d81980"></a>
 
 # DONE Version 20.3.0
 
@@ -250,14 +253,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org87c97b2"></a>
+<a id="org6211e90"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org75eae7c"></a>
+<a id="orgb1fdef9"></a>
 
 # DONE Version 20.1.1
 
@@ -270,7 +273,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orga5180ae"></a>
+<a id="org4276854"></a>
 
 # Version 162-2
 

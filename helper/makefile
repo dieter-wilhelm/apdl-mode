@@ -407,8 +407,8 @@ $(EMACS_PACKAGE) :  $(EMACS_PACKAGE_SIG)
 	gpg $(EMACS_PACKAGE_SIG)
 
 # need the org files for the versioning string
-TAGS_FILES := makefile $(EL_FILES) $(FILES) $(TUTORIAL_SOURCES) fontification.el \
-	../info/apdl-config.org
+TAGS_FILES := makefile $(EL_FILES) $(INFO_FILES) $(FILES) $(TUTORIAL_SOURCES) \
+	fontification.el 
 
 TAGS : $(TAGS_FILES)
 	etags $(TAGS_FILES)

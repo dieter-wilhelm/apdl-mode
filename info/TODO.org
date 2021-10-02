@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-01>
+#+DATE: Time-stamp: <2021-10-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -19,8 +19,10 @@
 
 * TODO V 20.7.0
   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
+  - Look into derived branch: prog-modes
 * Version 20.6.0
-  Branch 20.6.0 [2021-10-01 Fr]
+  - Branch 20.6.0 [2021-10-01 Fr]
+  - Feature freeze: Only bugs or template changes
 ** Todos, bugs
     - M-? get- and parameter-functions are completed but there's no
       parameter help - see: apdl-dynamic-prompt
@@ -180,6 +182,7 @@
     APDL_MINOR := 7
     APDL_PATCH := 0
     # A-M version
+    (tags-query-replace "20\.6\.0" "20.7.0")
     (tags-query-replace "20\.7\.0" "20.8.0")
     # copyright year
     (tags-query-replace "- 2021" "- 2022")

@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.6.0 Time-stamp: "2021-10-01"
+Version 20.7.0 Time-stamp: "2021-10-02"
 
 * Menu:
 
@@ -3244,6 +3244,7 @@ File: apdl-mode.info,  Node: V 2070,  Next: Version 2060,  Up: Todos
 ====================
 
    • Linux: C-c C-o -> *APDL Classics* Buffer when process running
+   • Look into derived branch: prog-modes
 
 
 File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 (1),  Prev: V 2070,  Up: Todos
@@ -3251,7 +3252,8 @@ File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 (1),  Prev: V 207
 12.2 Version 20.6.0
 ===================
 
-Branch 20.6.0 _[2021-10-01 Fr]_
+   • Branch 20.6.0 _[2021-10-01 Fr]_
+   • Feature freeze: Only bugs or template changes
 
 * Menu:
 
@@ -3457,7 +3459,8 @@ makefile?
 
    APDL_MAJOR := 20 APDL_MINOR := 7 APDL_PATCH := 0
 
-   (tags-query-replace "20\.7\.0" "20.8.0")
+   (tags-query-replace "20\.6\.0" "20.7.0") (tags-query-replace
+"20\.7\.0" "20.8.0")
 
    (tags-query-replace "- 2021" "- 2022") (tags-query-replace "- 2020"
 "- 2021")
@@ -4680,40 +4683,40 @@ Node: Emacs editor resources134869
 Node: Other APDL editor resources135432
 Node: Todos136346
 Node: V 2070136724
-Node: Version 2060136909
-Node: Todos bugs137192
-Node: Issues137903
-Node: Checks138808
-Node: Wishes139085
-Node: Docu139569
-Node: templates141633
-Node: misc142204
-Node: Done142570
-Node: Push and Release Proceedures142864
-Node: Version 2050 (1)144074
-Node: Version 2040 (1)144298
-Node: Version 2030 (1)144501
-Node: Version 2020 (1)144725
-Node: Version 2011 (1)144910
-Node: Version 162-2145386
-Node: Bugs145664
-Node: Wish-list146572
-Node: Freeze151906
-Node: Deficiencies152271
-Node: Procedures153925
-Node: Freeze proceedures154447
-Node: Release156018
-Node: Ideas for further versions156621
-Node: Parameter help and documentation157052
-Node: Ansys process and interpreter buffer159354
-Node: Skeletons outline and abbrevs162217
-Node: Miscellaneous (1)163951
-Node: Ansys syntax restrictions not (yet) accounted for168943
-Node: Unknown Ansys stuff169848
-Node: Acknowledgements170131
-Node: GNU Free Documentation License170703
-Node: Variable Index195729
-Node: Concept Index195882
+Node: Version 2060136953
+Node: Todos bugs137296
+Node: Issues138007
+Node: Checks138912
+Node: Wishes139189
+Node: Docu139673
+Node: templates141737
+Node: misc142308
+Node: Done142674
+Node: Push and Release Proceedures142968
+Node: Version 2050 (1)144219
+Node: Version 2040 (1)144443
+Node: Version 2030 (1)144646
+Node: Version 2020 (1)144870
+Node: Version 2011 (1)145055
+Node: Version 162-2145531
+Node: Bugs145809
+Node: Wish-list146717
+Node: Freeze152051
+Node: Deficiencies152416
+Node: Procedures154070
+Node: Freeze proceedures154592
+Node: Release156163
+Node: Ideas for further versions156766
+Node: Parameter help and documentation157197
+Node: Ansys process and interpreter buffer159499
+Node: Skeletons outline and abbrevs162362
+Node: Miscellaneous (1)164096
+Node: Ansys syntax restrictions not (yet) accounted for169088
+Node: Unknown Ansys stuff169993
+Node: Acknowledgements170276
+Node: GNU Free Documentation License170848
+Node: Variable Index195874
+Node: Concept Index196027
 
 End Tag Table
 

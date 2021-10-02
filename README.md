@@ -1,23 +1,23 @@
 
 # Table of Contents
 
-1.  [Introduction](#org4acc55d)
-2.  [Some Highlights](#org0c8a9c6)
-3.  [Installation](#org41e248c)
-4.  [First Step](#orgd111c3c)
-5.  [Configuration and Customisation](#org74fd6ff)
-6.  [Bugs and Problems](#org9f9563d)
-7.  [News](#orge75c9f6)
-8.  [Further Resources](#orgbd617e4)
-9.  [Acknowledgements](#orgf7ce72d)
-10. [Todos](#org371112e)
-11. [GNU GPL v3 License](#org98b72ed)
+1.  [Introduction](#org54faf88)
+2.  [Some Highlights](#orgd5a2b47)
+3.  [Installation](#org131d241)
+4.  [First Step](#org177b399)
+5.  [Configuration and Customisation](#org3b7975d)
+6.  [Bugs and Problems](#org074a2e1)
+7.  [News](#orgecb43d7)
+8.  [Further Resources](#org52042dc)
+9.  [Acknowledgements](#orgffc0371)
+10. [Todos](#org2d216c4)
+11. [GNU GPL v3 License](#org79921a5)
 
 
 
 ## The GNU-Emacs major mode for the scripting language APDL
 
-APDL-Mode version 20.6.0
+APDL-Mode version 20.7.0
 
 [![img](https://melpa.org/packages/apdl-mode-badge.svg)](https://melpa.org/#/apdl-mode)
 [![img](https://stable.melpa.org/packages/apdl-mode-badge.svg)](https://stable.melpa.org/#/apdl-mode)
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org4acc55d"></a>
+<a id="org54faf88"></a>
 
 # Introduction
 
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org0c8a9c6"></a>
+<a id="orgd5a2b47"></a>
 
 # Some Highlights
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org41e248c"></a>
+<a id="org131d241"></a>
 
 # Installation
 
@@ -204,14 +204,14 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="orgd111c3c"></a>
+<a id="org177b399"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#org74fd6ff),
+already, please see in [5](#org3b7975d),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -220,7 +220,7 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<a id="org74fd6ff"></a>
+<a id="org3b7975d"></a>
 
 # Configuration and Customisation
 
@@ -236,7 +236,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org9f9563d"></a>
+<a id="org074a2e1"></a>
 
 # Bugs and Problems
 
@@ -261,14 +261,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orge75c9f6"></a>
+<a id="orgecb43d7"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgbd617e4"></a>
+<a id="org52042dc"></a>
 
 # Further Resources
 
@@ -276,7 +276,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="orgf7ce72d"></a>
+<a id="orgffc0371"></a>
 
 # Acknowledgements
 
@@ -291,14 +291,14 @@ I received, moreover, support and feedback from many individuals.
 Thank you very much!
 
 
-<a id="org371112e"></a>
+<a id="org2d216c4"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org98b72ed"></a>
+<a id="org79921a5"></a>
 
 # GNU GPL v3 License
 

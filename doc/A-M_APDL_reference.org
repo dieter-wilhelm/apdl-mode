@@ -1,11 +1,11 @@
-#+DATE: Time-stamp: <2021-08-30>
+#+DATE: Time-stamp: <2021-10-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
 #+AUTHOR:    H. Dieter Wilhelm
 #+EMAIL:     dieter@duenenhof-wilhelm.de
 # #+DATE:      2012-06-17 Sa
-#+DESCRIPTION: Version 20.6.0
+#+DESCRIPTION: Version 20.7.0
 #+KEYWORDS:
 #+LANGUAGE:  en
 #+OPTIONS:   email:t H:5 num:t toc:2 \n:nil @:t ::t |:t ^:nil -:t f:t *:t <:t

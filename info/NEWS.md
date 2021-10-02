@@ -1,28 +1,28 @@
 
 # Table of Contents
 
-1.  [Version 20.6.0, 15 years of APDL-Mode!](#orgf066de0)
-2.  [Version 20.5.0](#org06bde22)
-3.  [Version 20.4.0](#org7bba524)
-4.  [Version 20.3.0](#orge46be79)
-5.  [Version 20.2.0](#orga872664)
-6.  [Version 20.1.1](#orge5f6448)
-7.  [Version 20.1.0](#org783c4c9)
-8.  [Version 162-1](#org71ebb5a)
-9.  [Version 16.1.1](#orgf2d625e)
-10. [Version 15.0.1](#orga11d5fc)
-11. [Version 14.5.2](#orgff9df04)
-12. [Version 14.5.1](#orgaf7bf2c)
-13. [Version 14.0.1](#orgd568d9a)
-14. [Version 13.0.1](#org13d1184)
-15. [Version 12.0.1](#org32269a5)
-16. [Version 11.0.2](#orge49e048)
-17. [ansys-mode.el 11.0.1](#orgf4e511f)
+1.  [Version 20.6.0, 15 years of APDL-Mode!](#orga760cc3)
+2.  [Version 20.5.0](#org8ca188c)
+3.  [Version 20.4.0](#orgeebecc8)
+4.  [Version 20.3.0](#orgdb89d32)
+5.  [Version 20.2.0](#orgb45d4bc)
+6.  [Version 20.1.1](#org86d9b6c)
+7.  [Version 20.1.0](#org019354b)
+8.  [Version 162-1](#orgae3838d)
+9.  [Version 16.1.1](#org35d8ce6)
+10. [Version 15.0.1](#org24885e9)
+11. [Version 14.5.2](#orge24ee50)
+12. [Version 14.5.1](#orged2ce2f)
+13. [Version 14.0.1](#org3f1c203)
+14. [Version 13.0.1](#orgf609b79)
+15. [Version 12.0.1](#orgd8031c6)
+16. [Version 11.0.2](#orgde68698)
+17. [ansys-mode.el 11.0.1](#org106a65b)
 
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 
 
-<a id="orgf066de0"></a>
+<a id="orga760cc3"></a>
 
 # Version 20.6.0, 15 years of APDL-Mode!
 
@@ -46,7 +46,7 @@ Improvements, extensions and bug fixes, 2021-09-26 rc1
     having a file under \`apdl-mode')
 
 
-<a id="org06bde22"></a>
+<a id="org8ca188c"></a>
 
 # Version 20.5.0
 
@@ -63,7 +63,7 @@ Improvements, extensions and bug fixes, 2021-09-26 rc1
 -   Added a menu entry for opening the main Ansys online help page.
 
 
-<a id="org7bba524"></a>
+<a id="orgeebecc8"></a>
 
 # Version 20.4.0
 
@@ -79,7 +79,7 @@ Improvements, extensions and bug fixes, 2021-09-26 rc1
 -   Added additional keys for the license status functions
 
 
-<a id="orge46be79"></a>
+<a id="orgdb89d32"></a>
 
 # Version 20.3.0
 
@@ -97,7 +97,7 @@ Improvements, extensions and bug fixes, 2021-09-26 rc1
     parameters
 
 
-<a id="orga872664"></a>
+<a id="orgb45d4bc"></a>
 
 # Version 20.2.0
 
@@ -117,7 +117,7 @@ Improvements, extensions and bug fixes, 2021-09-26 rc1
     because of speed reasons.
 
 
-<a id="orge5f6448"></a>
+<a id="org86d9b6c"></a>
 
 # Version 20.1.1
 
@@ -128,7 +128,7 @@ Improvements, extensions and bug fixes, 2021-09-26 rc1
 -   Enabled EWW (and other browsers) as a "help viewer"
 
 
-<a id="org783c4c9"></a>
+<a id="org019354b"></a>
 
 # Version 20.1.0
 
@@ -145,7 +145,7 @@ Released  2020-02
 -   Better warning for C-c C-b when A-M is not configured
 
 
-<a id="org71ebb5a"></a>
+<a id="orgae3838d"></a>
 
 # Version 162-1
 
@@ -176,7 +176,7 @@ not yet released, targeted for Sep 2015
 -   Changed Ansys-Mode's versioning scheme from 16.2.1 to 162-1
 
 
-<a id="orgf2d625e"></a>
+<a id="org35d8ce6"></a>
 
 # Version 16.1.1
 
@@ -208,7 +208,7 @@ July 2015
     example.mac.  Included an example.dat and example.anf
 
 
-<a id="orga11d5fc"></a>
+<a id="org24885e9"></a>
 
 # Version 15.0.1
 
@@ -227,7 +227,7 @@ Aug 2014
     e. g. partial solutions with psolve for mass calculations.
 
 
-<a id="orgff9df04"></a>
+<a id="orge24ee50"></a>
 
 # Version 14.5.2
 
@@ -259,7 +259,7 @@ Mar 2013
     added a beam simulation template
 
 
-<a id="orgaf7bf2c"></a>
+<a id="orged2ce2f"></a>
 
 # Version 14.5.1
 
@@ -317,7 +317,7 @@ Sep 2012
     under the nint() entry
 
 
-<a id="orgd568d9a"></a>
+<a id="org3f1c203"></a>
 
 # Version 14.0.1
 
@@ -346,7 +346,7 @@ June 2012
     additionally the installation directory (ansys-install-directory).
 
 
-<a id="org13d1184"></a>
+<a id="orgf609b79"></a>
 
 # Version 13.0.1
 
@@ -367,7 +367,7 @@ March 2011
     etc. to release 13.0 of Ansys, as usual.
 
 
-<a id="org32269a5"></a>
+<a id="orgd8031c6"></a>
 
 # Version 12.0.1
 
@@ -411,7 +411,7 @@ Dec 2010
     transition from other editors
 
 
-<a id="orge49e048"></a>
+<a id="orgde68698"></a>
 
 # Version 11.0.2
 
@@ -426,7 +426,7 @@ Nov 2009
     ansys-query-ansys-command (C-c C-q).
 
 
-<a id="orgf4e511f"></a>
+<a id="org106a65b"></a>
 
 # ansys-mode.el 11.0.1
 

@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-09-22>
+;; Time-stamp: <2021-10-02>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -325,8 +325,9 @@ Per default, the outline heading looks like '!@', subheadings
   "Normal hook run before entering APDL-Mode.
 A hook is a variable which holds a collection of functions."
   :type 'hook
-  :options '(apdl-show-paren-mode apdl-outline-minor-mode
-                                  apdl-ruler-mode apdl-auto-insert-mode)
+;;  :options '(apdl-show-paren-mode apdl-outline-minor-mode
+;;             apdl-ruler-mode apdl-auto-insert-mode)
+;; 2020-03-21: don't change Emacs defaults settings..
   :group 'APDL)
 
 (require 'align)
@@ -1641,7 +1642,13 @@ and P-MAX) otherwise align the current code paragraph."
 ;;;###autoload (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
 
 ;;;###autoload
-(defun apdl-mode ()
+(define-derived-mode apdl-mode prog-mode "APDL"
+  :syntax-table apdl-mode-syntax-table
+  ;; killing all local variables is done for you
+  ;; setting the major mode variable is done for you
+  ;; setting the mode name is done for you
+  ;; setting use-local-map is done for you
+  ;; the apdl-mode-hook is run automatically for you
   "Editor support for the APDL language and working with Ansys MAPDL.
 
 APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
@@ -1658,19 +1665,19 @@ menu or by calling the function `apdl-mode-help' with
 \\[apdl-mode-help].
 
 \\{apdl-mode-map}"
-  (interactive)
+;  (interactive) ; derived mode not necessary
 
-  (unless (string= major-mode "apdl-mode")
-    (set (make-local-variable 'apdl-previous-major-mode) major-mode))
-  (put 'apdl-previous-major-mode 'permanent-local t)
+  ;; (unless (string= major-mode "apdl-mode")
+  ;;   (set (make-local-variable 'apdl-previous-major-mode) major-mode))
+  ;; (put 'apdl-previous-major-mode 'permanent-local t)
 
   (when (and (overlayp apdl-help-overlay)
              (overlay-buffer apdl-help-overlay))
     (delete-overlay apdl-help-overlay))
 
-  (kill-all-local-variables)            ; convention
-  (setq major-mode 'apdl-mode)
-  (setq mode-name "APDL")               ; mode line string
+;  (kill-all-local-variables)            ; convention
+;  (setq major-mode 'apdl-mode)
+;  (setq mode-name "APDL")               ; mode line string
 
   ;; only effective for window systems!
   (setq indicate-empty-lines apdl-indicate-empty-lines-flag)
@@ -1682,8 +1689,8 @@ menu or by calling the function `apdl-mode-help' with
   ;; we needs this before the -mode-map, which reacts on
   ;; outline-minor-mode
 
-  (use-local-map apdl-mode-map)
-  (set-syntax-table apdl-mode-syntax-table)
+;  (use-local-map apdl-mode-map)
+;  (set-syntax-table apdl-mode-syntax-table)
   (setq local-abbrev-table apdl-mode-abbrev-table)
 
   (setq font-lock-maximum-decoration

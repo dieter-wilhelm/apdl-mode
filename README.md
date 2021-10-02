@@ -1,6 +1,7 @@
 
 # Table of Contents
 
+<<<<<<< HEAD
 1.  [Introduction](#orgc23b651)
 2.  [Some Highlights](#org79557f2)
 3.  [Installation](#org508e09d)
@@ -12,6 +13,19 @@
 9.  [Acknowledgements](#orgb99185d)
 10. [Todos](#org377952a)
 11. [GNU GPL v3 License](#org40ded7f)
+=======
+1.  [Introduction](#org83cff58)
+2.  [Some Highlights](#orgae74ceb)
+3.  [Installation](#org48c120a)
+4.  [First Step](#org87f093b)
+5.  [Configuration and Customisation](#orgb8c0584)
+6.  [Bugs and Problems](#orgca9871d)
+7.  [News](#orgb2ad85c)
+8.  [Further Resources](#orgd98d848)
+9.  [Acknowledgements](#org6ffb354)
+10. [Todos](#org14f8319)
+11. [GNU GPL v3 License](#orgb7c57dd)
+>>>>>>> fc8691b... Improve doc/example.mac
 
 
 
@@ -27,7 +41,11 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
+<<<<<<< HEAD
 <a id="orgc23b651"></a>
+=======
+<a id="org83cff58"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Introduction
 
@@ -67,7 +85,11 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
+<<<<<<< HEAD
 <a id="org79557f2"></a>
+=======
+<a id="orgae74ceb"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Some Highlights
 
@@ -133,7 +155,11 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
+<<<<<<< HEAD
 <a id="org508e09d"></a>
+=======
+<a id="org48c120a"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Installation
 
@@ -204,14 +230,22 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
+<<<<<<< HEAD
 <a id="org64f5980"></a>
+=======
+<a id="org87f093b"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
+<<<<<<< HEAD
 already, please see in [5](#org7a9b408),
+=======
+already, please see in [5](#orgb8c0584),
+>>>>>>> fc8691b... Improve doc/example.mac
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -220,7 +254,11 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
+<<<<<<< HEAD
 <a id="org7a9b408"></a>
+=======
+<a id="orgb8c0584"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Configuration and Customisation
 
@@ -236,7 +274,11 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
+<<<<<<< HEAD
 <a id="orgd414199"></a>
+=======
+<a id="orgca9871d"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Bugs and Problems
 
@@ -261,14 +303,22 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
+<<<<<<< HEAD
 <a id="org6493685"></a>
+=======
+<a id="orgb2ad85c"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
+<<<<<<< HEAD
 <a id="org95ec5b8"></a>
+=======
+<a id="orgd98d848"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Further Resources
 
@@ -276,7 +326,11 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
+<<<<<<< HEAD
 <a id="orgb99185d"></a>
+=======
+<a id="org6ffb354"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Acknowledgements
 
@@ -291,14 +345,22 @@ I received, moreover, support and feedback from many individuals.
 Thank you very much!
 
 
+<<<<<<< HEAD
 <a id="org377952a"></a>
+=======
+<a id="org14f8319"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
+<<<<<<< HEAD
 <a id="org40ded7f"></a>
+=======
+<a id="orgb7c57dd"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # GNU GPL v3 License
 

@@ -1,6 +1,7 @@
 
 # Table of Contents
 
+<<<<<<< HEAD
 1.  [V 20.7.0](#org081b9a9)
 2.  [Version 20.6.0](#org5af7f8c)
 3.  [Version 20.5.0](#org61b0952)
@@ -24,6 +25,40 @@
 # Version 20.6.0
 
 Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
+=======
+1.  [V 20.7.0](#org5db01dc)
+2.  [Version 20.6.0](#org607040e)
+3.  [Version 20.5.0](#org0d51986)
+4.  [Version 20.4.0](#org889556c)
+5.  [Version 20.3.0](#org2befc02)
+6.  [Version 20.2.0](#orgf536c86)
+7.  [Version 20.1.1](#org4da5ba7)
+8.  [Version 162-2](#orgbd6d8ed)
+
+
+
+<a id="org5db01dc"></a>
+
+# TODO V 20.7.0
+
+
+## Bugs
+
+-   C-c C-b isn't working!
+
+
+## Misc
+
+-   Linux: C-c C-o -> **APDL Classics** Buffer when process running
+
+
+<a id="org607040e"></a>
+
+# Version 20.6.0
+
+-   Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
+-   Feature freeze: Only bugs or template changes
+>>>>>>> fc8691b... Improve doc/example.mac
 
 
 ## Todos, bugs
@@ -227,7 +262,11 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
+<<<<<<< HEAD
 <a id="org61b0952"></a>
+=======
+<a id="org0d51986"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # DONE Version 20.5.0
 
@@ -235,7 +274,11 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
+<<<<<<< HEAD
 <a id="org03aa754"></a>
+=======
+<a id="org889556c"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # DONE Version 20.4.0
 
@@ -243,7 +286,11 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
+<<<<<<< HEAD
 <a id="orgfda4a5d"></a>
+=======
+<a id="org2befc02"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # DONE Version 20.3.0
 
@@ -252,14 +299,22 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
+<<<<<<< HEAD
 <a id="org506e06e"></a>
+=======
+<a id="orgf536c86"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
+<<<<<<< HEAD
 <a id="org858abae"></a>
+=======
+<a id="org4da5ba7"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # DONE Version 20.1.1
 
@@ -272,7 +327,11 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
+<<<<<<< HEAD
 <a id="orga198573"></a>
+=======
+<a id="orgbd6d8ed"></a>
+>>>>>>> fc8691b... Improve doc/example.mac
 
 # Version 162-2
 

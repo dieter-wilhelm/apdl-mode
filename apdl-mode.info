@@ -7,7 +7,11 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
+<<<<<<< HEAD
 Version 20.6.0 Time-stamp: "2021-10-01"
+=======
+Version 20.6.0 Time-stamp: "2021-10-02"
+>>>>>>> fc8691b... Improve doc/example.mac
 
 * Menu:
 
@@ -3243,6 +3247,7 @@ File: apdl-mode.info,  Node: V 2070,  Next: Version 2060,  Up: Todos
 12.1 *TODO* V 20.7.0
 ====================
 
+<<<<<<< HEAD
    • Linux: C-c C-o -> *APDL Classics* Buffer when process running
 
 
@@ -3252,6 +3257,37 @@ File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 (1),  Prev: V 207
 ===================
 
 Branch 20.6.0 _[2021-10-01 Fr]_
+=======
+* Menu:
+
+* Bugs::
+* Misc::
+
+
+File: apdl-mode.info,  Node: Bugs,  Next: Misc,  Up: V 2070
+
+12.1.1 Bugs
+-----------
+
+   • C-c C-b isn’t working!
+
+
+File: apdl-mode.info,  Node: Misc,  Prev: Bugs,  Up: V 2070
+
+12.1.2 Misc
+-----------
+
+   • Linux: C-c C-o -> *APDL Classics* Buffer when process running
+
+
+File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 (1),  Prev: V 2070,  Up: Todos
+
+12.2 Version 20.6.0
+===================
+
+   • Branch 20.6.0 _[2021-10-01 Fr]_
+   • Feature freeze: Only bugs or template changes
+>>>>>>> fc8691b... Improve doc/example.mac
 
 * Menu:
 
@@ -3520,7 +3556,7 @@ File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 (1),  Up: Todos
 
 * Menu:
 
-* Bugs::
+* Bugs: Bugs (1).
 * Wish-list::
 * Freeze::
 * Deficiencies:: Deficiencies.
@@ -3530,7 +3566,7 @@ File: apdl-mode.info,  Node: Version 162-2,  Prev: Version 2011 (1),  Up: Todos
 * Ideas for further versions::
 
 
-File: apdl-mode.info,  Node: Bugs,  Next: Wish-list,  Up: Version 162-2
+File: apdl-mode.info,  Node: Bugs (1),  Next: Wish-list,  Up: Version 162-2
 
 12.8.1 Bugs
 -----------
@@ -3554,7 +3590,7 @@ File: apdl-mode.info,  Node: Bugs,  Next: Wish-list,  Up: Version 162-2
      Structural)
 
 
-File: apdl-mode.info,  Node: Wish-list,  Next: Freeze,  Prev: Bugs,  Up: Version 162-2
+File: apdl-mode.info,  Node: Wish-list,  Next: Freeze,  Prev: Bugs (1),  Up: Version 162-2
 
 12.8.2 Wish-list
 ----------------
@@ -4657,6 +4693,7 @@ Node: Melpa Installation107355
 Node: Manual Installation108292
 Node: Development and Source Code Installation109403
 Node: Bugs and Problems109962
+<<<<<<< HEAD
 Node: News111080
 Node: Version 2060 15 years of APDL-Mode!111848
 Node: Version 2050112977
@@ -4715,6 +4752,68 @@ Node: Acknowledgements170233
 Node: GNU Free Documentation License170805
 Node: Variable Index195831
 Node: Concept Index195984
+=======
+Node: News111045
+Node: Version 2060 15 years of APDL-Mode!111813
+Node: Version 2050112942
+Node: Version 2040113711
+Node: Version 2030114421
+Node: Version 2020115144
+Node: Version 2011115997
+Node: Version 2010116336
+Node: Version 162-1116881
+Node: Version 1611118401
+Node: Version 1501120028
+Node: Version 1452120859
+Node: Version 1451122260
+Node: Version 1401125411
+Node: Version 1301126866
+Node: Version 1201127781
+Node: Version 1102130148
+Node: ansys-modeel 1101130706
+Node: Further Resources133830
+Node: Ansys and APDL resources134058
+Node: Emacs editor resources134834
+Node: Other APDL editor resources135397
+Node: Todos136311
+Node: V 2070136689
+Node: Bugs136832
+Node: Misc136953
+Node: Version 2060137111
+Node: Todos bugs137454
+Node: Issues137909
+Node: Checks138927
+Node: Wishes139204
+Node: Docu139688
+Node: templates141861
+Node: misc142432
+Node: Done142798
+Node: Push and Release Proceedures143092
+Node: Version 2050 (1)144404
+Node: Version 2040 (1)144628
+Node: Version 2030 (1)144831
+Node: Version 2020 (1)145055
+Node: Version 2011 (1)145240
+Node: Version 162-2145716
+Node: Bugs (1)146003
+Node: Wish-list146915
+Node: Freeze152253
+Node: Deficiencies152618
+Node: Procedures154272
+Node: Freeze proceedures154794
+Node: Release156365
+Node: Ideas for further versions156968
+Node: Parameter help and documentation157399
+Node: Ansys process and interpreter buffer159701
+Node: Skeletons outline and abbrevs162564
+Node: Miscellaneous (1)164298
+Node: Ansys syntax restrictions not (yet) accounted for169290
+Node: Unknown Ansys stuff170195
+Node: Acknowledgements170478
+Node: GNU Free Documentation License171050
+Node: Variable Index196076
+Node: Concept Index196229
+>>>>>>> fc8691b... Improve doc/example.mac
 
 End Tag Table
 

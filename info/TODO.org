@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-01>
+#+DATE: Time-stamp: <2021-10-02>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -12,15 +12,19 @@
 #+HTML_MATHJAX:
 #+INFOJS_OPT:
 #+LATEX_HEADER:
-#+STARTUP: showall
+#+STARTUP: showallnnnn
 
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
 
 * TODO V 20.7.0
+** Bugs
+   - C-c C-b isn't working!
+** Misc
   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
 * Version 20.6.0
-  Branch 20.6.0 [2021-10-01 Fr]
+  - Branch 20.6.0 [2021-10-01 Fr]
+  - Feature freeze: Only bugs or template changes
 ** Todos, bugs
     - M-? get- and parameter-functions are completed but there's no
       parameter help - see: apdl-dynamic-prompt

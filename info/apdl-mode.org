@@ -1,5 +1,9 @@
 #+MACRO: version 20.6.0
+<<<<<<< HEAD
 #+MACRO: updated Time-stamp: "2021-10-01"
+=======
+#+MACRO: updated Time-stamp: "2021-10-02"
+>>>>>>> fc8691b... Improve doc/example.mac
 
 #+TITLE: The Manual of APDL-Mode
 #+SUBTITLE: Version {{{version}}} {{{updated}}}

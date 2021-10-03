@@ -1,9 +1,13 @@
 My acknowledgements to Tim Read and Geoff Foster for their
-ansys-mod.el from 1997 which triggered the idea in 2006 to start
-APDL-Mode.
+ansys-mod.el from 1997 which triggered the idea to APDL-Mode in 2006.
 
 Parts of APDL-Mode were based on octave-mod.el: Copyright (C) 1997
 Free Software Foundation, Inc.  Authors: [[mailto:Kurt.Hornik@wu-wien.ac.at][Kurt Hornik]] and [[mailto:jwe@bevo.che.wisc.edu][John Eaton]].
 
 I received, moreover, support and feedback from many individuals.
-Thank you very much!
+Thank you very much to all of them and also to the wonderful people
+which are crafting
+
+GNU-Emacs!
+
+

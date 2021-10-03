@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org54faf88)
-2.  [Some Highlights](#orgd5a2b47)
-3.  [Installation](#org131d241)
-4.  [First Step](#org177b399)
-5.  [Configuration and Customisation](#org3b7975d)
-6.  [Bugs and Problems](#org074a2e1)
-7.  [News](#orgecb43d7)
-8.  [Further Resources](#org52042dc)
-9.  [Acknowledgements](#orgffc0371)
-10. [Todos](#org2d216c4)
-11. [GNU GPL v3 License](#org79921a5)
+1.  [Introduction](#org993852d)
+2.  [Some Highlights](#orgd8d47ba)
+3.  [Installation](#org7537d5e)
+4.  [First Step](#orgd95ce19)
+5.  [Configuration and Customisation](#orge9bd355)
+6.  [Bugs and Problems](#org298aa86)
+7.  [News](#org8105e18)
+8.  [Further Resources](#orgd4a80a4)
+9.  [Acknowledgements](#org9d90718)
+10. [Todos](#org3fdabad)
+11. [GNU GPL v3 License](#orgbcdfcf1)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org54faf88"></a>
+<a id="org993852d"></a>
 
 # Introduction
 
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgd5a2b47"></a>
+<a id="orgd8d47ba"></a>
 
 # Some Highlights
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org131d241"></a>
+<a id="org7537d5e"></a>
 
 # Installation
 
@@ -156,13 +156,19 @@ for Emacs version 25.1 or newer.
 
 Please add
 
+    (package-initialize)
     (add-to-list 'package-archives
-    	  '("melpa" . "https://melpa.org/packages/") t)
+    	     '("melpa" . "https://melpa.org/packages/") t)
 
-to your initialisation file.  Then type: \`M-x list-packages', find
-\`apdl-mode', mark it with \`i' and install it with \`x'.
+to your initialisation file.  Activate this code (for example by
+restarting Emacs), then type \`M-x install-package', answer the
+prompt with "apdl-mode" and conclude this command with <RET>.
 
-If you prefer the stable package archive instead of development
+(You might also install it with GNU-Emacs' package interface \`M-x
+list-packages', find \`apdl-mode', mark it with \`i' and install it
+with \`x'.)
+
+If you prefer the stable package archive instead of the development
 versions, exchange above package source with
 
     (add-to-list 'package-archives
@@ -183,7 +189,7 @@ install APDL-Mode manually:
 That's it.
 
 **Hint:** If you are getting an error message "package.el is not yet
-initialised", you are using Emacs' packaging system for the very
+initialised", you are using Emacs' packaging system for the first
 first time.  It is necessary to initialise this machinery once,
 please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'
 colon!)  and then apply \`M-x package-install-file <RET>' again.
@@ -204,14 +210,14 @@ to your initialisation file (the source directory must be set in
 the \`load-path' variable as well).
 
 
-<a id="org177b399"></a>
+<a id="orgd95ce19"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#org3b7975d),
+already, please see in [5](#orge9bd355),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -220,7 +226,7 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<a id="org3b7975d"></a>
+<a id="orge9bd355"></a>
 
 # Configuration and Customisation
 
@@ -236,13 +242,13 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org074a2e1"></a>
+<a id="org298aa86"></a>
 
 # Bugs and Problems
 
 APDL-Mode was tested using Ansys v201 and v211 under Windows 10 with
 Emacs-27.1.  Under GNU-Linux the mode was developed and checked under
-both Emacs-24.3 and Emacs-28.1
+both Emacs-24.3 and Emacs-28.0.50.
 
 Feedback is always welcome.  If you have issues while installing and
 running this mode or want to suggest improvements you have the
@@ -261,14 +267,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orgecb43d7"></a>
+<a id="org8105e18"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org52042dc"></a>
+<a id="orgd4a80a4"></a>
 
 # Further Resources
 
@@ -276,29 +282,31 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="orgffc0371"></a>
+<a id="org9d90718"></a>
 
 # Acknowledgements
 
 My acknowledgements to Tim Read and Geoff Foster for their
-ansys-mod.el from 1997 which triggered the idea in 2006 to start
-APDL-Mode.
+ansys-mod.el from 1997 which triggered the idea to APDL-Mode in 2006.
 
 Parts of APDL-Mode were based on octave-mod.el: Copyright (C) 1997
 Free Software Foundation, Inc.  Authors: [Kurt Hornik](mailto:Kurt.Hornik@wu-wien.ac.at) and [John Eaton](mailto:jwe@bevo.che.wisc.edu).
 
 I received, moreover, support and feedback from many individuals.
-Thank you very much!
+Thank you very much to all of them and also to the wonderful people
+which are crafting
+
+GNU-Emacs!
 
 
-<a id="org2d216c4"></a>
+<a id="org3fdabad"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org79921a5"></a>
+<a id="orgbcdfcf1"></a>
 
 # GNU GPL v3 License
 

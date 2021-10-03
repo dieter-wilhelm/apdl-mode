@@ -1,6 +1,6 @@
 APDL-Mode was tested using Ansys v201 and v211 under Windows 10 with
 Emacs-27.1.  Under GNU-Linux the mode was developed and checked under
-both Emacs-24.3 and Emacs-28.1
+both Emacs-24.3 and Emacs-28.0.50.
 
 Feedback is always welcome.  If you have issues while installing and
 running this mode or want to suggest improvements you have the

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-03 10:10:44 dieter>
+#+DATE: Time-stamp: <2021-10-03 19:46:41 dieter>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -24,26 +24,26 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
   least the APDL-Mode introduction.
 
 * Melpa Installation
-   APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]]
-   for Emacs version 25.1 or newer.
+  APDL-Mode is now available on the GNU-Emacs packages archive [[https://melpa.org/][Melpa]]
+  for Emacs version 25.1 or newer.
 
-   [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
-   [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
+  [[https://melpa.org/#/apdl-mode][file:https://melpa.org/packages/apdl-mode-badge.svg]]
+  [[https://stable.melpa.org/#/apdl-mode][file:https://stable.melpa.org/packages/apdl-mode-badge.svg]]
 
-   Please add
-   #+begin_src emacs-lisp
-     (package-initialize)
-     (add-to-list 'package-archives
-		  '("melpa" . "https://melpa.org/packages/") t)
-   #+end_src
+  Please add
+  #+begin_src emacs-lisp
+    (package-initialize)
+    (add-to-list 'package-archives
+	  '("melpa" . "https://melpa.org/packages/") t)
+  #+end_src
 
-   to your initialisation file.  Activate this code (for example by
-   restarting Emacs), then type `M-x install-package', answer the
-   prompt with "apdl-mode" and conclude this command with <RET>.
+  to your initialisation file.  Activate this code (for example by
+  restarting Emacs), then type `M-x install-package', answer the
+  prompt with "apdl-mode" and conclude this command with <RET>.
 
-   (You might also install it with GNU-Emacs' package interface `M-x
-   list-packages', find `apdl-mode', mark it with `i' and install it
-   with `x'.)
+  (You might also install it with GNU-Emacs' package interface `M-x
+  list-packages', find `apdl-mode', mark it with `i' and install it
+  with `x'.)
 
    If you prefer the stable package archive instead of the development
    versions, exchange above package source with
@@ -53,32 +53,32 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    #+end_src
 
 * Manual Installation
-   If you are behind a corporate firewall and you are not able to
-   install APDL-Mode from Emacs' package menu, you can download and
-   install APDL-Mode manually:
+  If you are behind a corporate firewall and you are not able to
+  install APDL-Mode from Emacs' package menu, you can download and
+  install its package manually:
 
-   - Download the latest APDL-Mode's tar package from [[https://melpa.org/#/apdl-mode][Melpa]] or - for a
-     released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/][Github release page]] under Assets.
-   - Install the package within Emacs: Please type `M-x
-     package-install-file <RET>' and select your downloaded tar file.
+  - Download the latest APDL-Mode's tar package from [[https://melpa.org/#/apdl-mode][Melpa]] or - for a
+    released package - from the [[https://github.com/dieter-wilhelm/apdl-mode/releases/][Github release page]] under Assets.
+  - Install the package within Emacs: Please type `M-x
+    package-install-file <RET>' and select your downloaded tar file.
 
-   That's it.
+  That's it.
 
-   *Hint:* If you are getting an error message "package.el is not yet
-   initialised", you are using Emacs' packaging system for the first
-   first time.  It is necessary to initialise this machinery once,
-   please type: `M-: (package-initialize) <RET>' (it's an 'ALT + :'
-   colon!)  and then apply `M-x package-install-file <RET>' again.
+  *Hint:* If you are getting an error message "package.el is not yet
+  initialised", you are using Emacs' packaging system for the first
+  time.  It is necessary to initialise this machinery once, please
+  type: `M-: (package-initialize) <RET>' (it's an 'ALT + :' colon!)
+  and then apply `M-x package-install-file <RET>' again.
 
 * Development and Source Code Installation
-   Please clone the APDL-Mode git archive in a directory of your
-   choice:
-   #+begin_src sh
-     git clone https://github.com/dieter-wilhelm/apdl-mode.git
-   #+end_src
-   or download the GitHub ZIP archive and add the following line
-   #+begin_src elisp
+  Please clone the APDL-Mode git archive in a directory of your
+  choice:
+  #+begin_src sh
+    git clone https://github.com/dieter-wilhelm/apdl-mode.git
+  #+end_src
+  or download the GitHub ZIP archive and add the following line
+  #+begin_src elisp
    (require 'apdl-mode)
-   #+end_src
-   to your initialisation file (the source directory must be set in
-   the `load-path' variable as well).
+  #+end_src
+  to your initialisation file (the source directory must be set in the
+  `load-path' variable as well).

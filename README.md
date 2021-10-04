@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org993852d)
-2.  [Some Highlights](#orgd8d47ba)
-3.  [Installation](#org7537d5e)
-4.  [First Step](#orgd95ce19)
-5.  [Configuration and Customisation](#orge9bd355)
-6.  [Bugs and Problems](#org298aa86)
-7.  [News](#org8105e18)
-8.  [Further Resources](#orgd4a80a4)
-9.  [Acknowledgements](#org9d90718)
-10. [Todos](#org3fdabad)
-11. [GNU GPL v3 License](#orgbcdfcf1)
+1.  [Introduction](#orgd90b19d)
+2.  [Some Highlights](#org15b93cb)
+3.  [Installation](#orgb8010af)
+4.  [First Step](#orgb5d45f4)
+5.  [Configuration and Customisation](#org1c27fec)
+6.  [Bugs and Problems](#org12805c5)
+7.  [News](#org9d25132)
+8.  [Further Resources](#org17f40a3)
+9.  [Acknowledgements](#orga1c7455)
+10. [Todos](#orgad0c6ea)
+11. [GNU GPL v3 License](#org07dab9b)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org993852d"></a>
+<a id="orgd90b19d"></a>
 
 # Introduction
 
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgd8d47ba"></a>
+<a id="org15b93cb"></a>
 
 # Some Highlights
 
@@ -133,7 +133,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org7537d5e"></a>
+<a id="orgb8010af"></a>
 
 # Installation
 
@@ -158,7 +158,7 @@ Please add
 
     (package-initialize)
     (add-to-list 'package-archives
-    	     '("melpa" . "https://melpa.org/packages/") t)
+          '("melpa" . "https://melpa.org/packages/") t)
 
 to your initialisation file.  Activate this code (for example by
 restarting Emacs), then type \`M-x install-package', answer the
@@ -179,7 +179,7 @@ versions, exchange above package source with
 
 If you are behind a corporate firewall and you are not able to
 install APDL-Mode from Emacs' package menu, you can download and
-install APDL-Mode manually:
+install its package manually:
 
 -   Download the latest APDL-Mode's tar package from [Melpa](https://melpa.org/#/apdl-mode) or - for a
     released package - from the [Github release page](https://github.com/dieter-wilhelm/apdl-mode/releases/) under Assets.
@@ -190,9 +190,9 @@ That's it.
 
 **Hint:** If you are getting an error message "package.el is not yet
 initialised", you are using Emacs' packaging system for the first
-first time.  It is necessary to initialise this machinery once,
-please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'
-colon!)  and then apply \`M-x package-install-file <RET>' again.
+time.  It is necessary to initialise this machinery once, please
+type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :' colon!)
+and then apply \`M-x package-install-file <RET>' again.
 
 
 ## Development and Source Code Installation
@@ -206,18 +206,18 @@ or download the GitHub ZIP archive and add the following line
 
     (require 'apdl-mode)
 
-to your initialisation file (the source directory must be set in
-the \`load-path' variable as well).
+to your initialisation file (the source directory must be set in the
+\`load-path' variable as well).
 
 
-<a id="orgd95ce19"></a>
+<a id="orgb5d45f4"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#orge9bd355),
+already, please see in [5](#org1c27fec),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -226,7 +226,7 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<a id="orge9bd355"></a>
+<a id="org1c27fec"></a>
 
 # Configuration and Customisation
 
@@ -242,7 +242,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org298aa86"></a>
+<a id="org12805c5"></a>
 
 # Bugs and Problems
 
@@ -267,14 +267,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org8105e18"></a>
+<a id="org9d25132"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="orgd4a80a4"></a>
+<a id="org17f40a3"></a>
 
 # Further Resources
 
@@ -282,7 +282,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org9d90718"></a>
+<a id="orga1c7455"></a>
 
 # Acknowledgements
 
@@ -299,14 +299,14 @@ which are crafting
 GNU-Emacs!
 
 
-<a id="org3fdabad"></a>
+<a id="orgad0c6ea"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orgbcdfcf1"></a>
+<a id="org07dab9b"></a>
 
 # GNU GPL v3 License
 

@@ -100,11 +100,16 @@ EL_FILES := ../apdl-mode.el ../apdl-keyword.el ../apdl-mode-pkg.el \
 	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el \
 	../apdl-process.el ../info/apdl-config.el
 
+EL_TEST := ../apdl-mode.el \
+	../apdl-initialise.el ../apdl-template.el ../apdl-wb-template.el \
+	../apdl-process.el 
+
 ELC_FILES := $(EL_FILES:.el=.elc)
+ELC_TEST := $(EL_TEST:.el=.elc)
 
 # compile Elisp files
 .PHONEY : ELC
-ELC : $(ELC_FILES)
+ELC : $(ELC_TEST)
 
 # interesting files besides the essential lisp files
 FILES := ../info/LICENSE ../apdl-mode-readme.txt ../info/README.org \
@@ -251,8 +256,8 @@ $(PACKAGE) : $(PACKAGE_FILES) makefile
 .PHONEY : PACK
 PACK : CLEAN $(PACKAGE) makefile
 
-.PHONEY : CONTI
-CONTI : A-M-$(VERSION).tar.xz
+.PHONEY : COMPANY
+COMPANY : A-M-$(VERSION).tar.xz
 
 A-M-$(VERSION).tar.xz : $(PACKAGE) \ # tools/apdl-mode/README.Conti
 	tools/bin/A-M-$(VERSION).sh \

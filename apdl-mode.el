@@ -1192,7 +1192,7 @@ variables"]
 testing purposes and restarting
 apdl-mode (apdl-reload-apdl-mode), this is only active if
 'apdl-mode.el' is found in Emacs' load-path!"
-    :active (file-exists-p "apdl-mode.el")]
+    :active (member  (directory-file-name apdl-mode-install-directory) load-path)]
    "--"
    ["Exit APDL-Mode" apdl-toggle-mode
     :help "Switch to the previous major mode of the file"
@@ -1953,19 +1953,23 @@ Clear (unload) all mode definitions, if apdl-mode is active, load
 the necessary code and call `apdl-mode'.  In general, this is
 only possible if apdl-mode.el is in the load-path of Emacs."
   (interactive)
+  (message "Reloading APDL-Mode.")
   (progn
     (when (featurep 'apdl-mode)
       (unload-feature 'apdl-mode)
+      (message "Unloading APDL-Mode features.")
       (unload-feature 'apdl-keyword)
       (unload-feature 'apdl-process)
       (unload-feature 'apdl-template)
       (unload-feature 'apdl-wb-template)
       ;; the others rely on -initialise !!
-      (unload-feature 'apdl-initialise))
+      (unload-feature 'apdl-initialise)
+      (message "Unloaded APDL-Mode features."))
 ;;    (load "apdl-config") ; don't rely on apdl-config!
-    (if (file-exists-p "apdl-mode.el")
+    (if (file-exists-p (concat apdl-mode-install-directory "apdl-mode.el"))
 	(load "apdl-mode.el")
       (error "There is no apdl-mode.el in load-path")) ; load apdl-mode.el
+    (message "Applying APDL-Mode.")
     (apdl-mode)
     (message "APDL-Mode %s based on Ansys %s reloaded"
              apdl-mode-version apdl-ansys-version)))

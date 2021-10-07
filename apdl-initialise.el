@@ -39,11 +39,7 @@
 (defconst apdl-mode-version "20.6.0"
   "The APDL-Mode version string.")
 
-<<<<<<< HEAD
-(defconst apdl-mode-update "2021-10-01"
-=======
 (defconst apdl-mode-update "2021-10-02"
->>>>>>> fc8691b... Improve doc/example.mac
   "APDL-Mode packaging date string in yyyy-mm-dd format.
 This is for the APDL-Mode development versions to check the time
 of packaging.")

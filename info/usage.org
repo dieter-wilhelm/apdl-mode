@@ -44,7 +44,7 @@
    the default system browser (a security feature).  In this case you
    have to specify specify explicitly which browser Emacs should
    invoke e.g. Emacs' EWW
-   #+texinfo: @inforef{EWW,,eww}
+   #+texinfo: @inforef{Top,,eww}
    or other installed browsers.
 # Please see the [[../info/apdl-config.org][configuration example]] on how to do this.
 #   #+texinfo:  Please see the @inforef{ on how to do this.

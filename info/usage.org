@@ -1,42 +1,52 @@
-* Finding Help to APDL keywords
-  Firstly with an in-buffer display of a brief command help and
-  secondly browsing the complete Ansys HTML documentation.
-** Command Help with Argument Counter
+* Finding Help for APDL keywords
+  Reading the original Ansys documentation of APDL keywords can be
+  done in two ways.  One option is an in-buffer display of a brief
+  apdl command description and the second option is browsing the
+  complete Ansys HTML documentation for respective keywords, i.e.
+  APDL commands, functions and element names.
+** Brief Command Help with Argument Counter
    Typing "M-?", the <ALT> key simultaneously with the "?" the
    question mark (for the command ‘apdl-show-command-parameters’)
    displays above the respective code line a brief description of the
    APDL command and its arguments.  This command counts also the
    number of arguments and visualises at which argument position the
    cursor is.  The command is looking for the next valid command near
-   the cursor or when using a prefix argument ("C-u" or "M-4") it
-   inquires an APDL command from you.  The tooltip vanishes after a
-   certain time (depending on `apdl-parameter-help-duration') or it is
-   switched off with an argument of zero ("M-0").
+   the cursor or when using a prefix argument ("C-u M-?" or "M-4 M-?")
+   it inquires an APDL command from you.  The tooltip vanishes after a
+   certain time (depending on the customisation variable
+   `apdl-parameter-help-duration') or it is switched off with an
+   prefix argument for this command of zero ("M-0 M-?").
 
-** APDL Keyword Documentation
-   Browse the detailed APDL commands, elements, functions and selected
-   topics in the original Ansys HTML help.
+** Browsing the APDL Keyword Documentation
+   The command `apdl-browse-apdl-help' (C-c C-b) allows browsing the
+   original manual of APDL commands, elements, functions and selected
+   topics.
 
    Typing "C-c C-b" will display the original Ansys help in your web
    browser for all APDL commands, element names (stating the element
-   number is sufficient), get- or parametric-functions.  "C-c C-b" is
+   number is sufficient), get- or parametric-functions (for the
+   functions it might be necessary to write an opening parenthesis,
+   e.g. "sin(", to distinquish them from command names).  "C-c C-b" is
    looking for keywords on and before the cursor or - if this fails -
-   for APDL command at the line beginning.  This is also working for
+   for APDL commands at the line beginning.  This is also working for
    commented out code lines.
 
    When using a prefix argument (typing C-u before C-c C-b) the
    command inquires a keyword from you.  Keywords beginning with a
-   quotation mark ‘"’ describing general manual sections, for example
-   typing ‘"SHELLS"’ will call the collection of all shell elements
-   from the Ansys manual.  You should complete your input with the
-   <TAB> key to make it unique.
+   quotation mark ‘"’ are describing general manual sections, for
+   example typing ‘"SHELLS"’ will call the collection of all shell
+   elements from the Ansys manual.  You can complete your input with
+   the <TAB> key to show the remaining completions or make it unique.
 
    Above quotation mark mechanism is implemented with "#" anchors for
    the Ansys help files. This mechanism is not working for locally
-   installed help files on Windows systems when the default browser is
-   called from Emacs.  In this case you can either use EWW as the
-   default browser or specify your favourite browser directly.
- # Please see the [[../info/apdl-config.org][configuration example]] on how to do this.
+   installed help files on Windows systems when GNU-Emacs is calling
+   the default system browser (a security feature).  In this case you
+   have to specify specify explicitly which browser Emacs should
+   invoke e.g. Emacs' EWW
+   #+texinfo: @inforef{EWW,,eww}
+   or other installed browsers.
+# Please see the [[../info/apdl-config.org][configuration example]] on how to do this.
 #   #+texinfo:  Please see the @inforef{ on how to do this.
    Please see [[file:apdl-config.org::*Miscellaneous][Miscellaneous]] on how to do this.  Please see section
    @@texinfo:@ref{Configuration and Customisation}@@ on how to do

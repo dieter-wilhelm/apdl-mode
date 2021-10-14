@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org73a7d9b)
-2.  [Some Highlights](#org8b4d54d)
-3.  [Installation](#org870a182)
-4.  [First Step](#orgf46acb9)
-5.  [Configuration and Customisation](#orge8aaebb)
-6.  [Bugs and Problems](#org5ef8419)
-7.  [News](#org4a22e1e)
-8.  [Further Resources](#org183f07b)
-9.  [Acknowledgements](#org306b9b8)
-10. [Todos](#orgfbe79ad)
-11. [GNU GPL v3 License](#orgb38dfae)
+1.  [Introduction](#org317abe2)
+2.  [Some Highlights](#org5cdab07)
+3.  [Installation](#orge8b624d)
+4.  [First Step](#orga15f401)
+5.  [Configuration and Customisation](#org298b8c9)
+6.  [Bugs and Problems](#org73e89ec)
+7.  [News](#org776cf1f)
+8.  [Further Resources](#orge1a6044)
+9.  [Acknowledgements](#orgb90a144)
+10. [Todos](#orgdc544da)
+11. [GNU GPL v3 License](#org0d38ba9)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org73a7d9b"></a>
+<a id="org317abe2"></a>
 
 # Introduction
 
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org8b4d54d"></a>
+<a id="org5cdab07"></a>
 
 # Some Highlights
 
@@ -103,7 +103,7 @@ APDL code.
 ![img](doc/browse_manual.png)
 
 Please read the [apdl-config](info/apdl-config.md) documentation on how configure EWW as
-default browser or check the accompanying [configuration template](apdl-config.el).
+default browser or check the accompanying [configuration template](info/apdl-config.el).
 
 
 ## Command Object Templates and Code Highlighting Example
@@ -137,7 +137,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org870a182"></a>
+<a id="orge8b624d"></a>
 
 # Installation
 
@@ -214,14 +214,14 @@ to your initialisation file (the source directory must be set in the
 \`load-path' variable as well).
 
 
-<a id="orgf46acb9"></a>
+<a id="orga15f401"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#orge8aaebb),
+already, please see in [5](#org298b8c9),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -230,7 +230,7 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<a id="orge8aaebb"></a>
+<a id="org298b8c9"></a>
 
 # Configuration and Customisation
 
@@ -246,7 +246,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org5ef8419"></a>
+<a id="org73e89ec"></a>
 
 # Bugs and Problems
 
@@ -271,14 +271,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="org4a22e1e"></a>
+<a id="org776cf1f"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org183f07b"></a>
+<a id="orge1a6044"></a>
 
 # Further Resources
 
@@ -286,7 +286,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org306b9b8"></a>
+<a id="orgb90a144"></a>
 
 # Acknowledgements
 
@@ -303,14 +303,14 @@ which are crafting
 GNU-Emacs!
 
 
-<a id="orgfbe79ad"></a>
+<a id="orgdc544da"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orgb38dfae"></a>
+<a id="org0d38ba9"></a>
 
 # GNU GPL v3 License
 

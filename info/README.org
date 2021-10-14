@@ -76,7 +76,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    [[file:doc/browse_manual.png]]
 
    Please read the [[file:info/apdl-config.org][apdl-config]] documentation on how configure EWW as
-   default browser or check the accompanying [[file:apdl-config.el][configuration template]].
+   default browser or check the accompanying [[file:info/apdl-config.el][configuration template]].
 
 ** Command Object Templates and Code Highlighting Example
    You are learning and also coding APDL best by example!  APDL-Mode

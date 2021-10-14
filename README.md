@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#orgd06e5b2)
-2.  [Some Highlights](#org21d7a78)
-3.  [Installation](#org199780c)
-4.  [First Step](#org2065e2d)
-5.  [Configuration and Customisation](#orgb98bada)
-6.  [Bugs and Problems](#org36ff503)
-7.  [News](#orgec87cb1)
-8.  [Further Resources](#org5ca3560)
-9.  [Acknowledgements](#org909eaa3)
-10. [Todos](#org0e51d37)
-11. [GNU GPL v3 License](#org82366a7)
+1.  [Introduction](#org73a7d9b)
+2.  [Some Highlights](#org8b4d54d)
+3.  [Installation](#org870a182)
+4.  [First Step](#orgf46acb9)
+5.  [Configuration and Customisation](#orge8aaebb)
+6.  [Bugs and Problems](#org5ef8419)
+7.  [News](#org4a22e1e)
+8.  [Further Resources](#org183f07b)
+9.  [Acknowledgements](#org306b9b8)
+10. [Todos](#orgfbe79ad)
+11. [GNU GPL v3 License](#orgb38dfae)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="orgd06e5b2"></a>
+<a id="org73a7d9b"></a>
 
 # Introduction
 
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="org21d7a78"></a>
+<a id="org8b4d54d"></a>
 
 # Some Highlights
 
@@ -93,13 +93,17 @@ Since Ansys v191 the online help is the default.  APDL-Mode is
 using your default browser but to be able to access the online help
 you must register or you must start the online help once from any
 licensed Ansys product.  I recommend installing the local Ansys
-documentation package, access time is much shorter.
+documentation, access time is much shorter.  You can download the
+"help installer" from their Customer Portal.
 
 The image below is showing a manual entry in GNU-Emacs' EWW
 browser.  You are able to consult the manuals side-by-side your
 APDL code.
 
 ![img](doc/browse_manual.png)
+
+Please read the [apdl-config](info/apdl-config.md) documentation on how configure EWW as
+default browser or check the accompanying [configuration template](apdl-config.el).
 
 
 ## Command Object Templates and Code Highlighting Example
@@ -133,7 +137,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org199780c"></a>
+<a id="org870a182"></a>
 
 # Installation
 
@@ -210,14 +214,14 @@ to your initialisation file (the source directory must be set in the
 \`load-path' variable as well).
 
 
-<a id="org2065e2d"></a>
+<a id="orgf46acb9"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#orgb98bada),
+already, please see in [5](#orge8aaebb),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -226,7 +230,7 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<a id="orgb98bada"></a>
+<a id="orge8aaebb"></a>
 
 # Configuration and Customisation
 
@@ -242,7 +246,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<a id="org36ff503"></a>
+<a id="org5ef8419"></a>
 
 # Bugs and Problems
 
@@ -267,14 +271,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orgec87cb1"></a>
+<a id="org4a22e1e"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org5ca3560"></a>
+<a id="org183f07b"></a>
 
 # Further Resources
 
@@ -282,7 +286,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="org909eaa3"></a>
+<a id="org306b9b8"></a>
 
 # Acknowledgements
 
@@ -299,14 +303,14 @@ which are crafting
 GNU-Emacs!
 
 
-<a id="org0e51d37"></a>
+<a id="orgfbe79ad"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="org82366a7"></a>
+<a id="orgb38dfae"></a>
 
 # GNU GPL v3 License
 

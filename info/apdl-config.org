@@ -1,5 +1,5 @@
 
-#+DATE: Time-stamp: <2021-09-12>
+#+DATE: Time-stamp: <2021-10-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -282,23 +282,23 @@ or 2. by directly manipulating the Emacs configuration file
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 				;; Miscellaneous
       ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     
+
      ;; use Emacs' EWW browser for locally installed help
      (setq browse-url-browser-function 'eww-browse-url)
      ;; use the default system browser
      ; (setq browse-url-browser-function 'browse-url-default-browser)
-     
+
      ;; Some element collections, like "SHELLS" are implemented with `#'
      ;; anchors which are not standard URLs.  This leads to an error on
      ;; Windows with w32-shell-execute for locally installed help files.
      ;; Browsers don't mind the anchors, so in this case use either EWW
      ;; (see above) or specify an installed browser in your init file, see
      ;; below example for MS Edge:
-     
+
        (defun browse-url-edge (url &optional new-window)
        (shell-command
 	(concat "start msedge " url)))
-     
+
        ; (setq browse-url-browser-function 'browse-url-edge)
    #+end_src
 

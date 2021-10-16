@@ -1,28 +1,29 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#orge0adca4)
-2.  [Version 20.6.0](#orgb5a1990)
-3.  [Version 20.5.0](#org093819c)
-4.  [Version 20.4.0](#org6245b43)
-5.  [Version 20.3.0](#org9d81980)
-6.  [Version 20.2.0](#org6211e90)
-7.  [Version 20.1.1](#orgb1fdef9)
-8.  [Version 162-2](#org4276854)
+1.  [V 20.7.0](#orgcf7894b)
+2.  [Version 20.6.0](#org205f7b8)
+3.  [Version 20.5.0](#org6f36177)
+4.  [Version 20.4.0](#orgcd5db03)
+5.  [Version 20.3.0](#org1175fb1)
+6.  [Version 20.2.0](#org6e85a6d)
+7.  [Version 20.1.1](#orgfd59639)
+8.  [Version 162-2](#org86886ec)
 
 
 
-<a id="orge0adca4"></a>
+<a id="orgcf7894b"></a>
 
-# TODO V 20.7.0
+# V 20.7.0
 
 -   Linux: C-c C-o -> **APDL Classics** Buffer when process running
+-   Reload apdl-mode isn't working
 -   Look into derived branch: prog-modes
 
 
-<a id="orgb5a1990"></a>
+<a id="org205f7b8"></a>
 
-# Version 20.6.0
+# TODO Version 20.6.0
 
 -   Branch 20.6.0 <span class="timestamp-wrapper"><span class="timestamp">[2021-10-01 Fr]</span></span>
 -   Feature freeze: Only bugs or template changes
@@ -50,7 +51,7 @@
 
 -   Do we really need to specify the license interconnect server?
 -   M-? parameter counter is not working for commands where functions
-    with multiple arguments are in the argument list!
+     with multiple arguments are in the argument list!
     f,node(x,y,z),,,
 -   Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
     -replot, -q -query-apdl-command, -k -kill-anys, -p
@@ -228,7 +229,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org093819c"></a>
+<a id="org6f36177"></a>
 
 # DONE Version 20.5.0
 
@@ -236,7 +237,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org6245b43"></a>
+<a id="orgcd5db03"></a>
 
 # DONE Version 20.4.0
 
@@ -244,7 +245,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org9d81980"></a>
+<a id="org1175fb1"></a>
 
 # DONE Version 20.3.0
 
@@ -253,14 +254,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org6211e90"></a>
+<a id="org6e85a6d"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgb1fdef9"></a>
+<a id="orgfd59639"></a>
 
 # DONE Version 20.1.1
 
@@ -273,7 +274,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org4276854"></a>
+<a id="org86886ec"></a>
 
 # Version 162-2
 

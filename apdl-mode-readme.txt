@@ -9,7 +9,7 @@ GNU-Emacs editor, an advanced APDL environment with features like
 keyword completion, code templates, solver communication (GNU-Linux
 only), license reporting, dedicated keybindings, etc.
 
-Nowadays - with the advent of modern GUIs - I find APDL-Mode mostly
+Nowadays - with the advent of modern GUIs - I find APDL-Mode also
 useful for studying solver (.dat) files which were created by
 WorkBench.  Likewise for writing WorkBench `Command' snippets and
 inspecting longer snippets from other sources.  Accessing swiftly the
@@ -22,6 +22,6 @@ Please type `M-x apdl' to open a buffer under APDL-Mode.  From this
 buffer you can investigate the menu entries `APDL' and `Ansys' and
 testing some APDL code.
 
-The APDL-Mode help you'll find with typing `C-h m' together with a
+The APDL-Mode help you'll find with typing `C-c C-h' together with a
 brief tutorial.
 

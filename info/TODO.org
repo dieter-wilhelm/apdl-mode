@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-14>
+#+DATE: Time-stamp: <2021-10-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -157,6 +157,9 @@
      - git checkout master
 
    - make PACK : now obligatory for any push to Melpa!!
+
+   - Documentation in the list-packages seems to be the Comment
+     strings in ansys-mode.el [2021-10-16 Sa]
 
    Ansys updates:
    Hint: in apdl_keywords.txt there are many

@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-02>
+#+DATE: Time-stamp: <2021-10-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,6 +17,9 @@
 # #+title: News and History of APDL-Mode
 
 Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
+
+* Version 20.7.0
+  - new APDL menu entry: Browse the Customer Portal of Ansys
 
 * Version 20.6.0, 15 years of APDL-Mode!
   Improvements, extensions and bug fixes, 2021-09-26 rc1

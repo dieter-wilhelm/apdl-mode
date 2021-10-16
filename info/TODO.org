@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-02>
+#+DATE: Time-stamp: <2021-10-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,10 +17,11 @@
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
 
-* TODO V 20.7.0
+* V 20.7.0
   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
+  - Reload apdl-mode isn't working
   - Look into derived branch: prog-modes
-* Version 20.6.0
+* TODO Version 20.6.0
   - Branch 20.6.0 [2021-10-01 Fr]
   - Feature freeze: Only bugs or template changes
 ** Todos, bugs
@@ -40,7 +41,7 @@
 ** Issues
    - Do we really need to specify the license interconnect server?
    - M-? parameter counter is not working for commands where functions
-     with multiple arguments are in the argument list!
+      with multiple arguments are in the argument list!
      f,node(x,y,z),,,
    - Some keybindings (6+1) for fkmpqr,d: -f -fit, -m -start-ansys, -r
      -replot, -q -query-apdl-command, -k -kill-anys, -p

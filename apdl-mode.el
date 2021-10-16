@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-01>
+;; Time-stamp: <2021-10-14>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -898,6 +898,49 @@ If INVISIBLE-OK is non-nil, an invisible heading line is ok too."
 (defconst apdl-mode-menu
   (list
    "APDL"
+   ["Show the Short Command Help" apdl-show-command-parameters
+    :help "Display a short help for the APDL command near the
+cursor with its parameters (apdl-show-command-parameters)"]
+   ["Browse the APDL Keyword Help" apdl-browse-apdl-help
+    :help "Open the original APDL documentation for a command or
+element name near the cursor (apdl-browse-apdl-help)"
+    :active (or apdl-current-ansys-version apdl-ansys-help-path)]
+   ["Interactively Browse Keywords" (apdl-browse-apdl-help t)
+    :help "Complete a command, element name or other subjects and
+browse its original APDL documentation
+ (apdl-browse-apdl-help)."
+    :active (or apdl-current-ansys-version apdl-ansys-help-path)]
+   ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
+    :help "Read the original Ansys Parametric Design Language
+Guide in a browser (apdl-browse-ansys-apdl-manual)"
+    ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
+    ]
+   ["Browse Ansys Main Help Page" apdl-start-ansys-help-page
+    :help "Start the Ansys main help site
+(apdl-start-ansys-help-page)."]
+   ["Browse Ansys Customer Portal" apdl-start-ansys-customer-portal-site
+    :help "Start the Ansys Customer Portal site
+(apdl-start-ansys-customer-portal-site)."]
+   "--"
+   ["Preview Macro Template" apdl-display-skeleton
+    :help "Preview an APDL code template in another window"]
+   (list
+    "Insert Macro Template"
+    ["*IF ... *ENDIF" apdl-if
+     :help "Insert interactively an *if .. *endif construct"]
+    ["*DO ... *ENDDO" apdl-do
+     :help "Insert interactively a *do .. *enddo loop"]
+    ["*IF ... *ELSEIF" apdl-if-then
+     :help "Insert interactively an *if,then .. \
+(*elseif .. *else ..) *endif construct."]
+    ["MP" apdl-mp
+     :help "Insert interactively an mp statement."]
+    ["Header" apdl-skeleton-header
+     :help "Insert interactively the file header template"]
+    ["Insert Pi" apdl-insert-pi
+     :help "Insert the variable definition \"Pi = acos(-1) !
+3.1415...\" at point and indent this line."]
+    "--"
    ["Mark Paragraph" apdl-mark-paragraph
     :help "Mark a paragraph, make a region out of it."]
    ["Comment/Un- Region" comment-dwim
@@ -934,46 +977,6 @@ the current paragraph (apdl-align)"]
     :help "Display all user variable definitions from the current
 file in another window (apdl-display-variables)"]
    "--"
-   ["Show the Short Command Help" apdl-show-command-parameters
-    :help "Display a short help for the APDL command near the
-cursor with its parameters (apdl-show-command-parameters)"]
-   ["Browse the APDL Keyword Help" apdl-browse-apdl-help
-    :help "Open the original APDL documentation for a command or
-element name near the cursor (apdl-browse-apdl-help)"
-    :active (or apdl-current-ansys-version apdl-ansys-help-path)]
-   ["Interactively Browse Keywords" (apdl-browse-apdl-help t)
-    :help "Complete a command, element name or other subjects and
-browse its original APDL documentation
- (apdl-browse-apdl-help)."
-    :active (or apdl-current-ansys-version apdl-ansys-help-path)]
-   ["Browse the Ansys APDL Guide" apdl-browse-ansys-apdl-manual
-    :help "Read the original Ansys Parametric Design Language
-Guide in a browser (apdl-browse-ansys-apdl-manual)"
-    ;; :active (file-readable-p apdl-ansys-help-path) ; now also online :-)
-    ]
-   ["Browse Ansys Main Help Page" apdl-start-ansys-help-page
-    :help "Start the Ansys main help page
-(apdl-start-ansys-help-page)."]
-   "--"
-   ["Preview Macro Template" apdl-display-skeleton
-    :help "Preview an APDL code template in another window"]
-   (list
-    "Insert Macro Template"
-    ["*IF ... *ENDIF" apdl-if
-     :help "Insert interactively an *if .. *endif construct"]
-    ["*DO ... *ENDDO" apdl-do
-     :help "Insert interactively a *do .. *enddo loop"]
-    ["*IF ... *ELSEIF" apdl-if-then
-     :help "Insert interactively an *if,then .. \
-(*elseif .. *else ..) *endif construct."]
-    ["MP" apdl-mp
-     :help "Insert interactively an mp statement."]
-    ["Header" apdl-skeleton-header
-     :help "Insert interactively the file header template"]
-    ["Insert Pi" apdl-insert-pi
-     :help "Insert the variable definition \"Pi = acos(-1) !
-3.1415...\" at point and indent this line."]
-    "--"
     ["Configuration" apdl-skeleton-configuration
      :help "Configuration code template"]
     ["Get- and Fortran functions" apdl-skeleton-get-and-fortran-function
@@ -1149,6 +1152,42 @@ respective closing command"]
     ["Insert Temporary Ruler" apdl-column-ruler
      :help "Show a temporary ruler above the current line"])
    "--"
+   ["Mark Paragraph" apdl-mark-paragraph
+    :help "Mark a paragraph, make a region out of it."]
+   ["Comment/Un- Region" comment-dwim
+    :help "Comment out region or uncomment region, without a
+marked region start or realign a code comment in the current
+line."]
+   ["Complete APDL Keyword" apdl-complete-symbol
+    :help "Complete an APDL command, element or function name"]
+   ["Send/Copy Region or Paragraph" apdl-send-to-ansys
+    :label (if
+               (or apdl-classics-flag (apdl-process-running-p))
+               "Send region or paragraph to Ansys"
+             "Copy region or paragraph to clipboard")
+    :help "In case of a running solver/interpreter send marked
+region or - by default - the current paragraph to the
+interpreter, otherwise copy these lines to the system clipboard"]
+   ["Copy/Send above Code to Ansys" apdl-copy-or-send-above
+    :label (if
+               (or apdl-classics-flag (apdl-process-running-p))
+               "Send above Code to Ansys"
+             "Copy above Code")
+    :help "Either copy the code up to the beginning of file or,
+when a run is active, send it to the solver/interpreter"]
+   ["Close Logical Block" apdl-close-block
+    :help "Close an open control block with the corresponding end
+   command"]
+;;    ["Insert Parentheses" insert-parentheses
+;;     :help "Insert a pair of parentheses enclosing marked region
+;; (insert-parentheses)"] ; -FIXME- redundant, necessary for Emacs-23.1
+   ["Align region or paragraph" apdl-align
+    :help "Align APDL variable definitions in a marked region or
+the current paragraph (apdl-align)"]
+   ["Display Variable Definitions" apdl-display-variables
+    :help "Display all user variable definitions from the current
+file in another window (apdl-display-variables)"]
+   "--"
    (list
     "Helper Modes"
     ["Ruler Mode" ruler-mode
@@ -1175,7 +1214,7 @@ headlines and their sub level contents"]
    ["APDL-Mode Documentation" apdl-mode-help
     :help "Display the APDL-Mode Documentation in Emacs' Info Viewer."]
    ["Help on APDL-Mode" describe-mode
-    :help "Open an Emacs window describing APDL-Mode's usage"]
+    :help "Open an Emacs window describing APDL-Mode's keybindings / shortcuts"]
    ["Customise APDL-Mode"        (customize-group "APDL")
     :help "Open a special customisation window for changing the
 values and inspecting the documentation of its customisation

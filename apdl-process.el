@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-01>
+;; Time-stamp: <2021-10-14>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1486,6 +1486,13 @@ with the APDL /EXIT,all command which saves all model data."
     ;; 			  "/account/secured?returnurl=/Views/Secured/corp/"
     ;; 			  apdl-current-ansys-version "/" file)))
     ))
+
+;; 2021-10-14
+(defun apdl-start-ansys-customer-portal-site ()
+  "Start the Ansys Customer Portal site in a browser.
+You need to register or have an account."
+  (interactive)
+  (browse-url "https://support.ansys.com/Home/HomePage"))
 
 (defun apdl-start-ansys-help ()
   "Start the Ansys Help Viewer.

@@ -3200,12 +3200,16 @@ File: apdl-mode.info,  Node: Ansys and APDL resources,  Next: Emacs editor resou
    • The online Ansys reference manuals (https://ansyshelp.ansys.com/)
      (registration required) and the Ansys video playlist
      (https://www.youtube.com/user/ansysinc/playlists) on YouTube
-   • The Ansys homepage (http://www.ansys.com) with the Ansys Portal and
-     Learning Hub
+   • The Ansys homepage (http://www.ansys.com)
+   • The Ansys Learning Hub
+     (https://www.ansys.com/services/ansys-learning-hub)
+   • The Ansys Customer Portal (https://support.ansys.com/Home/HomePage)
    • Xansys, an Ansys online community (http://www.xansys.org) (forum
      registration is necessary)
-   • The PADT Focus (http://www.padtinc.com/blog/the-focus/) site.
-   • A general Ansys repository Ansys.net (http://www.ansys.net)
+   • The PADT Focus (http://www.padtinc.com/blog/the-focus/) site, a
+     blog of an engineering company in North America
+   • A general Ansys repository Ansys.net (http://www.ansys.net), last
+     update from 2016 (state 2021-10-16)
    • AUC (http://www.auc-ev.de/), the Ansys User Club eV.  in Germany
 
 
@@ -3219,7 +3223,7 @@ File: apdl-mode.info,  Node: Emacs editor resources,  Next: Other APDL editor re
    • Emacs’ Stackexchange (http://emacs.stackexchange.com), the question
      and answer site for Emacs
    • EmacsWiki (http://www.emacswiki.org), an encyclopedia for
-     everything Emacs related
+     everything related to Emacs
    • The Emacs help <help-gnu-emacs@gnu.org> mailing list
 
 
@@ -3463,6 +3467,9 @@ File: apdl-mode.info,  Node: Push and Release Proceedures,  Prev: Done,  Up: Ver
         • git checkout master
 
    • make PACK : now obligatory for any push to Melpa!!
+
+   • Documentation in the list-packages seems to be the Comment strings
+     in ansys-mode.el _[2021-10-16 Sa]_
 
    Ansys updates: Hint: in apdl_keywords.txt there are many trailing
 whitespaces (delete-trailing-whitespace)
@@ -4707,44 +4714,44 @@ Node: Version 1102131352
 Node: ansys-modeel 1101131910
 Node: Further Resources135034
 Node: Ansys and APDL resources135262
-Node: Emacs editor resources136038
-Node: Other APDL editor resources136601
-Node: Todos137515
-Node: V 2070137893
-Node: Version 2060138148
-Node: Todos bugs138505
-Node: Issues139216
-Node: Checks140121
-Node: Wishes140398
-Node: Docu140882
-Node: templates142946
-Node: misc143517
-Node: Done143883
-Node: Push and Release Proceedures144177
-Node: Version 2050 (1)145428
-Node: Version 2040 (1)145652
-Node: Version 2030 (1)145855
-Node: Version 2020 (1)146079
-Node: Version 2011 (1)146264
-Node: Version 162-2146740
-Node: Bugs147018
-Node: Wish-list147926
-Node: Freeze153260
-Node: Deficiencies153625
-Node: Procedures155279
-Node: Freeze proceedures155801
-Node: Release157372
-Node: Ideas for further versions157975
-Node: Parameter help and documentation158406
-Node: Ansys process and interpreter buffer160708
-Node: Skeletons outline and abbrevs163571
-Node: Miscellaneous (1)165305
-Node: Ansys syntax restrictions not (yet) accounted for170297
-Node: Unknown Ansys stuff171202
-Node: Acknowledgements171485
-Node: GNU Free Documentation License172132
-Node: Variable Index197158
-Node: Concept Index197311
+Node: Emacs editor resources136258
+Node: Other APDL editor resources136824
+Node: Todos137738
+Node: V 2070138116
+Node: Version 2060138371
+Node: Todos bugs138728
+Node: Issues139439
+Node: Checks140344
+Node: Wishes140621
+Node: Docu141105
+Node: templates143169
+Node: misc143740
+Node: Done144106
+Node: Push and Release Proceedures144400
+Node: Version 2050 (1)145766
+Node: Version 2040 (1)145990
+Node: Version 2030 (1)146193
+Node: Version 2020 (1)146417
+Node: Version 2011 (1)146602
+Node: Version 162-2147078
+Node: Bugs147356
+Node: Wish-list148264
+Node: Freeze153598
+Node: Deficiencies153963
+Node: Procedures155617
+Node: Freeze proceedures156139
+Node: Release157710
+Node: Ideas for further versions158313
+Node: Parameter help and documentation158744
+Node: Ansys process and interpreter buffer161046
+Node: Skeletons outline and abbrevs163909
+Node: Miscellaneous (1)165643
+Node: Ansys syntax restrictions not (yet) accounted for170635
+Node: Unknown Ansys stuff171540
+Node: Acknowledgements171823
+Node: GNU Free Documentation License172470
+Node: Variable Index197496
+Node: Concept Index197649
 
 End Tag Table
 

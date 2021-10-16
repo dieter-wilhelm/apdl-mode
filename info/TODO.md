@@ -1,18 +1,18 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#orgcf7894b)
-2.  [Version 20.6.0](#org205f7b8)
-3.  [Version 20.5.0](#org6f36177)
-4.  [Version 20.4.0](#orgcd5db03)
-5.  [Version 20.3.0](#org1175fb1)
-6.  [Version 20.2.0](#org6e85a6d)
-7.  [Version 20.1.1](#orgfd59639)
-8.  [Version 162-2](#org86886ec)
+1.  [V 20.7.0](#org8ce9c75)
+2.  [Version 20.6.0](#org9a842d0)
+3.  [Version 20.5.0](#orgf8c2901)
+4.  [Version 20.4.0](#org3973caf)
+5.  [Version 20.3.0](#org4923ed0)
+6.  [Version 20.2.0](#orgb5a2adf)
+7.  [Version 20.1.1](#org9a6ca3e)
+8.  [Version 162-2](#orgfb68f25)
 
 
 
-<a id="orgcf7894b"></a>
+<a id="org8ce9c75"></a>
 
 # V 20.7.0
 
@@ -21,7 +21,7 @@
 -   Look into derived branch: prog-modes
 
 
-<a id="org205f7b8"></a>
+<a id="org9a842d0"></a>
 
 # TODO Version 20.6.0
 
@@ -193,6 +193,9 @@ MD
 
 -   make PACK : now obligatory for any push to Melpa!!
 
+-   Documentation in the list-packages seems to be the Comment
+    strings in ansys-mode.el <span class="timestamp-wrapper"><span class="timestamp">[2021-10-16 Sa]</span></span>
+
 Ansys updates:
 Hint: in apdl<sub>keywords.txt</sub> there are many
 trailing whitespaces (delete-trailing-whitespace)
@@ -229,7 +232,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org6f36177"></a>
+<a id="orgf8c2901"></a>
 
 # DONE Version 20.5.0
 
@@ -237,7 +240,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orgcd5db03"></a>
+<a id="org3973caf"></a>
 
 # DONE Version 20.4.0
 
@@ -245,7 +248,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org1175fb1"></a>
+<a id="org4923ed0"></a>
 
 # DONE Version 20.3.0
 
@@ -254,14 +257,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org6e85a6d"></a>
+<a id="orgb5a2adf"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgfd59639"></a>
+<a id="org9a6ca3e"></a>
 
 # DONE Version 20.1.1
 
@@ -274,7 +277,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org86886ec"></a>
+<a id="orgfb68f25"></a>
 
 # Version 162-2
 

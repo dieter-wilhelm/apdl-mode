@@ -1,35 +1,39 @@
 
 # Table of Contents
 
-1.  [Ansys and APDL resources](#orgdbe734a)
-2.  [Emacs editor resources](#org41d4d76)
-3.  [Other APDL editor resources](#orgcdaa64d)
+1.  [Ansys and APDL resources](#orgecb7f20)
+2.  [Emacs editor resources](#orge99f098)
+3.  [Other APDL editor resources](#org282952b)
 
 
-<a id="orgdbe734a"></a>
+<a id="orgecb7f20"></a>
 
 # Ansys and APDL resources
 
 -   The online Ansys [reference manuals](https://ansyshelp.ansys.com/) (registration required) and
     the Ansys [video playlist](https://www.youtube.com/user/ansysinc/playlists) on YouTube
--   The [Ansys homepage](http://www.ansys.com) with the Ansys Portal and Learning Hub
+-   The [Ansys homepage](http://www.ansys.com)
+-   The Ansys [Learning Hub](https://www.ansys.com/services/ansys-learning-hub)
+-   The Ansys [Customer Portal](https://support.ansys.com/Home/HomePage)
 -   Xansys, an [Ansys online community](http://www.xansys.org) (forum registration is necessary)
--   The [PADT Focus](http://www.padtinc.com/blog/the-focus/) site.
--   A general  Ansys repository [Ansys.net](http://www.ansys.net)
+-   The [PADT Focus](http://www.padtinc.com/blog/the-focus/) site, a blog of an engineering company in North
+    America
+-   A general Ansys repository [Ansys.net](http://www.ansys.net), last update from 2016
+    (state 2021-10-16)
 -   [AUC](http://www.auc-ev.de/), the Ansys User Club eV. in Germany
 
 
-<a id="org41d4d76"></a>
+<a id="orge99f098"></a>
 
 # Emacs editor resources
 
 -   The [guided Tour](https://www.gnu.org/software/emacs/tour/index.html) of GNU-Emacs
 -   Emacs' [Stackexchange](http://emacs.stackexchange.com), the question and answer site for Emacs
--   [EmacsWiki](http://www.emacswiki.org), an encyclopedia for everything Emacs related
+-   [EmacsWiki](http://www.emacswiki.org), an encyclopedia for everything related to Emacs
 -   The [Emacs help](mailto:help-gnu-emacs@gnu.org) mailing list
 
 
-<a id="orgcdaa64d"></a>
+<a id="org282952b"></a>
 
 # Other APDL editor resources
 

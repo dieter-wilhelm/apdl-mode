@@ -1,5 +1,5 @@
 #+STARTUP: all
-#+DATE: Time-stamp: <2021-10-14>
+#+DATE: Time-stamp: <2021-10-16>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:t arch:headline
 #+OPTIONS: author:t c:t creator:t d:(not "LOGBOOK") date:t
@@ -66,7 +66,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    you must register or you must start the online help once from any
    licensed Ansys product.  I recommend installing the local Ansys
    documentation, access time is much shorter.  You can download the
-   "help installer" from their Customer Portal.
+   "help installer" from their [[https://support.ansys.com/Home/HomePage][Customer Portal]].
 
    The image below is showing a manual entry in GNU-Emacs' EWW
    browser.  You are able to consult the manuals side-by-side your
@@ -75,8 +75,9 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
    # #+caption: Browsing the manual in a web browser (here with eww inside GNU-Emacs).
    [[file:doc/browse_manual.png]]
 
-   Please read the [[file:info/apdl-config.org][apdl-config]] documentation on how configure EWW as
-   default browser or check the accompanying [[file:info/apdl-config.el][configuration template]].
+   Please check the [[file:info/apdl-config.org][APDL-Mode configuration]] documentation on how to
+   configure EWW as default browser or inspect the project's
+   [[file:info/apdl-config.el][configuration example]].
 
 ** Command Object Templates and Code Highlighting Example
    You are learning and also coding APDL best by example!  APDL-Mode

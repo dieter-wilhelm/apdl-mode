@@ -1,15 +1,19 @@
 * Ansys and APDL resources
    - The online Ansys [[https://ansyshelp.ansys.com/][reference manuals]] (registration required) and
      the Ansys [[https://www.youtube.com/user/ansysinc/playlists][video playlist]] on YouTube
-   - The [[http://www.ansys.com][Ansys homepage]] with the Ansys Portal and Learning Hub
+   - The [[http://www.ansys.com][Ansys homepage]]
+   - The Ansys [[https://www.ansys.com/services/ansys-learning-hub][Learning Hub]]
+   - The Ansys [[https://support.ansys.com/Home/HomePage][Customer Portal]]
    - Xansys, an [[http://www.xansys.org][Ansys online community]] (forum registration is necessary)
-   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site.
-   - A general  Ansys repository [[http://www.ansys.net][Ansys.net]]
+   - The [[http://www.padtinc.com/blog/the-focus/][PADT Focus]] site, a blog of an engineering company in North
+     America
+   - A general Ansys repository [[http://www.ansys.net][Ansys.net]], last update from 2016
+     (state 2021-10-16)
    - [[http://www.auc-ev.de/][AUC]], the Ansys User Club eV. in Germany
 * Emacs editor resources
    - The [[https://www.gnu.org/software/emacs/tour/index.html][guided Tour]] of GNU-Emacs
    - Emacs' [[http://emacs.stackexchange.com][Stackexchange]], the question and answer site for Emacs
-   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for everything Emacs related
+   - [[http://www.emacswiki.org][EmacsWiki]], an encyclopedia for everything related to Emacs
    - The [[mailto:help-gnu-emacs@gnu.org][Emacs help]] mailing list
 * Other APDL editor resources
    - Since Ansys 2020R1 the Command (APDL) worksheet acquired -

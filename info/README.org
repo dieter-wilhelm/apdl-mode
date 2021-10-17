@@ -112,16 +112,20 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 * First Step
   #+include: ./first_steps.org
 * Configuration and Customisation
-  Most functionality is working without additional configurations.
-  APDL-Mode is intelligent enough to figure out Ansys installation
-  dependent paths.  For regular Ansys installations, it chooses by
-  default the highest installed Ansys version on your system.
+  Most functionality is working without user configuration for
+  standard Ansys installations.  APDL-Mode is intelligent enough to
+  figure out installation dependent things.  It chooses - by default -
+  the highest installed Ansys MAPDL version on the system for
+  interactions with Ansys executables (for example, starting an MAPDL
+  batch run).
 
-  APDL-Mode configures GNU-Emacs to open all files with the suffixes
-  ".mac", ".dat" and ".inp" under apdl-mode.
+  APDL-Mode's default configuration enables GNU-Emacs to open any
+  files with suffixes ".mac", ".dat" and ".inp" in APDL mode
+  (indicated by `APDL' in Emacs' status line), the programming mode
+  for the APDL language.
 
-  Please read the [[file:info/apdl-config.org][apdl-config]] documentation for further options or
-  open the accompanying configuration [[file:apdl-config.el][example-file]].
+  Please consult the [[file:info/apdl-config.org][APDL-Mode configuration]] documentation for
+  advanced options or check the accompanying [[file:info/apdl-config.el][configuration example]].
 * Bugs and Problems
   #+include: ./bugs.org
 * News

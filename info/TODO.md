@@ -1,27 +1,28 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#org8ce9c75)
-2.  [Version 20.6.0](#org9a842d0)
-3.  [Version 20.5.0](#orgf8c2901)
-4.  [Version 20.4.0](#org3973caf)
-5.  [Version 20.3.0](#org4923ed0)
-6.  [Version 20.2.0](#orgb5a2adf)
-7.  [Version 20.1.1](#org9a6ca3e)
-8.  [Version 162-2](#orgfb68f25)
+1.  [V 20.7.0](#org67af7be)
+2.  [Version 20.6.0](#org0f98a09)
+3.  [Version 20.5.0](#org407558b)
+4.  [Version 20.4.0](#orga25ac9a)
+5.  [Version 20.3.0](#orga1901f9)
+6.  [Version 20.2.0](#orgf1944f4)
+7.  [Version 20.1.1](#orgdaceb9a)
+8.  [Version 162-2](#org50f86b5)
 
 
 
-<a id="org8ce9c75"></a>
+<a id="org67af7be"></a>
 
 # V 20.7.0
 
 -   Linux: C-c C-o -> **APDL Classics** Buffer when process running
+-   async licensing status
 -   Reload apdl-mode isn't working
--   Look into derived branch: prog-modes
+-   DONE in dev: Look into derived branch: prog-modes
 
 
-<a id="org9a842d0"></a>
+<a id="org0f98a09"></a>
 
 # TODO Version 20.6.0
 
@@ -232,7 +233,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="orgf8c2901"></a>
+<a id="org407558b"></a>
 
 # DONE Version 20.5.0
 
@@ -240,7 +241,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org3973caf"></a>
+<a id="orga25ac9a"></a>
 
 # DONE Version 20.4.0
 
@@ -248,7 +249,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org4923ed0"></a>
+<a id="orga1901f9"></a>
 
 # DONE Version 20.3.0
 
@@ -257,14 +258,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgb5a2adf"></a>
+<a id="orgf1944f4"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="org9a6ca3e"></a>
+<a id="orgdaceb9a"></a>
 
 # DONE Version 20.1.1
 
@@ -277,7 +278,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="orgfb68f25"></a>
+<a id="org50f86b5"></a>
 
 # Version 162-2
 

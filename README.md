@@ -1,17 +1,17 @@
 
 # Table of Contents
 
-1.  [Introduction](#org548312b)
-2.  [Some Highlights](#orgb9605e3)
-3.  [Installation](#org33605df)
-4.  [First Step](#orgfde7765)
-5.  [Configuration and Customisation](#org1884040)
-6.  [Bugs and Problems](#orga1956fe)
-7.  [News](#orge6815cc)
-8.  [Further Resources](#org8b86b61)
-9.  [Acknowledgements](#orgaf1a726)
-10. [Todos](#org3119162)
-11. [GNU GPL v3 License](#orgabef2cb)
+1.  [Introduction](#org4d9f569)
+2.  [Some Highlights](#orga52fa42)
+3.  [Installation](#org954f0ab)
+4.  [First Step](#orgeb661d0)
+5.  [Configuration and Customisation](#orga3622a3)
+6.  [Bugs and Problems](#org6b03216)
+7.  [News](#orgb7d0f47)
+8.  [Further Resources](#orge175757)
+9.  [Acknowledgements](#org3265b04)
+10. [Todos](#org20d4b4a)
+11. [GNU GPL v3 License](#org9b151fe)
 
 
 
@@ -27,7 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<a id="org548312b"></a>
+<a id="org4d9f569"></a>
 
 # Introduction
 
@@ -67,7 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<a id="orgb9605e3"></a>
+<a id="orga52fa42"></a>
 
 # Some Highlights
 
@@ -138,7 +138,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<a id="org33605df"></a>
+<a id="org954f0ab"></a>
 
 # Installation
 
@@ -215,14 +215,14 @@ to your initialisation file (the source directory must be set in the
 \`load-path' variable as well).
 
 
-<a id="orgfde7765"></a>
+<a id="orgeb661d0"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-already, please see in [5](#org1884040),
+already, please see in [5](#orga3622a3),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -231,23 +231,27 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<a id="org1884040"></a>
+<a id="orga3622a3"></a>
 
 # Configuration and Customisation
 
-Most functionality is working without additional configurations.
-APDL-Mode is intelligent enough to figure out Ansys installation
-dependent paths.  For regular Ansys installations, it chooses by
-default the highest installed Ansys version on your system.
+Most functionality is working without user configuration for
+standard Ansys installations.  APDL-Mode is intelligent enough to
+figure out installation dependent things.  It chooses - by default -
+the highest installed Ansys MAPDL version on the system for
+interactions with Ansys executables (for example, starting an MAPDL
+batch run).
 
-APDL-Mode configures GNU-Emacs to open all files with the suffixes
-".mac", ".dat" and ".inp" under apdl-mode.
+APDL-Mode's default configuration enables GNU-Emacs to open any
+files with suffixes ".mac", ".dat" and ".inp" in APDL mode
+(indicated by \`APDL' in Emacs' status line), the programming mode
+for the APDL language.
 
-Please read the [apdl-config](info/apdl-config.md) documentation for further options or
-open the accompanying configuration [example-file](apdl-config.el).
+Please consult the [APDL-Mode configuration](info/apdl-config.md) documentation for
+advanced options or check the accompanying [configuration example](info/apdl-config.el).
 
 
-<a id="orga1956fe"></a>
+<a id="org6b03216"></a>
 
 # Bugs and Problems
 
@@ -272,14 +276,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<a id="orge6815cc"></a>
+<a id="orgb7d0f47"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<a id="org8b86b61"></a>
+<a id="orge175757"></a>
 
 # Further Resources
 
@@ -287,7 +291,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<a id="orgaf1a726"></a>
+<a id="org3265b04"></a>
 
 # Acknowledgements
 
@@ -304,14 +308,14 @@ which are crafting
 GNU-Emacs!
 
 
-<a id="org3119162"></a>
+<a id="org20d4b4a"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<a id="orgabef2cb"></a>
+<a id="org9b151fe"></a>
 
 # GNU GPL v3 License
 

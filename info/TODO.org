@@ -19,8 +19,9 @@
 
 * V 20.7.0
   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
+  - async licensing status
   - Reload apdl-mode isn't working
-  - Look into derived branch: prog-modes
+  - DONE in dev: Look into derived branch: prog-modes
 * TODO Version 20.6.0
   - Branch 20.6.0 [2021-10-01 Fr]
   - Feature freeze: Only bugs or template changes

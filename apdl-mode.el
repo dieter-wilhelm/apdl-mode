@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-16>
+;; Time-stamp: <2021-10-22>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -3160,7 +3160,8 @@ These constructs appear in WorkBench created solver input files."
       (when (> lines 5)  ; only hide blocks if larger then 5 lines
         (goto-char p1)
         (forward-line 3) ; show one line of numbers before markers
-        (set-mark (point))
+        ;;(set-mark (point))
+        (push-mark (point) t nil)      ; no message, no activated mark
         (goto-char p2)
         (forward-line -2) ; show one line of numbers after markers
         (end-of-line)

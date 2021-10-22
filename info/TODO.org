@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-16>
+#+DATE: Time-stamp: <2021-10-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,15 +18,21 @@
 # #+title: The TODO file of APDL-Mode
 
 * V 20.7.0
+** Issue
+  - Rework menu: new entry for number blocks in .dat files
+    (nblocks,eblocks,cmblocks)
   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
-  - async licensing status
   - Reload apdl-mode isn't working
+  - For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
+    fontification for huge files?
+** Wish
+  - async licensing status
   - DONE in dev: Look into derived branch: prog-modes
 * TODO Version 20.6.0
   - Branch 20.6.0 [2021-10-01 Fr]
   - Feature freeze: Only bugs or template changes
 ** Todos, bugs
-    - M-? get- and parameter-functions are completed but there's no
+   - M-? get- and parameter-functions are completed but there's no
       parameter help - see: apdl-dynamic-prompt
    - *mwrite
      *cfclos or any asterisk command

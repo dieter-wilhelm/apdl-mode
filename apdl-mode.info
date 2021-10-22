@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.7.0 Time-stamp: "2021-10-17"
+Version 20.7.0 Time-stamp: "2021-10-22"
 
 * Menu:
 
@@ -3270,9 +3270,31 @@ File: apdl-mode.info,  Node: V 2070,  Next: Version 2060,  Up: Todos
 12.1 V 20.7.0
 =============
 
+* Menu:
+
+* Issue::
+* Wish::
+
+
+File: apdl-mode.info,  Node: Issue,  Next: Wish,  Up: V 2070
+
+12.1.1 Issue
+------------
+
+   • Rework menu: new entry for number blocks in .dat files
+     (nblocks,eblocks,cmblocks)
    • Linux: C-c C-o -> *APDL Classics* Buffer when process running
-   • async licensing status
    • Reload apdl-mode isn’t working
+   • For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
+     fontification for huge files?
+
+
+File: apdl-mode.info,  Node: Wish,  Prev: Issue,  Up: V 2070
+
+12.1.2 Wish
+-----------
+
+   • async licensing status
    • DONE in dev: Look into derived branch: prog-modes
 
 
@@ -4719,40 +4741,42 @@ Node: Emacs editor resources136258
 Node: Other APDL editor resources136824
 Node: Todos137738
 Node: V 2070138116
-Node: Version 2060138414
-Node: Todos bugs138771
-Node: Issues139482
-Node: Checks140387
-Node: Wishes140664
-Node: Docu141148
-Node: templates143212
-Node: misc143783
-Node: Done144149
-Node: Push and Release Proceedures144443
-Node: Version 2050 (1)145809
-Node: Version 2040 (1)146033
-Node: Version 2030 (1)146236
-Node: Version 2020 (1)146460
-Node: Version 2011 (1)146645
-Node: Version 162-2147121
-Node: Bugs147399
-Node: Wish-list148307
-Node: Freeze153641
-Node: Deficiencies154006
-Node: Procedures155660
-Node: Freeze proceedures156182
-Node: Release157753
-Node: Ideas for further versions158356
-Node: Parameter help and documentation158787
-Node: Ansys process and interpreter buffer161089
-Node: Skeletons outline and abbrevs163952
-Node: Miscellaneous (1)165686
-Node: Ansys syntax restrictions not (yet) accounted for170678
-Node: Unknown Ansys stuff171583
-Node: Acknowledgements171866
-Node: GNU Free Documentation License172513
-Node: Variable Index197539
-Node: Concept Index197692
+Node: Issue138246
+Node: Wish138649
+Node: Version 2060138826
+Node: Todos bugs139183
+Node: Issues139894
+Node: Checks140799
+Node: Wishes141076
+Node: Docu141560
+Node: templates143624
+Node: misc144195
+Node: Done144561
+Node: Push and Release Proceedures144855
+Node: Version 2050 (1)146221
+Node: Version 2040 (1)146445
+Node: Version 2030 (1)146648
+Node: Version 2020 (1)146872
+Node: Version 2011 (1)147057
+Node: Version 162-2147533
+Node: Bugs147811
+Node: Wish-list148719
+Node: Freeze154053
+Node: Deficiencies154418
+Node: Procedures156072
+Node: Freeze proceedures156594
+Node: Release158165
+Node: Ideas for further versions158768
+Node: Parameter help and documentation159199
+Node: Ansys process and interpreter buffer161501
+Node: Skeletons outline and abbrevs164364
+Node: Miscellaneous (1)166098
+Node: Ansys syntax restrictions not (yet) accounted for171090
+Node: Unknown Ansys stuff171995
+Node: Acknowledgements172278
+Node: GNU Free Documentation License172925
+Node: Variable Index197951
+Node: Concept Index198104
 
 End Tag Table
 

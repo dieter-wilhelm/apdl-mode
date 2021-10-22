@@ -1,28 +1,39 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#org67af7be)
-2.  [Version 20.6.0](#org0f98a09)
-3.  [Version 20.5.0](#org407558b)
-4.  [Version 20.4.0](#orga25ac9a)
-5.  [Version 20.3.0](#orga1901f9)
-6.  [Version 20.2.0](#orgf1944f4)
-7.  [Version 20.1.1](#orgdaceb9a)
-8.  [Version 162-2](#org50f86b5)
+1.  [V 20.7.0](#org2c2ae39)
+2.  [Version 20.6.0](#org8820f5f)
+3.  [Version 20.5.0](#org7dfb773)
+4.  [Version 20.4.0](#org4fec2c0)
+5.  [Version 20.3.0](#org900e9fd)
+6.  [Version 20.2.0](#org8a3bafc)
+7.  [Version 20.1.1](#orgb85ddbb)
+8.  [Version 162-2](#org0b9ccbb)
 
 
 
-<a id="org67af7be"></a>
+<a id="org2c2ae39"></a>
 
 # V 20.7.0
 
+
+## Issue
+
+-   Rework menu: new entry for number blocks in .dat files
+    (nblocks,eblocks,cmblocks)
 -   Linux: C-c C-o -> **APDL Classics** Buffer when process running
--   async licensing status
 -   Reload apdl-mode isn't working
+-   For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
+    fontification for huge files?
+
+
+## Wish
+
+-   async licensing status
 -   DONE in dev: Look into derived branch: prog-modes
 
 
-<a id="org0f98a09"></a>
+<a id="org8820f5f"></a>
 
 # TODO Version 20.6.0
 
@@ -34,7 +45,6 @@
 
 -   M-? get- and parameter-functions are completed but there's no
     parameter help - see: apdl-dynamic-prompt
-
 -   \*mwrite
     \*cfclos or any asterisk command
     M-? shows help for \*mwrite, when cursor behind \*cfclos and in the
@@ -233,7 +243,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org407558b"></a>
+<a id="org7dfb773"></a>
 
 # DONE Version 20.5.0
 
@@ -241,7 +251,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="orga25ac9a"></a>
+<a id="org4fec2c0"></a>
 
 # DONE Version 20.4.0
 
@@ -249,7 +259,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="orga1901f9"></a>
+<a id="org900e9fd"></a>
 
 # DONE Version 20.3.0
 
@@ -258,14 +268,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="orgf1944f4"></a>
+<a id="org8a3bafc"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgdaceb9a"></a>
+<a id="orgb85ddbb"></a>
 
 # DONE Version 20.1.1
 
@@ -278,7 +288,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org50f86b5"></a>
+<a id="org0b9ccbb"></a>
 
 # Version 162-2
 

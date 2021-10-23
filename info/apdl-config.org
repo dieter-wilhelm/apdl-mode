@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-14>
+#+DATE: Time-stamp: <2021-10-23>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -36,7 +36,12 @@ installation dependent paths.  For regular Ansys installations, it
 chooses by default the highest installed Ansys version on your system.
 
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
-".mac", ".dat" and ".inp" under apdl-mode.
+".mac", ".ans", ".dat" and ".inp" under apdl-mode.  (The latter two
+file types might come from Ansys WorkBench input files which are
+usually huge program generated files.)
+
+#  So for ".dat" and ".inp" dynamic highlighting of
+# variables is not activated
 
 You can change the APDL-Mode configurations permanently by 1. using
 the Emacs customisation system
@@ -392,9 +397,8 @@ or 2. by directly manipulating the Emacs configuration file
    highlighted and the cursor position is shown in the parameter help
    overlay
 
-   Uncommenting the following might slow the editing of large .mac
-   files (but only when apdl-highlighting-level is set to 2, see
-   below).
+   Uncommenting the following might slow the editing of large .mac,
+   .inp or .ans files.
 
 #+BEGIN_SRC emacs-lisp
 (setq apdl-dynamic-highlighting-flag nil)
@@ -402,34 +406,30 @@ or 2. by directly manipulating the Emacs configuration file
 #+END_SRC
 
 ** Decoration levels
-   Decoration levels 0,1,2 are available.  User variable highlighting
-   is only in level 2 available (statically, if above flag is not
-   set), the current default is 2.
+   Highlighting decoration levels 0, 1 and 2 are available. The
+   APDL-Mode default is level 2.
 
 ** Summary
 #+BEGIN_SRC emacs-lisp :tangle yes
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-		     ;; Highlighting/Colourisation
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+		       ;; Highlighting/Colourisation
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; The following toggles a dynamics change of the highlighting: While
-;; you are editing your new variable definitions highlighted and the
-;; cursor position is shown in the parameter help overlay
+  ;; The following toggles a dynamics change of the highlighting: While
+  ;; you are editing your new variable definitions highlighted and the
+  ;; cursor position is shown in the parameter help overlay
 
-;; Uncommenting the following might slow the editing of large .mac
-;; files (but only when apdl-highlighting-level is set to 2, see
-;; below).
+  ;; Uncommenting the following might slow the editing of large .mac,
+  ;; .inp or .ans files.
 
- (setq apdl-dynamic-highlighting-flag nil)
- (setq apdl-dynamic-highlighting-flag t) ; default
+   (setq apdl-dynamic-highlighting-flag nil)
+  ; (setq apdl-dynamic-highlighting-flag t) ; default
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; fontification (highlighting) of user variables and decoration
-;; levels (0,1,2 are available), user variables highlighting is only
-;; in level 2 available (statical, if above flag is not set), the
-;; default is 2
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; fontification (highlighting) of user variables and decoration
+  ;; levels (0,1,2 are available)
 
- (setq apdl-highlighting-level 1) ; default: 2
+   (setq apdl-highlighting-level 1) ; default: 2
 
 #+END_SRC
 * Installation dependent configurations

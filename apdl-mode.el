@@ -1,5 +1,5 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-22>
+;; Time-stamp: <2021-10-23>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -211,7 +211,8 @@ This string is not really placed in the text, it is just shown in an overlay"
 
 (defcustom apdl-highlighting-level 2
   "This variable sets the level of highlighting.
-There are three levels available, 0 a minimalist level
+There are three levels available, please see the variable
+`font-lock-maximum-decoration'.  Level 0 means a minimalist level
 optimised for speed and working with very large files (like
 solver input files from WorkBench), 1 and 2.  Level 0 highlights
 only the minimum (unambiguous) length of APDL command names and
@@ -229,19 +230,18 @@ dynamically i. e. during editing when the variable
 `apdl-dynamic-highlighting-flag' is set to t."
   :type 'integer
   :group 'APDL
-  :link '(variable-link font-lock-maximum-decoration ))
+  :link '(variable-link 'font-lock-maximum-decoration))
+;; link is only linked in the customisation buffer, sadly not it's
+;; documentation string!
 
 (defcustom apdl-dynamic-highlighting-flag t
   "Non-nil means that APDL-Mode highlights user defined variables.
 Warning: This option is computational expensive and --depending
 on the file size and your hardware --it might make your editing
-experience somewhat sluggish.  Currently dynamic highlighting of
+experience rather sluggish.  Currently dynamic highlighting of
 user variables is only implemented for files with the extensions
-either \".mac\" or \".ans\" and in the highest highlighting
-level (please see the variable `apdl-highlighting-level')
-otherwise the fontification of variables is only static.  To take
-effect after setting this variable you have to restart
-`apdl-mode'."
+either \".mac\" \".inp\" or \".ans\".  To take effect after
+setting this variable you might have to restart `apdl-mode'."
   :type 'boolean
   :group 'APDL)
 
@@ -865,7 +865,8 @@ If INVISIBLE-OK is non-nil, an invisible heading line is ok too."
 	apdl-font-lock-keywords-1
 	apdl-font-lock-keywords-2
 	;; testing
-	apdl-font-lock-keywords-3))
+	; apdl-font-lock-keywords-3
+	))
 
 (defconst apdl-mode-syntax-table     ; FIXME check APDL operators and
   ;; allowed variable characters
@@ -1680,10 +1681,19 @@ and P-MAX) otherwise align the current code paragraph."
       (align p-min p-max)
     (align-current))) ; align-current needs a mark
 
+
+(defun apdl-add-variable-hooks ()
+  "Add APDL-Mode variable hooks."
+  (add-hook 'after-change-functions
+            #'apdl-find-user-variables nil t)
+  (add-hook 'post-command-hook
+            #'apdl-update-parameter-help nil t))
+
 ;;  the autoload cookie is copying stuff to the -autoloads.el file
 ;;  check with (update-file-autoloads)
 
 ;;;###autoload (add-to-list 'auto-mode-alist '("\\.mac\\'" . apdl-mode))
+;;;###autoload (add-to-list 'auto-mode-alist '("\\.ans\\'" . apdl-mode))
 ;;;###autoload (add-to-list 'auto-mode-alist '("\\.dat\\'" . apdl-mode))
 ;;;###autoload (add-to-list 'auto-mode-alist '("\\.inp\\'" . apdl-mode))
 
@@ -1691,8 +1701,8 @@ and P-MAX) otherwise align the current code paragraph."
 (defun apdl-mode ()
   "Editor support for the APDL language and working with Ansys MAPDL.
 
-APDL-Mode (formerly Ansys-Mode) is - in conjunction with the
-GNU-Emacs editor - an advanced APDL environment with features
+APDL-Mode (formerly Ansys-Mode) - in conjunction with the
+GNU-Emacs editor - is an advanced APDL environment with features
 like, pin-pointing the APDL reference documentation, keyword
 completion, code templates, dedicated highlighting, solver
 communication (GNU-Linux only), license reporting, etc.  Over the
@@ -1806,38 +1816,102 @@ menu or by calling the function `apdl-mode-help' with
   ;; menu
   (apdl-add-apdl-menu)
 
-  ;; --- user variables ---
-  (message "Dealing with user variables.")
-  ;; -highlighting-level >= 2 and apdl-dynamic-highlighting-flag
-  (if (and (>= apdl-highlighting-level 2)
-           apdl-dynamic-highlighting-flag
-           (or
-            ;; either *APDL code* buffer
-            (string= (buffer-name) "*APDL code*")
-            ;; or  .mac or .ans files and both smaller than 30 Mb
-            (and (buffer-file-name)
-                 (or (string= (file-name-extension (buffer-file-name)
-                                                   'dot) ".ans")
-                     (string= (file-name-extension (buffer-file-name)
-                                                   'dot) ".mac"))
-                 ;; 30 Mb bigger than file?
-                 (when (file-attributes (buffer-file-name)) ; open an
-							    ; existing
-							    ; file
-                   (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
-                       t
-                     (y-or-n-p "File is larger than 30 MB, switch on \
-user variable highlighting? "))))))
-      (progn
-	;; (message "before apdl-update-p.")
-        (add-hook 'after-change-functions
-                  #'apdl-find-user-variables nil t)
-        (add-hook 'post-command-hook
-                  #'apdl-update-parameter-help nil t)
-        (message "Dynamic highlighting of user variables activated."))
-    (message "Non-dynamic highlighting of variables activated."))
 
-  (apdl-find-user-variables)
+  ;; All files and all buffers use with apdl-mode
+
+  ;; only when apdl-dynamic-highlighting-flag is t
+
+  ;; and
+
+  ;; only: .mac, .ans, .inp can have dynamic highlighting and buffer
+  ;; *APDL code*, .dat is per default the workbench input file format
+
+  ;; File > 1 MB < 30 MB y-or-n-p: dynamic
+  ;; highlighting
+
+  ;; file > 30 MB yes or no: (extended) variable highlighting with
+  ;; apdl-highlight-variable?, never dynamic highlighting
+
+  ;; -highlighting-level [2] >= 2 and apdl-dynamic-highlighting-flag [t]
+
+  ;;apdl-add-variable-hooks
+
+  ;; --- dealing with 1) "extended" variable highlighting and 2) dynamic
+  ;; variable highlighting ---
+
+  ;; either *APDL code* buffer (we ignore other buffers here) or files
+  (if (string= (buffer-name) "*APDL code*")
+      (when apdl-dynamic-highlighting-flag
+	(apdl-add-variable-hooks))
+    (let*			     ; now we deal with existing files
+	((File (buffer-file-name))
+	 (Size (and File
+		    (nth 7 (file-attributes (buffer-file-name))))))
+      (when File
+	(cond
+	 ((> Size 3000000) ; file > 3 MB, that's very likely WB generated
+	  ;; (when
+	  ;;     (yes-or-no-p
+	  ;;      "File larger than 3 MB, switch on extended variable highlighting? ")
+	  ;;   (apdl-find-user-variables)
+	  ;;   (message "Extended, non-dynamic highlighting of variables activated."))
+	  (message "Non-dynamic highlighting of variables activated."))
+	 ((> Size 500000) ; file > 0.5 MB editing is becoming very sluggish
+			  ; with dynamic highlighting
+	  (when (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+                    (string= (file-name-extension (buffer-file-name) 'dot) ".inp")
+                    (string= (file-name-extension (buffer-file-name) 'dot) ".mac"))
+	    (apdl-find-user-variables)
+	    (when
+		(and
+		 apdl-dynamic-highlighting-flag
+		 (yes-or-no-p "File larger than 0.5 MB, switch on dynamic variable highlighting? "))
+	      (apdl-add-variable-hooks)
+	      (message "Dynamic highlighting of user variables activated."))))
+	 (t				; file <= 0.5 MB
+	  (apdl-find-user-variables)
+	  (when
+	      (and
+	       apdl-dynamic-highlighting-flag
+	       (or (string= (file-name-extension (buffer-file-name) 'dot) ".ans")
+		   (string= (file-name-extension (buffer-file-name) 'dot) ".inp")
+		   (string= (file-name-extension (buffer-file-name) 'dot) ".mac")))
+	    (apdl-add-variable-hooks)
+	    (message "Dynamic highlighting of user variables activated.")))))))
+
+  ;; (if (and (>= apdl-highlighting-level 2) ;
+  ;;          apdl-dynamic-highlighting-flag
+  ;;          (or
+  ;;           ;; either *APDL code* buffer
+  ;;           (string= (buffer-name) "*APDL code*")
+  ;;           ;; or  .mac or .ans files and both smaller than 30 Mb
+  ;;           ;; .dat and .inp might be huge WorkBench files..
+  ;;           (and (buffer-file-name)
+  ;;                (or (string= (file-name-extension (buffer-file-name)
+  ;;                                                  'dot) ".ans")
+  ;;                    (string= (file-name-extension (buffer-file-name)
+  ;;                                                  'dot) ".inp")
+  ;;                    (string= (file-name-extension (buffer-file-name)
+  ;;                                                  'dot) ".mac"))
+  ;;                ;; 30 Mb bigger than file?
+  ;;                (when (file-attributes (buffer-file-name)) ; open an
+  ;; 							    ; existing
+  ;; 							    ; file
+  ;; 		   ;; Emacs-28 large-file-warning-threshold is 10mb
+  ;; 		   (if (> 30000000 (nth 7 (file-attributes (buffer-file-name))))
+  ;;                      t
+  ;;                    (y-or-n-p "File larger than 30 MB, switch on dynamic variable highlighting? "))))))
+  ;;     (progn
+  ;; 	;; (message "before apdl-update-p.")
+  ;;       (add-hook 'after-change-functions
+  ;;                 #'apdl-find-user-variables nil t)
+  ;;       (add-hook 'post-command-hook
+  ;;                 #'apdl-update-parameter-help nil t)
+  ;;       (message "Dynamic highlighting of user variables activated."))
+  ;;   (message "Non-dynamic highlighting of variables activated."))
+
+  ;; that's the culprit for large files, not the highlighting
+  ;; (apdl-find-user-variables)
 
   ;;   (if (>= apdl-highlighting-level 2)
   ;;       (when (or
@@ -3325,7 +3399,7 @@ These constructs appear in WorkBench created solver input files."
   ;; (defun apdl-find-user-variables ()
   ;; fontification is not working!? -TODO-
   "Find all user variables in the current buffer.
-Pre-process the findings into the variables `apdl-user-variables'
+Pre-process the findings into the variables `apdl-user -variables'
 and `apdl-user-variable-regexp' for subsequent fontification.
 Added pseudo arguments _A _B _C."
   ;; RESTRICTED: line-number-at-pos was introduced after Emacs 21.4

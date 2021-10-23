@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-22>
+#+DATE: Time-stamp: <2021-10-23>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -18,15 +18,26 @@
 # #+title: The TODO file of APDL-Mode
 
 * V 20.7.0
+** Bug
+   - C-c C-a doesn't align the code comments when there are variable
+     and no numbers! 
+   - jit-lock: Error during redisplay: (jit-lock-function 1) signaled
+     (wrong-type-argument stringp nil), example.dat
+   - Fontification problems with backslashes in strings from .dat
+     files from windows \' apdl-mode is then looking for the next `''
+     :-/
+   - C-c C-a not working without region at beginning of buffer, only.
+     Usually we have some header, don't we?
 ** Issue
   - Rework menu: new entry for number blocks in .dat files
     (nblocks,eblocks,cmblocks)
   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
   - Reload apdl-mode isn't working
   - For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
-    fontification for huge files?
+    fontification for huge files? No but searching for user variables!
 ** Wish
-  - async licensing status
+  - check apdl-font-lock-keywords-3
+  - asynchronous licensing status
   - DONE in dev: Look into derived branch: prog-modes
 * TODO Version 20.6.0
   - Branch 20.6.0 [2021-10-01 Fr]
@@ -62,8 +73,8 @@
        - w32-shell-execute not working for -start-help-program
    - Cygwin emacs-w32 ugly ^M line endings for C-c C-l
 ** Checks
-   - Changed file size without warning to 30 MB what is Emacs-26
-     using?
+   - Changed file size without warning to 30 MB, Emacs-28 is using <=
+     10 MB, large-file-warning-threshold
    - EWW bug: not working with remote ssh -help-path
      (debbugs-gnu-bugs 40425)
 ** Wishes

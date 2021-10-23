@@ -1,15 +1,15 @@
 
 # Table of Contents
 
-1.  [Conventions](#org6f2d8de)
-2.  [Important Prerequisite](#orgdefb53e)
-3.  [File suffixes](#org1051e42)
-4.  [Auto insertion](#orgb910a51)
-5.  [Miscellaneous](#org6d349bb)
-6.  [Outlining](#org396fef6)
-7.  [Highlighting (Colourisation)](#org31458fb)
-8.  [Installation dependent configurations](#org4e87036)
-9.  [Ansys processes](#org856b207)
+1.  [Conventions](#org6e6629b)
+2.  [Important Prerequisite](#orgf071ccc)
+3.  [File suffixes](#org7697ae6)
+4.  [Auto insertion](#orgd1da746)
+5.  [Miscellaneous](#org2d78855)
+6.  [Outlining](#orgbed5358)
+7.  [Highlighting (Colourisation)](#orga06483f)
+8.  [Installation dependent configurations](#org98a3d18)
+9.  [Ansys processes](#orgfe1b302)
 
 Most functionality of APDL-Mode is working without additional
 configurations.  APDL-Mode is intelligent enough to figure out Ansys
@@ -17,7 +17,9 @@ installation dependent paths.  For regular Ansys installations, it
 chooses by default the highest installed Ansys version on your system.
 
 APDL-Mode configures GNU-Emacs to open all files with the suffixes
-".mac", ".dat" and ".inp" under apdl-mode.
+".mac", ".ans", ".dat" and ".inp" under apdl-mode.  (The latter two
+file types might come from Ansys WorkBench input files which are
+usually huge program generated files.)
 
 You can change the APDL-Mode configurations permanently by 1. using
 the Emacs customisation system
@@ -44,7 +46,7 @@ or 2. by directly manipulating the Emacs configuration file
     is `;` (one semi-colon \`;').
 
 
-<a id="org6f2d8de"></a>
+<a id="org6e6629b"></a>
 
 # Conventions
 
@@ -58,7 +60,7 @@ or load your adjustments of this file with \`(load-file
 "PATH/apdl-config.el")' from your init file.
 
 
-<a id="orgdefb53e"></a>
+<a id="orgf071ccc"></a>
 
 # Important Prerequisite
 
@@ -84,10 +86,10 @@ the MAPDL menu entry "Change Installation Directory".
 
 If your Ansys installation differs completely from the standard
 Ansys directory structure, or if you want to use multiple versions of
-Ansys, then please consult the section [Installation dependent configurations](#org4e87036).
+Ansys, then please consult the section [Installation dependent configurations](#org98a3d18).
 
 
-<a id="org1051e42"></a>
+<a id="org7697ae6"></a>
 
 # File suffixes
 
@@ -158,7 +160,7 @@ for imports, see the file *example.anf* in the *doc* folder.
     (add-to-list 'auto-mode-alist '("\\.anf$" . apdl-mode))
 
 
-<a id="orgb910a51"></a>
+<a id="orgd1da746"></a>
 
 # Auto insertion
 
@@ -180,7 +182,7 @@ section).
       '(apdl-mode . [apdl-skeleton-outline-template])) ;which template to insert
 
 
-<a id="org6d349bb"></a>
+<a id="org2d78855"></a>
 
 # Miscellaneous
 
@@ -231,7 +233,7 @@ section).
     (setq apdl-username "myUserID") 		; new in 20.4.0
 
 
-<a id="org396fef6"></a>
+<a id="orgbed5358"></a>
 
 # Outlining
 
@@ -247,7 +249,7 @@ code sections:
     (add-hook 'apdl-mode-hook 'apdl-outline-minor-mode) ;enable outlining
 
 
-<a id="org31458fb"></a>
+<a id="orga06483f"></a>
 
 # Highlighting (Colourisation)
 
@@ -259,9 +261,8 @@ highlighting: While you are editing your new variable definitions
 highlighted and the cursor position is shown in the parameter help
 overlay
 
-Uncommenting the following might slow the editing of large .mac
-files (but only when apdl-highlighting-level is set to 2, see
-below).
+Uncommenting the following might slow the editing of large .mac,
+.inp or .ans files.
 
     (setq apdl-dynamic-highlighting-flag nil)
     ; (setq apdl-dynamic-highlighting-flag t) ;default: t
@@ -269,9 +270,8 @@ below).
 
 ## Decoration levels
 
-Decoration levels 0,1,2 are available.  User variable highlighting
-is only in level 2 available (statically, if above flag is not
-set), the current default is 2.
+Highlighting decoration levels 0, 1 and 2 are available. The
+APDL-Mode default is level 2.
 
 
 ## Summary
@@ -284,23 +284,20 @@ set), the current default is 2.
     ;; you are editing your new variable definitions highlighted and the
     ;; cursor position is shown in the parameter help overlay
     
-    ;; Uncommenting the following might slow the editing of large .mac
-    ;; files (but only when apdl-highlighting-level is set to 2, see
-    ;; below).
+    ;; Uncommenting the following might slow the editing of large .mac,
+    ;; .inp or .ans files.
     
      (setq apdl-dynamic-highlighting-flag nil)
-     (setq apdl-dynamic-highlighting-flag t) ; default
+    ; (setq apdl-dynamic-highlighting-flag t) ; default
     
     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
     ;; fontification (highlighting) of user variables and decoration
-    ;; levels (0,1,2 are available), user variables highlighting is only
-    ;; in level 2 available (statical, if above flag is not set), the
-    ;; default is 2
+    ;; levels (0,1,2 are available)
     
      (setq apdl-highlighting-level 1) ; default: 2
 
 
-<a id="org4e87036"></a>
+<a id="org98a3d18"></a>
 
 # Installation dependent configurations
 
@@ -330,7 +327,7 @@ path, or if you want to mix various Ansys versions:
     (setq apdl-lmutil-program "/appl/ansys_inc/19.3.0/shared_files/licensing/linx64/lmutil")
 
 
-<a id="org856b207"></a>
+<a id="orgfe1b302"></a>
 
 # Ansys processes
 

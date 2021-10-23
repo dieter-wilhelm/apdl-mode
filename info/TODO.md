@@ -1,20 +1,33 @@
 
 # Table of Contents
 
-1.  [V 20.7.0](#org2c2ae39)
-2.  [Version 20.6.0](#org8820f5f)
-3.  [Version 20.5.0](#org7dfb773)
-4.  [Version 20.4.0](#org4fec2c0)
-5.  [Version 20.3.0](#org900e9fd)
-6.  [Version 20.2.0](#org8a3bafc)
-7.  [Version 20.1.1](#orgb85ddbb)
-8.  [Version 162-2](#org0b9ccbb)
+1.  [V 20.7.0](#org82a4868)
+2.  [Version 20.6.0](#orgd830a44)
+3.  [Version 20.5.0](#org5c20f2a)
+4.  [Version 20.4.0](#org4f443f2)
+5.  [Version 20.3.0](#org7397d93)
+6.  [Version 20.2.0](#orgdcae3c1)
+7.  [Version 20.1.1](#orga91d90c)
+8.  [Version 162-2](#orga9b4e18)
 
 
 
-<a id="org2c2ae39"></a>
+<a id="org82a4868"></a>
 
 # V 20.7.0
+
+
+## Bug
+
+-   C-c C-a doesn't align the code comments when there are variable
+    and no numbers!
+-   jit-lock: Error during redisplay: (jit-lock-function 1) signaled
+    (wrong-type-argument stringp nil), example.dat
+-   Fontification problems with backslashes in strings from .dat
+    files from windows \\' apdl-mode is then looking for the next \`''
+    :-/
+-   C-c C-a not working without region at beginning of buffer, only.
+    Usually we have some header, don't we?
 
 
 ## Issue
@@ -24,16 +37,17 @@
 -   Linux: C-c C-o -> **APDL Classics** Buffer when process running
 -   Reload apdl-mode isn't working
 -   For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
-    fontification for huge files?
+    fontification for huge files? No but searching for user variables!
 
 
 ## Wish
 
--   async licensing status
+-   check apdl-font-lock-keywords-3
+-   asynchronous licensing status
 -   DONE in dev: Look into derived branch: prog-modes
 
 
-<a id="org8820f5f"></a>
+<a id="orgd830a44"></a>
 
 # TODO Version 20.6.0
 
@@ -79,8 +93,8 @@
 
 ## Checks
 
--   Changed file size without warning to 30 MB what is Emacs-26
-    using?
+-   Changed file size without warning to 30 MB, Emacs-28 is using <=
+    10 MB, large-file-warning-threshold
 -   EWW bug: not working with remote ssh -help-path
     (debbugs-gnu-bugs 40425)
 
@@ -243,7 +257,7 @@ APDL<sub>PATCH</sub> := 0
 (tags-search "texinfo:")
 
 
-<a id="org7dfb773"></a>
+<a id="org5c20f2a"></a>
 
 # DONE Version 20.5.0
 
@@ -251,7 +265,7 @@ APDL<sub>PATCH</sub> := 0
 help for all get- and parametric-functions
 
 
-<a id="org4fec2c0"></a>
+<a id="org4f443f2"></a>
 
 # DONE Version 20.4.0
 
@@ -259,7 +273,7 @@ help for all get- and parametric-functions
 updated to 2020R1
 
 
-<a id="org900e9fd"></a>
+<a id="org7397d93"></a>
 
 # DONE Version 20.3.0
 
@@ -268,14 +282,14 @@ Melpa
 feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-20 Fr]</span></span>
 
 
-<a id="org8a3bafc"></a>
+<a id="orgdcae3c1"></a>
 
 # DONE Version 20.2.0
 
 <span class="timestamp-wrapper"><span class="timestamp">[2020-03-10 Di]</span></span>
 
 
-<a id="orgb85ddbb"></a>
+<a id="orga91d90c"></a>
 
 # DONE Version 20.1.1
 
@@ -288,7 +302,7 @@ feature freeze <span class="timestamp-wrapper"><span class="timestamp">[2020-03-
 -   bug-report about package.el "NAME-readme.txt", done
 
 
-<a id="org0b9ccbb"></a>
+<a id="orga9b4e18"></a>
 
 # Version 162-2
 

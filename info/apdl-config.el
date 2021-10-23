@@ -161,18 +161,15 @@
 ;; you are editing your new variable definitions highlighted and the
 ;; cursor position is shown in the parameter help overlay
 
-;; Uncommenting the following might slow the editing of large .mac
-;; files (but only when apdl-highlighting-level is set to 2, see
-;; below).
+;; Uncommenting the following might slow the editing of large .mac,
+;; .inp or .ans files.
 
  (setq apdl-dynamic-highlighting-flag nil)
- (setq apdl-dynamic-highlighting-flag t) ; default
+; (setq apdl-dynamic-highlighting-flag t) ; default
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fontification (highlighting) of user variables and decoration
-;; levels (0,1,2 are available), user variables highlighting is only
-;; in level 2 available (statical, if above flag is not set), the
-;; default is 2
+;; levels (0,1,2 are available)
 
  (setq apdl-highlighting-level 1) ; default: 2
 

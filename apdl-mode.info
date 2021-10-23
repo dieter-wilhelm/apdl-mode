@@ -7,7 +7,7 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-Version 20.7.0 Time-stamp: "2021-10-22"
+Version 20.7.0 Time-stamp: "2021-10-23"
 
 * Menu:
 
@@ -907,7 +907,9 @@ installation dependent paths.  For regular Ansys installations, it
 chooses by default the highest installed Ansys version on your system.
 
    APDL-Mode configures GNU-Emacs to open all files with the suffixes
-".mac", ".dat" and ".inp" under apdl-mode.
+".mac", ".ans", ".dat" and ".inp" under apdl-mode.  (The latter two file
+types might come from Ansys WorkBench input files which are usually huge
+program generated files.)
 
    You can change the APDL-Mode configurations permanently by 1.  using
 the Emacs customisation system *note (emacs)Easy Customization:: or 2.
@@ -1193,8 +1195,8 @@ highlighting: While you are editing your new variable definitions
 highlighted and the cursor position is shown in the parameter help
 overlay
 
-   Uncommenting the following might slow the editing of large .mac files
-(but only when apdl-highlighting-level is set to 2, see below).
+   Uncommenting the following might slow the editing of large .mac, .inp
+or .ans files.
 
      (setq apdl-dynamic-highlighting-flag nil)
      ; (setq apdl-dynamic-highlighting-flag t) ;default: t
@@ -1205,9 +1207,8 @@ File: apdl-mode.info,  Node: Decoration levels,  Next: Summary,  Prev: Dynamic h
 6.7.2 Decoration levels
 -----------------------
 
-Decoration levels 0,1,2 are available.  User variable highlighting is
-only in level 2 available (statically, if above flag is not set), the
-current default is 2.
+Highlighting decoration levels 0, 1 and 2 are available.  The APDL-Mode
+default is level 2.
 
 
 File: apdl-mode.info,  Node: Summary,  Prev: Decoration levels,  Up: Highlighting (Colourisation)
@@ -1223,18 +1224,15 @@ File: apdl-mode.info,  Node: Summary,  Prev: Decoration levels,  Up: Highlightin
      ;; you are editing your new variable definitions highlighted and the
      ;; cursor position is shown in the parameter help overlay
 
-     ;; Uncommenting the following might slow the editing of large .mac
-     ;; files (but only when apdl-highlighting-level is set to 2, see
-     ;; below).
+     ;; Uncommenting the following might slow the editing of large .mac,
+     ;; .inp or .ans files.
 
       (setq apdl-dynamic-highlighting-flag nil)
-      (setq apdl-dynamic-highlighting-flag t) ; default
+     ; (setq apdl-dynamic-highlighting-flag t) ; default
 
      ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
      ;; fontification (highlighting) of user variables and decoration
-     ;; levels (0,1,2 are available), user variables highlighting is only
-     ;; in level 2 available (statical, if above flag is not set), the
-     ;; default is 2
+     ;; levels (0,1,2 are available)
 
       (setq apdl-highlighting-level 1) ; default: 2
 
@@ -3272,13 +3270,29 @@ File: apdl-mode.info,  Node: V 2070,  Next: Version 2060,  Up: Todos
 
 * Menu:
 
+* Bug::
 * Issue::
 * Wish::
 
 
-File: apdl-mode.info,  Node: Issue,  Next: Wish,  Up: V 2070
+File: apdl-mode.info,  Node: Bug,  Next: Issue,  Up: V 2070
 
-12.1.1 Issue
+12.1.1 Bug
+----------
+
+   • C-c C-a doesn’t align the code comments when there are variable and
+     no numbers!
+   • jit-lock: Error during redisplay: (jit-lock-function 1) signaled
+     (wrong-type-argument stringp nil), example.dat
+   • Fontification problems with backslashes in strings from .dat files
+     from windows \’ apdl-mode is then looking for the next ‘” :-/
+   • C-c C-a not working without region at beginning of buffer, only.
+     Usually we have some header, don’t we?
+
+
+File: apdl-mode.info,  Node: Issue,  Next: Wish,  Prev: Bug,  Up: V 2070
+
+12.1.2 Issue
 ------------
 
    • Rework menu: new entry for number blocks in .dat files
@@ -3286,15 +3300,16 @@ File: apdl-mode.info,  Node: Issue,  Next: Wish,  Up: V 2070
    • Linux: C-c C-o -> *APDL Classics* Buffer when process running
    • Reload apdl-mode isn’t working
    • For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
-     fontification for huge files?
+     fontification for huge files?  No but searching for user variables!
 
 
 File: apdl-mode.info,  Node: Wish,  Prev: Issue,  Up: V 2070
 
-12.1.2 Wish
+12.1.3 Wish
 -----------
 
-   • async licensing status
+   • check apdl-font-lock-keywords-3
+   • asynchronous licensing status
    • DONE in dev: Look into derived branch: prog-modes
 
 
@@ -3359,7 +3374,8 @@ File: apdl-mode.info,  Node: Checks,  Next: Wishes,  Prev: Issues,  Up: Version 
 12.2.3 Checks
 -------------
 
-   • Changed file size without warning to 30 MB what is Emacs-26 using?
+   • Changed file size without warning to 30 MB, Emacs-28 is using <= 10
+     MB, large-file-warning-threshold
    • EWW bug: not working with remote ssh -help-path (debbugs-gnu-bugs
      40425)
 
@@ -4651,132 +4667,133 @@ Node: Sophisticated Highlighting25498
 Node: Process Management29212
 Node: MAPDL Solver Control33439
 Node: Configuration and Customisation37716
-Node: Conventions39897
-Node: Important Prerequisite40465
-Node: File suffixes42006
-Node: Macro files42391
-Node: WorkBench generated input files43009
-Node: The Ansys Neutral file format43432
-Node: Auto insertion45094
-Node: Miscellaneous46097
-Node: Outlining (1)48291
-Node: Highlighting (Colourisation)48910
-Node: Dynamic highlighting49213
-Node: Decoration levels49831
-Node: Summary50173
-Node: Installation dependent configurations51356
-Node: Ansys processes53117
-Node: License server53362
-Node: Solver options54428
-Node: Summary (1)54872
-Node: APDL Reference57042
-Node: WorkBench to APDL Translation57354
-Node: Contacts57600
-Node: default 3D thermal contact57773
-Node: Material Models59618
-Node: Plasticity59817
-Node: Boundary conditions60120
-Node: APDL Reference (1)65682
-Node: Idiosyncrasies66149
-Node: File types68564
-Node: Defining parameters83646
-Node: Double char38 char8 logical TODO83970
-Node: Variable names84199
-Node: Character strings88487
-Node: Erasing variables from memory88839
-Node: Variable substitution89525
-Node: Substitution of Numeric Variables89880
-Node: Substitution of Character Variables90508
-Node: Dynamic Substitution of Numeric or Character Variables91863
-Node: Expressions92456
-Node: Exponentiation Operator92689
-Node: Multiplication Expression92875
-Node: Operators93314
-Node: Arrays93617
-Node: Specifiying array element values93873
-Node: APDL Math94052
-Node: debugging94565
-Node: Multiple runs probabilistic design94775
-Node: Undocumented commands95089
-Node: APDL-Mode Syntax Highlighting Reference95442
-Node: Header95755
-Node: Highlighting APDL specials98039
-Node: Reserved words and _RETURN statements98621
-Node: _RETURN values of macros98992
-Node: Old style APDL comments99476
-Node: Ignored characters behind commands99893
-Node: The End Of File command100207
-Node: Ignored characters behind commands (1)100651
-Node: The End Of File command (1)101079
-Node: Current element types and deprecated elements101563
-Node: Implied (or colon) looping102357
-Node: And the rest103598
-Node: Installation and Development107333
-Node: Melpa Installation108016
-Node: Manual Installation109200
-Node: Development and Source Code Installation110307
-Node: Bugs and Problems110866
-Node: News111988
-Node: Version 2070112788
-Node: Version 2060 15 years of APDL-Mode!112994
-Node: Version 2050114144
-Node: Version 2040114913
-Node: Version 2030115623
-Node: Version 2020116346
-Node: Version 2011117199
-Node: Version 2010117538
-Node: Version 162-1118083
-Node: Version 1611119603
-Node: Version 1501121232
-Node: Version 1452122063
-Node: Version 1451123464
-Node: Version 1401126615
-Node: Version 1301128070
-Node: Version 1201128985
-Node: Version 1102131352
-Node: ansys-modeel 1101131910
-Node: Further Resources135034
-Node: Ansys and APDL resources135262
-Node: Emacs editor resources136258
-Node: Other APDL editor resources136824
-Node: Todos137738
-Node: V 2070138116
-Node: Issue138246
-Node: Wish138649
-Node: Version 2060138826
-Node: Todos bugs139183
-Node: Issues139894
-Node: Checks140799
-Node: Wishes141076
-Node: Docu141560
-Node: templates143624
-Node: misc144195
-Node: Done144561
-Node: Push and Release Proceedures144855
-Node: Version 2050 (1)146221
-Node: Version 2040 (1)146445
-Node: Version 2030 (1)146648
-Node: Version 2020 (1)146872
-Node: Version 2011 (1)147057
-Node: Version 162-2147533
-Node: Bugs147811
-Node: Wish-list148719
-Node: Freeze154053
-Node: Deficiencies154418
-Node: Procedures156072
-Node: Freeze proceedures156594
-Node: Release158165
-Node: Ideas for further versions158768
-Node: Parameter help and documentation159199
-Node: Ansys process and interpreter buffer161501
-Node: Skeletons outline and abbrevs164364
-Node: Miscellaneous (1)166098
-Node: Ansys syntax restrictions not (yet) accounted for171090
-Node: Unknown Ansys stuff171995
-Node: Acknowledgements172278
-Node: GNU Free Documentation License172925
-Node: Variable Index197951
-Node: Concept Index198104
+Node: Conventions40026
+Node: Important Prerequisite40594
+Node: File suffixes42135
+Node: Macro files42520
+Node: WorkBench generated input files43138
+Node: The Ansys Neutral file format43561
+Node: Auto insertion45223
+Node: Miscellaneous46226
+Node: Outlining (1)48420
+Node: Highlighting (Colourisation)49039
+Node: Dynamic highlighting49342
+Node: Decoration levels49911
+Node: Summary50183
+Node: Installation dependent configurations51181
+Node: Ansys processes52942
+Node: License server53187
+Node: Solver options54253
+Node: Summary (1)54697
+Node: APDL Reference56867
+Node: WorkBench to APDL Translation57179
+Node: Contacts57425
+Node: default 3D thermal contact57598
+Node: Material Models59443
+Node: Plasticity59642
+Node: Boundary conditions59945
+Node: APDL Reference (1)65507
+Node: Idiosyncrasies65974
+Node: File types68389
+Node: Defining parameters83471
+Node: Double char38 char8 logical TODO83795
+Node: Variable names84024
+Node: Character strings88312
+Node: Erasing variables from memory88664
+Node: Variable substitution89350
+Node: Substitution of Numeric Variables89705
+Node: Substitution of Character Variables90333
+Node: Dynamic Substitution of Numeric or Character Variables91688
+Node: Expressions92281
+Node: Exponentiation Operator92514
+Node: Multiplication Expression92700
+Node: Operators93139
+Node: Arrays93442
+Node: Specifiying array element values93698
+Node: APDL Math93877
+Node: debugging94390
+Node: Multiple runs probabilistic design94600
+Node: Undocumented commands94914
+Node: APDL-Mode Syntax Highlighting Reference95267
+Node: Header95580
+Node: Highlighting APDL specials97864
+Node: Reserved words and _RETURN statements98446
+Node: _RETURN values of macros98817
+Node: Old style APDL comments99301
+Node: Ignored characters behind commands99718
+Node: The End Of File command100032
+Node: Ignored characters behind commands (1)100476
+Node: The End Of File command (1)100904
+Node: Current element types and deprecated elements101388
+Node: Implied (or colon) looping102182
+Node: And the rest103423
+Node: Installation and Development107158
+Node: Melpa Installation107841
+Node: Manual Installation109025
+Node: Development and Source Code Installation110132
+Node: Bugs and Problems110691
+Node: News111813
+Node: Version 2070112613
+Node: Version 2060 15 years of APDL-Mode!112819
+Node: Version 2050113969
+Node: Version 2040114738
+Node: Version 2030115448
+Node: Version 2020116171
+Node: Version 2011117024
+Node: Version 2010117363
+Node: Version 162-1117908
+Node: Version 1611119428
+Node: Version 1501121057
+Node: Version 1452121888
+Node: Version 1451123289
+Node: Version 1401126440
+Node: Version 1301127895
+Node: Version 1201128810
+Node: Version 1102131177
+Node: ansys-modeel 1101131735
+Node: Further Resources134859
+Node: Ansys and APDL resources135087
+Node: Emacs editor resources136083
+Node: Other APDL editor resources136649
+Node: Todos137563
+Node: V 2070137941
+Node: Bug138079
+Node: Issue138649
+Node: Wish139102
+Node: Version 2060139325
+Node: Todos bugs139682
+Node: Issues140393
+Node: Checks141298
+Node: Wishes141614
+Node: Docu142098
+Node: templates144162
+Node: misc144733
+Node: Done145099
+Node: Push and Release Proceedures145393
+Node: Version 2050 (1)146759
+Node: Version 2040 (1)146983
+Node: Version 2030 (1)147186
+Node: Version 2020 (1)147410
+Node: Version 2011 (1)147595
+Node: Version 162-2148071
+Node: Bugs148349
+Node: Wish-list149257
+Node: Freeze154591
+Node: Deficiencies154956
+Node: Procedures156610
+Node: Freeze proceedures157132
+Node: Release158703
+Node: Ideas for further versions159306
+Node: Parameter help and documentation159737
+Node: Ansys process and interpreter buffer162039
+Node: Skeletons outline and abbrevs164902
+Node: Miscellaneous (1)166636
+Node: Ansys syntax restrictions not (yet) accounted for171628
+Node: Unknown Ansys stuff172533
+Node: Acknowledgements172816
+Node: GNU Free Documentation License173463
+Node: Variable Index198489
+Node: Concept Index198642
 
 End Tag Table
 

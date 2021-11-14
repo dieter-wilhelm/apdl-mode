@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-23>
+#+DATE: Time-stamp: <2021-11-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -514,13 +514,13 @@ or 2. by directly manipulating the Emacs configuration file
    Number of cores for the run: 4 does not require HPC licenses
 
    #+BEGIN_SRC emacs-lisp
-     (setq apdl-no-of-processors 8) ; default: 4
+     (setq apdl-no-of-processors 8) ; default: 4, doesn't require HPC licenses
    #+END_SRC
 
    Which license type to use for the solver
 
    #+BEGIN_SRC emacs-lisp
-     (setq apdl-license "preppost") ; default: "ansys"
+     (setq apdl-license "ansys") ; default in APDL-Mode: "preppost"
    #+END_SRC
 
    The Ansys job name

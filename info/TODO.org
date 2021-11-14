@@ -19,22 +19,22 @@
 
 * V 20.7.0
 ** Bug
-   - C-c C-a doesn't align the code comments when there are variable
-     and no numbers! 
    - jit-lock: Error during redisplay: (jit-lock-function 1) signaled
      (wrong-type-argument stringp nil), example.dat
    - Fontification problems with backslashes in strings from .dat
      files from windows \' apdl-mode is then looking for the next `''
      :-/
+** Issue
+   - Rework menu: new entry for number blocks in .dat files
+     (nblocks,eblocks,cmblocks)
+     - C-c C-a doesn't align the code comments when there are variable
+       and no numbers!
    - C-c C-a not working without region at beginning of buffer, only.
      Usually we have some header, don't we?
-** Issue
-  - Rework menu: new entry for number blocks in .dat files
-    (nblocks,eblocks,cmblocks)
-  - Linux: C-c C-o -> *APDL Classics* Buffer when process running
-  - Reload apdl-mode isn't working
-  - For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
-    fontification for huge files? No but searching for user variables!
+   - Linux: C-c C-o -> *APDL Classics* Buffer when process running
+   - Reload apdl-mode isn't working
+   - For a 80 MB .dat file it takes 2 min to start apdl-mode, skipping
+     fontification for huge files? No but searching for user variables!
 ** Wish
   - check apdl-font-lock-keywords-3
   - asynchronous licensing status

@@ -1,31 +1,17 @@
 
 # Table of Contents
 
-<<<<<<< HEAD
-1.  [Introduction](#orgc23b651)
-2.  [Some Highlights](#org79557f2)
-3.  [Installation](#org508e09d)
-4.  [First Step](#org64f5980)
-5.  [Configuration and Customisation](#org7a9b408)
-6.  [Bugs and Problems](#orgd414199)
-7.  [News](#org6493685)
-8.  [Further Resources](#org95ec5b8)
-9.  [Acknowledgements](#orgb99185d)
-10. [Todos](#org377952a)
-11. [GNU GPL v3 License](#org40ded7f)
-=======
-1.  [Introduction](#org83cff58)
-2.  [Some Highlights](#orgae74ceb)
-3.  [Installation](#org48c120a)
-4.  [First Step](#org87f093b)
-5.  [Configuration and Customisation](#orgb8c0584)
-6.  [Bugs and Problems](#orgca9871d)
-7.  [News](#orgb2ad85c)
-8.  [Further Resources](#orgd98d848)
-9.  [Acknowledgements](#org6ffb354)
-10. [Todos](#org14f8319)
-11. [GNU GPL v3 License](#orgb7c57dd)
->>>>>>> fc8691b... Improve doc/example.mac
+1.  [Introduction](#org1fed408)
+2.  [Some Highlights](#org9de73b4)
+3.  [Installation](#org3b81d25)
+4.  [First Step](#org0f16bfd)
+5.  [Configuration and Customisation](#org06077fc)
+6.  [Bugs and Problems](#org2b56c2c)
+7.  [News](#org332e539)
+8.  [Further Resources](#orge7a4150)
+9.  [Acknowledgements](#orgd2470e2)
+10. [Todos](#org428d3e2)
+11. [GNU GPL v3 License](#org21a8bce)
 
 
 
@@ -41,11 +27,7 @@ Copyright (C) 2006 - 2021  H. Dieter Wilhelm, GPL V3
 ![img](doc/ansys+emacs2020-03.png)
 
 
-<<<<<<< HEAD
-<a id="orgc23b651"></a>
-=======
-<a id="org83cff58"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org1fed408"></a>
 
 # Introduction
 
@@ -85,11 +67,7 @@ Workbench changes and you can pull-in the updated content with the
 ![img](doc/connect_command_snippet_to_file.png)
 
 
-<<<<<<< HEAD
-<a id="org79557f2"></a>
-=======
-<a id="orgae74ceb"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org9de73b4"></a>
 
 # Some Highlights
 
@@ -115,13 +93,17 @@ Since Ansys v191 the online help is the default.  APDL-Mode is
 using your default browser but to be able to access the online help
 you must register or you must start the online help once from any
 licensed Ansys product.  I recommend installing the local Ansys
-documentation package, access time is much shorter.
+documentation, access time is much shorter.  You can download the
+"help installer" from their Customer Portal.
 
 The image below is showing a manual entry in GNU-Emacs' EWW
 browser.  You are able to consult the manuals side-by-side your
 APDL code.
 
 ![img](doc/browse_manual.png)
+
+Please read the [apdl-config](info/apdl-config.md) documentation on how configure EWW as
+default browser or check the accompanying [configuration template](apdl-config.el).
 
 
 ## Command Object Templates and Code Highlighting Example
@@ -155,11 +137,7 @@ The image below shows the unhidden content.
 ![img](doc/unhidden_blocks.png)
 
 
-<<<<<<< HEAD
-<a id="org508e09d"></a>
-=======
-<a id="org48c120a"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org3b81d25"></a>
 
 # Installation
 
@@ -182,13 +160,19 @@ for Emacs version 25.1 or newer.
 
 Please add
 
+    (package-initialize)
     (add-to-list 'package-archives
-    	  '("melpa" . "https://melpa.org/packages/") t)
+          '("melpa" . "https://melpa.org/packages/") t)
 
-to your initialisation file.  Then type: \`M-x list-packages', find
-\`apdl-mode', mark it with \`i' and install it with \`x'.
+to your initialisation file.  Activate this code (for example by
+restarting Emacs), then type \`M-x install-package', answer the
+prompt with "apdl-mode" and conclude this command with <RET>.
 
-If you prefer the stable package archive instead of development
+(You might also install it with GNU-Emacs' package interface \`M-x
+list-packages', find \`apdl-mode', mark it with \`i' and install it
+with \`x'.)
+
+If you prefer the stable package archive instead of the development
 versions, exchange above package source with
 
     (add-to-list 'package-archives
@@ -199,7 +183,7 @@ versions, exchange above package source with
 
 If you are behind a corporate firewall and you are not able to
 install APDL-Mode from Emacs' package menu, you can download and
-install APDL-Mode manually:
+install its package manually:
 
 -   Download the latest APDL-Mode's tar package from [Melpa](https://melpa.org/#/apdl-mode) or - for a
     released package - from the [Github release page](https://github.com/dieter-wilhelm/apdl-mode/releases/) under Assets.
@@ -209,10 +193,10 @@ install APDL-Mode manually:
 That's it.
 
 **Hint:** If you are getting an error message "package.el is not yet
-initialised", you are using Emacs' packaging system for the very
-first time.  It is necessary to initialise this machinery once,
-please type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :'
-colon!)  and then apply \`M-x package-install-file <RET>' again.
+initialised", you are using Emacs' packaging system for the first
+time.  It is necessary to initialise this machinery once, please
+type: \`M-: (package-initialize) <RET>' (it's an 'ALT + :' colon!)
+and then apply \`M-x package-install-file <RET>' again.
 
 
 ## Development and Source Code Installation
@@ -226,26 +210,18 @@ or download the GitHub ZIP archive and add the following line
 
     (require 'apdl-mode)
 
-to your initialisation file (the source directory must be set in
-the \`load-path' variable as well).
+to your initialisation file (the source directory must be set in the
+\`load-path' variable as well).
 
 
-<<<<<<< HEAD
-<a id="org64f5980"></a>
-=======
-<a id="org87f093b"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org0f16bfd"></a>
 
 # First Step
 
 Please type \`M-x apdl' which opens a buffer in APDL-Mode where you
 can inspect the menu bar's \`APDL' and \`MAPDL' entries.  For existing
 APDL files please type \`M-x apdl-mode' if the mode is not activated
-<<<<<<< HEAD
-already, please see in [5](#org7a9b408),
-=======
-already, please see in [5](#orgb8c0584),
->>>>>>> fc8691b... Improve doc/example.mac
+already, please see in [5](#org06077fc),
 the section regarding preconfigured file suffixes.
 
 For further guidance please select the APDL menu \`APDL-Mode
@@ -254,11 +230,7 @@ Documentation' (or type \`C-c C-h') and \`Describe APDL-Mode' (or type
 introductory APDL-Mode [tutorial](https://dieter-wilhelm.github.io/apdl-mode/doc/A-M_introductory_tutorial.pdf).
 
 
-<<<<<<< HEAD
-<a id="org7a9b408"></a>
-=======
-<a id="orgb8c0584"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org06077fc"></a>
 
 # Configuration and Customisation
 
@@ -274,11 +246,7 @@ Please read the [apdl-config](info/apdl-config.md) documentation for further opt
 open the accompanying configuration [example-file](apdl-config.el).
 
 
-<<<<<<< HEAD
-<a id="orgd414199"></a>
-=======
-<a id="orgca9871d"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org2b56c2c"></a>
 
 # Bugs and Problems
 
@@ -303,22 +271,14 @@ following options:
     [Emacs Wiki](https://www.emacswiki.org).
 
 
-<<<<<<< HEAD
-<a id="org6493685"></a>
-=======
-<a id="orgb2ad85c"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org332e539"></a>
 
 # News
 
 For further news please have a look into the [NEWS](info/NEWS.md) file.
 
 
-<<<<<<< HEAD
-<a id="org95ec5b8"></a>
-=======
-<a id="orgd98d848"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="orge7a4150"></a>
 
 # Further Resources
 
@@ -326,11 +286,7 @@ If you want to read further details regarding the APDL scripting,
 GNU-Emacs and other APDL editors please read the [RESOURCES](info/resources.md) file.
 
 
-<<<<<<< HEAD
-<a id="orgb99185d"></a>
-=======
-<a id="org6ffb354"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="orgd2470e2"></a>
 
 # Acknowledgements
 
@@ -345,22 +301,14 @@ I received, moreover, support and feedback from many individuals.
 Thank you very much!
 
 
-<<<<<<< HEAD
-<a id="org377952a"></a>
-=======
-<a id="org14f8319"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org428d3e2"></a>
 
 # Todos
 
 Please check the [TODO](info/TODO.md) file.
 
 
-<<<<<<< HEAD
-<a id="org40ded7f"></a>
-=======
-<a id="orgb7c57dd"></a>
->>>>>>> fc8691b... Improve doc/example.mac
+<a id="org21a8bce"></a>
 
 # GNU GPL v3 License
 

@@ -7,11 +7,9 @@ File: apdl-mode.info,  Node: Top,  Next: Copyright and Copying,  Up: (dir)
 The Manual of APDL-Mode
 ***********************
 
-<<<<<<< HEAD
-Version 20.6.0 Time-stamp: "2021-10-01"
-=======
-Version 20.6.0 Time-stamp: "2021-10-02"
->>>>>>> fc8691b... Improve doc/example.mac
+<<<<<<< HEAD ‘=====’ >>>>>>> fc8691b... Improve doc/example.mac
+
+   Version 20.6.0 Time-stamp: "2021-11-14"
 
 * Menu:
 
@@ -36,7 +34,7 @@ Version 20.6.0 Time-stamp: "2021-10-02"
 
 APDL-Mode Usage
 
-* Finding Help to APDL keywords::
+* Finding Help for APDL keywords::
 * Code Templates::
 * Editing Code::
 * Code Navigation, Outlining and Hiding: Code Navigation Outlining and Hiding.
@@ -248,7 +246,7 @@ File: apdl-mode.info,  Node: APDL-Mode Usage,  Next: Configuration and Customisa
 
 * Menu:
 
-* Finding Help to APDL keywords::
+* Finding Help for APDL keywords::
 * Code Templates::
 * Editing Code::
 * Code Navigation, Outlining and Hiding: Code Navigation Outlining and Hiding.
@@ -258,24 +256,27 @@ File: apdl-mode.info,  Node: APDL-Mode Usage,  Next: Configuration and Customisa
 * MAPDL Solver Control::
 
 
-File: apdl-mode.info,  Node: Finding Help to APDL keywords,  Next: Code Templates,  Up: APDL-Mode Usage
+File: apdl-mode.info,  Node: Finding Help for APDL keywords,  Next: Code Templates,  Up: APDL-Mode Usage
 
-5.1 Finding Help to APDL keywords
-=================================
+5.1 Finding Help for APDL keywords
+==================================
 
-Firstly with an in-buffer display of a brief command help and secondly
-browsing the complete Ansys HTML documentation.
+Reading the original Ansys documentation of APDL keywords can be done in
+two ways.  One option is an in-buffer display of a brief apdl command
+description and the second option is browsing the complete Ansys HTML
+documentation for respective keywords, i.e.  APDL commands, functions
+and element names.
 
 * Menu:
 
-* Command Help with Argument Counter::
-* APDL Keyword Documentation::
+* Brief Command Help with Argument Counter::
+* Browsing the APDL Keyword Documentation::
 
 
-File: apdl-mode.info,  Node: Command Help with Argument Counter,  Next: APDL Keyword Documentation,  Up: Finding Help to APDL keywords
+File: apdl-mode.info,  Node: Brief Command Help with Argument Counter,  Next: Browsing the APDL Keyword Documentation,  Up: Finding Help for APDL keywords
 
-5.1.1 Command Help with Argument Counter
-----------------------------------------
+5.1.1 Brief Command Help with Argument Counter
+----------------------------------------------
 
 Typing "M-?", the <ALT> key simultaneously with the "?"  the question
 mark (for the command ‘apdl-show-command-parameters’) displays above the
@@ -283,44 +284,48 @@ respective code line a brief description of the APDL command and its
 arguments.  This command counts also the number of arguments and
 visualises at which argument position the cursor is.  The command is
 looking for the next valid command near the cursor or when using a
-prefix argument ("C-u" or "M-4") it inquires an APDL command from you.
-The tooltip vanishes after a certain time (depending on
-‘apdl-parameter-help-duration’) or it is switched off with an argument
-of zero ("M-0").
+prefix argument ("C-u M-?"  or "M-4 M-?")  it inquires an APDL command
+from you.  The tooltip vanishes after a certain time (depending on the
+customisation variable ‘apdl-parameter-help-duration’) or it is switched
+off with an prefix argument for this command of zero ("M-0 M-?").
 
 
-File: apdl-mode.info,  Node: APDL Keyword Documentation,  Prev: Command Help with Argument Counter,  Up: Finding Help to APDL keywords
+File: apdl-mode.info,  Node: Browsing the APDL Keyword Documentation,  Prev: Brief Command Help with Argument Counter,  Up: Finding Help for APDL keywords
 
-5.1.2 APDL Keyword Documentation
---------------------------------
+5.1.2 Browsing the APDL Keyword Documentation
+---------------------------------------------
 
-Browse the detailed APDL commands, elements, functions and selected
-topics in the original Ansys HTML help.
+The command ‘apdl-browse-apdl-help’ (C-c C-b) allows browsing the
+original manual of APDL commands, elements, functions and selected
+topics.
 
    Typing "C-c C-b" will display the original Ansys help in your web
 browser for all APDL commands, element names (stating the element number
-is sufficient), get- or parametric-functions.  "C-c C-b" is looking for
-keywords on and before the cursor or - if this fails - for APDL command
-at the line beginning.  This is also working for commented out code
-lines.
+is sufficient), get- or parametric-functions (for the functions it might
+be necessary to write an opening parenthesis, e.g.  "sin(", to
+distinquish them from command names).  "C-c C-b" is looking for keywords
+on and before the cursor or - if this fails - for APDL commands at the
+line beginning.  This is also working for commented out code lines.
 
    When using a prefix argument (typing C-u before C-c C-b) the command
 inquires a keyword from you.  Keywords beginning with a quotation mark
-‘"’ describing general manual sections, for example typing ‘"SHELLS"’
-will call the collection of all shell elements from the Ansys manual.
-You should complete your input with the <TAB> key to make it unique.
+‘"’ are describing general manual sections, for example typing
+‘"SHELLS"’ will call the collection of all shell elements from the Ansys
+manual.  You can complete your input with the <TAB> key to show the
+remaining completions or make it unique.
 
    Above quotation mark mechanism is implemented with "#" anchors for
 the Ansys help files.  This mechanism is not working for locally
-installed help files on Windows systems when the default browser is
-called from Emacs.  In this case you can either use EWW as the default
-browser or specify your favourite browser directly.
+installed help files on Windows systems when GNU-Emacs is calling the
+default system browser (a security feature).  In this case you have to
+specify specify explicitly which browser Emacs should invoke e.g.
+Emacs’ EWW *note (eww)Top:: or other installed browsers.
 
    Please see Miscellaneous (apdl-config.org) on how to do this.  Please
 see section *note Configuration and Customisation:: on how to do this.
 
 
-File: apdl-mode.info,  Node: Code Templates,  Next: Editing Code,  Prev: Finding Help to APDL keywords,  Up: APDL-Mode Usage
+File: apdl-mode.info,  Node: Code Templates,  Next: Editing Code,  Prev: Finding Help for APDL keywords,  Up: APDL-Mode Usage
 
 5.2 Code Templates
 ==================
@@ -1642,6 +1647,8 @@ File: apdl-mode.info,  Node: Idiosyncrasies,  Next: File types,  Up: APDL Refere
 7.2.1 Idiosyncrasies
 --------------------
 
+   • deriv (post26 command) needs an monotonic increasing denominator
+     (documented only since 2022)
    • You can only store character variables of 8 characters, strings of
      32 characters and for a maximum of 248 characters you need to
      create a string array!
@@ -2594,13 +2601,19 @@ file:https://stable.melpa.org/packages/apdl-mode-badge.svg
 (https://stable.melpa.org/#/apdl-mode)
 
    Please add
+     (package-initialize)
      (add-to-list 'package-archives
-               '("melpa" . "https://melpa.org/packages/") t)
+           '("melpa" . "https://melpa.org/packages/") t)
 
-   to your initialisation file.  Then type: ‘M-x list-packages’, find
-‘apdl-mode’, mark it with ‘i’ and install it with ‘x’.
+   to your initialisation file.  Activate this code (for example by
+restarting Emacs), then type ‘M-x install-package’, answer the prompt
+with "apdl-mode" and conclude this command with <RET>.
 
-   If you prefer the stable package archive instead of development
+   (You might also install it with GNU-Emacs’ package interface ‘M-x
+list-packages’, find ‘apdl-mode’, mark it with ‘i’ and install it with
+‘x’.)
+
+   If you prefer the stable package archive instead of the development
 versions, exchange above package source with
      (add-to-list 'package-archives
      '("melpa-stable" . "https://stable.melpa.org/packages/") t)
@@ -2612,8 +2625,8 @@ File: apdl-mode.info,  Node: Manual Installation,  Next: Development and Source 
 =======================
 
 If you are behind a corporate firewall and you are not able to install
-APDL-Mode from Emacs’ package menu, you can download and install
-APDL-Mode manually:
+APDL-Mode from Emacs’ package menu, you can download and install its
+package manually:
 
    • Download the latest APDL-Mode’s tar package from Melpa
      (https://melpa.org/#/apdl-mode) or - for a released package - from
@@ -2626,10 +2639,10 @@ APDL-Mode manually:
    That’s it.
 
    *Hint:* If you are getting an error message "package.el is not yet
-initialised", you are using Emacs’ packaging system for the very first
-time.  It is necessary to initialise this machinery once, please type:
-‘M-: (package-initialize) <RET>’ (it’s an ’ALT + :’ colon!)  and then
-apply ‘M-x package-install-file <RET>’ again.
+initialised", you are using Emacs’ packaging system for the first time.
+It is necessary to initialise this machinery once, please type: ‘M-:
+(package-initialize) <RET>’ (it’s an ’ALT + :’ colon!)  and then apply
+‘M-x package-install-file <RET>’ again.
 
 
 File: apdl-mode.info,  Node: Development and Source Code Installation,  Prev: Manual Installation,  Up: Installation and Development
@@ -3247,17 +3260,6 @@ File: apdl-mode.info,  Node: V 2070,  Next: Version 2060,  Up: Todos
 12.1 *TODO* V 20.7.0
 ====================
 
-<<<<<<< HEAD
-   • Linux: C-c C-o -> *APDL Classics* Buffer when process running
-
-
-File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 (1),  Prev: V 2070,  Up: Todos
-
-12.2 Version 20.6.0
-===================
-
-Branch 20.6.0 _[2021-10-01 Fr]_
-=======
 * Menu:
 
 * Bugs::
@@ -3287,7 +3289,6 @@ File: apdl-mode.info,  Node: Version 2060,  Next: Version 2050 (1),  Prev: V 207
 
    • Branch 20.6.0 _[2021-10-01 Fr]_
    • Feature freeze: Only bugs or template changes
->>>>>>> fc8691b... Improve doc/example.mac
 
 * Menu:
 
@@ -4601,219 +4602,158 @@ Emacs 27.1 (Org mode 9.3)
 
 Tag Table:
 Node: Top79
-Node: Copyright and Copying2438
-Node: Foreword2991
-Node: First Step with APDL-Mode5058
-Node: Introductory Tutorial for Emacs Concepts5916
-Node: APDL-Mode Usage8469
-Node: Finding Help to APDL keywords8916
-Node: Command Help with Argument Counter9292
-Node: APDL Keyword Documentation10150
-Node: Code Templates11659
-Node: Model Templates12258
-Node: WorkBench Command Object Templates12894
-Node: Editing Code13291
-Node: Completions and Abbreviations13635
-Node: Comment Handling15950
-Node: Inserting Pairs17127
-Node: Auto-indentation17907
-Node: Closing of Control Blocks18387
-Node: Code Alignment18797
-Node: Auto-insertion19337
-Node: Code Navigation Outlining and Hiding19918
-Node: Hiding Number Blocks21826
-Node: Outlining22298
-Node: Variable Definitions23673
-Node: Sophisticated Highlighting24837
-Node: Process Management28551
-Node: MAPDL Solver Control32778
-Node: Configuration and Customisation37055
-Node: Conventions39236
-Node: Important Prerequisite39804
-Node: File suffixes41345
-Node: Macro files41730
-Node: WorkBench generated input files42348
-Node: The Ansys Neutral file format42771
-Node: Auto insertion44433
-Node: Miscellaneous45436
-Node: Outlining (1)47630
-Node: Highlighting (Colourisation)48249
-Node: Dynamic highlighting48552
-Node: Decoration levels49170
-Node: Summary49512
-Node: Installation dependent configurations50695
-Node: Ansys processes52456
-Node: License server52701
-Node: Solver options53767
-Node: Summary (1)54211
-Node: APDL Reference56381
-Node: WorkBench to APDL Translation56693
-Node: Contacts56939
-Node: default 3D thermal contact57112
-Node: Material Models58957
-Node: Plasticity59156
-Node: Boundary conditions59459
-Node: APDL Reference (1)65021
-Node: Idiosyncrasies65488
-Node: File types67903
-Node: Defining parameters82985
-Node: Double char38 char8 logical TODO83309
-Node: Variable names83538
-Node: Character strings87826
-Node: Erasing variables from memory88178
-Node: Variable substitution88864
-Node: Substitution of Numeric Variables89219
-Node: Substitution of Character Variables89847
-Node: Dynamic Substitution of Numeric or Character Variables91202
-Node: Expressions91795
-Node: Exponentiation Operator92028
-Node: Multiplication Expression92214
-Node: Operators92653
-Node: Arrays92956
-Node: Specifiying array element values93212
-Node: APDL Math93391
-Node: debugging93904
-Node: Multiple runs probabilistic design94114
-Node: Undocumented commands94428
-Node: APDL-Mode Syntax Highlighting Reference94781
-Node: Header95094
-Node: Highlighting APDL specials97378
-Node: Reserved words and _RETURN statements97960
-Node: _RETURN values of macros98331
-Node: Old style APDL comments98815
-Node: Ignored characters behind commands99232
-Node: The End Of File command99546
-Node: Ignored characters behind commands (1)99990
-Node: The End Of File command (1)100418
-Node: Current element types and deprecated elements100902
-Node: Implied (or colon) looping101696
-Node: And the rest102937
-Node: Installation and Development106672
-Node: Melpa Installation107355
-Node: Manual Installation108292
-Node: Development and Source Code Installation109403
-Node: Bugs and Problems109962
-<<<<<<< HEAD
-Node: News111080
-Node: Version 2060 15 years of APDL-Mode!111848
-Node: Version 2050112977
-Node: Version 2040113746
-Node: Version 2030114456
-Node: Version 2020115179
-Node: Version 2011116032
-Node: Version 2010116371
-Node: Version 162-1116916
-Node: Version 1611118436
-Node: Version 1501120063
-Node: Version 1452120894
-Node: Version 1451122295
-Node: Version 1401125446
-Node: Version 1301126901
-Node: Version 1201127816
-Node: Version 1102130183
-Node: ansys-modeel 1101130741
-Node: Further Resources133865
-Node: Ansys and APDL resources134093
-Node: Emacs editor resources134869
-Node: Other APDL editor resources135432
-Node: Todos136346
-Node: V 2070136724
-Node: Version 2060136909
-Node: Todos bugs137192
-Node: Issues137903
-Node: Checks138808
-Node: Wishes139085
-Node: Docu139569
-Node: templates141633
-Node: misc142204
-Node: Done142570
-Node: Push and Release Proceedures142864
-Node: Version 2050 (1)144176
-Node: Version 2040 (1)144400
-Node: Version 2030 (1)144603
-Node: Version 2020 (1)144827
-Node: Version 2011 (1)145012
-Node: Version 162-2145488
-Node: Bugs145766
-Node: Wish-list146674
-Node: Freeze152008
-Node: Deficiencies152373
-Node: Procedures154027
-Node: Freeze proceedures154549
-Node: Release156120
-Node: Ideas for further versions156723
-Node: Parameter help and documentation157154
-Node: Ansys process and interpreter buffer159456
-Node: Skeletons outline and abbrevs162319
-Node: Miscellaneous (1)164053
-Node: Ansys syntax restrictions not (yet) accounted for169045
-Node: Unknown Ansys stuff169950
-Node: Acknowledgements170233
-Node: GNU Free Documentation License170805
-Node: Variable Index195831
-Node: Concept Index195984
-=======
-Node: News111045
-Node: Version 2060 15 years of APDL-Mode!111813
-Node: Version 2050112942
-Node: Version 2040113711
-Node: Version 2030114421
-Node: Version 2020115144
-Node: Version 2011115997
-Node: Version 2010116336
-Node: Version 162-1116881
-Node: Version 1611118401
-Node: Version 1501120028
-Node: Version 1452120859
-Node: Version 1451122260
-Node: Version 1401125411
-Node: Version 1301126866
-Node: Version 1201127781
-Node: Version 1102130148
-Node: ansys-modeel 1101130706
-Node: Further Resources133830
-Node: Ansys and APDL resources134058
-Node: Emacs editor resources134834
-Node: Other APDL editor resources135397
-Node: Todos136311
-Node: V 2070136689
-Node: Bugs136832
-Node: Misc136953
-Node: Version 2060137111
-Node: Todos bugs137454
-Node: Issues137909
-Node: Checks138927
-Node: Wishes139204
-Node: Docu139688
-Node: templates141861
-Node: misc142432
-Node: Done142798
-Node: Push and Release Proceedures143092
-Node: Version 2050 (1)144404
-Node: Version 2040 (1)144628
-Node: Version 2030 (1)144831
-Node: Version 2020 (1)145055
-Node: Version 2011 (1)145240
-Node: Version 162-2145716
-Node: Bugs (1)146003
-Node: Wish-list146915
-Node: Freeze152253
-Node: Deficiencies152618
-Node: Procedures154272
-Node: Freeze proceedures154794
-Node: Release156365
-Node: Ideas for further versions156968
-Node: Parameter help and documentation157399
-Node: Ansys process and interpreter buffer159701
-Node: Skeletons outline and abbrevs162564
-Node: Miscellaneous (1)164298
-Node: Ansys syntax restrictions not (yet) accounted for169290
-Node: Unknown Ansys stuff170195
-Node: Acknowledgements170478
-Node: GNU Free Documentation License171050
-Node: Variable Index196076
-Node: Concept Index196229
->>>>>>> fc8691b... Improve doc/example.mac
+Node: Copyright and Copying2511
+Node: Foreword3064
+Node: First Step with APDL-Mode5131
+Node: Introductory Tutorial for Emacs Concepts5989
+Node: APDL-Mode Usage8542
+Node: Finding Help for APDL keywords8990
+Node: Brief Command Help with Argument Counter9571
+Node: Browsing the APDL Keyword Documentation10527
+Node: Code Templates12359
+Node: Model Templates12959
+Node: WorkBench Command Object Templates13595
+Node: Editing Code13992
+Node: Completions and Abbreviations14336
+Node: Comment Handling16651
+Node: Inserting Pairs17828
+Node: Auto-indentation18608
+Node: Closing of Control Blocks19088
+Node: Code Alignment19498
+Node: Auto-insertion20038
+Node: Code Navigation Outlining and Hiding20619
+Node: Hiding Number Blocks22527
+Node: Outlining22999
+Node: Variable Definitions24374
+Node: Sophisticated Highlighting25538
+Node: Process Management29252
+Node: MAPDL Solver Control33479
+Node: Configuration and Customisation37756
+Node: Conventions39937
+Node: Important Prerequisite40505
+Node: File suffixes42046
+Node: Macro files42431
+Node: WorkBench generated input files43049
+Node: The Ansys Neutral file format43472
+Node: Auto insertion45134
+Node: Miscellaneous46137
+Node: Outlining (1)48331
+Node: Highlighting (Colourisation)48950
+Node: Dynamic highlighting49253
+Node: Decoration levels49871
+Node: Summary50213
+Node: Installation dependent configurations51396
+Node: Ansys processes53157
+Node: License server53402
+Node: Solver options54468
+Node: Summary (1)54912
+Node: APDL Reference57082
+Node: WorkBench to APDL Translation57394
+Node: Contacts57640
+Node: default 3D thermal contact57813
+Node: Material Models59658
+Node: Plasticity59857
+Node: Boundary conditions60160
+Node: APDL Reference (1)65722
+Node: Idiosyncrasies66189
+Node: File types68710
+Node: Defining parameters83792
+Node: Double char38 char8 logical TODO84116
+Node: Variable names84345
+Node: Character strings88633
+Node: Erasing variables from memory88985
+Node: Variable substitution89671
+Node: Substitution of Numeric Variables90026
+Node: Substitution of Character Variables90654
+Node: Dynamic Substitution of Numeric or Character Variables92009
+Node: Expressions92602
+Node: Exponentiation Operator92835
+Node: Multiplication Expression93021
+Node: Operators93460
+Node: Arrays93763
+Node: Specifiying array element values94019
+Node: APDL Math94198
+Node: debugging94711
+Node: Multiple runs probabilistic design94921
+Node: Undocumented commands95235
+Node: APDL-Mode Syntax Highlighting Reference95588
+Node: Header95901
+Node: Highlighting APDL specials98185
+Node: Reserved words and _RETURN statements98767
+Node: _RETURN values of macros99138
+Node: Old style APDL comments99622
+Node: Ignored characters behind commands100039
+Node: The End Of File command100353
+Node: Ignored characters behind commands (1)100797
+Node: The End Of File command (1)101225
+Node: Current element types and deprecated elements101709
+Node: Implied (or colon) looping102503
+Node: And the rest103744
+Node: Installation and Development107479
+Node: Melpa Installation108162
+Node: Manual Installation109346
+Node: Development and Source Code Installation110453
+Node: Bugs and Problems111012
+Node: News112130
+Node: Version 2060 15 years of APDL-Mode!112898
+Node: Version 2050114027
+Node: Version 2040114796
+Node: Version 2030115506
+Node: Version 2020116229
+Node: Version 2011117082
+Node: Version 2010117421
+Node: Version 162-1117966
+Node: Version 1611119486
+Node: Version 1501121113
+Node: Version 1452121944
+Node: Version 1451123345
+Node: Version 1401126496
+Node: Version 1301127951
+Node: Version 1201128866
+Node: Version 1102131233
+Node: ansys-modeel 1101131791
+Node: Further Resources134915
+Node: Ansys and APDL resources135143
+Node: Emacs editor resources135919
+Node: Other APDL editor resources136482
+Node: Todos137396
+Node: V 2070137774
+Node: Bugs137917
+Node: Misc138038
+Node: Version 2060138196
+Node: Todos bugs138539
+Node: Issues139250
+Node: Checks140155
+Node: Wishes140432
+Node: Docu140916
+Node: templates142980
+Node: misc143551
+Node: Done143917
+Node: Push and Release Proceedures144211
+Node: Version 2050 (1)145523
+Node: Version 2040 (1)145747
+Node: Version 2030 (1)145950
+Node: Version 2020 (1)146174
+Node: Version 2011 (1)146359
+Node: Version 162-2146835
+Node: Bugs (1)147122
+Node: Wish-list148034
+Node: Freeze153372
+Node: Deficiencies153737
+Node: Procedures155391
+Node: Freeze proceedures155913
+Node: Release157484
+Node: Ideas for further versions158087
+Node: Parameter help and documentation158518
+Node: Ansys process and interpreter buffer160820
+Node: Skeletons outline and abbrevs163683
+Node: Miscellaneous (1)165417
+Node: Ansys syntax restrictions not (yet) accounted for170409
+Node: Unknown Ansys stuff171314
+Node: Acknowledgements171597
+Node: GNU Free Documentation License172169
+Node: Variable Index197195
+Node: Concept Index197348
 
 End Tag Table
 

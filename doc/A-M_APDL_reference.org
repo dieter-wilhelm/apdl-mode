@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-08-30>
+#+DATE: Time-stamp: <2021-11-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 # #+TITLE:  APDL-Mode Highlighting and APDL Reference
 # #####################################################################
@@ -218,44 +218,46 @@ eblock,10,,,94
 
 * APDL Reference
 ** Idiosyncrasies
-  - You can only store character variables of 8 characters, strings of
-    32 characters and for a maximum of 248 characters you need to
-    create a string array!
-  - No proper function definitions <- write `command' files (suffix:
-    .mac), or call a macro (arbitrary suffix) with `*use', something
-    close is to fill a "table" arry, interpolating values and possible
-    real indexing A(0.3).
-  - you can get table array values with real index values but must use
-    integers for assigning them the values, the same goes for *vplot:
-    it needs the arry indices in integers and is, moreover, only
-    capable to plot the columns and not their line values!
-  - *vplot does only plot the columns of arrays, it is not possible to
-    specify rows
-  - No direct array values to file export in GUI mode <- write command
-    file for *vwrite, or use a (lookup) table for this purpose
-  - *vwread does not work with C format specifiers in contrast to *vwrite
-  - Still (v15) no *round* function in sight, but someting like
-    nint(max*1e3)/1e3 might do for you
-  - One cannot directly get the variable value, either one must assign
-    the variable to another one, or use the `*stat' command
-  - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
-  - Inconsistent command naming: /{x,y}range but /axlab,{x,y},
-  - Inconsistent optional command arguments: "csys,wp" or "csys,4" but
-    it must be ltrans,4 (not possible: ltrans,wp)
-  - Inconsistent comma usage: /com and c*** are working with and
-    without a subsequent comma (/com without a comma is eating one
-    character)
-  - The /contour command does not work on device /show,PNG
-  - Deletion of arry parameters without warning is only possible with
-    an undocumented option: *del,Array,,nopr
-  - *cfwrite does parameter substitution without %%: *cfwrite, X_points
-    = NoN,*cfwrite, the same as X_points = %NoN%????
-  - No direct operations on arrays, like A=A*3, takes a detour with
-    *voper or *toper
-  - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
-    contrast to the more ralistic ones in /solu
-  - The solver recognises only complete block structure, sending it
-    line by line is not working
+   - deriv (post26 command) needs an monotonic increasing denominator
+     (documented only since 2022)
+   - You can only store character variables of 8 characters, strings of
+     32 characters and for a maximum of 248 characters you need to
+     create a string array!
+   - No proper function definitions <- write `command' files (suffix:
+     .mac), or call a macro (arbitrary suffix) with `*use', something
+     close is to fill a "table" arry, interpolating values and possible
+     real indexing A(0.3).
+   - you can get table array values with real index values but must use
+     integers for assigning them the values, the same goes for *vplot:
+     it needs the arry indices in integers and is, moreover, only
+     capable to plot the columns and not their line values!
+   - *vplot does only plot the columns of arrays, it is not possible to
+     specify rows
+   - No direct array values to file export in GUI mode <- write command
+     file for *vwrite, or use a (lookup) table for this purpose
+   - *vwread does not work with C format specifiers in contrast to *vwrite
+   - Still (v15) no *round* function in sight, but someting like
+     nint(max*1e3)/1e3 might do for you
+   - One cannot directly get the variable value, either one must assign
+     the variable to another one, or use the `*stat' command
+   - Operators > and <: 1 < 2 = 1; 2 < 1 = 1; 2 > 1 = 2 :TODO check
+   - Inconsistent command naming: /{x,y}range but /axlab,{x,y},
+   - Inconsistent optional command arguments: "csys,wp" or "csys,4" but
+     it must be ltrans,4 (not possible: ltrans,wp)
+   - Inconsistent comma usage: /com and c*** are working with and
+     without a subsequent comma (/com without a comma is eating one
+     character)
+   - The /contour command does not work on device /show,PNG
+   - Deletion of arry parameters without warning is only possible with
+     an undocumented option: *del,Array,,nopr
+   - *cfwrite does parameter substitution without %%: *cfwrite, X_points
+     = NoN,*cfwrite, the same as X_points = %NoN%????
+   - No direct operations on arrays, like A=A*3, takes a detour with
+     *voper or *toper
+   - Load symbol vectors /pbc,all,,1 in /prep7 are uniform in
+     contrast to the more ralistic ones in /solu
+   - The solver recognises only complete block structure, sending it
+     line by line is not working
 
 ** File types
    the whole zoo is documented in the operations guide

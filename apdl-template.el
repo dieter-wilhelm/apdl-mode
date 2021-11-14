@@ -1,5 +1,5 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-09-23>
+;; Time-stamp: <2021-11-14>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -2774,7 +2774,7 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
   "nv = 1 is always time!" \n
   "esol,2,1,,u,z,'displ z'" \n
   "nsol,2,1,u,z" \n
-  "deriv,3,2,1,,vz !time derivative of uz" \n
+  "deriv,3,2,1,,vz !time derivative of uz, needs always an monotonic increasing denominator IX" \n
   "extrem,2 !list (only real parts!) extrema" \n
   "*get,Max,vari,2,extrem,vmax! get max extreme value" \n
   "*get,Min,vari,2,extrem,vmin! get min extreme value" \n

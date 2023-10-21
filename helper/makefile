@@ -1,5 +1,15 @@
+
+# .PHONEY : MDFILES
+# MDFILES : $(MD_FILES)
+../info/README.md : ../info/README.org
+	$(EMACS_EXE) --batch --file $< \
+	--load "$(DIR)/export.el" \
+	--execute  "(org-md-export-to-markdown)"
+	cp $@ ..
+
 help : 
 	@echo "This is the makefile of APDL-Mode $(VERSION) using $(EMACS_VERSION)"
+	@echo "make MDFILES = update MD files"
 	@echo "make PACK = Emacs tar package"
 	@echo "make GH = for gh-pages updates"
 	@echo "make [help]  = this help"
@@ -22,7 +32,7 @@ APDL_MINOR := 7
 APDL_PATCH := 0
 
 
-# EMACS_VER needed for Emacs' windows installaion tree
+# EMACS_VER needed for Emacs' windows installation tree
 EMACS_VER := 27.1
 EMACS_VERSION := emacs-$(EMACS_VER)
 
@@ -66,10 +76,13 @@ SIG_ADDRESS := http://ftp.gnu.org/gnu/emacs/windows/$(EMACS_PACKAGE_SIG)
 SOURCE_ADDRESS := http://ftp.gnu.org/gnu/emacs/$(EMACS_SOURCE_PACKAGE)
 SIG_SOURCE_ADDRESS := http://ftp.gnu.org/gnu/emacs/$(EMACS_SOURCE_PACKAGE_SIG)
 # ftp://ftp.informatik.rwth-aachen.de/pub/gnu/
-EMACS_EXE := $(EMACS_DIR)$(EMACS_VERSION)/src/emacs
+# EMACS_EXE := $(EMACS_DIR)$(EMACS_VERSION)/src/emacs
+EMACS_EXE := emacs
+
 
 .PHONEY : EMACS_SOURCE
 EMACS_SOURCE : $(EMACS_SOURCE_PACKAGE) $(EMACS_SOURCE_PACKAGE_SIG)
+
 
 .PHONEY : EXE
 EXE : $(EMACS_EXE)
@@ -169,11 +182,11 @@ PACKAGE_FILES := $(MD_FILES) $(FILES) $(EXAMPLE_FILES) $(EL_FILES) \
 # 	@echo "       (file (concat dir \"/apdl-mode-$(VERSION)/apdl-config.el\")))" >> $@
 # 	@echo "  (when (file-readable-p file) (load-file file)))" >> $@
 
-../info/README.md : ../info/README.org $(FILES)
-	$(EMACS_EXE) --batch --file $< \
-	--load "$(DIR)/export.el" \
-	--execute  "(org-md-export-to-markdown)"
-	cp $@ ..
+# ../info/README.md : ../info/README.org $(FILES)
+# 	$(EMACS_EXE) --batch --file $< \
+# 	--load "$(DIR)/export.el" \
+# 	--execute  "(org-md-export-to-markdown)"
+# 	cp $@ ..
 
 ../info/TODO.md : ../info/TODO.org
 	$(EMACS_EXE) --batch --file $< \

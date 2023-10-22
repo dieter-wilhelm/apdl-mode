@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2021-10-23>
+#+DATE: Time-stamp: <2022-02-11>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -17,6 +17,8 @@
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
 
+* V 21.1
+  - Ansys changed since 21 the location of the lmutil tool
 * V 20.7.0
 ** Bug
    - jit-lock: Error during redisplay: (jit-lock-function 1) signaled

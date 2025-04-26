@@ -1,4 +1,4 @@
-#+DATE: Time-stamp: <2022-02-11>
+#+DATE: Time-stamp: <2023-10-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -209,7 +209,7 @@
     (tags-query-replace "20\.6\.0" "20.7.0")
     (tags-query-replace "20\.7\.0" "20.8.0")
     # copyright year
-    (tags-query-replace "- 2021" "- 2022")
+    (tags-query-replace "- 2021" "- 2023")
     (tags-query-replace "- 2020" "- 2021")
     # ansys version
     (tags-query-replace "v201" "v211")

@@ -1,7 +1,6 @@
 ;;; apdl-mode.el --- Major mode for the scripting language APDL -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-23>
 
-;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2025  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.7.0
@@ -2258,7 +2257,7 @@ Check if we are in a help overlay and if the cursor position
 changed.  Then call `apdl-show-command-parameters'."
   (let ((p (point))
         (lo (overlays-in (line-beginning-position)
-                         (1- (line-beginning-position)))))
+                         (1+ (line-beginning-position)))))
     (when (and (not (equal p apdl-parameter-help-position))
                (not (equal 1 p))    ; -TODO- not working in the first line
                (memq apdl-help-overlay lo)) ;there's an overlay above line

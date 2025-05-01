@@ -1,4 +1,3 @@
-#+DATE: Time-stamp: <2023-10-22>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: html-link-use-abs-url:nil html-postamble:t html-preamble:t
 #+OPTIONS: html-scripts:t html-style:t html5-fancy:nil tex:t
@@ -683,6 +682,4 @@
  # word-wrap: t
  # show-trailing-whitespace: t
  # indicate-empty-lines: t
- # time-stamp-active: t
- # time-stamp-format: "%:y-%02m-%02d"
  # end:

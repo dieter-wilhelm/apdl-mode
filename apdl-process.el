@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-14>
+;; Time-stamp: <2025-05-01>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -140,7 +140,7 @@ This list is concatenated to a regexp for the function
 
 (defcustom apdl-job "file"
   "String variable storing the Ansys job name.
-It is initialised to 'file' (which is also the Ansys default job
+It is initialised to `file' (which is also the Ansys default job
 name).  See `apdl-abort-file' for a way of stopping a solver run
 in a controlled way and `apdl-display-error-file' for viewing
 the respective error file."
@@ -1503,7 +1503,7 @@ page.
 Alternatively, you can use the APDL command line \"/SYS,
 anshelp201\" for a Unix system (AnsysHelpViewer.exe for a Windows
 operating system) when running Ansys MAPDL interactively.
-Provided that 'anshelp201' is found in the search paths for
+Provided that `anshelp201' is found in the search paths for
 executables (these are stored in the PATH environment variable on
 both systems)."
   (interactive)
@@ -1735,27 +1735,27 @@ elem.
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
 
-    'run'
+    `run'
           for a process that is running.
-    'stop'
+    `stop'
           for a process that is stopped but continuable.
-    'exit'
+    `exit'
           for a process that has exited.
-    'signal'
+    `signal'
           for a process that has received a fatal signal.
-    'open'
+    `open'
           for a network connection that is open.
-    'closed'
+    `closed'
           for a network connection that is closed.  Once a connection
           is closed, you cannot reopen it, though you might be able to
           open a new connection to the same place.
-    'connect'
+    `connect'
           for a non-blocking connection that is waiting to complete.
-    'failed'
+    `failed'
           for a non-blocking connection that has failed to complete.
-    'listen'
+    `listen'
           for a network server that is listening.
-    'nil'
+    `nil'
           if PROCESS-NAME is not the name of an existing process."
   (interactive)
   (let ((status (process-status apdl-process-name)))
@@ -1767,27 +1767,27 @@ elem.
 (defun apdl-batch-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
 
-    'run'
+    `run'
           for a process that is running.
-    'stop'
+    `stop'
           for a process that is stopped but continuable.
-    'exit'
+    `exit'
           for a process that has exited.
-    'signal'
+    `signal'
           for a process that has received a fatal signal.
-    'open'
+    `open'
           for a network connection that is open.
-    'closed'
+    `closed'
           for a network connection that is closed.  Once a connection
           is closed, you cannot reopen it, though you might be able to
           open a new connection to the same place.
-    'connect'
+    `connect'
           for a non-blocking connection that is waiting to complete.
-    'failed'
+    `failed'
           for a non-blocking connection that has failed to complete.
-    'listen'
+    `listen'
           for a network server that is listening.
-    'nil'
+    `nil'
           if PROCESS-NAME is not the name of an existing process."
   (interactive)
   (let ((status (process-status apdl-batch-process)))
@@ -2198,7 +2198,7 @@ And store the value EXEC in the variable `apdl-ansys-help-program'."
 And specify it in the variable `apdl-lmutil-program'.  The
 function inserts the string `default-directory' in the prompt
 when the variable `insert-default-directory' is not nil.  For
-Lin64 it is the 'lmutil' executable
+Lin64 it is the `lmutil' executable
 /ansys_inc/shared_files/licensing/linx64/lmutil.  For Windows the
 anslic_admin utility: `C:\\Ansys Inc\\Shared
 Files\\licensing\\win64\\anslic_admin.exe'"

@@ -1,7 +1,6 @@
 ;;; apdl-initialise.el --- Initialisation code for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2021-10-01 22:58:02 dieter>
 
-;; Copyright (C) 2016 - 2021  H. Dieter Wilhelm
+;; Copyright (C) 2016 - 2025  H. Dieter Wilhelm
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Version: 20.7.0
@@ -444,7 +443,11 @@ AWP_ROOTXXX")
              (exe
               (if apdl-is-unix-system-flag
                   (concat idir "shared_files/licensing/linx64/lmutil")
-                (concat idir "Shared Files/Licensing/winx64/lmutil.exe"))))
+		;; probably the linux path has also changed for lmutil.exe since Ansys21.1!
+		(if (version< (substring apdl-current-ansys-version 1) "211")
+		    (concat idir "shared files/licensing/winx64/lmutil.exe")
+		  (concat idir apdl-current-ansys-version
+			  "/licensingclient/winx64/lmutil.exe")))))
         (if (file-executable-p exe)
             (progn
               (setq apdl-lmutil-program exe)
@@ -549,5 +552,4 @@ the variable `apdl-ansys-install-directory'"
 ;; Local Variables:
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
-;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:

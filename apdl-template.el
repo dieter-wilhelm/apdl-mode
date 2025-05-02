@@ -1,7 +1,6 @@
 ;;; apdl-template.el --- APDL code templates for the APDL-Mode   -*- lexical-binding: t; -*-
-;; Time-stamp: <2021-10-01 22:58:02 dieter>
 
-;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
+;; Copyright (C) 2006 - 2025  H. Dieter Wilhelm GPL V3
 
 ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
 ;; Maintainer: H. Dieter Wilhelm
@@ -2508,10 +2507,19 @@ lines over path lines" \n
   "!! ------------------------------" \n
   "!@@ --- Output to file ----" \n
   "!! ------------------------------" \n
-  "parsav,all ! [file.parm] write all scalar and array parameters to file " \n
+  \n
+  "Write all parameters to text file,(arrays in 4 column formatting!)" \n
+  "parsav,all ! [file.parm] " \n
+  "Pares,! read from .parm file" \n
+  \n
+  "!! --- 0.) usable in interactive sessions without calling a macro file!" \n
+  "*del, RTable,, nopr ! nopr: no query dialog" \n
+  "paget, RTable, Table !write path into an array" \n
+  "*dmat, Tmp,, import, APDL, RTable !write array into a dense APDL math matrix" \n
+  "*export, Tmp, csv, sphere.csv! export matrix to CSV file" \n
   \n
   "!! --- 1.) write macro file without parameter substitution" \n
-  "!! *vwrite works only in batch mode" \n
+  "!! *vwrite works only in batch mode!" \n
   "*create,tmp,mac ! macro file, no parameter substitution!" \n
   "/output,tmp,out ! redirect output to tmp.out" \n
   "bla=otto" \n
@@ -3321,7 +3329,5 @@ live|layer|sec|stra|sfe|bfe|path|etab"\n
 ;; Local Variables:
 ;; mode: outline-minor
 ;; indicate-empty-lines: t
-;; show-trailing-whitespace: t
-;; time-stamp-format: "%:y-%02m-%02d"
 ;; word-wrap: t
 ;; End:

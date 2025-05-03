@@ -144,12 +144,11 @@ Windows (Windows 10)."
   :group 'APDL-initialise)
 
 (defcustom apdl-lmutil-program nil
-  "A FlexLM license manager executable.
+  "A FlexLM license manager monitoring executable.
 For example: \"/ansys_inc/shared_files/licensing/linx64/lmutil\"
 or in case of a Windows OS \"c:/Program Files/Ansys Inc/Shared
-Files/Licensing/anslic_admin.exe\".  This variable is used for
-displaying the license status or starting the anslic_admin tool
-under Windows with the function `apdl-license-status'."
+Files/Licensing/anslic_admin.exe\".  The lmutil program is used
+for displaying the license status."
   :type '(file :must-match t)
   :group 'APDL-initialise)
 

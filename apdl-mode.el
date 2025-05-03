@@ -93,11 +93,15 @@
 
 (defconst apdl-variable-defining-commands ; association list
   '(
+    ;; some math apdl commands like *KRON or *MULT define new
+    ;; variables, but not at the front of their argument list! -> not
+    ;; implemented
     ("\\*ask\\w*" . "*ASK")
     ("\\<cm\\>" . "CM")
     ("\\<cmblock\\w*" . "CMBLOCK")
     ("\\*dim\\w*"."\\*DIM")
     ("/dir\\w*" . "/DIRECTORY")
+    ("\\*dmat\\w*" . "*DMAT")		;math apdl
     ("\\*do\\>" . "\\*DO")
     ("\\*dow\\w*" . "\\*DOWHILE")
     ("\\*get\\w*". "\\*GET")
@@ -107,10 +111,12 @@
     ("\\<path\\w*"."PATH")
     ("\\<page\\w*" "PAGET")
     ("\\<pdef\\w*"."PDEF")
+    ("\\*sma\\w*" . "*SMAT")		; math apdl
     ("\\*sre\\w*"."*SREAD")
     ("\\*set.?"."*SET") ; Ansys inconsistency *SET works only with one
                                         ; additional character
-    ("\\*top\\*w"."*TOPER")
+    ("\\*top\\w*"."*TOPER")
+    ("\\*vec\\w*" . "*VEC")	   ; math apdl
     ("\\*vge\\w*"."*VGET")    ; Not true in 14.0 variable must be
                                         ; dimensiond with *dim
     ("\\*vfu\\w*"."*VFUN")
@@ -3629,6 +3635,4 @@ The default argument is 1."
 ;; minor-mode: flycheck
 ;; indicate-empty-lines: t
 ;; show-trailing-whitespace: t
-;; time-stamp-format: "%:y-%02m-%02d"
-;; time-stamp-active: t
 ;; End:

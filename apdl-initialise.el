@@ -303,8 +303,7 @@ customisation variables."
        (dir 				; from environment
         (setq apdl-ansys-install-directory dir)
         (message
-         "apdl-ansys-install-directory set from environment variable
-AWP_ROOTXXX")
+         "apdl-ansys-install-directory set from environment variable AWP_ROOTXXX")
         (message "apdl-ansys-install-directory = %s" dir)
         (setq subdir
               (file-name-nondirectory (directory-file-name dir)))
@@ -404,7 +403,7 @@ AWP_ROOTXXX")
 	  (message "Couldn't find an executable for apdl-ansys-launcher (%s)."
 		   exe))))
 
-    ;; 6) -help-path
+    ;; 6) -help-path; the local help path
     (when (and apdl-ansys-install-directory (or (null apdl-ansys-help-path)
                                                 force))
       (let* ((idir apdl-ansys-install-directory)

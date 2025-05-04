@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2025-05-01>
+;; Time-stamp: <2025-05-04>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1595,7 +1595,8 @@ keyword from `apdl-help-index' is found."
     (if path
 	;; file:/// is working since at least Emacs-27 (windows and
 	;; linux) 2021-08, see -browse-apdl-help!!!
-        (browse-url-of-file (concat "file:///" path file))
+        ;;(browse-url-of-file (concat "file:///" path file))
+        (browse-url-of-file (concat path file))
       (if (string> apdl-current-ansys-version "v200")
           (browse-url
 	   (concat "https://ansyshelp.ansys.com/"
@@ -1605,14 +1606,17 @@ keyword from `apdl-help-index' is found."
 			    "account/secured?returnurl=/Views/Secured/corp/"
 			    apdl-current-ansys-version "/" file))))))
 
+;; strategy: local help path unavailable -> online help (> V24R1 public site)
 (defun apdl-browse-apdl-help (&optional arg)
   "Browse the Ansys help for APDL commands, elements and other topics.
 
 ATTENTION: If you are using the Ansys online help - default since
-V19 - then first you need to register at the Ansys help site!
-Please start some help topic with an Ansys application first,
-then you can use APDL-Mode for pin-pointing your topics.  For
-faster access I recommend installing the local Ansys help.
+V20R1 up to V24R2 - then you need to register at the Ansys help
+site!  Please start some help topic with an Ansys application,
+afterwards you can use APDL-Mode for pin-pointing your topics.
+
+For a faster access I recommend installing the local Ansys help
+and or using Emacs' own `eww' text Browser.
 
 The function is looking for the next keyword before or at the
 cursor location.  If that fails the command is looking for the
@@ -1673,15 +1677,17 @@ elem.
 \"ALL\"TARGES -- Target elem.
 \"ALL\"TRANS -- Electromechanical solid/transducer elem."
   (interactive "P")
-  (let (file
-        (path apdl-ansys-help-path)
+  (let (
+	file
+	(path apdl-ansys-help-path)	;local help path
         command)
     (if arg
         (setq command (completing-read "Browse help for keyword [TAB to complete]: "
                                        apdl-help-index))
       (setq command (apdl-search-keyword)))
     (setq file (nth 1 (assoc-string command apdl-help-index t)))
-    (unless  file
+
+    (unless file
       (error "Keyword \"%s\" is not uniquely completable" command))
 
     ;; ;; we must adapt the path to various items!
@@ -1706,31 +1712,51 @@ elem.
     ;;   (setq file (concat "ai_rn/" file)))
     ;;  ((string-match "ansys.theory" file)
     ;;   (setq file (concat "ans_thry/" file))))
-    (if path
-	(progn
-	  (when (eq browse-url-browser-function 'eww-browse-url)
-	    (switch-to-buffer-other-window nil))
+    ;; (if path
+    ;; 	(progn
+    ;; 	  (when (eq browse-url-browser-function 'eww-browse-url)
+    ;; 	    (switch-to-buffer-other-window nil))
 	  ;; file:/// is not working with tramp remotely 2020-04-03
 	  ;; (browse-url-of-file (concat "file:/" path file)))
 
-	  ;; Emacs 27.1. file:/ is working on windows, but not for eww
-	  ;; with svg images!  And file:/ is not working under linux
-	  ;; for eww, reverting to file:/// 2021-08-28
-	  (browse-url-of-file (concat "file:///" path file)))
-      (unless apdl-current-ansys-version
-        (error "Please set `apdl-current-ansys-version'"))
-      ;; since v201: Changed the path to the online help!
-      (if (string> apdl-current-ansys-version "v200")
-	  (browse-url
-	   (concat
-	    "https://ansyshelp.ansys.com/"
-	    "account/secured?returnurl=/Views/Secured/corp/"
-	    apdl-current-ansys-version "/en/" file))
-        (browse-url
-	 (concat
-	  "https://ansyshelp.ansys.com/"
-	  "account/secured?returnurl=/Views/Secured/corp/"
-	  apdl-current-ansys-version "/" file))))))
+    ;; Emacs 27.1. file:/ is working on windows, but not for eww
+    ;; with svg images!  And file:/ is not working under linux
+    ;; for eww, reverting to file:/// 2021-08-28
+    ;;(browse-url-of-file (concat "file:///" path file))
+    ;; reverting again for Emacs 29 and Ansys v241
+    ;;	  (browse-url-of-file (concat path file))
+    ;;	  )
+    ;; (unless apdl-current-ansys-version
+    ;;   (error "Please set `apdl-current-ansys-version' for reaching help pages!")
+    ;;    )
+    (cond
+     ( path
+       (when (eq browse-url-browser-function 'eww-browse-url)
+	 (switch-to-buffer-other-window nil))
+       ;; file:/// is not working with tramp remotely 2020-04-03
+       ;; (browse-url-of-file (concat "file:/" path file)))
+
+       ;; Emacs 27.1. file:/ is working on windows, but not for eww
+       ;; with svg images!  And file:/ is not working under linux
+       ;; for eww, reverting to file:/// 2021-08-28
+       ;;(browse-url-of-file (concat "file:///" path file))
+       ;; reverting again for Emacs 29 and Ansys v241
+       (browse-url-of-file (concat path file))
+       )
+     ;; since v201: Changed the path to the online help!  Need to be
+     ;; online help needs corporate license registration :-/:
+     ((string< (downcase apdl-current-ansys-version) "v242")
+      (browse-url
+       (concat
+	"https://ansyshelp.ansys.com/"
+	"Views/Secured/corp/" apdl-current-ansys-version "/en/" file)))
+     ;; PUBLIC ansyshelp.com documentation starting with v242
+     (;(string> apdl-current-ansys-version "v251")
+      ;; fallback use the latest KNOWN version
+      (browse-url
+       (concat
+	"https://ansyshelp.ansys.com/public/"
+	"/Views/Secured/corp/v251/en/" file))))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).
@@ -2199,9 +2225,7 @@ And specify it in the variable `apdl-lmutil-program'.  The
 function inserts the string `default-directory' in the prompt
 when the variable `insert-default-directory' is not nil.  For
 Lin64 it is the `lmutil' executable
-/ansys_inc/shared_files/licensing/linx64/lmutil.  For Windows the
-anslic_admin utility: `C:\\Ansys Inc\\Shared
-Files\\licensing\\win64\\anslic_admin.exe'"
+/ansys_inc/shared_files/licensing/linx64/lmutil."
   (interactive "FAnsys License Management Utility executable: ")
   (when (string= exec "")               ; use default
     (setq exec apdl-lmutil-program))

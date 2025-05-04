@@ -1,4 +1,3 @@
-#+DATE: Time-stamp: <2021-11-14>
 #+bind: org-html-preamble-format (("en" "%d"))
 #+OPTIONS: ':nil *:t -:t ::t <:t H:3 \n:nil ^:{} arch:headline
 #+OPTIONS: author:t c:nil creator:comment d:(not "LOGBOOK") date:t
@@ -23,7 +22,7 @@
 #+INFOJS_OPT:
 #+LATEX_HEADER:
 # #+TITLE: Configuration and Customisation of APDL-Mode
-#+text: Copyright (C) 2016 - 2021, H. Dieter Wilhelm, GPL V3
+#+text: Copyright (C) 2016 - 2025, H. Dieter Wilhelm, GPL V3
 
 #+cindex: Configuration
 #+cindex: Configure APDL-Mode
@@ -83,7 +82,7 @@ or 2. by directly manipulating the Emacs configuration file
     ;;; apdl-config.el --- Customisation example for APDL-Mode
     ;; This file was built from the file "apdl-config.org".
 
-    ;; Copyright (C) 2016 - 2021 H. Dieter Wilhelm, GPL V3
+    ;; Copyright (C) 2016 - 2025 H. Dieter Wilhelm, GPL V3
     ;; Author: H. Dieter Wilhelm <dieter@duenenhof-wilhelm.de>
     ;; Version: 20.7.0
     ;; Package-Requires: ((emacs "25.1"))
@@ -498,7 +497,7 @@ or 2. by directly manipulating the Emacs configuration file
 
    #+BEGIN_SRC emacs-lisp
      (setq apdl-license-file
-       "1055@frlifl01.auto.contiwan.com:1055@frlifl02.auto.contiwan.com")
+       "1055@frlifl01.auto.iwan.com:1055@frlifl02.auto.iwan.com")
    #+END_SRC
 
    since Ansys 12.0 there is an intermediate server for the communication
@@ -507,7 +506,7 @@ or 2. by directly manipulating the Emacs configuration file
 
    #+BEGIN_SRC emacs-lisp
    (setq apdl-ansysli-servers
-      "2325@frlifl01.auto.contiwan.com:2325@frlifl02.auto.contiwan.com")
+      "2325@frlifl01.auto.iwan.com:2325@frlifl02.auto.iwan.com")
    #+END_SRC
 
 ** Solver options
@@ -579,8 +578,6 @@ or 2. by directly manipulating the Emacs configuration file
 ;; no-byte-compile: t
 ;; show-trailing-whitespace: t
 ;; indicate-empty-lines: t
-;; time-stamp-active: t
-;; time-stamp-format: "%:y-%02m-%02d"
 ;; End:
 #+END_SRC
 

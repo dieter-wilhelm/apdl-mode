@@ -15,16 +15,21 @@
 
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
-
+* V 24.1
+- public help site
+  https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/main_page.html
 * V 21.1
   - Ansys changed since 21 the location of the lmutil tool
+  c:\CAx\App\ANSYS_Inc\v241\licensingclient\winx64\
+
 * V 20.7.0
 ** Bug
-   - jit-lock: Error during redisplay: (jit-lock-function 1) signaled
-     (wrong-type-argument stringp nil), example.dat
-   - Fontification problems with backslashes in strings from .dat
-     files from windows \' apdl-mode is then looking for the next `''
-     :-/
+- Counting of arguments in M-? has problems with commas in
+  documentation string (see PPATH)
+- jit-lock: Error during redisplay: (jit-lock-function 1) signaled
+  (wrong-type-argument stringp nil), example.dat
+- Fontification problems with backslashes in strings from .dat files
+  from windows \' apdl-mode is then looking for the next `'' :-/
 ** Issue
    - Rework menu: new entry for number blocks in .dat files
      (nblocks,eblocks,cmblocks)
@@ -40,7 +45,7 @@
   - check apdl-font-lock-keywords-3
   - asynchronous licensing status
   - DONE in dev: Look into derived branch: prog-modes
-* TODO Version 20.6.0
+* DONE Version 20.6.0
   - Branch 20.6.0 [2021-10-01 Fr]
   - Feature freeze: Only bugs or template changes
 ** Todos, bugs

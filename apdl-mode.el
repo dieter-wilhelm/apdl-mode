@@ -487,9 +487,9 @@ Ruler strings are displayed above the current line with
   "Narrow ruler string.
 Ruler strings are displayed above the current line with \\[apdl-column-ruler].")
 
-(when (> emacs-major-version 21)
-  (add-to-list 'insert-pair-alist '(?\* ?\*))
-  (add-to-list 'insert-pair-alist '(?\$ ?\$))
+(when (> emacs-major-version 21)	; insert-pair C-c %
+  ;;(add-to-list 'insert-pair-alist '(?\* ?\*)) ; why do we need **?
+  ;; (add-to-list 'insert-pair-alist '(?\$ ?\$)) ; why do we need $$?
   (add-to-list 'insert-pair-alist '(?\% ?\%)))
 
 (defconst apdl-mode-map 		;keybindings, keyboard shortcuts

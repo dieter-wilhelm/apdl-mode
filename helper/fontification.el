@@ -116,9 +116,14 @@
     "/XML"
     "CNTR" ; ,print,1 ! print out contact info and also make no
 	   ; initial contact an error
-    "EBLOCK" "CMBLOCK" "NBLOCK" "/TRACK" "CWZPLOT" "~EUI"
+    "EBLOCK"
+    "CMBLOCK"
+    "NBLOCK"
+    "/TRACK"
+    "CWZPLOT"
+    "~EUI"
     "NELE"   ; predecessor of NSLE, NELE (WorkBench 10.0 output) still
-;; working in Ansys 11.0 though
+	     ; working in Ansys 11.0 though
     "EALL"   ; esel,all? (WorkBench 10.0)
     "NALL"   ; nsel,all? (WB 10.0)
     "FLITEM" ; log command

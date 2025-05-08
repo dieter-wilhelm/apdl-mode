@@ -15,17 +15,19 @@
 
 # title problematic for Info
 # #+title: The TODO file of APDL-Mode
-* V 24.1
-- public help site
+* V 25.1
+** Wish
+- add tooltip help for elements (and deprecated elements)
+* V 24.2
+- DONE: public help site
   https://ansyshelp.ansys.com/public/account/secured?returnurl=/Views/Secured/main_page.html
 * V 21.1
-  - Ansys changed since 21 the location of the lmutil tool
+  - DONE: Ansys changed since 21 the location of the lmutil tool
   c:\CAx\App\ANSYS_Inc\v241\licensingclient\winx64\
-
 * V 20.7.0
 ** Bug
-- Counting of arguments in M-? has problems with commas in
-  documentation string (see PPATH)
+- DONE: Counting of arguments in M-? has problems with commas in
+  documentation string (see PPATH) -> DONE 24.1 refine -keywords.el
 - jit-lock: Error during redisplay: (jit-lock-function 1) signaled
   (wrong-type-argument stringp nil), example.dat
 - Fontification problems with backslashes in strings from .dat files

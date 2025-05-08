@@ -1,5 +1,5 @@
 ;;; apdl-process.el --- Managing runs and processes for APDL-Mode -*- lexical-binding: t -*-
-;; Time-stamp: <2025-05-04>
+;; Time-stamp: <2025-05-05>
 
 ;; Copyright (C) 2006 - 2021  H. Dieter Wilhelm GPL V3
 
@@ -1745,18 +1745,17 @@ elem.
        )
      ;; since v201: Changed the path to the online help!  Need to be
      ;; online help needs corporate license registration :-/:
-     ((string< (downcase apdl-current-ansys-version) "v242")
-      (browse-url
-       (concat
-	"https://ansyshelp.ansys.com/"
-	"Views/Secured/corp/" apdl-current-ansys-version "/en/" file)))
+     ( (string< (downcase apdl-current-ansys-version) "v242")
+       (browse-url
+	(concat
+	 "https://ansyshelp.ansys.com/"
+	 "Views/Secured/corp/" apdl-current-ansys-version "/en/" file)))
      ;; PUBLIC ansyshelp.com documentation starting with v242
-     (;(string> apdl-current-ansys-version "v251")
-      ;; fallback use the latest KNOWN version
-      (browse-url
-       (concat
-	"https://ansyshelp.ansys.com/public/"
-	"/Views/Secured/corp/v251/en/" file))))))
+     ( (string> apdl-current-ansys-version "v241")
+       (browse-url
+	(concat
+	 "https://ansyshelp.ansys.com/public/"
+	 "/Views/Secured/corp/" apdl-current-ansys-version "/en/" file))))))
 
 (defun apdl-process-status ()
   "Show the process status in the Emacs command line (minibuffer).

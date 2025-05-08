@@ -1,3 +1,6 @@
+# update V 241
+# "Get Function" Summary
+# Entity Status Get Function Description
 NSEL(N) Status of node N: -1=unselected, 0=undefined, 1=selected.
 ESEL(E) Status of element E: -1=unselected, 0=undefined, 1=selected.
 KSEL(K) Status of keypoint K: -1=unselected, 0=undefined, 1=selected.
@@ -27,7 +30,7 @@ LZ(L,LFRAC) Z-coordinate of line L at length fraction LFRAC (0.0 to 1.0).
 LSX(L,LFRAC) X slope of line L at length fraction LFRAC (0.0 to 1.0).
 LSY(L,LFRAC) Y slope of line L at length fraction LFRAC (0.0 to 1.0).
 LSZ(L,LFRAC) Z slope of line L at length fraction LFRAC (0.0 to 1.0).
-# Nearest to Location
+# nearest to Location
 NODE(X,Y,Z) Number of the selected node nearest the X,Y,Z point (in the active coordinate system, lowest number for coincident nodes).
 KP(X,Y,Z) Number of the selected keypoint nearest the X,Y,Z point (in the active coordinate system, lowest number for coincident nodes).
 # Distances
@@ -61,6 +64,12 @@ ELADJ(E,FACE) For 2-D planar solids and 3-D volumetric solids, element adjacent 
 NDFACE(E,FACE,LOC) Node in position LOC of a face number FACE of element E. The face number is the same as the surface load key number. LOC is the nodal position on the face (for an IJLK face, LOC=1 is at node I, 2 is at node J, etc.)
 NMFACE(E) Face number of element E containing the selected nodes. The face number output is the surface load key. If multiple load keys occur on a face (such as for line and area elements) the lowest load key for that face is output.
 ARFACE(E) For 2-D planar solids and 3-D volumetric solids, returns the area of the face of element E containing the selected nodes. For axisymmetric elements, the area is the full (360 degree) area.
+# Model Information
+EATT(E,VAL) Element attribute number assigned to element E. Use VAL = 1 for MATT, 2 for TYPE, 3 for REAL, and 4 for SECN.    
+RCON(R,LOC) Real constant value for real table R and location LOC.
+# General Contact Information
+SECTOMAT(Sect1,Sect2) Material ID to be used for general contact between sections Sect1 and Sect2.    
+SECTOREAL(Sect1,Sect2) Real constant ID to be used for general contact between sections Sect1 and Sect2.    
 # Degree of Freedom Results
 UX(N) UX structural displacement at node N.
 UY(N) UY structural displacement at node N.
@@ -98,7 +107,9 @@ VALHEX(a8) a8 is a hex value expressed in a string.
 CHRVAL (dp) dp is a double precision variable.
 CHROCT (dp) dp is an integer value.
 CHRHEX(dp) dp is an integer value.
-# Functions which manipulate strings: StrOut is the output string (or character parameter) Str1 and Str2 are input strings. Strings are a maximum of 128 characters. (see *DIM) StrOut = STRSUB(Str1, nLoc,nChar)  Get the nChar substring starting at character nLoc in Str1. StrOut = STRCAT(Str1,Str2) Add Str2 at the end of Str1.
+# Functions which manipulate strings: StrOut is the output string (or character parameter) Str1 and Str2 are input strings. Strings are a maximum of 128 characters. (see *DIM)
+STRSUB(Str1, nLoc, nChar) StrOut = STRSUB(Str1, nLoc,nChar)  Get the nChar substring starting at character nLoc in Str1.
+STRCAT(Str1, Str2) StrOut = STRCAT(Str1,Str2) Add Str2 at the end of Str1.
 STRFILL(Str1,Str2,nLoc) StrOut = STRFILL(Str1,Str2,nLoc)  Add Str2 to Str1 starting at character nLoc.
 STRCOMP(Str1) StrOut = STRCOMP(Str1) Remove all blanks from Str1
 STRCOMP(Str1) Left-justify Str1
